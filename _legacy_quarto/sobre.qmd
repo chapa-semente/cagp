@@ -1,0 +1,748 @@
+---
+title: "O Centro Acadêmico"
+subtitle: "Regimento interno, governança em 7 diretorias, princípios da administração pública e representação discente"
+description: "História dos Candangos, princípios estatutários, estrutura das 7 Diretorias e instâncias deliberativas do CAGP FAFICH/UFMG."
+title-block-style: none
+toc: false
+---
+
+```{=html}
+<header class="cagp-workspace-header" role="region" aria-label="Cabeçalho do Workspace O Centro Acadêmico">
+  <div class="cagp-workspace-eyebrow">
+    <nav class="cagp-breadcrumbs" aria-label="Você está aqui: Trilha de navegação">
+      <ol class="cagp-breadcrumb-list" itemscope itemtype="https://schema.org/BreadcrumbList">
+        <li class="cagp-breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="index.html" itemprop="item"><i class="bi bi-house-door" aria-hidden="true"></i> <span itemprop="name">Início</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <li class="cagp-breadcrumb-separator" aria-hidden="true">&rsaquo;</li>
+        <li class="cagp-breadcrumb-item">
+          <span class="cagp-breadcrumb-parent">O CAGP</span>
+        </li>
+        <li class="cagp-breadcrumb-separator" aria-hidden="true">&rsaquo;</li>
+        <li class="cagp-breadcrumb-item is-active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page">
+          <span itemprop="name">O Centro Acadêmico</span>
+          <meta itemprop="position" content="2" />
+        </li>
+      </ol>
+    </nav>
+    <div class="d-flex flex-wrap gap-1 align-items-center">
+      <span class="cagp-badge cagp-badge-red">Entidade Oficial Discente</span>
+      <span class="cagp-badge cagp-badge-dark">FAFICH / UFMG</span>
+      <span class="cagp-badge cagp-badge-gold">Regimento Interno 14/10/2024</span>
+    </div>
+  </div>
+
+  <div class="cagp-workspace-title-row">
+    <div>
+      <h1 class="cagp-workspace-title"><i class="bi bi-bank me-2 text-danger" aria-hidden="true"></i>O CENTRO ACADÊMICO DE GESTÃO PÚBLICA</h1>
+      <p class="cagp-workspace-subtitle">
+        Entidade civil sem fins lucrativos, <strong>expressamente suprapartidária, livre e independente</strong> (Arts. 3º e 4º do Regimento Interno de 14/10/2024), sediada no DCP/FAFICH e legítima representante da totalidade dos discentes de Gestão Pública da UFMG.
+      </p>
+    </div>
+    <div class="cagp-workspace-actions">
+      <a href="documentos/regimento-interno-cagp-ufmg.pdf" class="cagp-doc-btn cagp-doc-btn-primary" target="_blank" rel="noopener noreferrer">
+        <i class="bi bi-file-earmark-pdf me-1" aria-hidden="true"></i> Regimento Interno 2024 (PDF)
+      </a>
+      <a href="gestao.html" class="cagp-doc-btn cagp-doc-btn-outline">
+        <i class="bi bi-people-fill me-1" aria-hidden="true"></i> Gestão em Exercício &rarr;
+      </a>
+    </div>
+  </div>
+
+  <nav class="cagp-workspace-bar" aria-label="Sub-visualizações do Centro Acadêmico">
+    <div class="cagp-workspace-tabs" role="tablist" data-tab-count="3">
+      <button type="button" class="cagp-workspace-tab is-active" id="ws-tab-v1" role="tab" aria-controls="ws-panel-v1" aria-selected="true" tabindex="0" data-ws-tab="v1" data-ws-hash="#simbolo-candangos">
+        <i class="bi bi-bank" aria-hidden="true"></i>
+        <span class="cagp-tab-label-full">1. Candangos &amp; Princípios</span>
+        <span class="cagp-tab-label-short" aria-hidden="true">Princípios</span>
+      </button>
+      <button type="button" class="cagp-workspace-tab" id="ws-tab-v2" role="tab" aria-controls="ws-panel-v2" aria-selected="false" tabindex="-1" data-ws-tab="v2" data-ws-hash="#governanca-institucional">
+        <i class="bi bi-building-check" aria-hidden="true"></i>
+        <span class="cagp-tab-label-full">2. Governança &amp; Eleições</span>
+        <span class="cagp-tab-label-short" aria-hidden="true">Governança</span>
+      </button>
+      <button type="button" class="cagp-workspace-tab" id="ws-tab-v3" role="tab" aria-controls="ws-panel-v3" aria-selected="false" tabindex="-1" data-ws-tab="v3" data-ws-hash="#representacao-tripartite">
+        <i class="bi bi-diagram-2" aria-hidden="true"></i>
+        <span class="cagp-tab-label-full">3. Representação Estudantil</span>
+        <span class="cagp-tab-label-short" aria-hidden="true">Esferas</span>
+      </button>
+    </div>
+    <button type="button" class="cagp-workspace-viewall" aria-pressed="false" aria-label="Ver todas as abas" data-ws-tab="__all__" data-ws-hash="#visao-completa">
+      <i class="bi bi-layout-text-sidebar" aria-hidden="true"></i>
+    </button>
+  </nav>
+</header>
+```
+
+```{=html}
+<div class="cagp-workspace-deck" data-ws-deck="sobre">
+<div id="ws-panel-v1" class="cagp-workspace-view is-active" role="tabpanel" aria-labelledby="ws-tab-v1" data-ws-view="v1">
+<span id="identidade-simbolos" class="cagp-anchor-alias" aria-hidden="true"></span>
+<span id="historia" class="cagp-anchor-alias" aria-hidden="true"></span>
+```
+
+## <i class="bi bi-bank" aria-hidden="true"></i> A Nossa Identidade Visual e o Símbolo dos Candangos {#simbolo-candangos}
+
+O símbolo do CAGP é diretamente inspirado no monumento histórico **"Os Candangos"** (título original: *Dois Guerreiros*), obra-prima de **Bruno Giorgi (1905–1993)** inaugurada em 1959 na Praça dos Três Poderes, em Brasília.
+
+::: {.row .g-4 .align-items-center .my-3}
+::: {.col-md-4 .text-center}
+::: {.cagp-card .cagp-surface-timbre}
+![](imagens/os-candangos.jpg){fig-alt="Fotografia do monumento Os Candangos de Bruno Giorgi na Praça dos Três Poderes em Brasília" style="height: auto; max-width: 100%;"}
+<p class="text-muted small mt-2 mb-0"><strong>Os Candangos (1959)</strong><br>Monumento aos Construtores de Brasília</p>
+:::
+:::
+
+::: {.col-md-8}
+::: {.cagp-card .cagp-surface-timbre}
+### Semiótica e Significado Institucional
+- **Trabalho Coletivo e Soberania Popular:** A união das duas figuras em traço vertical ascendente simboliza o esforço coletivo de construção da sociedade e a centralidade dos cidadãos no interesse público.
+- **Prumo da Administração Pública:** A haste horizontal central representa o equilíbrio, a transparência, a equidade e a ética republicana que devem orientar o gestor público e a tomada de decisão estatal.
+- **Pilares Democráticos:** As colunas sólidas representam as instituições perenes do Estado Democrático de Direito e a defesa irrestrita dos direitos fundamentais e das políticas públicas inclusivas.
+:::
+:::
+:::
+
+---
+
+## <i class="bi bi-scale" aria-hidden="true"></i> Princípios e Fundamentos Regimentais {#principios-regimentais}
+
+Conforme os **Arts. 2º, 3º, 4º e 8º do Regimento Interno**, a atuação do CAGP orienta-se por pilares inegociáveis de ética pública e compromisso discente:
+
+```{=html}
+<div class="row g-4 mb-4">
+  <div class="col-md-6 col-lg-3">
+    <div class="cagp-card h-100">
+      <div class="d-flex align-items-center gap-2 mb-2">
+        <i class="bi bi-bank fs-4 text-danger" aria-hidden="true"></i>
+        <h3 class="mb-0 fs-6 text-uppercase fw-bold">Administração Pública</h3>
+      </div>
+      <p class="small text-muted mb-0">Prezar irrestritamente pelos princípios constitucionais da <strong>Legalidade, Impessoalidade, Moralidade, Publicidade e Eficiência</strong> em todas as decisões e atos (Art. 8º, III).</p>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="cagp-card h-100">
+      <div class="d-flex align-items-center gap-2 mb-2">
+        <i class="bi bi-shield-check fs-4 text-danger" aria-hidden="true"></i>
+        <h3 class="mb-0 fs-6 text-uppercase fw-bold">Suprapartidarismo</h3>
+      </div>
+      <p class="small text-muted mb-0">É <strong>expressamente vedada a filiação a partidos políticos</strong> de qualquer âmbito (Art. 4º). Autonomia plena frente a governos, DA FAFICH e DCE UFMG (Art. 3º e 7º).</p>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="cagp-card h-100">
+      <div class="d-flex align-items-center gap-2 mb-2">
+        <i class="bi bi-mortarboard fs-4 text-danger" aria-hidden="true"></i>
+        <h3 class="mb-0 fs-6 text-uppercase fw-bold">Educação Crítica</h3>
+      </div>
+      <p class="small text-muted mb-0">Defender o ensino público, gratuito, de excelência e socialmente referenciado, assegurando <strong>acesso, permanência e evolução constante da grade do curso</strong> (Art. 8º, I e II).</p>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-3">
+    <div class="cagp-card h-100">
+      <div class="d-flex align-items-center gap-2 mb-2">
+        <i class="bi bi-file-earmark-spreadsheet fs-4 text-danger" aria-hidden="true"></i>
+        <h3 class="mb-0 fs-6 text-uppercase fw-bold">Transparência & CNPJ</h3>
+      </div>
+      <p class="small text-muted mb-0">Manutenção do CNPJ ativo, emissão mensal do RREO, prestação de contas anual e <strong>acesso de qualquer discente às contas em até 3 dias úteis</strong> (Art. 8º, V e Art. 15, V).</p>
+    </div>
+  </div>
+</div>
+```
+
+---
+
+## <i class="bi bi-geo-alt" aria-hidden="true"></i> Canais Oficiais e Sede Física {#sede-contato}
+
+Conforme o **Art. 6º do Regimento**, a sede e o foro da entidade situam-se no campus universitário:
+
+::: {.cagp-card}
+::: {.row .g-4}
+::: {.col-md-6}
+### <i class="bi bi-geo-alt" aria-hidden="true"></i> Localização Institucional {.fs-5 .fw-bold}
+- **Centro Acadêmico de Gestão Pública (CAGP)**
+- Faculdade de Filosofia e Ciências Humanas (FAFICH) • UFMG
+- Pilotis — Espaço dos Centros Acadêmicos
+- Av. Presidente Antônio Carlos, 6627 - Campus Pampulha
+- CEP: 31270-901 - Belo Horizonte / MG
+:::
+
+::: {.col-md-6}
+### <i class="bi bi-envelope" aria-hidden="true"></i> Atendimento e Contato {.fs-5 .fw-bold}
+- **E-mail Institucional:** [cagp@fafich.ufmg.br](mailto:cagp@fafich.ufmg.br) <button type="button" class="cagp-copy-btn" data-copy="cagp@fafich.ufmg.br" aria-label="Copiar e-mail institucional"><i class="bi bi-clipboard me-1" aria-hidden="true"></i>Copiar e-mail</button>
+- **Instagram Oficial:** [\@cagp.ufmg](https://www.instagram.com/cagp.ufmg)
+- **Atendimento Presencial:** De segunda a sexta-feira, nos intervalos de aula do turno noturno e plantões discentes.
+:::
+:::
+:::
+
+```{=html}
+</div>
+<div id="ws-panel-v2" class="cagp-workspace-view" role="tabpanel" aria-labelledby="ws-tab-v2" data-ws-view="v2" hidden>
+<span id="organizacao-instancias" class="cagp-anchor-alias" aria-hidden="true"></span>
+<span id="direito-de-voz" class="cagp-anchor-alias" aria-hidden="true"></span>
+```
+
+## <i class="bi bi-building-check" aria-hidden="true"></i> Governança Institucional: Deliberação e Controle {#governanca-institucional}
+
+O CAGP fundamenta-se na separação democrática entre a soberania dos representados, a fiscalização independente e a execução diretiva:
+
+```{=html}
+<div class="row g-4 mb-4">
+  <div class="col-lg-6">
+    <div class="cagp-governance-card cagp-highlight-red">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <span class="cagp-badge cagp-badge-red">Instância Máxima</span>
+        <span class="text-muted small fw-bold">Arts. 35 a 40</span>
+      </div>
+      <h3 class="fs-4 fw-bold mb-2">A SOBERANA ASSEMBLEIA GERAL</h3>
+      <p class="mb-3">A Assembleia Geral é a autoridade máxima de deliberação da entidade, composta por todos os estudantes regularmente matriculados no curso de Gestão Pública da UFMG.</p>
+      <ul class="small mb-3 ps-3">
+        <li><strong>Ordinária (Anual):</strong> Convocada para apreciar e votar a prestação de contas da gestão e dar posse formal aos eleitos (Art. 36).</li>
+        <li><strong>Extraordinária:</strong> Pode ser convocada pela Diretoria de Gestão, pela Junta Eleitoral ou por requerimento de <strong>apenas 5 estudantes</strong> (Art. 37, III).</li>
+        <li><strong>Instalação Rápida:</strong> 1ª chamada com 50% dos discentes; 2ª chamada (após 5 min) com 10%; 3ª chamada com qualquer quórum (Art. 39).</li>
+        <li><strong>Quórum Qualificado de 2/3:</strong> Exigido para reforma estatutária, impugnação de mandatos e ingresso de novos membros (Art. 38).</li>
+      </ul>
+      <div class="p-2 bg-light border border-dark small">
+        <i class="bi bi-megaphone me-1" aria-hidden="true"></i> <strong>Convocação Obrigatória:</strong> Editais fixados no mural, secretaria do colegiado e mídias sociais com pelo menos 5 dias letivos de antecedência.
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="cagp-governance-card cagp-highlight-gold">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <span class="cagp-badge cagp-badge-gold">Controle Independente</span>
+        <span class="text-muted small fw-bold">Arts. 20 a 23</span>
+      </div>
+      <h3 class="fs-4 fw-bold mb-2">A JUNTA ELEITORAL PERMANENTE</h3>
+      <p class="mb-3">Órgão independente permanente responsável por assegurar a lisura, legitimidade e transparência de todos os pleitos eleitorais do CAGP.</p>
+      <ul class="small mb-3 ps-3">
+        <li><strong>Composição Soberana:</strong> 3 (três) estudantes eleitos diretamente em Assembleia Geral da comunidade discente (Art. 20).</li>
+        <li><strong>Incompatibilidade Absoluta:</strong> É terminantemente proibida a participação de integrantes da gestão atual ou de candidatos de quaisquer chapas inscritas (Art. 21).</li>
+        <li><strong>Debate Eleitoral Obrigatório:</strong> Organização e mediação de debate público entre as chapas no mínimo 24 horas antes do início da votação (Art. 23, III).</li>
+        <li><strong>Atribuições Plenas:</strong> Homologação ou impugnação de chapas, credenciamento de mesários, apuração e lavratura de ata (Art. 23).</li>
+      </ul>
+      <div class="p-2 bg-light border border-dark small">
+        <i class="bi bi-shield me-1" aria-hidden="true"></i> <strong>Permanência:</strong> Mantém-se em vigência durante todo o ano letivo para atender aos discentes e avaliar solicitações de Assembleias Gerais.
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+---
+
+## <i class="bi bi-people" aria-hidden="true"></i> As 7 Diretorias Executivas do CAGP {#diretorias-cagp}
+
+```{=html}
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+  <p class="mb-0">A competência executiva do Centro Acadêmico é subdividida em <strong>7 Diretorias de Gestão</strong> (Arts. 24 a 34), exigindo-se uma chapa de <strong>no mínimo 8 membros</strong> para a sua apresentação formal (Art. 25):</p>
+  <div class="d-flex gap-2">
+    <button type="button" id="dir-expand-all" class="cagp-chip">Expandir atribuições</button>
+    <button type="button" id="dir-collapse-all" class="cagp-chip">Recolher atribuições</button>
+  </div>
+</div>
+
+<div class="cagp-chip-rail mb-4" role="toolbar" aria-label="Filtrar diretorias estatutárias por eixo de atuação">
+  <button type="button" class="cagp-filter-chip active" data-dir-cluster-btn="all" aria-pressed="true">
+    <i class="bi bi-grid-fill me-1" aria-hidden="true"></i>Todas as 7 Diretorias
+  </button>
+  <button type="button" class="cagp-filter-chip" data-dir-cluster-btn="gov" aria-pressed="false">
+    <i class="bi bi-shield-check me-1" aria-hidden="true"></i>Presidência &amp; Governança: DIPRE • DIJUR • DIFI
+  </button>
+  <button type="button" class="cagp-filter-chip" data-dir-cluster-btn="acad" aria-pressed="false">
+    <i class="bi bi-mortarboard me-1" aria-hidden="true"></i>Acadêmico &amp; Político: DIAC • DIAP
+  </button>
+  <button type="button" class="cagp-filter-chip" data-dir-cluster-btn="cult" aria-pressed="false">
+    <i class="bi bi-megaphone me-1" aria-hidden="true"></i>Cultura &amp; Comunicação: DICULT • DIMAC
+  </button>
+</div>
+```
+
+```{=html}
+<div class="row g-4 mb-4">
+  <!-- 1. DIPRE -->
+  <div class="col-md-6 col-lg-4" data-dir-cluster="gov">
+    <div class="cagp-directorate-card">
+      <div>
+        <div class="cagp-directorate-header">
+          <div class="cagp-directorate-acronym">DIPRE</div>
+          <h3 class="cagp-directorate-title">Diretoria da Presidência</h3>
+          <p class="cagp-directorate-roles">Presidente • Vice-Presidente • Assessores</p>
+        </div>
+        <p class="small text-muted mb-2">Representação institucional externa do CAGP, coordenação geral das unidades subordinadas, celebração de convênios/acordos e planejamento financeiro conjunto com a DIFI.</p>
+      </div>
+      <details class="cagp-details-box">
+        <summary>Atribuições Regimentais (Art. 28)</summary>
+        <div class="cagp-details-content">
+          <ul>
+            <li>Representar externamente o CAGP perante a UFMG e a sociedade civil;</li>
+            <li>Coordenar as atividades de todas as unidades administrativas;</li>
+            <li>Elaborar o Planejamento Financeiro e de Execução Orçamentária com a DIFI;</li>
+            <li>Coordenar o atendimento ao público discente e autoridades;</li>
+            <li>Assinar convênios, contratos ou acordos de interesse da entidade.</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- 2. DIJUR -->
+  <div class="col-md-6 col-lg-4" data-dir-cluster="gov">
+    <div class="cagp-directorate-card">
+      <div>
+        <div class="cagp-directorate-header">
+          <div class="cagp-directorate-acronym">DIJUR</div>
+          <h3 class="cagp-directorate-title">Diretoria de Assuntos Jurídicos</h3>
+          <p class="cagp-directorate-roles">Diretor(a) Jurídico • Vice-Diretor(a) • Assessores</p>
+        </div>
+        <p class="small text-muted mb-2">Consultoria e assessoramento jurídico interno, emissão de pareceres e notas, guarda oficial do Livro de Atas e Drive, e coordenação da transparência ativa da entidade.</p>
+      </div>
+      <details class="cagp-details-box">
+        <summary>Atribuições Regimentais (Art. 29)</summary>
+        <div class="cagp-details-content">
+          <ul>
+            <li>Prestar consultoria e assessoramento jurídico às diretorias;</li>
+            <li>Interpretar atos normativos e avaliar minutas de contratos/convênios;</li>
+            <li>Emitir notas e pareceres jurídicos formais;</li>
+            <li>Arquivar as atas de reuniões e Assembleias Gerais no Livro de Atas e Drive;</li>
+            <li>Coordenar as atividades de transparência pública do CAGP;</li>
+            <li>Auxiliar na elaboração da prestação de contas anual com a DIFI.</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- 3. DIFI -->
+  <div class="col-md-6 col-lg-4" data-dir-cluster="gov">
+    <div class="cagp-directorate-card">
+      <div>
+        <div class="cagp-directorate-header">
+          <div class="cagp-directorate-acronym">DIFI</div>
+          <h3 class="cagp-directorate-title">Diretoria Financeira</h3>
+          <p class="cagp-directorate-roles">Diretor(a) Financeiro • Vice-Diretor(a) • Assessores</p>
+        </div>
+        <p class="small text-muted mb-2">Execução orçamentária, gestão de contas bancárias e caixa, regularidade contábil/fiscal do CNPJ, emissão mensal do RREO e venda semestral de itens oficiais do curso.</p>
+      </div>
+      <details class="cagp-details-box">
+        <summary>Atribuições Regimentais (Art. 30)</summary>
+        <div class="cagp-details-content">
+          <ul>
+            <li>Captar recursos e assegurar o equilíbrio econômico-financeiro;</li>
+            <li>Gerenciar contas bancárias e custódia de valores em caixa;</li>
+            <li>Manter atualizado o registro patrimonial dos bens do CAGP;</li>
+            <li>Zelar pela regularidade fiscal e tributária vinculada ao CNPJ;</li>
+            <li>Elaborar mensalmente o Relatório Resumido de Execução Orçamentária (RREO);</li>
+            <li>Organizar semestralmente a venda de produtos (camisas, canecas, botons).</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- 4. DIAC -->
+  <div class="col-md-6 col-lg-4" data-dir-cluster="acad">
+    <div class="cagp-directorate-card">
+      <div>
+        <div class="cagp-directorate-header">
+          <div class="cagp-directorate-acronym">DIAC</div>
+          <h3 class="cagp-directorate-title">Diretoria Acadêmica</h3>
+          <p class="cagp-directorate-roles">Diretor(a) Acadêmico • Vice-Diretor(a) • Assessores</p>
+        </div>
+        <p class="small text-muted mb-2">Mediação acadêmica, revisão das ementas das 27 matérias obrigatórias junto ao corpo docente, divulgação de normas de ensino e fomento a oportunidades de pesquisa e pós-graduação.</p>
+      </div>
+      <details class="cagp-details-box">
+        <summary>Atribuições Regimentais (Art. 31)</summary>
+        <div class="cagp-details-content">
+          <ul>
+            <li>Orientar os discentes sobre rotinas acadêmicas e profissionais;</li>
+            <li>Promover cursos, palestras, seminários e grupos de estudo;</li>
+            <li>Revisar as ementas das disciplinas que compõem a grade do curso;</li>
+            <li>Fomentar o debate sobre o percurso formativo com o corpo docente;</li>
+            <li>Consolidar oportunidades de estágio, pesquisa e extensão.</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- 5. DIAP -->
+  <div class="col-md-6 col-lg-4" data-dir-cluster="acad">
+    <div class="cagp-directorate-card">
+      <div>
+        <div class="cagp-directorate-header">
+          <div class="cagp-directorate-acronym">DIAP</div>
+          <h3 class="cagp-directorate-title">Diretoria de Articulação e Assuntos Políticos</h3>
+          <p class="cagp-directorate-roles">Diretor(a) Político • Vice-Diretor(a) • Assessores</p>
+        </div>
+        <p class="small text-muted mb-2">Representação discente no Conselho de CAs e DAs da UFMG, interlocução com órgãos governamentais e terceiro setor, e articulação com os movimentos sociais da RMBH.</p>
+      </div>
+      <details class="cagp-details-box">
+        <summary>Atribuições Regimentais (Art. 32)</summary>
+        <div class="cagp-details-content">
+          <ul>
+            <li>Representar o CAGP nos fóruns deliberativos discentes (Conselho de CAs e DAs);</li>
+            <li>Articular parcerias institucionais com entidades do Campo de Públicas;</li>
+            <li>Manter diálogo com instâncias de representação docente e discente da UFMG;</li>
+            <li>Estabelecer relações com órgãos sociais e governamentais externos;</li>
+            <li>Interlocução com movimentos sociais na Região Metropolitana de BH.</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- 6. DICULT -->
+  <div class="col-md-6 col-lg-4" data-dir-cluster="cult">
+    <div class="cagp-directorate-card">
+      <div>
+        <div class="cagp-directorate-header">
+          <div class="cagp-directorate-acronym">DICULT</div>
+          <h3 class="cagp-directorate-title">Diretoria de Cultura</h3>
+          <p class="cagp-directorate-roles">Diretor(a) de Cultura • Vice-Diretor(a) • Assessores</p>
+        </div>
+        <p class="small text-muted mb-2">Produção cultural e artística, organização semestral obrigatória da Calourada de integração discente e captação de fundos, e parceria esportiva com a AAFAFICH.</p>
+      </div>
+      <details class="cagp-details-box">
+        <summary>Atribuições Regimentais (Art. 33)</summary>
+        <div class="cagp-details-content">
+          <ul>
+            <li>Promover conferências, mostras, festivais e atividades culturais;</li>
+            <li>Incentivar o esporte universitário em conjunto com a AAFAFICH;</li>
+            <li>Planejar, produzir e coordenar eventos internos do CAGP;</li>
+            <li><strong>Calourada Semestral:</strong> Realização obrigatória de evento de integração de calouros e captação de recursos com a DIFI.</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- 7. DIMAC -->
+  <div class="col-md-12 col-lg-8" data-dir-cluster="cult">
+    <div class="cagp-directorate-card">
+      <div>
+        <div class="cagp-directorate-header">
+          <div class="cagp-directorate-acronym">DIMAC</div>
+          <h3 class="cagp-directorate-title">Diretoria de Marketing e Comunicação</h3>
+          <p class="cagp-directorate-roles">Diretor(a) de Marketing • Vice-Diretor(a) • Assessores</p>
+        </div>
+        <p class="small text-muted mb-2">Comunicação integral com a comunidade acadêmica, gestão dos canais digitais e redes sociais, preservação da memória documental e campanhas gráficas transversais em colaboração com todas as diretorias.</p>
+      </div>
+      <details class="cagp-details-box">
+        <summary>Atribuições Regimentais (Art. 34)</summary>
+        <div class="cagp-details-content">
+          <ul>
+            <li>Gerenciar as mídias sociais, portal e plataformas tecnológicas da entidade;</li>
+            <li>Elaborar estratégias de marketing interno e institucional;</li>
+            <li>Redigir e arquivar atas de reuniões e Assembleias Gerais com a DIJUR;</li>
+            <li>Executar a gestão documental lógica dos arquivos do CAGP;</li>
+            <li>Produzir material gráfico para produtos personalizados (DIFI), eventos (DICULT) e oportunidades acadêmicas (DIAC).</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- Box Linha Sucessória -->
+  <div class="col-md-12 col-lg-4" data-dir-cluster="gov">
+    <div class="cagp-succession-box h-100">
+      <h3 class="fs-6 fw-bold text-uppercase mb-2 text-danger"><i class="bi bi-diagram-3 me-1" aria-hidden="true"></i> Linha Sucessória da Presidência</h3>
+      <p class="small text-muted mb-3">Conforme o <strong>Art. 26 do Regimento</strong>, em caso de vacância da Presidência, a ordem legal de sucessão é estrita:</p>
+      <ol class="small ps-3 mb-3 fw-bold">
+        <li>Vice-Presidência</li>
+        <li>Diretoria de Assuntos Jurídicos (DIJUR)</li>
+        <li>Diretoria Financeira (DIFI)</li>
+      </ol>
+      <div class="p-2 border border-2 border-danger bg-light text-danger small mt-2">
+        <i class="bi bi-exclamation-triangle-fill me-1" aria-hidden="true"></i> <strong>Parágrafo Único (Dissolução Compulsória):</strong> Se houver vacância definitiva além da Diretoria Financeira, a Diretoria Executiva é <em>imediatamente dissolvida de pleno direito</em>, cabendo à Junta Eleitoral Permanente assumir a gestão transitória e convocar eleições extraordinárias em até 15 dias.
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+---
+
+## <i class="bi bi-people-fill" aria-hidden="true"></i> Gestão em Exercício & Nossa Equipe {#gestao-atual}
+
+A representação discente do CAGP é exercida por estudantes democraticamente eleitos em Assembleia Geral para mandatos anuais. O organograma de trabalho, a composição completa dos membros por diretoria e as metas da gestão vigente encontram-se reunidos em página dedicada:
+
+```{=html}
+<div class="cagp-card my-4">
+  <div class="row align-items-center g-3">
+    <div class="col-lg-8">
+      <div class="d-flex align-items-center gap-2 mb-2">
+        <span class="cagp-badge cagp-badge-red">Mandato Vigente</span>
+        <span class="cagp-badge cagp-badge-dark">Representação Discente</span>
+      </div>
+      <h3 class="fs-5 fw-bold mb-2">Quer conhecer a equipe da gestão empossada e o organograma funcional?</h3>
+      <p class="small text-muted mb-0">
+        Acesse a página da <strong>Gestão em Exercício & Equipe</strong> para consultar o organograma das 7 diretorias estatutárias, canais diretos de atendimento discente, prestação de contas (RREO mensal) e vídeos da gestão.
+      </p>
+    </div>
+    <div class="col-lg-4 text-lg-end">
+      <a href="gestao.html" class="cagp-doc-btn cagp-doc-btn-primary d-inline-block">
+        <i class="bi bi-people-fill me-1" aria-hidden="true"></i> Conhecer a Gestão em Exercício &rarr;
+      </a>
+    </div>
+  </div>
+</div>
+```
+
+---
+
+## <i class="bi bi-box-seam" aria-hidden="true"></i> Democracia Discente & Processo Eleitoral {#processo-eleitoral}
+
+Conforme o **Título VI do Regimento Interno (Arts. 41 a 45)**, as eleições do CAGP garantem a soberania popular e a alternância de poder através de regras rígidas e impessoais:
+
+```{=html}
+<div class="row g-3 mb-4">
+  <div class="col-md-3">
+    <div class="cagp-card h-100 text-center">
+      <i class="bi bi-box-seam fs-3 text-danger" aria-hidden="true"></i>
+      <h3 class="fs-6 fw-bold text-uppercase mt-2 mb-1">Voto Secreto e Direto</h3>
+      <p class="small text-muted mb-0">Todo discente regularmente matriculado no curso é eleitor e elegível (Art. 41 e 42).</p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="cagp-card h-100 text-center">
+      <i class="bi bi-card-checklist fs-3 text-danger" aria-hidden="true"></i>
+      <h3 class="fs-6 fw-bold text-uppercase mt-2 mb-1">Chapas com Mín. 8 Membros</h3>
+      <p class="small text-muted mb-0">Estrutura completa das 7 diretorias sem membros em duplicidade (Art. 25 e 42).</p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="cagp-card h-100 text-center">
+      <i class="bi bi-mic fs-3 text-danger" aria-hidden="true"></i>
+      <h3 class="fs-6 fw-bold text-uppercase mt-2 mb-1">Debate Eleitoral</h3>
+      <p class="small text-muted mb-0">Obrigatório, organizado pela Junta Eleitoral pelo menos 24h antes da eleição (Art. 23, III).</p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="cagp-card h-100 text-center">
+      <i class="bi bi-stopwatch fs-3 text-danger" aria-hidden="true"></i>
+      <h3 class="fs-6 fw-bold text-uppercase mt-2 mb-1">Mandato de 1 Ano</h3>
+      <p class="small text-muted mb-0">Permitida apenas 1 (uma) reeleição consecutiva da mesma gestão (Art. 44).</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<div id="ws-panel-v3" class="cagp-workspace-view" role="tabpanel" aria-labelledby="ws-tab-v3" data-ws-view="v3" hidden>
+<span id="representacao-sistema" class="cagp-anchor-alias" aria-hidden="true"></span>
+<span id="documentos-oficiais" class="cagp-anchor-alias" aria-hidden="true"></span>
+```
+
+## <i class="bi bi-diagram-2" aria-hidden="true"></i> As Três Esferas de Representação Discente na UFMG {#representacao-tripartite}
+
+A representação estudantil na Universidade Federal de Minas Gerais opera em **três instâncias democráticas complementares e autônomas**. Compreender o papel de cada uma garante que suas demandas cheguem com agilidade ao órgão deliberativo competente:
+
+```{=html}
+<!-- MATRIZ COMPARATIVA TRIPARTITE (CAGP x DA FAFICH x DCE UFMG) -->
+<div class="table-responsive my-3">
+  <table class="cagp-tripartite-matrix" aria-label="Matriz comparativa das três esferas de representação estudantil na UFMG">
+    <thead>
+      <tr>
+        <th scope="col">Dimensão Institucional</th>
+        <th scope="col"><span class="cagp-badge cagp-badge-red me-1">1. Curso</span> CAGP UFMG</th>
+        <th scope="col"><span class="cagp-badge cagp-badge-gold me-1">2. Unidade</span> DA FAFICH</th>
+        <th scope="col"><span class="cagp-badge cagp-badge-dark me-1">3. Universidade</span> DCE UFMG</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Base Representada</th>
+        <td>Estudantes do Bacharelado em Gestão Pública (~400 discentes ativos)</td>
+        <td>Estudantes dos 7 cursos de graduação da FAFICH (+2.000 discentes)</td>
+        <td>Totalidade dos cursos de graduação da UFMG (~35.000 discentes)</td>
+      </tr>
+      <tr>
+        <th scope="row">Órgão Deliberativo onde Atua</th>
+        <td>Colegiado de Coordenação Didática e Núcleo Docente Estruturante (NDE)</td>
+        <td>Congregação da FAFICH e Diretoria da Unidade</td>
+        <td>Conselhos Superiores (Conselho Universitário, CEPE e CEI)</td>
+      </tr>
+      <tr>
+        <th scope="row">Quando Acionar?</th>
+        <td>Oferta noturna das 27 matérias, quebra de pré-requisito, ementas, AAC, Estágio e TCC</td>
+        <td>Infraestrutura predial da FAFICH, elevadores, banheiros, iluminação e auditório/pilotis</td>
+        <td>Políticas gerais da FUMP/PRAE, RUs, linhas do Circular Interno e Moradia Universitária</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="cagp-rep-grid my-4">
+  <!-- Nível 1: CAGP -->
+  <article class="cagp-rep-card cagp-rep-card-cagp">
+    <span class="cagp-rep-badge cagp-rep-badge-cagp">1. Âmbito do Curso</span>
+    <h3 class="cagp-rep-title">CAGP UFMG</h3>
+    <div class="cagp-rep-scope">Centro Acadêmico de Gestão Pública</div>
+    <p class="small text-muted mb-2">Entidade primária e imediata de representação discente de Gestão Pública na FAFICH.</p>
+    <ul class="cagp-rep-list">
+      <li><strong>Instâncias:</strong> Colegiado de Coordenação Didática e Núcleo Docente Estruturante (NDE).</li>
+      <li><strong>Pautas Centrais:</strong> Oferta e horários das 27 matérias no turno noturno, quebra de pré-requisitos, ementas, percursos curriculares, validação de horas AAC e Estágios.</li>
+      <li><strong>Quando Procurar:</strong> Dificuldades pedagógicas com docentes, dúvidas regimentais, recepção de calouros e projetos de extensão do curso.</li>
+      <li><strong>Contato:</strong> <a href="mailto:cagp@fafich.ufmg.br">cagp@fafich.ufmg.br</a> <button type="button" class="cagp-copy-btn" data-copy="cagp@fafich.ufmg.br" aria-label="Copiar e-mail do CAGP"><i class="bi bi-clipboard me-1" aria-hidden="true"></i>Copiar e-mail</button> • Pilotis da FAFICH.</li>
+    </ul>
+  </article>
+
+  <!-- Nível 2: DA FAFICH -->
+  <article class="cagp-rep-card cagp-rep-card-da">
+    <span class="cagp-rep-badge cagp-rep-badge-da">2. Âmbito da Unidade</span>
+    <h3 class="cagp-rep-title">DA FAFICH</h3>
+    <div class="cagp-rep-scope">Diretório Acadêmico da FAFICH</div>
+    <p class="small text-muted mb-2">Articulação coletiva dos mais de 2.000 estudantes dos 7 cursos de Humanas e Sociais da faculdade.</p>
+    <ul class="cagp-rep-list">
+      <li><strong>Instâncias:</strong> Congregação da FAFICH e interlocução com a Diretoria da Unidade.</li>
+      <li><strong>Cursos Integrados:</strong> Gestão Pública, Ciências Sociais, Ciência Política, Filosofia, História, Psicologia e Comunicação Social.</li>
+      <li><strong>Pautas Centrais:</strong> Manutenção predial da FAFICH, banheiros, acessibilidade dos elevadores, segurança noturna e gestão do auditório e pilotis.</li>
+      <li><strong>Quando Procurar:</strong> Problemas estruturais do prédio da FAFICH, convivência universitária e eventos interdisciplinares de Humanas.</li>
+    </ul>
+  </article>
+
+  <!-- Nível 3: DCE UFMG -->
+  <article class="cagp-rep-card cagp-rep-card-dce">
+    <span class="cagp-rep-badge cagp-rep-badge-dce">3. Âmbito Universitário</span>
+    <h3 class="cagp-rep-title">DCE UFMG</h3>
+    <div class="cagp-rep-scope">Diretório Central dos Estudantes "José Carlos da Mata Machado"</div>
+    <p class="small text-muted mb-2">Instância máxima de representação geral de todos os 35 mil discentes de graduação da UFMG.</p>
+    <ul class="cagp-rep-list">
+      <li><strong>Instâncias:</strong> Conselhos Superiores da UFMG (Conselho Universitário - COSNUN, CEPE e CEI).</li>
+      <li><strong>Pautas Centrais:</strong> Políticas de Assistência Estudantil (ampliação de recursos FUMP/PRAE), restaurantes universitários (RUs), passe livre e circulares gratuitos, e moradia estudantil.</li>
+      <li><strong>Quando Procurar:</strong> Violações graves de direitos institucionais, mobilizações gerais e cortes orçamentários na educação federal.</li>
+      <li><strong>Sede:</strong> Praça de Serviços (Campus Pampulha) e sede histórica no Centro de BH.</li>
+    </ul>
+  </article>
+</div>
+```
+
+---
+
+## <i class="bi bi-mortarboard" aria-hidden="true"></i> O Colegiado de Coordenação Didática {#colegiado-curso}
+
+Enquanto o CAGP é a voz política e representativa dos estudantes, o **Colegiado de Gestão Pública** é o órgão colegiado da UFMG responsável pela gestão didática e administrativa do curso (com mandato de dois anos para seus membros). Conforme as deliberações oficiais, a composição atual é:
+
+```{=html}
+<div class="p-2 mb-3 bg-light border border-dark small d-flex flex-wrap justify-content-between align-items-center gap-2">
+  <span><i class="bi bi-info-circle me-1" aria-hidden="true"></i> <strong>Fonte Oficial:</strong> Composição conferida com o portal oficial do <a href="https://colgrad.fafich.ufmg.br/gestaopublica/" target="_blank" rel="noopener noreferrer">Colegiado de Gestão Pública da UFMG</a> (captura oficial de referência: outubro/2024).</span>
+  <a href="curso.html#colegiado" class="cagp-doc-btn cagp-doc-btn-outline btn-sm py-1 px-2">Ver Plenária &amp; Secretaria F-2039 &rarr;</a>
+</div>
+```
+
+```{=html}
+<div class="cagp-card mb-4">
+  <div class="row g-3">
+    <div class="col-md-6">
+      <h3 class="fs-6 fw-bold text-uppercase text-danger mb-2">Coordenação do Curso</h3>
+      <ul class="small mb-3 ps-3">
+        <li><strong>Coordenadora:</strong> Profª Isabele Batista Mitozo (<a href="mailto:coordgestaopublicaufmg@gmail.com">coordgestaopublicaufmg@gmail.com</a> <button type="button" class="cagp-copy-btn" data-copy="coordgestaopublicaufmg@gmail.com" aria-label="Copiar e-mail da coordenação"><i class="bi bi-clipboard me-1" aria-hidden="true"></i>Copiar e-mail</button>)</li>
+        <li><strong>Subcoordenadora:</strong> Profª Ludmila Mendonça Lopes Ribeiro (<a href="mailto:ludmila.ribeiro@gmail.com">ludmila.ribeiro@gmail.com</a> <button type="button" class="cagp-copy-btn" data-copy="ludmila.ribeiro@gmail.com" aria-label="Copiar e-mail da subcoordenadora"><i class="bi bi-clipboard me-1" aria-hidden="true"></i>Copiar e-mail</button>)</li>
+        <li><em>Atendimento presencial mediante agendamento prévio.</em></li>
+      </ul>
+      <h3 class="fs-6 fw-bold text-uppercase text-dark mb-2">Representação Discente no Colegiado</h3>
+      <ul class="small mb-0 ps-3">
+        <li><strong>Titular:</strong> Nina Queirolo Lage (<a href="mailto:ninaqueirololage@gmail.com">ninaqueirololage@gmail.com</a> <button type="button" class="cagp-copy-btn" data-copy="ninaqueirololage@gmail.com" aria-label="Copiar e-mail da representação titular"><i class="bi bi-clipboard me-1" aria-hidden="true"></i>Copiar e-mail</button>)</li>
+      </ul>
+    </div>
+
+    <div class="col-md-6">
+      <h3 class="fs-6 fw-bold text-uppercase text-dark mb-2">Representantes Docentes dos Departamentos</h3>
+      <ul class="small mb-0 ps-3">
+        <li><strong>Ciência Política (DCP):</strong> Prof. Paulo Ricardo Diniz Filho (titular) / Prof. Lucas Gelape (suplente); Prof. Lucas Pereira Rezende (titular) / Prof. José Angelo Machado (suplente).</li>
+        <li><strong>Sociologia (DSO):</strong> Profª Ana Paula Vasconcelos Gonçalves (titular) / Profª Elaine Meire Vilela (suplente).</li>
+        <li><strong>Economia (ECN):</strong> Profª Lizia de Figueiredo (titular) / Profª Clara Zanon (suplente).</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="cagp-card mb-4">
+  <div class="d-flex align-items-center justify-content-between mb-2">
+    <span class="cagp-badge cagp-badge-dark">Órgão Consultivo e Estruturante</span>
+    <span class="text-muted small">PPC & Matriz Curricular</span>
+  </div>
+  <h3 class="fs-6 fw-bold text-uppercase text-danger mb-2">Núcleo Docente Estruturante (NDE)</h3>
+  <p class="small text-muted mb-3">Responsável pela concepção, consolidação e atualização contínua do Projeto Pedagógico do Curso (PPC) e pelo acompanhamento da matriz curricular:</p>
+  <div class="row g-3">
+    <div class="col-md-6">
+      <ul class="small mb-0 ps-3">
+        <li><strong>Presidente (Membro Nato):</strong> Profª Isabele Batista Mitozo (<a href="mailto:coordgestaopublicaufmg@gmail.com">coordgestaopublicaufmg@gmail.com</a>)</li>
+        <li><strong>Membro Eleito:</strong> Prof. Paulo Ricardo Diniz Filho (<a href="mailto:paulo.ng.diniz@gmail.com">paulo.ng.diniz@gmail.com</a>)</li>
+        <li><strong>Membro Eleito:</strong> Prof. Marcus Abílio Pereira (<a href="mailto:magopebh@gmail.com">magopebh@gmail.com</a>)</li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <ul class="small mb-0 ps-3">
+        <li><strong>Membro Eleito:</strong> Prof. João Carlos Amoroso Botelho (<a href="mailto:joaocarlosbotelho@hotmail.com">joaocarlosbotelho@hotmail.com</a>)</li>
+        <li><strong>Membro Eleita:</strong> Profª Ludmila Mendonça Lopes Ribeiro (<a href="mailto:ludmila.ribeiro@gmail.com">ludmila.ribeiro@gmail.com</a>)</li>
+        <li><strong>Membro Eleita:</strong> Profª Natália Guimarães Duarte Sátyro (<a href="mailto:nsatyro@gmail.com">nsatyro@gmail.com</a>)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="text-muted small fst-italic mt-2 border-top pt-2"><i class="bi bi-info-circle me-1" aria-hidden="true"></i> Composição nominal homologada pelo Colegiado de Graduação em Gestão Pública (vigência 2024–2026, atualizada em outubro/2026).</div>
+</div>
+</div>
+</div>
+
+<nav class="cagp-journey-nav" aria-label="Continuidade da jornada acadêmica">
+  <div class="row g-3">
+    <div class="col-md-6">
+      <a href="faq.html" class="cagp-journey-link">
+        <div>
+          <div class="cagp-journey-dir">&larr; Passo Anterior</div>
+          <div class="cagp-journey-title">Dúvidas Frequentes (FAQ com Busca)</div>
+        </div>
+        <p class="cagp-journey-desc">Respostas regimentais sobre trancamento, quebra de pré-requisito, EaD e intercâmbio.</p>
+      </a>
+    </div>
+    <div class="col-md-6">
+      <a href="gestao.html" class="cagp-journey-link">
+        <div>
+          <div class="cagp-journey-dir">Próximo Passo &rarr;</div>
+          <div class="cagp-journey-title">Gestão em Exercício & Equipe</div>
+        </div>
+        <p class="cagp-journey-desc">Conheça a equipe da gestão empossada, organograma hierárquico e canais de atendimento direto.</p>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<script>
+(function () {
+  function initSobrePage() {
+    var details = document.querySelectorAll('.cagp-details-box');
+    var btnExp = document.getElementById('dir-expand-all');
+    var btnCol = document.getElementById('dir-collapse-all');
+    if (btnExp) btnExp.onclick = function () { details.forEach(function (d) { d.open = true; }); };
+    if (btnCol) btnCol.onclick = function () { details.forEach(function (d) { d.open = false; }); };
+
+    var clusterBtns = document.querySelectorAll('[data-dir-cluster-btn]');
+    var clusterCols = document.querySelectorAll('[data-dir-cluster]');
+    clusterBtns.forEach(function (btn) {
+      btn.onclick = function () {
+        var target = btn.getAttribute('data-dir-cluster-btn') || 'all';
+        clusterBtns.forEach(function (b) {
+          var active = b === btn;
+          b.classList.toggle('active', active);
+          b.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+        clusterCols.forEach(function (col) {
+          var c = col.getAttribute('data-dir-cluster');
+          col.style.display = (target === 'all' || c === target) ? '' : 'none';
+        });
+      };
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSobrePage, { once: true });
+  } else {
+    initSobrePage();
+  }
+})();
+</script>
+```

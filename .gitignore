@@ -1,0 +1,19 @@
+/.quarto/
+**/*.quarto_ipynb
+
+# Sistema / editores
+.DS_Store
+*~
+.Rproj.user/
+.Rhistory
+/.luarc.json
+
+# Capturas HTML brutas de sites oficiais (~120 MB). Versionar só transcrições .md e PDFs
+/_referencias/sites-informacoes-oficiais/**/*.html
+/_referencias/sites-informacoes-oficiais/**/*_files/
+
+# Astro & Node build artifacts
+node_modules/
+dist/
+.astro/
+*.tsbuildinfo

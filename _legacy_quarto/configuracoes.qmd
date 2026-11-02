@@ -1,0 +1,660 @@
+---
+title: "Configurações & Acessibilidade"
+subtitle: "Acessibilidade universal, alertas do campus, backup discente e termos regimentais"
+description: "Painel de configurações discentes, acessibilidade universal, alertas noturnos do RU II e Circular e Meu CAGP Sync."
+title-block-style: none
+page-layout: full
+format:
+  html:
+    toc: false
+---
+
+```{=html}
+<div class="cagp-page-container">
+
+<header class="cagp-workspace-header mb-4">
+  <div class="cagp-header-meta mb-1">
+    <span class="cagp-badge cagp-badge-dark font-mono"><i class="bi bi-sliders2 me-1"></i> SISTEMA &amp; PREFERÊNCIAS</span>
+    <span class="cagp-badge cagp-badge-gold"><i class="bi bi-shield-check me-1"></i> 100% LOCAL</span>
+  </div>
+  <h1 class="cagp-page-title font-display text-uppercase mb-2">
+    <i class="bi bi-gear-fill me-2 text-warning"></i> Configurações do Super App
+  </h1>
+  <p class="lead text-muted mb-0">
+    Personalize sua experiência no campus: acessibilidade universal, alertas de sobrevivência noturna, portabilidade do cofre discente e conformidade regimental.
+  </p>
+</header>
+
+<div class="row g-4">
+  <!-- Coluna Principal (Configurações Operacionais) -->
+  <div class="col-lg-8">
+
+    <!-- SEÇÃO 1: ACESSIBILIDADE UNIVERSAL -->
+    <section class="cagp-settings-group mb-4" id="acessibilidade" aria-labelledby="sec-title-a11y">
+      <div class="cagp-settings-group-header">
+        <div class="d-flex align-items-center gap-2">
+          <i class="bi bi-universal-access fs-4 text-primary" aria-hidden="true"></i>
+          <div>
+            <h2 id="sec-title-a11y" class="cagp-settings-group-title mb-0">Acessibilidade Universal</h2>
+            <small class="text-muted">Ajustes visuais e cognitivos aplicados instantaneamente em todo o portal</small>
+          </div>
+        </div>
+        <span class="cagp-badge cagp-badge-dark">Atalho: Alt + A</span>
+      </div>
+
+      <div class="cagp-settings-card mt-3">
+        <!-- 1.1 Tamanho do Texto -->
+        <div class="cagp-settings-row">
+          <div class="cagp-settings-info">
+            <strong class="d-block"><i class="bi bi-fonts me-1 text-danger"></i> Tamanho do Texto</strong>
+            <span class="small text-muted">Ajuste a escala tipográfica em 4 níveis responsivos</span>
+          </div>
+          <div class="cagp-a11y-stepper" role="group" aria-label="Escala de tamanho da fonte">
+            <button type="button" class="cagp-a11y-btn-font" data-cfg-font="sm" aria-label="Reduzir texto para 90%">A-</button>
+            <button type="button" class="cagp-a11y-btn-font is-active" data-cfg-font="md" aria-label="Texto padrão em 100%">A</button>
+            <button type="button" class="cagp-a11y-btn-font" data-cfg-font="lg" aria-label="Aumentar texto para 115%">A+</button>
+            <button type="button" class="cagp-a11y-btn-font" data-cfg-font="xl" aria-label="Ampliar texto para 130%">A++</button>
+          </div>
+        </div>
+
+        <!-- 1.2 Modo para Dislexia -->
+        <div class="cagp-settings-row">
+          <div class="cagp-settings-info">
+            <strong class="d-block"><i class="bi bi-book-half me-1 text-primary"></i> Leitura Amigável para Dislexia</strong>
+            <span class="small text-muted">Aplica tipografia com base pesada, entrelinha ampla (1.85) e maior espaçamento</span>
+          </div>
+          <div class="form-check form-switch m-0">
+            <input class="form-check-input" type="checkbox" id="cfg-toggle-dyslexia" role="switch" aria-label="Ativar tipografia para dislexia">
+          </div>
+        </div>
+
+        <!-- 1.3 Régua Visual de Foco -->
+        <div class="cagp-settings-row">
+          <div class="cagp-settings-info">
+            <strong class="d-block"><i class="bi bi-distribute-vertical me-1 text-success"></i> Régua Visual de Foco</strong>
+            <span class="small text-muted">Faixa de leitura guiada pelo toque ou cursor (ideal para TDAH)</span>
+          </div>
+          <div class="form-check form-switch m-0">
+            <input class="form-check-input" type="checkbox" id="cfg-toggle-ruler" role="switch" aria-label="Ativar régua visual de leitura">
+          </div>
+        </div>
+
+        <!-- 1.4 Alto Contraste AAA -->
+        <div class="cagp-settings-row">
+          <div class="cagp-settings-info">
+            <strong class="d-block"><i class="bi bi-circle-half me-1 text-warning"></i> Alto Contraste AAA (Preto &amp; Amarelo)</strong>
+            <span class="small text-muted">Inverte para fundo preto nanquim puro (#000000) e elementos em amarelo canário</span>
+          </div>
+          <div class="form-check form-switch m-0">
+            <input class="form-check-input" type="checkbox" id="cfg-toggle-contrast" role="switch" aria-label="Ativar modo alto contraste">
+          </div>
+        </div>
+
+        <!-- 1.5 Movimento Reduzido -->
+        <div class="cagp-settings-row">
+          <div class="cagp-settings-info">
+            <strong class="d-block"><i class="bi bi-pause-circle me-1 text-danger"></i> Pausar Animações &amp; Movimento Reduzido</strong>
+            <span class="small text-muted">Desativa deslocamentos espaciais e contadores rolantes em conformidade WCAG</span>
+          </div>
+          <div class="form-check form-switch m-0">
+            <input class="form-check-input" type="checkbox" id="cfg-toggle-motion" role="switch" aria-label="Pausar animações e transições espaciais">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 2: ALERTAS DO CAMPUS & SOBREVIVÊNCIA NOTURNA -->
+    <section class="cagp-settings-group mb-4" id="alertas" aria-labelledby="sec-title-alertas">
+      <div class="cagp-settings-group-header">
+        <div class="d-flex align-items-center gap-2">
+          <i class="bi bi-bell-fill fs-4 text-warning" aria-hidden="true"></i>
+          <div>
+            <h2 id="sec-title-alertas" class="cagp-settings-group-title mb-0">Alertas do Campus &amp; Sobrevivência Noturna</h2>
+            <small class="text-muted">Notificações locais e alarmes sincronizados com o calendário acadêmico da FAFICH</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="cagp-settings-card mt-3">
+        <!-- 2.1 RU II Setorial -->
+        <div class="cagp-settings-row">
+          <div class="cagp-settings-info">
+            <strong class="d-block"><i class="bi bi-cup-hot-fill me-1 text-danger"></i> Jantar no RU II Setorial (18h15)</strong>
+            <span class="small text-muted">Aviso antes do pico da fila e fechamento das catracas às 19h30</span>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <button type="button" class="cagp-action-chip" data-cagp-ics="ru-1815" title="Adicionar alarme 18h15 na sua agenda (.ics)">
+              <i class="bi bi-calendar-plus me-1"></i> .ics
+            </button>
+            <div class="form-check form-switch m-0">
+              <input class="form-check-input" type="checkbox" id="cfg-notif-ru1815" role="switch" aria-label="Alerta de jantar RU II">
+            </div>
+          </div>
+        </div>
+
+        <!-- 2.2 Último Circular Noturno -->
+        <div class="cagp-settings-row">
+          <div class="cagp-settings-info">
+            <strong class="d-block"><i class="bi bi-bus-front-fill me-1 text-primary"></i> Último Circular Noturno FAFICH (22h30)</strong>
+            <span class="small text-muted">Aviso para saída da sala de aula antes da última viagem às 22h45</span>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <button type="button" class="cagp-action-chip" data-cagp-ics="circular-2230" title="Adicionar alarme 22h30 na sua agenda (.ics)">
+              <i class="bi bi-calendar-plus me-1"></i> .ics
+            </button>
+            <div class="form-check form-switch m-0">
+              <input class="form-check-input" type="checkbox" id="cfg-notif-circular2230" role="switch" aria-label="Alerta de último circular">
+            </div>
+          </div>
+        </div>
+
+        <!-- 2.3 Guardião de 120 Dias -->
+        <div class="cagp-settings-row">
+          <div class="cagp-settings-info">
+            <strong class="d-block"><i class="bi bi-shield-exclamation me-1 text-warning"></i> Guardião de 120 Dias (Art. 15, § 4º)</strong>
+            <span class="small text-muted">Alerta proativo para certificados de eventos com menos de 30 dias para prescrição</span>
+          </div>
+          <div class="form-check form-switch m-0">
+            <input class="form-check-input" type="checkbox" id="cfg-notif-aac120d" role="switch" checked aria-label="Alerta do Guardião 120 dias">
+          </div>
+        </div>
+
+        <div class="p-3 bg-light border-top">
+          <button type="button" id="cfg-notif-test-btn" class="cagp-btn cagp-btn-outline btn-sm w-100">
+            <i class="bi bi-bell me-1"></i> Testar Notificação do Navegador
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 3: MEU CAGP SYNC & COFRE DISCENTE -->
+    <section class="cagp-settings-group mb-4" id="backup-sync" aria-labelledby="sec-title-sync">
+      <div class="cagp-settings-group-header">
+        <div class="d-flex align-items-center gap-2">
+          <i class="bi bi-arrow-left-right fs-4 text-success" aria-hidden="true"></i>
+          <div>
+            <h2 id="sec-title-sync" class="cagp-settings-group-title mb-0">Meu CAGP Sync &amp; Portabilidade</h2>
+            <small class="text-muted">Transfira horas de ACG, percurso, certificados e perfil entre PC e celular sem criar conta</small>
+          </div>
+        </div>
+        <span class="cagp-badge cagp-badge-gold">Zero-Servidor</span>
+      </div>
+
+      <div class="cagp-settings-card mt-3">
+        <div class="p-3">
+          <div class="row g-2 mb-3">
+            <div class="col-sm-6">
+              <button type="button" id="cfg-sync-export-btn" class="cagp-btn cagp-btn-primary btn-sm w-100">
+                <i class="bi bi-download me-1"></i> Exportar Backup (.json)
+              </button>
+            </div>
+            <div class="col-sm-6">
+              <button type="button" id="cfg-sync-import-btn" class="cagp-btn cagp-btn-outline btn-sm w-100">
+                <i class="bi bi-upload me-1"></i> Importar Backup (.json)
+              </button>
+              <input type="file" id="cfg-sync-file-input" accept=".json,application/json" hidden aria-label="Upload de arquivo JSON de backup">
+            </div>
+          </div>
+
+          <div class="cagp-sync-code-box p-3 border border-dark rounded-1 bg-white mb-3">
+            <label for="cfg-sync-code-input" class="form-label small fw-bold font-mono d-block mb-1">
+              Código Portátil Rápido (CAGP1:...)
+            </label>
+            <div class="d-flex gap-2">
+              <input type="text" id="cfg-sync-code-input" class="form-control form-control-sm font-mono border-dark" placeholder="Cole o código CAGP1:... aqui">
+              <button type="button" id="cfg-sync-copy-code-btn" class="cagp-btn cagp-btn-outline btn-sm flex-shrink-0" title="Gerar e copiar código Base64">
+                <i class="bi bi-clipboard-check me-1"></i> Gerar
+              </button>
+              <button type="button" id="cfg-sync-apply-code-btn" class="cagp-btn cagp-btn-primary btn-sm flex-shrink-0">
+                Restaurar
+              </button>
+            </div>
+            <small class="text-muted d-block mt-1" style="font-size: 0.75rem;">
+              Código seguro com validação CRC32 pronto para copiar e colar via WhatsApp ou e-mail pessoal.
+            </small>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+            <div>
+              <strong class="text-danger small"><i class="bi bi-trash3 me-1"></i> Redefinição de Dados Locais</strong>
+              <small class="d-block text-muted" style="font-size: 0.75rem;">Apaga apenas os dados salvos neste navegador</small>
+            </div>
+            <button type="button" id="cfg-clear-vault-btn" class="btn btn-sm btn-outline-danger font-display text-uppercase">
+              Limpar Cofre
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 4: SISTEMA & ARMAZENAMENTO OFFLINE -->
+    <section class="cagp-settings-group mb-4" id="sistema" aria-labelledby="sec-title-sys">
+      <div class="cagp-settings-group-header">
+        <div class="d-flex align-items-center gap-2">
+          <i class="bi bi-hdd-stack-fill fs-4 text-dark" aria-hidden="true"></i>
+          <div>
+            <h2 id="sec-title-sys" class="cagp-settings-group-title mb-0">Sistema &amp; Armazenamento Offline</h2>
+            <small class="text-muted">Controle do Service Worker, modo de visualização e guias do estudante</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="cagp-settings-card mt-3">
+        <!-- 4.1 Modo de Visualização -->
+        <div class="cagp-settings-row">
+          <div class="cagp-settings-info">
+            <strong class="d-block"><i class="bi bi-display me-1 text-primary"></i> Modo de Visualização</strong>
+            <span class="small text-muted">Alterne entre a casca Super App (PWA) e o Portal Web Clássico</span>
+          </div>
+          <button type="button" class="cagp-btn cagp-btn-outline btn-sm" onclick="window.cagpToggleAppMode &amp;&amp; window.cagpToggleAppMode()">
+            Alternar Modo
+          </button>
+        </div>
+
+        <!-- 4.2 Status do Cache Offline -->
+        <div class="cagp-settings-row">
+          <div class="cagp-settings-info">
+            <strong class="d-block"><i class="bi bi-cloud-check-fill me-1 text-success"></i> Status do Cache PWA</strong>
+            <span class="small text-muted">15 rotas, 27 obrigatórias, 68 optativas e 9 PDFs essenciais sincronizados</span>
+          </div>
+          <span class="badge bg-success text-white" id="cfg-offline-badge">100% Offline Pronto</span>
+        </div>
+
+        <!-- 4.3 Rever Boas-Vindas -->
+        <div class="cagp-settings-row">
+          <div class="cagp-settings-info">
+            <strong class="d-block"><i class="bi bi-compass me-1 text-danger"></i> Guia Discente &amp; Boas-Vindas</strong>
+            <span class="small text-muted">Reative os avisos contextuais e o tour explicativo do portal</span>
+          </div>
+          <button type="button" id="cfg-reset-onboard-btn" class="cagp-btn cagp-btn-outline btn-sm">
+            Rever Dicas
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 5: TERMOS, REGIMENTOS & TRANSPARÊNCIA (BENCHMARK) -->
+    <section class="cagp-settings-group mb-4" id="termos" aria-labelledby="sec-title-termos">
+      <div class="cagp-settings-group-header">
+        <div class="d-flex align-items-center gap-2">
+          <i class="bi bi-journal-text fs-4 text-danger" aria-hidden="true"></i>
+          <div>
+            <h2 id="sec-title-termos" class="cagp-settings-group-title mb-0">Termos, Regimentos &amp; Transparência</h2>
+            <small class="text-muted">Atos normativos autênticos, estatuto do centro acadêmico e governança</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="cagp-settings-card mt-3">
+        <div class="cagp-grouped-list">
+          <a href="sobre.html#estatuto-2024" class="cagp-grouped-item" data-cagp-nav>
+            <div class="cagp-grouped-item-content">
+              <strong class="cagp-grouped-item-title">Regimento Interno do CAGP (14/10/2024)</strong>
+              <span class="cagp-grouped-item-desc">Estatuto soberano aprovado em Assembleia Geral discente da FAFICH</span>
+            </div>
+            <i class="bi bi-chevron-right cagp-grouped-chevron" aria-hidden="true"></i>
+          </a>
+
+          <a href="documentos.html#atos" class="cagp-grouped-item" data-cagp-nav>
+            <div class="cagp-grouped-item-content">
+              <strong class="cagp-grouped-item-title">Regulamento do Curso de Gestão Pública (Versão N-20229)</strong>
+              <span class="cagp-grouped-item-desc">Normas de integralização, AAC, estágio supervisionado e TCC</span>
+            </div>
+            <i class="bi bi-chevron-right cagp-grouped-chevron" aria-hidden="true"></i>
+          </a>
+
+          <a href="documentos.html#drca" class="cagp-grouped-item" data-cagp-nav>
+            <div class="cagp-grouped-item-content">
+              <strong class="cagp-grouped-item-title">Resoluções CEPE/UFMG (06/2019 e Normas Gerais)</strong>
+              <span class="cagp-grouped-item-desc">Prazos de aproveitamento de estudos e diretrizes acadêmicas federais</span>
+            </div>
+            <i class="bi bi-chevron-right cagp-grouped-chevron" aria-hidden="true"></i>
+          </a>
+
+          <a href="gestao.html#contas" class="cagp-grouped-item" data-cagp-nav>
+            <div class="cagp-grouped-item-content">
+              <strong class="cagp-grouped-item-title">Prestação de Contas &amp; Transparência Ativa (RREO)</strong>
+              <span class="cagp-grouped-item-desc">Atas de reuniões da diretoria publicadas em até 3 dias úteis</span>
+            </div>
+            <i class="bi bi-chevron-right cagp-grouped-chevron" aria-hidden="true"></i>
+          </a>
+
+          <div class="cagp-grouped-item border-0">
+            <div class="cagp-grouped-item-content">
+              <strong class="cagp-grouped-item-title">Privacidade Discente &amp; LGPD (Zero-Servidor)</strong>
+              <span class="cagp-grouped-item-desc">Este portal é 100% estático. Nenhum dado do perfil, notas ou horas trafega para nuvens privadas.</span>
+            </div>
+            <span class="badge bg-success text-white">Privacidade Ativa</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Coluna Lateral (Resumo Discente & Acesso Rápido) -->
+  <div class="col-lg-4">
+    <!-- Card de Acesso Rápido ao Passaporte -->
+    <div class="cagp-sidebar-card p-3 border border-dark rounded-1 bg-white mb-4 shadow-sm">
+      <div class="d-flex align-items-center gap-2 mb-2">
+        <span class="cagp-avatar-frame cagp-avatar-frame--md" data-cagp-avatar-host>
+          <img class="cagp-profile-avatar-img" src="imagens/carteirinha.png" alt="Foto do estudante" width="40" height="40" hidden>
+          <span class="cagp-profile-avatar-fallback" aria-hidden="true"><i class="bi bi-person-badge-fill"></i></span>
+          <span class="cagp-pride-pin cagp-pride-pin--sm" data-cagp-pride-pin hidden aria-hidden="true"></span>
+        </span>
+        <div>
+          <strong class="d-block font-display text-uppercase" data-cagp-profile-name-display>Estudante de Gestão Pública</strong>
+          <small class="text-muted" data-cagp-profile-period-display>1º Período</small>
+        </div>
+      </div>
+
+      <div class="small text-muted mb-3">
+        Atualize sua foto, dados acadêmicos, áreas de interesse e consentimento do Banco de Talentos.
+      </div>
+
+      <button type="button" class="cagp-btn cagp-btn-primary btn-sm w-100" data-cagp-open-passport="true">
+        <i class="bi bi-person-vcard me-1"></i> Abrir Passaporte &amp; Perfil
+      </button>
+    </div>
+
+    <!-- Card de Informações do Sistema -->
+    <div class="cagp-sidebar-card p-3 border border-dark rounded-1 bg-light">
+      <div class="fw-bold font-display text-uppercase small mb-2">
+        <i class="bi bi-info-circle me-1 text-primary"></i> Sobre o Super App
+      </div>
+      <ul class="list-unstyled small mb-3 text-muted">
+        <li class="mb-1"><strong>Versão:</strong> 2.2.0 (Brite Institucional)</li>
+        <li class="mb-1"><strong>PPC Vigente:</strong> 2020 / Versão N-20229</li>
+        <li class="mb-1"><strong>Motor:</strong> Quarto CLI + PWA Offline</li>
+        <li class="mb-1"><strong>Licença:</strong> MIT (Software Livre &amp; Aberto)</li>
+      </ul>
+      <div class="text-center">
+        <a href="https://github.com/cagp-ufmg" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-dark font-display text-uppercase w-100">
+          <i class="bi bi-github me-1"></i> Repositório no GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script data-cagp-persistent-script="true">
+(function () {
+  'use strict';
+
+  function initConfiguracoesPage() {
+    // 1. Sincronizar Controles de Acessibilidade com window.cagpA11y
+    const fontBtns = document.querySelectorAll('[data-cfg-font]');
+    const togDyslexia = document.getElementById('cfg-toggle-dyslexia');
+    const togRuler = document.getElementById('cfg-toggle-ruler');
+    const togContrast = document.getElementById('cfg-toggle-contrast');
+    const togMotion = document.getElementById('cfg-toggle-motion');
+
+    function syncA11yUI(prefs) {
+      if (!prefs) {
+        if (window.cagpA11y && window.cagpA11y.getPrefs) {
+          prefs = window.cagpA11y.getPrefs();
+        } else {
+          return;
+        }
+      }
+      fontBtns.forEach(function (btn) {
+        const step = btn.getAttribute('data-cfg-font');
+        const active = step === prefs.font;
+        btn.classList.toggle('is-active', active);
+        btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      if (togDyslexia) togDyslexia.checked = Boolean(prefs.dyslexia);
+      if (togRuler) togRuler.checked = Boolean(prefs.ruler);
+      if (togContrast) togContrast.checked = prefs.contrast === 'high';
+      if (togMotion) togMotion.checked = prefs.motion === 'reduced' || prefs.motion === 'reduce' || prefs.motion === true;
+    }
+
+    fontBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const step = btn.getAttribute('data-cfg-font');
+        if (window.cagpA11y && window.cagpA11y.setFont) {
+          window.cagpA11y.setFont(step);
+        }
+      });
+    });
+
+    if (togDyslexia) {
+      togDyslexia.addEventListener('change', function () {
+        if (window.cagpA11y && window.cagpA11y.toggleDyslexia) {
+          window.cagpA11y.toggleDyslexia(togDyslexia.checked);
+        }
+      });
+    }
+
+    if (togRuler) {
+      togRuler.addEventListener('change', function () {
+        if (window.cagpA11y && window.cagpA11y.toggleRuler) {
+          window.cagpA11y.toggleRuler(togRuler.checked);
+        }
+      });
+    }
+
+    if (togContrast) {
+      togContrast.addEventListener('change', function () {
+        if (window.cagpA11y && window.cagpA11y.toggleContrast) {
+          window.cagpA11y.toggleContrast(togContrast.checked ? 'high' : 'normal');
+        }
+      });
+    }
+
+    if (togMotion) {
+      togMotion.addEventListener('change', function () {
+        if (window.cagpA11y && window.cagpA11y.toggleMotion) {
+          window.cagpA11y.toggleMotion(togMotion.checked);
+        }
+      });
+    }
+
+    window.addEventListener('cagp:a11y:changed', function (e) {
+      syncA11yUI(e.detail);
+    });
+
+    syncA11yUI();
+
+    // 2. Sincronizar Alertas Noturnos
+    const notifRu = document.getElementById('cfg-notif-ru1815');
+    const notifCirc = document.getElementById('cfg-notif-circular2230');
+    const notifAac = document.getElementById('cfg-notif-aac120d');
+
+    function loadNotifs() {
+      try {
+        const raw = localStorage.getItem('cagp_notifications_prefs_v1');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (notifRu && typeof parsed.ru1815 === 'boolean') notifRu.checked = parsed.ru1815;
+          if (notifCirc && typeof parsed.circular2230 === 'boolean') notifCirc.checked = parsed.circular2230;
+          if (notifAac && typeof parsed.aac120d === 'boolean') notifAac.checked = parsed.aac120d;
+        }
+      } catch (e) {}
+    }
+
+    function saveNotifs() {
+      try {
+        const prefs = {
+          ru1815: notifRu ? notifRu.checked : false,
+          circular2230: notifCirc ? notifCirc.checked : false,
+          aac120d: notifAac ? notifAac.checked : true,
+          lastFired: {}
+        };
+        localStorage.setItem('cagp_notifications_prefs_v1', JSON.stringify(prefs));
+      } catch (e) {}
+    }
+
+    if (notifRu) notifRu.addEventListener('change', saveNotifs);
+    if (notifCirc) notifCirc.addEventListener('change', saveNotifs);
+    if (notifAac) notifAac.addEventListener('change', saveNotifs);
+    loadNotifs();
+
+    // Teste de notificação nativa
+    const testNotifBtn = document.getElementById('cfg-notif-test-btn');
+    if (testNotifBtn) {
+      testNotifBtn.addEventListener('click', function () {
+        if (!('Notification' in window)) {
+          if (window.cagpToast) window.cagpToast('Seu navegador não suporta a Notifications API.', 'bi-exclamation-triangle', 3000);
+          return;
+        }
+        Notification.requestPermission().then(function (perm) {
+          if (perm === 'granted') {
+            try {
+              new Notification('CAGP UFMG — Campus Agora', {
+                body: 'Notificações nativas ativadas! Você receberá avisos do RU II e Circular.',
+                icon: 'imagens/pwa/pwa-192x192.png'
+              });
+            } catch (e) {}
+            if (window.cagpToast) window.cagpToast('Permissão de notificações confirmada!', 'bi-check-circle-fill', 2500);
+          } else {
+            if (window.cagpToast) window.cagpToast('Permissão de notificações não concedida.', 'bi-x-circle', 2500);
+          }
+        });
+      });
+    }
+
+    // 3. Backup JSON & Sincronização
+    const exportBtn = document.getElementById('cfg-sync-export-btn');
+    const importBtn = document.getElementById('cfg-sync-import-btn');
+    const fileInput = document.getElementById('cfg-sync-file-input');
+    const copyCodeBtn = document.getElementById('cfg-sync-copy-code-btn');
+    const applyCodeBtn = document.getElementById('cfg-sync-apply-code-btn');
+    const codeInput = document.getElementById('cfg-sync-code-input');
+    const clearVaultBtn = document.getElementById('cfg-clear-vault-btn');
+
+    if (exportBtn) {
+      exportBtn.addEventListener('click', function () {
+        const payload = window.cagpBuildBackupPayload ? window.cagpBuildBackupPayload() : null;
+        if (!payload) {
+          if (window.cagpToast) window.cagpToast('Nenhum dado encontrado para exportar.', 'bi-info-circle', 2000);
+          return;
+        }
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'cagp-backup-' + new Date().toISOString().slice(0, 10) + '.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        if (window.cagpToast) window.cagpToast('Arquivo JSON de backup exportado com sucesso!', 'bi-download', 2500);
+      });
+    }
+
+    if (importBtn && fileInput) {
+      importBtn.addEventListener('click', function () {
+        fileInput.value = '';
+        fileInput.click();
+      });
+      fileInput.addEventListener('change', function () {
+        if (!fileInput.files || !fileInput.files[0]) return;
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          try {
+            const data = JSON.parse(e.target.result);
+            if (window.cagpRestoreVaultFromPayload && window.cagpRestoreVaultFromPayload(data)) {
+              if (window.cagpToast) window.cagpToast('Cofre Discente restaurado do arquivo JSON!', 'bi-check2-circle', 3000);
+              loadNotifs();
+              syncA11yUI();
+            } else {
+              if (window.cagpToast) window.cagpToast('Arquivo JSON inválido para o Cofre Discente.', 'bi-x-circle', 3000);
+            }
+          } catch (err) {
+            if (window.cagpToast) window.cagpToast('Erro ao ler arquivo JSON.', 'bi-x-circle', 3000);
+          }
+        };
+        reader.readAsText(fileInput.files[0]);
+      });
+    }
+
+    if (copyCodeBtn && codeInput) {
+      copyCodeBtn.addEventListener('click', function () {
+        if (window.cagpGenerateQuickCode) {
+          const code = window.cagpGenerateQuickCode();
+          codeInput.value = code;
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(code).then(function () {
+              if (window.cagpToast) window.cagpToast('Código CAGP1:... gerado e copiado!', 'bi-clipboard-check', 2500);
+            });
+          } else {
+            codeInput.select();
+            if (window.cagpToast) window.cagpToast('Código gerado! Selecione e copie.', 'bi-clipboard', 2500);
+          }
+        }
+      });
+    }
+
+    if (applyCodeBtn && codeInput) {
+      applyCodeBtn.addEventListener('click', function () {
+        const val = codeInput.value.trim();
+        if (!val) {
+          if (window.cagpToast) window.cagpToast('Cole o código CAGP1:... antes de restaurar.', 'bi-exclamation-circle', 2500);
+          return;
+        }
+        if (window.cagpRestoreFromQuickCode && window.cagpRestoreFromQuickCode(val)) {
+          if (window.cagpToast) window.cagpToast('Dados restaurados com sucesso!', 'bi-check2-circle', 3000);
+          loadNotifs();
+          syncA11yUI();
+        } else {
+          if (window.cagpToast) window.cagpToast('Código de restauração inválido ou corrompido.', 'bi-x-circle', 3000);
+        }
+      });
+    }
+
+    if (clearVaultBtn) {
+      clearVaultBtn.addEventListener('click', function () {
+        if (window.confirm('Tem certeza que deseja limpar todos os dados salvos das calculadoras, checklist e passaporte neste navegador?')) {
+          if (window.cagpClearVault) {
+            window.cagpClearVault();
+          } else {
+            const keys = [
+              'cagp_calc_ext_aac_v1',
+              'cagp_aac_120d_certs_v1',
+              'cagp_notifications_prefs_v1',
+              'cagp_calouro_checklist_v1',
+              'cagp_percurso_quiz_v1',
+              'cagp_minha_grade_v1',
+              'cagp_art41_checklist_v1',
+              'cagp_student_profile_v1'
+            ];
+            keys.forEach(function (k) { localStorage.removeItem(k); });
+          }
+          if (window.cagpToast) window.cagpToast('Cofre Discente limpo.', 'bi-trash3', 2500);
+          loadNotifs();
+          syncA11yUI();
+        }
+      });
+    }
+
+    // 4. Redefinir Dicas
+    const resetOnboardBtn = document.getElementById('cfg-reset-onboard-btn');
+    if (resetOnboardBtn) {
+      resetOnboardBtn.addEventListener('click', function () {
+        localStorage.removeItem('cagp_onboard_v1_dismissed');
+        sessionStorage.clear();
+        if (window.cagpToast) window.cagpToast('Dicas e tour de boas-vindas reativados!', 'bi-arrow-counterclockwise', 2500);
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initConfiguracoesPage);
+  } else {
+    initConfiguracoesPage();
+  }
+
+  window.addEventListener('cagp:navigated', function () {
+    if (window.location.pathname.endsWith('configuracoes.html') || window.location.pathname.endsWith('configuracoes')) {
+      initConfiguracoesPage();
+      if (window.location.hash === '#acessibilidade') {
+        const sec = document.getElementById('acessibilidade');
+        if (sec) setTimeout(function () { sec.scrollIntoView({ behavior: 'smooth' }); }, 150);
+      }
+    }
+  });
+})();
+</script>
+```

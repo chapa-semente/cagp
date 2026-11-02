@@ -1,0 +1,435 @@
+<!-- ======================================================================= -->
+<!-- Spotlight Command Palette & Busca Global — CAGP UFMG (Super App Engine)  -->
+<!-- Acessibilidade WCAG 2.1 AAA • Apple HIG Spotlight • Google M3 Expressive -->
+<!-- ======================================================================= -->
+
+<div id="cagp-spotlight-modal" class="cagp-spotlight-modal" role="dialog" aria-modal="true" aria-label="Paleta de Comandos e Busca Global do CAGP" hidden>
+  <div class="cagp-spotlight-backdrop" id="cagp-spotlight-backdrop"></div>
+  
+  <div class="cagp-spotlight-dialog" role="document">
+    <!-- Drag Handle para ergonomia móvel (Apple Bottom Sheet & M3 Standard) -->
+    <div class="cagp-sheet-handle" aria-hidden="true"></div>
+
+    <!-- Barra de Entrada de Pesquisa -->
+    <div class="cagp-spotlight-searchbar">
+      <i class="bi bi-search cagp-spotlight-searchbar-icon" aria-hidden="true"></i>
+      <input type="search" id="cagp-spotlight-input" class="cagp-spotlight-input"
+             placeholder="Buscar páginas, ementas, ACG, PDFs, grupos do DCP..."
+             inputmode="search" enterkeyhint="search"
+             autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+             aria-autocomplete="list" aria-controls="cagp-spotlight-results">
+      <div class="cagp-spotlight-actions">
+        <button type="button" id="cagp-spotlight-clear" class="cagp-spotlight-clear-btn" aria-label="Limpar termo digitado" hidden>
+          <i class="bi bi-x-circle-fill" aria-hidden="true"></i>
+        </button>
+        <button type="button" id="cagp-spotlight-close" class="cagp-spotlight-close-btn" aria-label="Fechar busca (Esc)">
+          <kbd class="cagp-spotlight-kbd">ESC</kbd>
+        </button>
+      </div>
+    </div>
+
+    <!-- Container Rolável de Conteúdo -->
+    <div class="cagp-spotlight-body" id="cagp-spotlight-body">
+      <!-- 1. Painel de Ações Rápidas (visível ao abrir, antes de digitar) -->
+      <div id="cagp-spotlight-quick" class="cagp-spotlight-section">
+        <div class="cagp-spotlight-section-title">
+          <i class="bi bi-lightning-charge-fill" aria-hidden="true"></i> Acesso Rápido & Ações Frequentes
+        </div>
+        <div class="cagp-spotlight-quick-grid">
+          <a href="acg.html#calculadora" class="cagp-spotlight-quick-card" data-cagp-nav>
+            <div class="cagp-spotlight-quick-icon cagp-bg-gold"><i class="bi bi-calculator"></i></div>
+            <div class="cagp-spotlight-quick-info">
+              <span class="cagp-spotlight-quick-label">Calculadora ACG 600h</span>
+              <span class="cagp-spotlight-quick-sub">Extensão 300h + AAC 300h</span>
+            </div>
+          </a>
+          <a href="optativas.html#catalogo-optativas" class="cagp-spotlight-quick-card" data-cagp-nav>
+            <div class="cagp-spotlight-quick-icon cagp-bg-bordeaux"><i class="bi bi-journal-text"></i></div>
+            <div class="cagp-spotlight-quick-info">
+              <span class="cagp-spotlight-quick-label">Catálogo de 68 Optativas</span>
+              <span class="cagp-spotlight-quick-sub">Filtros DCP, ECN, SOC e Formação Livre</span>
+            </div>
+          </a>
+          <a href="pesquisa.html#grupos-pesquisa" class="cagp-spotlight-quick-card" data-cagp-nav>
+            <div class="cagp-spotlight-quick-icon cagp-bg-blue"><i class="bi bi-diagram-3-fill"></i></div>
+            <div class="cagp-spotlight-quick-info">
+              <span class="cagp-spotlight-quick-label">Pesquisa & 11 Núcleos DCP</span>
+              <span class="cagp-spotlight-quick-sub">Iniciação Científica (90h) e Imersão</span>
+            </div>
+          </a>
+          <a href="documentos.html" class="cagp-spotlight-quick-card" data-cagp-nav>
+            <div class="cagp-spotlight-quick-icon cagp-bg-green"><i class="bi bi-file-earmark-pdf"></i></div>
+            <div class="cagp-spotlight-quick-info">
+              <span class="cagp-spotlight-quick-label">Documentos & Resoluções</span>
+              <span class="cagp-spotlight-quick-sub">PPC N-20229, Regimento e Formulários</span>
+            </div>
+          </a>
+          <a href="estagio.html#simulador-art41" class="cagp-spotlight-quick-card" data-cagp-nav>
+            <div class="cagp-spotlight-quick-icon cagp-bg-charcoal"><i class="bi bi-briefcase-fill"></i></div>
+            <div class="cagp-spotlight-quick-info">
+              <span class="cagp-spotlight-quick-label">Estágio & Dispensa Art. 41</span>
+              <span class="cagp-spotlight-quick-sub">Simulador 300h e Termo TCE</span>
+            </div>
+          </a>
+          <a href="tcc.html#modalidades-tcc" class="cagp-spotlight-quick-card" data-cagp-nav>
+            <div class="cagp-spotlight-quick-icon cagp-bg-sand"><i class="bi bi-mortarboard-fill"></i></div>
+            <div class="cagp-spotlight-quick-info">
+              <span class="cagp-spotlight-quick-label">TCC &amp; 4 Modalidades</span>
+              <span class="cagp-spotlight-quick-sub">DCP 089/137 e Termo de Aceite</span>
+            </div>
+          </a>
+          <button type="button" class="cagp-spotlight-quick-card text-start" onclick="window.closeCagpSpotlight(); window.cagpOpenCampusSheet &amp;&amp; window.cagpOpenCampusSheet()">
+            <div class="cagp-spotlight-quick-icon cagp-bg-gold"><i class="bi bi-clock-history"></i></div>
+            <div class="cagp-spotlight-quick-info">
+              <span class="cagp-spotlight-quick-label">Campus Agora (Noturno)</span>
+              <span class="cagp-spotlight-quick-sub">Status ao vivo: RU II, Circular 22h45 e CEAG</span>
+            </div>
+          </button>
+          <button type="button" class="cagp-spotlight-quick-card text-start" data-cagp-open-passport="true">
+            <div class="cagp-spotlight-quick-icon cagp-bg-bordeaux"><i class="bi bi-person-vcard-fill"></i></div>
+            <div class="cagp-spotlight-quick-info">
+              <span class="cagp-spotlight-quick-label">Passaporte &amp; Foto (Perfil)</span>
+              <span class="cagp-spotlight-quick-sub">Editar foto 256×256, período, bandeira e Sync</span>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. Lista de Resultados Filtrados em Tempo Real -->
+      <div id="cagp-spotlight-results" class="cagp-spotlight-results" role="listbox" hidden></div>
+
+      <!-- 3. Estado Vazio / Sem Resultados -->
+      <div id="cagp-spotlight-empty" class="cagp-spotlight-empty" hidden>
+        <div class="cagp-spotlight-empty-icon"><i class="bi bi-search"></i></div>
+        <div class="cagp-spotlight-empty-title">Nenhum resultado para esta consulta</div>
+        <div class="cagp-spotlight-empty-desc">
+          Tente termos mais amplos (ex.: "estágio", "ru", "dispensa", "tcc") ou navegue pelo <a href="mapa-do-site.html" class="cagp-spotlight-empty-link" data-cagp-nav>Mapa do Site</a>.
+        </div>
+      </div>
+    </div>
+
+    <!-- Rodapé Acessível e Dicas de Atalho -->
+    <div class="cagp-spotlight-footer">
+      <div class="cagp-spotlight-footer-tips">
+        <span class="cagp-spotlight-tip"><kbd>↑</kbd><kbd>↓</kbd> Navegar</span>
+        <span class="cagp-spotlight-tip"><kbd>↵</kbd> Acessar</span>
+        <span class="cagp-spotlight-tip"><kbd>ESC</kbd> Fechar</span>
+      </div>
+      <div class="cagp-spotlight-footer-brand">
+        <span class="cagp-spotlight-tag">CAGP SUPER APP</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script data-cagp-persistent-script="true">
+(function () {
+  'use strict';
+
+  if (window.__cagpSpotlightMounted) return;
+  window.__cagpSpotlightMounted = true;
+
+  // 1. Catálogo Mestre Indexado em Memória
+  const CAGP_CATALOG = [
+    // --- Páginas Principais (14 Rotas Canônicas) ---
+    { title: "Início (Página Inicial)", cat: "Página", badge: "Hub", href: "index.html", desc: "Portal do CAGP, acolhimento discente, atalhos para sistemas UFMG e avisos prioritários.", keywords: "home inicio portal sistemas fafich chapa colegiado" },
+    { title: "O Curso de Gestão Pública", cat: "Página", badge: "Graduação", href: "curso.html", desc: "História, corpo docente, cientometria nacional, perfil do egresso e Colegiado.", keywords: "curso fafich corpo docente professores cientometria competencias egresso colegiado" },
+    { title: "Pesquisa, IC & 11 Núcleos do DCP", cat: "Página", badge: "Pesquisa", href: "pesquisa.html", desc: "Diretório dos 11 grupos de pesquisa do DCP, guia de Iniciação Científica (90h AAC) e Programa de Imersão.", keywords: "pesquisa iniciacao cientifica ic pibic fapemig cnpq nucleos grupos dcp imersao campo de publicas" },
+    { title: "Guia do Calouro (1º Período)", cat: "Página", badge: "Acolhimento", href: "calouros.html", desc: "Rotina noturna, refeições no RU II, circulares Interno Rotas, carteirinha e checklist.", keywords: "calouros primeiro periodo ru restaurante universitario onibus circulares carteirinha fump prae biblioteca face" },
+    { title: "Percurso & Ementas (10 Semestres)", cat: "Página", badge: "Matriz", href: "percurso.html", desc: "27 disciplinas obrigatórias, grafo interativo de pré-requisitos e simulador dos 3 percursos.", keywords: "percurso ementas matriz curricular obrigatorias grade periodos pre-requisitos grafo" },
+    { title: "Catálogo de 68 Optativas & Formação Livre", cat: "Página", badge: "Optativas", href: "optativas.html", desc: "Catálogo interativo das 68 disciplinas optativas por departamento (DCP, ECN, SOC, CAD, DEM, DIR) e regras de 120h de Formação Livre.", keywords: "optativas catalogo 68 disciplinas eletivas formacao livre 120h dcp economia sociologia favoritos" },
+    { title: "Extensão & Horas AAC (600h)", cat: "Página", badge: "Integralização", href: "acg.html", desc: "Calculadora de integralização 600h, Extensão 300h, 7 modalidades de AAC e Guardião de 120 dias.", keywords: "acg aac extensao 300h 600h horas complementares calculadora guardiao 120 dias voluntariado colegiado" },
+    { title: "Estágio Supervisionado & Dispensa Art. 41", cat: "Página", badge: "Estágio", href: "estagio.html", desc: "Estágio Obrigatório A (DCP 135, 180h) e B (DCP 136, 120h), simulador de dispensa Art. 41 e tutorial TCE.", keywords: "estagio supervisionado obrigatorio nao obrigatorio dcp135 dcp136 art 41 dispensa profissional vinculo tce" },
+    { title: "Trabalho de Conclusão de Curso (TCC)", cat: "Página", badge: "TCC", href: "tcc.html", desc: "Projeto (DCP 089, 60h) e Defesa (DCP 137, 120h), as 4 modalidades oficiais de TCC e Termo de Aceite.", keywords: "tcc trabalho conclusao curso dcp089 dcp137 monografia artigo cientifico relatorio tecnico projeto intervencao orientador" },
+    { title: "Documentos & Formulários Oficiais", cat: "Página", badge: "Acervo", href: "documentos.html", desc: "Cofre de 9 PDFs essenciais na íntegra offline, PPC N-20229, Regimento 2024, formulários e instruções SEI-UFMG.", keywords: "documentos pdfs ppc regimento regulamento estagio sei requerimento normas resolucoes cofre offline" },
+    { title: "Dúvidas Frequentes (FAQ)", cat: "Página", badge: "Ajuda", href: "faq.html", desc: "Respostas diretas sobre CEAG, mobilidade, trancamento, aproveitamento e prazos.", keywords: "faq duvidas perguntas frequentes ceag trancamento prazos secretaria colegiado" },
+    { title: "O Centro Acadêmico (Sobre o CAGP)", cat: "Página", badge: "Institucional", href: "sobre.html", desc: "Regimento 2024, Os Candangos, Bruno Giorgi, Assembleia Geral e Junta Eleitoral.", keywords: "sobre cagp candangos bruno giorgi estatuto regimento interno historia diretoria representacao" },
+    { title: "Gestão em Exercício & Equipe", cat: "Página", badge: "Governança", href: "gestao.html", desc: "Organograma, as 7 diretorias canônicas, transparência ativa e chamada para assessores.", keywords: "gestao equipe diretorias dipre dijur difi diac diap dicult dimac transparencia contas" },
+    { title: "Mapa do Site", cat: "Página", badge: "Navegação", href: "mapa-do-site.html", desc: "Visão panorâmica das 14 rotas em 5 eixos e busca em tempo real com leitor de tela WCAG 2.1.", keywords: "mapa site sitemap navegacao panoramica atalhos indice busca" },
+    { title: "Configurações do Super App", cat: "Página", badge: "Sistema", href: "configuracoes.html", desc: "Acessibilidade universal, alertas do campus, backup sync do cofre, modo visual e termos.", keywords: "configuracoes ajustes preferencias sistema acessibilidade alertas backup sync exportar importar cofre termos" },
+    { title: "Acessibilidade Universal & Leitura", cat: "Ferramenta", badge: "Acessibilidade", href: "configuracoes.html#acessibilidade", desc: "Escala tipográfica, fonte para dislexia, régua de foco, alto contraste AAA e movimento reduzido.", keywords: "acessibilidade fonte texto tamanho dislexia regua contraste alto contraste movimento animacao leitura" },
+
+    // --- Ferramentas Interativas & Seções de Alta Demanda ---
+    { title: "Calculadora de ACG (600h)", cat: "Ferramenta", badge: "Calculadora", href: "acg.html#calculadora", desc: "Simulador interativo no navegador com gavetas O que conta / O que não conta e tags de teto.", keywords: "calculadora acg horas simulador extensao aac 600h 300h modalidades teto" },
+    { title: "Guardião de 120 Dias das AAC (Art. 15, § 4º)", cat: "Ferramenta", badge: "Prazo Fatal", href: "acg.html#guardiao-120-dias", desc: "Monitor de contagem regressiva de 120 dias corridos para eventos e publicações em anais.", keywords: "guardiao 120 dias prazo decadencial eventos anais certificados alerta" },
+    { title: "Simulador de Dispensa de Estágio (Art. 41)", cat: "Ferramenta", badge: "Simulador", href: "estagio.html#simulador-art41", desc: "Checklist interativo para abater até 300h de Estágio A e B com vínculo profissional ou público.", keywords: "simulador art 41 dispensa estagio vinculo servidor clt estagio nao obrigatorio" },
+    { title: "4 Modalidades Oficiais de TCC (Art. 47)", cat: "Ferramenta", badge: "TCC", href: "tcc.html#modalidades-tcc", desc: "Comparativo de Monografia, Artigo Científico, Relatório Técnico e Projeto de Intervenção.", keywords: "modalidades tcc monografia artigo relatorio tecnico intervencao art 47" },
+    { title: "Catálogo Interativo de 68 Optativas", cat: "Ferramenta", badge: "Catálogo", href: "optativas.html#catalogo-optativas", desc: "Filtro dinâmico por departamento (DCP, Economia, Sociologia) e busca textual por ementa.", keywords: "optativas catalogo 68 disciplinas eletivas dcp ecn sociologia formacao livre" },
+    { title: "Grafo Curricular de Pré-Requisitos", cat: "Ferramenta", badge: "Grafo Interativo", href: "percurso.html#grafo-pre-requisitos", desc: "Mapa de dependências e trilhas conceituais (Economia, Metodologia, Gestão Governamental).", keywords: "grafo pre requisitos trilhas encadeamento mapa visual dependencias introdutorias" },
+    { title: "Circulares Noturnos & App Interno Rotas", cat: "Ferramenta", badge: "Mobilidade", href: "calouros.html#circulares-noturnos", desc: "Linhas internas no campus Pampulha até 22h45 e link para rastreamento em tempo real.", keywords: "onibus circulares interno rotas itinerario horarios pampulha transporte noturno" },
+    { title: "Refeições no RU II da FAFICH", cat: "Ferramenta", badge: "Alimentação", href: "calouros.html#ru-alimentacao", desc: "Jantar das 17h30 às 19h30, fila estratégica às 18h15 e acesso pela carteirinha digital.", keywords: "bandejao ru restaurante universitario alimentacao jantar fump fafich 19h30" },
+    { title: "Secretaria do Colegiado (Sala F-2039) & CEAG", cat: "Ferramenta", badge: "Atendimento", href: "curso.html#secretaria-colegiado", desc: "Escala semanal da secretária Norma Guedes, CEAG F-2033 até 22h00 e e-mails oficiais.", keywords: "secretaria colegiado sala f2039 f2033 ceag norma guedes horario atendimento isabele mitozo" },
+    { title: "Biblioteca da FAFICH (1º Andar) & FACE", cat: "Ferramenta", badge: "Estudos", href: "calouros.html#biblioteca", desc: "Acervo de ciências sociais na FAFICH e métodos quantitativos / econometria na FACE.", keywords: "biblioteca fafich face acervo livros salas estudo primeiro andar econometria" },
+    { title: "Checklist Interativo dos 30 Primeiros Dias", cat: "Ferramenta", badge: "Checklist", href: "calouros.html#checklist-calouro", desc: "6 etapas de sobrevivência para o calouro com celebração de boas-vindas.", keywords: "checklist calouro 30 dias passos sobrevivencia acolhimento carteirinha cracha comprovante" },
+
+    // --- Núcleos de Pesquisa do DCP ---
+    { title: "PUBLICUS — Políticas Públicas e Gestão Governamental", cat: "Pesquisa", badge: "DCP/UFMG", href: "pesquisa.html#grupos-pesquisa", desc: "Liderança Profa. Telma Menicucci. Análise de políticas públicas, burocracia e seguridade social.", keywords: "publicus telma menicucci politicas publicas burocracia gestao governamental dcp" },
+    { title: "CEPPI — Políticas Públicas e Inovação", cat: "Pesquisa", badge: "DCP/UFMG", href: "pesquisa.html#grupos-pesquisa", desc: "Liderança Profa. Isabele Mitozo. Governança digital, comunicação pública e inovação.", keywords: "ceppi isabele mitozo inovacao governanca digital comunicacao politica dcp" },
+    { title: "NESTH — Segurança, Trabalho e Cidadania", cat: "Pesquisa", badge: "DCP/UFMG", href: "pesquisa.html#grupos-pesquisa", desc: "Liderança Prof. Carlos Horta e Profa. Flávia Alves. Gestão de segurança e direitos.", keywords: "nesth seguranca publica trabalho direitos humanos carlos horta flavia alves" },
+    { title: "CEL — Centro de Estudos Legislativos", cat: "Pesquisa", badge: "DCP/UFMG", href: "pesquisa.html#grupos-pesquisa", desc: "Liderança Profa. Magna Inácio. Produção legislativa, coalizões e relações Executivo-Legislativo.", keywords: "cel centro estudos legislativos magna inacio legislativo congresso coalizoes" },
+    { title: "Rede Femjusp — Justiça e Segurança Pública", cat: "Pesquisa", badge: "DCP/UFMG", href: "pesquisa.html#grupos-pesquisa", desc: "Liderança Profa. Ludmila Ribeiro. Sistema de justiça criminal e segurança sob perspectiva de gênero.", keywords: "femjusp ludmila ribeiro justica criminal seguranca genero crisp dcp" },
+    { title: "MARGEM & OJB-AL — Democracia e Justiça", cat: "Pesquisa", badge: "DCP/UFMG", href: "pesquisa.html#grupos-pesquisa", desc: "Liderança Profª Marjorie Marona. Observatório de Justiça Brasileira e instituições judiciais.", keywords: "margem marjorie marona ojb stf judiciario democracia justica dcp" },
+    { title: "INCT / IDDC — Instituto da Democracia", cat: "Pesquisa", badge: "Rede Nacional", href: "pesquisa.html#grupos-pesquisa", desc: "Coordenação Prof. Leonardo Avritzer. Rede nacional CNPq de monitoramento democrático.", keywords: "inct iddc leonardo avritzer instituto democracia comunicacao participacao cnpq" },
+    { title: "PRODEP — Projeto Democracia Participativa", cat: "Pesquisa", badge: "DCP/UFMG", href: "pesquisa.html#grupos-pesquisa", desc: "Liderança Profa. Eleonora Cunha. Conselhos gestores, orçamento participativo e deliberação.", keywords: "prodep eleonora cunha orcamento participativo conselhos gestores participacao" },
+    { title: "NEPEM — Estudos sobre a Mulher", cat: "Pesquisa", badge: "DCP/UFMG", href: "pesquisa.html#grupos-pesquisa", desc: "Pioneirismo em políticas de gênero, desigualdade e representação feminina.", keywords: "nepem genero mulheres politicas publicas feminismo dcp fafich" },
+
+    // --- Documentos Normativos Oficiais ---
+    { title: "PPC Oficial do Curso de Gestão Pública", cat: "Documento", badge: "PDF", href: "documentos.html", desc: "Projeto Pedagógico do Curso integral (Versão N-20229) homologado pelo CEPE/UFMG.", keywords: "ppc projeto pedagogico normas creditos horas matriz curricular resolucao" },
+    { title: "Regimento Interno do CAGP (2024)", cat: "Documento", badge: "PDF", href: "documentos.html", desc: "Estatuto aprovado em Assembleia Geral de 14/10/2024. Estrutura e diretrizes do Centro Acadêmico.", keywords: "regimento interno estatuto cagp 2024 assembleia geral diretoria conselho fiscal" },
+    { title: "Regulamento de Estágio Supervisionado", cat: "Documento", badge: "PDF", href: "documentos.html", desc: "Regras de Estágio A e B, aproveitamento de atividade profissional (Art. 41) e termos.", keywords: "regulamento estagio supervisionado art 41 dispensa relatorio termo aditivo" },
+    { title: "Regulamento de ACG e Atividades Complementares", cat: "Documento", badge: "PDF", href: "documentos.html", desc: "Regras de pontuação das 7 modalidades de AAC, tetos e prazo decadencial de 120 dias.", keywords: "regulamento acg aac atividades complementares resolucao tabela pontuacao" },
+    { title: "Regulamento de TCC e Monografia", cat: "Documento", badge: "PDF", href: "documentos.html", desc: "Diretrizes de elaboração, orientação, bancas e as 4 modalidades de Trabalho de Conclusão.", keywords: "regulamento tcc monografia plano intervencao artigo cientifico estudo caso" },
+    { title: "Formulário Padrão de Requerimento de ACG", cat: "Documento", badge: "SEI / Colegiado", href: "documentos.html", desc: "Instruções passo a passo para preenchimento, assinatura da coordenação e protocolo.", keywords: "requerimento acg formulario modelo protocolo secretaria f2039 aproveitamento" }
+  ];
+
+  // Elementos do DOM
+  const modal = document.getElementById('cagp-spotlight-modal');
+  const backdrop = document.getElementById('cagp-spotlight-backdrop');
+  const input = document.getElementById('cagp-spotlight-input');
+  const clearBtn = document.getElementById('cagp-spotlight-clear');
+  const closeBtn = document.getElementById('cagp-spotlight-close');
+  const quickSection = document.getElementById('cagp-spotlight-quick');
+  const resultsContainer = document.getElementById('cagp-spotlight-results');
+  const emptyState = document.getElementById('cagp-spotlight-empty');
+  const bodyContainer = document.getElementById('cagp-spotlight-body');
+
+  let activeIndex = -1;
+  let currentResults = [];
+
+  // Normalizador de acentuação para busca inclusiva
+  function normalizeText(str) {
+    if (!str) return '';
+    return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+
+  function updateViewportHeight() {
+    if (!modal || modal.hasAttribute('hidden')) return;
+    if (window.visualViewport) {
+      const vh = window.visualViewport.height;
+      const vTop = window.visualViewport.offsetTop;
+      modal.style.setProperty('--cagp-vvh', vh + 'px');
+      modal.style.setProperty('--cagp-vvh-top', vTop + 'px');
+    }
+  }
+
+  // Abrir Spotlight
+  window.openCagpSpotlight = function () {
+    if (!modal) return;
+    if (window.cagpCloseAllOverlays) window.cagpCloseAllOverlays('cagp-spotlight-modal');
+    if (modal.parentElement !== document.body) {
+      document.body.appendChild(modal);
+    }
+    modal.removeAttribute('hidden');
+    document.body.classList.add('cagp-spotlight-open');
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', updateViewportHeight);
+      window.visualViewport.addEventListener('scroll', updateViewportHeight);
+      updateViewportHeight();
+    }
+    if (input) {
+      input.value = '';
+      input.focus();
+    }
+    renderInitialState();
+  };
+
+  // Fechar Spotlight
+  window.closeCagpSpotlight = function () {
+    if (!modal) return;
+    modal.setAttribute('hidden', '');
+    document.body.classList.remove('cagp-spotlight-open');
+    if (window.visualViewport) {
+      window.visualViewport.removeEventListener('resize', updateViewportHeight);
+      window.visualViewport.removeEventListener('scroll', updateViewportHeight);
+    }
+    modal.style.removeProperty('--cagp-vvh');
+    modal.style.removeProperty('--cagp-vvh-top');
+    activeIndex = -1;
+    currentResults = [];
+  };
+
+  function renderInitialState() {
+    if (clearBtn) clearBtn.setAttribute('hidden', '');
+    if (quickSection) quickSection.removeAttribute('hidden');
+    if (resultsContainer) {
+      resultsContainer.setAttribute('hidden', '');
+      resultsContainer.innerHTML = '';
+    }
+    if (emptyState) emptyState.setAttribute('hidden', '');
+    activeIndex = -1;
+  }
+
+  // Executar busca fuzzy
+  function performSearch(query) {
+    const rawQuery = query.trim();
+    const cleanQuery = normalizeText(rawQuery);
+
+    if (clearBtn) {
+      if (rawQuery.length > 0) clearBtn.removeAttribute('hidden');
+      else clearBtn.setAttribute('hidden', '');
+    }
+
+    if (cleanQuery.length === 0) {
+      renderInitialState();
+      return;
+    }
+
+    if (quickSection) quickSection.setAttribute('hidden', '');
+
+    const terms = cleanQuery.split(/\s+/).filter(Boolean);
+
+    currentResults = CAGP_CATALOG.filter(function (item) {
+      const target = normalizeText(item.title + ' ' + item.cat + ' ' + item.badge + ' ' + item.desc + ' ' + item.keywords);
+      return terms.every(function (term) {
+        return target.indexOf(term) !== -1;
+      });
+    });
+
+    renderResults(currentResults, rawQuery);
+  }
+
+  function renderResults(results, rawQuery) {
+    if (!resultsContainer) return;
+    activeIndex = -1;
+
+    if (results.length === 0) {
+      resultsContainer.setAttribute('hidden', '');
+      if (emptyState) emptyState.removeAttribute('hidden');
+      return;
+    }
+
+    if (emptyState) emptyState.setAttribute('hidden', '');
+    resultsContainer.removeAttribute('hidden');
+
+    let html = '';
+    results.forEach(function (item, index) {
+      const badgeClass = item.cat === 'Página' ? 'cagp-badge-page' :
+                         item.cat === 'Ferramenta' ? 'cagp-badge-tool' :
+                         item.cat === 'Pesquisa' ? 'cagp-badge-research' : 'cagp-badge-doc';
+
+      html += '<a href="' + item.href + '" class="cagp-spotlight-item" role="option" data-index="' + index + '" data-cagp-nav>' +
+                '<div class="cagp-spotlight-item-badge ' + badgeClass + '">' + item.badge + '</div>' +
+                '<div class="cagp-spotlight-item-content">' +
+                  '<div class="cagp-spotlight-item-title">' + highlightMatch(item.title, rawQuery) + '</div>' +
+                  '<div class="cagp-spotlight-item-desc">' + item.desc + '</div>' +
+                '</div>' +
+                '<i class="bi bi-arrow-right cagp-spotlight-item-arrow" aria-hidden="true"></i>' +
+              '</a>';
+    });
+
+    resultsContainer.innerHTML = html;
+    // Selecionar o primeiro resultado por padrão para permitir navegação rápida
+    setActiveItem(0);
+  }
+
+  function highlightMatch(text, query) {
+    if (!query) return text;
+    const cleanQuery = normalizeText(query);
+    const cleanText = normalizeText(text);
+    const pos = cleanText.indexOf(cleanQuery);
+    if (pos === -1) return text;
+    const end = pos + query.length;
+    return text.substring(0, pos) + '<mark class="cagp-spotlight-highlight">' + text.substring(pos, end) + '</mark>' + text.substring(end);
+  }
+
+  function setActiveItem(index) {
+    const items = resultsContainer ? resultsContainer.querySelectorAll('.cagp-spotlight-item') : [];
+    if (items.length === 0) return;
+
+    items.forEach(function (el) { el.classList.remove('is-active'); });
+
+    if (index >= 0 && index < items.length) {
+      activeIndex = index;
+      const activeEl = items[activeIndex];
+      activeEl.classList.add('is-active');
+      activeEl.scrollIntoView({ block: 'nearest' });
+    } else {
+      activeIndex = -1;
+    }
+  }
+
+  // Teclado na Caixa de Busca
+  if (input) {
+    input.addEventListener('input', function (e) {
+      performSearch(e.target.value);
+    });
+
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        window.closeCagpSpotlight();
+        return;
+      }
+
+      const items = resultsContainer ? resultsContainer.querySelectorAll('.cagp-spotlight-item') : [];
+      if (items.length === 0) return;
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const next = activeIndex + 1 < items.length ? activeIndex + 1 : 0;
+        setActiveItem(next);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        const prev = activeIndex - 1 >= 0 ? activeIndex - 1 : items.length - 1;
+        setActiveItem(prev);
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (activeIndex >= 0 && activeIndex < items.length) {
+          items[activeIndex].click();
+        }
+      }
+    });
+  }
+
+  if (clearBtn) {
+    clearBtn.addEventListener('click', function () {
+      if (input) {
+        input.value = '';
+        input.focus();
+        performSearch('');
+      }
+    });
+  }
+
+  if (closeBtn) closeBtn.addEventListener('click', window.closeCagpSpotlight);
+  if (backdrop) backdrop.addEventListener('click', window.closeCagpSpotlight);
+
+  // Fechar e navegar ao clicar em um resultado
+  document.addEventListener('click', function (e) {
+    const item = e.target.closest('#cagp-spotlight-modal a');
+    if (item) {
+      const href = item.getAttribute('href');
+      window.closeCagpSpotlight();
+      if (href && window.cagpRouter && window.cagpRouter.navigate) {
+        e.preventDefault();
+        window.cagpRouter.navigate(href, false);
+      }
+    }
+  });
+
+  // Atalhos Globais: Cmd+K / Ctrl+K e '/'
+  document.addEventListener('keydown', function (e) {
+    const isModifier = e.metaKey || e.ctrlKey;
+    if (isModifier && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      if (modal && !modal.hasAttribute('hidden')) {
+        window.closeCagpSpotlight();
+      } else {
+        window.openCagpSpotlight();
+      }
+      return;
+    }
+
+    if (e.key === '/' && modal && !modal.hasAttribute('hidden')) {
+      return;
+    }
+
+    const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : '';
+    const isInput = tag === 'input' || tag === 'textarea' || (e.target && e.target.isContentEditable);
+    if (e.key === '/' && !isInput && !isModifier) {
+      e.preventDefault();
+      window.openCagpSpotlight();
+    }
+  });
+
+})();
+</script>

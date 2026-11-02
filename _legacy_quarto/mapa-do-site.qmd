@@ -1,0 +1,586 @@
+---
+title: "Mapa do Site"
+subtitle: "Índice estruturado, árvore temática completa das 15 rotas em 5 eixos e atalhos diretos para todas as áreas do portal do CAGP"
+description: "Mapa panorâmico da arquitetura de informação do portal discente do CAGP UFMG, estruturado em 5 eixos e 15 rotas ativas."
+title-block-style: none
+toc: false
+---
+
+```{=html}
+<header class="cagp-workspace-header" role="region" aria-label="Cabeçalho do Workspace Mapa do Site">
+  <div class="cagp-workspace-eyebrow">
+    <nav class="cagp-breadcrumbs" aria-label="Você está aqui: Trilha de navegação">
+      <ol class="cagp-breadcrumb-list" itemscope itemtype="https://schema.org/BreadcrumbList">
+        <li class="cagp-breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="index.html" itemprop="item"><i class="bi bi-house-door" aria-hidden="true"></i> <span itemprop="name">Início</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <li class="cagp-breadcrumb-separator" aria-hidden="true">&rsaquo;</li>
+        <li class="cagp-breadcrumb-item">
+          <span class="cagp-breadcrumb-parent">Acervo &amp; Ajuda</span>
+        </li>
+        <li class="cagp-breadcrumb-separator" aria-hidden="true">&rsaquo;</li>
+        <li class="cagp-breadcrumb-item is-active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page">
+          <span itemprop="name">Mapa do Site</span>
+          <meta itemprop="position" content="2" />
+        </li>
+      </ol>
+    </nav>
+    <div class="d-flex flex-wrap gap-1 align-items-center">
+      <span class="cagp-badge cagp-badge-red">Acessibilidade Universal</span>
+      <span class="cagp-badge cagp-badge-dark">15 Rotas Canônicas</span>
+      <span class="cagp-badge cagp-badge-gold">5 Eixos Temáticos</span>
+    </div>
+  </div>
+
+  <div class="cagp-workspace-title-row">
+    <div>
+      <h1 class="cagp-workspace-title"><i class="bi bi-map me-2 text-danger" aria-hidden="true"></i>MAPA DO SITE DO CAGP UFMG</h1>
+      <p class="cagp-workspace-subtitle">
+        Visão panorâmica (<em>bird's-eye view</em>) das <strong>15 rotas modulares</strong> organizadas nos <strong>5 eixos da barra de comando</strong>. Filtre qualquer seção, simulador, PDF ou regra regimental em tempo real.
+      </p>
+    </div>
+    <div class="cagp-workspace-actions">
+      <button type="button" class="cagp-doc-btn cagp-doc-btn-outline" onclick="window.openCagpSpotlight &amp;&amp; window.openCagpSpotlight()">
+        <i class="bi bi-search me-1" aria-hidden="true"></i> Spotlight (⌘K)
+      </button>
+      <a href="documentos.html" class="cagp-doc-btn cagp-doc-btn-primary">
+        <i class="bi bi-file-earmark-pdf me-1" aria-hidden="true"></i> 9 PDFs Oficiais &rarr;
+      </a>
+    </div>
+  </div>
+
+  <nav class="cagp-workspace-bar" aria-label="Sub-visualizações do Mapa do Site">
+    <div class="cagp-workspace-tabs" role="tablist" data-tab-count="2">
+      <button type="button" class="cagp-workspace-tab is-active" id="ws-tab-v1" role="tab" aria-controls="ws-panel-v1" aria-selected="true" tabindex="0" data-ws-tab="v1" data-ws-hash="#arvore-eixos">
+        <i class="bi bi-diagram-3" aria-hidden="true"></i>
+        <span class="cagp-tab-label-full">1. Árvore Completa (5 Eixos)</span>
+        <span class="cagp-tab-label-short" aria-hidden="true">Árvore</span>
+      </button>
+      <button type="button" class="cagp-workspace-tab" id="ws-tab-v2" role="tab" aria-controls="ws-panel-v2" aria-selected="false" tabindex="-1" data-ws-tab="v2" data-ws-hash="#atalhos-rapidos">
+        <i class="bi bi-lightning-charge" aria-hidden="true"></i>
+        <span class="cagp-tab-label-full">2. Atalhos de Alta Demanda</span>
+        <span class="cagp-tab-label-short" aria-hidden="true">Atalhos</span>
+      </button>
+    </div>
+    <button type="button" class="cagp-workspace-viewall" aria-pressed="false" aria-label="Ver todas as abas" data-ws-tab="__all__" data-ws-hash="#visao-completa">
+      <i class="bi bi-layout-text-sidebar" aria-hidden="true"></i>
+    </button>
+  </nav>
+</header>
+
+<div class="cagp-workspace-deck" data-ws-deck="sitemap">
+<div id="ws-panel-v1" class="cagp-workspace-view is-active" role="tabpanel" aria-labelledby="ws-tab-v1" data-ws-view="v1">
+
+<!-- Barra Sticky de Busca e Chips Deslizantes M3 do Mapa do Site -->
+<div class="cagp-sticky-search-bar mb-4" role="region" aria-label="Filtro instantâneo e seleção de eixos do mapa do site">
+  <div class="cagp-sitemap-search mb-2">
+    <i class="bi bi-search cagp-sitemap-search-icon" aria-hidden="true"></i>
+    <input type="search" id="sitemap-search-input" class="cagp-sitemap-input" placeholder="Filtrar tópicos nas 15 rotas (ex.: optativas, TCC, AAC, CEAG, circular, FUMP, regimento)..." aria-label="Filtrar tópicos do mapa do site">
+  </div>
+  <div class="cagp-chip-rail" role="toolbar" aria-label="Filtrar árvore do site por eixo estrutural">
+    <button type="button" class="cagp-filter-chip active" data-sitemap-axis-btn="all" aria-pressed="true">
+      <i class="bi bi-grid-fill me-1" aria-hidden="true"></i>Todos os 5 Eixos (15 páginas)
+    </button>
+    <button type="button" class="cagp-filter-chip" data-sitemap-axis-btn="eixo1" aria-pressed="false">
+      <i class="bi bi-compass me-1" aria-hidden="true"></i>Eixo 1: Início &amp; Bússola
+    </button>
+    <button type="button" class="cagp-filter-chip" data-sitemap-axis-btn="eixo2" aria-pressed="false">
+      <i class="bi bi-mortarboard me-1" aria-hidden="true"></i>Eixo 2: Curso &amp; Pesquisa
+    </button>
+    <button type="button" class="cagp-filter-chip" data-sitemap-axis-btn="eixo3" aria-pressed="false">
+      <i class="bi bi-clock-history me-1" aria-hidden="true"></i>Eixo 3: Currículo &amp; Horas
+    </button>
+    <button type="button" class="cagp-filter-chip" data-sitemap-axis-btn="eixo4" aria-pressed="false">
+      <i class="bi bi-folder2-open me-1" aria-hidden="true"></i>Eixo 4: Acervo &amp; Ajuda
+    </button>
+    <button type="button" class="cagp-filter-chip" data-sitemap-axis-btn="eixo5" aria-pressed="false">
+      <i class="bi bi-bank me-1" aria-hidden="true"></i>Eixo 5: O CAGP &amp; Governança
+    </button>
+  </div>
+</div>
+<div id="sitemap-live-region" class="visually-hidden" role="status" aria-live="polite"></div>
+```
+
+## <i class="bi bi-diagram-3" aria-hidden="true"></i> Árvore Completa em 5 Eixos Estruturais (14 Rotas) {#arvore-eixos}
+
+```{=html}
+<div class="row g-4" id="sitemap-tree-container">
+
+  <!-- Eixo 1: Início & Bússola -->
+  <div class="col-lg-6 sitemap-axis-card" data-sitemap-axis="eixo1">
+    <div class="cagp-card h-100">
+      <div class="d-flex align-items-center justify-content-between border-bottom pb-2 mb-3">
+        <div class="d-flex align-items-center gap-2">
+          <span class="cagp-badge cagp-badge-red">Eixo 1</span>
+          <h3 class="fs-5 fw-bold text-uppercase mb-0">Início &amp; Bússola Discente</h3>
+        </div>
+        <span class="small text-muted">1 Página</span>
+      </div>
+
+      <!-- 1. Página: Início -->
+      <div class="sitemap-topic">
+        <a href="index.html" class="cagp-sitemap-item-link">
+          <i class="bi bi-house-door" aria-hidden="true"></i> 1. Início (Bússola, Carteira &amp; Campus ao Vivo)
+        </a>
+        <p class="small text-muted mb-1">Portal aberto, Carteira Acadêmica local, Campus Agora ao vivo, Bússola dos 4 Perfis Discentes, 6 sistemas UFMG e catálogo dos 8 Micro-Apps.</p>
+        <div class="cagp-sitemap-sublinks">
+          <a href="index.html#bussola-interativa" class="cagp-sitemap-tag">Bússola Discente (4 Perfis)</a>
+          <a href="index.html#central-sistemas" class="cagp-sitemap-tag">6 Sistemas UFMG</a>
+          <a href="index.html#circular-ufmg" class="cagp-sitemap-tag">Interno Rotas</a>
+          <a href="index.html#micro-apps-hub" class="cagp-sitemap-tag">8 Micro-Apps</a>
+          <a href="index.html#modulos-oficiais" class="cagp-sitemap-tag">Módulos Oficiais</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Eixo 2: Curso & Pesquisa -->
+  <div class="col-lg-6 sitemap-axis-card" data-sitemap-axis="eixo2">
+    <div class="cagp-card h-100">
+      <div class="d-flex align-items-center justify-content-between border-bottom pb-2 mb-3">
+        <div class="d-flex align-items-center gap-2">
+          <span class="cagp-badge cagp-badge-dark">Eixo 2</span>
+          <h3 class="fs-5 fw-bold text-uppercase mb-0">Curso &amp; Pesquisa</h3>
+        </div>
+        <span class="small text-muted">3 Páginas</span>
+      </div>
+
+      <!-- 2. Página: O Curso -->
+      <div class="sitemap-topic mb-3">
+        <a href="curso.html" class="cagp-sitemap-item-link">
+          <i class="bi bi-mortarboard" aria-hidden="true"></i> 2. O Curso de Gestão Pública
+        </a>
+        <p class="small text-muted mb-1">Histórico institucional (REUNI 2009), nota 4 no CPC/MEC, cientometria, perfil do egresso (65% Executivo), Colegiado, Secretaria F-2039 e ingresso SiSU/DRCA.</p>
+        <div class="cagp-sitemap-sublinks">
+          <a href="curso.html#dados-fundamentais" class="cagp-sitemap-tag">Identidade &amp; Cientometria</a>
+          <a href="curso.html#mercado-egressos" class="cagp-sitemap-tag">Mercado &amp; Egressos</a>
+          <a href="curso.html#colegiado" class="cagp-sitemap-tag">Colegiado &amp; Secretaria F-2039</a>
+          <a href="curso.html#ingresso" class="cagp-sitemap-tag">Ingresso SiSU &amp; DRCA</a>
+        </div>
+      </div>
+
+      <!-- 3. Página: Guia do Calouro -->
+      <div class="sitemap-topic mb-3">
+        <a href="calouros.html" class="cagp-sitemap-item-link">
+          <i class="bi bi-compass" aria-hidden="true"></i> 3. Guia do Calouro &amp; Rotina Noturna
+        </a>
+        <p class="small text-muted mb-1">Checklist interativo de 6 passos nos primeiros 30 dias, sobrevivência no noturno (19h–22h30), RU II, Circulares até 22h45, bibliotecas e FUMP/PRAE/NAI.</p>
+        <div class="cagp-sitemap-sublinks">
+          <a href="calouros.html#checklist-calouro" class="cagp-sitemap-tag">Checklist 30 Dias</a>
+          <a href="calouros.html#rotina-noturna" class="cagp-sitemap-tag">RU II &amp; Circulares Noturnos</a>
+          <a href="calouros.html#biblioteca-espacos" class="cagp-sitemap-tag">Bibliotecas &amp; CEAG</a>
+          <a href="calouros.html#assistencia-estudantil" class="cagp-sitemap-tag">FUMP / PRAE / NAI</a>
+        </div>
+      </div>
+
+      <!-- 4. Página: Pesquisa, IC & 11 Núcleos do DCP -->
+      <div class="sitemap-topic">
+        <a href="pesquisa.html" class="cagp-sitemap-item-link">
+          <i class="bi bi-journal-bookmark" aria-hidden="true"></i> 4. Pesquisa, IC &amp; 11 Núcleos do DCP
+        </a>
+        <p class="small text-muted mb-1">Catálogo interativo dos 11 grupos de pesquisa do DCP (Rede Femjusp, PUBLICUS, CEPPI, CEL, PRODEP, MARGEM...), bolsas de IC (90h AAC Mod. V) e Programa de Imersão.</p>
+        <div class="cagp-sitemap-sublinks">
+          <a href="pesquisa.html#grupos-pesquisa" class="cagp-sitemap-tag">11 Grupos do DCP</a>
+          <a href="pesquisa.html#nucleos-pesquisa" class="cagp-sitemap-tag">Guia IC (90h AAC)</a>
+          <a href="pesquisa.html#programa-de-imersao" class="cagp-sitemap-tag">Programa de Imersão</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Eixo 3: Currículo & Horas -->
+  <div class="col-lg-12 sitemap-axis-card" data-sitemap-axis="eixo3">
+    <div class="cagp-card h-100">
+      <div class="d-flex align-items-center justify-content-between border-bottom pb-2 mb-3">
+        <div class="d-flex align-items-center gap-2">
+          <span class="cagp-badge cagp-badge-gold">Eixo 3</span>
+          <h3 class="fs-5 fw-bold text-uppercase mb-0">Currículo, Optativas, Horas (600h), Estágio &amp; TCC</h3>
+        </div>
+        <span class="small text-muted">5 Páginas</span>
+      </div>
+
+      <div class="row g-4">
+        <!-- 5. Página: Percurso Curricular & 27 Obrigatórias -->
+        <div class="col-md-6 col-lg-4 sitemap-topic">
+          <a href="percurso.html" class="cagp-sitemap-item-link">
+            <i class="bi bi-diagram-3" aria-hidden="true"></i> 5. Percurso &amp; 27 Obrigatórias
+          </a>
+          <p class="small text-muted mb-1">Grafo interativo de pré-requisitos, Minha Grade (`3.000h`), 10 semestres com ementas completas das 27 obrigatórias e Termômetro dos 3 Percursos.</p>
+          <div class="cagp-sitemap-sublinks">
+            <a href="percurso.html#grafo-curricular" class="cagp-sitemap-tag">Grafo &amp; Minha Grade</a>
+            <a href="percurso.html#explorador-grade" class="cagp-sitemap-tag">27 Obrigatórias (10P)</a>
+            <a href="percurso.html#simulador-percurso" class="cagp-sitemap-tag">Termômetro 3 Percursos</a>
+          </div>
+        </div>
+
+        <!-- 6. Página: Catálogo das 68 Optativas & Formação Livre -->
+        <div class="col-md-6 col-lg-4 sitemap-topic">
+          <a href="optativas.html" class="cagp-sitemap-item-link">
+            <i class="bi bi-journal-text" aria-hidden="true"></i> 6. Catálogo das 68 Optativas &amp; Livre
+          </a>
+          <p class="small text-muted mb-1">Busca instantânea nas 68 optativas (DCP, DSO/SOA, ECN, CAD, DEM,CON,EST), seleção de Favoritas e regras dos 120h de Formação Livre.</p>
+          <div class="cagp-sitemap-sublinks">
+            <a href="optativas.html#catalogo-optativas" class="cagp-sitemap-tag">68 Optativas com Busca</a>
+            <a href="optativas.html#formacao-livre" class="cagp-sitemap-tag">Formação Livre (120h)</a>
+          </div>
+        </div>
+
+        <!-- 7. Página: Extensão & Horas AAC (600h) -->
+        <div class="col-md-6 col-lg-4 sitemap-topic">
+          <a href="acg.html" class="cagp-sitemap-item-link">
+            <i class="bi bi-calculator" aria-hidden="true"></i> 7. Extensão &amp; Horas AAC (600h)
+          </a>
+          <p class="small text-muted mb-1">Calculadora Interativa 600h (`300h` Extensão + `300h` AAC), Guardião de 120 Dias (Art. 15, § 4º), Tabela das 9 Modalidades e tutorial anotado.</p>
+          <div class="cagp-sitemap-sublinks">
+            <a href="acg.html#calculadora-horas" class="cagp-sitemap-tag">Calculadora 600h</a>
+            <a href="acg.html#guardiao-120-dias" class="cagp-sitemap-tag">Guardião 120 Dias</a>
+            <a href="acg.html#regulamento-categorias" class="cagp-sitemap-tag">Tabela Art. 15 &amp; SEI</a>
+          </div>
+        </div>
+
+        <!-- 8. Página: Estágio Supervisionado & Art. 41 -->
+        <div class="col-md-6 col-lg-6 sitemap-topic">
+          <a href="estagio.html" class="cagp-sitemap-item-link">
+            <i class="bi bi-briefcase" aria-hidden="true"></i> 8. Estágio Supervisionado &amp; Dispensa Art. 41
+          </a>
+          <p class="small text-muted mb-1">Simulador de Dispensa Profissional (Art. 41), Estágio A (`DCP 135`, `180h`) e B (`DCP 136`, `120h`), Estágio Não-Obrigatório (Art. 37) e Tutorial TCE Anotado.</p>
+          <div class="cagp-sitemap-sublinks">
+            <a href="estagio.html#simulador-art41" class="cagp-sitemap-tag">Simulador Dispensa Art. 41</a>
+            <a href="estagio.html#estagio-supervisionado" class="cagp-sitemap-tag">Estágios A e B (300h)</a>
+            <a href="estagio.html#tutorial-estagio" class="cagp-sitemap-tag">Tutorial TCE Anotado</a>
+          </div>
+        </div>
+
+        <!-- 9. Página: Trabalho de Conclusão de Curso (TCC) -->
+        <div class="col-md-6 col-lg-6 sitemap-topic">
+          <a href="tcc.html" class="cagp-sitemap-item-link">
+            <i class="bi bi-award" aria-hidden="true"></i> 9. Trabalho de Conclusão de Curso (TCC)
+          </a>
+          <p class="small text-muted mb-1">Projeto de TCC (`DCP 089`, `60h`) e Defesa (`DCP 137`, `120h`), as 4 modalidades aceitas (Monografia, Intervenção, Artigo, IC) e Termo de Aceite do Orientador.</p>
+          <div class="cagp-sitemap-sublinks">
+            <a href="tcc.html#modalidades-tcc" class="cagp-sitemap-tag">4 Modalidades de TCC</a>
+            <a href="tcc.html#orientacao-tcc" class="cagp-sitemap-tag">Termo de Aceite &amp; Banca</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Eixo 4: Acervo & Ajuda -->
+  <div class="col-lg-6 sitemap-axis-card" data-sitemap-axis="eixo4">
+    <div class="cagp-card h-100">
+      <div class="d-flex align-items-center justify-content-between border-bottom pb-2 mb-3">
+        <div class="d-flex align-items-center gap-2">
+          <span class="cagp-badge cagp-badge-red">Eixo 4</span>
+          <h3 class="fs-5 fw-bold text-uppercase mb-0">Acervo &amp; Ajuda</h3>
+        </div>
+        <span class="small text-muted">4 Páginas</span>
+      </div>
+
+      <!-- 10. Página: Documentos -->
+      <div class="sitemap-topic mb-3">
+        <a href="documentos.html" class="cagp-sitemap-item-link">
+          <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> 10. Documentos &amp; Formulários Oficiais
+        </a>
+        <p class="small text-muted mb-1">Cofre Offline com 9 PDFs normativos oficiais essenciais, requerimentos administrativos da FAFICH (DOCX/PDF) e tutorial de peticionamento DRCA/SEI.</p>
+        <div class="cagp-sitemap-sublinks">
+          <a href="documentos.html#atos-curso" class="cagp-sitemap-tag">PPC &amp; Regulamento</a>
+          <a href="documentos.html#matrizes-percursos" class="cagp-sitemap-tag">Matrizes dos 3 Percursos</a>
+          <a href="documentos.html#formularios" class="cagp-sitemap-tag">Formulários &amp; Estágio</a>
+          <a href="documentos.html#tutorial-drca" class="cagp-sitemap-tag">Tutorial DRCA/SEI</a>
+        </div>
+      </div>
+
+      <!-- 11. Página: FAQ -->
+      <div class="sitemap-topic mb-3">
+        <a href="faq.html" class="cagp-sitemap-item-link">
+          <i class="bi bi-question-circle" aria-hidden="true"></i> 11. Dúvidas Frequentes (FAQ)
+        </a>
+        <p class="small text-muted mb-1">9 respostas diretas fundamentadas nas Normas de Graduação sobre trancamento (mín. 180h), pré-requisitos, EaD, intercâmbio e prazos.</p>
+        <div class="cagp-sitemap-sublinks">
+          <a href="faq.html#filtro-faq" class="cagp-sitemap-tag">Busca Rápida de Dúvidas</a>
+          <a href="faq.html#acessibilidade" class="cagp-sitemap-tag">Acessibilidade Digital (Alt+A)</a>
+        </div>
+      </div>
+
+      <!-- 12. Página: Mapa do Site -->
+      <div class="sitemap-topic mb-3">
+        <a href="mapa-do-site.html" class="cagp-sitemap-item-link">
+          <i class="bi bi-map" aria-hidden="true"></i> 12. Mapa do Site (Você está aqui)
+        </a>
+        <p class="small text-muted mb-1">Índice estruturado das 15 rotas em 5 eixos e busca instantânea.</p>
+      </div>
+
+      <!-- 13. Página: Configurações & Acessibilidade -->
+      <div class="sitemap-topic">
+        <a href="configuracoes.html" class="cagp-sitemap-item-link">
+          <i class="bi bi-gear" aria-hidden="true"></i> 13. Configurações &amp; Acessibilidade
+        </a>
+        <p class="small text-muted mb-1">Painel unificado com Acessibilidade Universal (tamanho de fonte, contraste AAA, dislexia, movimento), alertas noturnos do RU II/Circular, Meu CAGP Sync (backup/restauração) e armazenamento de cache.</p>
+        <div class="cagp-sitemap-sublinks">
+          <a href="configuracoes.html#acessibilidade" class="cagp-sitemap-tag">Acessibilidade Universal</a>
+          <a href="configuracoes.html#alertas-campus" class="cagp-sitemap-tag">Alertas Noturnos</a>
+          <a href="configuracoes.html#sync-discente" class="cagp-sitemap-tag">Meu CAGP Sync</a>
+          <a href="configuracoes.html#sistema-cache" class="cagp-sitemap-tag">Armazenamento &amp; Cache</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Eixo 5: O CAGP & Governança Discente -->
+  <div class="col-lg-6 sitemap-axis-card" data-sitemap-axis="eixo5">
+    <div class="cagp-card h-100">
+      <div class="d-flex align-items-center justify-content-between border-bottom pb-2 mb-3">
+        <div class="d-flex align-items-center gap-2">
+          <span class="cagp-badge cagp-badge-dark">Eixo 5</span>
+          <h3 class="fs-5 fw-bold text-uppercase mb-0">O CAGP &amp; Governança Discente</h3>
+        </div>
+        <span class="small text-muted">2 Páginas</span>
+      </div>
+
+      <!-- 14. Página: O Centro Acadêmico -->
+      <div class="sitemap-topic mb-3">
+        <a href="sobre.html" class="cagp-sitemap-item-link">
+          <i class="bi bi-bank" aria-hidden="true"></i> 14. O Centro Acadêmico (Institucional)
+        </a>
+        <p class="small text-muted mb-1">Monumento Os Candangos (Bruno Giorgi), Princípios do LIMPE, Assembleia Geral, Junta Eleitoral, as 7 Diretorias Estatutárias, Colegiado e matriz tripartite.</p>
+        <div class="cagp-sitemap-sublinks">
+          <a href="sobre.html#simbolo-candangos" class="cagp-sitemap-tag">Candangos &amp; Princípios</a>
+          <a href="sobre.html#governanca-institucional" class="cagp-sitemap-tag">Assembleia &amp; 7 Diretorias</a>
+          <a href="sobre.html#representacao-tripartite" class="cagp-sitemap-tag">CAGP • DA FAFICH • DCE</a>
+        </div>
+      </div>
+
+      <!-- 15. Página: Gestão em Exercício -->
+      <div class="sitemap-topic">
+        <a href="gestao.html" class="cagp-sitemap-item-link">
+          <i class="bi bi-people" aria-hidden="true"></i> 15. Gestão em Exercício &amp; Equipe
+        </a>
+        <p class="small text-muted mb-1">Organograma funcional interativo, quadros das 7 diretorias (DIPRE, DIJUR, DIFI, DIAC, DIAP, DICULT, DIMAC), RREO mensal e chamada de assessores.</p>
+        <div class="cagp-sitemap-sublinks">
+          <a href="gestao.html#organograma-funcional" class="cagp-sitemap-tag">Organograma Oficial</a>
+          <a href="gestao.html#diretoria-presidencia" class="cagp-sitemap-tag">Equipe das 7 Diretorias</a>
+          <a href="gestao.html#transparencia-ativa" class="cagp-sitemap-tag">RREO Mensal &amp; Atas</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Empty State Acolhedor de Busca do Mapa do Site -->
+<div id="sitemap-empty-state" class="cagp-empty-state mb-4" style="display: none;" role="status">
+  <div class="cagp-empty-icon"><i class="bi bi-diagram-3" aria-hidden="true"></i></div>
+  <h4 class="h5 mb-1">NENHUM TÓPICO ENCONTRADO NO MAPA</h4>
+  <p class="small text-muted mb-3">Nenhuma página ou seção corresponde à palavra pesquisada.</p>
+  <div>
+    <button type="button" id="btn-sitemap-empty-reset" class="cagp-chip">
+      <i class="bi bi-arrow-counterclockwise me-1" aria-hidden="true"></i> Limpar filtro e ver todo o mapa
+    </button>
+  </div>
+</div>
+</div>
+
+<!-- View 2: Atalhos de Alta Demanda -->
+<div id="ws-panel-v2" class="cagp-workspace-view" role="tabpanel" aria-labelledby="ws-tab-v2" data-ws-view="v2" hidden>
+```
+
+## <i class="bi bi-lightning-charge" aria-hidden="true"></i> Atalhos de Alta Demanda {#atalhos-rapidos}
+
+Acesso direto às ferramentas interativas, normativas e rotinas operacionais mais consultadas pela comunidade discente:
+
+```{=html}
+<div class="row g-3 mb-4" id="sitemap-shortcuts">
+  <div class="col-md-4 col-sm-6">
+    <div class="cagp-card h-100 text-center">
+      <i class="bi bi-calculator fs-2 text-danger mb-2" aria-hidden="true"></i>
+      <h3 class="fs-6 fw-bold text-uppercase mb-1">Calculadora 600h (Extensão + AAC)</h3>
+      <p class="small text-muted mb-3">Simule seus créditos de Extensão (300h) e AAC (300h) com tetos por modalidade.</p>
+      <a href="acg.html#calculadora-horas" class="cagp-doc-btn cagp-doc-btn-primary w-100 justify-content-center">
+        Abrir Calculadora &rarr;
+      </a>
+    </div>
+  </div>
+
+  <div class="col-md-4 col-sm-6">
+    <div class="cagp-card h-100 text-center">
+      <i class="bi bi-search fs-2 text-danger mb-2" aria-hidden="true"></i>
+      <h3 class="fs-6 fw-bold text-uppercase mb-1">Catálogo das 68 Optativas</h3>
+      <p class="small text-muted mb-3">Consulte ementas completas com filtros por departamento (DCP, DSO, ECN, CAD).</p>
+      <a href="optativas.html#disciplinas-optativas" class="cagp-doc-btn cagp-doc-btn-primary w-100 justify-content-center">
+        Filtrar Optativas &rarr;
+      </a>
+    </div>
+  </div>
+
+  <div class="col-md-4 col-sm-6">
+    <div class="cagp-card h-100 text-center">
+      <i class="bi bi-bus-front fs-2 text-danger mb-2" aria-hidden="true"></i>
+      <h3 class="fs-6 fw-bold text-uppercase mb-1">Circular UFMG ao Vivo</h3>
+      <p class="small text-muted mb-3">Previsão em tempo real dos ônibus internos no Campus Pampulha via Interno Rotas.</p>
+      <a href="index.html#circular-ufmg" class="cagp-doc-btn cagp-doc-btn-primary w-100 justify-content-center">
+        Ver Linhas &amp; Horários &rarr;
+      </a>
+    </div>
+  </div>
+
+  <div class="col-md-4 col-sm-6">
+    <div class="cagp-card h-100 text-center">
+      <i class="bi bi-file-earmark-pdf fs-2 text-danger mb-2" aria-hidden="true"></i>
+      <h3 class="fs-6 fw-bold text-uppercase mb-1">Regimento Interno 2024</h3>
+      <p class="small text-muted mb-3">Download do PDF oficial aprovado em 14/10/2024 com as 7 diretorias e normas eleitorais.</p>
+      <a href="documentos/regimento-interno-cagp-ufmg.pdf" class="cagp-doc-btn cagp-doc-btn-outline w-100 justify-content-center" target="_blank" rel="noopener noreferrer">
+        Baixar PDF Oficial &rarr;
+      </a>
+    </div>
+  </div>
+
+  <div class="col-md-4 col-sm-6">
+    <div class="cagp-card h-100 text-center">
+      <i class="bi bi-clock-history fs-2 text-danger mb-2" aria-hidden="true"></i>
+      <h3 class="fs-6 fw-bold text-uppercase mb-1">Secretaria &amp; CEAG Noturno</h3>
+      <p class="small text-muted mb-3">Escala da secretária Norma Guedes (F-2039) e plantão do CEAG FAFICH até 22h.</p>
+      <a href="calouros.html#secretaria-e-ceag" class="cagp-doc-btn cagp-doc-btn-outline w-100 justify-content-center">
+        Consultar Horários &rarr;
+      </a>
+    </div>
+  </div>
+
+  <div class="col-md-4 col-sm-6">
+    <div class="cagp-card h-100 text-center">
+      <i class="bi bi-journal-bookmark fs-2 text-danger mb-2" aria-hidden="true"></i>
+      <h3 class="fs-6 fw-bold text-uppercase mb-1">11 Grupos do DCP &amp; IC</h3>
+      <p class="small text-muted mb-3">Catálogo com Rede Femjusp, PUBLICUS, CEPPI, CEL, PRODEP e Iniciação Científica.</p>
+      <a href="pesquisa.html#grupos-pesquisa" class="cagp-doc-btn cagp-doc-btn-outline w-100 justify-content-center">
+        Explorar Pesquisa &rarr;
+      </a>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- Navegação de Continuidade -->
+<nav class="cagp-journey-nav my-5" aria-label="Continuidade da navegação">
+  <div class="row g-3">
+    <div class="col-md-6">
+      <a href="index.html" class="cagp-journey-link">
+        <div>
+          <div class="cagp-journey-dir">&larr; Voltar ao Início</div>
+          <div class="cagp-journey-title">Hub Principal do CAGP (Bússola)</div>
+        </div>
+        <p class="cagp-journey-desc">Retorne à página inicial com cards de acesso rápido e atalhos SIGA/MinhaUFMG.</p>
+      </a>
+    </div>
+    <div class="col-md-6">
+      <a href="documentos.html" class="cagp-journey-link">
+        <div>
+          <div class="cagp-journey-dir">Próximo Passo &rarr;</div>
+          <div class="cagp-journey-title">Documentos &amp; Formulários Oficiais</div>
+        </div>
+        <p class="cagp-journey-desc">Acesse e baixe os 9 PDFs normativos oficiais do curso e os requerimentos administrativos.</p>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Script de Filtragem em Tempo Real -->
+<script>
+(function() {
+  function initSitemapPage() {
+    var searchInput = document.getElementById('sitemap-search-input');
+    var topics = document.querySelectorAll('.sitemap-topic');
+    var axisCards = document.querySelectorAll('.sitemap-axis-card');
+    var axisBtns = document.querySelectorAll('[data-sitemap-axis-btn]');
+    var liveRegion = document.getElementById('sitemap-live-region');
+    var emptyState = document.getElementById('sitemap-empty-state');
+    var btnEmptyReset = document.getElementById('btn-sitemap-empty-reset');
+    if (!searchInput || !axisCards.length) return;
+
+    var currentAxis = 'all';
+
+    function norm(str) {
+      return (str || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+
+    function applyFilter() {
+      var term = norm(searchInput.value.trim());
+      var visibleTopicsCount = 0;
+
+      topics.forEach(function(topic) {
+        var text = norm(topic.textContent);
+        var matches = term === '' || text.indexOf(term) !== -1;
+        topic.style.display = matches ? '' : 'none';
+      });
+
+      axisCards.forEach(function(card) {
+        var axis = card.getAttribute('data-sitemap-axis');
+        var axisMatch = (currentAxis === 'all' || axis === currentAxis);
+        var cardTopics = card.querySelectorAll('.sitemap-topic');
+        var hasVisible = false;
+        cardTopics.forEach(function(t) {
+          if (t.style.display !== 'none') {
+            hasVisible = true;
+            if (axisMatch) visibleTopicsCount++;
+          }
+        });
+        card.style.display = (axisMatch && hasVisible) ? '' : 'none';
+      });
+
+      if (emptyState) {
+        emptyState.style.display = (visibleTopicsCount === 0) ? 'block' : 'none';
+      }
+
+      if (liveRegion) {
+        if (term === '' && currentAxis === 'all') {
+          liveRegion.textContent = 'Todos os tópicos do mapa do site estão visíveis.';
+        } else {
+          liveRegion.textContent = visibleTopicsCount + ' tópicos encontrados para o filtro informado.';
+        }
+      }
+    }
+
+    axisBtns.forEach(function(btn) {
+      btn.onclick = function() {
+        currentAxis = btn.getAttribute('data-sitemap-axis-btn') || 'all';
+        axisBtns.forEach(function(b) {
+          var isAct = b === btn;
+          b.classList.toggle('active', isAct);
+          b.setAttribute('aria-pressed', isAct ? 'true' : 'false');
+        });
+        applyFilter();
+      };
+    });
+
+    searchInput.oninput = applyFilter;
+
+    searchInput.onkeydown = function(e) {
+      if (e.key === 'Escape') {
+        searchInput.value = '';
+        applyFilter();
+      }
+    };
+
+    if (btnEmptyReset) {
+      btnEmptyReset.onclick = function() {
+        currentAxis = 'all';
+        axisBtns.forEach(function(b) {
+          var isAct = b.getAttribute('data-sitemap-axis-btn') === 'all';
+          b.classList.toggle('active', isAct);
+          b.setAttribute('aria-pressed', isAct ? 'true' : 'false');
+        });
+        searchInput.value = '';
+        applyFilter();
+      };
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSitemapPage, { once: true });
+  } else {
+    initSitemapPage();
+  }
+})();
+</script>
+```

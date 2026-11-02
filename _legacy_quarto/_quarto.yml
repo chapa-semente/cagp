@@ -1,0 +1,78 @@
+project:
+  type: website
+  output-dir: docs
+  resources:
+    - "documentos/**"
+    - "logos/cagp/**"
+    - "imagens/**"
+    - "manifest.webmanifest"
+    - "sw.js"
+  render:
+    - index.qmd
+    - curso.qmd
+    - pesquisa.qmd
+    - calouros.qmd
+    - percurso.qmd
+    - optativas.qmd
+    - acg.qmd
+    - estagio.qmd
+    - tcc.qmd
+    - estagio-tcc.qmd
+    - documentos.qmd
+    - faq.qmd
+    - sobre.qmd
+    - gestao.qmd
+    - mapa-do-site.qmd
+    - configuracoes.qmd
+
+lang: pt-BR
+
+website:
+  title: "CAGP"
+  search: false
+  site-url: "https://cagp-ufmg.github.io"
+  description: "Centro Acadêmico de Gestão Pública - FAFICH / UFMG"
+  favicon: "logos/cagp/10_simbolo_transparente_positivo.svg"
+  open-graph:
+    image: "imagens/og-padrao.png"
+  twitter-card:
+    image: "imagens/og-padrao.png"
+    card-style: summary_large_image
+
+  announcement:
+    icon: megaphone-fill
+    dismissable: false
+    position: above-navbar
+    type: danger
+    content: |
+      <span class="cagp-announcement-badge">PROPOSTA DE CHAPA</span> <span class="cagp-announcement-text">Este portal é uma proposta e projeto da <strong class="cagp-chapa-highlight">Chapa [Nome da Chapa a Definir]</strong> para a gestão do <strong>CAGP (FAFICH/UFMG)</strong>. Como nosso compromisso prioritário é com os discentes, <strong>independentemente do resultado da eleição, disponibilizaremos este projeto completo para a gestão vencedora</strong>, pois a transparência e o acesso à informação são de interesse coletivo de todo o curso.</span> <button type="button" class="cagp-chapa-toggle-btn" onclick="window.cagpToggleChapaBanner &amp;&amp; window.cagpToggleChapaBanner()" aria-label="Alternar visualização compacta do aviso da chapa"><span class="cagp-chapa-toggle-label">Compactar ▲</span></button>
+
+  page-footer:
+    left: |
+      **Centro Acadêmico de Gestão Pública (CAGP)**  
+      FAFICH • Universidade Federal de Minas Gerais (UFMG)  
+      Av. Pres. Antônio Carlos, 6627 - Pampulha, Belo Horizonte - MG  
+      [Mapa do Site](mapa-do-site.html) • [Configurações](configuracoes.html) • [Acessibilidade](configuracoes.html#acessibilidade)
+    right: |
+      Gestão Democrática e Participativa • Desenvolvido com Quarto
+
+format:
+  html:
+    brand: _brand.yml
+    theme:
+      - brand
+      - _variables.scss
+    css: styles.css
+    toc: false
+    smooth-scroll: true
+    include-in-header: _includes/pwa-meta.html
+    include-before-body:
+      - _includes/skip-links.html
+      - _includes/super-app-header.html
+    include-after-body:
+      - _includes/back-to-top.html
+      - _includes/accessibility.html
+      - _includes/pwa-install.html
+      - _includes/super-app-router.html
+      - _includes/spotlight-search.html
+

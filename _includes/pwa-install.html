@@ -1,0 +1,2793 @@
+<!-- Suite de PWA, Fluidez & Adaptação Nativa CAGP UFMG -->
+
+<!-- Barra de Progresso Superior de Leitura (Apple-style Micro-interaction) -->
+<div id="cagp-reading-progress" class="cagp-reading-progress" aria-hidden="true"></div>
+
+<!-- Cápsula / Dynamic Toast Flutuante (Feedback Tátil & Notificações) -->
+<div id="cagp-toast" class="cagp-toast" role="status" aria-live="polite" hidden>
+  <i id="cagp-toast-icon" class="bi bi-check2-circle cagp-toast-icon" aria-hidden="true"></i>
+  <span id="cagp-toast-text" class="cagp-toast-text"></span>
+</div>
+
+<!-- Barra de Navegação Inferior Adaptativa para Dispositivos Móveis (Web Mobile Normal) -->
+<nav id="cagp-mobile-nav" class="cagp-mobile-nav" aria-label="Navegação rápida do site no celular">
+  <a href="index.html" class="cagp-mobile-nav-item" id="cagp-mnav-hoje" data-cagp-nav data-route="index.html" aria-label="Eixo 1: Hoje no Campus">
+    <i class="bi bi-compass" aria-hidden="true"></i>
+    <span>Hoje</span>
+  </a>
+  <a href="curso.html" class="cagp-mobile-nav-item" id="cagp-mnav-curso" data-cagp-nav data-route="curso.html" aria-label="Eixo 2: O Curso de Gestão Pública">
+    <i class="bi bi-mortarboard" aria-hidden="true"></i>
+    <span>Curso</span>
+  </a>
+  <a href="percurso.html" class="cagp-mobile-nav-item" id="cagp-mnav-curriculo" data-cagp-nav data-route="percurso.html" aria-label="Eixo 3: Currículo, Horas e Optativas">
+    <i class="bi bi-diagram-3" aria-hidden="true"></i>
+    <span>Currículo</span>
+  </a>
+  <a href="documentos.html" class="cagp-mobile-nav-item" id="cagp-mnav-acervo" data-cagp-nav data-route="documentos.html" aria-label="Eixo 4: Acervo de PDFs e Formulários">
+    <i class="bi bi-folder2-open" aria-hidden="true"></i>
+    <span>Acervo</span>
+  </a>
+  <a href="sobre.html" class="cagp-mobile-nav-item" id="cagp-mnav-cagp" data-cagp-nav data-route="sobre.html" aria-label="Eixo 5: O CAGP e Gestão em Exercício">
+    <i class="bi bi-people" aria-hidden="true"></i>
+    <span>O CAGP</span>
+  </a>
+</nav>
+
+<!-- 5-Tab Bar Soberana do Super App (Apple HIG & M3 Expressive — 5 Destinos Canônicos) -->
+<nav id="cagp-superapp-tabbar" class="cagp-superapp-tabbar" aria-label="Navegação principal do Super App" hidden>
+  <a href="index.html" class="cagp-tabbar-item" id="cagp-stab-hoje" data-cagp-nav data-route="index.html" aria-label="Eixo 1: Hoje no Campus">
+    <i class="bi bi-compass-fill cagp-tabbar-icon" aria-hidden="true"></i>
+    <span class="cagp-tabbar-label">Hoje</span>
+  </a>
+  <a href="curso.html" class="cagp-tabbar-item" id="cagp-stab-curso" data-cagp-nav data-route="curso.html" aria-label="Eixo 2: O Curso de Gestão Pública">
+    <i class="bi bi-mortarboard-fill cagp-tabbar-icon" aria-hidden="true"></i>
+    <span class="cagp-tabbar-label">Curso</span>
+  </a>
+  <a href="percurso.html" class="cagp-tabbar-item" id="cagp-stab-curriculo" data-cagp-nav data-route="percurso.html" aria-label="Eixo 3: Currículo, Horas e Optativas">
+    <i class="bi bi-diagram-3-fill cagp-tabbar-icon" aria-hidden="true"></i>
+    <span class="cagp-tabbar-label">Currículo</span>
+  </a>
+  <a href="documentos.html" class="cagp-tabbar-item" id="cagp-stab-acervo" data-cagp-nav data-route="documentos.html" aria-label="Eixo 4: Acervo de PDFs e Formulários">
+    <i class="bi bi-folder2-open cagp-tabbar-icon" aria-hidden="true"></i>
+    <span class="cagp-tabbar-label">Acervo</span>
+  </a>
+  <a href="sobre.html" class="cagp-tabbar-item" id="cagp-stab-cagp" data-cagp-nav data-route="sobre.html" aria-label="Eixo 5: O CAGP e Gestão em Exercício">
+    <i class="bi bi-people-fill cagp-tabbar-icon" aria-hidden="true"></i>
+    <span class="cagp-tabbar-label">O CAGP</span>
+  </a>
+</nav>
+
+<!-- Banner Flutuante de Instalação (Brite Neo-brutalist) -->
+<div id="cagp-pwa-banner" class="cagp-pwa-banner" hidden role="region" aria-label="Instalação do Aplicativo CAGP">
+  <div class="cagp-pwa-banner-content">
+    <img src="imagens/pwa/pwa-192x192.png" alt="Ícone CAGP" class="cagp-pwa-banner-icon" width="44" height="44">
+    <div class="cagp-pwa-banner-text">
+      <div class="cagp-pwa-banner-title">Aplicativo CAGP UFMG</div>
+      <div class="cagp-pwa-banner-sub">Acesso instantâneo e offline no seu dispositivo.</div>
+    </div>
+  </div>
+  <div class="cagp-pwa-banner-actions">
+    <button type="button" id="cagp-pwa-btn-install" class="cagp-btn cagp-btn-primary btn-sm">
+      <i class="bi bi-download me-1"></i> Instalar
+    </button>
+    <button type="button" id="cagp-pwa-btn-dismiss" class="cagp-pwa-btn-close" aria-label="Dispensar aviso de instalação">✕</button>
+  </div>
+</div>
+
+<!-- Modal com Guia de Instalação no iOS (Safari / iPhone / iPad) -->
+<div id="cagp-ios-backdrop" class="cagp-a11y-backdrop" hidden></div>
+<div id="cagp-ios-sheet" class="cagp-a11y-panel cagp-ios-sheet" hidden role="dialog" aria-modal="true" aria-labelledby="cagp-ios-title">
+  <div class="cagp-sheet-handle" aria-hidden="true"></div>
+  <div class="cagp-a11y-header">
+    <div class="cagp-a11y-header-title">
+      <i class="bi bi-apple me-2" aria-hidden="true"></i>
+      <h3 id="cagp-ios-title" class="cagp-a11y-title">Instalar no iPhone / iPad</h3>
+    </div>
+    <button type="button" id="cagp-ios-close" class="cagp-a11y-close" aria-label="Fechar instruções">✕</button>
+  </div>
+  <div class="cagp-a11y-body">
+    <p class="cagp-a11y-intro">
+      Instale o portal oficial como um aplicativo na sua tela de início sem precisar da App Store:
+    </p>
+    <ol class="cagp-ios-steps">
+      <li>Toque no botão de <strong>Compartilhar</strong> (<i class="bi bi-box-arrow-up text-primary"></i>) na barra inferior do Safari;</li>
+      <li>Role a lista de ações e toque em <strong>"Adicionar à Tela de Início"</strong> (<i class="bi bi-plus-square text-dark"></i>);</li>
+      <li>Toque em <strong>"Adicionar"</strong> no canto superior direito para concluir.</li>
+    </ol>
+    <div class="cagp-ios-sheet-tip p-2 mt-2 small">
+      <i class="bi bi-check-circle-fill text-success me-1"></i> O aplicativo funcionará em tela cheia com acesso rápido a cálculos, ementas e rotas mesmo sem sinal de internet na FAFICH!
+    </div>
+  </div>
+  <div class="cagp-a11y-footer">
+    <button type="button" id="cagp-ios-ok" class="cagp-btn cagp-btn-primary w-100">
+      <i class="bi bi-check2 me-1"></i> Entendi
+    </button>
+  </div>
+</div>
+
+<!-- Modal Bottom Sheet Global Persistente: Passaporte Acadêmico, Foto <canvas> 256x256, Perfil & Cofre -->
+<div id="cagp-settings-backdrop" class="cagp-a11y-backdrop" data-cagp-close-passport="true" hidden></div>
+<div id="cagp-settings-sheet" class="cagp-a11y-panel cagp-settings-sheet" hidden role="dialog" aria-modal="true" aria-labelledby="cagp-settings-title">
+  <div class="cagp-sheet-handle" aria-hidden="true"></div>
+  <div class="cagp-a11y-header">
+    <div class="cagp-a11y-header-title">
+      <i class="bi bi-person-vcard-fill me-2 text-warning" aria-hidden="true"></i>
+      <h3 id="cagp-settings-title" class="cagp-a11y-title">Passaporte &amp; Perfil Discente</h3>
+    </div>
+    <button type="button" class="cagp-a11y-close" data-cagp-close-passport="true" aria-label="Fechar Passaporte Acadêmico">✕</button>
+  </div>
+  
+  <div class="cagp-a11y-body">
+    <!-- Controle Segmentado Interno: [Passaporte & Carteira] [Perfil & Banco de Talentos] -->
+    <div class="cagp-profile-tabs mb-3" role="tablist" aria-label="Visualização do Perfil Discente">
+      <button type="button" class="cagp-profile-tab is-active" role="tab" id="cagp-ptab-passport" aria-controls="cagp-ppanel-passport" aria-selected="true" data-profile-tab="passport">
+        <i class="bi bi-person-vcard me-1" aria-hidden="true"></i> Passaporte &amp; Carteira
+      </button>
+      <button type="button" class="cagp-profile-tab" role="tab" id="cagp-ptab-talent" aria-controls="cagp-ppanel-talent" aria-selected="false" data-profile-tab="talent">
+        <i class="bi bi-briefcase me-1" aria-hidden="true"></i> Perfil &amp; Banco de Talentos
+      </button>
+    </div>
+
+    <!-- PAINEL 1: PASSAPORTE & CARTEIRA -->
+    <div id="cagp-ppanel-passport" class="cagp-profile-panel" role="tabpanel" aria-labelledby="cagp-ptab-passport">
+      <!-- 1. Passaporte / Crachá Acadêmico CAGP (cagp_student_profile_v1) -->
+      <div id="cagp-vault-passport-card" class="cagp-passport-card mb-3" role="region" aria-label="Passaporte Acadêmico Discente CAGP UFMG">
+        <div class="cagp-passport-topbar">
+          <div class="cagp-passport-inst">
+            <i class="bi bi-bank2 me-1 text-warning" aria-hidden="true"></i>
+            <span>FAFICH / UFMG • GESTÃO PÚBLICA</span>
+          </div>
+          <span class="cagp-passport-stamp" data-cagp-passport-stamp>1º PERÍODO • ATIVO</span>
+        </div>
+
+        <div class="cagp-passport-body">
+          <button type="button" class="cagp-passport-avatar-btn" id="cagp-vault-avatar-trigger" data-cagp-action="pick-photo" aria-label="Trocar foto de perfil do Passaporte Acadêmico" title="Clique para enviar ou tirar uma foto (256x256 WebP)">
+            <span class="cagp-avatar-frame cagp-avatar-frame--lg" data-cagp-avatar-host>
+              <img class="cagp-profile-avatar-img" src="imagens/carteirinha.png" alt="Foto do estudante no Passaporte CAGP" width="72" height="72" hidden>
+              <span class="cagp-profile-avatar-fallback" aria-hidden="true"><i class="bi bi-person-badge-fill"></i></span>
+              <span class="cagp-pride-pin cagp-pride-pin--lg" data-cagp-pride-pin hidden aria-hidden="true"></span>
+            </span>
+            <span class="cagp-avatar-cam-badge" aria-hidden="true"><i class="bi bi-camera-fill"></i></span>
+          </button>
+
+          <div class="cagp-passport-identity">
+            <div class="cagp-passport-name-row mb-1">
+              <span class="cagp-passport-name" data-cagp-profile-name-display>Estudante de Gestão Pública</span>
+              <span class="cagp-passport-pronouns" data-cagp-profile-pronouns-display hidden></span>
+            </div>
+            <div class="cagp-passport-badges">
+              <span class="cagp-badge cagp-badge-red" data-cagp-profile-period-display>1º Período</span>
+              <span class="cagp-badge cagp-badge-dark font-mono" data-cagp-profile-semester-display>Ingresso 2026/1</span>
+              <span class="cagp-badge cagp-badge-blue" data-cagp-profile-pathway-display>01-01 • Geral</span>
+              <span class="cagp-pride-tag" data-cagp-pride-tag hidden>
+                <span class="cagp-pride-tag-swatch" data-cagp-pride-swatch aria-hidden="true"></span>
+                <span class="cagp-pride-tag-label" data-cagp-pride-label>Orgulho</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="cagp-metric-ring flex-shrink-0" id="cagp-vault-ring" style="--ring-pct: 0; --ring-size: 48px;" title="Índice Global de Integralização">
+            <div class="cagp-metric-ring-inner" id="cagp-vault-ring-val">0%</div>
+          </div>
+        </div>
+
+        <!-- Badges de Áreas de Interesse no Passaporte (Banco de Talentos) -->
+        <div class="cagp-passport-interests-container p-2 border-top border-dark border-opacity-10 bg-light bg-opacity-50" id="cagp-passport-interests-wrap" hidden>
+          <div class="d-flex align-items-center gap-1 flex-wrap" data-cagp-passport-interests></div>
+        </div>
+
+        <!-- Barra Dupla de Conclusão do Curso (27 Obrigatórias + 600h ACG) -->
+        <div class="cagp-passport-progress-grid">
+          <div class="cagp-passport-progress-item">
+            <div class="d-flex justify-content-between align-items-center small mb-1">
+              <span class="fw-bold text-uppercase font-display" style="font-size: 0.72rem;">27 Obrigatórias</span>
+              <span class="font-mono fw-bold cagp-tabular" style="font-size: 0.74rem;" data-cagp-passport-obrig-text>0/27 (0%)</span>
+            </div>
+            <div class="cagp-passport-mini-track" aria-hidden="true">
+              <div class="cagp-passport-mini-fill is-obrig" data-cagp-passport-obrig-bar style="width: 0%;"></div>
+            </div>
+          </div>
+          <div class="cagp-passport-progress-item">
+            <div class="d-flex justify-content-between align-items-center small mb-1">
+              <span class="fw-bold text-uppercase font-display" style="font-size: 0.72rem;">600h Extensão &amp; AAC</span>
+              <span class="font-mono fw-bold cagp-tabular" style="font-size: 0.74rem;" data-cagp-passport-acg-text>0h/600h (0%)</span>
+            </div>
+            <div class="cagp-passport-mini-track" aria-hidden="true">
+              <div class="cagp-passport-mini-fill is-acg" data-cagp-passport-acg-bar style="width: 0%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cagp-passport-actions">
+          <button type="button" id="cagp-vault-upload-photo-btn" class="cagp-btn cagp-btn-primary btn-sm flex-grow-1" data-cagp-action="pick-photo">
+            <i class="bi bi-camera-fill me-1" aria-hidden="true"></i> Enviar / Trocar Foto (1:1)
+          </button>
+          <button type="button" id="cagp-vault-campus-live-btn" class="cagp-btn cagp-btn-outline btn-sm" data-cagp-action="open-campus-sheet" title="Ver status ao vivo do RU II, Circular Noturno até 22h45 e CEAG F-2033">
+            <i class="bi bi-clock-history me-1" aria-hidden="true"></i> Campus Agora
+          </button>
+        </div>
+      </div>
+
+      <!-- Minhas Metas Salvas Localmente (Offline Student Vault) -->
+      <div class="cagp-vault-section mb-3">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <div class="cagp-vault-title font-display fw-bold text-uppercase fs-6">
+            <i class="bi bi-safe2-fill me-1 text-warning"></i> Cofre Discente Local
+          </div>
+          <span class="cagp-badge cagp-badge-dark font-mono">100% Offline</span>
+        </div>
+        <div class="cagp-vault-cards">
+          <div class="cagp-vault-card">
+            <div class="cagp-vault-card-label">Calculadora ACG</div>
+            <div class="cagp-vault-card-val" id="cagp-vault-acg">0h / 600h</div>
+            <a href="acg.html#calculadora" class="cagp-vault-card-link" data-cagp-nav onclick="window.closeCagpAppSettings()">Abrir Calculadora →</a>
+          </div>
+          <div class="cagp-vault-card">
+            <div class="cagp-vault-card-label">Guardião 120 Dias</div>
+            <div class="cagp-vault-card-val" id="cagp-vault-120d">0 certificados</div>
+            <a href="acg.html#guardiao-120-dias" class="cagp-vault-card-link" data-cagp-nav onclick="window.closeCagpAppSettings()">Monitorar Prazos →</a>
+          </div>
+          <div class="cagp-vault-card">
+            <div class="cagp-vault-card-label">Checklist Calouro</div>
+            <div class="cagp-vault-card-val" id="cagp-vault-checklist">0 de 6 passos</div>
+            <a href="calouros.html#checklist-calouro" class="cagp-vault-card-link" data-cagp-nav onclick="window.closeCagpAppSettings()">Ver Checklist →</a>
+          </div>
+          <div class="cagp-vault-card">
+            <div class="cagp-vault-card-label">Percurso &amp; Grade</div>
+            <div class="cagp-vault-card-val" id="cagp-vault-percurso">Não simulado</div>
+            <a href="percurso.html#termometro-percurso" class="cagp-vault-card-link" data-cagp-nav onclick="window.closeCagpAppSettings()">Ver Percurso →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Atalho Direto para Configurações do Super App -->
+      <div class="cagp-profile-settings-callout p-3 bg-light border border-dark rounded-1 d-flex align-items-center justify-content-between mb-2">
+        <div>
+          <strong class="d-block font-display text-uppercase small"><i class="bi bi-gear-fill text-danger me-1"></i> Configurações do Super App</strong>
+          <span class="small text-muted" style="font-size: 0.75rem;">Acessibilidade, alertas do RU/Circular, backup sync e termos.</span>
+        </div>
+        <a href="configuracoes.html" class="btn btn-sm btn-dark font-display text-uppercase" data-cagp-nav onclick="window.closeCagpAppSettings()">Abrir →</a>
+      </div>
+    </div>
+
+    <!-- PAINEL 2: PERFIL & BANCO DE TALENTOS -->
+    <div id="cagp-ppanel-talent" class="cagp-profile-panel" role="tabpanel" aria-labelledby="cagp-ptab-talent" hidden>
+      <div id="cagp-profile-editor-panel" class="cagp-profile-editor-box mb-3">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-1 mb-2">
+          <span class="fw-bold small text-uppercase font-display">
+            <i class="bi bi-person-gear text-danger me-1" aria-hidden="true"></i> Cadastro &amp; Banco de Talentos Discentes
+          </span>
+          <span class="cagp-badge cagp-badge-gold" id="cagp-photo-tech-meta">Canvas 256×256 WebP</span>
+        </div>
+
+        <input type="file" id="cagp-profile-photo-input" accept="image/*" hidden aria-label="Upload de foto de perfil (256x256 WebP)">
+        <canvas id="cagp-profile-crop-canvas" width="256" height="256" hidden></canvas>
+
+        <!-- Controles de Foto & Presets Ilustrados Brite -->
+        <div class="cagp-profile-photo-controls mb-3">
+          <div class="d-flex flex-wrap gap-2 mb-2">
+            <button type="button" id="cagp-btn-pick-photo" class="cagp-btn cagp-btn-primary btn-sm" data-cagp-action="pick-photo">
+              <i class="bi bi-camera-fill me-1" aria-hidden="true"></i> Subir Foto / Câmera (256×256)
+            </button>
+            <button type="button" id="cagp-btn-remove-photo" class="cagp-btn cagp-btn-outline btn-sm" data-cagp-action="remove-photo" hidden>
+              <i class="bi bi-trash3 me-1" aria-hidden="true"></i> Remover Foto
+            </button>
+          </div>
+          <div class="small text-muted mb-1">Ou escolha um avatar institucional Brite:</div>
+          <div class="cagp-avatar-preset-rail" role="group" aria-label="Avatares ilustrados do CAGP">
+            <button type="button" class="cagp-preset-chip is-active" data-cagp-avatar-preset="candangos">
+              <i class="bi bi-bank2 me-1" aria-hidden="true"></i> Os Candangos
+            </button>
+            <button type="button" class="cagp-preset-chip" data-cagp-avatar-preset="monogram">
+              <i class="bi bi-fonts me-1" aria-hidden="true"></i> Monograma (Iniciais)
+            </button>
+            <button type="button" class="cagp-preset-chip" data-cagp-avatar-preset="fafich">
+              <i class="bi bi-moon-stars-fill me-1" aria-hidden="true"></i> FAFICH Noturno
+            </button>
+            <button type="button" class="cagp-preset-chip" data-cagp-avatar-preset="republica">
+              <i class="bi bi-shield-check me-1" aria-hidden="true"></i> Prumo Republicano
+            </button>
+          </div>
+        </div>
+
+        <!-- Campos de Identificação Acadêmica -->
+        <div class="row g-2 mb-3">
+          <div class="col-sm-7">
+            <label for="cagp-prof-input-name" class="form-label small fw-bold mb-1">Nome Completo ou Social</label>
+            <input type="text" id="cagp-prof-input-name" class="form-control border-dark" placeholder="Ex.: Maria Clara / João Pedro" maxlength="80">
+          </div>
+          <div class="col-sm-5">
+            <label for="cagp-prof-input-pronouns" class="form-label small fw-bold mb-1">Pronomes (opcional)</label>
+            <input type="text" id="cagp-prof-input-pronouns" class="form-control border-dark" placeholder="ela/dela, ele/dele, elu/delu" maxlength="24">
+          </div>
+          <div class="col-sm-7">
+            <label for="cagp-prof-input-email" class="form-label small fw-bold mb-1">E-mail Institucional ou Pessoal</label>
+            <input type="email" id="cagp-prof-input-email" class="form-control border-dark font-mono small" placeholder="estudante@ufmg.br" maxlength="90">
+          </div>
+          <div class="col-sm-5">
+            <label for="cagp-prof-input-phone" class="form-label small fw-bold mb-1">WhatsApp / Telefone</label>
+            <input type="tel" id="cagp-prof-input-phone" class="form-control border-dark font-mono small" placeholder="(31) 99999-9999" maxlength="20">
+          </div>
+          <div class="col-6 col-sm-4">
+            <label for="cagp-prof-input-period" class="form-label small fw-bold mb-1">Período Atual</label>
+            <select id="cagp-prof-input-period" class="form-select border-dark">
+              <option value="1">1º Período (Calouro)</option>
+              <option value="2">2º Período</option>
+              <option value="3">3º Período</option>
+              <option value="4">4º Período</option>
+              <option value="5">5º Período</option>
+              <option value="6">6º Período</option>
+              <option value="7">7º Período</option>
+              <option value="8">8º Período</option>
+              <option value="9">9º Período</option>
+              <option value="10">10º Período (Formando)</option>
+              <option value="egresso">Egresso / Visitante</option>
+            </select>
+          </div>
+          <div class="col-6 col-sm-3">
+            <label for="cagp-prof-input-semester" class="form-label small fw-bold mb-1">Ingresso</label>
+            <input type="text" id="cagp-prof-input-semester" class="form-control border-dark font-mono" placeholder="2026/1" maxlength="10">
+          </div>
+          <div class="col-12 col-sm-5">
+            <label for="cagp-prof-input-pathway" class="form-label small fw-bold mb-1">Percurso Curricular</label>
+            <select id="cagp-prof-input-pathway" class="form-select border-dark">
+              <option value="01-01">01-01 • Núcleo Geral</option>
+              <option value="01-02">01-02 • Complementar (5ºP+)</option>
+              <option value="01-03">01-03 • Avançado PPGCP (7ºP+)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Marcador / Pin de Orgulho LGBTQIAPN+ -->
+        <div class="mb-3">
+          <label class="form-label small fw-bold mb-1 d-block">
+            <i class="bi bi-heart-fill text-danger me-1" aria-hidden="true"></i> Marcador / Pin de Orgulho no Avatar &amp; Passaporte (opcional)
+          </label>
+          <div class="cagp-pride-picker-grid" id="cagp-prof-pride-grid" role="radiogroup" aria-label="Escolher marcador de bandeira LGBTQIAPN+">
+            <button type="button" class="cagp-pride-choice-chip is-active" role="radio" aria-checked="true" data-cagp-pride-choice="none">
+              <span class="cagp-pride-swatch cagp-pride-swatch--none" aria-hidden="true"></span>
+              <span>Nenhum</span>
+            </button>
+            <button type="button" class="cagp-pride-choice-chip" role="radio" aria-checked="false" data-cagp-pride-choice="lgbt">
+              <span class="cagp-pride-swatch cagp-pride-swatch--lgbt" aria-hidden="true"></span>
+              <span>LGBTQIAPN+</span>
+            </button>
+            <button type="button" class="cagp-pride-choice-chip" role="radio" aria-checked="false" data-cagp-pride-choice="trans">
+              <span class="cagp-pride-swatch cagp-pride-swatch--trans" aria-hidden="true"></span>
+              <span>Trans</span>
+            </button>
+            <button type="button" class="cagp-pride-choice-chip" role="radio" aria-checked="false" data-cagp-pride-choice="gay">
+              <span class="cagp-pride-swatch cagp-pride-swatch--gay" aria-hidden="true"></span>
+              <span>Gay</span>
+            </button>
+            <button type="button" class="cagp-pride-choice-chip" role="radio" aria-checked="false" data-cagp-pride-choice="bisexual">
+              <span class="cagp-pride-swatch cagp-pride-swatch--bisexual" aria-hidden="true"></span>
+              <span>Bissexual</span>
+            </button>
+            <button type="button" class="cagp-pride-choice-chip" role="radio" aria-checked="false" data-cagp-pride-choice="lesbian">
+              <span class="cagp-pride-swatch cagp-pride-swatch--lesbian" aria-hidden="true"></span>
+              <span>Lésbica</span>
+            </button>
+            <button type="button" class="cagp-pride-choice-chip" role="radio" aria-checked="false" data-cagp-pride-choice="nonbinary">
+              <span class="cagp-pride-swatch cagp-pride-swatch--nonbinary" aria-hidden="true"></span>
+              <span>Não-Binárie</span>
+            </button>
+            <button type="button" class="cagp-pride-choice-chip" role="radio" aria-checked="false" data-cagp-pride-choice="pansexual">
+              <span class="cagp-pride-swatch cagp-pride-swatch--pansexual" aria-hidden="true"></span>
+              <span>Pansexual</span>
+            </button>
+            <button type="button" class="cagp-pride-choice-chip" role="radio" aria-checked="false" data-cagp-pride-choice="asexual">
+              <span class="cagp-pride-swatch cagp-pride-swatch--asexual" aria-hidden="true"></span>
+              <span>Assexual</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ÁREAS DE INTERESSE EM GESTÃO PÚBLICA (BANCO DE TALENTOS) -->
+        <div class="mb-3 p-3 bg-light border border-dark rounded-1">
+          <div class="d-flex align-items-center justify-content-between mb-1">
+            <label class="form-label fw-bold font-display text-uppercase small mb-0">
+              <i class="bi bi-stars text-warning me-1" aria-hidden="true"></i> Áreas de Interesse (Banco de Talentos)
+            </label>
+            <span class="cagp-badge cagp-badge-dark" id="cagp-interests-count-badge">0 selecionadas</span>
+          </div>
+          <p class="small text-muted mb-2">
+            Selecione seus temas de preferência para atuação profissional, estágio ou pesquisa. As principais serão exibidas no seu Passaporte.
+          </p>
+
+          <div class="cagp-interests-picker-grid" id="cagp-interests-picker">
+            <button type="button" class="cagp-interest-chip" data-interest-key="pol_pub" aria-pressed="false">
+              <i class="bi bi-file-earmark-text me-1" aria-hidden="true"></i> Políticas Públicas &amp; Planejamento
+            </button>
+            <button type="button" class="cagp-interest-chip" data-interest-key="orcamento" aria-pressed="false">
+              <i class="bi bi-cash-coin me-1" aria-hidden="true"></i> Orçamento &amp; Finanças Públicas
+            </button>
+            <button type="button" class="cagp-interest-chip" data-interest-key="pessoas" aria-pressed="false">
+              <i class="bi bi-people me-1" aria-hidden="true"></i> Gestão de Pessoas no Setor Público
+            </button>
+            <button type="button" class="cagp-interest-chip" data-interest-key="licitacoes" aria-pressed="false">
+              <i class="bi bi-briefcase me-1" aria-hidden="true"></i> Licitações, Contratos &amp; Compras
+            </button>
+            <button type="button" class="cagp-interest-chip" data-interest-key="cidades" aria-pressed="false">
+              <i class="bi bi-building me-1" aria-hidden="true"></i> Cidades, Habitação &amp; Urbanismo
+            </button>
+            <button type="button" class="cagp-interest-chip" data-interest-key="saude" aria-pressed="false">
+              <i class="bi bi-heart-pulse me-1" aria-hidden="true"></i> Saúde Pública &amp; Gestão do SUS
+            </button>
+            <button type="button" class="cagp-interest-chip" data-interest-key="educacao" aria-pressed="false">
+              <i class="bi bi-mortarboard me-1" aria-hidden="true"></i> Educação &amp; Gestão Universitária
+            </button>
+            <button type="button" class="cagp-interest-chip" data-interest-key="govtech" aria-pressed="false">
+              <i class="bi bi-cpu me-1" aria-hidden="true"></i> GovTech, Inovação &amp; Governo Digital
+            </button>
+            <button type="button" class="cagp-interest-chip" data-interest-key="dados" aria-pressed="false">
+              <i class="bi bi-graph-up me-1" aria-hidden="true"></i> Ciência de Dados &amp; Avaliação de Impacto
+            </button>
+            <button type="button" class="cagp-interest-chip" data-interest-key="terceiro_setor" aria-pressed="false">
+              <i class="bi bi-globe-americas me-1" aria-hidden="true"></i> Terceiro Setor, OSCs &amp; ESG
+            </button>
+            <button type="button" class="cagp-interest-chip" data-interest-key="rel_inst" aria-pressed="false">
+              <i class="bi bi-chat-left-text me-1" aria-hidden="true"></i> Relações Institucionais &amp; Advocacy
+            </button>
+            <button type="button" class="cagp-interest-chip" data-interest-key="meio_ambiente" aria-pressed="false">
+              <i class="bi bi-tree me-1" aria-hidden="true"></i> Meio Ambiente, Clima &amp; Sustentabilidade
+            </button>
+          </div>
+
+          <div class="mt-2">
+            <label for="cagp-prof-input-other-interests" class="form-label small text-muted mb-1">Outras áreas de interesse (opcional):</label>
+            <input type="text" id="cagp-prof-input-other-interests" class="form-control form-control-sm border-dark" placeholder="Ex.: Direito Administrativo, Regulação de Serviços, etc." maxlength="100">
+          </div>
+        </div>
+
+        <!-- HABILIDADES & FERRAMENTAS -->
+        <div class="mb-3">
+          <label class="form-label fw-bold font-display text-uppercase small mb-1">
+            <i class="bi bi-tools text-primary me-1" aria-hidden="true"></i> Habilidades &amp; Ferramentas Práticas
+          </label>
+          <div class="cagp-skills-picker-grid" id="cagp-skills-picker">
+            <button type="button" class="cagp-skill-chip" data-skill-key="sei_ufmg" aria-pressed="false">SEI UFMG</button>
+            <button type="button" class="cagp-skill-chip" data-skill-key="excel_pbi" aria-pressed="false">Excel / Power BI</button>
+            <button type="button" class="cagp-skill-chip" data-skill-key="r_python" aria-pressed="false">R / Python</button>
+            <button type="button" class="cagp-skill-chip" data-skill-key="redacao_oficial" aria-pressed="false">Redação Oficial</button>
+            <button type="button" class="cagp-skill-chip" data-skill-key="analise_politicas" aria-pressed="false">Análise de Políticas</button>
+            <button type="button" class="cagp-skill-chip" data-skill-key="gestao_projetos" aria-pressed="false">Gestão de Projetos</button>
+            <button type="button" class="cagp-skill-chip" data-skill-key="editais" aria-pressed="false">Elaboração de Editais</button>
+            <button type="button" class="cagp-skill-chip" data-skill-key="pesquisa_campo" aria-pressed="false">Pesquisa Aplicada</button>
+          </div>
+        </div>
+
+        <!-- MINI-BIO (280 CARACTERES) -->
+        <div class="mb-3">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <label for="cagp-prof-input-bio" class="form-label fw-bold font-display text-uppercase small mb-0">
+              <i class="bi bi-card-text text-danger me-1" aria-hidden="true"></i> Mini-Bio / Resumo Profissional
+            </label>
+            <span class="small font-mono text-muted" id="cagp-bio-char-count">0 / 280</span>
+          </div>
+          <textarea id="cagp-prof-input-bio" class="form-control border-dark" rows="3" maxlength="280" placeholder="Resuma em poucas frases sua trajetória acadêmica, interesses e objetivos na Gestão Pública..."></textarea>
+        </div>
+
+        <!-- LINKS PROFISSIONAIS -->
+        <div class="row g-2 mb-3">
+          <div class="col-sm-6">
+            <label for="cagp-prof-input-linkedin" class="form-label small fw-bold mb-1">
+              <i class="bi bi-linkedin text-primary me-1"></i> Perfil no LinkedIn
+            </label>
+            <input type="url" id="cagp-prof-input-linkedin" class="form-control form-control-sm border-dark font-mono" placeholder="https://linkedin.com/in/seuperfil" maxlength="120">
+          </div>
+          <div class="col-sm-6">
+            <label for="cagp-prof-input-lattes" class="form-label small fw-bold mb-1">
+              <i class="bi bi-journal-code text-danger me-1"></i> Currículo Lattes
+            </label>
+            <input type="url" id="cagp-prof-input-lattes" class="form-control form-control-sm border-dark font-mono" placeholder="http://lattes.cnpq.br/..." maxlength="120">
+          </div>
+        </div>
+
+        <!-- CONSENTIMENTO BANCO DE TALENTOS (LGPD) -->
+        <div class="form-check p-2 bg-light border border-dark rounded-1 mb-3">
+          <input class="form-check-input ms-1 me-2" type="checkbox" id="cagp-prof-consent-talent">
+          <label class="form-check-label small" for="cagp-prof-consent-talent">
+            <strong>Participar do Banco de Talentos Discentes do CAGP</strong>
+            <span class="d-block text-muted" style="font-size: 0.75rem;">
+              Autorizo o compartilhamento voluntário destas informações para divulgação de vagas de estágio, pesquisa e projetos de extensão. Seus dados continuam salvos no seu dispositivo.
+            </span>
+          </label>
+        </div>
+
+        <button type="button" id="cagp-prof-save-btn" class="cagp-btn cagp-btn-primary btn-sm w-100" data-cagp-action="save-profile">
+          <i class="bi bi-check2-circle me-1"></i> Salvar Perfil &amp; Banco de Talentos
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="cagp-a11y-footer">
+    <button type="button" class="cagp-btn cagp-btn-primary w-100" data-cagp-close-passport="true">
+      <i class="bi bi-check2 me-1"></i> Concluído
+    </button>
+  </div>
+</div>
+
+<script data-cagp-persistent-script="true">
+(function () {
+  'use strict';
+
+  if (window.__cagpPwaMounted) return;
+  window.__cagpPwaMounted = true;
+
+  // 0. Hoisting Global Obrigatório para a Raiz do <body> (Garante escopo SPA imune a #quarto-content)
+  function hoistPwaShellToBody() {
+    const shellIds = [
+      'cagp-reading-progress',
+      'cagp-toast',
+      'cagp-mobile-nav',
+      'cagp-superapp-tabbar',
+      'cagp-pwa-banner',
+      'cagp-ios-backdrop',
+      'cagp-ios-sheet',
+      'cagp-settings-backdrop',
+      'cagp-settings-sheet'
+    ];
+    shellIds.forEach(function (id) {
+      const nodes = document.querySelectorAll('#' + id);
+      if (nodes.length > 1) {
+        for (let i = 1; i < nodes.length; i++) {
+          nodes[i].remove();
+        }
+      }
+      const el = nodes[0];
+      if (el && document.body && el.parentElement !== document.body) {
+        document.body.appendChild(el);
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', hoistPwaShellToBody);
+  } else {
+    hoistPwaShellToBody();
+  }
+
+  // 1. Barra de Leitura Superior Fluida (Apple Scroll Physics)
+  const progressBar = document.getElementById('cagp-reading-progress');
+  if (progressBar) {
+    let ticking = false;
+    const updateProgress = function () {
+      const scrollY = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? Math.min(1, Math.max(0, scrollY / docHeight)) : 0;
+      progressBar.style.transform = 'scaleX(' + progress + ')';
+      ticking = false;
+    };
+
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        window.requestAnimationFrame(updateProgress);
+        ticking = true;
+      }
+    }, { passive: true });
+    updateProgress();
+  }
+
+  // 2. Sistema de Notificação Cápsula Tátil (Dynamic Island Toast)
+  const toastEl = document.getElementById('cagp-toast');
+  const toastText = document.getElementById('cagp-toast-text');
+  const toastIcon = document.getElementById('cagp-toast-icon');
+  let toastTimer = null;
+
+  window.cagpToast = function (message, iconClass, duration) {
+    if (!toastEl || !toastText) return;
+    clearTimeout(toastTimer);
+
+    toastText.textContent = message;
+    if (toastIcon) {
+      toastIcon.className = 'bi ' + (iconClass || 'bi-check2-circle') + ' cagp-toast-icon';
+    }
+
+    toastEl.removeAttribute('hidden');
+    void toastEl.offsetWidth;
+    toastEl.classList.add('is-visible');
+
+    toastTimer = setTimeout(function () {
+      toastEl.classList.remove('is-visible');
+      setTimeout(function () {
+        toastEl.setAttribute('hidden', '');
+      }, 350);
+    }, duration || 2400);
+  };
+  window.cagpShowToast = window.cagpToast;
+
+  // 3. Monitor de Conectividade com Toast de Estado
+  window.addEventListener('online', function () {
+    window.cagpToast('Conexão restabelecida.', 'bi-wifi', 2500);
+  });
+  window.addEventListener('offline', function () {
+    window.cagpToast('Modo offline ativo: Conteúdo em cache.', 'bi-wifi-off', 3500);
+  });
+
+  // 4. Registro do Service Worker & Notificação de Atualização (cagp-pwa-v2)
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('./sw.js').then(function (reg) {
+        reg.addEventListener('updatefound', function () {
+          const newWorker = reg.installing;
+          if (!newWorker) return;
+          newWorker.addEventListener('statechange', function () {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              newWorker.postMessage({ type: 'SKIP_WAITING' });
+            }
+          });
+        });
+      }).catch(function (err) {
+        console.warn('CAGP PWA: Registro do Service Worker falhou:', err);
+      });
+    });
+
+    navigator.serviceWorker.addEventListener('message', function (event) {
+      if (!event.data) return;
+      if (event.data.type === 'CAGP_SW_UPDATED') {
+        window.cagpToast('App atualizado com a versão mais recente!', 'bi-stars', 3400);
+      } else if (event.data.type === 'CAGP_NOTIFICATION_CLICK' && event.data.url) {
+        if (window.cagpNavigate) {
+          window.cagpNavigate(event.data.url);
+        } else {
+          window.location.href = event.data.url;
+        }
+      }
+    });
+  }
+
+  // 5. Destaque da aba ativa na barra móvel (Todas as 14 rotas mapeadas)
+  function syncMobileNavActive(pathname) {
+    const navMap = {
+      'index.html': 'cagp-mnav-inicio',
+      '': 'cagp-mnav-inicio',
+      'calouros.html': 'cagp-mnav-inicio',
+      'curso.html': 'cagp-mnav-inicio',
+      'pesquisa.html': 'cagp-mnav-inicio',
+      'percurso.html': 'cagp-mnav-percurso',
+      'optativas.html': 'cagp-mnav-percurso',
+      'acg.html': 'cagp-mnav-acg',
+      'estagio.html': 'cagp-mnav-acg',
+      'tcc.html': 'cagp-mnav-acg',
+      'estagio-tcc.html': 'cagp-mnav-acg',
+      'documentos.html': 'cagp-mnav-docs',
+      'faq.html': 'cagp-mnav-docs',
+      'mapa-do-site.html': 'cagp-mnav-docs',
+      'gestao.html': 'cagp-mnav-cagp',
+      'sobre.html': 'cagp-mnav-cagp'
+    };
+    document.querySelectorAll('.cagp-mobile-nav-item').forEach(function (el) {
+      el.classList.remove('is-active');
+    });
+    const activeId = navMap[pathname] || 'cagp-mnav-inicio';
+    const el = document.getElementById(activeId);
+    if (el) el.classList.add('is-active');
+  }
+
+  const initialPath = window.location.pathname.split('/').pop() || 'index.html';
+  syncMobileNavActive(initialPath);
+
+  // 6. Detecção Inteligente de Modo Standalone (App Instalado) vs Web
+  function checkIsStandalone() {
+    try {
+      const forced = sessionStorage.getItem('cagp_force_app_mode');
+      if (forced === 'true') return true;
+      if (forced === 'false') return false;
+    } catch (e) {}
+    return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
+           window.navigator.standalone === true ||
+           (document.referrer && document.referrer.includes('android-app://'));
+  }
+
+  let isStandalone = checkIsStandalone();
+
+  function applyAppModeClasses() {
+    isStandalone = checkIsStandalone();
+    if (window.cagpSyncViewportMeta) {
+      window.cagpSyncViewportMeta(isStandalone);
+    }
+    if (isStandalone) {
+      document.documentElement.classList.add('cagp-is-standalone');
+      document.body.classList.add('cagp-is-standalone');
+    } else {
+      document.documentElement.classList.remove('cagp-is-standalone');
+      document.body.classList.remove('cagp-is-standalone');
+    }
+    updateSuperAppUI(window.location.href);
+  }
+
+  // 7. Alternador Manual de Modo (Super App vs Web Clássico)
+  window.cagpToggleAppMode = function () {
+    const currentlyStandalone = document.documentElement.classList.contains('cagp-is-standalone');
+    if (currentlyStandalone) {
+      sessionStorage.setItem('cagp_force_app_mode', 'false');
+      applyAppModeClasses();
+      if (window.cagpToast) window.cagpToast('Modo Portal Web Clássico ativado.', 'bi-window', 2500);
+    } else {
+      sessionStorage.setItem('cagp_force_app_mode', 'true');
+      applyAppModeClasses();
+      if (window.cagpToast) window.cagpToast('Modo Super App Instalado ativado!', 'bi-phone', 2500);
+    }
+  };
+
+  // 8. Bottom Sheet de Ajustes, Passaporte Acadêmico & Cofre Discente (Sincronizado com AGENTS.md § 4.2)
+  const settingsBackdrop = document.getElementById('cagp-settings-backdrop');
+  const settingsSheet = document.getElementById('cagp-settings-sheet');
+  const PROFILE_STORAGE_KEY = 'cagp_student_profile_v1';
+
+  const PRIDE_FLAGS_META = {
+    none: { label: 'Nenhum', badge: '' },
+    lgbt: { label: 'Orgulho LGBTQIAPN+', badge: 'LGBTQIAPN+' },
+    trans: { label: 'Orgulho Trans', badge: 'Trans' },
+    gay: { label: 'Orgulho Gay', badge: 'Gay' },
+    bisexual: { label: 'Orgulho Bissexual', badge: 'Bissexual' },
+    lesbian: { label: 'Orgulho Lésbico', badge: 'Lésbica' },
+    nonbinary: { label: 'Orgulho Não-Binárie', badge: 'Não-Binárie' },
+    pansexual: { label: 'Orgulho Pansexual', badge: 'Pansexual' },
+    asexual: { label: 'Orgulho Assexual', badge: 'Assexual' }
+  };
+
+  const PATHWAY_LABELS = {
+    '01-01': '01-01 • Geral',
+    '01-02': '01-02 • Complementar',
+    '01-03': '01-03 • Avançado PPGCP'
+  };
+
+  const INTEREST_AREAS_META = {
+    pol_pub: { label: 'Políticas Públicas', icon: 'bi-file-earmark-text' },
+    orcamento: { label: 'Orçamento & Finanças', icon: 'bi-cash-coin' },
+    pessoas: { label: 'Gestão de Pessoas', icon: 'bi-people' },
+    licitacoes: { label: 'Licitações & Compras', icon: 'bi-briefcase' },
+    cidades: { label: 'Cidades & Urbanismo', icon: 'bi-building' },
+    saude: { label: 'Saúde Pública (SUS)', icon: 'bi-heart-pulse' },
+    educacao: { label: 'Educação Pública', icon: 'bi-mortarboard' },
+    govtech: { label: 'GovTech & Inovação', icon: 'bi-cpu' },
+    dados: { label: 'Ciência de Dados', icon: 'bi-graph-up' },
+    terceiro_setor: { label: 'Terceiro Setor & ESG', icon: 'bi-globe-americas' },
+    rel_inst: { label: 'Relações Institucionais', icon: 'bi-chat-left-text' },
+    meio_ambiente: { label: 'Meio Ambiente & Clima', icon: 'bi-tree' }
+  };
+
+  function getStudentProfile() {
+    const defaults = {
+      name: '',
+      pronouns: '',
+      period: '1',
+      entrySemester: '2026/1',
+      pathway: '01-01',
+      avatarMode: 'preset',
+      avatarPreset: 'candangos',
+      photoDataUrl: '',
+      prideFlag: 'none',
+      email: '',
+      phone: '',
+      interests: [],
+      otherInterests: '',
+      skills: [],
+      bio: '',
+      linkedin: '',
+      lattes: '',
+      talentConsent: false,
+      updatedAt: ''
+    };
+    try {
+      const raw = localStorage.getItem(PROFILE_STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === 'object') {
+          const merged = Object.assign({}, defaults, parsed);
+          if (!PRIDE_FLAGS_META[merged.prideFlag]) merged.prideFlag = 'none';
+          if (!PATHWAY_LABELS[merged.pathway]) merged.pathway = '01-01';
+          if (!Array.isArray(merged.interests)) merged.interests = [];
+          if (!Array.isArray(merged.skills)) merged.skills = [];
+          return merged;
+        }
+      }
+      const quizFallback = localStorage.getItem('cagp_percurso_quiz_v1');
+      if (quizFallback && PATHWAY_LABELS[quizFallback]) {
+        defaults.pathway = quizFallback;
+      }
+    } catch (e) {}
+    return defaults;
+  }
+
+  function saveStudentProfile(partial, silent) {
+    const current = getStudentProfile();
+    const next = Object.assign({}, current, partial || {}, {
+      updatedAt: new Date().toISOString()
+    });
+    if (!PRIDE_FLAGS_META[next.prideFlag]) next.prideFlag = 'none';
+    if (!PATHWAY_LABELS[next.pathway]) next.pathway = '01-01';
+    try {
+      localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(next));
+      if (partial && partial.pathway && PATHWAY_LABELS[partial.pathway]) {
+        localStorage.setItem('cagp_percurso_quiz_v1', partial.pathway);
+      }
+    } catch (e) {}
+    refreshVaultData();
+    if (!silent) {
+      window.dispatchEvent(new CustomEvent('cagp:profile-updated', { detail: next }));
+    }
+    return next;
+  }
+
+  function computeMonogram(nameStr) {
+    const clean = String(nameStr || '').trim();
+    if (!clean) return 'GP';
+    const parts = clean.split(/\s+/).filter(Boolean);
+    if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+    return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
+  }
+
+  function cropAndCompressSourceToWebp(imgSource, width, height) {
+    const canvas = document.getElementById('cagp-profile-crop-canvas') || document.createElement('canvas');
+    canvas.width = 240;
+    canvas.height = 240;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) throw new Error('Contexto 2D indisponível.');
+
+    const rawW = Number(width || imgSource.naturalWidth || imgSource.videoWidth || imgSource.width || 240);
+    const rawH = Number(height || imgSource.naturalHeight || imgSource.videoHeight || imgSource.height || 240);
+    const sw = Math.max(1, isFinite(rawW) && rawW > 0 ? rawW : 240);
+    const sh = Math.max(1, isFinite(rawH) && rawH > 0 ? rawH : 240);
+    const minSide = Math.max(1, Math.min(sw, sh));
+    const sx = Math.max(0, Math.min(sw - minSide, Math.floor((sw - minSide) / 2)));
+    const sy = Math.max(0, Math.min(sh - minSide, Math.floor((sh - minSide) / 2)));
+
+    ctx.clearRect(0, 0, 240, 240);
+    ctx.fillStyle = '#FBF8F3';
+    ctx.fillRect(0, 0, 240, 240);
+    ctx.imageSmoothingEnabled = true;
+    try { ctx.imageSmoothingQuality = 'high'; } catch (e) {}
+    ctx.drawImage(imgSource, sx, sy, minSide, minSide, 0, 0, 240, 240);
+
+    let dataUrl = '';
+    try {
+      dataUrl = canvas.toDataURL('image/webp', 0.70);
+      if (dataUrl && dataUrl.indexOf('data:image/webp') === 0 && dataUrl.length > 20000) {
+        dataUrl = canvas.toDataURL('image/webp', 0.60);
+      }
+    } catch (e) {}
+    if (!dataUrl || dataUrl.indexOf('data:image/webp') !== 0 || dataUrl.length > 20000) {
+      dataUrl = canvas.toDataURL('image/jpeg', 0.70);
+      if (dataUrl.length > 20000) {
+        dataUrl = canvas.toDataURL('image/jpeg', 0.55);
+      }
+    }
+    return dataUrl;
+  }
+
+  function processProfileImageFile(file) {
+    return new Promise(function (resolve, reject) {
+      if (!file) {
+        reject(new Error('Nenhum arquivo selecionado.'));
+        return;
+      }
+      const reader = new FileReader();
+      reader.onerror = function () { reject(new Error('Falha ao ler a imagem.')); };
+      reader.onload = function (ev) {
+        const img = new Image();
+        img.onerror = function () { reject(new Error('Formato de imagem não suportado.')); };
+        img.onload = function () {
+          try {
+            const dataUrl = cropAndCompressSourceToWebp(img, img.naturalWidth, img.naturalHeight);
+            const saved = saveStudentProfile({
+              avatarMode: 'photo',
+              photoDataUrl: dataUrl
+            });
+            resolve({ profile: saved, dataUrl: dataUrl });
+          } catch (err) {
+            reject(err);
+          }
+        };
+        img.src = String(ev.target.result || '');
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function switchProfileTab(tabName) {
+    const isPassport = tabName === 'passport';
+    const passportTab = document.getElementById('cagp-ptab-passport');
+    const talentTab = document.getElementById('cagp-ptab-talent');
+    const passportPanel = document.getElementById('cagp-ppanel-passport');
+    const talentPanel = document.getElementById('cagp-ppanel-talent');
+
+    if (passportTab) {
+      passportTab.classList.toggle('is-active', isPassport);
+      passportTab.setAttribute('aria-selected', isPassport ? 'true' : 'false');
+    }
+    if (talentTab) {
+      talentTab.classList.toggle('is-active', !isPassport);
+      talentTab.setAttribute('aria-selected', !isPassport ? 'true' : 'false');
+    }
+    if (passportPanel) {
+      if (isPassport) passportPanel.removeAttribute('hidden');
+      else passportPanel.setAttribute('hidden', '');
+    }
+    if (talentPanel) {
+      if (!isPassport) talentPanel.removeAttribute('hidden');
+      else talentPanel.setAttribute('hidden', '');
+    }
+  }
+  window.cagpSwitchProfileTab = switchProfileTab;
+
+  function openAppSettings(initialFocus) {
+    hoistPwaShellToBody();
+    const sheet = document.getElementById('cagp-settings-sheet');
+    const backdrop = document.getElementById('cagp-settings-backdrop');
+    if (!sheet || !backdrop) return;
+    if (window.cagpCloseAllOverlays) window.cagpCloseAllOverlays('cagp-settings-sheet');
+
+    if (initialFocus === 'talent' || initialFocus === 'editor') {
+      switchProfileTab('talent');
+    } else {
+      switchProfileTab('passport');
+    }
+
+    refreshVaultData();
+    syncProfileEditorFields();
+    backdrop.removeAttribute('hidden');
+    backdrop.classList.add('is-open');
+    sheet.removeAttribute('hidden');
+    sheet.classList.add('is-open');
+
+    const bodyEl = sheet.querySelector('.cagp-a11y-body');
+    if (bodyEl) {
+      if (initialFocus === 'vault') {
+        const vaultSec = sheet.querySelector('.cagp-vault-section');
+        bodyEl.scrollTop = vaultSec ? Math.max(0, vaultSec.offsetTop - 16) : 0;
+      } else {
+        bodyEl.scrollTop = 0;
+      }
+    }
+  }
+
+  function closeAppSettings() {
+    const sheet = document.getElementById('cagp-settings-sheet');
+    const backdrop = document.getElementById('cagp-settings-backdrop');
+    if (!sheet || !backdrop) return;
+    backdrop.setAttribute('hidden', '');
+    backdrop.classList.remove('is-open');
+    sheet.setAttribute('hidden', '');
+    sheet.classList.remove('is-open');
+  }
+
+  /**
+   * Cálculo compartilhado do Guardião de 120 Dias das AAC (Art. 15, § 4º do Regulamento N-20229)
+   * Chave canônica: cagp_aac_120d_certs_v1
+   */
+  function get120dSummary() {
+    let certs = [];
+    try {
+      const raw = localStorage.getItem('cagp_aac_120d_certs_v1');
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) certs = parsed;
+      }
+    } catch (e) {}
+
+    const now = new Date();
+    const todayUtc = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+    let safeCount = 0;
+    let warnCount = 0;
+    let criticalCount = 0;
+    let expiredCount = 0;
+
+    const enriched = certs.map(function (c) {
+      const parts = String(c.date || '').split('-');
+      let eventUtc = todayUtc;
+      if (parts.length === 3) {
+        eventUtc = Date.UTC(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+      }
+      const deadlineUtc = eventUtc + (120 * 86400000);
+      const daysLeft = Math.round((deadlineUtc - todayUtc) / 86400000);
+      const deadlineDate = new Date(deadlineUtc);
+      const dd = String(deadlineDate.getUTCDate()).padStart(2, '0');
+      const mm = String(deadlineDate.getUTCMonth() + 1).padStart(2, '0');
+      const yyyy = deadlineDate.getUTCFullYear();
+      let status = 'safe';
+      if (daysLeft < 0) {
+        status = 'expired';
+        expiredCount++;
+      } else if (daysLeft <= 10) {
+        status = 'critical';
+        criticalCount++;
+      } else if (daysLeft <= 30) {
+        status = 'warn';
+        warnCount++;
+      } else {
+        safeCount++;
+      }
+      return Object.assign({}, c, {
+        daysLeft: daysLeft,
+        deadlineIso: yyyy + '-' + mm + '-' + dd,
+        deadlineBr: dd + '/' + mm + '/' + yyyy,
+        status: status
+      });
+    });
+
+    const urgentCount = warnCount + criticalCount + expiredCount;
+    return {
+      total: enriched.length,
+      safeCount: safeCount,
+      warnCount: warnCount,
+      criticalCount: criticalCount,
+      expiredCount: expiredCount,
+      urgentCount: urgentCount,
+      items: enriched
+    };
+  }
+  window.cagpGet120dSummary = get120dSummary;
+
+  function updateAppBadgeFrom120d(summary) {
+    const s = summary || get120dSummary();
+    try {
+      if ('setAppBadge' in navigator && 'clearAppBadge' in navigator) {
+        if (s.urgentCount > 0) {
+          navigator.setAppBadge(s.urgentCount).catch(function () {});
+        } else {
+          navigator.clearAppBadge().catch(function () {});
+        }
+      }
+    } catch (e) {}
+  }
+  window.cagpUpdateAppBadge = updateAppBadgeFrom120d;
+
+  /**
+   * Leitura sincronizada das chaves canônicas do Cofre Acadêmico (AGENTS.md Seção 4.2):
+   * 1. cagp_calc_ext_aac_v1 (acg.qmd)
+   * 2. cagp_aac_120d_certs_v1 (acg.qmd Guardião de 120 Dias)
+   * 3. cagp_calouro_checklist_v1 (calouros.qmd)
+   * 4. cagp_percurso_quiz_v1 + cagp_minha_grade_v1 (percurso.qmd)
+   */
+  function refreshVaultData() {
+    // 1. Calculadora 600h (Extensão + AAC): cagp_calc_ext_aac_v1
+    let totalHours = 0;
+    try {
+      const rawCalc = localStorage.getItem('cagp_calc_ext_aac_v1');
+      if (rawCalc) {
+        const parsedCalc = JSON.parse(rawCalc);
+        if (parsedCalc && typeof parsedCalc === 'object') {
+          let extSum = 0;
+          let aacSum = 0;
+          Object.keys(parsedCalc).forEach(function (k) {
+            const val = Number(parsedCalc[k]) || 0;
+            if (k.indexOf('ext_') === 0) extSum += val;
+            else if (k.indexOf('aac_') === 0) aacSum += val;
+          });
+          totalHours += Math.min(300, extSum) + Math.min(300, aacSum);
+        }
+      } else {
+        const legacyHours = parseInt(localStorage.getItem('cagp_acg_total_horas') || '0', 10);
+        if (!isNaN(legacyHours)) totalHours = legacyHours;
+      }
+    } catch (e) {}
+
+    const pctAcg = Math.min(100, Math.round((totalHours / 600) * 100));
+    const acgText = totalHours + 'h / 600h';
+    const acgValEl = document.getElementById('cagp-vault-acg');
+    const hubAcgEl = document.getElementById('cagp-hub-vault-acg');
+    const ringEl = document.getElementById('cagp-vault-ring');
+    const ringValEl = document.getElementById('cagp-vault-ring-val');
+    const hubRingEl = document.getElementById('cagp-hub-vault-ring');
+    const hubRingValEl = document.getElementById('cagp-hub-vault-ring-val');
+    if (acgValEl) {
+      if (window.cagpAnimateNumber) {
+        window.cagpAnimateNumber(acgValEl, totalHours, { suffix: 'h / 600h' });
+      } else {
+        acgValEl.textContent = acgText;
+      }
+    }
+    if (hubAcgEl) {
+      if (window.cagpAnimateNumber) {
+        window.cagpAnimateNumber(hubAcgEl, totalHours, { suffix: 'h / 600h' });
+      } else {
+        hubAcgEl.textContent = acgText;
+      }
+    }
+    if (ringEl) {
+      ringEl.style.setProperty('--ring-pct', String(pctAcg));
+      ringEl.classList.toggle('is-complete', pctAcg >= 100);
+    }
+    if (ringValEl) ringValEl.textContent = pctAcg + '%';
+    if (hubRingEl) {
+      hubRingEl.style.setProperty('--ring-pct', String(pctAcg));
+      hubRingEl.classList.toggle('is-complete', pctAcg >= 100);
+    }
+    if (hubRingValEl) hubRingValEl.textContent = pctAcg + '%';
+
+    // 2. Guardião de 120 Dias: cagp_aac_120d_certs_v1
+    const summary120d = get120dSummary();
+    updateAppBadgeFrom120d(summary120d);
+    let label120d = summary120d.total === 0 ? '0 certificados' : (summary120d.total + (summary120d.total === 1 ? ' ativo' : ' ativos'));
+    if (summary120d.urgentCount > 0) {
+      label120d = summary120d.urgentCount + ' em alerta (<30d)';
+    }
+    const vault120dEl = document.getElementById('cagp-vault-120d');
+    const hub120dEl = document.getElementById('cagp-hub-vault-120d');
+    if (vault120dEl) {
+      vault120dEl.textContent = label120d;
+      vault120dEl.classList.toggle('text-danger', summary120d.urgentCount > 0);
+    }
+    if (hub120dEl) {
+      hub120dEl.textContent = label120d;
+      hub120dEl.classList.toggle('text-danger', summary120d.urgentCount > 0);
+    }
+
+    // 3. Checklist Calouro (6 Passos): cagp_calouro_checklist_v1
+    let checkCount = 0;
+    try {
+      const rawCheck = localStorage.getItem('cagp_calouro_checklist_v1') || localStorage.getItem('cagp_calouros_checklist');
+      if (rawCheck) {
+        const parsed = JSON.parse(rawCheck);
+        if (Array.isArray(parsed)) {
+          checkCount = parsed.length;
+        } else if (parsed && typeof parsed === 'object') {
+          checkCount = Object.values(parsed).filter(Boolean).length;
+        }
+      }
+    } catch (e) {}
+    const checkText = checkCount + ' de 6 passos';
+    const checkValEl = document.getElementById('cagp-vault-checklist');
+    const hubCheckEl = document.getElementById('cagp-hub-vault-checklist');
+    if (checkValEl) checkValEl.textContent = checkText;
+    if (hubCheckEl) hubCheckEl.textContent = checkText;
+
+    // 4. Simulador / Termômetro de Percurso: cagp_percurso_quiz_v1 + Minha Grade: cagp_minha_grade_v1
+    let percursoLabel = 'Não simulado';
+    let completedGradeCount = 0;
+    try {
+      const rawGrade = localStorage.getItem('cagp_minha_grade_v1');
+      if (rawGrade) {
+        const parsedGrade = JSON.parse(rawGrade);
+        if (parsedGrade && Array.isArray(parsedGrade.completed)) {
+          completedGradeCount = parsedGrade.completed.length;
+        }
+      }
+      const rawQuiz = localStorage.getItem('cagp_percurso_quiz_v1') || localStorage.getItem('cagp_percurso_quiz_resultado');
+      if (rawQuiz) {
+        const quizLabels = {
+          '01-01': '01-01 • Núcleo Geral',
+          '01-02': '01-02 • Complementar',
+          '01-03': '01-03 • Avançado'
+        };
+        percursoLabel = quizLabels[rawQuiz] || rawQuiz;
+        if (completedGradeCount > 0) {
+          percursoLabel = rawQuiz + ' • ' + completedGradeCount + '/27 matérias';
+        }
+      } else if (completedGradeCount > 0) {
+        percursoLabel = completedGradeCount + ' de 27 obrigatórias';
+      }
+    } catch (e) {}
+    const percursoValEl = document.getElementById('cagp-vault-percurso');
+    const hubPercursoEl = document.getElementById('cagp-hub-vault-percurso');
+    if (percursoValEl) percursoValEl.textContent = percursoLabel;
+    if (hubPercursoEl) hubPercursoEl.textContent = percursoLabel;
+
+    // 5. Passaporte Acadêmico Discente & Identidade Local: cagp_student_profile_v1
+    const prof = getStudentProfile();
+    const pctObrig = Math.min(100, Math.round((completedGradeCount / 27) * 100));
+    const globalPct = Math.min(100, Math.round((pctObrig * 0.6) + (pctAcg * 0.4)));
+
+    if (ringEl) {
+      ringEl.style.setProperty('--ring-pct', String(globalPct));
+      ringEl.classList.toggle('is-complete', globalPct >= 100);
+    }
+    if (ringValEl) {
+      if (window.cagpAnimateNumber) {
+        window.cagpAnimateNumber(ringValEl, globalPct, { suffix: '%' });
+      } else {
+        ringValEl.textContent = globalPct + '%';
+      }
+    }
+    if (hubRingEl) {
+      hubRingEl.style.setProperty('--ring-pct', String(globalPct));
+      hubRingEl.classList.toggle('is-complete', globalPct >= 100);
+    }
+    if (hubRingValEl) {
+      if (window.cagpAnimateNumber) {
+        window.cagpAnimateNumber(hubRingValEl, globalPct, { suffix: '%' });
+      } else {
+        hubRingValEl.textContent = globalPct + '%';
+      }
+    }
+
+    const displayName = (prof.name && prof.name.trim()) ? prof.name.trim() : 'Estudante de Gestão Pública';
+    const firstName = (prof.name && prof.name.trim()) ? prof.name.trim().split(/\s+/)[0] : '';
+    const periodLabel = prof.period === 'egresso' ? 'Egresso / Visitante' : (prof.period + 'º Período');
+    const periodShort = prof.period === 'egresso' ? 'EGR' : (prof.period + 'ºP');
+    const semesterLabel = 'Ingresso ' + (prof.entrySemester || '2026/1');
+    const pathwayText = PATHWAY_LABELS[prof.pathway] || '01-01 • Geral';
+
+    let stampText = periodShort + ' • ATIVO';
+    if (globalPct >= 100) {
+      stampText = '100% INTEGRALIZADO ✓';
+    } else if (prof.period === 'egresso') {
+      stampText = 'EGRESSO • FAFICH';
+    } else if (parseInt(prof.period, 10) >= 7) {
+      stampText = 'RETA FINAL • ' + periodShort;
+    } else if (parseInt(prof.period, 10) >= 2) {
+      stampText = 'EM CURSO • ' + periodShort;
+    } else {
+      stampText = 'CALOURO • 1ºP';
+    }
+
+    document.querySelectorAll('[data-cagp-profile-name-display]').forEach(function (el) {
+      el.textContent = displayName;
+    });
+    document.querySelectorAll('[data-cagp-profile-pronouns-display]').forEach(function (el) {
+      const p = String(prof.pronouns || '').trim();
+      if (p) {
+        el.textContent = '(' + p + ')';
+        el.removeAttribute('hidden');
+      } else {
+        el.textContent = '';
+        el.setAttribute('hidden', '');
+      }
+    });
+    document.querySelectorAll('[data-cagp-profile-period-display]').forEach(function (el) {
+      el.textContent = periodLabel;
+    });
+    document.querySelectorAll('[data-cagp-profile-semester-display]').forEach(function (el) {
+      el.textContent = semesterLabel;
+    });
+    document.querySelectorAll('[data-cagp-profile-pathway-display]').forEach(function (el) {
+      el.textContent = pathwayText;
+    });
+    document.querySelectorAll('[data-cagp-passport-stamp]').forEach(function (el) {
+      el.textContent = stampText;
+    });
+    document.querySelectorAll('[data-cagp-profile-sub-display]').forEach(function (el) {
+      el.textContent = periodLabel + ' • ' + pathwayText + ' →';
+    });
+
+    const headerLabelEl = document.getElementById('cagp-header-profile-label');
+    if (headerLabelEl) {
+      headerLabelEl.textContent = firstName ? (firstName + ' • ' + periodShort) : ('Passaporte • ' + periodShort);
+    }
+    document.querySelectorAll('[data-cagp-tabbar-profile-label]').forEach(function (el) {
+      el.textContent = firstName ? firstName.slice(0, 10) : 'Passaporte';
+    });
+
+    document.querySelectorAll('[data-cagp-passport-obrig-text]').forEach(function (el) {
+      if (window.cagpAnimateNumber) {
+        window.cagpAnimateNumber(el, completedGradeCount, {
+          formatter: function (n) {
+            const c = Math.round(n);
+            const p = Math.min(100, Math.round((c / 27) * 100));
+            return c + '/27 (' + p + '%)';
+          }
+        });
+      } else {
+        el.textContent = completedGradeCount + '/27 (' + pctObrig + '%)';
+      }
+    });
+    document.querySelectorAll('[data-cagp-passport-obrig-bar]').forEach(function (el) {
+      if (window.cagpPulseProgress) {
+        window.cagpPulseProgress(el, pctObrig);
+      } else {
+        el.style.width = pctObrig + '%';
+      }
+    });
+    document.querySelectorAll('[data-cagp-passport-acg-text]').forEach(function (el) {
+      if (window.cagpAnimateNumber) {
+        window.cagpAnimateNumber(el, totalHours, {
+          formatter: function (n) {
+            const h = Math.round(n);
+            const p = Math.min(100, Math.round((h / 600) * 100));
+            return h + 'h/600h (' + p + '%)';
+          }
+        });
+      } else {
+        el.textContent = totalHours + 'h/600h (' + pctAcg + '%)';
+      }
+    });
+    document.querySelectorAll('[data-cagp-passport-acg-bar]').forEach(function (el) {
+      if (window.cagpPulseProgress) {
+        window.cagpPulseProgress(el, pctAcg);
+      } else {
+        el.style.width = pctAcg + '%';
+      }
+    });
+
+    // Sincronizar todos os avatares [data-cagp-avatar-host]
+    const hasPhoto = prof.avatarMode === 'photo' && prof.photoDataUrl && prof.photoDataUrl.indexOf('data:image/') === 0;
+    const presetIconMap = {
+      candangos: '<i class="bi bi-bank2" aria-hidden="true"></i>',
+      fafich: '<i class="bi bi-moon-stars-fill" aria-hidden="true"></i>',
+      republica: '<i class="bi bi-shield-check" aria-hidden="true"></i>',
+      monogram: '<span class="cagp-avatar-monogram">' + escapeHtml(computeMonogram(prof.name)) + '</span>'
+    };
+    const fallbackHtml = presetIconMap[prof.avatarPreset] || presetIconMap.candangos;
+
+    document.querySelectorAll('[data-cagp-avatar-host]').forEach(function (host) {
+      host.setAttribute('data-preset', hasPhoto ? 'photo' : (prof.avatarPreset || 'candangos'));
+      const img = host.querySelector('.cagp-profile-avatar-img');
+      const fb = host.querySelector('.cagp-profile-avatar-fallback');
+      if (hasPhoto && img) {
+        if (img.getAttribute('src') !== prof.photoDataUrl) {
+          img.setAttribute('src', prof.photoDataUrl);
+        }
+        img.removeAttribute('hidden');
+        if (fb) fb.setAttribute('hidden', '');
+      } else {
+        if (img) {
+          img.setAttribute('src', 'imagens/carteirinha.png');
+          img.setAttribute('hidden', '');
+        }
+        if (fb) {
+          fb.innerHTML = fallbackHtml;
+          fb.removeAttribute('hidden');
+        }
+      }
+    });
+
+    // Sincronizar Pins Esmaltados e Tags de Orgulho LGBTQIAPN+
+    const prideMeta = PRIDE_FLAGS_META[prof.prideFlag] || PRIDE_FLAGS_META.none;
+    const hasPride = prof.prideFlag && prof.prideFlag !== 'none' && !!PRIDE_FLAGS_META[prof.prideFlag];
+
+    document.querySelectorAll('[data-cagp-pride-pin]').forEach(function (pin) {
+      if (hasPride) {
+        pin.setAttribute('data-pride-flag', prof.prideFlag);
+        pin.setAttribute('title', prideMeta.label);
+        pin.removeAttribute('hidden');
+      } else {
+        pin.removeAttribute('data-pride-flag');
+        pin.setAttribute('hidden', '');
+      }
+    });
+
+    document.querySelectorAll('[data-cagp-pride-tag]').forEach(function (tag) {
+      if (hasPride) {
+        tag.setAttribute('data-pride-flag', prof.prideFlag);
+        tag.removeAttribute('hidden');
+        const sw = tag.querySelector('[data-cagp-pride-swatch]');
+        const lb = tag.querySelector('[data-cagp-pride-label]');
+        if (sw) sw.className = 'cagp-pride-tag-swatch cagp-pride-swatch--' + prof.prideFlag;
+        if (lb) lb.textContent = prideMeta.badge;
+      } else {
+        tag.setAttribute('hidden', '');
+      }
+    });
+
+    // Sincronizar badges das Áreas de Interesse no Passaporte
+    const passportInterestsWrap = document.getElementById('cagp-passport-interests-wrap');
+    const passportInterestsList = document.querySelector('[data-cagp-passport-interests]');
+    if (passportInterestsWrap && passportInterestsList) {
+      const interests = Array.isArray(prof.interests) ? prof.interests : [];
+      if (interests.length > 0) {
+        passportInterestsWrap.removeAttribute('hidden');
+        let badgesHtml = '<span class="small fw-bold text-uppercase font-display text-muted me-1" style="font-size: 0.68rem;">Interesses:</span>';
+        interests.slice(0, 3).forEach(function (key) {
+          const meta = INTEREST_AREAS_META[key];
+          if (meta) {
+            badgesHtml += '<span class="cagp-passport-interest-badge"><i class="bi ' + meta.icon + ' me-1"></i>' + escapeHtml(meta.label) + '</span>';
+          }
+        });
+        if (interests.length > 3) {
+          badgesHtml += '<span class="cagp-badge cagp-badge-dark font-mono">+' + (interests.length - 3) + '</span>';
+        }
+        passportInterestsList.innerHTML = badgesHtml;
+      } else {
+        passportInterestsWrap.setAttribute('hidden', '');
+        passportInterestsList.innerHTML = '';
+      }
+    }
+
+    const removePhotoBtn = document.getElementById('cagp-btn-remove-photo');
+    if (removePhotoBtn) {
+      if (hasPhoto) removePhotoBtn.removeAttribute('hidden');
+      else removePhotoBtn.setAttribute('hidden', '');
+    }
+    const techMetaEl = document.getElementById('cagp-photo-tech-meta');
+    if (techMetaEl) {
+      if (hasPhoto) {
+        const kb = Math.max(1, Math.round((prof.photoDataUrl.length * 0.75) / 102.4) / 10);
+        const fmt = prof.photoDataUrl.indexOf('data:image/webp') === 0 ? 'WebP' : 'JPEG';
+        techMetaEl.textContent = '256×256 ' + fmt + ' • ' + kb + ' KB';
+      } else {
+        techMetaEl.textContent = 'Canvas 256×256 WebP';
+      }
+    }
+  }
+
+  function syncProfileEditorFields() {
+    const prof = getStudentProfile();
+    const nameInput = document.getElementById('cagp-prof-input-name');
+    const pronounsInput = document.getElementById('cagp-prof-input-pronouns');
+    const emailInput = document.getElementById('cagp-prof-input-email');
+    const phoneInput = document.getElementById('cagp-prof-input-phone');
+    const periodSelect = document.getElementById('cagp-prof-input-period');
+    const semInput = document.getElementById('cagp-prof-input-semester');
+    const pathSelect = document.getElementById('cagp-prof-input-pathway');
+    const bioInput = document.getElementById('cagp-prof-input-bio');
+    const bioCount = document.getElementById('cagp-bio-char-count');
+    const linkedinInput = document.getElementById('cagp-prof-input-linkedin');
+    const lattesInput = document.getElementById('cagp-prof-input-lattes');
+    const otherInterestsInput = document.getElementById('cagp-prof-input-other-interests');
+    const consentCheck = document.getElementById('cagp-prof-consent-talent');
+    const countBadge = document.getElementById('cagp-interests-count-badge');
+
+    if (nameInput) nameInput.value = prof.name || '';
+    if (pronounsInput) pronounsInput.value = prof.pronouns || '';
+    if (emailInput) emailInput.value = prof.email || '';
+    if (phoneInput) phoneInput.value = prof.phone || '';
+    if (periodSelect) periodSelect.value = prof.period || '1';
+    if (semInput) semInput.value = prof.entrySemester || '2026/1';
+    if (pathSelect) pathSelect.value = prof.pathway || '01-01';
+    if (bioInput) {
+      bioInput.value = prof.bio || '';
+      if (bioCount) bioCount.textContent = (prof.bio || '').length + ' / 280';
+    }
+    if (linkedinInput) linkedinInput.value = prof.linkedin || '';
+    if (lattesInput) lattesInput.value = prof.lattes || '';
+    if (otherInterestsInput) otherInterestsInput.value = prof.otherInterests || '';
+    if (consentCheck) consentCheck.checked = Boolean(prof.talentConsent);
+
+    const userInterests = Array.isArray(prof.interests) ? prof.interests : [];
+    document.querySelectorAll('[data-interest-key]').forEach(function (btn) {
+      const k = btn.getAttribute('data-interest-key');
+      const active = userInterests.indexOf(k) !== -1;
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+    if (countBadge) {
+      countBadge.textContent = userInterests.length + ' selecionada' + (userInterests.length === 1 ? '' : 's');
+    }
+
+    const userSkills = Array.isArray(prof.skills) ? prof.skills : [];
+    document.querySelectorAll('[data-skill-key]').forEach(function (btn) {
+      const k = btn.getAttribute('data-skill-key');
+      const active = userSkills.indexOf(k) !== -1;
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+
+    document.querySelectorAll('[data-cagp-avatar-preset]').forEach(function (btn) {
+      const val = btn.getAttribute('data-cagp-avatar-preset');
+      const active = prof.avatarMode !== 'photo' && val === (prof.avatarPreset || 'candangos');
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+
+    document.querySelectorAll('[data-cagp-pride-choice]').forEach(function (btn) {
+      const val = btn.getAttribute('data-cagp-pride-choice');
+      const active = val === (prof.prideFlag || 'none');
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-checked', active ? 'true' : 'false');
+    });
+  }
+
+  // Delegação Global no `document` para Perfil, Upload de Foto <canvas> 256x256, Bandeira LGBTQIAPN+ e Cofre
+  window.cagpTriggerPhotoUpload = function () {
+    hoistPwaShellToBody();
+    const fileInput = document.getElementById('cagp-profile-photo-input');
+    if (fileInput) {
+      fileInput.value = '';
+      fileInput.click();
+    }
+  };
+
+  function collectAndSaveEditorFields(showFeedback) {
+    const nameInput = document.getElementById('cagp-prof-input-name');
+    const pronounsInput = document.getElementById('cagp-prof-input-pronouns');
+    const emailInput = document.getElementById('cagp-prof-input-email');
+    const phoneInput = document.getElementById('cagp-prof-input-phone');
+    const periodSelect = document.getElementById('cagp-prof-input-period');
+    const semInput = document.getElementById('cagp-prof-input-semester');
+    const pathSelect = document.getElementById('cagp-prof-input-pathway');
+    const bioInput = document.getElementById('cagp-prof-input-bio');
+    const linkedinInput = document.getElementById('cagp-prof-input-linkedin');
+    const lattesInput = document.getElementById('cagp-prof-input-lattes');
+    const otherInterestsInput = document.getElementById('cagp-prof-input-other-interests');
+    const consentCheck = document.getElementById('cagp-prof-consent-talent');
+
+    const interests = [];
+    document.querySelectorAll('[data-interest-key].is-active').forEach(function (btn) {
+      interests.push(btn.getAttribute('data-interest-key'));
+    });
+
+    const skills = [];
+    document.querySelectorAll('[data-skill-key].is-active').forEach(function (btn) {
+      skills.push(btn.getAttribute('data-skill-key'));
+    });
+
+    saveStudentProfile({
+      name: nameInput ? nameInput.value.trim() : '',
+      pronouns: pronounsInput ? pronounsInput.value.trim() : '',
+      email: emailInput ? emailInput.value.trim() : '',
+      phone: phoneInput ? phoneInput.value.trim() : '',
+      period: periodSelect ? periodSelect.value : '1',
+      entrySemester: (semInput && semInput.value.trim()) ? semInput.value.trim() : '2026/1',
+      pathway: pathSelect ? pathSelect.value : '01-01',
+      interests: interests,
+      otherInterests: otherInterestsInput ? otherInterestsInput.value.trim() : '',
+      skills: skills,
+      bio: bioInput ? bioInput.value.trim().slice(0, 280) : '',
+      linkedin: linkedinInput ? linkedinInput.value.trim() : '',
+      lattes: lattesInput ? lattesInput.value.trim() : '',
+      talentConsent: consentCheck ? consentCheck.checked : false
+    });
+
+    if (showFeedback) {
+      if (window.cagpHaptic) window.cagpHaptic(8);
+      if (window.cagpToast) {
+        window.cagpToast('Perfil & Banco de Talentos salvos no dispositivo!', 'bi-check2-circle', 2800);
+      }
+    }
+  }
+
+  document.addEventListener('click', function (e) {
+    const target = e.target;
+    if (!target || !target.closest) return;
+
+    // 0. Alternar Abas do Perfil [Passaporte & Carteira] / [Perfil & Banco de Talentos]
+    const profileTabBtn = target.closest('[data-profile-tab]');
+    if (profileTabBtn) {
+      e.preventDefault();
+      const tabName = profileTabBtn.getAttribute('data-profile-tab');
+      switchProfileTab(tabName);
+      return;
+    }
+
+    // 0.1 Seleção de Chips de Áreas de Interesse
+    const interestChip = target.closest('[data-interest-key]');
+    if (interestChip) {
+      e.preventDefault();
+      const isActive = interestChip.classList.toggle('is-active');
+      interestChip.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      const countEl = document.getElementById('cagp-interests-count-badge');
+      if (countEl) {
+        const count = document.querySelectorAll('#cagp-interests-picker [data-interest-key].is-active').length;
+        countEl.textContent = count + ' selecionada' + (count === 1 ? '' : 's');
+      }
+      return;
+    }
+
+    // 0.2 Seleção de Chips de Habilidades
+    const skillChip = target.closest('[data-skill-key]');
+    if (skillChip) {
+      e.preventDefault();
+      const isActive = skillChip.classList.toggle('is-active');
+      skillChip.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      return;
+    }
+
+    // 1. Abrir Passaporte & Perfil Completo a partir de qualquer gatilho (Navbar, Topbar, Tabbar, Drawer, Home Card)
+    const openPassportBtn = target.closest('[data-cagp-open-passport]');
+    if (openPassportBtn) {
+      e.preventDefault();
+      const focusMode = openPassportBtn.getAttribute('data-cagp-open-passport');
+      if (window.closeCagpMobileDrawer) window.closeCagpMobileDrawer();
+      openAppSettings(focusMode === 'vault' ? 'vault' : 'editor');
+      return;
+    }
+
+    // 2. Fechar Passaporte Sheet
+    const closePassportBtn = target.closest('[data-cagp-close-passport]');
+    if (closePassportBtn) {
+      e.preventDefault();
+      closeAppSettings();
+      return;
+    }
+
+    // 3. Ações do Passaporte (Upload Foto, Remover Foto, Salvar, Campus Agora, Acessibilidade)
+    const actionBtn = target.closest('[data-cagp-action]');
+    if (actionBtn) {
+      const act = actionBtn.getAttribute('data-cagp-action');
+      if (act === 'pick-photo') {
+        e.preventDefault();
+        window.cagpTriggerPhotoUpload();
+        return;
+      }
+      if (act === 'remove-photo') {
+        e.preventDefault();
+        saveStudentProfile({ avatarMode: 'preset', photoDataUrl: '' });
+        syncProfileEditorFields();
+        if (window.cagpToast) {
+          window.cagpToast('Foto removida. Avatar institucional Brite restaurado.', 'bi-person-badge', 2400);
+        }
+        return;
+      }
+      if (act === 'save-profile') {
+        e.preventDefault();
+        collectAndSaveEditorFields(true);
+        syncProfileEditorFields();
+        return;
+      }
+      if (act === 'open-campus-sheet') {
+        e.preventDefault();
+        closeAppSettings();
+        if (window.cagpOpenCampusSheet) window.cagpOpenCampusSheet();
+        return;
+      }
+      if (act === 'open-a11y-from-passport') {
+        e.preventDefault();
+        closeAppSettings();
+        if (window.cagpA11y && window.cagpA11y.open) {
+          window.cagpA11y.open();
+        } else if (window.openCagpA11y) {
+          window.openCagpA11y();
+        }
+        return;
+      }
+      if (act === 'reset-onboarding') {
+        e.preventDefault();
+        closeAppSettings();
+        try {
+          localStorage.removeItem('cagp_onboard_v1_dismissed');
+        } catch (e) {}
+        if (window.cagpResetTips) window.cagpResetTips();
+        if (window.cagpResetOnboarding) {
+          window.cagpResetOnboarding();
+        } else {
+          if (window.cagpToast) window.cagpToast('Dicas e tour de boas-vindas reativados!', 'bi-compass', 2800);
+          const isHome = window.location.pathname.indexOf('index') !== -1 || window.location.pathname === '/' || window.location.pathname.endsWith('/cagp/');
+          if (!isHome) {
+            window.location.href = 'index.html#bussola';
+          }
+        }
+        return;
+      }
+    }
+
+    // 4. Escolher Avatar Institucional Brite
+    const presetBtn = target.closest('[data-cagp-avatar-preset]');
+    if (presetBtn) {
+      e.preventDefault();
+      const preset = presetBtn.getAttribute('data-cagp-avatar-preset') || 'candangos';
+      saveStudentProfile({ avatarMode: 'preset', avatarPreset: preset });
+      syncProfileEditorFields();
+      if (window.cagpHaptic) window.cagpHaptic(6);
+      return;
+    }
+
+    // 5. Escolher Marcador / Bandeira LGBTQIAPN+
+    const prideBtn = target.closest('[data-cagp-pride-choice]');
+    if (prideBtn) {
+      e.preventDefault();
+      const flag = prideBtn.getAttribute('data-cagp-pride-choice') || 'none';
+      saveStudentProfile({ prideFlag: flag });
+      syncProfileEditorFields();
+      if (window.cagpHaptic) window.cagpHaptic(6);
+      const meta = PRIDE_FLAGS_META[flag];
+      if (window.cagpToast && flag !== 'none' && meta) {
+        window.cagpToast('Pin ' + meta.label + ' aplicado ao Passaporte!', 'bi-heart-fill', 2200);
+      }
+      return;
+    }
+
+    // 6. Limpar Cofre com confirmação em 2 toques e temporizador de 4s (#cagp-clear-vault-btn)
+    const clearBtn = target.closest('#cagp-clear-vault-btn');
+    if (clearBtn) {
+      e.preventDefault();
+      const originalHtml = clearBtn.getAttribute('data-orig-html') || clearBtn.innerHTML;
+      if (!clearBtn.hasAttribute('data-orig-html')) {
+        clearBtn.setAttribute('data-orig-html', originalHtml);
+      }
+      if (clearBtn.getAttribute('data-confirming') !== 'true') {
+        clearBtn.setAttribute('data-confirming', 'true');
+        clearBtn.classList.add('btn-danger');
+        clearBtn.classList.remove('btn-outline-danger');
+        clearBtn.innerHTML = '<i class="bi bi-exclamation-triangle-fill me-1"></i> Toque novamente em 4s para apagar';
+        clearTimeout(clearBtn._clearConfirmTimer);
+        clearBtn._clearConfirmTimer = setTimeout(function () {
+          clearBtn.removeAttribute('data-confirming');
+          clearBtn.classList.remove('btn-danger');
+          clearBtn.classList.add('btn-outline-danger');
+          clearBtn.innerHTML = originalHtml;
+        }, 4000);
+        return;
+      }
+      clearTimeout(clearBtn._clearConfirmTimer);
+      clearBtn.removeAttribute('data-confirming');
+      clearBtn.classList.remove('btn-danger');
+      clearBtn.classList.add('btn-outline-danger');
+      clearBtn.innerHTML = originalHtml;
+      try {
+        CANONICAL_VAULT_KEYS.forEach(function (k) { localStorage.removeItem(k); });
+        var LEGACY_VAULT_KEYS = [
+          'cagp_percurso_quiz_resultado',
+          'cagp_calouros_checklist',
+          'cagp_acg_total_horas',
+          'cagp_a11y_prefs'
+        ];
+        LEGACY_VAULT_KEYS.forEach(function (k) { localStorage.removeItem(k); });
+      } catch (err) {}
+      refreshVaultData();
+      syncProfileEditorFields();
+      window.dispatchEvent(new CustomEvent('cagp:vault-cleared'));
+      if (window.cagpToast) {
+        window.cagpToast('Cofre discente zerado com sucesso.', 'bi-trash3', 2400);
+      }
+    }
+  });
+
+  document.addEventListener('input', function (e) {
+    const t = e.target;
+    if (!t) return;
+    if (t.id === 'cagp-prof-input-bio') {
+      const counter = document.getElementById('cagp-bio-char-count');
+      if (counter) {
+        counter.textContent = t.value.length + ' / 280';
+      }
+    }
+  });
+
+  document.addEventListener('change', function (e) {
+    const t = e.target;
+    if (!t || !t.id) return;
+
+    if (t.id === 'cagp-profile-photo-input') {
+      const file = t.files && t.files[0];
+      if (!file) return;
+      processProfileImageFile(file).then(function (res) {
+        syncProfileEditorFields();
+        const kb = Math.max(1, Math.round((res.dataUrl.length * 0.75) / 102.4) / 10);
+        if (window.cagpHaptic) window.cagpHaptic(8);
+        if (window.cagpToast) {
+          window.cagpToast('Foto recortada em 256×256 (' + kb + ' KB) e salva no Passaporte!', 'bi-camera-fill', 3000);
+        }
+      }).catch(function (err) {
+        if (window.cagpToast) {
+          window.cagpToast(err.message || 'Erro ao processar foto.', 'bi-exclamation-triangle-fill', 3000);
+        }
+      });
+      return;
+    }
+
+    if (t.id === 'cagp-prof-input-period' || t.id === 'cagp-prof-input-pathway') {
+      collectAndSaveEditorFields(false);
+    }
+  });
+
+  document.addEventListener('input', function (e) {
+    const t = e.target;
+    if (!t || !t.id) return;
+    if (
+      t.id === 'cagp-prof-input-name' ||
+      t.id === 'cagp-prof-input-pronouns' ||
+      t.id === 'cagp-prof-input-semester'
+    ) {
+      collectAndSaveEditorFields(false);
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      const sheet = document.getElementById('cagp-settings-sheet');
+      if (sheet && !sheet.hasAttribute('hidden')) {
+        closeAppSettings();
+      }
+    }
+  });
+
+  window.cagpProfile = {
+    STORAGE_KEY: PROFILE_STORAGE_KEY,
+    get: getStudentProfile,
+    save: saveStudentProfile,
+    processImageFile: processProfileImageFile,
+    cropFromSource: function (sourceEl, w, h) {
+      const dataUrl = cropAndCompressSourceToWebp(sourceEl, w, h);
+      const saved = saveStudentProfile({ avatarMode: 'photo', photoDataUrl: dataUrl });
+      syncProfileEditorFields();
+      return { profile: saved, dataUrl: dataUrl };
+    },
+    syncUI: function () {
+      refreshVaultData();
+      syncProfileEditorFields();
+    },
+    openEditor: function () {
+      openAppSettings('editor');
+    }
+  };
+
+  // =========================================================================
+  // 8.1. GERADOR DINÂMICO DE AGENDA NATIVA (.ics) & WEB SHARE API
+  // =========================================================================
+  function pad2(n) {
+    return String(n).padStart(2, '0');
+  }
+
+  function formatIcsLocalDateTime(dateObj) {
+    return (
+      dateObj.getFullYear() +
+      pad2(dateObj.getMonth() + 1) +
+      pad2(dateObj.getDate()) +
+      'T' +
+      pad2(dateObj.getHours()) +
+      pad2(dateObj.getMinutes()) +
+      '00'
+    );
+  }
+
+  function escapeIcsText(str) {
+    return String(str || '')
+      .replace(/\\/g, '\\\\')
+      .replace(/;/g, '\\;')
+      .replace(/,/g, '\\,')
+      .replace(/\r?\n/g, '\\n');
+  }
+
+  function downloadIcs(opts) {
+    if (!opts || !opts.title) return;
+    const now = new Date();
+    const dtStamp =
+      now.getUTCFullYear() +
+      pad2(now.getUTCMonth() + 1) +
+      pad2(now.getUTCDate()) +
+      'T' +
+      pad2(now.getUTCHours()) +
+      pad2(now.getUTCMinutes()) +
+      pad2(now.getUTCSeconds()) +
+      'Z';
+
+    const start = opts.startDate instanceof Date ? opts.startDate : new Date(now.getTime() + 3600000);
+    const end = opts.endDate instanceof Date ? opts.endDate : new Date(start.getTime() + (opts.durationMinutes || 30) * 60000);
+
+    const uid = (opts.uid || ('cagp-' + Date.now())) + '@cagp.fafich.ufmg.br';
+    const lines = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//CAGP FAFICH UFMG//Super App Discente//PT-BR',
+      'CALSCALE:GREGORIAN',
+      'METHOD:PUBLISH',
+      'BEGIN:VEVENT',
+      'UID:' + uid,
+      'DTSTAMP:' + dtStamp
+    ];
+
+    if (opts.allDay && opts.dateStr) {
+      const cleanDate = String(opts.dateStr).replace(/-/g, '');
+      lines.push('DTSTART;VALUE=DATE:' + cleanDate);
+    } else {
+      lines.push('DTSTART:' + formatIcsLocalDateTime(start));
+      lines.push('DTEND:' + formatIcsLocalDateTime(end));
+    }
+
+    if (opts.rrule) {
+      lines.push('RRULE:' + opts.rrule);
+    }
+
+    lines.push('SUMMARY:' + escapeIcsText(opts.title));
+    if (opts.description) {
+      lines.push('DESCRIPTION:' + escapeIcsText(opts.description));
+    }
+    if (opts.location) {
+      lines.push('LOCATION:' + escapeIcsText(opts.location));
+    }
+
+    const alarmTrigger = opts.alarmTrigger || '-PT15M';
+    lines.push(
+      'BEGIN:VALARM',
+      'TRIGGER:' + alarmTrigger,
+      'ACTION:DISPLAY',
+      'DESCRIPTION:' + escapeIcsText('Lembrete CAGP: ' + opts.title),
+      'END:VALARM',
+      'END:VEVENT',
+      'END:VCALENDAR'
+    );
+
+    const icsContent = lines.join('\r\n');
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = (opts.filename || 'evento-cagp-ufmg').replace(/[^a-zA-Z0-9_-]/g, '-') + '.ics';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function () {
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }, 200);
+
+    if (window.cagpToast) {
+      window.cagpToast('Arquivo .ics gerado para sua Agenda!', 'bi-calendar-check-fill', 2800);
+    }
+  }
+
+  function nextWeekdayAt(hour, minute) {
+    const d = new Date();
+    d.setSeconds(0, 0);
+    d.setHours(hour, minute, 0, 0);
+    if (d <= new Date()) {
+      d.setDate(d.getDate() + 1);
+    }
+    while (d.getDay() === 0 || d.getDay() === 6) {
+      d.setDate(d.getDate() + 1);
+    }
+    return d;
+  }
+
+  function downloadPresetIcs(presetKey) {
+    if (presetKey === 'ru-1815') {
+      downloadIcs({
+        uid: 'cagp-ru-jantar-1815',
+        filename: 'cagp-jantar-ru-ii-18h15',
+        title: 'Jantar no RU II Setorial — Gestão Pública UFMG',
+        description: 'Jantar no Restaurante Universitário Setorial II (17h30 às 19h30). Vá antes das 18h30 para evitar o pico da fila antes da aula das 19h00 na FAFICH.',
+        location: 'RU Setorial II — Campus Pampulha UFMG',
+        startDate: nextWeekdayAt(18, 15),
+        durationMinutes: 45,
+        rrule: 'FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR',
+        alarmTrigger: '-PT10M'
+      });
+    } else if (presetKey === 'circular-2230') {
+      downloadIcs({
+        uid: 'cagp-circular-noturno-2230',
+        filename: 'cagp-ultimo-circular-22h30',
+        title: 'Alerta de Saída FAFICH: Último Circular Noturno (22h45)',
+        description: 'As aulas noturnas encerram às 22h35, mas a última viagem do Circular Interno parte por volta das 22h45 rumo às portarias da Antônio Carlos (MOVE 51, 5106, 9502).',
+        location: 'Ponto da FAFICH — Campus Pampulha UFMG',
+        startDate: nextWeekdayAt(22, 30),
+        durationMinutes: 15,
+        rrule: 'FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR',
+        alarmTrigger: '-PT5M'
+      });
+    } else if (presetKey === 'secretaria-f2039') {
+      downloadIcs({
+        uid: 'cagp-secretaria-f2039',
+        filename: 'cagp-secretaria-colegiado-f2039',
+        title: 'Atendimento Secretaria do Colegiado de Gestão Pública (Sala F-2039)',
+        description: 'Secretaria do Colegiado de Gestão Pública (Norma Guedes) — Sala F-2039 (2º andar da FAFICH) e CEAG Sala F-2033 (08h às 22h). E-mail: gestaopublica@ufmg.br | Tel: (31) 3409-3826.',
+        location: 'Sala F-2039 / CEAG F-2033 (2º andar da FAFICH/UFMG)',
+        startDate: nextWeekdayAt(16, 30),
+        durationMinutes: 180,
+        alarmTrigger: '-PT30M'
+      });
+    } else if (presetKey === 'coordenacao-f2041') {
+      downloadIcs({
+        uid: 'cagp-coordenacao-f4067',
+        filename: 'cagp-plantao-coordenacao-gestao-publica',
+        title: 'Plantão Coordenação de Gestão Pública (Profª Isabele Mitozo — Sala F-4067)',
+        description: 'Plantão presencial da Coordenação do Curso de Gestão Pública (Profª Dra. Isabele Batista Mitozo) — Quartas-feiras das 17h30 às 19h00 na Sala F-4067 (4º andar da FAFICH). E-mail: coordgestaopublica@gmail.com.',
+        location: 'Sala F-4067 (4º andar da FAFICH/UFMG)',
+        startDate: nextWeekdayAt(17, 30),
+        durationMinutes: 90,
+        rrule: 'FREQ=WEEKLY;BYDAY=WE',
+        alarmTrigger: '-PT30M'
+      });
+    } else if (presetKey === 'calouro-30dias') {
+      const target30 = new Date();
+      target30.setDate(target30.getDate() + 14);
+      target30.setHours(18, 0, 0, 0);
+      downloadIcs({
+        uid: 'cagp-meta-calouro-30dias',
+        filename: 'cagp-metas-calouro-30-dias',
+        title: 'Revisão das 6 Metas de Sobrevivência do Calouro (Gestão Pública UFMG)',
+        description: 'Conferir conclusão dos 6 passos: 1) Login MinhaUFMG e E-mail @ufmg.br; 2) Carteirinha Estudantil; 3) Questionário Socioeconômico FUMP; 4) Matrícula SIGA e Moodle; 5) Grupo da Turma e @cagp.ufmg; 6) Aproveitamento de Estudos (prazo fatal até o fim do 2º período — Res. CEPE 06/2019).',
+        location: 'FAFICH / Portal CAGP UFMG',
+        startDate: target30,
+        durationMinutes: 45,
+        alarmTrigger: '-P1D'
+      });
+    } else if (presetKey === 'protocolo-aac-semestral') {
+      const targetAac = nextWeekdayAt(17, 30);
+      targetAac.setDate(targetAac.getDate() + 7);
+      downloadIcs({
+        uid: 'cagp-protocolo-aac-n20229',
+        filename: 'cagp-protocolo-aac-f2039',
+        title: 'Protocolar Certificados AAC (Formulário N-20229) na Secretaria F-2039',
+        description: 'Atenção ao prazo fatal de 120 dias corridos (Art. 15, § 4º do Regulamento N-20229) para certificados de Eventos I (Modalidade III) e Publicação em Anais (Modalidade VII).',
+        location: 'Secretaria do Colegiado — Sala F-2039 FAFICH / SEI UFMG',
+        startDate: targetAac,
+        durationMinutes: 45,
+        alarmTrigger: '-P1D'
+      });
+    }
+  }
+
+  window.cagpCalendar = {
+    downloadIcs: downloadIcs,
+    downloadPreset: downloadPresetIcs
+  };
+
+  // Compartilhamento Nativo (Web Share API + Fallback Área de Transferência)
+  function shareContent(opts) {
+    const shareTitle = (opts && opts.title) ? opts.title : document.title;
+    const shareText = (opts && opts.text) ? opts.text : 'Confira no Portal & Super App do CAGP FAFICH/UFMG:';
+    let shareUrl = (opts && opts.url) ? opts.url : window.location.href;
+    try {
+      shareUrl = new URL(shareUrl, window.location.href).href;
+    } catch (e) {}
+
+    if (navigator.share) {
+      navigator.share({
+        title: shareTitle,
+        text: shareText,
+        url: shareUrl
+      }).then(function () {
+        if (window.cagpToast) window.cagpToast('Compartilhado com sucesso!', 'bi-share-fill', 2200);
+      }).catch(function (err) {
+        if (err && err.name !== 'AbortError') {
+          copyShareFallback(shareTitle, shareText, shareUrl);
+        }
+      });
+    } else {
+      copyShareFallback(shareTitle, shareText, shareUrl);
+    }
+  }
+
+  function copyShareFallback(title, text, url) {
+    const fullText = title + ' — ' + text + ' ' + url;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(fullText).then(function () {
+        if (window.cagpToast) window.cagpToast('Link copiado para compartilhar!', 'bi-clipboard-check-fill', 2600);
+      }).catch(function () {
+        legacyCopyText(fullText);
+      });
+    } else {
+      legacyCopyText(fullText);
+    }
+  }
+
+  function legacyCopyText(str) {
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = str;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      if (window.cagpToast) window.cagpToast('Copiado para a área de transferência!', 'bi-clipboard-check-fill', 2500);
+    } catch (e) {}
+  }
+
+  window.cagpShare = shareContent;
+
+  // Delegação Global para botões [data-cagp-ics] e [data-cagp-share] em qualquer página
+  document.addEventListener('click', function (e) {
+    const icsBtn = e.target.closest('[data-cagp-ics]');
+    if (icsBtn) {
+      e.preventDefault();
+      const preset = icsBtn.getAttribute('data-cagp-ics');
+      if (preset && preset !== 'custom') {
+        downloadPresetIcs(preset);
+      } else {
+        const title = icsBtn.getAttribute('data-ics-title') || 'Lembrete Acadêmico CAGP UFMG';
+        const desc = icsBtn.getAttribute('data-ics-desc') || '';
+        const loc = icsBtn.getAttribute('data-ics-location') || 'FAFICH / UFMG';
+        const dateStr = icsBtn.getAttribute('data-ics-date');
+        if (dateStr) {
+          downloadIcs({
+            title: title,
+            description: desc,
+            location: loc,
+            allDay: true,
+            dateStr: dateStr,
+            alarmTrigger: '-P15D',
+            filename: 'prazo-120d-cagp-' + dateStr
+          });
+        } else {
+          downloadIcs({ title: title, description: desc, location: loc });
+        }
+      }
+      return;
+    }
+
+    const shareBtn = e.target.closest('[data-cagp-share]');
+    if (shareBtn) {
+      e.preventDefault();
+      const title = shareBtn.getAttribute('data-share-title') || document.title;
+      const text = shareBtn.getAttribute('data-share-text') || 'Confira no Portal do CAGP UFMG:';
+      const url = shareBtn.getAttribute('data-share-url') || window.location.href;
+      shareContent({ title: title, text: text, url: url });
+    }
+  });
+
+  // =========================================================================
+  // 8.2. SISTEMA DE NOTIFICAÇÕES DE SOBREVIVÊNCIA NOTURNA & GUARDIÃO 120 DIAS
+  // =========================================================================
+  const NOTIF_PREFS_KEY = 'cagp_notifications_prefs_v1';
+
+  function loadNotifPrefs() {
+    const defaults = { ru1815: false, circular2230: false, aac120d: true, lastFired: {} };
+    try {
+      const raw = localStorage.getItem(NOTIF_PREFS_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === 'object') {
+          return Object.assign(defaults, parsed, {
+            lastFired: (parsed.lastFired && typeof parsed.lastFired === 'object') ? parsed.lastFired : {}
+          });
+        }
+      }
+    } catch (e) {}
+    return defaults;
+  }
+
+  function saveNotifPrefs(prefs) {
+    try {
+      localStorage.setItem(NOTIF_PREFS_KEY, JSON.stringify(prefs));
+    } catch (e) {}
+  }
+
+  function updateNotifPermissionBadge() {
+    const badgeEl = document.getElementById('cagp-notif-perm-badge');
+    if (!badgeEl) return;
+    if (!('Notification' in window)) {
+      badgeEl.textContent = 'Agenda .ics + In-App';
+      badgeEl.className = 'cagp-badge cagp-badge-dark';
+      return;
+    }
+    if (Notification.permission === 'granted') {
+      badgeEl.textContent = 'Notificações Ativas';
+      badgeEl.className = 'cagp-badge cagp-badge-green';
+    } else if (Notification.permission === 'denied') {
+      badgeEl.textContent = 'Use .ics (Bloqueado)';
+      badgeEl.className = 'cagp-badge cagp-badge-red';
+    } else {
+      badgeEl.textContent = 'Permissão Pendente';
+      badgeEl.className = 'cagp-badge cagp-badge-gold';
+    }
+  }
+
+  function syncNotifUI() {
+    const prefs = loadNotifPrefs();
+    const ruCheck = document.getElementById('cagp-notif-ru1815');
+    const circCheck = document.getElementById('cagp-notif-circular2230');
+    const aacCheck = document.getElementById('cagp-notif-aac120d');
+    if (ruCheck) ruCheck.checked = !!prefs.ru1815;
+    if (circCheck) circCheck.checked = !!prefs.circular2230;
+    if (aacCheck) aacCheck.checked = prefs.aac120d !== false;
+    updateNotifPermissionBadge();
+  }
+
+  function requestNotifPermissionIfNeeded(callback) {
+    if (!('Notification' in window)) {
+      if (callback) callback(false);
+      return;
+    }
+    if (Notification.permission === 'granted') {
+      updateNotifPermissionBadge();
+      if (callback) callback(true);
+      return;
+    }
+    if (Notification.permission === 'denied') {
+      updateNotifPermissionBadge();
+      if (callback) callback(false);
+      return;
+    }
+    Notification.requestPermission().then(function (perm) {
+      updateNotifPermissionBadge();
+      if (callback) callback(perm === 'granted');
+    }).catch(function () {
+      if (callback) callback(false);
+    });
+  }
+
+  function dispatchNativeOrToastNotification(title, body, targetUrl, tag) {
+    if (window.cagpToast) {
+      window.cagpToast(title + ' — ' + body, 'bi-bell-fill', 4200);
+    }
+    if ('Notification' in window && Notification.permission === 'granted') {
+      if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage({
+          type: 'SHOW_NOTIFICATION',
+          title: title,
+          url: targetUrl || 'index.html',
+          options: {
+            body: body,
+            tag: tag || 'cagp-alert'
+          }
+        });
+      } else {
+        try {
+          new Notification(title, {
+            body: body,
+            icon: 'imagens/pwa/pwa-192x192.png',
+            tag: tag || 'cagp-alert'
+          });
+        } catch (e) {}
+      }
+    }
+  }
+
+  function checkScheduledAlerts() {
+    const prefs = loadNotifPrefs();
+    const now = new Date();
+    const day = now.getDay();
+    const isWeekday = day >= 1 && day <= 5;
+    const todayKey = now.getFullYear() + '-' + pad2(now.getMonth() + 1) + '-' + pad2(now.getDate());
+    const mins = now.getHours() * 60 + now.getMinutes();
+    let changed = false;
+
+    // 1. Alerta Jantar RU II (18h10 às 18h30 nos dias úteis)
+    if (isWeekday && prefs.ru1815 && mins >= (18 * 60 + 10) && mins <= (18 * 60 + 30)) {
+      if (prefs.lastFired.ru1815 !== todayKey) {
+        prefs.lastFired.ru1815 = todayKey;
+        changed = true;
+        dispatchNativeOrToastNotification(
+          'Jantar no RU II Setorial (18h15)',
+          'Antecipe-se à fila antes da aula das 19h00! O RU II encerra às 19h30.',
+          'calouros.html#sobrevivencia-noturna',
+          'cagp-ru-1815'
+        );
+      }
+    }
+
+    // 2. Alerta Último Circular Noturno (22h25 às 22h42 nos dias úteis)
+    if (isWeekday && prefs.circular2230 && mins >= (22 * 60 + 25) && mins <= (22 * 60 + 42)) {
+      if (prefs.lastFired.circular2230 !== todayKey) {
+        prefs.lastFired.circular2230 = todayKey;
+        changed = true;
+        dispatchNativeOrToastNotification(
+          'Último Circular Noturno (22h30)',
+          'Atenção à saída da FAFICH: o último ônibus Circular parte por volta das 22h45 rumo à Antônio Carlos.',
+          'calouros.html#sobrevivencia-noturna',
+          'cagp-circular-2230'
+        );
+      }
+    }
+
+    // 3. Alerta do Guardião de 120 Dias das AAC (Art. 15, § 4º)
+    if (prefs.aac120d !== false) {
+      const summary = get120dSummary();
+      updateAppBadgeFrom120d(summary);
+      if (summary.urgentCount > 0 && prefs.lastFired.aac120d !== todayKey) {
+        prefs.lastFired.aac120d = todayKey;
+        changed = true;
+        dispatchNativeOrToastNotification(
+          'Guardião 120 Dias: ' + summary.urgentCount + ' certificado(s) em atenção',
+          'Protocole seus certificados das Modalidades III/VII na Secretaria (Sala F-2039 / SEI) antes de prescreverem!',
+          'acg.html#guardiao-120-dias',
+          'cagp-aac-120d'
+        );
+      }
+    }
+
+    if (changed) {
+      saveNotifPrefs(prefs);
+    }
+  }
+
+  ['cagp-notif-ru1815', 'cagp-notif-circular2230', 'cagp-notif-aac120d'].forEach(function (id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('change', function () {
+      const prefs = loadNotifPrefs();
+      if (id === 'cagp-notif-ru1815') prefs.ru1815 = el.checked;
+      if (id === 'cagp-notif-circular2230') prefs.circular2230 = el.checked;
+      if (id === 'cagp-notif-aac120d') prefs.aac120d = el.checked;
+      saveNotifPrefs(prefs);
+      if (el.checked) {
+        requestNotifPermissionIfNeeded(function (granted) {
+          if (granted) {
+            window.cagpToast('Alerta ativado com sucesso!', 'bi-bell-fill', 2400);
+          } else {
+            window.cagpToast('Alerta In-App salvo! Dica: use também o botão .ics ao lado.', 'bi-calendar-event', 3200);
+          }
+        });
+      } else {
+        window.cagpToast('Preferência de alerta atualizada.', 'bi-Sliders', 2000);
+      }
+    });
+  });
+
+  const testNotifBtn = document.getElementById('cagp-notif-test-btn');
+  if (testNotifBtn) {
+    testNotifBtn.addEventListener('click', function () {
+      requestNotifPermissionIfNeeded(function () {
+        const s = get120dSummary();
+        const extra = s.urgentCount > 0
+          ? ('Você possui ' + s.urgentCount + ' certificado(s) no Guardião de 120 dias.')
+          : 'Alertas de RU II (18h15), Circular (22h30) e Prazo de 120 dias operacionais!';
+        dispatchNativeOrToastNotification(
+          'CAGP Super App • Alerta Ativo',
+          extra,
+          'acg.html#guardiao-120-dias',
+          'cagp-test-notif'
+        );
+      });
+    });
+  }
+
+  window.cagpNotifications = {
+    loadPrefs: loadNotifPrefs,
+    savePrefs: saveNotifPrefs,
+    syncUI: syncNotifUI,
+    triggerTest: function () {
+      if (testNotifBtn) testNotifBtn.click();
+    },
+    checkNow: checkScheduledAlerts
+  };
+
+  syncNotifUI();
+  setTimeout(checkScheduledAlerts, 1500);
+  setInterval(checkScheduledAlerts, 60000);
+
+  // =========================================================================
+  // 8.3. MEU CAGP SYNC — BACKUP & PORTABILIDADE ZERO-SERVIDOR (JSON + CAGP1)
+  // =========================================================================
+  const CANONICAL_VAULT_KEYS = [
+    'cagp_calc_ext_aac_v1',
+    'cagp_aac_120d_certs_v1',
+    'cagp_notifications_prefs_v1',
+    'cagp_calouro_checklist_v1',
+    'cagp_percurso_quiz_v1',
+    'cagp_minha_grade_v1',
+    'cagp_art41_checklist_v1',
+    'cagp_a11y_prefs_v2',
+    'cagp_student_profile_v1'
+  ];
+
+  function buildBackupPayload() {
+    const data = {};
+    CANONICAL_VAULT_KEYS.forEach(function (k) {
+      try {
+        const val = localStorage.getItem(k);
+        if (val !== null) {
+          try {
+            data[k] = JSON.parse(val);
+          } catch (e) {
+            data[k] = val;
+          }
+        }
+      } catch (e) {}
+    });
+    return {
+      schema: 'cagp-vault-backup-v1',
+      exportedAt: new Date().toISOString(),
+      course: 'Gestão Pública FAFICH/UFMG',
+      data: data
+    };
+  }
+
+  function encodeUtf8Base64(str) {
+    return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function (_, p1) {
+      return String.fromCharCode(parseInt(p1, 16));
+    }));
+  }
+
+  function decodeUtf8Base64(b64) {
+    return decodeURIComponent(Array.prototype.map.call(atob(b64), function (c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+  }
+
+  function escapeHtml(str) {
+    if (str == null) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function computeCrc32(str) {
+    let crc = -1;
+    for (let i = 0; i < str.length; i++) {
+      let byte = str.charCodeAt(i) & 0xff;
+      for (let j = 0; j < 8; j++) {
+        crc = (crc >>> 1) ^ (((crc ^ byte) & 1) ? 0xEDB88320 : 0);
+        byte >>>= 1;
+      }
+    }
+    return ((crc ^ -1) >>> 0).toString(16).padStart(8, '0');
+  }
+
+  function generateSyncCode() {
+    const payload = buildBackupPayload();
+    const b64 = encodeUtf8Base64(JSON.stringify(payload.data));
+    return 'CAGP1:' + b64 + '.' + computeCrc32(b64);
+  }
+
+  function restoreFromPayload(rawInput) {
+    let dataMap = null;
+    if (!rawInput) throw new Error('Dados vazios.');
+
+    if (typeof rawInput === 'string') {
+      const trimmed = rawInput.trim();
+      if (trimmed.indexOf('CAGP1:') === 0) {
+        let b64 = trimmed.slice(6).trim();
+        if (b64.indexOf('.') !== -1) {
+          const parts = b64.split('.');
+          b64 = parts[0];
+          const expectedCrc = parts[1].toLowerCase();
+          const actualCrc = computeCrc32(b64).toLowerCase();
+          if (expectedCrc !== actualCrc) {
+            throw new Error('Código corrompido: falha de verificação CRC32.');
+          }
+        }
+        const jsonStr = decodeUtf8Base64(b64);
+        dataMap = JSON.parse(jsonStr);
+      } else {
+        const parsed = JSON.parse(trimmed);
+        dataMap = (parsed && parsed.data && typeof parsed.data === 'object') ? parsed.data : parsed;
+      }
+    } else if (typeof rawInput === 'object') {
+      dataMap = (rawInput.data && typeof rawInput.data === 'object') ? rawInput.data : rawInput;
+    }
+
+    if (!dataMap || typeof dataMap !== 'object') {
+      throw new Error('Formato de backup inválido.');
+    }
+
+    let restoredCount = 0;
+    CANONICAL_VAULT_KEYS.forEach(function (k) {
+      if (Object.prototype.hasOwnProperty.call(dataMap, k) && dataMap[k] !== undefined && dataMap[k] !== null) {
+        const val = dataMap[k];
+        const serialized = typeof val === 'string' ? val : JSON.stringify(val);
+        localStorage.setItem(k, serialized);
+        restoredCount++;
+      }
+    });
+
+    refreshVaultData();
+    syncProfileEditorFields();
+    syncNotifUI();
+    window.dispatchEvent(new CustomEvent('cagp:vault-synced', { detail: { restoredKeys: restoredCount } }));
+    window.dispatchEvent(new CustomEvent('cagp:profile-updated', { detail: getStudentProfile() }));
+    return restoredCount;
+  }
+
+  const exportJsonBtn = document.getElementById('cagp-sync-export-json');
+  if (exportJsonBtn) {
+    exportJsonBtn.addEventListener('click', function () {
+      const payload = buildBackupPayload();
+      const jsonStr = JSON.stringify(payload, null, 2);
+      const blob = new Blob([jsonStr], { type: 'application/json;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const today = new Date().toISOString().slice(0, 10);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'meu-cagp-backup-' + today + '.json';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function () {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 200);
+      if (window.cagpToast) window.cagpToast('Backup .json exportado com sucesso!', 'bi-download', 2600);
+    });
+  }
+
+  const importJsonBtn = document.getElementById('cagp-sync-import-json-btn');
+  const importFileInput = document.getElementById('cagp-sync-import-file');
+  if (importJsonBtn && importFileInput) {
+    importJsonBtn.addEventListener('click', function () {
+      importFileInput.value = '';
+      importFileInput.click();
+    });
+    importFileInput.addEventListener('change', function () {
+      const file = importFileInput.files && importFileInput.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (ev) {
+        try {
+          const count = restoreFromPayload(String(ev.target.result || ''));
+          if (window.cagpToast) {
+            window.cagpToast('Progresso restaurado (' + count + ' módulos sincronizados)!', 'bi-check2-circle', 3000);
+          }
+        } catch (err) {
+          if (window.cagpToast) {
+            window.cagpToast('Arquivo inválido. Use um backup oficial do CAGP.', 'bi-exclamation-triangle-fill', 3200);
+          }
+        }
+      };
+      reader.readAsText(file);
+    });
+  }
+
+  const copyCodeBtn = document.getElementById('cagp-sync-copy-code');
+  const syncCodeInput = document.getElementById('cagp-sync-code-input');
+  if (copyCodeBtn) {
+    copyCodeBtn.addEventListener('click', function () {
+      try {
+        const code = generateSyncCode();
+        if (syncCodeInput) syncCodeInput.value = code;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(code).then(function () {
+            if (window.cagpToast) window.cagpToast('Código CAGP1 copiado! Cole no seu outro dispositivo.', 'bi-clipboard-check-fill', 3000);
+          }).catch(function () {
+            legacyCopyText(code);
+          });
+        } else {
+          legacyCopyText(code);
+        }
+      } catch (e) {}
+    });
+  }
+
+  const applyCodeBtn = document.getElementById('cagp-sync-apply-code');
+  if (applyCodeBtn && syncCodeInput) {
+    applyCodeBtn.addEventListener('click', function () {
+      const val = syncCodeInput.value.trim();
+      if (!val) {
+        if (window.cagpToast) window.cagpToast('Cole um código CAGP1:... ou JSON para restaurar.', 'bi-info-circle', 2600);
+        return;
+      }
+      try {
+        const count = restoreFromPayload(val);
+        if (window.cagpToast) {
+          window.cagpToast('Carteira sincronizada (' + count + ' módulos atualizados)!', 'bi-check2-circle', 3000);
+        }
+      } catch (err) {
+        if (window.cagpToast) {
+          window.cagpToast('Código inválido. Verifique se copiou o código CAGP1 completo.', 'bi-exclamation-triangle-fill', 3200);
+        }
+      }
+    });
+  }
+
+  window.cagpSync = {
+    exportPayload: buildBackupPayload,
+    generateCode: generateSyncCode,
+    restore: restoreFromPayload
+  };
+
+  window.openCagpAppSettings = openAppSettings;
+  window.cagpOpenAppSettings = openAppSettings;
+  window.closeCagpAppSettings = closeAppSettings;
+  window.cagpCloseAppSettings = closeAppSettings;
+  window.closeCagpPassportSheet = closeAppSettings;
+  window.refreshCagpVault = refreshVaultData;
+  window.cagpBuildBackupPayload = buildBackupPayload;
+  window.cagpRestoreVaultFromPayload = restoreFromPayload;
+  window.cagpGenerateQuickCode = generateSyncCode;
+  window.cagpRestoreFromQuickCode = restoreFromPayload;
+
+  // Escutar mudanças no localStorage (outra aba ou micro-apps na página)
+  window.addEventListener('storage', refreshVaultData);
+
+  // 9. Atualizador da Topbar e Tabbar do Super App
+  function updateSuperAppUI(targetUrl) {
+    const isApp = document.documentElement.classList.contains('cagp-is-standalone');
+    const topbar = document.getElementById('cagp-superapp-topbar');
+    const tabbar = document.getElementById('cagp-superapp-tabbar');
+    const mobileNav = document.getElementById('cagp-mobile-nav');
+
+    let pathname = 'index.html';
+    let hash = '';
+    try {
+      const url = new URL(targetUrl || window.location.href, window.location.href);
+      pathname = url.pathname.split('/').pop() || 'index.html';
+      hash = url.hash;
+    } catch (e) {
+      pathname = window.location.pathname.split('/').pop() || 'index.html';
+      hash = window.location.hash;
+    }
+
+    syncMobileNavActive(pathname);
+
+    if (!isApp) {
+      if (topbar) topbar.setAttribute('hidden', '');
+      if (tabbar) tabbar.setAttribute('hidden', '');
+      if (mobileNav) mobileNav.removeAttribute('hidden');
+      refreshVaultData();
+      return;
+    }
+
+    if (topbar) topbar.removeAttribute('hidden');
+    if (tabbar) tabbar.removeAttribute('hidden');
+    if (mobileNav) mobileNav.setAttribute('hidden', '');
+
+    const titleEl = document.getElementById('cagp-topbar-title');
+
+    const sectionTitles = {
+      'index.html': 'Hoje no Campus',
+      '': 'Hoje no Campus',
+      'percurso.html': 'Percurso & 27 Obrigatórias',
+      'optativas.html': '68 Optativas',
+      'acg.html': 'Horas ACG (600h)',
+      'calouros.html': 'Guia do Calouro',
+      'estagio.html': 'Estágio & Art. 41',
+      'tcc.html': 'TCC (DCP 089/137)',
+      'estagio-tcc.html': 'Estágio & TCC',
+      'documentos.html': 'Documentos & PDFs',
+      'faq.html': 'FAQ Regimental',
+      'curso.html': 'O Curso',
+      'pesquisa.html': 'Pesquisa & IC',
+      'sobre.html': 'O CAGP',
+      'gestao.html': 'Gestão & Equipe',
+      'mapa-do-site.html': 'Mapa do Site'
+    };
+
+    const currentTitle = sectionTitles[pathname] || 'Hoje no Campus';
+    if (titleEl) {
+      titleEl.textContent = currentTitle;
+    }
+
+    document.querySelectorAll('.cagp-tabbar-item').forEach(function (tab) {
+      tab.classList.remove('is-active');
+      tab.setAttribute('aria-selected', 'false');
+    });
+
+    let activeStabId = 'cagp-stab-hoje';
+    const tax = window.CAGP_TAXONOMY_V1;
+    const cleanName = (!pathname || pathname === '') ? 'index.html' : pathname;
+    if (tax && tax.routes && tax.routes[cleanName]) {
+      const r = tax.routes[cleanName];
+      if (r && r.tabId) {
+        activeStabId = r.tabId.replace('cagp-mnav-', 'cagp-stab-');
+      }
+    } else {
+      if (['percurso.html', 'optativas.html', 'acg.html', 'estagio.html', 'tcc.html', 'estagio-tcc.html'].indexOf(cleanName) !== -1) {
+        activeStabId = 'cagp-stab-curriculo';
+      } else if (['curso.html', 'calouros.html', 'pesquisa.html'].indexOf(cleanName) !== -1) {
+        activeStabId = 'cagp-stab-curso';
+      } else if (['documentos.html', 'faq.html', 'mapa-do-site.html'].indexOf(cleanName) !== -1) {
+        activeStabId = 'cagp-stab-acervo';
+      } else if (['sobre.html', 'gestao.html'].indexOf(cleanName) !== -1) {
+        activeStabId = 'cagp-stab-cagp';
+      } else {
+        activeStabId = 'cagp-stab-hoje';
+      }
+    }
+
+    const tab = document.getElementById(activeStabId);
+    if (tab) {
+      tab.classList.add('is-active');
+      tab.setAttribute('aria-selected', 'true');
+    }
+
+    refreshVaultData();
+  }
+
+  window.updateSuperAppUI = updateSuperAppUI;
+  applyAppModeClasses();
+
+  // 10. Detecção de plataforma Apple iOS / Android e Instalação PWA
+  const ua = window.navigator.userAgent.toLowerCase();
+  const isIos = /iphone|ipad|ipod/.test(ua);
+  const isAndroid = /android/.test(ua);
+
+  let deferredPrompt = null;
+  const pwaBanner = document.getElementById('cagp-pwa-banner');
+  const btnInstall = document.getElementById('cagp-pwa-btn-install');
+  const btnDismiss = document.getElementById('cagp-pwa-btn-dismiss');
+  const mnavInstall = document.getElementById('cagp-mnav-install');
+
+  const iosBackdrop = document.getElementById('cagp-ios-backdrop');
+  const iosSheet = document.getElementById('cagp-ios-sheet');
+  const iosClose = document.getElementById('cagp-ios-close');
+  const iosOk = document.getElementById('cagp-ios-ok');
+
+  function openIosGuide() {
+    if (!iosSheet || !iosBackdrop) return;
+    if (window.cagpCloseAllOverlays) window.cagpCloseAllOverlays('cagp-ios-sheet');
+    iosBackdrop.removeAttribute('hidden');
+    iosBackdrop.classList.add('is-open');
+    iosSheet.removeAttribute('hidden');
+    iosSheet.classList.add('is-open');
+  }
+
+  function closeIosGuide() {
+    if (!iosSheet || !iosBackdrop) return;
+    iosBackdrop.setAttribute('hidden', '');
+    iosBackdrop.classList.remove('is-open');
+    iosSheet.setAttribute('hidden', '');
+    iosSheet.classList.remove('is-open');
+  }
+
+  if (iosClose) iosClose.addEventListener('click', closeIosGuide);
+  if (iosOk) iosOk.addEventListener('click', closeIosGuide);
+  if (iosBackdrop) iosBackdrop.addEventListener('click', closeIosGuide);
+
+  window.addEventListener('beforeinstallprompt', function (e) {
+    e.preventDefault();
+    deferredPrompt = e;
+
+    const dismissed = sessionStorage.getItem('cagp_pwa_dismissed');
+    if (!isStandalone && !dismissed && pwaBanner) {
+      pwaBanner.removeAttribute('hidden');
+    }
+  });
+
+  function triggerInstall() {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(function (choiceResult) {
+        if (choiceResult.outcome === 'accepted') {
+          if (pwaBanner) pwaBanner.setAttribute('hidden', '');
+          window.cagpToast('Instalação autorizada com sucesso!', 'bi-check2-circle', 2500);
+        }
+        deferredPrompt = null;
+      });
+    } else if (isIos) {
+      openIosGuide();
+    } else {
+      window.cagpToast('Use o ícone de instalação na barra do navegador.', 'bi-info-circle', 3000);
+    }
+  }
+
+  window.openCagpIosGuide = openIosGuide;
+  window.triggerCagpInstall = triggerInstall;
+
+  if (btnInstall) btnInstall.addEventListener('click', triggerInstall);
+  if (mnavInstall) mnavInstall.addEventListener('click', triggerInstall);
+
+  if (btnDismiss) {
+    btnDismiss.addEventListener('click', function () {
+      if (pwaBanner) pwaBanner.setAttribute('hidden', '');
+      sessionStorage.setItem('cagp_pwa_dismissed', 'true');
+    });
+  }
+
+  window.addEventListener('appinstalled', function () {
+    if (pwaBanner) pwaBanner.setAttribute('hidden', '');
+    applyAppModeClasses();
+    window.cagpToast('Aplicativo CAGP instalado com sucesso!', 'bi-check2-circle', 3000);
+    deferredPrompt = null;
+    updateCampusHub();
+  });
+
+  // 11. Atualização em Tempo Real do Campus & Detecção de Plataforma
+  function updateCampusHub() {
+    if (window.applyCagpCampusState) {
+      window.applyCagpCampusState(document);
+    }
+
+    const hub = document.getElementById('cagp-mobile-superapp-hub');
+    if (!hub) return;
+
+    const container = document.getElementById('cagp-platform-incentive-container');
+    if (container) {
+      if (isStandalone) {
+        container.innerHTML =
+          '<div class="cagp-platform-card is-standalone">' +
+            '<div class="cagp-platform-icon"><i class="bi bi-patch-check-fill text-success"></i></div>' +
+            '<div class="cagp-platform-info">' +
+              '<div class="cagp-platform-title">Modo Super App Ativo</div>' +
+              '<div class="cagp-platform-desc">Acesso em tela cheia com armazenamento off-line habilitado na FAFICH.</div>' +
+            '</div>' +
+          '</div>';
+      } else if (isIos) {
+        container.innerHTML =
+          '<div class="cagp-platform-card is-ios">' +
+            '<div class="cagp-platform-icon"><i class="bi bi-apple"></i></div>' +
+            '<div class="cagp-platform-info">' +
+              '<div class="cagp-platform-title">Instale no seu iPhone / iPad</div>' +
+              '<div class="cagp-platform-desc">Consulte ementas, rotas e cálculos de ACG mesmo sem sinal 4G/Wi-Fi na FAFICH.</div>' +
+            '</div>' +
+            '<button type="button" class="cagp-platform-btn cagp-btn-ios" onclick="window.openCagpIosGuide && window.openCagpIosGuide()">' +
+              '<i class="bi bi-box-arrow-up me-1"></i> Instalar' +
+            '</button>' +
+          '</div>';
+      } else if (isAndroid) {
+        container.innerHTML =
+          '<div class="cagp-platform-card is-android">' +
+            '<div class="cagp-platform-icon"><i class="bi bi-android2"></i></div>' +
+            '<div class="cagp-platform-info">' +
+              '<div class="cagp-platform-title">Instale o Web App no Android</div>' +
+              '<div class="cagp-platform-desc">1 toque, sem ocupar a Play Store e com acesso offline nas salas de aula.</div>' +
+            '</div>' +
+            '<button type="button" class="cagp-platform-btn cagp-btn-android" onclick="window.triggerCagpInstall && window.triggerCagpInstall()">' +
+              '<i class="bi bi-download me-1"></i> Instalar' +
+            '</button>' +
+          '</div>';
+      } else {
+        container.innerHTML =
+          '<div class="cagp-platform-card is-desktop-mobile">' +
+            '<div class="cagp-platform-icon"><i class="bi bi-laptop"></i></div>' +
+            '<div class="cagp-platform-info">' +
+              '<div class="cagp-platform-title">Aplicativo Multiplataforma CAGP</div>' +
+              '<div class="cagp-platform-desc">Instale no seu dispositivo para acesso instantâneo e offline.</div>' +
+            '</div>' +
+            '<button type="button" class="cagp-platform-btn" onclick="window.triggerCagpInstall && window.triggerCagpInstall()">' +
+              '<i class="bi bi-download me-1"></i> Instalar' +
+            '</button>' +
+          '</div>';
+      }
+    }
+  }
+
+  updateCampusHub();
+  refreshVaultData();
+  syncProfileEditorFields();
+  setInterval(updateCampusHub, 30000);
+  window.addEventListener('cagp:navigated', function () {
+    hoistPwaShellToBody();
+    updateCampusHub();
+    refreshVaultData();
+    syncProfileEditorFields();
+    updateSuperAppUI(window.location.href);
+  });
+})();
+</script>

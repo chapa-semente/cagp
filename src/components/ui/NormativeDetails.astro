@@ -1,0 +1,85 @@
+---
+// NormativeDetails.astro - Encapsulamento de Textos Regimentais e Normas
+interface Props {
+  id?: string;
+  title: string;
+  badge?: string;
+  icon?: string;
+  open?: boolean;
+}
+
+const { id, title, badge, icon, open = false } = Astro.props;
+---
+
+<details id={id} class="cagp-normative-details bg-white border-2 border-[#0A0A0A] rounded-[6px] my-2 overflow-hidden transition-all shadow-[2px_2px_0_#0A0A0A] hover:shadow-[3px_3px_0_#0A0A0A]" open={open}>
+  <summary class="px-3.5 py-2.5 cursor-pointer font-['Oswald'] font-bold text-sm uppercase text-[#0A0A0A] bg-[#F7F5F0] hover:bg-[#EAE5DC] flex items-center justify-between select-none transition-colors">
+    <span class="flex items-center gap-2">
+      <i class="bi bi-chevron-right text-xs transition-transform duration-200 details-icon text-gray-500" aria-hidden="true"></i>
+      {icon && <i class={`bi ${icon} text-[#8B1E2D] text-base shrink-0`} aria-hidden="true"></i>}
+      <span class="leading-tight">{title}</span>
+    </span>
+    {badge && (
+      <span class="cagp-badge cagp-badge-red shrink-0 ml-2">
+        {badge}
+      </span>
+    )}
+  </summary>
+  <div class="px-4 py-3 text-sm text-gray-800 leading-relaxed border-t-2 border-[#0A0A0A] bg-white">
+    <slot />
+  </div>
+</details>
+
+<style>
+  .details-icon {
+    transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  details[open] summary .details-icon {
+    transform: rotate(90deg);
+  }
+  details > div {
+    overflow: hidden;
+  }
+</style>
+
+<script>
+  function setupDetailsAccordions() {
+    document.querySelectorAll<HTMLDetailsElement>('details.cagp-normative-details').forEach((details) => {
+      const summary = details.querySelector('summary');
+      const content = details.querySelector(':scope > div') as HTMLElement | null;
+      if (!summary || !content) return;
+
+      if ((details as any).__cagp_animated) return;
+      (details as any).__cagp_animated = true;
+
+      summary.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (details.open) {
+          const startHeight = content.offsetHeight;
+          const anim = content.animate(
+            [
+              { height: `${startHeight}px`, opacity: '1', transform: 'translateY(0)' },
+              { height: '0px', opacity: '0', transform: 'translateY(-6px)' }
+            ],
+            { duration: 240, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }
+          );
+          anim.onfinish = () => {
+            details.open = false;
+          };
+        } else {
+          details.open = true;
+          const endHeight = content.offsetHeight;
+          content.animate(
+            [
+              { height: '0px', opacity: '0', transform: 'translateY(-8px)' },
+              { height: `${endHeight}px`, opacity: '1', transform: 'translateY(0)' }
+            ],
+            { duration: 300, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }
+          );
+        }
+      });
+    });
+  }
+
+  setupDetailsAccordions();
+  document.addEventListener('astro:page-load', setupDetailsAccordions);
+</script>
