@@ -174,9 +174,35 @@ export const SHORTCUTS_CATALOG: ShortcutItem[] = [
     category: 'Institucional',
     match: ['^/gestao'],
   },
+  {
+    id: 'busca',
+    label: 'Busca',
+    fullLabel: 'Buscar no Portal (⌘K)',
+    description: 'Busca rápida de disciplinas, normas, ementas e contatos.',
+    href: '#busca',
+    icon: 'bi-search',
+    color: '#8B1E2D',
+    category: 'Essencial',
+    isAction: true,
+    actionEvent: 'cagp:open-spotlight',
+    match: [],
+  },
+  {
+    id: 'menu',
+    label: 'Menu',
+    fullLabel: 'Menu Geral do Super App',
+    description: 'Menu lateral completo com todas as seções e serviços.',
+    href: '#menu',
+    icon: 'bi-list',
+    color: '#0A0A0A',
+    category: 'Essencial',
+    isAction: true,
+    actionEvent: 'cagp:toggle-drawer',
+    match: [],
+  },
 ];
 
-export const DEFAULT_SHORTCUT_IDS = ['hoje', 'curso', 'percurso', 'documentos', 'sobre'];
+export const DEFAULT_SHORTCUT_IDS = ['hoje', 'busca', 'campus', 'percurso', 'menu'];
 
 export function getShortcutById(id: string): ShortcutItem {
   const found = SHORTCUTS_CATALOG.find((item) => item.id === id);

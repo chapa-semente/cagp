@@ -29,7 +29,7 @@ const {
 <html lang="pt-BR" data-base-url={import.meta.env.BASE_URL}>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#8B1E2D" />
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href={asset('/logos/cagp/10_simbolo_transparente_positivo.svg')} />
@@ -52,11 +52,6 @@ const {
     <!-- Anti-FOUC Acessibilidade & Drawer Global -->
     <script is:inline>
       (function() {
-        // Bloqueio de Zoom com Pinça (Web App Apple HIG)
-        document.addEventListener('gesturestart', function(e) { e.preventDefault(); }, { passive: false });
-        document.addEventListener('gesturechange', function(e) { e.preventDefault(); }, { passive: false });
-        document.addEventListener('gestureend', function(e) { e.preventDefault(); }, { passive: false });
-
         // Drawer Global Síncrono (Resolução 100% à Prova de Falhas para Home e Sub-rotas)
         window.__cagp_open_drawer = function() {
           var d = document.getElementById('cagp-mobile-drawer');
@@ -122,7 +117,7 @@ const {
       </style>
     </noscript>
   </head>
-  <body class="bg-[#F7F5F0] text-[#0A0A0A] font-['Inter'] antialiased min-h-screen flex flex-col">
+  <body class="bg-[#F7F5F0] text-[#0A0A0A] font-['Inter'] antialiased min-h-[100dvh] flex flex-col">
     <!-- Cápsula Tátil Flutuante (Dynamic Island Toast) -->
     <DynamicToast />
 

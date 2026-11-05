@@ -7,7 +7,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 <nav
   id="cagp-bottom-nav"
-  class="lg:hidden fixed left-1/2 -translate-x-1/2 z-[1040] select-none pointer-events-none"
+  class="lg:hidden fixed left-1/2 -translate-x-1/2 z-[1040] select-none pointer-events-none max-w-[calc(100vw-1rem)] w-auto"
   style="bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));"
   aria-label="Navegação Principal do Super App"
   data-catalog={JSON.stringify(SHORTCUTS_CATALOG)}
@@ -15,7 +15,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 >
   <div
     id="cagp-bottom-nav-container"
-    class="pointer-events-auto bg-white/95 backdrop-blur-xl border-2 border-[#0A0A0A] shadow-[3px_3px_0px_#0A0A0A] rounded-full px-2 py-1 flex items-center justify-center gap-1 sm:gap-1.5 transition-all duration-300"
+    class="pointer-events-auto bg-white/95 backdrop-blur-xl border border-black/15 shadow-sm rounded-full px-2 py-1 flex items-center justify-center gap-0.5 sm:gap-1 transition-all duration-300 max-w-full overflow-x-auto no-scrollbar"
     aria-label="Atalhos discentes"
   >
     <!-- Renderizado Inicialmente no SSR com os 5 Atalhos Canônicos -->
@@ -32,7 +32,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
           data-shortcut-id={item.id}
           data-match={JSON.stringify(item.match)}
           data-action={item.isAction ? item.actionEvent : undefined}
-          class={`cagp-nav-item relative flex flex-col items-center justify-center min-w-[50px] min-h-[46px] px-1 py-0.5 rounded-xl transition-all duration-200 no-underline cursor-pointer ${
+          class={`cagp-nav-item relative flex flex-col items-center justify-center min-w-[44px] min-h-[44px] px-1 py-0.5 rounded-xl transition-all duration-200 no-underline cursor-pointer ${
             isMatched ? 'is-active text-[#8B1E2D]' : 'text-gray-600 hover:text-[#8B1E2D]'
           }`}
           aria-current={isMatched ? 'page' : undefined}
@@ -46,7 +46,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
               aria-hidden="true"
             />
           </div>
-          <span class="text-[10px] font-['Oswald'] uppercase font-bold tracking-tight leading-none mt-1 text-center">
+          <span class="text-[11px] font-['Oswald'] uppercase font-bold tracking-tight leading-none mt-1 text-center">
             {item.label}
           </span>
         </a>
@@ -60,14 +60,14 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     <button
       type="button"
       id="cagp-bottom-nav-customize-btn"
-      class="cagp-nav-item flex flex-col items-center justify-center min-w-[50px] min-h-[46px] px-1 py-0.5 rounded-xl text-gray-500 hover:text-[#8B1E2D] hover:bg-[#F7F5F0] transition-colors cursor-pointer border-none bg-transparent"
+      class="cagp-nav-item flex flex-col items-center justify-center min-w-[44px] min-h-[44px] px-1 py-0.5 rounded-xl text-gray-500 hover:text-[#8B1E2D] hover:bg-[#F7F5F0] transition-colors cursor-pointer border-none bg-transparent"
       title="Personalizar atalhos da barra"
       aria-label="Personalizar atalhos da barra inferior"
     >
       <div class="w-7 h-7 min-w-[28px] min-h-[28px] rounded-full flex items-center justify-center">
         <i class="bi bi-sliders2 text-base" aria-hidden="true" />
       </div>
-      <span class="text-[10px] font-['Oswald'] uppercase font-bold tracking-tight leading-none mt-1 text-center">
+      <span class="text-[11px] font-['Oswald'] uppercase font-bold tracking-tight leading-none mt-1 text-center">
         Ajustes
       </span>
     </button>
@@ -98,8 +98,8 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
   .cagp-nav-item.is-active .cagp-nav-icon-circle {
     background-color: #8B1E2D !important;
     color: #FFFFFF !important;
-    border: 1.5px solid #0A0A0A !important;
-    box-shadow: 2px 2px 0px #0A0A0A, 0 0 0 2px rgba(139, 30, 45, 0.35) !important;
+    border: 1px solid rgba(0, 0, 0, 0.15) !important;
+    box-shadow: 0 2px 6px rgba(139, 30, 45, 0.35) !important;
     transform: scale(1.06) translateY(-1px) !important;
   }
   .cagp-nav-item.is-active .cagp-nav-icon-circle i {
@@ -197,7 +197,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
               data-shortcut-id="${item.id}"
               data-match='${JSON.stringify(matchPatterns)}'
               ${isAction ? `data-action="${item.actionEvent}"` : ''}
-              class="cagp-nav-item relative flex flex-col items-center justify-center min-w-[50px] min-h-[46px] px-1 py-0.5 rounded-xl transition-all duration-200 no-underline cursor-pointer ${isMatched ? 'is-active text-[#8B1E2D]' : 'text-gray-600 hover:text-[#8B1E2D]'}"
+              class="cagp-nav-item relative flex flex-col items-center justify-center min-w-[44px] min-h-[44px] px-1 py-0.5 rounded-xl transition-all duration-200 no-underline cursor-pointer ${isMatched ? 'is-active text-[#8B1E2D]' : 'text-gray-600 hover:text-[#8B1E2D]'}"
               ${isMatched ? 'aria-current="page"' : ''}
               aria-label="${item.fullLabel}"
               title="${item.fullLabel}"
@@ -206,7 +206,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
                 <i class="bi ${item.icon} text-base transition-transform duration-200" aria-hidden="true"></i>
                 <span class="cagp-nav-active-dot absolute -bottom-0.5 w-1.5 h-1.5 rounded-full bg-[#8B1E2D] ring-2 ring-white opacity-0 transition-opacity duration-200" aria-hidden="true"></span>
               </div>
-              <span class="text-[10px] font-['Oswald'] uppercase font-bold tracking-tight leading-none mt-1 text-center">
+              <span class="text-[11px] font-['Oswald'] uppercase font-bold tracking-tight leading-none mt-1 text-center">
                 ${item.label}
               </span>
             </a>
@@ -220,14 +220,14 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
         <button
           type="button"
           id="cagp-bottom-nav-customize-btn"
-          class="cagp-nav-item flex flex-col items-center justify-center min-w-[50px] min-h-[46px] px-1 py-0.5 rounded-xl text-gray-500 hover:text-[#8B1E2D] hover:bg-[#F7F5F0] transition-colors cursor-pointer border-none bg-transparent"
+          class="cagp-nav-item flex flex-col items-center justify-center min-w-[44px] min-h-[44px] px-1 py-0.5 rounded-xl text-gray-500 hover:text-[#8B1E2D] hover:bg-[#F7F5F0] transition-colors cursor-pointer border-none bg-transparent"
           title="Personalizar atalhos da barra"
           aria-label="Personalizar atalhos da barra inferior"
         >
           <div class="w-7 h-7 min-w-[28px] min-h-[28px] rounded-full flex items-center justify-center">
             <i class="bi bi-sliders2 text-base" aria-hidden="true"></i>
           </div>
-          <span class="text-[10px] font-['Oswald'] uppercase font-bold tracking-tight leading-none mt-1 text-center">
+          <span class="text-[11px] font-['Oswald'] uppercase font-bold tracking-tight leading-none mt-1 text-center">
             Ajustes
           </span>
         </button>
@@ -250,17 +250,27 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
         link.addEventListener('click', (e) => {
           e.preventDefault();
           const actionEvent = link.getAttribute('data-action');
-          if (actionEvent) {
+          if (actionEvent === 'cagp:toggle-drawer') {
+            if ((window as any).__cagp_toggle_drawer) {
+              (window as any).__cagp_toggle_drawer();
+            } else {
+              window.dispatchEvent(new CustomEvent('cagp:toggle-drawer'));
+            }
+          } else if (actionEvent) {
             window.dispatchEvent(new CustomEvent(actionEvent));
           }
         });
       });
     }
 
-    // Se já existem itens renderizados pelo SSR ou navegação anterior, só sincronizamos o estado ativo
-    // para permitir transições CSS fluidas sem recriar o DOM
-    const existingItems = container.querySelectorAll('.cagp-nav-item[data-match]');
-    if (existingItems.length > 0) {
+    // Se os itens renderizados coincidem exatamente com a seleção do cofre, sincronizamos o estado ativo
+    // sem recriar o DOM para permitir transições CSS fluidas; caso contrário, re-renderizamos
+    const renderedIds = Array.from(container.querySelectorAll<HTMLElement>('.cagp-nav-item[data-shortcut-id]'))
+      .map((el) => el.getAttribute('data-shortcut-id'));
+    const selectedIds = getSelectedIds();
+    const isSame = renderedIds.length === selectedIds.length && renderedIds.every((id, idx) => id === selectedIds[idx]);
+
+    if (isSame && renderedIds.length > 0) {
       syncActiveNav();
       bindEvents();
     } else {

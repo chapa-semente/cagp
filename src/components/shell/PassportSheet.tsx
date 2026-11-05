@@ -82,9 +82,9 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
           <button
             type="button"
             onClick={() => setActiveTab('passport')}
-            className={`flex-1 py-1.5 px-3 rounded text-xs font-['Oswald'] uppercase font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+            className={`flex-1 min-h-[44px] py-2.5 px-3 rounded text-xs font-['Oswald'] uppercase font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
               activeTab === 'passport'
-                ? 'bg-white text-[#8B1E2D] border border-[#0A0A0A] shadow-[1.5px_1.5px_0px_#0A0A0A]'
+                ? 'bg-white text-[#8B1E2D] border border-black/15 shadow-xs'
                 : 'text-gray-600 hover:text-[#0A0A0A]'
             }`}
           >
@@ -94,9 +94,9 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
           <button
             type="button"
             onClick={() => setActiveTab('talent')}
-            className={`flex-1 py-1.5 px-3 rounded text-xs font-['Oswald'] uppercase font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+            className={`flex-1 min-h-[44px] py-2.5 px-3 rounded text-xs font-['Oswald'] uppercase font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
               activeTab === 'talent'
-                ? 'bg-white text-[#8B1E2D] border border-[#0A0A0A] shadow-[1.5px_1.5px_0px_#0A0A0A]'
+                ? 'bg-white text-[#8B1E2D] border border-black/15 shadow-xs'
                 : 'text-gray-600 hover:text-[#0A0A0A]'
             }`}
           >

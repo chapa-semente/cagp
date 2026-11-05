@@ -7,6 +7,8 @@
   },
   "license": "MIT",
   "suggestedPrompts": [
+    "/apple-impeccable critique src/pages/index.astro",
+    "/apple-impeccable critique http://localhost:4321",
     "/apple-impeccable audit src/components/Header.astro",
     "/apple-impeccable design novo Bottom Navigation Bar para mobile",
     "/apple-impeccable harden src/pages/index.astro"

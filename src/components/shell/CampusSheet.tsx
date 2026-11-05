@@ -98,9 +98,9 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
             <button
               type="button"
               onClick={() => togglePref('ru1815')}
-              className={`text-xs px-3 py-1.5 rounded-[4px] font-['Oswald'] font-semibold uppercase border transition-all cursor-pointer flex items-center gap-1.5 ${
+              className={`min-h-[44px] py-2.5 px-4 text-xs rounded-[4px] font-['Oswald'] font-semibold uppercase border transition-all cursor-pointer flex items-center gap-1.5 ${
                 prefs.ru1815
-                  ? 'bg-[#8B1E2D] text-white border-[#0A0A0A] shadow-[1px_1px_0_#0A0A0A]'
+                  ? 'bg-[#8B1E2D] text-white border-black/15 shadow-xs'
                   : 'bg-[#F7F5F0] text-gray-700 border-[#DFDBD2] hover:bg-gray-200'
               }`}
             >
@@ -110,7 +110,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
             <button
               type="button"
               onClick={downloadRu1815Ics}
-              className="text-xs px-2.5 py-1.5 rounded-[4px] font-['Oswald'] font-semibold uppercase bg-white border border-[#0A0A0A] hover:bg-[#F7F5F0] transition-colors cursor-pointer flex items-center gap-1"
+              className="min-h-[44px] py-2.5 px-4 text-xs rounded-[4px] font-['Oswald'] font-semibold uppercase bg-white border border-black/15 hover:bg-[#F7F5F0] transition-colors cursor-pointer flex items-center gap-1"
               title="Baixar evento para Apple / Google Calendar"
             >
               <i className="bi bi-calendar-plus text-xs" />
@@ -120,13 +120,13 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
         </div>
 
         {/* 2. Circular Noturno */}
-        <div className="bg-white p-3 rounded-[6px] border-2 border-[#0A0A0A] shadow-[2px_2px_0_#0A0A0A] space-y-2">
+        <div className="bg-white p-3 rounded-[6px] border border-black/15 shadow-xs space-y-2">
           <div className="flex items-center justify-between flex-wrap gap-2">
             <div className="flex items-center gap-2">
               <i className="bi bi-bus-front-fill text-[#005A9C] text-lg" aria-hidden="true" />
               <div>
                 <span className="font-['Oswald'] font-bold text-sm uppercase text-[#0A0A0A]">Circular Noturno FAFICH</span>
-                <span className="text-[10px] font-mono bg-[#005A9C]/10 text-[#005A9C] font-bold px-1.5 py-0.5 rounded border border-[#005A9C]/30 ml-2">
+                <span className="text-[11px] font-mono bg-[#005A9C]/10 text-[#005A9C] font-bold px-1.5 py-0.5 rounded border border-[#005A9C]/30 ml-2">
                   17h00 às 22h45
                 </span>
               </div>
@@ -140,9 +140,9 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
             <button
               type="button"
               onClick={() => togglePref('circular2230')}
-              className={`text-xs px-3 py-1.5 rounded-[4px] font-['Oswald'] font-semibold uppercase border transition-all cursor-pointer flex items-center gap-1.5 ${
+              className={`min-h-[44px] py-2.5 px-4 text-xs rounded-[4px] font-['Oswald'] font-semibold uppercase border transition-all cursor-pointer flex items-center gap-1.5 ${
                 prefs.circular2230
-                  ? 'bg-[#8B1E2D] text-white border-[#0A0A0A] shadow-[1px_1px_0_#0A0A0A]'
+                  ? 'bg-[#8B1E2D] text-white border-black/15 shadow-xs'
                   : 'bg-[#F7F5F0] text-gray-700 border-[#DFDBD2] hover:bg-gray-200'
               }`}
             >
@@ -152,7 +152,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
             <button
               type="button"
               onClick={downloadCircular2230Ics}
-              className="text-xs px-2.5 py-1.5 rounded-[4px] font-['Oswald'] font-semibold uppercase bg-white border border-[#0A0A0A] hover:bg-[#F7F5F0] transition-colors cursor-pointer flex items-center gap-1"
+              className="min-h-[44px] py-2.5 px-4 text-xs rounded-[4px] font-['Oswald'] font-semibold uppercase bg-white border border-black/15 hover:bg-[#F7F5F0] transition-colors cursor-pointer flex items-center gap-1"
               title="Baixar evento para Apple / Google Calendar"
             >
               <i className="bi bi-calendar-plus text-xs" />
@@ -162,13 +162,13 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
         </div>
 
         {/* 3. Guardião de 120 Dias (Art. 15, § 4º) */}
-        <div className="bg-white p-3 rounded-[6px] border-2 border-[#0A0A0A] shadow-[2px_2px_0_#0A0A0A] space-y-2">
+        <div className="bg-white p-3 rounded-[6px] border border-black/15 shadow-xs space-y-2">
           <div className="flex items-center justify-between flex-wrap gap-2">
             <div className="flex items-center gap-2">
               <i className="bi bi-shield-exclamation text-[#B45309] text-lg" aria-hidden="true" />
               <div>
                 <span className="font-['Oswald'] font-bold text-sm uppercase text-[#0A0A0A]">Guardião de 120 Dias AAC</span>
-                <span className="text-[10px] font-mono bg-[#B45309]/10 text-[#B45309] font-bold px-1.5 py-0.5 rounded border border-[#B45309]/30 ml-2">
+                <span className="text-[11px] font-mono bg-[#B45309]/10 text-[#B45309] font-bold px-1.5 py-0.5 rounded border border-[#B45309]/30 ml-2">
                   Art. 15, § 4º
                 </span>
               </div>
@@ -176,9 +176,9 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
             <button
               type="button"
               onClick={() => togglePref('aac120d')}
-              className={`text-xs px-2.5 py-1 rounded-[4px] font-['Oswald'] font-semibold uppercase border transition-colors cursor-pointer ${
+              className={`min-h-[44px] py-2 px-3 text-xs rounded-[4px] font-['Oswald'] font-semibold uppercase border transition-colors cursor-pointer flex items-center justify-center ${
                 prefs.aac120d
-                  ? 'bg-[#15803D] text-white border-[#0A0A0A]'
+                  ? 'bg-[#15803D] text-white border-black/15'
                   : 'bg-white text-gray-700 border-[#DFDBD2]'
               }`}
             >

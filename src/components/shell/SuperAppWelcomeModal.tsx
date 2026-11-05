@@ -60,7 +60,7 @@ export const SuperAppWelcomeModal: React.FC = () => {
       {/* 1. Card Flutuante Estilo Apple TipKit (Não-bloqueante no canto inferior direito) */}
       {showTip && !isModalOpen && (
         <aside
-          className="fixed bottom-20 md:bottom-6 right-3 md:right-6 z-[1045] max-w-sm w-[calc(100vw-1.5rem)] md:w-auto bg-white/95 dark:bg-[#1C1E22]/95 backdrop-blur-xl border-2 border-[#0A0A0A] dark:border-[#3F3F46] rounded-2xl shadow-[4px_4px_0px_#0A0A0A] p-3.5 animate-in slide-in-from-bottom duration-300"
+          className="fixed bottom-[calc(5.25rem+env(safe-area-inset-bottom,0px))] md:bottom-6 right-3 md:right-6 z-[1045] max-w-sm w-[calc(100vw-1.5rem)] md:w-auto bg-white/95 dark:bg-[#1C1E22]/95 backdrop-blur-xl border border-black/15 dark:border-white/15 rounded-2xl shadow-sm p-3.5 animate-in slide-in-from-bottom duration-300"
           aria-label="Dica de boas-vindas do Super App"
         >
           <div className="flex items-start gap-3">
@@ -68,12 +68,12 @@ export const SuperAppWelcomeModal: React.FC = () => {
               <i className="bi bi-lightbulb-fill text-base" aria-hidden="true" />
             </div>
             <div className="flex-1 min-w-0">
-              <span className="text-[10px] font-['Oswald'] uppercase font-bold tracking-wider text-[#8B1E2D] block">
+              <span className="text-[11px] font-['Oswald'] uppercase font-bold tracking-wider text-[#8B1E2D] block">
                 Dica do Super App
               </span>
-              <h3 className="font-['Oswald'] text-xs font-bold uppercase text-[#0A0A0A] dark:text-[#F5F3EF] leading-snug">
+              <h2 className="font-['Oswald'] text-xs font-bold uppercase text-[#0A0A0A] dark:text-[#F5F3EF] leading-snug">
                 Conheça as ferramentas discentes em 30s
-              </h3>
+              </h2>
               <p className="text-[11px] text-gray-600 dark:text-[#A1A1AA] leading-tight mt-0.5">
                 Calculadora 600h, Grade 10P interativa e normas da FAFICH no seu bolso.
               </p>
@@ -81,14 +81,14 @@ export const SuperAppWelcomeModal: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleStartTour}
-                  className="px-3 py-1.5 min-h-[36px] bg-[#0A0A0A] hover:bg-[#8B1E2D] text-white text-[11px] font-['Oswald'] uppercase font-bold tracking-wide rounded-lg transition-colors cursor-pointer"
+                  className="px-3 py-1.5 min-h-[44px] bg-[#0A0A0A] hover:bg-[#8B1E2D] text-white text-[11px] font-['Oswald'] uppercase font-bold tracking-wide rounded-lg transition-colors cursor-pointer flex items-center justify-center"
                 >
                   Conhecer em 30s
                 </button>
                 <button
                   type="button"
                   onClick={handleDismiss}
-                  className="px-2.5 py-1.5 min-h-[36px] text-gray-500 hover:text-[#0A0A0A] text-[11px] font-['Oswald'] uppercase font-bold rounded-lg transition-colors cursor-pointer"
+                  className="px-2.5 py-1.5 min-h-[44px] text-gray-500 hover:text-[#0A0A0A] text-[11px] font-['Oswald'] uppercase font-bold rounded-lg transition-colors cursor-pointer flex items-center justify-center"
                 >
                   Dispensar
                 </button>
@@ -106,7 +106,7 @@ export const SuperAppWelcomeModal: React.FC = () => {
           aria-modal="true"
           aria-labelledby="onboarding-title"
         >
-          <div className="w-full max-w-md bg-white dark:bg-[#1C1E22] border-2 border-[#0A0A0A] dark:border-[#3F3F46] rounded-2xl shadow-[5px_5px_0px_#0A0A0A] p-6 space-y-5 flex flex-col justify-between">
+          <div className="w-full max-w-md bg-white dark:bg-[#1C1E22] border border-black/15 dark:border-white/15 rounded-2xl shadow-xl p-6 space-y-5 flex flex-col justify-between">
             <div>
               {/* Header do Card */}
               <div className="flex items-center justify-between mb-4">
@@ -116,7 +116,7 @@ export const SuperAppWelcomeModal: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleDismiss}
-                  className="px-2.5 py-1 text-xs font-['Oswald'] uppercase font-bold text-gray-500 hover:text-[#0A0A0A] hover:bg-[#F7F5F0] rounded border border-transparent hover:border-[#DFDBD2] cursor-pointer"
+                  className="min-h-[44px] px-2.5 py-1 text-xs font-['Oswald'] uppercase font-bold text-gray-500 hover:text-[#0A0A0A] hover:bg-[#F7F5F0] rounded border border-transparent hover:border-[#DFDBD2] cursor-pointer flex items-center justify-center"
                 >
                   Pular Introdução
                 </button>
@@ -173,7 +173,7 @@ export const SuperAppWelcomeModal: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setSlide(slide + 1)}
-                    className="flex-1 min-h-[44px] px-5 py-2 bg-[#0A0A0A] text-white hover:bg-[#8B1E2D] rounded-lg font-['Oswald'] text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all shadow-[2px_2px_0px_#0A0A0A] cursor-pointer"
+                    className="flex-1 min-h-[44px] px-5 py-2 bg-[#0A0A0A] text-white hover:bg-[#8B1E2D] rounded-lg font-['Oswald'] text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all shadow-sm hover:shadow-md cursor-pointer"
                   >
                     <span>Próximo Passo</span>
                     <i className="bi bi-arrow-right" aria-hidden="true" />
@@ -182,7 +182,7 @@ export const SuperAppWelcomeModal: React.FC = () => {
                   <button
                     type="button"
                     onClick={handleDismiss}
-                    className="flex-1 min-h-[44px] px-5 py-2 bg-[#8B1E2D] text-white hover:bg-[#0A0A0A] rounded-lg font-['Oswald'] text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all shadow-[2px_2px_0px_#0A0A0A] cursor-pointer"
+                    className="flex-1 min-h-[44px] px-5 py-2 bg-[#8B1E2D] text-white hover:bg-[#0A0A0A] rounded-lg font-['Oswald'] text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all shadow-sm hover:shadow-md cursor-pointer"
                   >
                     <span>Começar a Explorar</span>
                     <i className="bi bi-rocket-takeoff-fill" aria-hidden="true" />

@@ -37,15 +37,16 @@ Use esta skill quando precisar criar, refinar, auditar ou blindar interfaces fro
 > 5. **Tipografia & Dynamic Type**: Suavização idêntica (`-webkit-font-smoothing: antialiased`, `-moz-osx-font-smoothing: grayscale`), prevenção de negritos sintéticos (`font-synthesis: none`) e proporções Dynamic Type sem distorção.
 > 6. **Feedback Multissensorial**: Vibração tátil no Chromium/Android (`navigator.vibrate`) e cliques acústicos sutis universais via Web Audio API.
 
-### 3. Postura Consultiva e Exemplificativa (Não Ditatorial)
+### 3. Postura Yoda e Protocolo `/grill-me` (Consultiva, Não Ditatorial)
 
 > [!NOTE]
 > **A Decisão Final Pertence Sempre ao Usuário e ao Raciocínio da IA.**
-> A meta-skill **não impõe regras dogmáticas nem dita layouts de forma autoritária**. Toda crítica ou recomendação de UX atua como uma consultoria colaborativa:
-> 1. **Diagnóstico Empático**: Identifica atritos ergonômicos e gargalos de densidade cognitiva.
-> 2. **Sugestões de Realocação**: Propõe redistribuição espacial fundamentada (Thumb Zone vs Eye Zone, cards colapsáveis e bottom sheets).
-> 3. **Exemplos Práticos Prontos**: Fornece snippets de código funcionais integrados aos design tokens do projeto.
-> 4. **Análise de Trade-offs**: Apresenta opções alternativas com prós e contras transparentes, empoderando o usuário e a IA a definirem a arquitetura final.
+> A meta-skill **não impõe regras dogmáticas nem dita layouts de forma autoritária**. Atuando como um conselheiro experiente (estilo mestre Yoda):
+> 1. **Alinhamento Socrático (`/grill-me`)**: Formula 2 a 3 perguntas estratégicas de trade-offs com opções claras para que o usuário guie o direcionamento de arquitetura.
+> 2. **Diagnóstico Empático**: Identifica atritos ergonômicos e gargalos de densidade cognitiva sem julgamento.
+> 3. **Sugestões de Realocação e Temas**: Propõe redistribuição espacial fundamentada (Thumb Zone vs Eye Zone, cards colapsáveis, bottom sheets e temas adaptativos claro/escuro/alto contraste).
+> 4. **Exemplos Práticos Prontos**: Fornece snippets de código funcionais integrados aos design tokens do projeto.
+> 5. **Análise de Trade-offs**: Apresenta opções alternativas com prós e contras transparentes, empoderando o usuário e a IA a definirem a arquitetura final.
 
 ---
 
@@ -67,7 +68,7 @@ Consulte os guias especializados sob `references/` conforme o objetivo do trabal
 | Referência | Finalidade | Quando Consultar |
 | :--- | :--- | :--- |
 | [`references/reference-routing-matrix.md`](references/reference-routing-matrix.md) | **Matriz de Roteamento Multidimensional** conectando 116 guias HIG, 45 guias Impeccable, guias Apple Design e scripts | **Consulta obrigatória antes de qualquer tarefa de UI/UX** |
-| [`references/superapp-ux-critique.md`](references/superapp-ux-critique.md) | **Guia de Crítica de UX & Super Apps** (Thumb Zone, Fluid Glass, Onboarding, Realocação de Seções e Protocolo Consultivo) | Ao realizar crítica de telas, redesenhar navegação ou executar `run-audit.sh critique` |
+| [`references/superapp-ux-critique.md`](references/superapp-ux-critique.md) | **Guia de Crítica de UX & Super Apps** (Thumb Zone, Fluid Glass, Onboarding, Molas/Animações, Temas, Protocolo Yoda / Grill Me e `/browser`) | Ao realizar crítica de telas, redesenhar navegação, auditar temas ou executar `run-audit.sh critique` |
 | [`references/conflict-resolution.md`](references/conflict-resolution.md) | Matriz de precedência oficial e desempates entre Apple HIG e Impeccable | Sempre que houver dúvida entre minimalismo visual e ergonomia tátil |
 | [`references/semantic-tokens-system.md`](references/semantic-tokens-system.md) | Dicionário de papéis semânticos, tokens Dynamic Type, Tailwind v4 (`@theme`), CSS Vars | Ao iniciar o mapeamento de temas ou criar novos componentes |
 | [`references/ergonomic-touch-layout.md`](references/ergonomic-touch-layout.md) | Regra dos 44x44px, Safe Areas (`env()`), Dynamic Island, Viewports (`dvh`, `svh`, `lvh`) | Ao definir layouts, botões, modais e barras de navegação |
@@ -195,22 +196,29 @@ bash .agents/skills/apple-impeccable/scripts/run-audit.sh detect [caminho-ou-arq
 
 ### Fluxo 4: Crítica Consultiva de Super App e Inspeção Visual (`critique`)
 
-Use este fluxo para avaliar a experiência do usuário (UX), distribuição espacial, ergonomia de botões e fluidez de materiais táteis:
+Use este fluxo para avaliar a experiência do usuário (UX), distribuição espacial, ergonomia de botões, física de movimento e temas táteis universais:
 
-1. **Os 5 Pilares de Avaliação de Super App**:
+1. **Os 7 Pilares de Avaliação de Super App**:
    - **Arquitetura de Informação & Thumb Zone**: Ações prioritárias e docks alocados na base (ao alcance natural do polegar em dispositivos móveis); cabeçalhos desafogados no topo (*Eye Zone*).
-   - **Densidade & Realocação de Seções**: Identificação de poluição visual (> 5 módulos concorrendo). Sugestão de agrupamento cognitivo em cards colapsáveis (`<details>`/accordions) ou *Bottom Sheets*.
+   - **Densidade & Realocação de Seções**: Identificação de poluição visual (> 5 módulos concorrendo no primeiro scroll). Sugestão de agrupamento cognitivo em cards colapsáveis (`<details>`/accordions) ou *Bottom Sheets*.
+   - **Dinâmica de Animações & Molas (Springs)**: Curvas de mola orgânicas (`--spring-smooth`), feedback elástico `:active` instantâneo sem delay de 300ms, transições sem layout shift (CLS) e fallback para `prefers-reduced-motion`.
    - **Fluid Glass & Contraste Especular**: Superfícies translúcidas com `-webkit-backdrop-filter` e `backdrop-filter` simultâneos, iluminação de borda sutil (`0.5px`) e contraste mínimo de 4.5:1 mesmo sobre fundos dinâmicos.
-   - **Engenharia de Onboarding & Value-First**: O usuário experimenta valor real antes de esbarrar em barreiras de login imediato; revelação progressiva (*progressive disclosure*).
-   - **Ergonomia de Botões & Ações**: Alvos mínimos de toque de 44x44px, feedback elástico `:active`, CTAs proeminentes e diferenciação explícita de ações destrutivas.
+   - **Arquitetura de Temas & Acessibilidade Universal**: Suporte a modo noturno (Dark Mode semântico para turnos da noite e economia de bateria em telas OLED no Android), modo claro natural e Modo Alto Contraste AAA sem transparências.
+   - **Engenharia de Onboarding & Value-First**: O usuário experimenta valor real antes de esbarrar em barreiras de login imediato; revelação progressiva (*progressive disclosure* estilo Apple TipKit).
+   - **Ergonomia de Botões & Ações**: Alvos mínimos de toque de 44x44px, feedback tátil háptico (`navigator.vibrate`), CTAs proeminentes e diferenciação explícita de ações destrutivas.
 
-2. **Inspeção Visual ao Vivo no Navegador (Modo Dual Mobile + Desktop)**:
+2. **A Dinâmica Yoda & Roteiro Socrático (`/grill-me`)**:
+   - Ao criticar uma tela ou sugerir grandes refatorações, **a IA não impõe sua preferência**. Ela formula 2 a 3 perguntas de trade-off no estilo `/grill-me` (ex: Dock fixo vs Bottom Sheet sob demanda; Dark Mode automático vs Seletor no perfil).
+   - Apresenta os prós e contras ergonômicos de cada opção para que o usuário e a IA decidam conjuntamente o caminho ótimo.
+
+3. **Inspeção Visual ao Vivo no Navegador (`/browser` e Modo Dual)**:
    - Quando o alvo for uma URL local (ex: `http://localhost:4321`):
      - **Mobile (390x844)**: Simula visualização e alcance em smartphones Android e iOS.
      - **Desktop (1440x900)**: Simula visualização widescreen em Linux, macOS e Windows.
      - Avalia layout shifts reais, contraste computado de cores e geometria de toques.
+   - O agente pode interagir e inspecionar a interface renderizada em tempo real utilizando a ferramenta `/browser`.
 
-3. **Execução de Comandos**:
+4. **Execução de Comandos**:
    ```bash
    # Crítica estática consultiva em arquivo ou diretório de componentes
    bash .agents/skills/apple-impeccable/scripts/run-audit.sh critique src/pages/index.astro
@@ -219,7 +227,7 @@ Use este fluxo para avaliar a experiência do usuário (UX), distribuição espa
    bash .agents/skills/apple-impeccable/scripts/run-audit.sh critique http://localhost:4321
    ```
 
-4. **Protocolo Consultivo de Resposta**:
+5. **Protocolo Consultivo de Resposta**:
    Toda devolutiva estruturada deve seguir o padrão:
    - `[Diagnóstico]` -> O que foi observado na disposição ou código atual.
    - `[Por Que Importa]` -> Fundamentação ergonômica, de acessibilidade ou cognitiva.

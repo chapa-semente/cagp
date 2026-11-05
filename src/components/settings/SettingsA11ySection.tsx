@@ -35,7 +35,7 @@ export const SettingsA11ySection: React.FC<Props> = ({ a11y, updateA11y }) => {
                 key={s}
                 type="button"
                 onClick={() => updateA11y({ font: s })}
-                className={`min-h-[44px] px-3.5 py-1.5 text-xs font-['Oswald'] font-bold rounded-md cursor-pointer transition-all ${
+                className={`min-w-[44px] min-h-[44px] px-3.5 py-1.5 text-xs font-['Oswald'] font-bold rounded-md cursor-pointer transition-all flex items-center justify-center ${
                   a11y.font === s ? 'bg-[#0A0A0A] text-white shadow-xs' : 'text-gray-700 hover:bg-white'
                 }`}
               >

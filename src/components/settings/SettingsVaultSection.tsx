@@ -58,19 +58,19 @@ export const SettingsVaultSection: React.FC<Props> = ({
           <label className="block text-xs font-bold uppercase text-gray-700 mb-1" htmlFor="settings-import-input">
             Restaurar Backup a partir de Token
           </label>
-          <div className="flex gap-2">
+          <div className="flex items-center gap-2 min-w-0 w-full">
             <input
               id="settings-import-input"
               type="text"
               placeholder="Cole o token CAGP1:... aqui"
               value={backupInput}
               onChange={(e) => setBackupInput(e.target.value)}
-              className="flex-1 bg-[#F7F5F0] border border-[#DFDBD2] p-2 text-xs font-mono rounded focus:border-[#8B1E2D] focus:outline-none"
+              className="flex-1 min-w-0 bg-[#F7F5F0] border border-[#DFDBD2] p-2 text-xs font-mono rounded focus:border-[#8B1E2D] focus:outline-none"
             />
             <button
               type="button"
               onClick={handleImportBackup}
-              className="cagp-btn-primary text-xs py-2 px-4 cursor-pointer"
+              className="cagp-btn-primary text-xs py-2 px-4 cursor-pointer shrink-0"
             >
               Restaurar
             </button>

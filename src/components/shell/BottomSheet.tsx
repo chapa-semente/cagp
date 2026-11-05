@@ -78,7 +78,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
     setDragY(0);
   };
 
-  const heightClass = detent === 'large' ? 'h-[90dvh] md:max-h-[85dvh]' : 'h-[55dvh] md:max-h-[70dvh]';
+  const heightClass = detent === 'large' ? 'h-[90svh] max-h-[90svh] md:max-h-[85svh]' : 'h-[55svh] max-h-[70svh]';
 
   const sheetContent = (
     <div
@@ -97,7 +97,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
 
       {/* Sheet / Form Sheet Modal Container */}
       <div
-        className={`relative z-[1090] w-full max-w-2xl md:max-w-xl mx-auto bg-white/98 backdrop-blur-xl rounded-t-2xl md:rounded-2xl border-2 border-b-0 md:border-b-2 border-[#0A0A0A] shadow-[0_-8px_32px_rgba(10,10,10,0.2)] md:shadow-[6px_6px_0px_#0A0A0A] flex flex-col transition-all duration-300 animate-in slide-in-from-bottom md:zoom-in-95 ease-out ${heightClass}`}
+        className={`relative z-[1090] w-full max-w-2xl md:max-w-xl mx-auto bg-white/98 backdrop-blur-xl rounded-t-2xl md:rounded-2xl border border-b-0 md:border-b border-black/15 shadow-[0_-8px_32px_rgba(0,0,0,0.12)] md:shadow-xl flex flex-col transition-all duration-300 animate-in slide-in-from-bottom md:zoom-in-95 ease-out ${heightClass}`}
         style={{
           transform: `translateY(${dragY}px)`,
           paddingBottom: 'calc(1rem + env(safe-area-inset-bottom, 0px))',

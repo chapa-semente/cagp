@@ -21,7 +21,7 @@
   border-radius: 4px;
   text-decoration: none !important;
   cursor: pointer;
-  border: 2px solid #0A0A0A;
+  border: 1px solid rgba(0, 0, 0, 0.15);
   touch-action: manipulation;
   transition: transform 0.12s var(--cagp-spring),
               box-shadow 0.12s var(--cagp-spring),
@@ -35,9 +35,9 @@
 .cagp-doc-btn-primary {
   background-color: var(--color-cagp-burgundy, #8B1E2D);
   color: #FFFFFF !important;
-  border: 2px solid #0A0A0A;
-  box-shadow: 2.5px 2.5px 0 0 #0A0A0A;
-  transform: translate(-1.5px, -1.5px);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 3px rgba(139, 30, 45, 0.25), 0 1px 2px rgba(0, 0, 0, 0.05);
+  transform: translate(-0.5px, -0.5px);
   border-radius: 4px;
 }
 
@@ -46,15 +46,15 @@
 .cagp-doc-btn-primary:hover {
   background-color: var(--color-cagp-red, #9E2424);
   color: #FFFFFF !important;
-  transform: translate(-0.5px, -0.5px);
-  box-shadow: 3.5px 3.5px 0 0 #0A0A0A;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(139, 30, 45, 0.3);
 }
 
 .cagp-btn-primary:active,
 .btn-primary:active,
 .cagp-doc-btn-primary:active {
-  transform: translate(1.5px, 1.5px) scale(0.98);
-  box-shadow: 0 0 0 #0A0A0A;
+  transform: scale(0.98);
+  box-shadow: 0 1px 2px rgba(139, 30, 45, 0.2);
 }
 
 .cagp-btn-secondary,
@@ -62,9 +62,9 @@
 .cagp-doc-btn-secondary {
   background-color: #0A0A0A;
   color: #FFFFFF !important;
-  border: 2px solid #0A0A0A;
-  box-shadow: 2.5px 2.5px 0 0 var(--color-cagp-burgundy, #8B1E2D);
-  transform: translate(-1.5px, -1.5px);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  transform: translate(-0.5px, -0.5px);
   border-radius: 4px;
 }
 
@@ -73,15 +73,15 @@
 .cagp-doc-btn-secondary:hover {
   background-color: #262626;
   color: #FFFFFF !important;
-  transform: translate(-0.5px, -0.5px);
-  box-shadow: 3.5px 3.5px 0 0 var(--color-cagp-burgundy, #8B1E2D);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 .cagp-btn-secondary:active,
 .btn-secondary:active,
 .cagp-doc-btn-secondary:active {
-  transform: translate(1.5px, 1.5px) scale(0.98);
-  box-shadow: 0 0 0;
+  transform: scale(0.98);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .cagp-btn-outline,
@@ -89,9 +89,9 @@
 .cagp-doc-btn-outline {
   background-color: #FFFFFF;
   color: #0A0A0A !important;
-  border: 2px solid #0A0A0A;
-  box-shadow: 2px 2px 0 0 #0A0A0A;
-  transform: translate(-1px, -1px);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transform: translate(-0.5px, -0.5px);
   border-radius: 4px;
 }
 
@@ -100,14 +100,14 @@
 .cagp-doc-btn-outline:hover {
   background-color: #F7F5F0;
   color: #0A0A0A !important;
-  transform: translate(-0.5px, -0.5px);
-  box-shadow: 3px 3px 0 0 #0A0A0A;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
 }
 
 .cagp-btn-outline:active,
 .btn-outline:active,
 .cagp-doc-btn-outline:active {
-  transform: translate(1.5px, 1.5px) scale(0.98);
+  transform: scale(0.98);
   box-shadow: 0 0 0;
 }
 
@@ -121,10 +121,10 @@
   justify-content: space-between;
   height: 100%;
   padding: 1rem;
-  border: 1.5px solid #0A0A0A;
+  border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 6px;
   background-color: #F7F5F0;
-  box-shadow: 2px 2px 0 #0A0A0A;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   text-decoration: none !important;
   color: #0A0A0A !important;
   transition: transform 0.14s var(--cagp-spring),
@@ -135,21 +135,21 @@
 
 .cagp-action-tile:hover {
   background-color: #FFFFFF;
-  border-color: var(--color-cagp-burgundy, #8B1E2D);
-  transform: translate(-1.5px, -1.5px);
-  box-shadow: 3.5px 3.5px 0 #0A0A0A;
+  border-color: rgba(139, 30, 45, 0.3);
+  transform: translateY(-1.5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .cagp-action-tile:active {
-  transform: translate(1px, 1px);
-  box-shadow: 1px 1px 0 #0A0A0A;
+  transform: scale(0.98);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .cagp-tool-box {
-  border: 2px solid #0A0A0A;
+  border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 6px;
   background-color: #FBF8F3;
-  box-shadow: 3px 3px 0 #0A0A0A;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   padding: 1.25rem;
   margin-bottom: 1.25rem;
 }
@@ -158,7 +158,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  border-bottom: 1.5px solid #DFDBD2;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding-bottom: 0.75rem;
   margin-bottom: 1rem;
   gap: 0.75rem;
@@ -166,9 +166,10 @@
 
 .cagp-card,
 .card {
-  border: 1.5px solid #DFDBD2;
+  border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 6px;
   background-color: #FFFFFF;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
   transition: transform 0.14s var(--cagp-spring),
               box-shadow 0.14s var(--cagp-spring),
               border-color 0.14s ease;
@@ -176,9 +177,9 @@
 
 .cagp-card:hover,
 .card:hover {
-  border-color: #0A0A0A;
-  box-shadow: 2.5px 2.5px 0 #0A0A0A;
-  transform: translate(-1px, -1px);
+  border-color: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
 }
 
 /* ==========================================================================
@@ -280,13 +281,13 @@
   transform: rotate(-1.5deg);
 }
 
-/* Liquid-Glass Neo-Brutalista (Camada Funcional Flutuante) */
+/* Liquid-Glass Apple HIG (Camada Funcional Flutuante) */
 .cagp-glass-surface {
   background-color: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(16px) saturate(140%);
-  -webkit-backdrop-filter: blur(16px) saturate(140%);
-  border: 2px solid #0A0A0A;
-  box-shadow: 3px 3px 0 #0A0A0A;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 /* Microinteração Tátil Global Apple HIG para Botões */
@@ -312,7 +313,7 @@ button:not(:disabled):active {
   margin-bottom: 0.75rem;
 }
 
-/* Notificação Cápsula Tátil (Dynamic Island Toast - Liquid Glass Neo-Brutal) */
+/* Notificação Cápsula Tátil (Dynamic Island Toast - Liquid Glass Apple HIG) */
 .cagp-toast {
   position: fixed;
   top: 1.25rem;
@@ -320,11 +321,11 @@ button:not(:disabled):active {
   transform: translateX(-50%) translateY(-130%);
   z-index: 9999;
   background-color: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(16px) saturate(140%);
-  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
   color: #0a0a0a;
-  border: 2px solid #0a0a0a;
-  box-shadow: 3px 3px 0 #0a0a0a;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
   padding: 0.55rem 1.25rem;
   display: flex;
   align-items: center;
@@ -382,14 +383,32 @@ html[data-a11y-ruler="true"] .cagp-reading-ruler {
   display: block;
 }
 
-/* Fallback para Redução de Transparência */
+/* Fallback para Redução de Transparência (V-16) */
 @media (prefers-reduced-transparency: reduce) {
   .cagp-glass-surface,
-  .cagp-liquid-curtain {
+  .cagp-liquid-curtain,
+  [class*="backdrop-blur"] {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     background-color: #FFFFFF !important;
   }
+}
 
+/* Aplainamento de Hierarquia de Cards Aninhados (Apple HIG Visual Grouping - Section 2.2) */
+.cagp-tool-box .cagp-card,
+.cagp-card .cagp-card,
+.card .card {
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  background-color: rgba(0, 0, 0, 0.02) !important;
+  box-shadow: none !important;
+}
+
+.cagp-tool-box .cagp-card:hover,
+.cagp-card .cagp-card:hover,
+.card .card:hover {
+  background-color: #FFFFFF !important;
+  border-color: rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06) !important;
+  transform: translateY(-1px) !important;
 }
 

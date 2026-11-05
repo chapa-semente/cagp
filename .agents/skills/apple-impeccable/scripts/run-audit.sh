@@ -431,10 +431,13 @@ run_critique() {
       print_warning "Impeccable CLI not available for headless browser detection."
     fi
 
-    # Inspect rendered page signals via curl
+    # Inspect rendered page signals via Node fetch (preferred) or curl
     print_info "Evaluating live DOM signals (Fluid Glass, Safe Areas, Touch Targets & Viewport)..."
     local html_content=""
-    if command -v curl >/dev/null 2>&1; then
+    if command -v node >/dev/null 2>&1; then
+      html_content=$(node -e "fetch(process.argv[1], { signal: AbortSignal.timeout(5000) }).then(r=>r.text()).then(t=>process.stdout.write(t)).catch(()=>{})" "$target" 2>/dev/null || true)
+    fi
+    if [ -z "$html_content" ] && command -v curl >/dev/null 2>&1; then
       html_content=$(curl -fsSL --connect-timeout 5 "$target" 2>/dev/null || true)
     fi
 
@@ -454,13 +457,14 @@ run_critique() {
       fi
 
       # Check bottom dock / navigation
-      if echo "$html_content" | grep -qiE "(dock|bottom-nav|fixed bottom-|<nav)"; then
+      if echo "$html_content" | grep -qiE "(dock|bottom[-_]?nav|cagp-bottom-nav|fixed bottom-|<nav)"; then
         print_success "Lower Thumb Zone navigation / dock structure detected."
       else
         print_warning "No bottom dock detected in initial HTML. Key mobile actions may require high thumb stretch."
       fi
     else
-      print_warning "Could not fetch HTML directly via curl (server might require authentication or be slow to respond)."
+      print_warning "Could not fetch HTML directly (server might require authentication, be offline, or be slow to respond)."
+      print_info "Tip: In the agent environment, you can also use the interactive '/browser' tool to view and inspect the rendered page."
     fi
 
   else
@@ -470,9 +474,9 @@ run_critique() {
     # 1. Spatial Distribution & Thumb Zone
     print_info "1. Spatial Distribution & Thumb Zone Analysis:"
     local header_elements
-    header_elements=$(run_grep '<(header|SuperAppHeader)[^>]*>|<nav[^>]*id="[^"]*header' "$target" "true")
+    header_elements=$(run_grep '(<(header|SuperAppHeader\b|TopNav\b)|id=[\"'"'"'][^\"'"'"']*header[^\"'"'"']*|class=[\"'"'"'][^\"'"'"']*header[^\"'"'"']*)' "$target" "true")
     local dock_elements
-    dock_elements=$(run_grep '<(SuperAppDock|nav|footer)[^>]*fixed bottom|<nav[^>]*id="[^"]*(dock|bottom)' "$target" "true")
+    dock_elements=$(run_grep '(<(SuperAppDock\b|BottomNav\b|DesktopFloatingDock\b|Dock\b)|id=[\"'"'"'][^\"'"'"']*(dock|bottom[-_]?nav)[^\"'"'"']|class=[\"'"'"'][^\"'"'"']*(fixed|sticky)[^\"'"'"']*bottom|class=[\"'"'"'][^\"'"'"']*bottom[-_]nav)' "$target" "true")
 
     if [ -n "$dock_elements" ]; then
       print_success "Found bottom dock / floating quick actions for Thumb Zone reachability."
@@ -489,14 +493,53 @@ run_critique() {
       section_count=$(echo "$section_matches" | grep -c . || true)
     fi
 
-    if [ "$section_count" -gt 15 ]; then
-      print_warning "High density detected ($section_count sections/cards). Consultative suggestion: Use collapsible cards or bottom sheets for secondary modules."
+    if [ -f "$target" ]; then
+      if [ "$section_count" -gt 8 ]; then
+        print_warning "High density detected ($section_count sections/cards in this view). Consultative suggestion: Use collapsible cards or bottom sheets for secondary modules."
+      else
+        print_success "Content density is well-balanced ($section_count top-level sections/cards identified)."
+      fi
     else
-      print_success "Content density is well-balanced ($section_count top-level sections/cards identified)."
+      # Directory target: check per-file density
+      local high_density_count=0
+      if [ -n "$section_matches" ]; then
+        while IFS= read -r line; do
+          [ -z "$line" ] && continue
+          local cnt file
+          cnt=$(echo "$line" | awk '{print $1}')
+          file=$(echo "$line" | awk '{$1=""; print $0}' | sed 's/^[ \t]*//')
+          if [ "$cnt" -gt 8 ]; then
+            print_warning "File '$file' has high section density ($cnt sections/cards). Suggestion: Group modules in collapsible cards or sheets."
+            high_density_count=$((high_density_count + 1))
+          fi
+        done < <(echo "$section_matches" | cut -d: -f1 | sort | uniq -c)
+      fi
+
+      if [ "$high_density_count" -eq 0 ]; then
+        print_success "Content density is well-balanced across all views (all files have <= 8 primary sections/cards)."
+      fi
     fi
 
-    # 3. Fluid Glass & Specular Contrast
-    print_info "3. Fluid Glass & Specular Contrast:"
+    # 3. Dynamic Animations & Springs (Motion Physics)
+    print_info "3. Dynamic Animations & Motion Physics:"
+    local spring_matches
+    spring_matches=$(run_grep 'cubic-bezier|--spring|scale\(0\.9|transition-transform' "$target" "true")
+    if [ -n "$spring_matches" ]; then
+      print_success "Spring physics or tactile compression patterns detected."
+    else
+      print_info "Consultative tip: Consider adding Apple-style spring curves (cubic-bezier(0.25, 1, 0.5, 1)) and active tactile compression (scale(0.965))."
+    fi
+
+    local reduced_motion_matches
+    reduced_motion_matches=$(run_grep 'prefers-reduced-motion' "$target" "true")
+    if [ -n "$reduced_motion_matches" ]; then
+      print_success "Reduced motion accessibility (@media (prefers-reduced-motion: reduce)) detected."
+    else
+      print_warning "Consultative tip: Ensure animations respect 'prefers-reduced-motion' for vestibular accessibility."
+    fi
+
+    # 4. Fluid Glass & Specular Contrast
+    print_info "4. Fluid Glass & Specular Contrast:"
     local glass_matches
     glass_matches=$(run_grep 'backdrop-(blur|filter)|bg-[^"'"'"']*\/(70|80|85|90)' "$target" "true")
     if [ -n "$glass_matches" ]; then
@@ -510,8 +553,27 @@ run_critique() {
       print_info "No prominent glass/translucency classes in target."
     fi
 
-    # 4. Onboarding & Progressive Disclosure
-    print_info "4. Onboarding & Progressive Disclosure:"
+    # 5. Universal Theme Architecture (Dark Mode & High Contrast)
+    print_info "5. Universal Theme Architecture & Visual Accessibility:"
+    local dark_theme_matches
+    dark_theme_matches=$(run_grep 'dark:|prefers-color-scheme|data-theme' "$target" "true")
+    local high_contrast_matches
+    high_contrast_matches=$(run_grep 'data-a11y-contrast|prefers-contrast' "$target" "true")
+
+    if [ -n "$dark_theme_matches" ]; then
+      print_success "Adaptive theme / Dark Mode support detected."
+    else
+      print_info "Consultative tip: Support a semantic Dark Mode for nocturnal use and AMOLED battery savings on Android."
+    fi
+
+    if [ -n "$high_contrast_matches" ]; then
+      print_success "High Contrast AAA accessibility rules detected."
+    else
+      print_info "Consultative tip: Consider High Contrast mode (data-a11y-contrast='high') eliminating subtle shadows for low vision."
+    fi
+
+    # 6. Onboarding & Progressive Disclosure
+    print_info "6. Onboarding & Progressive Disclosure:"
     local auth_gates
     auth_gates=$(run_grep 'requireAuth|isAuthenticated|redirect.*login' "$target" "true")
     if [ -n "$auth_gates" ]; then
@@ -520,16 +582,19 @@ run_critique() {
       print_success "No hard blocking authentication gates found at top-level entry."
     fi
 
-    # 5. Button & Action Touch Targets
-    print_info "5. Button & Action Touch Targets:"
-    local small_targets
-    small_targets=$(run_grep 'w-[1-6]\b|h-[1-6]\b|text-\[10px\]' "$target" "true")
-    local small_count=0
-    if [ -n "$small_targets" ]; then
-      small_count=$(echo "$small_targets" | grep -c . || true)
-      if [ "$small_count" -gt 5 ]; then
-        print_warning "Detected $small_count potentially undersized touch targets (< 44px). Ensure 44x44px interactive bounds."
+    # 7. Button & Action Touch Targets (Ergonomics)
+    print_info "7. Button & Action Touch Targets (44x44px Ergonomics):"
+    local undersized_buttons
+    undersized_buttons=$(run_grep '(<button|<a\b|role=[\"'"'"']button[\"'"'"']).*(h-[1-9]\b|h-10\b|w-[1-9]\b|w-10\b|height:\s*([1-3][0-9]|4[0-3])px)' "$target" "true" | grep -v 'aria-hidden="true"' || true)
+    local undersized_count=0
+    if [ -n "$undersized_buttons" ]; then
+      undersized_count=$(echo "$undersized_buttons" | grep -c . || true)
+      if [ "$undersized_count" -gt 0 ]; then
+        print_warning "Detected $undersized_count potentially undersized interactive button/link controls (< 44px). Ensure 44x44px interactive bounds."
+        print_matches "$undersized_buttons" 3
       fi
+    else
+      print_success "No undersized interactive button/link controls detected."
     fi
 
     # Run Impeccable detect on the target as well
@@ -537,9 +602,11 @@ run_critique() {
   fi
 
   echo ""
-  echo -e "${BOLD}${CYAN}=== Consultative UX Framework: Next Steps ===${NC}"
-  echo -e "Review suggestions against ${BOLD}.agents/skills/apple-impeccable/references/superapp-ux-critique.md${NC}."
-  echo -e "Remember: The skill does not enforce dogmas. Discuss trade-offs with the user before applying refactors."
+  echo -e "${BOLD}${CYAN}=== Consultative Yoda / Grill Me Framework: Next Steps ===${NC}"
+  echo -e "1. Review recommendations against ${BOLD}.agents/skills/apple-impeccable/references/superapp-ux-critique.md${NC}."
+  echo -e "2. ${BOLD}Conduct a /grill-me alignment session${NC}: Formulate 2 to 3 targeted trade-off questions with options before refactoring."
+  echo -e "3. ${BOLD}Real-time visual verification${NC}: Use the agent's ${BOLD}/browser${NC} tool to inspect the rendered page across viewports."
+  echo -e "4. Remember: The skill never enforces dogmas. The user prompt and AI reasoning determine the final solution."
 }
 
 # Main command dispatcher

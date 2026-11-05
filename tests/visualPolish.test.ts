@@ -91,4 +91,42 @@ describe('Polimento Visual & A11y (Auditoria Mobile, Alto Contraste e Modo Notur
   it('3. Modo Claro Exclusivo: data-theme dark é completamente ausente do CSS', () => {
     expect(cssContent).not.toContain('html[data-theme="dark"]');
   });
+
+  it('4. Apple HIG Mobile Topbar: Ilha 3 e controles essenciais (perfil, notificação, menu) visíveis em mobile com touch target >= 44px', () => {
+    // Ilha 3 não deve ser oculta em mobile (< sm)
+    expect(headerContent).not.toContain('hidden sm:flex pointer-events-auto');
+    expect(headerContent).toContain('pointer-events-auto bg-white/95');
+
+    // Ilha 1 com min-h 44px
+    expect(headerContent).toContain('min-h-[44px] group min-w-0" aria-label="Página Inicial CAGP"');
+
+    // Botões essenciais com min-w-[44px] min-h-[44px]
+    const passportMatch = headerContent.match(/id="cagp-btn-passport"[\s\S]*?class="([^"]+)"/);
+    expect(passportMatch).not.toBeNull();
+    expect(passportMatch![1]).toContain('min-w-[44px]');
+    expect(passportMatch![1]).toContain('min-h-[44px]');
+
+    const campusMatch = headerContent.match(/id="cagp-btn-campus"[\s\S]*?class="([^"]+)"/);
+    expect(campusMatch).not.toBeNull();
+    expect(campusMatch![1]).toContain('min-w-[44px]');
+    expect(campusMatch![1]).toContain('min-h-[44px]');
+
+    const mobileMenuMatch = headerContent.match(/id="cagp-mobile-menu-btn"[\s\S]*?class="([^"]+)"/);
+    expect(mobileMenuMatch).not.toBeNull();
+    expect(mobileMenuMatch![1]).toContain('min-w-[44px]');
+    expect(mobileMenuMatch![1]).toContain('min-h-[44px]');
+  });
+
+  it('5. Apple HIG V-02 & V-13: Regras globais de summary (44px) e piso de microtexto (11px) ativas', () => {
+    expect(cssContent).toContain('button:not(.cagp-dot-btn), a, input, select, summary');
+    expect(cssContent).toContain('details > summary');
+    expect(cssContent).toContain('font-size: 11px !important;');
+  });
+
+  it('6. Apple HIG V-12: Isolamento de camada GPU em superfícies de vidro óptico', () => {
+    expect(cssContent).toContain('isolation: isolate;');
+    expect(cssContent).toContain('transform: translateZ(0);');
+    expect(cssContent).toContain('-webkit-backdrop-filter: blur(16px) saturate(180%);');
+  });
 });
+

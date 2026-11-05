@@ -1,0 +1,1846 @@
+{
+  "/@mobile": {
+    "path": "/",
+    "viewport": "mobile",
+    "totalUndersized": 1,
+    "samples": [
+      {
+        "identifier": "summary.font-['Oswald'].text-xs.font-bold.uppercase",
+        "tag": "summary",
+        "id": null,
+        "className": "font-['Oswald'] text-xs font-bold uppercase text-[#0A0A0A] cursor-pointer flex items-center justify-between select-none py-1",
+        "text": "VER MAPA ESTRUTURAL DOS 5 EIXOS CANÔNICO",
+        "width": 300,
+        "height": 40,
+        "top": 1398,
+        "left": 45,
+        "deficientWidth": false,
+        "deficientHeight": true
+      }
+    ]
+  },
+  "/configuracoes@mobile": {
+    "path": "/configuracoes",
+    "viewport": "mobile",
+    "totalUndersized": 10,
+    "samples": [
+      {
+        "identifier": "button.min-h-[44px].px-3.5.py-1.5.text-xs",
+        "tag": "button",
+        "id": null,
+        "className": "min-h-[44px] px-3.5 py-1.5 text-xs font-['Oswald'] font-bold rounded-md cursor-pointer transition-all text-gray-700 hover:bg-white",
+        "text": "A-",
+        "width": 42,
+        "height": 44,
+        "top": 516,
+        "left": 34,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "button.min-h-[44px].px-3.5.py-1.5.text-xs",
+        "tag": "button",
+        "id": null,
+        "className": "min-h-[44px] px-3.5 py-1.5 text-xs font-['Oswald'] font-bold rounded-md cursor-pointer transition-all bg-[#0A0A0A] text-white shadow-xs",
+        "text": "A",
+        "width": 37,
+        "height": 44,
+        "top": 516,
+        "left": 80,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "input#a11y-dyslexia.w-5.h-5.accent-[#8B1E2D].cursor-pointer",
+        "tag": "input",
+        "id": "a11y-dyslexia",
+        "className": "w-5 h-5 accent-[#8B1E2D] cursor-pointer",
+        "text": "on",
+        "width": 20,
+        "height": 44,
+        "top": 590,
+        "left": 329,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "input#a11y-ruler.w-5.h-5.accent-[#8B1E2D].cursor-pointer",
+        "tag": "input",
+        "id": "a11y-ruler",
+        "className": "w-5 h-5 accent-[#8B1E2D] cursor-pointer",
+        "text": "on",
+        "width": 20,
+        "height": 44,
+        "top": 669,
+        "left": 329,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "input#a11y-contrast.w-5.h-5.accent-[#8B1E2D].cursor-pointer",
+        "tag": "input",
+        "id": "a11y-contrast",
+        "className": "w-5 h-5 accent-[#8B1E2D] cursor-pointer",
+        "text": "on",
+        "width": 20,
+        "height": 44,
+        "top": 758,
+        "left": 329,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "input#a11y-motion.w-5.h-5.accent-[#8B1E2D].cursor-pointer",
+        "tag": "input",
+        "id": "a11y-motion",
+        "className": "w-5 h-5 accent-[#8B1E2D] cursor-pointer",
+        "text": "on",
+        "width": 20,
+        "height": 44,
+        "top": 837,
+        "left": 329,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "input#a11y-dock.w-5.h-5.accent-[#8B1E2D].cursor-pointer",
+        "tag": "input",
+        "id": "a11y-dock",
+        "className": "w-5 h-5 accent-[#8B1E2D] cursor-pointer",
+        "text": "on",
+        "width": 20,
+        "height": 44,
+        "top": 916,
+        "left": 329,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "input.w-5.h-5.accent-[#8B1E2D].cursor-pointer",
+        "tag": "input",
+        "id": null,
+        "className": "w-5 h-5 accent-[#8B1E2D] cursor-pointer",
+        "text": "on",
+        "width": 20,
+        "height": 44,
+        "top": 1194,
+        "left": 173,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "input.w-5.h-5.accent-[#8B1E2D].cursor-pointer",
+        "tag": "input",
+        "id": null,
+        "className": "w-5 h-5 accent-[#8B1E2D] cursor-pointer",
+        "text": "on",
+        "width": 20,
+        "height": 44,
+        "top": 1324,
+        "left": 173,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "input.w-5.h-5.accent-[#8B1E2D].cursor-pointer",
+        "tag": "input",
+        "id": null,
+        "className": "w-5 h-5 accent-[#8B1E2D] cursor-pointer",
+        "text": "on",
+        "width": 20,
+        "height": 44,
+        "top": 1478,
+        "left": 42,
+        "deficientWidth": true,
+        "deficientHeight": false
+      }
+    ]
+  },
+  "/optativas@mobile": {
+    "path": "/optativas",
+    "viewport": "mobile",
+    "totalUndersized": 1,
+    "samples": [
+      {
+        "identifier": "button#cagp-back-to-top.fixed.bottom-20.sm:bottom-6.right-4",
+        "tag": "button",
+        "id": "cagp-back-to-top",
+        "className": "fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-[1030] p-2.5 sm:px-3 sm:py-2 bg-white/95 backdrop-blur-md text-[#0A0A0A] border-2 border-[#0A0A0A] rounded-full shadow-[3px_3px_0px_#0A0A0A] hover:bg-[#F7F5F0] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_#0A0A0A] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all duration-150 flex items-center gap-1.5 font-['Oswald'] text-xs font-bold uppercase tracking-wider cursor-pointer opacity-100 pointer-events-auto",
+        "text": "Voltar ao início da página",
+        "width": 38.8,
+        "height": 44,
+        "top": 720,
+        "left": 335,
+        "deficientWidth": true,
+        "deficientHeight": false
+      }
+    ]
+  },
+  "/documentos/ppc-gestao-publica-ufmg@mobile": {
+    "path": "/documentos/ppc-gestao-publica-ufmg",
+    "viewport": "mobile",
+    "totalUndersized": 10,
+    "samples": [
+      {
+        "identifier": "a.hover:text-[#8B1E2D].underline",
+        "tag": "a",
+        "id": null,
+        "className": "hover:text-[#8B1E2D] underline",
+        "text": "Início",
+        "width": 42,
+        "height": 44,
+        "top": 133,
+        "left": 12,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "summary.cursor-pointer.font-['Oswald'].font-bold.uppercase",
+        "tag": "summary",
+        "id": null,
+        "className": "cursor-pointer font-['Oswald'] font-bold uppercase text-xs text-[#0A0A0A] flex items-center justify-between",
+        "text": "SUMÁRIO DO DOCUMENTO (38 SEÇÕES)",
+        "width": 340,
+        "height": 16,
+        "top": 650,
+        "left": 25,
+        "deficientWidth": false,
+        "deficientHeight": true
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "http://www.ufmg.br",
+        "width": 124,
+        "height": 16,
+        "top": 3074,
+        "left": 343,
+        "deficientWidth": false,
+        "deficientHeight": true
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "reitora@ufmg.br",
+        "width": 103.7,
+        "height": 16,
+        "top": 3096,
+        "left": 355,
+        "deficientWidth": false,
+        "deficientHeight": true
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "http://www.fafich.ufmg.br/gestaopublica/",
+        "width": 263.5,
+        "height": 16,
+        "top": 16475,
+        "left": 247,
+        "deficientWidth": false,
+        "deficientHeight": true
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "gestaopublica@fafich.ufmg.br",
+        "width": 193,
+        "height": 16,
+        "top": 16497,
+        "left": 253,
+        "deficientWidth": false,
+        "deficientHeight": true
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "http://www.fafich.ufmg.br/bib",
+        "width": 210,
+        "height": 19,
+        "top": 103722,
+        "left": 123,
+        "deficientWidth": false,
+        "deficientHeight": true
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "http://catalogobiblioteca.ufmg.br",
+        "width": 236.2,
+        "height": 19,
+        "top": 104110,
+        "left": 36,
+        "deficientWidth": false,
+        "deficientHeight": true
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "http://www.bu.ufmg.br",
+        "width": 158.9,
+        "height": 19,
+        "top": 104746,
+        "left": 36,
+        "deficientWidth": false,
+        "deficientHeight": true
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "http://minha.ufmg.br",
+        "width": 146,
+        "height": 19,
+        "top": 106464,
+        "left": 36,
+        "deficientWidth": false,
+        "deficientHeight": true
+      }
+    ]
+  },
+  "/documentos/regulamento-gestao-publica-ufmg@mobile": {
+    "path": "/documentos/regulamento-gestao-publica-ufmg",
+    "viewport": "mobile",
+    "totalUndersized": 2,
+    "samples": [
+      {
+        "identifier": "a.hover:text-[#8B1E2D].underline",
+        "tag": "a",
+        "id": null,
+        "className": "hover:text-[#8B1E2D] underline",
+        "text": "Início",
+        "width": 42,
+        "height": 44,
+        "top": 133,
+        "left": 12,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "summary.cursor-pointer.font-['Oswald'].font-bold.uppercase",
+        "tag": "summary",
+        "id": null,
+        "className": "cursor-pointer font-['Oswald'] font-bold uppercase text-xs text-[#0A0A0A] flex items-center justify-between",
+        "text": "SUMÁRIO DO DOCUMENTO (25 SEÇÕES)",
+        "width": 340,
+        "height": 16,
+        "top": 651,
+        "left": 25,
+        "deficientWidth": false,
+        "deficientHeight": true
+      }
+    ]
+  },
+  "/documentos/regimento-interno-cagp-ufmg@mobile": {
+    "path": "/documentos/regimento-interno-cagp-ufmg",
+    "viewport": "mobile",
+    "totalUndersized": 2,
+    "samples": [
+      {
+        "identifier": "a.hover:text-[#8B1E2D].underline",
+        "tag": "a",
+        "id": null,
+        "className": "hover:text-[#8B1E2D] underline",
+        "text": "Início",
+        "width": 42,
+        "height": 44,
+        "top": 133,
+        "left": 12,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "summary.cursor-pointer.font-['Oswald'].font-bold.uppercase",
+        "tag": "summary",
+        "id": null,
+        "className": "cursor-pointer font-['Oswald'] font-bold uppercase text-xs text-[#0A0A0A] flex items-center justify-between",
+        "text": "SUMÁRIO DO DOCUMENTO (20 SEÇÕES)",
+        "width": 340,
+        "height": 16,
+        "top": 635,
+        "left": 25,
+        "deficientWidth": false,
+        "deficientHeight": true
+      }
+    ]
+  },
+  "/documentos/percurso-bacharelado-nucleo-geral@mobile": {
+    "path": "/documentos/percurso-bacharelado-nucleo-geral",
+    "viewport": "mobile",
+    "totalUndersized": 2,
+    "samples": [
+      {
+        "identifier": "a.hover:text-[#8B1E2D].underline",
+        "tag": "a",
+        "id": null,
+        "className": "hover:text-[#8B1E2D] underline",
+        "text": "Início",
+        "width": 42,
+        "height": 44,
+        "top": 133,
+        "left": 12,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "summary.cursor-pointer.font-['Oswald'].font-bold.uppercase",
+        "tag": "summary",
+        "id": null,
+        "className": "cursor-pointer font-['Oswald'] font-bold uppercase text-xs text-[#0A0A0A] flex items-center justify-between",
+        "text": "SUMÁRIO DO DOCUMENTO (38 SEÇÕES)",
+        "width": 340,
+        "height": 16,
+        "top": 675,
+        "left": 25,
+        "deficientWidth": false,
+        "deficientHeight": true
+      }
+    ]
+  },
+  "/documentos/percurso-bacharelado-nucleo-complementar@mobile": {
+    "path": "/documentos/percurso-bacharelado-nucleo-complementar",
+    "viewport": "mobile",
+    "totalUndersized": 2,
+    "samples": [
+      {
+        "identifier": "a.hover:text-[#8B1E2D].underline",
+        "tag": "a",
+        "id": null,
+        "className": "hover:text-[#8B1E2D] underline",
+        "text": "Início",
+        "width": 42,
+        "height": 44,
+        "top": 133,
+        "left": 12,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "summary.cursor-pointer.font-['Oswald'].font-bold.uppercase",
+        "tag": "summary",
+        "id": null,
+        "className": "cursor-pointer font-['Oswald'] font-bold uppercase text-xs text-[#0A0A0A] flex items-center justify-between",
+        "text": "SUMÁRIO DO DOCUMENTO (38 SEÇÕES)",
+        "width": 340,
+        "height": 16,
+        "top": 691,
+        "left": 25,
+        "deficientWidth": false,
+        "deficientHeight": true
+      }
+    ]
+  },
+  "/documentos/percurso-bacharelado-nucleo-avancado@mobile": {
+    "path": "/documentos/percurso-bacharelado-nucleo-avancado",
+    "viewport": "mobile",
+    "totalUndersized": 2,
+    "samples": [
+      {
+        "identifier": "a.hover:text-[#8B1E2D].underline",
+        "tag": "a",
+        "id": null,
+        "className": "hover:text-[#8B1E2D] underline",
+        "text": "Início",
+        "width": 42,
+        "height": 44,
+        "top": 133,
+        "left": 12,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "summary.cursor-pointer.font-['Oswald'].font-bold.uppercase",
+        "tag": "summary",
+        "id": null,
+        "className": "cursor-pointer font-['Oswald'] font-bold uppercase text-xs text-[#0A0A0A] flex items-center justify-between",
+        "text": "SUMÁRIO DO DOCUMENTO (38 SEÇÕES)",
+        "width": 340,
+        "height": 16,
+        "top": 675,
+        "left": 25,
+        "deficientWidth": false,
+        "deficientHeight": true
+      }
+    ]
+  },
+  "/documentos/ementario-gestao-publica-ufmg@mobile": {
+    "path": "/documentos/ementario-gestao-publica-ufmg",
+    "viewport": "mobile",
+    "totalUndersized": 2,
+    "samples": [
+      {
+        "identifier": "a.hover:text-[#8B1E2D].underline",
+        "tag": "a",
+        "id": null,
+        "className": "hover:text-[#8B1E2D] underline",
+        "text": "Início",
+        "width": 42,
+        "height": 44,
+        "top": 133,
+        "left": 12,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "summary.cursor-pointer.font-['Oswald'].font-bold.uppercase",
+        "tag": "summary",
+        "id": null,
+        "className": "cursor-pointer font-['Oswald'] font-bold uppercase text-xs text-[#0A0A0A] flex items-center justify-between",
+        "text": "SUMÁRIO DO DOCUMENTO (4 SEÇÕES)",
+        "width": 340,
+        "height": 16,
+        "top": 675,
+        "left": 25,
+        "deficientWidth": false,
+        "deficientHeight": true
+      }
+    ]
+  },
+  "/documentos/transcricao-recepcao-ingressantes-2024-2@mobile": {
+    "path": "/documentos/transcricao-recepcao-ingressantes-2024-2",
+    "viewport": "mobile",
+    "totalUndersized": 15,
+    "samples": [
+      {
+        "identifier": "a.hover:text-[#8B1E2D].underline",
+        "tag": "a",
+        "id": null,
+        "className": "hover:text-[#8B1E2D] underline",
+        "text": "Início",
+        "width": 42,
+        "height": 44,
+        "top": 133,
+        "left": 12,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "summary.cursor-pointer.font-['Oswald'].font-bold.uppercase",
+        "tag": "summary",
+        "id": null,
+        "className": "cursor-pointer font-['Oswald'] font-bold uppercase text-xs text-[#0A0A0A] flex items-center justify-between",
+        "text": "SUMÁRIO DO DOCUMENTO (50 SEÇÕES)",
+        "width": 340,
+        "height": 16,
+        "top": 650,
+        "left": 25,
+        "deficientWidth": false,
+        "deficientHeight": true
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "apkarruz@gmail.com",
+        "width": 153.3,
+        "height": 19,
+        "top": 1359,
+        "left": 110,
+        "deficientWidth": false,
+        "deficientHeight": true
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "https://doi.org/10.1590/1678-98732230e00",
+        "width": 201.8,
+        "height": 43.3,
+        "top": 7855,
+        "left": 78,
+        "deficientWidth": false,
+        "deficientHeight": true
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "https://www.fafich.ufmg.br/gestaopublica",
+        "width": 391.3,
+        "height": 19,
+        "top": 23218,
+        "left": 102,
+        "deficientWidth": false,
+        "deficientHeight": true
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "https://www.fafich.ufmg.br/gestaopublica",
+        "width": 460.2,
+        "height": 43.3,
+        "top": 24324,
+        "left": 102,
+        "deficientWidth": false,
+        "deficientHeight": true
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "https://www.fafich.ufmg.br/gestaopublica",
+        "width": 391.3,
+        "height": 19,
+        "top": 24470,
+        "left": 102,
+        "deficientWidth": false,
+        "deficientHeight": true
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "https://www.fafich.ufmg.br/gestaopublica",
+        "width": 393.3,
+        "height": 43.3,
+        "top": 38727,
+        "left": 78,
+        "deficientWidth": false,
+        "deficientHeight": true
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "https://ufmg.br/a-universidade/calendari",
+        "width": 263.2,
+        "height": 43.3,
+        "top": 39832,
+        "left": 78,
+        "deficientWidth": false,
+        "deficientHeight": true
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "https://www.fafich.ufmg.br/gestaopublica",
+        "width": 298.4,
+        "height": 19,
+        "top": 40376,
+        "left": 78,
+        "deficientWidth": false,
+        "deficientHeight": true
+      }
+    ]
+  },
+  "/@desktop": {
+    "path": "/",
+    "viewport": "desktop",
+    "totalUndersized": 3,
+    "samples": [
+      {
+        "identifier": "button#cagp-btn-a11y-quick.hidden.sm:flex.w-11.h-11",
+        "tag": "button",
+        "id": "cagp-btn-a11y-quick",
+        "className": "hidden sm:flex w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9 sm:h-9 sm:min-w-[36px] sm:min-h-[36px] items-center justify-center rounded-full bg-[#F7F5F0] hover:bg-white border border-[#DFDBD2] hover:border-[#0A0A0A] text-gray-700 hover:text-[#8B1E2D] shadow-xs active:scale-95 transition-all cursor-pointer shrink-0",
+        "text": "Acessibilidade e Modo Noturno (Alt+A)",
+        "width": 36,
+        "height": 44,
+        "top": 92,
+        "left": 1255,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "button#cagp-btn-passport.w-11.h-11.min-w-[44px].min-h-[44px]",
+        "tag": "button",
+        "id": "cagp-btn-passport",
+        "className": "w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9.5 sm:h-9.5 sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center rounded-full bg-white border-2 border-[#0A0A0A] text-[#8B1E2D] hover:bg-[#F7F5F0] shadow-[1.5px_1.5px_0px_#0A0A0A] active:scale-95 transition-all cursor-pointer overflow-hidden relative shrink-0",
+        "text": "Abrir passaporte discente",
+        "width": 38,
+        "height": 44,
+        "top": 92,
+        "left": 1312,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "summary.font-['Oswald'].text-xs.font-bold.uppercase",
+        "tag": "summary",
+        "id": null,
+        "className": "font-['Oswald'] text-xs font-bold uppercase text-[#0A0A0A] cursor-pointer flex items-center justify-between select-none py-1",
+        "text": "VER MAPA ESTRUTURAL DOS 5 EIXOS CANÔNICO",
+        "width": 1038,
+        "height": 24,
+        "top": 968,
+        "left": 201,
+        "deficientWidth": false,
+        "deficientHeight": true
+      }
+    ]
+  },
+  "/curso@desktop": {
+    "path": "/curso",
+    "viewport": "desktop",
+    "totalUndersized": 2,
+    "samples": [
+      {
+        "identifier": "button#cagp-btn-a11y-quick.hidden.sm:flex.w-11.h-11",
+        "tag": "button",
+        "id": "cagp-btn-a11y-quick",
+        "className": "hidden sm:flex w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9 sm:h-9 sm:min-w-[36px] sm:min-h-[36px] items-center justify-center rounded-full bg-[#F7F5F0] hover:bg-white border border-[#DFDBD2] hover:border-[#0A0A0A] text-gray-700 hover:text-[#8B1E2D] shadow-xs active:scale-95 transition-all cursor-pointer shrink-0",
+        "text": "Acessibilidade e Modo Noturno (Alt+A)",
+        "width": 36,
+        "height": 44,
+        "top": 92,
+        "left": 1255,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "button#cagp-btn-passport.w-11.h-11.min-w-[44px].min-h-[44px]",
+        "tag": "button",
+        "id": "cagp-btn-passport",
+        "className": "w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9.5 sm:h-9.5 sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center rounded-full bg-white border-2 border-[#0A0A0A] text-[#8B1E2D] hover:bg-[#F7F5F0] shadow-[1.5px_1.5px_0px_#0A0A0A] active:scale-95 transition-all cursor-pointer overflow-hidden relative shrink-0",
+        "text": "Abrir passaporte discente",
+        "width": 38,
+        "height": 44,
+        "top": 92,
+        "left": 1312,
+        "deficientWidth": true,
+        "deficientHeight": false
+      }
+    ]
+  },
+  "/calouros@desktop": {
+    "path": "/calouros",
+    "viewport": "desktop",
+    "totalUndersized": 2,
+    "samples": [
+      {
+        "identifier": "button#cagp-btn-a11y-quick.hidden.sm:flex.w-11.h-11",
+        "tag": "button",
+        "id": "cagp-btn-a11y-quick",
+        "className": "hidden sm:flex w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9 sm:h-9 sm:min-w-[36px] sm:min-h-[36px] items-center justify-center rounded-full bg-[#F7F5F0] hover:bg-white border border-[#DFDBD2] hover:border-[#0A0A0A] text-gray-700 hover:text-[#8B1E2D] shadow-xs active:scale-95 transition-all cursor-pointer shrink-0",
+        "text": "Acessibilidade e Modo Noturno (Alt+A)",
+        "width": 36,
+        "height": 44,
+        "top": 92,
+        "left": 1255,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "button#cagp-btn-passport.w-11.h-11.min-w-[44px].min-h-[44px]",
+        "tag": "button",
+        "id": "cagp-btn-passport",
+        "className": "w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9.5 sm:h-9.5 sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center rounded-full bg-white border-2 border-[#0A0A0A] text-[#8B1E2D] hover:bg-[#F7F5F0] shadow-[1.5px_1.5px_0px_#0A0A0A] active:scale-95 transition-all cursor-pointer overflow-hidden relative shrink-0",
+        "text": "Abrir passaporte discente",
+        "width": 38,
+        "height": 44,
+        "top": 92,
+        "left": 1312,
+        "deficientWidth": true,
+        "deficientHeight": false
+      }
+    ]
+  },
+  "/pesquisa@desktop": {
+    "path": "/pesquisa",
+    "viewport": "desktop",
+    "totalUndersized": 2,
+    "samples": [
+      {
+        "identifier": "button#cagp-btn-a11y-quick.hidden.sm:flex.w-11.h-11",
+        "tag": "button",
+        "id": "cagp-btn-a11y-quick",
+        "className": "hidden sm:flex w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9 sm:h-9 sm:min-w-[36px] sm:min-h-[36px] items-center justify-center rounded-full bg-[#F7F5F0] hover:bg-white border border-[#DFDBD2] hover:border-[#0A0A0A] text-gray-700 hover:text-[#8B1E2D] shadow-xs active:scale-95 transition-all cursor-pointer shrink-0",
+        "text": "Acessibilidade e Modo Noturno (Alt+A)",
+        "width": 36,
+        "height": 44,
+        "top": 92,
+        "left": 1255,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "button#cagp-btn-passport.w-11.h-11.min-w-[44px].min-h-[44px]",
+        "tag": "button",
+        "id": "cagp-btn-passport",
+        "className": "w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9.5 sm:h-9.5 sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center rounded-full bg-white border-2 border-[#0A0A0A] text-[#8B1E2D] hover:bg-[#F7F5F0] shadow-[1.5px_1.5px_0px_#0A0A0A] active:scale-95 transition-all cursor-pointer overflow-hidden relative shrink-0",
+        "text": "Abrir passaporte discente",
+        "width": 38,
+        "height": 44,
+        "top": 92,
+        "left": 1312,
+        "deficientWidth": true,
+        "deficientHeight": false
+      }
+    ]
+  },
+  "/percurso@desktop": {
+    "path": "/percurso",
+    "viewport": "desktop",
+    "totalUndersized": 2,
+    "samples": [
+      {
+        "identifier": "button#cagp-btn-a11y-quick.hidden.sm:flex.w-11.h-11",
+        "tag": "button",
+        "id": "cagp-btn-a11y-quick",
+        "className": "hidden sm:flex w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9 sm:h-9 sm:min-w-[36px] sm:min-h-[36px] items-center justify-center rounded-full bg-[#F7F5F0] hover:bg-white border border-[#DFDBD2] hover:border-[#0A0A0A] text-gray-700 hover:text-[#8B1E2D] shadow-xs active:scale-95 transition-all cursor-pointer shrink-0",
+        "text": "Acessibilidade e Modo Noturno (Alt+A)",
+        "width": 36,
+        "height": 44,
+        "top": 92,
+        "left": 1255,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "button#cagp-btn-passport.w-11.h-11.min-w-[44px].min-h-[44px]",
+        "tag": "button",
+        "id": "cagp-btn-passport",
+        "className": "w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9.5 sm:h-9.5 sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center rounded-full bg-white border-2 border-[#0A0A0A] text-[#8B1E2D] hover:bg-[#F7F5F0] shadow-[1.5px_1.5px_0px_#0A0A0A] active:scale-95 transition-all cursor-pointer overflow-hidden relative shrink-0",
+        "text": "Abrir passaporte discente",
+        "width": 38,
+        "height": 44,
+        "top": 92,
+        "left": 1312,
+        "deficientWidth": true,
+        "deficientHeight": false
+      }
+    ]
+  },
+  "/acg@desktop": {
+    "path": "/acg",
+    "viewport": "desktop",
+    "totalUndersized": 2,
+    "samples": [
+      {
+        "identifier": "button#cagp-btn-a11y-quick.hidden.sm:flex.w-11.h-11",
+        "tag": "button",
+        "id": "cagp-btn-a11y-quick",
+        "className": "hidden sm:flex w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9 sm:h-9 sm:min-w-[36px] sm:min-h-[36px] items-center justify-center rounded-full bg-[#F7F5F0] hover:bg-white border border-[#DFDBD2] hover:border-[#0A0A0A] text-gray-700 hover:text-[#8B1E2D] shadow-xs active:scale-95 transition-all cursor-pointer shrink-0",
+        "text": "Acessibilidade e Modo Noturno (Alt+A)",
+        "width": 36,
+        "height": 44,
+        "top": 92,
+        "left": 1255,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "button#cagp-btn-passport.w-11.h-11.min-w-[44px].min-h-[44px]",
+        "tag": "button",
+        "id": "cagp-btn-passport",
+        "className": "w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9.5 sm:h-9.5 sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center rounded-full bg-white border-2 border-[#0A0A0A] text-[#8B1E2D] hover:bg-[#F7F5F0] shadow-[1.5px_1.5px_0px_#0A0A0A] active:scale-95 transition-all cursor-pointer overflow-hidden relative shrink-0",
+        "text": "Abrir passaporte discente",
+        "width": 38,
+        "height": 44,
+        "top": 92,
+        "left": 1312,
+        "deficientWidth": true,
+        "deficientHeight": false
+      }
+    ]
+  },
+  "/estagio@desktop": {
+    "path": "/estagio",
+    "viewport": "desktop",
+    "totalUndersized": 2,
+    "samples": [
+      {
+        "identifier": "button#cagp-btn-a11y-quick.hidden.sm:flex.w-11.h-11",
+        "tag": "button",
+        "id": "cagp-btn-a11y-quick",
+        "className": "hidden sm:flex w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9 sm:h-9 sm:min-w-[36px] sm:min-h-[36px] items-center justify-center rounded-full bg-[#F7F5F0] hover:bg-white border border-[#DFDBD2] hover:border-[#0A0A0A] text-gray-700 hover:text-[#8B1E2D] shadow-xs active:scale-95 transition-all cursor-pointer shrink-0",
+        "text": "Acessibilidade e Modo Noturno (Alt+A)",
+        "width": 36,
+        "height": 44,
+        "top": 92,
+        "left": 1255,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "button#cagp-btn-passport.w-11.h-11.min-w-[44px].min-h-[44px]",
+        "tag": "button",
+        "id": "cagp-btn-passport",
+        "className": "w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9.5 sm:h-9.5 sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center rounded-full bg-white border-2 border-[#0A0A0A] text-[#8B1E2D] hover:bg-[#F7F5F0] shadow-[1.5px_1.5px_0px_#0A0A0A] active:scale-95 transition-all cursor-pointer overflow-hidden relative shrink-0",
+        "text": "Abrir passaporte discente",
+        "width": 38,
+        "height": 44,
+        "top": 92,
+        "left": 1312,
+        "deficientWidth": true,
+        "deficientHeight": false
+      }
+    ]
+  },
+  "/tcc@desktop": {
+    "path": "/tcc",
+    "viewport": "desktop",
+    "totalUndersized": 2,
+    "samples": [
+      {
+        "identifier": "button#cagp-btn-a11y-quick.hidden.sm:flex.w-11.h-11",
+        "tag": "button",
+        "id": "cagp-btn-a11y-quick",
+        "className": "hidden sm:flex w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9 sm:h-9 sm:min-w-[36px] sm:min-h-[36px] items-center justify-center rounded-full bg-[#F7F5F0] hover:bg-white border border-[#DFDBD2] hover:border-[#0A0A0A] text-gray-700 hover:text-[#8B1E2D] shadow-xs active:scale-95 transition-all cursor-pointer shrink-0",
+        "text": "Acessibilidade e Modo Noturno (Alt+A)",
+        "width": 36,
+        "height": 44,
+        "top": 92,
+        "left": 1255,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "button#cagp-btn-passport.w-11.h-11.min-w-[44px].min-h-[44px]",
+        "tag": "button",
+        "id": "cagp-btn-passport",
+        "className": "w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9.5 sm:h-9.5 sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center rounded-full bg-white border-2 border-[#0A0A0A] text-[#8B1E2D] hover:bg-[#F7F5F0] shadow-[1.5px_1.5px_0px_#0A0A0A] active:scale-95 transition-all cursor-pointer overflow-hidden relative shrink-0",
+        "text": "Abrir passaporte discente",
+        "width": 38,
+        "height": 44,
+        "top": 92,
+        "left": 1312,
+        "deficientWidth": true,
+        "deficientHeight": false
+      }
+    ]
+  },
+  "/documentos@desktop": {
+    "path": "/documentos",
+    "viewport": "desktop",
+    "totalUndersized": 2,
+    "samples": [
+      {
+        "identifier": "button#cagp-btn-a11y-quick.hidden.sm:flex.w-11.h-11",
+        "tag": "button",
+        "id": "cagp-btn-a11y-quick",
+        "className": "hidden sm:flex w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9 sm:h-9 sm:min-w-[36px] sm:min-h-[36px] items-center justify-center rounded-full bg-[#F7F5F0] hover:bg-white border border-[#DFDBD2] hover:border-[#0A0A0A] text-gray-700 hover:text-[#8B1E2D] shadow-xs active:scale-95 transition-all cursor-pointer shrink-0",
+        "text": "Acessibilidade e Modo Noturno (Alt+A)",
+        "width": 36,
+        "height": 44,
+        "top": 92,
+        "left": 1255,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "button#cagp-btn-passport.w-11.h-11.min-w-[44px].min-h-[44px]",
+        "tag": "button",
+        "id": "cagp-btn-passport",
+        "className": "w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9.5 sm:h-9.5 sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center rounded-full bg-white border-2 border-[#0A0A0A] text-[#8B1E2D] hover:bg-[#F7F5F0] shadow-[1.5px_1.5px_0px_#0A0A0A] active:scale-95 transition-all cursor-pointer overflow-hidden relative shrink-0",
+        "text": "Abrir passaporte discente",
+        "width": 38,
+        "height": 44,
+        "top": 92,
+        "left": 1312,
+        "deficientWidth": true,
+        "deficientHeight": false
+      }
+    ]
+  },
+  "/faq@desktop": {
+    "path": "/faq",
+    "viewport": "desktop",
+    "totalUndersized": 2,
+    "samples": [
+      {
+        "identifier": "button#cagp-btn-a11y-quick.hidden.sm:flex.w-11.h-11",
+        "tag": "button",
+        "id": "cagp-btn-a11y-quick",
+        "className": "hidden sm:flex w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9 sm:h-9 sm:min-w-[36px] sm:min-h-[36px] items-center justify-center rounded-full bg-[#F7F5F0] hover:bg-white border border-[#DFDBD2] hover:border-[#0A0A0A] text-gray-700 hover:text-[#8B1E2D] shadow-xs active:scale-95 transition-all cursor-pointer shrink-0",
+        "text": "Acessibilidade e Modo Noturno (Alt+A)",
+        "width": 36,
+        "height": 44,
+        "top": 92,
+        "left": 1255,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "button#cagp-btn-passport.w-11.h-11.min-w-[44px].min-h-[44px]",
+        "tag": "button",
+        "id": "cagp-btn-passport",
+        "className": "w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9.5 sm:h-9.5 sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center rounded-full bg-white border-2 border-[#0A0A0A] text-[#8B1E2D] hover:bg-[#F7F5F0] shadow-[1.5px_1.5px_0px_#0A0A0A] active:scale-95 transition-all cursor-pointer overflow-hidden relative shrink-0",
+        "text": "Abrir passaporte discente",
+        "width": 38,
+        "height": 44,
+        "top": 92,
+        "left": 1312,
+        "deficientWidth": true,
+        "deficientHeight": false
+      }
+    ]
+  },
+  "/sobre@desktop": {
+    "path": "/sobre",
+    "viewport": "desktop",
+    "totalUndersized": 2,
+    "samples": [
+      {
+        "identifier": "button#cagp-btn-a11y-quick.hidden.sm:flex.w-11.h-11",
+        "tag": "button",
+        "id": "cagp-btn-a11y-quick",
+        "className": "hidden sm:flex w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9 sm:h-9 sm:min-w-[36px] sm:min-h-[36px] items-center justify-center rounded-full bg-[#F7F5F0] hover:bg-white border border-[#DFDBD2] hover:border-[#0A0A0A] text-gray-700 hover:text-[#8B1E2D] shadow-xs active:scale-95 transition-all cursor-pointer shrink-0",
+        "text": "Acessibilidade e Modo Noturno (Alt+A)",
+        "width": 36,
+        "height": 44,
+        "top": 92,
+        "left": 1255,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "button#cagp-btn-passport.w-11.h-11.min-w-[44px].min-h-[44px]",
+        "tag": "button",
+        "id": "cagp-btn-passport",
+        "className": "w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9.5 sm:h-9.5 sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center rounded-full bg-white border-2 border-[#0A0A0A] text-[#8B1E2D] hover:bg-[#F7F5F0] shadow-[1.5px_1.5px_0px_#0A0A0A] active:scale-95 transition-all cursor-pointer overflow-hidden relative shrink-0",
+        "text": "Abrir passaporte discente",
+        "width": 38,
+        "height": 44,
+        "top": 92,
+        "left": 1312,
+        "deficientWidth": true,
+        "deficientHeight": false
+      }
+    ]
+  },
+  "/gestao@desktop": {
+    "path": "/gestao",
+    "viewport": "desktop",
+    "totalUndersized": 2,
+    "samples": [
+      {
+        "identifier": "button#cagp-btn-a11y-quick.hidden.sm:flex.w-11.h-11",
+        "tag": "button",
+        "id": "cagp-btn-a11y-quick",
+        "className": "hidden sm:flex w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9 sm:h-9 sm:min-w-[36px] sm:min-h-[36px] items-center justify-center rounded-full bg-[#F7F5F0] hover:bg-white border border-[#DFDBD2] hover:border-[#0A0A0A] text-gray-700 hover:text-[#8B1E2D] shadow-xs active:scale-95 transition-all cursor-pointer shrink-0",
+        "text": "Acessibilidade e Modo Noturno (Alt+A)",
+        "width": 36,
+        "height": 44,
+        "top": 92,
+        "left": 1255,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "button#cagp-btn-passport.w-11.h-11.min-w-[44px].min-h-[44px]",
+        "tag": "button",
+        "id": "cagp-btn-passport",
+        "className": "w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9.5 sm:h-9.5 sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center rounded-full bg-white border-2 border-[#0A0A0A] text-[#8B1E2D] hover:bg-[#F7F5F0] shadow-[1.5px_1.5px_0px_#0A0A0A] active:scale-95 transition-all cursor-pointer overflow-hidden relative shrink-0",
+        "text": "Abrir passaporte discente",
+        "width": 38,
+        "height": 44,
+        "top": 92,
+        "left": 1312,
+        "deficientWidth": true,
+        "deficientHeight": false
+      }
+    ]
+  },
+  "/configuracoes@desktop": {
+    "path": "/configuracoes",
+    "viewport": "desktop",
+    "totalUndersized": 12,
+    "samples": [
+      {
+        "identifier": "button#cagp-btn-a11y-quick.hidden.sm:flex.w-11.h-11",
+        "tag": "button",
+        "id": "cagp-btn-a11y-quick",
+        "className": "hidden sm:flex w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9 sm:h-9 sm:min-w-[36px] sm:min-h-[36px] items-center justify-center rounded-full bg-[#F7F5F0] hover:bg-white border border-[#DFDBD2] hover:border-[#0A0A0A] text-gray-700 hover:text-[#8B1E2D] shadow-xs active:scale-95 transition-all cursor-pointer shrink-0",
+        "text": "Acessibilidade e Modo Noturno (Alt+A)",
+        "width": 36,
+        "height": 44,
+        "top": 92,
+        "left": 1255,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "button#cagp-btn-passport.w-11.h-11.min-w-[44px].min-h-[44px]",
+        "tag": "button",
+        "id": "cagp-btn-passport",
+        "className": "w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9.5 sm:h-9.5 sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center rounded-full bg-white border-2 border-[#0A0A0A] text-[#8B1E2D] hover:bg-[#F7F5F0] shadow-[1.5px_1.5px_0px_#0A0A0A] active:scale-95 transition-all cursor-pointer overflow-hidden relative shrink-0",
+        "text": "Abrir passaporte discente",
+        "width": 38,
+        "height": 44,
+        "top": 92,
+        "left": 1312,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "button.min-h-[44px].px-3.5.py-1.5.text-xs",
+        "tag": "button",
+        "id": null,
+        "className": "min-h-[44px] px-3.5 py-1.5 text-xs font-['Oswald'] font-bold rounded-md cursor-pointer transition-all text-gray-700 hover:bg-white",
+        "text": "A-",
+        "width": 42,
+        "height": 44,
+        "top": 407,
+        "left": 956,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "button.min-h-[44px].px-3.5.py-1.5.text-xs",
+        "tag": "button",
+        "id": null,
+        "className": "min-h-[44px] px-3.5 py-1.5 text-xs font-['Oswald'] font-bold rounded-md cursor-pointer transition-all bg-[#0A0A0A] text-white shadow-xs",
+        "text": "A",
+        "width": 37,
+        "height": 44,
+        "top": 407,
+        "left": 1002,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "input#a11y-dyslexia.w-5.h-5.accent-[#8B1E2D].cursor-pointer",
+        "tag": "input",
+        "id": "a11y-dyslexia",
+        "className": "w-5 h-5 accent-[#8B1E2D] cursor-pointer",
+        "text": "on",
+        "width": 20,
+        "height": 44,
+        "top": 481,
+        "left": 1115,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "input#a11y-ruler.w-5.h-5.accent-[#8B1E2D].cursor-pointer",
+        "tag": "input",
+        "id": "a11y-ruler",
+        "className": "w-5 h-5 accent-[#8B1E2D] cursor-pointer",
+        "text": "on",
+        "width": 20,
+        "height": 44,
+        "top": 550,
+        "left": 1115,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "input#a11y-contrast.w-5.h-5.accent-[#8B1E2D].cursor-pointer",
+        "tag": "input",
+        "id": "a11y-contrast",
+        "className": "w-5 h-5 accent-[#8B1E2D] cursor-pointer",
+        "text": "on",
+        "width": 20,
+        "height": 44,
+        "top": 619,
+        "left": 1115,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "input#a11y-motion.w-5.h-5.accent-[#8B1E2D].cursor-pointer",
+        "tag": "input",
+        "id": "a11y-motion",
+        "className": "w-5 h-5 accent-[#8B1E2D] cursor-pointer",
+        "text": "on",
+        "width": 20,
+        "height": 44,
+        "top": 688,
+        "left": 1115,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "input#a11y-dock.w-5.h-5.accent-[#8B1E2D].cursor-pointer",
+        "tag": "input",
+        "id": "a11y-dock",
+        "className": "w-5 h-5 accent-[#8B1E2D] cursor-pointer",
+        "text": "on",
+        "width": 20,
+        "height": 44,
+        "top": 757,
+        "left": 1115,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "input.w-5.h-5.accent-[#8B1E2D].cursor-pointer",
+        "tag": "input",
+        "id": null,
+        "className": "w-5 h-5 accent-[#8B1E2D] cursor-pointer",
+        "text": "on",
+        "width": 20,
+        "height": 44,
+        "top": 961,
+        "left": 1114,
+        "deficientWidth": true,
+        "deficientHeight": false
+      }
+    ]
+  },
+  "/mapa-do-site@desktop": {
+    "path": "/mapa-do-site",
+    "viewport": "desktop",
+    "totalUndersized": 2,
+    "samples": [
+      {
+        "identifier": "button#cagp-btn-a11y-quick.hidden.sm:flex.w-11.h-11",
+        "tag": "button",
+        "id": "cagp-btn-a11y-quick",
+        "className": "hidden sm:flex w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9 sm:h-9 sm:min-w-[36px] sm:min-h-[36px] items-center justify-center rounded-full bg-[#F7F5F0] hover:bg-white border border-[#DFDBD2] hover:border-[#0A0A0A] text-gray-700 hover:text-[#8B1E2D] shadow-xs active:scale-95 transition-all cursor-pointer shrink-0",
+        "text": "Acessibilidade e Modo Noturno (Alt+A)",
+        "width": 36,
+        "height": 44,
+        "top": 92,
+        "left": 1255,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "button#cagp-btn-passport.w-11.h-11.min-w-[44px].min-h-[44px]",
+        "tag": "button",
+        "id": "cagp-btn-passport",
+        "className": "w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9.5 sm:h-9.5 sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center rounded-full bg-white border-2 border-[#0A0A0A] text-[#8B1E2D] hover:bg-[#F7F5F0] shadow-[1.5px_1.5px_0px_#0A0A0A] active:scale-95 transition-all cursor-pointer overflow-hidden relative shrink-0",
+        "text": "Abrir passaporte discente",
+        "width": 38,
+        "height": 44,
+        "top": 92,
+        "left": 1312,
+        "deficientWidth": true,
+        "deficientHeight": false
+      }
+    ]
+  },
+  "/optativas@desktop": {
+    "path": "/optativas",
+    "viewport": "desktop",
+    "totalUndersized": 2,
+    "samples": [
+      {
+        "identifier": "button#cagp-btn-a11y-quick.hidden.sm:flex.w-11.h-11",
+        "tag": "button",
+        "id": "cagp-btn-a11y-quick",
+        "className": "hidden sm:flex w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9 sm:h-9 sm:min-w-[36px] sm:min-h-[36px] items-center justify-center rounded-full bg-[#F7F5F0] hover:bg-white border border-[#DFDBD2] hover:border-[#0A0A0A] text-gray-700 hover:text-[#8B1E2D] shadow-xs active:scale-95 transition-all cursor-pointer shrink-0",
+        "text": "Acessibilidade e Modo Noturno (Alt+A)",
+        "width": 36,
+        "height": 44,
+        "top": 35,
+        "left": 1255,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "button#cagp-btn-passport.w-11.h-11.min-w-[44px].min-h-[44px]",
+        "tag": "button",
+        "id": "cagp-btn-passport",
+        "className": "w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9.5 sm:h-9.5 sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center rounded-full bg-white border-2 border-[#0A0A0A] text-[#8B1E2D] hover:bg-[#F7F5F0] shadow-[1.5px_1.5px_0px_#0A0A0A] active:scale-95 transition-all cursor-pointer overflow-hidden relative shrink-0",
+        "text": "Abrir passaporte discente",
+        "width": 38,
+        "height": 44,
+        "top": 35,
+        "left": 1312,
+        "deficientWidth": true,
+        "deficientHeight": false
+      }
+    ]
+  },
+  "/estagio-tcc@desktop": {
+    "path": "/estagio-tcc",
+    "viewport": "desktop",
+    "totalUndersized": 2,
+    "samples": [
+      {
+        "identifier": "button#cagp-btn-a11y-quick.hidden.sm:flex.w-11.h-11",
+        "tag": "button",
+        "id": "cagp-btn-a11y-quick",
+        "className": "hidden sm:flex w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9 sm:h-9 sm:min-w-[36px] sm:min-h-[36px] items-center justify-center rounded-full bg-[#F7F5F0] hover:bg-white border border-[#DFDBD2] hover:border-[#0A0A0A] text-gray-700 hover:text-[#8B1E2D] shadow-xs active:scale-95 transition-all cursor-pointer shrink-0",
+        "text": "Acessibilidade e Modo Noturno (Alt+A)",
+        "width": 36,
+        "height": 44,
+        "top": 92,
+        "left": 1255,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "button#cagp-btn-passport.w-11.h-11.min-w-[44px].min-h-[44px]",
+        "tag": "button",
+        "id": "cagp-btn-passport",
+        "className": "w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9.5 sm:h-9.5 sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center rounded-full bg-white border-2 border-[#0A0A0A] text-[#8B1E2D] hover:bg-[#F7F5F0] shadow-[1.5px_1.5px_0px_#0A0A0A] active:scale-95 transition-all cursor-pointer overflow-hidden relative shrink-0",
+        "text": "Abrir passaporte discente",
+        "width": 38,
+        "height": 44,
+        "top": 92,
+        "left": 1312,
+        "deficientWidth": true,
+        "deficientHeight": false
+      }
+    ]
+  },
+  "/documentos/ppc-gestao-publica-ufmg@desktop": {
+    "path": "/documentos/ppc-gestao-publica-ufmg",
+    "viewport": "desktop",
+    "totalUndersized": 11,
+    "samples": [
+      {
+        "identifier": "button#cagp-btn-a11y-quick.hidden.sm:flex.w-11.h-11",
+        "tag": "button",
+        "id": "cagp-btn-a11y-quick",
+        "className": "hidden sm:flex w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9 sm:h-9 sm:min-w-[36px] sm:min-h-[36px] items-center justify-center rounded-full bg-[#F7F5F0] hover:bg-white border border-[#DFDBD2] hover:border-[#0A0A0A] text-gray-700 hover:text-[#8B1E2D] shadow-xs active:scale-95 transition-all cursor-pointer shrink-0",
+        "text": "Acessibilidade e Modo Noturno (Alt+A)",
+        "width": 36,
+        "height": 44,
+        "top": 92,
+        "left": 1255,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "button#cagp-btn-passport.w-11.h-11.min-w-[44px].min-h-[44px]",
+        "tag": "button",
+        "id": "cagp-btn-passport",
+        "className": "w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9.5 sm:h-9.5 sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center rounded-full bg-white border-2 border-[#0A0A0A] text-[#8B1E2D] hover:bg-[#F7F5F0] shadow-[1.5px_1.5px_0px_#0A0A0A] active:scale-95 transition-all cursor-pointer overflow-hidden relative shrink-0",
+        "text": "Abrir passaporte discente",
+        "width": 38,
+        "height": 44,
+        "top": 92,
+        "left": 1312,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "a.hover:text-[#8B1E2D].underline",
+        "tag": "a",
+        "id": null,
+        "className": "hover:text-[#8B1E2D] underline",
+        "text": "Início",
+        "width": 42,
+        "height": 44,
+        "top": 179,
+        "left": 168,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "http://www.ufmg.br",
+        "width": 124,
+        "height": 16,
+        "top": 1855,
+        "left": 559,
+        "deficientWidth": false,
+        "deficientHeight": true
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "reitora@ufmg.br",
+        "width": 103.7,
+        "height": 16,
+        "top": 1877,
+        "left": 571,
+        "deficientWidth": false,
+        "deficientHeight": true
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "http://www.fafich.ufmg.br/gestaopublica/",
+        "width": 263.5,
+        "height": 16,
+        "top": 8235,
+        "left": 549,
+        "deficientWidth": false,
+        "deficientHeight": true
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "gestaopublica@fafich.ufmg.br",
+        "width": 193,
+        "height": 16,
+        "top": 8257,
+        "left": 555,
+        "deficientWidth": false,
+        "deficientHeight": true
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "http://www.fafich.ufmg.br/bib",
+        "width": 210,
+        "height": 19,
+        "top": 56724,
+        "left": 601,
+        "deficientWidth": false,
+        "deficientHeight": true
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "http://catalogobiblioteca.ufmg.br",
+        "width": 236.2,
+        "height": 19,
+        "top": 56879,
+        "left": 631,
+        "deficientWidth": false,
+        "deficientHeight": true
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "http://www.bu.ufmg.br",
+        "width": 158.9,
+        "height": 19,
+        "top": 57154,
+        "left": 374,
+        "deficientWidth": false,
+        "deficientHeight": true
+      }
+    ]
+  },
+  "/documentos/regulamento-gestao-publica-ufmg@desktop": {
+    "path": "/documentos/regulamento-gestao-publica-ufmg",
+    "viewport": "desktop",
+    "totalUndersized": 3,
+    "samples": [
+      {
+        "identifier": "button#cagp-btn-a11y-quick.hidden.sm:flex.w-11.h-11",
+        "tag": "button",
+        "id": "cagp-btn-a11y-quick",
+        "className": "hidden sm:flex w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9 sm:h-9 sm:min-w-[36px] sm:min-h-[36px] items-center justify-center rounded-full bg-[#F7F5F0] hover:bg-white border border-[#DFDBD2] hover:border-[#0A0A0A] text-gray-700 hover:text-[#8B1E2D] shadow-xs active:scale-95 transition-all cursor-pointer shrink-0",
+        "text": "Acessibilidade e Modo Noturno (Alt+A)",
+        "width": 36,
+        "height": 44,
+        "top": 92,
+        "left": 1255,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "button#cagp-btn-passport.w-11.h-11.min-w-[44px].min-h-[44px]",
+        "tag": "button",
+        "id": "cagp-btn-passport",
+        "className": "w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9.5 sm:h-9.5 sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center rounded-full bg-white border-2 border-[#0A0A0A] text-[#8B1E2D] hover:bg-[#F7F5F0] shadow-[1.5px_1.5px_0px_#0A0A0A] active:scale-95 transition-all cursor-pointer overflow-hidden relative shrink-0",
+        "text": "Abrir passaporte discente",
+        "width": 38,
+        "height": 44,
+        "top": 92,
+        "left": 1312,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "a.hover:text-[#8B1E2D].underline",
+        "tag": "a",
+        "id": null,
+        "className": "hover:text-[#8B1E2D] underline",
+        "text": "Início",
+        "width": 42,
+        "height": 44,
+        "top": 179,
+        "left": 168,
+        "deficientWidth": true,
+        "deficientHeight": false
+      }
+    ]
+  },
+  "/documentos/regimento-interno-cagp-ufmg@desktop": {
+    "path": "/documentos/regimento-interno-cagp-ufmg",
+    "viewport": "desktop",
+    "totalUndersized": 3,
+    "samples": [
+      {
+        "identifier": "button#cagp-btn-a11y-quick.hidden.sm:flex.w-11.h-11",
+        "tag": "button",
+        "id": "cagp-btn-a11y-quick",
+        "className": "hidden sm:flex w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9 sm:h-9 sm:min-w-[36px] sm:min-h-[36px] items-center justify-center rounded-full bg-[#F7F5F0] hover:bg-white border border-[#DFDBD2] hover:border-[#0A0A0A] text-gray-700 hover:text-[#8B1E2D] shadow-xs active:scale-95 transition-all cursor-pointer shrink-0",
+        "text": "Acessibilidade e Modo Noturno (Alt+A)",
+        "width": 36,
+        "height": 44,
+        "top": 92,
+        "left": 1255,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "button#cagp-btn-passport.w-11.h-11.min-w-[44px].min-h-[44px]",
+        "tag": "button",
+        "id": "cagp-btn-passport",
+        "className": "w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9.5 sm:h-9.5 sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center rounded-full bg-white border-2 border-[#0A0A0A] text-[#8B1E2D] hover:bg-[#F7F5F0] shadow-[1.5px_1.5px_0px_#0A0A0A] active:scale-95 transition-all cursor-pointer overflow-hidden relative shrink-0",
+        "text": "Abrir passaporte discente",
+        "width": 38,
+        "height": 44,
+        "top": 92,
+        "left": 1312,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "a.hover:text-[#8B1E2D].underline",
+        "tag": "a",
+        "id": null,
+        "className": "hover:text-[#8B1E2D] underline",
+        "text": "Início",
+        "width": 42,
+        "height": 44,
+        "top": 179,
+        "left": 168,
+        "deficientWidth": true,
+        "deficientHeight": false
+      }
+    ]
+  },
+  "/documentos/percurso-bacharelado-nucleo-geral@desktop": {
+    "path": "/documentos/percurso-bacharelado-nucleo-geral",
+    "viewport": "desktop",
+    "totalUndersized": 3,
+    "samples": [
+      {
+        "identifier": "button#cagp-btn-a11y-quick.hidden.sm:flex.w-11.h-11",
+        "tag": "button",
+        "id": "cagp-btn-a11y-quick",
+        "className": "hidden sm:flex w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9 sm:h-9 sm:min-w-[36px] sm:min-h-[36px] items-center justify-center rounded-full bg-[#F7F5F0] hover:bg-white border border-[#DFDBD2] hover:border-[#0A0A0A] text-gray-700 hover:text-[#8B1E2D] shadow-xs active:scale-95 transition-all cursor-pointer shrink-0",
+        "text": "Acessibilidade e Modo Noturno (Alt+A)",
+        "width": 36,
+        "height": 44,
+        "top": 92,
+        "left": 1255,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "button#cagp-btn-passport.w-11.h-11.min-w-[44px].min-h-[44px]",
+        "tag": "button",
+        "id": "cagp-btn-passport",
+        "className": "w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9.5 sm:h-9.5 sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center rounded-full bg-white border-2 border-[#0A0A0A] text-[#8B1E2D] hover:bg-[#F7F5F0] shadow-[1.5px_1.5px_0px_#0A0A0A] active:scale-95 transition-all cursor-pointer overflow-hidden relative shrink-0",
+        "text": "Abrir passaporte discente",
+        "width": 38,
+        "height": 44,
+        "top": 92,
+        "left": 1312,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "a.hover:text-[#8B1E2D].underline",
+        "tag": "a",
+        "id": null,
+        "className": "hover:text-[#8B1E2D] underline",
+        "text": "Início",
+        "width": 42,
+        "height": 44,
+        "top": 179,
+        "left": 168,
+        "deficientWidth": true,
+        "deficientHeight": false
+      }
+    ]
+  },
+  "/documentos/percurso-bacharelado-nucleo-complementar@desktop": {
+    "path": "/documentos/percurso-bacharelado-nucleo-complementar",
+    "viewport": "desktop",
+    "totalUndersized": 3,
+    "samples": [
+      {
+        "identifier": "button#cagp-btn-a11y-quick.hidden.sm:flex.w-11.h-11",
+        "tag": "button",
+        "id": "cagp-btn-a11y-quick",
+        "className": "hidden sm:flex w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9 sm:h-9 sm:min-w-[36px] sm:min-h-[36px] items-center justify-center rounded-full bg-[#F7F5F0] hover:bg-white border border-[#DFDBD2] hover:border-[#0A0A0A] text-gray-700 hover:text-[#8B1E2D] shadow-xs active:scale-95 transition-all cursor-pointer shrink-0",
+        "text": "Acessibilidade e Modo Noturno (Alt+A)",
+        "width": 36,
+        "height": 44,
+        "top": 92,
+        "left": 1255,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "button#cagp-btn-passport.w-11.h-11.min-w-[44px].min-h-[44px]",
+        "tag": "button",
+        "id": "cagp-btn-passport",
+        "className": "w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9.5 sm:h-9.5 sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center rounded-full bg-white border-2 border-[#0A0A0A] text-[#8B1E2D] hover:bg-[#F7F5F0] shadow-[1.5px_1.5px_0px_#0A0A0A] active:scale-95 transition-all cursor-pointer overflow-hidden relative shrink-0",
+        "text": "Abrir passaporte discente",
+        "width": 38,
+        "height": 44,
+        "top": 92,
+        "left": 1312,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "a.hover:text-[#8B1E2D].underline",
+        "tag": "a",
+        "id": null,
+        "className": "hover:text-[#8B1E2D] underline",
+        "text": "Início",
+        "width": 42,
+        "height": 44,
+        "top": 179,
+        "left": 168,
+        "deficientWidth": true,
+        "deficientHeight": false
+      }
+    ]
+  },
+  "/documentos/percurso-bacharelado-nucleo-avancado@desktop": {
+    "path": "/documentos/percurso-bacharelado-nucleo-avancado",
+    "viewport": "desktop",
+    "totalUndersized": 3,
+    "samples": [
+      {
+        "identifier": "button#cagp-btn-a11y-quick.hidden.sm:flex.w-11.h-11",
+        "tag": "button",
+        "id": "cagp-btn-a11y-quick",
+        "className": "hidden sm:flex w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9 sm:h-9 sm:min-w-[36px] sm:min-h-[36px] items-center justify-center rounded-full bg-[#F7F5F0] hover:bg-white border border-[#DFDBD2] hover:border-[#0A0A0A] text-gray-700 hover:text-[#8B1E2D] shadow-xs active:scale-95 transition-all cursor-pointer shrink-0",
+        "text": "Acessibilidade e Modo Noturno (Alt+A)",
+        "width": 36,
+        "height": 44,
+        "top": 92,
+        "left": 1255,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "button#cagp-btn-passport.w-11.h-11.min-w-[44px].min-h-[44px]",
+        "tag": "button",
+        "id": "cagp-btn-passport",
+        "className": "w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9.5 sm:h-9.5 sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center rounded-full bg-white border-2 border-[#0A0A0A] text-[#8B1E2D] hover:bg-[#F7F5F0] shadow-[1.5px_1.5px_0px_#0A0A0A] active:scale-95 transition-all cursor-pointer overflow-hidden relative shrink-0",
+        "text": "Abrir passaporte discente",
+        "width": 38,
+        "height": 44,
+        "top": 92,
+        "left": 1312,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "a.hover:text-[#8B1E2D].underline",
+        "tag": "a",
+        "id": null,
+        "className": "hover:text-[#8B1E2D] underline",
+        "text": "Início",
+        "width": 42,
+        "height": 44,
+        "top": 179,
+        "left": 168,
+        "deficientWidth": true,
+        "deficientHeight": false
+      }
+    ]
+  },
+  "/documentos/ementario-gestao-publica-ufmg@desktop": {
+    "path": "/documentos/ementario-gestao-publica-ufmg",
+    "viewport": "desktop",
+    "totalUndersized": 3,
+    "samples": [
+      {
+        "identifier": "button#cagp-btn-a11y-quick.hidden.sm:flex.w-11.h-11",
+        "tag": "button",
+        "id": "cagp-btn-a11y-quick",
+        "className": "hidden sm:flex w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9 sm:h-9 sm:min-w-[36px] sm:min-h-[36px] items-center justify-center rounded-full bg-[#F7F5F0] hover:bg-white border border-[#DFDBD2] hover:border-[#0A0A0A] text-gray-700 hover:text-[#8B1E2D] shadow-xs active:scale-95 transition-all cursor-pointer shrink-0",
+        "text": "Acessibilidade e Modo Noturno (Alt+A)",
+        "width": 36,
+        "height": 44,
+        "top": 92,
+        "left": 1255,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "button#cagp-btn-passport.w-11.h-11.min-w-[44px].min-h-[44px]",
+        "tag": "button",
+        "id": "cagp-btn-passport",
+        "className": "w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9.5 sm:h-9.5 sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center rounded-full bg-white border-2 border-[#0A0A0A] text-[#8B1E2D] hover:bg-[#F7F5F0] shadow-[1.5px_1.5px_0px_#0A0A0A] active:scale-95 transition-all cursor-pointer overflow-hidden relative shrink-0",
+        "text": "Abrir passaporte discente",
+        "width": 38,
+        "height": 44,
+        "top": 92,
+        "left": 1312,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "a.hover:text-[#8B1E2D].underline",
+        "tag": "a",
+        "id": null,
+        "className": "hover:text-[#8B1E2D] underline",
+        "text": "Início",
+        "width": 42,
+        "height": 44,
+        "top": 179,
+        "left": 168,
+        "deficientWidth": true,
+        "deficientHeight": false
+      }
+    ]
+  },
+  "/documentos/transcricao-recepcao-ingressantes-2024-2@desktop": {
+    "path": "/documentos/transcricao-recepcao-ingressantes-2024-2",
+    "viewport": "desktop",
+    "totalUndersized": 16,
+    "samples": [
+      {
+        "identifier": "button#cagp-btn-a11y-quick.hidden.sm:flex.w-11.h-11",
+        "tag": "button",
+        "id": "cagp-btn-a11y-quick",
+        "className": "hidden sm:flex w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9 sm:h-9 sm:min-w-[36px] sm:min-h-[36px] items-center justify-center rounded-full bg-[#F7F5F0] hover:bg-white border border-[#DFDBD2] hover:border-[#0A0A0A] text-gray-700 hover:text-[#8B1E2D] shadow-xs active:scale-95 transition-all cursor-pointer shrink-0",
+        "text": "Acessibilidade e Modo Noturno (Alt+A)",
+        "width": 36,
+        "height": 44,
+        "top": 92,
+        "left": 1255,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "button#cagp-btn-passport.w-11.h-11.min-w-[44px].min-h-[44px]",
+        "tag": "button",
+        "id": "cagp-btn-passport",
+        "className": "w-11 h-11 min-w-[44px] min-h-[44px] sm:w-9.5 sm:h-9.5 sm:min-w-[36px] sm:min-h-[36px] flex items-center justify-center rounded-full bg-white border-2 border-[#0A0A0A] text-[#8B1E2D] hover:bg-[#F7F5F0] shadow-[1.5px_1.5px_0px_#0A0A0A] active:scale-95 transition-all cursor-pointer overflow-hidden relative shrink-0",
+        "text": "Abrir passaporte discente",
+        "width": 38,
+        "height": 44,
+        "top": 92,
+        "left": 1312,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "a.hover:text-[#8B1E2D].underline",
+        "tag": "a",
+        "id": null,
+        "className": "hover:text-[#8B1E2D] underline",
+        "text": "Início",
+        "width": 42,
+        "height": 44,
+        "top": 179,
+        "left": 168,
+        "deficientWidth": true,
+        "deficientHeight": false
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "apkarruz@gmail.com",
+        "width": 153.3,
+        "height": 19,
+        "top": 924,
+        "left": 282,
+        "deficientWidth": false,
+        "deficientHeight": true
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "https://doi.org/10.1590/1678-98732230e00",
+        "width": 615,
+        "height": 43.3,
+        "top": 5291,
+        "left": 250,
+        "deficientWidth": false,
+        "deficientHeight": true
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "https://www.fafich.ufmg.br/gestaopublica",
+        "width": 391.3,
+        "height": 19,
+        "top": 15994,
+        "left": 384,
+        "deficientWidth": false,
+        "deficientHeight": true
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "https://www.fafich.ufmg.br/gestaopublica",
+        "width": 560.9,
+        "height": 19,
+        "top": 16720,
+        "left": 274,
+        "deficientWidth": false,
+        "deficientHeight": true
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "https://www.fafich.ufmg.br/gestaopublica",
+        "width": 391.3,
+        "height": 19,
+        "top": 16817,
+        "left": 274,
+        "deficientWidth": false,
+        "deficientHeight": true
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "https://www.fafich.ufmg.br/gestaopublica",
+        "width": 559.5,
+        "height": 19,
+        "top": 26871,
+        "left": 368,
+        "deficientWidth": false,
+        "deficientHeight": true
+      },
+      {
+        "identifier": "a",
+        "tag": "a",
+        "id": null,
+        "className": "",
+        "text": "https://ufmg.br/a-universidade/calendari",
+        "width": 389.6,
+        "height": 19,
+        "top": 27667,
+        "left": 351,
+        "deficientWidth": false,
+        "deficientHeight": true
+      }
+    ]
+  }
+}

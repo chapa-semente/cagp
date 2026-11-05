@@ -85,11 +85,12 @@ export const DesktopFloatingDock: React.FC = () => {
 
   return (
     <aside
-      className="hidden lg:flex fixed bottom-5 left-1/2 -translate-x-1/2 z-[1035] select-none pointer-events-none items-center justify-center transition-all duration-300"
+      className="hidden lg:flex fixed left-1/2 -translate-x-1/2 z-[1035] select-none pointer-events-none items-center justify-center transition-all duration-300"
+      style={{ bottom: 'calc(1.25rem + env(safe-area-inset-bottom, 0px))' }}
       aria-label="Dock de Atalhos Rápidos Discentes"
     >
       <nav
-        className="pointer-events-auto bg-white/95 backdrop-blur-md border-2 border-[#0A0A0A] shadow-[3px_3px_0px_#0A0A0A] rounded-full px-2.5 py-1.5 flex items-center gap-1.5 transition-all duration-200 hover:shadow-[4px_4px_0px_#0A0A0A]"
+        className="pointer-events-auto bg-white/95 backdrop-blur-md border border-black/15 shadow-sm rounded-full px-2.5 py-1.5 flex items-center gap-1.5 transition-all duration-200 hover:shadow-md"
         role="toolbar"
         aria-label="Atalhos rápidos customizáveis"
       >
@@ -101,7 +102,7 @@ export const DesktopFloatingDock: React.FC = () => {
             <div
               className={`relative flex items-center justify-center rounded-full transition-all duration-200 cursor-pointer min-w-[44px] min-h-[44px] ${
                 active
-                  ? 'w-11 h-11 bg-[#8B1E2D] text-white shadow-[1.5px_1.5px_0_#0A0A0A] scale-105'
+                  ? 'w-11 h-11 bg-[#8B1E2D] text-white shadow-xs scale-105'
                   : 'w-11 h-11 text-gray-700 hover:bg-[#F7F5F0] hover:text-[#8B1E2D] hover:scale-110 active:scale-95'
               }`}
               onMouseEnter={() => setHoveredId(item.id)}
@@ -112,7 +113,7 @@ export const DesktopFloatingDock: React.FC = () => {
 
               {/* Tooltip Dinâmico Apple HIG */}
               {isHovered && (
-                <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 px-2.5 py-1 bg-[#0A0A0A] text-white text-[11px] font-['Oswald'] uppercase font-bold tracking-wider rounded-[4px] whitespace-nowrap shadow-[2px_2px_0_rgba(0,0,0,0.3)] pointer-events-none z-[1050] animate-in fade-in zoom-in-95 duration-150">
+                <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 px-2.5 py-1 bg-[#0A0A0A] text-white text-[11px] font-['Oswald'] uppercase font-bold tracking-wider rounded-[4px] whitespace-nowrap shadow-sm pointer-events-none z-[1050] animate-in fade-in zoom-in-95 duration-150">
                   <span>{item.label}</span>
                   <div className="w-1.5 h-1.5 bg-[#0A0A0A] rotate-45 absolute -bottom-0.5 left-1/2 -translate-x-1/2" />
                 </div>
@@ -171,7 +172,7 @@ export const DesktopFloatingDock: React.FC = () => {
           <i className="bi bi-sliders2 text-base" aria-hidden="true"></i>
 
           {hoveredId === 'customize' && (
-            <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-[#0A0A0A] text-white text-[10px] font-['Oswald'] uppercase font-bold tracking-wider rounded-[4px] whitespace-nowrap shadow-[2px_2px_0_rgba(0,0,0,0.3)] pointer-events-none z-[1050]">
+            <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-[#0A0A0A] text-white text-[11px] font-['Oswald'] uppercase font-bold tracking-wider rounded-[4px] whitespace-nowrap shadow-sm pointer-events-none z-[1050]">
               Personalizar
               <div className="w-1.5 h-1.5 bg-[#0A0A0A] rotate-45 absolute -bottom-0.5 left-1/2 -translate-x-1/2" />
             </div>

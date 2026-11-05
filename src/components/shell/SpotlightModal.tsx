@@ -122,9 +122,9 @@ export const SpotlightModal: React.FC = () => {
         onClick={() => setIsOpen(false)}
         aria-hidden="true"
       />
-      <div className="w-full max-w-xl bg-white/98 backdrop-blur-xl border-2 border-[#0A0A0A] rounded-xl shadow-[6px_6px_0px_#0A0A0A] overflow-hidden flex flex-col max-h-[80vh] animate-in zoom-in-95 duration-150">
+      <div className="w-full max-w-xl bg-white/98 backdrop-blur-xl border border-black/15 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[80vh] animate-in zoom-in-95 duration-150">
         {/* Search Input Bar */}
-        <div className="flex items-center px-3.5 py-3 border-b-2 border-[#0A0A0A] bg-[#F7F5F0]/90 backdrop-blur-sm">
+        <div className="flex items-center px-3.5 py-3 border-b border-black/15 bg-[#F7F5F0]/90 backdrop-blur-sm">
           <i className="bi bi-search text-gray-500 text-base mr-2.5" aria-hidden="true" />
           <input
             ref={inputRef}
@@ -153,12 +153,12 @@ export const SpotlightModal: React.FC = () => {
           <button
             type="button"
             onClick={() => setIsOpen(false)}
-            className="w-11 h-11 min-w-[44px] min-h-[44px] flex sm:hidden items-center justify-center rounded-md bg-white border border-[#0A0A0A] text-[#0A0A0A] font-bold text-xs ml-1 active:scale-95 transition-transform cursor-pointer"
+            className="w-11 h-11 min-w-[44px] min-h-[44px] flex sm:hidden items-center justify-center rounded-full bg-white border border-black/15 text-[#0A0A0A] font-bold text-xs ml-1 active:scale-95 transition-transform cursor-pointer"
             aria-label="Fechar busca"
           >
             ✕
           </button>
-          <kbd className="hidden sm:inline-block bg-white text-gray-700 border border-[#0A0A0A] shadow-[1px_1px_0px_#0A0A0A] rounded px-1.5 py-0.5 text-[10px] font-mono font-bold">
+          <kbd className="hidden sm:inline-block bg-white text-gray-700 border border-black/15 shadow-2xs rounded px-1.5 py-0.5 text-[11px] font-mono font-bold">
             ESC
           </kbd>
         </div>
@@ -167,7 +167,7 @@ export const SpotlightModal: React.FC = () => {
         <div className="overflow-y-auto p-3 space-y-2 flex-1">
           {cleanQuery === '' ? (
             <div>
-              <span className="text-[10px] font-mono uppercase text-gray-500 font-bold block mb-2">
+              <span className="text-[11px] font-mono uppercase text-gray-500 font-bold block mb-2">
                 Acesso Rápido & Ações Frequentes
               </span>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
