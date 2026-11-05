@@ -225,22 +225,22 @@ export const AcgCalculatorCore: React.FC = () => {
         {/* Controles Táteis Apple HIG */}
         <div>
           <div className="flex items-center justify-between gap-2 pt-2 border-t border-[#DFDBD2]">
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1.5">
               <button
                 type="button"
                 onClick={() => handleStep(item, -item.step)}
                 disabled={val <= 0}
-                className="w-10 h-10 rounded bg-[#F7F5F0] hover:bg-[#EAE6DE] border border-[#DFDBD2] active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center text-sm font-bold text-[#0A0A0A]"
+                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-lg bg-[#F7F5F0] hover:bg-[#EAE6DE] border border-[#DFDBD2] active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center text-base font-bold text-[#0A0A0A] cursor-pointer"
                 aria-label={`Diminuir ${item.step}h de ${item.label}`}
               >
                 <i className="bi bi-dash" aria-hidden="true" />
               </button>
 
-              <div className="w-16 h-10 bg-[#FFFFFF] border border-[#0A0A0A] rounded flex flex-col items-center justify-center">
+              <div className="w-16 h-11 min-h-[44px] bg-[#FFFFFF] border border-[#0A0A0A] rounded-lg flex flex-col items-center justify-center">
                 <span className="font-mono text-xs font-black text-[#0A0A0A] leading-none">
                   {val}h
                 </span>
-                <span className="text-[9px] text-gray-400 font-mono">
+                <span className="text-[10px] text-gray-400 font-mono">
                   /{item.max}h
                 </span>
               </div>
@@ -249,24 +249,24 @@ export const AcgCalculatorCore: React.FC = () => {
                 type="button"
                 onClick={() => handleStep(item, item.step)}
                 disabled={isMaxed}
-                className="w-10 h-10 rounded bg-[#F7F5F0] hover:bg-[#EAE6DE] border border-[#DFDBD2] active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center text-sm font-bold text-[#0A0A0A]"
+                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-lg bg-[#F7F5F0] hover:bg-[#EAE6DE] border border-[#DFDBD2] active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center text-base font-bold text-[#0A0A0A] cursor-pointer"
                 aria-label={`Adicionar ${item.step}h em ${item.label}`}
               >
                 <i className="bi bi-plus" aria-hidden="true" />
               </button>
             </div>
 
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1.5">
               {isMaxed ? (
-                <span className="text-[10px] font-mono font-bold text-[#15803D] bg-[#DCFCE7] border border-[#15803D]/30 px-2 py-1 rounded flex items-center gap-1 shadow-xs">
-                  <i className="bi bi-check-circle-fill text-[11px]" aria-hidden="true" />
+                <span className="min-h-[44px] text-xs font-mono font-bold text-[#15803D] bg-[#DCFCE7] border border-[#15803D]/30 px-2.5 py-1 rounded-lg flex items-center gap-1 shadow-xs">
+                  <i className="bi bi-check-circle-fill text-xs" aria-hidden="true" />
                   <span>100%</span>
                 </span>
               ) : (
                 <button
                   type="button"
                   onClick={() => handleMaxOut(item)}
-                  className="px-2.5 py-1 rounded bg-[#F7F5F0] hover:bg-[#8B1E2D] hover:text-white border border-[#DFDBD2] text-[11px] font-['Oswald'] uppercase font-bold text-gray-700 transition-all active:scale-95 cursor-pointer min-h-[32px] flex items-center gap-1 shadow-xs"
+                  className="px-3 py-1.5 rounded-lg bg-[#F7F5F0] hover:bg-[#8B1E2D] hover:text-white border border-[#DFDBD2] text-xs font-['Oswald'] uppercase font-bold text-gray-700 transition-all active:scale-95 cursor-pointer min-h-[44px] flex items-center gap-1 shadow-xs"
                   title={`Preencher teto de ${item.max}h`}
                 >
                   <i className="bi bi-arrow-bar-up text-xs" aria-hidden="true" />
@@ -277,7 +277,7 @@ export const AcgCalculatorCore: React.FC = () => {
               <button
                 type="button"
                 onClick={() => toggleDrawer(item.key)}
-                className={`px-2 py-1 rounded border text-[11px] font-['Oswald'] uppercase font-bold transition-colors flex items-center gap-1 ${
+                className={`px-3 py-1.5 rounded-lg border text-xs font-['Oswald'] uppercase font-bold transition-colors flex items-center gap-1 min-h-[44px] cursor-pointer ${
                   isDrawerOpen
                     ? 'bg-[#0A0A0A] text-white border-[#0A0A0A]'
                     : 'bg-[#F7F5F0] text-gray-700 border-[#DFDBD2] hover:bg-[#EAE6DE]'
@@ -287,7 +287,7 @@ export const AcgCalculatorCore: React.FC = () => {
               >
                 <span>Regras</span>
                 <i
-                  className={`bi bi-chevron-${isDrawerOpen ? 'up' : 'down'} text-[9px]`}
+                  className={`bi bi-chevron-${isDrawerOpen ? 'up' : 'down'} text-[10px]`}
                   aria-hidden="true"
                 />
               </button>

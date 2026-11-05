@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { route } from '../../lib/paths';
 
 interface SearchItem {
   title: string;
@@ -86,7 +87,7 @@ export const SpotlightModal: React.FC = () => {
 
   const handleNavigate = (href: string) => {
     setIsOpen(false);
-    window.location.href = href;
+    window.location.href = route(href);
   };
 
   const handleInputKeyDown = (e: React.KeyboardEvent) => {
@@ -110,7 +111,12 @@ export const SpotlightModal: React.FC = () => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[1070] flex items-start justify-center pt-12 sm:pt-20 px-3 bg-black/60 backdrop-blur-md animate-in fade-in duration-150">
+    <div
+      className="fixed inset-0 z-[1070] flex items-start justify-center pt-12 sm:pt-20 px-3 bg-black/60 backdrop-blur-md animate-in fade-in duration-150"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Busca rápida Spotlight"
+    >
       <div
         className="fixed inset-0 -z-10"
         onClick={() => setIsOpen(false)}
@@ -122,6 +128,8 @@ export const SpotlightModal: React.FC = () => {
           <i className="bi bi-search text-gray-500 text-base mr-2.5" aria-hidden="true" />
           <input
             ref={inputRef}
+            id="cagp-spotlight-input"
+            name="spotlightSearch"
             type="search"
             value={query}
             onChange={(e) => {
@@ -136,12 +144,20 @@ export const SpotlightModal: React.FC = () => {
             <button
               type="button"
               onClick={() => setQuery('')}
-              className="text-gray-400 hover:text-gray-700 p-1 mr-1 text-sm active:scale-95 transition-transform"
+              className="text-gray-400 hover:text-gray-700 min-w-[44px] min-h-[44px] flex items-center justify-center text-sm active:scale-95 transition-transform cursor-pointer"
               aria-label="Limpar busca"
             >
               <i className="bi bi-x-circle-fill" />
             </button>
           )}
+          <button
+            type="button"
+            onClick={() => setIsOpen(false)}
+            className="w-11 h-11 min-w-[44px] min-h-[44px] flex sm:hidden items-center justify-center rounded-md bg-white border border-[#0A0A0A] text-[#0A0A0A] font-bold text-xs ml-1 active:scale-95 transition-transform cursor-pointer"
+            aria-label="Fechar busca"
+          >
+            ✕
+          </button>
           <kbd className="hidden sm:inline-block bg-white text-gray-700 border border-[#0A0A0A] shadow-[1px_1px_0px_#0A0A0A] rounded px-1.5 py-0.5 text-[10px] font-mono font-bold">
             ESC
           </kbd>

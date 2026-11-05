@@ -1,6 +1,9 @@
 ---
 // optativas.astro - Redirecionamento canônico para a Central Curricular em /percurso#optativas
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { route } from '../lib/paths';
+
+const targetUrl = route('/percurso#optativas');
 ---
 
 <BaseLayout
@@ -18,14 +21,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       As 68 disciplinas optativas, regras de 120h de Formação Livre e a Minha Grade agora estão unificadas na <strong>Central Curricular</strong> em <code>/percurso</code>.
     </p>
     <div class="pt-2">
-      <a href="/percurso#optativas" class="cagp-btn-primary inline-flex items-center gap-2 text-sm px-4 py-2">
+      <a href={targetUrl} class="cagp-btn-primary inline-flex items-center gap-2 text-sm px-4 py-2 min-h-[44px]">
         <span>Acessar Central Curricular</span>
         <i class="bi bi-arrow-right" aria-hidden="true"></i>
       </a>
     </div>
   </div>
 
-  <script is:inline>
-    window.location.replace('/percurso#optativas');
+  <script is:inline define:vars={{ targetUrl }}>
+    window.location.replace(targetUrl);
   </script>
 </BaseLayout>

@@ -168,7 +168,7 @@ export const CurriculumSvgMap: React.FC<Props> = ({
           const y = d.y;
           const isSelected = selectedNodeId === id;
           const isHovered = hoveredNodeId === id;
-          const isCompleted = completedCourses.includes(id);
+          const isCompleted = completedCourses.includes(id) || completedCourses.includes(d.code) || completedCourses.includes(d.code.replace(/\s+/g, ''));
 
           const isPrereq = Boolean(
             activeData &&

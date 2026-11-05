@@ -1,5 +1,6 @@
 ---
 // GestaoOrganograma.astro - Sub-view 1: Fluxo deliberativo e organograma institucional
+import { asset } from '../../lib/paths';
 ---
 
 <div class="space-y-4 text-[#0A0A0A]">
@@ -31,10 +32,10 @@
       <a href="https://www.instagram.com/cagp.ufmg" target="_blank" rel="noopener noreferrer" class="cagp-btn-secondary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
         <i class="bi bi-camera-reels" aria-hidden="true"></i> Vídeos & Comunicados
       </a>
-      <a href="/documentos/regimento-interno-cagp-ufmg.pdf" download class="cagp-btn-secondary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
+      <a href={asset('/documentos/regimento-interno-cagp-ufmg.pdf')} download class="cagp-btn-secondary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
         <i class="bi bi-file-earmark-pdf text-[#8B1E2D]" aria-hidden="true"></i> Regimento CAGP (PDF)
       </a>
-      <a href="/documentos/regimento-geral-ufmg.pdf" download class="cagp-btn-secondary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
+      <a href={asset('/documentos/regimento-geral-ufmg.pdf')} download class="cagp-btn-secondary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
         <i class="bi bi-building text-[#0A0A0A]" aria-hidden="true"></i> Regimento Geral UFMG (PDF)
       </a>
     </div>

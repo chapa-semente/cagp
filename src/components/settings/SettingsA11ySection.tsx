@@ -14,9 +14,9 @@ export const SettingsA11ySection: React.FC<Props> = ({ a11y, updateA11y }) => {
           <i className="bi bi-universal-access text-xl text-[#8B1E2D]" aria-hidden="true" />
           <div>
             <h2 className="font-['Oswald'] text-base font-bold uppercase text-[#0A0A0A] m-0">
-              1. Acessibilidade Universal
+              1. Acessibilidade & Aparência Universal
             </h2>
-            <p className="text-xs text-gray-500 m-0">Ajustes instantâneos de legibilidade e conforto visual</p>
+            <p className="text-xs text-gray-500 m-0">Ajustes instantâneos de tema, legibilidade e conforto visual</p>
           </div>
         </div>
         <span className="cagp-badge cagp-badge-dark">WCAG AAA</span>
@@ -27,7 +27,7 @@ export const SettingsA11ySection: React.FC<Props> = ({ a11y, updateA11y }) => {
         <div className="py-3 flex flex-wrap items-center justify-between gap-3">
           <div>
             <strong className="block text-xs font-bold uppercase text-[#0A0A0A]">Tamanho da Tipografia</strong>
-            <span className="text-xs text-gray-500">Escala responsiva do texto do aplicativo</span>
+            <span className="text-xs text-gray-500">Escala responsiva do texto do aplicativo (90% a 130%)</span>
           </div>
           <div className="flex items-center gap-1 bg-[#F7F5F0] p-1 rounded-lg border border-[#DFDBD2]">
             {(['sm', 'md', 'lg', 'xl'] as const).map((s) => (
@@ -35,8 +35,8 @@ export const SettingsA11ySection: React.FC<Props> = ({ a11y, updateA11y }) => {
                 key={s}
                 type="button"
                 onClick={() => updateA11y({ font: s })}
-                className={`px-3 py-1 text-xs font-['Oswald'] font-bold rounded cursor-pointer ${
-                  a11y.font === s ? 'bg-[#0A0A0A] text-white' : 'text-gray-700 hover:bg-white'
+                className={`min-h-[44px] px-3.5 py-1.5 text-xs font-['Oswald'] font-bold rounded-md cursor-pointer transition-all ${
+                  a11y.font === s ? 'bg-[#0A0A0A] text-white shadow-xs' : 'text-gray-700 hover:bg-white'
                 }`}
               >
                 {s === 'sm' ? 'A-' : s === 'md' ? 'A' : s === 'lg' ? 'A+' : 'A++'}
@@ -51,12 +51,16 @@ export const SettingsA11ySection: React.FC<Props> = ({ a11y, updateA11y }) => {
             <strong className="block text-xs font-bold uppercase text-[#0A0A0A]">Tipografia para Dislexia</strong>
             <span className="text-xs text-gray-500">Aumenta espaçamento entre letras e palavras</span>
           </div>
-          <input
-            type="checkbox"
-            checked={a11y.dyslexia}
-            onChange={(e) => updateA11y({ dyslexia: e.target.checked })}
-            className="w-5 h-5 accent-[#8B1E2D] cursor-pointer"
-          />
+          <label className="min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer">
+            <input
+              type="checkbox"
+              id="a11y-dyslexia"
+              name="a11y-dyslexia"
+              checked={a11y.dyslexia}
+              onChange={(e) => updateA11y({ dyslexia: e.target.checked })}
+              className="w-5 h-5 accent-[#8B1E2D] cursor-pointer"
+            />
+          </label>
         </div>
 
         {/* Régua de Leitura */}
@@ -65,12 +69,16 @@ export const SettingsA11ySection: React.FC<Props> = ({ a11y, updateA11y }) => {
             <strong className="block text-xs font-bold uppercase text-[#0A0A0A]">Régua de Foco & Leitura</strong>
             <span className="text-xs text-gray-500">Barra visual semitransparente que acompanha o cursor ou toque</span>
           </div>
-          <input
-            type="checkbox"
-            checked={!!a11y.ruler}
-            onChange={(e) => updateA11y({ ruler: e.target.checked })}
-            className="w-5 h-5 accent-[#8B1E2D] cursor-pointer"
-          />
+          <label className="min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer">
+            <input
+              type="checkbox"
+              id="a11y-ruler"
+              name="a11y-ruler"
+              checked={!!a11y.ruler}
+              onChange={(e) => updateA11y({ ruler: e.target.checked })}
+              className="w-5 h-5 accent-[#8B1E2D] cursor-pointer"
+            />
+          </label>
         </div>
 
         {/* Alto Contraste AAA */}
@@ -79,12 +87,16 @@ export const SettingsA11ySection: React.FC<Props> = ({ a11y, updateA11y }) => {
             <strong className="block text-xs font-bold uppercase text-[#0A0A0A]">Alto Contraste AAA (Preto & Amarelo)</strong>
             <span className="text-xs text-gray-500">Fundo nanquim (#000000) e textos amarelos de alto contraste</span>
           </div>
-          <input
-            type="checkbox"
-            checked={a11y.contrast === 'high'}
-            onChange={(e) => updateA11y({ contrast: e.target.checked ? 'high' : 'normal' })}
-            className="w-5 h-5 accent-[#8B1E2D] cursor-pointer"
-          />
+          <label className="min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer">
+            <input
+              type="checkbox"
+              id="a11y-contrast"
+              name="a11y-contrast"
+              checked={a11y.contrast === 'high'}
+              onChange={(e) => updateA11y({ contrast: e.target.checked ? 'high' : 'normal' })}
+              className="w-5 h-5 accent-[#8B1E2D] cursor-pointer"
+            />
+          </label>
         </div>
 
         {/* Movimento Reduzido */}
@@ -93,12 +105,34 @@ export const SettingsA11ySection: React.FC<Props> = ({ a11y, updateA11y }) => {
             <strong className="block text-xs font-bold uppercase text-[#0A0A0A]">Redução de Movimento</strong>
             <span className="text-xs text-gray-500">Desativa animações e transições espaciais</span>
           </div>
-          <input
-            type="checkbox"
-            checked={a11y.motion === 'reduced'}
-            onChange={(e) => updateA11y({ motion: e.target.checked ? 'reduced' : 'normal' })}
-            className="w-5 h-5 accent-[#8B1E2D] cursor-pointer"
-          />
+          <label className="min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer">
+            <input
+              type="checkbox"
+              id="a11y-motion"
+              name="a11y-motion"
+              checked={a11y.motion === 'reduced'}
+              onChange={(e) => updateA11y({ motion: e.target.checked ? 'reduced' : 'normal' })}
+              className="w-5 h-5 accent-[#8B1E2D] cursor-pointer"
+            />
+          </label>
+        </div>
+
+        {/* Dock Flutuante Desktop */}
+        <div className="py-3 flex items-center justify-between gap-3">
+          <div>
+            <strong className="block text-xs font-bold uppercase text-[#0A0A0A]">Dock Flutuante (Desktop)</strong>
+            <span className="text-xs text-gray-500">Barra de atalhos inferior inspirada no macOS para telas grandes</span>
+          </div>
+          <label className="min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer">
+            <input
+              type="checkbox"
+              id="a11y-dock"
+              name="a11y-dock"
+              checked={!!a11y.showDesktopDock}
+              onChange={(e) => updateA11y({ showDesktopDock: e.target.checked })}
+              className="w-5 h-5 accent-[#8B1E2D] cursor-pointer"
+            />
+          </label>
         </div>
       </div>
     </section>

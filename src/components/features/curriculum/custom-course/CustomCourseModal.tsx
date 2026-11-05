@@ -129,6 +129,7 @@ export const CustomCourseModal: React.FC<Props> = ({
               </label>
               <select
                 id="catalog-select"
+                name="catalogCourse"
                 required
                 value={selectedCatalogCode}
                 onChange={(e) => setSelectedCatalogCode(e.target.value)}
@@ -156,6 +157,7 @@ export const CustomCourseModal: React.FC<Props> = ({
                   </label>
                   <input
                     id="custom-code"
+                    name="customCode"
                     type="text"
                     required
                     placeholder="Ex: DIR010"
@@ -171,6 +173,7 @@ export const CustomCourseModal: React.FC<Props> = ({
                   </label>
                   <input
                     id="custom-dept"
+                    name="customDept"
                     type="text"
                     required
                     placeholder="Ex: Direito / FACE"
@@ -187,6 +190,7 @@ export const CustomCourseModal: React.FC<Props> = ({
                 </label>
                 <input
                   id="custom-name"
+                  name="customName"
                   type="text"
                   required
                   placeholder="Ex: Direito Constitucional Aplicado"
@@ -203,6 +207,7 @@ export const CustomCourseModal: React.FC<Props> = ({
                   </label>
                   <select
                     id="custom-ch"
+                    name="customCh"
                     value={customCh}
                     onChange={(e) => setCustomCh(Number(e.target.value))}
                     className="w-full bg-[#F7F5F0] border border-[#DFDBD2] px-3 py-2 rounded text-base sm:text-xs text-[#0A0A0A] focus:border-[#8B1E2D] focus:bg-white focus:outline-none"
@@ -219,6 +224,7 @@ export const CustomCourseModal: React.FC<Props> = ({
                   </label>
                   <select
                     id="custom-cat"
+                    name="customCategory"
                     value={category}
                     onChange={(e) => setCategory(e.target.value as any)}
                     className="w-full bg-[#F7F5F0] border border-[#DFDBD2] px-3 py-2 rounded text-base sm:text-xs text-[#0A0A0A] focus:border-[#8B1E2D] focus:bg-white focus:outline-none"
@@ -238,6 +244,7 @@ export const CustomCourseModal: React.FC<Props> = ({
             </label>
             <select
               id="period-select"
+              name="periodSelect"
               value={period}
               onChange={(e) => setPeriod(Number(e.target.value))}
               className="w-full bg-[#F7F5F0] border border-[#DFDBD2] px-3 py-2 rounded text-base sm:text-xs text-[#0A0A0A] focus:border-[#8B1E2D] focus:bg-white focus:outline-none"

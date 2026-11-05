@@ -46,7 +46,7 @@ export const CurriculumDetailDrawer: React.FC<Props> = ({
         <button
           type="button"
           onClick={onClose}
-          className="w-8 h-8 rounded-lg border border-[#0A0A0A] bg-white hover:bg-gray-100 flex items-center justify-center font-bold text-sm cursor-pointer shadow-[1px_1px_0px_#0A0A0A] shrink-0"
+          className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-lg border border-[#0A0A0A] bg-white hover:bg-gray-100 flex items-center justify-center font-bold text-sm cursor-pointer shadow-[1px_1px_0px_#0A0A0A] shrink-0"
           aria-label="Fechar detalhes da disciplina"
         >
           ✕
@@ -107,7 +107,7 @@ export const CurriculumDetailDrawer: React.FC<Props> = ({
                     key={reqId}
                     type="button"
                     onClick={() => onSelectNode(reqId)}
-                    className="text-[10px] font-mono font-bold px-1.5 py-0.5 bg-[#FEF3C7] hover:bg-[#FDE68A] text-[#B45309] border border-[#B45309] rounded cursor-pointer transition-colors"
+                    className="min-h-[36px] text-xs font-mono font-bold px-2.5 py-1.5 bg-[#FEF3C7] hover:bg-[#FDE68A] text-[#B45309] border border-[#B45309] rounded-lg cursor-pointer transition-colors inline-flex items-center"
                   >
                     &larr; {reqDisc?.code || reqId}
                   </button>
@@ -133,7 +133,7 @@ export const CurriculumDetailDrawer: React.FC<Props> = ({
                     key={nextId}
                     type="button"
                     onClick={() => onSelectNode(nextId)}
-                    className="text-[10px] font-mono font-bold px-1.5 py-0.5 bg-[#DCFCE7] hover:bg-[#BBF7D0] text-[#15803D] border border-[#15803D] rounded cursor-pointer transition-colors"
+                    className="min-h-[36px] text-xs font-mono font-bold px-2.5 py-1.5 bg-[#DCFCE7] hover:bg-[#BBF7D0] text-[#15803D] border border-[#15803D] rounded-lg cursor-pointer transition-colors inline-flex items-center"
                   >
                     {nextDisc?.code || nextId} &rarr;
                   </button>
@@ -149,7 +149,7 @@ export const CurriculumDetailDrawer: React.FC<Props> = ({
         <button
           type="button"
           onClick={() => onToggleCompleted(nodeId)}
-          className={`px-3 py-1.5 rounded-lg font-['Oswald'] font-bold text-xs uppercase flex items-center gap-1.5 transition-all cursor-pointer ${
+          className={`min-h-[44px] px-3.5 py-2 rounded-lg font-['Oswald'] font-bold text-xs uppercase flex items-center gap-1.5 transition-all cursor-pointer ${
             isCompleted
               ? 'bg-white text-[#15803D] border-2 border-[#15803D] hover:bg-green-50'
               : 'bg-[#15803D] text-white border-2 border-[#0A0A0A] shadow-[2px_2px_0px_#0A0A0A] hover:bg-green-700'
@@ -161,7 +161,7 @@ export const CurriculumDetailDrawer: React.FC<Props> = ({
 
         <a
           href={`#disc-${nodeId.toLowerCase()}`}
-          className="text-xs font-semibold text-gray-700 hover:text-[#8B1E2D] flex items-center gap-1 no-underline"
+          className="text-xs font-semibold text-gray-700 hover:text-[#8B1E2D] min-h-[44px] px-2 py-2 inline-flex items-center gap-1 no-underline"
         >
           <span>Ver Ementa Completa</span>
           <i className="bi bi-box-arrow-in-down-right" aria-hidden="true" />

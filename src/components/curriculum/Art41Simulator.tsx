@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getVaultItem, setVaultItem, type VaultData } from '../../lib/storage/studentVault';
+import { asset } from '../../lib/paths';
 
 const ART41_CRITERIA = [
   {
@@ -111,11 +112,14 @@ export const Art41Simulator: React.FC = () => {
           return (
             <label
               key={c.id}
+              htmlFor={`art41-crit-${c.id}`}
               className={`flex items-start gap-3 p-3 rounded-[6px] border-2 cursor-pointer transition-all shadow-[1px_1px_0_#0A0A0A] ${
                 isDone ? 'bg-[#DCFCE7]/60 border-[#15803D]' : 'bg-white border-[#DFDBD2] hover:border-[#0A0A0A]'
               }`}
             >
               <input
+                id={`art41-crit-${c.id}`}
+                name={`art41_crit_${c.id}`}
                 type="checkbox"
                 checked={isDone}
                 onChange={() => toggle(c.id)}
@@ -168,7 +172,7 @@ export const Art41Simulator: React.FC = () => {
         {isEligible && (
           <div className="flex items-center gap-2 flex-wrap shrink-0">
             <a
-              href="/documentos/estagio-requerimento-integralizacao-experiencia-profissional.pdf"
+              href={asset('/documentos/estagio-requerimento-integralizacao-experiencia-profissional.pdf')}
               download
               className="cagp-btn-primary text-xs py-2 px-3 no-underline inline-flex items-center gap-1.5 shrink-0 whitespace-nowrap"
             >
@@ -176,7 +180,7 @@ export const Art41Simulator: React.FC = () => {
               Requerimento (PDF)
             </a>
             <a
-              href="/documentos/estagio-relatorio-atividades-experiencia-profissional.pdf"
+              href={asset('/documentos/estagio-relatorio-atividades-experiencia-profissional.pdf')}
               download
               className="cagp-btn-secondary text-xs py-2 px-3 no-underline inline-flex items-center gap-1.5 shrink-0 whitespace-nowrap"
             >

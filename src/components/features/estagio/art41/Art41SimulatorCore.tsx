@@ -135,9 +135,11 @@ export const Art41SimulatorCore: React.FC = () => {
               >
                 <input
                   type="checkbox"
+                  id={`art41-${crit.id}`}
+                  name={`art41-${crit.id}`}
                   checked={isChecked}
                   onChange={() => toggleCheck(crit.id)}
-                  className="mt-0.5 w-4 h-4 text-[#15803D] rounded border-gray-300 focus:ring-0 cursor-pointer shrink-0"
+                  className="mt-0.5 w-5 h-5 text-[#15803D] accent-[#15803D] rounded border-gray-300 focus:ring-0 cursor-pointer shrink-0"
                 />
                 <div className="min-w-0 flex-1">
                   <span className="text-xs text-gray-800 leading-relaxed font-medium block">

@@ -1,5 +1,7 @@
 ---
 // JourneyNav.astro - Trilha de continuidade discente no rodapé de páginas
+import { route } from '../../lib/paths';
+
 interface Step {
   title: string;
   href: string;
@@ -19,7 +21,7 @@ const { prev, next } = Astro.props;
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       {prev ? (
         <a
-          href={prev.href}
+          href={route(prev.href)}
           class="p-4 rounded-md bg-white border-2 border-[#0A0A0A] shadow-[3px_3px_0px_#0A0A0A] hover:shadow-[5px_5px_0px_#0A0A0A] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all no-underline text-[#0A0A0A] flex flex-col justify-between group"
         >
           <div>
@@ -36,7 +38,7 @@ const { prev, next } = Astro.props;
 
       {next ? (
         <a
-          href={next.href}
+          href={route(next.href)}
           class="p-4 rounded-md bg-white border-2 border-[#0A0A0A] shadow-[3px_3px_0px_#0A0A0A] hover:shadow-[5px_5px_0px_#0A0A0A] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all no-underline text-[#0A0A0A] flex flex-col justify-between group text-left md:text-right"
         >
           <div>

@@ -1,6 +1,9 @@
 ---
 // mapa-do-site.astro - Redirecionamento canônico para FAQ e Busca Rápida
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { route } from '../lib/paths';
+
+const targetUrl = route('/faq');
 ---
 
 <BaseLayout
@@ -18,14 +21,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       Todas as seções do portal estão indexadas na <strong>Busca Rápida</strong> (atalho <code>⌘K</code>) e na <strong>Central de Dúvidas & FAQ</strong> em <code>/faq</code>.
     </p>
     <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
-      <a href="/faq" class="cagp-btn-primary inline-flex items-center gap-2 text-sm px-4 py-2">
+      <a href={targetUrl} class="cagp-btn-primary inline-flex items-center gap-2 text-sm px-4 py-2 min-h-[44px]">
         <span>Acessar FAQ Geral</span>
         <i class="bi bi-arrow-right" aria-hidden="true"></i>
       </a>
       <button
         type="button"
         onclick="window.dispatchEvent(new CustomEvent('cagp:open-spotlight'))"
-        class="cagp-btn-secondary inline-flex items-center gap-2 text-sm px-4 py-2 cursor-pointer"
+        class="cagp-btn-secondary inline-flex items-center gap-2 text-sm px-4 py-2 cursor-pointer min-h-[44px]"
       >
         <i class="bi bi-search" aria-hidden="true"></i>
         <span>Abrir Busca Rápida (⌘K)</span>
@@ -33,7 +36,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
   </div>
 
-  <script is:inline>
-    window.location.replace('/faq');
+  <script is:inline define:vars={{ targetUrl }}>
+    window.location.replace(targetUrl);
   </script>
 </BaseLayout>

@@ -70,14 +70,16 @@
   background: #FFFFFF;
   border: 2px solid #0A0A0A;
   box-shadow: 2px 2px 0 #0A0A0A;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: bold;
   color: #0A0A0A;
   transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
@@ -201,6 +203,9 @@
   }
 }
 
+
+
+/* Modo Alto Contraste AAA */
 html[data-a11y-contrast="high"] .cagp-drawer-panel {
   background: #000000 !important;
   border-right-color: #FFFF00 !important;

@@ -138,6 +138,7 @@ export const ExtensionForm: React.FC = () => {
                 </label>
                 <input
                   id={`input-${f.key}`}
+                  name={`ext_${f.key}`}
                   type="number"
                   min="0"
                   max={f.max}

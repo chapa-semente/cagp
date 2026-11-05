@@ -1,5 +1,6 @@
 ---
 // GestaoContas.astro - Sub-view 3: Transparência ativa e prestação de contas
+import { route, asset } from '../../lib/paths';
 ---
 
 <div class="space-y-4 text-[#0A0A0A]">
@@ -93,10 +94,10 @@
         <a href="mailto:cagp@fafich.ufmg.br?subject=Requerimento%20de%20Acesso%20a%20Contas%20-%20Art.%2015" class="cagp-btn-primary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
           <i class="bi bi-envelope" aria-hidden="true"></i> Solicitar Acesso às Contas (cagp@fafich.ufmg.br)
         </a>
-        <a href="/documentos/regimento-interno-cagp-ufmg" class="cagp-btn-secondary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
+        <a href={route('/documentos/regimento-interno-cagp-ufmg')} class="cagp-btn-secondary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
           <i class="bi bi-eye" aria-hidden="true"></i> Ler Regimento Transcrito
         </a>
-        <a href="/documentos/regimento-interno-cagp-ufmg.pdf" download class="cagp-btn-secondary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
+        <a href={asset('/documentos/regimento-interno-cagp-ufmg.pdf')} download class="cagp-btn-secondary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
           <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> Regimento 2024 (PDF)
         </a>
       </div>

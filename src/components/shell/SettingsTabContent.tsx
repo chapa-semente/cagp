@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getVaultItem, setVaultItem, type VaultData, getAllVaultData } from '../../lib/storage/studentVault';
 import { exportVaultBackup, importVaultBackup } from '../../lib/storage/backupVault';
 import { downloadPresetIcs } from '../../lib/calendar/icsGenerator';
+import { route } from '../../lib/paths';
 
 export const SettingsTabContent: React.FC = () => {
   const [notifs, setNotifs] = useState<VaultData<'cagp_notifications_prefs_v1'>>({
@@ -82,10 +83,28 @@ export const SettingsTabContent: React.FC = () => {
             <span className="text-[10px] text-gray-500">Catracas até 19h30</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <button type="button" onClick={() => downloadPresetIcs('ru-1815')} className="cagp-btn-secondary text-[10px] py-0.5 px-2 cursor-pointer">
+            <button
+              type="button"
+              onClick={() => downloadPresetIcs('ru-1815')}
+              className="cagp-btn-secondary text-xs min-h-[44px] px-2.5 cursor-pointer inline-flex items-center justify-center"
+              aria-label="Baixar evento iCalendar para Jantar RU II 18h15"
+            >
               .ics
             </button>
-            <input type="checkbox" checked={notifs.ru1815} onChange={(e) => updateNotif({ ru1815: e.target.checked })} className="w-4 h-4 accent-[#8B1E2D]" />
+            <label
+              htmlFor="notif-ru1815"
+              className="min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer"
+              title="Alternar alerta de Jantar RU II"
+            >
+              <input
+                id="notif-ru1815"
+                name="notifRu1815"
+                type="checkbox"
+                checked={notifs.ru1815}
+                onChange={(e) => updateNotif({ ru1815: e.target.checked })}
+                className="w-4 h-4 accent-[#8B1E2D]"
+              />
+            </label>
           </div>
         </div>
 
@@ -95,10 +114,28 @@ export const SettingsTabContent: React.FC = () => {
             <span className="text-[10px] text-gray-500">Gratuito até 22h45</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <button type="button" onClick={() => downloadPresetIcs('circular-2230')} className="cagp-btn-secondary text-[10px] py-0.5 px-2 cursor-pointer">
+            <button
+              type="button"
+              onClick={() => downloadPresetIcs('circular-2230')}
+              className="cagp-btn-secondary text-xs min-h-[44px] px-2.5 cursor-pointer inline-flex items-center justify-center"
+              aria-label="Baixar evento iCalendar para Circular FAFICH 22h30"
+            >
               .ics
             </button>
-            <input type="checkbox" checked={notifs.circular2230} onChange={(e) => updateNotif({ circular2230: e.target.checked })} className="w-4 h-4 accent-[#8B1E2D]" />
+            <label
+              htmlFor="notif-circular2230"
+              className="min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer"
+              title="Alternar alerta de Circular FAFICH"
+            >
+              <input
+                id="notif-circular2230"
+                name="notifCircular2230"
+                type="checkbox"
+                checked={notifs.circular2230}
+                onChange={(e) => updateNotif({ circular2230: e.target.checked })}
+                className="w-4 h-4 accent-[#8B1E2D]"
+              />
+            </label>
           </div>
         </div>
       </div>
@@ -115,23 +152,39 @@ export const SettingsTabContent: React.FC = () => {
         </div>
 
         <div className="flex gap-2 pt-1">
-          <button type="button" onClick={handleCopyBackup} className="cagp-btn-secondary text-[11px] py-1.5 px-2.5 flex-1 justify-center cursor-pointer">
-            <i className="bi bi-clipboard-check me-1"></i> Copiar Backup CAGP1
+          <button
+            type="button"
+            onClick={handleCopyBackup}
+            className="cagp-btn-secondary text-xs min-h-[44px] px-3 flex-1 justify-center cursor-pointer inline-flex items-center"
+          >
+            <i className="bi bi-clipboard-check me-1.5"></i> Copiar Backup CAGP1
           </button>
-          <button type="button" onClick={handleClear} className="cagp-btn-outline text-[11px] py-1.5 px-2.5 text-[#DC2626] border-[#DC2626]/30 cursor-pointer">
+          <button
+            type="button"
+            onClick={handleClear}
+            className="cagp-btn-outline text-xs min-h-[44px] min-w-[44px] px-3 text-[#DC2626] border-[#DC2626]/30 cursor-pointer inline-flex items-center justify-center"
+            title="Redefinir Cofre Local"
+            aria-label="Redefinir Cofre Local"
+          >
             <i className="bi bi-trash"></i>
           </button>
         </div>
 
-        <div className="pt-2 border-t border-[#DFDBD2] flex gap-1.5">
+        <div className="pt-2 border-t border-[#DFDBD2] flex gap-1.5 items-center">
           <input
+            id="settings-tab-backup-input"
+            name="settingsBackupToken"
             type="text"
             placeholder="Restaurar token CAGP1:..."
             value={backupInput}
             onChange={(e) => setBackupInput(e.target.value)}
-            className="flex-1 bg-white border border-[#DFDBD2] px-2 py-1 text-xs font-mono rounded focus:border-[#8B1E2D] focus:outline-none"
+            className="flex-1 min-h-[44px] bg-white border border-[#DFDBD2] px-3 py-2 text-xs font-mono rounded focus:border-[#8B1E2D] focus:outline-none"
           />
-          <button type="button" onClick={handleRestore} className="cagp-btn-primary text-xs py-1 px-3 cursor-pointer">
+          <button
+            type="button"
+            onClick={handleRestore}
+            className="cagp-btn-primary text-xs min-h-[44px] px-3.5 cursor-pointer inline-flex items-center justify-center shrink-0"
+          >
             Restaurar
           </button>
         </div>
@@ -139,7 +192,10 @@ export const SettingsTabContent: React.FC = () => {
 
       {/* Link para Rota Completa */}
       <div className="pt-1 text-center">
-        <a href="/configuracoes" className="text-xs font-['Oswald'] font-bold uppercase text-[#8B1E2D] hover:underline inline-flex items-center gap-1">
+        <a
+          href={route('/configuracoes')}
+          className="text-xs font-['Oswald'] font-bold uppercase text-[#8B1E2D] hover:underline inline-flex items-center justify-center gap-1 min-h-[44px] px-3 py-2"
+        >
           Abrir Página Completa de Configurações <i className="bi bi-arrow-right"></i>
         </a>
       </div>

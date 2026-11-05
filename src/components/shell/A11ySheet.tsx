@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BottomSheet } from './BottomSheet';
-import { getVaultItem, setVaultItem, type VaultData } from '../../lib/storage/studentVault';
+import { getVaultItem, setVaultItem, type VaultData, VaultDefaults, applyA11yPrefsToDOM } from '../../lib/storage/studentVault';
 import { A11yTabContent } from './A11yTabContent';
 import { SettingsTabContent } from './SettingsTabContent';
 
@@ -12,19 +12,13 @@ interface A11ySheetProps {
 
 export const A11ySheet: React.FC<A11ySheetProps> = ({ isOpen, onClose, initialTab = 'a11y' }) => {
   const [activeTab, setActiveTab] = useState<'a11y' | 'settings'>(initialTab);
-  const [prefs, setPrefs] = useState<VaultData<'cagp_a11y_prefs_v2'>>({
-    font: 'md',
-    contrast: 'normal',
-    dyslexia: false,
-    motion: 'normal',
-    ruler: false,
-  });
+  const [prefs, setPrefs] = useState<VaultData<'cagp_a11y_prefs_v2'>>(VaultDefaults.cagp_a11y_prefs_v2);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const stored = getVaultItem('cagp_a11y_prefs_v2');
       setPrefs(stored);
-      applyToDOM(stored);
+      applyA11yPrefsToDOM(stored);
 
       const handleA11yEvt = () => setActiveTab('a11y');
       const handleSettingsEvt = () => setActiveTab('settings');
@@ -45,21 +39,11 @@ export const A11ySheet: React.FC<A11ySheetProps> = ({ isOpen, onClose, initialTa
     }
   }, [isOpen, initialTab]);
 
-  const applyToDOM = (p: VaultData<'cagp_a11y_prefs_v2'>) => {
-    if (typeof document === 'undefined') return;
-    const el = document.documentElement;
-    el.setAttribute('data-a11y-font', p.font);
-    el.setAttribute('data-a11y-contrast', p.contrast);
-    el.setAttribute('data-a11y-dyslexia', p.dyslexia ? 'true' : 'false');
-    el.setAttribute('data-a11y-motion', p.motion);
-    el.setAttribute('data-a11y-ruler', p.ruler ? 'true' : 'false');
-  };
-
   const update = (partial: Partial<VaultData<'cagp_a11y_prefs_v2'>>) => {
     const updated = { ...prefs, ...partial };
     setPrefs(updated);
     setVaultItem('cagp_a11y_prefs_v2', updated);
-    applyToDOM(updated);
+    applyA11yPrefsToDOM(updated);
   };
 
   const title = activeTab === 'a11y' ? 'Acessibilidade Universal' : 'Configurações & Sincronização';

@@ -115,6 +115,8 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
           />
           <input
             type="text"
+            id="optativas-search-input"
+            name="optativas-search"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Buscar por código (ex: DCP 035), nome ou módulo..."
@@ -127,9 +129,9 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
           <button
             type="button"
             onClick={() => setSelectedModulo('todos')}
-            className={`min-h-[38px] px-3 py-1 rounded-md text-xs font-['Oswald'] uppercase tracking-tight shrink-0 transition-all ${
+            className={`min-h-[44px] px-3.5 py-1.5 rounded-lg text-xs font-['Oswald'] uppercase tracking-tight shrink-0 transition-all cursor-pointer ${
               selectedModulo === 'todos'
-                ? 'bg-[#0A0A0A] text-white font-bold'
+                ? 'bg-[#0A0A0A] text-white font-bold shadow-xs'
                 : 'bg-[#F7F5F0] text-gray-700 border border-[#DFDBD2] hover:bg-[#EAE6DE]'
             }`}
           >
@@ -140,9 +142,9 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
               key={m}
               type="button"
               onClick={() => setSelectedModulo(m)}
-              className={`min-h-[38px] px-3 py-1 rounded-md text-xs font-['Oswald'] uppercase tracking-tight shrink-0 transition-all ${
+              className={`min-h-[44px] px-3.5 py-1.5 rounded-lg text-xs font-['Oswald'] uppercase tracking-tight shrink-0 transition-all cursor-pointer ${
                 selectedModulo.toLowerCase() === m.toLowerCase()
-                  ? 'bg-[#0A0A0A] text-white font-bold'
+                  ? 'bg-[#0A0A0A] text-white font-bold shadow-xs'
                   : 'bg-[#F7F5F0] text-gray-700 border border-[#DFDBD2] hover:bg-[#EAE6DE]'
               }`}
             >
@@ -253,14 +255,14 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                     <button
                       type="button"
                       onClick={() => setAllocatingCode(item.code)}
-                      className="flex-1 min-h-[38px] px-2 py-1 bg-[#F7F5F0] hover:bg-[#EAE6DE] border border-[#DFDBD2] rounded-lg text-xs font-['Oswald'] uppercase font-bold text-[#0A0A0A] transition-colors"
+                      className="flex-1 min-h-[44px] px-3 py-1.5 bg-[#F7F5F0] hover:bg-[#EAE6DE] border border-[#DFDBD2] rounded-lg text-xs font-['Oswald'] uppercase font-bold text-[#0A0A0A] transition-colors cursor-pointer"
                     >
                       Mover ({allocatedCourse.period}ºP)
                     </button>
                     <button
                       type="button"
                       onClick={() => handleRemove(item.code)}
-                      className="min-h-[38px] px-2.5 py-1 bg-red-50 hover:bg-red-100 text-[#DC2626] border border-red-200 rounded-lg text-xs font-bold transition-colors"
+                      className="min-h-[44px] min-w-[44px] px-3 py-1.5 bg-red-50 hover:bg-red-100 text-[#DC2626] border border-red-200 rounded-lg text-xs font-bold transition-colors cursor-pointer flex items-center justify-center"
                       title="Desvincular do Grafo"
                       aria-label="Desvincular do Grafo"
                     >
@@ -271,7 +273,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                   <button
                     type="button"
                     onClick={() => setAllocatingCode(item.code)}
-                    className="w-full min-h-[40px] px-3 py-1.5 bg-[#0A0A0A] hover:bg-[#8B1E2D] text-white rounded-lg text-xs font-['Oswald'] uppercase font-bold tracking-wider flex items-center justify-center gap-1.5 transition-all shadow-[2px_2px_0px_#0A0A0A]"
+                    className="w-full min-h-[44px] px-3 py-2 bg-[#0A0A0A] hover:bg-[#8B1E2D] text-white rounded-lg text-xs font-['Oswald'] uppercase font-bold tracking-wider flex items-center justify-center gap-1.5 transition-all shadow-[2px_2px_0px_#0A0A0A] cursor-pointer"
                   >
                     <i className="bi bi-plus-circle" aria-hidden="true" />
                     <span>Vincular ao Grafo</span>

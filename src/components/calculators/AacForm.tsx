@@ -177,6 +177,7 @@ export const AacForm: React.FC = () => {
                 </label>
                 <input
                   id={`input-${f.key}`}
+                  name={`aac_${f.key}`}
                   type="number"
                   min="0"
                   max={f.max}

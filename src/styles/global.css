@@ -51,8 +51,15 @@ html {
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
   scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
   touch-action: pan-x pan-y;
 }
+
+/* Dynamic Type Real (Escalonamento flexível de raiz) */
+html[data-a11y-font="sm"] { font-size: 93.75%; } /* 15px */
+html[data-a11y-font="md"] { font-size: 100%; }   /* 16px */
+html[data-a11y-font="lg"] { font-size: 112.5%; } /* 18px */
+html[data-a11y-font="xl"] { font-size: 125%; }   /* 20px */
 
 body {
   margin: 0;
@@ -68,13 +75,26 @@ body {
   }
 }
 
+@media (max-height: 500px) and (orientation: landscape) {
+  body {
+    padding-bottom: 3.5rem;
+  }
+}
+
+/* Anel de Foco Global Apple HIG */
+:focus-visible {
+  outline: 2.5px solid var(--color-cagp-gold) !important;
+  outline-offset: 2px !important;
+}
+
 /* Anti auto-zoom on iOS Safari (16px base on mobile inputs) */
 input, select, textarea, button {
   font-size: 16px;
   touch-action: manipulation;
 }
 
-button, a, input, select {
+/* Pisos táteis Apple HIG com proteção para slide dots (.cagp-dot-btn) */
+button:not(.cagp-dot-btn), a, input, select {
   min-height: 44px;
 }
 
@@ -189,7 +209,7 @@ button, a, input, select {
   color: #FFFFFF;
 }
 
-/* High Contrast AAA */
+/* High Contrast AAA (BUG-11 fix: element-preserving specificity) */
 html[data-a11y-contrast="high"] {
   background-color: #000000 !important;
   color: #FFFF00 !important;
@@ -200,6 +220,33 @@ html[data-a11y-contrast="high"] * {
   border-color: #FFFF00 !important;
   box-shadow: none !important;
 }
+html[data-a11y-contrast="high"] .is-active,
+html[data-a11y-contrast="high"] [aria-selected="true"],
+html[data-a11y-contrast="high"] [aria-current="page"] {
+  background-color: #FFFF00 !important;
+  color: #000000 !important;
+  border-color: #FFFF00 !important;
+}
+html[data-a11y-contrast="high"] .is-active *,
+html[data-a11y-contrast="high"] [aria-selected="true"] *,
+html[data-a11y-contrast="high"] [aria-current="page"] * {
+  background-color: transparent !important;
+  color: #000000 !important;
+}
+html[data-a11y-contrast="high"] .cagp-route-progress-fill {
+  background: #FFFF00 !important;
+}
+html[data-a11y-contrast="high"] .cagp-pulse-indicator {
+  background-color: #FFFF00 !important;
+  outline: 1.5px solid #000000 !important;
+}
+html[data-a11y-contrast="high"] .cagp-reading-ruler {
+  background-color: rgba(255, 255, 0, 0.25) !important;
+  border-color: #FFFF00 !important;
+}
+
+
+
 
 /* Dyslexia mode */
 html[data-a11y-dyslexia="true"] body {

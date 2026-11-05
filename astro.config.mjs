@@ -21,6 +21,16 @@ export default defineConfig({
     : '/',
   vite: {
     plugins: [tailwindcss()],
+    optimizeDeps: {
+      include: [
+        'react',
+        'react-dom',
+        'react-dom/client',
+        'react/jsx-runtime',
+        'react/jsx-dev-runtime',
+        '@astrojs/react/client.js',
+      ],
+    },
   },
   integrations: [react()],
 });

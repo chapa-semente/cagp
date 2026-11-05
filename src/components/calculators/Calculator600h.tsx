@@ -3,6 +3,7 @@ import { getVaultItem, setVaultItem, type VaultData } from '../../lib/storage/st
 import { LinearHud } from './LinearHud';
 import { EXTENSION_ITEMS, AAC_ITEMS, type AcgItemDef } from './acgCatalog';
 import { downloadAac120dIcs } from '../../lib/ics';
+import { asset } from '../../lib/paths';
 
 export const Calculator600h: React.FC = () => {
   const [data, setData] = useState<VaultData<'cagp_calc_ext_aac_v1'>>({});
@@ -180,7 +181,7 @@ export const Calculator600h: React.FC = () => {
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <a
-              href="/documentos/requerimento-atividade-integralizadora-credito-v20229.pdf"
+              href={asset('/documentos/requerimento-atividade-integralizadora-credito-v20229.pdf')}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#8B1E2D] text-white font-['Oswald'] text-xs uppercase font-bold rounded-[4px] border border-[#0A0A0A] shadow-[1px_1px_0px_#0A0A0A] hover:bg-[#9E2424] transition-colors"
@@ -786,7 +787,7 @@ export const Calculator600h: React.FC = () => {
 
           <div className="flex flex-wrap items-center gap-2">
             <a
-              href="/documentos/requerimento-atividade-integralizadora-credito-v20229.pdf"
+              href={asset('/documentos/requerimento-atividade-integralizadora-credito-v20229.pdf')}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#8B1E2D] text-white font-['Oswald'] text-xs uppercase font-bold rounded-[4px] border border-[#0A0A0A] shadow-[1px_1px_0px_#0A0A0A] hover:bg-[#9E2424] transition-colors"

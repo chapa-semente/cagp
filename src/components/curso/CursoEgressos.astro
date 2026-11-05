@@ -1,5 +1,6 @@
 ---
 // CursoEgressos.astro - Sub-view 2: Inserção no Mercado de Trabalho e Egressos
+import { asset } from '../../lib/paths';
 ---
 
 <div class="space-y-4 text-[#0A0A0A]">
@@ -68,7 +69,7 @@
       </div>
     </div>
     <div class="pt-2">
-      <a href="/documentos/depoimentos-de-egressos.pdf" download class="cagp-btn-primary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
+      <a href={asset('/documentos/depoimentos-de-egressos.pdf')} download class="cagp-btn-primary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
         <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> Baixar Relatório Oficial de Egressos (PDF) &rarr;
       </a>
     </div>

@@ -153,9 +153,9 @@ export const CalouroChecklistCore: React.FC = () => {
             key={f.id}
             type="button"
             onClick={() => setFilter(f.id)}
-            className={`min-h-[38px] px-3 py-1 rounded-md text-xs font-['Oswald'] uppercase tracking-tight shrink-0 transition-all ${
+            className={`min-h-[44px] px-3.5 py-1.5 rounded-lg text-xs font-['Oswald'] uppercase tracking-tight shrink-0 transition-all cursor-pointer ${
               filter === f.id
-                ? 'bg-[#0A0A0A] text-white font-bold'
+                ? 'bg-[#0A0A0A] text-white font-bold shadow-xs'
                 : 'bg-[#F7F5F0] text-gray-700 border border-[#DFDBD2] hover:bg-[#EAE6DE]'
             }`}
           >
@@ -177,13 +177,17 @@ export const CalouroChecklistCore: React.FC = () => {
                   : 'bg-white border-[#DFDBD2] hover:border-[#0A0A0A]'
               }`}
             >
-              <input
-                type="checkbox"
-                checked={isDone}
-                onChange={() => toggleCheck(item.id)}
-                className="mt-1 w-5 h-5 text-[#15803D] rounded border-gray-300 focus:ring-0 cursor-pointer shrink-0"
-                aria-label={`Marcar ${item.title}`}
-              />
+              <label className="min-w-[44px] min-h-[44px] -m-2 p-2 flex items-center justify-center cursor-pointer shrink-0">
+                <input
+                  type="checkbox"
+                  id={`chk-${item.id}`}
+                  name={`chk-${item.id}`}
+                  checked={isDone}
+                  onChange={() => toggleCheck(item.id)}
+                  className="w-5 h-5 text-[#15803D] accent-[#15803D] rounded border-gray-300 focus:ring-0 cursor-pointer shrink-0"
+                  aria-label={`Marcar ${item.title}`}
+                />
+              </label>
 
               <div className="min-w-0 flex-1">
                 <div className="flex items-center justify-between gap-2 mb-1">

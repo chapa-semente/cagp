@@ -1,6 +1,7 @@
 ---
 // AcgGuiaTramitacao.astro - Sub-view 3: Guia completo de Extensão (300h), AAC (até 300h) e tramitação SEI
 import AcgTutorialPrint from './AcgTutorialPrint.astro';
+import { asset } from '../../lib/paths';
 
 const modalidadesAAC = [
   { mod: 'I. Pesquisa Interinstitucional', icon: 'bi-globe', teto: '75h', comp: 'Relatório formal assinado com orientador de outra IES pública ou órgão de pesquisa.' },
@@ -179,22 +180,22 @@ const modalidadesAAC = [
         Documentos e Formulários Oficiais de Atividades Complementares:
       </span>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
-        <a href="/documentos/requerimento-atividade-integralizadora-credito-v20229.pdf" download class="p-2.5 bg-white hover:bg-[#FDF8F8] border border-[#DFDBD2] rounded text-xs flex flex-col justify-between no-underline text-[#0A0A0A]">
+        <a href={asset('/documentos/requerimento-atividade-integralizadora-credito-v20229.pdf')} download class="p-2.5 bg-white hover:bg-[#FDF8F8] border border-[#DFDBD2] rounded text-xs flex flex-col justify-between no-underline text-[#0A0A0A]">
           <span class="font-['Oswald'] font-bold text-[#8B1E2D] uppercase block truncate">Requerimento AAC (N-20229)</span>
           <span class="text-[11px] text-gray-500 mt-0.5">Versão curricular vigente</span>
           <span class="text-[11px] font-bold text-[#8B1E2D] mt-2 inline-flex items-center gap-1"><i class="bi bi-download"></i> Baixar PDF</span>
         </a>
-        <a href="/documentos/requerimento-atividade-integralizadora-credito-v20152.pdf" download class="p-2.5 bg-white hover:bg-[#FDF8F8] border border-[#DFDBD2] rounded text-xs flex flex-col justify-between no-underline text-[#0A0A0A]">
+        <a href={asset('/documentos/requerimento-atividade-integralizadora-credito-v20152.pdf')} download class="p-2.5 bg-white hover:bg-[#FDF8F8] border border-[#DFDBD2] rounded text-xs flex flex-col justify-between no-underline text-[#0A0A0A]">
           <span class="font-['Oswald'] font-bold text-gray-700 uppercase block truncate">Requerimento AAC (v2015/2)</span>
           <span class="text-[11px] text-gray-500 mt-0.5">Discentes da matriz anterior</span>
           <span class="text-[11px] font-bold text-gray-700 mt-2 inline-flex items-center gap-1"><i class="bi bi-download"></i> Baixar PDF</span>
         </a>
-        <a href="/documentos/resolucao-01-2020-atividades-integralizadoras-credito.pdf" download class="p-2.5 bg-white hover:bg-[#FDF8F8] border border-[#DFDBD2] rounded text-xs flex flex-col justify-between no-underline text-[#0A0A0A]">
+        <a href={asset('/documentos/resolucao-01-2020-atividades-integralizadoras-credito.pdf')} download class="p-2.5 bg-white hover:bg-[#FDF8F8] border border-[#DFDBD2] rounded text-xs flex flex-col justify-between no-underline text-[#0A0A0A]">
           <span class="font-['Oswald'] font-bold text-[#005A9C] uppercase block truncate">Resolução 01/2020 AAC</span>
           <span class="text-[11px] text-gray-500 mt-0.5">Norma interna do Colegiado</span>
           <span class="text-[11px] font-bold text-[#005A9C] mt-2 inline-flex items-center gap-1"><i class="bi bi-download"></i> Baixar PDF</span>
         </a>
-        <a href="/documentos/declaracao-atividade-avaliativa.pdf" download class="p-2.5 bg-white hover:bg-[#FDF8F8] border border-[#DFDBD2] rounded text-xs flex flex-col justify-between no-underline text-[#0A0A0A]">
+        <a href={asset('/documentos/declaracao-atividade-avaliativa.pdf')} download class="p-2.5 bg-white hover:bg-[#FDF8F8] border border-[#DFDBD2] rounded text-xs flex flex-col justify-between no-underline text-[#0A0A0A]">
           <span class="font-['Oswald'] font-bold text-[#15803D] uppercase block truncate">Declaração Avaliativa</span>
           <span class="text-[11px] text-gray-500 mt-0.5">Modelo para comprovação</span>
           <span class="text-[11px] font-bold text-[#15803D] mt-2 inline-flex items-center gap-1"><i class="bi bi-download"></i> Baixar PDF</span>

@@ -133,7 +133,7 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
               }}
             />
 
-            {/* Atalho para Configurações do Super App */}
+            {/* Atalho para Configurações do Super App (BUG-12 in-place fix) */}
             <div className="p-3 bg-white border border-[#DFDBD2] rounded-xl flex items-center justify-between gap-2 mb-3">
               <div>
                 <strong className="block font-['Oswald'] text-xs uppercase text-[#0A0A0A]">
@@ -144,13 +144,16 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
                   Acessibilidade, alarmes do RU/Circular e portabilidade.
                 </span>
               </div>
-              <a
-                href="/configuracoes"
-                onClick={onClose}
-                className="cagp-btn-secondary text-xs py-1 px-2.5"
+              <button
+                type="button"
+                onClick={() => {
+                  onClose();
+                  window.dispatchEvent(new CustomEvent('cagp:open-settings'));
+                }}
+                className="cagp-btn-secondary text-xs py-1 px-2.5 cursor-pointer min-h-[36px]"
               >
                 Abrir &rarr;
-              </a>
+              </button>
             </div>
 
             {/* Backup & Restauração Rápida */}
@@ -174,6 +177,8 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
               <div className="pt-1">
                 <input
                   type="text"
+                  id="cagp-passport-backup-input"
+                  name="passportBackupToken"
                   placeholder="Cole o token CAGP1:... para restaurar"
                   value={backupInput}
                   onChange={(e) => setBackupInput(e.target.value)}

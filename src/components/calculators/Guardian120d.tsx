@@ -67,39 +67,51 @@ export const Guardian120d: React.FC = () => {
         </span>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           <input
+            id="guardian-cert-title"
+            name="certTitle"
             type="text"
             placeholder="Nome do Evento / Curso"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             className="bg-white border border-[#DFDBD2] p-1.5 rounded text-xs focus:border-[#8B1E2D] focus:outline-none"
             required
+            aria-label="Nome do Evento ou Curso"
           />
           <input
+            id="guardian-cert-date"
+            name="certDate"
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
             className="bg-white border border-[#DFDBD2] p-1.5 rounded text-xs focus:border-[#8B1E2D] focus:outline-none"
             required
+            aria-label="Data de Emissão do Certificado"
           />
         </div>
         <div className="flex items-center gap-2">
           <input
+            id="guardian-cert-hours"
+            name="certHours"
             type="number"
             placeholder="Horas (ex: 30)"
             value={hours}
             onChange={(e) => setHours(e.target.value)}
             className="w-28 bg-white border border-[#DFDBD2] p-1.5 rounded text-xs focus:border-[#8B1E2D] focus:outline-none"
+            aria-label="Horas do Certificado"
           />
           <select
+            id="guardian-cert-mod"
+            name="certMod"
             value={mod}
             onChange={(e) => setMod(e.target.value)}
             className="bg-white border border-[#DFDBD2] p-1.5 rounded text-xs focus:border-[#8B1E2D] focus:outline-none"
+            aria-label="Modalidade do Certificado"
           >
             <option value="Eventos">Eventos / Congressos</option>
             <option value="Cursos">Cursos Complementares</option>
             <option value="Pesquisa">Iniciação / Pesquisa</option>
           </select>
-          <button type="submit" className="cagp-btn-primary text-xs py-1.5 px-3 ml-auto">
+          <button type="submit" className="cagp-btn-primary text-xs py-1.5 px-3 ml-auto cursor-pointer">
             Adicionar
           </button>
         </div>

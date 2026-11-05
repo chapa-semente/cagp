@@ -31,7 +31,7 @@ const { id, title, badge, icon, open = false } = Astro.props;
 
 <style>
   .details-icon {
-    transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: transform 0.22s var(--ease-out-natural, cubic-bezier(0.16, 1, 0.3, 1));
   }
   details[open] summary .details-icon {
     transform: rotate(90deg);
@@ -53,6 +53,21 @@ const { id, title, badge, icon, open = false } = Astro.props;
 
       summary.addEventListener('click', (e) => {
         e.preventDefault();
+
+        const isReducedMotion =
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+          document.documentElement.getAttribute('data-a11y-motion') === 'reduced';
+
+        if (isReducedMotion) {
+          details.open = !details.open;
+          return;
+        }
+
+        // Cancelar animação concorrente anterior se houver
+        if ((content as any).__current_anim) {
+          (content as any).__current_anim.cancel();
+        }
+
         if (details.open) {
           const startHeight = content.offsetHeight;
           const anim = content.animate(
@@ -60,21 +75,27 @@ const { id, title, badge, icon, open = false } = Astro.props;
               { height: `${startHeight}px`, opacity: '1', transform: 'translateY(0)' },
               { height: '0px', opacity: '0', transform: 'translateY(-6px)' }
             ],
-            { duration: 240, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }
+            { duration: 220, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }
           );
+          (content as any).__current_anim = anim;
           anim.onfinish = () => {
             details.open = false;
+            (content as any).__current_anim = null;
           };
         } else {
           details.open = true;
           const endHeight = content.offsetHeight;
-          content.animate(
+          const anim = content.animate(
             [
               { height: '0px', opacity: '0', transform: 'translateY(-8px)' },
               { height: `${endHeight}px`, opacity: '1', transform: 'translateY(0)' }
             ],
-            { duration: 300, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }
+            { duration: 260, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }
           );
+          (content as any).__current_anim = anim;
+          anim.onfinish = () => {
+            (content as any).__current_anim = null;
+          };
         }
       });
     });

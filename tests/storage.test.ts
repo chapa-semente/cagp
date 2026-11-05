@@ -124,4 +124,24 @@ describe('Cofre Discente & Backup Engine', () => {
       'campus',
     ]);
   });
+
+  it('salva e valida preferências de acessibilidade com showDesktopDock', () => {
+    const defaults = getVaultItem('cagp_a11y_prefs_v2');
+    expect(defaults.showDesktopDock).toBe(false);
+    expect(defaults.font).toBe('md');
+
+    setVaultItem('cagp_a11y_prefs_v2', {
+      font: 'lg',
+      contrast: 'high',
+      dyslexia: true,
+      motion: 'reduced',
+      ruler: true,
+      showDesktopDock: true,
+    });
+
+    const updated = getVaultItem('cagp_a11y_prefs_v2');
+    expect(updated.showDesktopDock).toBe(true);
+    expect(updated.font).toBe('lg');
+  });
 });
+

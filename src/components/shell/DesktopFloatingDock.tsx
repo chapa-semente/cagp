@@ -11,6 +11,7 @@ export const DesktopFloatingDock: React.FC = () => {
   const [shortcuts, setShortcuts] = useState<ShortcutItem[]>(() =>
     resolveShortcuts(DEFAULT_SHORTCUT_IDS)
   );
+  const [showDesktopDock, setShowDesktopDock] = useState<boolean>(false);
   const [currentPath, setCurrentPath] = useState<string>('');
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
@@ -21,6 +22,9 @@ export const DesktopFloatingDock: React.FC = () => {
     } else {
       setShortcuts(resolveShortcuts(DEFAULT_SHORTCUT_IDS));
     }
+
+    const a11y = getVaultItem('cagp_a11y_prefs_v2');
+    setShowDesktopDock(Boolean(a11y?.showDesktopDock));
   };
 
   const updatePath = () => {
@@ -39,7 +43,7 @@ export const DesktopFloatingDock: React.FC = () => {
 
     const handleVaultUpdated = (e: Event) => {
       const custom = e as CustomEvent<{ key: string }>;
-      if (!custom.detail || custom.detail.key === 'cagp_discente_shortcuts_v1') {
+      if (!custom.detail || custom.detail.key === 'cagp_discente_shortcuts_v1' || custom.detail.key === 'cagp_a11y_prefs_v2') {
         updateFromVault();
       }
     };
@@ -77,6 +81,8 @@ export const DesktopFloatingDock: React.FC = () => {
     window.dispatchEvent(new CustomEvent('cagp:open-shortcuts'));
   };
 
+  if (!showDesktopDock) return null;
+
   return (
     <aside
       className="hidden lg:flex fixed bottom-5 left-1/2 -translate-x-1/2 z-[1035] select-none pointer-events-none items-center justify-center transition-all duration-300"
@@ -93,10 +99,10 @@ export const DesktopFloatingDock: React.FC = () => {
 
           const buttonContent = (
             <div
-              className={`relative flex items-center justify-center rounded-full transition-all duration-200 cursor-pointer ${
+              className={`relative flex items-center justify-center rounded-full transition-all duration-200 cursor-pointer min-w-[44px] min-h-[44px] ${
                 active
-                  ? 'w-10 h-10 bg-[#8B1E2D] text-white shadow-[1.5px_1.5px_0_#0A0A0A] scale-105'
-                  : 'w-9 h-9 text-gray-700 hover:bg-[#F7F5F0] hover:text-[#8B1E2D] hover:scale-110 active:scale-95'
+                  ? 'w-11 h-11 bg-[#8B1E2D] text-white shadow-[1.5px_1.5px_0_#0A0A0A] scale-105'
+                  : 'w-11 h-11 text-gray-700 hover:bg-[#F7F5F0] hover:text-[#8B1E2D] hover:scale-110 active:scale-95'
               }`}
               onMouseEnter={() => setHoveredId(item.id)}
               onMouseLeave={() => setHoveredId(null)}
@@ -156,13 +162,13 @@ export const DesktopFloatingDock: React.FC = () => {
         <button
           type="button"
           onClick={handleOpenCustomize}
-          className="relative w-8 h-8 rounded-full flex items-center justify-center text-gray-500 hover:text-[#0A0A0A] hover:bg-[#F7F5F0] transition-all cursor-pointer active:scale-95"
+          className="relative w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center text-gray-500 hover:text-[#0A0A0A] hover:bg-[#F7F5F0] transition-all cursor-pointer active:scale-95"
           title="Personalizar atalhos do dock"
           aria-label="Personalizar atalhos do dock"
           onMouseEnter={() => setHoveredId('customize')}
           onMouseLeave={() => setHoveredId(null)}
         >
-          <i className="bi bi-sliders2 text-sm" aria-hidden="true"></i>
+          <i className="bi bi-sliders2 text-base" aria-hidden="true"></i>
 
           {hoveredId === 'customize' && (
             <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-[#0A0A0A] text-white text-[10px] font-['Oswald'] uppercase font-bold tracking-wider rounded-[4px] whitespace-nowrap shadow-[2px_2px_0_rgba(0,0,0,0.3)] pointer-events-none z-[1050]">

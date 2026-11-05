@@ -16,13 +16,13 @@ const { tabs, defaultTab = tabs[0]?.id } = Astro.props;
 ---
 
 <nav class="cagp-workspace-bar" aria-label="Abas operacionais da página">
-  <div class="cagp-workspace-tabs" role="tablist" data-tab-count={tabs.length}>
+  <div class="cagp-workspace-tabs flex-1 min-w-0 overflow-x-auto scrollbar-none snap-x snap-proximity" role="tablist" data-tab-count={tabs.length}>
     {tabs.map((tab) => {
       const isSelected = tab.id === defaultTab;
       return (
         <button
           type="button"
-          class={`cagp-workspace-tab ${isSelected ? 'is-active' : ''}`}
+          class={`cagp-workspace-tab snap-start ${isSelected ? 'is-active' : ''}`}
           role="tab"
           id={`ws-tab-${tab.id}`}
           aria-controls={`ws-panel-${tab.id}`}
@@ -39,7 +39,7 @@ const { tabs, defaultTab = tabs[0]?.id } = Astro.props;
   </div>
   <button
     type="button"
-    class="cagp-workspace-viewall"
+    class="cagp-workspace-viewall shrink-0"
     aria-pressed="false"
     aria-label="Ver todas as abas"
     data-ws-tab="__all__"
@@ -82,9 +82,12 @@ const { tabs, defaultTab = tabs[0]?.id } = Astro.props;
           t.classList.toggle('is-active', isMatch);
           t.setAttribute('aria-selected', isMatch ? 'true' : 'false');
           t.tabIndex = isMatch ? 0 : -1;
-          if (isMatch && updateHash) {
-            const h = t.getAttribute('data-ws-hash');
-            if (h) history.replaceState(null, '', h);
+          if (isMatch) {
+            t.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            if (updateHash) {
+              const h = t.getAttribute('data-ws-hash');
+              if (h) history.replaceState(null, '', h);
+            }
           }
         });
 

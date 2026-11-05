@@ -85,27 +85,32 @@ const {
           }
         };
 
-        // Reset seguro do estado do drawer em transições de página Astro
+        function syncThemeAndA11y() {
+          try {
+            var raw = localStorage.getItem('cagp_a11y_prefs_v2');
+            var el = document.documentElement;
+            var p = raw ? JSON.parse(raw) : {};
+            el.setAttribute('data-a11y-font', p.font || 'md');
+            el.setAttribute('data-a11y-contrast', p.contrast || 'normal');
+            el.setAttribute('data-a11y-dyslexia', p.dyslexia ? 'true' : 'false');
+            el.setAttribute('data-a11y-motion', p.motion || 'normal');
+            el.setAttribute('data-a11y-ruler', p.ruler ? 'true' : 'false');
+            el.removeAttribute('data-theme');
+            el.setAttribute('data-desktop-dock', p.showDesktopDock ? 'true' : 'false');
+          } catch (e) {}
+        }
+
+        syncThemeAndA11y();
+
+        // Reset seguro do estado do drawer e re-sincronização de tema em transições de página Astro
         document.addEventListener('astro:after-swap', function() {
           document.body.style.overflow = '';
           document.body.classList.remove('cagp-drawer-open');
           if (window.__cagp_close_drawer) {
             window.__cagp_close_drawer();
           }
+          syncThemeAndA11y();
         });
-
-        try {
-          var raw = localStorage.getItem('cagp_a11y_prefs_v2');
-          if (raw) {
-            var p = JSON.parse(raw);
-            var el = document.documentElement;
-            if (p.font) el.setAttribute('data-a11y-font', p.font);
-            if (p.contrast) el.setAttribute('data-a11y-contrast', p.contrast);
-            if (p.dyslexia) el.setAttribute('data-a11y-dyslexia', 'true');
-            if (p.motion) el.setAttribute('data-a11y-motion', p.motion);
-            if (p.ruler) el.setAttribute('data-a11y-ruler', 'true');
-          }
-        } catch (e) {}
       })();
     </script>
 
@@ -296,7 +301,7 @@ const {
           if (document.documentElement.getAttribute('data-a11y-ruler') === 'true') {
             const ruler = document.getElementById('cagp-reading-ruler');
             if (ruler) {
-              ruler.style.top = (e.clientY - 18) + 'px';
+              ruler.style.top = e.clientY + 'px';
             }
           }
         }, { passive: true });

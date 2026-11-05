@@ -1,5 +1,7 @@
 ---
 // SobreGovernanca.astro - Sub-view 2: Governança Estatutária e Estrutura Orgânica
+import { route, asset } from '../../lib/paths';
+
 const diretorias = [
   { sigla: 'DIPRE', nome: '1. Diretoria da Presidência', icon: 'bi-bank', desc: 'Presidência e Vice-Presidência. Representação jurídica, institucional e política perante a UFMG e a sociedade (Art. 28).' },
   { sigla: 'DIJUR', nome: '2. Diretoria de Assuntos Jurídicos', icon: 'bi-shield-check', desc: 'Atas de assembleias, arquivo institucional, conformidade jurídica e transparência (Art. 29).' },
@@ -55,13 +57,13 @@ const diretorias = [
     </div>
 
     <div class="pt-2 flex items-center gap-2 flex-wrap">
-      <a href="/documentos/regimento-interno-cagp-ufmg" class="cagp-btn-secondary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
+      <a href={route('/documentos/regimento-interno-cagp-ufmg')} class="cagp-btn-secondary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
         <i class="bi bi-eye" aria-hidden="true"></i> Ler Regimento Transcrito
       </a>
-      <a href="/documentos/regimento-interno-cagp-ufmg.pdf" download class="cagp-btn-primary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
+      <a href={asset('/documentos/regimento-interno-cagp-ufmg.pdf')} download class="cagp-btn-primary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
         <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> Baixar Regimento CAGP (PDF)
       </a>
-      <a href="/documentos/regimento-geral-ufmg.pdf" download class="cagp-btn-secondary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
+      <a href={asset('/documentos/regimento-geral-ufmg.pdf')} download class="cagp-btn-secondary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
         <i class="bi bi-building" aria-hidden="true"></i> Regimento Geral UFMG (PDF)
       </a>
     </div>

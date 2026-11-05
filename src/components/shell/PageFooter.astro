@@ -1,6 +1,6 @@
 ---
 // PageFooter.astro - Rodapé Institucional com Governança e Transparência
-import { asset } from '../../lib/paths';
+import { asset, route } from '../../lib/paths';
 ---
 
 <footer class="w-full bg-white border-t border-[#DFDBD2] mt-12 py-8 px-4 sm:px-6 select-none text-xs text-gray-600 pb-24 sm:pb-8">
@@ -22,14 +22,21 @@ import { asset } from '../../lib/paths';
     </div>
 
     <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 text-[11px]">
-      <div class="flex flex-wrap gap-3 font-semibold text-[#0A0A0A]">
-        <a href="/mapa-do-site" class="hover:text-[#8B1E2D] hover:underline">Mapa do Site</a>
+      <div class="flex flex-wrap gap-3 font-semibold text-[#0A0A0A] items-center">
+        <a href={route('/mapa-do-site')} class="hover:text-[#8B1E2D] hover:underline">Mapa do Site</a>
         <span>•</span>
-        <a href="/faq" class="hover:text-[#8B1E2D] hover:underline">Dúvidas Frequentes</a>
+        <a href={route('/faq')} class="hover:text-[#8B1E2D] hover:underline">Dúvidas Frequentes</a>
         <span>•</span>
-        <a href="/configuracoes" class="hover:text-[#8B1E2D] hover:underline">Configurações</a>
+        <button
+          type="button"
+          onclick="window.dispatchEvent(new CustomEvent('cagp:open-settings'))"
+          class="hover:text-[#8B1E2D] hover:underline cursor-pointer bg-transparent border-0 p-0 text-[11px] font-semibold text-[#0A0A0A]"
+          aria-label="Abrir painel de configurações"
+        >
+          Configurações
+        </button>
         <span>•</span>
-        <a href="/documentos" class="hover:text-[#8B1E2D] hover:underline">Regimentos & PDFs</a>
+        <a href={route('/documentos')} class="hover:text-[#8B1E2D] hover:underline">Regimentos & PDFs</a>
       </div>
       <div class="text-[10px] text-gray-400 font-mono">
         Astro 7 • PWA Offline • GPLv3

@@ -18,7 +18,7 @@ export interface ShortcutItem {
 export const SHORTCUTS_CATALOG: ShortcutItem[] = [
   {
     id: 'hoje',
-    label: 'Hoje',
+    label: 'Início',
     fullLabel: '1. Hoje & Campus',
     description: 'Bússola discente, status dos restaurantes e notícias do dia.',
     href: route('/'),
@@ -77,7 +77,7 @@ export const SHORTCUTS_CATALOG: ShortcutItem[] = [
   },
   {
     id: 'percurso',
-    label: 'Currículo',
+    label: 'Grade',
     fullLabel: '3. Currículo & Grade 10P',
     description: 'Grade curricular de 10 períodos, catálogo de optativas e grafo.',
     href: route('/percurso'),
@@ -154,7 +154,7 @@ export const SHORTCUTS_CATALOG: ShortcutItem[] = [
   },
   {
     id: 'sobre',
-    label: 'O CAGP',
+    label: 'CAGP',
     fullLabel: '5. O Centro Acadêmico',
     description: 'História do CAGP, representação discente e estatuto da entidade.',
     href: route('/sobre'),

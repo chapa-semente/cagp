@@ -154,7 +154,7 @@
 /* Tipografia dentro do nó */
 .grafo-node text.node-code {
   font-family: var(--font-mono, 'JetBrains Mono', monospace);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   fill: #0A0A0A;
   letter-spacing: 0.02em;
@@ -162,7 +162,7 @@
 
 .grafo-node text.node-name {
   font-family: var(--font-body, 'Inter', sans-serif);
-  font-size: 8.5px;
+  font-size: 9.5px;
   font-weight: 600;
   fill: #374151;
 }
@@ -191,6 +191,8 @@
   fill: #FFFFFF;
   letter-spacing: 0.04em;
 }
+
+
 
 /* Modo Alto Contraste AAA */
 html[data-a11y-contrast="high"] .cagp-grafo-viewport {

@@ -1,6 +1,9 @@
 ---
 // estagio-tcc.astro - Redirecionamento canônico para Estágio Supervisionado (/estagio)
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { route } from '../lib/paths';
+
+const targetUrl = route('/estagio');
 ---
 
 <BaseLayout
@@ -18,18 +21,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       Para maior clareza pedagógica e conformidade regimental, o conteúdo foi desmembrado em portais autônomos para <strong>Estágio (300h)</strong> e <strong>TCC (180h)</strong>.
     </p>
     <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
-      <a href="/estagio" class="cagp-btn-primary inline-flex items-center gap-2 text-sm px-4 py-2">
+      <a href={route('/estagio')} class="cagp-btn-primary inline-flex items-center gap-2 text-sm px-4 py-2 min-h-[44px]">
         <span>Ir para Estágio (300h)</span>
         <i class="bi bi-arrow-right" aria-hidden="true"></i>
       </a>
-      <a href="/tcc" class="cagp-btn-secondary inline-flex items-center gap-2 text-sm px-4 py-2">
+      <a href={route('/tcc')} class="cagp-btn-secondary inline-flex items-center gap-2 text-sm px-4 py-2 min-h-[44px]">
         <span>Ir para TCC (180h)</span>
         <i class="bi bi-arrow-right" aria-hidden="true"></i>
       </a>
     </div>
   </div>
 
-  <script is:inline>
-    window.location.replace('/estagio');
+  <script is:inline define:vars={{ targetUrl }}>
+    window.location.replace(targetUrl);
   </script>
 </BaseLayout>

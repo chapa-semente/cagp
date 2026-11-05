@@ -72,10 +72,6 @@ cagp/
 │       └── astro.yml                 # Workflow de CI/CD para GitHub Actions e GitHub Pages
 ├── _legacy_quarto/                   # Arquivo histórico dos arquivos .qmd legados da era Quarto
 ├── _referencias/                     # Documentação de apoio, memoriais e transcrições normativas
-│   ├── documentos-oficiais/          # Transcrições em Markdown dos regulamentos e ementários
-│   ├── identidade-visual/            # Manuais de marca do CAGP, UFMG e MinhaUFMG
-│   ├── memorial-tecnico.md           # Memória técnica integral de todos os ciclos de desenvolvimento
-│   └── README.md                     # Índice das referências não publicadas
 ├── logos/                            # SVGs vetoriais originais da marca do CAGP (Os Candangos)
 ├── public/                           # Assets estáticos servidos diretamente na raiz
 │   ├── documentos/                   # 8 PDFs oficiais do curso (PPC, Regimento, Resoluções)

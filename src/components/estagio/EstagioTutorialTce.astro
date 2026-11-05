@@ -175,7 +175,7 @@ const docs = [
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
         {docs.map((d) => (
           <a
-            href={d.link}
+            href={asset(d.link)}
             download
             class="cagp-card p-3 bg-white hover:bg-[#FBF8F3] transition-all no-underline block group"
           >

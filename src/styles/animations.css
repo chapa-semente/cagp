@@ -2,8 +2,10 @@
 
 :root {
   --cagp-spring: cubic-bezier(0.32, 0.72, 0, 1);
-  --cagp-m3-spatial-fast: cubic-bezier(0.42, 1.67, 0.21, 0.90);
-  --cagp-m3-spatial-default: cubic-bezier(0.38, 1.21, 0.22, 1.00);
+  --ease-spring-snappy: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-natural: cubic-bezier(0.16, 1, 0.3, 1);
+  --cagp-m3-spatial-fast: var(--ease-spring-snappy);
+  --cagp-m3-spatial-default: var(--ease-out-natural);
   --cagp-m3-effects-fast: cubic-bezier(0.31, 0.94, 0.34, 1.00);
   --cagp-m3-effects-default: cubic-bezier(0.34, 0.80, 0.34, 1.00);
 }
@@ -31,7 +33,7 @@
   width: 0%;
   background: linear-gradient(90deg, #8B1E2D 0%, #9E2424 50%, #E8A317 100%);
   border-bottom: 1px solid #0A0A0A;
-  transition: width 0.22s var(--cagp-spring);
+  transition: width 0.22s var(--ease-out-natural);
 }
 
 /* 2. Transições Direcionais de View Transitions */
@@ -72,25 +74,25 @@ html[data-nav-dir="forward"]::view-transition-old(root) {
   animation: cagpVtOutForward 180ms var(--cagp-m3-effects-fast) both;
 }
 html[data-nav-dir="forward"]::view-transition-new(root) {
-  animation: cagpVtInForward 220ms var(--cagp-spring) both;
+  animation: cagpVtInForward 220ms var(--ease-out-natural) both;
 }
 html[data-nav-dir="backward"]::view-transition-old(root) {
   animation: cagpVtOutBackward 180ms var(--cagp-m3-effects-fast) both;
 }
 html[data-nav-dir="backward"]::view-transition-new(root) {
-  animation: cagpVtInBackward 220ms var(--cagp-spring) both;
+  animation: cagpVtInBackward 220ms var(--ease-out-natural) both;
 }
 html[data-nav-dir="drill-in"]::view-transition-old(root) {
   animation: cagpVtOutDrillIn 180ms var(--cagp-m3-effects-fast) both;
 }
 html[data-nav-dir="drill-in"]::view-transition-new(root) {
-  animation: cagpVtInDrillIn 240ms var(--cagp-spring) both;
+  animation: cagpVtInDrillIn 240ms var(--ease-out-natural) both;
 }
 html[data-nav-dir="drill-out"]::view-transition-old(root) {
   animation: cagpVtOutDrillOut 180ms var(--cagp-m3-effects-fast) both;
 }
 html[data-nav-dir="drill-out"]::view-transition-new(root) {
-  animation: cagpVtInDrillOut 240ms var(--cagp-spring) both;
+  animation: cagpVtInDrillOut 240ms var(--ease-out-natural) both;
 }
 
 /* 3. Transição de Sub-Views (Abas de Workspace) */
@@ -103,7 +105,7 @@ html[data-nav-dir="drill-out"]::view-transition-new(root) {
   to { opacity: 1; transform: translateX(0); }
 }
 .cagp-animate-ws-enter {
-  animation: cagpWsEnterForward 0.22s var(--cagp-spring) both;
+  animation: cagpWsEnterForward 0.22s var(--ease-out-natural) both;
 }
 
 /* 4. Entrada Escalonada de Cards (Staggered Entrance) */
@@ -112,7 +114,7 @@ html[data-nav-dir="drill-out"]::view-transition-new(root) {
   to { opacity: 1; transform: translateY(0); }
 }
 .cagp-stagger-enter {
-  animation: cagpStaggerReveal 0.25s var(--cagp-spring) both;
+  animation: cagpStaggerReveal 0.25s var(--ease-out-natural) both;
   animation-delay: calc(var(--stagger-index, 0) * 35ms);
 }
 
@@ -170,7 +172,7 @@ html[data-nav-dir="drill-out"]::view-transition-new(root) {
   }
 }
 .cagp-seal-unlock {
-  animation: cagpSealUnlock 0.32s var(--cagp-spring) both;
+  animation: cagpSealUnlock 0.32s var(--ease-out-natural) both;
 }
 
 /* 8. Feedback Tátil ao Toque (Apple HIG micro-tap spring) */
@@ -201,7 +203,7 @@ html[data-nav-dir="drill-out"]::view-transition-new(root) {
   100% { transform: scale(1); }
 }
 .is-copied {
-  animation: cagpCopyPulse 0.25s var(--cagp-spring);
+  animation: cagpCopyPulse 0.25s var(--ease-out-natural);
 }
 
 /* 11. Entrada do Emblema Oficial (Prensa dos Candangos) */
@@ -223,7 +225,7 @@ html[data-nav-dir="drill-out"]::view-transition-new(root) {
   }
 }
 .cagp-emblem-stamp {
-  animation: cagpEmblemStamp 0.35s var(--cagp-spring) both;
+  animation: cagpEmblemStamp 0.35s var(--ease-out-natural) both;
 }
 
 /* 12. Shimmer Sweep Neo-Brutalista para Skeletons */
@@ -276,4 +278,24 @@ html[data-nav-dir="drill-out"]::view-transition-new(root) {
     animation: none !important;
   }
 }
+
+/* Suporte Dinâmico a Redução de Movimento A11y */
+html[data-a11y-motion="reduced"] *,
+html[data-a11y-motion="reduced"] *::before,
+html[data-a11y-motion="reduced"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+html[data-a11y-motion="reduced"] .cagp-shimmer {
+  animation: none !important;
+  background: #F4F1EA !important;
+}
+html[data-a11y-motion="reduced"] .grafo-link.is-active-req,
+html[data-a11y-motion="reduced"] .grafo-link.is-active-next,
+html[data-a11y-motion="reduced"] .grafo-link.link-formal.is-active-req,
+html[data-a11y-motion="reduced"] .grafo-link.link-formal.is-active-next {
+  animation: none !important;
+}
+
 

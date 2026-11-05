@@ -33,6 +33,24 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
     setDragY(0);
   }, [isOpen, initialDetent]);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen || !mounted || typeof document === 'undefined') return null;
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -47,7 +65,6 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
     if (diff > 0) {
       setDragY(diff);
     } else if (diff < -40 && detent === 'medium') {
-      // Expand to large detent on upward swipe
       setDetent('large');
     }
   };
@@ -61,12 +78,12 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
     setDragY(0);
   };
 
-  const heightClass = detent === 'large' ? 'h-[90dvh]' : 'h-[50dvh]';
+  const heightClass = detent === 'large' ? 'h-[90dvh] md:max-h-[85dvh]' : 'h-[55dvh] md:max-h-[70dvh]';
 
   const sheetContent = (
     <div
       id={id}
-      className="fixed inset-0 z-[1080] flex flex-col justify-end pointer-events-auto"
+      className="fixed inset-0 z-[1080] flex flex-col justify-end md:justify-center md:items-center p-0 md:p-4 pointer-events-auto"
       role="dialog"
       aria-modal="true"
       aria-labelledby={`${id}-title`}
@@ -78,17 +95,17 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
         aria-hidden="true"
       />
 
-      {/* Sheet Modal Container */}
+      {/* Sheet / Form Sheet Modal Container */}
       <div
-        className={`relative z-[1090] w-full max-w-2xl mx-auto bg-white/98 backdrop-blur-xl rounded-t-2xl border-2 border-b-0 border-[#0A0A0A] shadow-[0_-8px_32px_rgba(10,10,10,0.2)] flex flex-col transition-all duration-300 animate-in slide-in-from-bottom duration-300 ease-out ${heightClass}`}
+        className={`relative z-[1090] w-full max-w-2xl md:max-w-xl mx-auto bg-white/98 backdrop-blur-xl rounded-t-2xl md:rounded-2xl border-2 border-b-0 md:border-b-2 border-[#0A0A0A] shadow-[0_-8px_32px_rgba(10,10,10,0.2)] md:shadow-[6px_6px_0px_#0A0A0A] flex flex-col transition-all duration-300 animate-in slide-in-from-bottom md:zoom-in-95 ease-out ${heightClass}`}
         style={{
           transform: `translateY(${dragY}px)`,
           paddingBottom: 'calc(1rem + env(safe-area-inset-bottom, 0px))',
         }}
       >
-        {/* Grabber Area */}
+        {/* Grabber Area (Mobile only) */}
         <div
-          className="w-full h-10 flex items-center justify-center cursor-grab active:cursor-grabbing touch-none select-none"
+          className="w-full h-8 flex md:hidden items-center justify-center cursor-grab active:cursor-grabbing touch-none select-none shrink-0"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
@@ -99,14 +116,14 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
         </div>
 
         {/* Sheet Topbar */}
-        <div className="flex items-center justify-between px-4 pb-2 border-b border-[#DFDBD2]">
-          <h2 id={`${id}-title`} className="font-['Oswald'] text-lg font-bold text-[#0A0A0A] uppercase tracking-wide">
+        <div className="flex items-center justify-between px-4 pt-2 md:pt-4 pb-2 border-b border-[#DFDBD2] shrink-0">
+          <h2 id={`${id}-title`} className="font-['Oswald'] text-lg md:text-xl font-bold text-[#0A0A0A] uppercase tracking-wide">
             {title}
           </h2>
           <button
             type="button"
             onClick={onClose}
-            className="w-9 h-9 flex items-center justify-center rounded-full bg-[#F7F5F0] hover:bg-[#DFDBD2] text-[#0A0A0A] font-bold text-sm cursor-pointer transition-colors active:scale-95"
+            className="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full bg-[#F7F5F0] hover:bg-[#DFDBD2] text-[#0A0A0A] font-bold text-base cursor-pointer transition-colors active:scale-95"
             aria-label="Fechar gaveta"
           >
             ✕

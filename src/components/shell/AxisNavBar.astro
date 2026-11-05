@@ -78,6 +78,8 @@ const activeItemId = axis
     -webkit-overflow-scrolling: touch;
     scroll-snap-type: x mandatory;
     touch-action: pan-x;
+    mask-image: linear-gradient(to right, transparent 0px, black 16px, black calc(100% - 16px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0px, black 16px, black calc(100% - 16px), transparent 100%);
   }
   .cagp-axis-pill {
     scroll-snap-align: start;
@@ -127,6 +129,9 @@ const activeItemId = axis
         }
 
         if (matchedPill) {
+          // Centralizar suavemente no viewport mobile (BUG-17)
+          (matchedPill as HTMLElement).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+
           pills.forEach((p) => {
             const isMatch = p === matchedPill;
             p.classList.toggle('is-active', isMatch);

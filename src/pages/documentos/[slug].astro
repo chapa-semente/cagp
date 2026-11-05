@@ -2,7 +2,7 @@
 // [slug].astro - Leitor Editorial Apple HIG + Neo-brutalista de Transcrições Oficiais
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { asset } from '../../lib/paths';
+import { asset, route } from '../../lib/paths';
 
 // Metadados canônicos mapeados por slug
 const DOC_METADATA: Record<string, {
@@ -138,15 +138,15 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
     <!-- Breadcrumbs & Voltar -->
     <div class="flex items-center justify-between flex-wrap gap-2 text-xs">
       <nav aria-label="Trilha de navegação" class="flex items-center gap-1.5 text-gray-600 font-mono">
-        <a href="/" class="hover:text-[#8B1E2D] underline">Início</a>
+        <a href={route('/')} class="hover:text-[#8B1E2D] underline">Início</a>
         <span>/</span>
-        <a href="/documentos" class="hover:text-[#8B1E2D] underline">Acervo de Documentos</a>
+        <a href={route('/documentos')} class="hover:text-[#8B1E2D] underline">Acervo de Documentos</a>
         <span>/</span>
         <span class="text-[#0A0A0A] font-bold truncate max-w-[200px] sm:max-w-[400px]">{meta.badge}</span>
       </nav>
 
       <a
-        href="/documentos"
+        href={route('/documentos')}
         class="inline-flex items-center gap-1 font-['Oswald'] font-bold uppercase text-xs text-[#8B1E2D] hover:underline"
       >
         <i class="bi bi-arrow-left" aria-hidden="true"></i> Voltar ao Acervo

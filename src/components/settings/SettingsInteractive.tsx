@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { getVaultItem, setVaultItem, type VaultData, getAllVaultData } from '../../lib/storage/studentVault';
+import { getVaultItem, setVaultItem, type VaultData, VaultDefaults, getAllVaultData, applyA11yPrefsToDOM } from '../../lib/storage/studentVault';
 import { exportVaultBackup, importVaultBackup } from '../../lib/storage/backupVault';
+import { asset } from '../../lib/paths';
 import { SettingsA11ySection } from './SettingsA11ySection';
 import { SettingsAlertsSection } from './SettingsAlertsSection';
 import { SettingsVaultSection } from './SettingsVaultSection';
 
 export const SettingsInteractive: React.FC = () => {
-  const [a11y, setA11y] = useState<VaultData<'cagp_a11y_prefs_v2'>>({
-    font: 'md',
-    contrast: 'normal',
-    dyslexia: false,
-    motion: 'normal',
-    ruler: false,
-  });
+  const [a11y, setA11y] = useState<VaultData<'cagp_a11y_prefs_v2'>>(VaultDefaults.cagp_a11y_prefs_v2);
 
   const [notifs, setNotifs] = useState<VaultData<'cagp_notifications_prefs_v1'>>({
     ru1815: false,
@@ -30,7 +25,7 @@ export const SettingsInteractive: React.FC = () => {
       const storedNotifs = getVaultItem('cagp_notifications_prefs_v1');
       setA11y(storedA11y);
       setNotifs(storedNotifs);
-      applyA11yToDOM(storedA11y);
+      applyA11yPrefsToDOM(storedA11y);
 
       const all = getAllVaultData();
       const bytes = new Blob([JSON.stringify(all)]).size;
@@ -38,21 +33,11 @@ export const SettingsInteractive: React.FC = () => {
     }
   }, []);
 
-  const applyA11yToDOM = (prefs: VaultData<'cagp_a11y_prefs_v2'>) => {
-    if (typeof document === 'undefined') return;
-    const el = document.documentElement;
-    el.setAttribute('data-a11y-font', prefs.font);
-    el.setAttribute('data-a11y-contrast', prefs.contrast);
-    el.setAttribute('data-a11y-dyslexia', prefs.dyslexia ? 'true' : 'false');
-    el.setAttribute('data-a11y-motion', prefs.motion);
-    el.setAttribute('data-a11y-ruler', prefs.ruler ? 'true' : 'false');
-  };
-
   const updateA11y = (partial: Partial<VaultData<'cagp_a11y_prefs_v2'>>) => {
     const updated = { ...a11y, ...partial };
     setA11y(updated);
     setVaultItem('cagp_a11y_prefs_v2', updated);
-    applyA11yToDOM(updated);
+    applyA11yPrefsToDOM(updated);
   };
 
   const updateNotifs = (partial: Partial<VaultData<'cagp_notifications_prefs_v1'>>) => {
@@ -80,7 +65,7 @@ export const SettingsInteractive: React.FC = () => {
       const storedNotifs = getVaultItem('cagp_notifications_prefs_v1');
       setA11y(storedA11y);
       setNotifs(storedNotifs);
-      applyA11yToDOM(storedA11y);
+      applyA11yPrefsToDOM(storedA11y);
     } else {
       setFeedback({ text: res.error || 'Erro na restauração.', type: 'error' });
     }
@@ -140,7 +125,7 @@ export const SettingsInteractive: React.FC = () => {
 
         <div className="cagp-grouped-list border border-[#DFDBD2] rounded-lg overflow-hidden">
           <a
-            href="/documentos/regimento-interno-cagp-ufmg.pdf"
+            href={asset('/documentos/regimento-interno-cagp-ufmg.pdf')}
             download
             className="cagp-grouped-item"
           >
@@ -151,7 +136,7 @@ export const SettingsInteractive: React.FC = () => {
             <i className="bi bi-chevron-right cagp-grouped-chevron" aria-hidden="true"></i>
           </a>
           <a
-            href="/documentos/regulamento-gestao-publica-ufmg.pdf"
+            href={asset('/documentos/regulamento-gestao-publica-ufmg.pdf')}
             download
             className="cagp-grouped-item"
           >
@@ -162,7 +147,7 @@ export const SettingsInteractive: React.FC = () => {
             <i className="bi bi-chevron-right cagp-grouped-chevron" aria-hidden="true"></i>
           </a>
           <a
-            href="/documentos/ppc-gestao-publica-ufmg.pdf"
+            href={asset('/documentos/ppc-gestao-publica-ufmg.pdf')}
             download
             className="cagp-grouped-item"
           >

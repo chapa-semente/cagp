@@ -1,5 +1,6 @@
 ---
 // CursoIngresso.astro - Sub-view 4: Formas de Ingresso na Graduação
+import { asset } from '../../lib/paths';
 ---
 
 <div class="space-y-4 text-[#0A0A0A]">
@@ -33,7 +34,7 @@
             Entrada principal de 80 vagas anuais divididas entre o 1º e 2º períodos letivos, com reserva de vagas por cotas sociais e raciais.
           </p>
         </div>
-        <a href="/documentos/forma-ingresso-sisu.pdf" download class="text-xs font-bold text-[#8B1E2D] hover:underline mt-3 inline-flex items-center gap-1">
+        <a href={asset('/documentos/forma-ingresso-sisu.pdf')} download class="text-xs font-bold text-[#8B1E2D] hover:underline mt-3 inline-flex items-center gap-1">
           <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> Guia SiSU (PDF) &rarr;
         </a>
       </div>
@@ -51,7 +52,7 @@
             Vagas remanescentes para candidatos com diploma de graduação reconhecido pelo MEC via edital do DRCA.
           </p>
         </div>
-        <a href="/documentos/forma-ingresso-obtencao-novo-titulo.pdf" download class="text-xs font-bold text-[#0A0A0A] hover:underline mt-3 inline-flex items-center gap-1">
+        <a href={asset('/documentos/forma-ingresso-obtencao-novo-titulo.pdf')} download class="text-xs font-bold text-[#0A0A0A] hover:underline mt-3 inline-flex items-center gap-1">
           <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> Guia Novo Título (PDF) &rarr;
         </a>
       </div>
@@ -69,7 +70,7 @@
             Destinado a estudantes de outros cursos de graduação da UFMG que queiram migrar para Gestão Pública.
           </p>
         </div>
-        <a href="/documentos/forma-ingresso-reopcao.pdf" download class="text-xs font-bold text-[#005A9C] hover:underline mt-3 inline-flex items-center gap-1">
+        <a href={asset('/documentos/forma-ingresso-reopcao.pdf')} download class="text-xs font-bold text-[#005A9C] hover:underline mt-3 inline-flex items-center gap-1">
           <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> Guia Reopção (PDF) &rarr;
         </a>
       </div>
@@ -87,7 +88,7 @@
             Para graduandos matriculados em cursos de Gestão Pública ou áreas afins de outras faculdades do Brasil.
           </p>
         </div>
-        <a href="/documentos/requerimento-transferencia-outra-ies.pdf" download class="text-xs font-bold text-[#15803D] hover:underline mt-3 inline-flex items-center gap-1">
+        <a href={asset('/documentos/requerimento-transferencia-outra-ies.pdf')} download class="text-xs font-bold text-[#15803D] hover:underline mt-3 inline-flex items-center gap-1">
           <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> Formulário DRCA (PDF) &rarr;
         </a>
       </div>

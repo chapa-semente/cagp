@@ -362,18 +362,18 @@ html[data-a11y-contrast="high"] .cagp-toast {
   box-shadow: none !important;
 }
 
-/* Régua Visual de Leitura e Foco */
+/* Régua Visual de Leitura e Foco Unificada (Apple HIG + A11y) */
 .cagp-reading-ruler {
   display: none;
   position: fixed;
   left: 0;
   right: 0;
-  height: 54px;
-  background-color: rgba(255, 235, 59, 0.18);
-  border-top: 2px solid var(--color-cagp-burgundy, #8B1E2D);
-  border-bottom: 2px solid var(--color-cagp-burgundy, #8B1E2D);
+  height: 48px;
+  background-color: rgba(232, 163, 23, 0.15);
+  border-top: 2px solid var(--color-cagp-gold, #E8A317);
+  border-bottom: 2px solid var(--color-cagp-gold, #E8A317);
   pointer-events: none;
-  z-index: 1020;
+  z-index: 9998;
   transform: translateY(-50%);
   box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.25);
 }
@@ -381,3 +381,15 @@ html[data-a11y-contrast="high"] .cagp-toast {
 html[data-a11y-ruler="true"] .cagp-reading-ruler {
   display: block;
 }
+
+/* Fallback para Redução de Transparência */
+@media (prefers-reduced-transparency: reduce) {
+  .cagp-glass-surface,
+  .cagp-liquid-curtain {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-color: #FFFFFF !important;
+  }
+
+}
+

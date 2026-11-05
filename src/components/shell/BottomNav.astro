@@ -15,8 +15,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 >
   <div
     id="cagp-bottom-nav-container"
-    class="pointer-events-auto bg-white/95 backdrop-blur-xl border-2 border-[#0A0A0A] shadow-[3px_3px_0px_#0A0A0A] rounded-full px-2.5 py-1.5 flex items-center justify-center gap-1.5 sm:gap-2 transition-all duration-300"
-    role="toolbar"
+    class="pointer-events-auto bg-white/95 backdrop-blur-xl border-2 border-[#0A0A0A] shadow-[3px_3px_0px_#0A0A0A] rounded-full px-2 py-1 flex items-center justify-center gap-1 sm:gap-1.5 transition-all duration-300"
     aria-label="Atalhos discentes"
   >
     <!-- Renderizado Inicialmente no SSR com os 5 Atalhos Canônicos -->
@@ -33,20 +32,23 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
           data-shortcut-id={item.id}
           data-match={JSON.stringify(item.match)}
           data-action={item.isAction ? item.actionEvent : undefined}
-          class={`cagp-nav-item relative flex items-center justify-center rounded-full transition-all duration-300 no-underline cursor-pointer ${
-            isMatched ? 'is-active' : ''
+          class={`cagp-nav-item relative flex flex-col items-center justify-center min-w-[50px] min-h-[46px] px-1 py-0.5 rounded-xl transition-all duration-200 no-underline cursor-pointer ${
+            isMatched ? 'is-active text-[#8B1E2D]' : 'text-gray-600 hover:text-[#8B1E2D]'
           }`}
           aria-current={isMatched ? 'page' : undefined}
           aria-label={item.fullLabel}
           title={item.fullLabel}
         >
-          <div class="cagp-nav-icon-circle w-10 h-10 min-w-[40px] min-h-[40px] rounded-full flex items-center justify-center transition-all duration-300 relative text-gray-700">
-            <i class={`bi ${item.icon} text-lg transition-transform duration-200`} aria-hidden="true" />
+          <div class="cagp-nav-icon-circle w-7 h-7 min-w-[28px] min-h-[28px] rounded-full flex items-center justify-center transition-all duration-200 relative text-gray-700">
+            <i class={`bi ${item.icon} text-base transition-transform duration-200`} aria-hidden="true" />
             <span
-              class="cagp-nav-active-dot absolute -bottom-1 w-1.5 h-1.5 rounded-full bg-[#8B1E2D] ring-2 ring-white opacity-0 transition-opacity duration-200"
+              class="cagp-nav-active-dot absolute -bottom-0.5 w-1.5 h-1.5 rounded-full bg-[#8B1E2D] ring-2 ring-white opacity-0 transition-opacity duration-200"
               aria-hidden="true"
             />
           </div>
+          <span class="text-[10px] font-['Oswald'] uppercase font-bold tracking-tight leading-none mt-1 text-center">
+            {item.label}
+          </span>
         </a>
       );
     })}
@@ -58,11 +60,16 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     <button
       type="button"
       id="cagp-bottom-nav-customize-btn"
-      class="cagp-nav-item flex items-center justify-center w-10 h-10 min-w-[40px] min-h-[40px] rounded-full text-gray-400 hover:text-[#8B1E2D] hover:bg-[#F7F5F0] transition-colors cursor-pointer border-none bg-transparent"
+      class="cagp-nav-item flex flex-col items-center justify-center min-w-[50px] min-h-[46px] px-1 py-0.5 rounded-xl text-gray-500 hover:text-[#8B1E2D] hover:bg-[#F7F5F0] transition-colors cursor-pointer border-none bg-transparent"
       title="Personalizar atalhos da barra"
       aria-label="Personalizar atalhos da barra inferior"
     >
-      <i class="bi bi-sliders2 text-base" aria-hidden="true" />
+      <div class="w-7 h-7 min-w-[28px] min-h-[28px] rounded-full flex items-center justify-center">
+        <i class="bi bi-sliders2 text-base" aria-hidden="true" />
+      </div>
+      <span class="text-[10px] font-['Oswald'] uppercase font-bold tracking-tight leading-none mt-1 text-center">
+        Ajustes
+      </span>
     </button>
   </div>
 </nav>
@@ -74,26 +81,26 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
   }
   .cagp-nav-icon-circle {
     background: transparent;
-    border: 2px solid transparent;
+    border: 1.5px solid transparent;
     color: #4B5563;
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: all 0.25s var(--ease-spring-snappy, cubic-bezier(0.25, 1, 0.5, 1));
   }
   .cagp-nav-item:hover .cagp-nav-icon-circle {
     background: #F7F5F0;
     color: #8B1E2D;
-    transform: scale(1.08);
+    transform: scale(1.06);
   }
   .cagp-nav-item:active .cagp-nav-icon-circle {
     transform: scale(0.92);
   }
 
-  /* Estado Ativo: Circulado de Vermelho com Animação Apple Spring */
+  /* Estado Ativo: Apple HIG Spring */
   .cagp-nav-item.is-active .cagp-nav-icon-circle {
     background-color: #8B1E2D !important;
     color: #FFFFFF !important;
-    border: 2px solid #0A0A0A !important;
-    box-shadow: 2px 2px 0px #0A0A0A, 0 0 0 3px rgba(139, 30, 45, 0.35) !important;
-    transform: scale(1.08) translateY(-2px) !important;
+    border: 1.5px solid #0A0A0A !important;
+    box-shadow: 2px 2px 0px #0A0A0A, 0 0 0 2px rgba(139, 30, 45, 0.35) !important;
+    transform: scale(1.06) translateY(-1px) !important;
   }
   .cagp-nav-item.is-active .cagp-nav-icon-circle i {
     color: #FFFFFF !important;
@@ -101,6 +108,11 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
   .cagp-nav-item.is-active .cagp-nav-active-dot {
     opacity: 1 !important;
   }
+  .cagp-nav-item.is-active span {
+    color: #8B1E2D;
+  }
+
+
 </style>
 
 <script>
@@ -185,15 +197,18 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
               data-shortcut-id="${item.id}"
               data-match='${JSON.stringify(matchPatterns)}'
               ${isAction ? `data-action="${item.actionEvent}"` : ''}
-              class="cagp-nav-item relative flex items-center justify-center rounded-full transition-all duration-300 no-underline cursor-pointer ${isMatched ? 'is-active' : ''}"
+              class="cagp-nav-item relative flex flex-col items-center justify-center min-w-[50px] min-h-[46px] px-1 py-0.5 rounded-xl transition-all duration-200 no-underline cursor-pointer ${isMatched ? 'is-active text-[#8B1E2D]' : 'text-gray-600 hover:text-[#8B1E2D]'}"
               ${isMatched ? 'aria-current="page"' : ''}
               aria-label="${item.fullLabel}"
               title="${item.fullLabel}"
             >
-              <div class="cagp-nav-icon-circle w-10 h-10 min-w-[40px] min-h-[40px] rounded-full flex items-center justify-center transition-all duration-300 relative text-gray-700">
-                <i class="bi ${item.icon} text-lg transition-transform duration-200" aria-hidden="true"></i>
-                <span class="cagp-nav-active-dot absolute -bottom-1 w-1.5 h-1.5 rounded-full bg-[#8B1E2D] ring-2 ring-white opacity-0 transition-opacity duration-200" aria-hidden="true"></span>
+              <div class="cagp-nav-icon-circle w-7 h-7 min-w-[28px] min-h-[28px] rounded-full flex items-center justify-center transition-all duration-200 relative text-gray-700">
+                <i class="bi ${item.icon} text-base transition-transform duration-200" aria-hidden="true"></i>
+                <span class="cagp-nav-active-dot absolute -bottom-0.5 w-1.5 h-1.5 rounded-full bg-[#8B1E2D] ring-2 ring-white opacity-0 transition-opacity duration-200" aria-hidden="true"></span>
               </div>
+              <span class="text-[10px] font-['Oswald'] uppercase font-bold tracking-tight leading-none mt-1 text-center">
+                ${item.label}
+              </span>
             </a>
           `;
         })
@@ -205,11 +220,16 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
         <button
           type="button"
           id="cagp-bottom-nav-customize-btn"
-          class="cagp-nav-item flex items-center justify-center w-10 h-10 min-w-[40px] min-h-[40px] rounded-full text-gray-400 hover:text-[#8B1E2D] hover:bg-[#F7F5F0] transition-colors cursor-pointer border-none bg-transparent"
+          class="cagp-nav-item flex flex-col items-center justify-center min-w-[50px] min-h-[46px] px-1 py-0.5 rounded-xl text-gray-500 hover:text-[#8B1E2D] hover:bg-[#F7F5F0] transition-colors cursor-pointer border-none bg-transparent"
           title="Personalizar atalhos da barra"
           aria-label="Personalizar atalhos da barra inferior"
         >
-          <i class="bi bi-sliders2 text-base" aria-hidden="true"></i>
+          <div class="w-7 h-7 min-w-[28px] min-h-[28px] rounded-full flex items-center justify-center">
+            <i class="bi bi-sliders2 text-base" aria-hidden="true"></i>
+          </div>
+          <span class="text-[10px] font-['Oswald'] uppercase font-bold tracking-tight leading-none mt-1 text-center">
+            Ajustes
+          </span>
         </button>
       `;
 

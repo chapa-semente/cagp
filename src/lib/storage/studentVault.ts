@@ -43,11 +43,12 @@ export const VaultSchemas = {
   }),
   cagp_art41_checklist_v1: z.record(z.string(), z.boolean()),
   cagp_a11y_prefs_v2: z.object({
-    font: z.string(),
-    contrast: z.string(),
-    dyslexia: z.boolean(),
-    motion: z.string(),
-    ruler: z.boolean().optional(),
+    font: z.string().default('md'),
+    contrast: z.string().default('normal'),
+    dyslexia: z.boolean().default(false),
+    motion: z.string().default('normal'),
+    ruler: z.boolean().optional().default(false),
+    showDesktopDock: z.boolean().default(false),
   }),
   cagp_discente_shortcuts_v1: z.array(z.string()).min(1).max(5),
   cagp_student_profile_v1: z.object({
@@ -69,6 +70,7 @@ export const VaultSchemas = {
 
 export type VaultKey = keyof typeof VaultSchemas;
 export type VaultData<K extends VaultKey> = z.infer<(typeof VaultSchemas)[K]>;
+export type A11yPrefs = VaultData<'cagp_a11y_prefs_v2'>;
 
 export const VaultDefaults: { [K in VaultKey]: VaultData<K> } = {
   cagp_calc_ext_aac_v1: {},
@@ -90,6 +92,7 @@ export const VaultDefaults: { [K in VaultKey]: VaultData<K> } = {
     dyslexia: false,
     motion: 'normal',
     ruler: false,
+    showDesktopDock: false,
   },
   cagp_discente_shortcuts_v1: ['hoje', 'curso', 'percurso', 'documentos', 'sobre'],
   cagp_student_profile_v1: {
@@ -144,3 +147,18 @@ export function getAllVaultData(): Record<VaultKey, unknown> {
   }
   return all as Record<VaultKey, unknown>;
 }
+
+export function applyA11yPrefsToDOM(prefs?: VaultData<'cagp_a11y_prefs_v2'>): void {
+  if (typeof document === 'undefined') return;
+  const p = prefs || getVaultItem('cagp_a11y_prefs_v2');
+  const el = document.documentElement;
+  if (p.font) el.setAttribute('data-a11y-font', p.font);
+  if (p.contrast) el.setAttribute('data-a11y-contrast', p.contrast);
+  el.setAttribute('data-a11y-dyslexia', p.dyslexia ? 'true' : 'false');
+  if (p.motion) el.setAttribute('data-a11y-motion', p.motion);
+  el.setAttribute('data-a11y-ruler', p.ruler ? 'true' : 'false');
+
+  el.removeAttribute('data-theme');
+  el.setAttribute('data-desktop-dock', p.showDesktopDock ? 'true' : 'false');
+}
+

@@ -199,19 +199,3 @@
   border-color: #0A0A0A;
 }
 
-/* Régua Visual de Foco */
-.cagp-reading-ruler {
-  position: fixed;
-  left: 0;
-  right: 0;
-  height: 36px;
-  background-color: rgba(232, 163, 23, 0.18);
-  border-top: 2px solid rgba(139, 30, 45, 0.4);
-  border-bottom: 2px solid rgba(139, 30, 45, 0.4);
-  pointer-events: none;
-  z-index: 9998;
-  display: none;
-}
-html[data-a11y-ruler="true"] .cagp-reading-ruler {
-  display: block;
-}

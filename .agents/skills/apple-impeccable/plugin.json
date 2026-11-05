@@ -1,0 +1,14 @@
+{
+  "name": "apple-impeccable",
+  "version": "1.0.0",
+  "description": "Theme-agnostic UI/UX design and audit system combining Apple HIG ergonomics and materials with Impeccable technical verification.",
+  "author": {
+    "name": "CAGP & Antigravity"
+  },
+  "license": "MIT",
+  "suggestedPrompts": [
+    "/apple-impeccable audit src/components/Header.astro",
+    "/apple-impeccable design novo Bottom Navigation Bar para mobile",
+    "/apple-impeccable harden src/pages/index.astro"
+  ]
+}
