@@ -1,19 +1,59 @@
 import React, { useState, useEffect } from 'react';
-import { getVaultItem, setVaultItem } from '../../lib/storage/studentVault';
+import {
+  getVaultItem,
+  setVaultItem,
+  suggestRoleFromPeriod,
+  USER_ROLE_META,
+  type UserRole,
+} from '../../lib/storage/studentVault';
+import { CagpIcon, type CagpIconName } from '../ui/CagpIcon';
+
+const ROLE_OPTIONS: { role: UserRole; icon: CagpIconName }[] = [
+  { role: 'calouro', icon: 'checklist' },
+  { role: 'veterano', icon: 'curriculo' },
+  { role: 'formando', icon: 'curso' },
+  { role: 'ingressar', icon: 'door-open' },
+];
 
 export const SuperAppWelcomeModal: React.FC = () => {
   const [showTip, setShowTip] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [slide, setSlide] = useState(0);
+  const [selectedRole, setSelectedRole] = useState<UserRole>('calouro');
 
   useEffect(() => {
-    // Verifica se o estudante já completou ou dispensou o onboarding inicial
+    const profile = getVaultItem('cagp_student_profile_v1');
+    const savedRole = localStorage.getItem('cagp_user_role_v1');
+    if (savedRole) {
+      setSelectedRole(getVaultItem('cagp_user_role_v1'));
+    } else {
+      const suggested = suggestRoleFromPeriod(profile.period || '1º Período');
+      setSelectedRole(suggested);
+    }
+
     const completed = getVaultItem('cagp_onboarding_completed_v1');
     if (!completed) {
-      const timer = setTimeout(() => setShowTip(true), 1200);
+      const timer = setTimeout(() => setShowTip(true), 700);
       return () => clearTimeout(timer);
     }
   }, []);
+
+  useEffect(() => {
+    const handleOpenPicker = () => {
+      setSelectedRole(getVaultItem('cagp_user_role_v1'));
+      setShowTip(false);
+      setIsModalOpen(true);
+    };
+    window.addEventListener('cagp:open-role-picker', handleOpenPicker);
+    return () => window.removeEventListener('cagp:open-role-picker', handleOpenPicker);
+  }, []);
+
+  const handleConfirmRole = (roleToSave: UserRole) => {
+    setSelectedRole(roleToSave);
+    setVaultItem('cagp_user_role_v1', roleToSave);
+    setVaultItem('cagp_onboarding_completed_v1', true);
+    setShowTip(false);
+    setIsModalOpen(false);
+  };
 
   const handleDismiss = () => {
     setShowTip(false);
@@ -21,174 +61,164 @@ export const SuperAppWelcomeModal: React.FC = () => {
     setVaultItem('cagp_onboarding_completed_v1', true);
   };
 
-  const handleStartTour = () => {
-    setShowTip(false);
-    setIsModalOpen(true);
-  };
-
-  const slides = [
-    {
-      icon: 'bi-compass-fill',
-      iconColor: 'bg-[#8B1E2D]',
-      tag: 'Bem-vindo ao Super App Discente',
-      title: 'Toda a sua Graduação em um Só Lugar',
-      description:
-        'Criado pelo Centro Acadêmico de Gestão Pública (CAGP FAFICH/UFMG) para descomplicar sua rotina acadêmica: matriz curricular de 10 semestres, calculadora de 600h, guardião de prazos e normas oficiais.',
-    },
-    {
-      icon: 'bi-shield-check',
-      iconColor: 'bg-[#15803D]',
-      tag: 'Privacidade & Custo Zero',
-      title: '100% Seguro no seu Próprio Dispositivo',
-      description:
-        'Não há cadastro, senhas ou servidores remotos. Suas matérias marcadas, certificados e cálculos de horas ficam salvos exclusivamente no armazenamento local seguro do seu navegador e funcionam 100% offline.',
-    },
-    {
-      icon: 'bi-diagram-3-fill',
-      iconColor: 'bg-[#005A9C]',
-      tag: 'Navegação por Centrais',
-      title: 'Pílulas Táteis & Grafo Dinâmico',
-      description:
-        'Use as pílulas táteis no topo de cada tela para alternar entre simuladores e regras normativas. No Grafo 10P, você pode inclusive adicionar optativas livres de outros departamentos da UFMG!',
-    },
-  ];
-
-  const current = slides[slide];
-
   return (
     <>
-      {/* 1. Card Flutuante Estilo Apple TipKit (Não-bloqueante no canto inferior direito) */}
+      {/* 1. Card Flutuante Compacto de Boas-Vindas e Escolha de Perfil */}
       {showTip && !isModalOpen && (
         <aside
-          className="fixed bottom-[calc(5.25rem+env(safe-area-inset-bottom,0px))] md:bottom-6 right-3 md:right-6 z-[1045] max-w-sm w-[calc(100vw-1.5rem)] md:w-auto bg-white/95 dark:bg-[#1C1E22]/95 backdrop-blur-xl border border-black/15 dark:border-white/15 rounded-2xl shadow-sm p-3.5 animate-in slide-in-from-bottom duration-300"
-          aria-label="Dica de boas-vindas do Super App"
+          className="fixed bottom-[calc(4.75rem+env(safe-area-inset-bottom,0px))] md:bottom-5 right-3 md:right-6 z-[1045] max-w-md w-[calc(100vw-1.5rem)] bg-white/98 backdrop-blur-xl border border-[#DFDBD2] rounded-2xl shadow-lg p-4 animate-in slide-in-from-bottom duration-250"
+          aria-label="Escolha seu perfil no Super App CAGP"
         >
-          <div className="flex items-start gap-3">
-            <div className="w-9 h-9 rounded-xl bg-[#8B1E2D] text-white flex items-center justify-center shrink-0 shadow-xs">
-              <i className="bi bi-lightbulb-fill text-base" aria-hidden="true" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <span className="text-[11px] font-['Oswald'] uppercase font-bold tracking-wider text-[#8B1E2D] block">
-                Dica do Super App
-              </span>
-              <h2 className="font-['Oswald'] text-xs font-bold uppercase text-[#0A0A0A] dark:text-[#F5F3EF] leading-snug">
-                Conheça as ferramentas discentes em 30s
-              </h2>
-              <p className="text-[11px] text-gray-600 dark:text-[#A1A1AA] leading-tight mt-0.5">
-                Calculadora 600h, Grade 10P interativa e normas da FAFICH no seu bolso.
-              </p>
-              <div className="flex items-center gap-2 mt-2.5">
-                <button
-                  type="button"
-                  onClick={handleStartTour}
-                  className="px-3 py-1.5 min-h-[44px] bg-[#0A0A0A] hover:bg-[#8B1E2D] text-white text-[11px] font-['Oswald'] uppercase font-bold tracking-wide rounded-lg transition-colors cursor-pointer flex items-center justify-center"
-                >
-                  Conhecer em 30s
-                </button>
-                <button
-                  type="button"
-                  onClick={handleDismiss}
-                  className="px-2.5 py-1.5 min-h-[44px] text-gray-500 hover:text-[#0A0A0A] text-[11px] font-['Oswald'] uppercase font-bold rounded-lg transition-colors cursor-pointer flex items-center justify-center"
-                >
-                  Dispensar
-                </button>
+          <div className="flex items-start justify-between gap-3 mb-2.5">
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-xl bg-[#8B1E2D] text-white flex items-center justify-center shrink-0">
+                <CagpIcon name="hoje" className="w-5 h-5" />
+              </div>
+              <div>
+                <h2 className="font-['Oswald'] text-sm font-bold uppercase text-[#0A0A0A] leading-tight m-0">
+                  Qual é o seu momento no curso?
+                </h2>
+                <p className="text-xs text-[#57534E] m-0 mt-0.5">
+                  Adaptamos a tela inicial para a sua fase (salvo apenas no seu aparelho).
+                </p>
               </div>
             </div>
+            <button
+              type="button"
+              onClick={handleDismiss}
+              className="w-7 h-7 rounded-full hover:bg-[#F4F1EA] text-[#57534E] flex items-center justify-center cursor-pointer border-0 bg-transparent shrink-0"
+              aria-label="Fechar aviso"
+            >
+              <CagpIcon name="close" className="w-4 h-4" />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-2 gap-1.5 mb-3">
+            {ROLE_OPTIONS.map(({ role, icon }) => {
+              const meta = USER_ROLE_META[role];
+              const isSelected = selectedRole === role;
+              return (
+                <button
+                  key={role}
+                  type="button"
+                  onClick={() => handleConfirmRole(role)}
+                  className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between min-h-[60px] ${
+                    isSelected
+                      ? 'bg-[#8B1E2D]/8 border-[#8B1E2D] text-[#8B1E2D]'
+                      : 'bg-[#FBF8F3] hover:bg-[#F4F1EA] border-[#DFDBD2] text-[#292524]'
+                  }`}
+                >
+                  <div className="flex items-center justify-between gap-1">
+                    <span className="text-xs font-bold">{meta.label}</span>
+                    <CagpIcon name={icon} className="w-4 h-4 shrink-0 text-[#8B1E2D]" />
+                  </div>
+                  <span className="text-[10px] text-[#57534E] font-medium mt-1 block">
+                    {meta.badge}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="flex items-center justify-between text-[11px] text-[#57534E] pt-2 border-t border-[#DFDBD2]">
+            <span>Zero login • 100% offline</span>
+            <button
+              type="button"
+              onClick={() => {
+                setShowTip(false);
+                setIsModalOpen(true);
+              }}
+              className="font-bold text-[#8B1E2D] hover:underline cursor-pointer bg-transparent border-0 p-0"
+            >
+              Ver detalhes dos perfis &rarr;
+            </button>
           </div>
         </aside>
       )}
 
-      {/* 2. Modal Completo de Boas-Vindas (Invocado pelo discente) */}
+      {/* 2. Modal Completo de Escolha de Perfil Discente */}
       {isModalOpen && (
         <div
-          className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 select-none animate-in fade-in duration-200"
+          className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/55 backdrop-blur-xs p-4 select-none animate-in fade-in duration-200"
           role="dialog"
           aria-modal="true"
-          aria-labelledby="onboarding-title"
+          aria-labelledby="onboarding-role-title"
         >
-          <div className="w-full max-w-md bg-white dark:bg-[#1C1E22] border border-black/15 dark:border-white/15 rounded-2xl shadow-xl p-6 space-y-5 flex flex-col justify-between">
-            <div>
-              {/* Header do Card */}
-              <div className="flex items-center justify-between mb-4">
-                <span className={`w-12 h-12 rounded-xl ${current.iconColor} text-white flex items-center justify-center text-2xl shadow-xs`}>
-                  <i className={`bi ${current.icon}`} aria-hidden="true" />
-                </span>
-                <button
-                  type="button"
-                  onClick={handleDismiss}
-                  className="min-h-[44px] px-2.5 py-1 text-xs font-['Oswald'] uppercase font-bold text-gray-500 hover:text-[#0A0A0A] hover:bg-[#F7F5F0] rounded border border-transparent hover:border-[#DFDBD2] cursor-pointer flex items-center justify-center"
+          <div className="w-full max-w-lg bg-white border border-[#DFDBD2] rounded-3xl shadow-2xl p-6 space-y-5">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <h2
+                  id="onboarding-role-title"
+                  className="font-['Oswald'] text-xl font-bold uppercase text-[#0A0A0A] leading-tight m-0"
                 >
-                  Pular Introdução
-                </button>
+                  Escolha seu perfil de navegação
+                </h2>
+                <p className="text-xs text-[#57534E] mt-1 m-0 leading-relaxed">
+                  A Home prioriza prazos, checklists e atalhos diferentes para cada momento. Você pode trocar quando quiser no topo da Home ou no Passaporte.
+                </p>
               </div>
-
-              <span className="text-[11px] font-['Oswald'] uppercase font-bold tracking-wider text-[#8B1E2D] block mb-1">
-                {current.tag}
-              </span>
-              <h2 id="onboarding-title" className="font-['Oswald'] text-xl font-bold uppercase text-[#0A0A0A] dark:text-[#F5F3EF] leading-tight mb-2">
-                {current.title}
-              </h2>
-              <p className="text-xs text-gray-600 dark:text-[#A1A1AA] leading-relaxed">
-                {current.description}
-              </p>
+              <button
+                type="button"
+                onClick={handleDismiss}
+                className="w-9 h-9 rounded-full bg-[#FBF8F3] hover:bg-[#F4F1EA] border border-[#DFDBD2] text-[#292524] flex items-center justify-center cursor-pointer shrink-0"
+                aria-label="Fechar modal"
+              >
+                <CagpIcon name="close" className="w-4 h-4" />
+              </button>
             </div>
 
-            {/* Indicadores de Progresso & Ações com cagp-dot-btn */}
-            <div className="pt-4 border-t border-[#DFDBD2] dark:border-[#3F3F46] space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1">
-                  {slides.map((_, i) => (
-                    <button
-                      key={i}
-                      type="button"
-                      onClick={() => setSlide(i)}
-                      className="cagp-dot-btn min-w-[44px] min-h-[44px] flex items-center justify-center p-0 bg-transparent border-0 cursor-pointer"
-                      aria-label={`Ir para slide ${i + 1}`}
+            <div className="space-y-2">
+              {ROLE_OPTIONS.map(({ role, icon }) => {
+                const meta = USER_ROLE_META[role];
+                const isSelected = selectedRole === role;
+                return (
+                  <button
+                    key={role}
+                    type="button"
+                    onClick={() => setSelectedRole(role)}
+                    className={`w-full p-3.5 rounded-2xl border text-left transition-all cursor-pointer flex items-start gap-3.5 ${
+                      isSelected
+                        ? 'bg-[#8B1E2D]/6 border-[#8B1E2D] ring-1 ring-[#8B1E2D]'
+                        : 'bg-[#FBF8F3] hover:bg-[#F4F1EA] border-[#DFDBD2]'
+                    }`}
+                  >
+                    <span
+                      className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
+                        isSelected
+                          ? 'bg-[#8B1E2D] text-white'
+                          : 'bg-white text-[#8B1E2D] border border-[#DFDBD2]'
+                      }`}
                     >
-                      <span
-                        className={`h-2 rounded-full transition-all duration-200 block ${
-                          i === slide ? 'w-6 bg-[#0A0A0A] dark:bg-[#F5F3EF]' : 'w-2 bg-[#DFDBD2] dark:bg-[#3F3F46]'
-                        }`}
-                      />
-                    </button>
-                  ))}
-                </div>
-                <span className="text-xs font-mono text-gray-500">
-                  {slide + 1} de {slides.length}
-                </span>
-              </div>
+                      <CagpIcon name={icon} className="w-5 h-5" />
+                    </span>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-sm font-bold text-[#0A0A0A]">{meta.label}</span>
+                        <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-white border border-[#DFDBD2] text-[#57534E]">
+                          {meta.badge}
+                        </span>
+                      </div>
+                      <p className="text-xs text-[#57534E] mt-1 mb-0 leading-snug">
+                        {meta.tagline}
+                      </p>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
 
-              <div className="flex items-center gap-2">
-                {slide > 0 && (
-                  <button
-                    type="button"
-                    onClick={() => setSlide(slide - 1)}
-                    className="min-h-[44px] px-4 py-2 bg-[#F7F5F0] hover:bg-[#EAE6DE] border border-[#DFDBD2] rounded-lg text-xs font-['Oswald'] uppercase font-bold text-gray-700 transition-all cursor-pointer"
-                  >
-                    Voltar
-                  </button>
-                )}
-
-                {slide < slides.length - 1 ? (
-                  <button
-                    type="button"
-                    onClick={() => setSlide(slide + 1)}
-                    className="flex-1 min-h-[44px] px-5 py-2 bg-[#0A0A0A] text-white hover:bg-[#8B1E2D] rounded-lg font-['Oswald'] text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all shadow-sm hover:shadow-md cursor-pointer"
-                  >
-                    <span>Próximo Passo</span>
-                    <i className="bi bi-arrow-right" aria-hidden="true" />
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={handleDismiss}
-                    className="flex-1 min-h-[44px] px-5 py-2 bg-[#8B1E2D] text-white hover:bg-[#0A0A0A] rounded-lg font-['Oswald'] text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all shadow-sm hover:shadow-md cursor-pointer"
-                  >
-                    <span>Começar a Explorar</span>
-                    <i className="bi bi-rocket-takeoff-fill" aria-hidden="true" />
-                  </button>
-                )}
-              </div>
+            <div className="pt-3 border-t border-[#DFDBD2] flex items-center justify-between gap-3">
+              <span className="text-[11px] text-[#57534E] font-mono">
+                Cofre Local • Sem servidor
+              </span>
+              <button
+                type="button"
+                onClick={() => handleConfirmRole(selectedRole)}
+                className="min-h-[44px] px-5 py-2.5 bg-[#8B1E2D] hover:bg-[#6E1420] text-white rounded-xl font-['Oswald'] text-xs uppercase font-bold tracking-wider flex items-center gap-2 transition-colors cursor-pointer shadow-xs"
+              >
+                <span>Confirmar Perfil</span>
+                <CagpIcon name="check" className="w-4 h-4" />
+              </button>
             </div>
           </div>
         </div>

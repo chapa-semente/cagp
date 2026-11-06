@@ -1,0 +1,292 @@
+---
+// src/pages/noticias/[slug].astro — Página dedicada para leitura integral de cada notícia do CAGP
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import {
+  SIMULATED_NEWS,
+  SIMULATION_NOTICE,
+  SIMULATION_BADGE_TEXT,
+  type SimulatedNewsItem,
+} from '../../lib/simulatedData';
+import { getCagpIconSvg } from '../../lib/cagpIcons';
+import { route } from '../../lib/paths';
+
+export function getStaticPaths() {
+  return SIMULATED_NEWS.map((article) => ({
+    params: { slug: article.slug },
+    props: { article },
+  }));
+}
+
+interface Props {
+  article: SimulatedNewsItem;
+}
+
+const { article } = Astro.props;
+const otherArticles = SIMULATED_NEWS.filter((item) => item.slug !== article.slug).slice(0, 3);
+
+const badgeClass =
+  article.tagColor === 'burgundy'
+    ? 'bg-[#8B1E2D] text-white'
+    : article.tagColor === 'gold'
+    ? 'bg-[#E8A317] text-[#0A0A0A]'
+    : article.tagColor === 'green'
+    ? 'bg-[#15803D] text-white'
+    : 'bg-[#005A9C] text-white';
+
+const stampSvg = getCagpIconSvg('stamp', 'w-3.5 h-3.5');
+const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
+---
+
+<BaseLayout
+  title={`${article.title} — Notícias CAGP`}
+  description={article.summary}
+  activePage="hoje"
+  activeGroup="hoje"
+>
+  <div class="py-2 space-y-6 pb-10">
+    <!-- Subnavegação de Início · Mural de Notícias -->
+    <nav
+      aria-label="Navegação da Seção Início"
+      class="bg-white rounded-2xl border border-[#DFDBD2] p-2 flex flex-wrap items-center justify-between gap-2 shadow-2xs"
+    >
+      <div class="flex flex-wrap items-center gap-1.5">
+        <a
+          href={route('/')}
+          class="px-3.5 py-2 rounded-xl text-xs font-bold text-[#292524] hover:bg-[#FBF8F3] hover:text-[#8B1E2D] no-underline transition-colors"
+        >
+          Início
+        </a>
+        <a
+          href={route('/noticias')}
+          class="px-3.5 py-2 rounded-xl text-xs font-bold bg-[#8B1E2D] text-white no-underline shadow-2xs"
+        >
+          Mural de Notícias
+        </a>
+        <a
+          href={route('/') + '#campus'}
+          class="px-3.5 py-2 rounded-xl text-xs font-bold text-[#292524] hover:bg-[#FBF8F3] hover:text-[#8B1E2D] no-underline transition-colors"
+        >
+          Plantão Noturno
+        </a>
+        <a
+          href={route('/') + '#passaporte'}
+          class="px-3.5 py-2 rounded-xl text-xs font-bold text-[#292524] hover:bg-[#FBF8F3] hover:text-[#8B1E2D] no-underline transition-colors"
+        >
+          Passaporte
+        </a>
+      </div>
+
+      <a
+        href={route('/noticias')}
+        class="px-3 py-1.5 rounded-xl bg-[#FBF8F3] hover:bg-[#F4F1EA] border border-[#DFDBD2] text-xs font-bold text-[#292524] no-underline"
+      >
+        &larr; Voltar ao Mural Completo
+      </a>
+    </nav>
+
+    <!-- Aviso Obrigatório de Simulação (PRODUCT.md) -->
+    <div
+      role="note"
+      class="p-4 rounded-2xl bg-[#FEF3C7]/85 border border-[#F59E0B]/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-[#78350F]"
+    >
+      <div class="space-y-0.5">
+        <strong class="font-bold text-[#78350F] block">
+          Publicação Demonstrativa (simulated: true)
+        </strong>
+        <p class="m-0 text-[#78350F]">{SIMULATION_NOTICE}</p>
+      </div>
+      <span class="font-mono text-[10px] font-bold uppercase bg-white px-2.5 py-1 rounded-full border border-[#F59E0B]/40 shrink-0 self-start sm:self-center">
+        {SIMULATION_BADGE_TEXT}
+      </span>
+    </div>
+
+    <!-- Layout Editorial da Notícia Completa -->
+    <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
+      <!-- Corpo Principal da Notícia (8 Colunas) -->
+      <article class="xl:col-span-8 bg-white rounded-3xl border border-[#DFDBD2] overflow-hidden shadow-2xs">
+        <!-- Cabeçalho Visual com Arte Vetorial Exclusiva -->
+        <div class="h-44 sm:h-52 relative overflow-hidden">
+          {article.motif === 'assembleia' && (
+            <svg viewBox="0 0 640 220" class="w-full h-full object-cover" aria-hidden="true">
+              <rect width="640" height="220" fill="#8B1E2D" />
+              <circle cx="540" cy="45" r="110" fill="#9E2424" />
+              <path d="M40 180H600" stroke="#E8A317" stroke-width="2.5" stroke-opacity="0.65" />
+              <rect x="56" y="64" width="24" height="116" rx="3" fill="#FBF8F3" fill-opacity="0.18" />
+              <rect x="96" y="48" width="24" height="132" rx="3" fill="#FBF8F3" fill-opacity="0.28" />
+              <rect x="136" y="76" width="24" height="104" rx="3" fill="#FBF8F3" fill-opacity="0.18" />
+              <circle cx="490" cy="115" r="46" stroke="#E8A317" stroke-width="2.5" fill="none" stroke-dasharray="6 4" />
+            </svg>
+          )}
+          {article.motif === 'carreiras' && (
+            <svg viewBox="0 0 640 220" class="w-full h-full object-cover" aria-hidden="true">
+              <rect width="640" height="220" fill="#1E3F66" />
+              <circle cx="530" cy="170" r="120" fill="#005A9C" fill-opacity="0.55" />
+              <path d="M56 164L190 98L300 128L450 58L570 80" stroke="#E8A317" stroke-width="4" fill="none" stroke-linecap="round" />
+              <circle cx="190" cy="98" r="6" fill="#FFFDF9" />
+              <circle cx="300" cy="128" r="6" fill="#FFFDF9" />
+              <circle cx="450" cy="58" r="7" fill="#E8A317" />
+            </svg>
+          )}
+          {article.motif === 'calourada' && (
+            <svg viewBox="0 0 640 220" class="w-full h-full object-cover" aria-hidden="true">
+              <rect width="640" height="220" fill="#15803D" />
+              <circle cx="120" cy="40" r="95" fill="#166534" />
+              <circle cx="500" cy="110" r="56" stroke="#FEF3C7" stroke-width="3" fill="none" />
+              <path d="M340 175C370 120 440 120 470 175" stroke="#FFFDF9" stroke-width="3" fill="none" />
+              <path d="M430 175C460 120 530 120 560 175" stroke="#E8A317" stroke-width="3" fill="none" />
+            </svg>
+          )}
+          {article.motif === 'congresso' && (
+            <svg viewBox="0 0 640 220" class="w-full h-full object-cover" aria-hidden="true">
+              <rect width="640" height="220" fill="#3B1D24" />
+              <circle cx="180" cy="110" r="42" stroke="#E8A317" stroke-width="2.5" fill="none" />
+              <circle cx="340" cy="70" r="32" stroke="#FFFDF9" stroke-width="2.5" fill="none" />
+              <circle cx="480" cy="135" r="38" stroke="#E8A317" stroke-width="2.5" fill="none" />
+              <path d="M220 96L310 78M370 84L444 120" stroke="#FFFDF9" stroke-width="2" stroke-opacity="0.65" />
+            </svg>
+          )}
+
+          <div class="absolute top-4 left-4 right-4 flex flex-wrap items-center justify-between gap-2">
+            <span class={`text-xs font-bold px-3 py-1 rounded-full shadow-xs ${badgeClass}`}>
+              {article.tag}
+            </span>
+            <span class="text-[11px] font-mono font-bold bg-black/70 text-white px-3 py-1 rounded-full">
+              {article.meta}
+            </span>
+          </div>
+        </div>
+
+        <div class="p-6 sm:p-8 space-y-6">
+          <!-- Metadados & Carimbo Neo-Brutalista -->
+          <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[#DFDBD2]">
+            <div class="text-xs font-mono text-[#57534E] space-x-2">
+              <span>{article.dateLabel}</span>
+              <span>•</span>
+              <span>{article.author}</span>
+              <span>•</span>
+              <span>{article.readingTime}</span>
+            </div>
+
+            <span class="cagp-stamp-badge is-deferido">
+              <span set:html={stampSvg} />
+              <span>PUBLICAÇÃO CAGP</span>
+            </span>
+          </div>
+
+          <!-- Título e Subtítulo Editorial -->
+          <header class="space-y-3">
+            <h1 class="font-['Oswald'] text-2xl sm:text-3xl font-bold uppercase text-[#0A0A0A] leading-tight m-0">
+              {article.title}
+            </h1>
+            <p class="text-sm sm:text-base font-medium text-[#44403C] leading-relaxed m-0 max-w-[68ch]">
+              {article.summary}
+            </p>
+          </header>
+
+          <!-- Texto Integral da Notícia (Largura de leitura 65ch–72ch) -->
+          <div class="space-y-4 max-w-[70ch] text-sm sm:text-[15px] text-[#292524] leading-relaxed">
+            {article.fullContent.map((paragraph) => (
+              <p class="m-0 leading-relaxed">{paragraph}</p>
+            ))}
+          </div>
+
+          <!-- Destaques Práticos e Normativos -->
+          <section
+            aria-labelledby="heading-article-highlights"
+            class="p-5 rounded-2xl bg-[#FBF8F3] border border-[#DFDBD2] space-y-3 max-w-[70ch]"
+          >
+            <h2
+              id="heading-article-highlights"
+              class="font-['Oswald'] text-base font-bold uppercase text-[#0A0A0A] m-0"
+            >
+              Pontos-Chave &amp; Encaminhamentos
+            </h2>
+            <ul class="space-y-2 m-0 pl-4 text-xs sm:text-sm text-[#292524]">
+              {article.highlights.map((hl) => (
+                <li class="leading-relaxed">{hl}</li>
+              ))}
+            </ul>
+          </section>
+
+          <!-- Botões de Ação da Notícia -->
+          <footer class="pt-4 border-t border-[#DFDBD2] flex flex-wrap items-center justify-between gap-3">
+            <a
+              href={route('/noticias')}
+              class="px-4 py-2.5 rounded-xl bg-[#FBF8F3] hover:bg-[#F4F1EA] border border-[#DFDBD2] text-xs font-bold text-[#292524] no-underline"
+            >
+              &larr; Voltar para todas as notícias
+            </a>
+
+            {article.ctaHref && (
+              <a
+                href={article.ctaHref}
+                class="px-5 py-2.5 rounded-xl bg-[#8B1E2D] hover:bg-[#6E1420] text-white text-xs font-bold no-underline inline-flex items-center gap-2 transition-colors"
+              >
+                <span>{article.ctaLabel}</span>
+                <span set:html={arrowRightSvg} />
+              </a>
+            )}
+          </footer>
+        </div>
+      </article>
+
+      <!-- Coluna Lateral: Referências Oficiais & Outras Notícias do CAGP (4 Colunas) -->
+      <aside class="xl:col-span-4 space-y-5 xl:sticky xl:top-6">
+        <!-- Links e Serviços Relacionados -->
+        <div class="bg-white rounded-3xl border border-[#DFDBD2] p-5 shadow-2xs space-y-3.5">
+          <h2 class="font-['Oswald'] text-base font-bold uppercase text-[#0A0A0A] m-0">
+            Referências &amp; Serviços Relacionados
+          </h2>
+          <p class="text-xs text-[#57534E] m-0">
+            Acesse as páginas normativas e ferramentas oficiais ligadas a esta publicação:
+          </p>
+          <div class="space-y-2">
+            {article.relatedLinks.map((link) => (
+              <a
+                href={link.href}
+                class="p-3 rounded-2xl bg-[#FBF8F3] hover:bg-[#F4F1EA] border border-[#DFDBD2] no-underline text-[#0A0A0A] flex items-center justify-between gap-2 text-xs font-bold transition-colors"
+              >
+                <span>{link.label}</span>
+                <span class="text-[#8B1E2D] shrink-0" set:html={arrowRightSvg} />
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Outras Notícias do Mural do CAGP -->
+        <div class="bg-white rounded-3xl border border-[#DFDBD2] p-5 shadow-2xs space-y-3.5">
+          <div class="flex items-center justify-between">
+            <h2 class="font-['Oswald'] text-base font-bold uppercase text-[#0A0A0A] m-0">
+              Outras Notícias no CAGP
+            </h2>
+            <a
+              href={route('/noticias')}
+              class="text-xs font-bold text-[#8B1E2D] hover:underline no-underline"
+            >
+              Ver todas &rarr;
+            </a>
+          </div>
+
+          <div class="space-y-2.5">
+            {otherArticles.map((other) => (
+              <a
+                href={route(`/noticias/${other.slug}`)}
+                class="block p-3.5 rounded-2xl bg-[#FBF8F3] hover:bg-[#F4F1EA] border border-[#DFDBD2] no-underline transition-colors space-y-1"
+              >
+                <span class="text-[10px] font-mono font-bold text-[#8B1E2D] block">
+                  {other.tag}
+                </span>
+                <strong class="text-xs font-bold text-[#0A0A0A] block leading-snug">
+                  {other.title}
+                </strong>
+                <span class="text-[11px] font-bold text-[#8B1E2D] inline-flex items-center gap-1 pt-0.5">
+                  Ler notícia completa &rarr;
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</BaseLayout>

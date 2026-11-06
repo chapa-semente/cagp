@@ -2,7 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { BottomSheet } from './BottomSheet';
 import { PassportCard } from '../passport/PassportCard';
 import { TalentBankEditor } from '../passport/TalentBankEditor';
-import { getVaultItem, setVaultItem, type VaultData } from '../../lib/storage/studentVault';
+import {
+  getVaultItem,
+  setVaultItem,
+  USER_ROLE_META,
+  type UserRole,
+  type VaultData,
+} from '../../lib/storage/studentVault';
 import { exportVaultBackup, importVaultBackup } from '../../lib/storage/backupVault';
 
 interface PassportSheetProps {
@@ -12,6 +18,7 @@ interface PassportSheetProps {
 
 export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose }) => {
   const [activeTab, setActiveTab] = useState<'passport' | 'talent'>('passport');
+  const [userRole, setUserRole] = useState<UserRole>('calouro');
   const [profile, setProfile] = useState<VaultData<'cagp_student_profile_v1'>>({
     name: 'Estudante de Gestão Pública',
     period: '1º Período',
@@ -31,6 +38,7 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
     if (isOpen) {
       const p = getVaultItem('cagp_student_profile_v1');
       setProfile(p);
+      setUserRole(getVaultItem('cagp_user_role_v1'));
       const calcData = getVaultItem('cagp_calc_ext_aac_v1');
       const sum = Object.values(calcData).reduce((a, b) => a + (Number(b) || 0), 0);
       setExtHours(Math.min(600, sum));
@@ -122,6 +130,44 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
         {/* Aba 1: Passaporte & Carteira */}
         {activeTab === 'passport' && (
           <div>
+            {/* Seletor de Perfil / Momento no Curso */}
+            <div className="p-3 bg-[#FBF8F3] border border-[#DFDBD2] rounded-xl mb-3">
+              <div className="flex items-center justify-between mb-2">
+                <strong className="font-['Oswald'] text-xs uppercase text-[#0A0A0A]">
+                  Momento no Curso (Perfil da Home)
+                </strong>
+                <span className="text-[10px] font-mono text-[#8B1E2D] font-bold">
+                  {USER_ROLE_META[userRole].badge}
+                </span>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
+                {(['calouro', 'veterano', 'formando', 'ingressar'] as UserRole[]).map((r) => {
+                  const active = userRole === r;
+                  return (
+                    <button
+                      key={r}
+                      type="button"
+                      onClick={() => {
+                        setUserRole(r);
+                        setVaultItem('cagp_user_role_v1', r);
+                        setToastMsg({
+                          text: `Perfil alterado para: ${USER_ROLE_META[r].label}`,
+                          type: 'success',
+                        });
+                      }}
+                      className={`py-2 px-2 rounded-lg text-xs font-bold transition-all cursor-pointer border ${
+                        active
+                          ? 'bg-[#8B1E2D] text-white border-[#8B1E2D]'
+                          : 'bg-white text-[#292524] border-[#DFDBD2] hover:border-[#8B1E2D]'
+                      }`}
+                    >
+                      {USER_ROLE_META[r].shortLabel}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
             <PassportCard
               profile={profile}
               obrigCount={obrigCount}

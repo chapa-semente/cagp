@@ -20,6 +20,52 @@ export const CustomCourseSchema = z.object({
 });
 export type CustomCourse = z.infer<typeof CustomCourseSchema>;
 
+export const UserRoleSchema = z.enum(['calouro', 'veterano', 'formando', 'ingressar']);
+export type UserRole = z.infer<typeof UserRoleSchema>;
+
+export const USER_ROLE_META: Record<
+  UserRole,
+  { label: string; shortLabel: string; badge: string; tagline: string; periodHint: string }
+> = {
+  calouro: {
+    label: 'Sou Calouro(a)',
+    shortLabel: 'Calouro',
+    badge: '1º–2º Período',
+    tagline: 'Acolhimento, checklist dos primeiros 30 dias e rotina noturna na FAFICH.',
+    periodHint: 'Primeiros 30 dias • Acolhimento',
+  },
+  veterano: {
+    label: 'Sou Veterano(a)',
+    shortLabel: 'Veterano',
+    badge: '3º–7º Período',
+    tagline: 'Prazos de 120 dias (AAC), calculadora de 600h, percursos e catálogo de optativas.',
+    periodHint: 'Meio de Curso • 600h & Optativas',
+  },
+  formando: {
+    label: 'Sou Formando(a)',
+    shortLabel: 'Formando',
+    badge: '8º–10º Período',
+    tagline: 'Integralização das 600h, dispensa de estágio (Art. 41), modalidades de TCC e colação.',
+    periodHint: 'Reta Final • Estágio & TCC',
+  },
+  ingressar: {
+    label: 'Quero Ingressar',
+    shortLabel: 'Ingressar',
+    badge: 'Futuro Discente',
+    tagline: 'Conheça a carreira em Gestão Pública na UFMG, formas de ingresso (SiSU/Reopção) e a vida acadêmica.',
+    periodHint: 'SiSU, Reopção & Carreira Pública',
+  },
+};
+
+export function suggestRoleFromPeriod(period: string): UserRole {
+  const numMatch = period.match(/\d+/);
+  if (!numMatch) return 'calouro';
+  const n = parseInt(numMatch[0], 10);
+  if (n <= 2) return 'calouro';
+  if (n <= 7) return 'veterano';
+  return 'formando';
+}
+
 export const VaultSchemas = {
   cagp_calc_ext_aac_v1: z.record(z.string(), z.number()),
   cagp_aac_120d_certs_v1: z.array(CertSchema),
@@ -51,6 +97,7 @@ export const VaultSchemas = {
     showDesktopDock: z.boolean().default(false),
   }),
   cagp_discente_shortcuts_v1: z.array(z.string()).min(1).max(5),
+  cagp_user_role_v1: UserRoleSchema,
   cagp_student_profile_v1: z.object({
     name: z.string(),
     period: z.string(),
@@ -95,6 +142,7 @@ export const VaultDefaults: { [K in VaultKey]: VaultData<K> } = {
     showDesktopDock: false,
   },
   cagp_discente_shortcuts_v1: ['hoje', 'curso', 'percurso', 'documentos', 'sobre'],
+  cagp_user_role_v1: 'calouro',
   cagp_student_profile_v1: {
     name: 'Estudante de Gestão Pública',
     period: '1º Período',

@@ -1,0 +1,675 @@
+---
+// src/components/shell/AppShellSidebar.astro — Sidebar Adaptativa Unificada (Apple HIG + Papelaria CAGP)
+// Passos Impeccable: Distill → Layout → Colorize → Animate → Delight
+import { AXIS_REGISTRY, getAxisByPath } from '../../lib/navigationRegistry';
+import { SHORTCUTS_CATALOG, DEFAULT_SHORTCUT_IDS } from '../../lib/shortcutsCatalog';
+import { getCagpIconSvg, resolveCagpIconName } from '../../lib/cagpIcons';
+import { asset, route } from '../../lib/paths';
+
+const currentPath = Astro.url.pathname;
+const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
+---
+
+<!-- Backdrop Overlay no Tablet quando a Sidebar for expandida para 264px -->
+<div
+  id="cagp-sidebar-backdrop"
+  class="hidden fixed inset-0 bg-black/25 z-[1055] transition-opacity duration-200 md:block xl:hidden pointer-events-none opacity-0"
+  aria-hidden="true"
+></div>
+
+<aside
+  id="cagp-app-sidebar"
+  class="hidden md:flex md:w-[88px] xl:w-[264px] shrink-0 bg-white border-r border-[#DFDBD2] flex-col justify-between sticky top-0 h-[100dvh] max-h-[100dvh] z-[1020] select-none transition-[width] duration-250 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-x-hidden"
+  aria-label="Navegação Principal Lateral"
+  data-shortcuts-catalog={JSON.stringify(SHORTCUTS_CATALOG)}
+  data-shortcuts-defaults={JSON.stringify(DEFAULT_SHORTCUT_IDS)}
+>
+  <!-- Topo Rolável: Marca + Botão Expandir/Recolher + 5 Eixos Canônicos + Atalhos -->
+  <div class="flex flex-col flex-1 min-h-0 overflow-y-auto no-scrollbar p-2.5 xl:p-4 gap-4">
+    <!-- Cabeçalho da Sidebar: Identidade CAGP + Botão de Alternância no Tablet -->
+    <div class="cagp-sidebar-header flex flex-col xl:flex-row items-center xl:justify-between gap-2 pb-1 border-b border-[#DFDBD2]">
+      <a
+        href={route('/')}
+        class="flex items-center justify-center xl:justify-start gap-3 p-1 rounded-2xl hover:bg-[#FBF8F3] transition-colors no-underline group min-h-[44px] min-w-0"
+        aria-label="Início — Centro Acadêmico de Gestão Pública UFMG"
+        title="Início — CAGP UFMG"
+      >
+        <div class="w-10 h-10 rounded-xl bg-[#8B1E2D] text-white flex items-center justify-center shadow-2xs shrink-0 border border-black/15 group-hover:scale-[1.03] transition-transform">
+          <img
+            src={asset('/logos/cagp/12_simbolo_transparente_negativo.svg')}
+            alt=""
+            class="w-6 h-6 object-contain"
+            onerror="this.style.display='none'"
+          />
+        </div>
+        <div class="sidebar-expanded-block hidden xl:block min-w-0">
+          <span class="font-['Oswald'] text-sm font-bold uppercase tracking-tight text-[#0A0A0A] block leading-none">
+            CAGP UFMG
+          </span>
+          <span class="text-[11px] text-[#57534E] font-medium block mt-1 truncate">
+            Gestão Pública • FAFICH
+          </span>
+        </div>
+      </a>
+
+      <!-- Botão de Expandir / Recolher Sidebar no Tablet (Apple HIG Sidebar Toggle) -->
+      <button
+        type="button"
+        id="cagp-sidebar-toggle-btn"
+        class="xl:hidden w-10 h-8 rounded-xl bg-[#FBF8F3] hover:bg-[#F4F1EA] border border-[#DFDBD2] text-[#292524] hover:text-[#8B1E2D] flex items-center justify-center transition-all cursor-pointer shrink-0 active:scale-95"
+        title="Alternar largura da barra lateral (Rail / Completa)"
+        aria-label="Alternar expansão da barra lateral"
+      >
+        <span set:html={getCagpIconSvg('sidebar', 'w-4 h-4')} />
+      </button>
+    </div>
+
+    <!-- Navegação Primária: Os 5 Eixos Canônicos -->
+    <nav aria-label="Cinco Eixos do Curso" class="space-y-1">
+      <div class="sidebar-expanded-show hidden xl:flex items-center justify-between px-2.5 mb-1.5">
+        <span class="text-[11px] font-mono uppercase tracking-wider text-[#57534E] font-semibold">
+          5 Eixos Canônicos
+        </span>
+        <span class="text-[11px] font-mono text-[#8B1E2D] font-bold tabular-nums">PPC 2020</span>
+      </div>
+
+      {AXIS_REGISTRY.map((axis) => {
+        const isCurrentAxis = activeAxis.id === axis.id;
+        const iconSvg = getCagpIconSvg(resolveCagpIconName(axis.id), 'w-5 h-5 shrink-0');
+        const subItems = axis.items.filter((item) => !item.isOverview);
+
+        return (
+          <div class="space-y-1" data-axis-group={axis.id}>
+            <a
+              href={axis.rootHref}
+              data-axis-link={axis.id}
+              data-axis-root={axis.rootHref}
+              aria-current={isCurrentAxis ? 'page' : undefined}
+              class={`cagp-sidebar-axis-link flex flex-col xl:flex-row items-center xl:justify-between gap-1 xl:gap-3 px-2 xl:px-3 py-2 xl:py-2.5 rounded-xl no-underline transition-all min-h-[48px] xl:min-h-[44px] ${
+                isCurrentAxis
+                  ? 'is-active bg-[#8B1E2D] text-white font-semibold shadow-2xs'
+                  : 'text-[#292524] hover:bg-[#FBF8F3] hover:text-[#8B1E2D] font-medium'
+              }`}
+              title={`${axis.number}. ${axis.name} — ${axis.tagline}`}
+            >
+              <div class="flex flex-col xl:flex-row items-center gap-1 xl:gap-3 min-w-0">
+                <span class="cagp-sidebar-icon flex items-center justify-center shrink-0" set:html={iconSvg} />
+                <span class="cagp-sidebar-axis-label text-[10px] xl:text-xs font-semibold tracking-tight leading-tight text-center xl:text-left truncate max-w-[72px] xl:max-w-none">
+                  {axis.name}
+                </span>
+              </div>
+              <span
+                class={`cagp-sidebar-axis-num sidebar-expanded-show hidden xl:inline-flex items-center justify-center text-[11px] font-mono font-bold px-1.5 py-0.5 rounded-md tabular-nums shrink-0 ${
+                  isCurrentAxis
+                    ? 'bg-white/20 text-white'
+                    : 'bg-[#F4F1EA] text-[#57534E]'
+                }`}
+              >
+                0{axis.number}
+              </span>
+            </a>
+
+            {/* Sub-destinos do eixo no Desktop quando ativo (ou no tablet quando expandido) */}
+            {subItems.length > 0 && (
+              <div
+                data-axis-subnav={axis.id}
+                class={`sidebar-expanded-show hidden ${isCurrentAxis ? 'xl:flex' : ''} flex-col pl-6 pr-1 py-0.5 space-y-0.5 border-l-2 border-[#8B1E2D]/25 ml-4`}
+              >
+                {subItems.map((sub) => (
+                  <a
+                    href={sub.href}
+                    class="text-xs text-[#44403C] hover:text-[#8B1E2D] hover:bg-[#FBF8F3] px-2.5 py-1.5 rounded-lg no-underline flex items-center justify-between transition-colors truncate min-h-[36px]"
+                  >
+                    <span class="truncate">{sub.shortLabel || sub.label}</span>
+                    <span class="text-[11px] text-[#78716C]" aria-hidden="true">&rarr;</span>
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </nav>
+
+    <!-- Seção de Atalhos Favoritos do Student Vault (100% Funcional no Tablet & Desktop) -->
+    <div class="pt-3 border-t border-[#DFDBD2]">
+      <!-- Cabeçalho no Desktop e Tablet Expandido -->
+      <div class="sidebar-expanded-show hidden xl:flex items-center justify-between px-2.5 mb-1.5">
+        <span class="text-[11px] font-mono uppercase tracking-wider text-[#57534E] font-semibold">
+          Meus Atalhos
+        </span>
+        <button
+          type="button"
+          id="cagp-sidebar-edit-shortcuts"
+          class="text-xs font-bold text-[#8B1E2D] hover:underline cursor-pointer bg-transparent border-0 p-0"
+          title="Personalizar atalhos favoritos"
+        >
+          Editar
+        </button>
+      </div>
+
+      <!-- Cabeçalho no Modo Rail Tablet (Separador Sutil) -->
+      <div class="sidebar-rail-only flex xl:hidden items-center justify-center py-1">
+        <span class="w-6 h-[1px] bg-[#DFDBD2]"></span>
+      </div>
+
+      <!-- 1. Lista Completa de Atalhos (Desktop xl e Tablet quando expandido) -->
+      <div id="cagp-sidebar-shortcuts-list" class="sidebar-expanded-show hidden xl:flex flex-col space-y-0.5">
+        {DEFAULT_SHORTCUT_IDS.filter((id) => id !== 'menu').slice(0, 4).map((id) => {
+          const item = SHORTCUTS_CATALOG.find((s) => s.id === id) || SHORTCUTS_CATALOG[0];
+          const iconSvg = getCagpIconSvg(resolveCagpIconName(item.icon), 'w-4 h-4 shrink-0');
+          return (
+            <a
+              href={item.href}
+              data-sidebar-shortcut={item.id}
+              data-action={item.isAction ? item.actionEvent : undefined}
+              class="flex items-center justify-between gap-2.5 px-2.5 py-1.5 rounded-lg text-xs text-[#44403C] hover:bg-[#FBF8F3] hover:text-[#8B1E2D] no-underline transition-colors min-h-[38px]"
+            >
+              <span class="flex items-center gap-2 min-w-0 truncate">
+                <span class="text-[#8B1E2D]" set:html={iconSvg} />
+                <span class="truncate font-medium">{item.label}</span>
+              </span>
+              <span class="text-[11px] font-mono text-[#78716C]">{item.category}</span>
+            </a>
+          );
+        })}
+      </div>
+
+      <!-- 2. Ícones Táteis Diretos de Atalhos no Modo Rail (Tablet md..xl) -->
+      <div id="cagp-sidebar-shortcuts-rail" class="sidebar-rail-only flex xl:hidden flex-col items-center gap-1.5">
+        {DEFAULT_SHORTCUT_IDS.filter((id) => id !== 'menu').slice(0, 4).map((id) => {
+          const item = SHORTCUTS_CATALOG.find((s) => s.id === id) || SHORTCUTS_CATALOG[0];
+          const iconSvg = getCagpIconSvg(resolveCagpIconName(item.icon), 'w-5 h-5 shrink-0');
+          return (
+            <a
+              href={item.href}
+              data-sidebar-shortcut={item.id}
+              data-action={item.isAction ? item.actionEvent : undefined}
+              class="w-11 h-11 rounded-xl bg-[#FBF8F3] hover:bg-[#F4F1EA] text-[#292524] hover:text-[#8B1E2D] border border-[#DFDBD2] flex items-center justify-center transition-all cursor-pointer no-underline group active:scale-95 shrink-0"
+              title={`${item.fullLabel} (${item.category}) — Toque para abrir`}
+              aria-label={item.label}
+            >
+              <span class="text-[#8B1E2D] group-hover:scale-110 transition-transform" set:html={iconSvg} />
+            </a>
+          );
+        })}
+
+        <!-- Botão Discreto de Edição no Modo Rail (+) -->
+        <button
+          type="button"
+          id="cagp-rail-edit-shortcuts-btn"
+          class="w-8 h-8 rounded-lg text-[#57534E] hover:text-[#8B1E2D] hover:bg-[#FBF8F3] border border-dashed border-[#DFDBD2] flex items-center justify-center transition-colors cursor-pointer mt-1"
+          title="Personalizar Meus Atalhos"
+          aria-label="Personalizar Meus Atalhos"
+        >
+          <span class="text-xs font-bold leading-none">+</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Base da Sidebar: Ferramentas Rápidas + Cartão do Estudante (Ancorada com shrink-0) -->
+  <div class="p-2.5 xl:p-3.5 border-t border-[#DFDBD2] bg-[#FBF8F3] space-y-2.5 shrink-0">
+    <!-- Linha de Ações Rápidas da Casca (Busca Universal + Acessibilidade) -->
+    <div class="cagp-sidebar-actions-row flex flex-col xl:flex-row items-center justify-between gap-1.5 w-full min-w-0">
+      <!-- Busca Spotlight: Wide no Desktop/Expandido, Icon 44px no Rail -->
+      <button
+        type="button"
+        id="cagp-sidebar-spotlight-btn"
+        class="w-11 h-11 xl:w-auto xl:flex-1 min-h-[44px] px-2.5 py-1.5 rounded-xl bg-white hover:bg-[#F4F1EA] border border-[#DFDBD2] text-[#292524] text-xs font-medium flex items-center justify-center xl:justify-between gap-2 transition-colors cursor-pointer shrink-0"
+        title="Busca Universal (⌘K ou Ctrl+K)"
+        aria-label="Abrir Busca Universal Spotlight"
+      >
+        <span class="flex items-center gap-1.5 truncate">
+          <span class="text-[#8B1E2D]" set:html={getCagpIconSvg('search', 'w-4 h-4')} />
+          <span class="sidebar-expanded-show hidden xl:inline truncate">Buscar...</span>
+        </span>
+        <kbd class="sidebar-expanded-show hidden xl:inline-block text-[11px] font-mono bg-[#F4F1EA] text-[#57534E] px-1.5 py-0.5 rounded border border-[#DFDBD2]">
+          ⌘K
+        </kbd>
+      </button>
+
+      <!-- Botão de Acessibilidade -->
+      <button
+        type="button"
+        id="cagp-sidebar-a11y-btn"
+        class="w-11 h-11 min-h-[44px] rounded-xl bg-white hover:bg-[#F4F1EA] border border-[#DFDBD2] text-[#292524] flex items-center justify-center transition-colors cursor-pointer shrink-0"
+        title="Acessibilidade e Ajustes de Leitura"
+        aria-label="Abrir Preferências de Acessibilidade"
+      >
+        <span set:html={getCagpIconSvg('sliders', 'w-4 h-4')} />
+      </button>
+    </div>
+
+    <!-- Cartão Resumo do Discente (Passaporte) -->
+    <button
+      type="button"
+      id="cagp-sidebar-passport-btn"
+      class="w-full bg-white hover:bg-[#F4F1EA] border border-[#DFDBD2] rounded-2xl p-1.5 xl:p-2.5 flex items-center justify-center xl:justify-start gap-2.5 text-left transition-all cursor-pointer shadow-2xs group min-h-[52px]"
+      title="Abrir Passaporte Discente e Perfil"
+      aria-label="Abrir Passaporte Discente"
+    >
+      <div
+        id="cagp-sidebar-avatar"
+        class="w-10 h-10 rounded-full bg-[#8B1E2D] text-white font-['Oswald'] font-bold text-xs flex items-center justify-center shrink-0 border-2 border-[#E8A317] overflow-hidden"
+      >
+        GP
+      </div>
+      <div class="sidebar-expanded-block hidden xl:block flex-1 min-w-0">
+        <p id="cagp-sidebar-student-name" class="text-xs font-bold text-[#0A0A0A] truncate m-0 leading-tight">
+          Estudante GP
+        </p>
+        <div class="flex items-center gap-1.5 mt-0.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#15803D] shrink-0" aria-hidden="true"></span>
+          <span id="cagp-sidebar-student-meta" class="text-[11px] font-semibold text-[#15803D] truncate tabular-nums">
+            1º Período • Calouro
+          </span>
+        </div>
+      </div>
+    </button>
+  </div>
+</aside>
+
+<style>
+  #cagp-sidebar-toggle-btn svg {
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Regras de Expansão Fluida no Tablet (768px a 1279px) */
+  @media (min-width: 768px) and (max-width: 1279.98px) {
+    #cagp-app-sidebar.is-expanded {
+      width: 264px !important;
+      position: fixed !important;
+      top: 0 !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      box-shadow: 0 12px 32px rgba(10, 10, 10, 0.16) !important;
+      z-index: 1060 !important;
+    }
+
+    #cagp-app-sidebar.is-expanded .cagp-sidebar-header {
+      flex-direction: row !important;
+      justify-content: space-between !important;
+      width: 100% !important;
+    }
+
+    #cagp-app-sidebar.is-expanded #cagp-sidebar-toggle-btn {
+      width: 2.5rem !important;
+      height: 2.5rem !important;
+    }
+
+    #cagp-app-sidebar.is-expanded #cagp-sidebar-toggle-btn svg {
+      transform: rotate(180deg);
+    }
+
+    #cagp-app-sidebar.is-expanded .cagp-sidebar-actions-row {
+      flex-direction: row !important;
+      width: 100% !important;
+    }
+
+    #cagp-app-sidebar.is-expanded .sidebar-expanded-show {
+      display: flex !important;
+    }
+
+    #cagp-app-sidebar.is-expanded .sidebar-expanded-block {
+      display: block !important;
+    }
+
+    #cagp-app-sidebar.is-expanded .sidebar-rail-only {
+      display: none !important;
+    }
+
+    #cagp-app-sidebar.is-expanded .cagp-sidebar-axis-link {
+      flex-direction: row !important;
+      justify-content: space-between !important;
+      padding: 0.625rem 0.75rem !important;
+      text-align: left !important;
+    }
+
+    #cagp-app-sidebar.is-expanded .cagp-sidebar-axis-label {
+      text-align: left !important;
+      max-width: none !important;
+    }
+
+    #cagp-app-sidebar.is-expanded .cagp-sidebar-axis-num {
+      display: inline-flex !important;
+    }
+
+    #cagp-app-sidebar.is-expanded #cagp-sidebar-spotlight-btn {
+      flex: 1 1 0% !important;
+      width: auto !important;
+      min-width: 0 !important;
+      justify-content: space-between !important;
+    }
+
+    #cagp-app-sidebar.is-expanded #cagp-sidebar-a11y-btn {
+      width: 2.75rem !important;
+      flex-shrink: 0 !important;
+    }
+
+    #cagp-app-sidebar.is-expanded #cagp-sidebar-passport-btn {
+      justify-content: flex-start !important;
+      padding: 0.625rem !important;
+    }
+  }
+</style>
+
+<script>
+  import { getCagpIconSvg, resolveCagpIconName } from '../../lib/cagpIcons';
+
+  function initAppShellSidebar() {
+    const sidebar = document.getElementById('cagp-app-sidebar');
+    const backdrop = document.getElementById('cagp-sidebar-backdrop');
+    if (!sidebar) return;
+
+    const ROLE_LABELS: Record<string, string> = {
+      calouro: 'Calouro',
+      veterano: 'Veterano',
+      formando: 'Formando',
+      ingressar: 'Ingressar',
+    };
+
+    function expandSidebar() {
+      sidebar?.classList.add('is-expanded');
+      if (backdrop) {
+        backdrop.classList.remove('hidden', 'pointer-events-none', 'opacity-0');
+        backdrop.classList.add('opacity-100', 'pointer-events-auto');
+      }
+    }
+
+    function collapseSidebar() {
+      sidebar?.classList.remove('is-expanded');
+      if (backdrop) {
+        backdrop.classList.add('opacity-0', 'pointer-events-none');
+        backdrop.classList.remove('opacity-100', 'pointer-events-auto');
+        setTimeout(() => {
+          if (!sidebar?.classList.contains('is-expanded')) {
+            backdrop.classList.add('hidden');
+          }
+        }, 200);
+      }
+    }
+
+    function toggleSidebar() {
+      if (sidebar?.classList.contains('is-expanded')) {
+        collapseSidebar();
+      } else {
+        expandSidebar();
+      }
+    }
+
+    function syncSidebarProfile() {
+      const nameEl = document.getElementById('cagp-sidebar-student-name');
+      const metaEl = document.getElementById('cagp-sidebar-student-meta');
+      const avatarEl = document.getElementById('cagp-sidebar-avatar');
+
+      try {
+        const rawProfile = localStorage.getItem('cagp_student_profile_v1');
+        const rawRole = localStorage.getItem('cagp_user_role_v1');
+        const profile = rawProfile ? JSON.parse(rawProfile) : null;
+        const role = rawRole ? JSON.parse(rawRole) : 'calouro';
+        const roleLabel = ROLE_LABELS[role] || 'Calouro';
+
+        if (role === 'ingressar') {
+          if (nameEl) nameEl.textContent = 'Futuro(a) Estudante';
+          if (metaEl) metaEl.textContent = 'Perfil: Quero Ingressar';
+          if (avatarEl) avatarEl.innerHTML = '<span>UF</span>';
+          return;
+        }
+
+        if (profile && profile.name) {
+          if (nameEl) nameEl.textContent = profile.name;
+          if (metaEl) metaEl.textContent = `${profile.period || '1º Período'} • ${roleLabel}`;
+          if (avatarEl) {
+            if (profile.photoDataUrl) {
+              avatarEl.innerHTML = `<img src="${profile.photoDataUrl}" alt="" class="w-full h-full object-cover" />`;
+            } else {
+              const initials = String(profile.name)
+                .split(' ')
+                .filter(Boolean)
+                .slice(0, 2)
+                .map((w: string) => w[0].toUpperCase())
+                .join('');
+              avatarEl.textContent = initials || 'GP';
+            }
+          }
+        }
+      } catch {}
+    }
+
+    function syncSidebarShortcuts() {
+      const listEl = document.getElementById('cagp-sidebar-shortcuts-list');
+      const railEl = document.getElementById('cagp-sidebar-shortcuts-rail');
+      if (!sidebar) return;
+
+      try {
+        const catalogRaw = sidebar.getAttribute('data-shortcuts-catalog');
+        const defaultsRaw = sidebar.getAttribute('data-shortcuts-defaults');
+        const catalog = catalogRaw ? JSON.parse(catalogRaw) : [];
+        const defaults: string[] = defaultsRaw ? JSON.parse(defaultsRaw) : [];
+
+        const savedRaw = localStorage.getItem('cagp_discente_shortcuts_v1');
+        const savedIds: string[] = savedRaw ? JSON.parse(savedRaw) : defaults;
+        const idsToRender = (savedIds.length ? savedIds : defaults)
+          .filter((id) => id !== 'menu')
+          .slice(0, 4);
+
+        // 1. Renderiza a lista completa para Desktop xl e Tablet Expandido
+        if (listEl) {
+          listEl.innerHTML = idsToRender
+            .map((id) => {
+              const item = catalog.find((s: any) => s.id === id) || catalog[0];
+              if (!item) return '';
+              const svg = getCagpIconSvg(resolveCagpIconName(item.icon), 'w-4 h-4 shrink-0');
+              const actionAttr =
+                item.isAction && item.actionEvent ? `data-action="${item.actionEvent}"` : '';
+              return `
+                <a
+                  href="${item.href}"
+                  data-sidebar-shortcut="${item.id}"
+                  ${actionAttr}
+                  class="flex items-center justify-between gap-2.5 px-2.5 py-1.5 rounded-lg text-xs text-[#44403C] hover:bg-[#FBF8F3] hover:text-[#8B1E2D] no-underline transition-colors min-h-[38px]"
+                >
+                  <span class="flex items-center gap-2 min-w-0 truncate">
+                    <span class="text-[#8B1E2D]">${svg}</span>
+                    <span class="truncate font-medium">${item.label}</span>
+                  </span>
+                  <span class="text-[11px] font-mono text-[#78716C]">${item.category}</span>
+                </a>
+              `;
+            })
+            .join('');
+        }
+
+        // 2. Renderiza os ícones táteis diretos para o Modo Rail Tablet
+        if (railEl) {
+          railEl.innerHTML = `
+            ${idsToRender
+              .map((id) => {
+                const item = catalog.find((s: any) => s.id === id) || catalog[0];
+                if (!item) return '';
+                const svg = getCagpIconSvg(resolveCagpIconName(item.icon), 'w-5 h-5 shrink-0');
+                const actionAttr =
+                  item.isAction && item.actionEvent ? `data-action="${item.actionEvent}"` : '';
+                return `
+                  <a
+                    href="${item.href}"
+                    data-sidebar-shortcut="${item.id}"
+                    ${actionAttr}
+                    class="w-11 h-11 rounded-xl bg-[#FBF8F3] hover:bg-[#F4F1EA] text-[#292524] hover:text-[#8B1E2D] border border-[#DFDBD2] flex items-center justify-center transition-all cursor-pointer no-underline group active:scale-95 shrink-0"
+                    title="${item.fullLabel} (${item.category}) — Toque para abrir"
+                    aria-label="${item.label}"
+                  >
+                    <span class="text-[#8B1E2D] group-hover:scale-110 transition-transform">${svg}</span>
+                  </a>
+                `;
+              })
+              .join('')}
+            <button
+              type="button"
+              id="cagp-rail-edit-shortcuts-btn"
+              class="w-8 h-8 rounded-lg text-[#57534E] hover:text-[#8B1E2D] hover:bg-[#FBF8F3] border border-dashed border-[#DFDBD2] flex items-center justify-center transition-colors cursor-pointer mt-1"
+              title="Personalizar Meus Atalhos"
+              aria-label="Personalizar Meus Atalhos"
+            >
+              <span class="text-xs font-bold leading-none">+</span>
+            </button>
+          `;
+
+          document.getElementById('cagp-rail-edit-shortcuts-btn')?.addEventListener('click', () => {
+            window.dispatchEvent(new CustomEvent('cagp:open-shortcuts'));
+          });
+        }
+
+        bindShortcutActionLinks();
+      } catch {}
+    }
+
+    function syncActiveAxis() {
+      const baseUrl = (document.documentElement.dataset.baseUrl || '/').replace(/\/$/, '');
+      let cleanPath = window.location.pathname;
+      if (baseUrl && cleanPath.startsWith(baseUrl)) {
+        cleanPath = cleanPath.slice(baseUrl.length) || '/';
+      }
+      cleanPath = cleanPath.replace(/\/index\.html$/, '') || '/';
+
+      let activeId = 'hoje';
+      if (cleanPath.startsWith('/curso') || cleanPath.startsWith('/calouros') || cleanPath.startsWith('/pesquisa')) {
+        activeId = 'curso';
+      } else if (
+        cleanPath.startsWith('/percurso') ||
+        cleanPath.startsWith('/acg') ||
+        cleanPath.startsWith('/estagio') ||
+        cleanPath.startsWith('/tcc') ||
+        cleanPath.startsWith('/optativas')
+      ) {
+        activeId = 'curriculo';
+      } else if (
+        cleanPath.startsWith('/documentos') ||
+        cleanPath.startsWith('/faq') ||
+        cleanPath.startsWith('/mapa-do-site')
+      ) {
+        activeId = 'acervo';
+      } else if (
+        cleanPath.startsWith('/sobre') ||
+        cleanPath.startsWith('/gestao') ||
+        cleanPath.startsWith('/transparencia')
+      ) {
+        activeId = 'cagp';
+      }
+
+      sidebar?.querySelectorAll<HTMLAnchorElement>('[data-axis-link]').forEach((link) => {
+        const id = link.getAttribute('data-axis-link');
+        const isCurrent = id === activeId;
+        link.classList.toggle('is-active', isCurrent);
+        link.classList.toggle('bg-[#8B1E2D]', isCurrent);
+        link.classList.toggle('text-white', isCurrent);
+        link.classList.toggle('font-semibold', isCurrent);
+        link.classList.toggle('shadow-2xs', isCurrent);
+        link.classList.toggle('text-[#292524]', !isCurrent);
+        link.classList.toggle('hover:bg-[#FBF8F3]', !isCurrent);
+        link.classList.toggle('hover:text-[#8B1E2D]', !isCurrent);
+        if (isCurrent) link.setAttribute('aria-current', 'page');
+        else link.removeAttribute('aria-current');
+      });
+
+      sidebar?.querySelectorAll<HTMLElement>('[data-axis-subnav]').forEach((sub) => {
+        const id = sub.getAttribute('data-axis-subnav');
+        sub.classList.toggle('xl:flex', id === activeId);
+      });
+    }
+
+    function bindShortcutActionLinks() {
+      sidebar?.querySelectorAll<HTMLAnchorElement>('[data-action]').forEach((el) => {
+        el.onclick = (e) => {
+          const ev = el.getAttribute('data-action');
+          if (ev) {
+            e.preventDefault();
+            collapseSidebar();
+            window.dispatchEvent(new CustomEvent(ev));
+          }
+        };
+      });
+    }
+
+    function bindSidebarActions() {
+      const toggleBtn = document.getElementById('cagp-sidebar-toggle-btn');
+      if (toggleBtn) {
+        toggleBtn.onclick = (e) => {
+          e.stopPropagation();
+          toggleSidebar();
+        };
+      }
+
+      if (backdrop) {
+        backdrop.onclick = () => collapseSidebar();
+      }
+
+      const spotlightBtn = document.getElementById('cagp-sidebar-spotlight-btn');
+      if (spotlightBtn) {
+        spotlightBtn.onclick = () => {
+          collapseSidebar();
+          window.dispatchEvent(new CustomEvent('cagp:open-spotlight'));
+        };
+      }
+
+      const a11yBtn = document.getElementById('cagp-sidebar-a11y-btn');
+      if (a11yBtn) {
+        a11yBtn.onclick = () => {
+          collapseSidebar();
+          window.dispatchEvent(new CustomEvent('cagp:open-a11y'));
+        };
+      }
+
+      const passportBtn = document.getElementById('cagp-sidebar-passport-btn');
+      if (passportBtn) {
+        passportBtn.onclick = () => {
+          collapseSidebar();
+          window.dispatchEvent(new CustomEvent('cagp:open-passport'));
+        };
+      }
+
+      const editShortcutsBtn = document.getElementById('cagp-sidebar-edit-shortcuts');
+      if (editShortcutsBtn) {
+        editShortcutsBtn.onclick = () => {
+          collapseSidebar();
+          window.dispatchEvent(new CustomEvent('cagp:open-shortcuts'));
+        };
+      }
+
+      const railEditShortcutsBtn = document.getElementById('cagp-rail-edit-shortcuts-btn');
+      if (railEditShortcutsBtn) {
+        railEditShortcutsBtn.onclick = () => {
+          collapseSidebar();
+          window.dispatchEvent(new CustomEvent('cagp:open-shortcuts'));
+        };
+      }
+
+      // Ao clicar em qualquer link de navegação no tablet expandido, recolhe a sidebar
+      sidebar?.querySelectorAll<HTMLAnchorElement>('a[href]').forEach((link) => {
+        link.addEventListener('click', () => {
+          collapseSidebar();
+        });
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') collapseSidebar();
+      });
+
+      bindShortcutActionLinks();
+    }
+
+    syncSidebarProfile();
+    syncSidebarShortcuts();
+    syncActiveAxis();
+    bindSidebarActions();
+
+    window.addEventListener('cagp:vault-updated', () => {
+      syncSidebarProfile();
+      syncSidebarShortcuts();
+    });
+  }
+
+  initAppShellSidebar();
+  document.addEventListener('astro:page-load', initAppShellSidebar);
+</script>

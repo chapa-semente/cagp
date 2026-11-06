@@ -135,18 +135,15 @@ html[data-nav-dir="drill-out"]::view-transition-new(root) {
 @keyframes cagpStampImpact {
   0% {
     opacity: 0;
-    transform: scale(1.25) rotate(-6deg);
-    box-shadow: 1px 1px 0 #0A0A0A;
+    transform: scale(1.18) rotate(-4deg);
   }
   65% {
     opacity: 1;
-    transform: scale(0.98) rotate(-2deg);
-    box-shadow: 3.5px 3.5px 0 #0A0A0A;
+    transform: scale(0.97) rotate(-1deg);
   }
   100% {
     opacity: 1;
-    transform: scale(1) rotate(-2.5deg);
-    box-shadow: 2.5px 2.5px 0 #0A0A0A;
+    transform: scale(1) rotate(-1.25deg);
   }
 }
 .cagp-stamp-impact {

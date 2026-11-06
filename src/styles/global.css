@@ -12,7 +12,7 @@
   --color-cagp-burgundy: #8B1E2D;
   --color-cagp-red: #9E2424;
   --color-cagp-black: #0A0A0A;
-  --color-cagp-cream: #F7F5F0;
+  --color-cagp-cream: #FBF8F3;
   --color-cagp-surface: #FFFFFF;
   --color-cagp-border: #DFDBD2;
   --color-cagp-success: #15803D;
@@ -28,7 +28,7 @@
   --color-ufmg-bu: #5B2C6F;
 
   --font-display: 'Oswald', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  --font-body: 'Public Sans Variable', 'Public Sans', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
   --shadow-cagp-hard: 0 1px 3px rgba(0, 0, 0, 0.08);
@@ -60,6 +60,40 @@ html {
 body {
   font-synthesis: none;
   -moz-osx-font-smoothing: grayscale;
+  caret-color: #8B1E2D;
+}
+
+/* Browser surfaces tematizadas pela paleta CAGP (Craft Floor) */
+::selection {
+  background-color: #8B1E2D;
+  color: #FFFDF9;
+}
+
+a {
+  text-underline-offset: 0.22em;
+}
+
+.tabular-nums,
+[class*="font-mono"] {
+  font-variant-numeric: tabular-nums;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F4F1EA;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C7C1B6;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8B1E2D;
 }
 
 /* Balanço tipográfico de títulos (Apple HIG Editorial) */
@@ -74,12 +108,11 @@ p, .prose p {
   text-wrap: pretty;
 }
 
-/* GPU Composite Layer Isolation & Fluid Glass Optics (Apple HIG & Impeccable) */
+/* Superfícies 100% Opacas (The Opaque Paper Material Rule - Zero Liquid Glass / Zero Blur) */
 [class*="backdrop-blur"],
 .cagp-glass-surface {
-  isolation: isolate;
-  transform: translateZ(0);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 /* Transição Neo-Brutalismo -> Apple HIG Purity (V-17) */
@@ -115,9 +148,9 @@ body {
   padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   body {
-    padding-bottom: 2rem;
+    padding-bottom: 0;
   }
 }
 
@@ -648,7 +681,7 @@ html[data-a11y-dyslexia="true"] body {
   background-color: #f7f5f0;
   border: 1.5px solid #0a0a0a;
   color: #0a0a0a;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body);
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;

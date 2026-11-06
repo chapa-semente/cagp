@@ -1,143 +1,272 @@
 ---
-// MobileDrawer.astro - Menu Lateral Off-Canvas para Telas Mobile e Tablet (< 1024px)
-import { asset } from '../../lib/paths';
-import { HEADER_NAV_ITEMS } from './headerNavData';
+// src/components/shell/MobileDrawer.astro — Gaveta Lateral Off-Canvas Unificada com AppShellSidebar (Proposta A)
+import { AXIS_REGISTRY, getAxisByPath, normalizePathname } from '../../lib/navigationRegistry';
+import { SHORTCUTS_CATALOG, DEFAULT_SHORTCUT_IDS } from '../../lib/shortcutsCatalog';
+import { getCagpIconSvg, resolveCagpIconName } from '../../lib/cagpIcons';
+import { asset, route } from '../../lib/paths';
 
-const axisSections = HEADER_NAV_ITEMS.filter((item) => Boolean(item.children && item.children.length > 0));
+const currentPath = Astro.url.pathname;
+const cleanPath = normalizePathname(currentPath);
+const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
 ---
 
-<div id="cagp-mobile-drawer" class="cagp-mobile-drawer" role="dialog" aria-modal="true" aria-label="Menu Lateral do Portal">
-  <div class="cagp-drawer-backdrop" id="cagp-drawer-backdrop" onclick="window.dispatchEvent(new CustomEvent('cagp:close-drawer'))"></div>
+<div
+  id="cagp-mobile-drawer"
+  class="cagp-mobile-drawer"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Menu Lateral de Navegação CAGP UFMG"
+  data-shortcuts-catalog={JSON.stringify(SHORTCUTS_CATALOG)}
+  data-shortcuts-defaults={JSON.stringify(DEFAULT_SHORTCUT_IDS)}
+>
+  <div
+    class="cagp-drawer-backdrop"
+    id="cagp-drawer-backdrop"
+    onclick="window.dispatchEvent(new CustomEvent('cagp:close-drawer'))"
+  ></div>
+
   <div class="cagp-drawer-panel" role="document">
-    <!-- Header do Menu -->
-    <div class="cagp-drawer-header">
-      <div class="flex items-center gap-2">
-        <div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center p-1 border border-black/15 shadow-xs">
-          <img src={asset('/logos/cagp/10_simbolo_transparente_positivo.svg')} alt="Emblema Candangos CAGP" class="w-full h-full object-contain" />
+    <!-- Topo: Identidade CAGP UFMG + Fechar (44x44px) -->
+    <div class="p-4 border-b border-[#DFDBD2] bg-white flex items-center justify-between gap-3">
+      <a
+        href={route('/')}
+        class="cagp-drawer-link flex items-center gap-3 no-underline group min-w-0"
+      >
+        <div class="w-10 h-10 rounded-xl bg-[#8B1E2D] text-white flex items-center justify-center shadow-2xs shrink-0 border border-black/15">
+          <img
+            src={asset('/logos/cagp/12_simbolo_transparente_negativo.svg')}
+            alt=""
+            class="w-6 h-6 object-contain"
+            onerror="this.style.display='none'"
+          />
         </div>
-        <div>
-          <span class="font-['Oswald'] font-black text-sm uppercase tracking-wide text-[#0A0A0A] block leading-none">
-            Navegação Geral
+        <div class="min-w-0">
+          <span class="font-['Oswald'] text-sm font-bold uppercase tracking-tight text-[#0A0A0A] block leading-none">
+            CAGP UFMG
           </span>
-          <span class="text-[11px] text-gray-500 font-mono block mt-0.5"><strong class="text-[#8B1E2D]">CAGP</strong> FAFICH / UFMG</span>
+          <span class="text-[11px] text-[#57534E] font-medium block mt-1 truncate">
+            Gestão Pública • FAFICH
+          </span>
         </div>
-      </div>
-      <button type="button" id="cagp-drawer-close" class="cagp-drawer-close-btn" onclick="window.dispatchEvent(new CustomEvent('cagp:close-drawer'))" aria-label="Fechar menu lateral">
-        ✕
+      </a>
+
+      <button
+        type="button"
+        id="cagp-drawer-close"
+        class="cagp-drawer-close-btn"
+        onclick="window.dispatchEvent(new CustomEvent('cagp:close-drawer'))"
+        aria-label="Fechar menu de navegação"
+      >
+        <span set:html={getCagpIconSvg('close', 'w-5 h-5')} />
       </button>
     </div>
 
-    <!-- Atalho para o Passaporte do Estudante -->
-    <button
-      type="button"
-      id="cagp-drawer-passport-cta"
-      class="mb-3 p-2.5 rounded-xl border border-black/15 bg-[#F7F5F0] hover:bg-white text-left flex items-center gap-3 shadow-xs hover:shadow-sm active:scale-[0.98] transition-all cursor-pointer w-full group min-h-[44px]"
-    >
-      <div
-        id="cagp-drawer-avatar-slot"
-        class="w-10 h-10 rounded-full bg-[#8B1E2D] text-white flex items-center justify-center font-['Oswald'] font-bold text-sm border border-black/15 shadow-xs shrink-0 overflow-hidden relative"
-      >
-        <i class="bi bi-person-badge-fill text-lg"></i>
-      </div>
-      <div class="flex-1 min-w-0">
-        <span
-          id="cagp-drawer-student-name"
-          class="font-['Oswald'] font-bold text-xs uppercase text-[#0A0A0A] block group-hover:text-[#8B1E2D] leading-tight truncate"
-        >
-          Passaporte Discente
-        </span>
-        <span
-          id="cagp-drawer-student-sub"
-          class="text-[11px] text-gray-500 block leading-tight mt-0.5 truncate font-mono"
-        >
-          Horas, Perfil & Banco de Talentos &rarr;
-        </span>
-      </div>
-    </button>
-
-    <!-- Seções de Navegação dos Eixos (Cards Neo-Brutalistas Estilo Desktop) -->
-    <div class="space-y-1 flex-1 overflow-y-auto pr-1">
-      <!-- Eixo 1: Início & Bússola Discente -->
-      <div class="cagp-drawer-section-card">
-        <div class="cagp-drawer-section-header">
-          <span class="cagp-drawer-section-title">1. Hoje & Campus</span>
-          <a href="/" class="cagp-drawer-section-overview-btn">
-            <span>Página Inicial</span>
-            <i class="bi bi-house-door-fill text-xs" aria-hidden="true" />
-          </a>
+    <!-- Corpo Rolável: 5 Eixos Canônicos + Sub-rotas + Meus Atalhos (Espelho Exato da Sidebar Desktop) -->
+    <div class="flex-1 min-h-0 overflow-y-auto p-4 space-y-5 bg-white">
+      <nav aria-label="Cinco Eixos do Curso" class="space-y-1.5">
+        <div class="flex items-center justify-between px-2.5 mb-2">
+          <span class="text-[11px] font-mono uppercase tracking-wider text-[#57534E] font-semibold">
+            5 Eixos Canônicos
+          </span>
+          <span class="text-[11px] font-mono text-[#8B1E2D] font-bold tabular-nums">PPC 2020</span>
         </div>
-        <div class="space-y-0.5">
-          <a href="/#hoje" class="cagp-drawer-link group/item">
-            <div class="w-7 h-7 rounded-md bg-[#F7F5F0] group-hover/item:bg-[#8B1E2D] border border-[#DFDBD2] group-hover/item:border-[#0A0A0A] flex items-center justify-center shrink-0 transition-colors">
-              <i class="bi bi-compass text-sm text-[#8B1E2D] group-hover/item:text-white transition-colors" aria-hidden="true" />
-            </div>
-            <div class="min-w-0 flex-1">
-              <span class="cagp-drawer-link-title group-hover/item:text-[#8B1E2D]">Bússola & Rotina Discente</span>
-              <span class="cagp-drawer-link-desc line-clamp-1">Status dos restaurantes, notícias e atalhos essenciais</span>
-            </div>
-          </a>
-          <a href="/#apps" class="cagp-drawer-link group/item">
-            <div class="w-7 h-7 rounded-md bg-[#F7F5F0] group-hover/item:bg-[#8B1E2D] border border-[#DFDBD2] group-hover/item:border-[#0A0A0A] flex items-center justify-center shrink-0 transition-colors">
-              <i class="bi bi-grid-3x3-gap text-sm text-[#8B1E2D] group-hover/item:text-white transition-colors" aria-hidden="true" />
-            </div>
-            <div class="min-w-0 flex-1">
-              <span class="cagp-drawer-link-title group-hover/item:text-[#8B1E2D]">Sistemas & Aplicativos UFMG</span>
-              <span class="cagp-drawer-link-desc line-clamp-1">SIGA, MinhaUFMG, Moodle, FUMP e Carteirinha</span>
-            </div>
-          </a>
-        </div>
-      </div>
 
-      {axisSections.map((section) => (
-        <div class="cagp-drawer-section-card">
-          <div class="cagp-drawer-section-header">
-            <span class="cagp-drawer-section-title">{section.label}</span>
-            <a href={section.href} class="cagp-drawer-section-overview-btn">
-              <span>Visão Geral</span>
-              <i class="bi bi-arrow-right text-xs" aria-hidden="true" />
-            </a>
-          </div>
-          <div class="space-y-0.5">
-            {section.children?.map((child) => (
-              <a href={child.href} class="cagp-drawer-link group/item">
-                <div class="w-7 h-7 rounded-md bg-[#F7F5F0] group-hover/item:bg-[#8B1E2D] border border-[#DFDBD2] group-hover/item:border-[#0A0A0A] flex items-center justify-center shrink-0 transition-colors">
-                  <i class={`bi ${child.icon} text-sm text-[#8B1E2D] group-hover/item:text-white transition-colors`} aria-hidden="true" />
+        {AXIS_REGISTRY.map((axis) => {
+          const isCurrentAxis = activeAxis.id === axis.id;
+          const iconSvg = getCagpIconSvg(resolveCagpIconName(axis.id), 'w-5 h-5 shrink-0');
+          const subItems = axis.items.filter((item) => !item.isOverview);
+
+          return (
+            <div class="space-y-1" data-drawer-axis-group={axis.id}>
+              <a
+                href={axis.rootHref}
+                data-drawer-axis-link={axis.id}
+                aria-current={isCurrentAxis ? 'page' : undefined}
+                class={`cagp-drawer-link flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl no-underline transition-colors min-h-[44px] ${
+                  isCurrentAxis
+                    ? 'bg-[#8B1E2D] text-white font-semibold shadow-2xs'
+                    : 'text-[#292524] hover:bg-[#FBF8F3] hover:text-[#8B1E2D] font-medium'
+                }`}
+              >
+                <div class="flex items-center gap-3 min-w-0">
+                  <span class="flex items-center justify-center shrink-0" set:html={iconSvg} />
+                  <div class="min-w-0">
+                    <span class="text-xs font-bold block leading-tight truncate">
+                      {axis.name}
+                    </span>
+                    <span
+                      data-drawer-axis-tagline={axis.id}
+                      class={`text-[11px] block leading-tight mt-0.5 truncate ${
+                        isCurrentAxis ? 'text-[#FCE7EB]' : 'text-[#57534E]'
+                      }`}
+                    >
+                      {axis.tagline}
+                    </span>
+                  </div>
                 </div>
-                <div class="min-w-0 flex-1">
-                  <span class="cagp-drawer-link-title group-hover/item:text-[#8B1E2D]">{child.label}</span>
-                  <span class="cagp-drawer-link-desc line-clamp-1">{child.desc}</span>
-                </div>
+                <span
+                  data-drawer-axis-num={axis.id}
+                  class={`inline-flex items-center justify-center text-[11px] font-mono font-bold px-2 py-0.5 rounded-md shrink-0 tabular-nums ${
+                    isCurrentAxis
+                      ? 'bg-white/20 text-white'
+                      : 'bg-[#F4F1EA] text-[#57534E]'
+                  }`}
+                >
+                  0{axis.number}
+                </span>
               </a>
-            ))}
-          </div>
+
+              {subItems.length > 0 && (
+                <div class="flex flex-col pl-5 pr-1 py-0.5 space-y-0.5 border-l-2 border-[#8B1E2D]/25 ml-5">
+                  {subItems.map((sub) => {
+                    const subClean = sub.href.split('#')[0].replace(/\/$/, '') || '/';
+                    const isSubActive = !sub.href.includes('#') && subClean === cleanPath;
+                    return (
+                      <a
+                        href={sub.href}
+                        data-drawer-sublink={sub.href}
+                        class={`cagp-drawer-link text-xs px-3 py-2 rounded-lg no-underline flex items-center justify-between transition-colors min-h-[40px] ${
+                          isSubActive
+                            ? 'bg-[#FBF8F3] text-[#8B1E2D] font-bold'
+                            : 'text-[#44403C] hover:text-[#8B1E2D] hover:bg-[#FBF8F3] font-medium'
+                        }`}
+                      >
+                        <span class="truncate">{sub.label}</span>
+                        <span class="text-[11px] text-[#78716C] shrink-0 ml-2" aria-hidden="true">
+                          &rarr;
+                        </span>
+                      </a>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </nav>
+
+      <!-- Seção de Atalhos Favoritos do Student Vault (Unificada com Sidebar Desktop) -->
+      <div class="pt-4 border-t border-[#DFDBD2]">
+        <div class="flex items-center justify-between px-2.5 mb-1.5">
+          <span class="text-[11px] font-mono uppercase tracking-wider text-[#57534E] font-semibold">
+            Meus Atalhos
+          </span>
+          <button
+            type="button"
+            id="cagp-drawer-edit-shortcuts"
+            class="min-h-[36px] px-2 text-xs font-bold text-[#8B1E2D] hover:underline cursor-pointer bg-transparent border-0"
+          >
+            Editar
+          </button>
         </div>
-      ))}
+
+        <div id="cagp-drawer-shortcuts-list" class="flex flex-col space-y-0.5">
+          {DEFAULT_SHORTCUT_IDS.filter((id) => id !== 'menu').slice(0, 4).map((id) => {
+            const item = SHORTCUTS_CATALOG.find((s) => s.id === id) || SHORTCUTS_CATALOG[0];
+            const iconSvg = getCagpIconSvg(resolveCagpIconName(item.icon), 'w-4 h-4 shrink-0');
+            return (
+              <a
+                href={item.href}
+                data-drawer-shortcut={item.id}
+                data-action={item.isAction ? item.actionEvent : undefined}
+                class="cagp-drawer-link flex items-center justify-between gap-2.5 px-3 py-2 rounded-xl text-xs text-[#292524] hover:bg-[#FBF8F3] hover:text-[#8B1E2D] no-underline transition-colors min-h-[44px]"
+              >
+                <span class="flex items-center gap-2.5 min-w-0 truncate">
+                  <span class="text-[#8B1E2D]" set:html={iconSvg} />
+                  <span class="truncate font-semibold">{item.label}</span>
+                </span>
+                <span class="text-[11px] font-mono text-[#57534E]">{item.category}</span>
+              </a>
+            );
+          })}
+        </div>
+      </div>
     </div>
 
-    <!-- Rodapé do Drawer com Ações Rápidas -->
-    <div class="pt-3 mt-2 border-t border-black/15 flex items-center justify-between text-[11px]">
+    <!-- Base da Gaveta: Busca + Acessibilidade + Ajustes + Cartão do Estudante (Proposta A) -->
+    <div class="p-3.5 border-t border-[#DFDBD2] bg-[#FBF8F3] space-y-2.5">
+      <div class="flex items-center gap-2">
+        <button
+          type="button"
+          id="cagp-drawer-spotlight-btn"
+          class="flex-1 min-h-[44px] px-3 py-2 rounded-xl bg-white hover:bg-[#F4F1EA] border border-[#DFDBD2] text-[#292524] text-xs font-semibold flex items-center justify-between gap-2 transition-colors cursor-pointer"
+        >
+          <span class="flex items-center gap-2 truncate">
+            <span class="text-[#8B1E2D]" set:html={getCagpIconSvg('search', 'w-4 h-4')} />
+            <span class="truncate">Buscar no app...</span>
+          </span>
+          <kbd class="text-[11px] font-mono bg-[#F4F1EA] text-[#57534E] px-1.5 py-0.5 rounded border border-[#DFDBD2]">
+            ⌘K
+          </kbd>
+        </button>
+
+        <button
+          type="button"
+          id="cagp-drawer-a11y-btn"
+          class="w-11 h-11 rounded-xl bg-white hover:bg-[#F4F1EA] border border-[#DFDBD2] text-[#292524] flex items-center justify-center transition-colors cursor-pointer shrink-0"
+          title="Acessibilidade e Leitura"
+          aria-label="Abrir Preferências de Acessibilidade"
+        >
+          <span set:html={getCagpIconSvg('sliders', 'w-4 h-4')} />
+        </button>
+
+        <button
+          type="button"
+          id="cagp-drawer-settings-btn"
+          class="w-11 h-11 rounded-xl bg-white hover:bg-[#F4F1EA] border border-[#DFDBD2] text-[#292524] flex items-center justify-center transition-colors cursor-pointer shrink-0"
+          title="Ajustes e Cofre Local"
+          aria-label="Abrir Ajustes e Cofre Local"
+        >
+          <span set:html={getCagpIconSvg('settings', 'w-4 h-4')} />
+        </button>
+      </div>
+
+      <!-- Cartão Resumo do Discente (Passaporte) -->
       <button
         type="button"
-        id="cagp-drawer-a11y-btn"
-        class="text-gray-800 hover:text-[#8B1E2D] font-['Oswald'] uppercase font-bold flex items-center gap-1.5 cursor-pointer active:scale-95 transition-transform min-h-[44px] px-3 py-2 rounded-lg"
+        id="cagp-drawer-passport-cta"
+        class="w-full bg-white hover:bg-[#F4F1EA] border border-[#DFDBD2] rounded-2xl p-2.5 flex items-center justify-between gap-3 text-left transition-colors cursor-pointer shadow-2xs min-h-[54px]"
       >
-        <i class="bi bi-universal-access text-sm text-[#8B1E2D]"></i>
-        <span>Acessibilidade</span>
-      </button>
-      <button
-        type="button"
-        id="cagp-drawer-settings-btn"
-        class="text-gray-800 hover:text-[#8B1E2D] font-['Oswald'] uppercase font-bold flex items-center gap-1.5 cursor-pointer active:scale-95 transition-transform min-h-[44px] px-3 py-2 rounded-lg"
-      >
-        <i class="bi bi-gear-fill text-sm text-[#8B1E2D]"></i>
-        <span>Ajustes</span>
+        <div class="flex items-center gap-3 min-w-0">
+          <div
+            id="cagp-drawer-avatar-slot"
+            class="w-10 h-10 rounded-full bg-[#8B1E2D] text-white font-['Oswald'] font-bold text-xs flex items-center justify-center shrink-0 border-2 border-[#E8A317] overflow-hidden"
+          >
+            GP
+          </div>
+          <div class="min-w-0">
+            <span
+              id="cagp-drawer-student-name"
+              class="text-xs font-bold text-[#0A0A0A] block truncate leading-tight"
+            >
+              Estudante GP
+            </span>
+            <span class="flex items-center gap-1.5 mt-0.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#15803D] shrink-0" aria-hidden="true"></span>
+              <span
+                id="cagp-drawer-student-sub"
+                class="text-[11px] font-semibold text-[#15803D] truncate tabular-nums"
+              >
+                1º Período • Calouro
+              </span>
+            </span>
+          </div>
+        </div>
+        <span class="text-xs font-bold text-[#8B1E2D] shrink-0">Passaporte &rarr;</span>
       </button>
     </div>
   </div>
 </div>
 
 <script>
-  import { renderAvatarHtml } from '../../lib/avatarHelper';
+  import { getCagpIconSvg, resolveCagpIconName } from '../../lib/cagpIcons';
+
+  const ROLE_LABELS: Record<string, string> = {
+    calouro: 'Calouro',
+    veterano: 'Veterano',
+    formando: 'Formando',
+    ingressar: 'Ingressar',
+  };
 
   function openDrawer() {
     if ((window as any).__cagp_open_drawer) {
@@ -177,7 +306,175 @@ const axisSections = HEADER_NAV_ITEMS.filter((item) => Boolean(item.children && 
     }
   }
 
-  // Bind global event listeners once on window
+  function updateDrawerAvatar() {
+    const slot = document.getElementById('cagp-drawer-avatar-slot');
+    const nameEl = document.getElementById('cagp-drawer-student-name');
+    const subEl = document.getElementById('cagp-drawer-student-sub');
+    if (!slot) return;
+    try {
+      const rawProfile = localStorage.getItem('cagp_student_profile_v1');
+      const rawRole = localStorage.getItem('cagp_user_role_v1');
+      const profile = rawProfile ? JSON.parse(rawProfile) : null;
+      const role = rawRole ? JSON.parse(rawRole) : 'calouro';
+      const roleLabel = ROLE_LABELS[role] || 'Calouro';
+
+      if (role === 'ingressar') {
+        if (nameEl) nameEl.textContent = 'Futuro(a) Estudante';
+        if (subEl) subEl.textContent = 'Perfil: Quero Ingressar';
+        slot.textContent = 'UF';
+        return;
+      }
+
+      if (profile && profile.name) {
+        if (nameEl) nameEl.textContent = profile.name;
+        if (subEl) subEl.textContent = `${profile.period || '1º Período'} • ${roleLabel}`;
+        if (profile.photoDataUrl) {
+          slot.innerHTML = `<img src="${profile.photoDataUrl}" alt="" class="w-full h-full object-cover" />`;
+        } else {
+          const initials = String(profile.name)
+            .split(' ')
+            .filter(Boolean)
+            .slice(0, 2)
+            .map((w: string) => w[0].toUpperCase())
+            .join('');
+          slot.textContent = initials || 'GP';
+        }
+      }
+    } catch {
+      slot.textContent = 'GP';
+    }
+  }
+
+  function syncDrawerShortcuts() {
+    const drawer = document.getElementById('cagp-mobile-drawer');
+    const listEl = document.getElementById('cagp-drawer-shortcuts-list');
+    if (!drawer || !listEl) return;
+
+    try {
+      const catalogRaw = drawer.getAttribute('data-shortcuts-catalog');
+      const defaultsRaw = drawer.getAttribute('data-shortcuts-defaults');
+      const catalog = catalogRaw ? JSON.parse(catalogRaw) : [];
+      const defaults: string[] = defaultsRaw ? JSON.parse(defaultsRaw) : [];
+
+      const savedRaw = localStorage.getItem('cagp_discente_shortcuts_v1');
+      const savedIds: string[] = savedRaw ? JSON.parse(savedRaw) : defaults;
+      const idsToRender = (savedIds.length ? savedIds : defaults)
+        .filter((id) => id !== 'menu')
+        .slice(0, 4);
+
+      listEl.innerHTML = idsToRender
+        .map((id) => {
+          const item = catalog.find((s: any) => s.id === id) || catalog[0];
+          if (!item) return '';
+          const svg = getCagpIconSvg(resolveCagpIconName(item.icon), 'w-4 h-4 shrink-0');
+          const actionAttr =
+            item.isAction && item.actionEvent ? `data-action="${item.actionEvent}"` : '';
+          return `
+            <a
+              href="${item.href}"
+              data-drawer-shortcut="${item.id}"
+              ${actionAttr}
+              class="cagp-drawer-link flex items-center justify-between gap-2.5 px-3 py-2 rounded-xl text-xs text-[#292524] hover:bg-[#FBF8F3] hover:text-[#8B1E2D] no-underline transition-colors min-h-[44px]"
+            >
+              <span class="flex items-center gap-2.5 min-w-0 truncate">
+                <span class="text-[#8B1E2D]">${svg}</span>
+                <span class="truncate font-semibold">${item.label}</span>
+              </span>
+              <span class="text-[11px] font-mono text-[#57534E]">${item.category}</span>
+            </a>
+          `;
+        })
+        .join('');
+
+      bindDrawerShortcutLinks();
+    } catch {}
+  }
+
+  function syncDrawerActiveAxis() {
+    const drawer = document.getElementById('cagp-mobile-drawer');
+    if (!drawer) return;
+
+    const baseUrl = (document.documentElement.dataset.baseUrl || '/').replace(/\/$/, '');
+    let cleanPath = window.location.pathname;
+    if (baseUrl && cleanPath.startsWith(baseUrl)) {
+      cleanPath = cleanPath.slice(baseUrl.length) || '/';
+    }
+    cleanPath = cleanPath.replace(/\/index\.html$/, '') || '/';
+
+    let activeId = 'hoje';
+    if (
+      cleanPath.startsWith('/curso') ||
+      cleanPath.startsWith('/calouros') ||
+      cleanPath.startsWith('/pesquisa')
+    ) {
+      activeId = 'curso';
+    } else if (
+      cleanPath.startsWith('/percurso') ||
+      cleanPath.startsWith('/acg') ||
+      cleanPath.startsWith('/estagio') ||
+      cleanPath.startsWith('/tcc') ||
+      cleanPath.startsWith('/optativas')
+    ) {
+      activeId = 'curriculo';
+    } else if (
+      cleanPath.startsWith('/documentos') ||
+      cleanPath.startsWith('/faq') ||
+      cleanPath.startsWith('/mapa-do-site')
+    ) {
+      activeId = 'acervo';
+    } else if (
+      cleanPath.startsWith('/sobre') ||
+      cleanPath.startsWith('/gestao') ||
+      cleanPath.startsWith('/transparencia')
+    ) {
+      activeId = 'cagp';
+    }
+
+    drawer.querySelectorAll<HTMLAnchorElement>('[data-drawer-axis-link]').forEach((link) => {
+      const id = link.getAttribute('data-drawer-axis-link');
+      const isCurrent = id === activeId;
+      link.classList.toggle('bg-[#8B1E2D]', isCurrent);
+      link.classList.toggle('text-white', isCurrent);
+      link.classList.toggle('font-semibold', isCurrent);
+      link.classList.toggle('shadow-2xs', isCurrent);
+      link.classList.toggle('text-[#292524]', !isCurrent);
+      link.classList.toggle('hover:bg-[#FBF8F3]', !isCurrent);
+      link.classList.toggle('hover:text-[#8B1E2D]', !isCurrent);
+
+      const tagline = drawer.querySelector(`[data-drawer-axis-tagline="${id}"]`);
+      if (tagline) {
+        tagline.classList.toggle('text-[#FCE7EB]', isCurrent);
+        tagline.classList.toggle('text-[#57534E]', !isCurrent);
+      }
+
+      const num = drawer.querySelector(`[data-drawer-axis-num="${id}"]`);
+      if (num) {
+        num.classList.toggle('bg-white/20', isCurrent);
+        num.classList.toggle('text-white', isCurrent);
+        num.classList.toggle('bg-[#F4F1EA]', !isCurrent);
+        num.classList.toggle('text-[#57534E]', !isCurrent);
+      }
+
+      if (isCurrent) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    });
+  }
+
+  function bindDrawerShortcutLinks() {
+    document
+      .querySelectorAll<HTMLAnchorElement>('#cagp-mobile-drawer .cagp-drawer-link')
+      .forEach((link) => {
+        link.onclick = (e) => {
+          const actionEv = link.getAttribute('data-action');
+          closeDrawer();
+          if (actionEv) {
+            e.preventDefault();
+            window.dispatchEvent(new CustomEvent(actionEv));
+          }
+        };
+      });
+  }
+
   if (!(window as any).__cagp_drawer_initialized) {
     (window as any).__cagp_drawer_initialized = true;
     window.addEventListener('cagp:open-drawer', openDrawer);
@@ -188,43 +485,23 @@ const axisSections = HEADER_NAV_ITEMS.filter((item) => Boolean(item.children && 
     });
     window.addEventListener('cagp:vault-updated', () => {
       updateDrawerAvatar();
+      syncDrawerShortcuts();
     });
-  }
-
-  function updateDrawerAvatar() {
-    const slot = document.getElementById('cagp-drawer-avatar-slot');
-    const nameEl = document.getElementById('cagp-drawer-student-name');
-    const subEl = document.getElementById('cagp-drawer-student-sub');
-    if (!slot) return;
-    try {
-      const raw = localStorage.getItem('cagp_student_profile_v1');
-      const profile = raw ? JSON.parse(raw) : null;
-      slot.innerHTML = renderAvatarHtml(profile, 'md');
-      if (profile?.name && nameEl) {
-        nameEl.textContent = profile.name;
-      }
-      if (profile?.period && subEl) {
-        subEl.textContent = `${profile.period} • ${profile.semester || 'Ativo'} →`;
-      }
-    } catch (e) {
-      slot.innerHTML = '<i class="bi bi-person-badge-fill text-lg"></i>';
-    }
   }
 
   function setupMobileDrawer() {
     (window as any).__cagp_update_drawer_avatar = updateDrawerAvatar;
     closeDrawer();
     updateDrawerAvatar();
+    syncDrawerShortcuts();
+    syncDrawerActiveAxis();
+    bindDrawerShortcutLinks();
 
     const backdrop = document.getElementById('cagp-drawer-backdrop');
     if (backdrop) backdrop.onclick = closeDrawer;
 
     const closeBtn = document.getElementById('cagp-drawer-close');
     if (closeBtn) closeBtn.onclick = closeDrawer;
-
-    document.querySelectorAll<HTMLElement>('#cagp-mobile-drawer .cagp-drawer-link').forEach((link) => {
-      link.onclick = closeDrawer;
-    });
 
     const panel = document.querySelector<HTMLElement>('#cagp-mobile-drawer .cagp-drawer-panel');
     if (panel) {
@@ -248,6 +525,22 @@ const axisSections = HEADER_NAV_ITEMS.filter((item) => Boolean(item.children && 
       passportCta.onclick = () => {
         closeDrawer();
         window.dispatchEvent(new CustomEvent('cagp:open-passport'));
+      };
+    }
+
+    const spotlightBtn = document.getElementById('cagp-drawer-spotlight-btn');
+    if (spotlightBtn) {
+      spotlightBtn.onclick = () => {
+        closeDrawer();
+        window.dispatchEvent(new CustomEvent('cagp:open-spotlight'));
+      };
+    }
+
+    const editShortcutsBtn = document.getElementById('cagp-drawer-edit-shortcuts');
+    if (editShortcutsBtn) {
+      editShortcutsBtn.onclick = () => {
+        closeDrawer();
+        window.dispatchEvent(new CustomEvent('cagp:open-shortcuts'));
       };
     }
 

@@ -1,0 +1,26 @@
+---
+// src/pages/transparencia.astro — Eixo 5: O CAGP · Portal da Transparência & Prestação de Contas
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { CagpTransparenciaPortal } from '../components/features/cagp/CagpTransparenciaPortal';
+---
+
+<BaseLayout
+  title="Portal da Transparência — O CAGP"
+  description="Portal da Transparência, balancete demonstrativo, execução orçamentária RREO, atas e garantias estatutárias do Centro Acadêmico de Gestão Pública da UFMG."
+  activePage="sobre"
+  activeGroup="cagp"
+>
+  <div class="py-2 space-y-6">
+    <header>
+      <h1 class="font-['Oswald'] text-2xl sm:text-3xl font-bold uppercase text-[#0A0A0A] m-0">
+        Portal da Transparência • CAGP UFMG
+      </h1>
+      <p class="text-xs sm:text-sm text-[#57534E] mt-1.5 max-w-[70ch] m-0">
+        Prestação de contas ativa, balancetes demonstrativos, relatórios de execução orçamentária
+        (Art. 30, V) e controle social discente conforme o Estatuto de 14/10/2024.
+      </p>
+    </header>
+
+    <CagpTransparenciaPortal client:load />
+  </div>
+</BaseLayout>

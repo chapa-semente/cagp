@@ -61,14 +61,14 @@ export const AXIS_REGISTRY: AxisConfig[] = [
         match: ['^/$', '^/index\\.html$'],
       },
       {
-        id: 'hoje-calouros',
-        label: 'Guia do Calouro',
-        shortLabel: 'Calouros',
-        href: route('/calouros'),
-        icon: 'bi-backpack',
-        description: 'Checklist de 30 dias e guia de sobrevivência na FAFICH.',
-        type: 'guide',
-        match: [],
+        id: 'hoje-noticias',
+        label: 'Mural de Notícias',
+        shortLabel: 'Notícias',
+        href: route('/noticias'),
+        icon: 'bi-newspaper',
+        description: 'Mural completo de notícias, assembleias, editais de estágio e eventos.',
+        type: 'page',
+        match: ['^/noticias'],
       },
       {
         id: 'hoje-campus',
@@ -92,6 +92,14 @@ export const AXIS_REGISTRY: AxisConfig[] = [
       },
     ],
     overviewHighlights: [
+      {
+        id: 'hl-noticias',
+        title: 'Mural de Notícias',
+        desc: 'Assembleias, estágios, eventos da atlética e avisos acadêmicos na íntegra.',
+        icon: 'bi-newspaper',
+        href: route('/noticias'),
+        actionLabel: 'Ver Notícias',
+      },
       {
         id: 'hl-passaporte',
         title: 'Passaporte Discente',
@@ -336,7 +344,7 @@ export const AXIS_REGISTRY: AxisConfig[] = [
     items: [
       {
         id: 'cagp-overview',
-        label: 'Visão Geral',
+        label: 'Visão Geral & Estatuto',
         shortLabel: 'O CAGP',
         href: route('/sobre'),
         icon: 'bi-bank',
@@ -344,6 +352,16 @@ export const AXIS_REGISTRY: AxisConfig[] = [
         type: 'overview',
         isOverview: true,
         match: ['^/sobre'],
+      },
+      {
+        id: 'cagp-transparencia',
+        label: 'Portal da Transparência',
+        shortLabel: 'Transparência',
+        href: route('/transparencia'),
+        icon: 'bi-cash-coin',
+        description: 'Balancete financeiro, execução orçamentária RREO, atas e garantias estatutárias.',
+        type: 'page',
+        match: ['^/transparencia'],
       },
       {
         id: 'cagp-gestao',
@@ -366,20 +384,20 @@ export const AXIS_REGISTRY: AxisConfig[] = [
         actionLabel: 'Ler Estatuto',
       },
       {
+        id: 'hl-contas',
+        title: 'Portal da Transparência',
+        desc: 'Balancetes, execução orçamentária RREO, atas e controle social discente.',
+        icon: 'bi-cash-coin',
+        href: route('/transparencia'),
+        actionLabel: 'Ver Transparência',
+      },
+      {
         id: 'hl-gestao',
         title: 'Diretoria Executiva',
         desc: 'Quadros das 7 diretorias e canais diretos de atendimento.',
         icon: 'bi-people',
         href: route('/gestao') + '#equipe',
         actionLabel: 'Conhecer Gestão',
-      },
-      {
-        id: 'hl-contas',
-        title: 'Prestação de Contas',
-        desc: 'Relatórios de execução e transparência financeira do CAGP.',
-        icon: 'bi-cash-coin',
-        href: route('/gestao') + '#contas',
-        actionLabel: 'Ver Contas',
       },
     ],
   },
@@ -431,6 +449,7 @@ export function getAxisByPath(pathname: string): AxisConfig | undefined {
   }
 
   // Fallback baseado no primeiro segmento da URL
+  if (clean.startsWith('/noticias')) return AXIS_REGISTRY[0];
   if (clean.startsWith('/curso')) return AXIS_REGISTRY[1];
   if (clean.startsWith('/calouros') || clean.startsWith('/pesquisa')) return AXIS_REGISTRY[1];
   if (clean.startsWith('/percurso') || clean.startsWith('/acg') || clean.startsWith('/estagio') || clean.startsWith('/tcc') || clean.startsWith('/optativas')) {
@@ -439,7 +458,11 @@ export function getAxisByPath(pathname: string): AxisConfig | undefined {
   if (clean.startsWith('/documentos') || clean.startsWith('/faq') || clean.startsWith('/mapa-do-site')) {
     return AXIS_REGISTRY[3];
   }
-  if (clean.startsWith('/sobre') || clean.startsWith('/gestao')) {
+  if (
+    clean.startsWith('/sobre') ||
+    clean.startsWith('/gestao') ||
+    clean.startsWith('/transparencia')
+  ) {
     return AXIS_REGISTRY[4];
   }
 

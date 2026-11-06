@@ -1,0 +1,26 @@
+---
+// src/pages/noticias/index.astro — Subseção de Início (Hoje) · Mural Completo de Notícias & Eventos
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { CagpNewsMural } from '../../components/features/cagp/CagpNewsMural';
+---
+
+<BaseLayout
+  title="Mural de Notícias & Eventos — Início"
+  description="Mural de notícias, convocações de assembleia, editais de estágio, congressos acadêmicos, calourada e eventos do Bacharelado em Gestão Pública UFMG."
+  activePage="hoje"
+  activeGroup="hoje"
+>
+  <div class="py-2 space-y-6">
+    <header>
+      <h1 class="font-['Oswald'] text-2xl sm:text-3xl font-bold uppercase text-[#0A0A0A] m-0">
+        Mural de Notícias, Eventos &amp; Carreiras • CAGP
+      </h1>
+      <p class="text-xs sm:text-sm text-[#57534E] mt-1.5 max-w-[70ch] m-0">
+        Subseção editorial de Início: convocações de assembleia, oportunidades de estágio,
+        chamadas de congressos, seminários e comunicados da vida discente no campus.
+      </p>
+    </header>
+
+    <CagpNewsMural client:load />
+  </div>
+</BaseLayout>

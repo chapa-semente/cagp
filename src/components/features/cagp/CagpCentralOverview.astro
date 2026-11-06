@@ -122,18 +122,17 @@ import { asset, route } from '../../../lib/paths';
 
       <div class="flex items-center gap-2 pt-2 border-t border-[#DFDBD2]">
         <a
-          href="#diretorias"
-          class="flex-1 min-h-[44px] px-3 py-2 bg-[#0A0A0A] hover:bg-[#8B1E2D] text-white rounded-lg font-['Oswald'] text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-1.5 transition-all no-underline shadow-[2px_2px_0px_#0A0A0A]"
+          href={route('/transparencia')}
+          class="flex-1 min-h-[44px] px-3 py-2 bg-[#8B1E2D] hover:bg-[#0A0A0A] text-white rounded-lg font-['Oswald'] text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-1.5 transition-all no-underline shadow-[2px_2px_0px_#0A0A0A]"
         >
-          <span>Ver Diretorias</span>
-          <i class="bi bi-arrow-right" aria-hidden="true" />
+          <span>Portal da Transparência</span>
         </a>
         <a
           href={route('/gestao')}
           class="min-h-[44px] px-3 py-2 bg-[#F7F5F0] hover:bg-[#EAE6DE] text-[#0A0A0A] border border-[#DFDBD2] rounded-lg text-xs font-['Oswald'] uppercase font-bold flex items-center justify-center transition-all no-underline"
-          title="Ver página de prestação de contas da gestão"
+          title="Ver página de Diretorias & Gestão Discente"
         >
-          <span>Prestação</span>
+          <span>Diretorias</span>
         </a>
       </div>
     </div>

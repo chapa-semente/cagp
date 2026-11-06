@@ -91,7 +91,10 @@ import { route, asset } from '../../lib/paths';
         Para requerer vistas de extratos contábeis, atas ou pareceres regimentais, basta enviar um e-mail com nome e número de matrícula para nossa ouvidoria financeira e jurídica. O prazo de resposta regimental é de até 72 horas úteis.
       </p>
       <div class="flex flex-wrap gap-2 pt-1">
-        <a href="mailto:cagp@fafich.ufmg.br?subject=Requerimento%20de%20Acesso%20a%20Contas%20-%20Art.%2015" class="cagp-btn-primary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
+        <a href={route('/transparencia')} class="cagp-btn-primary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
+          <i class="bi bi-cash-coin" aria-hidden="true"></i> Abrir Portal da Transparência Completo
+        </a>
+        <a href="mailto:cagp@fafich.ufmg.br?subject=Requerimento%20de%20Acesso%20a%20Contas%20-%20Art.%2015" class="cagp-btn-secondary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
           <i class="bi bi-envelope" aria-hidden="true"></i> Solicitar Acesso às Contas (cagp@fafich.ufmg.br)
         </a>
         <a href={route('/documentos/regimento-interno-cagp-ufmg')} class="cagp-btn-secondary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">

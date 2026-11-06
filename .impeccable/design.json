@@ -1,0 +1,275 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-06T10:24:00-03:00",
+  "title": "Design System: CAGP UFMG Super App",
+  "extensions": {
+    "colorMeta": {
+      "institutional-wine": {
+        "role": "primary",
+        "displayName": "Institutional Wine",
+        "canonical": "#8B1E2D",
+        "tonalRamp": ["#2A070C", "#420B13", "#5A101B", "#6E1420", "#8B1E2D", "#B23A4B", "#D87A88", "#FCE7EB"]
+      },
+      "cagp-crimson": {
+        "role": "primary",
+        "displayName": "CAGP Crimson",
+        "canonical": "#9E2424",
+        "tonalRamp": ["#300909", "#4A0E0E", "#681515", "#831C1C", "#9E2424", "#C24141", "#E07A7A", "#FDE8E8"]
+      },
+      "candango-gold": {
+        "role": "secondary",
+        "displayName": "Candango Gold",
+        "canonical": "#E8A317",
+        "tonalRamp": ["#3B2602", "#5C3C05", "#825608", "#B4780E", "#E8A317", "#F2BE4E", "#F8D98B", "#FEF3C7"]
+      },
+      "homologated-green": {
+        "role": "tertiary",
+        "displayName": "Homologated Green",
+        "canonical": "#15803D",
+        "tonalRamp": ["#052E16", "#0A4622", "#116331", "#15803D", "#22A352", "#4ADE80", "#86EFAC", "#DCFCE7"]
+      },
+      "normative-amber": {
+        "role": "tertiary",
+        "displayName": "Normative Amber",
+        "canonical": "#B45309",
+        "tonalRamp": ["#3B1802", "#5C2704", "#78350F", "#92400E", "#B45309", "#D97706", "#F59E0B", "#FEF3C7"]
+      },
+      "critical-red": {
+        "role": "tertiary",
+        "displayName": "Critical Red",
+        "canonical": "#DC2626",
+        "tonalRamp": ["#450A0A", "#7F1D1D", "#991B1B", "#B91C1C", "#DC2626", "#EF4444", "#FCA5A5", "#FEF2F2"]
+      },
+      "ufmg-blue": {
+        "role": "tertiary",
+        "displayName": "UFMG Blue",
+        "canonical": "#005A9C",
+        "tonalRamp": ["#061E36", "#0D2F52", "#1E3F66", "#00487C", "#005A9C", "#2B7BB9", "#74A9D8", "#E0F2FE"]
+      },
+      "warm-paper": {
+        "role": "neutral",
+        "displayName": "Warm Paper",
+        "canonical": "#FBF8F3",
+        "tonalRamp": ["#0A0A0A", "#292524", "#44403C", "#57534E", "#78716C", "#DFDBD2", "#F4F1EA", "#FBF8F3"]
+      },
+      "surface-sand": {
+        "role": "neutral",
+        "displayName": "Surface Sand",
+        "canonical": "#F4F1EA",
+        "tonalRamp": ["#1C1917", "#292524", "#44403C", "#57534E", "#A8A29E", "#DFDBD2", "#EAE5DC", "#F4F1EA"]
+      },
+      "surface-white": {
+        "role": "neutral",
+        "displayName": "Surface White",
+        "canonical": "#FFFFFF",
+        "tonalRamp": ["#1C1917", "#44403C", "#78716C", "#A8A29E", "#D6D3D1", "#F4F1EA", "#FFFDF9", "#FFFFFF"]
+      },
+      "border-stone": {
+        "role": "neutral",
+        "displayName": "Border Stone",
+        "canonical": "#DFDBD2",
+        "tonalRamp": ["#292524", "#44403C", "#57534E", "#78716C", "#A8A29E", "#C7C1B6", "#DFDBD2", "#F4F1EA"]
+      },
+      "ink-black": {
+        "role": "neutral",
+        "displayName": "Ink Black",
+        "canonical": "#0A0A0A",
+        "tonalRamp": ["#0A0A0A", "#1C1917", "#292524", "#44403C", "#57534E", "#78716C", "#A8A29E", "#E7E5E4"]
+      },
+      "ink-charcoal": {
+        "role": "neutral",
+        "displayName": "Ink Charcoal",
+        "canonical": "#292524",
+        "tonalRamp": ["#0A0A0A", "#1C1917", "#292524", "#44403C", "#57534E", "#78716C", "#D6D3D1", "#F5F5F4"]
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Ink Muted",
+        "canonical": "#57534E",
+        "tonalRamp": ["#1C1917", "#292524", "#44403C", "#57534E", "#78716C", "#A8A29E", "#E7E5E4", "#FAF8F5"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display (Oswald)",
+        "purpose": "Título principal (h1) de cada página e saudação do banner da Home."
+      },
+      "headline": {
+        "displayName": "Headline (Oswald)",
+        "purpose": "Cabeçalhos de módulos (h2) em todas as páginas."
+      },
+      "title": {
+        "displayName": "Title (Public Sans Variable)",
+        "purpose": "Títulos de itens de dossiê, disciplinas, notícias e serviços (h3)."
+      },
+      "body": {
+        "displayName": "Body (Public Sans Variable)",
+        "purpose": "Textos explicativos, artigos de notícias, regras normativas e descrições (medida de 65ch–72ch)."
+      },
+      "label": {
+        "displayName": "Label (JetBrains Mono)",
+        "purpose": "Códigos de disciplinas, selos normativos, atalhos de teclado (⌘K), contadores e metadados com tabular-nums."
+      },
+      "micro": {
+        "displayName": "Micro (JetBrains Mono)",
+        "purpose": "Piso mínimo de 11px para metadados técnicos e contadores compactos."
+      }
+    },
+    "shadows": [
+      {
+        "name": "resting-card",
+        "value": "0 1px 3px rgba(10, 10, 10, 0.04)",
+        "purpose": "Separação sutil das folhas de dossiê brancas sobre o fundo papel em repouso."
+      },
+      {
+        "name": "interactive-lift",
+        "value": "0 6px 18px rgba(10, 10, 10, 0.08)",
+        "purpose": "Elevação suave exclusiva para cartões clicáveis inteiros no estado :hover."
+      },
+      {
+        "name": "stamp-impression",
+        "value": "0 2px 6px rgba(139, 30, 45, 0.14)",
+        "purpose": "Sombra de tinta do carimbo institucional .cagp-stamp-badge."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-natural",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Impacto do carimbo institucional (240ms), transição de sub-vista/perfil (220ms) e abertura de gavetas (280ms)."
+      },
+      {
+        "name": "ease-spring-snappy",
+        "value": "cubic-bezier(0.25, 1, 0.5, 1)",
+        "purpose": "Compressão tátil ao toque (cagpTapMorph, 180ms) e pulso de conclusão 100%."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Action Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Botão primário em vinho institucional CAGP (#8B1E2D) com piso tátil de 44px.",
+      "html": "<button class=\"ds-btn-primary\">GERENCIAR PRAZOS DE 120 DIAS &rarr;</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 8px; background: #8B1E2D; color: #FFFFFF; padding: 10px 18px; min-height: 44px; border-radius: 12px; font-family: 'Public Sans Variable', 'Public Sans', sans-serif; font-size: 12px; font-weight: 700; border: 1px solid rgba(10,10,10,0.12); cursor: pointer; transition: background-color 0.15s cubic-bezier(0.16, 1, 0.3, 1), transform 0.12s cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-primary:hover { background: #6E1420; transform: translateY(-1px); } .ds-btn-primary:active { transform: scale(0.97); } .ds-btn-primary:focus-visible { outline: 2.5px solid #E8A317; outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Dossier Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "CTA principal do Passaporte Discente em preto tinta (#0A0A0A), transicionando para vinho no hover.",
+      "html": "<button class=\"ds-btn-secondary\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#E8A317\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 3l1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3L12 3z\"/></svg><span>Editar Passaporte &amp; Banco de Talentos</span></button>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #0A0A0A; color: #FFFFFF; padding: 10px 18px; min-height: 44px; border-radius: 16px; font-family: 'Public Sans Variable', 'Public Sans', sans-serif; font-size: 12px; font-weight: 700; border: none; cursor: pointer; transition: background-color 0.15s cubic-bezier(0.16, 1, 0.3, 1), transform 0.12s cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-secondary:hover { background: #8B1E2D; } .ds-btn-secondary:active { transform: scale(0.97); } .ds-btn-secondary:focus-visible { outline: 2.5px solid #E8A317; outline-offset: 2px; }"
+    },
+    {
+      "name": "Opaque Segmented Control",
+      "kind": "nav",
+      "refersTo": "button-neutral",
+      "description": "Barra opaca de alternância de sub-vistas estilo Apple HIG (sem blur e sem bordas duras neo-brutalistas).",
+      "html": "<div class=\"ds-seg-bar\" role=\"tablist\"><button class=\"ds-seg-tab is-active\" role=\"tab\" aria-selected=\"true\">1. Grafo Dinâmico 10P</button><button class=\"ds-seg-tab\" role=\"tab\" aria-selected=\"false\">2. Catálogo 68 Optativas</button><button class=\"ds-seg-tab\" role=\"tab\" aria-selected=\"false\">3. As 27 Obrigatórias</button></div>",
+      "css": ".ds-seg-bar { display: flex; gap: 4px; padding: 4px; background: #F4F1EA; border: 1px solid #DFDBD2; border-radius: 16px; } .ds-seg-tab { flex: 1; min-height: 44px; padding: 8px 14px; border-radius: 12px; border: 1px solid transparent; background: transparent; color: #57534E; font-family: 'Oswald', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; cursor: pointer; transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1); } .ds-seg-tab:hover { color: #0A0A0A; background: #FBF8F3; } .ds-seg-tab.is-active { background: #8B1E2D; color: #FFFFFF; box-shadow: 0 1px 3px rgba(10, 10, 10, 0.08); } .ds-seg-tab:focus-visible { outline: 2.5px solid #E8A317; outline-offset: 2px; }"
+    },
+    {
+      "name": "Filter & Role Pill",
+      "kind": "chip",
+      "refersTo": "button-primary",
+      "description": "Pílula tátil arredondada (9999px) para seleção de perfil e categorias do Mural de Notícias.",
+      "html": "<div class=\"ds-pill-row\"><button class=\"ds-pill is-active\">Todas as pautas</button><button class=\"ds-pill\">Assembleias</button><button class=\"ds-pill\">Estágios &amp; Carreiras</button></div>",
+      "css": ".ds-pill-row { display: flex; gap: 6px; flex-wrap: wrap; } .ds-pill { min-height: 44px; padding: 6px 14px; border-radius: 9999px; font-family: 'Public Sans Variable', 'Public Sans', sans-serif; font-size: 12px; font-weight: 700; background: #FFFFFF; color: #292524; border: 1px solid #DFDBD2; cursor: pointer; transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease; } .ds-pill:hover { background: #F4F1EA; } .ds-pill.is-active { background: #8B1E2D; color: #FFFFFF; border-color: #8B1E2D; } .ds-pill:focus-visible { outline: 2.5px solid #E8A317; outline-offset: 2px; }"
+    },
+    {
+      "name": "Single-Sheet Dossier Card",
+      "kind": "card",
+      "refersTo": "card-surface",
+      "description": "Folha única de dossiê (#FFFFFF, raio 24px) com faixa inferior em #FBF8F3 dividida por filete pedra de 1px (zero cards aninhados).",
+      "html": "<div class=\"ds-dossier-sheet\"><div class=\"ds-dossier-top\"><strong>Guardião de 120 Dias (Art. 15, § 4º)</strong><p>Protocolar certificados em até 120 dias corridos da realização do evento.</p></div><div class=\"ds-dossier-split\"><div class=\"ds-dossier-cell\"><span>Calculadora 600h</span><strong>300h / 600h</strong></div><div class=\"ds-dossier-cell\"><span>Grafo 10P</span><strong>14 / 27 Obrig.</strong></div></div></div>",
+      "css": ".ds-dossier-sheet { background: #FFFFFF; color: #0A0A0A; border: 1px solid #DFDBD2; border-radius: 24px; overflow: hidden; box-shadow: 0 1px 3px rgba(10, 10, 10, 0.04); font-family: 'Public Sans Variable', 'Public Sans', sans-serif; } .ds-dossier-top { padding: 20px; } .ds-dossier-top strong { font-family: 'Oswald', sans-serif; font-size: 16px; text-transform: uppercase; display: block; } .ds-dossier-top p { margin: 4px 0 0; font-size: 12px; color: #57534E; } .ds-dossier-split { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid #DFDBD2; background: #FBF8F3; } .ds-dossier-cell { padding: 14px 20px; display: flex; justify-content: space-between; font-size: 12px; font-variant-numeric: tabular-nums; } .ds-dossier-cell + .ds-dossier-cell { border-left: 1px solid #DFDBD2; }"
+    },
+    {
+      "name": "Institutional Stamp Badge",
+      "kind": "custom",
+      "refersTo": "card-surface",
+      "description": "Gesto-assinatura híbrido (.cagp-stamp-badge): carimbo de borda dupla (3px double) com leve rotação e numerais tabulares.",
+      "html": "<span class=\"ds-stamp\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 21h14\"/><path d=\"M6 18h12\"/><path d=\"M8 18v-4a4 4 0 0 1 8 0v4\"/><path d=\"M10 10V6a2 2 0 1 1 4 0v4\"/></svg><span>ACOLHIMENTO HOMOLOGADO</span></span>",
+      "css": ".ds-stamp { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border: 3px double #15803D; border-radius: 5px; background: #F0FDF4; color: #15803D; font-family: 'Oswald', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; transform: rotate(-1.5deg); box-shadow: 0 2px 6px rgba(21,128,61,0.14); font-variant-numeric: tabular-nums; transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1); } .ds-stamp:hover { transform: rotate(0deg) scale(1.03); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "O Dossiê Tátil da Gestão Pública (Apple HIG + Papelaria Institucional Opaca)",
+    "overview": "O sistema visual do Super App do Centro Acadêmico de Gestão Pública (CAGP FAFICH/UFMG — \"Os Candangos\") unifica todas as 32 páginas dos 5 eixos canônicos sob uma única linguagem: a ergonomia estrutural do Apple Human Interface Guidelines (apple-design) materializada em papelaria pública opaca, tinta de alto contraste e chancelas de deferimento. A interface opera em modo claro aquecido sobre fundo papel (#FBF8F3), otimizada para leitura imediata por estudantes do turno noturno em deslocamento pelo campus Pampulha (FAFICH, RU II Setorial e pontos do ônibus circular).\n\nEste sistema rejeita dois extremos: de um lado, recusa o Liquid Glass (backdrop-filter: blur), transparências esfumaçadas e efeitos vítreos que contradizem a materialidade do papel timbrado e degradam a fluidez em celulares intermediários; de outro, elimina o excesso de caixas neo-brutalistas com bordas pretas grossas (2px solid #0A0A0A) e sombras duras deslocadas (4px 4px 0) nos containers de layout. A força institucional concentra-se na barra lateral ativa, nos cabeçalhos vinho e no carimbo de borda dupla (.cagp-stamp-badge), enquanto os módulos operacionais (calculadoras, checklists, grafo curricular, acervo e transparência) funcionam como folhas de dossiê limpas, contínuas e divididas por filetes de pedra de 1px.",
+    "keyCharacteristics": [
+      "Papelaria 100% Opaca (Zero Liquid Glass / Zero Blur): todas as barras de navegação, cabeçalhos, gavetas e folhas de dossiê usam superfícies sólidas (#FFFFFF, #FBF8F3, #F4F1EA) separadas por filetes #DFDBD2 de 1px.",
+      "Dossiê de Folha Única (Zero Nested Cards): módulos complexos usam uma única superfície branca (rounded-3xl) subdividida internamente por filetes horizontais e verticais (divide-[#DFDBD2]), nunca caixas dentro de caixas.",
+      "Gesto-Assinatura Híbrido (O Carimbo): o selo técnico .cagp-stamp-badge com borda dupla (3px double) e leve rotação (-1.25deg a -1.5deg) chancela etapas concluídas, regras normativas e marcos das 600h.",
+      "Iconografia Vetorial Autoral (CagpIcon): conjunto unificado em grid 24x24 com traço 1.75px e terminações arredondadas em todas as páginas, substituindo fontes de ícones externas."
+    ],
+    "rules": [
+      {
+        "name": "The Opaque Paper Material Rule",
+        "body": "Nenhuma superfície do aplicativo utiliza backdrop-filter: blur(), efeito fosco ou vidro translúcido. A separação entre camadas fixas (Sidebar, BottomNav, Topbars, Modais) e o conteúdo rolável ocorre exclusivamente por contraste tonal opaco (#FFFFFF sobre #FBF8F3) e filete pedra de 1px (#DFDBD2).",
+        "section": "colors"
+      },
+      {
+        "name": "The Tinted-On-Wine Rule",
+        "body": "Sobre superfícies em vinho institucional (#8B1E2D), textos secundários nunca utilizam cinza neutro; aplicam creme aquecido (#FFFDF9, contraste 11.4:1) e rosa-claro (#FCE7EB, contraste 9.6:1).",
+        "section": "colors"
+      },
+      {
+        "name": "The Semantic State Rule",
+        "body": "Cada cor de estado tem significado único em todas as páginas e nunca comunica sozinha: todo indicador verde (#15803D), âmbar (#B45309) ou vermelho (#DC2626) vem acompanhado de rótulo textual explícito e ícone vetorial correspondente.",
+        "section": "colors"
+      },
+      {
+        "name": "The No-Eyebrow Rule",
+        "body": "Cabeçalhos de página (PageHeader) e títulos de seção (h1, h2) nunca exibem um kicker ou eyebrow textual acima do título. O título em Oswald carrega seu próprio peso hierárquico, apoiado apenas pela barra de sub-rotas do eixo ou por pílulas de status ao lado.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Numerals & 11px Floor Rule",
+        "body": "Todo número, horário, porcentagem, carga horária, prazo de 120 dias e cifra do Portal da Transparência aplica font-variant-numeric: tabular-nums. Nenhum texto visível na interface fica abaixo do piso de legibilidade de 11px (0.6875rem), escalando proporcionalmente com o Dynamic Type (data-a11y-font=\"sm|md|lg|xl\").",
+        "section": "typography"
+      },
+      {
+        "name": "The Single-Sheet Dossier Rule",
+        "body": "É proibido aninhar cartões com borda dentro de cartões com borda (nested cards). Cada módulo de página é uma única folha de dossiê (bg-white rounded-3xl border border-[#DFDBD2] overflow-hidden) cujas subdivisões internas são separadas por filetes pedra de 1px (divide-y / divide-x divide-[#DFDBD2]) e faixas tonais em #FBF8F3.",
+        "section": "layout"
+      },
+      {
+        "name": "The Macro/Micro Rhythm Rule",
+        "body": "O intervalo vertical entre seções independentes da página (space-y-8 / 32px) é sempre o dobro ou mais do intervalo interno entre elementos do mesmo grupo (12px a 16px), garantindo que o agrupamento semântico seja imediato no squint test.",
+        "section": "layout"
+      },
+      {
+        "name": "The 44px Hit Target Rule",
+        "body": "Todo controle interativo (botões, abas do SegmentedControl, pílulas de filtro, itens de checklist, alarmes e links de ação) possui área mínima de toque/clique de 44px × 44px (min-h-[44px]).",
+        "section": "layout"
+      },
+      {
+        "name": "The Hybrid Stamp Rule",
+        "body": "Sombras duras sem desfoque (box-shadow: 3px 3px 0 #0A0A0A) e bordas pretas grossas (border-2 border-black) não são usadas em containers, abas, tabelas ou cartões de página; a estética de chancela física concentra-se exclusivamente no componente .cagp-stamp-badge com borda dupla (3px double).",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do aplicar a sequência distill → layout → colorize → animate → delight em todas as páginas dos 5 eixos, consolidando informações correlatas em dossiês de folha única divididos por filetes #DFDBD2 de 1px.",
+      "Do usar superfícies 100% opacas (#FFFFFF, #FBF8F3, #F4F1EA) na BottomNav, AppShellSidebar, SegmentedControl, cabeçalhos e modais, garantindo zero backdrop-filter: blur.",
+      "Do utilizar exclusivamente o sistema vetorial autoral CagpIcon (24x24, traço 1.75px) em novos componentes e páginas refatoradas, sempre acompanhado de rótulo visível ou aria-label.",
+      "Do manter todas as fontes (Oswald, Public Sans Variable, JetBrains Mono) e ativos auto-hospedados para funcionamento 100% offline via Service Worker no campus Pampulha.",
+      "Do preservar um único aviso visível de simulação (SIMULATION_NOTICE / simulated: true) em cada seção demonstrativa (Notícias, Portal da Transparência e Relatos de Carreira) até a entrega final de fevereiro de 2027."
+    ],
+    "donts": [
+      "Don't usar Liquid Glass, backdrop-blur, fundos semitransparentes esfumaçados ou glassmorphism em nenhuma barra, cartão ou modal.",
+      "Don't aninhar cartões com borda dentro de outros cartões com borda (nested cards); use divisórias de 1px (divide-x / divide-y divide-[#DFDBD2]) e faixas tonais #FBF8F3.",
+      "Don't colocar eyebrows ou kickers acima de títulos h1 e h2 (PageHeader ou cabeçalhos de seção); deixe o título em Oswald liderar diretamente.",
+      "Don't usar bordas pretas grossas (2px solid #0A0A0A), sombras duras sem desfoque (4px 4px 0 #0A0A0A) ou border-left colorido acima de 1px nos containers de layout; reserve a estética de chancela exclusivamente ao .cagp-stamp-badge.",
+      "Don't criar animações de entrada em cascata no carregamento da página que atrasem a leitura; toda página deve renderizar imediatamente visível e respeitar prefers-reduced-motion e data-a11y-motion=\"reduced\"."
+    ]
+  }
+}
