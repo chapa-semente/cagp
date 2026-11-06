@@ -1,67 +1,17 @@
-/* drawer.css - Gaveta Lateral Unificada Mobile & Tablet (100% Opaca • Apple HIG + Papelaria Institucional CAGP) */
+/* drawer.css - Gaveta Lateral e Sidebar Unificada (100% Opaca • Apple HIG + Papelaria CAGP) */
 
-.cagp-mobile-drawer {
-  position: fixed !important;
-  inset: 0 !important;
-  z-index: 1090 !important;
-  display: flex !important;
-  justify-content: flex-start !important;
-  pointer-events: none;
-  visibility: hidden;
-  transition: visibility 0.26s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.cagp-mobile-drawer.is-open {
-  pointer-events: auto !important;
-  visibility: visible !important;
-}
-
-.cagp-drawer-backdrop {
-  position: fixed !important;
-  inset: 0 !important;
-  background: rgba(10, 10, 10, 0.5) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  opacity: 0;
-  transition: opacity 0.26s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 1091 !important;
-  pointer-events: none;
-}
-
-.cagp-mobile-drawer.is-open .cagp-drawer-backdrop {
-  opacity: 1 !important;
-  pointer-events: auto !important;
-}
-
-.cagp-drawer-panel {
-  position: relative !important;
-  z-index: 1092 !important;
-  width: 300px;
-  max-width: 86vw;
-  height: 100%;
-  background: #FFFFFF;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border-right: 1px solid #DFDBD2;
-  box-shadow: 0 12px 32px rgba(10, 10, 10, 0.14);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding-top: env(safe-area-inset-top, 0px);
-  padding-left: env(safe-area-inset-left, 0px);
-  padding-bottom: env(safe-area-inset-bottom, 0px);
-  overflow-y: auto;
-  transform: translateX(-100%);
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.cagp-mobile-drawer.is-open .cagp-drawer-panel {
-  transform: translateX(0) !important;
-}
-
-/* Modo Alto Contraste AAA */
-html[data-a11y-contrast="high"] .cagp-drawer-panel {
+/* Modo Alto Contraste AAA para a Sidebar Unificada */
+html[data-a11y-contrast="high"] #cagp-app-sidebar {
   background: #0A0A0A !important;
   border-right-color: #E8A317 !important;
   box-shadow: none !important;
+}
+
+html[data-a11y-contrast="high"] #cagp-app-sidebar .bg-white {
+  background-color: #171717 !important;
+  color: #FFFFFF !important;
+}
+
+html[data-a11y-contrast="high"] #cagp-app-sidebar [class*="border-"] {
+  border-color: #525252 !important;
 }

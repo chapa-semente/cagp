@@ -22,6 +22,7 @@ export type CagpIconName =
   | 'sliders'
   | 'stamp'
   | 'chevron-right'
+  | 'chevron-down'
   | 'arrow-up-right'
   | 'close'
   | 'door-open'
@@ -174,6 +175,9 @@ const ICON_PATHS: Record<CagpIconName, string> = {
   `,
   'chevron-right': `
     <path d="M9.5 6L15.5 12L9.5 18" />
+  `,
+  'chevron-down': `
+    <path d="M6 9.5L12 15.5L18 9.5" />
   `,
   'arrow-up-right': `
     <path d="M7 17L17 7" />

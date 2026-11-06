@@ -7,7 +7,6 @@ import SuperAppHeader from '../components/shell/SuperAppHeader.astro';
 import PageFooter from '../components/shell/PageFooter.astro';
 import BackToTop from '../components/shell/BackToTop.astro';
 import DynamicToast from '../components/shell/DynamicToast.astro';
-import MobileDrawer from '../components/shell/MobileDrawer.astro';
 import BottomNav from '../components/shell/BottomNav.astro';
 import { GlobalSheets } from '../components/shell/GlobalSheets';
 import { SuperAppWelcomeModal } from '../components/shell/SuperAppWelcomeModal';
@@ -49,27 +48,50 @@ const {
     <!-- Anti-FOUC Acessibilidade & Drawer Global -->
     <script is:inline>
       (function() {
-        // Drawer Global Síncrono (Resolução 100% à Prova de Falhas para Home e Sub-rotas)
+        // Drawer / Sidebar Global Síncrono (Mobile & Tablet)
         window.__cagp_open_drawer = function() {
-          var d = document.getElementById('cagp-mobile-drawer');
-          if (d) {
-            d.classList.add('is-open');
+          var s = document.getElementById('cagp-app-sidebar');
+          var b = document.getElementById('cagp-sidebar-backdrop');
+          if (s) {
+            if (window.innerWidth < 768) {
+              s.classList.add('is-mobile-open');
+            } else if (window.innerWidth < 1280) {
+              s.classList.add('is-expanded');
+              var sp = document.getElementById('cagp-sidebar-tablet-spacer');
+              if (sp) sp.style.display = 'block';
+            }
+            if (b) {
+              b.classList.remove('hidden', 'pointer-events-none', 'opacity-0');
+              b.classList.add('opacity-100', 'pointer-events-auto');
+            }
             document.body.style.overflow = 'hidden';
             document.body.classList.add('cagp-drawer-open');
           }
         };
         window.__cagp_close_drawer = function() {
-          var d = document.getElementById('cagp-mobile-drawer');
-          if (d) {
-            d.classList.remove('is-open');
+          var s = document.getElementById('cagp-app-sidebar');
+          var b = document.getElementById('cagp-sidebar-backdrop');
+          var sp = document.getElementById('cagp-sidebar-tablet-spacer');
+          if (sp) sp.style.display = 'none';
+          if (s) {
+            s.classList.remove('is-mobile-open', 'is-expanded');
+            if (b) {
+              b.classList.add('opacity-0', 'pointer-events-none');
+              b.classList.remove('opacity-100', 'pointer-events-auto');
+              setTimeout(function() {
+                if (!s.classList.contains('is-mobile-open') && !s.classList.contains('is-expanded')) {
+                  b.classList.add('hidden');
+                }
+              }, 220);
+            }
             document.body.style.overflow = '';
             document.body.classList.remove('cagp-drawer-open');
           }
         };
         window.__cagp_toggle_drawer = function() {
-          var d = document.getElementById('cagp-mobile-drawer');
-          if (d) {
-            if (d.classList.contains('is-open')) {
+          var s = document.getElementById('cagp-app-sidebar');
+          if (s) {
+            if (s.classList.contains('is-mobile-open') || s.classList.contains('is-expanded')) {
               window.__cagp_close_drawer();
             } else {
               window.__cagp_open_drawer();
@@ -130,6 +152,14 @@ const {
     <div class="flex-1 flex min-h-0 w-full">
       <AppShellSidebar />
 
+      <!-- Espaçador Estático no Tablet (88px) para prevenir salto de layout quando a sidebar expandir em overlay -->
+      <div
+        id="cagp-sidebar-tablet-spacer"
+        class="hidden md:block xl:hidden w-[88px] shrink-0 pointer-events-none"
+        aria-hidden="true"
+        style="display: none;"
+      ></div>
+
       <div class="flex-1 flex flex-col min-w-0">
         <!-- Faixa Permanente de Campanha & Transparência -->
         <CampaignBanner />
@@ -152,9 +182,6 @@ const {
 
     <!-- Botão Flutuante Voltar ao Topo -->
     <BackToTop />
-
-    <!-- Menu Lateral Off-Canvas Mobile/Tablet -->
-    <MobileDrawer />
 
     <!-- Bottom Navigation (Mobile < 768px) -->
     <BottomNav />
