@@ -155,7 +155,7 @@ export const StudentDossierTracker: React.FC = () => {
                 {extDone}/300h
               </span>
               {extDone >= 300 && (
-                <span className="cagp-stamp-badge is-teto text-[9px] py-0 px-1 shadow-[1px_1px_0_#15803D]">
+                <span className="cagp-stamp-badge is-teto text-[10px] py-0.5 px-1.5 rounded-full">
                   TETO ✓
                 </span>
               )}
@@ -182,7 +182,7 @@ export const StudentDossierTracker: React.FC = () => {
                 {aacDone}/300h
               </span>
               {aacDone >= 300 && (
-                <span className="cagp-stamp-badge is-teto text-[9px] py-0 px-1 shadow-[1px_1px_0_#15803D]">
+                <span className="cagp-stamp-badge is-teto text-[10px] py-0.5 px-1.5 rounded-full">
                   TETO ✓
                 </span>
               )}

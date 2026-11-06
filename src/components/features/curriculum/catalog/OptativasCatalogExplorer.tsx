@@ -179,8 +179,8 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                       {item.ch}h ({Math.round(item.ch / 15)} cr)
                     </span>
                     {isAllocated && (
-                      <span className="cagp-stamp-badge is-deferido text-[10px] py-0.5 px-1.5 shadow-[1px_1px_0_#15803D]">
-                        <i className="bi bi-diagram-3-fill text-[9px]" aria-hidden="true" />
+                      <span className="cagp-stamp-badge is-deferido text-[10px] py-0.5 px-1.5 rounded-full inline-flex items-center gap-1">
+                        <i className="bi bi-diagram-3-fill text-[10px]" aria-hidden="true" />
                         <span>NO GRAFO • {allocatedCourse.period}ºP</span>
                       </span>
                     )}

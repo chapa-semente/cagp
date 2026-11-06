@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getVaultItem, type VaultData } from '../../lib/storage/studentVault';
+import { CagpIcon } from '../ui/CagpIcon';
 
 export const LinearHud: React.FC = () => {
   const [calcData, setCalcData] = useState<VaultData<'cagp_calc_ext_aac_v1'>>({});
@@ -42,7 +43,7 @@ export const LinearHud: React.FC = () => {
   return (
     <div
       id="cagp-calc-hud-linear"
-      className="sticky top-14 z-[40] bg-white/94 backdrop-blur-md border-2 border-[#0A0A0A] rounded-[6px] p-3 shadow-[3px_3px_0px_#0A0A0A] mb-4"
+      className="sticky top-14 z-[40] bg-white border border-[#DFDBD2] rounded-2xl p-4 shadow-sm mb-4"
       role="region"
       aria-label="Progresso de Integralização 600h"
     >
@@ -51,19 +52,19 @@ export const LinearHud: React.FC = () => {
           <span className="font-['Oswald'] font-bold text-xs uppercase text-[#0A0A0A] tracking-wider">
             Meta Global 600h:
           </span>
-          <span className="font-['JetBrains_Mono'] text-sm font-bold text-[#8B1E2D]">
+          <span className="font-mono text-sm font-bold text-[#8B1E2D] tabular-nums">
             {total}h / 600h ({totalCr} cr)
           </span>
-          <span className="font-['JetBrains_Mono'] text-xs text-gray-500">
+          <span className="font-mono text-xs text-[#57534E] tabular-nums">
             • {totalPct}%
           </span>
           {total >= 600 ? (
-            <span className="cagp-stamp-badge is-deferido text-[10px] py-0.5 px-2 inline-flex items-center gap-1 shadow-[2px_2px_0_#15803D]">
-              <i className="bi bi-patch-check-fill text-green-700" aria-hidden="true" />
+            <span className="cagp-stamp-badge is-deferido text-[11px] py-1 px-2.5 inline-flex items-center gap-1.5">
+              <CagpIcon name="stamp" className="w-3.5 h-3.5 text-green-700" />
               <span className="font-bold text-green-800">INTEGRALIZAÇÃO APTA</span>
             </span>
           ) : (
-            <span className="text-[11px] font-['Inter'] text-gray-600">
+            <span className="text-xs font-['Inter'] text-[#57534E]">
               (Faltam {600 - total}h)
             </span>
           )}
@@ -71,23 +72,23 @@ export const LinearHud: React.FC = () => {
 
         <div className="flex items-center gap-2 text-xs font-mono">
           {capExt >= 300 ? (
-            <span className="cagp-stamp-badge is-teto text-[10px] py-0.5 px-1.5 shadow-[1px_1px_0_#15803D]">
-              <i className="bi bi-patch-check-fill" aria-hidden="true" />
+            <span className="cagp-stamp-badge is-teto text-[11px] py-1 px-2.5 inline-flex items-center gap-1">
+              <CagpIcon name="check" className="w-3 h-3 text-green-700" />
               <span>Ext: 300h Teto</span>
             </span>
           ) : (
-            <span className="px-2 py-0.5 rounded-[4px] border font-bold bg-[#8B1E2D]/10 text-[#8B1E2D] border-[#8B1E2D]/30">
+            <span className="px-2.5 py-1 rounded-full border font-bold bg-[#8B1E2D]/10 text-[#8B1E2D] border-[#8B1E2D]/30 tabular-nums">
               Ext: {capExt}/300h
             </span>
           )}
 
           {capAac >= 300 ? (
-            <span className="cagp-stamp-badge is-teto text-[10px] py-0.5 px-1.5 shadow-[1px_1px_0_#15803D]">
-              <i className="bi bi-patch-check-fill" aria-hidden="true" />
+            <span className="cagp-stamp-badge is-teto text-[11px] py-1 px-2.5 inline-flex items-center gap-1">
+              <CagpIcon name="check" className="w-3 h-3 text-green-700" />
               <span>AAC: 300h Teto</span>
             </span>
           ) : (
-            <span className="px-2 py-0.5 rounded-[4px] border font-bold bg-gray-100 text-gray-800 border-gray-300">
+            <span className="px-2.5 py-1 rounded-full border font-bold bg-[#F4F1EA] text-[#292524] border-[#DFDBD2] tabular-nums">
               AAC: {capAac}/300h
             </span>
           )}

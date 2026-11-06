@@ -120,13 +120,13 @@ const mapasCampi = [
       <div
         class={`cagp-card p-3.5 rounded-xl border flex items-start gap-3.5 transition-all ${
           item.highlight
-            ? 'bg-[#FDF8F8] border-[#8B1E2D] shadow-[2px_2px_0px_#8B1E2D]'
+            ? 'bg-[#FDF8F8] border-[#8B1E2D] shadow-2xs'
             : 'bg-white border-[#DFDBD2]'
         }`}
       >
         <span
           class={`w-14 h-10 rounded-lg flex items-center justify-center font-mono text-xs font-bold shrink-0 ${
-            item.highlight ? 'bg-[#8B1E2D] text-white shadow-[1px_1px_0px_#0A0A0A]' : 'bg-[#F7F5F0] text-[#0A0A0A] border border-[#DFDBD2]'
+            item.highlight ? 'bg-[#8B1E2D] text-white shadow-xs' : 'bg-[#F7F5F0] text-[#0A0A0A] border border-[#DFDBD2]'
           }`}
         >
           {item.hora}
@@ -180,12 +180,12 @@ const mapasCampi = [
     </div>
 
     {/* Posição Política do CAGP */}
-    <div class="p-3 bg-[#FEF2F2] border-2 border-[#DC2626] rounded-lg text-xs space-y-1">
+    <div class="p-3.5 bg-red-50/80 border border-red-200 rounded-2xl text-xs space-y-1">
       <div class="flex items-center gap-2 text-[#DC2626] font-['Oswald'] font-bold uppercase">
         <i class="bi bi-megaphone-fill" aria-hidden="true"></i>
         <span>Posicionamento e Cobrança Política do CAGP</span>
       </div>
-      <p class="text-xs text-gray-700 leading-relaxed m-0">
+      <p class="text-xs text-[#57534E] leading-relaxed m-0">
         O CAGP reivindica ativamente perante o DCE, a PRAE e a FUMP a <strong>reabertura do jantar no RU Setorial I</strong> (vizinho imediato à FAFICH, FAE e CAD 2) ou pontos emergenciais de alimentação na unidade. A subida íngreme até o Setorial II à noite sobrecarrega e penaliza discentes que trabalham o dia todo e chegam ao campus entre 18h30 e 19h00.
       </p>
     </div>
@@ -219,7 +219,7 @@ const mapasCampi = [
           type="button"
           class={`cagp-map-tab-btn px-3 py-1.5 rounded-lg text-xs font-['Oswald'] uppercase font-bold tracking-wider transition-all whitespace-nowrap cursor-pointer ${
             idx === 0
-              ? 'bg-[#8B1E2D] text-white shadow-[1px_1px_0px_#0A0A0A]'
+              ? 'bg-[#8B1E2D] text-white shadow-xs border border-[#8B1E2D]'
               : 'bg-white hover:bg-gray-100 text-[#0A0A0A] border border-[#DFDBD2]'
           }`}
           data-map-id={m.id}
@@ -247,7 +247,7 @@ const mapasCampi = [
         </div>
       </div>
 
-      <div class="rounded-[8px] border-2 border-[#0A0A0A] shadow-[2px_2px_0px_#0A0A0A] overflow-hidden bg-[#0A0A0A] flex items-center justify-center min-h-[300px]">
+      <div class="rounded-2xl border border-[#DFDBD2] shadow-xs overflow-hidden bg-[#0A0A0A] flex items-center justify-center min-h-[300px]">
         <img
           id="cagp-map-viewer-img"
           src={asset(`/imagens/${mapasCampi[0].arquivo}`)}
@@ -273,13 +273,13 @@ const mapasCampi = [
     tabBtns.forEach((btn) => {
       btn.addEventListener('click', () => {
         tabBtns.forEach((b) => {
-          b.classList.remove('bg-[#8B1E2D]', 'text-white', 'shadow-[1px_1px_0px_#0A0A0A]');
+          b.classList.remove('bg-[#8B1E2D]', 'text-white', 'shadow-xs', 'border-[#8B1E2D]');
           b.classList.add('bg-white', 'text-[#0A0A0A]', 'border', 'border-[#DFDBD2]');
           b.setAttribute('aria-selected', 'false');
         });
 
         btn.classList.remove('bg-white', 'text-[#0A0A0A]', 'border', 'border-[#DFDBD2]');
-        btn.classList.add('bg-[#8B1E2D]', 'text-white', 'shadow-[1px_1px_0px_#0A0A0A]');
+        btn.classList.add('bg-[#8B1E2D]', 'text-white', 'shadow-xs', 'border-[#8B1E2D]');
         btn.setAttribute('aria-selected', 'true');
 
         const file = btn.getAttribute('data-map-file');

@@ -6,6 +6,7 @@ import {
   type ShortcutItem,
 } from '../../lib/shortcutsCatalog';
 import { getVaultItem, setVaultItem } from '../../lib/storage/studentVault';
+import { CagpIcon } from '../ui/CagpIcon';
 
 interface ShortcutsSheetProps {
   isOpen: boolean;
@@ -78,14 +79,14 @@ export const ShortcutsSheet: React.FC<ShortcutsSheetProps> = ({ isOpen, onClose 
     >
       <div className="flex-1 overflow-y-auto px-4 py-3 space-y-4">
         {/* Banner Informativo com Contadores Apple HIG */}
-        <div className="bg-[#F7F5F0] border-2 border-[#0A0A0A] p-3 rounded-[6px] shadow-[2px_2px_0_#0A0A0A]">
+        <div className="bg-[#F7F5F0] border border-[#DFDBD2] p-3.5 rounded-2xl">
           <div className="flex items-center justify-between mb-1">
             <span className="font-['Oswald'] text-xs font-bold uppercase text-[#8B1E2D] tracking-wide flex items-center gap-1.5">
-              <i className="bi bi-sliders2 text-sm" aria-hidden="true"></i>
+              <CagpIcon name="sliders" className="w-4 h-4 text-[#8B1E2D]" />
               <span>Dock & Barra Inferior</span>
             </span>
             <span
-              className={`font-mono text-xs font-bold px-2 py-0.5 rounded-[4px] border ${
+              className={`font-mono text-xs font-bold px-2.5 py-0.5 rounded-full border ${
                 isValidCount
                   ? 'bg-[#15803D]/10 text-[#15803D] border-[#15803D]/30'
                   : 'bg-[#DC2626]/10 text-[#DC2626] border-[#DC2626]/30'
@@ -205,10 +206,10 @@ export const ShortcutsSheet: React.FC<ShortcutsSheetProps> = ({ isOpen, onClose 
             type="button"
             onClick={handleSave}
             disabled={!isValidCount}
-            className={`min-h-[44px] px-4 py-2 text-xs font-['Oswald'] uppercase font-bold text-white rounded-[6px] border-2 border-[#0A0A0A] transition-all cursor-pointer ${
+            className={`min-h-[44px] px-4 py-2 text-xs font-['Oswald'] uppercase font-bold text-white rounded-xl border transition-colors cursor-pointer ${
               isValidCount
-                ? 'bg-[#8B1E2D] hover:bg-[#9E2424] shadow-[2px_2px_0_#0A0A0A] active:scale-95'
-                : 'bg-gray-400 opacity-50 cursor-not-allowed'
+                ? 'bg-[#8B1E2D] hover:bg-[#6e1723] border-[#8B1E2D] shadow-xs active:scale-95'
+                : 'bg-gray-400 border-gray-400 opacity-50 cursor-not-allowed'
             }`}
           >
             Salvar Atalhos ({selectedIds.length})

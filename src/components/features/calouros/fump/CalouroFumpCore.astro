@@ -65,7 +65,7 @@ const docsPrae = [
         href="https://www.fump.ufmg.br/"
         target="_blank"
         rel="noopener noreferrer"
-        class="min-h-[40px] px-3.5 py-2 bg-[#15803D] hover:bg-[#0A0A0A] text-white rounded-lg text-xs font-['Oswald'] uppercase font-bold tracking-wider flex items-center justify-center gap-1.5 transition-all no-underline shadow-[2px_2px_0px_#0A0A0A]"
+        class="min-h-[40px] px-3.5 py-2 bg-[#15803D] hover:bg-[#166534] text-white rounded-xl text-xs font-['Oswald'] uppercase font-bold tracking-wider flex items-center justify-center gap-1.5 transition-colors no-underline shadow-xs border border-[#15803D]"
       >
         <i class="bi bi-box-arrow-up-right" aria-hidden="true" />
         <span>Área do Aluno FUMP</span>
@@ -86,7 +86,7 @@ const docsPrae = [
       <div
         class={`cagp-card p-3.5 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-all ${
           n.highlight
-            ? 'bg-[#F0FDF4] border-[#15803D] shadow-[2px_2px_0px_#15803D]'
+            ? 'bg-[#F0FDF4] border-[#15803D] shadow-2xs'
             : 'bg-white border-[#DFDBD2]'
         }`}
       >
@@ -133,7 +133,7 @@ const docsPrae = [
         <p class="text-xs text-gray-600 m-0">Servido normalmente tanto no <strong>RU Setorial I</strong> quanto no <strong>RU Setorial II</strong> para toda a comunidade.</p>
       </div>
 
-      <div class="p-3 bg-white border-2 border-[#8B1E2D] rounded-lg space-y-1 shadow-[2px_2px_0px_#8B1E2D]">
+      <div class="p-3 bg-[#8B1E2D]/5 border border-[#8B1E2D] rounded-2xl space-y-1 shadow-2xs">
         <span class="cagp-badge cagp-badge-red text-[10px] font-mono">17h10 – 19h30</span>
         <strong class="font-['Oswald'] uppercase text-xs block text-[#8B1E2D] mt-1">Jantar Noturno</strong>
         <p class="text-xs text-gray-700 m-0">Servido exclusivamente no <strong>RU Setorial II</strong> (próximo ao ICB). Atende todos os estudantes matriculados.</p>
@@ -194,7 +194,7 @@ const docsPrae = [
       </a>
     </div>
 
-    <div class="rounded-[8px] border-2 border-[#0A0A0A] shadow-[2px_2px_0px_#0A0A0A] overflow-hidden bg-white">
+    <div class="rounded-2xl border border-[#DFDBD2] shadow-xs overflow-hidden bg-white">
       <img
         src={asset('/imagens/passo-a-passo-assistencia-fump.jpg')}
         alt="Infográfico oficial da FUMP com o passo a passo de acesso ao Questionário Socioeconômico na Área do Aluno"

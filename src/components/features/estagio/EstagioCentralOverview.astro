@@ -4,27 +4,28 @@ import { Art41Widget } from './art41/Art41Widget';
 import EstagioObrigatorioWidget from './obrigatorio/EstagioObrigatorioWidget.astro';
 import EstagioTceWidget from './tce/EstagioTceWidget.astro';
 import { asset } from '../../../lib/paths';
+import CagpIcon from '../../ui/CagpIcon.astro';
 ---
 
 <div class="cagp-estagio-central-overview space-y-6 select-none text-[#0A0A0A]">
   {/* Apresentação da Central de Estágio */}
-  <div class="p-4 sm:p-5 bg-[#F7F5F0] border border-[#DFDBD2] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xs">
+  <div class="p-5 bg-white border border-[#DFDBD2] rounded-3xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-2xs">
     <div class="flex items-start gap-3.5">
-      <span class="w-11 h-11 rounded-lg bg-[#8B1E2D] text-white flex items-center justify-center text-xl shrink-0 mt-0.5 shadow-[2px_2px_0px_#0A0A0A]">
-        <i class="bi bi-briefcase-fill" aria-hidden="true" />
+      <span class="w-11 h-11 rounded-2xl bg-[#8B1E2D]/10 text-[#8B1E2D] flex items-center justify-center shrink-0 mt-0.5">
+        <CagpIcon name="briefcase" className="w-6 h-6" />
       </span>
       <div>
         <div class="flex items-center gap-2">
-          <span class="text-[11px] font-['Oswald'] uppercase font-bold tracking-wider text-[#8B1E2D]">
+          <span class="text-xs font-['Oswald'] uppercase font-bold tracking-wider text-[#8B1E2D]">
             Estágio Supervisionado
           </span>
           <span class="text-gray-300">•</span>
-          <span class="text-xs text-gray-500 font-mono">300 horas obrigatórias</span>
+          <span class="text-xs text-[#57534E] font-mono">300 horas obrigatórias</span>
         </div>
         <h2 class="font-['Oswald'] text-lg sm:text-xl font-bold uppercase text-[#0A0A0A] leading-tight m-0">
           Estágio Curricular A & B, Dispensa Art. 41 e Termo de Compromisso (TCE)
         </h2>
-        <p class="text-xs text-gray-600 mt-1 max-w-3xl leading-relaxed m-0">
+        <p class="text-xs text-[#57534E] mt-1 max-w-3xl leading-relaxed m-0">
           Consulte as regras de integralização profissional, simule elegibilidade pelo Art. 41 para servidores e baixe modelos oficiais de convênio.
         </p>
       </div>
@@ -39,16 +40,16 @@ import { asset } from '../../../lib/paths';
   </div>
 
   {/* Banner Informativo sobre Convênios */}
-  <div class="p-4 bg-white border border-[#DFDBD2] rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xs">
+  <div class="p-5 bg-white border border-[#DFDBD2] rounded-3xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-2xs">
     <div class="flex items-center gap-3">
-      <span class="w-10 h-10 rounded-lg bg-[#0A0A0A] text-white flex items-center justify-center text-lg shrink-0">
-        <i class="bi bi-file-earmark-check-fill" aria-hidden="true" />
+      <span class="w-10 h-10 rounded-2xl bg-[#8B1E2D]/10 text-[#8B1E2D] flex items-center justify-center shrink-0">
+        <CagpIcon name="thesis" className="w-5 h-5" />
       </span>
       <div>
         <h3 class="font-['Oswald'] text-sm uppercase font-bold text-[#0A0A0A] leading-tight m-0">
           Termo de Compromisso Oficial (TCE) com a UFMG
         </h3>
-        <p class="text-xs text-gray-600 mt-0.5 m-0">
+        <p class="text-xs text-[#57534E] mt-0.5 m-0">
           Minuta homologada pela Pro-Reitoria de Graduação com seguro contra acidentes pessoais.
         </p>
       </div>
@@ -58,16 +59,20 @@ import { asset } from '../../../lib/paths';
       <a
         href={asset('/documentos/estagio-modelo-termo-de-compromisso-com-convenio.pdf')}
         download
-        class="min-h-[44px] flex-1 sm:flex-none px-4 py-2 bg-[#8B1E2D] hover:bg-[#0A0A0A] text-white rounded-lg text-xs font-['Oswald'] uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline shadow-[2px_2px_0px_#0A0A0A]"
+        class="min-h-[44px] flex-1 sm:flex-none px-4 py-2 bg-[#8B1E2D] hover:bg-[#6e1723] text-white rounded-xl text-xs font-['Oswald'] uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-colors no-underline shadow-xs border border-[#8B1E2D]"
       >
-        <i class="bi bi-download" aria-hidden="true" />
+        <CagpIcon name="download" className="w-4 h-4 text-white" />
         <span>Baixar TCE (PDF)</span>
       </a>
       <a
         href="#tutorial"
-        class="min-h-[44px] px-3 py-2 bg-[#F7F5F0] hover:bg-[#EAE6DE] text-[#0A0A0A] border border-[#DFDBD2] rounded-lg text-xs font-['Oswald'] uppercase font-bold flex items-center justify-center transition-all no-underline"
+        class="min-h-[44px] px-3.5 py-2 bg-[#F7F5F0] hover:bg-[#EAE6DE] text-[#292524] border border-[#DFDBD2] rounded-xl text-xs font-['Oswald'] uppercase font-bold flex items-center justify-center transition-colors no-underline"
       >
         <span>Ver Tutorial</span>
+      </a>
+    </div>
+  </div>
+</div>
       </a>
     </div>
   </div>

@@ -33,7 +33,7 @@ const optativas = allDisciplinas
         {['Avaliação', 'Orçamento', 'Governança', 'Metodologia', 'Economia'].map((p) => (
           <button
             type="button"
-            class="opt-preset-btn text-xs bg-white hover:bg-[#EAE5DC] border border-[#DFDBD2] px-2 py-0.5 rounded-[4px] text-gray-700 cursor-pointer transition-colors shadow-[1px_1px_0_#0A0A0A]"
+            class="opt-preset-btn text-xs bg-white hover:bg-[#EAE5DC] border border-[#DFDBD2] px-2.5 py-1 rounded-full text-[#292524] cursor-pointer transition-colors shadow-2xs"
             data-term={p.toLowerCase()}
           >
             {p}
@@ -46,8 +46,8 @@ const optativas = allDisciplinas
         {['TODOS', 'DCP', 'ECN', 'SOA', 'OUTROS'].map((d) => (
           <button
             type="button"
-            class={`opt-dept-filter text-xs font-['Oswald'] uppercase font-bold px-2.5 py-0.5 rounded-[4px] border-2 transition-colors cursor-pointer ${
-              d === 'TODOS' ? 'bg-[#0A0A0A] text-white border-[#0A0A0A]' : 'bg-white text-gray-700 border-[#DFDBD2] hover:border-[#0A0A0A]'
+            class={`opt-dept-filter text-xs font-['Oswald'] uppercase font-bold px-3 py-1 rounded-full border transition-colors cursor-pointer ${
+              d === 'TODOS' ? 'bg-[#0A0A0A] text-white border-[#0A0A0A]' : 'bg-white text-[#292524] border-[#DFDBD2] hover:border-[#8B1E2D]'
             }`}
             data-dept={d}
           >
@@ -88,7 +88,7 @@ const optativas = allDisciplinas
 
           <button
             type="button"
-            class="opt-favorite-btn text-xs font-['Oswald'] uppercase font-bold px-2.5 py-1.5 rounded-[4px] border-2 border-[#0A0A0A] bg-[#F7F5F0] hover:bg-[#8B1E2D] hover:text-white transition-all cursor-pointer shrink-0 flex items-center gap-1 shadow-[1px_1px_0_#0A0A0A]"
+            class="opt-favorite-btn text-xs font-['Oswald'] uppercase font-bold px-3 py-1.5 rounded-xl border border-[#DFDBD2] bg-[#F7F5F0] hover:bg-[#8B1E2D] hover:text-white transition-colors cursor-pointer shrink-0 flex items-center gap-1.5 shadow-2xs min-h-[44px]"
             data-course-code={d.data.codigo}
           >
             <i class="bi bi-star" aria-hidden="true" />

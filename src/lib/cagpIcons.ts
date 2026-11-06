@@ -32,7 +32,20 @@ export type CagpIconName =
   | 'bolt'
   | 'menu'
   | 'settings'
-  | 'sidebar';
+  | 'sidebar'
+  | 'download'
+  | 'file-text'
+  | 'map-pin'
+  | 'alert-triangle'
+  | 'info'
+  | 'phone'
+  | 'heart'
+  | 'moon'
+  | 'filter'
+  | 'lock'
+  | 'key'
+  | 'plus'
+  | 'kanban';
 
 const ICON_PATHS: Record<CagpIconName, string> = {
   // Eixo 1: Hoje — Bússola Discente
@@ -217,6 +230,62 @@ const ICON_PATHS: Record<CagpIconName, string> = {
     <rect x="3.5" y="4" width="17" height="16" rx="2.5" />
     <path d="M9.5 4V20" />
   `,
+  download: `
+    <path d="M12 3.5V15.5" />
+    <path d="M7 10.5L12 15.5L17 10.5" />
+    <path d="M4 19.5H20" />
+  `,
+  'file-text': `
+    <path d="M14 2.5H6C4.9 2.5 4 3.4 4 4.5V19.5C4 20.6 4.9 21.5 6 21.5H18C19.1 21.5 20 20.6 20 19.5V8.5L14 2.5Z" />
+    <path d="M14 2.5V8.5H20" />
+    <path d="M8 12.5H16" />
+    <path d="M8 16.5H13" />
+  `,
+  'map-pin': `
+    <path d="M12 2.5C8.7 2.5 6 5.2 6 8.5C6 13.5 12 21.5 12 21.5C12 21.5 18 13.5 18 8.5C18 5.2 15.3 2.5 12 2.5Z" />
+    <circle cx="12" cy="8.5" r="2.5" />
+  `,
+  'alert-triangle': `
+    <path d="M12 3.5L21 19.5H3L12 3.5Z" />
+    <path d="M12 9V13.5" />
+    <circle cx="12" cy="16.5" r="0.9" fill="currentColor" stroke="none" />
+  `,
+  info: `
+    <circle cx="12" cy="12" r="8.5" />
+    <path d="M12 11V16" />
+    <circle cx="12" cy="8" r="0.9" fill="currentColor" stroke="none" />
+  `,
+  phone: `
+    <path d="M5 4H8.5L10.5 8.5L8.5 10.5C9.7 12.9 11.6 14.8 14 16L16 14L20.5 16V19.5C20.5 20.1 20 20.6 19.4 20.5C10.7 19.7 3.8 12.8 3 4.1C2.9 3.5 3.4 3 4 3H5" />
+  `,
+  heart: `
+    <path d="M12 20.5C12 20.5 3.5 15 3.5 8.5C3.5 5.5 6 3.5 9 3.5C10.5 3.5 11.5 4.5 12 5.5C12.5 4.5 13.5 3.5 15 3.5C18 3.5 20.5 5.5 20.5 8.5C20.5 15 12 20.5 12 20.5Z" />
+  `,
+  moon: `
+    <path d="M21 12.8C20 13.5 18.8 14 17.5 14C13.9 14 11 11.1 11 7.5C11 6.2 11.5 5 12.2 4C7.5 4.5 4 8.5 4 13.5C4 18.7 8.3 23 13.5 23C18.5 23 22.5 19.5 23 14.8C22.3 15.3 21.5 15.6 20.6 15.6" />
+  `,
+  filter: `
+    <path d="M3 5H21L14 13.5V19.5L10 17.5V13.5L3 5Z" />
+  `,
+  lock: `
+    <rect x="4.5" y="10.5" width="15" height="10" rx="2" />
+    <path d="M7.5 10.5V7a4.5 4.5 0 0 1 9 0v3.5" />
+  `,
+  key: `
+    <circle cx="7.5" cy="15.5" r="4.5" />
+    <path d="m21 3-9.5 9.5" />
+    <path d="m15.5 7.5 3 3" />
+    <path d="m18.5 4.5 2 2" />
+  `,
+  plus: `
+    <path d="M12 5V19" />
+    <path d="M5 12H19" />
+  `,
+  kanban: `
+    <rect x="3.5" y="4.5" width="4.5" height="15" rx="1.5" />
+    <rect x="9.75" y="4.5" width="4.5" height="9" rx="1.5" />
+    <rect x="16" y="4.5" width="4.5" height="12" rx="1.5" />
+  `,
 };
 
 export function getCagpIconPaths(name: CagpIconName): string {
@@ -268,6 +337,38 @@ export function resolveCagpIconName(raw: string): CagpIconName {
     sliders2: 'sliders',
     bell: 'bell',
     'bell-fill': 'bell',
+    download: 'download',
+    'box-arrow-up-right': 'arrow-up-right',
+    'arrow-up-right': 'arrow-up-right',
+    'file-earmark-pdf-fill': 'file-text',
+    'card-checklist': 'checklist',
+    'check2-square': 'checklist',
+    'patch-check-fill': 'stamp',
+    'check-lg': 'check',
+    'check2': 'check',
+    'exclamation-octagon-fill': 'alert-triangle',
+    'exclamation-triangle': 'alert-triangle',
+    'info-circle': 'info',
+    'telephone-fill': 'phone',
+    'telephone': 'phone',
+    'heart-pulse-fill': 'heart',
+    'moon-stars-fill': 'moon',
+    'bus-front-fill': 'bus',
+    'map-fill': 'map-pin',
+    geo: 'map-pin',
+    'geo-alt': 'map-pin',
+    funnel: 'filter',
+    'funnel-fill': 'filter',
+    lock: 'lock',
+    'lock-fill': 'lock',
+    key: 'key',
+    'key-fill': 'key',
+    plus: 'plus',
+    'plus-lg': 'plus',
+    'plus-circle': 'plus',
+    kanban: 'kanban',
+    'check-circle': 'check',
+    'check-circle-fill': 'check',
   };
   return map[key] || 'hoje';
 }

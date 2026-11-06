@@ -1,5 +1,7 @@
 ---
 // SegmentedControl.astro - Controle Segmentado por N (Contrato 5.1)
+import CagpIcon from './CagpIcon.astro';
+
 interface TabItem {
   id: string;
   shortLabel: string;
@@ -45,7 +47,7 @@ const { tabs, defaultTab = tabs[0]?.id } = Astro.props;
     data-ws-tab="__all__"
     data-ws-hash="#visao-completa"
   >
-    <i class="bi bi-layout-text-sidebar" aria-hidden="true"></i>
+    <CagpIcon name="sidebar" class="w-4 h-4" />
   </button>
 </nav>
 

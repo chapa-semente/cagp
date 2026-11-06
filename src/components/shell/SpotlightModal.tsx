@@ -112,7 +112,7 @@ export const SpotlightModal: React.FC = () => {
 
   return (
     <div
-      className="fixed inset-0 z-[1070] flex items-start justify-center pt-12 sm:pt-20 px-3 bg-black/60 backdrop-blur-md animate-in fade-in duration-150"
+      className="fixed inset-0 z-[1070] flex items-start justify-center pt-12 sm:pt-20 px-3 bg-black/65 animate-in fade-in duration-150"
       role="dialog"
       aria-modal="true"
       aria-label="Busca rápida Spotlight"
@@ -122,9 +122,9 @@ export const SpotlightModal: React.FC = () => {
         onClick={() => setIsOpen(false)}
         aria-hidden="true"
       />
-      <div className="w-full max-w-xl bg-white/98 backdrop-blur-xl border border-black/15 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[80vh] animate-in zoom-in-95 duration-150">
+      <div className="w-full max-w-xl bg-white border border-[#DFDBD2] rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[80vh] animate-in zoom-in-95 duration-150">
         {/* Search Input Bar */}
-        <div className="flex items-center px-3.5 py-3 border-b border-black/15 bg-[#F7F5F0]/90 backdrop-blur-sm">
+        <div className="flex items-center px-3.5 py-3 border-b border-[#DFDBD2] bg-[#F7F5F0]">
           <i className="bi bi-search text-gray-500 text-base mr-2.5" aria-hidden="true" />
           <input
             ref={inputRef}
@@ -232,11 +232,11 @@ export const SpotlightModal: React.FC = () => {
         </div>
 
         {/* Footer */}
-        <div className="px-3.5 py-2.5 border-t-2 border-[#0A0A0A] bg-[#F7F5F0]/90 backdrop-blur-sm flex items-center justify-between text-[10px] text-gray-600">
+        <div className="px-3.5 py-2.5 border-t border-[#DFDBD2] bg-[#F7F5F0] flex items-center justify-between text-[11px] text-[#57534E]">
           <div className="flex items-center gap-2.5">
-            <span><kbd className="bg-white border border-[#0A0A0A] shadow-[1px_1px_0px_#0A0A0A] px-1 py-0.5 rounded font-mono font-bold">↑↓</kbd> Navegar</span>
-            <span><kbd className="bg-white border border-[#0A0A0A] shadow-[1px_1px_0px_#0A0A0A] px-1 py-0.5 rounded font-mono font-bold">↵</kbd> Acessar</span>
-            <span><kbd className="bg-white border border-[#0A0A0A] shadow-[1px_1px_0px_#0A0A0A] px-1 py-0.5 rounded font-mono font-bold">ESC</kbd> Fechar</span>
+            <span><kbd className="bg-white border border-[#DFDBD2] shadow-xs px-1.5 py-0.5 rounded font-mono font-bold text-[#292524]">↑↓</kbd> Navegar</span>
+            <span><kbd className="bg-white border border-[#DFDBD2] shadow-xs px-1.5 py-0.5 rounded font-mono font-bold text-[#292524]">↵</kbd> Acessar</span>
+            <span><kbd className="bg-white border border-[#DFDBD2] shadow-xs px-1.5 py-0.5 rounded font-mono font-bold text-[#292524]">ESC</kbd> Fechar</span>
           </div>
           <span className="font-mono font-bold text-[#8B1E2D] tracking-wider">CAGP SPOTLIGHT</span>
         </div>

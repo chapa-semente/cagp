@@ -5,6 +5,7 @@ import {
   type StudentCert,
 } from '../../../../lib/storage/studentVault';
 import { downloadAac120dIcs } from '../../../../lib/ics';
+import { CagpIcon } from '../../../ui/CagpIcon';
 
 export const AcgGuardianCore: React.FC = () => {
   const [certs, setCerts] = useState<StudentCert[]>([]);
@@ -66,16 +67,16 @@ export const AcgGuardianCore: React.FC = () => {
   return (
     <div className="cagp-guardian-core select-none space-y-6">
       {/* Alerta Normativo do Art. 15, § 4º */}
-      <div className="p-4 bg-[#FEF3C7] border-2 border-[#B45309] rounded-xl shadow-xs">
+      <div className="p-4 bg-[#FEF3C7]/70 border border-amber-300 rounded-2xl shadow-2xs">
         <div className="flex items-start gap-3">
-          <span className="w-9 h-9 rounded-lg bg-[#B45309] text-white flex items-center justify-center text-lg shrink-0 mt-0.5">
-            <i className="bi bi-shield-exclamation" aria-hidden="true" />
+          <span className="w-9 h-9 rounded-xl bg-[#B45309]/10 text-[#B45309] flex items-center justify-center shrink-0 mt-0.5">
+            <CagpIcon name="shield" className="w-5 h-5" />
           </span>
           <div>
             <h3 className="font-['Oswald'] text-base uppercase font-bold text-[#0A0A0A] leading-tight m-0">
               Guardião do Prazo Fatal de 120 Dias Corridos
             </h3>
-            <p className="text-xs text-gray-800 mt-1 leading-relaxed m-0">
+            <p className="text-xs text-[#57534E] mt-1 leading-relaxed m-0">
               <strong>Art. 15, § 4º do Regulamento do Curso (Versão N-20229):</strong> Certificados de atividades complementares (AAC) devem ser obrigatoriamente protocolados perante o Colegiado de Gestão Pública em até <strong>120 dias corridos</strong> após a emissão do documento. Após esse prazo, o aproveitamento prescreve e é indeferido pela Coordenação.
             </p>
           </div>
@@ -165,9 +166,9 @@ export const AcgGuardianCore: React.FC = () => {
 
             <button
               type="submit"
-              className="w-full min-h-[44px] px-4 py-2 bg-[#0A0A0A] text-white hover:bg-[#8B1E2D] rounded-lg font-['Oswald'] text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all mt-4 shadow-[2px_2px_0px_#0A0A0A]"
+              className="w-full min-h-[44px] px-4 py-2 bg-[#8B1E2D] text-white hover:bg-[#6e1723] rounded-xl font-['Oswald'] text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 border border-[#8B1E2D] shadow-xs transition-colors mt-4 cursor-pointer"
             >
-              <i className="bi bi-shield-plus" aria-hidden="true" />
+              <CagpIcon name="shield" className="w-4 h-4 text-white" />
               <span>Adicionar ao Guardião</span>
             </button>
           </form>
@@ -175,12 +176,12 @@ export const AcgGuardianCore: React.FC = () => {
 
         {/* Listagem de Certificados Monitorados */}
         <div className="lg:col-span-2 space-y-3">
-          <div className="flex items-center justify-between pb-2 border-b-2 border-[#0A0A0A]">
+          <div className="flex items-center justify-between pb-2 border-b border-[#DFDBD2]">
             <h4 className="font-['Oswald'] text-sm uppercase font-bold text-[#0A0A0A] m-0 flex items-center gap-2">
-              <i className="bi bi-clock-history text-[#B45309]" aria-hidden="true" />
+              <CagpIcon name="clock" className="w-4 h-4 text-[#B45309]" />
               <span>Certificados Monitorados ({certs.length})</span>
             </h4>
-            <span className="text-xs text-gray-500 font-mono">
+            <span className="text-xs text-[#57534E] font-mono tabular-nums">
               Total: {certs.reduce((acc, c) => acc + c.hours, 0)} horas
             </span>
           </div>
@@ -221,15 +222,15 @@ export const AcgGuardianCore: React.FC = () => {
                     <div className="flex items-center gap-2 shrink-0">
                       <div className="text-right">
                         {isExpired ? (
-                          <span className="cagp-stamp-badge text-[10px] font-black tracking-widest text-[#DC2626] border-2 border-[#DC2626] bg-[#FEE2E2] block py-0.5 px-2">
+                          <span className="cagp-stamp-badge text-[10px] font-bold tracking-wider text-[#DC2626] border border-red-300 bg-[#FEE2E2] rounded-full block py-0.5 px-2.5">
                             EXPIRADO (0D)
                           </span>
                         ) : isUrgent ? (
-                          <span className="cagp-stamp-badge text-[10px] font-black tracking-widest text-[#B45309] border-2 border-[#B45309] bg-[#FEF3C7] block py-0.5 px-2 animate-pulse">
+                          <span className="cagp-stamp-badge text-[10px] font-bold tracking-wider text-[#B45309] border border-amber-300 bg-[#FEF3C7] rounded-full block py-0.5 px-2.5 animate-pulse">
                             URGENTE ({daysLeft}D)
                           </span>
                         ) : (
-                          <span className="cagp-stamp-badge is-feito text-[10px] font-black tracking-widest text-[#15803D] border-2 border-[#15803D] bg-[#DCFCE7] block py-0.5 px-2">
+                          <span className="cagp-stamp-badge is-feito text-[10px] font-bold tracking-wider text-[#15803D] border border-green-300 bg-[#DCFCE7] rounded-full block py-0.5 px-2.5">
                             NO PRAZO ({daysLeft}D)
                           </span>
                         )}
@@ -238,21 +239,21 @@ export const AcgGuardianCore: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => downloadAac120dIcs(c.title, new Date(c.date))}
-                        className="w-9 h-9 rounded-lg bg-[#F7F5F0] hover:bg-[#EAE6DE] border border-[#DFDBD2] hover:border-[#0A0A0A] text-gray-700 flex items-center justify-center text-sm active:scale-95 transition-all cursor-pointer shadow-xs"
+                        className="w-9 h-9 rounded-xl bg-[#F7F5F0] hover:bg-[#EAE6DE] border border-[#DFDBD2] hover:border-[#8B1E2D] text-[#57534E] flex items-center justify-center text-sm active:scale-95 transition-colors cursor-pointer shadow-2xs"
                         title="Baixar lembrete de calendário (.ics)"
                         aria-label="Baixar lembrete de calendário (.ics)"
                       >
-                        <i className="bi bi-calendar-event" aria-hidden="true" />
+                        <CagpIcon name="calendar" className="w-4 h-4 text-[#8B1E2D]" />
                       </button>
 
                       <button
                         type="button"
                         onClick={() => handleDeleteCert(c.id)}
-                        className="w-9 h-9 rounded-lg bg-[#F7F5F0] hover:bg-[#FEE2E2] hover:text-[#DC2626] border border-[#DFDBD2] hover:border-[#DC2626] text-gray-400 flex items-center justify-center text-sm active:scale-95 transition-all cursor-pointer shadow-xs"
+                        className="w-9 h-9 rounded-xl bg-[#F7F5F0] hover:bg-[#FEE2E2] hover:text-[#DC2626] border border-[#DFDBD2] hover:border-[#DC2626] text-gray-400 flex items-center justify-center text-sm active:scale-95 transition-colors cursor-pointer shadow-2xs"
                         title="Excluir certificado"
                         aria-label="Excluir certificado"
                       >
-                        <i className="bi bi-trash" aria-hidden="true" />
+                        <CagpIcon name="close" className="w-4 h-4" />
                       </button>
                     </div>
                   </div>

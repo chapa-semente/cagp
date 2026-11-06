@@ -11,6 +11,7 @@ import {
   type CustomCourse,
 } from '../../../../lib/storage/studentVault';
 import { CustomCourseModal } from '../custom-course/CustomCourseModal';
+import { CagpIcon } from '../../../ui/CagpIcon';
 
 interface Props {
   catalogOptions?: Array<{ code: string; name: string; dept: string; ch: number }>;
@@ -183,26 +184,26 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
   return (
     <div className="cagp-curriculum-graph-dynamic select-none space-y-6">
       {/* HUD Linear de Integralização da Matriz */}
-      <div className="p-4 bg-white border border-[#DFDBD2] rounded-xl shadow-xs">
+      <div className="p-4 sm:p-5 bg-white border border-[#DFDBD2] rounded-3xl shadow-2xs">
         <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
           <div>
             <div className="flex items-center gap-2">
-              <span className="w-8 h-8 rounded bg-[#8B1E2D] text-white flex items-center justify-center font-bold text-sm">
-                <i className="bi bi-diagram-3" aria-hidden="true" />
+              <span className="w-8 h-8 rounded-xl bg-[#8B1E2D]/10 text-[#8B1E2D] flex items-center justify-center font-bold text-sm">
+                <CagpIcon name="curriculo" className="w-4 h-4" />
               </span>
               <h3 className="font-['Oswald'] text-base uppercase font-bold text-[#0A0A0A] m-0">
                 Grafo Curricular Dinâmico & 10 Períodos
               </h3>
             </div>
-            <p className="text-xs text-gray-600 mt-0.5 m-0">
+            <p className="text-xs text-[#57534E] mt-0.5 m-0">
               27 obrigatórias com travas do SIGA + optativas e disciplinas livres vinculadas por você.
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            {/* Alternador de Modo: Colunas 10P vs Mapa SVG (BUG-15) */}
+            {/* Alternador de Modo: Colunas 10P vs Mapa SVG */}
             <div
-              className="inline-flex rounded-lg border-2 border-[#0A0A0A] p-0.5 bg-[#F7F5F0] shadow-[2px_2px_0px_#0A0A0A]"
+              className="inline-flex rounded-2xl border border-[#DFDBD2] p-1 bg-[#F7F5F0]"
               role="radiogroup"
               aria-label="Modo de visualização do grafo"
             >
@@ -211,13 +212,13 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                 role="radio"
                 aria-checked={viewMode === 'columns'}
                 onClick={() => setViewMode('columns')}
-                className={`min-h-[44px] px-3 py-1.5 rounded-md font-['Oswald'] text-xs uppercase font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                className={`min-h-[44px] px-3.5 py-1.5 rounded-xl font-['Oswald'] text-xs uppercase font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
                   viewMode === 'columns'
                     ? 'bg-[#8B1E2D] text-white shadow-xs'
-                    : 'text-gray-700 hover:text-black hover:bg-white/60'
+                    : 'text-[#57534E] hover:text-[#0A0A0A] hover:bg-white/60'
                 }`}
               >
-                <i className="bi bi-kanban" aria-hidden="true" />
+                <CagpIcon name="kanban" className="w-3.5 h-3.5" />
                 <span>Colunas 10P</span>
               </button>
               <button
@@ -225,13 +226,13 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                 role="radio"
                 aria-checked={viewMode === 'svg'}
                 onClick={() => setViewMode('svg')}
-                className={`min-h-[44px] px-3 py-1.5 rounded-md font-['Oswald'] text-xs uppercase font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                className={`min-h-[44px] px-3.5 py-1.5 rounded-xl font-['Oswald'] text-xs uppercase font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
                   viewMode === 'svg'
                     ? 'bg-[#8B1E2D] text-white shadow-xs'
-                    : 'text-gray-700 hover:text-black hover:bg-white/60'
+                    : 'text-[#57534E] hover:text-[#0A0A0A] hover:bg-white/60'
                 }`}
               >
-                <i className="bi bi-diagram-3-fill" aria-hidden="true" />
+                <CagpIcon name="curriculo" className="w-3.5 h-3.5" />
                 <span>Mapa SVG & Trilhas</span>
               </button>
             </div>
@@ -239,10 +240,10 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
             <button
               type="button"
               onClick={() => openAddModal(4)}
-              className="min-h-[44px] px-3.5 py-2 bg-[#8B1E2D] text-white hover:bg-[#0A0A0A] rounded-lg font-['Oswald'] text-xs uppercase font-bold tracking-wider flex items-center gap-2 shadow-[2px_2px_0px_#0A0A0A] transition-all cursor-pointer"
+              className="min-h-[44px] px-4 py-2 bg-[#8B1E2D] text-white hover:bg-[#6e1723] rounded-xl font-['Oswald'] text-xs uppercase font-bold tracking-wider flex items-center gap-2 border border-[#8B1E2D] transition-colors cursor-pointer"
             >
-              <i className="bi bi-plus-circle" aria-hidden="true" />
-              <span>+ Adicionar Disciplina</span>
+              <CagpIcon name="plus" className="w-4 h-4" />
+              <span>Adicionar Disciplina</span>
             </button>
           </div>
         </div>
@@ -326,7 +327,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                                   {disc.code}
                                 </button>
                                 {isCompleted && (
-                                  <span className="cagp-stamp-badge is-feito text-[8px] font-black uppercase tracking-wider py-0 px-1 text-[#15803D] border-[#15803D] bg-[#DCFCE7]">
+                                  <span className="cagp-stamp-badge is-feito text-[10px] font-bold uppercase tracking-wider py-0.5 px-1.5 rounded text-[#15803D] border-[#15803D] bg-[#DCFCE7]">
                                     FEITO ✓
                                   </span>
                                 )}
@@ -334,7 +335,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                               <div className="flex items-center gap-1">
                                 {isFormalLock && (
                                   <span className="text-[10px] text-[#DC2626]" title="Trava Formal no SIGA">
-                                    <i className="bi bi-lock-fill" aria-hidden="true" />
+                                    <CagpIcon name="lock" className="w-3.5 h-3.5 text-[#DC2626]" />
                                   </span>
                                 )}
                                 {/* Checkbox com touch target expandido >= 44x44px (BUG-16) */}
@@ -390,11 +391,11 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                           >
                             <div className="flex items-start justify-between gap-1 mb-1">
                               <div className="flex items-center gap-1">
-                                <span className="px-1.5 py-0.5 rounded text-[9px] font-['Oswald'] uppercase font-bold bg-[#B45309] text-white">
+                                <span className="px-1.5 py-0.5 rounded text-[10px] font-['Oswald'] uppercase font-bold bg-[#B45309] text-white">
                                   {cust.category === 'formacao_livre' ? 'LIVRE' : 'OPTATIVA'}
                                 </span>
                                 {isCompleted && (
-                                  <span className="cagp-stamp-badge is-feito text-[8px] font-black uppercase tracking-wider py-0 px-1 text-[#15803D] border-[#15803D] bg-[#DCFCE7]">
+                                  <span className="cagp-stamp-badge is-feito text-[10px] font-bold uppercase tracking-wider py-0.5 px-1.5 rounded text-[#15803D] border-[#15803D] bg-[#DCFCE7]">
                                     FEITO ✓
                                   </span>
                                 )}
@@ -455,9 +456,9 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                   <button
                     type="button"
                     onClick={() => openAddModal(p)}
-                    className="w-full min-h-[44px] py-2 bg-white hover:bg-[#EAE6DE] border border-dashed border-[#DFDBD2] hover:border-[#0A0A0A] rounded-lg text-xs font-['Oswald'] uppercase font-bold text-gray-700 flex items-center justify-center gap-1 transition-all mt-2 cursor-pointer"
+                    className="w-full min-h-[44px] py-2 bg-white hover:bg-[#EAE6DE] border border-dashed border-[#DFDBD2] hover:border-[#8B1E2D] rounded-xl text-xs font-['Oswald'] uppercase font-bold text-[#57534E] hover:text-[#0A0A0A] flex items-center justify-center gap-1.5 transition-all mt-2 cursor-pointer"
                   >
-                    <i className="bi bi-plus text-base" aria-hidden="true" />
+                    <CagpIcon name="plus" className="w-4 h-4" />
                     <span>Adicionar no {p}ºP</span>
                   </button>
                 </div>
@@ -471,9 +472,9 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
       {viewMode === 'svg' && (
         <div className="space-y-4 animate-in fade-in duration-150">
           {/* Filtro por Trilhas Temáticas */}
-          <div className="flex flex-wrap items-center gap-1.5 p-3 bg-white border border-[#DFDBD2] rounded-xl shadow-xs">
-            <span className="text-xs font-['Oswald'] uppercase font-bold text-gray-500 mr-1 flex items-center gap-1">
-              <i className="bi bi-funnel-fill text-[#8B1E2D]" aria-hidden="true" />
+          <div className="flex flex-wrap items-center gap-1.5 p-3 bg-white border border-[#DFDBD2] rounded-2xl shadow-2xs">
+            <span className="text-xs font-['Oswald'] uppercase font-bold text-[#57534E] mr-1 flex items-center gap-1.5">
+              <CagpIcon name="filter" className="w-3.5 h-3.5 text-[#8B1E2D]" />
               Filtrar Trilha:
             </span>
             {Object.entries(TRACK_NAMES).map(([key, label]) => (
@@ -515,7 +516,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
 
           {/* Viewport do Grafo Cartográfico SVG */}
           <div className="overflow-x-auto pb-4">
-            <div className="cagp-grafo-viewport border-2 border-[#0A0A0A] rounded-xl bg-[#F7F5F0] overflow-hidden min-w-[980px] shadow-[3px_3px_0px_#0A0A0A]">
+            <div className="cagp-grafo-viewport border border-[#DFDBD2] rounded-3xl bg-[#F7F5F0] overflow-hidden min-w-[980px] shadow-sm">
               <CurriculumSvgMap
                 selectedNodeId={
                   selectedNode
@@ -533,10 +534,10 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
         </div>
       )}
 
-      {/* MODAL OVERLAY: Detalhes da Disciplina com Backdrop z-[1055] (BUG-15) */}
+      {/* MODAL OVERLAY: Detalhes da Disciplina com Backdrop z-[1055] (Zero Liquid Glass) */}
       {selectedNode && (
         <div
-          className="fixed inset-0 z-[1055] flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150"
+          className="fixed inset-0 z-[1055] flex items-center justify-center p-3 sm:p-4 bg-black/65 animate-in fade-in duration-150"
           role="dialog"
           aria-modal="true"
           aria-labelledby="selected-node-title"
@@ -544,19 +545,19 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
             if (e.target === e.currentTarget) setSelectedNode(null);
           }}
         >
-          <div className="bg-white border-2 border-[#0A0A0A] rounded-2xl shadow-[6px_6px_0px_#0A0A0A] max-w-2xl w-full max-h-[90vh] overflow-y-auto p-4 sm:p-6 space-y-4 animate-in zoom-in-95 duration-150">
+          <div className="bg-white border border-[#DFDBD2] rounded-3xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-4 sm:p-6 space-y-4 animate-in zoom-in-95 duration-150">
             {/* Header */}
-            <div className="flex items-start justify-between gap-3 border-b-2 border-[#0A0A0A] pb-3">
+            <div className="flex items-start justify-between gap-3 border-b border-[#DFDBD2] pb-3">
               <div>
                 <div className="flex items-center gap-2 mb-1 flex-wrap">
                   <span className="cagp-badge cagp-badge-red text-xs font-mono font-bold">
                     {selectedNode.code}
                   </span>
-                  <span className="text-xs font-mono font-bold text-gray-600">
+                  <span className="text-xs font-mono font-bold text-[#57534E]">
                     {selectedNode.dept} • {selectedNode.period}º Período • {selectedNode.ch} horas
                   </span>
                   {selectedNode.trackLabel && (
-                    <span className="text-[10px] font-mono uppercase bg-[#F7F5F0] border border-[#DFDBD2] px-1.5 py-0.5 rounded text-gray-600">
+                    <span className="text-[10px] font-mono uppercase bg-[#F7F5F0] border border-[#DFDBD2] px-1.5 py-0.5 rounded text-[#57534E]">
                       {selectedNode.trackLabel}
                     </span>
                   )}
@@ -568,7 +569,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                 </div>
                 <h3
                   id="selected-node-title"
-                  className="font-['Oswald'] text-lg sm:text-xl font-black uppercase text-[#0A0A0A] m-0 leading-tight"
+                  className="font-['Oswald'] text-lg sm:text-xl font-bold uppercase text-[#0A0A0A] m-0 leading-tight"
                 >
                   {selectedNode.name}
                 </h3>
@@ -576,18 +577,18 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
               <button
                 type="button"
                 onClick={() => setSelectedNode(null)}
-                className="min-w-[44px] min-h-[44px] rounded-lg border-2 border-[#0A0A0A] bg-white hover:bg-gray-100 flex items-center justify-center font-bold text-base cursor-pointer shadow-[2px_2px_0px_#0A0A0A] shrink-0"
+                className="w-10 h-10 min-w-[40px] min-h-[40px] rounded-full border border-[#DFDBD2] bg-white hover:bg-[#F4F1EA] text-[#57534E] hover:text-[#0A0A0A] flex items-center justify-center cursor-pointer transition-colors shrink-0"
                 aria-label="Fechar detalhes da disciplina"
               >
-                ✕
+                <CagpIcon name="close" className="w-4 h-4" />
               </button>
             </div>
 
             {/* Aviso de Trava Formal SIGA / Chave */}
             {selectedNode.isFormalLock ? (
-              <div className="p-3 bg-red-50 border-2 border-[#DC2626] rounded-xl text-xs text-[#DC2626] space-y-1">
+              <div className="p-3.5 bg-red-50/80 border border-red-200 rounded-2xl text-xs text-[#DC2626] space-y-1">
                 <div className="font-bold uppercase flex items-center gap-1.5 text-sm">
-                  <i className="bi bi-lock-fill" aria-hidden="true" />
+                  <CagpIcon name="lock" className="w-4 h-4 text-[#DC2626]" />
                   <span>Trava Formal de Pré-Requisito no SIGA UFMG</span>
                 </div>
                 <p className="text-xs leading-relaxed m-0 text-red-900">
@@ -595,9 +596,9 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                 </p>
               </div>
             ) : selectedNode.isKey ? (
-              <div className="p-3 bg-amber-50 border-2 border-[#B45309] rounded-xl text-xs text-[#B45309] space-y-1">
+              <div className="p-3.5 bg-amber-50/80 border border-amber-200 rounded-2xl text-xs text-[#B45309] space-y-1">
                 <div className="font-bold uppercase flex items-center gap-1.5 text-sm">
-                  <i className="bi bi-key-fill" aria-hidden="true" />
+                  <CagpIcon name="key" className="w-4 h-4 text-[#B45309]" />
                   <span>Chave de Destravamento Formal no SIGA</span>
                 </div>
                 <p className="text-xs leading-relaxed m-0 text-amber-900">
@@ -678,13 +679,13 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
               <button
                 type="button"
                 onClick={() => handleToggleCompleted(selectedNode.code, selectedNode.ch)}
-                className={`min-h-[44px] px-4 py-2 rounded-xl font-['Oswald'] font-bold text-xs uppercase flex items-center gap-2 transition-all cursor-pointer shadow-[2px_2px_0px_#0A0A0A] ${
+                className={`min-h-[44px] px-4 py-2 rounded-xl font-['Oswald'] font-bold text-xs uppercase flex items-center gap-2 transition-all cursor-pointer ${
                   completedCourses.includes(selectedNode.code)
-                    ? 'bg-[#DCFCE7] text-[#15803D] border-2 border-[#15803D]'
-                    : 'bg-[#15803D] text-white border-2 border-[#0A0A0A] hover:bg-green-700'
+                    ? 'bg-[#DCFCE7] text-[#15803D] border border-[#15803D]'
+                    : 'bg-[#15803D] text-white border border-[#15803D] hover:bg-green-700'
                 }`}
               >
-                <i className={`bi ${completedCourses.includes(selectedNode.code) ? 'bi-check-circle-fill' : 'bi-plus-circle'}`} />
+                <CagpIcon name={completedCourses.includes(selectedNode.code) ? 'check' : 'plus'} className="w-4 h-4" />
                 <span>
                   {completedCourses.includes(selectedNode.code)
                     ? 'Integralizada ✓ (Desmarcar)'
@@ -695,7 +696,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
               <button
                 type="button"
                 onClick={() => setSelectedNode(null)}
-                className="min-h-[44px] px-4 py-2 bg-white hover:bg-gray-100 border border-[#0A0A0A] rounded-xl font-['Oswald'] text-xs font-bold uppercase cursor-pointer"
+                className="min-h-[44px] px-4 py-2 bg-white hover:bg-[#F4F1EA] border border-[#DFDBD2] text-[#292524] rounded-xl font-['Oswald'] text-xs font-bold uppercase cursor-pointer transition-colors"
               >
                 Fechar
               </button>

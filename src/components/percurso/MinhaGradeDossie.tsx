@@ -97,16 +97,16 @@ export const MinhaGradeDossie: React.FC = () => {
   return (
     <div className="space-y-4">
       {/* HUD de Métricas e Integralização */}
-      <div className="p-4 bg-white border-2 border-[#0A0A0A] rounded-xl shadow-[4px_4px_0px_#0A0A0A]">
+      <div className="p-5 bg-white border border-[#DFDBD2] rounded-3xl shadow-2xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#DFDBD2]">
           <div>
-            <span className="font-mono text-[10px] text-gray-500 uppercase tracking-widest block">
+            <span className="font-mono text-[10px] text-[#57534E] uppercase tracking-widest block">
               Dossiê Pessoal de Integralização
             </span>
             <h3 className="font-['Oswald'] text-lg font-bold uppercase text-[#0A0A0A] m-0">
               Minha Grade Curricular
             </h3>
-            <span className="text-xs text-gray-600 block mt-0.5">
+            <span className="text-xs text-[#57534E] block mt-0.5">
               {profile.name} &bull; {profile.period} ({profile.semester})
             </span>
           </div>
@@ -114,7 +114,7 @@ export const MinhaGradeDossie: React.FC = () => {
           <button
             type="button"
             onClick={copySchedule}
-            className="px-3 py-2 bg-[#8B1E2D] hover:bg-[#9E2424] text-white border-2 border-[#0A0A0A] shadow-[2px_2px_0px_#0A0A0A] rounded-lg font-['Oswald'] text-xs uppercase font-bold tracking-wider cursor-pointer flex items-center justify-center gap-1.5 transition-all self-start sm:self-center"
+            className="min-h-[44px] px-4 py-2.5 bg-[#8B1E2D] hover:bg-[#6e1723] text-white border border-[#8B1E2D] shadow-xs rounded-xl font-['Oswald'] text-xs uppercase font-bold tracking-wider cursor-pointer flex items-center justify-center gap-1.5 transition-colors self-start sm:self-center"
           >
             <i className={`bi ${copyFeedback ? 'bi-check-all text-sm' : 'bi-clipboard'}`} />
             <span>{copyFeedback ? 'Grade Copiada!' : 'Copiar Plano (SIGA)'}</span>
@@ -228,8 +228,8 @@ export const MinhaGradeDossie: React.FC = () => {
               key={id}
               className={`p-3 rounded-xl border transition-all flex items-center justify-between gap-3 ${
                 isDone
-                  ? 'bg-green-50/70 border-[#15803D] shadow-[2px_2px_0px_#15803D]'
-                  : 'bg-white border-[#DFDBD2] hover:border-[#0A0A0A]'
+                  ? 'bg-green-50/70 border-[#15803D] shadow-2xs'
+                  : 'bg-white border-[#DFDBD2] hover:border-[#8B1E2D]'
               }`}
             >
               <div className="flex items-center gap-3 min-w-0">

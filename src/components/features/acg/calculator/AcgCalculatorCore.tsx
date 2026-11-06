@@ -375,7 +375,7 @@ export const AcgCalculatorCore: React.FC = () => {
           onClick={handleReset}
           className={`min-h-[36px] px-3 py-1 rounded text-xs font-['Oswald'] uppercase font-bold transition-all ${
             confirmReset
-              ? 'bg-[#DC2626] text-white border-2 border-[#0A0A0A] animate-pulse'
+              ? 'bg-[#DC2626] text-white border border-[#DC2626] shadow-xs animate-pulse'
               : 'bg-white text-gray-600 border border-[#DFDBD2] hover:text-[#DC2626]'
           }`}
         >

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BottomSheet } from './BottomSheet';
 import { getVaultItem, setVaultItem, type VaultData } from '../../lib/storage/studentVault';
 import { downloadRu1815Ics, downloadCircular2230Ics } from '../../lib/ics';
+import { CagpIcon } from '../ui/CagpIcon';
 
 interface CampusSheetProps {
   isOpen: boolean;
@@ -65,55 +66,57 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
     <BottomSheet id="cagp-campus-sheet" isOpen={isOpen} onClose={onClose} title="Status Operacional do Campus & Alertas" initialDetent="large">
       <div className="space-y-3.5 text-[#0A0A0A] px-1 pb-4">
         {/* Banner Informativo */}
-        <div className="bg-[#F7F5F0] border-2 border-[#0A0A0A] p-3 rounded-[6px] shadow-[2px_2px_0px_#0A0A0A]">
+        <div className="bg-[#F7F5F0] border border-[#DFDBD2] p-4 rounded-2xl">
           <div className="flex items-center gap-2 mb-1">
             <span className="w-2.5 h-2.5 rounded-full bg-[#15803D] cagp-pulse-indicator" />
             <span className="font-['Oswald'] text-xs uppercase font-bold text-[#8B1E2D]">
               Plantão Noturno • FAFICH & Campus Pampulha
             </span>
           </div>
-          <p className="text-xs text-gray-600 m-0 leading-relaxed">
+          <p className="text-xs text-[#57534E] m-0 leading-relaxed">
             Configure alarmes locais e adicione eventos (.ics) à sua agenda do celular para não perder os horários do bandejão e do ônibus.
           </p>
         </div>
 
         {/* 1. RU II Setorial */}
-        <div className="bg-white p-3 rounded-[6px] border-2 border-[#0A0A0A] shadow-[2px_2px_0_#0A0A0A] space-y-2">
+        <div className="bg-white p-4 rounded-2xl border border-[#DFDBD2] shadow-2xs space-y-3">
           <div className="flex items-center justify-between flex-wrap gap-2">
             <div className="flex items-center gap-2">
-              <i className="bi bi-cup-hot-fill text-[#8B1E2D] text-lg" aria-hidden="true" />
+              <span className="w-8 h-8 rounded-xl bg-[#8B1E2D]/10 text-[#8B1E2D] flex items-center justify-center shrink-0">
+                <CagpIcon name="utensils" className="w-4 h-4" />
+              </span>
               <div>
                 <span className="font-['Oswald'] font-bold text-sm uppercase text-[#0A0A0A]">RU II Setorial</span>
-                <span className="text-[10px] font-mono bg-[#15803D]/10 text-[#15803D] font-bold px-1.5 py-0.5 rounded border border-[#15803D]/30 ml-2">
+                <span className="text-[10px] font-mono bg-[#15803D]/10 text-[#15803D] font-bold px-2 py-0.5 rounded-full border border-[#15803D]/30 ml-2">
                   Almoço 11h–14h · Jantar 17h30–19h30
                 </span>
               </div>
             </div>
-            <span className="font-mono text-xs font-bold text-gray-600">R$ 5,60</span>
+            <span className="font-mono text-xs font-bold text-[#292524] tabular-nums">R$ 5,60</span>
           </div>
-          <p className="text-xs text-gray-600 m-0 leading-snug">
+          <p className="text-xs text-[#57534E] m-0 leading-snug">
             Catracas fecham <strong>impreterivelmente às 19h30</strong>. Chegue antes das 18h30 para evitar fila extensa.
           </p>
           <div className="flex items-center gap-2 pt-1 border-t border-[#DFDBD2]">
             <button
               type="button"
               onClick={() => togglePref('ru1815')}
-              className={`min-h-[44px] py-2.5 px-4 text-xs rounded-[4px] font-['Oswald'] font-semibold uppercase border transition-all cursor-pointer flex items-center gap-1.5 ${
+              className={`min-h-[44px] py-2.5 px-4 text-xs rounded-xl font-['Oswald'] font-semibold uppercase border transition-colors cursor-pointer flex items-center gap-1.5 ${
                 prefs.ru1815
-                  ? 'bg-[#8B1E2D] text-white border-black/15 shadow-xs'
-                  : 'bg-[#F7F5F0] text-gray-700 border-[#DFDBD2] hover:bg-gray-200'
+                  ? 'bg-[#8B1E2D] text-white border-[#8B1E2D] shadow-xs'
+                  : 'bg-[#F7F5F0] text-[#292524] border-[#DFDBD2] hover:bg-[#EAE6DE]'
               }`}
             >
-              <i className={`bi ${prefs.ru1815 ? 'bi-bell-fill' : 'bi-bell'}`} />
+              <CagpIcon name="bell" className="w-3.5 h-3.5" />
               <span>{prefs.ru1815 ? 'Alarme 18h15 Ativo' : 'Ativar Alarme 18h15'}</span>
             </button>
             <button
               type="button"
               onClick={downloadRu1815Ics}
-              className="min-h-[44px] py-2.5 px-4 text-xs rounded-[4px] font-['Oswald'] font-semibold uppercase bg-white border border-black/15 hover:bg-[#F7F5F0] transition-colors cursor-pointer flex items-center gap-1"
+              className="min-h-[44px] py-2.5 px-4 text-xs rounded-xl font-['Oswald'] font-semibold uppercase bg-white border border-[#DFDBD2] hover:bg-[#F7F5F0] text-[#292524] transition-colors cursor-pointer flex items-center gap-1.5"
               title="Baixar evento para Apple / Google Calendar"
             >
-              <i className="bi bi-calendar-plus text-xs" />
+              <CagpIcon name="calendar" className="w-3.5 h-3.5" />
               <span>Agenda (.ics)</span>
             </button>
           </div>
@@ -215,9 +218,9 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
         <button
           type="button"
           onClick={handleTestNotification}
-          className="w-full py-2 bg-white hover:bg-[#F7F5F0] text-[#0A0A0A] font-['Oswald'] text-xs font-bold uppercase rounded-[4px] border-2 border-[#0A0A0A] shadow-[1.5px_1.5px_0_#0A0A0A] flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-98"
+          className="w-full min-h-[44px] py-2.5 bg-white hover:bg-[#F7F5F0] text-[#0A0A0A] font-['Oswald'] text-xs font-bold uppercase rounded-xl border border-[#DFDBD2] shadow-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer active:scale-98"
         >
-          <i className="bi bi-bell text-sm text-[#8B1E2D]" />
+          <CagpIcon name="bell" className="w-4 h-4 text-[#8B1E2D]" />
           <span>Testar Notificação do Navegador</span>
         </button>
       </div>

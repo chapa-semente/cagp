@@ -29,7 +29,7 @@ export const AvatarRenderer: React.FC<AvatarRendererProps> = ({
 
   const content = (
     <div
-      className={`cagp-avatar-frame ${sizeClass} relative flex items-center justify-center overflow-hidden rounded-[4px] border-2 border-[#0A0A0A]`}
+      className={`cagp-avatar-frame ${sizeClass} relative flex items-center justify-center overflow-hidden rounded-2xl border border-[#DFDBD2] shadow-xs`}
       style={{
         backgroundColor: profile.photoDataUrl ? '#FFFFFF' : preset.bg,
         color: preset.color,
@@ -40,7 +40,7 @@ export const AvatarRenderer: React.FC<AvatarRendererProps> = ({
         <img
           src={profile.photoDataUrl}
           alt={profile.name}
-          className="w-full h-full object-cover rounded-[2px]"
+          className="w-full h-full object-cover rounded-xl"
         />
       ) : profile.avatarPreset === 'monogram' ? (
         <span className="font-['Oswald'] text-2xl font-black tracking-tight" style={{ color: preset.color }}>

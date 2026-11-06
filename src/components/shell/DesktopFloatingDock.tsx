@@ -90,7 +90,7 @@ export const DesktopFloatingDock: React.FC = () => {
       aria-label="Dock de Atalhos Rápidos Discentes"
     >
       <nav
-        className="pointer-events-auto bg-white/95 backdrop-blur-md border border-black/15 shadow-sm rounded-full px-2.5 py-1.5 flex items-center gap-1.5 transition-all duration-200 hover:shadow-md"
+        className="pointer-events-auto bg-white border border-[#DFDBD2] shadow-md rounded-full px-2.5 py-1.5 flex items-center gap-1.5 transition-all duration-200 hover:shadow-lg"
         role="toolbar"
         aria-label="Atalhos rápidos customizáveis"
       >

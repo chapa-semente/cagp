@@ -1,0 +1,38 @@
+---
+// src/components/ui/CagpIcon.astro - Componente Astro de Ícone Vetorial Autoral CAGP (Zero JS)
+import { getCagpIconPaths, type CagpIconName } from '../../lib/cagpIcons';
+
+interface Props {
+  name: CagpIconName;
+  class?: string;
+  size?: number | string;
+  title?: string;
+}
+
+const {
+  name,
+  class: className = 'w-5 h-5',
+  size,
+  title,
+} = Astro.props;
+
+const pathsHtml = getCagpIconPaths(name);
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  width={size}
+  height={size}
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.75"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class={className}
+  aria-hidden={title ? undefined : 'true'}
+  role={title ? 'img' : undefined}
+>
+  {title ? <title>{title}</title> : null}
+  <Fragment set:html={pathsHtml} />
+</svg>

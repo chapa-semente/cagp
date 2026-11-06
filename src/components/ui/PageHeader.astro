@@ -2,6 +2,8 @@
 // PageHeader.astro - Cabeçalho Canônico Padronizado com Barra de Pílulas Apple HIG, Badges e 1ª Dobra
 import AxisNavBar from '../shell/AxisNavBar.astro';
 import type { AxisId } from '../../lib/navigationRegistry';
+import CagpIcon from './CagpIcon.astro';
+import { resolveCagpIconName } from '../../lib/cagpIcons';
 
 interface Badge {
   label: string;
@@ -37,7 +39,6 @@ interface Props {
 const {
   title,
   subtitle,
-  eyebrow,
   badges = [],
   breadcrumbs = [],
   axisPill,
@@ -59,38 +60,30 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '/index.html
 const shouldRenderAxisNav = showAxisNav && !isHome;
 ---
 
-<header class="mb-2 sm:mb-4 select-none">
-  <!-- Barra de Pílulas do Eixo Apple HIG (Substitui Breadcrumbs & AxisPill) -->
+<header class="mb-3 sm:mb-5 select-none">
+  <!-- Barra de Pílulas do Eixo Apple HIG -->
   {shouldRenderAxisNav && (
     <AxisNavBar axisId={axisId} activeId={activeId} />
   )}
 
-  <!-- Badges & Eyebrow Row -->
-  <div class="flex flex-wrap items-center justify-between gap-1.5 mb-1">
-    {eyebrow ? (
-      <span class="text-xs font-['Oswald'] uppercase tracking-wider text-[#8B1E2D] font-bold">
-        {eyebrow}
-      </span>
-    ) : <div />}
-
-    {badges.length > 0 && (
-      <div class="flex flex-wrap items-center gap-1">
-        {badges.map((b, idx) => (
-          <span class={`cagp-badge ${badgeClasses[b.variant || 'dark']} ${idx >= 2 ? 'hidden sm:inline-flex' : 'inline-flex'}`}>
-            {b.icon && <i class={`bi ${b.icon}`} aria-hidden="true" />}
-            <span>{b.label}</span>
-          </span>
-        ))}
-      </div>
-    )}
-  </div>
+  <!-- Badges Row (Regra No-Eyebrow cumprida) -->
+  {badges.length > 0 && (
+    <div class="flex flex-wrap items-center gap-1.5 mb-2">
+      {badges.map((b, idx) => (
+        <span class={`cagp-badge ${badgeClasses[b.variant || 'dark']} ${idx >= 2 ? 'hidden sm:inline-flex' : 'inline-flex'} items-center gap-1`}>
+          {b.icon && <CagpIcon name={resolveCagpIconName(b.icon)} class="w-3.5 h-3.5 shrink-0" />}
+          <span>{b.label}</span>
+        </span>
+      ))}
+    </div>
+  )}
 
   <!-- Page Title & Subtitle -->
-  <h1 class="font-['Oswald'] text-xl sm:text-3xl font-black uppercase text-[#0A0A0A] leading-tight">
+  <h1 class="font-['Oswald'] text-xl sm:text-3xl font-black uppercase text-[#0A0A0A] leading-tight m-0">
     {title}
   </h1>
   {subtitle && (
-    <p class="text-xs sm:text-sm text-gray-600 mt-0.5 sm:mt-1 max-w-4xl leading-relaxed line-clamp-2 sm:line-clamp-none">
+    <p class="text-xs sm:text-sm text-[#57534E] mt-1 sm:mt-1.5 max-w-4xl leading-relaxed line-clamp-2 sm:line-clamp-none m-0">
       {subtitle}
     </p>
   )}

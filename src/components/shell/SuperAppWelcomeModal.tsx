@@ -66,7 +66,7 @@ export const SuperAppWelcomeModal: React.FC = () => {
       {/* 1. Card Flutuante Compacto de Boas-Vindas e Escolha de Perfil */}
       {showTip && !isModalOpen && (
         <aside
-          className="fixed bottom-[calc(4.75rem+env(safe-area-inset-bottom,0px))] md:bottom-5 right-3 md:right-6 z-[1045] max-w-md w-[calc(100vw-1.5rem)] bg-white/98 backdrop-blur-xl border border-[#DFDBD2] rounded-2xl shadow-lg p-4 animate-in slide-in-from-bottom duration-250"
+          className="fixed bottom-[calc(4.75rem+env(safe-area-inset-bottom,0px))] md:bottom-5 right-3 md:right-6 z-[1045] max-w-md w-[calc(100vw-1.5rem)] bg-white border border-[#DFDBD2] rounded-3xl shadow-xl p-4 animate-in slide-in-from-bottom duration-250"
           aria-label="Escolha seu perfil no Super App CAGP"
         >
           <div className="flex items-start justify-between gap-3 mb-2.5">
@@ -120,7 +120,7 @@ export const SuperAppWelcomeModal: React.FC = () => {
             })}
           </div>
 
-          <div className="flex items-center justify-between text-[11px] text-[#57534E] pt-2 border-t border-[#DFDBD2]">
+          <div className="flex items-center justify-between text-xs text-[#57534E] pt-2 border-t border-[#DFDBD2]">
             <span>Zero login • 100% offline</span>
             <button
               type="button"
@@ -139,7 +139,7 @@ export const SuperAppWelcomeModal: React.FC = () => {
       {/* 2. Modal Completo de Escolha de Perfil Discente */}
       {isModalOpen && (
         <div
-          className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/55 backdrop-blur-xs p-4 select-none animate-in fade-in duration-200"
+          className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/65 p-4 select-none animate-in fade-in duration-200"
           role="dialog"
           aria-modal="true"
           aria-labelledby="onboarding-role-title"

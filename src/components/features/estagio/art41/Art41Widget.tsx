@@ -66,7 +66,7 @@ export const Art41Widget: React.FC = () => {
 
       <a
         href="#art41"
-        className="min-h-[44px] px-3 py-2 bg-[#0A0A0A] hover:bg-[#8B1E2D] text-white rounded-lg font-['Oswald'] text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline shadow-[2px_2px_0px_#0A0A0A]"
+        className="min-h-[44px] px-3.5 py-2 bg-[#8B1E2D] hover:bg-[#6e1723] text-white rounded-xl font-['Oswald'] text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-colors no-underline shadow-xs border border-[#8B1E2D]"
       >
         <span>Abrir Simulador Art. 41</span>
         <i className="bi bi-arrow-right" aria-hidden="true" />

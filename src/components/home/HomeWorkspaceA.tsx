@@ -217,6 +217,7 @@ export const HomeWorkspaceA: React.FC = () => {
   const [newsCategory, setNewsCategory] = useState<NewsCategory>('todas');
   const [isOnline, setIsOnline] = useState<boolean>(true);
   const [campusStatus, setCampusStatus] = useState(() => computeCampusLiveStatus(new Date()));
+  const [calouroPhase, setCalouroPhase] = useState<'fase1' | 'fase2'>('fase1');
 
   const loadVaultState = () => {
     if (typeof window === 'undefined') return;
@@ -371,9 +372,36 @@ export const HomeWorkspaceA: React.FC = () => {
             </div>
           </div>
 
-          {/* Lista de Vistos em Grid de 2 Colunas (Itens interativos táteis >= 44px) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
-            {CALOURO_STEPS.map((step, idx) => {
+          {/* Divisão Cognitiva em Fases Curtas (≤ 3 tarefas visíveis por vez) */}
+          <div className="flex items-center gap-2 border-b border-[#DFDBD2] pb-3">
+            <button
+              type="button"
+              onClick={() => setCalouroPhase('fase1')}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer border ${
+                calouroPhase === 'fase1'
+                  ? 'bg-[#8B1E2D] text-white border-[#8B1E2D] shadow-xs'
+                  : 'bg-[#FBF8F3] text-[#57534E] border-[#DFDBD2] hover:bg-[#F4F1EA]'
+              }`}
+            >
+              Fase 1: Semana 1 • Acessos &amp; FUMP
+            </button>
+            <button
+              type="button"
+              onClick={() => setCalouroPhase('fase2')}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer border ${
+                calouroPhase === 'fase2'
+                  ? 'bg-[#8B1E2D] text-white border-[#8B1E2D] shadow-xs'
+                  : 'bg-[#FBF8F3] text-[#57534E] border-[#DFDBD2] hover:bg-[#F4F1EA]'
+              }`}
+            >
+              Fase 2: Semana 2 • Campus &amp; Acolhimento
+            </button>
+          </div>
+
+          {/* Lista de Vistos em Lote Reduzido (3 tarefas sequenciais) */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {(calouroPhase === 'fase1' ? CALOURO_STEPS.slice(0, 3) : CALOURO_STEPS.slice(3, 6)).map((step, idx) => {
+              const actualIdx = calouroPhase === 'fase1' ? idx : idx + 3;
               const checked = Boolean(calouroChecklist[step.id]);
               return (
                 <button
@@ -381,22 +409,22 @@ export const HomeWorkspaceA: React.FC = () => {
                   type="button"
                   onClick={() => toggleCalouroStep(step.id)}
                   aria-pressed={checked}
-                  className={`cagp-touch-spring p-3.5 rounded-2xl border text-left transition-colors cursor-pointer flex items-start gap-3 ${
+                  className={`cagp-touch-spring p-4 rounded-2xl border text-left transition-colors cursor-pointer flex flex-col justify-between min-h-[96px] ${
                     checked
-                      ? 'bg-[#F0FDF4] border-[#15803D]/35 text-[#0A0A0A]'
+                      ? 'bg-[#F0FDF4] border-[#15803D]/40 text-[#0A0A0A]'
                       : 'bg-[#FBF8F3] hover:bg-[#F4F1EA] border-[#DFDBD2] text-[#0A0A0A]'
                   }`}
                 >
-                  <span
-                    className={`w-6 h-6 rounded-lg flex items-center justify-center shrink-0 mt-0.5 border text-xs font-mono font-bold transition-colors tabular-nums ${
-                      checked
-                        ? 'bg-[#15803D] text-white border-[#15803D]'
-                        : 'bg-white text-[#57534E] border-[#DFDBD2]'
-                    }`}
-                  >
-                    {checked ? <CagpIcon name="check" className="w-3.5 h-3.5" /> : idx + 1}
-                  </span>
-                  <div className="min-w-0 flex-1">
+                  <div className="flex items-start gap-2.5 mb-2">
+                    <span
+                      className={`w-6 h-6 rounded-lg flex items-center justify-center shrink-0 mt-0.5 border text-xs font-mono font-bold transition-colors tabular-nums ${
+                        checked
+                          ? 'bg-[#15803D] text-white border-[#15803D]'
+                          : 'bg-white text-[#57534E] border-[#DFDBD2]'
+                      }`}
+                    >
+                      {checked ? <CagpIcon name="check" className="w-3.5 h-3.5" /> : actualIdx + 1}
+                    </span>
                     <span
                       className={`text-xs font-bold block leading-snug ${
                         checked ? 'line-through text-[#166534]' : 'text-[#0A0A0A]'
@@ -404,10 +432,10 @@ export const HomeWorkspaceA: React.FC = () => {
                     >
                       {step.title}
                     </span>
-                    <span className="text-xs text-[#57534E] block mt-0.5 leading-snug">
-                      {step.detail}
-                    </span>
                   </div>
+                  <span className="text-[11px] text-[#57534E] block leading-relaxed">
+                    {step.detail}
+                  </span>
                 </button>
               );
             })}
@@ -856,7 +884,7 @@ export const HomeWorkspaceA: React.FC = () => {
                 <CagpIcon name="utensils" className="w-5 h-5" />
               </span>
               <span
-                className={`text-xs font-bold px-2.5 py-0.5 rounded-full tabular-nums ${
+                className={`text-xs font-bold px-2.5 py-1 rounded-full tabular-nums ${
                   campusStatus.ruTone === 'open'
                     ? 'bg-[#DCFCE7] text-[#166534]'
                     : campusStatus.ruTone === 'warn'
@@ -964,7 +992,7 @@ export const HomeWorkspaceA: React.FC = () => {
               <span className="w-9 h-9 rounded-2xl bg-[#005A9C]/10 text-[#005A9C] flex items-center justify-center shrink-0">
                 <CagpIcon name="building" className="w-5 h-5" />
               </span>
-              <span className="text-xs font-mono font-bold bg-[#F4F1EA] text-[#292524] px-2.5 py-0.5 rounded-full tabular-nums">
+              <span className="text-xs font-mono font-bold bg-[#F4F1EA] text-[#292524] px-2.5 py-1 rounded-full tabular-nums">
                 Sala F-2039 • 2º Andar
               </span>
             </div>
@@ -1119,15 +1147,6 @@ export const HomeWorkspaceA: React.FC = () => {
 
   // Ordenação dinâmica dos módulos da coluna esquerda conforme o perfil selecionado
   const renderOrderedLeftColumn = () => {
-    if (userRole === 'veterano') {
-      return (
-        <>
-          {renderCampusNowSection()}
-          {renderRolePrioritySection()}
-          {renderNewsEditorialSection()}
-        </>
-      );
-    }
     if (userRole === 'ingressar') {
       return (
         <>
@@ -1137,11 +1156,11 @@ export const HomeWorkspaceA: React.FC = () => {
         </>
       );
     }
-    // calouro & formando
+    // calouro, veterano & formando: Campus Agora priorizado no topo
     return (
       <>
-        {renderRolePrioritySection()}
         {renderCampusNowSection()}
+        {renderRolePrioritySection()}
         {renderNewsEditorialSection()}
       </>
     );
