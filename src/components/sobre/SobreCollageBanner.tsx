@@ -23,7 +23,7 @@ export const SobreCollageBanner: React.FC = () => {
           className="pointer-events-none absolute inset-0 opacity-15"
           aria-hidden="true"
         >
-          <Halftone color="#9E2424" maxRadius={9} spacing={20} speed={0.7} />
+          <Halftone color="#9E2424" gap={20} maxScale={0.65} speed={0.7} />
         </div>
         <div
           className="pointer-events-none absolute inset-0 opacity-20"
@@ -83,7 +83,6 @@ export const SobreCollageBanner: React.FC = () => {
                 <BurstShape
                   size={56}
                   color="#9E2424"
-                  shadow={false}
                   className="absolute -top-3 -left-3 rotate-12 opacity-80"
                 />
                 <img
@@ -119,7 +118,6 @@ export const SobreCollageBanner: React.FC = () => {
                 <Star4Shape
                   size={48}
                   color="#FF8811"
-                  shadow={false}
                   className="absolute top-2 right-2 rotate-12"
                 />
                 <div className="w-24 h-24 rounded-2xl border-3 border-border bg-[#FF8811] p-2 shadow-sm flex items-center justify-center">
@@ -199,7 +197,7 @@ export const SobreCollageBanner: React.FC = () => {
               </div>
             </div>
 
-            <RibbonShape size={42} color="#FF8811" shadow={false} />
+            <RibbonShape size={42} color="#FF8811" />
           </div>
         </CardContent>
       </Card>

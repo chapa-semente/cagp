@@ -523,7 +523,7 @@ export const HomeWorkspaceA: React.FC = () => {
 
                   <div className="pt-3 border-t-2 border-border/20 flex items-center justify-between gap-2 text-xs">
                     <div className="flex items-center gap-2 text-foreground">
-                      <ShieldShape size={18} color="#15803D" shadow={false} />
+                      <ShieldShape size={18} color="#15803D" />
                       <span className="font-bold">Percurso {profile.pathway || '01-01'}</span>
                       <span className="text-muted-foreground font-mono tabular-nums">
                         • {certs.length} cert. 120d
