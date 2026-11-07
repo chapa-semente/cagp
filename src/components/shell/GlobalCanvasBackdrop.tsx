@@ -457,7 +457,7 @@ export const GlobalCanvasBackdrop: React.FC = () => {
   if (prefersReducedMotion) {
     return (
       <div
-        className="pointer-events-none fixed inset-0 z-0 overflow-hidden opacity-20 bg-[radial-gradient(#5B2A86_1.5px,transparent_1.5px)] [background-size:28px_28px]"
+        className="pointer-events-none fixed inset-0 -z-10 overflow-hidden opacity-20 bg-[radial-gradient(#5B2A86_1.5px,transparent_1.5px)] [background-size:28px_28px]"
         aria-hidden="true"
       />
     )
@@ -465,7 +465,7 @@ export const GlobalCanvasBackdrop: React.FC = () => {
 
   return (
     <div
-      className="pointer-events-none fixed inset-0 z-0 overflow-hidden opacity-30 sm:opacity-[0.34] transition-opacity duration-700 ease-in-out"
+      className="pointer-events-none fixed inset-0 -z-10 overflow-hidden opacity-25 sm:opacity-30 transition-opacity duration-700 ease-in-out"
       aria-hidden="true"
     >
       <canvas
