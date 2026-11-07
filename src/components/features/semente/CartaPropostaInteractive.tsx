@@ -3,6 +3,14 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuSeparator,
+  ContextMenuTrigger,
+} from '@/components/ui/context-menu';
+import { Copy, Link2 } from 'lucide-react';
 import { CagpIcon } from '@/components/ui/CagpIcon';
 import { resolveCagpIconName } from '@/lib/cagpIcons';
 
@@ -292,73 +300,101 @@ export const CartaPropostaInteractive: React.FC = () => {
         {filteredPropostas.map((item) => {
           const isExpanded = expandedId === item.id;
           return (
-            <Card
-              key={item.id}
-              className="border-3 border-[#16181d] bg-white shadow-[3px_3px_0_0_#16181d] hover:shadow-[5px_5px_0_0_#16181d] transition-all flex flex-col justify-between"
-            >
-              <CardHeader className="p-4 pb-2 space-y-2">
-                <div className="flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-2">
-                    <span
-                      className="w-7 h-7 rounded-lg text-white flex items-center justify-center font-heading font-black text-xs border-2 border-[#16181d] shadow-[1px_1px_0_0_#16181d]"
-                      style={{ backgroundColor: item.eixoColor }}
-                    >
-                      {item.id}
-                    </span>
-                    <Badge variant="outline" className="border-2 border-[#16181d] text-[10px] font-bold">
-                      {item.eixoName}
-                    </Badge>
-                  </div>
-                  <span className="font-mono text-[10px] font-bold text-muted-foreground uppercase">
-                    {item.eixoBadge}
-                  </span>
-                </div>
-                <CardTitle className="font-heading text-base font-black uppercase text-[#16181d] leading-snug">
-                  {item.title}
-                </CardTitle>
-              </CardHeader>
-
-              <CardContent className="p-4 pt-1 space-y-3 flex-1 flex flex-col justify-between">
-                <div>
-                  <p className="text-xs font-sans text-[#16181d]/85 leading-relaxed m-0">
-                    {item.summary}
-                  </p>
-
-                  {isExpanded && (
-                    <div className="mt-3 p-3 rounded-lg bg-[#f4f5f7] border-2 border-[#16181d] text-xs font-sans text-[#16181d] leading-relaxed">
-                      <strong>Texto Integral da Carta-Programa:</strong>
-                      <p className="mt-1 m-0">{item.fullText}</p>
-                    </div>
-                  )}
-                </div>
-
-                <div className="space-y-2 pt-2 border-t border-border">
-                  <div className="flex flex-wrap gap-1">
-                    {item.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-2 py-0.5 rounded-md bg-[#FFFDF9] border border-[#16181d] text-[10px] font-mono font-semibold text-[#16181d]"
-                      >
-                        #{tag}
+            <ContextMenu key={item.id}>
+              <ContextMenuTrigger asChild>
+                <Card
+                  className="border-3 border-border bg-card shadow-sm hover:shadow-md transition-all flex flex-col justify-between cursor-context-menu"
+                >
+                  <CardHeader className="p-4 pb-2 space-y-2">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2">
+                        <span
+                          className="w-7 h-7 rounded-lg text-white flex items-center justify-center font-heading font-black text-xs border-2 border-border shadow-xs"
+                          style={{ backgroundColor: item.eixoColor }}
+                        >
+                          {item.id}
+                        </span>
+                        <Badge variant="outline" className="border-2 border-border text-[10px] font-bold">
+                          {item.eixoName}
+                        </Badge>
+                      </div>
+                      <span className="font-mono text-[10px] font-bold text-muted-foreground uppercase">
+                        {item.eixoBadge}
                       </span>
-                    ))}
-                  </div>
+                    </div>
+                    <CardTitle className="font-heading text-base font-black uppercase text-foreground leading-snug">
+                      {item.title}
+                    </CardTitle>
+                  </CardHeader>
 
-                  <div className="flex items-center justify-between pt-1">
-                    <button
-                      type="button"
-                      onClick={() => setExpandedId(isExpanded ? null : item.id)}
-                      className="text-[11px] font-heading font-extrabold uppercase text-[#5B2A86] hover:underline cursor-pointer"
-                    >
-                      {isExpanded ? '▲ Recolher detalhes' : '▼ Ver texto integral'}
-                    </button>
-                    <span className="text-[10px] font-mono text-muted-foreground">
-                      Proposta {item.id}/14
-                    </span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                  <CardContent className="p-4 pt-1 space-y-3 flex-1 flex flex-col justify-between">
+                    <div>
+                      <p className="text-xs font-sans text-foreground/85 leading-relaxed m-0">
+                        {item.summary}
+                      </p>
+
+                      {isExpanded && (
+                        <div className="mt-3 p-3 rounded-lg bg-white border-2 border-border text-xs font-sans text-foreground leading-relaxed shadow-xs">
+                          <strong>Texto Integral da Carta-Programa:</strong>
+                          <p className="mt-1 m-0">{item.fullText}</p>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="space-y-2 pt-2 border-t border-border">
+                      <div className="flex flex-wrap gap-1">
+                        {item.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="px-2 py-0.5 rounded-md bg-[#FFFDF9] border border-border text-[10px] font-mono font-semibold text-foreground"
+                          >
+                            #{tag}
+                          </span>
+                        ))}
+                      </div>
+
+                      <div className="flex items-center justify-between pt-1">
+                        <button
+                          type="button"
+                          onClick={() => setExpandedId(isExpanded ? null : item.id)}
+                          className="text-[11px] font-heading font-extrabold uppercase text-primary hover:underline cursor-pointer"
+                        >
+                          {isExpanded ? '▲ Recolher detalhes' : '▼ Ver texto integral'}
+                        </button>
+                        <span className="text-[10px] font-mono text-muted-foreground">
+                          Proposta {item.id}/14
+                        </span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </ContextMenuTrigger>
+
+              <ContextMenuContent>
+                <ContextMenuItem onClick={() => setExpandedId(isExpanded ? null : item.id)}>
+                  <CagpIcon name="file-text" className="w-4 h-4 mr-2" />
+                  {isExpanded ? 'Recolher Detalhes' : 'Ver Texto Integral'}
+                </ContextMenuItem>
+                <ContextMenuItem onClick={() => {
+                  const shareText = `Proposta ${item.id} Chapa Semente: ${item.title}\n\n${item.summary}\n\nConheça no Super App: ${window.location.href}`;
+                  navigator.clipboard.writeText(shareText);
+                  if (typeof navigator !== 'undefined' && 'vibrate' in navigator) navigator.vibrate(15);
+                  (window as any).cagpToast?.(`Proposta ${item.id} copiada para divulgação!`, 'bi-clipboard-check');
+                }}>
+                  <Copy className="w-4 h-4 mr-2" />
+                  Copiar Texto para Compartilhar
+                </ContextMenuItem>
+                <ContextMenuSeparator />
+                <ContextMenuItem onClick={() => {
+                  const url = `${window.location.origin}/chapa-semente#proposta-${item.id}`;
+                  navigator.clipboard.writeText(url);
+                  (window as any).cagpToast?.(`Link da Proposta ${item.id} copiado!`, 'bi-link-45deg');
+                }}>
+                  <Link2 className="w-4 h-4 mr-2" />
+                  Copiar Link Direto
+                </ContextMenuItem>
+              </ContextMenuContent>
+            </ContextMenu>
           );
         })}
       </div>

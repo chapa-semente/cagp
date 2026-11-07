@@ -186,7 +186,7 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
       </div>
 
       <!-- Alerta Institucional de Fé Pública -->
-      <div class="p-3.5 bg-[#FBF8F3] rounded-xl border-2 border-[#0A0A0A] text-xs text-gray-800 flex items-start gap-2 shadow-[2px_2px_0_0_#0A0A0A]">
+      <div class="p-3.5 bg-white rounded-xl border-2 border-[#0A0A0A] text-xs text-gray-800 flex items-start gap-2 shadow-[2px_2px_0_0_#0A0A0A]">
         <i class="bi bi-info-circle-fill text-[#8B1E2D] text-base shrink-0 mt-0.5" aria-hidden="true"></i>
         <p class="leading-relaxed m-0 font-body font-medium">
           <strong>Fé Pública e Validade Jurídica:</strong> Esta transcrição digital em Markdown destina-se à consulta rápida, acessibilidade e busca textual. Em processos administrativos no SEI/UFMG e comprovação regimental, <strong>o PDF oficial assinado prevalece integralmente</strong>.
@@ -199,7 +199,7 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
     <!-- Sumário Mobile Retrátil (visível apenas em telas pequenas) -->
     {filteredHeadings.length > 0 && (
-      <div class="lg:hidden cagp-card p-3 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl shadow-[3px_3px_0_0_#0A0A0A]">
+      <div class="lg:hidden cagp-card p-3 bg-white border-2 border-[#0A0A0A] rounded-xl shadow-[3px_3px_0_0_#0A0A0A]">
         <details class="group">
           <summary class="cursor-pointer font-head font-bold uppercase text-xs text-[#0A0A0A] flex items-center justify-between min-h-[44px] py-3.5 px-4 tracking-wide">
             <span class="flex items-center gap-1.5">
@@ -259,7 +259,7 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
             <a
               href={`#${h.slug}`}
               data-toc-slug={h.slug}
-              class={`toc-link block py-1.5 px-2 rounded-lg transition-colors truncate hover:bg-[#FBF8F3] hover:text-[#8B1E2D] border border-transparent ${
+              class={`toc-link block py-1.5 px-2 rounded-lg transition-colors truncate hover:bg-muted hover:text-[#8B1E2D] border border-transparent ${
                 h.depth === 1
                   ? 'font-head uppercase font-bold text-[#0A0A0A] text-xs'
                   : h.depth === 2
@@ -362,7 +362,7 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
     border-radius: 12px;
     padding: 0.85rem 1.15rem;
     margin: 1.25rem 0;
-    background-color: #FBF8F3;
+    background-color: #FFFFFF;
     font-style: italic;
     color: #0A0A0A;
     box-shadow: 3px 3px 0 0 #0A0A0A;
@@ -383,7 +383,7 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
   }
 
   .cagp-doc-reader th {
-    background-color: #FBF8F3;
+    background-color: #F4F1EA;
     border: 2px solid #0A0A0A;
     padding: 0.6rem 0.75rem;
     font-family: var(--font-head, 'Bricolage Grotesque', sans-serif);
@@ -402,7 +402,7 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
   }
 
   .cagp-doc-reader tr:nth-child(even) td {
-    background-color: #FBF8F3;
+    background-color: #FAFAFA;
   }
 
   .cagp-doc-reader hr {

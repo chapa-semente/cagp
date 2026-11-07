@@ -71,7 +71,7 @@ export const HomeNewsFeed: React.FC = () => {
 
         <a
           href={route('/noticias')}
-          className="min-h-[44px] px-3.5 py-1.5 rounded-xl text-xs font-heading font-bold uppercase bg-white hover:bg-[#FBF8F3] text-[#0A0A0A] hover:text-[#9E2424] border-[2.5px] border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] no-underline inline-flex items-center gap-1.5 transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none tabular-nums"
+          className="min-h-[44px] px-3.5 py-1.5 rounded-xl text-xs font-heading font-bold uppercase bg-white hover:bg-muted text-[#0A0A0A] hover:text-[#9E2424] border-[2.5px] border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] no-underline inline-flex items-center gap-1.5 transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none tabular-nums"
         >
           <span>Mural completo ({SIMULATED_NEWS.length})</span>
           <span aria-hidden="true">&rarr;</span>
@@ -133,7 +133,7 @@ export const HomeNewsFeed: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="px-4 pb-3 pt-2.5 border-t-[2px] border-[#0A0A0A]/15 flex items-center justify-between text-xs bg-[#FBF8F3]">
+                <div className="px-4 pb-3 pt-2.5 border-t-[2px] border-[#0A0A0A]/15 flex items-center justify-between text-xs bg-white">
                   <span className="text-[#57534E] font-mono text-[11px] font-medium truncate tabular-nums">
                     {item.meta}
                   </span>

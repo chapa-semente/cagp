@@ -68,14 +68,21 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = "default", size = "default", animation = "none", asChild = false, ...props }, ref) => {
+  ({ className, variant = "default", size = "default", animation = "none", asChild = false, onClick, ...props }, ref) => {
     const Comp = asChild ? SlotPrimitive.Slot : "button"
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+      if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
+        navigator.vibrate(12);
+      }
+      onClick?.(e);
+    }
     return (
       <Comp
         ref={ref}
         data-slot="button"
         data-variant={variant}
         data-size={size}
+        onClick={handleClick}
         className={cn(buttonVariants({ variant, size, animation, className }))}
         {...props}
       />

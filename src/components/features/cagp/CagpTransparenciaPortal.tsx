@@ -50,7 +50,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
       >
         <a
           href={route('/sobre')}
-          className="px-3.5 py-2 rounded-lg text-xs font-head uppercase font-bold text-[#0A0A0A] hover:bg-[#FBF8F3] hover:text-[#8B1E2D] no-underline transition-colors border border-transparent hover:border-[#0A0A0A]"
+          className="px-3.5 py-2 rounded-lg text-xs font-head uppercase font-bold text-[#0A0A0A] hover:bg-muted hover:text-[#8B1E2D] no-underline transition-colors border border-transparent hover:border-[#0A0A0A]"
         >
           Visão Geral &amp; Estatuto
         </a>
@@ -63,7 +63,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
         </a>
         <a
           href={route('/gestao')}
-          className="px-3.5 py-2 rounded-lg text-xs font-head uppercase font-bold text-[#0A0A0A] hover:bg-[#FBF8F3] hover:text-[#8B1E2D] no-underline transition-colors border border-transparent hover:border-[#0A0A0A]"
+          className="px-3.5 py-2 rounded-lg text-xs font-head uppercase font-bold text-[#0A0A0A] hover:bg-muted hover:text-[#8B1E2D] no-underline transition-colors border border-transparent hover:border-[#0A0A0A]"
         >
           Diretorias &amp; Gestão
         </a>
@@ -149,7 +149,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
 
         {/* Painel Visual BoldKit Charts: DonutChart + GaugeChart */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 pt-4 border-t-3 border-border">
-          <div className="p-4 sm:p-5 rounded-xl border-3 border-border bg-[#f4f5f7] shadow-sm space-y-3">
+          <div className="p-4 sm:p-5 rounded-xl border-3 border-border bg-white shadow-sm space-y-3">
             <div className="flex items-center justify-between gap-2">
               <span className="font-heading text-sm font-extrabold uppercase text-foreground">
                 Alocação Orçamentária por Eixo (%)
@@ -184,7 +184,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
             </div>
           </div>
 
-          <div className="p-4 sm:p-5 rounded-xl border-3 border-border bg-[#f4f5f7] shadow-sm flex flex-col justify-between space-y-3">
+          <div className="p-4 sm:p-5 rounded-xl border-3 border-border bg-white shadow-sm flex flex-col justify-between space-y-3">
             <div className="flex items-center justify-between gap-2">
               <span className="font-heading text-sm font-extrabold uppercase text-foreground">
                 Índice de Execução &amp; Conformidade Fiscal
@@ -251,7 +251,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
                   className={`px-3 py-1.5 rounded-lg text-xs font-head uppercase font-extrabold border-2 border-[#0A0A0A] cursor-pointer transition-all ${
                     active
                       ? 'bg-[#8B1E2D] text-white shadow-[2px_2px_0_0_#0A0A0A]'
-                      : 'bg-[#FBF8F3] hover:bg-white text-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none'
+                      : 'bg-white hover:bg-muted text-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none'
                   }`}
                 >
                   {btn.label}
@@ -263,7 +263,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
               aria-label="Filtrar por rubrica ou categoria"
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="px-3 py-1.5 rounded-lg text-xs font-head font-bold bg-[#FBF8F3] border-2 border-[#0A0A0A] text-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] cursor-pointer"
+              className="px-3 py-1.5 rounded-lg text-xs font-head font-bold bg-white border-2 border-[#0A0A0A] text-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] cursor-pointer"
             >
               {categories.map((cat) => (
                 <option key={cat} value={cat}>
@@ -286,7 +286,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
                     {entry.code}
                   </span>
                   <span className="font-mono text-[11px] text-[#0A0A0A] font-bold">{entry.date}</span>
-                  <span className="text-[10px] font-head font-bold uppercase bg-[#FBF8F3] border border-[#0A0A0A] text-[#0A0A0A] px-2 py-0.5 rounded-lg">
+                  <span className="text-[10px] font-head font-bold uppercase bg-white border border-[#0A0A0A] text-[#0A0A0A] px-2 py-0.5 rounded-lg shadow-xs">
                     {entry.category}
                   </span>
                   <span className="text-[10px] font-mono font-bold text-[#15803D] bg-[#E8F5E9] border border-[#0A0A0A] px-2 py-0.5 rounded-lg">
@@ -335,7 +335,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
           <div className="overflow-x-auto border-2 border-[#0A0A0A] rounded-xl">
             <table className="w-full text-left border-collapse text-xs">
               <thead>
-                <tr className="border-b-2 border-[#0A0A0A] bg-[#FBF8F3] text-[10px] font-mono font-bold uppercase text-[#0A0A0A]">
+                <tr className="border-b-2 border-[#0A0A0A] bg-muted/60 text-[10px] font-mono font-bold uppercase text-[#0A0A0A]">
                   <th className="py-2.5 px-3">Competência</th>
                   <th className="py-2.5 px-2 text-right">Entradas</th>
                   <th className="py-2.5 px-2 text-right">Saídas</th>
@@ -345,7 +345,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
               </thead>
               <tbody className="divide-y divide-[#0A0A0A] tabular-nums font-body">
                 {SIMULATED_TRANSPARENCY.rreoMonthly.map((row) => (
-                  <tr key={row.id} className="hover:bg-[#FBF8F3] transition-colors">
+                  <tr key={row.id} className="hover:bg-muted/40 transition-colors">
                     <td className="py-2.5 px-3 font-head font-bold text-[#0A0A0A]">{row.month}</td>
                     <td className="py-2.5 px-2 text-right font-mono text-[#15803D] font-bold">
                       {row.inflow}
@@ -357,7 +357,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
                       {row.endingBalance}
                     </td>
                     <td className="py-2.5 px-3 text-right">
-                      <span className="text-[10px] font-mono font-bold bg-[#FBF8F3] border border-[#0A0A0A] px-2 py-0.5 rounded-lg text-[#0A0A0A]">
+                      <span className="text-[10px] font-mono font-bold bg-white border border-[#0A0A0A] px-2 py-0.5 rounded-lg text-[#0A0A0A] shadow-xs">
                         {row.status}
                       </span>
                     </td>
@@ -389,7 +389,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
             {SIMULATED_TRANSPARENCY.governanceRecords.map((rec) => (
               <div
                 key={rec.id}
-                className="p-3.5 rounded-xl bg-[#FBF8F3] border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] space-y-1.5"
+                className="p-3.5 rounded-xl bg-white border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] space-y-1.5"
               >
                 <div className="flex items-center justify-between gap-2 text-[10px] font-mono font-bold text-[#0A0A0A]">
                   <span className="text-[#8B1E2D]">{rec.code}</span>
@@ -434,7 +434,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="p-4 rounded-xl bg-[#FBF8F3] border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] space-y-2">
+          <div className="p-4 rounded-xl bg-white border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] space-y-2">
             <span className="text-[11px] font-mono font-bold text-[#8B1E2D] block">
               Art. 8º, Parágrafo Único
             </span>
@@ -447,7 +447,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
             </p>
           </div>
 
-          <div className="p-4 rounded-xl bg-[#FBF8F3] border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] space-y-2">
+          <div className="p-4 rounded-xl bg-white border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] space-y-2">
             <span className="text-[11px] font-mono font-bold text-[#8B1E2D] block">Art. 15, Inciso V</span>
             <h3 className="text-xs font-head font-extrabold uppercase text-[#0A0A0A] m-0">
               Prazo de 3 Dias Úteis para Informações
@@ -458,7 +458,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
             </p>
           </div>
 
-          <div className="p-4 rounded-xl bg-[#FBF8F3] border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] space-y-2">
+          <div className="p-4 rounded-xl bg-white border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] space-y-2">
             <span className="text-[11px] font-mono font-bold text-[#8B1E2D] block">
               Arts. 30 e 36 do Estatuto
             </span>

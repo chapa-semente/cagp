@@ -30,7 +30,7 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
     <div class="cagp-sidebar-header flex flex-col xl:flex-row items-center xl:justify-between gap-2 pb-3 border-b-[3px] border-[#0A0A0A]">
       <a
         href={route('/')}
-        class="flex items-center justify-center xl:justify-start gap-3 p-1 rounded-xl hover:bg-[#FBF8F3] transition-transform no-underline group min-h-[44px] min-w-0"
+        class="flex items-center justify-center xl:justify-start gap-3 p-1 rounded-xl hover:bg-muted transition-transform no-underline group min-h-[44px] min-w-0"
         aria-label="Início — Centro Acadêmico de Gestão Pública UFMG"
         title="Início — CAGP UFMG"
       >
@@ -56,7 +56,7 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
       <button
         type="button"
         id="cagp-sidebar-close-btn"
-        class="md:hidden w-11 h-11 rounded-xl bg-[#FBF8F3] hover:bg-[#F4F1EA] border-[3px] border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] text-[#0A0A0A] hover:text-[#9E2424] flex items-center justify-center transition-all cursor-pointer shrink-0 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+        class="md:hidden w-11 h-11 rounded-xl bg-white hover:bg-muted border-[3px] border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] text-[#0A0A0A] hover:text-[#9E2424] flex items-center justify-center transition-all cursor-pointer shrink-0 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
         title="Fechar menu lateral"
         aria-label="Fechar menu lateral"
       >
@@ -67,7 +67,7 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
       <button
         type="button"
         id="cagp-sidebar-toggle-btn"
-        class="hidden md:flex xl:hidden w-10 h-8 rounded-xl bg-[#FBF8F3] hover:bg-[#F4F1EA] border-[3px] border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] text-[#0A0A0A] hover:text-[#9E2424] items-center justify-center transition-all cursor-pointer shrink-0 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+        class="hidden md:flex xl:hidden w-10 h-8 rounded-xl bg-white hover:bg-muted border-[3px] border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] text-[#0A0A0A] hover:text-[#9E2424] items-center justify-center transition-all cursor-pointer shrink-0 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
         title="Alternar largura da barra lateral (Rail / Completa)"
         aria-label="Alternar expansão da barra lateral"
       >
@@ -101,7 +101,7 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
                 class={`cagp-sidebar-axis-link flex-1 flex flex-col xl:flex-row items-center xl:justify-between gap-1 xl:gap-2.5 px-2 xl:px-3 py-2 xl:py-2.5 rounded-xl no-underline transition-all min-h-[48px] xl:min-h-[44px] min-w-0 ${
                   isCurrentAxis
                     ? 'is-active bg-[#9E2424] text-white font-bold border-[2.5px] border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A]'
-                    : 'text-[#0A0A0A] hover:bg-[#FBF8F3] hover:text-[#9E2424] font-semibold border-[2px] border-transparent hover:border-[#0A0A0A]'
+                    : 'text-[#0A0A0A] hover:bg-muted hover:text-[#9E2424] font-semibold border-[2px] border-transparent hover:border-[#0A0A0A]'
                 }`}
                 title={`${axis.number}. ${axis.name} — ${axis.tagline}`}
               >
@@ -154,7 +154,7 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
                   <a
                     href={sub.href}
                     data-axis-sublink={sub.href}
-                    class="text-xs font-sans font-medium text-[#0A0A0A] hover:text-[#9E2424] hover:bg-[#FBF8F3] px-2.5 py-1.5 rounded-lg no-underline flex items-center justify-between transition-colors truncate min-h-[36px]"
+                    class="text-xs font-sans font-medium text-[#0A0A0A] hover:text-[#9E2424] hover:bg-muted px-2.5 py-1.5 rounded-lg no-underline flex items-center justify-between transition-colors truncate min-h-[36px]"
                   >
                     <span class="truncate">{sub.shortLabel || sub.label}</span>
                     <span class="text-[11px] font-bold text-[#9E2424]" aria-hidden="true">&rarr;</span>
@@ -199,7 +199,7 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
               href={item.href}
               data-sidebar-shortcut={item.id}
               data-action={item.isAction ? item.actionEvent : undefined}
-              class="flex items-center justify-between gap-2.5 px-2.5 py-1.5 rounded-xl border border-transparent hover:border-[#0A0A0A] hover:bg-[#FBF8F3] text-xs text-[#0A0A0A] hover:text-[#9E2424] no-underline transition-all min-h-[38px]"
+              class="flex items-center justify-between gap-2.5 px-2.5 py-1.5 rounded-xl border border-transparent hover:border-[#0A0A0A] hover:bg-muted text-xs text-[#0A0A0A] hover:text-[#9E2424] no-underline transition-all min-h-[38px]"
             >
               <span class="flex items-center gap-2 min-w-0 truncate">
                 <span class="text-[#9E2424]" set:html={iconSvg} />
@@ -221,7 +221,7 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
               href={item.href}
               data-sidebar-shortcut={item.id}
               data-action={item.isAction ? item.actionEvent : undefined}
-              class="w-11 h-11 rounded-xl bg-[#FBF8F3] hover:bg-[#F4F1EA] text-[#0A0A0A] hover:text-[#9E2424] border-[2.5px] border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] flex items-center justify-center transition-all cursor-pointer no-underline group active:translate-x-0.5 active:translate-y-0.5 active:shadow-none shrink-0"
+              class="w-11 h-11 rounded-xl bg-white hover:bg-muted text-[#0A0A0A] hover:text-[#9E2424] border-[2.5px] border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] flex items-center justify-center transition-all cursor-pointer no-underline group active:translate-x-0.5 active:translate-y-0.5 active:shadow-none shrink-0"
               title={`${item.fullLabel} (${item.category}) — Toque para abrir`}
               aria-label={item.label}
             >
@@ -234,7 +234,7 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
         <button
           type="button"
           id="cagp-rail-edit-shortcuts-btn"
-          class="w-8 h-8 rounded-lg text-[#0A0A0A] hover:text-[#9E2424] hover:bg-[#FBF8F3] border-2 border-dashed border-[#0A0A0A] flex items-center justify-center transition-colors cursor-pointer mt-1 font-bold"
+          class="w-8 h-8 rounded-lg text-[#0A0A0A] hover:text-[#9E2424] hover:bg-muted border-2 border-dashed border-[#0A0A0A] flex items-center justify-center transition-colors cursor-pointer mt-1 font-bold"
           title="Personalizar Meus Atalhos"
           aria-label="Personalizar Meus Atalhos"
         >
@@ -245,7 +245,7 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
   </div>
 
   <!-- Base da Sidebar: Trio de Ferramentas Rápidas + Cartão do Estudante (Ancorada com shrink-0) -->
-  <div class="p-2.5 xl:p-3 border-t-[3px] border-[#0A0A0A] bg-[#FBF8F3] space-y-2.5 shrink-0">
+  <div class="p-2.5 xl:p-3 border-t-[3px] border-[#0A0A0A] bg-white space-y-2.5 shrink-0">
     <!-- 1. Linha de Ações Expandida (Desktop, Tablet Expandido e Mobile) -->
     <div class="cagp-sidebar-actions-row sidebar-expanded-show hidden xl:flex items-center gap-1.5 w-full min-w-0">
       <!-- Busca Spotlight: flex-1 com ⌘K -->

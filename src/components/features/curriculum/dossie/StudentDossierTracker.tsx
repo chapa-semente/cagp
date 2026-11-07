@@ -105,7 +105,7 @@ export const StudentDossierTracker: React.FC = () => {
 
       {/* Grid das 4 Dimensões Oficiais */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 pt-2">
-        <div className="p-3.5 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl space-y-2 shadow-[2px_2px_0_0_#0A0A0A]">
+        <div className="p-3.5 bg-white border-2 border-[#0A0A0A] rounded-xl space-y-2 shadow-[2px_2px_0_0_#0A0A0A]">
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-head uppercase font-bold text-[#0A0A0A]">
               1. Obrigatórias
@@ -125,7 +125,7 @@ export const StudentDossierTracker: React.FC = () => {
           </span>
         </div>
 
-        <div className="p-3.5 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl space-y-2 shadow-[2px_2px_0_0_#0A0A0A]">
+        <div className="p-3.5 bg-white border-2 border-[#0A0A0A] rounded-xl space-y-2 shadow-[2px_2px_0_0_#0A0A0A]">
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-head uppercase font-bold text-[#0A0A0A]">
               2. Optativas / Livre
@@ -145,7 +145,7 @@ export const StudentDossierTracker: React.FC = () => {
           </span>
         </div>
 
-        <div className="p-3.5 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl space-y-2 shadow-[2px_2px_0_0_#0A0A0A]">
+        <div className="p-3.5 bg-white border-2 border-[#0A0A0A] rounded-xl space-y-2 shadow-[2px_2px_0_0_#0A0A0A]">
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-head uppercase font-bold text-[#0A0A0A]">
               3. Extensão 300h
@@ -172,7 +172,7 @@ export const StudentDossierTracker: React.FC = () => {
           </span>
         </div>
 
-        <div className="p-3.5 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl space-y-2 shadow-[2px_2px_0_0_#0A0A0A]">
+        <div className="p-3.5 bg-white border-2 border-[#0A0A0A] rounded-xl space-y-2 shadow-[2px_2px_0_0_#0A0A0A]">
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-head uppercase font-bold text-[#0A0A0A]">
               4. AAC (Art. 15)

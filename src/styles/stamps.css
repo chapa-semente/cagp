@@ -103,3 +103,19 @@
   margin-top: 0.2rem;
   opacity: 0.9;
 }
+
+.cagp-big-stamp.is-semente {
+  border: 3.5px dashed #5B2A86;
+  background-color: #FAF5FF;
+  color: #5B2A86;
+  box-shadow: 4px 4px 0 #5B2A86;
+  transform: rotate(-2.5deg);
+}
+
+.cagp-stamp-badge.is-semente {
+  border: 2.5px solid #16181d;
+  color: #FFFFFF;
+  background-color: #5B2A86;
+  box-shadow: 2px 2px 0 #16181d;
+  transform: rotate(-1.5deg);
+}

@@ -86,14 +86,14 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
     >
       <div className="space-y-4 text-[#0A0A0A]">
         {/* Controle Segmentado Interno: [Passaporte] [Banco de Talentos] */}
-        <div className="flex items-center gap-1 bg-[#F7F5F0] p-1 rounded-lg border border-[#DFDBD2]">
+        <div className="flex items-center gap-1 bg-white p-1 rounded-xl border-2 border-border shadow-xs">
           <button
             type="button"
             onClick={() => setActiveTab('passport')}
-            className={`flex-1 min-h-[44px] py-2.5 px-3 rounded text-xs font-['Oswald'] uppercase font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+            className={`flex-1 min-h-[44px] py-2 px-3 rounded-lg text-xs font-heading uppercase font-extrabold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
               activeTab === 'passport'
-                ? 'bg-white text-[#8B1E2D] border border-black/15 shadow-xs'
-                : 'text-gray-600 hover:text-[#0A0A0A]'
+                ? 'bg-primary text-primary-foreground border-2 border-border shadow-xs'
+                : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             <i className="bi bi-person-vcard text-sm" aria-hidden="true" />
@@ -102,10 +102,10 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
           <button
             type="button"
             onClick={() => setActiveTab('talent')}
-            className={`flex-1 min-h-[44px] py-2.5 px-3 rounded text-xs font-['Oswald'] uppercase font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+            className={`flex-1 min-h-[44px] py-2 px-3 rounded-lg text-xs font-heading uppercase font-extrabold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
               activeTab === 'talent'
-                ? 'bg-white text-[#8B1E2D] border border-black/15 shadow-xs'
-                : 'text-gray-600 hover:text-[#0A0A0A]'
+                ? 'bg-primary text-primary-foreground border-2 border-border shadow-xs'
+                : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             <i className="bi bi-briefcase text-sm" aria-hidden="true" />
@@ -131,7 +131,7 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
         {activeTab === 'passport' && (
           <div>
             {/* Seletor de Perfil / Momento no Curso */}
-            <div className="p-3 bg-[#FBF8F3] border border-[#DFDBD2] rounded-xl mb-3">
+            <div className="p-3 bg-white border border-[#DFDBD2] rounded-xl mb-3 shadow-xs">
               <div className="flex items-center justify-between mb-2">
                 <strong className="font-['Oswald'] text-xs uppercase text-[#0A0A0A]">
                   Momento no Curso (Perfil da Home)

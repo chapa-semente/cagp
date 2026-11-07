@@ -23,6 +23,18 @@ export type CustomCourse = z.infer<typeof CustomCourseSchema>;
 export const UserRoleSchema = z.enum(['calouro', 'veterano', 'formando', 'ingressar']);
 export type UserRole = z.infer<typeof UserRoleSchema>;
 
+export const ElectionActivationSchema = z.object({
+  completed: z.boolean().default(false),
+  installed: z.boolean().default(false),
+  notificationsEnabled: z.boolean().default(false),
+  votedDateChoice: z.enum(['25_noite', '26_tarde', '26_noite', 'indeciso']).default('indeciso'),
+  sementeSupporter: z.boolean().default(true),
+  calendarReminderSaved: z.boolean().default(false),
+  completedAt: z.string().optional(),
+  sharedWhatsApp: z.boolean().default(false),
+});
+export type ElectionActivation = z.infer<typeof ElectionActivationSchema>;
+
 export const USER_ROLE_META: Record<
   UserRole,
   { label: string; shortLabel: string; badge: string; tagline: string; periodHint: string }
@@ -96,6 +108,7 @@ export const VaultSchemas = {
   }),
   cagp_discente_shortcuts_v1: z.array(z.string()).min(1).max(5),
   cagp_user_role_v1: UserRoleSchema,
+  cagp_election_activation_v1: ElectionActivationSchema,
   cagp_student_profile_v1: z.object({
     name: z.string(),
     period: z.string(),
@@ -139,6 +152,15 @@ export const VaultDefaults: { [K in VaultKey]: VaultData<K> } = {
   },
   cagp_discente_shortcuts_v1: ['hoje', 'curso', 'percurso', 'documentos', 'sobre'],
   cagp_user_role_v1: 'calouro',
+  cagp_election_activation_v1: {
+    completed: false,
+    installed: false,
+    notificationsEnabled: false,
+    votedDateChoice: 'indeciso',
+    sementeSupporter: true,
+    calendarReminderSaved: false,
+    sharedWhatsApp: false,
+  },
   cagp_student_profile_v1: {
     name: 'Estudante de Gestão Pública',
     period: '1º Período',

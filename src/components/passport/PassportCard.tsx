@@ -1,5 +1,5 @@
 import React from 'react';
-import type { VaultData } from '../../lib/storage/studentVault';
+import { getVaultItem, type VaultData } from '../../lib/storage/studentVault';
 import { AvatarRenderer } from './AvatarRenderer';
 
 interface PassportCardProps {
@@ -37,6 +37,8 @@ export const PassportCard: React.FC<PassportCardProps> = ({
   const globalPct = Math.round((obrigPct + extPct) / 2);
 
   const stampLabel = `${profile.period.toUpperCase()} • ATIVO`;
+  const cred = typeof window !== 'undefined' ? getVaultItem('cagp_election_activation_v1') : null;
+  const isSementeEleitor = cred?.completed && cred?.sementeSupporter;
   const initials = profile.name
     .split(' ')
     .filter(Boolean)
@@ -83,6 +85,17 @@ export const PassportCard: React.FC<PassportCardProps> = ({
             <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-head font-extrabold uppercase bg-[#8B1E2D] text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">{profile.period}</span>
             <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-[#0A0A0A] text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">Ingresso {profile.semester || '2026/1'}</span>
             <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-head font-bold uppercase bg-[#5B2A86] text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">{profile.pathway || '01-01'} • Geral</span>
+            {isSementeEleitor && (
+              <span className="cagp-stamp-badge is-semente text-[10px] py-0.5 px-2 flex items-center gap-1">
+                <img
+                  src="/logos/semente/icone_folha_superior.svg"
+                  alt=""
+                  aria-hidden="true"
+                  className="w-3 h-3 object-contain invert brightness-0"
+                />
+                <span>Eleitor Semente 2026</span>
+              </span>
+            )}
           </div>
         </div>
 
@@ -98,7 +111,7 @@ export const PassportCard: React.FC<PassportCardProps> = ({
 
       {/* Áreas de Interesse no Passaporte (Banco de Talentos) */}
       {profile.interests && profile.interests.length > 0 && (
-        <div className="px-4 py-2.5 bg-[#FBF8F3] border-t-2 border-[#0A0A0A] flex flex-wrap items-center gap-1.5">
+        <div className="px-4 py-2.5 bg-white border-t-2 border-[#0A0A0A] flex flex-wrap items-center gap-1.5">
           <span className="text-[11px] font-head uppercase font-extrabold text-[#0A0A0A] mr-1">
             Interesses:
           </span>

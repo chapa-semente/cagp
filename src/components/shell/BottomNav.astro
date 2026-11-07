@@ -9,7 +9,7 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
 
 <nav
   id="cagp-bottom-nav"
-  class="md:hidden fixed inset-x-0 bottom-0 z-[1040] bg-white border-t-[3px] border-[#0A0A0A] shadow-[0_-3px_0_0_#0A0A0A] select-none"
+  class="md:hidden fixed inset-x-0 bottom-0 z-[1040] bg-white border-t-3 border-border shadow-[0_-3px_0_0_var(--border,#16181d)] select-none"
   style="padding-bottom: env(safe-area-inset-bottom, 0px);"
   aria-label="Navegação Principal Mobile (5 Eixos)"
 >
@@ -28,19 +28,19 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
           aria-current={isCurrent ? 'page' : undefined}
           class={`cagp-bottom-axis-item flex flex-col items-center justify-center gap-1 min-h-[48px] py-1 px-1 rounded-xl no-underline transition-all active:scale-95 ${
             isCurrent
-              ? 'is-active text-[#5B2A86] font-bold'
-              : 'text-[#0A0A0A] hover:text-[#5B2A86] font-semibold'
+              ? 'is-active text-[#5B2A86] font-extrabold'
+              : 'text-[#16181d] hover:text-[#5B2A86] font-semibold'
           }`}
         >
           <span
             class={`cagp-bottom-axis-pill w-11 h-7 rounded-lg flex items-center justify-center transition-all ${
               isCurrent
-                ? 'bg-[#5B2A86] text-white border-2 border-[#0A0A0A] shadow-[1.5px_1.5px_0_0_#0A0A0A] -translate-y-0.5'
-                : 'bg-transparent text-[#0A0A0A]'
+                ? 'bg-[#5B2A86] text-white border-2 border-border shadow-xs -translate-y-0.5'
+                : 'bg-transparent text-[#16181d]'
             }`}
             set:html={iconSvg}
           />
-          <span class="text-[10px] font-heading font-bold uppercase tracking-tight leading-none truncate max-w-full">
+          <span class="text-[10px] font-heading font-extrabold uppercase tracking-tight leading-none truncate max-w-full">
             {axis.name}
           </span>
         </a>
@@ -91,21 +91,30 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
       const isCurrent = id === activeId;
       const pill = link.querySelector('.cagp-bottom-axis-pill');
       link.classList.toggle('is-active', isCurrent);
-      link.classList.toggle('text-[#9E2424]', isCurrent);
-      link.classList.toggle('font-bold', isCurrent);
-      link.classList.toggle('text-[#0A0A0A]', !isCurrent);
+      link.classList.toggle('text-[#5B2A86]', isCurrent);
+      link.classList.toggle('font-extrabold', isCurrent);
+      link.classList.toggle('text-[#16181d]', !isCurrent);
       if (pill) {
-        pill.classList.toggle('bg-[#9E2424]', isCurrent);
+        pill.classList.toggle('bg-[#5B2A86]', isCurrent);
         pill.classList.toggle('text-white', isCurrent);
         pill.classList.toggle('border-2', isCurrent);
-        pill.classList.toggle('border-[#0A0A0A]', isCurrent);
-        pill.classList.toggle('shadow-[1.5px_1.5px_0_0_#0A0A0A]', isCurrent);
+        pill.classList.toggle('border-border', isCurrent);
+        pill.classList.toggle('shadow-xs', isCurrent);
         pill.classList.toggle('-translate-y-0.5', isCurrent);
         pill.classList.toggle('bg-transparent', !isCurrent);
-        pill.classList.toggle('text-[#0A0A0A]', !isCurrent);
+        pill.classList.toggle('text-[#16181d]', !isCurrent);
       }
       if (isCurrent) link.setAttribute('aria-current', 'page');
       else link.removeAttribute('aria-current');
+
+      if (!(link as any).__haptic_bound) {
+        (link as any).__haptic_bound = true;
+        link.addEventListener('click', () => {
+          if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
+            navigator.vibrate(15);
+          }
+        });
+      }
     });
   }
 

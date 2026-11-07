@@ -124,7 +124,7 @@ const mapasCampi = [
       >
         <span
           class={`w-14 h-11 rounded-lg flex items-center justify-center font-mono text-xs font-bold shrink-0 border-2 border-[#0A0A0A] ${
-            item.highlight ? 'bg-[#8B1E2D] text-white shadow-[2px_2px_0_0_#0A0A0A]' : 'bg-[#FBF8F3] text-[#0A0A0A]'
+            item.highlight ? 'bg-[#8B1E2D] text-white shadow-[2px_2px_0_0_#0A0A0A]' : 'bg-white text-[#0A0A0A]'
           }`}
         >
           {item.hora}
@@ -136,7 +136,7 @@ const mapasCampi = [
               {item.titulo}
             </h4>
             <span class={`px-2 py-0.5 rounded-md text-[10px] font-head uppercase font-bold border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A] ${
-              item.highlight ? 'bg-[#8B1E2D] text-white' : 'bg-[#FBF8F3] text-gray-800'
+              item.highlight ? 'bg-[#8B1E2D] text-white' : 'bg-white text-gray-800'
             }`}>
               {item.badge}
             </span>
@@ -164,7 +164,7 @@ const mapasCampi = [
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-body">
       {circularesHorarios.map((c) => (
-        <div class="p-4 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl space-y-2 shadow-[2px_2px_0_0_#0A0A0A]">
+        <div class="p-4 bg-white border-2 border-[#0A0A0A] rounded-xl space-y-2 shadow-[2px_2px_0_0_#0A0A0A]">
           <span class="font-head font-black text-xs uppercase text-[#8B1E2D] tracking-wide block">{c.linha}</span>
           <div class="flex items-center gap-2 flex-wrap">
             <span class="text-gray-700 font-mono text-xs font-bold">Saídas especiais:</span>
@@ -218,7 +218,7 @@ const mapasCampi = [
           class={`cagp-map-tab-btn px-3.5 py-2 rounded-xl text-xs font-head uppercase font-bold tracking-wider transition-all whitespace-nowrap cursor-pointer active:translate-x-[1px] active:translate-y-[1px] ${
             idx === 0
               ? 'bg-[#8B1E2D] text-white shadow-[2px_2px_0_0_#0A0A0A] border-2 border-[#0A0A0A]'
-              : 'bg-white hover:bg-[#FBF8F3] text-[#0A0A0A] border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]'
+              : 'bg-white hover:bg-muted text-[#0A0A0A] border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]'
           }`}
           data-map-id={m.id}
           data-map-file={asset(`/imagens/${m.arquivo}`)}

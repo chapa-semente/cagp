@@ -79,7 +79,7 @@ export const SobreCollageBanner: React.FC = () => {
           {/* Conteúdo Dinâmico da Camada Selecionada */}
           {activeLayer === 'candangos' && (
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-              <div className="lg:col-span-4 flex flex-col items-center justify-center p-6 rounded-xl border-3 border-border bg-[#f4f5f7] shadow-md relative">
+              <div className="lg:col-span-4 flex flex-col items-center justify-center p-6 rounded-xl border-3 border-border bg-white shadow-md relative">
                 <BurstShape
                   size={56}
                   color="#9E2424"

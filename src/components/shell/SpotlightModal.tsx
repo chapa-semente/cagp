@@ -124,7 +124,7 @@ export const SpotlightModal: React.FC = () => {
       />
       <div className="w-full max-w-xl bg-white border-[3px] border-[#0A0A0A] rounded-2xl shadow-[6px_6px_0_0_#0A0A0A] overflow-hidden flex flex-col max-h-[80vh] animate-in zoom-in-95 duration-150 font-sans">
         {/* Search Input Bar */}
-        <div className="flex items-center px-4 py-3 border-b-[3px] border-[#0A0A0A] bg-[#FBF8F3]">
+        <div className="flex items-center px-4 py-3 border-b-[3px] border-[#0A0A0A] bg-white">
           <i className="bi bi-search text-[#0A0A0A] text-lg mr-3" aria-hidden="true" />
           <input
             ref={inputRef}

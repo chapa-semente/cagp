@@ -189,7 +189,7 @@ export const ShortcutsSheet: React.FC<ShortcutsSheetProps> = ({ isOpen, onClose 
         <button
           type="button"
           onClick={handleReset}
-          className="min-h-[44px] px-3.5 py-2 text-xs font-head uppercase font-extrabold text-[#0A0A0A] bg-[#FBF8F3] hover:bg-white rounded-xl border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer"
+          className="min-h-[44px] px-3.5 py-2 text-xs font-head uppercase font-extrabold text-[#0A0A0A] bg-white hover:bg-muted rounded-xl border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer"
         >
           Restaurar 5 Eixos
         </button>
@@ -198,7 +198,7 @@ export const ShortcutsSheet: React.FC<ShortcutsSheetProps> = ({ isOpen, onClose 
           <button
             type="button"
             onClick={onClose}
-            className="min-h-[44px] px-3.5 py-2 text-xs font-head uppercase font-bold text-[#0A0A0A] hover:bg-[#FBF8F3] rounded-xl border border-transparent hover:border-[#0A0A0A] transition-all cursor-pointer"
+            className="min-h-[44px] px-3.5 py-2 text-xs font-head uppercase font-bold text-[#0A0A0A] hover:bg-muted rounded-xl border border-transparent hover:border-[#0A0A0A] transition-all cursor-pointer"
           >
             Cancelar
           </button>

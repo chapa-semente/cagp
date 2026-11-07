@@ -71,7 +71,7 @@ export const HomeCalouroGuide: React.FC<Props> = ({ checklist, toggleStep }) => 
               ? 'bg-[#DCFCE7] text-[#15803D]'
               : doneCount > 0
               ? 'bg-[#FEF08A] text-[#854D0E]'
-              : 'bg-[#FBF8F3] text-[#0A0A0A]'
+              : 'bg-white text-[#0A0A0A]'
           } tabular-nums`}
         >
           <CagpIcon name="stamp" className="w-3.5 h-3.5" />
@@ -112,7 +112,7 @@ export const HomeCalouroGuide: React.FC<Props> = ({ checklist, toggleStep }) => 
               className={`p-3.5 rounded-xl border-[2.5px] border-[#0A0A0A] shadow-[2.5px_2.5px_0_0_#0A0A0A] hover:shadow-[4px_4px_0_0_#0A0A0A] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none text-left transition-all cursor-pointer flex flex-col justify-between min-h-[96px] ${
                 checked
                   ? 'bg-[#DCFCE7] text-[#0A0A0A]'
-                  : 'bg-[#FBF8F3] hover:bg-[#F4F1EA] text-[#0A0A0A]'
+                  : 'bg-white hover:bg-muted text-[#0A0A0A]'
               }`}
             >
               <div className="flex items-start gap-2.5 mb-2">

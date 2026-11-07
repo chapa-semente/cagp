@@ -12,7 +12,7 @@
   border: 1.5px solid transparent;
   border-radius: 9999px;
   padding: 0.35rem 0.75rem;
-  font-family: var(--font-body, 'Inter', sans-serif);
+  font-family: var(--font-body, 'Space Grotesk', sans-serif);
   font-weight: 600;
   font-size: 0.8rem;
   color: #111111;

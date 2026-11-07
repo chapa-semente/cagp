@@ -118,7 +118,7 @@ const steps: { num: string; title: string; desc: string; badge: string; iconName
       <!-- Linha do Tempo dos 4 Passos Oficiais -->
       <div class="space-y-3">
         {steps.map((st) => (
-          <div class="p-4 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl flex items-start gap-3.5 shadow-[2px_2px_0_0_#0A0A0A]">
+          <div class="p-4 bg-white border-2 border-[#0A0A0A] rounded-xl flex items-start gap-3.5 shadow-[2px_2px_0_0_#0A0A0A]">
             <span class="w-8 h-8 rounded-lg bg-[#9E2424] text-white flex items-center justify-center font-head text-sm font-black shrink-0 border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">
               {st.num}
             </span>
@@ -202,7 +202,7 @@ const steps: { num: string; title: string; desc: string; badge: string; iconName
           </thead>
           <tbody class="divide-y border-[#0A0A0A] bg-white font-body">
             {modalidadesAAC.map((m) => (
-              <tr class={m.fatal ? 'bg-red-50/70' : 'hover:bg-[#FBF8F3]'}>
+              <tr class={m.fatal ? 'bg-red-50/70' : 'hover:bg-muted'}>
                 <td class="p-3 font-bold text-[#0A0A0A]">
                   <div class="flex items-center gap-2">
                     <CagpIcon name={m.iconName} class="w-4 h-4 text-[#57534E] shrink-0" />
@@ -226,15 +226,15 @@ const steps: { num: string; title: string; desc: string; badge: string; iconName
       <span>Dúvidas Práticas e Recomendações dos Veteranos:</span>
     </h4>
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-body text-[#292524]">
-      <div class="p-4 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl shadow-[2px_2px_0_0_#0A0A0A]">
+      <div class="p-4 bg-white border-2 border-[#0A0A0A] rounded-xl shadow-[2px_2px_0_0_#0A0A0A]">
         <strong class="text-[#0A0A0A] font-head uppercase font-bold block mb-1">Mesmo evento para Extensão e AAC?</strong>
         Não. Uma mesma atividade não pode ser duplicada entre categorias. O estudante escolhe se a atividade preenche Extensão ou AAC.
       </div>
-      <div class="p-4 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl shadow-[2px_2px_0_0_#0A0A0A]">
+      <div class="p-4 bg-white border-2 border-[#0A0A0A] rounded-xl shadow-[2px_2px_0_0_#0A0A0A]">
         <strong class="text-[#0A0A0A] font-head uppercase font-bold block mb-1">Atividades anteriores à matrícula?</strong>
         Não. O Art. 15, § 1º determina que as atividades devem ser realizadas estritamente durante o período em que o estudante estiver matriculado.
       </div>
-      <div class="p-4 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl shadow-[2px_2px_0_0_#0A0A0A]">
+      <div class="p-4 bg-white border-2 border-[#0A0A0A] rounded-xl shadow-[2px_2px_0_0_#0A0A0A]">
         <strong class="text-[#0A0A0A] font-head uppercase font-bold block mb-1">E se a solicitação for indeferida?</strong>
         Conforme o Art. 16, a atividade indeferida não pode ser reapresentada na mesma modalidade, mas cabe recurso administrativo ao Colegiado.
       </div>

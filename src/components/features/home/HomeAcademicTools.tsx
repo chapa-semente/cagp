@@ -60,7 +60,7 @@ export const HomeAcademicTools: React.FC<Props> = ({ art41Checklist, toggleArt41
 
           <a
             href={route('/estagio') + '#art41'}
-            className="min-h-[44px] px-3.5 py-1.5 rounded-xl text-xs font-heading font-bold text-[#9E2424] hover:bg-[#FBF8F3] border-2 border-transparent hover:border-[#0A0A0A] no-underline inline-flex items-center gap-1 transition-all"
+            className="min-h-[44px] px-3.5 py-1.5 rounded-xl text-xs font-heading font-bold text-[#9E2424] hover:bg-muted border-2 border-transparent hover:border-[#0A0A0A] no-underline inline-flex items-center gap-1 transition-all"
           >
             <span>Simulador completo</span>
             <span aria-hidden="true">&rarr;</span>
@@ -79,7 +79,7 @@ export const HomeAcademicTools: React.FC<Props> = ({ art41Checklist, toggleArt41
                 className={`w-full p-3 rounded-xl border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] hover:shadow-[3px_3px_0_0_#0A0A0A] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none text-left transition-all cursor-pointer flex items-center justify-between gap-3 min-h-[48px] ${
                   checked
                     ? 'bg-[#DCFCE7] text-[#0A0A0A]'
-                    : 'bg-[#FBF8F3] hover:bg-[#F4F1EA] text-[#0A0A0A]'
+                    : 'bg-white hover:bg-muted text-[#0A0A0A]'
                 }`}
               >
                 <div className="flex items-center gap-2.5 min-w-0">
@@ -114,7 +114,7 @@ export const HomeAcademicTools: React.FC<Props> = ({ art41Checklist, toggleArt41
         aria-labelledby="heading-sistemas-ufmg"
         className="bg-white rounded-xl border-[3px] border-[#0A0A0A] shadow-[4px_4px_0_0_#0A0A0A] overflow-hidden"
       >
-        <div className="px-5 py-3.5 border-b-[3px] border-[#0A0A0A] bg-[#FBF8F3] flex items-center justify-between">
+        <div className="px-5 py-3.5 border-b-[3px] border-[#0A0A0A] bg-white flex items-center justify-between">
           <h3
             id="heading-sistemas-ufmg"
             className="font-heading text-xs sm:text-sm font-extrabold uppercase text-[#0A0A0A] m-0"
@@ -130,7 +130,7 @@ export const HomeAcademicTools: React.FC<Props> = ({ art41Checklist, toggleArt41
               href={sys.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-4 bg-white hover:bg-[#FBF8F3] no-underline flex items-center justify-between gap-2 transition-all active:translate-x-0.5 active:translate-y-0.5"
+              className="p-4 bg-white hover:bg-muted no-underline flex items-center justify-between gap-2 transition-all active:translate-x-0.5 active:translate-y-0.5"
             >
               <div className="min-w-0">
                 <span className="text-xs font-heading font-extrabold text-[#0A0A0A] flex items-center gap-2 truncate">

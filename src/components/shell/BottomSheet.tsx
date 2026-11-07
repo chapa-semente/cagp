@@ -123,7 +123,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
             <button
               type="button"
               onClick={() => setDetent(detent === 'medium' ? 'large' : 'medium')}
-              className="hidden md:flex w-9 h-9 items-center justify-center rounded-xl bg-[#FBF8F3] hover:bg-[#F4F1EA] border-[2px] border-[#0A0A0A] shadow-[1.5px_1.5px_0_0_#0A0A0A] text-[#0A0A0A] text-xs font-bold transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+              className="hidden md:flex w-9 h-9 items-center justify-center rounded-xl bg-white hover:bg-muted border-[2px] border-[#0A0A0A] shadow-[1.5px_1.5px_0_0_#0A0A0A] text-[#0A0A0A] text-xs font-bold transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
               title={detent === 'medium' ? 'Expandir' : 'Recolher'}
               aria-label={detent === 'medium' ? 'Expandir gaveta' : 'Recolher gaveta'}
             >
@@ -132,7 +132,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="w-9 h-9 flex items-center justify-center rounded-xl bg-[#FBF8F3] hover:bg-[#F4F1EA] border-[2px] border-[#0A0A0A] shadow-[1.5px_1.5px_0_0_#0A0A0A] text-[#0A0A0A] hover:text-[#9E2424] font-bold text-sm transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+              className="w-9 h-9 flex items-center justify-center rounded-xl bg-white hover:bg-muted border-[2px] border-[#0A0A0A] shadow-[1.5px_1.5px_0_0_#0A0A0A] text-[#0A0A0A] hover:text-[#9E2424] font-bold text-sm transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
               aria-label="Fechar gaveta"
             >
               ✕

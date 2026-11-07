@@ -10,6 +10,8 @@ import DynamicToast from '../components/shell/DynamicToast.astro';
 import BottomNav from '../components/shell/BottomNav.astro';
 import { GlobalSheets } from '../components/shell/GlobalSheets';
 import { SuperAppWelcomeModal } from '../components/shell/SuperAppWelcomeModal';
+import { PwaElectionCredenciamentoModal } from '../components/pwa/PwaElectionCredenciamentoModal';
+import { PwaCredenciamentoPill } from '../components/pwa/PwaCredenciamentoPill';
 import { GlobalCanvasBackdrop } from '../components/shell/GlobalCanvasBackdrop';
 import { asset } from '../lib/paths';
 import '@fontsource/bricolage-grotesque/600.css';
@@ -44,7 +46,15 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#5B2A86" />
     <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href={asset('/logos/semente/simbolo_semente_fiel.svg')} />
+    <!-- Favicon Chapa Semente com Fundo Branco (SVG moderno + ICO fallback) -->
+    <link rel="icon" type="image/svg+xml" href={asset('/logos/semente/simbolo_semente_fundo_branco.svg')} />
+    <link rel="alternate icon" type="image/x-icon" href={asset('/favicon.ico')} />
+    <!-- Web App & iOS Touch Icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href={asset('/imagens/pwa/apple-touch-icon.png')} />
+    <meta name="apple-mobile-web-app-title" content="Semente" />
+    <meta name="application-name" content="Semente" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <link rel="manifest" href={asset('/manifest.webmanifest')} />
 
     <title>{title} — Chapa Semente • CAGP UFMG</title>
@@ -103,8 +113,8 @@ const {
     </noscript>
   </head>
   <body class="bg-[#f4f5f7] text-[#16181d] font-['Space_Grotesk',sans-serif] antialiased min-h-[100dvh] flex flex-col selection:bg-[#5B2A86] selection:text-white relative">
-    <!-- Efeito de Fundo Neobrutalista Sutil (BoldKit DotWave) -->
-    <GlobalCanvasBackdrop client:idle />
+    <!-- Canvas Interativo Temático por Eixo Neobrutalista BoldKit -->
+    <GlobalCanvasBackdrop client:load />
 
     <!-- Cápsula Tátil Flutuante (Dynamic Island Toast) -->
     <DynamicToast />
@@ -149,6 +159,10 @@ const {
 
     <!-- Welcome Onboarding & Role Picker -->
     <SuperAppWelcomeModal client:load />
+
+    <!-- Indução Obrigatória PWA & Ativação Eleitoral Chapa Semente -->
+    <PwaElectionCredenciamentoModal client:load />
+    <PwaCredenciamentoPill client:load />
 
     <!-- Directional Navigation & Progress Bar Controller -->
     <script is:inline>

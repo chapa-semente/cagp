@@ -1,13 +1,13 @@
 {
-  "name": "CAGP — Centro Acadêmico de Gestão Pública UFMG",
-  "short_name": "CAGP UFMG",
+  "name": "Semente — Centro Acadêmico de Gestão Pública UFMG",
+  "short_name": "Semente",
   "description": "Portal Institucional & Super App Discente da FAFICH/UFMG: percurso curricular, calculadora de horas e acervo offline.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#F7F5F0",
-  "theme_color": "#8B1E2D",
+  "background_color": "#FFFFFF",
+  "theme_color": "#5B2A86",
   "lang": "pt-BR",
   "dir": "ltr",
   "categories": ["education", "academics", "government"],
@@ -31,7 +31,7 @@
       "purpose": "maskable"
     },
     {
-      "src": "./logos/cagp/10_simbolo_transparente_positivo.svg",
+      "src": "./logos/semente/simbolo_semente_fundo_branco.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"

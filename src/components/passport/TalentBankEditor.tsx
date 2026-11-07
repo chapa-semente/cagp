@@ -101,7 +101,7 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
                   className={`p-2 rounded-xl border-2 text-left flex items-center gap-2 transition-all cursor-pointer select-none ${
                     isSelected
                       ? 'border-[#0A0A0A] bg-white shadow-[3px_3px_0px_#0A0A0A] -translate-x-[1px] -translate-y-[1px]'
-                      : 'border-[#0A0A0A] bg-[#FBF8F3] hover:bg-white'
+                      : 'border-[#0A0A0A] bg-white hover:bg-muted'
                   }`}
                 >
                   <div
@@ -198,7 +198,7 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
               className={`px-3 py-1.5 rounded-xl border-2 border-[#0A0A0A] text-xs font-head font-bold uppercase flex items-center gap-2 cursor-pointer transition-all ${
                 profile.prideChoice === opt.key
                   ? 'bg-[#0A0A0A] text-white shadow-[2px_2px_0_0_#0A0A0A]'
-                  : 'bg-[#FBF8F3] hover:bg-white text-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none'
+                  : 'bg-white hover:bg-muted text-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none'
               }`}
             >
               <span className={`cagp-pride-swatch cagp-pride-swatch--${opt.key}`} />
@@ -230,7 +230,7 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
                 className={`px-3 py-1.5 rounded-xl border-2 border-[#0A0A0A] text-xs font-head font-bold uppercase cursor-pointer transition-all ${
                   isSelected
                     ? 'bg-[#8B1E2D] text-white shadow-[2px_2px_0_0_#0A0A0A]'
-                    : 'bg-[#FBF8F3] hover:bg-white text-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none'
+                    : 'bg-white hover:bg-muted text-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none'
                 }`}
               >
                 <span>{cat.label}</span>

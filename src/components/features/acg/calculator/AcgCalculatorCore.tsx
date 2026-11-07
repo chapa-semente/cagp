@@ -189,7 +189,7 @@ export const AcgCalculatorCore: React.FC = () => {
         <div>
           <div className="flex items-start justify-between gap-2 mb-2">
             <div className="flex items-center gap-2.5">
-              <span className="w-8 h-8 rounded-lg bg-[#FBF8F3] border border-[#0A0A0A] flex items-center justify-center text-sm text-[#9E2424] shrink-0 shadow-[1px_1px_0_0_#0A0A0A]">
+              <span className="w-8 h-8 rounded-lg bg-white border border-[#0A0A0A] flex items-center justify-center text-sm text-[#9E2424] shrink-0 shadow-[1px_1px_0_0_#0A0A0A]">
                 <i className={`bi ${item.icon}`} aria-hidden="true" />
               </span>
               <div>
@@ -234,7 +234,7 @@ export const AcgCalculatorCore: React.FC = () => {
                 type="button"
                 onClick={() => handleStep(item, -item.step)}
                 disabled={val <= 0}
-                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-[#FBF8F3] hover:bg-[#F3ECE0] border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center text-base font-bold text-[#0A0A0A] cursor-pointer transition-all"
+                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white hover:bg-muted border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center text-base font-bold text-[#0A0A0A] cursor-pointer transition-all"
                 aria-label={`Diminuir ${item.step}h de ${item.label}`}
               >
                 <i className="bi bi-dash" aria-hidden="true" />
@@ -253,7 +253,7 @@ export const AcgCalculatorCore: React.FC = () => {
                 type="button"
                 onClick={() => handleStep(item, item.step)}
                 disabled={isMaxed}
-                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-[#FBF8F3] hover:bg-[#F3ECE0] border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center text-base font-bold text-[#0A0A0A] cursor-pointer transition-all"
+                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white hover:bg-muted border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center text-base font-bold text-[#0A0A0A] cursor-pointer transition-all"
                 aria-label={`Adicionar ${item.step}h em ${item.label}`}
               >
                 <i className="bi bi-plus" aria-hidden="true" />
@@ -270,7 +270,7 @@ export const AcgCalculatorCore: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => handleMaxOut(item)}
-                  className="px-3 py-1.5 rounded-xl bg-[#FBF8F3] hover:bg-[#9E2424] hover:text-white border-2 border-[#0A0A0A] text-xs font-head uppercase font-bold text-[#0A0A0A] transition-all shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer min-h-[44px] flex items-center gap-1"
+                  className="px-3 py-1.5 rounded-xl bg-white hover:bg-[#9E2424] hover:text-white border-2 border-[#0A0A0A] text-xs font-head uppercase font-bold text-[#0A0A0A] transition-all shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer min-h-[44px] flex items-center gap-1"
                   title={`Preencher teto de ${item.max}h`}
                 >
                   <i className="bi bi-arrow-bar-up text-xs" aria-hidden="true" />
@@ -284,7 +284,7 @@ export const AcgCalculatorCore: React.FC = () => {
                 className={`px-3 py-1.5 rounded-xl border-2 border-[#0A0A0A] text-xs font-head uppercase font-bold transition-all flex items-center gap-1 min-h-[44px] shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer ${
                   isDrawerOpen
                     ? 'bg-[#0A0A0A] text-white'
-                    : 'bg-[#FBF8F3] text-[#0A0A0A] hover:bg-[#F3ECE0]'
+                    : 'bg-white text-[#0A0A0A] hover:bg-muted'
                 }`}
                 aria-expanded={isDrawerOpen}
                 aria-controls={`drawer-${item.key}`}

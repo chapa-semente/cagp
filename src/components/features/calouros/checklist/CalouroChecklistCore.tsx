@@ -134,7 +134,7 @@ export const CalouroChecklistCore: React.FC = () => {
               <span>Conclusão</span>
               <span className="text-[#8B1E2D]">{completedCount} de 10 ({pct}%)</span>
             </div>
-            <div className="w-full bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-full h-3 overflow-hidden p-0.5">
+            <div className="w-full bg-white border-2 border-[#0A0A0A] rounded-full h-3 overflow-hidden p-0.5">
               <div
                 className="bg-[#8B1E2D] h-full transition-all duration-300 rounded-full"
                 style={{ width: `${pct}%` }}
@@ -168,7 +168,7 @@ export const CalouroChecklistCore: React.FC = () => {
             className={`px-3.5 py-2 rounded-xl text-xs font-head uppercase font-bold tracking-wider transition-all cursor-pointer border-2 border-[#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] ${
               filter === f.id
                 ? 'bg-[#8B1E2D] text-white shadow-[3px_3px_0_0_#0A0A0A]'
-                : 'bg-white text-[#0A0A0A] hover:bg-[#FBF8F3] shadow-[2px_2px_0_0_#0A0A0A]'
+                : 'bg-white text-[#0A0A0A] hover:bg-muted shadow-[2px_2px_0_0_#0A0A0A]'
             }`}
           >
             {f.label}
@@ -184,7 +184,7 @@ export const CalouroChecklistCore: React.FC = () => {
             <div
               key={item.id}
               className={`p-4 sm:p-5 flex items-start gap-4 transition-colors ${
-                isDone ? 'bg-[#DCFCE7]/40' : 'hover:bg-[#FBF8F3]'
+                isDone ? 'bg-[#DCFCE7]/40' : 'hover:bg-muted/40'
               }`}
             >
               <label

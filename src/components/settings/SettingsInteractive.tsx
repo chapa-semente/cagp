@@ -127,7 +127,7 @@ export const SettingsInteractive: React.FC = () => {
           <a
             href={asset('/documentos/regimento-interno-cagp-ufmg.pdf')}
             download
-            className="p-3.5 bg-[#FBF8F3] hover:bg-white flex items-center justify-between gap-3 text-xs no-underline transition-colors group"
+            className="p-3.5 bg-white hover:bg-muted flex items-center justify-between gap-3 text-xs no-underline transition-colors group"
           >
             <div className="space-y-0.5 min-w-0">
               <span className="font-head font-extrabold uppercase text-[#0A0A0A] block group-hover:text-[#8B1E2D]">
@@ -142,7 +142,7 @@ export const SettingsInteractive: React.FC = () => {
           <a
             href={asset('/documentos/regulamento-gestao-publica-ufmg.pdf')}
             download
-            className="p-3.5 bg-[#FBF8F3] hover:bg-white flex items-center justify-between gap-3 text-xs no-underline transition-colors group"
+            className="p-3.5 bg-white hover:bg-muted flex items-center justify-between gap-3 text-xs no-underline transition-colors group"
           >
             <div className="space-y-0.5 min-w-0">
               <span className="font-head font-extrabold uppercase text-[#0A0A0A] block group-hover:text-[#8B1E2D]">
@@ -157,7 +157,7 @@ export const SettingsInteractive: React.FC = () => {
           <a
             href={asset('/documentos/ppc-gestao-publica-ufmg.pdf')}
             download
-            className="p-3.5 bg-[#FBF8F3] hover:bg-white flex items-center justify-between gap-3 text-xs no-underline transition-colors group"
+            className="p-3.5 bg-white hover:bg-muted flex items-center justify-between gap-3 text-xs no-underline transition-colors group"
           >
             <div className="space-y-0.5 min-w-0">
               <span className="font-head font-extrabold uppercase text-[#0A0A0A] block group-hover:text-[#8B1E2D]">
@@ -178,7 +178,7 @@ export const SettingsInteractive: React.FC = () => {
           <span className="font-head text-xs sm:text-sm font-extrabold uppercase text-[#0A0A0A]">
             Super App Discente CAGP UFMG
           </span>
-          <span className="font-mono text-xs font-bold bg-[#FBF8F3] px-2 py-0.5 rounded border border-[#0A0A0A]">
+          <span className="font-mono text-xs font-bold bg-white px-2 py-0.5 rounded border border-[#0A0A0A]">
             Versão 3.0.0 (Astro 7)
           </span>
         </div>

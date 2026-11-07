@@ -3,6 +3,14 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuSeparator,
+  ContextMenuTrigger,
+} from '@/components/ui/context-menu';
+import { ArrowUpRight, Copy, FileText } from 'lucide-react';
 import { asset, route } from '@/lib/paths';
 
 interface DocEntry {
@@ -183,39 +191,65 @@ export const DocumentosInteractiveSearch: React.FC = () => {
         <CardContent className="pt-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
             {filtered.map((doc) => (
-              <div
-                key={doc.pdf}
-                className="p-4 rounded-xl border-3 border-[#16181d] bg-[#f4f5f7] shadow-[3px_3px_0px_#16181d] flex flex-col justify-between gap-3"
-              >
-                <div className="space-y-1.5">
-                  <Badge variant="secondary" className="text-[10px]">
-                    {doc.category}
-                  </Badge>
-                  <h4 className="font-heading text-xs font-black uppercase text-[#16181d] leading-snug">
-                    {doc.title}
-                  </h4>
-                  <p className="text-[11px] text-[#3F3C38] leading-relaxed">{doc.desc}</p>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-2 pt-2 border-t-2 border-[#16181d]/15">
-                  <a
-                    href={asset(doc.pdf)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-2.5 py-1 rounded-lg border-2 border-[#16181d] bg-[#9E2424] text-white text-[10px] font-mono font-bold no-underline shadow-[2px_2px_0px_#16181d]"
+              <ContextMenu key={doc.pdf}>
+                <ContextMenuTrigger asChild>
+                  <div
+                    className="p-4 rounded-xl border-3 border-border bg-white shadow-xs hover:shadow-md flex flex-col justify-between gap-3 transition-all cursor-context-menu"
                   >
+                    <div className="space-y-1.5">
+                      <Badge variant="secondary" className="text-[10px]">
+                        {doc.category}
+                      </Badge>
+                      <h4 className="font-heading text-xs font-black uppercase text-foreground leading-snug">
+                        {doc.title}
+                      </h4>
+                      <p className="text-[11px] text-muted-foreground leading-relaxed">{doc.desc}</p>
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-2 pt-2 border-t-2 border-border/15">
+                      <a
+                        href={asset(doc.pdf)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-2.5 py-1 min-h-[36px] inline-flex items-center rounded-lg border-2 border-border bg-secondary hover:bg-secondary-hover text-secondary-foreground text-[10px] font-mono font-bold no-underline shadow-xs transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+                      >
+                        Abrir PDF Oficial ↗
+                      </a>
+                      {doc.slug && (
+                        <a
+                          href={route(`/documentos/${doc.slug}`)}
+                          className="px-2.5 py-1 min-h-[36px] inline-flex items-center rounded-lg border-2 border-border bg-white hover:bg-[#F4F1EA] text-foreground text-[10px] font-mono font-bold no-underline shadow-xs transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+                        >
+                          Transcrição Web →
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </ContextMenuTrigger>
+
+                <ContextMenuContent>
+                  <ContextMenuItem onClick={() => window.open(asset(doc.pdf), '_blank')}>
+                    <FileText className="w-4 h-4 mr-2" />
                     Abrir PDF Oficial ↗
-                  </a>
+                  </ContextMenuItem>
                   {doc.slug && (
-                    <a
-                      href={route(`/documentos/${doc.slug}`)}
-                      className="px-2.5 py-1 rounded-lg border-2 border-[#16181d] bg-white text-[#16181d] text-[10px] font-mono font-bold no-underline shadow-[2px_2px_0px_#16181d]"
-                    >
-                      Transcrição Web →
-                    </a>
+                    <ContextMenuItem onClick={() => { window.location.href = route(`/documentos/${doc.slug}`); }}>
+                      <ArrowUpRight className="w-4 h-4 mr-2" />
+                      Ver Transcrição Web
+                    </ContextMenuItem>
                   )}
-                </div>
-              </div>
+                  <ContextMenuSeparator />
+                  <ContextMenuItem onClick={() => {
+                    const fullUrl = window.location.origin + asset(doc.pdf);
+                    navigator.clipboard.writeText(fullUrl);
+                    if (typeof navigator !== 'undefined' && 'vibrate' in navigator) navigator.vibrate(15);
+                    (window as any).cagpToast?.('Link do PDF copiado para a área de transferência!', 'bi-clipboard-check');
+                  }}>
+                    <Copy className="w-4 h-4 mr-2" />
+                    Copiar Link Direto
+                  </ContextMenuItem>
+                </ContextMenuContent>
+              </ContextMenu>
             ))}
           </div>
         </CardContent>

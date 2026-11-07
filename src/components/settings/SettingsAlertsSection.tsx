@@ -25,7 +25,7 @@ export const SettingsAlertsSection: React.FC<Props> = ({ notifs, updateNotifs })
       </div>
 
       <div className="space-y-3">
-        <div className="p-4 bg-[#FBF8F3] rounded-xl border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] flex flex-wrap items-center justify-between gap-3">
+        <div className="p-4 bg-white rounded-xl border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] flex flex-wrap items-center justify-between gap-3">
           <div>
             <strong className="block text-xs font-head font-extrabold uppercase text-[#0A0A0A]">
               Jantar no RU II Setorial (18h15)
@@ -36,7 +36,7 @@ export const SettingsAlertsSection: React.FC<Props> = ({ notifs, updateNotifs })
             <button
               type="button"
               onClick={() => downloadPresetIcs('ru-1815')}
-              className="px-3 py-1.5 bg-white hover:bg-[#FBF8F3] text-[#0A0A0A] border-2 border-[#0A0A0A] rounded-xl text-xs font-head font-bold uppercase shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer inline-flex items-center gap-1.5"
+              className="px-3 py-1.5 bg-white hover:bg-muted text-[#0A0A0A] border-2 border-[#0A0A0A] rounded-xl text-xs font-head font-bold uppercase shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer inline-flex items-center gap-1.5"
             >
               <i className="bi bi-calendar-plus text-[#8B1E2D]" aria-hidden="true" /> Baixar .ics
             </button>
@@ -49,7 +49,7 @@ export const SettingsAlertsSection: React.FC<Props> = ({ notifs, updateNotifs })
           </div>
         </div>
 
-        <div className="p-4 bg-[#FBF8F3] rounded-xl border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] flex flex-wrap items-center justify-between gap-3">
+        <div className="p-4 bg-white rounded-xl border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] flex flex-wrap items-center justify-between gap-3">
           <div>
             <strong className="block text-xs font-head font-extrabold uppercase text-[#0A0A0A]">
               Último Circular FAFICH (22h30)
@@ -60,7 +60,7 @@ export const SettingsAlertsSection: React.FC<Props> = ({ notifs, updateNotifs })
             <button
               type="button"
               onClick={() => downloadPresetIcs('circular-2230')}
-              className="px-3 py-1.5 bg-white hover:bg-[#FBF8F3] text-[#0A0A0A] border-2 border-[#0A0A0A] rounded-xl text-xs font-head font-bold uppercase shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer inline-flex items-center gap-1.5"
+              className="px-3 py-1.5 bg-white hover:bg-muted text-[#0A0A0A] border-2 border-[#0A0A0A] rounded-xl text-xs font-head font-bold uppercase shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer inline-flex items-center gap-1.5"
             >
               <i className="bi bi-calendar-plus text-[#8B1E2D]" aria-hidden="true" /> Baixar .ics
             </button>
@@ -73,7 +73,7 @@ export const SettingsAlertsSection: React.FC<Props> = ({ notifs, updateNotifs })
           </div>
         </div>
 
-        <div className="p-4 bg-[#FBF8F3] rounded-xl border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] flex flex-wrap items-center justify-between gap-3">
+        <div className="p-4 bg-white rounded-xl border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] flex flex-wrap items-center justify-between gap-3">
           <div>
             <strong className="block text-xs font-head font-extrabold uppercase text-[#0A0A0A]">
               Guardião 120 Dias de AAC

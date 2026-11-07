@@ -33,7 +33,7 @@ export const SettingsA11ySection: React.FC<Props> = ({ a11y, updateA11y }) => {
             <strong className="block text-xs font-head font-extrabold uppercase text-[#0A0A0A]">Tamanho da Tipografia</strong>
             <span className="text-xs text-[#0A0A0A] font-medium">Escala responsiva do texto do aplicativo (90% a 130%)</span>
           </div>
-          <div className="flex items-center gap-1.5 bg-[#FBF8F3] p-1.5 rounded-xl border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+          <div className="flex items-center gap-1.5 bg-white p-1.5 rounded-xl border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
             {(['sm', 'md', 'lg', 'xl'] as const).map((s) => (
               <button
                 key={s}

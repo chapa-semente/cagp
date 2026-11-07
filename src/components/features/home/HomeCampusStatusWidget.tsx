@@ -104,7 +104,7 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({
         <button
           type="button"
           onClick={openCampus}
-          className="min-h-[44px] px-3.5 py-1.5 rounded-xl text-xs font-heading font-bold text-[#9E2424] hover:bg-[#FBF8F3] border-2 border-transparent hover:border-[#0A0A0A] bg-transparent cursor-pointer inline-flex items-center gap-1 transition-all"
+          className="min-h-[44px] px-3.5 py-1.5 rounded-xl text-xs font-heading font-bold text-[#9E2424] hover:bg-muted border-2 border-transparent hover:border-[#0A0A0A] bg-transparent cursor-pointer inline-flex items-center gap-1 transition-all"
         >
           <span>Horários e linhas completas</span>
           <CagpIcon name="chevron-right" className="w-4 h-4" />
@@ -152,7 +152,7 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({
               className={`min-h-[44px] px-3.5 py-2 rounded-xl font-heading text-xs font-bold border-2 border-black cursor-pointer inline-flex items-center gap-1.5 transition-all w-full justify-center active:translate-x-0.5 active:translate-y-0.5 active:shadow-none ${
                 notifs.ru1815
                   ? 'bg-[#9E2424] text-white shadow-[2px_2px_0_0_#0A0A0A]'
-                  : 'bg-[#FBF8F3] text-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] hover:bg-[#F4F1EA]'
+                  : 'bg-white text-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] hover:bg-muted'
               }`}
             >
               <CagpIcon name="bell" className="w-3.5 h-3.5" />
@@ -196,7 +196,7 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({
               className={`min-h-[44px] px-3.5 py-2 rounded-xl font-heading text-xs font-bold border-2 border-black cursor-pointer inline-flex items-center gap-1.5 transition-all w-full justify-center active:translate-x-0.5 active:translate-y-0.5 active:shadow-none ${
                 notifs.circular2230
                   ? 'bg-[#9E2424] text-white shadow-[2px_2px_0_0_#0A0A0A]'
-                  : 'bg-[#FBF8F3] text-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] hover:bg-[#F4F1EA]'
+                  : 'bg-white text-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] hover:bg-muted'
               }`}
             >
               <CagpIcon name="bell" className="w-3.5 h-3.5" />
@@ -226,7 +226,7 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({
             <span className="font-mono text-[#57534E] text-[11px] font-bold truncate">FAFICH • 2º Andar</span>
             <a
               href={route('/curso') + '#colegiado'}
-              className="min-h-[44px] px-3.5 py-1.5 rounded-xl font-heading font-bold text-[#9E2424] hover:bg-[#FBF8F3] border-2 border-transparent hover:border-black no-underline shrink-0 inline-flex items-center gap-1 transition-all"
+              className="min-h-[44px] px-3.5 py-1.5 rounded-xl font-heading font-bold text-[#9E2424] hover:bg-muted border-2 border-transparent hover:border-black no-underline shrink-0 inline-flex items-center gap-1 transition-all"
             >
               <span>Contatos</span>
               <span aria-hidden="true">&rarr;</span>

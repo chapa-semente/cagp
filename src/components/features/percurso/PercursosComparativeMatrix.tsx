@@ -88,7 +88,7 @@ export const PercursosComparativeMatrix: React.FC = () => {
         <CardContent className="pt-6 space-y-6">
           {/* 3 Cards Explicativos */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 rounded-xl border-3 border-[#16181d] bg-[#f4f5f7] shadow-[3px_3px_0px_#16181d] flex flex-col justify-between space-y-3">
+            <div className="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[3px_3px_0px_#16181d] flex flex-col justify-between space-y-3">
               <div className="space-y-1.5">
                 <Badge variant="default">1. NÚCLEO GERAL (INGRESSO PADRÃO)</Badge>
                 <h4 className="font-heading text-sm font-black uppercase text-[#16181d]">
@@ -105,7 +105,7 @@ export const PercursosComparativeMatrix: React.FC = () => {
               </Button>
             </div>
 
-            <div className="p-4 rounded-xl border-3 border-[#16181d] bg-[#f4f5f7] shadow-[3px_3px_0px_#16181d] flex flex-col justify-between space-y-3">
+            <div className="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[3px_3px_0px_#16181d] flex flex-col justify-between space-y-3">
               <div className="space-y-1.5">
                 <Badge variant="secondary">2. NÚCLEO COMPLEMENTAR (FCA)</Badge>
                 <h4 className="font-heading text-sm font-black uppercase text-[#16181d]">
@@ -122,7 +122,7 @@ export const PercursosComparativeMatrix: React.FC = () => {
               </Button>
             </div>
 
-            <div className="p-4 rounded-xl border-3 border-[#16181d] bg-[#f4f5f7] shadow-[3px_3px_0px_#16181d] flex flex-col justify-between space-y-3">
+            <div className="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[3px_3px_0px_#16181d] flex flex-col justify-between space-y-3">
               <div className="space-y-1.5">
                 <Badge variant="teal">3. NÚCLEO AVANÇADO (PÓS-GRADUAÇÃO)</Badge>
                 <h4 className="font-heading text-sm font-black uppercase text-[#16181d]">

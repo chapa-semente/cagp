@@ -131,7 +131,7 @@ export const CalourosOnboardingGuide: React.FC = () => {
                       ? 'bg-[#16181d] text-white shadow-[4px_4px_0px_#9E2424] -translate-y-0.5'
                       : isDone
                       ? 'bg-[#DCFCE7] text-[#16181d] shadow-[2px_2px_0px_#16181d]'
-                      : 'bg-[#f4f5f7] text-[#16181d] hover:bg-white shadow-[2px_2px_0px_#16181d]'
+                      : 'bg-white text-[#16181d] hover:bg-muted shadow-[2px_2px_0px_#16181d]'
                   }`}
                 >
                   <div className="flex items-center justify-between mb-1">

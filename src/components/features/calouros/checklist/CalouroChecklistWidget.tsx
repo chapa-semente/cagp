@@ -54,7 +54,7 @@ export const CalouroChecklistWidget: React.FC = () => {
               className={`px-2.5 py-0.5 rounded-md font-head text-[11px] font-bold border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A] ${
                 completedCount > 0
                   ? 'bg-[#8B1E2D] text-white'
-                  : 'bg-[#FBF8F3] text-gray-800'
+                  : 'bg-white text-gray-800'
               }`}
             >
               {completedCount}/{TOTAL_ITEMS} Concluídos
@@ -72,7 +72,7 @@ export const CalouroChecklistWidget: React.FC = () => {
             <span>Progresso</span>
             <span className="text-[#8B1E2D]">{pct}%</span>
           </div>
-          <div className="w-full bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-full h-3 overflow-hidden p-0.5">
+          <div className="w-full bg-white border-2 border-[#0A0A0A] rounded-full h-3 overflow-hidden p-0.5">
             <div
               className="bg-[#8B1E2D] h-full transition-all duration-300 rounded-full"
               style={{ width: `${Math.min(100, pct)}%` }}

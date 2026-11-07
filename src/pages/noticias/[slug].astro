@@ -88,7 +88,7 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
       <div class="flex flex-wrap items-center gap-1.5">
         <a
           href={route('/')}
-          class="px-3.5 py-2 rounded-lg text-xs font-head font-bold uppercase text-[#0A0A0A] hover:bg-[#FBF8F3] hover:text-[#8B1E2D] no-underline transition-colors border border-transparent hover:border-[#0A0A0A]"
+          class="px-3.5 py-2 rounded-lg text-xs font-head font-bold uppercase text-[#0A0A0A] hover:bg-muted hover:text-[#8B1E2D] no-underline transition-colors border border-transparent hover:border-[#0A0A0A]"
         >
           Início
         </a>
@@ -100,13 +100,13 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
         </a>
         <a
           href={route('/') + '#campus'}
-          class="px-3.5 py-2 rounded-lg text-xs font-head font-bold uppercase text-[#0A0A0A] hover:bg-[#FBF8F3] hover:text-[#8B1E2D] no-underline transition-colors border border-transparent hover:border-[#0A0A0A]"
+          class="px-3.5 py-2 rounded-lg text-xs font-head font-bold uppercase text-[#0A0A0A] hover:bg-muted hover:text-[#8B1E2D] no-underline transition-colors border border-transparent hover:border-[#0A0A0A]"
         >
           Plantão Noturno
         </a>
         <a
           href={route('/') + '#passaporte'}
-          class="px-3.5 py-2 rounded-lg text-xs font-head font-bold uppercase text-[#0A0A0A] hover:bg-[#FBF8F3] hover:text-[#8B1E2D] no-underline transition-colors border border-transparent hover:border-[#0A0A0A]"
+          class="px-3.5 py-2 rounded-lg text-xs font-head font-bold uppercase text-[#0A0A0A] hover:bg-muted hover:text-[#8B1E2D] no-underline transition-colors border border-transparent hover:border-[#0A0A0A]"
         >
           Passaporte
         </a>
@@ -114,7 +114,7 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
 
       <a
         href={route('/noticias')}
-        class="px-3.5 py-2 rounded-xl bg-[#FBF8F3] hover:bg-white border-2 border-[#0A0A0A] text-xs font-head font-bold uppercase text-[#0A0A0A] no-underline shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all"
+        class="px-3.5 py-2 rounded-xl bg-white hover:bg-[#FFFDF9] border-2 border-[#0A0A0A] text-xs font-head font-bold uppercase text-[#0A0A0A] no-underline shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all"
       >
         &larr; Voltar ao Mural
       </a>
@@ -235,7 +235,7 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
           <!-- Destaques Práticos e Normativos -->
           <section
             aria-labelledby="heading-article-highlights"
-            class="p-5 rounded-xl bg-[#FBF8F3] border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A] space-y-3 max-w-[70ch]"
+            class="p-5 rounded-xl bg-white border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A] space-y-3 max-w-[70ch]"
           >
             <h2
               id="heading-article-highlights"
@@ -254,7 +254,7 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
           <footer class="pt-4 border-t-2 border-[#0A0A0A] flex flex-wrap items-center justify-between gap-3">
             <a
               href={route('/noticias')}
-              class="min-h-[44px] px-4 py-2.5 rounded-xl bg-[#FBF8F3] hover:bg-white border-2 border-[#0A0A0A] text-xs font-head font-bold uppercase text-[#0A0A0A] no-underline shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all"
+              class="min-h-[44px] px-4 py-2.5 rounded-xl bg-white hover:bg-muted border-2 border-[#0A0A0A] text-xs font-head font-bold uppercase text-[#0A0A0A] no-underline shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all"
             >
               &larr; Voltar para todas as notícias
             </a>
@@ -286,7 +286,7 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
             {article.relatedLinks.map((link) => (
               <a
                 href={link.href}
-                class="p-3 rounded-xl bg-[#FBF8F3] hover:bg-white border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] no-underline text-[#0A0A0A] flex items-center justify-between gap-2 text-xs font-head font-bold uppercase transition-all"
+                class="p-3 rounded-xl bg-white hover:bg-muted border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] no-underline text-[#0A0A0A] flex items-center justify-between gap-2 text-xs font-head font-bold uppercase transition-all"
               >
                 <span>{link.label}</span>
                 <span class="text-[#8B1E2D] shrink-0" set:html={arrowRightSvg} />
@@ -313,7 +313,7 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
             {otherArticles.map((other) => (
               <a
                 href={route(`/noticias/${other.slug}`)}
-                class="block p-3.5 rounded-xl bg-[#FBF8F3] hover:bg-white border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] no-underline transition-all space-y-1.5"
+                class="block p-3.5 rounded-xl bg-white hover:bg-muted border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] no-underline transition-all space-y-1.5"
               >
                 <span class="text-[10px] font-mono font-bold text-[#8B1E2D] block">
                   {other.tag}

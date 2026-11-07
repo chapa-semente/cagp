@@ -102,7 +102,7 @@ export const EstagioDocumentDrawerAndGuide: React.FC = () => {
                   {MODELOS_ESTAGIO.map((m) => (
                     <div
                       key={m.titulo}
-                      className="p-3.5 rounded-xl border-3 border-[#16181d] bg-[#f4f5f7] shadow-[3px_3px_0px_#16181d] flex flex-col justify-between gap-3"
+                      className="p-3.5 rounded-xl border-3 border-[#16181d] bg-white shadow-[3px_3px_0px_#16181d] flex flex-col justify-between gap-3"
                     >
                       <div>
                         <h4 className="font-heading text-xs font-black uppercase text-[#16181d]">
@@ -146,7 +146,7 @@ export const EstagioDocumentDrawerAndGuide: React.FC = () => {
         <CardContent className="pt-6 space-y-5">
           {/* 3 Modalidades */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 rounded-xl border-3 border-[#16181d] bg-[#f4f5f7] shadow-[3px_3px_0px_#16181d] space-y-2">
+            <div className="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[3px_3px_0px_#16181d] space-y-2">
               <Badge variant="default">OBRIGATÓRIO • 7º E 8º PERÍODOS</Badge>
               <h4 className="font-heading text-sm font-black uppercase text-[#16181d]">
                 DCP 135 (150h) + DCP 136 (150h)
@@ -156,7 +156,7 @@ export const EstagioDocumentDrawerAndGuide: React.FC = () => {
               </p>
             </div>
 
-            <div className="p-4 rounded-xl border-3 border-[#16181d] bg-[#f4f5f7] shadow-[3px_3px_0px_#16181d] space-y-2">
+            <div className="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[3px_3px_0px_#16181d] space-y-2">
               <Badge variant="secondary">NÃO-OBRIGATÓRIO • A PARTIR DO 3º P</Badge>
               <h4 className="font-heading text-sm font-black uppercase text-[#16181d]">
                 Até 30h Semanais (6h Diárias)

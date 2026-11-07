@@ -103,7 +103,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
               68 Disciplinas Optativas do PPC 2020
             </h3>
           </div>
-          <span className="text-xs text-[#57534E] font-mono font-bold px-2.5 py-1 bg-[#FBF8F3] border border-[#0A0A0A] rounded-md shadow-[1px_1px_0_0_#0A0A0A] self-start sm:self-auto">
+          <span className="text-xs text-[#57534E] font-mono font-bold px-2.5 py-1 bg-white border border-[#0A0A0A] rounded-md shadow-[1px_1px_0_0_#0A0A0A] self-start sm:self-auto">
             Mostrando {filtered.length} de {optativas.length}
           </span>
         </div>
@@ -171,7 +171,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
             >
               <div>
                 <div className="flex items-center justify-between gap-2 mb-2">
-                  <span className="font-mono text-xs font-bold px-2 py-0.5 rounded-md bg-[#FBF8F3] border border-[#0A0A0A] text-[#9E2424] shadow-[1px_1px_0_0_#0A0A0A]">
+                  <span className="font-mono text-xs font-bold px-2 py-0.5 rounded-md bg-white border border-[#0A0A0A] text-[#9E2424] shadow-[1px_1px_0_0_#0A0A0A]">
                     {item.code}
                   </span>
                   <div className="flex items-center gap-1.5">
@@ -205,7 +205,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                     </span>
                     <p
                       className={`font-body text-xs text-[#292524] leading-relaxed m-0 select-text ${
-                        isExpanded ? 'bg-[#FBF8F3] p-2 border border-[#0A0A0A] rounded-lg mt-1' : 'line-clamp-2'
+                        isExpanded ? 'bg-white p-2 border border-[#0A0A0A] rounded-lg mt-1 shadow-xs' : 'line-clamp-2'
                       }`}
                     >
                       {item.ementa}
@@ -236,7 +236,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                           key={p}
                           type="button"
                           onClick={() => handleAllocate(item, p)}
-                          className="min-h-[36px] py-1 bg-[#FBF8F3] hover:bg-[#9E2424] hover:text-white border border-[#0A0A0A] rounded-lg text-xs font-mono font-bold transition-all shadow-[1px_1px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer"
+                          className="min-h-[36px] py-1 bg-white hover:bg-[#9E2424] hover:text-white border border-[#0A0A0A] rounded-lg text-xs font-mono font-bold transition-all shadow-[1px_1px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer"
                         >
                           {p}ºP
                         </button>
@@ -255,7 +255,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                     <button
                       type="button"
                       onClick={() => setAllocatingCode(item.code)}
-                      className="flex-1 min-h-[40px] px-3 py-1.5 bg-[#FBF8F3] hover:bg-[#F3ECE0] border-2 border-[#0A0A0A] rounded-xl text-xs font-head uppercase font-bold text-[#0A0A0A] transition-all shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer"
+                      className="flex-1 min-h-[40px] px-3 py-1.5 bg-white hover:bg-[#F3ECE0] border-2 border-[#0A0A0A] rounded-xl text-xs font-head uppercase font-bold text-[#0A0A0A] transition-all shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer"
                     >
                       Mover ({allocatedCourse.period}ºP)
                     </button>

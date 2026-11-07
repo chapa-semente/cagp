@@ -50,11 +50,11 @@ export const CurriculumDossierWidget: React.FC = () => {
         </p>
 
         <div className="space-y-2 mb-4 text-xs">
-          <div className="flex justify-between items-center text-[#292524] p-2 bg-[#FBF8F3] border border-[#0A0A0A] rounded-lg">
+          <div className="flex justify-between items-center text-[#292524] p-2 bg-white border-2 border-[#0A0A0A] rounded-lg shadow-[1px_1px_0_0_#0A0A0A]">
             <span className="font-medium">Optativas Vinculadas:</span>
             <span className="font-mono font-bold text-[#9E2424]">{optativasHours}h / 1.020h</span>
           </div>
-          <div className="flex justify-between items-center text-[#292524] p-2 bg-[#FBF8F3] border border-[#0A0A0A] rounded-lg">
+          <div className="flex justify-between items-center text-[#292524] p-2 bg-white border-2 border-[#0A0A0A] rounded-lg shadow-[1px_1px_0_0_#0A0A0A]">
             <span className="font-medium">Extensão Curricular:</span>
             <span className="font-mono font-bold text-[#266264]">{extTotal}h / 300h</span>
           </div>

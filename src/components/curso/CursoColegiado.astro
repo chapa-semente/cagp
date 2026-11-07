@@ -90,7 +90,7 @@ const atosCurso = [
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-body font-medium">
       {/* Secretaria do Colegiado */}
-      <div class="cagp-card p-4 bg-[#FBF8F3] space-y-2 border-2 border-[#0A0A0A] rounded-xl shadow-[2px_2px_0_0_#0A0A0A]">
+      <div class="cagp-card p-4 bg-white space-y-2 border-2 border-[#0A0A0A] rounded-xl shadow-[2px_2px_0_0_#0A0A0A]">
         <div class="flex items-center justify-between mb-2">
           <div class="flex items-center gap-2">
             <i class="bi bi-person-badge-fill text-[#8B1E2D] text-lg" aria-hidden="true"></i>
@@ -107,7 +107,7 @@ const atosCurso = [
       </div>
 
       {/* CEAG Noturno */}
-      <div class="cagp-card p-4 bg-[#FBF8F3] space-y-2 border-2 border-[#0A0A0A] rounded-xl shadow-[2px_2px_0_0_#0A0A0A]">
+      <div class="cagp-card p-4 bg-white space-y-2 border-2 border-[#0A0A0A] rounded-xl shadow-[2px_2px_0_0_#0A0A0A]">
         <div class="flex items-center justify-between mb-2">
           <div class="flex items-center gap-2">
             <i class="bi bi-clock-history text-[#0A0A0A] text-lg" aria-hidden="true"></i>
@@ -144,12 +144,12 @@ const atosCurso = [
 
     {/* Coordenação Titular e Sub */}
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-body">
-      <div class="cagp-card p-4 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl shadow-[2px_2px_0_0_#0A0A0A]">
+      <div class="cagp-card p-4 bg-white border-2 border-[#0A0A0A] rounded-xl shadow-[2px_2px_0_0_#0A0A0A]">
         <span class="text-[11px] font-head uppercase font-bold text-[#8B1E2D] tracking-wide block">Coordenadora do Colegiado</span>
         <h4 class="font-head text-base font-bold uppercase text-[#0A0A0A] mt-1 m-0 tracking-wide">{coordenacao.coordenadora}</h4>
         <p class="text-xs text-gray-700 mt-1.5 m-0 font-medium">E-mail: <a href={`mailto:${coordenacao.emailCoord}`} class="font-mono text-[#8B1E2D] underline font-bold">{coordenacao.emailCoord}</a></p>
       </div>
-      <div class="cagp-card p-4 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl shadow-[2px_2px_0_0_#0A0A0A]">
+      <div class="cagp-card p-4 bg-white border-2 border-[#0A0A0A] rounded-xl shadow-[2px_2px_0_0_#0A0A0A]">
         <span class="text-[11px] font-head uppercase font-bold text-gray-700 tracking-wide block">Subcoordenadora do Colegiado</span>
         <h4 class="font-head text-base font-bold uppercase text-[#0A0A0A] mt-1 m-0 tracking-wide">{coordenacao.subcoordenadora}</h4>
         <p class="text-xs text-gray-700 mt-1.5 m-0 font-medium">E-mail: <a href={`mailto:${coordenacao.emailSub}`} class="font-mono text-[#8B1E2D] underline font-bold">{coordenacao.emailSub}</a></p>
@@ -163,7 +163,7 @@ const atosCurso = [
       </span>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {ndeMembros.map((m) => (
-          <div class="p-3 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl text-xs shadow-[2px_2px_0_0_#0A0A0A]">
+          <div class="p-3 bg-white border-2 border-[#0A0A0A] rounded-xl text-xs shadow-[2px_2px_0_0_#0A0A0A]">
             <strong class="text-[#0A0A0A] font-head uppercase tracking-wide text-xs block">{m.nome}</strong>
             <span class="text-[11px] text-gray-700 font-body font-medium block mt-0.5">{m.papel}</span>
             <span class="text-[11px] font-mono text-[#8B1E2D] font-bold block mt-1">{m.email}</span>
@@ -179,7 +179,7 @@ const atosCurso = [
       </span>
       <div class="space-y-2">
         {colegiadoRepresentantes.map((r) => (
-          <div class="p-3 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-1.5 shadow-[1px_1px_0_0_#0A0A0A]">
+          <div class="p-3 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-1.5 shadow-[1px_1px_0_0_#0A0A0A]">
             <span class="font-head font-bold text-[#8B1E2D] uppercase tracking-wide">{r.orgao}:</span>
             <span class="text-gray-800 font-body font-medium"><strong>Titular:</strong> {r.titular} | <strong>Suplente:</strong> {r.suplente}</span>
           </div>
@@ -203,7 +203,7 @@ const atosCurso = [
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
       {atosCurso.map((doc) => (
-        <div class="cagp-card p-4 bg-[#FBF8F3] flex flex-col justify-between border-2 border-[#0A0A0A] rounded-xl shadow-[2px_2px_0_0_#0A0A0A]">
+        <div class="cagp-card p-4 bg-white flex flex-col justify-between border-2 border-[#0A0A0A] rounded-xl shadow-[2px_2px_0_0_#0A0A0A]">
           <div>
             <div class="flex items-center justify-between gap-2 mb-2">
               <span class="cagp-badge cagp-badge-red text-[10px] font-mono font-bold">{doc.sigla}</span>

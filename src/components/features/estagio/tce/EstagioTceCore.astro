@@ -201,12 +201,12 @@ const normasEstagio = [
         </h4>
         <p class="font-body text-xs text-[#57534E] mt-0.5 m-0">Preenchimento direto em computador ou edição na nuvem pelo Google Drive:</p>
       </div>
-      <span class="text-xs text-[#57534E] font-mono font-bold px-2 py-0.5 bg-[#FBF8F3] border border-[#0A0A0A] rounded-md shadow-[1px_1px_0_0_#0A0A0A]">7 Modelos Homologados</span>
+      <span class="text-xs text-[#57534E] font-mono font-bold px-2 py-0.5 bg-white border border-[#0A0A0A] rounded-md shadow-[1px_1px_0_0_#0A0A0A]">7 Modelos Homologados</span>
     </div>
 
     <div class="space-y-3">
       {modelosEstagio.map((m) => (
-        <div class="p-4 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-[2px_2px_0_0_#0A0A0A]">
+        <div class="p-4 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-[2px_2px_0_0_#0A0A0A]">
           <div class="min-w-0">
             <h5 class="font-head text-sm font-bold uppercase text-[#0A0A0A] m-0 mb-0.5">
               {m.titulo}
@@ -221,7 +221,7 @@ const normasEstagio = [
               href={m.gdoc}
               target="_blank"
               rel="noopener noreferrer"
-              class="px-3 py-1.5 bg-white hover:bg-[#F3ECE0] border border-[#0A0A0A] rounded-lg text-xs font-head font-bold uppercase text-[#0A0A0A] no-underline inline-flex items-center gap-1.5 shadow-[1.5px_1.5px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all"
+              class="px-3 py-1.5 bg-white hover:bg-muted border border-[#0A0A0A] rounded-lg text-xs font-head font-bold uppercase text-[#0A0A0A] no-underline inline-flex items-center gap-1.5 shadow-[1.5px_1.5px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all"
               title="Abrir modelo no Google Docs"
             >
               <i class="bi bi-google" aria-hidden="true" />
@@ -263,7 +263,7 @@ const normasEstagio = [
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
       {normasEstagio.map((n) => (
-        <div class="p-4 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between shadow-[2px_2px_0_0_#0A0A0A]">
+        <div class="p-4 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between shadow-[2px_2px_0_0_#0A0A0A]">
           <div>
             <h5 class="font-head font-bold text-xs uppercase text-[#0A0A0A] m-0 mb-1">{n.titulo}</h5>
             <p class="font-body text-xs text-[#57534E] leading-snug m-0">{n.desc}</p>

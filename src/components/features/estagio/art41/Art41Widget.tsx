@@ -56,7 +56,7 @@ export const Art41Widget: React.FC = () => {
           Simulador oficial para aproveitamento de atuação profissional no setor público para dispensa das 300h de estágio.
         </p>
 
-        <div className="p-3 bg-[#FBF8F3] border border-[#0A0A0A] rounded-lg mb-4 flex items-center justify-between text-xs">
+        <div className="p-3 bg-white border border-[#0A0A0A] rounded-lg mb-4 flex items-center justify-between text-xs shadow-[1px_1px_0_0_#0A0A0A]">
           <span className="text-[#57534E] font-medium">Status da Simulação:</span>
           <span className="font-mono font-bold text-[#0A0A0A]">
             {isEligible ? 'Dispensa Apta (300h)' : `${checkedCount} requisitos marcados`}

@@ -57,7 +57,7 @@ export const OverviewGuardianWidget: React.FC = () => {
                 Últimos Certificados Cadastrados:
               </span>
               {certs.slice(0, 2).map((c) => (
-                <div key={c.id} className="p-2.5 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-lg text-xs flex justify-between items-center shadow-[1px_1px_0_0_#0A0A0A]">
+                <div key={c.id} className="p-2.5 bg-white border-2 border-[#0A0A0A] rounded-lg text-xs flex justify-between items-center shadow-[1px_1px_0_0_#0A0A0A]">
                   <span className="font-medium text-gray-900 truncate max-w-[170px] font-body">{c.title}</span>
                   <span className="font-mono text-[#8B1E2D] font-bold text-xs">{c.hours}h</span>
                 </div>

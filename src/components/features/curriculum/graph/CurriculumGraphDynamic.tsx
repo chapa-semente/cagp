@@ -11,38 +11,31 @@ import {
   type CustomCourse,
 } from '../../../../lib/storage/studentVault';
 import { CustomCourseModal } from '../custom-course/CustomCourseModal';
+import { CourseDetailDrawer, type CourseDetailNode } from '@/components/ui/CourseDetailDrawer';
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuSeparator,
+  ContextMenuTrigger,
+} from '@/components/ui/context-menu';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { List, Copy, Trash2 } from 'lucide-react';
 import { CagpIcon } from '../../../ui/CagpIcon';
 
 interface Props {
   catalogOptions?: Array<{ code: string; name: string; dept: string; ch: number }>;
 }
 
-interface SelectedNodeState {
-  code: string;
-  name: string;
-  period: number;
-  ch: number;
-  desc: string;
-  dept: string;
-  isCustom?: boolean;
-  category?: string;
-  isFormalLock?: boolean;
-  isKey?: boolean;
-  formalReqs?: string[];
-  suggestedReqs?: string[];
-  formalUnlocks?: string[];
-  suggestedUnlocks?: string[];
-  trackLabel?: string;
-}
-
 export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] }) => {
   const [completedCourses, setCompletedCourses] = useState<string[]>([]);
   const [customCourses, setCustomCourses] = useState<CustomCourse[]>([]);
-  const [selectedNode, setSelectedNode] = useState<SelectedNodeState | null>(null);
+  const [selectedNode, setSelectedNode] = useState<CourseDetailNode | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalPeriod, setModalPeriod] = useState(4);
   const [activeTrack, setActiveTrack] = useState<string>('all');
-  const [viewMode, setViewMode] = useState<'columns' | 'svg'>('columns');
+  const [viewMode, setViewMode] = useState<'columns' | 'svg' | 'list'>('columns');
 
   const loadVaultData = () => {
     try {
@@ -76,20 +69,9 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
     return () => window.removeEventListener('cagp:vault-updated', handleUpdate);
   }, []);
 
-  // Fechar modal de detalhes ao teclar Escape
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && selectedNode) {
-        setSelectedNode(null);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedNode]);
-
   const handleToggleCompleted = (code: string, ch: number) => {
     if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
-      navigator.vibrate(12);
+      navigator.vibrate(15);
     }
     const isDone = completedCourses.includes(code);
     const updated = isDone
@@ -178,32 +160,31 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
   const totalDoneHours = mandatoryDoneHours + customDoneHours;
   const progressPct = Math.min(100, Math.round((totalDoneHours / 3000) * 100));
 
-  // Agrupamento por período (1 a 10)
   const periods = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   return (
     <div className="cagp-curriculum-graph-dynamic select-none space-y-6">
       {/* HUD Linear de Integralização da Matriz */}
-      <div className="p-4 sm:p-5 bg-white border border-[#DFDBD2] rounded-3xl shadow-2xs">
-        <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+      <div className="p-4 sm:p-5 bg-card border-3 border-border rounded-xl shadow-md">
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
           <div>
             <div className="flex items-center gap-2">
-              <span className="w-8 h-8 rounded-xl bg-[#8B1E2D]/10 text-[#8B1E2D] flex items-center justify-center font-bold text-sm">
+              <span className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center font-bold text-sm border-2 border-border">
                 <CagpIcon name="curriculo" className="w-4 h-4" />
               </span>
-              <h3 className="font-['Oswald'] text-base uppercase font-bold text-[#0A0A0A] m-0">
+              <h3 className="font-heading text-base sm:text-lg uppercase font-black text-foreground m-0">
                 Grafo Curricular Dinâmico & 10 Períodos
               </h3>
             </div>
-            <p className="text-xs text-[#57534E] mt-0.5 m-0">
+            <p className="text-xs text-muted-foreground mt-1 m-0">
               27 obrigatórias com travas do SIGA + optativas e disciplinas livres vinculadas por você.
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            {/* Alternador de Modo: Colunas 10P vs Mapa SVG */}
+            {/* Alternador de Modo: Colunas 10P vs Mapa SVG vs Lista Móvel */}
             <div
-              className="inline-flex rounded-2xl border border-[#DFDBD2] p-1 bg-[#F7F5F0]"
+              className="inline-flex rounded-xl border-3 border-border p-1 bg-white shadow-xs"
               role="radiogroup"
               aria-label="Modo de visualização do grafo"
             >
@@ -212,10 +193,10 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                 role="radio"
                 aria-checked={viewMode === 'columns'}
                 onClick={() => setViewMode('columns')}
-                className={`min-h-[44px] px-3.5 py-1.5 rounded-xl font-['Oswald'] text-xs uppercase font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                className={`min-h-[38px] px-3 py-1 rounded-lg font-heading text-xs uppercase font-extrabold transition-all flex items-center gap-1.5 cursor-pointer ${
                   viewMode === 'columns'
-                    ? 'bg-[#8B1E2D] text-white shadow-xs'
-                    : 'text-[#57534E] hover:text-[#0A0A0A] hover:bg-white/60'
+                    ? 'bg-primary text-primary-foreground shadow-xs'
+                    : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
                 <CagpIcon name="kanban" className="w-3.5 h-3.5" />
@@ -226,51 +207,67 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                 role="radio"
                 aria-checked={viewMode === 'svg'}
                 onClick={() => setViewMode('svg')}
-                className={`min-h-[44px] px-3.5 py-1.5 rounded-xl font-['Oswald'] text-xs uppercase font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                className={`min-h-[38px] px-3 py-1 rounded-lg font-heading text-xs uppercase font-extrabold transition-all flex items-center gap-1.5 cursor-pointer ${
                   viewMode === 'svg'
-                    ? 'bg-[#8B1E2D] text-white shadow-xs'
-                    : 'text-[#57534E] hover:text-[#0A0A0A] hover:bg-white/60'
+                    ? 'bg-primary text-primary-foreground shadow-xs'
+                    : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
                 <CagpIcon name="curriculo" className="w-3.5 h-3.5" />
-                <span>Mapa SVG & Trilhas</span>
+                <span>Mapa SVG</span>
+              </button>
+              <button
+                type="button"
+                role="radio"
+                aria-checked={viewMode === 'list'}
+                onClick={() => setViewMode('list')}
+                className={`min-h-[38px] px-3 py-1 rounded-lg font-heading text-xs uppercase font-extrabold transition-all flex items-center gap-1.5 cursor-pointer md:hidden ${
+                  viewMode === 'list'
+                    ? 'bg-primary text-primary-foreground shadow-xs'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                <List className="w-3.5 h-3.5" />
+                <span>Lista</span>
               </button>
             </div>
 
-            <button
+            <Button
               type="button"
+              variant="default"
+              size="sm"
               onClick={() => openAddModal(4)}
-              className="min-h-[44px] px-4 py-2 bg-[#8B1E2D] text-white hover:bg-[#6e1723] rounded-xl font-['Oswald'] text-xs uppercase font-bold tracking-wider flex items-center gap-2 border border-[#8B1E2D] transition-colors cursor-pointer"
+              className="min-h-[40px] font-heading font-extrabold text-xs uppercase tracking-wide"
             >
-              <CagpIcon name="plus" className="w-4 h-4" />
+              <CagpIcon name="plus" className="w-4 h-4 mr-1" />
               <span>Adicionar Disciplina</span>
-            </button>
+            </Button>
           </div>
         </div>
 
         {/* Barra de Progresso das 3.000h */}
         <div>
-          <div className="flex justify-between text-xs font-mono text-gray-700 mb-1.5 flex-wrap gap-2">
+          <div className="flex justify-between text-xs font-mono text-muted-foreground mb-1.5 flex-wrap gap-2">
             <div>
               <span>Obrigatórias: </span>
-              <strong className="text-[#8B1E2D]">{mandatoryDoneHours}/1.860h</strong>
-              <span className="text-gray-400 mx-2">•</span>
+              <strong className="text-secondary">{mandatoryDoneHours}/1.860h</strong>
+              <span className="text-muted-foreground/60 mx-2">•</span>
               <span>Optativas / Livres: </span>
-              <strong className="text-[#15803D]">{customDoneHours}/1.140h</strong>
+              <strong className="text-success">{customDoneHours}/1.140h</strong>
             </div>
             <div>
               <span>Total da Graduação: </span>
-              <strong className="text-[#0A0A0A]">{totalDoneHours}/3.000h ({progressPct}%)</strong>
+              <strong className="text-foreground">{totalDoneHours}/3.000h ({progressPct}%)</strong>
             </div>
           </div>
-          <div className="w-full h-3 bg-[#DFDBD2] rounded-full overflow-hidden flex">
+          <div className="w-full h-3.5 bg-muted rounded-full overflow-hidden flex border-2 border-border shadow-xs">
             <div
-              className="h-full bg-[#8B1E2D] transition-all duration-300"
+              className="h-full bg-secondary transition-all duration-300"
               style={{ width: `${Math.min(100, (mandatoryDoneHours / 3000) * 100)}%` }}
               title="Horas Obrigatórias"
             />
             <div
-              className="h-full bg-[#15803D] transition-all duration-300"
+              className="h-full bg-success transition-all duration-300"
               style={{ width: `${Math.min(100, (customDoneHours / 3000) * 100)}%` }}
               title="Horas Optativas e Livres"
             />
@@ -280,201 +277,231 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
 
       {/* MODO 1: Grade dos 10 Períodos em Colunas Responsivas */}
       {viewMode === 'columns' && (
-        <div className="overflow-x-auto pb-4 animate-in fade-in duration-150">
-          <div className="flex gap-4 min-w-[1200px]">
-            {periods.map((p) => {
-              const periodMandatory = Object.values(DISCIPLINAS_GRAFO).filter((d) => d.period === p);
-              const periodCustom = customCourses.filter((c) => c.period === p);
+        <div className="space-y-2 animate-in fade-in duration-150">
+          <div className="flex items-center justify-between px-1">
+            <span className="text-xs font-mono font-bold text-muted-foreground flex items-center gap-1.5">
+              <span>↔</span> Arraste lateralmente ou clique com botão direito para ações rápidas
+            </span>
+          </div>
 
-              return (
-                <div
-                  key={p}
-                  className="w-72 bg-[#F7F5F0] border border-[#DFDBD2] rounded-xl p-3 flex flex-col justify-between shrink-0 shadow-xs"
-                >
-                  <div>
-                    {/* Cabeçalho do Período */}
-                    <div className="flex items-center justify-between pb-2 mb-2.5 border-b-2 border-[#0A0A0A]">
-                      <span className="font-['Oswald'] text-sm font-black uppercase text-[#0A0A0A]">
-                        {p}º Período
-                      </span>
-                      <span className="text-[10px] font-mono text-gray-500 font-bold">
-                        {periodMandatory.length + periodCustom.length} matérias
-                      </span>
-                    </div>
+          <div className="overflow-x-auto pb-4 scrollbar-none [mask-image:linear-gradient(to_right,transparent_0px,black_16px,black_calc(100%-16px),transparent_100%)]">
+            <div className="flex gap-4 min-w-[1240px] px-2 py-1">
+              {periods.map((p) => {
+                const periodMandatory = Object.values(DISCIPLINAS_GRAFO).filter((d) => d.period === p);
+                const periodCustom = customCourses.filter((c) => c.period === p);
 
-                    {/* Lista de Disciplinas Obrigatórias do Período */}
-                    <div className="space-y-2 mb-2">
-                      {periodMandatory.map((disc) => {
-                        const isCompleted = completedCourses.includes(disc.code);
-                        const isFormalLock = disc.isFormalLock;
-
-                        return (
-                          <div
-                            key={disc.code}
-                            className={`p-2.5 rounded-lg border transition-all text-xs ${
-                              isCompleted
-                                ? 'bg-[#DCFCE7] border-[#15803D]'
-                                : 'bg-white border-[#DFDBD2] hover:border-[#0A0A0A]'
-                            }`}
-                          >
-                            <div className="flex items-start justify-between gap-1.5 mb-1">
-                              <div className="flex items-center gap-1.5">
-                                <button
-                                  type="button"
-                                  onClick={() => handleSelectDiscipline(disc)}
-                                  className="font-mono font-black text-left text-[#8B1E2D] hover:underline cursor-pointer"
-                                >
-                                  {disc.code}
-                                </button>
-                                {isCompleted && (
-                                  <span className="cagp-stamp-badge is-feito text-[10px] font-bold uppercase tracking-wider py-0.5 px-1.5 rounded text-[#15803D] border-[#15803D] bg-[#DCFCE7]">
-                                    FEITO ✓
-                                  </span>
-                                )}
-                              </div>
-                              <div className="flex items-center gap-1">
-                                {isFormalLock && (
-                                  <span className="text-[10px] text-[#DC2626]" title="Trava Formal no SIGA">
-                                    <CagpIcon name="lock" className="w-3.5 h-3.5 text-[#DC2626]" />
-                                  </span>
-                                )}
-                                {/* Checkbox com touch target expandido >= 44x44px (BUG-16) */}
-                                <label
-                                  htmlFor={`chk-course-${disc.code}`}
-                                  className="min-w-[44px] min-h-[44px] -my-2 -mr-1 flex items-center justify-center cursor-pointer"
-                                  title={isCompleted ? `Desmarcar ${disc.code}` : `Marcar ${disc.code} como concluída`}
-                                >
-                                  <input
-                                    id={`chk-course-${disc.code}`}
-                                    name={`course_${disc.code}`}
-                                    type="checkbox"
-                                    checked={isCompleted}
-                                    onChange={() => handleToggleCompleted(disc.code, disc.ch)}
-                                    className="w-4 h-4 rounded text-[#8B1E2D] accent-[#8B1E2D] cursor-pointer"
-                                    aria-label={`Marcar ${disc.code} como concluída`}
-                                  />
-                                </label>
-                              </div>
-                            </div>
-
-                            <p
-                              onClick={() => handleSelectDiscipline(disc)}
-                              className="font-['Oswald'] font-bold text-xs text-[#0A0A0A] leading-tight m-0 mb-1 cursor-pointer hover:text-[#8B1E2D]"
-                            >
-                              {disc.name}
-                            </p>
-
-                            <div className="flex items-center justify-between text-[10px] text-gray-500 font-mono">
-                              <span>{disc.dept} • {disc.ch}h</span>
-                              {disc.formalReqs.length > 0 && (
-                                <span className="text-[#DC2626] font-bold">
-                                  Req: {disc.formalReqs.join(', ')}
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                        );
-                      })}
-
-                      {/* Disciplinas Optativas e Personalizadas Vinculadas ao Período */}
-                      {periodCustom.map((cust) => {
-                        const isCompleted = completedCourses.includes(cust.code);
-
-                        return (
-                          <div
-                            key={cust.id}
-                            className={`p-2.5 rounded-lg border-2 border-dashed transition-all text-xs ${
-                              isCompleted
-                                ? 'bg-[#DCFCE7] border-[#15803D]'
-                                : 'bg-[#FFFBEB] border-[#B45309]'
-                            }`}
-                          >
-                            <div className="flex items-start justify-between gap-1 mb-1">
-                              <div className="flex items-center gap-1">
-                                <span className="px-1.5 py-0.5 rounded text-[10px] font-['Oswald'] uppercase font-bold bg-[#B45309] text-white">
-                                  {cust.category === 'formacao_livre' ? 'LIVRE' : 'OPTATIVA'}
-                                </span>
-                                {isCompleted && (
-                                  <span className="cagp-stamp-badge is-feito text-[10px] font-bold uppercase tracking-wider py-0.5 px-1.5 rounded text-[#15803D] border-[#15803D] bg-[#DCFCE7]">
-                                    FEITO ✓
-                                  </span>
-                                )}
-                              </div>
-                              <div className="flex items-center">
-                                {/* Checkbox com touch target >= 44x44px (BUG-16) */}
-                                <label
-                                  htmlFor={`chk-custom-${cust.id}`}
-                                  className="min-w-[44px] min-h-[44px] -my-2 flex items-center justify-center cursor-pointer"
-                                  title={isCompleted ? `Desmarcar ${cust.code}` : `Marcar ${cust.code} como concluída`}
-                                >
-                                  <input
-                                    id={`chk-custom-${cust.id}`}
-                                    name={`custom_course_${cust.code}`}
-                                    type="checkbox"
-                                    checked={isCompleted}
-                                    onChange={() => handleToggleCompleted(cust.code, cust.ch)}
-                                    className="w-4 h-4 rounded accent-[#15803D] cursor-pointer"
-                                    aria-label={`Marcar ${cust.code} como concluída`}
-                                  />
-                                </label>
-                                <button
-                                  type="button"
-                                  onClick={() => handleRemoveCustomCourse(cust.id, cust.code)}
-                                  className="min-w-[44px] min-h-[44px] -my-2 -mr-1 flex items-center justify-center text-gray-400 hover:text-[#DC2626] text-sm cursor-pointer"
-                                  title="Remover do Grafo"
-                                  aria-label="Remover do Grafo"
-                                >
-                                  ✕
-                                </button>
-                              </div>
-                            </div>
-
-                            <span
-                              onClick={() => handleSelectCustomCourse(cust)}
-                              className="font-mono font-bold text-[#B45309] text-[11px] block cursor-pointer hover:underline"
-                            >
-                              {cust.code}
-                            </span>
-                            <p
-                              onClick={() => handleSelectCustomCourse(cust)}
-                              className="font-['Oswald'] font-bold text-xs text-[#0A0A0A] leading-tight m-0 mb-1 cursor-pointer hover:text-[#8B1E2D]"
-                            >
-                              {cust.name}
-                            </p>
-
-                            <div className="flex items-center justify-between text-[10px] text-gray-500 font-mono">
-                              <span>{cust.dept}</span>
-                              <span className="font-bold text-[#B45309]">{cust.ch}h</span>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Botão de Adição no Período */}
-                  <button
-                    type="button"
-                    onClick={() => openAddModal(p)}
-                    className="w-full min-h-[44px] py-2 bg-white hover:bg-[#EAE6DE] border border-dashed border-[#DFDBD2] hover:border-[#8B1E2D] rounded-xl text-xs font-['Oswald'] uppercase font-bold text-[#57534E] hover:text-[#0A0A0A] flex items-center justify-center gap-1.5 transition-all mt-2 cursor-pointer"
+                return (
+                  <div
+                    key={p}
+                    className="w-72 bg-white border-3 border-border rounded-xl p-3 flex flex-col justify-between shrink-0 shadow-md"
                   >
-                    <CagpIcon name="plus" className="w-4 h-4" />
-                    <span>Adicionar no {p}ºP</span>
-                  </button>
-                </div>
-              );
-            })}
+                    <div>
+                      {/* Cabeçalho do Período */}
+                      <div className="flex items-center justify-between pb-2 mb-2.5 border-b-2 border-border">
+                        <span className="font-heading text-sm font-black uppercase text-foreground">
+                          {p}º Período
+                        </span>
+                        <span className="text-[10px] font-mono text-muted-foreground font-bold">
+                          {periodMandatory.length + periodCustom.length} matérias
+                        </span>
+                      </div>
+
+                      {/* Lista de Disciplinas do Período */}
+                      <div className="space-y-2">
+                        {periodMandatory.map((disc) => {
+                          const isCompleted = completedCourses.includes(disc.code);
+                          const isFormalLock = disc.isFormalLock;
+
+                          return (
+                            <ContextMenu key={disc.code}>
+                              <ContextMenuTrigger asChild>
+                                <div
+                                  className={`p-2.5 rounded-lg border-2 transition-all text-xs cursor-pointer ${
+                                    isCompleted
+                                      ? 'bg-[#DCFCE7] border-[#15803D]'
+                                      : 'bg-white border-border hover:shadow-xs'
+                                  }`}
+                                  onClick={() => handleSelectDiscipline(disc)}
+                                >
+                                  <div className="flex items-start justify-between gap-1.5 mb-1">
+                                    <div className="flex items-center gap-1.5">
+                                      <span className="font-mono font-black text-left text-primary hover:underline">
+                                        {disc.code}
+                                      </span>
+                                      {isCompleted && (
+                                        <span className="text-[10px] font-bold uppercase py-0.5 px-1.5 rounded text-[#15803D] bg-[#DCFCE7] border border-[#15803D]">
+                                          FEITO ✓
+                                        </span>
+                                      )}
+                                    </div>
+                                    <div className="flex items-center gap-1">
+                                      {isFormalLock && (
+                                        <span className="text-[10px] text-destructive" title="Trava Formal no SIGA">
+                                          <CagpIcon name="lock" className="w-3.5 h-3.5 text-destructive" />
+                                        </span>
+                                      )}
+                                      <label
+                                        htmlFor={`chk-course-${disc.code}`}
+                                        className="min-w-[40px] min-h-[40px] -my-2 -mr-1 flex items-center justify-center cursor-pointer"
+                                        title={isCompleted ? `Desmarcar ${disc.code}` : `Marcar ${disc.code} como concluída`}
+                                        onClick={(e) => e.stopPropagation()}
+                                      >
+                                        <input
+                                          id={`chk-course-${disc.code}`}
+                                          name={`course_${disc.code}`}
+                                          type="checkbox"
+                                          checked={isCompleted}
+                                          onChange={() => handleToggleCompleted(disc.code, disc.ch)}
+                                          className="w-4 h-4 rounded accent-primary cursor-pointer"
+                                          aria-label={`Marcar ${disc.code} como concluída`}
+                                        />
+                                      </label>
+                                    </div>
+                                  </div>
+
+                                  <p className="font-heading font-extrabold text-xs text-foreground leading-tight m-0 mb-1 hover:text-primary">
+                                    {disc.name}
+                                  </p>
+
+                                  <div className="flex items-center justify-between text-[10px] text-muted-foreground font-mono">
+                                    <span>{disc.dept} • {disc.ch}h</span>
+                                    {disc.formalReqs.length > 0 && (
+                                      <span className="text-destructive font-bold">
+                                        Req: {disc.formalReqs.join(', ')}
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
+                              </ContextMenuTrigger>
+
+                              <ContextMenuContent>
+                                <ContextMenuItem onClick={() => handleSelectDiscipline(disc)}>
+                                  <CagpIcon name="file-text" className="w-4 h-4 mr-2" />
+                                  Ver Ementa & Detalhes
+                                </ContextMenuItem>
+                                <ContextMenuItem onClick={() => handleToggleCompleted(disc.code, disc.ch)}>
+                                  <CagpIcon name={isCompleted ? 'check' : 'plus'} className="w-4 h-4 mr-2" />
+                                  {isCompleted ? 'Desmarcar Conclusão' : 'Marcar como Concluída'}
+                                </ContextMenuItem>
+                                <ContextMenuSeparator />
+                                <ContextMenuItem onClick={() => navigator.clipboard.writeText(disc.code)}>
+                                  <Copy className="w-4 h-4 mr-2" />
+                                  Copiar Código ({disc.code})
+                                </ContextMenuItem>
+                              </ContextMenuContent>
+                            </ContextMenu>
+                          );
+                        })}
+
+                        {/* Disciplinas Optativas e Personalizadas */}
+                        {periodCustom.map((cust) => {
+                          const isCompleted = completedCourses.includes(cust.code);
+
+                          return (
+                            <ContextMenu key={cust.id}>
+                              <ContextMenuTrigger asChild>
+                                <div
+                                  className={`p-2.5 rounded-lg border-2 border-dashed transition-all text-xs cursor-pointer ${
+                                    isCompleted
+                                      ? 'bg-[#DCFCE7] border-[#15803D]'
+                                      : 'bg-[#FFFBEB] border-[#B45309]'
+                                  }`}
+                                  onClick={() => handleSelectCustomCourse(cust)}
+                                >
+                                  <div className="flex items-start justify-between gap-1 mb-1">
+                                    <span className="px-1.5 py-0.5 rounded text-[10px] font-heading uppercase font-extrabold bg-[#B45309] text-white">
+                                      {cust.category === 'formacao_livre' ? 'LIVRE' : 'OPTATIVA'}
+                                    </span>
+                                    <div className="flex items-center">
+                                      <label
+                                        htmlFor={`chk-custom-${cust.id}`}
+                                        className="min-w-[40px] min-h-[40px] -my-2 flex items-center justify-center cursor-pointer"
+                                        title={isCompleted ? `Desmarcar ${cust.code}` : `Marcar ${cust.code} como concluída`}
+                                        onClick={(e) => e.stopPropagation()}
+                                      >
+                                        <input
+                                          id={`chk-custom-${cust.id}`}
+                                          name={`custom_course_${cust.code}`}
+                                          type="checkbox"
+                                          checked={isCompleted}
+                                          onChange={() => handleToggleCompleted(cust.code, cust.ch)}
+                                          className="w-4 h-4 rounded accent-primary cursor-pointer"
+                                          aria-label={`Marcar ${cust.code} como concluída`}
+                                        />
+                                      </label>
+                                      <button
+                                        type="button"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          handleRemoveCustomCourse(cust.id, cust.code);
+                                        }}
+                                        className="min-w-[36px] min-h-[36px] -my-2 -mr-1 flex items-center justify-center text-muted-foreground hover:text-destructive text-sm cursor-pointer"
+                                        title="Remover do Grafo"
+                                      >
+                                        ✕
+                                      </button>
+                                    </div>
+                                  </div>
+
+                                  <span className="font-mono font-bold text-[#B45309] text-[11px] block">
+                                    {cust.code}
+                                  </span>
+                                  <p className="font-heading font-extrabold text-xs text-foreground leading-tight m-0 mb-1">
+                                    {cust.name}
+                                  </p>
+
+                                  <div className="flex items-center justify-between text-[10px] text-muted-foreground font-mono">
+                                    <span>{cust.dept}</span>
+                                    <span className="font-bold text-[#B45309]">{cust.ch}h</span>
+                                  </div>
+                                </div>
+                              </ContextMenuTrigger>
+
+                              <ContextMenuContent>
+                                <ContextMenuItem onClick={() => handleSelectCustomCourse(cust)}>
+                                  <CagpIcon name="file-text" className="w-4 h-4 mr-2" />
+                                  Ver Detalhes
+                                </ContextMenuItem>
+                                <ContextMenuItem onClick={() => handleToggleCompleted(cust.code, cust.ch)}>
+                                  <CagpIcon name={isCompleted ? 'check' : 'plus'} className="w-4 h-4 mr-2" />
+                                  {isCompleted ? 'Desmarcar Conclusão' : 'Marcar como Concluída'}
+                                </ContextMenuItem>
+                                <ContextMenuSeparator />
+                                <ContextMenuItem onClick={() => handleRemoveCustomCourse(cust.id, cust.code)}>
+                                  <Trash2 className="w-4 h-4 mr-2 text-destructive" />
+                                  Remover do Grafo
+                                </ContextMenuItem>
+                              </ContextMenuContent>
+                            </ContextMenu>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Botão de Adição no Período */}
+                    <button
+                      type="button"
+                      onClick={() => openAddModal(p)}
+                      className="w-full min-h-[44px] py-2 bg-white hover:bg-[#F4F1EA] border-2 border-dashed border-border rounded-xl text-xs font-heading uppercase font-extrabold text-muted-foreground hover:text-foreground flex items-center justify-center gap-1.5 transition-all mt-3 cursor-pointer shadow-xs active:translate-x-0.5 active:translate-y-0.5"
+                    >
+                      <CagpIcon name="plus" className="w-4 h-4" />
+                      <span>Adicionar no {p}ºP</span>
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       )}
 
-      {/* MODO 2: Mapa Cartográfico SVG & Trilhas (BUG-15) */}
+      {/* MODO 2: Mapa Cartográfico SVG & Trilhas */}
       {viewMode === 'svg' && (
         <div className="space-y-4 animate-in fade-in duration-150">
           {/* Filtro por Trilhas Temáticas */}
-          <div className="flex flex-wrap items-center gap-1.5 p-3 bg-white border border-[#DFDBD2] rounded-2xl shadow-2xs">
-            <span className="text-xs font-['Oswald'] uppercase font-bold text-[#57534E] mr-1 flex items-center gap-1.5">
-              <CagpIcon name="filter" className="w-3.5 h-3.5 text-[#8B1E2D]" />
+          <div className="flex flex-wrap items-center gap-1.5 p-3 bg-card border-3 border-border rounded-xl shadow-xs">
+            <span className="text-xs font-heading uppercase font-black text-foreground mr-1 flex items-center gap-1.5">
+              <CagpIcon name="filter" className="w-3.5 h-3.5 text-primary" />
               Filtrar Trilha:
             </span>
             {Object.entries(TRACK_NAMES).map(([key, label]) => (
@@ -482,10 +509,10 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                 key={key}
                 type="button"
                 onClick={() => setActiveTrack(key)}
-                className={`min-h-[40px] px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all cursor-pointer ${
+                className={`min-h-[38px] px-3 py-1 rounded-lg text-xs font-heading font-extrabold uppercase border-2 transition-all cursor-pointer ${
                   activeTrack === key
-                    ? 'bg-[#0A0A0A] text-white border-[#0A0A0A] shadow-xs'
-                    : 'bg-[#F7F5F0] text-gray-700 border-[#DFDBD2] hover:bg-white'
+                    ? 'bg-primary text-primary-foreground border-border shadow-xs'
+                    : 'bg-white text-foreground border-border hover:bg-muted'
                 }`}
               >
                 {label}
@@ -493,30 +520,30 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
             ))}
           </div>
 
-          {/* Legenda Cartográfica das Travas e Conexões */}
-          <div className="p-3 bg-[#F7F5F0] border border-[#DFDBD2] rounded-xl flex flex-wrap items-center justify-between gap-3 text-xs">
+          {/* Legenda Cartográfica */}
+          <div className="p-3 bg-white border-3 border-border rounded-xl flex flex-wrap items-center justify-between gap-3 text-xs shadow-sm">
             <div className="flex flex-wrap items-center gap-3">
               <div className="flex items-center gap-1.5">
-                <span className="w-4 h-0.5 bg-[#DC2626] inline-block" />
-                <span className="font-bold text-[#DC2626]">Trava Formal SIGA (ECN 140 → ECN 044)</span>
+                <span className="w-4 h-0.5 bg-destructive inline-block" />
+                <span className="font-bold text-destructive">Trava Formal SIGA</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <span className="w-4 h-0.5 bg-gray-400 border-t border-dashed border-gray-600 inline-block" />
-                <span className="text-gray-600">Encadeamento Pedagógico Sugerido</span>
+                <span className="w-4 h-0.5 bg-muted-foreground border-t border-dashed inline-block" />
+                <span className="text-muted-foreground">Encadeamento Sugerido</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <span className="w-3 h-3 rounded-full bg-[#15803D] inline-block" />
-                <span className="text-[#15803D] font-bold">Matéria Integralizada ✓</span>
+                <span className="w-3 h-3 rounded-full bg-success inline-block" />
+                <span className="text-success font-bold">Integralizada ✓</span>
               </div>
             </div>
-            <span className="text-gray-500 font-mono text-[11px]">
-              Clique em um nó para abrir a ementa e pré-requisitos
+            <span className="text-muted-foreground font-mono text-[11px]">
+              Toque em um nó para abrir o Drawer de detalhes
             </span>
           </div>
 
-          {/* Viewport do Grafo Cartográfico SVG */}
-          <div className="overflow-x-auto pb-4">
-            <div className="cagp-grafo-viewport border border-[#DFDBD2] rounded-3xl bg-[#F7F5F0] overflow-hidden min-w-[980px] shadow-sm">
+          {/* Viewport do Grafo SVG */}
+          <div className="overflow-x-auto pb-4 scrollbar-none [mask-image:linear-gradient(to_right,transparent_0px,black_16px,black_calc(100%-16px),transparent_100%)]">
+            <div className="cagp-grafo-viewport border-3 border-border rounded-xl bg-card overflow-hidden min-w-[980px] shadow-md">
               <CurriculumSvgMap
                 selectedNodeId={
                   selectedNode
@@ -534,176 +561,96 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
         </div>
       )}
 
-      {/* MODAL OVERLAY: Detalhes da Disciplina com Backdrop z-[1055] (Zero Liquid Glass) */}
-      {selectedNode && (
-        <div
-          className="fixed inset-0 z-[1055] flex items-center justify-center p-3 sm:p-4 bg-black/65 animate-in fade-in duration-150"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="selected-node-title"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) setSelectedNode(null);
-          }}
-        >
-          <div className="bg-white border border-[#DFDBD2] rounded-3xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-4 sm:p-6 space-y-4 animate-in zoom-in-95 duration-150">
-            {/* Header */}
-            <div className="flex items-start justify-between gap-3 border-b border-[#DFDBD2] pb-3">
-              <div>
-                <div className="flex items-center gap-2 mb-1 flex-wrap">
-                  <span className="cagp-badge cagp-badge-red text-xs font-mono font-bold">
-                    {selectedNode.code}
-                  </span>
-                  <span className="text-xs font-mono font-bold text-[#57534E]">
-                    {selectedNode.dept} • {selectedNode.period}º Período • {selectedNode.ch} horas
-                  </span>
-                  {selectedNode.trackLabel && (
-                    <span className="text-[10px] font-mono uppercase bg-[#F7F5F0] border border-[#DFDBD2] px-1.5 py-0.5 rounded text-[#57534E]">
-                      {selectedNode.trackLabel}
+      {/* MODO 3: Lista Compacta por Semestre (Perfeita para Mobile) */}
+      {viewMode === 'list' && (
+        <div className="space-y-3 animate-in fade-in duration-150 md:hidden">
+          {periods.map((p) => {
+            const periodMandatory = Object.values(DISCIPLINAS_GRAFO).filter((d) => d.period === p);
+            const periodCustom = customCourses.filter((c) => c.period === p);
+
+            return (
+              <details
+                key={p}
+                className="group border-3 border-border rounded-xl bg-card overflow-hidden shadow-xs"
+                open={p <= 2}
+              >
+                <summary className="p-3.5 bg-white flex items-center justify-between cursor-pointer font-heading font-black uppercase text-sm border-b-2 border-border select-none">
+                  <div className="flex items-center gap-2">
+                    <span className="w-6 h-6 rounded-md bg-primary text-white flex items-center justify-center text-xs font-mono">
+                      {p}
                     </span>
-                  )}
-                  {selectedNode.category && (
-                    <span className="cagp-badge cagp-badge-blue text-xs uppercase">
-                      {selectedNode.category === 'formacao_livre' ? 'Livre' : 'Optativa'}
-                    </span>
-                  )}
-                </div>
-                <h3
-                  id="selected-node-title"
-                  className="font-['Oswald'] text-lg sm:text-xl font-bold uppercase text-[#0A0A0A] m-0 leading-tight"
-                >
-                  {selectedNode.name}
-                </h3>
-              </div>
-              <button
-                type="button"
-                onClick={() => setSelectedNode(null)}
-                className="w-10 h-10 min-w-[40px] min-h-[40px] rounded-full border border-[#DFDBD2] bg-white hover:bg-[#F4F1EA] text-[#57534E] hover:text-[#0A0A0A] flex items-center justify-center cursor-pointer transition-colors shrink-0"
-                aria-label="Fechar detalhes da disciplina"
-              >
-                <CagpIcon name="close" className="w-4 h-4" />
-              </button>
-            </div>
-
-            {/* Aviso de Trava Formal SIGA / Chave */}
-            {selectedNode.isFormalLock ? (
-              <div className="p-3.5 bg-red-50/80 border border-red-200 rounded-2xl text-xs text-[#DC2626] space-y-1">
-                <div className="font-bold uppercase flex items-center gap-1.5 text-sm">
-                  <CagpIcon name="lock" className="w-4 h-4 text-[#DC2626]" />
-                  <span>Trava Formal de Pré-Requisito no SIGA UFMG</span>
-                </div>
-                <p className="text-xs leading-relaxed m-0 text-red-900">
-                  A aprovação prévia em <strong>ECN 140 (Introdução à Economia)</strong> é exigência estrita do Colegiado para liberar a matrícula no SIGA.
-                </p>
-              </div>
-            ) : selectedNode.isKey ? (
-              <div className="p-3.5 bg-amber-50/80 border border-amber-200 rounded-2xl text-xs text-[#B45309] space-y-1">
-                <div className="font-bold uppercase flex items-center gap-1.5 text-sm">
-                  <CagpIcon name="key" className="w-4 h-4 text-[#B45309]" />
-                  <span>Chave de Destravamento Formal no SIGA</span>
-                </div>
-                <p className="text-xs leading-relaxed m-0 text-amber-900">
-                  Aprovação nesta matéria destrava a matrícula em <strong>ECN 044 (Economia do Bem-Estar)</strong>.
-                </p>
-              </div>
-            ) : null}
-
-            {/* Ementa Oficial */}
-            <div className="p-3.5 bg-[#F7F5F0] border border-[#DFDBD2] rounded-xl space-y-1.5">
-              <span className="font-['Oswald'] text-xs font-bold uppercase text-[#8B1E2D] block">
-                Ementa Oficial (PPC 2020 / DCP UFMG):
-              </span>
-              <p className="text-xs sm:text-sm text-gray-800 leading-relaxed m-0 select-text">
-                {selectedNode.desc || 'Ementa cadastrada de acordo com o PPC 2020.'}
-              </p>
-            </div>
-
-            {/* Relações a Montante e a Jusante (se for disciplina com nós no grafo) */}
-            {(selectedNode.formalReqs?.length || selectedNode.suggestedReqs?.length || selectedNode.formalUnlocks?.length || selectedNode.suggestedUnlocks?.length) ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                {/* Montante */}
-                <div className="p-3 bg-white border border-[#DFDBD2] rounded-xl space-y-1.5">
-                  <span className="font-['Oswald'] font-bold text-xs uppercase text-gray-500 block">
-                    Base Sugerida &bull; A Montante
+                    <span>{p}º Período</span>
+                  </div>
+                  <span className="text-xs font-mono font-bold text-muted-foreground">
+                    {periodMandatory.length + periodCustom.length} disciplinas
                   </span>
-                  {(selectedNode.formalReqs?.length === 0 && selectedNode.suggestedReqs?.length === 0) ? (
-                    <span className="text-xs text-gray-400 italic">Disciplina introdutória.</span>
-                  ) : (
-                    <div className="flex flex-wrap gap-1.5">
-                      {[...(selectedNode.formalReqs || []), ...(selectedNode.suggestedReqs || [])].map((reqId) => {
-                        const reqDisc = DISCIPLINAS_GRAFO[reqId];
-                        return (
-                          <button
-                            key={reqId}
-                            type="button"
-                            onClick={() => reqDisc && handleSelectDiscipline(reqDisc)}
-                            className="min-h-[44px] text-xs font-mono font-bold px-3 py-2 bg-[#FEF3C7] hover:bg-[#FDE68A] text-[#B45309] border border-[#B45309] rounded-lg cursor-pointer transition-colors inline-flex items-center"
-                          >
-                            &larr; {reqDisc?.code || reqId}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  )}
+                </summary>
+
+                <div className="p-3 space-y-2">
+                  {periodMandatory.map((disc) => {
+                    const isCompleted = completedCourses.includes(disc.code);
+
+                    return (
+                      <div
+                        key={disc.code}
+                        className={`p-3 rounded-lg border-2 flex items-center justify-between gap-2 ${
+                          isCompleted ? 'bg-[#DCFCE7] border-[#15803D]' : 'bg-white border-border'
+                        }`}
+                        onClick={() => handleSelectDiscipline(disc)}
+                      >
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-1.5">
+                            <span className="font-mono font-black text-xs text-primary">{disc.code}</span>
+                            {isCompleted && (
+                              <span className="text-[9px] font-bold uppercase px-1 py-0.5 rounded bg-[#DCFCE7] text-[#15803D] border border-[#15803D]">
+                                FEITO ✓
+                              </span>
+                            )}
+                          </div>
+                          <p className="font-heading font-extrabold text-xs text-foreground truncate m-0 mt-0.5">
+                            {disc.name}
+                          </p>
+                        </div>
+
+                        <label
+                          htmlFor={`chk-list-${disc.code}`}
+                          className="min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <input
+                            id={`chk-list-${disc.code}`}
+                            type="checkbox"
+                            checked={isCompleted}
+                            onChange={() => handleToggleCompleted(disc.code, disc.ch)}
+                            className="w-5 h-5 rounded accent-primary"
+                          />
+                        </label>
+                      </div>
+                    );
+                  })}
                 </div>
-
-                {/* Jusante */}
-                <div className="p-3 bg-white border border-[#DFDBD2] rounded-xl space-y-1.5">
-                  <span className="font-['Oswald'] font-bold text-xs uppercase text-gray-500 block">
-                    Desdobramentos &bull; A Jusante
-                  </span>
-                  {(selectedNode.formalUnlocks?.length === 0 && selectedNode.suggestedUnlocks?.length === 0) ? (
-                    <span className="text-xs text-gray-400 italic">Sem disciplinas dependentes diretas.</span>
-                  ) : (
-                    <div className="flex flex-wrap gap-1.5">
-                      {[...(selectedNode.formalUnlocks || []), ...(selectedNode.suggestedUnlocks || [])].map((nextId) => {
-                        const nextDisc = DISCIPLINAS_GRAFO[nextId];
-                        return (
-                          <button
-                            key={nextId}
-                            type="button"
-                            onClick={() => nextDisc && handleSelectDiscipline(nextDisc)}
-                            className="min-h-[44px] text-xs font-mono font-bold px-3 py-2 bg-[#DCFCE7] hover:bg-[#BBF7D0] text-[#15803D] border border-[#15803D] rounded-lg cursor-pointer transition-colors inline-flex items-center"
-                          >
-                            {nextDisc?.code || nextId} &rarr;
-                          </button>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
-              </div>
-            ) : null}
-
-            {/* Footer de Ações do Modal */}
-            <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[#DFDBD2]">
-              <button
-                type="button"
-                onClick={() => handleToggleCompleted(selectedNode.code, selectedNode.ch)}
-                className={`min-h-[44px] px-4 py-2 rounded-xl font-['Oswald'] font-bold text-xs uppercase flex items-center gap-2 transition-all cursor-pointer ${
-                  completedCourses.includes(selectedNode.code)
-                    ? 'bg-[#DCFCE7] text-[#15803D] border border-[#15803D]'
-                    : 'bg-[#15803D] text-white border border-[#15803D] hover:bg-green-700'
-                }`}
-              >
-                <CagpIcon name={completedCourses.includes(selectedNode.code) ? 'check' : 'plus'} className="w-4 h-4" />
-                <span>
-                  {completedCourses.includes(selectedNode.code)
-                    ? 'Integralizada ✓ (Desmarcar)'
-                    : 'Marcar como Integralizada ✓'}
-                </span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setSelectedNode(null)}
-                className="min-h-[44px] px-4 py-2 bg-white hover:bg-[#F4F1EA] border border-[#DFDBD2] text-[#292524] rounded-xl font-['Oswald'] text-xs font-bold uppercase cursor-pointer transition-colors"
-              >
-                Fechar
-              </button>
-            </div>
-          </div>
+              </details>
+            );
+          })}
         </div>
       )}
+
+      {/* DRAWER ESTILO APPLE: Detalhes da Disciplina com Gesto Tátil de Arrasto */}
+      <CourseDetailDrawer
+        node={selectedNode}
+        isOpen={Boolean(selectedNode)}
+        isCompleted={selectedNode ? completedCourses.includes(selectedNode.code) : false}
+        onClose={() => setSelectedNode(null)}
+        onToggleCompleted={handleToggleCompleted}
+        onDeleteCustom={
+          selectedNode?.isCustom
+            ? (code) => {
+                const target = customCourses.find((c) => c.code === code);
+                if (target) handleRemoveCustomCourse(target.id, code);
+              }
+            : undefined
+        }
+      />
 
       {/* Modal de Construtor de Optativas & Disciplinas Livres */}
       <CustomCourseModal

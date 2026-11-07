@@ -89,7 +89,7 @@ export const Art41SimulatorCore: React.FC = () => {
             className={`px-3 py-1.5 rounded-lg font-mono text-xs font-bold uppercase tracking-wider border border-[#0A0A0A] shadow-[1.5px_1.5px_0_0_#0A0A0A] ${
               isFullyEligible
                 ? 'bg-[#266264] text-white'
-                : 'bg-[#FBF8F3] text-[#0A0A0A]'
+                : 'bg-white text-[#0A0A0A]'
             }`}
           >
             {checkedCount} de {ART41_CRITERIA.length} Requisitos
@@ -113,7 +113,7 @@ export const Art41SimulatorCore: React.FC = () => {
                 className={`p-4 rounded-xl border-2 border-[#0A0A0A] text-left flex flex-col justify-between transition-all min-h-[85px] cursor-pointer shadow-[2.5px_2.5px_0_0_#0A0A0A] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none ${
                   isSelected
                     ? 'bg-[#9E2424] text-white'
-                    : 'bg-white text-[#0A0A0A] hover:bg-[#F3ECE0]'
+                    : 'bg-white text-[#0A0A0A] hover:bg-muted'
                 }`}
               >
                 <div className="flex items-center gap-2 mb-1.5">
@@ -150,7 +150,7 @@ export const Art41SimulatorCore: React.FC = () => {
                 className={`p-4 rounded-xl border-2 border-[#0A0A0A] flex items-start gap-3.5 cursor-pointer transition-all shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none ${
                   isChecked
                     ? 'bg-[#DCFCE7]/70'
-                    : 'bg-[#FBF8F3] hover:bg-[#F3ECE0]'
+                    : 'bg-white hover:bg-muted'
                 }`}
               >
                 <input

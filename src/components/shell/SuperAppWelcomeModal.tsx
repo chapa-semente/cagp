@@ -30,8 +30,9 @@ export const SuperAppWelcomeModal: React.FC = () => {
       setSelectedRole(suggested);
     }
 
+    const cred = getVaultItem('cagp_election_activation_v1');
     const completed = getVaultItem('cagp_onboarding_completed_v1');
-    if (!completed) {
+    if (!completed && cred?.completed) {
       const timer = setTimeout(() => setShowTip(true), 700);
       return () => clearTimeout(timer);
     }
@@ -105,7 +106,7 @@ export const SuperAppWelcomeModal: React.FC = () => {
                   className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between min-h-[60px] ${
                     isSelected
                       ? 'bg-[#8B1E2D]/8 border-[#8B1E2D] text-[#8B1E2D]'
-                      : 'bg-[#FBF8F3] hover:bg-[#F4F1EA] border-[#DFDBD2] text-[#292524]'
+                      : 'bg-white hover:bg-muted border-[#DFDBD2] text-[#292524]'
                   }`}
                 >
                   <div className="flex items-center justify-between gap-1">
@@ -160,7 +161,7 @@ export const SuperAppWelcomeModal: React.FC = () => {
               <button
                 type="button"
                 onClick={handleDismiss}
-                className="w-9 h-9 rounded-full bg-[#FBF8F3] hover:bg-[#F4F1EA] border border-[#DFDBD2] text-[#292524] flex items-center justify-center cursor-pointer shrink-0"
+                className="w-9 h-9 rounded-full bg-white hover:bg-muted border border-[#DFDBD2] text-[#292524] flex items-center justify-center cursor-pointer shrink-0"
                 aria-label="Fechar modal"
               >
                 <CagpIcon name="close" className="w-4 h-4" />
@@ -179,7 +180,7 @@ export const SuperAppWelcomeModal: React.FC = () => {
                     className={`w-full p-3.5 rounded-2xl border text-left transition-all cursor-pointer flex items-start gap-3.5 ${
                       isSelected
                         ? 'bg-[#8B1E2D]/6 border-[#8B1E2D] ring-1 ring-[#8B1E2D]'
-                        : 'bg-[#FBF8F3] hover:bg-[#F4F1EA] border-[#DFDBD2]'
+                        : 'bg-white hover:bg-muted border-[#DFDBD2]'
                     }`}
                   >
                     <span

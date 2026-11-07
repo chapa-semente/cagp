@@ -181,7 +181,7 @@ export const AcgGuardianCore: React.FC = () => {
               <CagpIcon name="clock" className="w-4 h-4 text-[#FF8811]" />
               <span>Certificados Monitorados ({certs.length})</span>
             </h4>
-            <span className="text-xs text-[#0A0A0A] font-mono font-bold px-2.5 py-1 bg-[#FBF8F3] border border-[#0A0A0A] rounded-md shadow-[1px_1px_0_0_#0A0A0A] tabular-nums">
+            <span className="text-xs text-[#0A0A0A] font-mono font-bold px-2.5 py-1 bg-white border border-[#0A0A0A] rounded-md shadow-[1px_1px_0_0_#0A0A0A] tabular-nums">
               Total: {certs.reduce((acc, c) => acc + c.hours, 0)} horas
             </span>
           </div>

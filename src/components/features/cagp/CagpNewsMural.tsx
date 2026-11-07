@@ -114,7 +114,7 @@ export const CagpNewsMural: React.FC<CagpNewsMuralProps> = ({ items = SIMULATED_
       >
         <a
           href={route('/')}
-          className="px-3.5 py-2 rounded-xl text-xs font-bold text-[#292524] hover:bg-[#FBF8F3] hover:text-[#8B1E2D] no-underline transition-colors"
+          className="px-3.5 py-2 rounded-xl text-xs font-bold text-[#292524] hover:bg-muted hover:text-[#8B1E2D] no-underline transition-colors"
         >
           &larr; Voltar ao Início
         </a>
@@ -127,13 +127,13 @@ export const CagpNewsMural: React.FC<CagpNewsMuralProps> = ({ items = SIMULATED_
         </a>
         <a
           href={route('/') + '#campus'}
-          className="px-3.5 py-2 rounded-xl text-xs font-bold text-[#292524] hover:bg-[#FBF8F3] hover:text-[#8B1E2D] no-underline transition-colors"
+          className="px-3.5 py-2 rounded-xl text-xs font-bold text-[#292524] hover:bg-muted hover:text-[#8B1E2D] no-underline transition-colors"
         >
           Plantão Noturno • Campus
         </a>
         <a
           href={route('/') + '#passaporte'}
-          className="px-3.5 py-2 rounded-xl text-xs font-bold text-[#292524] hover:bg-[#FBF8F3] hover:text-[#8B1E2D] no-underline transition-colors"
+          className="px-3.5 py-2 rounded-xl text-xs font-bold text-[#292524] hover:bg-muted hover:text-[#8B1E2D] no-underline transition-colors"
         >
           Passaporte Discente
         </a>
@@ -179,7 +179,7 @@ export const CagpNewsMural: React.FC<CagpNewsMuralProps> = ({ items = SIMULATED_
                 className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-colors cursor-pointer border ${
                   active
                     ? 'bg-[#8B1E2D] text-white border-[#8B1E2D]'
-                    : 'bg-[#FBF8F3] hover:bg-[#F4F1EA] text-[#292524] border-[#DFDBD2]'
+                    : 'bg-white hover:bg-muted text-[#292524] border-[#DFDBD2]'
                 }`}
               >
                 {cat.label}
@@ -195,7 +195,7 @@ export const CagpNewsMural: React.FC<CagpNewsMuralProps> = ({ items = SIMULATED_
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Filtrar pauta, evento, edital..."
             aria-label="Filtrar notícias do CAGP"
-            className="w-full pl-9 pr-3.5 py-2 rounded-xl bg-[#FBF8F3] border border-[#DFDBD2] text-xs text-[#0A0A0A] placeholder:text-[#78716C]"
+            className="w-full pl-9 pr-3.5 py-2 rounded-xl bg-white border border-[#DFDBD2] text-xs text-[#0A0A0A] placeholder:text-[#78716C]"
           />
           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8B1E2D] pointer-events-none">
             <CagpIcon name="search" className="w-4 h-4" />

@@ -170,7 +170,7 @@ export function initAppShellSidebar(): void {
                 href="${item.href}"
                 data-sidebar-shortcut="${item.id}"
                 ${actionAttr}
-                class="flex items-center justify-between gap-2.5 px-2.5 py-1.5 rounded-lg text-xs text-[#44403C] hover:bg-[#FBF8F3] hover:text-[#8B1E2D] no-underline transition-colors min-h-[38px]"
+                class="flex items-center justify-between gap-2.5 px-2.5 py-1.5 rounded-lg text-xs text-[#44403C] hover:bg-muted hover:text-[#8B1E2D] no-underline transition-colors min-h-[38px]"
               >
                 <span class="flex items-center gap-2 min-w-0 truncate">
                   <span class="text-[#8B1E2D]">${svg}</span>
@@ -198,7 +198,7 @@ export function initAppShellSidebar(): void {
                   href="${item.href}"
                   data-sidebar-shortcut="${item.id}"
                   ${actionAttr}
-                  class="w-11 h-11 rounded-xl bg-[#FBF8F3] hover:bg-[#F4F1EA] text-[#292524] hover:text-[#8B1E2D] border border-[#DFDBD2] flex items-center justify-center transition-all cursor-pointer no-underline group active:scale-95 shrink-0"
+                  class="w-11 h-11 rounded-xl bg-white hover:bg-muted text-[#292524] hover:text-[#8B1E2D] border border-[#DFDBD2] shadow-xs flex items-center justify-center transition-all cursor-pointer no-underline group active:scale-95 shrink-0"
                   title="${item.fullLabel} (${item.category}) — Toque para abrir"
                   aria-label="${item.label}"
                 >
@@ -210,7 +210,7 @@ export function initAppShellSidebar(): void {
           <button
             type="button"
             id="cagp-rail-edit-shortcuts-btn"
-            class="w-8 h-8 rounded-lg text-[#57534E] hover:text-[#8B1E2D] hover:bg-[#FBF8F3] border border-dashed border-[#DFDBD2] flex items-center justify-center transition-colors cursor-pointer mt-1"
+            class="w-8 h-8 rounded-lg text-[#57534E] hover:text-[#8B1E2D] hover:bg-muted border border-dashed border-[#DFDBD2] flex items-center justify-center transition-colors cursor-pointer mt-1"
             title="Personalizar Meus Atalhos"
             aria-label="Personalizar Meus Atalhos"
           >
@@ -270,7 +270,7 @@ export function initAppShellSidebar(): void {
       link.classList.toggle('font-semibold', isCurrent);
       link.classList.toggle('shadow-2xs', isCurrent);
       link.classList.toggle('text-[#292524]', !isCurrent);
-      link.classList.toggle('hover:bg-[#FBF8F3]', !isCurrent);
+      link.classList.toggle('hover:bg-muted', !isCurrent);
       link.classList.toggle('hover:text-[#8B1E2D]', !isCurrent);
       if (isCurrent) link.setAttribute('aria-current', 'page');
       else link.removeAttribute('aria-current');

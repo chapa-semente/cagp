@@ -170,7 +170,7 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
                 {EGRESSOS_DATA.map((item) => (
                   <div
                     key={item.name}
-                    className="p-3.5 rounded-xl border-3 border-[#16181d] bg-[#f4f5f7] shadow-[3px_3px_0px_#16181d] flex items-center justify-between"
+                    className="p-3.5 rounded-xl border-3 border-[#16181d] bg-white shadow-[3px_3px_0px_#16181d] flex items-center justify-between"
                   >
                     <div className="flex items-center gap-2.5">
                       <span
@@ -216,7 +216,7 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl border-3 border-[#16181d] bg-[#f4f5f7] shadow-[4px_4px_0px_#16181d] space-y-2">
+              <div className="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0px_#16181d] space-y-2">
                 <Badge variant="default">CLUSTER ADMINISTRATIVO • 7 CURSOS</Badge>
                 <h4 className="font-heading text-base font-black uppercase text-[#16181d]">
                   Administração Pública e Organizacional
@@ -226,7 +226,7 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl border-3 border-[#16181d] bg-[#f4f5f7] shadow-[4px_4px_0px_#16181d] space-y-2">
+              <div className="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0px_#16181d] space-y-2">
                 <Badge variant="teal">CURSOS SINGULARES • 3 CURSOS</Badge>
                 <h4 className="font-heading text-base font-black uppercase text-[#16181d]">
                   Perfis Regionais e Específicos
@@ -259,7 +259,7 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
                   <div
                     key={m.nome}
                     className={`p-4 rounded-xl border-3 border-[#16181d] shadow-[3px_3px_0px_#16181d] ${
-                      m.destaque ? 'bg-[#FFFDF9] border-l-8 border-l-[#9E2424]' : 'bg-[#f4f5f7]'
+                      m.destaque ? 'bg-[#FFFDF9] border-l-8 border-l-[#9E2424]' : 'bg-white'
                     }`}
                   >
                     <span className="font-mono text-[10px] font-bold uppercase text-[#9E2424] block">
@@ -281,7 +281,7 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
                 ))}
               </div>
 
-              <div className="p-4 rounded-xl border-3 border-[#16181d] bg-[#f4f5f7] space-y-3">
+              <div className="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[3px_3px_0px_#16181d] space-y-3">
                 <h4 className="font-heading text-sm font-black uppercase text-[#16181d]">
                   Núcleo Docente Estruturante (NDE — 6 Docentes Permanentes)
                 </h4>

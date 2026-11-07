@@ -67,7 +67,7 @@ export const AcgGuardianWidget: React.FC = () => {
         </p>
 
         {certs.length > 0 && nearest ? (
-          <div className="p-3.5 bg-[#FBF8F3] border border-[#0A0A0A] rounded-xl mb-4 shadow-[1.5px_1.5px_0_0_#0A0A0A]">
+          <div className="p-3.5 bg-white border border-[#0A0A0A] rounded-xl mb-4 shadow-[1.5px_1.5px_0_0_#0A0A0A]">
             <div className="flex items-center justify-between gap-2 mb-1.5">
               <span className="text-[10px] font-head uppercase font-bold text-[#57534E]">
                 Próximo a Vencer ({certs.length} cadastrado{certs.length > 1 ? 's' : ''}):
@@ -93,7 +93,7 @@ export const AcgGuardianWidget: React.FC = () => {
             </div>
           </div>
         ) : (
-          <div className="p-3.5 bg-[#FBF8F3] border border-[#0A0A0A] rounded-xl mb-4 text-center">
+          <div className="p-3.5 bg-white border border-[#0A0A0A] rounded-xl mb-4 text-center">
             <p className="font-body text-xs text-[#57534E] m-0">
               Nenhum certificado cadastrado. Adicione seus comprovantes para receber avisos antes do prazo prescricional.
             </p>

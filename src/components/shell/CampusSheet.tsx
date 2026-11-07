@@ -66,7 +66,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
     <BottomSheet id="cagp-campus-sheet" isOpen={isOpen} onClose={onClose} title="Status Operacional do Campus & Alertas" initialDetent="large">
       <div className="space-y-4 text-[#0A0A0A] px-1 pb-4 font-sans">
         {/* Banner Informativo */}
-        <div className="bg-[#FBF8F3] border-[2.5px] border-[#0A0A0A] p-4 rounded-xl shadow-[3px_3px_0_0_#0A0A0A]">
+        <div className="bg-white border-[2.5px] border-[#0A0A0A] p-4 rounded-xl shadow-[3px_3px_0_0_#0A0A0A]">
           <div className="flex items-center gap-2 mb-1">
             <span className="w-3 h-3 rounded-full bg-[#15803D] border border-black animate-pulse" />
             <span className="font-heading text-xs uppercase font-extrabold text-[#9E2424]">
@@ -104,7 +104,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
               className={`min-h-[44px] py-2 px-3 text-xs rounded-xl font-heading font-bold uppercase border-2 border-black transition-all cursor-pointer flex items-center gap-1.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none ${
                 prefs.ru1815
                   ? 'bg-[#9E2424] text-white shadow-[2px_2px_0_0_#0A0A0A]'
-                  : 'bg-[#FBF8F3] text-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] hover:bg-[#F4F1EA]'
+                  : 'bg-white text-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] hover:bg-muted'
               }`}
             >
               <CagpIcon name="bell" className="w-3.5 h-3.5" />
@@ -113,7 +113,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
             <button
               type="button"
               onClick={downloadRu1815Ics}
-              className="min-h-[44px] py-2 px-3 text-xs rounded-xl font-heading font-bold uppercase bg-white border-2 border-black shadow-[2px_2px_0_0_#0A0A0A] hover:bg-[#FBF8F3] text-[#0A0A0A] transition-all cursor-pointer flex items-center gap-1.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+              className="min-h-[44px] py-2 px-3 text-xs rounded-xl font-heading font-bold uppercase bg-white border-2 border-black shadow-[2px_2px_0_0_#0A0A0A] hover:bg-muted text-[#0A0A0A] transition-all cursor-pointer flex items-center gap-1.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
               title="Baixar evento para Apple / Google Calendar"
             >
               <CagpIcon name="calendar" className="w-3.5 h-3.5 text-[#9E2424]" />
@@ -148,7 +148,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
               className={`min-h-[44px] py-2 px-3 text-xs rounded-xl font-heading font-bold uppercase border-2 border-black transition-all cursor-pointer flex items-center gap-1.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none ${
                 prefs.circular2230
                   ? 'bg-[#9E2424] text-white shadow-[2px_2px_0_0_#0A0A0A]'
-                  : 'bg-[#FBF8F3] text-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] hover:bg-[#F4F1EA]'
+                  : 'bg-white text-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] hover:bg-muted'
               }`}
             >
               <i className={`bi ${prefs.circular2230 ? 'bi-bell-fill' : 'bi-bell'}`} />
@@ -157,7 +157,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
             <button
               type="button"
               onClick={downloadCircular2230Ics}
-              className="min-h-[44px] py-2 px-3 text-xs rounded-xl font-heading font-bold uppercase bg-white border-2 border-black shadow-[2px_2px_0_0_#0A0A0A] hover:bg-[#FBF8F3] text-[#0A0A0A] transition-all cursor-pointer flex items-center gap-1.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+              className="min-h-[44px] py-2 px-3 text-xs rounded-xl font-heading font-bold uppercase bg-white border-2 border-black shadow-[2px_2px_0_0_#0A0A0A] hover:bg-muted text-[#0A0A0A] transition-all cursor-pointer flex items-center gap-1.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
               title="Baixar evento para Apple / Google Calendar"
             >
               <i className="bi bi-calendar-plus text-xs text-[#005A9C]" />
@@ -199,7 +199,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
 
         {/* 4. Atendimento e Contatos Oficiais */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
-          <div className="bg-[#FBF8F3] p-3 rounded-xl border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+          <div className="bg-white p-3 rounded-xl border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
             <span className="font-heading font-extrabold uppercase text-[#0A0A0A] block">
               Secretaria Sala F-2039
             </span>
@@ -209,7 +209,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
             </a>
           </div>
 
-          <div className="bg-[#FBF8F3] p-3 rounded-xl border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+          <div className="bg-white p-3 rounded-xl border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
             <span className="font-heading font-extrabold uppercase text-[#0A0A0A] block">
               Coordenação &amp; CEAG
             </span>
@@ -222,7 +222,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
         <button
           type="button"
           onClick={handleTestNotification}
-          className="w-full min-h-[44px] py-2.5 bg-white hover:bg-[#FBF8F3] text-[#0A0A0A] font-heading text-xs font-bold uppercase rounded-xl border-[2.5px] border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] flex items-center justify-center gap-1.5 transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+          className="w-full min-h-[44px] py-2.5 bg-white hover:bg-muted text-[#0A0A0A] font-heading text-xs font-bold uppercase rounded-xl border-[2.5px] border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] flex items-center justify-center gap-1.5 transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
         >
           <CagpIcon name="bell" className="w-4 h-4 text-[#9E2424]" />
           <span>Testar Notificação do Navegador</span>

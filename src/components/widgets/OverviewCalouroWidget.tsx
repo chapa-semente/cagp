@@ -55,7 +55,7 @@ export const OverviewCalouroWidget: React.FC = () => {
               <span>Etapas Concluídas</span>
               <span className="text-[#005A9C]">{percent}%</span>
             </div>
-            <div className="w-full h-3 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-full overflow-hidden p-0.5">
+            <div className="w-full h-3 bg-white border-2 border-[#0A0A0A] rounded-full overflow-hidden p-0.5">
               <div
                 className="h-full bg-[#005A9C] rounded-full transition-all duration-300"
                 style={{ width: `${percent}%` }}

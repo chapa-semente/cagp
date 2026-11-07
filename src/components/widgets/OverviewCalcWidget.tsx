@@ -70,7 +70,7 @@ export const OverviewCalcWidget: React.FC = () => {
               <span>Extensão Obrigatória</span>
               <span className="text-[#8B1E2D]">{extClamped} / 300h</span>
             </div>
-            <div className="w-full h-3 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-full overflow-hidden p-0.5">
+            <div className="w-full h-3 bg-white border-2 border-[#0A0A0A] rounded-full overflow-hidden p-0.5">
               <div
                 className="h-full bg-[#8B1E2D] rounded-full transition-all duration-300"
                 style={{ width: `${Math.min(100, (extClamped / 300) * 100)}%` }}
@@ -83,7 +83,7 @@ export const OverviewCalcWidget: React.FC = () => {
               <span>Atividades Complementares (AAC)</span>
               <span className="text-[#15803D]">{aacClamped} / 300h</span>
             </div>
-            <div className="w-full h-3 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-full overflow-hidden p-0.5">
+            <div className="w-full h-3 bg-white border-2 border-[#0A0A0A] rounded-full overflow-hidden p-0.5">
               <div
                 className="h-full bg-[#15803D] rounded-full transition-all duration-300"
                 style={{ width: `${Math.min(100, (aacClamped / 300) * 100)}%` }}
@@ -93,7 +93,7 @@ export const OverviewCalcWidget: React.FC = () => {
         </div>
 
         {total === 0 ? (
-          <p className="text-xs text-gray-700 font-body font-medium bg-[#FBF8F3] p-3 rounded-lg border-2 border-[#0A0A0A] mb-3 shadow-[1px_1px_0_0_#0A0A0A]">
+          <p className="text-xs text-gray-700 font-body font-medium bg-white p-3 rounded-lg border-2 border-[#0A0A0A] mb-3 shadow-[1px_1px_0_0_#0A0A0A]">
             <i className="bi bi-info-circle mr-1 text-[#8B1E2D]" aria-hidden="true" />
             Nenhuma hora lançada ainda. Simule suas atividades para calcular a integralização.
           </p>

@@ -12,6 +12,7 @@
     "build": "astro build && node scripts/generate-sw-manifest.mjs",
     "preview": "astro preview",
     "astro": "astro",
+    "generate:icons": "node scripts/generate-pwa-icons.mjs",
     "typecheck": "tsc -b",
     "test": "vitest run"
   },

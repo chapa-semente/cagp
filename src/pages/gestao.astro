@@ -40,13 +40,13 @@ const badges = [
     <div id="eleicoes" class="cagp-anchor-target scroll-mt-24"></div>
 
     <!-- Banner Cronograma e Junta Eleitoral -->
-    <div class="p-5 sm:p-6 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0_0_#5B2A86] space-y-4">
+    <div class="p-5 sm:p-6 rounded-xl border-3 border-border bg-card shadow-md space-y-4">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b-2 border-border">
         <div>
-          <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-[#5B2A86] block">
+          <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-primary block">
             Junta Eleitoral CAGP 2026 • Edital de Convocação
           </span>
-          <h2 className="font-heading text-lg sm:text-xl font-black uppercase text-[#16181d] m-0">
+          <h2 class="font-heading text-lg sm:text-xl font-black uppercase text-foreground m-0">
             Cronograma Oficial das Eleições 2026
           </h2>
         </div>
@@ -54,41 +54,41 @@ const badges = [
         <a
           href={asset('/documentos/edital-eleicoes-cagp-2026.pdf')}
           download="edital-eleicoes-cagp-2026.pdf"
-          class="px-4 py-2 min-h-[40px] inline-flex items-center gap-2 rounded-xl bg-[#5B2A86] hover:bg-[#4A216E] text-white border-2 border-[#16181d] font-heading font-extrabold text-xs uppercase tracking-wider no-underline shadow-[2px_2px_0_0_#16181d] transition-all shrink-0"
+          class="px-4 py-2 min-h-[44px] inline-flex items-center gap-2 rounded-xl bg-primary hover:bg-primary-hover text-white border-2 border-border font-heading font-extrabold text-xs uppercase tracking-wider no-underline shadow-xs transition-all shrink-0 active:translate-x-0.5 active:translate-y-0.5"
         >
           <span>Baixar Edital Oficial (PDF)</span>
           <span>↓</span>
         </a>
       </div>
 
-      <!-- Grid dos 6 Prazos do Edital -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-2.5 pt-1">
-        <div class="p-3 rounded-lg border-2 border-[#16181d] bg-[#f4f5f7]">
+      <!-- Grid dos 6 Prazos do Edital com Quebra Fluida -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 pt-1">
+        <div class="p-3 rounded-lg border-2 border-border bg-white shadow-xs">
           <span class="font-mono text-[10px] font-bold text-muted-foreground block">04/11/2026</span>
-          <span class="font-heading font-black text-xs uppercase text-[#16181d] block mt-0.5">Edital Publicado</span>
+          <span class="font-heading font-black text-xs uppercase text-foreground block mt-0.5">Edital Publicado</span>
           <span class="text-[11px] font-sans text-muted-foreground block mt-1">Convocação oficial</span>
         </div>
-        <div class="p-3 rounded-lg border-2 border-[#16181d] bg-[#f4f5f7]">
+        <div class="p-3 rounded-lg border-2 border-border bg-white shadow-xs">
           <span class="font-mono text-[10px] font-bold text-muted-foreground block">04 a 10/11</span>
-          <span class="font-heading font-black text-xs uppercase text-[#16181d] block mt-0.5">Inscrições</span>
+          <span class="font-heading font-black text-xs uppercase text-foreground block mt-0.5">Inscrições</span>
           <span class="text-[11px] font-sans text-muted-foreground block mt-1">Até 23h59 via e-mail</span>
         </div>
-        <div class="p-3 rounded-lg border-2 border-[#16181d] bg-[#f4f5f7]">
+        <div class="p-3 rounded-lg border-2 border-border bg-white shadow-xs">
           <span class="font-mono text-[10px] font-bold text-muted-foreground block">11/11/2026</span>
-          <span class="font-heading font-black text-xs uppercase text-[#16181d] block mt-0.5">Homologação</span>
+          <span class="font-heading font-black text-xs uppercase text-foreground block mt-0.5">Homologação</span>
           <span class="text-[11px] font-sans text-muted-foreground block mt-1">Divulgação de chapas</span>
         </div>
-        <div class="p-3 rounded-lg border-2 border-[#16181d] bg-[#FFFDF9] border-[#FF8811]">
+        <div class="p-3 rounded-lg border-2 border-[#FF8811] bg-[#FFFDF9]">
           <span class="font-mono text-[10px] font-bold text-[#FF8811] block">11 a 24/11</span>
-          <span class="font-heading font-black text-xs uppercase text-[#16181d] block mt-0.5">Campanha</span>
+          <span class="font-heading font-black text-xs uppercase text-foreground block mt-0.5">Campanha</span>
           <span class="text-[11px] font-sans text-muted-foreground block mt-1">Debate e diálogo aberto</span>
         </div>
-        <div class="p-3 rounded-lg border-2 border-[#16181d] bg-[#FFFDF9] border-[#5B2A86]">
-          <span class="font-mono text-[10px] font-bold text-[#5B2A86] block">24/11 às 18h</span>
-          <span class="font-heading font-black text-xs uppercase text-[#16181d] block mt-0.5">Debate Oficial</span>
+        <div class="p-3 rounded-lg border-2 border-primary bg-[#FFFDF9]">
+          <span class="font-mono text-[10px] font-bold text-primary block">24/11 às 18h</span>
+          <span class="font-heading font-black text-xs uppercase text-foreground block mt-0.5">Debate Oficial</span>
           <span class="text-[11px] font-sans text-muted-foreground block mt-1">Local a definir</span>
         </div>
-        <div class="p-3 rounded-lg border-2 border-[#16181d] bg-[#5B2A86] text-white shadow-[2px_2px_0_0_#16181d]">
+        <div class="p-3 rounded-lg border-2 border-border bg-primary text-white shadow-xs">
           <span class="font-mono text-[10px] font-bold text-[#FFD6A5] block">25 e 26/11</span>
           <span class="font-heading font-black text-xs uppercase text-white block mt-0.5">Votação no CAGP</span>
           <span class="text-[11px] font-sans text-white/90 block mt-1">17h às 22h30 • Presencial</span>
@@ -97,7 +97,7 @@ const badges = [
 
       <!-- Regras da Junta Eleitoral e Normas de Votação -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-        <div class="p-4 rounded-xl border-2 border-[#16181d] bg-[#f4f5f7] space-y-2">
+        <div class="p-4 rounded-xl border-2 border-[#16181d] bg-white shadow-xs space-y-2">
           <span class="font-heading font-black text-xs uppercase text-[#5B2A86] block">
             Junta Eleitoral 2026 (Comissão Eleitoral)
           </span>

@@ -126,7 +126,7 @@ export const GestaoDiretoriaAndEstatuto: React.FC = () => {
             {SETE_DIRETORIAS.map((dir) => (
               <div
                 key={dir.sigla}
-                className="p-4 rounded-xl border-3 border-[#16181d] bg-[#f4f5f7] shadow-[4px_4px_0px_#16181d] flex flex-col justify-between space-y-3"
+                className="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0px_#16181d] flex flex-col justify-between space-y-3"
               >
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">

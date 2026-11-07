@@ -40,7 +40,7 @@ const activeItemId = axis
     <div class="cagp-axis-navbar-container flex items-center gap-1.5 overflow-x-auto py-1 scrollbar-none">
       {/* Badge do Eixo */}
       {showBadge && (
-        <div class="cagp-axis-badge shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-[#0A0A0A] text-white rounded-xl border-[2.5px] border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] text-xs font-heading font-extrabold uppercase tracking-tight">
+        <div class="cagp-axis-badge shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-[#16181d] text-white rounded-xl border-3 border-border shadow-xs text-xs font-heading font-extrabold uppercase tracking-tight">
           <CagpIcon name={axis.icon} className="w-3.5 h-3.5 text-[#FF8811]" />
           <span>{axis.name}</span>
         </div>
@@ -57,13 +57,13 @@ const activeItemId = axis
               data-axis-href={item.href}
               class={`cagp-axis-pill min-h-[44px] px-3.5 py-1.5 rounded-xl flex items-center gap-1.5 text-xs font-heading font-extrabold uppercase tracking-tight transition-all duration-150 no-underline shrink-0 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none ${
                 isActive
-                  ? 'is-active bg-[#9E2424] text-white font-extrabold border-[2.5px] border-[#0A0A0A] shadow-[2.5px_2.5px_0_0_#0A0A0A] -translate-y-0.5'
-                  : 'bg-white text-[#0A0A0A] font-bold border-[2px] border-[#0A0A0A] shadow-[1.5px_1.5px_0_0_#0A0A0A] hover:bg-[#FBF8F3] hover:-translate-y-0.5 hover:shadow-[2.5px_2.5px_0_0_#0A0A0A]'
+                  ? 'is-active bg-[#5B2A86] text-white font-extrabold border-3 border-border shadow-xs -translate-y-0.5'
+                  : 'bg-white text-foreground font-bold border-3 border-border shadow-xs hover:bg-muted hover:-translate-y-0.5 hover:shadow-sm'
               }`}
               aria-current={isActive ? 'page' : undefined}
               title={item.description}
             >
-              <CagpIcon name={item.icon} className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-[#0A0A0A]'}`} />
+              <CagpIcon name={item.icon} className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-[#16181d]'}`} />
               <span class="hidden sm:inline">{item.label}</span>
               <span class="inline sm:hidden">{item.shortLabel}</span>
             </a>
@@ -136,18 +136,16 @@ const activeItemId = axis
           pills.forEach((p) => {
             const isMatch = p === matchedPill;
             p.classList.toggle('is-active', isMatch);
-            p.classList.toggle('bg-[#8B1E2D]', isMatch);
+            p.classList.toggle('bg-[#5B2A86]', isMatch);
             p.classList.toggle('text-[#FFFFFF]', isMatch);
-            p.classList.toggle('font-bold', isMatch);
-            p.classList.toggle('border-2', isMatch);
-            p.classList.toggle('border-[#0A0A0A]', isMatch);
-            p.classList.toggle('shadow-[2px_2px_0px_#0A0A0A]', isMatch);
+            p.classList.toggle('font-extrabold', isMatch);
+            p.classList.toggle('border-3', isMatch);
+            p.classList.toggle('border-border', isMatch);
+            p.classList.toggle('shadow-xs', isMatch);
 
-            p.classList.toggle('bg-[#F7F5F0]', !isMatch);
-            p.classList.toggle('text-[#0A0A0A]', !isMatch);
-            p.classList.toggle('font-semibold', !isMatch);
-            p.classList.toggle('border', !isMatch);
-            p.classList.toggle('border-[#DFDBD2]', !isMatch);
+            p.classList.toggle('bg-white', !isMatch);
+            p.classList.toggle('text-[#16181d]', !isMatch);
+            p.classList.toggle('font-bold', !isMatch);
 
             if (isMatch) {
               p.setAttribute('aria-current', 'page');
@@ -155,10 +153,13 @@ const activeItemId = axis
               p.removeAttribute('aria-current');
             }
 
-            const icon = p.querySelector('i');
-            if (icon) {
-              icon.classList.toggle('text-[#FFFFFF]', isMatch);
-              icon.classList.toggle('text-gray-600', !isMatch);
+            if (!(p as any).__haptic_bound) {
+              (p as any).__haptic_bound = true;
+              p.addEventListener('click', () => {
+                if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
+                  navigator.vibrate(15);
+                }
+              });
             }
           });
         }

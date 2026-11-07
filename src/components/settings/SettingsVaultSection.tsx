@@ -31,7 +31,7 @@ export const SettingsVaultSection: React.FC<Props> = ({
             <p className="text-xs text-[#0A0A0A] m-0 font-medium">Armazenamento estritamente local com verificação CRC32</p>
           </div>
         </div>
-        <span className="text-xs font-mono font-bold text-[#0A0A0A] bg-[#FBF8F3] px-2.5 py-1 rounded-lg border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+        <span className="text-xs font-mono font-bold text-[#0A0A0A] bg-white px-2.5 py-1 rounded-lg border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
           {vaultSize} bytes
         </span>
       </div>
@@ -41,7 +41,7 @@ export const SettingsVaultSection: React.FC<Props> = ({
           <button
             type="button"
             onClick={handleExportBackup}
-            className="px-4 py-2.5 bg-white hover:bg-[#FBF8F3] text-[#0A0A0A] border-2 border-[#0A0A0A] rounded-xl text-xs font-head font-bold uppercase shadow-[2px_2px_0_0_#0A0A0A] hover:shadow-[3px_3px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none flex-1 justify-center cursor-pointer transition-all inline-flex items-center gap-2"
+            className="px-4 py-2.5 bg-white hover:bg-muted text-[#0A0A0A] border-2 border-[#0A0A0A] rounded-xl text-xs font-head font-bold uppercase shadow-[2px_2px_0_0_#0A0A0A] hover:shadow-[3px_3px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none flex-1 justify-center cursor-pointer transition-all inline-flex items-center gap-2"
           >
             <i className="bi bi-clipboard-check text-[#15803D]" aria-hidden="true" />
             <span>Exportar Backup Base64 (CAGP1)</span>
@@ -67,7 +67,7 @@ export const SettingsVaultSection: React.FC<Props> = ({
               placeholder="Cole o token CAGP1:... aqui"
               value={backupInput}
               onChange={(e) => setBackupInput(e.target.value)}
-              className="flex-1 min-w-0 bg-[#FBF8F3] border-2 border-[#0A0A0A] p-2.5 text-xs font-mono rounded-xl shadow-[2px_2px_0_0_#0A0A0A] focus:outline-none focus:ring-2 focus:ring-[#8B1E2D]"
+              className="flex-1 min-w-0 bg-white border-2 border-[#0A0A0A] p-2.5 text-xs font-mono rounded-xl shadow-[2px_2px_0_0_#0A0A0A] focus:outline-none focus:ring-2 focus:ring-[#8B1E2D]"
             />
             <button
               type="button"

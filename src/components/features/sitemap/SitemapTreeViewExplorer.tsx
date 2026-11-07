@@ -32,7 +32,7 @@ export const SitemapTreeViewExplorer: React.FC = () => {
           <TreeView
             data={SITEMAP_TREE}
             defaultExpandedIds={SITEMAP_TREE.map((n) => n.id)}
-            className="rounded-xl border-3 border-[#16181d] bg-[#f4f5f7] p-4 shadow-[4px_4px_0px_#16181d]"
+            className="rounded-xl border-3 border-[#16181d] bg-white p-4 shadow-[4px_4px_0px_#16181d]"
           />
         </CardContent>
       </Card>
