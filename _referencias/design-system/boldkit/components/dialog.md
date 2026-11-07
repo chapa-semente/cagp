@@ -15,6 +15,8 @@ dependencies:
 
 > The BoldKit Dialog is a neubrutalism modal overlay built on Radix UI Dialog, with a managed focus trap that keeps keyboard navigation inside the open panel. It supports Escape key dismissal and click-outside closing out of the box. Use it for confirmations, form collection, or any content that needs to interrupt the current flow with full accessibility compliance.
 
+> 🔗 **Original Source Code**: [`components/ui/dialog.tsx`](../ui/dialog.tsx)
+
 ## Installation
 
 ```bash

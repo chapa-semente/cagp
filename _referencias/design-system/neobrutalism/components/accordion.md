@@ -17,6 +17,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/accordion"
 
 > A vertically stacked set of interactive headings that each reveal a section of content.
 
+> 🔗 **Original Source Code**: [`components/ui/accordion.tsx`](../ui/accordion.tsx)
+> 📂 **Original Examples**: [`examples/ui/accordion/`](../examples/accordion/)
+
 ```tsx
 import {
   Accordion,

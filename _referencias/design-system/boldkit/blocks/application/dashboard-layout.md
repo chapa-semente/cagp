@@ -15,6 +15,8 @@ dependencies:
 
 > Application shell with sidebar, stat-card row, a chart, and a data-table.
 
+> 🔗 **Original Block Implementation**: [`blocks-code/application/dashboard-layout.tsx`](../../blocks-code/application/dashboard-layout.tsx)
+
 ## Category: APPLICATION
 
 ## Full Block Implementation (`src/components/blocks/application/dashboard-layout.tsx`)

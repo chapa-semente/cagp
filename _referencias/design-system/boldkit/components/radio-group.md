@@ -15,6 +15,8 @@ dependencies:
 
 > A set of checkable buttons where only one can be checked at a time with bold neubrutalism styling.
 
+> 🔗 **Original Source Code**: [`components/ui/radio-group.tsx`](../ui/radio-group.tsx)
+
 ## Installation
 
 ```bash

@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/button-group"
 
 > A container that groups related buttons together with consistent styling.
 
+> 🔗 **Original Source Code**: [`components/ui/button-group.tsx`](../ui/button-group.tsx)
+> 📂 **Original Examples**: [`examples/ui/button-group/`](../examples/button-group/)
+
 ```tsx
 import { Button } from "@/components/ui/button"
 import { ButtonGroup } from "@/components/ui/button-group"

@@ -15,6 +15,8 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/date-picker"
 
 > A date picker component with calendar popup.
 
+> 📂 **Original Examples**: [`examples/ui/date-picker/`](../examples/date-picker/)
+
 ```tsx
 "use client"
 

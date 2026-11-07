@@ -15,6 +15,8 @@ dependencies:
 
 > An ambient animated mathematical curve background layer. Wraps content with a slow-moving curve animation that adds depth and visual interest.
 
+> 🔗 **Original Source Code**: [`components/ui/math-curve-background.tsx`](../ui/math-curve-background.tsx)
+
 ## Installation
 
 ```bash

@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/collapsible"
 
 > An interactive component that expands/collapses a panel.
 
+> 🔗 **Original Source Code**: [`components/ui/collapsible.tsx`](../ui/collapsible.tsx)
+> 📂 **Original Examples**: [`examples/ui/collapsible/`](../examples/collapsible/)
+
 ```tsx
 "use client"
 

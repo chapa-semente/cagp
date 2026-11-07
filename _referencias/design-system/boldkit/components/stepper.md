@@ -15,6 +15,8 @@ dependencies:
 
 > Multi-step form wizard with progress indicators and content panels.
 
+> 🔗 **Original Source Code**: [`components/ui/stepper.tsx`](../ui/stepper.tsx)
+
 ## Installation
 
 ```bash

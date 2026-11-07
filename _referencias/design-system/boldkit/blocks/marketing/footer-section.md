@@ -15,6 +15,8 @@ dependencies:
 
 > Build bold interfaces with neubrutalism design.
 
+> 🔗 **Original Block Implementation**: [`blocks-code/marketing/footer-section.tsx`](../../blocks-code/marketing/footer-section.tsx)
+
 ## Category: MARKETING
 
 ## Full Block Implementation (`src/components/blocks/marketing/footer-section.tsx`)

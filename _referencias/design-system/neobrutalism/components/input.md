@@ -15,6 +15,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/input"
 
 > Displays a form input field or a component that looks like an input field.
 
+> 🔗 **Original Source Code**: [`components/ui/input.tsx`](../ui/input.tsx)
+> 📂 **Original Examples**: [`examples/ui/input/`](../examples/input/)
+
 ```tsx
 import { Input } from "@/components/ui/input"
 

@@ -15,6 +15,8 @@ dependencies:
 
 > See what industry experts have to say.
 
+> 🔗 **Original Block Implementation**: [`blocks-code/marketing/testimonials.tsx`](../../blocks-code/marketing/testimonials.tsx)
+
 ## Category: MARKETING
 
 ## Full Block Implementation (`src/components/blocks/marketing/testimonials.tsx`)

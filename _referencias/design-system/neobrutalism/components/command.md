@@ -17,6 +17,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/command"
 
 > Fast, composable, unstyled command menu for React.
 
+> 🔗 **Original Source Code**: [`components/ui/command.tsx`](../ui/command.tsx)
+> 📂 **Original Examples**: [`examples/ui/command/`](../examples/command/)
+
 ```tsx
 "use client"
 

@@ -15,6 +15,8 @@ dependencies:
 
 > A styled wrapper around the native select element — lightweight and accessible, for simple option lists that don't need a custom popover.
 
+> 🔗 **Original Source Code**: [`components/ui/native-select.tsx`](../ui/native-select.tsx)
+
 ## Installation
 
 ```bash

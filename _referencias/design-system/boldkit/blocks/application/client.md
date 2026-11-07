@@ -15,6 +15,8 @@ dependencies:
 
 > Invoice and billing components including full invoice documents, compact receipts, summary cards, and list views with status indicators.
 
+> 🔗 **Original Block Implementation**: [`blocks-code/application/client.tsx`](../../blocks-code/application/client.tsx)
+
 ## Category: APPLICATION
 
 ## Full Block Implementation (`src/components/blocks/application/invoice.tsx`)

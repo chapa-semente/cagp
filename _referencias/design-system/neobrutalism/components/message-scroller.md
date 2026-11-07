@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/message-scroller"
 
 > A scroll container for chat messages with auto scroll and a scroll-to-end button.
 
+> 🔗 **Original Source Code**: [`components/ui/message-scroller.tsx`](../ui/message-scroller.tsx)
+> 📂 **Original Examples**: [`examples/ui/message-scroller/`](../examples/message-scroller/)
+
 ```tsx
 import { RotateCwIcon } from "lucide-react"
 

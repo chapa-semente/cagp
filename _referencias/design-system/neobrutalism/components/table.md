@@ -15,6 +15,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/table"
 
 > A responsive table component with sorting and filtering.
 
+> 🔗 **Original Source Code**: [`components/ui/table.tsx`](../ui/table.tsx)
+> 📂 **Original Examples**: [`examples/ui/table/`](../examples/table/)
+
 ```tsx
 import {
   Table,

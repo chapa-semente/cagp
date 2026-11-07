@@ -14,6 +14,8 @@ dependencies:
 
 > Framework-agnostic motion system for BoldKit. Six signature CSS recipes plus React and Vue adapters share one vanilla core, so the same animation language works in any framework — including Svelte, Solid, or plain HTML.
 
+> 🔗 **Original Source Code**: [`components/ui/motion.tsx`](../ui/motion.tsx)
+
 ## Installation
 
 ```bash

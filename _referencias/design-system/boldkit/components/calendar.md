@@ -16,6 +16,8 @@ dependencies:
 
 > A date field component that allows users to enter and edit date with neubrutalism styling.
 
+> 🔗 **Original Source Code**: [`components/ui/calendar.tsx`](../ui/calendar.tsx)
+
 ## Installation
 
 ```bash

@@ -14,6 +14,8 @@ dependencies:
 
 > A composable timeline component for displaying activity feeds, order tracking, version history, and more.
 
+> 🔗 **Original Source Code**: [`components/ui/timeline.tsx`](../ui/timeline.tsx)
+
 ## Installation
 
 ```bash

@@ -15,6 +15,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/skeleton"
 
 > Use to show a placeholder while content is loading.
 
+> 🔗 **Original Source Code**: [`components/ui/skeleton.tsx`](../ui/skeleton.tsx)
+> 📂 **Original Examples**: [`examples/ui/skeleton/`](../examples/skeleton/)
+
 ```tsx
 import { Skeleton } from "@/components/ui/skeleton"
 

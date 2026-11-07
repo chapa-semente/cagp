@@ -15,6 +15,8 @@ dependencies:
 
 > A horizontal bar of desktop-style dropdown menus, perfect for application toolbars.
 
+> 🔗 **Original Source Code**: [`components/ui/menubar.tsx`](../ui/menubar.tsx)
+
 ## Installation
 
 ```bash

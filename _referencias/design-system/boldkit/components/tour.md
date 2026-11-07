@@ -15,6 +15,8 @@ dependencies:
 
 > A step-by-step product tour component with spotlight highlighting, progress indicators, and smooth transitions.
 
+> 🔗 **Original Source Code**: [`components/ui/tour.tsx`](../ui/tour.tsx)
+
 ## Installation
 
 ```bash

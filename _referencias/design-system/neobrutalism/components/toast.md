@@ -17,6 +17,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/toast"
 
 > A succinct message that is displayed temporarily.
 
+> 🔗 **Original Source Code**: [`components/ui/toast.tsx`](../ui/toast.tsx)
+> 📂 **Original Examples**: [`examples/ui/toast/`](../examples/toast/)
+
 ```tsx
 "use client"
 

@@ -15,6 +15,8 @@ dependencies:
 
 > A rating component with star, heart, or circle icons. Supports half values, keyboard navigation, and hover preview.
 
+> 🔗 **Original Source Code**: [`components/ui/rating.tsx`](../ui/rating.tsx)
+
 ## Installation
 
 ```bash

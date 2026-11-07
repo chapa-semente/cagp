@@ -15,6 +15,8 @@ dependencies:
 
 > Asymmetric feature grid with grid-breaking hero cells.
 
+> 🔗 **Original Block Implementation**: [`blocks-code/marketing/bento-grid.tsx`](../../blocks-code/marketing/bento-grid.tsx)
+
 ## Category: MARKETING
 
 ## Full Block Implementation (`src/components/blocks/marketing/bento-grid.tsx`)

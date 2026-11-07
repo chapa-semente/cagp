@@ -15,6 +15,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/kbd"
 
 > Used to display textual user input from keyboard.
 
+> 🔗 **Original Source Code**: [`components/ui/kbd.tsx`](../ui/kbd.tsx)
+> 📂 **Original Examples**: [`examples/ui/kbd/`](../examples/kbd/)
+
 ```tsx
 import { Kbd } from "@/components/ui/kbd"
 

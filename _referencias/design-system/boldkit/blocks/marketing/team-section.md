@@ -15,6 +15,8 @@ dependencies:
 
 > The talented individuals behind BoldKit.
 
+> 🔗 **Original Block Implementation**: [`blocks-code/marketing/team-section.tsx`](../../blocks-code/marketing/team-section.tsx)
+
 ## Category: MARKETING
 
 ## Full Block Implementation (`src/components/blocks/marketing/team-section.tsx`)

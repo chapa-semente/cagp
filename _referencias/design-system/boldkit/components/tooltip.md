@@ -15,6 +15,8 @@ dependencies:
 
 > A popup that displays information related to an element when it receives keyboard focus or the mouse hovers over it.
 
+> 🔗 **Original Source Code**: [`components/ui/tooltip.tsx`](../ui/tooltip.tsx)
+
 ## Installation
 
 ```bash

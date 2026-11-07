@@ -14,6 +14,8 @@ dependencies:
 
 > A progress indicator that traces a mathematical curve — the head moves along the curve path proportionally from 0 to 100%.
 
+> 🔗 **Original Source Code**: [`components/ui/math-curve-progress.tsx`](../ui/math-curve-progress.tsx)
+
 ## Installation
 
 ```bash

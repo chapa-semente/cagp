@@ -17,6 +17,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/breadcrumb"
 
 > Displays the current page location within a hierarchical structure.
 
+> 🔗 **Original Source Code**: [`components/ui/breadcrumb.tsx`](../ui/breadcrumb.tsx)
+> 📂 **Original Examples**: [`examples/ui/breadcrumb/`](../examples/breadcrumb/)
+
 ```tsx
 import {
   Breadcrumb,

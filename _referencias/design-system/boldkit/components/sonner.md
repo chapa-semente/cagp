@@ -15,6 +15,8 @@ dependencies:
 
 > Toast notifications with bold neubrutalism styling powered by the Sonner library.
 
+> 🔗 **Original Source Code**: [`components/ui/sonner.tsx`](../ui/sonner.tsx)
+
 ## Installation
 
 ```bash

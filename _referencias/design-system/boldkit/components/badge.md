@@ -14,6 +14,8 @@ dependencies:
 
 > The BoldKit Badge is a compact neubrutalism label element with 5 variants (default, secondary, accent, destructive, outline) for communicating status, category, or count at a glance. It features bold uppercase typography, a 2px border, and a small hard shadow for visual pop. Use it as a status indicator, content tag, or numeric counter alongside other UI elements.
 
+> 🔗 **Original Source Code**: [`components/ui/badge.tsx`](../ui/badge.tsx)
+
 ## Installation
 
 ```bash

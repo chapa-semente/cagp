@@ -15,6 +15,8 @@ dependencies:
 
 > Authentication forms including login, signup, forgot password, OTP verification, and split layout variants.
 
+> 🔗 **Original Block Implementation**: [`blocks-code/application/auth-forms.tsx`](../../blocks-code/application/auth-forms.tsx)
+
 ## Category: APPLICATION
 
 ## Full Block Implementation (`src/components/blocks/application/auth-forms.tsx`)

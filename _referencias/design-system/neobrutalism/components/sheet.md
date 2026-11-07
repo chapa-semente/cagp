@@ -17,6 +17,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/sheet"
 
 > Extends the Dialog component to display content that complements the main content of the screen.
 
+> 🔗 **Original Source Code**: [`components/ui/sheet.tsx`](../ui/sheet.tsx)
+> 📂 **Original Examples**: [`examples/ui/sheet/`](../examples/sheet/)
+
 ```tsx
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"

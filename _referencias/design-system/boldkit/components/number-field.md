@@ -15,6 +15,8 @@ dependencies:
 
 > A numeric input with − / + stepper buttons, min/max/step, Intl number formatting, and full spinbutton keyboard support (Arrow keys, PageUp/PageDown ×10, Home/End). Submits in native forms via `name`.
 
+> 🔗 **Original Source Code**: [`components/ui/number-field.tsx`](../ui/number-field.tsx)
+
 ## Installation
 
 ```bash

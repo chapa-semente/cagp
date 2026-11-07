@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/form"
 
 > Building forms with React Hook Form and Zod.
 
+> 🔗 **Original Source Code**: [`components/ui/form.tsx`](../ui/form.tsx)
+> 📂 **Original Examples**: [`examples/ui/form/`](../examples/form/)
+
 ```tsx
 "use client"
 

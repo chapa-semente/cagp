@@ -15,6 +15,8 @@ dependencies:
 
 > Renders an accessible label associated with form controls with bold uppercase styling.
 
+> 🔗 **Original Source Code**: [`components/ui/label.tsx`](../ui/label.tsx)
+
 ## Installation
 
 ```bash

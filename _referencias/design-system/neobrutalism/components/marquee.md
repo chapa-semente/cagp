@@ -15,6 +15,8 @@ dependencies:
 
 > A scrolling text component that animates horizontally.
 
+> 🔗 **Original Source Code**: [`components/ui/marquee.tsx`](../ui/marquee.tsx)
+
 ```tsx
 import Marquee from "@/components/ui/marquee"
 

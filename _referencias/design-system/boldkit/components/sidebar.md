@@ -16,6 +16,8 @@ dependencies:
 
 > A collapsible sidebar component with icon-only mode, mobile drawer support, and keyboard shortcut (Cmd+B).
 
+> 🔗 **Original Source Code**: [`components/ui/sidebar.tsx`](../ui/sidebar.tsx)
+
 ## Installation
 
 ```bash

@@ -15,6 +15,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/message"
 
 > A message in a conversation, with an avatar, content, header and footer.
 
+> 🔗 **Original Source Code**: [`components/ui/message.tsx`](../ui/message.tsx)
+> 📂 **Original Examples**: [`examples/ui/message/`](../examples/message/)
+
 ```tsx
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Bubble, BubbleContent } from "@/components/ui/bubble"

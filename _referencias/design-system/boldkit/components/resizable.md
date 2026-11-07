@@ -15,6 +15,8 @@ dependencies:
 
 > Resizable panel groups with draggable handles for split layouts and dashboards.
 
+> 🔗 **Original Source Code**: [`components/ui/resizable.tsx`](../ui/resizable.tsx)
+
 ## Installation
 
 ```bash

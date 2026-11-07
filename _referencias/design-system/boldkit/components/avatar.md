@@ -15,6 +15,8 @@ dependencies:
 
 > An image element with a fallback for representing the user with bold neubrutalism borders.
 
+> 🔗 **Original Source Code**: [`components/ui/avatar.tsx`](../ui/avatar.tsx)
+
 ## Installation
 
 ```bash

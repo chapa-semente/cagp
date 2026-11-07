@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/button"
 
 > Displays a button or a component that looks like a button.
 
+> 🔗 **Original Source Code**: [`components/ui/button.tsx`](../ui/button.tsx)
+> 📂 **Original Examples**: [`examples/ui/button/`](../examples/button/)
+
 ```tsx
 import { Button } from "@/components/ui/button"
 

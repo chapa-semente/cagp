@@ -16,6 +16,8 @@ dependencies:
 
 > First-party brutalist toast stacks with an imperative API. Toasts pile up like offset paper cards and fan out on hover. Built on Radix Toast (React) and Reka UI Toast (Vue) — no Sonner dependency.
 
+> 🔗 **Original Source Code**: [`components/ui/toast.tsx`](../ui/toast.tsx)
+
 ## Installation
 
 ```bash

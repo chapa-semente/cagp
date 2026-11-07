@@ -15,6 +15,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/field"
 
 > Combine labels, controls, and help text to compose accessible form fields and grouped inputs.
 
+> 🔗 **Original Source Code**: [`components/ui/field.tsx`](../ui/field.tsx)
+> 📂 **Original Examples**: [`examples/ui/field/`](../examples/field/)
+
 ```tsx
 "use client"
 

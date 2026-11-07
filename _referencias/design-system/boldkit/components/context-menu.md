@@ -15,6 +15,8 @@ dependencies:
 
 > Displays a menu of actions or options triggered by a right-click, with thick borders and hard shadows.
 
+> 🔗 **Original Source Code**: [`components/ui/context-menu.tsx`](../ui/context-menu.tsx)
+
 ## Installation
 
 ```bash

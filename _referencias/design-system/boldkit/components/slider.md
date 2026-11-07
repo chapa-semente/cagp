@@ -14,6 +14,8 @@ dependencies:
 
 > The BoldKit Slider is a neubrutalism range input with spring-physics jelly animations, supporting both single-thumb and dual-thumb (range) modes. It is fully keyboard accessible via arrow keys and works in controlled and uncontrolled usage patterns. Tune the feel with stiffness, damping, and mass props for custom bounce and inertia.
 
+> 🔗 **Original Source Code**: [`components/ui/slider.tsx`](../ui/slider.tsx)
+
 ## Installation
 
 ```bash

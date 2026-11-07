@@ -15,6 +15,8 @@ dependencies:
 
 > BoldKit powers applications for thousands of companies, from startups to enterprises.
 
+> 🔗 **Original Block Implementation**: [`blocks-code/marketing/stats-section.tsx`](../../blocks-code/marketing/stats-section.tsx)
+
 ## Category: MARKETING
 
 ## Full Block Implementation (`src/components/blocks/marketing/stats-section.tsx`)

@@ -17,6 +17,8 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/navigation-menu"
 
 > A collection of links for site navigation.
 
+> 🔗 **Original Source Code**: [`components/ui/navigation-menu.tsx`](../ui/navigation-menu.tsx)
+
 ```tsx
 "use client"
 

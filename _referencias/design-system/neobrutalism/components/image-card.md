@@ -15,6 +15,8 @@ dependencies:
 
 > A card component optimized for displaying images with captions.
 
+> 🔗 **Original Source Code**: [`components/ui/image-card.tsx`](../ui/image-card.tsx)
+
 ```tsx
 import ImageCard from "@/components/ui/image-card"
 

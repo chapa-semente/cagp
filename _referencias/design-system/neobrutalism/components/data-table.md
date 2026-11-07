@@ -16,6 +16,8 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/data-table"
 
 > Powerful table and datagrids built using TanStack Table.
 
+> 🔗 **Original Source Code**: [`components/ui/data-table.tsx`](../ui/data-table.tsx)
+
 ```tsx
 import DataTableDemo from "@/components/ui/data-table"
 

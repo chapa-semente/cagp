@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/chart"
 
 > Beautiful charts. Built using Recharts. Copy and paste into your apps.
 
+> 🔗 **Original Source Code**: [`components/ui/chart.tsx`](../ui/chart.tsx)
+> 📂 **Original Examples**: [`examples/ui/chart/`](../examples/chart/)
+
 ```tsx
 "use client"
 

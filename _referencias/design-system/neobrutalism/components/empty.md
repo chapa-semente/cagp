@@ -15,6 +15,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/empty"
 
 > Use the Empty component to display an empty state.
 
+> 🔗 **Original Source Code**: [`components/ui/empty.tsx`](../ui/empty.tsx)
+> 📂 **Original Examples**: [`examples/ui/empty/`](../examples/empty/)
+
 ```tsx
 import { FolderIcon, PlusIcon } from "lucide-react"
 

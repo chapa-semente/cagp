@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/tabs"
 
 > A set of layered sections of content that display one panel at a time.
 
+> 🔗 **Original Source Code**: [`components/ui/tabs.tsx`](../ui/tabs.tsx)
+> 📂 **Original Examples**: [`examples/ui/tabs/`](../examples/tabs/)
+
 ```tsx
 import { Button } from "@/components/ui/button"
 import {

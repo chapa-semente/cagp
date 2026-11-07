@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/toggle-group"
 
 > A set of two-state buttons that can be toggled on or off.
 
+> 🔗 **Original Source Code**: [`components/ui/toggle-group.tsx`](../ui/toggle-group.tsx)
+> 📂 **Original Examples**: [`examples/ui/toggle-group/`](../examples/toggle-group/)
+
 ```tsx
 import { BoldIcon, ItalicIcon, UnderlineIcon } from "lucide-react"
 

@@ -16,6 +16,8 @@ dependencies:
 
 > A hierarchical tree view component with expand/collapse, selection, checkboxes, and keyboard navigation.
 
+> 🔗 **Original Source Code**: [`components/ui/tree-view.tsx`](../ui/tree-view.tsx)
+
 ## Installation
 
 ```bash

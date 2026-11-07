@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/marker"
 
 > A small inline status or step marker for a conversation timeline.
 
+> 🔗 **Original Source Code**: [`components/ui/marker.tsx`](../ui/marker.tsx)
+> 📂 **Original Examples**: [`examples/ui/marker/`](../examples/marker/)
+
 ```tsx
 import { GlobeIcon } from "lucide-react"
 

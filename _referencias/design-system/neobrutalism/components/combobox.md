@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/combobox"
 
 > Autocomplete input and command palette with a list of suggestions.
 
+> 🔗 **Original Source Code**: [`components/ui/combobox.tsx`](../ui/combobox.tsx)
+> 📂 **Original Examples**: [`examples/ui/combobox/`](../examples/combobox/)
+
 ```tsx
 "use client"
 

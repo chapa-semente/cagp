@@ -16,6 +16,8 @@ dependencies:
 
 > A popover-based time picker with scrollable columns for hours, minutes, and optional seconds. Supports 12h and 24h formats.
 
+> 🔗 **Original Source Code**: [`components/ui/time-picker.tsx`](../ui/time-picker.tsx)
+
 ## Installation
 
 ```bash

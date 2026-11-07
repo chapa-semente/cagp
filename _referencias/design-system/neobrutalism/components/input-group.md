@@ -15,6 +15,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/input-group"
 
 > Display additional information or actions to an input or textarea.
 
+> 🔗 **Original Source Code**: [`components/ui/input-group.tsx`](../ui/input-group.tsx)
+> 📂 **Original Examples**: [`examples/ui/input-group/`](../examples/input-group/)
+
 ```tsx
 import { SearchIcon } from "lucide-react"
 

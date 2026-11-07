@@ -15,6 +15,8 @@ dependencies:
 
 > A tabbed interface component with bold neubrutalism styling for organizing content into selectable panels.
 
+> 🔗 **Original Source Code**: [`components/ui/tabs.tsx`](../ui/tabs.tsx)
+
 ## Installation
 
 ```bash

@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/progress"
 
 > Displays an indicator showing the completion progress of a task.
 
+> 🔗 **Original Source Code**: [`components/ui/progress.tsx`](../ui/progress.tsx)
+> 📂 **Original Examples**: [`examples/ui/progress/`](../examples/progress/)
+
 ```tsx
 "use client"
 

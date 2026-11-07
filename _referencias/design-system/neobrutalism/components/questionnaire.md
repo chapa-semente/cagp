@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/questionnaire"
 
 > A multi-step form for asking questions with single choice, multiple choice and free-form answers.
 
+> 🔗 **Original Source Code**: [`components/ui/questionnaire.tsx`](../ui/questionnaire.tsx)
+> 📂 **Original Examples**: [`examples/ui/questionnaire/`](../examples/questionnaire/)
+
 ```tsx
 "use client"
 

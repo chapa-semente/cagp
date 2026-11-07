@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/switch"
 
 > A toggle switch alternative to a checkbox.
 
+> 🔗 **Original Source Code**: [`components/ui/switch.tsx`](../ui/switch.tsx)
+> 📂 **Original Examples**: [`examples/ui/switch/`](../examples/switch/)
+
 ```tsx
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"

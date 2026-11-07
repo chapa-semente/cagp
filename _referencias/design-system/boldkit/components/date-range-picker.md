@@ -18,6 +18,8 @@ dependencies:
 
 > A date range picker with preset options, dual calendar view, and customizable presets.
 
+> 🔗 **Original Source Code**: [`components/ui/date-range-picker.tsx`](../ui/date-range-picker.tsx)
+
 ## Installation
 
 ```bash

@@ -14,6 +14,8 @@ dependencies:
 
 > A composition layer that pairs a label, control, description and error message into a consistent form field.
 
+> 🔗 **Original Source Code**: [`components/ui/field.tsx`](../ui/field.tsx)
+
 ## Installation
 
 ```bash

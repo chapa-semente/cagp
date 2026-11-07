@@ -17,6 +17,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/radio-group"
 
 > A set of checkable buttons where only one can be checked at a time.
 
+> 🔗 **Original Source Code**: [`components/ui/radio-group.tsx`](../ui/radio-group.tsx)
+> 📂 **Original Examples**: [`examples/ui/radio-group/`](../examples/radio-group/)
+
 ```tsx
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"

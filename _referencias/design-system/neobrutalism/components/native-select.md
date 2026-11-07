@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/native-select"
 
 > A native select element for choosing a single option from a list.
 
+> 🔗 **Original Source Code**: [`components/ui/native-select.tsx`](../ui/native-select.tsx)
+> 📂 **Original Examples**: [`examples/ui/native-select/`](../examples/native-select/)
+
 ```tsx
 import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
 

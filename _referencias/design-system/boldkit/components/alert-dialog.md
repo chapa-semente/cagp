@@ -15,6 +15,8 @@ dependencies:
 
 > A modal dialog that interrupts the user with important content and expects a response.
 
+> 🔗 **Original Source Code**: [`components/ui/alert-dialog.tsx`](../ui/alert-dialog.tsx)
+
 ## Installation
 
 ```bash

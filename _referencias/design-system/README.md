@@ -23,27 +23,33 @@ Esta documentação foi compilada de forma **100% autossuficiente**: cada arquiv
 
 ```
 _referencias/design-system/
-├── README.md                               # Este catálogo mestre
+├── README.md                               # Catálogo mestre unificado (Docs + Códigos)
+│
 ├── neobrutalism/
 │   ├── README.md                           # Índice e guia do Neobrutalism.com
-│   └── components/                         # 64 arquivos .md autossuficientes
-│       ├── accordion.md
-│       ├── button.md
-│       ├── dialog.md
-│       └── ...
+│   ├── DEPENDENCIES.md                     # Guia de dependências e versões de pacotes
+│   ├── package.reference.json              # Configuração original package.json
+│   ├── components/                         # 64 arquivos .md autossuficientes
+│   ├── ui/                                 # [CÓDIGO ORIGINAL] 64 componentes .tsx
+│   ├── examples/                           # [CÓDIGO ORIGINAL] Árvore completa de exemplos .tsx
+│   ├── lib/                                # Utilitários (utils.ts, etc.)
+│   ├── hooks/                              # Hooks React customizados
+│   └── styling/                            # Tokens e configurações de estilo
+│
 └── boldkit/
     ├── README.md                           # Índice e guia do BoldKit.dev
+    ├── DEPENDENCIES.md                     # Guia de dependências e versões de pacotes
+    ├── package.reference.json              # Configuração original package.json
+    ├── registry.json                       # Catálogo oficial de registry Shadcn
     ├── components/                         # 84 arquivos .md autossuficientes
-    │   ├── accordion.md
-    │   ├── button.md
-    │   └── ...
-    ├── blocks/
-    │   ├── marketing/                      # 13 blocos de página (Hero, Bento, CTA, etc.)
-    │   └── application/                    # 7 blocos de app (Auth, Dashboard, Settings, etc.)
-    └── extras/
-        ├── canvas-effects.md               # 23 efeitos em HTML5 Canvas
-        ├── charts.md                       # Gráficos Recharts neobrutalistas
-        └── shapes.md                       # 64 Formas decorativas SVG
+    ├── blocks/                             # 20 arquivos .md de blocos de layout
+    ├── extras/                             # 3 arquivos .md (Canvas Effects, Charts, Shapes)
+    ├── ui/                                 # [CÓDIGO ORIGINAL] 84 componentes .tsx
+    ├── blocks-code/                        # [CÓDIGO ORIGINAL] 20 blocos Marketing & App .tsx
+    ├── canvas-effects/                     # [CÓDIGO ORIGINAL] 23 efeitos gráficos Canvas .tsx
+    ├── lib/                                # Utilitários (motion-core, canvas-core, etc.)
+    ├── hooks/                              # use-canvas-effect, use-theme
+    └── styles/                             # globals.css, motion.css
 ```
 
 ---

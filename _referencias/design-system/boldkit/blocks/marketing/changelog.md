@@ -15,6 +15,8 @@ dependencies:
 
 > Dated release entries / roadmap timeline.
 
+> 🔗 **Original Block Implementation**: [`blocks-code/marketing/changelog.tsx`](../../blocks-code/marketing/changelog.tsx)
+
 ## Category: MARKETING
 
 ## Full Block Implementation (`src/components/blocks/marketing/changelog-section.tsx`)

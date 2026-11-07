@@ -15,6 +15,8 @@ dependencies:
 
 > A toggle switch control with bold neubrutalism styling for binary on/off states.
 
+> 🔗 **Original Source Code**: [`components/ui/switch.tsx`](../ui/switch.tsx)
+
 ## Installation
 
 ```bash

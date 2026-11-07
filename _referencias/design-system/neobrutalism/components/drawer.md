@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/drawer"
 
 > A drawer component that slides out from the edge of the screen.
 
+> 🔗 **Original Source Code**: [`components/ui/drawer.tsx`](../ui/drawer.tsx)
+> 📂 **Original Examples**: [`examples/ui/drawer/`](../examples/drawer/)
+
 ```tsx
 import { Button } from "@/components/ui/button"
 import {

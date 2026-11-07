@@ -17,6 +17,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/select"
 
 > Displays a list of options for the user to pick from.
 
+> 🔗 **Original Source Code**: [`components/ui/select.tsx`](../ui/select.tsx)
+> 📂 **Original Examples**: [`examples/ui/select/`](../examples/select/)
+
 ```tsx
 import {
   Select,

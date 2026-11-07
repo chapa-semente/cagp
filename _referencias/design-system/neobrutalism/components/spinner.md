@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/spinner"
 
 > An indicator that can be used to show a loading state.
 
+> 🔗 **Original Source Code**: [`components/ui/spinner.tsx`](../ui/spinner.tsx)
+> 📂 **Original Examples**: [`examples/ui/spinner/`](../examples/spinner/)
+
 ```tsx
 import { Spinner } from "@/components/ui/spinner"
 

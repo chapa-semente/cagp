@@ -17,6 +17,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/input-otp"
 
 > Accessible one-time password input for authentication.
 
+> 🔗 **Original Source Code**: [`components/ui/input-otp.tsx`](../ui/input-otp.tsx)
+> 📂 **Original Examples**: [`examples/ui/input-otp/`](../examples/input-otp/)
+
 ```tsx
 import {
   InputOTP,

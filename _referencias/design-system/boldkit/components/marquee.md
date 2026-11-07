@@ -14,6 +14,8 @@ dependencies:
 
 > Auto-scrolling text ticker with neubrutalism styling - a common brutalist design element for announcements and emphasis.
 
+> 🔗 **Original Source Code**: [`components/ui/marquee.tsx`](../ui/marquee.tsx)
+
 ## Installation
 
 ```bash

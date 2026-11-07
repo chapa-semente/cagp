@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/avatar"
 
 > An image element with a fallback for representing the user.
 
+> 🔗 **Original Source Code**: [`components/ui/avatar.tsx`](../ui/avatar.tsx)
+> 📂 **Original Examples**: [`examples/ui/avatar/`](../examples/avatar/)
+
 ```tsx
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 

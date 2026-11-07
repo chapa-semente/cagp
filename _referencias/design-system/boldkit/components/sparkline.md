@@ -15,6 +15,8 @@ dependencies:
 
 > Tiny inline trend charts for tables, stat cards, and compact data displays.
 
+> 🔗 **Original Source Code**: [`components/ui/sparkline.tsx`](../ui/sparkline.tsx)
+
 ## Installation
 
 ```bash

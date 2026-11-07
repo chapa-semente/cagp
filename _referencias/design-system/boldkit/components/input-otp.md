@@ -15,6 +15,8 @@ dependencies:
 
 > Accessible one-time password component with copy paste functionality and neubrutalism styling.
 
+> 🔗 **Original Source Code**: [`components/ui/input-otp.tsx`](../ui/input-otp.tsx)
+
 ## Installation
 
 ```bash

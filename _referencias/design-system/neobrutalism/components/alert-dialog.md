@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/alert-dialog"
 
 > A modal dialog that interrupts the user with important content and expects a response.
 
+> 🔗 **Original Source Code**: [`components/ui/alert-dialog.tsx`](../ui/alert-dialog.tsx)
+> 📂 **Original Examples**: [`examples/ui/alert-dialog/`](../examples/alert-dialog/)
+
 ```tsx
 import {
   AlertDialog,

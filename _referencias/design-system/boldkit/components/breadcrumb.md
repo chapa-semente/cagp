@@ -15,6 +15,8 @@ dependencies:
 
 > Displays the path to the current resource using a hierarchy of links with bold typography.
 
+> 🔗 **Original Source Code**: [`components/ui/breadcrumb.tsx`](../ui/breadcrumb.tsx)
+
 ## Installation
 
 ```bash

@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/bubble"
 
 > A chat bubble for displaying a message in a conversation.
 
+> 🔗 **Original Source Code**: [`components/ui/bubble.tsx`](../ui/bubble.tsx)
+> 📂 **Original Examples**: [`examples/ui/bubble/`](../examples/bubble/)
+
 ```tsx
 import { Bubble, BubbleContent } from "@/components/ui/bubble"
 

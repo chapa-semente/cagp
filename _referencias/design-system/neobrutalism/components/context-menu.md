@@ -17,6 +17,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/context-menu"
 
 > Displays a menu to the user — such as a set of actions or functions.
 
+> 🔗 **Original Source Code**: [`components/ui/context-menu.tsx`](../ui/context-menu.tsx)
+> 📂 **Original Examples**: [`examples/ui/context-menu/`](../examples/context-menu/)
+
 ```tsx
 import { Code2Icon, PlusIcon, TrashIcon } from "lucide-react"
 

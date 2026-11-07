@@ -15,6 +15,8 @@ dependencies:
 
 > Visually or semantically separates content with a bold 3px line.
 
+> 🔗 **Original Source Code**: [`components/ui/separator.tsx`](../ui/separator.tsx)
+
 ## Installation
 
 ```bash

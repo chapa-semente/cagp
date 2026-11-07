@@ -17,6 +17,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/calendar"
 
 > A date field component that allows users to enter and edit date.
 
+> 🔗 **Original Source Code**: [`components/ui/calendar.tsx`](../ui/calendar.tsx)
+> 📂 **Original Examples**: [`examples/ui/calendar/`](../examples/calendar/)
+
 ```tsx
 "use client"
 

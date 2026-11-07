@@ -14,6 +14,8 @@ dependencies:
 
 > 12 animated ASCII art components — 5 mathematical 3D shapes (Torus, Donut, Sphere, Cube, Helix) and 7 generative animations (Spiral, Rose, Wave, Vortex, Pulse, Matrix, Grid). Rendered with a custom rasterizer using perspective projection, z-buffering, and Lambertian shading. No canvas, no WebGL — just text.
 
+> 🔗 **Original Source Code**: [`components/ui/ascii-shapes.tsx`](../ui/ascii-shapes.tsx)
+
 ## Installation
 
 ```bash

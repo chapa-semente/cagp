@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/tooltip"
 
 > A popup that displays information related to an element when it receives keyboard focus or mouse hover.
 
+> 🔗 **Original Source Code**: [`components/ui/tooltip.tsx`](../ui/tooltip.tsx)
+> 📂 **Original Examples**: [`examples/ui/tooltip/`](../examples/tooltip/)
+
 ```tsx
 import { Button } from "@/components/ui/button"
 import {

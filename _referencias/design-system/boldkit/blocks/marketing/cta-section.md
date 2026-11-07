@@ -15,6 +15,8 @@ dependencies:
 
 > Join thousands of developers building with BoldKit.
 
+> 🔗 **Original Block Implementation**: [`blocks-code/marketing/cta-section.tsx`](../../blocks-code/marketing/cta-section.tsx)
+
 ## Category: MARKETING
 
 ## Full Block Implementation (`src/components/blocks/marketing/cta-section.tsx`)

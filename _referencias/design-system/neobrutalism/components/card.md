@@ -15,6 +15,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/card"
 
 > Displays a card with header, content, and footer.
 
+> 🔗 **Original Source Code**: [`components/ui/card.tsx`](../ui/card.tsx)
+> 📂 **Original Examples**: [`examples/ui/card/`](../examples/card/)
+
 ```tsx
 import { Button } from "@/components/ui/button"
 import {

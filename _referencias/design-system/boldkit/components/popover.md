@@ -15,6 +15,8 @@ dependencies:
 
 > Displays rich content in a portal, triggered by a button with bold neubrutalism styling.
 
+> 🔗 **Original Source Code**: [`components/ui/popover.tsx`](../ui/popover.tsx)
+
 ## Installation
 
 ```bash

@@ -15,6 +15,8 @@ dependencies:
 
 > Displays an indicator showing the completion progress of a task with bold neubrutalism styling.
 
+> 🔗 **Original Source Code**: [`components/ui/progress.tsx`](../ui/progress.tsx)
+
 ## Installation
 
 ```bash

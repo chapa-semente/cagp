@@ -14,6 +14,8 @@ dependencies:
 
 > Displays a callout for user attention with various severity levels and bold neubrutalism styling.
 
+> 🔗 **Original Source Code**: [`components/ui/alert.tsx`](../ui/alert.tsx)
+
 ## Installation
 
 ```bash

@@ -14,6 +14,8 @@ dependencies:
 
 > The BoldKit Card is a neubrutalism content container with a thick 3px border and hard offset shadow that grounds it on the page. It ships with CardHeader, CardContent, and CardFooter subcomponents for structured layouts. Use it to group related information, form fields, or media in a visually bold, cohesive block.
 
+> 🔗 **Original Source Code**: [`components/ui/card.tsx`](../ui/card.tsx)
+
 ## Installation
 
 ```bash

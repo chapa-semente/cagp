@@ -14,6 +14,8 @@ dependencies:
 
 > Pagination with page navigation, next and previous links with neubrutalism styling.
 
+> 🔗 **Original Source Code**: [`components/ui/pagination.tsx`](../ui/pagination.tsx)
+
 ## Installation
 
 ```bash

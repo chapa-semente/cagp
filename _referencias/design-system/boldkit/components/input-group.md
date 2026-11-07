@@ -15,6 +15,8 @@ dependencies:
 
 > Joins an input with leading or trailing addons — icons, text, or shortcuts — in a single bordered field.
 
+> 🔗 **Original Source Code**: [`components/ui/input-group.tsx`](../ui/input-group.tsx)
+
 ## Installation
 
 ```bash

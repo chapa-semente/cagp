@@ -15,6 +15,8 @@ dependencies:
 
 > Something unexpected happened. Please try again.
 
+> 🔗 **Original Block Implementation**: [`blocks-code/application/error-pages.tsx`](../../blocks-code/application/error-pages.tsx)
+
 ## Category: APPLICATION
 
 ## Full Block Implementation (`src/components/blocks/application/error-pages.tsx`)

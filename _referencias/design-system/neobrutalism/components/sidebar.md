@@ -17,6 +17,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/sidebar"
 
 > A composable, themeable and customizable sidebar component.
 
+> 🔗 **Original Source Code**: [`components/ui/sidebar.tsx`](../ui/sidebar.tsx)
+> 📂 **Original Examples**: [`examples/ui/sidebar/`](../examples/sidebar/)
+
 ```tsx
 import {
   Breadcrumb,

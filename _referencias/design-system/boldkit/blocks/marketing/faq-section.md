@@ -15,6 +15,8 @@ dependencies:
 
 > Display frequently asked questions with various layouts including accordions, two-column grids, categorized tabs, with contact CTA, and simple lists.
 
+> 🔗 **Original Block Implementation**: [`blocks-code/marketing/faq-section.tsx`](../../blocks-code/marketing/faq-section.tsx)
+
 ## Category: MARKETING
 
 ## Full Block Implementation (`src/components/blocks/marketing/faq-section.tsx`)

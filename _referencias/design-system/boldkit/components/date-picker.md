@@ -16,6 +16,8 @@ dependencies:
 
 > A single-date picker — a button trigger that opens a calendar in a popover, built on Calendar, Popover and Button.
 
+> 🔗 **Original Source Code**: [`components/ui/date-picker.tsx`](../ui/date-picker.tsx)
+
 ## Installation
 
 ```bash

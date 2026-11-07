@@ -15,6 +15,8 @@ dependencies:
 
 > A vertically stacked set of interactive headings that each reveal a section of content with bold neubrutalism styling.
 
+> 🔗 **Original Source Code**: [`components/ui/accordion.tsx`](../ui/accordion.tsx)
+
 ## Installation
 
 ```bash

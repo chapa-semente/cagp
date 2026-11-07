@@ -15,6 +15,8 @@ dependencies:
 
 > For sighted users to preview content available behind a link with neubrutalism styling.
 
+> 🔗 **Original Source Code**: [`components/ui/hover-card.tsx`](../ui/hover-card.tsx)
+
 ## Installation
 
 ```bash

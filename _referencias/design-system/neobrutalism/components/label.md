@@ -15,6 +15,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/label"
 
 > Renders an accessible label associated with controls.
 
+> 🔗 **Original Source Code**: [`components/ui/label.tsx`](../ui/label.tsx)
+> 📂 **Original Examples**: [`examples/ui/label/`](../examples/label/)
+
 ```tsx
 import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"

@@ -15,6 +15,8 @@ dependencies:
 
 > Displays a menu of actions or options triggered by a button with bold neubrutalism styling.
 
+> 🔗 **Original Source Code**: [`components/ui/dropdown-menu.tsx`](../ui/dropdown-menu.tsx)
+
 ## Installation
 
 ```bash

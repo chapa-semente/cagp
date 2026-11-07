@@ -16,6 +16,8 @@ dependencies:
 
 > A one-question-per-screen flow for agent clarification prompts, onboarding, surveys and intake forms. Single, multiple and freeform questions with an optional Other… answer, conditional questions, A/B/C and 1/2/3 keyboard shortcuts, and a real <form> that serializes every answer for a server POST.
 
+> 🔗 **Original Source Code**: [`components/ui/questionnaire.tsx`](../ui/questionnaire.tsx)
+
 ## Installation
 
 ```bash

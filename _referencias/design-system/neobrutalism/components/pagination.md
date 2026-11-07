@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/pagination"
 
 > Displays page numbers and controls for navigating paginated data.
 
+> 🔗 **Original Source Code**: [`components/ui/pagination.tsx`](../ui/pagination.tsx)
+> 📂 **Original Examples**: [`examples/ui/pagination/`](../examples/pagination/)
+
 ```tsx
 import {
   Pagination,

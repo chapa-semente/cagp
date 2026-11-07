@@ -15,6 +15,8 @@ dependencies:
 
 > The neubrutalism component library for React and Vue. Bold, raw, beautiful.
 
+> 🔗 **Original Block Implementation**: [`blocks-code/marketing/hero-section.tsx`](../../blocks-code/marketing/hero-section.tsx)
+
 ## Category: MARKETING
 
 ## Full Block Implementation (`src/components/blocks/marketing/hero-section.tsx`)

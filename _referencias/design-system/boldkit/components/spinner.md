@@ -14,6 +14,8 @@ dependencies:
 
 > Loading indicators with multiple animation styles for neubrutalism design.
 
+> 🔗 **Original Source Code**: [`components/ui/spinner.tsx`](../ui/spinner.tsx)
+
 ## Installation
 
 ```bash

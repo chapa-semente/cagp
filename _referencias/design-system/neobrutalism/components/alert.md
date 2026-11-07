@@ -15,6 +15,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/alert"
 
 > Displays a callout for user attention.
 
+> 🔗 **Original Source Code**: [`components/ui/alert.tsx`](../ui/alert.tsx)
+> 📂 **Original Examples**: [`examples/ui/alert/`](../examples/alert/)
+
 ```tsx
 import { CheckCircle2Icon } from "lucide-react"
 

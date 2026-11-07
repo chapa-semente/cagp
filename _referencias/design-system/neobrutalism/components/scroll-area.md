@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/scroll-area"
 
 > Augments native scroll functionality for custom, cross-browser styling.
 
+> 🔗 **Original Source Code**: [`components/ui/scroll-area.tsx`](../ui/scroll-area.tsx)
+> 📂 **Original Examples**: [`examples/ui/scroll-area/`](../examples/scroll-area/)
+
 ```tsx
 import { ScrollArea } from "@/components/ui/scroll-area"
 

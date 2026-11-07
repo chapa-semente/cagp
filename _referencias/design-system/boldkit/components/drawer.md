@@ -15,6 +15,8 @@ dependencies:
 
 > A drawer component that slides in from the bottom of the screen with neubrutalism styling.
 
+> 🔗 **Original Source Code**: [`components/ui/drawer.tsx`](../ui/drawer.tsx)
+
 ## Installation
 
 ```bash

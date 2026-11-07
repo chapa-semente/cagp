@@ -15,6 +15,8 @@ dependencies:
 
 > Everything you need to build stunning interfaces.
 
+> 🔗 **Original Block Implementation**: [`blocks-code/marketing/feature-grid.tsx`](../../blocks-code/marketing/feature-grid.tsx)
+
 ## Category: MARKETING
 
 ## Full Block Implementation (`src/components/blocks/marketing/feature-grid.tsx`)

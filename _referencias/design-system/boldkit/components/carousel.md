@@ -16,6 +16,8 @@ dependencies:
 
 > A carousel component built on Embla Carousel with keyboard navigation, touch support, and customizable navigation controls.
 
+> 🔗 **Original Source Code**: [`components/ui/carousel.tsx`](../ui/carousel.tsx)
+
 ## Installation
 
 ```bash

@@ -14,6 +14,8 @@ dependencies:
 
 > Keyboard key indicators for displaying shortcuts and hotkeys with neubrutalism styling.
 
+> 🔗 **Original Source Code**: [`components/ui/kbd.tsx`](../ui/kbd.tsx)
+
 ## Installation
 
 ```bash

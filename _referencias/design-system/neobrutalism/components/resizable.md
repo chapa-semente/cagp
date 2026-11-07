@@ -16,6 +16,8 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/resizable"
 
 > Accessible resizable panel groups with keyboard support.
 
+> 🔗 **Original Source Code**: [`components/ui/resizable.tsx`](../ui/resizable.tsx)
+
 ```tsx
 import {
   ResizableHandle,

@@ -15,6 +15,8 @@ dependencies:
 
 > A group of toggle buttons where only one or multiple can be selected with bold neubrutalism styling.
 
+> 🔗 **Original Source Code**: [`components/ui/toggle-group.tsx`](../ui/toggle-group.tsx)
+
 ## Installation
 
 ```bash

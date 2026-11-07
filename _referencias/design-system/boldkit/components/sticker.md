@@ -14,6 +14,8 @@ dependencies:
 
 > Rotated labels and stamps with tape effect and double borders - neubrutalist decorative elements for emphasis and visual interest.
 
+> 🔗 **Original Source Code**: [`components/ui/sticker.tsx`](../ui/sticker.tsx)
+
 ## Installation
 
 ```bash

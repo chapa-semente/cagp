@@ -15,6 +15,8 @@ dependencies:
 
 > A two-state button that can be toggled on or off with bold neubrutalism styling.
 
+> 🔗 **Original Source Code**: [`components/ui/toggle.tsx`](../ui/toggle.tsx)
+
 ## Installation
 
 ```bash

@@ -15,6 +15,8 @@ dependencies:
 
 > The BoldKit Select is a neubrutalism dropdown built on Radix UI Select, with a custom thick-bordered trigger and a hard-shadow content panel. Full keyboard navigation is supported — open with Space or Enter, navigate with arrow keys, and select with Enter. Use SelectGroup and SelectLabel to organize options, and wire it to a Label for accessible form fields.
 
+> 🔗 **Original Source Code**: [`components/ui/select.tsx`](../ui/select.tsx)
+
 ## Installation
 
 ```bash

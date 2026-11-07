@@ -17,6 +17,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/carousel"
 
 > A carousel with motion and swipe built using Embla.
 
+> 🔗 **Original Source Code**: [`components/ui/carousel.tsx`](../ui/carousel.tsx)
+> 📂 **Original Examples**: [`examples/ui/carousel/`](../examples/carousel/)
+
 ```tsx
 import { Card, CardContent } from "@/components/ui/card"
 import {

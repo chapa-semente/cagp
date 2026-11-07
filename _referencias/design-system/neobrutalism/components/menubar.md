@@ -17,6 +17,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/menubar"
 
 > A horizontal navigation bar with clickable menu items.
 
+> 🔗 **Original Source Code**: [`components/ui/menubar.tsx`](../ui/menubar.tsx)
+> 📂 **Original Examples**: [`examples/ui/menubar/`](../examples/menubar/)
+
 ```tsx
 import {
   Menubar,

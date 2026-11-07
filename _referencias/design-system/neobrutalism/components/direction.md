@@ -16,6 +16,8 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/direction"
 
 > Provides the reading direction (LTR or RTL) to Base UI components.
 
+> 🔗 **Original Source Code**: [`components/ui/direction.tsx`](../ui/direction.tsx)
+
 ```tsx
 import { ArrowRightIcon } from "lucide-react"
 

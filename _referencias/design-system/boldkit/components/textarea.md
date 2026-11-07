@@ -14,6 +14,8 @@ dependencies:
 
 > A multi-line text input field with bold neubrutalism styling.
 
+> 🔗 **Original Source Code**: [`components/ui/textarea.tsx`](../ui/textarea.tsx)
+
 ## Installation
 
 ```bash

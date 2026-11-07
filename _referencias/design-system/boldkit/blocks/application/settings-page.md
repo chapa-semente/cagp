@@ -15,6 +15,8 @@ dependencies:
 
 > Complete settings page components including profile, notifications, security, appearance, and danger zone sections.
 
+> 🔗 **Original Block Implementation**: [`blocks-code/application/settings-page.tsx`](../../blocks-code/application/settings-page.tsx)
+
 ## Category: APPLICATION
 
 ## Full Block Implementation (`src/components/blocks/application/settings-page.tsx`)

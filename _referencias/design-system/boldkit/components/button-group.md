@@ -14,6 +14,8 @@ dependencies:
 
 > Visually joins a row or column of buttons into a single bordered unit with one hard shadow.
 
+> 🔗 **Original Source Code**: [`components/ui/button-group.tsx`](../ui/button-group.tsx)
+
 ## Installation
 
 ```bash

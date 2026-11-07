@@ -15,6 +15,8 @@ dependencies:
 
 > Displays content within a desired ratio, perfect for images and videos with consistent dimensions.
 
+> 🔗 **Original Source Code**: [`components/ui/aspect-ratio.tsx`](../ui/aspect-ratio.tsx)
+
 ## Installation
 
 ```bash

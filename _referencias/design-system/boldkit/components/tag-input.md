@@ -15,6 +15,8 @@ dependencies:
 
 > A multi-value input component for adding and removing tags with keyboard support, suggestions, and validation.
 
+> 🔗 **Original Source Code**: [`components/ui/tag-input.tsx`](../ui/tag-input.tsx)
+
 ## Installation
 
 ```bash

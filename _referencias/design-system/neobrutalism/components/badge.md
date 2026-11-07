@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/badge"
 
 > Displays a badge or a component that looks like a badge.
 
+> 🔗 **Original Source Code**: [`components/ui/badge.tsx`](../ui/badge.tsx)
+> 📂 **Original Examples**: [`examples/ui/badge/`](../examples/badge/)
+
 ```tsx
 import { Badge } from "@/components/ui/badge"
 

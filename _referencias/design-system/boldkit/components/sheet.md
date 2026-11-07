@@ -15,6 +15,8 @@ dependencies:
 
 > A slide-out panel that extends from the edge of the screen with bold neubrutalism styling.
 
+> 🔗 **Original Source Code**: [`components/ui/sheet.tsx`](../ui/sheet.tsx)
+
 ## Installation
 
 ```bash

@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/popover"
 
 > Displays floating content in relation to a target element.
 
+> 🔗 **Original Source Code**: [`components/ui/popover.tsx`](../ui/popover.tsx)
+> 📂 **Original Examples**: [`examples/ui/popover/`](../examples/popover/)
+
 ```tsx
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"

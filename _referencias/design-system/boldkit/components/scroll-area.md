@@ -15,6 +15,8 @@ dependencies:
 
 > Augments native scroll functionality for custom, cross-browser styling with bold scrollbar design.
 
+> 🔗 **Original Source Code**: [`components/ui/scroll-area.tsx`](../ui/scroll-area.tsx)
+
 ## Installation
 
 ```bash

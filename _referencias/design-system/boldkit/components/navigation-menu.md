@@ -15,6 +15,8 @@ dependencies:
 
 > A collection of links and dropdown panels for building site navigation, with bold borders and hard shadows.
 
+> 🔗 **Original Source Code**: [`components/ui/navigation-menu.tsx`](../ui/navigation-menu.tsx)
+
 ## Installation
 
 ```bash

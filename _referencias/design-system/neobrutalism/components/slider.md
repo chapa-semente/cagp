@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/slider"
 
 > An input where the user selects a value from within a given range.
 
+> 🔗 **Original Source Code**: [`components/ui/slider.tsx`](../ui/slider.tsx)
+> 📂 **Original Examples**: [`examples/ui/slider/`](../examples/slider/)
+
 ```tsx
 import { Slider } from "@/components/ui/slider"
 

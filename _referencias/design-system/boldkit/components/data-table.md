@@ -16,6 +16,8 @@ dependencies:
 
 > A powerful data table built on TanStack Table with sorting, filtering, pagination, row selection, and column visibility.
 
+> 🔗 **Original Source Code**: [`components/ui/data-table.tsx`](../ui/data-table.tsx)
+
 ## Installation
 
 ```bash

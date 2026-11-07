@@ -15,6 +15,8 @@ dependencies:
 
 > An interactive component which expands/collapses a panel with smooth animations.
 
+> 🔗 **Original Source Code**: [`components/ui/collapsible.tsx`](../ui/collapsible.tsx)
+
 ## Installation
 
 ```bash

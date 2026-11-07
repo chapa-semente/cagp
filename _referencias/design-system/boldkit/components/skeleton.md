@@ -14,6 +14,8 @@ dependencies:
 
 > A placeholder loading animation with neubrutalism styling to indicate content is being loaded.
 
+> 🔗 **Original Source Code**: [`components/ui/skeleton.tsx`](../ui/skeleton.tsx)
+
 ## Installation
 
 ```bash

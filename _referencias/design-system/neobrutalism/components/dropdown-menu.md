@@ -15,6 +15,9 @@ dependencies:
 
 # dropdown-menu
 
+> 🔗 **Original Source Code**: [`components/ui/dropdown-menu.tsx`](../ui/dropdown-menu.tsx)
+> 📂 **Original Examples**: [`examples/ui/dropdown-menu/`](../examples/dropdown-menu/)
+
 > 
 
 ---

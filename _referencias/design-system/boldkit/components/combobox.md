@@ -16,6 +16,8 @@ dependencies:
 
 > The BoldKit Combobox is a searchable dropdown built by composing Popover and Command. It gives you a neubrutalism-styled trigger with the same thick border and hard shadow as Select, but with a live-filter search input inside the dropdown. Use ComboboxTrigger for single selection or ComboboxMultiTrigger for multi-select with removable tag chips.
 
+> 🔗 **Original Source Code**: [`components/ui/combobox.tsx`](../ui/combobox.tsx)
+
 ## Installation
 
 ```bash

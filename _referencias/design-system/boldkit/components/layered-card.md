@@ -14,6 +14,8 @@ dependencies:
 
 > Card component with stacked layers effect showing offset depth - a neubrutalist design pattern that creates a sense of physicality and dimension.
 
+> 🔗 **Original Source Code**: [`components/ui/layered-card.tsx`](../ui/layered-card.tsx)
+
 ## Installation
 
 ```bash

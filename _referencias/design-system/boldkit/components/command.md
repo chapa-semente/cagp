@@ -16,6 +16,8 @@ dependencies:
 
 > A command menu component for searching and selecting actions with keyboard navigation.
 
+> 🔗 **Original Source Code**: [`components/ui/command.tsx`](../ui/command.tsx)
+
 ## Installation
 
 ```bash

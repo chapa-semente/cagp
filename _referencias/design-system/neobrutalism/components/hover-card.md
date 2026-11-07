@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/hover-card"
 
 > For sighted users to preview content available behind a link.
 
+> 🔗 **Original Source Code**: [`components/ui/hover-card.tsx`](../ui/hover-card.tsx)
+> 📂 **Original Examples**: [`examples/ui/hover-card/`](../examples/hover-card/)
+
 ```tsx
 import { Button } from "@/components/ui/button"
 import {

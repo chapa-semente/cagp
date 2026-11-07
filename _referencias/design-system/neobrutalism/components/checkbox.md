@@ -17,6 +17,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/checkbox"
 
 > A control that allows the user to toggle between checked and not checked.
 
+> 🔗 **Original Source Code**: [`components/ui/checkbox.tsx`](../ui/checkbox.tsx)
+> 📂 **Original Examples**: [`examples/ui/checkbox/`](../examples/checkbox/)
+
 ```tsx
 import { Checkbox } from "@/components/ui/checkbox"
 

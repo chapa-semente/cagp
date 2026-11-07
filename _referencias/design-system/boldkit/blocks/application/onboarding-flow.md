@@ -15,6 +15,8 @@ dependencies:
 
 > User onboarding components including step wizards, welcome screens, profile setup, workspace creation, goal selection, and completion screens.
 
+> 🔗 **Original Block Implementation**: [`blocks-code/application/onboarding-flow.tsx`](../../blocks-code/application/onboarding-flow.tsx)
+
 ## Category: APPLICATION
 
 ## Full Block Implementation (`src/components/blocks/application/onboarding-flow.tsx`)

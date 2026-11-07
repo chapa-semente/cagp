@@ -15,6 +15,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/textarea"
 
 > Displays a form textarea or a component that looks like a textarea.
 
+> 🔗 **Original Source Code**: [`components/ui/textarea.tsx`](../ui/textarea.tsx)
+> 📂 **Original Examples**: [`examples/ui/textarea/`](../examples/textarea/)
+
 ```tsx
 import { Textarea } from "@/components/ui/textarea"
 

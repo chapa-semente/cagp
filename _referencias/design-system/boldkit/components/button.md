@@ -15,6 +15,8 @@ dependencies:
 
 > The BoldKit Button is a neubrutalism-styled interactive element with 7 variants (default, secondary, accent, destructive, outline, ghost, link) and 5 sizes. Built on native button semantics with full keyboard accessibility, it features thick 3px borders and hard offset shadows that translate on hover. Available for both React and Vue 3 via the shadcn CLI.
 
+> 🔗 **Original Source Code**: [`components/ui/button.tsx`](../ui/button.tsx)
+
 ## Installation
 
 ```bash

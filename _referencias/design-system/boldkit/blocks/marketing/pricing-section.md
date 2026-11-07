@@ -15,6 +15,8 @@ dependencies:
 
 > Pricing tiers with a featured plan and an optional checkout summary panel.
 
+> 🔗 **Original Block Implementation**: [`blocks-code/marketing/pricing-section.tsx`](../../blocks-code/marketing/pricing-section.tsx)
+
 ## Category: MARKETING
 
 ## Full Block Implementation (`src/components/blocks/marketing/pricing-section.tsx`)

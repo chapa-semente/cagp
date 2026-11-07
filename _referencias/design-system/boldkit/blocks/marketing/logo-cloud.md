@@ -15,6 +15,8 @@ dependencies:
 
 > Display client or partner logos with various layouts including grids, animated marquees, bordered cards, and combined with statistics.
 
+> 🔗 **Original Block Implementation**: [`blocks-code/marketing/logo-cloud.tsx`](../../blocks-code/marketing/logo-cloud.tsx)
+
 ## Category: MARKETING
 
 ## Full Block Implementation (`src/components/blocks/marketing/logo-cloud.tsx`)

@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/toggle"
 
 > A two-state button that can be either on or off.
 
+> 🔗 **Original Source Code**: [`components/ui/toggle.tsx`](../ui/toggle.tsx)
+> 📂 **Original Examples**: [`examples/ui/toggle/`](../examples/toggle/)
+
 ```tsx
 import { BoldIcon } from "lucide-react"
 

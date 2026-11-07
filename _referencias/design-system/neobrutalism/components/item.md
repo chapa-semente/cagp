@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/item"
 
 > A versatile component that you can use to display any content.
 
+> 🔗 **Original Source Code**: [`components/ui/item.tsx`](../ui/item.tsx)
+> 📂 **Original Examples**: [`examples/ui/item/`](../examples/item/)
+
 ```tsx
 import { BadgeCheckIcon } from "lucide-react"
 

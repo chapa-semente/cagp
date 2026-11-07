@@ -15,6 +15,8 @@ dependencies:
 
 > Feature comparison matrix with check/x cells and a highlighted column.
 
+> 🔗 **Original Block Implementation**: [`blocks-code/marketing/comparison-table.tsx`](../../blocks-code/marketing/comparison-table.tsx)
+
 ## Category: MARKETING
 
 ## Full Block Implementation (`src/components/blocks/marketing/comparison-table.tsx`)

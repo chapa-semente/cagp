@@ -15,6 +15,8 @@ dependencies:
 
 > The BoldKit Checkbox is a neubrutalism-styled form input built on Radix UI Checkbox, with a thick 3px border and a bold check icon for clear visual feedback. It supports controlled and uncontrolled usage, the indeterminate state for tri-state selection, and is fully keyboard and screen-reader accessible. Pair it with the Label component for properly associated, accessible form controls.
 
+> 🔗 **Original Source Code**: [`components/ui/checkbox.tsx`](../ui/checkbox.tsx)
+
 ## Installation
 
 ```bash

@@ -14,6 +14,8 @@ dependencies:
 
 > A responsive table component with bold neubrutalism styling for displaying tabular data.
 
+> 🔗 **Original Source Code**: [`components/ui/table.tsx`](../ui/table.tsx)
+
 ## Installation
 
 ```bash

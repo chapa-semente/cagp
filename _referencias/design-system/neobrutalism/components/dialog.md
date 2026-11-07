@@ -17,6 +17,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/dialog"
 
 > A window overlaid on either the primary window or another dialog window.
 
+> 🔗 **Original Source Code**: [`components/ui/dialog.tsx`](../ui/dialog.tsx)
+> 📂 **Original Examples**: [`examples/ui/dialog/`](../examples/dialog/)
+
 ```tsx
 import { Button } from "@/components/ui/button"
 import {

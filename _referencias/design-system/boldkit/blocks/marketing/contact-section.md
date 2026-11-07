@@ -15,6 +15,8 @@ dependencies:
 
 > We'd love to hear from you. Send us a message.
 
+> 🔗 **Original Block Implementation**: [`blocks-code/marketing/contact-section.tsx`](../../blocks-code/marketing/contact-section.tsx)
+
 ## Category: MARKETING
 
 ## Full Block Implementation (`src/components/blocks/marketing/contact-section.tsx`)

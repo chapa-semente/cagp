@@ -15,6 +15,8 @@ dependencies:
 
 > Drag-and-drop file upload with validation and progress tracking.
 
+> 🔗 **Original Source Code**: [`components/ui/dropzone.tsx`](../ui/dropzone.tsx)
+
 ## Installation
 
 ```bash

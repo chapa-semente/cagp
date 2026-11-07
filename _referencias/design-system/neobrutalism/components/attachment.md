@@ -16,6 +16,9 @@ shadcnDocsLink: "https://ui.shadcn.com/docs/components/attachment"
 
 > Displays a file attachment with media, title, description and actions.
 
+> 🔗 **Original Source Code**: [`components/ui/attachment.tsx`](../ui/attachment.tsx)
+> 📂 **Original Examples**: [`examples/ui/attachment/`](../examples/attachment/)
+
 ```tsx
 import { FileTextIcon, XIcon } from "lucide-react"
 

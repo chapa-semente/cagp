@@ -14,6 +14,8 @@ dependencies:
 
 > A dependency-free form-state layer with per-step validation that composes with the Stepper. Forward navigation is gated on the current step's validator; submit fires only on the last step.
 
+> 🔗 **Original Source Code**: [`components/ui/multi-step-form.tsx`](../ui/multi-step-form.tsx)
+
 ## Installation
 
 ```bash
