@@ -1,5 +1,5 @@
 ---
-// src/components/shell/SuperAppHeader.astro — Barra Superior Mobile para Sub-rotas (Eliminada no Tablet/Desktop onde AppShellSidebar atua)
+// src/components/shell/SuperAppHeader.astro — Barra Superior Mobile para Sub-rotas (Neobrutalista)
 import { AXIS_REGISTRY, getAxisByPath, normalizePathname } from '../../lib/navigationRegistry';
 import { getCagpIconSvg, resolveCagpIconName } from '../../lib/cagpIcons';
 
@@ -12,7 +12,7 @@ const activeAxis = getAxisByPath(Astro.url.pathname) || AXIS_REGISTRY[0];
   id="cagp-super-app-header"
   class={`${
     isHomeActive ? 'hidden' : 'block md:hidden'
-  } sticky top-0 z-[1030] w-full bg-white border-b border-[#DFDBD2] select-none transition-colors`}
+  } sticky top-0 z-[1030] w-full bg-white border-b-[3px] border-[#0A0A0A] select-none transition-colors shadow-[0_2px_0_0_#0A0A0A]`}
   style="padding-top: env(safe-area-inset-top, 0px);"
 >
   <div class="px-3 py-2 flex items-center justify-between gap-2">
@@ -21,7 +21,7 @@ const activeAxis = getAxisByPath(Astro.url.pathname) || AXIS_REGISTRY[0];
       <button
         type="button"
         id="cagp-mobile-menu-btn"
-        class="w-11 h-11 rounded-xl bg-[#FBF8F3] hover:bg-[#F4F1EA] border border-[#DFDBD2] text-[#292524] hover:text-[#8B1E2D] flex items-center justify-center shrink-0 transition-colors cursor-pointer"
+        class="w-11 h-11 rounded-xl bg-[#FBF8F3] hover:bg-[#F4F1EA] border-[2.5px] border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] text-[#0A0A0A] hover:text-[#9E2424] flex items-center justify-center shrink-0 transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
         title="Abrir Menu Geral"
         aria-label="Abrir gaveta de navegação"
       >
@@ -30,52 +30,52 @@ const activeAxis = getAxisByPath(Astro.url.pathname) || AXIS_REGISTRY[0];
 
       <a
         href={activeAxis.rootHref}
-        class="inline-flex items-center gap-1.5 text-xs font-bold text-[#8B1E2D] no-underline min-w-0 truncate py-1"
+        class="inline-flex items-center gap-1.5 text-xs font-bold text-[#9E2424] no-underline min-w-0 truncate py-1"
       >
         <span class="shrink-0" set:html={getCagpIconSvg(resolveCagpIconName(activeAxis.id), 'w-4 h-4')} />
-        <span class="font-['Oswald'] text-sm uppercase tracking-wide text-[#0A0A0A] truncate">
+        <span class="font-heading text-sm font-extrabold uppercase tracking-tight text-[#0A0A0A] truncate">
           {activeAxis.number}. {activeAxis.name}
         </span>
       </a>
     </div>
 
-    <!-- Direita: Ações Rápidas Táteis (44x44px mínimo) -->
+    <!-- Direita: Ações Rápidas Táteis Neobrutalistas -->
     <div class="flex items-center gap-1.5 shrink-0">
       <button
         type="button"
         id="cagp-btn-spotlight"
-        class="w-11 h-11 rounded-full bg-[#FBF8F3] hover:bg-[#F4F1EA] border border-[#DFDBD2] text-[#292524] flex items-center justify-center transition-colors cursor-pointer"
+        class="w-11 h-11 rounded-xl bg-[#FBF8F3] hover:bg-[#F4F1EA] border-[2.5px] border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] text-[#0A0A0A] flex items-center justify-center transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
         title="Buscar no Super App (⌘K)"
         aria-label="Abrir busca Spotlight"
       >
-        <span class="text-[#8B1E2D]" set:html={getCagpIconSvg('search', 'w-4 h-4')} />
+        <span class="text-[#9E2424]" set:html={getCagpIconSvg('search', 'w-4 h-4')} />
       </button>
 
       <button
         type="button"
         id="cagp-btn-campus"
-        class="w-11 h-11 rounded-full bg-[#FBF8F3] hover:bg-[#F4F1EA] border border-[#DFDBD2] text-[#292524] flex items-center justify-center relative transition-colors cursor-pointer"
+        class="w-11 h-11 rounded-xl bg-[#FBF8F3] hover:bg-[#F4F1EA] border-[2.5px] border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] text-[#0A0A0A] flex items-center justify-center relative transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
         title="Plantão Noturno • RU II & Circular"
         aria-label="Abrir status do Campus Agora"
       >
         <span set:html={getCagpIconSvg('bell', 'w-4 h-4')} />
-        <span class="w-2 h-2 rounded-full bg-[#15803D] absolute top-2 right-2"></span>
+        <span class="w-2.5 h-2.5 rounded-full bg-[#15803D] border border-black absolute top-1.5 right-1.5 animate-pulse"></span>
       </button>
 
       <button
         type="button"
         id="cagp-btn-passport"
-        class="min-h-[44px] pl-1.5 pr-3 py-1 rounded-full bg-[#8B1E2D] hover:bg-[#6E1420] text-white text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
+        class="min-h-[44px] pl-1.5 pr-3 py-1 rounded-xl bg-[#9E2424] hover:bg-[#8B1E2D] text-white border-[2.5px] border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] text-xs font-heading font-bold flex items-center gap-1.5 transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
         title="Abrir Passaporte Discente"
         aria-label="Abrir Passaporte Discente"
       >
         <span
           id="cagp-header-avatar-slot"
-          class="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center text-[11px] font-['Oswald'] font-bold overflow-hidden"
+          class="w-7 h-7 rounded-lg bg-white/20 border border-white/40 flex items-center justify-center text-[11px] font-heading font-extrabold overflow-hidden"
         >
           GP
         </span>
-        <span class="text-xs font-bold">Perfil</span>
+        <span class="text-xs font-bold font-sans">Perfil</span>
       </button>
     </div>
   </div>
@@ -98,48 +98,30 @@ const activeAxis = getAxisByPath(Astro.url.pathname) || AXIS_REGISTRY[0];
 
     const mobileMenuBtn = document.getElementById('cagp-mobile-menu-btn');
     if (mobileMenuBtn) {
-      mobileMenuBtn.onclick = (e) => {
-        e.stopPropagation();
-        if ((window as any).__cagp_toggle_drawer) {
-          (window as any).__cagp_toggle_drawer();
+      mobileMenuBtn.onclick = () => {
+        if (typeof (window as any).__cagp_open_drawer === 'function') {
+          (window as any).__cagp_open_drawer();
         } else {
-          dispatch('cagp:toggle-drawer');
+          dispatch('cagp:open-sidebar');
         }
       };
     }
 
-    if (!(window as any).__cagp_header_events_bound) {
-      (window as any).__cagp_header_events_bound = true;
-      window.addEventListener('keydown', (e) => {
-        if (e.altKey && (e.key === 'a' || e.key === 'A')) {
-          e.preventDefault();
-          window.dispatchEvent(new CustomEvent('cagp:open-a11y'));
-        } else if (e.altKey && (e.key === 's' || e.key === 'S')) {
-          e.preventDefault();
-          window.dispatchEvent(new CustomEvent('cagp:open-settings'));
-        }
-      });
-      window.addEventListener('cagp:vault-updated', () => {
-        (window as any).__cagp_update_avatar?.();
-      });
-    }
-
-    const updateHeaderAvatar = () => {
-      const slot = document.getElementById('cagp-header-avatar-slot');
-      if (!slot) return;
+    const avatarSlot = document.getElementById('cagp-header-avatar-slot');
+    if (avatarSlot) {
       try {
         const raw = localStorage.getItem('cagp_student_profile_v1');
-        const profile = raw ? JSON.parse(raw) : null;
-        slot.innerHTML = renderAvatarHtml(profile, 'sm');
-      } catch {
-        slot.textContent = 'GP';
-      }
-    };
-
-    (window as any).__cagp_update_avatar = updateHeaderAvatar;
-    updateHeaderAvatar();
+        if (raw) {
+          const profile = JSON.parse(raw);
+          if (profile.avatarPreset) {
+            avatarSlot.innerHTML = renderAvatarHtml(profile.avatarPreset, profile.prideChoice);
+          }
+        }
+      } catch (e) {}
+    }
   }
 
   setupHeaderListeners();
   document.addEventListener('astro:page-load', setupHeaderListeners);
+  window.addEventListener('cagp:vault-updated', setupHeaderListeners);
 </script>

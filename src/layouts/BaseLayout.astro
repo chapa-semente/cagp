@@ -10,14 +10,19 @@ import DynamicToast from '../components/shell/DynamicToast.astro';
 import BottomNav from '../components/shell/BottomNav.astro';
 import { GlobalSheets } from '../components/shell/GlobalSheets';
 import { SuperAppWelcomeModal } from '../components/shell/SuperAppWelcomeModal';
+import { GlobalCanvasBackdrop } from '../components/shell/GlobalCanvasBackdrop';
 import { asset } from '../lib/paths';
-import '@fontsource-variable/public-sans';
-import '@fontsource/oswald/500.css';
-import '@fontsource/oswald/600.css';
-import '@fontsource/oswald/700.css';
-import '@fontsource/jetbrains-mono/400.css';
-import '@fontsource/jetbrains-mono/500.css';
-import '@fontsource/jetbrains-mono/700.css';
+import '@fontsource/bricolage-grotesque/600.css';
+import '@fontsource/bricolage-grotesque/700.css';
+import '@fontsource/bricolage-grotesque/800.css';
+import '@fontsource/space-grotesk/400.css';
+import '@fontsource/space-grotesk/500.css';
+import '@fontsource/space-grotesk/600.css';
+import '@fontsource/space-grotesk/700.css';
+import '@fontsource/space-mono/400.css';
+import '@fontsource/space-mono/700.css';
+import '@fontsource/opendyslexic/400.css';
+import '@fontsource/opendyslexic/700.css';
 import 'bootstrap-icons/font/bootstrap-icons.min.css';
 import '../styles/global.css';
 
@@ -107,8 +112,8 @@ const {
             el.setAttribute('data-a11y-font', p.font || 'md');
             el.setAttribute('data-a11y-contrast', p.contrast || 'normal');
             el.setAttribute('data-a11y-dyslexia', p.dyslexia ? 'true' : 'false');
-            el.setAttribute('data-a11y-motion', p.motion || 'normal');
-            el.setAttribute('data-a11y-ruler', p.ruler ? 'true' : 'false');
+            el.removeAttribute('data-a11y-motion');
+            el.removeAttribute('data-a11y-ruler');
             el.removeAttribute('data-theme');
             el.setAttribute('data-desktop-dock', p.showDesktopDock ? 'true' : 'false');
           } catch (e) {}
@@ -136,12 +141,12 @@ const {
       </style>
     </noscript>
   </head>
-  <body class="bg-[#FBF8F3] text-[#0A0A0A] font-['Public_Sans_Variable','Public_Sans',sans-serif] antialiased min-h-[100dvh] flex flex-col">
+  <body class="bg-[#f4f5f7] text-[#16181d] font-['Space_Grotesk',sans-serif] antialiased min-h-[100dvh] flex flex-col selection:bg-[#9E2424] selection:text-white relative">
+    <!-- Efeito de Fundo Neobrutalista Sutil (BoldKit DotWave) -->
+    <GlobalCanvasBackdrop client:idle />
+
     <!-- Cápsula Tátil Flutuante (Dynamic Island Toast) -->
     <DynamicToast />
-
-    <!-- Régua Visual de Leitura e Foco A11y -->
-    <div id="cagp-reading-ruler" class="cagp-reading-ruler" aria-hidden="true"></div>
 
     <!-- Barra Superior de Carregamento de Rota -->
     <div id="cagp-route-progress-bar" class="cagp-route-progress-bar" aria-hidden="true">
@@ -324,15 +329,6 @@ const {
             });
           }
         }
-
-        window.addEventListener('pointermove', function(e) {
-          if (document.documentElement.getAttribute('data-a11y-ruler') === 'true') {
-            const ruler = document.getElementById('cagp-reading-ruler');
-            if (ruler) {
-              ruler.style.top = e.clientY + 'px';
-            }
-          }
-        }, { passive: true });
       })();
     </script>
   </body>

@@ -91,26 +91,26 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
   };
 
   return (
-    <div className="cagp-optativas-catalog space-y-4 select-none text-[#0A0A0A]">
+    <div className="cagp-optativas-catalog space-y-6 select-none text-[#0A0A0A]">
       {/* Barra de Busca e Filtros */}
-      <div className="p-4 bg-white border border-[#DFDBD2] rounded-xl space-y-3 shadow-xs">
+      <div className="p-6 bg-white border-[3px] border-[#0A0A0A] rounded-xl space-y-4 shadow-[4px_4px_0_0_#0A0A0A]">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <span className="text-[11px] font-['Oswald'] uppercase font-bold tracking-wider text-[#8B1E2D]">
+            <span className="text-[11px] font-head uppercase font-bold tracking-wider text-[#9E2424]">
               Catálogo Curricular Homologado
             </span>
-            <h3 className="font-['Oswald'] text-base font-bold uppercase text-[#0A0A0A] m-0">
+            <h3 className="font-head text-base sm:text-lg font-black uppercase text-[#0A0A0A] m-0">
               68 Disciplinas Optativas do PPC 2020
             </h3>
           </div>
-          <span className="text-xs text-gray-500 font-mono">
+          <span className="text-xs text-[#57534E] font-mono font-bold px-2.5 py-1 bg-[#FBF8F3] border border-[#0A0A0A] rounded-md shadow-[1px_1px_0_0_#0A0A0A] self-start sm:self-auto">
             Mostrando {filtered.length} de {optativas.length}
           </span>
         </div>
 
         <div className="relative">
           <i
-            className="bi bi-search absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"
+            className="bi bi-search absolute left-3.5 top-1/2 -translate-y-1/2 text-[#57534E] text-sm"
             aria-hidden="true"
           />
           <input
@@ -120,19 +120,19 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Buscar por código (ex: DCP 035), nome ou módulo..."
-            className="w-full min-h-[44px] pl-10 pr-4 py-2 bg-[#F7F5F0] border border-[#DFDBD2] focus:border-[#0A0A0A] rounded-lg text-sm text-[#0A0A0A] placeholder-gray-500 focus:outline-none transition-colors"
+            className="w-full min-h-[44px] pl-10 pr-4 py-2.5 bg-white border-2 border-[#0A0A0A] rounded-xl text-sm font-body text-[#0A0A0A] placeholder-[#57534E] shadow-[2px_2px_0_0_#0A0A0A] focus:outline-none focus:ring-2 focus:ring-[#9E2424] transition-all"
           />
         </div>
 
         {/* Pílulas de Modulos */}
-        <div className="flex items-center gap-1.5 overflow-x-auto py-1 scrollbar-none">
+        <div className="flex items-center gap-2 overflow-x-auto py-1 scrollbar-none">
           <button
             type="button"
             onClick={() => setSelectedModulo('todos')}
-            className={`min-h-[44px] px-3.5 py-1.5 rounded-lg text-xs font-['Oswald'] uppercase tracking-tight shrink-0 transition-all cursor-pointer ${
+            className={`min-h-[40px] px-3.5 py-1.5 rounded-xl text-xs font-head uppercase tracking-tight shrink-0 transition-all cursor-pointer border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none ${
               selectedModulo === 'todos'
-                ? 'bg-[#0A0A0A] text-white font-bold shadow-xs'
-                : 'bg-[#F7F5F0] text-gray-700 border border-[#DFDBD2] hover:bg-[#EAE6DE]'
+                ? 'bg-[#0A0A0A] text-white font-bold'
+                : 'bg-white text-[#0A0A0A] hover:bg-[#F3ECE0]'
             }`}
           >
             Todos ({optativas.length})
@@ -142,10 +142,10 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
               key={m}
               type="button"
               onClick={() => setSelectedModulo(m)}
-              className={`min-h-[44px] px-3.5 py-1.5 rounded-lg text-xs font-['Oswald'] uppercase tracking-tight shrink-0 transition-all cursor-pointer ${
+              className={`min-h-[40px] px-3.5 py-1.5 rounded-xl text-xs font-head uppercase tracking-tight shrink-0 transition-all cursor-pointer border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none ${
                 selectedModulo.toLowerCase() === m.toLowerCase()
-                  ? 'bg-[#0A0A0A] text-white font-bold shadow-xs'
-                  : 'bg-[#F7F5F0] text-gray-700 border border-[#DFDBD2] hover:bg-[#EAE6DE]'
+                  ? 'bg-[#9E2424] text-white font-bold'
+                  : 'bg-white text-[#0A0A0A] hover:bg-[#F3ECE0]'
               }`}
             >
               {m}
@@ -155,7 +155,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
       </div>
 
       {/* Grid de Cards de Optativas */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filtered.map((item) => {
           const isAllocated = !!allocatedMap[item.code];
           const allocatedCourse = allocatedMap[item.code];
@@ -165,21 +165,21 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
           return (
             <div
               key={item.code}
-              className={`cagp-card p-4 bg-white border rounded-xl flex flex-col justify-between shadow-xs transition-all ${
-                isAllocated ? 'border-[#15803D] ring-1 ring-[#15803D]' : 'border-[#DFDBD2] hover:border-[#0A0A0A]'
+              className={`cagp-card p-4 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between shadow-[3px_3px_0_0_#0A0A0A] hover:shadow-[1.5px_1.5px_0_0_#0A0A0A] hover:translate-x-[1px] hover:translate-y-[1px] transition-all ${
+                isAllocated ? 'ring-2 ring-[#266264]' : ''
               }`}
             >
               <div>
                 <div className="flex items-center justify-between gap-2 mb-2">
-                  <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-[#F7F5F0] border border-[#DFDBD2] text-[#8B1E2D]">
+                  <span className="font-mono text-xs font-bold px-2 py-0.5 rounded-md bg-[#FBF8F3] border border-[#0A0A0A] text-[#9E2424] shadow-[1px_1px_0_0_#0A0A0A]">
                     {item.code}
                   </span>
                   <div className="flex items-center gap-1.5">
-                    <span className="text-[11px] font-mono font-bold text-gray-600">
+                    <span className="text-[11px] font-mono font-bold text-[#57534E]">
                       {item.ch}h ({Math.round(item.ch / 15)} cr)
                     </span>
                     {isAllocated && (
-                      <span className="cagp-stamp-badge is-deferido text-[10px] py-0.5 px-1.5 rounded-full inline-flex items-center gap-1">
+                      <span className="text-[10px] py-0.5 px-2 rounded-md bg-[#266264] text-white font-mono font-bold border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A] inline-flex items-center gap-1">
                         <i className="bi bi-diagram-3-fill text-[10px]" aria-hidden="true" />
                         <span>NO GRAFO • {allocatedCourse.period}ºP</span>
                       </span>
@@ -187,25 +187,25 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                   </div>
                 </div>
 
-                <h4 className="font-['Oswald'] text-sm font-bold uppercase text-[#0A0A0A] leading-snug mb-1 m-0">
+                <h4 className="font-head text-sm font-bold uppercase text-[#0A0A0A] leading-snug mb-1 m-0">
                   {item.name}
                 </h4>
 
                 {item.modulo && (
-                  <span className="inline-block text-[10px] text-gray-500 font-medium uppercase tracking-wider mb-2">
+                  <span className="inline-block text-[10px] text-[#57534E] font-head uppercase font-bold tracking-wider mb-2">
                     {item.modulo}
                   </span>
                 )}
 
                 {/* Ementa Expansível */}
                 {item.ementa && (
-                  <div className="mt-1 pt-1.5 border-t border-[#DFDBD2]/60">
-                    <span className="text-[10px] font-['Oswald'] uppercase font-bold text-[#8B1E2D] block mb-0.5">
+                  <div className="mt-1 pt-2 border-t-2 border-[#0A0A0A]/20">
+                    <span className="text-[10px] font-head uppercase font-bold text-[#9E2424] block mb-0.5">
                       Ementa Oficial:
                     </span>
                     <p
-                      className={`text-xs text-gray-700 leading-relaxed m-0 select-text ${
-                        isExpanded ? '' : 'line-clamp-2'
+                      className={`font-body text-xs text-[#292524] leading-relaxed m-0 select-text ${
+                        isExpanded ? 'bg-[#FBF8F3] p-2 border border-[#0A0A0A] rounded-lg mt-1' : 'line-clamp-2'
                       }`}
                     >
                       {item.ementa}
@@ -214,7 +214,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                       <button
                         type="button"
                         onClick={() => setExpandedCode(isExpanded ? null : item.code)}
-                        className="text-[11px] font-bold text-[#8B1E2D] hover:underline mt-1 bg-transparent border-none p-0 cursor-pointer"
+                        className="text-[11px] font-head font-bold text-[#9E2424] hover:underline mt-1 bg-transparent border-none p-0 cursor-pointer"
                       >
                         {isExpanded ? 'Ver menos ▲' : 'Ler ementa completa ▼'}
                       </button>
@@ -224,19 +224,19 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
               </div>
 
               {/* Ações de Alocação no Grafo */}
-              <div className="pt-3 mt-3 border-t border-[#DFDBD2]">
+              <div className="pt-3 mt-3 border-t-2 border-[#0A0A0A]/20">
                 {isSelectingPeriod ? (
-                  <div className="space-y-1.5">
-                    <span className="text-[11px] font-['Oswald'] uppercase font-bold text-gray-700 block">
+                  <div className="space-y-2">
+                    <span className="text-[11px] font-head uppercase font-bold text-[#0A0A0A] block">
                       Selecione o período letivo:
                     </span>
-                    <div className="grid grid-cols-4 gap-1">
+                    <div className="grid grid-cols-4 gap-1.5">
                       {[3, 4, 5, 6, 7, 8, 9, 10].map((p) => (
                         <button
                           key={p}
                           type="button"
                           onClick={() => handleAllocate(item, p)}
-                          className="min-h-[36px] py-1 bg-[#F7F5F0] hover:bg-[#8B1E2D] hover:text-white border border-[#DFDBD2] rounded text-xs font-mono font-bold transition-colors"
+                          className="min-h-[36px] py-1 bg-[#FBF8F3] hover:bg-[#9E2424] hover:text-white border border-[#0A0A0A] rounded-lg text-xs font-mono font-bold transition-all shadow-[1px_1px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer"
                         >
                           {p}ºP
                         </button>
@@ -245,24 +245,24 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                     <button
                       type="button"
                       onClick={() => setAllocatingCode(null)}
-                      className="w-full text-center text-[10px] text-gray-500 hover:text-black py-0.5 bg-transparent border-none cursor-pointer"
+                      className="w-full text-center text-xs font-head font-bold text-[#57534E] hover:text-[#0A0A0A] py-1 bg-transparent border-none cursor-pointer"
                     >
                       Cancelar
                     </button>
                   </div>
                 ) : isAllocated ? (
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-2">
                     <button
                       type="button"
                       onClick={() => setAllocatingCode(item.code)}
-                      className="flex-1 min-h-[44px] px-3 py-1.5 bg-[#F7F5F0] hover:bg-[#EAE6DE] border border-[#DFDBD2] rounded-lg text-xs font-['Oswald'] uppercase font-bold text-[#0A0A0A] transition-colors cursor-pointer"
+                      className="flex-1 min-h-[40px] px-3 py-1.5 bg-[#FBF8F3] hover:bg-[#F3ECE0] border-2 border-[#0A0A0A] rounded-xl text-xs font-head uppercase font-bold text-[#0A0A0A] transition-all shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer"
                     >
                       Mover ({allocatedCourse.period}ºP)
                     </button>
                     <button
                       type="button"
                       onClick={() => handleRemove(item.code)}
-                      className="min-h-[44px] min-w-[44px] px-3 py-1.5 bg-red-50 hover:bg-red-100 text-[#DC2626] border border-red-200 rounded-lg text-xs font-bold transition-colors cursor-pointer flex items-center justify-center"
+                      className="min-h-[40px] min-w-[40px] px-3 py-1.5 bg-red-100 hover:bg-red-200 text-[#9E2424] border-2 border-[#0A0A0A] rounded-xl text-xs font-bold transition-all shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer flex items-center justify-center"
                       title="Desvincular do Grafo"
                       aria-label="Desvincular do Grafo"
                     >
@@ -273,7 +273,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                   <button
                     type="button"
                     onClick={() => setAllocatingCode(item.code)}
-                    className="w-full min-h-[44px] px-3 py-2 bg-[#0A0A0A] hover:bg-[#8B1E2D] text-white rounded-lg text-xs font-['Oswald'] uppercase font-bold tracking-wider flex items-center justify-center gap-1.5 transition-all shadow-[2px_2px_0px_#0A0A0A] cursor-pointer"
+                    className="w-full min-h-[42px] px-3 py-2 bg-[#0A0A0A] hover:bg-[#9E2424] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl text-xs font-head uppercase font-bold tracking-wider flex items-center justify-center gap-1.5 transition-all border-2 border-[#0A0A0A] shadow-[2.5px_2.5px_0_0_#0A0A0A] cursor-pointer"
                   >
                     <i className="bi bi-plus-circle" aria-hidden="true" />
                     <span>Vincular ao Grafo</span>

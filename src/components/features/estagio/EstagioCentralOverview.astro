@@ -9,23 +9,23 @@ import CagpIcon from '../../ui/CagpIcon.astro';
 
 <div class="cagp-estagio-central-overview space-y-6 select-none text-[#0A0A0A]">
   {/* Apresentação da Central de Estágio */}
-  <div class="p-5 bg-white border border-[#DFDBD2] rounded-3xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-2xs">
+  <div class="p-6 bg-white border-[3px] border-[#0A0A0A] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-[4px_4px_0_0_#0A0A0A]">
     <div class="flex items-start gap-3.5">
-      <span class="w-11 h-11 rounded-2xl bg-[#8B1E2D]/10 text-[#8B1E2D] flex items-center justify-center shrink-0 mt-0.5">
+      <span class="w-12 h-12 rounded-xl bg-[#9E2424] text-white flex items-center justify-center shrink-0 mt-0.5 border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
         <CagpIcon name="briefcase" className="w-6 h-6" />
       </span>
       <div>
         <div class="flex items-center gap-2">
-          <span class="text-xs font-['Oswald'] uppercase font-bold tracking-wider text-[#8B1E2D]">
+          <span class="text-xs font-head uppercase font-bold tracking-wider text-[#9E2424]">
             Estágio Supervisionado
           </span>
-          <span class="text-gray-300">•</span>
+          <span class="text-[#0A0A0A] font-bold">•</span>
           <span class="text-xs text-[#57534E] font-mono">300 horas obrigatórias</span>
         </div>
-        <h2 class="font-['Oswald'] text-lg sm:text-xl font-bold uppercase text-[#0A0A0A] leading-tight m-0">
+        <h2 class="font-head text-lg sm:text-xl font-black uppercase text-[#0A0A0A] leading-tight m-0">
           Estágio Curricular A & B, Dispensa Art. 41 e Termo de Compromisso (TCE)
         </h2>
-        <p class="text-xs text-[#57534E] mt-1 max-w-3xl leading-relaxed m-0">
+        <p class="font-body text-xs text-[#57534E] mt-1 max-w-3xl leading-relaxed m-0">
           Consulte as regras de integralização profissional, simule elegibilidade pelo Art. 41 para servidores e baixe modelos oficiais de convênio.
         </p>
       </div>
@@ -33,40 +33,40 @@ import CagpIcon from '../../ui/CagpIcon.astro';
   </div>
 
   {/* Bento Grid dos Widgets de Estágio */}
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
     <Art41Widget client:load />
     <EstagioObrigatorioWidget />
     <EstagioTceWidget />
   </div>
 
   {/* Banner Informativo sobre Convênios */}
-  <div class="p-5 bg-white border border-[#DFDBD2] rounded-3xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-2xs">
-    <div class="flex items-center gap-3">
-      <span class="w-10 h-10 rounded-2xl bg-[#8B1E2D]/10 text-[#8B1E2D] flex items-center justify-center shrink-0">
-        <CagpIcon name="thesis" className="w-5 h-5" />
+  <div class="p-6 bg-white border-[3px] border-[#0A0A0A] rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-[4px_4px_0_0_#0A0A0A]">
+    <div class="flex items-center gap-3.5">
+      <span class="w-12 h-12 rounded-xl bg-[#0A0A0A] text-white flex items-center justify-center shrink-0 border border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+        <CagpIcon name="thesis" className="w-6 h-6 text-[#FF8811]" />
       </span>
       <div>
-        <h3 class="font-['Oswald'] text-sm uppercase font-bold text-[#0A0A0A] leading-tight m-0">
+        <h3 class="font-head text-sm uppercase font-bold text-[#0A0A0A] leading-tight m-0">
           Termo de Compromisso Oficial (TCE) com a UFMG
         </h3>
-        <p class="text-xs text-[#57534E] mt-0.5 m-0">
-          Minuta homologada pela Pro-Reitoria de Graduação com seguro contra acidentes pessoais.
+        <p class="font-body text-xs text-[#57534E] mt-0.5 m-0">
+          Minuta homologada pela Pró-Reitoria de Graduação com seguro contra acidentes pessoais.
         </p>
       </div>
     </div>
 
-    <div class="flex items-center gap-2 w-full sm:w-auto">
+    <div class="flex items-center gap-2.5 w-full sm:w-auto">
       <a
         href={asset('/documentos/estagio-modelo-termo-de-compromisso-com-convenio.pdf')}
         download
-        class="min-h-[44px] flex-1 sm:flex-none px-4 py-2 bg-[#8B1E2D] hover:bg-[#6e1723] text-white rounded-xl text-xs font-['Oswald'] uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-colors no-underline shadow-xs border border-[#8B1E2D]"
+        class="min-h-[44px] flex-1 sm:flex-none px-4 py-2.5 bg-[#9E2424] hover:bg-[#851E1E] text-white rounded-xl text-xs font-head uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-2 border-[#0A0A0A] shadow-[2.5px_2.5px_0_0_#0A0A0A] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
       >
         <CagpIcon name="download" className="w-4 h-4 text-white" />
         <span>Baixar TCE (PDF)</span>
       </a>
       <a
         href="#tutorial"
-        class="min-h-[44px] px-3.5 py-2 bg-[#F7F5F0] hover:bg-[#EAE6DE] text-[#292524] border border-[#DFDBD2] rounded-xl text-xs font-['Oswald'] uppercase font-bold flex items-center justify-center transition-colors no-underline"
+        class="min-h-[44px] px-4 py-2.5 bg-white hover:bg-[#F3ECE0] text-[#0A0A0A] border-2 border-[#0A0A0A] rounded-xl text-xs font-head uppercase font-bold flex items-center justify-center transition-all no-underline shadow-[2.5px_2.5px_0_0_#0A0A0A] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
       >
         <span>Ver Tutorial</span>
       </a>

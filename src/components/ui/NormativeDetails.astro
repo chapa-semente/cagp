@@ -1,5 +1,5 @@
 ---
-// NormativeDetails.astro - Encapsulamento de Textos Regimentais e Normas
+// NormativeDetails.astro - Encapsulamento Neobrutalista de Textos Regimentais e Normas
 interface Props {
   id?: string;
   title: string;
@@ -11,27 +11,27 @@ interface Props {
 const { id, title, badge, icon, open = false } = Astro.props;
 ---
 
-<details id={id} class="cagp-normative-details bg-white border border-black/15 rounded-[6px] my-2 overflow-hidden transition-all shadow-xs hover:shadow-sm" open={open}>
-  <summary class="px-3.5 py-2.5 min-h-[44px] cursor-pointer font-['Oswald'] font-bold text-sm uppercase text-[#0A0A0A] bg-[#F7F5F0] hover:bg-[#EAE5DC] flex items-center justify-between select-none transition-colors">
-    <span class="flex items-center gap-2">
-      <i class="bi bi-chevron-right text-xs transition-transform duration-200 details-icon text-gray-500" aria-hidden="true"></i>
-      {icon && <i class={`bi ${icon} text-[#8B1E2D] text-base shrink-0`} aria-hidden="true"></i>}
+<details id={id} class="cagp-normative-details bg-white border-[3px] border-[#0A0A0A] rounded-xl my-3 overflow-hidden transition-all shadow-[3px_3px_0_0_#0A0A0A] font-sans" open={open}>
+  <summary class="px-4 py-3 min-h-[44px] cursor-pointer font-heading font-extrabold text-sm uppercase text-[#0A0A0A] bg-[#FBF8F3] hover:bg-[#F4F1EA] flex items-center justify-between select-none transition-colors border-b-[3px] border-transparent open:border-[#0A0A0A]">
+    <span class="flex items-center gap-2.5">
+      <i class="bi bi-chevron-right text-xs transition-transform duration-200 details-icon text-[#0A0A0A]" aria-hidden="true"></i>
+      {icon && <i class={`bi ${icon} text-[#9E2424] text-base shrink-0`} aria-hidden="true"></i>}
       <span class="leading-tight">{title}</span>
     </span>
     {badge && (
-      <span class="cagp-badge cagp-badge-red shrink-0 ml-2">
+      <span class="bg-[#9E2424] text-white font-heading font-bold text-xs uppercase px-2.5 py-0.5 rounded-lg border-2 border-black shadow-[1.5px_1.5px_0_0_#0A0A0A] shrink-0 ml-2">
         {badge}
       </span>
     )}
   </summary>
-  <div class="px-4 py-3 text-sm text-gray-800 leading-relaxed border-t border-[#DFDBD2] bg-white">
+  <div class="px-5 py-4 text-sm text-[#0A0A0A] leading-relaxed border-t-[3px] border-[#0A0A0A] bg-white font-sans">
     <slot />
   </div>
 </details>
 
 <style>
   .details-icon {
-    transition: transform 0.22s var(--ease-out-natural, cubic-bezier(0.16, 1, 0.3, 1));
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   }
   details[open] summary .details-icon {
     transform: rotate(90deg);
@@ -54,48 +54,47 @@ const { id, title, badge, icon, open = false } = Astro.props;
       summary.addEventListener('click', (e) => {
         e.preventDefault();
 
-        const isReducedMotion =
-          window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
-          document.documentElement.getAttribute('data-a11y-motion') === 'reduced';
+        const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         if (isReducedMotion) {
           details.open = !details.open;
           return;
         }
 
-        // Cancelar animação concorrente anterior se houver
-        if ((content as any).__current_anim) {
-          (content as any).__current_anim.cancel();
-        }
-
         if (details.open) {
           const startHeight = content.offsetHeight;
-          const anim = content.animate(
-            [
-              { height: `${startHeight}px`, opacity: '1', transform: 'translateY(0)' },
-              { height: '0px', opacity: '0', transform: 'translateY(-6px)' }
-            ],
-            { duration: 220, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }
-          );
-          (content as any).__current_anim = anim;
-          anim.onfinish = () => {
+          content.style.maxHeight = `${startHeight}px`;
+          content.style.opacity = '1';
+          content.style.transition = 'max-height 0.22s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.16s ease';
+
+          requestAnimationFrame(() => {
+            content.style.maxHeight = '0px';
+            content.style.opacity = '0';
+          });
+
+          setTimeout(() => {
             details.open = false;
-            (content as any).__current_anim = null;
-          };
+            content.style.maxHeight = '';
+            content.style.opacity = '';
+            content.style.transition = '';
+          }, 220);
         } else {
           details.open = true;
-          const endHeight = content.offsetHeight;
-          const anim = content.animate(
-            [
-              { height: '0px', opacity: '0', transform: 'translateY(-8px)' },
-              { height: `${endHeight}px`, opacity: '1', transform: 'translateY(0)' }
-            ],
-            { duration: 260, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }
-          );
-          (content as any).__current_anim = anim;
-          anim.onfinish = () => {
-            (content as any).__current_anim = null;
-          };
+          const targetHeight = content.scrollHeight;
+          content.style.maxHeight = '0px';
+          content.style.opacity = '0';
+          content.style.transition = 'max-height 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease';
+
+          requestAnimationFrame(() => {
+            content.style.maxHeight = `${targetHeight}px`;
+            content.style.opacity = '1';
+          });
+
+          setTimeout(() => {
+            content.style.maxHeight = '';
+            content.style.opacity = '';
+            content.style.transition = '';
+          }, 260);
         }
       });
     });

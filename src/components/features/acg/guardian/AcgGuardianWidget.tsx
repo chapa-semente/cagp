@@ -33,57 +33,57 @@ export const AcgGuardianWidget: React.FC = () => {
   const nearest = certsWithDays[0];
 
   return (
-    <div className="cagp-card p-4 bg-white border border-[#DFDBD2] rounded-xl flex flex-col justify-between h-full shadow-xs hover:border-[#0A0A0A] transition-all select-none">
+    <div className="cagp-card p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between h-full shadow-[3px_3px_0_0_#0A0A0A] hover:shadow-[1.5px_1.5px_0_0_#0A0A0A] hover:translate-x-[1px] hover:translate-y-[1px] transition-all select-none">
       <div>
-        <div className="flex items-center justify-between gap-2 mb-3">
-          <div className="flex items-center gap-2">
-            <span className="w-9 h-9 rounded-lg bg-[#B45309]/10 text-[#B45309] flex items-center justify-center text-lg border border-[#B45309]/20">
+        <div className="flex items-center justify-between gap-2 mb-3.5">
+          <div className="flex items-center gap-2.5">
+            <span className="w-10 h-10 rounded-xl bg-[#FF8811]/10 text-[#FF8811] flex items-center justify-center text-lg border border-[#FF8811] shadow-[1px_1px_0_0_#0A0A0A]">
               <i className="bi bi-shield-exclamation" aria-hidden="true" />
             </span>
             <div>
-              <h3 className="font-['Oswald'] font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0">
+              <h3 className="font-head font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0">
                 Guardião 120 Dias
               </h3>
-              <span className="text-[11px] text-gray-500 font-mono">Art. 15, § 4º do Regulamento</span>
+              <span className="text-[11px] text-[#57534E] font-mono">Art. 15, § 4º do Regulamento</span>
             </div>
           </div>
           <span
-            className={`px-2 py-0.5 rounded font-['Oswald'] text-[11px] font-bold ${
+            className={`px-2.5 py-1 rounded-md font-head text-[11px] font-bold border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A] ${
               !nearest
-                ? 'bg-gray-100 text-gray-700 border border-[#DFDBD2]'
+                ? 'bg-white text-[#0A0A0A]'
                 : nearest.diffDays < 0
-                ? 'bg-[#DC2626] text-white'
+                ? 'bg-[#9E2424] text-white'
                 : nearest.diffDays <= 30
-                ? 'bg-[#B45309] text-white'
-                : 'bg-[#15803D] text-white'
+                ? 'bg-[#FF8811] text-[#0A0A0A]'
+                : 'bg-[#266264] text-white'
             }`}
           >
             {!nearest ? 'Sem Certificados' : nearest.diffDays < 0 ? 'Expirado' : `${nearest.diffDays} dias restantes`}
           </span>
         </div>
 
-        <p className="text-xs text-gray-700 leading-relaxed mb-3">
+        <p className="font-body text-xs text-[#292524] leading-relaxed mb-3.5">
           Monitor do prazo decadencial fatal de 120 dias para eventos como ouvinte (Mod. III) e trabalhos em anais (Mod. VII).
         </p>
 
         {certs.length > 0 && nearest ? (
-          <div className="p-3 bg-[#F7F5F0] border border-[#DFDBD2] rounded-lg mb-3">
-            <div className="flex items-center justify-between gap-2 mb-1">
-              <span className="text-[10px] font-['Oswald'] uppercase font-bold text-gray-500">
+          <div className="p-3.5 bg-[#FBF8F3] border border-[#0A0A0A] rounded-xl mb-4 shadow-[1.5px_1.5px_0_0_#0A0A0A]">
+            <div className="flex items-center justify-between gap-2 mb-1.5">
+              <span className="text-[10px] font-head uppercase font-bold text-[#57534E]">
                 Próximo a Vencer ({certs.length} cadastrado{certs.length > 1 ? 's' : ''}):
               </span>
-              <span className="text-xs font-mono font-bold text-gray-900">{nearest.hours}h</span>
+              <span className="text-xs font-mono font-bold text-[#0A0A0A]">{nearest.hours}h</span>
             </div>
-            <div className="text-xs font-bold text-[#0A0A0A] truncate">{nearest.title}</div>
-            <div className="text-[11px] text-gray-500 flex items-center justify-between mt-1">
-              <span>{nearest.mod}</span>
+            <div className="text-xs font-bold font-head uppercase text-[#0A0A0A] truncate">{nearest.title}</div>
+            <div className="text-[11px] font-mono flex items-center justify-between mt-1.5">
+              <span className="text-[#57534E]">{nearest.mod}</span>
               <span
-                className={`font-semibold ${
+                className={`font-bold ${
                   nearest.diffDays < 0
-                    ? 'text-[#DC2626]'
+                    ? 'text-[#9E2424]'
                     : nearest.diffDays <= 30
-                    ? 'text-[#B45309]'
-                    : 'text-[#15803D]'
+                    ? 'text-[#FF8811]'
+                    : 'text-[#266264]'
                 }`}
               >
                 {nearest.diffDays < 0
@@ -93,8 +93,8 @@ export const AcgGuardianWidget: React.FC = () => {
             </div>
           </div>
         ) : (
-          <div className="p-3 bg-[#F7F5F0] border border-[#DFDBD2] rounded-lg mb-3 text-center">
-            <p className="text-xs text-gray-600 m-0">
+          <div className="p-3.5 bg-[#FBF8F3] border border-[#0A0A0A] rounded-xl mb-4 text-center">
+            <p className="font-body text-xs text-[#57534E] m-0">
               Nenhum certificado cadastrado. Adicione seus comprovantes para receber avisos antes do prazo prescricional.
             </p>
           </div>
@@ -103,7 +103,7 @@ export const AcgGuardianWidget: React.FC = () => {
 
       <a
         href="#guardiao-120-dias"
-        className="min-h-[44px] px-3 py-2 bg-[#0A0A0A] hover:bg-[#B45309] text-white rounded-lg font-['Oswald'] text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline shadow-[2px_2px_0px_#0A0A0A]"
+        className="min-h-[44px] px-4 py-2.5 bg-[#0A0A0A] hover:bg-[#FF8811] hover:text-[#0A0A0A] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-2 border-[#0A0A0A] shadow-[2.5px_2.5px_0_0_#0A0A0A]"
       >
         <span>Gerenciar Certificados</span>
         <i className="bi bi-arrow-right" aria-hidden="true" />

@@ -72,24 +72,24 @@ export const Art41SimulatorCore: React.FC = () => {
   return (
     <div className="cagp-art41-simulator space-y-6 select-none text-[#0A0A0A]">
       {/* Cabeçalho do Simulador em Folha Contínua */}
-      <div className="p-5 sm:p-6 bg-white border border-[#DFDBD2] rounded-3xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xs">
+      <div className="p-6 bg-white border-[3px] border-[#0A0A0A] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-[4px_4px_0_0_#0A0A0A]">
         <div>
-          <span className="text-[11px] font-['Oswald'] uppercase font-bold tracking-wider text-[#8B1E2D]">
+          <span className="text-[11px] font-head uppercase font-bold tracking-wider text-[#9E2424]">
             Regulamento do Curso • Capítulo VII
           </span>
-          <h3 className="font-['Oswald'] text-base sm:text-lg font-bold uppercase text-[#0A0A0A] m-0">
+          <h3 className="font-head text-base sm:text-lg font-black uppercase text-[#0A0A0A] m-0">
             Simulador de Dispensa por Atuação Profissional (Art. 41)
           </h3>
-          <p className="text-xs text-[#57534E] mt-0.5 m-0">
+          <p className="font-body text-xs text-[#57534E] mt-0.5 m-0">
             Verifique se sua experiência profissional permite a dispensa das 300h de estágio obrigatório.
           </p>
         </div>
         <div className="flex items-center gap-2">
           <span
-            className={`px-3 py-1.5 rounded-full font-['Oswald'] text-xs font-bold uppercase tracking-wider ${
+            className={`px-3 py-1.5 rounded-lg font-mono text-xs font-bold uppercase tracking-wider border border-[#0A0A0A] shadow-[1.5px_1.5px_0_0_#0A0A0A] ${
               isFullyEligible
-                ? 'bg-[#15803D] text-white shadow-xs'
-                : 'bg-[#FBF8F3] text-[#57534E] border border-[#DFDBD2]'
+                ? 'bg-[#266264] text-white'
+                : 'bg-[#FBF8F3] text-[#0A0A0A]'
             }`}
           >
             {checkedCount} de {ART41_CRITERIA.length} Requisitos
@@ -98,11 +98,11 @@ export const Art41SimulatorCore: React.FC = () => {
       </div>
 
       {/* Seleção do Tipo de Vínculo */}
-      <div className="space-y-2.5">
-        <span className="text-xs font-['Oswald'] uppercase font-bold text-[#292524] block">
+      <div className="space-y-3">
+        <span className="text-xs font-head uppercase font-bold text-[#0A0A0A] block">
           1. Selecione seu Vínculo Profissional:
         </span>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
           {EMPLOYMENT_MODES.map((m) => {
             const isSelected = selectedMode === m.id;
             return (
@@ -110,20 +110,20 @@ export const Art41SimulatorCore: React.FC = () => {
                 key={m.id}
                 type="button"
                 onClick={() => setSelectedMode(m.id)}
-                className={`p-4 rounded-2xl border text-left flex flex-col justify-between transition-all min-h-[80px] cursor-pointer ${
+                className={`p-4 rounded-xl border-2 border-[#0A0A0A] text-left flex flex-col justify-between transition-all min-h-[85px] cursor-pointer shadow-[2.5px_2.5px_0_0_#0A0A0A] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none ${
                   isSelected
-                    ? 'bg-[#8B1E2D] text-white border-[#8B1E2D] shadow-xs'
-                    : 'bg-white text-[#0A0A0A] border-[#DFDBD2] hover:bg-[#FBF8F3]'
+                    ? 'bg-[#9E2424] text-white'
+                    : 'bg-white text-[#0A0A0A] hover:bg-[#F3ECE0]'
                 }`}
               >
                 <div className="flex items-center gap-2 mb-1.5">
                   <CagpIcon
                     name={m.iconName}
-                    className={`w-4 h-4 ${isSelected ? 'text-white' : 'text-[#8B1E2D]'}`}
+                    className={`w-4 h-4 ${isSelected ? 'text-white' : 'text-[#9E2424]'}`}
                   />
-                  <span className="font-['Oswald'] text-xs font-bold uppercase tracking-wide">{m.label}</span>
+                  <span className="font-head text-xs font-bold uppercase tracking-wide">{m.label}</span>
                 </div>
-                <span className={`text-[11px] leading-tight ${isSelected ? 'text-white/85' : 'text-[#57534E]'}`}>
+                <span className={`font-body text-[11px] leading-tight ${isSelected ? 'text-white/90' : 'text-[#57534E]'}`}>
                   {m.desc}
                 </span>
               </button>
@@ -133,24 +133,24 @@ export const Art41SimulatorCore: React.FC = () => {
       </div>
 
       {/* Checklist dos 5 Critérios Normativos */}
-      <div className="p-5 sm:p-6 bg-white border border-[#DFDBD2] rounded-3xl space-y-4 shadow-xs">
-        <div className="flex items-center justify-between border-b border-[#DFDBD2] pb-3">
-          <span className="text-xs font-['Oswald'] uppercase font-bold text-[#0A0A0A]">
+      <div className="p-6 bg-white border-[3px] border-[#0A0A0A] rounded-xl space-y-4 shadow-[4px_4px_0_0_#0A0A0A]">
+        <div className="flex items-center justify-between border-b-2 border-[#0A0A0A] pb-3">
+          <span className="text-xs font-head uppercase font-bold text-[#0A0A0A]">
             2. Critérios Normativos para Deferimento do Colegiado:
           </span>
-          <span className="text-[11px] text-[#57534E] font-mono">Art. 41, §§ 1º a 3º</span>
+          <span className="text-[11px] text-[#57534E] font-mono font-bold">Art. 41, §§ 1º a 3º</span>
         </div>
 
-        <div className="space-y-2.5">
+        <div className="space-y-3">
           {ART41_CRITERIA.map((crit) => {
             const isChecked = !!checks[crit.id];
             return (
               <label
                 key={crit.id}
-                className={`p-4 rounded-2xl border flex items-start gap-3.5 cursor-pointer transition-all ${
+                className={`p-4 rounded-xl border-2 border-[#0A0A0A] flex items-start gap-3.5 cursor-pointer transition-all shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none ${
                   isChecked
-                    ? 'bg-[#F0FDF4] border-[#15803D]/50'
-                    : 'bg-[#FBF8F3] border-[#DFDBD2] hover:bg-[#F4F1EA]'
+                    ? 'bg-[#DCFCE7]/70'
+                    : 'bg-[#FBF8F3] hover:bg-[#F3ECE0]'
                 }`}
               >
                 <input
@@ -159,17 +159,17 @@ export const Art41SimulatorCore: React.FC = () => {
                   name={`art41-${crit.id}`}
                   checked={isChecked}
                   onChange={() => toggleCheck(crit.id)}
-                  className="mt-0.5 w-5 h-5 text-[#15803D] accent-[#15803D] rounded border-gray-300 focus:ring-0 cursor-pointer shrink-0"
+                  className="mt-0.5 w-5 h-5 accent-[#266264] rounded border-2 border-[#0A0A0A] cursor-pointer shrink-0"
                 />
                 <div className="min-w-0 flex-1">
-                  <span className="text-xs text-[#292524] leading-relaxed font-medium block">
+                  <span className="font-body text-xs text-[#0A0A0A] leading-relaxed font-medium block">
                     {crit.label}
                   </span>
                 </div>
                 {isChecked && (
-                  <span className="cagp-stamp-badge is-deferido text-[10px] py-0.5 px-2.5 shrink-0">
-                    <span className="inline-flex items-center gap-1">
-                      <CagpIcon name="check" className="w-3 h-3 inline" />
+                  <span className="cagp-stamp-badge is-deferido text-[10px] py-0.5 px-2.5 shrink-0 border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">
+                    <span className="inline-flex items-center gap-1 font-mono font-bold text-white">
+                      <CagpIcon name="check" className="w-3 h-3 inline text-white" />
                       <span>ATENDIDO</span>
                     </span>
                   </span>
@@ -182,38 +182,38 @@ export const Art41SimulatorCore: React.FC = () => {
 
       {/* Banner de Resultado e Parecer */}
       <div
-        className={`p-5 sm:p-6 rounded-3xl border shadow-xs transition-all ${
+        className={`p-6 rounded-xl border-[3px] border-[#0A0A0A] shadow-[4px_4px_0_0_#0A0A0A] transition-all ${
           isFullyEligible
-            ? 'bg-[#DCFCE7]/70 border-[#15803D]'
-            : 'bg-[#FEF3C7]/60 border-[#B45309]'
+            ? 'bg-[#DCFCE7]'
+            : 'bg-[#FFFBEB]'
         }`}
       >
         <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
           <div className="flex items-start gap-3.5">
             <span
-              className={`w-10 h-10 rounded-2xl flex items-center justify-center text-xl shrink-0 shadow-xs ${
+              className={`w-12 h-12 rounded-xl flex items-center justify-center text-xl shrink-0 border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] ${
                 isFullyEligible
-                  ? 'bg-[#15803D] text-white'
-                  : 'bg-[#B45309] text-white'
+                  ? 'bg-[#266264] text-white'
+                  : 'bg-[#FF8811] text-[#0A0A0A]'
               }`}
             >
               <CagpIcon
                 name={isFullyEligible ? 'check' : 'info'}
-                className="w-5 h-5"
+                className="w-6 h-6"
               />
             </span>
             <div className="min-w-0">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="font-['Oswald'] text-xs uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-white border border-current">
+              <div className="flex items-center gap-2 mb-1.5">
+                <span className="font-head text-xs uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-md bg-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">
                   {isFullyEligible ? 'Parecer: Totalmente Elegível' : 'Pendências Identificadas'}
                 </span>
               </div>
-              <h4 className="font-['Oswald'] text-sm sm:text-base font-bold uppercase text-[#0A0A0A] m-0 mb-1">
+              <h4 className="font-head text-base sm:text-lg font-black uppercase text-[#0A0A0A] m-0 mb-1">
                 {isFullyEligible
                   ? 'Você Cumpre Todos os Requisitos do Art. 41!'
                   : `Faltam ${ART41_CRITERIA.length - checkedCount} Critério(s) para Solicitar a Dispensa`}
               </h4>
-              <p className="text-xs text-[#292524] leading-relaxed m-0">
+              <p className="font-body text-xs text-[#292524] leading-relaxed m-0">
                 {isFullyEligible
                   ? 'Você pode requerer a dispensa integral das disciplinas DCP 135 (180h) e DCP 136 (120h). Providencie a Declaração de sua chefia e protocole no início do semestre letivo com o professor orientador de estágio do DCP.'
                   : 'Para obter a dispensa de estágio, é necessário cumprir todos os requisitos formais. Caso trabalhe no setor privado em atividades não correlatas à gestão pública, consulte as opções de cumprimento de estágio nas férias (Art. 31).'}
@@ -222,7 +222,7 @@ export const Art41SimulatorCore: React.FC = () => {
           </div>
 
           {isFullyEligible && (
-            <div className="cagp-big-stamp shrink-0 scale-90 sm:scale-100 self-center sm:self-auto shadow-xs">
+            <div className="cagp-big-stamp shrink-0 scale-90 sm:scale-100 self-center sm:self-auto border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A]">
               <span className="cagp-big-stamp-title">★ DISPENSA DEFERÍVEL</span>
               <span className="cagp-big-stamp-sub">ART. 41 REGULAMENTO N-20229</span>
             </div>

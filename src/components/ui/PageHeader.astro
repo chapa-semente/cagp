@@ -1,5 +1,5 @@
 ---
-// PageHeader.astro - Cabeçalho Canônico Padronizado com Barra de Pílulas Apple HIG, Badges e 1ª Dobra
+// PageHeader.astro - Cabeçalho Canônico Neobrutalista (rL9Ap + Tri-Layer CAGP/Semente/UFMG)
 import AxisNavBar from '../shell/AxisNavBar.astro';
 import type { AxisId } from '../../lib/navigationRegistry';
 import CagpIcon from './CagpIcon.astro';
@@ -7,7 +7,7 @@ import { resolveCagpIconName } from '../../lib/cagpIcons';
 
 interface Badge {
   label: string;
-  variant?: 'red' | 'dark' | 'blue' | 'green' | 'gold';
+  variant?: 'red' | 'dark' | 'blue' | 'green' | 'gold' | 'purple' | 'orange';
   icon?: string;
 }
 
@@ -39,9 +39,8 @@ interface Props {
 const {
   title,
   subtitle,
+  eyebrow,
   badges = [],
-  breadcrumbs = [],
-  axisPill,
   axisId,
   activeId,
   showAxisNav = true,
@@ -49,42 +48,69 @@ const {
 
 const badgeClasses: Record<string, string> = {
   red: 'cagp-badge-red',
+  purple: 'cagp-badge-purple',
+  orange: 'cagp-badge-orange',
   dark: 'cagp-badge-dark',
   blue: 'cagp-badge-blue',
   green: 'cagp-badge-green',
   gold: 'cagp-badge-gold',
 };
 
-// Se estiver na Home ('/'), não precisa de barra de eixo superior por padrão
 const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '/index.html';
 const shouldRenderAxisNav = showAxisNav && !isHome;
 ---
 
-<header class="mb-3 sm:mb-5 select-none">
-  <!-- Barra de Pílulas do Eixo Apple HIG -->
+<header class="mb-4 sm:mb-6 select-none">
   {shouldRenderAxisNav && (
     <AxisNavBar axisId={axisId} activeId={activeId} />
   )}
 
-  <!-- Badges Row (Regra No-Eyebrow cumprida) -->
-  {badges.length > 0 && (
-    <div class="flex flex-wrap items-center gap-1.5 mb-2">
-      {badges.map((b, idx) => (
-        <span class={`cagp-badge ${badgeClasses[b.variant || 'dark']} ${idx >= 2 ? 'hidden sm:inline-flex' : 'inline-flex'} items-center gap-1`}>
-          {b.icon && <CagpIcon name={resolveCagpIconName(b.icon)} class="w-3.5 h-3.5 shrink-0" />}
-          <span>{b.label}</span>
-        </span>
-      ))}
+  <div class="relative overflow-hidden rounded-xl border-3 border-border bg-card p-5 sm:p-6 shadow-md">
+    <!-- Barra Tri-Camada Institucional Superior (Rubro CAGP + Roxo Semente + Laranja Germinar) -->
+    <div class="absolute top-0 left-0 right-0 h-2 flex border-b-2 border-border" aria-hidden="true">
+      <div class="flex-1 bg-[#9E2424]"></div>
+      <div class="flex-1 bg-[#5B2A86]"></div>
+      <div class="w-1/4 bg-[#FF8811]"></div>
     </div>
-  )}
 
-  <!-- Page Title & Subtitle -->
-  <h1 class="font-['Oswald'] text-xl sm:text-3xl font-black uppercase text-[#0A0A0A] leading-tight m-0">
-    {title}
-  </h1>
-  {subtitle && (
-    <p class="text-xs sm:text-sm text-[#57534E] mt-1 sm:mt-1.5 max-w-4xl leading-relaxed line-clamp-2 sm:line-clamp-none m-0">
-      {subtitle}
-    </p>
-  )}
+    <!-- Decoração Geométrica Neobrutalista no Canto Direito -->
+    <div
+      class="pointer-events-none absolute -right-6 -bottom-6 w-28 h-28 rounded-full border-3 border-border/15 bg-[#FF8811]/15 hidden sm:block"
+      aria-hidden="true"
+    ></div>
+    <div
+      class="pointer-events-none absolute right-10 -top-4 w-12 h-12 rotate-12 border-2 border-border/15 bg-[#5B2A86]/10 hidden md:block"
+      aria-hidden="true"
+    ></div>
+
+    <div class="relative z-10 pt-1">
+      <!-- Eyebrow & Badges Row -->
+      {(eyebrow || badges.length > 0) && (
+        <div class="flex flex-wrap items-center gap-2 mb-3">
+          {eyebrow && (
+            <span class="inline-flex items-center gap-1.5 rounded-lg border-2 border-border bg-[#5B2A86] text-white px-2.5 py-0.5 font-heading text-xs font-extrabold uppercase tracking-wider shadow-xs">
+              <span>✦</span>
+              <span>{eyebrow}</span>
+            </span>
+          )}
+          {badges.map((b, idx) => (
+            <span class={`cagp-badge ${badgeClasses[b.variant || 'dark']} ${idx >= 3 ? 'hidden sm:inline-flex' : 'inline-flex'} items-center gap-1.5`}>
+              {b.icon && <CagpIcon name={resolveCagpIconName(b.icon)} class="w-3.5 h-3.5 shrink-0" />}
+              <span>{b.label}</span>
+            </span>
+          ))}
+        </div>
+      )}
+
+      <!-- Page Title & Subtitle -->
+      <h1 class="font-heading text-2xl sm:text-4xl font-extrabold uppercase tracking-tight text-foreground leading-tight m-0">
+        {title}
+      </h1>
+      {subtitle && (
+        <p class="text-xs sm:text-sm font-sans text-muted-foreground font-medium mt-2 max-w-4xl leading-relaxed m-0">
+          {subtitle}
+        </p>
+      )}
+    </div>
+  </div>
 </header>

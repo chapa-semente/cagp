@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { getVaultItem, setVaultItem, type VaultData } from '../../../../lib/storage/studentVault';
 import { LinearHud } from '../../../calculators/LinearHud';
 import { EXTENSION_ITEMS, AAC_ITEMS, type AcgItemDef } from '../../../calculators/acgCatalog';
+import { GaugeChart } from '../../../boldkit/charts/gauge-chart';
+import { Button } from '../../../ui/button';
+import { Sticker } from '../../../ui/sticker';
+import { Card, CardContent } from '../../../ui/card';
 
 export const AcgCalculatorCore: React.FC = () => {
   const [data, setData] = useState<VaultData<'cagp_calc_ext_aac_v1'>>({});
@@ -128,40 +132,40 @@ export const AcgCalculatorCore: React.FC = () => {
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3 pb-2 border-b-2 border-[#0A0A0A]">
           <div>
             <div className="flex items-center gap-2 flex-wrap">
-              <h2 className="font-['Oswald'] text-lg uppercase font-bold text-[#0A0A0A] m-0">
+              <h2 className="font-head text-lg uppercase font-black text-[#0A0A0A] m-0">
                 {title}
               </h2>
-              <span className={`px-2 py-0.5 rounded text-xs font-['Oswald'] font-bold text-white ${colorClass}`}>
+              <span className={`px-2.5 py-1 rounded-md text-xs font-head font-bold text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A] ${colorClass}`}>
                 {badgeText}
               </span>
               {clampedSum >= targetMax && (
-                <span className="cagp-stamp-badge is-deferido text-[10px] py-0.5 px-2">
+                <span className="cagp-stamp-badge is-deferido text-[10px] py-0.5 px-2 border border-[#0A0A0A]">
                   <i className="bi bi-award-fill" aria-hidden="true" />
                   <span>300h ATINGIDAS</span>
                 </span>
               )}
             </div>
-            <p className="text-xs text-gray-600 mt-0.5 m-0 font-normal">{subtitle}</p>
+            <p className="font-body text-xs text-[#57534E] mt-0.5 m-0 font-normal">{subtitle}</p>
           </div>
           <div className="text-right">
             <span className="font-mono text-sm font-bold text-[#0A0A0A]">
               {clampedSum} / {targetMax}h
             </span>
-            <span className="text-xs text-gray-500 ml-1">({pct}%)</span>
+            <span className="font-mono text-xs text-[#57534E] ml-1">({pct}%)</span>
           </div>
         </div>
 
         {/* Colunas Independentes com Física Desacoplada (Masonry 2-Col) */}
-        <div className="flex flex-col md:flex-row gap-3 items-start">
+        <div className="flex flex-col md:flex-row gap-3.5 items-start">
           {/* Coluna 1 Independente */}
-          <div className="flex-1 flex flex-col gap-3 w-full">
+          <div className="flex-1 flex flex-col gap-3.5 w-full">
             {items
               .filter((_, idx) => idx % 2 === 0)
               .map((item) => renderCard(item))}
           </div>
 
           {/* Coluna 2 Independente */}
-          <div className="flex-1 flex flex-col gap-3 w-full">
+          <div className="flex-1 flex flex-col gap-3.5 w-full">
             {items
               .filter((_, idx) => idx % 2 === 1)
               .map((item) => renderCard(item))}
@@ -180,42 +184,42 @@ export const AcgCalculatorCore: React.FC = () => {
     return (
       <div
         key={item.key}
-        className="cagp-card p-3.5 bg-white border border-[#DFDBD2] rounded-lg shadow-xs flex flex-col h-fit transition-all duration-200"
+        className="cagp-card p-4 bg-white border-2 border-[#0A0A0A] rounded-xl shadow-[3px_3px_0_0_#0A0A0A] flex flex-col h-fit transition-all duration-200"
       >
         <div>
-          <div className="flex items-start justify-between gap-2 mb-1.5">
-            <div className="flex items-center gap-2">
-              <span className="w-7 h-7 rounded bg-[#F7F5F0] border border-[#DFDBD2] flex items-center justify-center text-sm text-[#8B1E2D] shrink-0">
+          <div className="flex items-start justify-between gap-2 mb-2">
+            <div className="flex items-center gap-2.5">
+              <span className="w-8 h-8 rounded-lg bg-[#FBF8F3] border border-[#0A0A0A] flex items-center justify-center text-sm text-[#9E2424] shrink-0 shadow-[1px_1px_0_0_#0A0A0A]">
                 <i className={`bi ${item.icon}`} aria-hidden="true" />
               </span>
               <div>
-                <span className="text-[10px] font-mono font-bold uppercase text-gray-500">
+                <span className="text-[10px] font-mono font-bold uppercase text-[#57534E]">
                   {item.code}
                 </span>
-                <h3 className="font-['Oswald'] text-sm font-bold text-[#0A0A0A] leading-tight m-0">
+                <h3 className="font-head text-sm font-bold text-[#0A0A0A] leading-tight m-0">
                   {item.label}
                 </h3>
               </div>
             </div>
             {isMaxed ? (
-              <span className="cagp-stamp-badge is-teto text-[10px] py-0.5 px-1.5 shrink-0 shadow-[1px_1px_0_#15803D]">
+              <span className="cagp-stamp-badge is-teto text-[10px] py-0.5 px-1.5 shrink-0 border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">
                 <i className="bi bi-patch-check-fill" aria-hidden="true" />
                 <span>TETO {item.max}h</span>
               </span>
             ) : (
-              <span className="text-[11px] font-mono font-bold text-gray-600 shrink-0">
+              <span className="text-[11px] font-mono font-bold text-[#57534E] shrink-0">
                 Teto: {item.max}h
               </span>
             )}
           </div>
 
-          <p className="text-xs text-gray-600 mb-2 leading-relaxed">{item.desc}</p>
+          <p className="font-body text-xs text-[#292524] mb-2.5 leading-relaxed">{item.desc}</p>
 
           {/* Barra de Progresso do Item */}
-          <div className="w-full h-1.5 bg-[#DFDBD2] rounded-full overflow-hidden mb-2">
+          <div className="w-full h-2 bg-[#F3ECE0] border border-[#0A0A0A] rounded-full overflow-hidden mb-2.5">
             <div
               className={`h-full transition-all duration-200 ${
-                isMaxed ? 'bg-[#15803D]' : 'bg-[#8B1E2D]'
+                isMaxed ? 'bg-[#266264]' : 'bg-[#9E2424]'
               }`}
               style={{ width: `${itemPct}%` }}
             />
@@ -224,23 +228,23 @@ export const AcgCalculatorCore: React.FC = () => {
 
         {/* Controles Táteis Apple HIG */}
         <div>
-          <div className="flex items-center justify-between gap-2 pt-2 border-t border-[#DFDBD2]">
+          <div className="flex items-center justify-between gap-2 pt-2.5 border-t-2 border-[#0A0A0A]/20">
             <div className="flex items-center gap-1.5">
               <button
                 type="button"
                 onClick={() => handleStep(item, -item.step)}
                 disabled={val <= 0}
-                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-lg bg-[#F7F5F0] hover:bg-[#EAE6DE] border border-[#DFDBD2] active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center text-base font-bold text-[#0A0A0A] cursor-pointer"
+                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-[#FBF8F3] hover:bg-[#F3ECE0] border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center text-base font-bold text-[#0A0A0A] cursor-pointer transition-all"
                 aria-label={`Diminuir ${item.step}h de ${item.label}`}
               >
                 <i className="bi bi-dash" aria-hidden="true" />
               </button>
 
-              <div className="w-16 h-11 min-h-[44px] bg-[#FFFFFF] border border-[#0A0A0A] rounded-lg flex flex-col items-center justify-center">
+              <div className="w-16 h-11 min-h-[44px] bg-[#FFFFFF] border-2 border-[#0A0A0A] rounded-xl shadow-[2px_2px_0_0_#0A0A0A] flex flex-col items-center justify-center">
                 <span className="font-mono text-xs font-black text-[#0A0A0A] leading-none">
                   {val}h
                 </span>
-                <span className="text-[10px] text-gray-400 font-mono">
+                <span className="text-[10px] text-[#57534E] font-mono">
                   /{item.max}h
                 </span>
               </div>
@@ -249,7 +253,7 @@ export const AcgCalculatorCore: React.FC = () => {
                 type="button"
                 onClick={() => handleStep(item, item.step)}
                 disabled={isMaxed}
-                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-lg bg-[#F7F5F0] hover:bg-[#EAE6DE] border border-[#DFDBD2] active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center text-base font-bold text-[#0A0A0A] cursor-pointer"
+                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-[#FBF8F3] hover:bg-[#F3ECE0] border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center text-base font-bold text-[#0A0A0A] cursor-pointer transition-all"
                 aria-label={`Adicionar ${item.step}h em ${item.label}`}
               >
                 <i className="bi bi-plus" aria-hidden="true" />
@@ -258,7 +262,7 @@ export const AcgCalculatorCore: React.FC = () => {
 
             <div className="flex items-center gap-1.5">
               {isMaxed ? (
-                <span className="min-h-[44px] text-xs font-mono font-bold text-[#15803D] bg-[#DCFCE7] border border-[#15803D]/30 px-2.5 py-1 rounded-lg flex items-center gap-1 shadow-xs">
+                <span className="min-h-[44px] text-xs font-mono font-bold text-white bg-[#266264] border-2 border-[#0A0A0A] px-2.5 py-1 rounded-xl flex items-center gap-1 shadow-[2px_2px_0_0_#0A0A0A]">
                   <i className="bi bi-check-circle-fill text-xs" aria-hidden="true" />
                   <span>100%</span>
                 </span>
@@ -266,7 +270,7 @@ export const AcgCalculatorCore: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => handleMaxOut(item)}
-                  className="px-3 py-1.5 rounded-lg bg-[#F7F5F0] hover:bg-[#8B1E2D] hover:text-white border border-[#DFDBD2] text-xs font-['Oswald'] uppercase font-bold text-gray-700 transition-all active:scale-95 cursor-pointer min-h-[44px] flex items-center gap-1 shadow-xs"
+                  className="px-3 py-1.5 rounded-xl bg-[#FBF8F3] hover:bg-[#9E2424] hover:text-white border-2 border-[#0A0A0A] text-xs font-head uppercase font-bold text-[#0A0A0A] transition-all shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer min-h-[44px] flex items-center gap-1"
                   title={`Preencher teto de ${item.max}h`}
                 >
                   <i className="bi bi-arrow-bar-up text-xs" aria-hidden="true" />
@@ -277,10 +281,10 @@ export const AcgCalculatorCore: React.FC = () => {
               <button
                 type="button"
                 onClick={() => toggleDrawer(item.key)}
-                className={`px-3 py-1.5 rounded-lg border text-xs font-['Oswald'] uppercase font-bold transition-colors flex items-center gap-1 min-h-[44px] cursor-pointer ${
+                className={`px-3 py-1.5 rounded-xl border-2 border-[#0A0A0A] text-xs font-head uppercase font-bold transition-all flex items-center gap-1 min-h-[44px] shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer ${
                   isDrawerOpen
-                    ? 'bg-[#0A0A0A] text-white border-[#0A0A0A]'
-                    : 'bg-[#F7F5F0] text-gray-700 border-[#DFDBD2] hover:bg-[#EAE6DE]'
+                    ? 'bg-[#0A0A0A] text-white'
+                    : 'bg-[#FBF8F3] text-[#0A0A0A] hover:bg-[#F3ECE0]'
                 }`}
                 aria-expanded={isDrawerOpen}
                 aria-controls={`drawer-${item.key}`}
@@ -342,46 +346,81 @@ export const AcgCalculatorCore: React.FC = () => {
     );
   };
 
+  const extTotal = EXTENSION_ITEMS.reduce((acc, it) => acc + (data[it.key] || 0), 0);
+  const aacTotal = AAC_ITEMS.reduce((acc, it) => acc + (data[it.key] || 0), 0);
+  const grandTotal = Math.min(600, extTotal + aacTotal);
+
   return (
-    <div className="cagp-calculator-core select-none">
-      {/* HUD Linear Integrado */}
-      <LinearHud />
-
-      {/* Barra de Ações Rápidas */}
-      <div className="flex flex-wrap items-center justify-between gap-2 p-3 bg-[#F7F5F0] border border-[#DFDBD2] rounded-lg mb-6">
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-['Oswald'] uppercase font-bold text-gray-600">
-            Ações Rápidas:
-          </span>
-          <button
-            type="button"
-            onClick={handlePresetExample}
-            className="min-h-[36px] px-2.5 py-1 bg-white hover:bg-[#EAE6DE] border border-[#DFDBD2] rounded text-xs font-['Oswald'] uppercase font-bold text-[#0A0A0A] transition-all"
-            title="Preencher com exemplo de percurso balanceado de 360h"
-          >
-            Exemplo (360h)
-          </button>
-          <button
-            type="button"
-            onClick={toggleAllDrawers}
-            className="min-h-[36px] px-2.5 py-1 bg-white hover:bg-[#EAE6DE] border border-[#DFDBD2] rounded text-xs font-['Oswald'] uppercase font-bold text-[#0A0A0A] transition-all"
-          >
-            {allDrawersOpen ? 'Recolher Regras' : 'Expandir Regras'}
-          </button>
+    <div className="cagp-calculator-core select-none space-y-6">
+      {/* HUD Linear Integrado + Velocímetro BoldKit GaugeChart */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+        <div className="lg:col-span-7">
+          <LinearHud />
         </div>
-
-        <button
-          type="button"
-          onClick={handleReset}
-          className={`min-h-[36px] px-3 py-1 rounded text-xs font-['Oswald'] uppercase font-bold transition-all ${
-            confirmReset
-              ? 'bg-[#DC2626] text-white border border-[#DC2626] shadow-xs animate-pulse'
-              : 'bg-white text-gray-600 border border-[#DFDBD2] hover:text-[#DC2626]'
-          }`}
-        >
-          {confirmReset ? 'Confirmar Zerar?' : 'Zerar Horas'}
-        </button>
+        <Card className="lg:col-span-5 flex flex-col justify-between">
+          <CardContent className="p-4 sm:p-5 flex flex-col items-center justify-between h-full">
+            <div className="flex items-center justify-between w-full mb-2">
+              <span className="font-heading text-xs font-extrabold uppercase text-foreground">
+                Velocímetro Guardião 600h
+              </span>
+              <Sticker variant="default" size="sm" rotation="slight">
+                PPC 2020
+              </Sticker>
+            </div>
+            <GaugeChart
+              value={grandTotal}
+              min={0}
+              max={600}
+              size="sm"
+              variant="semicircle"
+              label={`Extensão (${Math.min(300, extTotal)}h) + AAC (${Math.min(300, aacTotal)}h)`}
+              valueFormatter={(v) => `${v}h`}
+              zones={[
+                { from: 0, to: 200, color: '#9E2424', label: 'Início' },
+                { from: 200, to: 450, color: '#FF8811', label: 'Avançando' },
+                { from: 450, to: 600, color: '#15803D', label: 'Meta' },
+              ]}
+            />
+          </CardContent>
+        </Card>
       </div>
+
+      {/* Barra de Ações Rápidas Neobrutalista */}
+      <Card>
+        <CardContent className="flex flex-wrap items-center justify-between gap-3 p-4">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-xs font-heading uppercase font-extrabold text-muted-foreground mr-1">
+              Ações Rápidas:
+            </span>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={handlePresetExample}
+              title="Preencher com exemplo de percurso balanceado de 360h"
+            >
+              Exemplo (360h)
+            </Button>
+            <Button
+              type="button"
+              variant="secondary"
+              size="sm"
+              onClick={toggleAllDrawers}
+            >
+              {allDrawersOpen ? 'Recolher Regras' : 'Expandir Regras'}
+            </Button>
+          </div>
+
+          <Button
+            type="button"
+            variant={confirmReset ? 'destructive' : 'outline'}
+            size="sm"
+            onClick={handleReset}
+          >
+            {confirmReset ? 'Confirmar Zerar?' : 'Zerar Horas'}
+          </Button>
+        </CardContent>
+      </Card>
 
       {/* Seção 1: Extensão Curricular Obrigatória (300h) */}
       {renderSection(
@@ -389,7 +428,7 @@ export const AcgCalculatorCore: React.FC = () => {
         'Resolução CEPE 10/2019 • Laboratórios práticos DCP 195/196 e projetos SIEX homologados',
         '300h Exigidas',
         EXTENSION_ITEMS,
-        'bg-[#8B1E2D]',
+        'bg-[#9E2424]',
         300,
       )}
 
@@ -399,7 +438,7 @@ export const AcgCalculatorCore: React.FC = () => {
         'Regulamento N-20229 Art. 15 • Cursos livres, monitoria, pesquisa, eventos e estágio extracurricular',
         'Até 300h',
         AAC_ITEMS,
-        'bg-[#15803D]',
+        'bg-[#266264]',
         300,
       )}
     </div>

@@ -115,26 +115,26 @@ export const CalouroChecklistCore: React.FC = () => {
   return (
     <div className="cagp-calouro-checklist space-y-6 select-none text-[#0A0A0A]">
       {/* Painel de Progresso */}
-      <div className="p-5 sm:p-6 bg-white border border-[#DFDBD2] rounded-3xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xs">
+      <div className="p-5 sm:p-6 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-[4px_4px_0_0_#0A0A0A]">
         <div>
-          <span className="text-[11px] font-['Oswald'] uppercase font-bold tracking-wider text-[#8B1E2D]">
+          <span className="text-xs font-head uppercase font-bold tracking-wider text-[#8B1E2D]">
             Acolhimento Discente • 1º Período
           </span>
-          <h3 className="font-['Oswald'] text-base sm:text-lg font-bold uppercase text-[#0A0A0A] m-0">
+          <h3 className="font-head text-base sm:text-lg font-black uppercase text-[#0A0A0A] m-0 tracking-wide">
             Checklist de Integração Acadêmica
           </h3>
-          <p className="text-xs text-[#57534E] mt-0.5 m-0">
+          <p className="text-xs text-gray-700 mt-0.5 m-0 font-body font-medium">
             Conclua os 10 passos nos primeiros 30 dias de aula para garantir plena regularidade.
           </p>
         </div>
 
         <div className="flex items-center gap-4 w-full sm:w-auto">
-          <div className="space-y-1 flex-1 sm:w-44">
-            <div className="flex justify-between text-[11px] font-mono text-[#57534E]">
+          <div className="space-y-1.5 flex-1 sm:w-48">
+            <div className="flex justify-between text-xs font-mono text-gray-800 font-bold">
               <span>Conclusão</span>
-              <span className="font-bold text-[#8B1E2D]">{completedCount} de 10 ({pct}%)</span>
+              <span className="text-[#8B1E2D]">{completedCount} de 10 ({pct}%)</span>
             </div>
-            <div className="w-full bg-[#FBF8F3] border border-[#DFDBD2] rounded-full h-2.5 overflow-hidden">
+            <div className="w-full bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-full h-3 overflow-hidden p-0.5">
               <div
                 className="bg-[#8B1E2D] h-full transition-all duration-300 rounded-full"
                 style={{ width: `${pct}%` }}
@@ -142,7 +142,7 @@ export const CalouroChecklistCore: React.FC = () => {
             </div>
           </div>
           {completedCount === CHECKLIST_ITEMS.length && (
-            <span className="cagp-stamp-badge is-homologado text-[11px] py-1 px-3 shadow-xs shrink-0">
+            <span className="cagp-stamp-badge is-homologado text-[11px] py-1 px-3 shadow-[2px_2px_0_0_#0A0A0A] shrink-0 font-head uppercase font-bold tracking-wider">
               <span className="inline-flex items-center gap-1">
                 <CagpIcon name="stamp" className="w-3.5 h-3.5 inline" />
                 <span>INTEGRALIZADO</span>
@@ -165,10 +165,10 @@ export const CalouroChecklistCore: React.FC = () => {
             key={f.id}
             type="button"
             onClick={() => setFilter(f.id)}
-            className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer border ${
+            className={`px-3.5 py-2 rounded-xl text-xs font-head uppercase font-bold tracking-wider transition-all cursor-pointer border-2 border-[#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] ${
               filter === f.id
-                ? 'bg-[#8B1E2D] text-white border-[#8B1E2D] shadow-xs'
-                : 'bg-white text-[#292524] border-[#DFDBD2] hover:bg-[#FBF8F3]'
+                ? 'bg-[#8B1E2D] text-white shadow-[3px_3px_0_0_#0A0A0A]'
+                : 'bg-white text-[#0A0A0A] hover:bg-[#FBF8F3] shadow-[2px_2px_0_0_#0A0A0A]'
             }`}
           >
             {f.label}
@@ -177,14 +177,14 @@ export const CalouroChecklistCore: React.FC = () => {
       </div>
 
       {/* Lista de Passos do Checklist */}
-      <div className="bg-white border border-[#DFDBD2] rounded-3xl divide-y divide-[#DFDBD2] shadow-xs overflow-hidden">
+      <div className="bg-white border-2 border-[#0A0A0A] rounded-xl divide-y-2 divide-[#0A0A0A] shadow-[4px_4px_0_0_#0A0A0A] overflow-hidden">
         {filteredItems.map((item) => {
           const isDone = !!checks[item.id];
           return (
             <div
               key={item.id}
               className={`p-4 sm:p-5 flex items-start gap-4 transition-colors ${
-                isDone ? 'bg-[#F0FDF4]/50' : 'hover:bg-[#FBF8F3]'
+                isDone ? 'bg-[#DCFCE7]/40' : 'hover:bg-[#FBF8F3]'
               }`}
             >
               <label
@@ -196,35 +196,35 @@ export const CalouroChecklistCore: React.FC = () => {
                   id={`chk-${item.id}`}
                   checked={isDone}
                   onChange={() => toggleCheck(item.id)}
-                  className="w-5 h-5 text-[#15803D] accent-[#15803D] rounded border-gray-300 focus:ring-0 cursor-pointer"
+                  className="w-5 h-5 text-[#15803D] accent-[#15803D] rounded border-2 border-[#0A0A0A] cursor-pointer"
                 />
               </label>
 
               <div className="min-w-0 flex-1">
-                <div className="flex items-center justify-between gap-2 mb-1">
+                <div className="flex items-center justify-between gap-2 mb-1.5">
                   <h4
-                    className={`font-['Oswald'] text-xs sm:text-sm font-bold uppercase leading-tight m-0 ${
-                      isDone ? 'line-through text-[#78716C]' : 'text-[#0A0A0A]'
+                    className={`font-head text-sm sm:text-base font-bold uppercase leading-tight m-0 tracking-wide ${
+                      isDone ? 'line-through text-gray-500' : 'text-[#0A0A0A]'
                     }`}
                   >
                     {item.title}
                   </h4>
                   <div className="flex items-center gap-2 shrink-0">
                     {isDone && (
-                      <span className="cagp-stamp-badge is-feito text-[10px] py-0.5 px-2.5 shadow-xs">
-                        <span className="inline-flex items-center gap-1">
+                      <span className="cagp-stamp-badge is-feito text-[10px] py-0.5 px-2.5 shadow-[1px_1px_0_0_#0A0A0A]">
+                        <span className="inline-flex items-center gap-1 font-head font-bold uppercase tracking-wider">
                           <CagpIcon name="check" className="w-3 h-3 inline" />
                           <span>FEITO</span>
                         </span>
                       </span>
                     )}
-                    <span className={isDone ? 'text-[#15803D]' : 'text-[#A8A29E]'}>
+                    <span className={isDone ? 'text-[#15803D]' : 'text-gray-400'}>
                       <CagpIcon name={item.iconName} className="w-4 h-4" />
                     </span>
                   </div>
                 </div>
 
-                <p className="text-xs text-[#57534E] leading-relaxed m-0 mb-2">
+                <p className="text-xs text-gray-700 leading-relaxed m-0 mb-2 font-body font-medium">
                   {item.desc}
                 </p>
 
@@ -233,10 +233,10 @@ export const CalouroChecklistCore: React.FC = () => {
                     href={item.link.url}
                     target={item.link.ext ? '_blank' : undefined}
                     rel={item.link.ext ? 'noopener noreferrer' : undefined}
-                    className="inline-flex items-center gap-1 text-[11px] font-bold text-[#8B1E2D] hover:underline"
+                    className="inline-flex items-center gap-1.5 text-xs font-head font-bold uppercase tracking-wider text-[#8B1E2D] hover:underline"
                   >
                     <span>{item.link.label}</span>
-                    <CagpIcon name="arrow-up-right" className="w-3 h-3" />
+                    <CagpIcon name="arrow-up-right" className="w-3.5 h-3.5" />
                   </a>
                 )}
               </div>
@@ -247,19 +247,19 @@ export const CalouroChecklistCore: React.FC = () => {
 
       {/* Banner de Celebração */}
       {completedCount === CHECKLIST_ITEMS.length && completedCount > 0 && (
-        <div className="p-5 sm:p-6 rounded-3xl bg-[#DCFCE7]/70 border border-[#15803D] shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+        <div className="p-5 sm:p-6 rounded-xl bg-[#DCFCE7] border-2 border-[#0A0A0A] shadow-[4px_4px_0_0_#0A0A0A] flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
           <div>
-            <div className="flex items-center gap-2 justify-center sm:justify-start mb-1">
-              <span className="cagp-stamp-badge is-homologado">★ 100% CONCLUÍDO</span>
-              <span className="font-['Oswald'] font-bold text-sm uppercase text-[#15803D]">
+            <div className="flex items-center gap-2 justify-center sm:justify-start mb-1.5">
+              <span className="cagp-stamp-badge is-homologado shadow-[2px_2px_0_0_#0A0A0A]">★ 100% CONCLUÍDO</span>
+              <span className="font-head font-black text-base uppercase text-[#15803D] tracking-wide">
                 Todos os 30 Dias Ativados!
               </span>
             </div>
-            <p className="text-xs text-[#292524] m-0">
+            <p className="text-xs text-gray-800 font-body font-medium m-0">
               Parabéns! Todos os sistemas, acessos e rotinas da UFMG foram integralmente configurados.
             </p>
           </div>
-          <div className="cagp-big-stamp shrink-0 scale-90 sm:scale-100 shadow-xs">
+          <div className="cagp-big-stamp shrink-0 scale-90 sm:scale-100 shadow-[3px_3px_0_0_#0A0A0A]">
             <span className="cagp-big-stamp-title">★ CALOURO INTEGRALIZADO</span>
             <span className="cagp-big-stamp-sub">FAFICH / UFMG</span>
           </div>

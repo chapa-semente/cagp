@@ -1,0 +1,6 @@
+allowBuilds:
+  esbuild: set this to true or false
+minimumReleaseAgeExclude:
+  - framer-motion@14.10.1
+  - motion-dom@14.10.1
+  - motion@14.10.1

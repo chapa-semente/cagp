@@ -3,40 +3,41 @@
 import { asset } from '../../lib/paths';
 ---
 
-<div class="cagp-tool-box p-4 space-y-3 text-[#0A0A0A]">
-  <div class="border-b border-[#DFDBD2] pb-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+<div class="cagp-tool-box p-5 bg-white border-2 border-[#0A0A0A] rounded-xl shadow-[4px_4px_0_0_#0A0A0A] space-y-4 text-[#0A0A0A]">
+  <div class="border-b-2 border-[#0A0A0A] pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
     <div>
       <div class="flex items-center gap-2">
-        <i class="bi bi-file-earmark-diff-fill text-[#8B1E2D] text-lg" aria-hidden="true"></i>
-        <h3 class="font-['Oswald'] text-base font-bold uppercase text-[#0A0A0A]">
+        <i class="bi bi-file-earmark-diff-fill text-[#8B1E2D] text-xl" aria-hidden="true"></i>
+        <h3 class="font-head text-base sm:text-lg font-black uppercase text-[#0A0A0A] m-0 tracking-wide">
           Tutorial: Requerimento de Mudança de Percurso Curricular (DRCA)
         </h3>
       </div>
-      <p class="text-xs text-gray-600 mt-0.5">
+      <p class="text-xs text-gray-700 mt-0.5 m-0 font-body font-medium">
         Formulário oficial para vinculação a um dos 3 percursos do curso (Geral, Complementar ou Avançado):
       </p>
     </div>
     <div class="flex items-center gap-2">
-      <span class="cagp-badge cagp-badge-red font-mono">
+      <span class="cagp-badge cagp-badge-red font-mono font-bold">
         Passo a Passo
       </span>
       <a
         href={asset('/documentos/requerimento-mudanca-percurso-curricular-drca.pdf')}
         download
-        class="cagp-btn-primary text-xs py-1.5 px-3 whitespace-nowrap no-underline inline-flex items-center gap-1.5 shrink-0"
+        class="cagp-btn-primary text-xs py-2 px-3.5 whitespace-nowrap no-underline inline-flex items-center gap-1.5 shrink-0 font-head font-bold uppercase tracking-wider"
       >
-        <i class="bi bi-download" aria-hidden="true"></i> Baixar Requerimento DRCA (PDF)
+        <i class="bi bi-download" aria-hidden="true"></i>
+        <span>Baixar Requerimento DRCA (PDF)</span>
       </a>
     </div>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-start pt-1">
     <!-- Visual Anotado com Print e Pins -->
-    <div class="cagp-doc-preview-wrapper" role="region" aria-label="Visualização anotada do Requerimento de Mudança de Percurso DRCA">
+    <div class="cagp-doc-preview-wrapper border-2 border-[#0A0A0A] rounded-xl shadow-[3px_3px_0_0_#0A0A0A] overflow-hidden" role="region" aria-label="Visualização anotada do Requerimento de Mudança de Percurso DRCA">
       <img
         src={asset('/imagens/tutoriais/print-mudanca-percurso-1.png')}
         alt="Formulário oficial do DRCA para Requerimento de Mudança de Percurso Curricular com demarcações e pins explicativos"
-        class="cagp-doc-preview-img"
+        class="cagp-doc-preview-img w-full"
         loading="lazy"
       />
 
@@ -54,46 +55,46 @@ import { asset } from '../../lib/paths';
     </div>
 
     <!-- Lista Explicativa dos Passos -->
-    <div class="space-y-2.5 text-xs">
-      <div class="cagp-card p-3 bg-white space-y-1">
+    <div class="space-y-3 text-xs font-body">
+      <div class="cagp-card p-3.5 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl space-y-1 shadow-[2px_2px_0_0_#0A0A0A]">
         <div class="flex items-center gap-2">
-          <span class="w-6 h-6 rounded-[4px] bg-[#8B1E2D] text-white flex items-center justify-center font-['Oswald'] font-bold text-xs shrink-0 shadow-[1px_1px_0_#0A0A0A]">1</span>
+          <span class="w-6 h-6 rounded-md bg-[#8B1E2D] text-white flex items-center justify-center font-head font-bold text-xs shrink-0 border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">1</span>
           <i class="bi bi-person-vcard text-[#8B1E2D] text-base" aria-hidden="true"></i>
-          <h4 class="font-['Oswald'] font-bold text-xs uppercase text-[#0A0A0A]">1. Ano Letivo e Dados Pessoais</h4>
+          <h4 class="font-head font-bold text-xs uppercase text-[#0A0A0A] m-0 tracking-wide">1. Ano Letivo e Dados Pessoais</h4>
         </div>
-        <p class="text-xs text-gray-600 leading-relaxed pl-8">
+        <p class="text-xs text-gray-700 leading-relaxed pl-8 m-0 font-medium">
           Preencha o <strong>Ano</strong> e o <strong>Semestre Letivo</strong> corrente no cabeçalho. No bloco de identificação, insira seu nome completo, <strong>Nº de Registro (Matrícula)</strong>, curso (<em>Gestão Pública - Subdivisão 003</em>) e endereço de residência atualizado.
         </p>
       </div>
 
-      <div class="cagp-card p-3 bg-white space-y-1">
+      <div class="cagp-card p-3.5 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl space-y-1 shadow-[2px_2px_0_0_#0A0A0A]">
         <div class="flex items-center gap-2">
-          <span class="w-6 h-6 rounded-[4px] bg-[#8B1E2D] text-white flex items-center justify-center font-['Oswald'] font-bold text-xs shrink-0 shadow-[1px_1px_0_#0A0A0A]">2</span>
+          <span class="w-6 h-6 rounded-md bg-[#8B1E2D] text-white flex items-center justify-center font-head font-bold text-xs shrink-0 border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">2</span>
           <i class="bi bi-compass text-[#8B1E2D] text-base" aria-hidden="true"></i>
-          <h4 class="font-['Oswald'] font-bold text-xs uppercase text-[#0A0A0A]">2. Percurso Curricular Requerido</h4>
+          <h4 class="font-head font-bold text-xs uppercase text-[#0A0A0A] m-0 tracking-wide">2. Percurso Curricular Requerido</h4>
         </div>
-        <p class="text-xs text-gray-600 leading-relaxed pl-8">
+        <p class="text-xs text-gray-700 leading-relaxed pl-8 m-0 font-medium">
           Escreva textualmente o percurso pretendido: <em>Bacharelado com Núcleo Geral</em>, <em>Bacharelado com Núcleo Complementar</em> ou <em>Bacharelado com Núcleo Avançado</em>. Date e assine no campo indicado.
         </p>
       </div>
 
-      <div class="cagp-card p-3 bg-white space-y-1">
+      <div class="cagp-card p-3.5 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl space-y-1 shadow-[2px_2px_0_0_#0A0A0A]">
         <div class="flex items-center gap-2">
-          <span class="w-6 h-6 rounded-[4px] bg-[#8B1E2D] text-white flex items-center justify-center font-['Oswald'] font-bold text-xs shrink-0 shadow-[1px_1px_0_#0A0A0A]">3</span>
+          <span class="w-6 h-6 rounded-md bg-[#8B1E2D] text-white flex items-center justify-center font-head font-bold text-xs shrink-0 border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">3</span>
           <i class="bi bi-building text-[#8B1E2D] text-base" aria-hidden="true"></i>
-          <h4 class="font-['Oswald'] font-bold text-xs uppercase text-[#0A0A0A]">3. Trâmite: Colegiado & Protocolo no DRCA</h4>
+          <h4 class="font-head font-bold text-xs uppercase text-[#0A0A0A] m-0 tracking-wide">3. Trâmite: Colegiado & Protocolo no DRCA</h4>
         </div>
-        <p class="text-xs text-gray-600 leading-relaxed pl-8">
+        <p class="text-xs text-gray-700 leading-relaxed pl-8 m-0 font-medium">
           <strong>Não preencha</strong> os campos inferiores. Entregue o formulário na Secretaria Sala F-2039 ou guichê do CEAG para conferência e assinatura da Coordenação antes do envio ao DRCA.
         </p>
       </div>
 
-      <div class="cagp-card p-3 bg-[#FEF3C7] border-2 border-[#B45309] space-y-1">
+      <div class="cagp-card p-3.5 bg-[#FEF3C7] border-2 border-[#B45309] rounded-xl space-y-1 shadow-[2px_2px_0_0_#B45309]">
         <div class="flex items-center gap-2">
           <i class="bi bi-calendar-event text-[#B45309] shrink-0 text-base" aria-hidden="true"></i>
-          <h4 class="font-['Oswald'] font-bold text-xs uppercase text-[#B45309]">Prazo no Calendário Acadêmico</h4>
+          <h4 class="font-head font-bold text-xs uppercase text-[#B45309] m-0 tracking-wide">Prazo no Calendário Acadêmico</h4>
         </div>
-        <p class="text-xs text-gray-700 leading-relaxed pl-6">
+        <p class="text-xs text-gray-800 leading-relaxed pl-6 m-0 font-medium">
           A mudança de percurso deve obedecer estritamente às datas estipuladas no <strong>Calendário Escolar DRCA/UFMG</strong> (geralmente nas primeiras semanas de cada semestre letivo).
         </p>
       </div>

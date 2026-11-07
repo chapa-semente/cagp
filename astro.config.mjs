@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
+import mdx from '@astrojs/mdx';
 import tailwindcss from '@tailwindcss/vite';
 
 // Detecta automaticamente se o build está rodando no GitHub Actions para ajustar o base path
@@ -32,5 +33,5 @@ export default defineConfig({
       ],
     },
   },
-  integrations: [react()],
+  integrations: [react(), mdx()],
 });

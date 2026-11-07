@@ -43,13 +43,13 @@ export const AvatarRenderer: React.FC<AvatarRendererProps> = ({
           className="w-full h-full object-cover rounded-xl"
         />
       ) : profile.avatarPreset === 'monogram' ? (
-        <span className="font-['Oswald'] text-2xl font-black tracking-tight" style={{ color: preset.color }}>
+        <span className="font-head text-2xl font-black tracking-tight" style={{ color: preset.color }}>
           {initials}
         </span>
       ) : preset.icon ? (
         <i className={`bi ${preset.icon} text-3xl`} style={{ color: preset.color }} aria-hidden="true" />
       ) : (
-        <span className="font-['Oswald'] text-lg font-bold" style={{ color: preset.color }}>
+        <span className="font-head text-lg font-extrabold uppercase" style={{ color: preset.color }}>
           {preset.text || initials}
         </span>
       )}

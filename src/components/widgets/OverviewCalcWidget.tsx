@@ -43,22 +43,22 @@ export const OverviewCalcWidget: React.FC = () => {
   const percent = Math.round((total / 600) * 100);
 
   return (
-    <div className="cagp-card p-4 bg-white border border-[#DFDBD2] rounded-xl flex flex-col justify-between h-full shadow-sm hover:border-[#0A0A0A] transition-all">
+    <div className="cagp-card p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between h-full shadow-[3px_3px_0_0_#0A0A0A] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0_0_#0A0A0A] transition-all">
       <div>
         {/* Header do Widget */}
         <div className="flex items-center justify-between gap-2 mb-3">
-          <div className="flex items-center gap-2">
-            <span className="w-9 h-9 rounded-lg bg-[#8B1E2D]/10 text-[#8B1E2D] flex items-center justify-center text-lg border border-[#8B1E2D]/20">
-              <i className="bi bi-calculator" aria-hidden="true" />
+          <div className="flex items-center gap-2.5">
+            <span className="w-9 h-9 rounded-lg bg-[#8B1E2D] text-white flex items-center justify-center text-lg border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+              <i className="bi bi-calculator text-white" aria-hidden="true" />
             </span>
             <div>
-              <h3 className="font-['Oswald'] font-bold text-sm uppercase text-[#0A0A0A] leading-tight">
+              <h3 className="font-head font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0 tracking-wide">
                 Calculadora 600h
               </h3>
-              <span className="text-[11px] text-gray-500 font-mono">Extensão Obrigatória & AAC</span>
+              <span className="text-[11px] text-gray-700 font-mono font-medium">Extensão Obrigatória & AAC</span>
             </div>
           </div>
-          <span className="px-2 py-0.5 rounded font-['Oswald'] text-xs font-bold bg-[#8B1E2D] text-white">
+          <span className="px-2 py-0.5 rounded-md font-head text-xs font-bold bg-[#8B1E2D] text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">
             {percent}%
           </span>
         </div>
@@ -66,26 +66,26 @@ export const OverviewCalcWidget: React.FC = () => {
         {/* Resumo de Progresso */}
         <div className="space-y-2 mb-4">
           <div>
-            <div className="flex justify-between text-[11px] font-mono text-gray-700 mb-1">
+            <div className="flex justify-between text-xs font-mono text-gray-800 mb-1 font-bold">
               <span>Extensão Obrigatória</span>
-              <span className="font-bold">{extClamped} / 300h</span>
+              <span className="text-[#8B1E2D]">{extClamped} / 300h</span>
             </div>
-            <div className="w-full h-2 bg-[#DFDBD2] rounded-full overflow-hidden">
+            <div className="w-full h-3 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-full overflow-hidden p-0.5">
               <div
-                className="h-full bg-[#8B1E2D] transition-all duration-300"
+                className="h-full bg-[#8B1E2D] rounded-full transition-all duration-300"
                 style={{ width: `${Math.min(100, (extClamped / 300) * 100)}%` }}
               />
             </div>
           </div>
 
           <div>
-            <div className="flex justify-between text-[11px] font-mono text-gray-700 mb-1">
+            <div className="flex justify-between text-xs font-mono text-gray-800 mb-1 font-bold">
               <span>Atividades Complementares (AAC)</span>
-              <span className="font-bold">{aacClamped} / 300h</span>
+              <span className="text-[#15803D]">{aacClamped} / 300h</span>
             </div>
-            <div className="w-full h-2 bg-[#DFDBD2] rounded-full overflow-hidden">
+            <div className="w-full h-3 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-full overflow-hidden p-0.5">
               <div
-                className="h-full bg-[#15803D] transition-all duration-300"
+                className="h-full bg-[#15803D] rounded-full transition-all duration-300"
                 style={{ width: `${Math.min(100, (aacClamped / 300) * 100)}%` }}
               />
             </div>
@@ -93,21 +93,21 @@ export const OverviewCalcWidget: React.FC = () => {
         </div>
 
         {total === 0 ? (
-          <p className="text-xs text-gray-500 bg-[#F7F5F0] p-2.5 rounded-lg border border-[#DFDBD2] mb-3">
+          <p className="text-xs text-gray-700 font-body font-medium bg-[#FBF8F3] p-3 rounded-lg border-2 border-[#0A0A0A] mb-3 shadow-[1px_1px_0_0_#0A0A0A]">
             <i className="bi bi-info-circle mr-1 text-[#8B1E2D]" aria-hidden="true" />
             Nenhuma hora lançada ainda. Simule suas atividades para calcular a integralização.
           </p>
         ) : (
-          <p className="text-xs text-gray-700 mb-3 font-medium">
-            Total integralizado: <strong className="text-[#8B1E2D] font-mono">{total} de 600h</strong> (restam {600 - total}h).
+          <p className="text-xs text-gray-700 font-body mb-3 font-medium">
+            Total integralizado: <strong className="text-[#8B1E2D] font-mono font-bold">{total} de 600h</strong> (restam {600 - total}h).
           </p>
         )}
       </div>
 
-      {/* Ação Apple HIG */}
+      {/* Ação */}
       <a
         href={route('/acg') + '#calculadora'}
-        className="min-h-[44px] px-3 py-2 bg-[#0A0A0A] text-white hover:bg-[#8B1E2D] rounded-lg font-['Oswald'] text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline mt-2 shadow-[2px_2px_0px_#0A0A0A]"
+        className="min-h-[44px] px-3.5 py-2 bg-[#0A0A0A] text-white hover:bg-[#8B1E2D] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline mt-2 border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A]"
       >
         <span>Abrir Calculadora Completa</span>
         <i className="bi bi-arrow-right" aria-hidden="true" />

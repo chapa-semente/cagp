@@ -147,28 +147,28 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
 
       <a
         href={route('/documentos')}
-        class="inline-flex items-center gap-1 font-['Oswald'] font-bold uppercase text-xs text-[#8B1E2D] hover:underline"
+        class="inline-flex items-center gap-1.5 font-head font-extrabold uppercase text-xs text-[#8B1E2D] hover:underline"
       >
         <i class="bi bi-arrow-left" aria-hidden="true"></i> Voltar ao Acervo
       </a>
     </div>
 
     <!-- Card de Cabeçalho do Documento -->
-    <header class="cagp-card p-5 sm:p-6 bg-white border border-[#DFDBD2] rounded-3xl shadow-2xs space-y-4">
+    <header class="cagp-card p-5 sm:p-6 bg-white border-2 border-[#0A0A0A] rounded-xl shadow-[4px_4px_0_0_#0A0A0A] space-y-4">
       <div class="flex items-start justify-between gap-3 flex-wrap sm:flex-nowrap">
         <div class="space-y-1.5 min-w-0">
           <div class="flex items-center gap-2 flex-wrap">
-            <span class={`cagp-badge cagp-badge-${meta.badgeVariant} font-mono text-xs uppercase inline-flex items-center gap-1`}>
+            <span class={`cagp-badge cagp-badge-${meta.badgeVariant} font-mono text-xs uppercase font-bold inline-flex items-center gap-1`}>
               <i class={`bi ${meta.icon}`} aria-hidden="true"></i> {meta.badge}
             </span>
-            <span class="text-xs font-mono text-[#57534E]">{meta.ano}</span>
+            <span class="text-xs font-mono text-gray-700 font-bold">{meta.ano}</span>
           </div>
 
-          <h1 class="font-['Oswald'] font-bold text-xl sm:text-2xl uppercase tracking-wide text-[#0A0A0A] leading-tight">
+          <h1 class="font-head font-black text-xl sm:text-2xl uppercase tracking-wide text-[#0A0A0A] leading-tight m-0">
             {meta.title}
           </h1>
 
-          <p class="text-xs text-[#57534E] flex items-center gap-1.5">
+          <p class="text-xs text-gray-700 flex items-center gap-1.5 font-body font-medium m-0">
             <i class="bi bi-bank" aria-hidden="true"></i>
             <span>Órgão Emissor: <strong>{meta.orgao}</strong></span>
           </p>
@@ -178,7 +178,7 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
         <a
           href={asset(`/documentos/${meta.pdf}`)}
           download
-          class="cagp-btn-primary py-2.5 px-4 text-xs font-bold whitespace-nowrap inline-flex items-center gap-2 shrink-0 self-start no-underline rounded-xl shadow-xs"
+          class="cagp-btn-primary py-2.5 px-4 text-xs font-head font-bold uppercase tracking-wider whitespace-nowrap inline-flex items-center gap-2 shrink-0 self-start no-underline rounded-xl"
         >
           <i class="bi bi-file-earmark-pdf-fill text-sm" aria-hidden="true"></i>
           <span>Baixar PDF Oficial</span>
@@ -186,9 +186,9 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
       </div>
 
       <!-- Alerta Institucional de Fé Pública -->
-      <div class="p-3 bg-[#F7F5F0] rounded-xl border border-[#DFDBD2] text-xs text-[#57534E] flex items-start gap-2">
-        <i class="bi bi-info-circle-fill text-[#8B1E2D] text-sm shrink-0 mt-0.5" aria-hidden="true"></i>
-        <p class="leading-relaxed">
+      <div class="p-3.5 bg-[#FBF8F3] rounded-xl border-2 border-[#0A0A0A] text-xs text-gray-800 flex items-start gap-2 shadow-[2px_2px_0_0_#0A0A0A]">
+        <i class="bi bi-info-circle-fill text-[#8B1E2D] text-base shrink-0 mt-0.5" aria-hidden="true"></i>
+        <p class="leading-relaxed m-0 font-body font-medium">
           <strong>Fé Pública e Validade Jurídica:</strong> Esta transcrição digital em Markdown destina-se à consulta rápida, acessibilidade e busca textual. Em processos administrativos no SEI/UFMG e comprovação regimental, <strong>o PDF oficial assinado prevalece integralmente</strong>.
         </p>
       </div>
@@ -199,16 +199,16 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
     <!-- Sumário Mobile Retrátil (visível apenas em telas pequenas) -->
     {filteredHeadings.length > 0 && (
-      <div class="lg:hidden cagp-card p-3 bg-[#F7F5F0] border border-[#DFDBD2]">
+      <div class="lg:hidden cagp-card p-3 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl shadow-[3px_3px_0_0_#0A0A0A]">
         <details class="group">
-          <summary class="cursor-pointer font-['Oswald'] font-bold uppercase text-xs text-[#0A0A0A] flex items-center justify-between min-h-[44px] py-3.5 px-4">
+          <summary class="cursor-pointer font-head font-bold uppercase text-xs text-[#0A0A0A] flex items-center justify-between min-h-[44px] py-3.5 px-4 tracking-wide">
             <span class="flex items-center gap-1.5">
               <i class="bi bi-list-nested text-[#8B1E2D]" aria-hidden="true"></i>
               Sumário do Documento ({filteredHeadings.length} seções)
             </span>
             <i class="bi bi-chevron-down group-open:rotate-180 transition-transform text-xs" aria-hidden="true"></i>
           </summary>
-          <nav class="mt-2.5 pt-2.5 border-t border-[#DFDBD2] space-y-1 max-h-60 overflow-y-auto text-xs">
+          <nav class="mt-2.5 pt-2.5 border-t-2 border-[#0A0A0A] space-y-1 max-h-60 overflow-y-auto text-xs font-body font-medium">
             {filteredHeadings.map((h) => (
               <a
                 href={`#${h.slug}`}
@@ -223,20 +223,20 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
     )}
 
     <!-- Corpo do Artigo / Documento Transcrito -->
-    <main class="lg:col-span-8 xl:col-span-9 bg-white border border-black/15 rounded-[6px] shadow-sm p-4 sm:p-6 lg:p-8 min-w-0">
+    <main class="lg:col-span-8 xl:col-span-9 bg-white border-2 border-[#0A0A0A] rounded-xl shadow-[4px_4px_0_0_#0A0A0A] p-5 sm:p-7 lg:p-9 min-w-0">
       <article class="cagp-doc-reader prose prose-sm sm:prose-base lg:prose-lg max-w-[72ch] mx-auto text-[#0A0A0A] leading-relaxed">
         <Content />
       </article>
 
       <!-- Rodapé do Leitor -->
-      <footer class="mt-8 pt-4 border-t border-[#DFDBD2] flex items-center justify-between flex-wrap gap-3 text-xs text-gray-600">
-        <span class="font-mono">Fonte: Centro Acadêmico de Gestão Pública (CAGP UFMG)</span>
+      <footer class="mt-8 pt-4 border-t-2 border-[#0A0A0A] flex items-center justify-between flex-wrap gap-3 text-xs text-gray-700">
+        <span class="font-mono font-bold">Fonte: Centro Acadêmico de Gestão Pública (CAGP UFMG)</span>
         <div class="flex items-center gap-2">
-          <a href="#top" class="font-['Oswald'] font-bold uppercase text-[#8B1E2D] hover:underline inline-flex items-center gap-1">
+          <a href="#top" class="font-head font-bold uppercase text-[#8B1E2D] hover:underline inline-flex items-center gap-1 tracking-wide">
             <i class="bi bi-arrow-up" aria-hidden="true"></i> Voltar ao Topo
           </a>
           <span>•</span>
-          <a href={asset(`/documentos/${meta.pdf}`)} download class="font-['Oswald'] font-bold uppercase text-[#8B1E2D] hover:underline inline-flex items-center gap-1">
+          <a href={asset(`/documentos/${meta.pdf}`)} download class="font-head font-bold uppercase text-[#8B1E2D] hover:underline inline-flex items-center gap-1 tracking-wide">
             <i class="bi bi-download" aria-hidden="true"></i> Baixar PDF
           </a>
         </div>
@@ -245,26 +245,26 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
 
     <!-- Barra Lateral Sticky: Sumário do Documento (Desktop) -->
     {filteredHeadings.length > 0 && (
-      <aside class="hidden lg:block lg:col-span-4 xl:col-span-3 sticky top-20 max-h-[calc(100dvh-6rem)] overflow-y-auto cagp-card p-3.5 bg-white border border-black/15 shadow-sm space-y-2 text-xs">
-        <div class="flex items-center justify-between border-b border-[#DFDBD2] pb-2">
-          <span class="font-['Oswald'] font-bold uppercase text-xs tracking-wider text-[#0A0A0A] flex items-center gap-1.5">
+      <aside class="hidden lg:block lg:col-span-4 xl:col-span-3 sticky top-20 max-h-[calc(100dvh-6rem)] overflow-y-auto cagp-card p-4 bg-white border-2 border-[#0A0A0A] rounded-xl shadow-[3px_3px_0_0_#0A0A0A] space-y-2 text-xs">
+        <div class="flex items-center justify-between border-b-2 border-[#0A0A0A] pb-2.5">
+          <span class="font-head font-bold uppercase text-xs tracking-wider text-[#0A0A0A] flex items-center gap-1.5">
             <i class="bi bi-list-nested text-[#8B1E2D]" aria-hidden="true"></i>
             Sumário Navegável
           </span>
-          <span class="font-mono text-[11px] text-gray-500">{filteredHeadings.length} seções</span>
+          <span class="font-mono text-xs text-[#0A0A0A] font-bold">{filteredHeadings.length} seções</span>
         </div>
 
-        <nav id="cagp-toc-nav" class="space-y-0.5 max-h-[calc(100dvh-10rem)] overflow-y-auto pr-1">
+        <nav id="cagp-toc-nav" class="space-y-1 max-h-[calc(100dvh-10rem)] overflow-y-auto pr-1">
           {filteredHeadings.map((h) => (
             <a
               href={`#${h.slug}`}
               data-toc-slug={h.slug}
-              class={`toc-link block py-1 px-1.5 rounded-[3px] transition-colors truncate hover:bg-[#F7F5F0] hover:text-[#8B1E2D] ${
+              class={`toc-link block py-1.5 px-2 rounded-lg transition-colors truncate hover:bg-[#FBF8F3] hover:text-[#8B1E2D] border border-transparent ${
                 h.depth === 1
-                  ? 'font-bold text-[#0A0A0A] text-xs'
+                  ? 'font-head uppercase font-bold text-[#0A0A0A] text-xs'
                   : h.depth === 2
-                  ? 'pl-3 text-gray-700 text-xs'
-                  : 'pl-5 text-gray-500 text-[11px]'
+                  ? 'pl-3 text-gray-700 text-xs font-body font-medium'
+                  : 'pl-5 text-gray-500 text-[11px] font-body'
               }`}
             >
               {h.text}
@@ -277,41 +277,41 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
 </BaseLayout>
 
 <style is:global>
-  /* Tipografia Editorial para o Leitor de Documentos */
+  /* Tipografia Editorial Neobrutalista para o Leitor de Documentos */
   .cagp-doc-reader {
-    font-family: var(--font-body, system-ui, sans-serif);
+    font-family: var(--font-body, 'Space Grotesk', system-ui, sans-serif);
     color: #0A0A0A;
   }
 
   .cagp-doc-reader h1 {
-    font-family: var(--font-display, 'Oswald', sans-serif);
+    font-family: var(--font-head, 'Bricolage Grotesque', sans-serif);
     font-size: clamp(1.35rem, 2.5vw, 1.875rem);
-    font-weight: 700;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.025em;
+    letter-spacing: -0.01em;
     color: #0A0A0A;
     margin-top: 2rem;
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid #0A0A0A;
+    border-bottom: 3px solid #0A0A0A;
   }
 
   .cagp-doc-reader h2 {
-    font-family: var(--font-display, 'Oswald', sans-serif);
-    font-size: 1.125rem;
-    font-weight: 700;
+    font-family: var(--font-head, 'Bricolage Grotesque', sans-serif);
+    font-size: 1.25rem;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.025em;
+    letter-spacing: -0.01em;
     color: #8B1E2D;
     margin-top: 1.75rem;
     margin-bottom: 0.75rem;
     padding-bottom: 0.25rem;
-    border-bottom: 1px solid #DFDBD2;
+    border-bottom: 2px solid #0A0A0A;
   }
 
   .cagp-doc-reader h3 {
-    font-family: var(--font-display, 'Oswald', sans-serif);
-    font-size: 0.9375rem;
+    font-family: var(--font-head, 'Bricolage Grotesque', sans-serif);
+    font-size: 1rem;
     font-weight: 700;
     text-transform: uppercase;
     color: #0A0A0A;
@@ -320,7 +320,7 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
   }
 
   .cagp-doc-reader h4 {
-    font-family: var(--font-display, 'Oswald', sans-serif);
+    font-family: var(--font-head, 'Bricolage Grotesque', sans-serif);
     font-size: 0.95rem;
     font-weight: 700;
     color: #0A0A0A;
@@ -357,13 +357,15 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
   }
 
   .cagp-doc-reader blockquote {
-    border: 1px solid #DFDBD2;
+    border: 2px solid #0A0A0A;
+    border-left: 6px solid #8B1E2D;
     border-radius: 12px;
     padding: 0.85rem 1.15rem;
-    margin: 1rem 0;
+    margin: 1.25rem 0;
     background-color: #FBF8F3;
     font-style: italic;
     color: #0A0A0A;
+    box-shadow: 3px 3px 0 0 #0A0A0A;
   }
 
   .cagp-doc-reader table {
@@ -371,18 +373,21 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
     border-collapse: collapse;
     margin: 1.25rem 0;
     font-size: 0.85rem;
-    border: 1px solid #0A0A0A;
+    border: 2px solid #0A0A0A;
+    border-radius: 12px;
     display: block;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    box-shadow: 3px 3px 0 0 #0A0A0A;
+    background: #FFFFFF;
   }
 
   .cagp-doc-reader th {
-    background-color: #F7F5F0;
-    border: 1px solid #0A0A0A;
+    background-color: #FBF8F3;
+    border: 2px solid #0A0A0A;
     padding: 0.6rem 0.75rem;
-    font-family: var(--font-display, 'Oswald', sans-serif);
-    font-weight: 700;
+    font-family: var(--font-head, 'Bricolage Grotesque', sans-serif);
+    font-weight: 800;
     text-transform: uppercase;
     text-align: left;
     color: #0A0A0A;
@@ -390,7 +395,7 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
   }
 
   .cagp-doc-reader td {
-    border: 1px solid #DFDBD2;
+    border: 1px solid #0A0A0A;
     padding: 0.5rem 0.75rem;
     color: #0A0A0A;
     vertical-align: top;
@@ -402,7 +407,7 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
 
   .cagp-doc-reader hr {
     border: 0;
-    border-top: 1px solid #DFDBD2;
+    border-top: 2px solid #0A0A0A;
     margin: 2rem 0;
   }
 
@@ -412,10 +417,10 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
   }
 
   .cagp-doc-reader code {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: var(--font-mono, 'Space Mono', monospace);
     font-size: 0.85em;
     background-color: #F7F5F0;
-    border: 1px solid #DFDBD2;
+    border: 1.5px solid #0A0A0A;
     padding: 0.15rem 0.35rem;
     border-radius: 6px;
   }
@@ -425,6 +430,8 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
     background-color: #8B1E2D;
     color: #FFFFFF !important;
     font-weight: 700;
+    border: 1.5px solid #0A0A0A;
+    box-shadow: 2px 2px 0 0 #0A0A0A;
   }
 </style>
 

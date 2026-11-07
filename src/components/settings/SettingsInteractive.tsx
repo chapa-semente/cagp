@@ -80,17 +80,17 @@ export const SettingsInteractive: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 font-body">
       {feedback && (
         <div
-          className={`p-3 rounded-lg border text-xs font-semibold flex items-center gap-2 ${
+          className={`p-4 rounded-xl border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A] text-xs font-head font-bold uppercase flex items-center gap-2.5 ${
             feedback.type === 'success'
-              ? 'bg-[#15803D]/10 text-[#15803D] border-[#15803D]'
-              : 'bg-[#DC2626]/10 text-[#DC2626] border-[#DC2626]'
+              ? 'bg-[#E8F5E9] text-[#15803D]'
+              : 'bg-[#FFEBEE] text-[#C4161C]'
           }`}
         >
           <i
-            className={`bi ${
+            className={`bi text-base ${
               feedback.type === 'success' ? 'bi-check-circle-fill' : 'bi-exclamation-triangle-fill'
             }`}
           />
@@ -115,58 +115,74 @@ export const SettingsInteractive: React.FC = () => {
       />
 
       {/* 4. REGIMENTOS, ATOS & TRANSPARÊNCIA */}
-      <section className="bg-white border border-[#DFDBD2] rounded-xl p-4 sm:p-5 space-y-3">
-        <div className="border-b border-[#DFDBD2] pb-2">
-          <h2 className="font-['Oswald'] text-base font-bold uppercase text-[#0A0A0A] m-0">
-            4. Regimentos, Atos & Transparência
+      <section className="bg-white border-[3px] border-[#0A0A0A] rounded-xl p-5 sm:p-6 shadow-[4px_4px_0_0_#0A0A0A] space-y-4">
+        <div className="border-b-2 border-[#0A0A0A] pb-3">
+          <h2 className="font-head text-base sm:text-lg font-extrabold uppercase text-[#0A0A0A] m-0 tracking-tight">
+            4. Regimentos, Atos &amp; Transparência
           </h2>
-          <p className="text-xs text-gray-500 m-0">Documentos mestres que regem a vida acadêmica discente</p>
+          <p className="text-xs text-[#0A0A0A] m-0 font-medium">Documentos mestres que regem a vida acadêmica discente</p>
         </div>
 
-        <div className="cagp-grouped-list border border-[#DFDBD2] rounded-lg overflow-hidden">
+        <div className="border-2 border-[#0A0A0A] rounded-xl overflow-hidden divide-y-2 divide-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
           <a
             href={asset('/documentos/regimento-interno-cagp-ufmg.pdf')}
             download
-            className="cagp-grouped-item"
+            className="p-3.5 bg-[#FBF8F3] hover:bg-white flex items-center justify-between gap-3 text-xs no-underline transition-colors group"
           >
-            <div className="cagp-grouped-item-content">
-              <span className="cagp-grouped-item-title">Regimento Interno do CAGP (14/10/2024)</span>
-              <span className="cagp-grouped-item-desc">Estatuto soberano aprovado pela Assembleia Geral Discente</span>
+            <div className="space-y-0.5 min-w-0">
+              <span className="font-head font-extrabold uppercase text-[#0A0A0A] block group-hover:text-[#8B1E2D]">
+                Regimento Interno do CAGP (14/10/2024)
+              </span>
+              <span className="text-xs text-[#0A0A0A] font-medium block">
+                Estatuto soberano aprovado pela Assembleia Geral Discente
+              </span>
             </div>
-            <i className="bi bi-chevron-right cagp-grouped-chevron" aria-hidden="true"></i>
+            <i className="bi bi-download text-base text-[#8B1E2D]" aria-hidden="true" />
           </a>
           <a
             href={asset('/documentos/regulamento-gestao-publica-ufmg.pdf')}
             download
-            className="cagp-grouped-item"
+            className="p-3.5 bg-[#FBF8F3] hover:bg-white flex items-center justify-between gap-3 text-xs no-underline transition-colors group"
           >
-            <div className="cagp-grouped-item-content">
-              <span className="cagp-grouped-item-title">Regulamento do Curso Versão N-20229</span>
-              <span className="cagp-grouped-item-desc">Normas oficiais de AAC, estágio e culminância de TCC</span>
+            <div className="space-y-0.5 min-w-0">
+              <span className="font-head font-extrabold uppercase text-[#0A0A0A] block group-hover:text-[#8B1E2D]">
+                Regulamento do Curso Versão N-20229
+              </span>
+              <span className="text-xs text-[#0A0A0A] font-medium block">
+                Normas oficiais de AAC, estágio e culminância de TCC
+              </span>
             </div>
-            <i className="bi bi-chevron-right cagp-grouped-chevron" aria-hidden="true"></i>
+            <i className="bi bi-download text-base text-[#8B1E2D]" aria-hidden="true" />
           </a>
           <a
             href={asset('/documentos/ppc-gestao-publica-ufmg.pdf')}
             download
-            className="cagp-grouped-item"
+            className="p-3.5 bg-[#FBF8F3] hover:bg-white flex items-center justify-between gap-3 text-xs no-underline transition-colors group"
           >
-            <div className="cagp-grouped-item-content">
-              <span className="cagp-grouped-item-title">Projeto Pedagógico do Curso (PPC 2020)</span>
-              <span className="cagp-grouped-item-desc">Estrutura curricular de 3.000h e perfil de formação discente</span>
+            <div className="space-y-0.5 min-w-0">
+              <span className="font-head font-extrabold uppercase text-[#0A0A0A] block group-hover:text-[#8B1E2D]">
+                Projeto Pedagógico do Curso (PPC 2020)
+              </span>
+              <span className="text-xs text-[#0A0A0A] font-medium block">
+                Estrutura curricular de 3.000h e perfil de formação discente
+              </span>
             </div>
-            <i className="bi bi-chevron-right cagp-grouped-chevron" aria-hidden="true"></i>
+            <i className="bi bi-download text-base text-[#8B1E2D]" aria-hidden="true" />
           </a>
         </div>
       </section>
 
       {/* 5. GOVERNANÇA E PWA */}
-      <section className="bg-white border border-[#DFDBD2] rounded-xl p-4 text-xs text-gray-600 space-y-2">
-        <div className="flex items-center justify-between font-['Oswald'] text-xs font-bold uppercase text-[#0A0A0A]">
-          <span>Super App Discente CAGP UFMG</span>
-          <span className="font-mono text-[10px] text-gray-400">Versão 3.0.0 (Astro 7)</span>
+      <section className="bg-white border-[3px] border-[#0A0A0A] rounded-xl p-5 shadow-[4px_4px_0_0_#0A0A0A] text-xs text-[#0A0A0A] space-y-2">
+        <div className="flex items-center justify-between border-b-2 border-[#0A0A0A] pb-2">
+          <span className="font-head text-xs sm:text-sm font-extrabold uppercase text-[#0A0A0A]">
+            Super App Discente CAGP UFMG
+          </span>
+          <span className="font-mono text-xs font-bold bg-[#FBF8F3] px-2 py-0.5 rounded border border-[#0A0A0A]">
+            Versão 3.0.0 (Astro 7)
+          </span>
         </div>
-        <p className="leading-relaxed m-0">
+        <p className="leading-relaxed m-0 font-medium">
           Aplicativo estático progressivo (PWA) de custo zero e código aberto sob licença GPLv3. Desenvolvido para
           garantir autonomia, privacidade total e transparência aos estudantes do Bacharelado em Gestão Pública da
           FAFICH/UFMG.

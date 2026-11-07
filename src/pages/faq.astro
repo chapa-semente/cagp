@@ -4,7 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
 import SegmentedControl from '../components/ui/SegmentedControl.astro';
 import JourneyNav from '../components/ui/JourneyNav.astro';
-import NormativeDetails from '../components/ui/NormativeDetails.astro';
+import { FaqInteractiveExplorer } from '../components/features/faq/FaqInteractiveExplorer';
 import { asset } from '../lib/paths';
 
 const tabs = [
@@ -209,66 +209,46 @@ const faqs = [
 
   <SegmentedControl tabs={tabs} defaultTab="v1" />
 
-  <!-- Sub-view 1: Perguntas Frequentes -->
-  <section id="ws-panel-v1" class="cagp-workspace-view space-y-2" data-ws-panel="v1">
+  <!-- Sub-view 1: Perguntas Frequentes com Busca e Accordion BoldKit -->
+  <section id="ws-panel-v1" class="cagp-workspace-view space-y-3" data-ws-panel="v1">
     <div id="faq" class="cagp-anchor-target scroll-mt-24"></div>
-    <div class="space-y-2">
-      {faqs.map((f) => (
-        <NormativeDetails id={f.id} title={f.q} badge={f.badge} icon={f.icon}>
-          <div class="space-y-3">
-            <p class="text-xs text-gray-700 leading-relaxed m-0">{f.a}</p>
-            {f.links && f.links.length > 0 && (
-              <div class="pt-2 border-t border-[#DFDBD2] flex flex-wrap gap-2">
-                {f.links.map((link) => (
-                  <a
-                    href={asset(link.url)}
-                    download
-                    class="min-h-[44px] px-3 py-1.5 bg-[#F7F5F0] hover:bg-[#8B1E2D] hover:text-white border border-[#DFDBD2] hover:border-[#0A0A0A] rounded-lg text-xs font-mono font-bold text-[#0A0A0A] inline-flex items-center gap-2 transition-colors no-underline shadow-xs cursor-pointer"
-                  >
-                    <i class="bi bi-file-earmark-pdf text-[#8B1E2D] text-sm group-hover:text-white" aria-hidden="true" />
-                    <span>{link.label}</span>
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
-        </NormativeDetails>
-      ))}
-    </div>
+    <FaqInteractiveExplorer client:load faqs={faqs} />
   </section>
 
   <!-- Sub-view 2: Acessibilidade & NAI -->
-  <section id="ws-panel-v2" class="cagp-workspace-view space-y-3" data-ws-panel="v2" hidden>
-    <div id="acessibilidade" class="cagp-tool-box p-4 space-y-3 text-xs text-gray-700 leading-relaxed">
-      <div class="flex items-center justify-between border-b border-[#DFDBD2] pb-2 flex-wrap gap-2">
-        <div class="flex items-center gap-2">
-          <i class="bi bi-universal-access text-[#8B1E2D] text-lg" aria-hidden="true"></i>
-          <h3 class="font-['Oswald'] font-bold text-sm uppercase text-[#0A0A0A]">
+  <section id="ws-panel-v2" class="cagp-workspace-view space-y-4" data-ws-panel="v2" hidden>
+    <div id="acessibilidade" class="bg-white border-[3px] border-[#0A0A0A] rounded-xl p-5 shadow-[4px_4px_0_0_#0A0A0A] space-y-4 text-xs font-body text-[#0A0A0A] leading-relaxed">
+      <div class="flex items-center justify-between border-b-2 border-[#0A0A0A] pb-3 flex-wrap gap-2">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-[#266264] text-white flex items-center justify-center border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+            <i class="bi bi-universal-access text-base" aria-hidden="true"></i>
+          </div>
+          <h3 class="font-head font-extrabold text-sm uppercase text-[#0A0A0A] tracking-tight">
             Núcleo de Acessibilidade e Inclusão (NAI/UFMG)
           </h3>
         </div>
-        <span class="cagp-badge cagp-badge-green font-mono">
+        <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold bg-[#E8F5E9] text-[#15803D] border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
           Apoio Pedagógico
         </span>
       </div>
 
-      <p>
+      <p class="text-xs text-[#0A0A0A] font-medium leading-relaxed">
         O NAI assessora estudantes com deficiência física, visual, auditiva, transtorno do espectro autista e altas habilidades, garantindo mediação pedagógica, adaptação de provas e tecnologias assistivas.
       </p>
 
-      <div class="p-3.5 bg-white rounded-2xl border border-[#DFDBD2] space-y-1.5 shadow-xs">
-        <p><strong>Contato Oficial:</strong> <span class="font-mono text-[#8B1E2D] font-bold">nai@ufmg.br</span> • Tel: (31) 3409-4090</p>
+      <div class="p-4 bg-[#FBF8F3] rounded-xl border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A] space-y-2">
+        <p><strong>Contato Oficial:</strong> <span class="font-mono text-[#8B1E2D] font-bold">nai@ufmg.br</span> • Tel: <span class="font-mono font-bold">(31) 3409-4090</span></p>
         <p><strong>Atendimento Presencial:</strong> Prédio da Biblioteca Central da UFMG, 1º Andar, Campus Pampulha</p>
         <p><strong>Equipe de Tradutores-Intérpretes de Libras:</strong> Suporte em aulas expositivas e eventos acadêmicos</p>
       </div>
 
-      <div class="pt-1">
+      <div class="pt-2">
         <button
           type="button"
           onclick="window.dispatchEvent(new CustomEvent('cagp:open-a11y'))"
-          class="cagp-btn-primary inline-flex items-center gap-1.5 text-xs py-1.5 px-3"
+          class="min-h-[44px] px-4 py-2 bg-[#8B1E2D] hover:bg-[#9E2424] text-white font-head font-bold uppercase text-xs tracking-wider border-2 border-[#0A0A0A] rounded-xl shadow-[3px_3px_0_0_#0A0A0A] hover:shadow-[4px_4px_0_0_#0A0A0A] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none inline-flex items-center gap-2 transition-all cursor-pointer"
         >
-          <i class="bi bi-universal-access" aria-hidden="true"></i> Abrir Painel de Acessibilidade do Super App
+          <i class="bi bi-universal-access text-base" aria-hidden="true"></i> Abrir Painel de Acessibilidade do Super App
         </button>
       </div>
     </div>

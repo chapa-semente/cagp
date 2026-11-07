@@ -13,9 +13,9 @@ Este módulo gerencia a conformidade com as Atividades Complementares de Gradua�
 flowchart LR
     Cat["<b>Catálogo Oficial (acgCatalog.ts)</b><br/>• EXTENSION_ITEMS (300h)<br/>• AAC_ITEMS (300h)<br/>• Subtetos & Critérios"]
     
-    Calc["<b>Calculator600h.tsx</b><br/>• Trilho Duplo Independente<br/>• Somatório com Trava de Subteto<br/>• Leitura/Gravação no Vault"]
+    Calc["<b>AcgCalculatorCore.tsx</b><br/>• Trilho Duplo Independente<br/>• Somatório com Trava de Subteto<br/>• Leitura/Gravação no Vault"]
 
-    Guard["<b>Guardian120d.tsx</b><br/>• Contagem Regressiva de Dias<br/>• Semáforo de Prescrição<br/>• Persistência de Certificados"]
+    Guard["<b>AcgGuardianCore.tsx</b><br/>• Contagem Regressiva de Dias<br/>• Semáforo de Prescrição<br/>• Persistência de Certificados"]
 
     Cat --> Calc
     Cat --> Guard
@@ -41,7 +41,7 @@ export interface AcgItemDef {
 }
 ```
 
-### 1.2 Calculadora de Trilho Duplo (`Calculator600h.tsx`)
+### 1.2 Calculadora de Trilho Duplo (`AcgCalculatorCore.tsx`)
 - **Entrada:** Mapa `Record<string, number>` salvo na chave `cagp_calc_ext_aac_v1`.
 - **Regra de Negócio Central:**
   - Carga total de Extensão: $\min\left(\sum \min(\text{horas}_i, \text{max}_i), 300\right)$
@@ -49,7 +49,7 @@ export interface AcgItemDef {
   - **Incomunicabilidade:** Horas excedentes de extensão não compensam carência em AAC e vice-versa.
 - **Saída:** Percentuais de progresso nos dois trilhos, saldo restante para colação e alertas de teto atingido.
 
-### 1.3 Guardião de 120 Dias (`Guardian120d.tsx`)
+### 1.3 Guardião de 120 Dias (`AcgGuardianCore.tsx`)
 Implementa o cumprimento do **Art. 15, § 4º do Regulamento N-20229**:
 - **Função Principal:** `computeDaysLeft(eventDateStr: string): number`
   $$\text{Dias Restantes} = 120 - \left\lfloor \frac{\text{Date.now}() - \text{Date}(\text{eventDateStr})}{86.400.000} \right\rfloor$$
@@ -67,14 +67,14 @@ Implementa o cumprimento do **Art. 15, § 4º do Regulamento N-20229**:
 flowchart TD
     GraphData["<b>Topologia Curricular (curriculumGraphData.ts)</b><br/>• 27 Obrigatórias em 10 Períodos<br/>• formalReqs vs suggestedReqs<br/>• Trilhas Formativas (Gestão, Políticas, Métodos)"]
 
-    GraphUI["<b>CurriculumGraph.tsx</b><br/>• Visualizador Interativo SVG<br/>• Rastreamento Upstream (Pré-requisitos)<br/>• Rastreamento Downstream (Destravamentos)"]
+    GraphUI["<b>CurriculumGraphDynamic.tsx</b><br/>• Visualizador Interativo SVG<br/>• Rastreamento Upstream (Pré-requisitos)<br/>• Rastreamento Downstream (Destravamentos)"]
 
-    Art41["<b>Art41Simulator.tsx</b><br/>• Avaliação dos 5 Critérios Cumulativos<br/>• Dispensa DCP 135 (180h) e DCP 136 (120h)"]
+    Art41["<b>Art41SimulatorCore.tsx</b><br/>• Avaliação dos 5 Critérios Cumulativos<br/>• Dispensa DCP 135 (180h) e DCP 136 (120h)"]
 
     GraphData --> GraphUI
 ```
 
-### 2.1 O Grafo de Pré-Requisitos (`curriculumGraphData.ts` & `CurriculumGraph.tsx`)
+### 2.1 O Grafo de Pré-Requisitos (`curriculumGraphData.ts` & `CurriculumGraphDynamic.tsx`)
 Cada uma das 27 disciplinas obrigatórias é representada por um nó com atributos pedagógicos e espaciais:
 
 ```typescript
@@ -96,9 +96,9 @@ export interface CourseNodeData {
 
 - **Comportamento Interativo:**
   - Ao clicar em uma disciplina, o grafo destaca em **vermelho** os pré-requisitos necessários (*upstream*) e em **verde** as disciplinas futuras que serão destravadas (*downstream*).
-  - Um painel lateral (*CurriculumDetailDrawer*) exibe ementa oficial e bibliografia.
+  - Um painel lateral exibe ementa oficial e bibliografia.
 
-### 2.2 Simulador do Artigo 41 (`Art41Simulator.tsx`)
+### 2.2 Simulador do Artigo 41 (`Art41SimulatorCore.tsx`)
 Permite ao estudante trabalhador verificar a elegibilidade para dispensa de estágio:
 - **Critérios Auditados (`ART41_CRITERIA`):**
   1. `crit_vinculo`: Vínculo formal em órgão público ou terceiro setor;

@@ -2,44 +2,44 @@
 // src/components/features/tcc/cronograma/TccCronogramaWidget.astro — Widget de Resumo do Ciclo de TCC
 ---
 
-<div class="cagp-card p-4 bg-white border border-[#DFDBD2] rounded-xl flex flex-col justify-between h-full shadow-xs hover:border-[#0A0A0A] transition-all select-none">
+<div class="cagp-card p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between h-full shadow-[3px_3px_0_0_#0A0A0A] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0_0_#0A0A0A] transition-all select-none">
   <div>
     <div class="flex items-center justify-between gap-2 mb-3">
-      <div class="flex items-center gap-2">
-        <span class="w-9 h-9 rounded-lg bg-[#0A0A0A]/10 text-[#0A0A0A] flex items-center justify-center text-lg border border-[#0A0A0A]/20">
-          <i class="bi bi-mortarboard-fill" aria-hidden="true" />
+      <div class="flex items-center gap-2.5">
+        <span class="w-9 h-9 rounded-lg bg-[#0A0A0A] text-white flex items-center justify-center text-lg border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+          <i class="bi bi-mortarboard-fill text-white" aria-hidden="true" />
         </span>
         <div>
-          <h3 class="font-['Oswald'] font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0">
+          <h3 class="font-head font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0 tracking-wide">
             Ciclo de TCC (180h)
           </h3>
-          <span class="text-[11px] text-gray-500 font-mono">DCP 089 (60h) + DCP 137 (120h)</span>
+          <span class="text-[11px] text-gray-700 font-mono font-medium">DCP 089 (60h) + DCP 137 (120h)</span>
         </div>
       </div>
-      <span class="px-2 py-0.5 rounded font-['Oswald'] text-[11px] font-bold bg-[#0A0A0A] text-white">
+      <span class="px-2 py-0.5 rounded-md font-head text-[11px] font-bold bg-[#0A0A0A] text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">
         9º e 10ºP
       </span>
     </div>
 
-    <p class="text-xs text-gray-700 leading-relaxed mb-3">
+    <p class="font-body text-xs text-gray-700 leading-relaxed mb-3 font-medium">
       Projeto de pesquisa e redação monográfica com orientação docente individualizada e banca examinadora pública.
     </p>
 
     <div class="grid grid-cols-2 gap-2 mb-3 text-xs">
-      <div class="p-2 bg-[#F7F5F0] border border-[#DFDBD2] rounded text-center">
-        <div class="font-mono font-bold text-[#8B1E2D]">60h (4 cr)</div>
-        <div class="text-[10px] text-gray-500 uppercase font-['Oswald']">DCP 089 • Projeto</div>
+      <div class="p-2.5 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-lg text-center shadow-[1px_1px_0_0_#0A0A0A]">
+        <div class="font-mono font-bold text-[#8B1E2D] text-sm">60h (4 cr)</div>
+        <div class="text-[11px] text-[#0A0A0A] uppercase font-head font-bold tracking-wider mt-0.5">DCP 089 • Projeto</div>
       </div>
-      <div class="p-2 bg-[#F7F5F0] border border-[#DFDBD2] rounded text-center">
-        <div class="font-mono font-bold text-[#8B1E2D]">120h (8 cr)</div>
-        <div class="text-[10px] text-gray-500 uppercase font-['Oswald']">DCP 137 • Defesa</div>
+      <div class="p-2.5 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-lg text-center shadow-[1px_1px_0_0_#0A0A0A]">
+        <div class="font-mono font-bold text-[#8B1E2D] text-sm">120h (8 cr)</div>
+        <div class="text-[11px] text-[#0A0A0A] uppercase font-head font-bold tracking-wider mt-0.5">DCP 137 • Defesa</div>
       </div>
     </div>
   </div>
 
   <a
     href="#cronograma"
-    class="min-h-[44px] px-3.5 py-2 bg-[#8B1E2D] hover:bg-[#6e1723] text-white rounded-xl font-['Oswald'] text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-colors no-underline shadow-xs border border-[#8B1E2D]"
+    class="min-h-[44px] px-3.5 py-2 bg-[#8B1E2D] hover:bg-[#6e1723] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline shadow-[3px_3px_0_0_#0A0A0A] border-2 border-[#0A0A0A]"
   >
     <span>Ver Cronograma Completo</span>
     <i class="bi bi-arrow-right" aria-hidden="true" />

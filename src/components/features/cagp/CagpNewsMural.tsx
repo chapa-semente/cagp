@@ -86,11 +86,15 @@ function renderNewsArtwork(motif: SimulatedNewsItem['motif']) {
   );
 }
 
-export const CagpNewsMural: React.FC = () => {
+interface CagpNewsMuralProps {
+  items?: SimulatedNewsItem[];
+}
+
+export const CagpNewsMural: React.FC<CagpNewsMuralProps> = ({ items = SIMULATED_NEWS }) => {
   const [category, setCategory] = useState<NewsCategory>('todas');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
-  const filteredNews = SIMULATED_NEWS.filter((item) => {
+  const filteredNews = items.filter((item) => {
     const matchesCategory = category === 'todas' ? true : item.category === category;
     const q = searchQuery.trim().toLowerCase();
     const matchesSearch =

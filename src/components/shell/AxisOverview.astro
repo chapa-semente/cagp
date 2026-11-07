@@ -22,28 +22,28 @@ if (!axis) {
 
 <div class="cagp-axis-overview space-y-5 select-none">
   <!-- Banner Executivo do Eixo -->
-  <div class="p-4 sm:p-5 bg-[#F7F5F0] border border-[#DFDBD2] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
-    <div class="flex items-start gap-3">
-      <span class="w-10 h-10 rounded-lg bg-[#0A0A0A] text-white flex items-center justify-center text-xl shrink-0 mt-0.5">
+  <div class="p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-[4px_4px_0_0_#0A0A0A]">
+    <div class="flex items-start gap-3.5">
+      <span class="w-11 h-11 rounded-xl bg-[#0A0A0A] text-white flex items-center justify-center text-xl shrink-0 mt-0.5 border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
         <i class={`bi ${axis.icon}`} aria-hidden="true" />
       </span>
       <div>
         <div class="flex items-center gap-2">
-          <span class="text-[11px] font-['Oswald'] uppercase font-bold tracking-wider text-[#8B1E2D]">
+          <span class="text-xs font-head uppercase font-bold tracking-wider text-[#8B1E2D]">
             Eixo {axis.number} Canônico
           </span>
-          <span class="text-gray-300">•</span>
-          <span class="text-xs text-gray-500 font-mono">{axis.items.length} funcionalidades</span>
+          <span class="text-[#0A0A0A]">•</span>
+          <span class="text-xs text-[#0A0A0A] font-mono font-bold">{axis.items.length} funcionalidades</span>
         </div>
-        <h2 class="font-['Oswald'] text-lg sm:text-xl font-bold uppercase text-[#0A0A0A] leading-tight">
+        <h2 class="font-head text-lg sm:text-xl font-black uppercase text-[#0A0A0A] leading-tight m-0 tracking-wide">
           {axis.tagline}
         </h2>
       </div>
     </div>
   </div>
 
-  <!-- Bento Grid de Widgets Reativos Apple HIG -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <!-- Bento Grid de Widgets Reativos -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
     {/* Eixo 3: Currículo */}
     {axisId === 'curriculo' && (
       <>
@@ -58,62 +58,62 @@ if (!axis) {
       <>
         <OverviewCalouroWidget client:load />
 
-        <div class="cagp-card p-4 bg-white border border-[#DFDBD2] rounded-xl flex flex-col justify-between h-full shadow-sm hover:border-[#0A0A0A] transition-all">
+        <div class="cagp-card p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between h-full shadow-[3px_3px_0_0_#0A0A0A] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0_0_#0A0A0A] transition-all">
           <div>
             <div class="flex items-center justify-between gap-2 mb-3">
-              <div class="flex items-center gap-2">
-                <span class="w-9 h-9 rounded-lg bg-[#8B1E2D]/10 text-[#8B1E2D] flex items-center justify-center text-lg border border-[#8B1E2D]/20">
+              <div class="flex items-center gap-2.5">
+                <span class="w-9 h-9 rounded-lg bg-[#8B1E2D] text-white flex items-center justify-center text-lg border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
                   <i class="bi bi-geo-alt" aria-hidden="true" />
                 </span>
                 <div>
-                  <h3 class="font-['Oswald'] font-bold text-sm uppercase text-[#0A0A0A] leading-tight">
+                  <h3 class="font-head font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0 tracking-wide">
                     Colegiado & Secretaria
                   </h3>
-                  <span class="text-[11px] text-gray-500 font-mono">Sala F-2039 FAFICH</span>
+                  <span class="text-[11px] text-gray-700 font-mono font-medium">Sala F-2039 FAFICH</span>
                 </div>
               </div>
-              <span class="px-2 py-0.5 rounded font-['Oswald'] text-xs font-bold bg-[#0A0A0A] text-white">
+              <span class="px-2 py-0.5 rounded-md font-head text-[11px] font-bold bg-[#0A0A0A] text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">
                 Presencial
               </span>
             </div>
-            <p class="text-xs text-gray-700 leading-relaxed mb-3">
-              Atendimento discente com <strong>Norma Guedes</strong>. E-mail oficial: <code class="text-xs bg-[#F7F5F0] px-1 py-0.5 rounded text-[#8B1E2D]">coordgestaopublica@gmail.com</code>.
+            <p class="font-body text-xs text-gray-700 leading-relaxed mb-3 font-medium">
+              Atendimento discente com <strong>Norma Guedes</strong>. E-mail oficial: <code class="text-xs bg-[#FBF8F3] px-1.5 py-0.5 rounded border border-[#0A0A0A] font-mono text-[#8B1E2D]">coordgestaopublica@gmail.com</code>.
             </p>
           </div>
           <a
             href={route('/curso') + '#colegiado'}
-            class="min-h-[44px] px-3 py-2 bg-[#0A0A0A] text-white hover:bg-[#8B1E2D] rounded-lg font-['Oswald'] text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline mt-2 shadow-[2px_2px_0px_#0A0A0A]"
+            class="min-h-[44px] px-3.5 py-2 bg-[#0A0A0A] text-white hover:bg-[#8B1E2D] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline mt-2 border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A]"
           >
             <span>Ver Horários & Contatos</span>
             <i class="bi bi-arrow-right" aria-hidden="true" />
           </a>
         </div>
 
-        <div class="cagp-card p-4 bg-white border border-[#DFDBD2] rounded-xl flex flex-col justify-between h-full shadow-sm hover:border-[#0A0A0A] transition-all">
+        <div class="cagp-card p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between h-full shadow-[3px_3px_0_0_#0A0A0A] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0_0_#0A0A0A] transition-all">
           <div>
             <div class="flex items-center justify-between gap-2 mb-3">
-              <div class="flex items-center gap-2">
-                <span class="w-9 h-9 rounded-lg bg-[#2A6264]/10 text-[#2A6264] flex items-center justify-center text-lg border border-[#2A6264]/20">
+              <div class="flex items-center gap-2.5">
+                <span class="w-9 h-9 rounded-lg bg-[#2A6264] text-white flex items-center justify-center text-lg border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
                   <i class="bi bi-lightbulb" aria-hidden="true" />
                 </span>
                 <div>
-                  <h3 class="font-['Oswald'] font-bold text-sm uppercase text-[#0A0A0A] leading-tight">
+                  <h3 class="font-head font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0 tracking-wide">
                     Pesquisa & Extensão
                   </h3>
-                  <span class="text-[11px] text-gray-500 font-mono">11 Núcleos do DCP</span>
+                  <span class="text-[11px] text-gray-700 font-mono font-medium">11 Núcleos do DCP</span>
                 </div>
               </div>
-              <span class="px-2 py-0.5 rounded font-['Oswald'] text-xs font-bold bg-[#2A6264] text-white">
+              <span class="px-2 py-0.5 rounded-md font-head text-[11px] font-bold bg-[#2A6264] text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">
                 Nota 7 CAPES
               </span>
             </div>
-            <p class="text-xs text-gray-700 leading-relaxed mb-3">
+            <p class="font-body text-xs text-gray-700 leading-relaxed mb-3 font-medium">
               Conecte-se aos grupos de pesquisa, bolsas de Iniciação Científica (até 90h de AAC) e laboratórios de políticas públicas.
             </p>
           </div>
           <a
             href={route('/pesquisa')}
-            class="min-h-[44px] px-3 py-2 bg-[#0A0A0A] text-white hover:bg-[#2A6264] rounded-lg font-['Oswald'] text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline mt-2 shadow-[2px_2px_0px_#0A0A0A]"
+            class="min-h-[44px] px-3.5 py-2 bg-[#0A0A0A] text-white hover:bg-[#2A6264] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline mt-2 border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A]"
           >
             <span>Explorar Núcleos de Pesquisa</span>
             <i class="bi bi-arrow-right" aria-hidden="true" />
@@ -127,62 +127,62 @@ if (!axis) {
       <>
         <OverviewFaqWidget />
 
-        <div class="cagp-card p-4 bg-white border border-[#DFDBD2] rounded-xl flex flex-col justify-between h-full shadow-sm hover:border-[#0A0A0A] transition-all">
+        <div class="cagp-card p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between h-full shadow-[3px_3px_0_0_#0A0A0A] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0_0_#0A0A0A] transition-all">
           <div>
             <div class="flex items-center justify-between gap-2 mb-3">
-              <div class="flex items-center gap-2">
-                <span class="w-9 h-9 rounded-lg bg-[#B45309]/10 text-[#B45309] flex items-center justify-center text-lg border border-[#B45309]/20">
+              <div class="flex items-center gap-2.5">
+                <span class="w-9 h-9 rounded-lg bg-[#B45309] text-white flex items-center justify-center text-lg border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
                   <i class="bi bi-file-earmark-pdf" aria-hidden="true" />
                 </span>
                 <div>
-                  <h3 class="font-['Oswald'] font-bold text-sm uppercase text-[#0A0A0A] leading-tight">
+                  <h3 class="font-head font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0 tracking-wide">
                     Atos Oficiais & PPC
                   </h3>
-                  <span class="text-[11px] text-gray-500 font-mono">Leitor e Downloads</span>
+                  <span class="text-[11px] text-gray-700 font-mono font-medium">Leitor e Downloads</span>
                 </div>
               </div>
-              <span class="px-2 py-0.5 rounded font-['Oswald'] text-xs font-bold bg-[#B45309] text-white">
+              <span class="px-2 py-0.5 rounded-md font-head text-[11px] font-bold bg-[#B45309] text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">
                 PDFs Oficiais
               </span>
             </div>
-            <p class="text-xs text-gray-700 leading-relaxed mb-3">
+            <p class="font-body text-xs text-gray-700 leading-relaxed mb-3 font-medium">
               Acesse o <strong>PPC 2020</strong>, o <strong>Regulamento N-20229</strong>, o <strong>Regimento do CAGP</strong> e modelos de requerimentos para preenchimento.
             </p>
           </div>
           <a
             href={route('/documentos') + '#atos'}
-            class="min-h-[44px] px-3 py-2 bg-[#0A0A0A] text-white hover:bg-[#B45309] rounded-lg font-['Oswald'] text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline mt-2 shadow-[2px_2px_0px_#0A0A0A]"
+            class="min-h-[44px] px-3.5 py-2 bg-[#0A0A0A] text-white hover:bg-[#B45309] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline mt-2 border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A]"
           >
             <span>Abrir Repositório de PDFs</span>
             <i class="bi bi-arrow-right" aria-hidden="true" />
           </a>
         </div>
 
-        <div class="cagp-card p-4 bg-white border border-[#DFDBD2] rounded-xl flex flex-col justify-between h-full shadow-sm hover:border-[#0A0A0A] transition-all">
+        <div class="cagp-card p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between h-full shadow-[3px_3px_0_0_#0A0A0A] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0_0_#0A0A0A] transition-all">
           <div>
             <div class="flex items-center justify-between gap-2 mb-3">
-              <div class="flex items-center gap-2">
-                <span class="w-9 h-9 rounded-lg bg-[#0A0A0A]/10 text-[#0A0A0A] flex items-center justify-center text-lg border border-[#0A0A0A]/20">
-                  <i class="bi bi-mic" aria-hidden="true" />
+              <div class="flex items-center gap-2.5">
+                <span class="w-9 h-9 rounded-lg bg-[#0A0A0A] text-white flex items-center justify-center text-lg border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+                  <i class="bi bi-mic text-white" aria-hidden="true" />
                 </span>
                 <div>
-                  <h3 class="font-['Oswald'] font-bold text-sm uppercase text-[#0A0A0A] leading-tight">
+                  <h3 class="font-head font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0 tracking-wide">
                     Transcrições Históricas
                   </h3>
-                  <span class="text-[11px] text-gray-500 font-mono">Memória Discente</span>
+                  <span class="text-[11px] text-gray-700 font-mono font-medium">Memória Discente</span>
                 </div>
               </div>
-              <span class="px-2 py-0.5 rounded font-['Oswald'] text-xs font-bold bg-[#0A0A0A] text-white">
+              <span class="px-2 py-0.5 rounded-md font-head text-[11px] font-bold bg-[#0A0A0A] text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">
                 Histórico
               </span>
             </div>
-            <p class="text-xs text-gray-700 leading-relaxed mb-3">
+            <p class="font-body text-xs text-gray-700 leading-relaxed mb-3 font-medium">
               Transcrições e apresentações oficiais das recepções de calouros e eventos de acolhimento do curso.
             </p>
           </div>
           <a
             href={route('/documentos/transcricao-recepcao-ingressantes-2024-2')}
-            class="min-h-[44px] px-3 py-2 bg-[#0A0A0A] text-white hover:bg-[#8B1E2D] rounded-lg font-['Oswald'] text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline mt-2 shadow-[2px_2px_0px_#0A0A0A]"
+            class="min-h-[44px] px-3.5 py-2 bg-[#0A0A0A] text-white hover:bg-[#8B1E2D] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline mt-2 border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A]"
           >
             <span>Ler Transcrições</span>
             <i class="bi bi-arrow-right" aria-hidden="true" />
@@ -196,31 +196,31 @@ if (!axis) {
       <>
         <OverviewGestaoWidget />
 
-        <div class="cagp-card p-4 bg-white border border-[#DFDBD2] rounded-xl flex flex-col justify-between h-full shadow-sm hover:border-[#0A0A0A] transition-all">
+        <div class="cagp-card p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between h-full shadow-[3px_3px_0_0_#0A0A0A] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0_0_#0A0A0A] transition-all">
           <div>
             <div class="flex items-center justify-between gap-2 mb-3">
-              <div class="flex items-center gap-2">
-                <span class="w-9 h-9 rounded-lg bg-[#8B1E2D]/10 text-[#8B1E2D] flex items-center justify-center text-lg border border-[#8B1E2D]/20">
+              <div class="flex items-center gap-2.5">
+                <span class="w-9 h-9 rounded-lg bg-[#8B1E2D] text-white flex items-center justify-center text-lg border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
                   <i class="bi bi-building" aria-hidden="true" />
                 </span>
                 <div>
-                  <h3 class="font-['Oswald'] font-bold text-sm uppercase text-[#0A0A0A] leading-tight">
+                  <h3 class="font-head font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0 tracking-wide">
                     Sobre o CAGP & Estatuto
                   </h3>
-                  <span class="text-[11px] text-gray-500 font-mono">Fundação e Princípios</span>
+                  <span class="text-[11px] text-gray-700 font-mono font-medium">Fundação e Princípios</span>
                 </div>
               </div>
-              <span class="px-2 py-0.5 rounded font-['Oswald'] text-xs font-bold bg-[#8B1E2D] text-white">
+              <span class="px-2 py-0.5 rounded-md font-head text-[11px] font-bold bg-[#8B1E2D] text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">
                 Soberano
               </span>
             </div>
-            <p class="text-xs text-gray-700 leading-relaxed mb-3">
+            <p class="font-body text-xs text-gray-700 leading-relaxed mb-3 font-medium">
               Conheça a história dos Candangos, a estrutura das assembleias gerais e o estatuto aprovado em 14/10/2024.
             </p>
           </div>
           <a
             href={route('/sobre') + '#governanca'}
-            class="min-h-[44px] px-3 py-2 bg-[#0A0A0A] text-white hover:bg-[#8B1E2D] rounded-lg font-['Oswald'] text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline mt-2 shadow-[2px_2px_0px_#0A0A0A]"
+            class="min-h-[44px] px-3.5 py-2 bg-[#0A0A0A] text-white hover:bg-[#8B1E2D] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline mt-2 border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A]"
           >
             <span>Ver Estatuto do CAGP</span>
             <i class="bi bi-arrow-right" aria-hidden="true" />
@@ -231,21 +231,21 @@ if (!axis) {
   </div>
 
   <!-- Barra de Acesso Direto a Todas as Ferramentas do Eixo -->
-  <div class="p-3 bg-white border border-[#DFDBD2] rounded-xl">
-    <div class="flex items-center justify-between mb-2 px-1">
-      <span class="text-[11px] font-['Oswald'] uppercase tracking-wider text-gray-500 font-bold">
+  <div class="p-4 bg-white border-2 border-[#0A0A0A] rounded-xl shadow-[3px_3px_0_0_#0A0A0A]">
+    <div class="flex items-center justify-between mb-2.5 px-1">
+      <span class="text-xs font-head uppercase tracking-wider text-[#0A0A0A] font-bold">
         Todas as Funcionalidades do Eixo {axis.number} ({axis.name}):
       </span>
     </div>
-    <div class="flex flex-wrap items-center gap-2">
+    <div class="flex flex-wrap items-center gap-2.5">
       {axis.items.filter((it) => !it.isOverview).map((item) => (
         <a
           href={item.href}
-          class="min-h-[44px] px-3 py-2 bg-[#F7F5F0] hover:bg-[#EAE6DE] border border-[#DFDBD2] hover:border-[#0A0A0A] rounded-lg text-xs font-['Oswald'] uppercase font-semibold text-[#0A0A0A] flex items-center gap-2 transition-all no-underline"
+          class="min-h-[44px] px-3.5 py-2 bg-[#FBF8F3] hover:bg-[#F4F1EA] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none border-2 border-[#0A0A0A] rounded-xl text-xs font-head uppercase font-bold text-[#0A0A0A] flex items-center gap-2 transition-all no-underline shadow-[2px_2px_0_0_#0A0A0A]"
         >
           <i class={`bi ${item.icon} text-[#8B1E2D]`} aria-hidden="true" />
           <span>{item.label}</span>
-          <i class="bi bi-chevron-right text-gray-400 text-[10px]" aria-hidden="true" />
+          <i class="bi bi-chevron-right text-[#0A0A0A] text-[10px]" aria-hidden="true" />
         </a>
       ))}
     </div>

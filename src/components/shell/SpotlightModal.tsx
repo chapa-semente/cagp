@@ -122,10 +122,10 @@ export const SpotlightModal: React.FC = () => {
         onClick={() => setIsOpen(false)}
         aria-hidden="true"
       />
-      <div className="w-full max-w-xl bg-white border border-[#DFDBD2] rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[80vh] animate-in zoom-in-95 duration-150">
+      <div className="w-full max-w-xl bg-white border-[3px] border-[#0A0A0A] rounded-2xl shadow-[6px_6px_0_0_#0A0A0A] overflow-hidden flex flex-col max-h-[80vh] animate-in zoom-in-95 duration-150 font-sans">
         {/* Search Input Bar */}
-        <div className="flex items-center px-3.5 py-3 border-b border-[#DFDBD2] bg-[#F7F5F0]">
-          <i className="bi bi-search text-gray-500 text-base mr-2.5" aria-hidden="true" />
+        <div className="flex items-center px-4 py-3 border-b-[3px] border-[#0A0A0A] bg-[#FBF8F3]">
+          <i className="bi bi-search text-[#0A0A0A] text-lg mr-3" aria-hidden="true" />
           <input
             ref={inputRef}
             id="cagp-spotlight-input"
@@ -138,13 +138,13 @@ export const SpotlightModal: React.FC = () => {
             }}
             onKeyDown={handleInputKeyDown}
             placeholder="Buscar páginas, ementas, regras, PDFs ou grupos..."
-            className="flex-1 bg-transparent border-none text-[#0A0A0A] text-base focus:outline-none placeholder-gray-500 font-['Inter']"
+            className="flex-1 bg-transparent border-none text-[#0A0A0A] text-base font-sans font-medium focus:outline-none placeholder-gray-500"
           />
           {query && (
             <button
               type="button"
               onClick={() => setQuery('')}
-              className="text-gray-400 hover:text-gray-700 min-w-[44px] min-h-[44px] flex items-center justify-center text-sm active:scale-95 transition-transform cursor-pointer"
+              className="text-gray-600 hover:text-black min-w-[36px] min-h-[36px] flex items-center justify-center text-sm active:scale-95 transition-transform cursor-pointer"
               aria-label="Limpar busca"
             >
               <i className="bi bi-x-circle-fill" />
@@ -153,12 +153,12 @@ export const SpotlightModal: React.FC = () => {
           <button
             type="button"
             onClick={() => setIsOpen(false)}
-            className="w-11 h-11 min-w-[44px] min-h-[44px] flex sm:hidden items-center justify-center rounded-full bg-white border border-black/15 text-[#0A0A0A] font-bold text-xs ml-1 active:scale-95 transition-transform cursor-pointer"
+            className="w-8 h-8 flex sm:hidden items-center justify-center rounded-lg bg-white border-2 border-black text-[#0A0A0A] font-bold text-xs ml-1 shadow-[1.5px_1.5px_0_0_#0A0A0A] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none cursor-pointer"
             aria-label="Fechar busca"
           >
             ✕
           </button>
-          <kbd className="hidden sm:inline-block bg-white text-gray-700 border border-black/15 shadow-2xs rounded px-1.5 py-0.5 text-[11px] font-mono font-bold">
+          <kbd className="hidden sm:inline-block bg-white text-black border-2 border-black shadow-[1.5px_1.5px_0_0_#0A0A0A] rounded px-1.5 py-0.5 text-[11px] font-mono font-bold">
             ESC
           </kbd>
         </div>
@@ -183,7 +183,7 @@ export const SpotlightModal: React.FC = () => {
                     key={q.href}
                     type="button"
                     onClick={() => handleNavigate(q.href)}
-                    className="p-2.5 text-left rounded-lg border border-[#DFDBD2] hover:border-[#0A0A0A] hover:bg-[#F7F5F0] active:scale-[0.98] transition-all flex items-center gap-2.5 cursor-pointer"
+                    className="p-3 text-left rounded-xl border-[2.5px] border-[#0A0A0A] bg-white shadow-[2px_2px_0_0_#0A0A0A] hover:shadow-[3.5px_3.5px_0_0_#0A0A0A] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all flex items-center gap-2.5 cursor-pointer"
                   >
                     <i className={`bi ${q.icon} text-lg ${q.color}`} />
                     <div className="min-w-0">

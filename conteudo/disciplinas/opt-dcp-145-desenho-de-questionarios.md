@@ -1,0 +1,13 @@
+---
+codigo: "DCP 145"
+nome: "DESENHO DE QUESTIONÁRIOS"
+natureza: "optativa"
+ch: 60
+modulo: "Optativa"
+preRequisitos: []
+ementa: "Introdução às técnicas de desenho de questionários em pesquisas quantitativas. Princípios gerais. Questões factuais e comportamentais. Questões atitudinais. Entrevistas, questionários autopreenchidos, websurveys. O questionário como um todo. Aplicação do questionário e construção do banco de dados. Pré-testes: revisão por especialistas, codificação de comportamentos, grupos focais, entrevistas cognitivas. Análise de qualidade de escalas."
+---
+
+## Ementa Oficial
+
+Introdução às técnicas de desenho de questionários em pesquisas quantitativas. Princípios gerais. Questões factuais e comportamentais. Questões atitudinais. Entrevistas, questionários autopreenchidos, websurveys. O questionário como um todo. Aplicação do questionário e construção do banco de dados. Pré-testes: revisão por especialistas, codificação de comportamentos, grupos focais, entrevistas cognitivas. Análise de qualidade de escalas.

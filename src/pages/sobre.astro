@@ -8,6 +8,7 @@ import CagpCentralOverview from '../components/features/cagp/CagpCentralOverview
 import CagpHistoriaCore from '../components/features/cagp/historia/CagpHistoriaCore.astro';
 import CagpEstatutoCore from '../components/features/cagp/estatuto/CagpEstatutoCore.astro';
 import CagpGestaoDiretoria from '../components/features/cagp/gestao/CagpGestaoDiretoria.astro';
+import { SobreCollageBanner } from '../components/sobre/SobreCollageBanner';
 
 const tabs = [
   { id: 'v0', shortLabel: 'Geral', fullLabel: 'Visão Geral do CAGP', hash: '#visao-geral' },
@@ -34,6 +35,8 @@ const badges = [
     subtitle="Entidade legítima de representação discente da FAFICH/UFMG, fundada na defesa da universidade pública, plural e com compromisso republicano."
     badges={badges}
   />
+
+  <SobreCollageBanner client:visible />
 
   <SegmentedControl tabs={tabs} defaultTab="v0" />
 

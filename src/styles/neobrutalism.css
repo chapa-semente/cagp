@@ -1,0 +1,76 @@
+/* Neobrutalism.com Theme (rL9Ap) — Sistema Tri-Camada CAGP / Semente / UFMG (Modo Claro Exclusivo) */
+:root {
+  /* Geometria e Formas Canônicas rL9Ap */
+  --radius: 0.75rem; /* 12px / rounded-xl */
+  --border-w: 3px;
+  --border: #16181d;
+  --shadow-color: #16181d;
+
+  /* Sombras Duras sem desfoque (Neobrutalism Offset) */
+  --shadow-xs: 1px 1px 0 0 var(--shadow-color);
+  --shadow-sm: 2px 2px 0 0 var(--shadow-color);
+  --shadow: 3px 3px 0 0 var(--shadow-color);
+  --shadow-md: 4px 4px 0 0 var(--shadow-color);
+  --shadow-lg: 6px 6px 0 0 var(--shadow-color);
+  --shadow-xl: 10px 10px 0 1px var(--shadow-color);
+  --shadow-2xl: 16px 16px 0 1px var(--shadow-color);
+
+  /* Superfícies & Contraste (Modo Claro rL9Ap) */
+  --background: #f4f5f7;
+  --foreground: #16181d;
+  --card: #ffffff;
+  --card-foreground: #16181d;
+  --popover: #ffffff;
+  --popover-foreground: #16181d;
+  --muted: #e5e7ec;
+  --muted-foreground: #5d626e;
+  --input: #ffffff;
+
+  /* Cores Semânticas Tri-Camada Harmonizadas */
+  /* Camada 1: Rubro Institucional CAGP (FAFICH / Candangos de Bruno Giorgi) */
+  --primary: #9E2424;
+  --primary-hover: #8B1E2D;
+  --primary-foreground: #ffffff;
+
+  /* Camada 2: Roxo Semente (Gestão Discente & Liderança) */
+  --secondary: #5B2A86;
+  --secondary-hover: #4A216E;
+  --secondary-foreground: #ffffff;
+
+  /* Camada 3: Laranja Germinar (CTA / Destaques / Energia Estudantil) */
+  --accent: #FF8811;
+  --accent-hover: #E07406;
+  --accent-foreground: #000000;
+
+  /* Anéis de foco e estados de alerta */
+  --ring: #9E2424;
+  --destructive: #DC2626;
+  --destructive-foreground: #ffffff;
+  --success: #15803D;
+  --success-foreground: #ffffff;
+  --warning: #B45309;
+  --warning-foreground: #ffffff;
+  --info: #005A9C;
+  --info-foreground: #ffffff;
+
+  /* Cores Complementares Manuais UFMG & Semente */
+  --ufmg-red: #C4161C;
+  --ufmg-red-dark: #B81217;
+  --semente-purple: #5B2A86;
+  --semente-orange: #FF8811;
+  --semente-teal: #266264;
+  --cagp-gold: #E8A317;
+  --cagp-black: #0A0A0A;
+
+  /* Gráficos & Visualização BoldKit */
+  --chart-1: #9E2424; /* Rubro CAGP */
+  --chart-2: #5B2A86; /* Roxo Semente */
+  --chart-3: #FF8811; /* Laranja Germinar */
+  --chart-4: #266264; /* Verde Petróleo Semente */
+  --chart-5: #E8A317; /* Dourado FAFICH */
+
+  /* Tipografia rL9Ap */
+  --font-heading: 'Bricolage Grotesque', sans-serif;
+  --font-sans: 'Space Grotesk', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+}

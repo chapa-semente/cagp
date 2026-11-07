@@ -3,12 +3,16 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@/*": ["src/*"],
+      "@boldkit/*": ["src/components/boldkit/*"],
       "@components/*": ["src/components/*"],
+      "next/link": ["src/lib/link.tsx"],
       "@layouts/*": ["src/layouts/*"],
       "@lib/*": ["src/lib/*"],
       "@content/*": ["src/content/*"],
       "@styles/*": ["src/styles/*"]
     },
+    "verbatimModuleSyntax": false,
     "jsx": "react-jsx",
     "jsxImportSource": "react"
   },

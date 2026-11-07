@@ -185,20 +185,20 @@ export const ShortcutsSheet: React.FC<ShortcutsSheetProps> = ({ isOpen, onClose 
       </div>
 
       {/* Footer Fixo da Sheet com Botões de Ação */}
-      <div className="border-t border-[#DFDBD2] p-4 bg-white flex flex-wrap items-center justify-between gap-3">
+      <div className="border-t-2 border-[#0A0A0A] p-4 bg-white flex flex-wrap items-center justify-between gap-3 font-body">
         <button
           type="button"
           onClick={handleReset}
-          className="min-h-[44px] px-3 py-2 text-xs font-['Oswald'] uppercase font-bold text-gray-600 hover:text-[#0A0A0A] bg-[#F7F5F0] hover:bg-gray-200 rounded-[6px] border border-[#DFDBD2] transition-colors cursor-pointer"
+          className="min-h-[44px] px-3.5 py-2 text-xs font-head uppercase font-extrabold text-[#0A0A0A] bg-[#FBF8F3] hover:bg-white rounded-xl border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer"
         >
           Restaurar 5 Eixos
         </button>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2.5">
           <button
             type="button"
             onClick={onClose}
-            className="min-h-[44px] px-3 py-2 text-xs font-['Oswald'] uppercase font-bold text-gray-600 hover:text-black rounded-[6px] transition-colors cursor-pointer"
+            className="min-h-[44px] px-3.5 py-2 text-xs font-head uppercase font-bold text-[#0A0A0A] hover:bg-[#FBF8F3] rounded-xl border border-transparent hover:border-[#0A0A0A] transition-all cursor-pointer"
           >
             Cancelar
           </button>
@@ -206,10 +206,10 @@ export const ShortcutsSheet: React.FC<ShortcutsSheetProps> = ({ isOpen, onClose 
             type="button"
             onClick={handleSave}
             disabled={!isValidCount}
-            className={`min-h-[44px] px-4 py-2 text-xs font-['Oswald'] uppercase font-bold text-white rounded-xl border transition-colors cursor-pointer ${
+            className={`min-h-[44px] px-4 py-2 text-xs font-head uppercase font-extrabold text-white rounded-xl border-2 border-[#0A0A0A] transition-all cursor-pointer ${
               isValidCount
-                ? 'bg-[#8B1E2D] hover:bg-[#6e1723] border-[#8B1E2D] shadow-xs active:scale-95'
-                : 'bg-gray-400 border-gray-400 opacity-50 cursor-not-allowed'
+                ? 'bg-[#8B1E2D] hover:bg-[#9E2424] shadow-[3px_3px_0_0_#0A0A0A] hover:shadow-[4px_4px_0_0_#0A0A0A] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none'
+                : 'bg-gray-400 opacity-50 cursor-not-allowed shadow-none'
             }`}
           >
             Salvar Atalhos ({selectedIds.length})

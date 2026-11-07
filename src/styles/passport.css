@@ -2,17 +2,17 @@
 
 .cagp-passport-card {
   background-color: #FFFFFF;
-  border: 2px solid #0A0A0A;
-  border-radius: 6px;
-  box-shadow: 4px 4px 0px #0A0A0A;
+  border: 3px solid #0A0A0A;
+  border-radius: 12px;
+  box-shadow: 5px 5px 0px #0A0A0A;
   overflow: hidden;
 }
 
 .cagp-passport-topbar {
   background-color: #0A0A0A;
   color: #FFFFFF;
-  border-bottom: 2px solid #8B1E2D;
-  padding: 0.5rem 0.85rem;
+  border-bottom: 3px solid #9E2424;
+  padding: 0.65rem 1rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -21,15 +21,15 @@
 }
 
 .cagp-passport-inst {
-  font-family: var(--font-display, 'Oswald', sans-serif);
-  font-size: 0.74rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
+  font-family: var(--font-heading, 'Bricolage Grotesque', sans-serif);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
   text-transform: uppercase;
-  color: #FFE082;
+  color: #FF8811;
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.45rem;
 }
 
 .cagp-avatar-frame {

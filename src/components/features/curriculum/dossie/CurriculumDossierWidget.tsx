@@ -26,44 +26,44 @@ export const CurriculumDossierWidget: React.FC = () => {
   const extTotal = Math.min(300, (calcData['ext_lab_a'] || 0) + (calcData['ext_lab_b'] || 0) + (calcData['ext_junior'] || 0) + (calcData['ext_siex'] || 0) + (calcData['ext_cursos'] || 0));
 
   return (
-    <div className="cagp-card p-4 bg-white border border-[#DFDBD2] rounded-xl flex flex-col justify-between h-full shadow-xs hover:border-[#0A0A0A] transition-all select-none">
+    <div className="cagp-card p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between h-full shadow-[3px_3px_0_0_#0A0A0A] hover:shadow-[1.5px_1.5px_0_0_#0A0A0A] hover:translate-x-[1px] hover:translate-y-[1px] transition-all select-none">
       <div>
-        <div className="flex items-center justify-between gap-2 mb-3">
-          <div className="flex items-center gap-2">
-            <span className="w-9 h-9 rounded-lg bg-[#8B1E2D]/10 text-[#8B1E2D] flex items-center justify-center text-lg border border-[#8B1E2D]/20">
+        <div className="flex items-center justify-between gap-2 mb-3.5">
+          <div className="flex items-center gap-2.5">
+            <span className="w-10 h-10 rounded-xl bg-[#9E2424]/10 text-[#9E2424] flex items-center justify-center text-lg border border-[#9E2424] shadow-[1px_1px_0_0_#0A0A0A]">
               <i className="bi bi-mortarboard-fill" aria-hidden="true" />
             </span>
             <div>
-              <h3 className="font-['Oswald'] font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0">
+              <h3 className="font-head font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0">
                 Dossiê Discente
               </h3>
-              <span className="text-[11px] text-gray-500 font-mono">Meta de 3.000h</span>
+              <span className="text-[11px] text-[#57534E] font-mono">Meta de 3.000h</span>
             </div>
           </div>
-          <span className="px-2 py-0.5 rounded font-['Oswald'] text-[11px] font-bold bg-[#8B1E2D] text-white">
+          <span className="px-2.5 py-1 rounded-md font-head text-[11px] font-bold bg-[#9E2424] text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">
             PPC 2020
           </span>
         </div>
 
-        <p className="text-xs text-gray-700 leading-relaxed mb-3">
+        <p className="font-body text-xs text-[#292524] leading-relaxed mb-3.5">
           Termômetro com divisão entre 27 obrigatórias, optativas do curso, formação livre (120h) e extensão.
         </p>
 
-        <div className="space-y-1.5 mb-3 text-xs">
-          <div className="flex justify-between items-center text-gray-700">
-            <span>Optativas Vinculadas:</span>
-            <span className="font-mono font-bold text-[#8B1E2D]">{optativasHours}h / 1.020h</span>
+        <div className="space-y-2 mb-4 text-xs">
+          <div className="flex justify-between items-center text-[#292524] p-2 bg-[#FBF8F3] border border-[#0A0A0A] rounded-lg">
+            <span className="font-medium">Optativas Vinculadas:</span>
+            <span className="font-mono font-bold text-[#9E2424]">{optativasHours}h / 1.020h</span>
           </div>
-          <div className="flex justify-between items-center text-gray-700">
-            <span>Extensão Curricular:</span>
-            <span className="font-mono font-bold text-[#15803D]">{extTotal}h / 300h</span>
+          <div className="flex justify-between items-center text-[#292524] p-2 bg-[#FBF8F3] border border-[#0A0A0A] rounded-lg">
+            <span className="font-medium">Extensão Curricular:</span>
+            <span className="font-mono font-bold text-[#266264]">{extTotal}h / 300h</span>
           </div>
         </div>
       </div>
 
       <a
         href="#minha-grade"
-        className="min-h-[44px] px-3 py-2 bg-[#0A0A0A] hover:bg-[#8B1E2D] text-white rounded-lg font-['Oswald'] text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline shadow-[2px_2px_0px_#0A0A0A]"
+        className="min-h-[44px] px-4 py-2.5 bg-[#0A0A0A] hover:bg-[#9E2424] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-2 border-[#0A0A0A] shadow-[2.5px_2.5px_0_0_#0A0A0A]"
       >
         <span>Abrir Dossiê Completo</span>
         <i className="bi bi-arrow-right" aria-hidden="true" />

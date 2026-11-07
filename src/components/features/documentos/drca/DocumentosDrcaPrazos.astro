@@ -53,43 +53,43 @@ const drca: DrcaDoc[] = [
 ---
 
 <div class="cagp-documentos-drca space-y-6 select-none text-[#0A0A0A]">
-  <div class="p-4 bg-white border border-[#DFDBD2] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+  <div class="p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-[4px_4px_0_0_#0A0A0A]">
     <div>
-      <span class="text-[11px] font-['Oswald'] uppercase font-bold tracking-wider text-[#8B1E2D]">
+      <span class="text-xs font-head uppercase font-bold tracking-wider text-[#8B1E2D]">
         Departamento de Registro e Controle Acadêmico (DRCA)
       </span>
-      <h3 class="font-['Oswald'] text-base font-bold uppercase text-[#0A0A0A] m-0">
+      <h3 class="font-head text-lg font-black uppercase text-[#0A0A0A] m-0 tracking-wide">
         Processos Administrativos, Trancamentos e Requerimentos DRCA
       </h3>
-      <p class="text-xs text-gray-600 mt-0.5 m-0">
+      <p class="text-xs text-gray-700 mt-0.5 m-0 font-body font-medium">
         Formulários homologados para solicitações perante o DRCA, Colegiado e Reitoria da UFMG.
       </p>
     </div>
-    <span class="px-2.5 py-1 rounded bg-[#0A0A0A] text-white font-mono text-xs font-bold shrink-0">
+    <span class="px-3 py-1.5 rounded-lg bg-[#0A0A0A] text-white font-mono text-xs font-bold shrink-0 border border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
       {drca.length} Requerimentos DRCA
     </span>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     {drca.map((doc) => (
-      <div class="cagp-card p-4 bg-white border border-[#DFDBD2] hover:border-[#0A0A0A] rounded-xl flex items-center justify-between gap-3 transition-all shadow-xs">
+      <div class="cagp-card p-4 bg-white border-2 border-[#0A0A0A] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0_0_#0A0A0A] rounded-xl flex items-center justify-between gap-3.5 transition-all shadow-[2px_2px_0_0_#0A0A0A]">
         <div class="flex items-start gap-3 min-w-0">
-          <div class="w-9 h-9 rounded-lg bg-[#0A0A0A]/10 text-[#0A0A0A] border border-[#0A0A0A]/20 flex items-center justify-center shrink-0 mt-0.5">
-            <i class="bi bi-archive-fill text-base" aria-hidden="true" />
+          <div class="w-10 h-10 rounded-lg bg-[#0A0A0A] text-white border-2 border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A] flex items-center justify-center shrink-0 mt-0.5">
+            <i class="bi bi-archive-fill text-lg text-white" aria-hidden="true" />
           </div>
           <div class="min-w-0">
             <div class="flex items-center gap-1.5 mb-1 flex-wrap">
-              <span class="cagp-badge cagp-badge-dark text-[10px] font-mono">{doc.badge}</span>
-              <h4 class="font-['Oswald'] font-bold text-xs uppercase text-[#0A0A0A] truncate m-0">{doc.title}</h4>
+              <span class="cagp-badge cagp-badge-dark text-[10px] font-mono font-bold">{doc.badge}</span>
+              <h4 class="font-head font-bold text-xs uppercase text-[#0A0A0A] truncate m-0 tracking-wide">{doc.title}</h4>
             </div>
-            <p class="text-xs text-gray-600 leading-tight m-0">{doc.desc}</p>
+            <p class="text-xs text-gray-700 leading-tight m-0 font-body font-medium">{doc.desc}</p>
           </div>
         </div>
 
         <a
           href={asset(`/documentos/${doc.file}`)}
           download
-          class="min-h-[40px] px-3 py-1.5 bg-[#0A0A0A] hover:bg-[#8B1E2D] text-white rounded-lg text-xs font-['Oswald'] uppercase font-bold tracking-wider flex items-center gap-1.5 transition-all no-underline shrink-0 shadow-[1px_1px_0px_#0A0A0A]"
+          class="min-h-[44px] px-3.5 py-1.5 bg-[#0A0A0A] hover:bg-[#8B1E2D] active:translate-x-[1px] active:translate-y-[1px] text-white rounded-xl text-xs font-head uppercase font-bold tracking-wider flex items-center gap-1.5 transition-all no-underline shrink-0 border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]"
           title={`Baixar ${doc.title}`}
         >
           <i class="bi bi-download" aria-hidden="true" />

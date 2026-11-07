@@ -46,47 +46,47 @@ export const AcgCalculatorWidget: React.FC = () => {
   const pct = Math.round((total / 600) * 100);
 
   return (
-    <div className="cagp-card p-4 bg-white border border-[#DFDBD2] rounded-xl flex flex-col justify-between h-full shadow-xs hover:border-[#0A0A0A] transition-all select-none">
+    <div className="cagp-card p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between h-full shadow-[3px_3px_0_0_#0A0A0A] hover:shadow-[1.5px_1.5px_0_0_#0A0A0A] hover:translate-x-[1px] hover:translate-y-[1px] transition-all select-none">
       <div>
-        <div className="flex items-center justify-between gap-2 mb-3">
-          <div className="flex items-center gap-2">
-            <span className="w-9 h-9 rounded-lg bg-[#8B1E2D]/10 text-[#8B1E2D] flex items-center justify-center text-lg border border-[#8B1E2D]/20">
+        <div className="flex items-center justify-between gap-2 mb-3.5">
+          <div className="flex items-center gap-2.5">
+            <span className="w-10 h-10 rounded-xl bg-[#9E2424]/10 text-[#9E2424] flex items-center justify-center text-lg border border-[#9E2424] shadow-[1px_1px_0_0_#0A0A0A]">
               <i className="bi bi-calculator-fill" aria-hidden="true" />
             </span>
             <div>
-              <h3 className="font-['Oswald'] font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0">
+              <h3 className="font-head font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0">
                 Calculadora 600h
               </h3>
-              <span className="text-[11px] text-gray-500 font-mono">Extensão 300h + AAC 300h</span>
+              <span className="text-[11px] text-[#57534E] font-mono">Extensão 300h + AAC 300h</span>
             </div>
           </div>
           <span
-            className={`px-2 py-0.5 rounded font-['Oswald'] text-[11px] font-bold ${
+            className={`px-2.5 py-1 rounded-md font-head text-[11px] font-bold border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A] ${
               total >= 600
-                ? 'bg-[#15803D] text-white'
+                ? 'bg-[#266264] text-white'
                 : total > 0
-                ? 'bg-[#8B1E2D] text-white'
-                : 'bg-gray-100 text-gray-700 border border-[#DFDBD2]'
+                ? 'bg-[#9E2424] text-white'
+                : 'bg-white text-[#0A0A0A]'
             }`}
           >
             {total >= 600 ? '100% Concluído' : `${pct}% Integralizado`}
           </span>
         </div>
 
-        <p className="text-xs text-gray-700 leading-relaxed mb-3">
+        <p className="font-body text-xs text-[#292524] leading-relaxed mb-3.5">
           Simulador com trava automática dos tetos do Art. 15 e cálculo em blocos de 15h (1 crédito).
         </p>
 
         {/* Barras Lineares de Progresso */}
-        <div className="space-y-2 mb-3">
+        <div className="space-y-3 mb-4">
           <div>
             <div className="flex justify-between items-center text-[11px] font-bold mb-1">
-              <span className="text-[#8B1E2D] uppercase font-['Oswald']">Extensão Obrigatória</span>
-              <span className="font-mono text-gray-800">{extTotal}/300h ({Math.round(extTotal / 15)} cr)</span>
+              <span className="text-[#9E2424] uppercase font-head">Extensão Obrigatória</span>
+              <span className="font-mono text-[#0A0A0A]">{extTotal}/300h ({Math.round(extTotal / 15)} cr)</span>
             </div>
-            <div className="w-full bg-[#F7F5F0] border border-[#DFDBD2] rounded h-2 overflow-hidden">
+            <div className="w-full bg-[#F3ECE0] border-2 border-[#0A0A0A] rounded-full h-3 overflow-hidden shadow-[1px_1px_0_0_#0A0A0A]">
               <div
-                className="bg-[#8B1E2D] h-full transition-all duration-300"
+                className="bg-[#9E2424] h-full transition-all duration-300"
                 style={{ width: `${Math.min(100, (extTotal / 300) * 100)}%` }}
               />
             </div>
@@ -94,12 +94,12 @@ export const AcgCalculatorWidget: React.FC = () => {
 
           <div>
             <div className="flex justify-between items-center text-[11px] font-bold mb-1">
-              <span className="text-[#15803D] uppercase font-['Oswald']">Atividades Complementares (AAC)</span>
-              <span className="font-mono text-gray-800">{aacTotal}/300h ({Math.round(aacTotal / 15)} cr)</span>
+              <span className="text-[#266264] uppercase font-head">Atividades Complementares (AAC)</span>
+              <span className="font-mono text-[#0A0A0A]">{aacTotal}/300h ({Math.round(aacTotal / 15)} cr)</span>
             </div>
-            <div className="w-full bg-[#F7F5F0] border border-[#DFDBD2] rounded h-2 overflow-hidden">
+            <div className="w-full bg-[#F3ECE0] border-2 border-[#0A0A0A] rounded-full h-3 overflow-hidden shadow-[1px_1px_0_0_#0A0A0A]">
               <div
-                className="bg-[#15803D] h-full transition-all duration-300"
+                className="bg-[#266264] h-full transition-all duration-300"
                 style={{ width: `${Math.min(100, (aacTotal / 300) * 100)}%` }}
               />
             </div>
@@ -109,7 +109,7 @@ export const AcgCalculatorWidget: React.FC = () => {
 
       <a
         href={route('/acg') + '#calculadora'}
-        className="min-h-[44px] px-3 py-2 bg-[#0A0A0A] hover:bg-[#8B1E2D] text-white rounded-lg font-['Oswald'] text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline shadow-[2px_2px_0px_#0A0A0A]"
+        className="min-h-[44px] px-4 py-2.5 bg-[#0A0A0A] hover:bg-[#9E2424] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-2 border-[#0A0A0A] shadow-[2.5px_2.5px_0_0_#0A0A0A]"
       >
         <span>Abrir Simulador Completo</span>
         <i className="bi bi-arrow-right" aria-hidden="true" />

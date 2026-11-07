@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { createPortal } from 'react-dom';
 
 interface BottomSheetProps {
   id: string;
@@ -78,9 +77,9 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
     setDragY(0);
   };
 
-  const heightClass = detent === 'large' ? 'h-[90svh] max-h-[90svh] md:max-h-[85svh]' : 'h-[55svh] max-h-[70svh]';
+  const heightClass = detent === 'large' ? 'h-[90svh] max-h-[90svh] md:max-h-[85svh]' : 'h-[60svh] max-h-[75svh]';
 
-  const sheetContent = (
+  return (
     <div
       id={id}
       className="fixed inset-0 z-[1080] flex flex-col justify-end md:justify-center md:items-center p-0 md:p-4 pointer-events-auto"
@@ -95,9 +94,9 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
         aria-hidden="true"
       />
 
-      {/* Sheet / Form Sheet Modal Container */}
+      {/* Sheet / Form Sheet Modal Container Neobrutalista */}
       <div
-        className={`relative z-[1090] w-full max-w-2xl md:max-w-xl mx-auto bg-white rounded-t-3xl md:rounded-3xl border border-b-0 md:border-b border-[#DFDBD2] shadow-[0_-8px_32px_rgba(0,0,0,0.12)] md:shadow-xl flex flex-col transition-all duration-300 animate-in slide-in-from-bottom md:zoom-in-95 ease-out ${heightClass}`}
+        className={`relative z-[1090] w-full max-w-2xl md:max-w-xl mx-auto bg-white rounded-t-2xl md:rounded-2xl border-[3px] border-[#0A0A0A] shadow-[0_-6px_0_0_#0A0A0A] md:shadow-[6px_6px_0_0_#0A0A0A] flex flex-col transition-all duration-200 animate-in slide-in-from-bottom md:zoom-in-95 ease-out ${heightClass}`}
         style={{
           transform: `translateY(${dragY}px)`,
           paddingBottom: 'calc(1rem + env(safe-area-inset-bottom, 0px))',
@@ -112,31 +111,40 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
           onClick={() => setDetent(detent === 'medium' ? 'large' : 'medium')}
           aria-label="Alternar altura da gaveta"
         >
-          <div className="w-9 h-1.5 bg-[#DFDBD2] rounded-full hover:bg-gray-400 transition-colors" />
+          <div className="w-12 h-2 bg-[#0A0A0A] rounded-full hover:bg-black transition-colors" />
         </div>
 
         {/* Sheet Topbar */}
-        <div className="flex items-center justify-between px-4 pt-2 md:pt-4 pb-2 border-b border-[#DFDBD2] shrink-0">
-          <h2 id={`${id}-title`} className="font-['Oswald'] text-lg md:text-xl font-bold text-[#0A0A0A] uppercase tracking-wide">
+        <div className="flex items-center justify-between px-4 pt-2 md:pt-4 pb-3 border-b-[3px] border-[#0A0A0A] shrink-0">
+          <h2 id={`${id}-title`} className="font-heading text-lg md:text-xl font-extrabold text-[#0A0A0A] uppercase tracking-tight">
             {title}
           </h2>
-          <button
-            type="button"
-            onClick={onClose}
-            className="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full bg-[#F7F5F0] hover:bg-[#DFDBD2] text-[#0A0A0A] font-bold text-base cursor-pointer transition-colors active:scale-95"
-            aria-label="Fechar gaveta"
-          >
-            ✕
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setDetent(detent === 'medium' ? 'large' : 'medium')}
+              className="hidden md:flex w-9 h-9 items-center justify-center rounded-xl bg-[#FBF8F3] hover:bg-[#F4F1EA] border-[2px] border-[#0A0A0A] shadow-[1.5px_1.5px_0_0_#0A0A0A] text-[#0A0A0A] text-xs font-bold transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+              title={detent === 'medium' ? 'Expandir' : 'Recolher'}
+              aria-label={detent === 'medium' ? 'Expandir gaveta' : 'Recolher gaveta'}
+            >
+              <i className={`bi ${detent === 'medium' ? 'bi-arrows-angle-expand' : 'bi-arrows-angle-contract'}`}></i>
+            </button>
+            <button
+              type="button"
+              onClick={onClose}
+              className="w-9 h-9 flex items-center justify-center rounded-xl bg-[#FBF8F3] hover:bg-[#F4F1EA] border-[2px] border-[#0A0A0A] shadow-[1.5px_1.5px_0_0_#0A0A0A] text-[#0A0A0A] hover:text-[#9E2424] font-bold text-sm transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+              aria-label="Fechar gaveta"
+            >
+              ✕
+            </button>
+          </div>
         </div>
 
-        {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto px-4 py-3 touch-pan-y">
+        {/* Scrollable Sheet Content */}
+        <div className="flex-1 overflow-y-auto overscroll-contain p-4 md:p-5 font-sans">
           {children}
         </div>
       </div>
     </div>
   );
-
-  return createPortal(sheetContent, document.body);
 };

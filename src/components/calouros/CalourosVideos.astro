@@ -40,29 +40,29 @@ const videos = [
 ];
 ---
 
-<div class="cagp-tool-box p-4 space-y-3 text-[#0A0A0A]">
-  <div class="border-b border-[#DFDBD2] pb-2.5 flex items-center justify-between flex-wrap gap-2">
+<div class="cagp-tool-box p-5 bg-white border-2 border-[#0A0A0A] rounded-xl shadow-[4px_4px_0_0_#0A0A0A] space-y-4 text-[#0A0A0A]">
+  <div class="border-b-2 border-[#0A0A0A] pb-3 flex items-center justify-between flex-wrap gap-2">
     <div>
       <div class="flex items-center gap-2">
-        <i class="bi bi-youtube text-[#DC2626] text-lg" aria-hidden="true" />
-        <h3 class="font-['Oswald'] text-base font-bold uppercase text-[#0A0A0A]">
+        <i class="bi bi-youtube text-[#C4161C] text-xl" aria-hidden="true" />
+        <h3 class="font-head text-base sm:text-lg font-black uppercase text-[#0A0A0A] m-0 tracking-wide">
           Tutoriais Oficiais em Vídeo (UFMG & Sistemas)
         </h3>
       </div>
-      <p class="text-xs text-gray-600 mt-0.5">
+      <p class="text-xs text-gray-700 mt-0.5 font-body font-medium">
         Orientações institucionais em formato audiovisual para apoiar sua chegada à universidade:
       </p>
     </div>
-    <span class="cagp-badge cagp-badge-red font-mono">
+    <span class="cagp-badge cagp-badge-red font-mono font-bold">
       6 Vídeos
     </span>
   </div>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
     {videos.map((v) => (
-      <article class="cagp-card cagp-video-card overflow-hidden flex flex-col justify-between">
+      <article class="cagp-card cagp-video-card overflow-hidden flex flex-col justify-between border-2 border-[#0A0A0A] rounded-xl shadow-[3px_3px_0_0_#0A0A0A] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0_0_#0A0A0A] transition-all">
         <div
-          class="cagp-video-thumb-wrap video-trigger"
+          class="cagp-video-thumb-wrap video-trigger cursor-pointer relative"
           data-video-id={v.id}
           data-video-title={v.title}
           role="button"
@@ -72,23 +72,25 @@ const videos = [
           <img
             src={`https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`}
             alt={`Miniatura do tutorial oficial ${v.title}`}
-            class="cagp-video-thumb"
+            class="cagp-video-thumb w-full aspect-video object-cover"
             loading="lazy"
           />
-          <div class="cagp-video-play-btn" aria-hidden="true">
-            <i class="bi bi-play-fill"></i>
+          <div class="cagp-video-play-btn absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/20 transition-all text-white text-3xl" aria-hidden="true">
+            <span class="w-12 h-12 rounded-xl bg-[#C4161C] text-white border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] flex items-center justify-center">
+              <i class="bi bi-play-fill ml-0.5"></i>
+            </span>
           </div>
         </div>
-        <div class="p-3 flex flex-col flex-1 justify-between bg-white">
+        <div class="p-3.5 flex flex-col flex-1 justify-between bg-white">
           <div>
-            <h4 class="font-['Oswald'] font-bold text-xs uppercase text-[#0A0A0A] line-clamp-1 mb-1">
+            <h4 class="font-head font-bold text-xs uppercase text-[#0A0A0A] line-clamp-1 mb-1 tracking-wide">
               {v.title}
             </h4>
-            <p class="text-xs text-gray-600 line-clamp-2 leading-snug">
+            <p class="text-xs text-gray-700 line-clamp-2 leading-snug font-body font-medium m-0">
               {v.desc}
             </p>
           </div>
-          <span class="text-xs font-mono text-gray-400 mt-2 block">
+          <span class="text-[11px] font-mono font-bold text-gray-500 mt-2.5 block">
             {v.source}
           </span>
         </div>

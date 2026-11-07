@@ -1,45 +1,133 @@
 ---
-// PageFooter.astro - Rodapé Institucional com Governança e Transparência
+// PageFooter.astro - Rodapé Institucional Neobrutalista (Chancelas UFMG + CAGP Candangos + Chapa Semente)
 import { asset, route } from '../../lib/paths';
 ---
 
-<footer class="w-full bg-white border-t border-[#DFDBD2] mt-12 py-8 px-4 sm:px-6 select-none text-xs text-gray-600 pb-24 sm:pb-8">
-  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-    <div class="space-y-1.5 max-w-lg">
-      <div class="flex items-center gap-2.5">
-        <div class="w-8 h-8 rounded-[6px] bg-white flex items-center justify-center p-0.5 border border-[#DFDBD2] shadow-xs shrink-0">
-          <img src={asset('/logos/cagp/10_simbolo_transparente_positivo.svg')} alt="Emblema Candangos CAGP" class="w-full h-full object-contain" />
+<footer class="relative z-10 w-full bg-card border-t-3 border-border shadow-[0_-4px_0_0_var(--shadow-color)] mt-12 py-8 px-4 sm:px-6 select-none text-xs text-foreground pb-24 sm:pb-10">
+  <!-- Barra Cromática Tri-Camada Superior -->
+  <div class="max-w-[1360px] mx-auto space-y-6">
+    <!-- Régua de Chancelas Conjuntas (Manuais de Identidade Visual UFMG, CAGP e Semente) -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pb-6 border-b-3 border-border">
+      <!-- 1. REALIZAÇÃO: CAGP UFMG (Os Candangos de Bruno Giorgi, 1959) -->
+      <div class="p-4 rounded-xl border-3 border-border bg-[#f4f5f7] shadow-sm flex items-center gap-3.5">
+        <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center p-1.5 border-3 border-border shadow-xs shrink-0">
+          <img
+            src={asset('/logos/cagp/10_simbolo_transparente_positivo.svg')}
+            alt="Símbolo Os Candangos (Bruno Giorgi, 1959) — CAGP"
+            class="w-full h-full object-contain"
+          />
         </div>
-        <span class="font-['Oswald'] font-bold text-sm tracking-wide uppercase text-[#0A0A0A]">
-          Centro Acadêmico de Gestão Pública (CAGP)
-        </span>
+        <div class="min-w-0">
+          <span class="font-mono text-[11px] font-bold uppercase tracking-widest text-muted-foreground block">
+            REALIZAÇÃO • REPRESENTAÇÃO DISCENTE
+          </span>
+          <div class="font-heading font-black text-base uppercase tracking-tight text-[#0A0A0A] leading-none mt-0.5">
+            CAGP
+          </div>
+          <div class="h-[3px] w-24 bg-[#9E2424] my-1" aria-hidden="true"></div>
+          <div class="font-heading text-[11px] font-extrabold tracking-wider uppercase">
+            <span class="text-[#0A0A0A]">FAFICH</span>{' '}
+            <span class="text-[#9E2424]">UFMG</span>
+          </div>
+        </div>
       </div>
-      <p class="text-[11px] text-[#57534E] leading-relaxed m-0">
-        FAFICH • Universidade Federal de Minas Gerais (UFMG)<br />
-        Av. Pres. Antônio Carlos, 6627 — Pampulha, Belo Horizonte - MG • CEP 31270-901<br />
-        Secretaria Sala F-2039 • Atendimento: Seg-Sex 08h às 20h • <span class="font-mono text-[#8B1E2D]">coordgestaopublica@gmail.com</span>
-      </p>
+
+      <!-- 2. PROPOSTA & DESENVOLVIMENTO: CHAPA SEMENTE -->
+      <div class="p-4 rounded-xl border-3 border-border bg-[#f4f5f7] shadow-sm flex items-center gap-3.5">
+        <div class="w-12 h-12 rounded-xl bg-[#FF8811] flex items-center justify-center p-1 border-3 border-border shadow-xs shrink-0">
+          <img
+            src={asset('/logos/semente_logo_fundo_laranja.png')}
+            alt="Símbolo Chapa Semente"
+            class="w-full h-full object-contain rounded-lg"
+          />
+        </div>
+        <div class="min-w-0">
+          <span class="font-mono text-[11px] font-bold uppercase tracking-widest text-[#266264] block">
+            CHAPA GESTÃO PÚBLICA
+          </span>
+          <!-- Badge Pílula Oficial com assinatura no último E -->
+          <div class="inline-flex items-center px-3 py-0.5 mt-1 rounded-full bg-white border-2 border-border shadow-xs font-heading font-black text-sm uppercase tracking-wider text-[#5B2A86]">
+            SEM<span>E</span>NT<span class="text-[#FF8811]">E</span>
+          </div>
+          <span class="block text-[11px] font-sans font-bold text-muted-foreground mt-1">
+            Potencial que se transforma em ação.
+          </span>
+        </div>
+      </div>
+
+      <!-- 3. INSTITUIÇÃO SEDE: UFMG (CEDECOM — Híbrido Clássico-Gestual) -->
+      <div class="p-4 rounded-xl border-3 border-border bg-[#f4f5f7] shadow-sm flex items-center gap-3.5">
+        <div class="px-3 py-2 rounded-xl bg-white border-3 border-border shadow-xs shrink-0 flex flex-col items-center justify-center">
+          <div class="flex items-baseline gap-0.5 leading-none select-none" aria-label="Marca Institucional UFMG">
+            <span class="font-serif font-bold text-xl text-black tracking-tight">U</span>
+            <span class="font-serif font-bold text-xl text-black tracking-tight">F</span>
+            <span class="inline-flex flex-col items-center mx-0.5">
+              <span class="font-serif italic font-black text-xl text-[#C4161C] leading-none -translate-y-0.5">M</span>
+              <span class="w-full h-[3px] bg-[#C4161C] block -mt-0.5"></span>
+            </span>
+            <span class="font-serif font-bold text-xl text-black tracking-tight">G</span>
+          </div>
+        </div>
+        <div class="min-w-0">
+          <span class="font-mono text-[11px] font-bold uppercase tracking-widest text-muted-foreground block">
+            INSTITUIÇÃO FEDERAL (IFES • 1927)
+          </span>
+          <span class="font-heading font-extrabold text-xs uppercase tracking-wider text-black block mt-0.5 leading-snug">
+            UNIVERSIDADE FEDERAL DE MINAS GERAIS
+          </span>
+          <span class="text-[11px] font-sans font-medium text-muted-foreground block">
+            Faculdade de Filosofia e Ciências Humanas
+          </span>
+        </div>
+      </div>
     </div>
 
-    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 text-[11px]">
-      <div class="flex flex-wrap gap-3 font-semibold text-[#0A0A0A] items-center">
-        <a href={route('/mapa-do-site')} class="hover:text-[#8B1E2D] hover:underline">Mapa do Site</a>
-        <span class="text-[#A8A29E]">•</span>
-        <a href={route('/faq')} class="hover:text-[#8B1E2D] hover:underline">Dúvidas Frequentes</a>
-        <span class="text-[#A8A29E]">•</span>
+    <!-- Informações de Atendimento & Navegação Rápida -->
+    <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+      <div class="space-y-1.5 max-w-xl">
+        <p class="font-heading font-extrabold text-sm uppercase text-foreground m-0">
+          Centro Acadêmico de Gestão Pública — Gestão Estudantil &amp; Super App Discente
+        </p>
+        <p class="text-xs font-sans text-muted-foreground leading-relaxed m-0">
+          Av. Pres. Antônio Carlos, 6627 — Campus Pampulha, Belo Horizonte - MG • CEP 31270-901<br />
+          Secretaria do Curso: Sala F-2039 • CEAG 2º Andar (Sala F-2033, 08h às 22h) • E-mail:{' '}
+          <span class="font-mono font-bold text-[#9E2424]">coordgestaopublica@gmail.com</span>
+        </p>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2.5 text-xs font-heading font-extrabold uppercase">
+        <a
+          href={route('/mapa-do-site')}
+          class="px-3.5 py-2 min-h-[40px] inline-flex items-center rounded-xl border-3 border-border bg-card text-foreground shadow-sm hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-xs hover:bg-muted no-underline transition-all"
+        >
+          Mapa do Site
+        </a>
+        <a
+          href={route('/faq')}
+          class="px-3.5 py-2 min-h-[40px] inline-flex items-center rounded-xl border-3 border-border bg-card text-foreground shadow-sm hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-xs hover:bg-muted no-underline transition-all"
+        >
+          Dúvidas &amp; NAI
+        </a>
+        <a
+          href={route('/documentos')}
+          class="px-3.5 py-2 min-h-[40px] inline-flex items-center rounded-xl border-3 border-border bg-card text-foreground shadow-sm hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-xs hover:bg-muted no-underline transition-all"
+        >
+          Documentos
+        </a>
+        <a
+          href={route('/transparencia')}
+          class="px-3.5 py-2 min-h-[40px] inline-flex items-center rounded-xl border-3 border-border bg-[#5B2A86] text-white shadow-sm hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-xs no-underline transition-all"
+        >
+          Transparência
+        </a>
         <button
           type="button"
           onclick="window.dispatchEvent(new CustomEvent('cagp:open-settings'))"
-          class="hover:text-[#8B1E2D] hover:underline cursor-pointer bg-transparent border-0 p-0 text-[11px] font-semibold text-[#0A0A0A]"
+          class="px-3.5 py-2 min-h-[40px] inline-flex items-center rounded-xl border-3 border-border bg-[#FF8811] text-[#16181d] shadow-sm hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-xs cursor-pointer font-heading text-xs font-extrabold uppercase transition-all"
           aria-label="Abrir painel de configurações"
         >
-          Configurações
+          Ajustes
         </button>
-        <span class="text-[#A8A29E]">•</span>
-        <a href={route('/documentos')} class="hover:text-[#8B1E2D] hover:underline">Regimentos & PDFs</a>
-      </div>
-      <div class="text-[11px] text-[#57534E] font-mono">
-        Astro 7 • PWA Offline • GPLv3
       </div>
     </div>
   </div>

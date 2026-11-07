@@ -2,6 +2,35 @@
 // src/pages/noticias/index.astro — Subseção de Início (Hoje) · Mural Completo de Notícias & Eventos
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { CagpNewsMural } from '../../components/features/cagp/CagpNewsMural';
+import { getCollection } from 'astro:content';
+import { SIMULATED_NEWS, type SimulatedNewsItem } from '../../lib/simulatedData';
+
+const rawNoticias = await getCollection('noticias');
+
+const noticiasItems: SimulatedNewsItem[] = rawNoticias.length > 0
+  ? rawNoticias.map((doc) => ({
+      id: doc.id,
+      slug: doc.data.slug,
+      simulated: true,
+      category: doc.data.category,
+      tag: doc.data.tag,
+      tagColor: doc.data.tagColor,
+      title: doc.data.title,
+      summary: doc.data.summary,
+      body: doc.data.summary,
+      fullContent: doc.data.highlights || [],
+      highlights: doc.data.highlights || [],
+      author: doc.data.author,
+      readingTime: doc.data.readingTime,
+      meta: doc.data.meta,
+      dateLabel: doc.data.dateLabel,
+      ctaLabel: doc.data.ctaLabel,
+      ctaHref: doc.data.ctaHref,
+      relatedLinks: doc.data.relatedLinks || [],
+      relevantRoles: (doc.data.relevantRoles as any) || [],
+      motif: doc.data.motif,
+    }))
+  : SIMULATED_NEWS;
 ---
 
 <BaseLayout
@@ -11,16 +40,16 @@ import { CagpNewsMural } from '../../components/features/cagp/CagpNewsMural';
   activeGroup="hoje"
 >
   <div class="py-2 space-y-6">
-    <header>
-      <h1 class="font-['Oswald'] text-2xl sm:text-3xl font-bold uppercase text-[#0A0A0A] m-0">
+    <header class="border-b-[3px] border-[#0A0A0A] pb-4">
+      <h1 class="font-head text-2xl sm:text-3xl font-extrabold uppercase text-[#0A0A0A] tracking-tight m-0">
         Mural de Notícias, Eventos &amp; Carreiras • CAGP
       </h1>
-      <p class="text-xs sm:text-sm text-[#57534E] mt-1.5 max-w-[70ch] m-0">
+      <p class="text-xs sm:text-sm font-body text-[#0A0A0A] mt-1.5 max-w-[70ch] m-0 font-medium">
         Subseção editorial de Início: convocações de assembleia, oportunidades de estágio,
         chamadas de congressos, seminários e comunicados da vida discente no campus.
       </p>
     </header>
 
-    <CagpNewsMural client:load />
+    <CagpNewsMural items={noticiasItems} client:load />
   </div>
 </BaseLayout>

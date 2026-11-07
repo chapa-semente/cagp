@@ -3,162 +3,187 @@
 import { asset } from '../../lib/paths';
 ---
 
-<div class="space-y-4 text-[#0A0A0A]">
+<div class="space-y-6 text-[#0A0A0A] font-body">
   <!-- Hero institucional -->
-  <div class="cagp-tool-box p-4 space-y-3">
-    <div class="flex items-center justify-between border-b border-[#DFDBD2] pb-2.5 flex-wrap gap-2">
-      <div class="flex items-center gap-2">
-        <i class="bi bi-people-fill text-[#8B1E2D] text-lg" aria-hidden="true"></i>
-        <span class="text-base font-['Oswald'] font-bold uppercase text-[#0A0A0A]">
+  <div class="bg-white border-[3px] border-[#0A0A0A] rounded-xl p-5 sm:p-6 shadow-[4px_4px_0_0_#0A0A0A] space-y-4">
+    <div class="flex items-center justify-between border-b-2 border-[#0A0A0A] pb-3 flex-wrap gap-2">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-lg bg-[#8B1E2D] text-white flex items-center justify-center border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+          <i class="bi bi-people-fill text-base" aria-hidden="true"></i>
+        </div>
+        <span class="text-base font-head font-extrabold uppercase text-[#0A0A0A] tracking-tight">
           Compromisso com a Comunidade Discente
         </span>
-        <span class="cagp-badge cagp-badge-red font-mono">
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-lg text-xs font-mono font-bold bg-[#8B1E2D] text-white border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
           Mandato Vigente
         </span>
       </div>
-      <a href="https://www.instagram.com/cagp.ufmg" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-[#8B1E2D] hover:underline flex items-center gap-1">
-        <i class="bi bi-instagram" aria-hidden="true"></i> @cagp.ufmg
+      <a
+        href="https://www.instagram.com/cagp.ufmg"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-xs font-head font-bold uppercase text-[#8B1E2D] hover:underline flex items-center gap-1.5"
+      >
+        <i class="bi bi-instagram text-sm" aria-hidden="true"></i> @cagp.ufmg
       </a>
     </div>
 
-    <p class="text-xs text-gray-700 leading-relaxed">
+    <p class="text-xs text-[#0A0A0A] leading-relaxed font-medium m-0">
       A gestão do Centro Acadêmico orienta-se pela <strong>escuta discente, impessoalidade e descentralização</strong>. Os membros da diretoria exercem seus mandatos de forma voluntária e democrática, dedicando suas horas extracurriculares à melhoria das condições de ensino, ampliação de oportunidades de estágio e pesquisa, e mediação de demandas com o Colegiado e os departamentos parceiros.
     </p>
 
-    <div class="flex flex-wrap gap-2 pt-1">
-      <a href="mailto:cagp@fafich.ufmg.br" class="cagp-btn-primary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
+    <div class="flex flex-wrap gap-2.5 pt-2 border-t-2 border-[#0A0A0A]">
+      <a
+        href="mailto:cagp@fafich.ufmg.br"
+        class="min-h-[44px] px-3.5 py-2 bg-[#8B1E2D] hover:bg-[#9E2424] text-white font-head font-bold uppercase text-xs tracking-wider border-2 border-[#0A0A0A] rounded-xl shadow-[3px_3px_0_0_#0A0A0A] hover:shadow-[4px_4px_0_0_#0A0A0A] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none inline-flex items-center gap-2 transition-all no-underline"
+      >
         <i class="bi bi-envelope" aria-hidden="true"></i> Enviar Demanda (cagp@fafich.ufmg.br)
       </a>
-      <a href="https://www.instagram.com/cagp.ufmg" target="_blank" rel="noopener noreferrer" class="cagp-btn-secondary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
-        <i class="bi bi-camera-reels" aria-hidden="true"></i> Vídeos & Comunicados
+      <a
+        href="https://www.instagram.com/cagp.ufmg"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="min-h-[44px] px-3.5 py-2 bg-[#FBF8F3] hover:bg-white text-[#0A0A0A] font-head font-bold uppercase text-xs tracking-wider border-2 border-[#0A0A0A] rounded-xl shadow-[2px_2px_0_0_#0A0A0A] hover:shadow-[3px_3px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none inline-flex items-center gap-2 transition-all no-underline"
+      >
+        <i class="bi bi-camera-reels" aria-hidden="true"></i> Vídeos &amp; Comunicados
       </a>
-      <a href={asset('/documentos/regimento-interno-cagp-ufmg.pdf')} download class="cagp-btn-secondary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
+      <a
+        href={asset('/documentos/regimento-interno-cagp-ufmg.pdf')}
+        download
+        class="min-h-[44px] px-3.5 py-2 bg-[#FBF8F3] hover:bg-white text-[#0A0A0A] font-head font-bold uppercase text-xs tracking-wider border-2 border-[#0A0A0A] rounded-xl shadow-[2px_2px_0_0_#0A0A0A] hover:shadow-[3px_3px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none inline-flex items-center gap-2 transition-all no-underline"
+      >
         <i class="bi bi-file-earmark-pdf text-[#8B1E2D]" aria-hidden="true"></i> Regimento CAGP (PDF)
       </a>
-      <a href={asset('/documentos/regimento-geral-ufmg.pdf')} download class="cagp-btn-secondary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
-        <i class="bi bi-building text-[#0A0A0A]" aria-hidden="true"></i> Regimento Geral UFMG (PDF)
+      <a
+        href={asset('/documentos/regimento-geral-ufmg.pdf')}
+        download
+        class="min-h-[44px] px-3.5 py-2 bg-[#0A0A0A] hover:bg-[#8B1E2D] text-white font-head font-bold uppercase text-xs tracking-wider border-2 border-[#0A0A0A] rounded-xl shadow-[3px_3px_0_0_#0A0A0A] hover:shadow-[4px_4px_0_0_#0A0A0A] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none inline-flex items-center gap-2 transition-all no-underline"
+      >
+        <i class="bi bi-building" aria-hidden="true"></i> Regimento Geral UFMG (PDF)
       </a>
     </div>
   </div>
 
   <!-- Organograma Estrutural Interativo -->
-  <div class="cagp-tool-box p-4 space-y-4">
-    <div class="border-b border-[#DFDBD2] pb-2.5 flex items-center justify-between flex-wrap gap-2">
+  <div class="bg-white border-[3px] border-[#0A0A0A] rounded-xl p-5 sm:p-6 shadow-[4px_4px_0_0_#0A0A0A] space-y-5">
+    <div class="border-b-2 border-[#0A0A0A] pb-3 flex items-center justify-between flex-wrap gap-2">
       <div>
-        <div class="flex items-center gap-2">
-          <i class="bi bi-diagram-2-fill text-[#8B1E2D] text-lg" aria-hidden="true"></i>
-          <h3 class="font-['Oswald'] text-base font-bold uppercase text-[#0A0A0A]">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-[#0A0A0A] text-white flex items-center justify-center border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+            <i class="bi bi-diagram-2-fill text-base" aria-hidden="true"></i>
+          </div>
+          <h3 class="font-head text-base sm:text-lg font-extrabold uppercase text-[#0A0A0A] m-0 tracking-tight">
             Organograma Funcional (Regimento de 14/10/2024)
           </h3>
         </div>
-        <p class="text-xs text-gray-600 mt-0.5">
+        <p class="text-xs text-[#0A0A0A] mt-1 m-0 font-medium">
           Sistema de freios e contrapesos fixado nos Arts. 20 a 40 do Regimento Interno:
         </p>
       </div>
-      <span class="cagp-badge cagp-badge-dark font-mono">
+      <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-[#0A0A0A] text-white border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
         Arts. 20 a 40
       </span>
     </div>
 
     <!-- Nível 1: Soberana Assembleia Geral -->
     <div class="flex flex-col items-center">
-      <div class="w-full max-w-md p-4 rounded-2xl bg-[#8B1E2D] text-white text-center shadow-xs border border-[#8B1E2D]">
-        <div class="flex items-center justify-center gap-1.5 mb-1">
+      <div class="w-full max-w-md p-4 rounded-xl bg-[#8B1E2D] text-white text-center shadow-[3px_3px_0_0_#0A0A0A] border-2 border-[#0A0A0A]">
+        <div class="flex items-center justify-center gap-1.5 mb-1.5">
           <i class="bi bi-people-fill text-sm" aria-hidden="true"></i>
-          <span class="text-xs font-mono uppercase bg-white/20 px-2 py-0.5 rounded-[3px] font-bold inline-block">
+          <span class="text-[11px] font-mono uppercase bg-white/20 px-2 py-0.5 rounded border border-white/30 font-bold inline-block">
             Instância Máxima Soberana
           </span>
         </div>
-        <h4 class="font-['Oswald'] text-sm uppercase font-bold tracking-wide">
+        <h4 class="font-head text-sm sm:text-base uppercase font-extrabold tracking-wide m-0">
           Soberana Assembleia Geral
         </h4>
-        <p class="text-xs text-white/90 mt-0.5">
+        <p class="text-xs text-white/95 mt-1 font-medium m-0">
           Totalidade dos estudantes matriculados em Gestão Pública (Arts. 35 a 40)
         </p>
       </div>
 
       <!-- Conector vertical -->
-      <div class="w-0.5 h-6 bg-[#0A0A0A]"></div>
+      <div class="w-1 h-6 bg-[#0A0A0A]"></div>
 
       <!-- Nível 2: Junta Eleitoral e Presidência -->
-      <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-xl">
-        <div class="cagp-card p-3 bg-white text-center">
-          <div class="flex items-center justify-center gap-1.5 mb-1">
-            <i class="bi bi-shield-check text-gray-700" aria-hidden="true"></i>
-            <span class="text-xs font-mono uppercase bg-gray-200 text-gray-800 px-2 py-0.5 rounded-[3px] font-bold inline-block">
+      <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl">
+        <div class="p-4 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl text-center shadow-[2px_2px_0_0_#0A0A0A]">
+          <div class="flex items-center justify-center gap-1.5 mb-1.5">
+            <i class="bi bi-shield-check text-[#0A0A0A]" aria-hidden="true"></i>
+            <span class="text-[10px] font-mono uppercase bg-[#DFDBD2] text-[#0A0A0A] px-2 py-0.5 rounded border border-[#0A0A0A] font-bold inline-block">
               Fiscalização Plebiscitária
             </span>
           </div>
-          <h5 class="font-['Oswald'] text-xs font-bold uppercase text-[#0A0A0A]">
+          <h5 class="font-head text-xs sm:text-sm font-extrabold uppercase text-[#0A0A0A] m-0">
             Junta Eleitoral Permanente
           </h5>
-          <p class="text-xs text-gray-600 mt-0.5">
+          <p class="text-xs text-[#0A0A0A] mt-1 font-medium m-0">
             Controle de lisura eleitoral independente da gestão (Arts. 20 a 23)
           </p>
         </div>
 
-        <div class="p-3.5 rounded-2xl bg-[#0A0A0A] text-white text-center shadow-xs border border-[#0A0A0A]">
-          <div class="flex items-center justify-center gap-1.5 mb-1">
-            <i class="bi bi-bank text-amber-400" aria-hidden="true"></i>
-            <span class="text-xs font-mono uppercase bg-amber-400 text-black px-2 py-0.5 rounded-[3px] font-bold inline-block">
+        <div class="p-4 rounded-xl bg-[#0A0A0A] text-white text-center shadow-[3px_3px_0_0_#0A0A0A] border-2 border-[#0A0A0A]">
+          <div class="flex items-center justify-center gap-1.5 mb-1.5">
+            <i class="bi bi-bank text-[#FF8811]" aria-hidden="true"></i>
+            <span class="text-[10px] font-mono uppercase bg-[#FF8811] text-[#0A0A0A] px-2 py-0.5 rounded font-bold inline-block">
               Poder Executivo
             </span>
           </div>
-          <h5 class="font-['Oswald'] text-xs font-bold uppercase text-white">
+          <h5 class="font-head text-xs sm:text-sm font-extrabold uppercase text-white m-0">
             Diretoria da Presidência (DIPRE)
           </h5>
-          <p class="text-xs text-gray-300 mt-0.5">
+          <p class="text-xs text-gray-200 mt-1 font-medium m-0">
             Presidente • Vice-Presidente • Assessoria Geral (Art. 28)
           </p>
         </div>
       </div>
 
       <!-- Conector vertical -->
-      <div class="w-0.5 h-6 bg-[#0A0A0A]"></div>
+      <div class="w-1 h-6 bg-[#0A0A0A]"></div>
 
       <!-- Nível 3: As 6 Diretorias Executivas Subordinadas -->
       <div class="w-full">
-        <div class="text-center mb-2">
-          <span class="text-xs font-mono uppercase text-gray-600 font-bold">
+        <div class="text-center mb-3">
+          <span class="text-xs font-mono uppercase text-[#0A0A0A] font-extrabold bg-[#FBF8F3] px-3 py-1 rounded-lg border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] inline-block">
             6 Diretorias Executivas Setoriais (Arts. 24 a 34)
           </span>
         </div>
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs">
-          <div class="cagp-card p-3 bg-white text-center">
-            <i class="bi bi-shield-check text-[#8B1E2D] text-base block mb-1" aria-hidden="true"></i>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
+          <div class="p-3.5 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl text-center shadow-[2px_2px_0_0_#0A0A0A]">
+            <i class="bi bi-shield-check text-[#8B1E2D] text-lg block mb-1" aria-hidden="true"></i>
             <span class="font-mono font-bold text-[#8B1E2D] block text-xs">DIJUR</span>
-            <span class="text-xs font-bold text-[#0A0A0A] block">Assuntos Jurídicos</span>
-            <span class="text-xs text-gray-500">Atas, Legalidade & LAI</span>
+            <span class="text-xs font-head font-extrabold uppercase text-[#0A0A0A] block mt-0.5">Assuntos Jurídicos</span>
+            <span class="text-[11px] text-[#0A0A0A] font-medium block mt-0.5">Atas, Legalidade &amp; LAI</span>
           </div>
-          <div class="cagp-card p-3 bg-white text-center">
-            <i class="bi bi-cash-coin text-[#8B1E2D] text-base block mb-1" aria-hidden="true"></i>
-            <span class="font-mono font-bold text-[#8B1E2D] block text-xs">DIFI</span>
-            <span class="text-xs font-bold text-[#0A0A0A] block">Finanças & RREO</span>
-            <span class="text-xs text-gray-500">CNPJ, Caixa & Produtos</span>
+          <div class="p-3.5 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl text-center shadow-[2px_2px_0_0_#0A0A0A]">
+            <i class="bi bi-cash-coin text-[#15803D] text-lg block mb-1" aria-hidden="true"></i>
+            <span class="font-mono font-bold text-[#15803D] block text-xs">DIFI</span>
+            <span class="text-xs font-head font-extrabold uppercase text-[#0A0A0A] block mt-0.5">Finanças &amp; RREO</span>
+            <span class="text-[11px] text-[#0A0A0A] font-medium block mt-0.5">CNPJ, Caixa &amp; Produtos</span>
           </div>
-          <div class="cagp-card p-3 bg-white text-center">
-            <i class="bi bi-mortarboard text-[#8B1E2D] text-base block mb-1" aria-hidden="true"></i>
-            <span class="font-mono font-bold text-[#8B1E2D] block text-xs">DIAC</span>
-            <span class="text-xs font-bold text-[#0A0A0A] block">Ensino & Pesquisa</span>
-            <span class="text-xs text-gray-500">ACG, PPC & Colegiado</span>
+          <div class="p-3.5 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl text-center shadow-[2px_2px_0_0_#0A0A0A]">
+            <i class="bi bi-mortarboard text-[#5B2A86] text-lg block mb-1" aria-hidden="true"></i>
+            <span class="font-mono font-bold text-[#5B2A86] block text-xs">DIAC</span>
+            <span class="text-xs font-head font-extrabold uppercase text-[#0A0A0A] block mt-0.5">Ensino &amp; Pesquisa</span>
+            <span class="text-[11px] text-[#0A0A0A] font-medium block mt-0.5">ACG, PPC &amp; Colegiado</span>
           </div>
-          <div class="cagp-card p-3 bg-white text-center">
-            <i class="bi bi-diagram-3 text-[#8B1E2D] text-base block mb-1" aria-hidden="true"></i>
-            <span class="font-mono font-bold text-[#8B1E2D] block text-xs">DIAP</span>
-            <span class="text-xs font-bold text-[#0A0A0A] block">Articulação Política</span>
-            <span class="text-xs text-gray-500">DA FAFICH, DCE & Fóruns</span>
+          <div class="p-3.5 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl text-center shadow-[2px_2px_0_0_#0A0A0A]">
+            <i class="bi bi-diagram-3 text-[#266264] text-lg block mb-1" aria-hidden="true"></i>
+            <span class="font-mono font-bold text-[#266264] block text-xs">DIAP</span>
+            <span class="text-xs font-head font-extrabold uppercase text-[#0A0A0A] block mt-0.5">Articulação Política</span>
+            <span class="text-[11px] text-[#0A0A0A] font-medium block mt-0.5">DA FAFICH, DCE &amp; Fóruns</span>
           </div>
-          <div class="cagp-card p-3 bg-white text-center">
-            <i class="bi bi-palette text-[#8B1E2D] text-base block mb-1" aria-hidden="true"></i>
-            <span class="font-mono font-bold text-[#8B1E2D] block text-xs">DICULT</span>
-            <span class="text-xs font-bold text-[#0A0A0A] block">Cultura & Lazer</span>
-            <span class="text-xs text-gray-500">Calouradas & Cineclube</span>
+          <div class="p-3.5 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl text-center shadow-[2px_2px_0_0_#0A0A0A]">
+            <i class="bi bi-palette text-[#FF8811] text-lg block mb-1" aria-hidden="true"></i>
+            <span class="font-mono font-bold text-[#FF8811] block text-xs">DICULT</span>
+            <span class="text-xs font-head font-extrabold uppercase text-[#0A0A0A] block mt-0.5">Cultura &amp; Lazer</span>
+            <span class="text-[11px] text-[#0A0A0A] font-medium block mt-0.5">Calouradas &amp; Cineclube</span>
           </div>
-          <div class="cagp-card p-3 bg-white text-center">
-            <i class="bi bi-broadcast-pin text-[#8B1E2D] text-base block mb-1" aria-hidden="true"></i>
+          <div class="p-3.5 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl text-center shadow-[2px_2px_0_0_#0A0A0A]">
+            <i class="bi bi-broadcast-pin text-[#8B1E2D] text-lg block mb-1" aria-hidden="true"></i>
             <span class="font-mono font-bold text-[#8B1E2D] block text-xs">DIMAC</span>
-            <span class="text-xs font-bold text-[#0A0A0A] block">Marketing & Mídias</span>
-            <span class="text-xs text-gray-500">Portal, Murais & Redes</span>
+            <span class="text-xs font-head font-extrabold uppercase text-[#0A0A0A] block mt-0.5">Marketing &amp; Mídias</span>
+            <span class="text-[11px] text-[#0A0A0A] font-medium block mt-0.5">Portal, Murais &amp; Redes</span>
           </div>
         </div>
       </div>

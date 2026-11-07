@@ -1,6 +1,7 @@
 ---
 // src/pages/noticias/[slug].astro — Página dedicada para leitura integral de cada notícia do CAGP
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
 import {
   SIMULATED_NEWS,
   SIMULATION_NOTICE,
@@ -10,28 +11,63 @@ import {
 import { getCagpIconSvg } from '../../lib/cagpIcons';
 import { route } from '../../lib/paths';
 
-export function getStaticPaths() {
+export async function getStaticPaths() {
+  const collectionItems = await getCollection('noticias');
+  if (collectionItems.length > 0) {
+    return collectionItems.map((entry) => ({
+      params: { slug: entry.data.slug },
+      props: {
+        entry,
+        article: {
+          id: entry.id,
+          slug: entry.data.slug,
+          simulated: true,
+          category: entry.data.category,
+          tag: entry.data.tag,
+          tagColor: entry.data.tagColor,
+          title: entry.data.title,
+          summary: entry.data.summary,
+          body: entry.data.summary,
+          fullContent: entry.data.highlights || [],
+          highlights: entry.data.highlights || [],
+          author: entry.data.author,
+          readingTime: entry.data.readingTime,
+          meta: entry.data.meta,
+          dateLabel: entry.data.dateLabel,
+          ctaLabel: entry.data.ctaLabel,
+          ctaHref: entry.data.ctaHref,
+          relatedLinks: entry.data.relatedLinks || [],
+          relevantRoles: (entry.data.relevantRoles as any) || [],
+          motif: entry.data.motif,
+        } as SimulatedNewsItem,
+      },
+    }));
+  }
+
   return SIMULATED_NEWS.map((article) => ({
     params: { slug: article.slug },
-    props: { article },
+    props: { article, entry: null },
   }));
 }
 
 interface Props {
   article: SimulatedNewsItem;
+  entry?: any;
 }
 
-const { article } = Astro.props;
+const { article, entry } = Astro.props;
+const rendered = entry ? await render(entry) : null;
+const Content = rendered?.Content;
 const otherArticles = SIMULATED_NEWS.filter((item) => item.slug !== article.slug).slice(0, 3);
 
 const badgeClass =
   article.tagColor === 'burgundy'
     ? 'bg-[#8B1E2D] text-white'
     : article.tagColor === 'gold'
-    ? 'bg-[#E8A317] text-[#0A0A0A]'
+    ? 'bg-[#FF8811] text-[#0A0A0A]'
     : article.tagColor === 'green'
     ? 'bg-[#15803D] text-white'
-    : 'bg-[#005A9C] text-white';
+    : 'bg-[#5B2A86] text-white';
 
 const stampSvg = getCagpIconSvg('stamp', 'w-3.5 h-3.5');
 const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
@@ -43,34 +79,34 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
   activePage="hoje"
   activeGroup="hoje"
 >
-  <div class="py-2 space-y-6 pb-10">
+  <div class="py-2 space-y-6 pb-10 font-body">
     <!-- Subnavegação de Início · Mural de Notícias -->
     <nav
       aria-label="Navegação da Seção Início"
-      class="bg-white rounded-2xl border border-[#DFDBD2] p-2 flex flex-wrap items-center justify-between gap-2 shadow-2xs"
+      class="bg-white rounded-xl border-2 border-[#0A0A0A] p-2 flex flex-wrap items-center justify-between gap-2 shadow-[3px_3px_0_0_#0A0A0A]"
     >
       <div class="flex flex-wrap items-center gap-1.5">
         <a
           href={route('/')}
-          class="px-3.5 py-2 rounded-xl text-xs font-bold text-[#292524] hover:bg-[#FBF8F3] hover:text-[#8B1E2D] no-underline transition-colors"
+          class="px-3.5 py-2 rounded-lg text-xs font-head font-bold uppercase text-[#0A0A0A] hover:bg-[#FBF8F3] hover:text-[#8B1E2D] no-underline transition-colors border border-transparent hover:border-[#0A0A0A]"
         >
           Início
         </a>
         <a
           href={route('/noticias')}
-          class="px-3.5 py-2 rounded-xl text-xs font-bold bg-[#8B1E2D] text-white no-underline shadow-2xs"
+          class="px-3.5 py-2 rounded-lg text-xs font-head font-extrabold uppercase bg-[#8B1E2D] text-white no-underline border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]"
         >
           Mural de Notícias
         </a>
         <a
           href={route('/') + '#campus'}
-          class="px-3.5 py-2 rounded-xl text-xs font-bold text-[#292524] hover:bg-[#FBF8F3] hover:text-[#8B1E2D] no-underline transition-colors"
+          class="px-3.5 py-2 rounded-lg text-xs font-head font-bold uppercase text-[#0A0A0A] hover:bg-[#FBF8F3] hover:text-[#8B1E2D] no-underline transition-colors border border-transparent hover:border-[#0A0A0A]"
         >
           Plantão Noturno
         </a>
         <a
           href={route('/') + '#passaporte'}
-          class="px-3.5 py-2 rounded-xl text-xs font-bold text-[#292524] hover:bg-[#FBF8F3] hover:text-[#8B1E2D] no-underline transition-colors"
+          class="px-3.5 py-2 rounded-lg text-xs font-head font-bold uppercase text-[#0A0A0A] hover:bg-[#FBF8F3] hover:text-[#8B1E2D] no-underline transition-colors border border-transparent hover:border-[#0A0A0A]"
         >
           Passaporte
         </a>
@@ -78,24 +114,24 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
 
       <a
         href={route('/noticias')}
-        class="px-3 py-1.5 rounded-xl bg-[#FBF8F3] hover:bg-[#F4F1EA] border border-[#DFDBD2] text-xs font-bold text-[#292524] no-underline"
+        class="px-3.5 py-2 rounded-xl bg-[#FBF8F3] hover:bg-white border-2 border-[#0A0A0A] text-xs font-head font-bold uppercase text-[#0A0A0A] no-underline shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all"
       >
-        &larr; Voltar ao Mural Completo
+        &larr; Voltar ao Mural
       </a>
     </nav>
 
-    <!-- Aviso Obrigatório de Simulação (PRODUCT.md) -->
+    <!-- Aviso Obrigatório de Simulação -->
     <div
       role="note"
-      class="p-4 rounded-2xl bg-[#FEF3C7]/85 border border-[#F59E0B]/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-[#78350F]"
+      class="p-4 rounded-xl bg-[#FEF3C7] border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-[#0A0A0A]"
     >
-      <div class="space-y-0.5">
-        <strong class="font-bold text-[#78350F] block">
+      <div class="space-y-1">
+        <strong className="font-head uppercase font-extrabold text-[#78350F] block">
           Publicação Demonstrativa (simulated: true)
         </strong>
-        <p class="m-0 text-[#78350F]">{SIMULATION_NOTICE}</p>
+        <p class="m-0 text-[#0A0A0A] font-medium">{SIMULATION_NOTICE}</p>
       </div>
-      <span class="font-mono text-[10px] font-bold uppercase bg-white px-2.5 py-1 rounded-full border border-[#F59E0B]/40 shrink-0 self-start sm:self-center">
+      <span class="font-mono text-[10px] font-bold uppercase bg-white px-2.5 py-1 rounded-lg border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] text-[#78350F] shrink-0 self-start sm:self-center">
         {SIMULATION_BADGE_TEXT}
       </span>
     </div>
@@ -103,28 +139,28 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
     <!-- Layout Editorial da Notícia Completa -->
     <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
       <!-- Corpo Principal da Notícia (8 Colunas) -->
-      <article class="xl:col-span-8 bg-white rounded-3xl border border-[#DFDBD2] overflow-hidden shadow-2xs">
+      <article class="xl:col-span-8 bg-white rounded-xl border-[3px] border-[#0A0A0A] overflow-hidden shadow-[4px_4px_0_0_#0A0A0A]">
         <!-- Cabeçalho Visual com Arte Vetorial Exclusiva -->
-        <div class="h-44 sm:h-52 relative overflow-hidden">
+        <div class="h-44 sm:h-52 relative overflow-hidden border-b-[3px] border-[#0A0A0A]">
           {article.motif === 'assembleia' && (
             <svg viewBox="0 0 640 220" class="w-full h-full object-cover" aria-hidden="true">
               <rect width="640" height="220" fill="#8B1E2D" />
               <circle cx="540" cy="45" r="110" fill="#9E2424" />
-              <path d="M40 180H600" stroke="#E8A317" stroke-width="2.5" stroke-opacity="0.65" />
-              <rect x="56" y="64" width="24" height="116" rx="3" fill="#FBF8F3" fill-opacity="0.18" />
-              <rect x="96" y="48" width="24" height="132" rx="3" fill="#FBF8F3" fill-opacity="0.28" />
-              <rect x="136" y="76" width="24" height="104" rx="3" fill="#FBF8F3" fill-opacity="0.18" />
-              <circle cx="490" cy="115" r="46" stroke="#E8A317" stroke-width="2.5" fill="none" stroke-dasharray="6 4" />
+              <path d="M40 180H600" stroke="#FF8811" stroke-width="3" stroke-opacity="0.8" />
+              <rect x="56" y="64" width="24" height="116" rx="3" fill="#FBF8F3" fill-opacity="0.25" />
+              <rect x="96" y="48" width="24" height="132" rx="3" fill="#FBF8F3" fill-opacity="0.35" />
+              <rect x="136" y="76" width="24" height="104" rx="3" fill="#FBF8F3" fill-opacity="0.25" />
+              <circle cx="490" cy="115" r="46" stroke="#FF8811" stroke-width="3" fill="none" stroke-dasharray="6 4" />
             </svg>
           )}
           {article.motif === 'carreiras' && (
             <svg viewBox="0 0 640 220" class="w-full h-full object-cover" aria-hidden="true">
-              <rect width="640" height="220" fill="#1E3F66" />
-              <circle cx="530" cy="170" r="120" fill="#005A9C" fill-opacity="0.55" />
-              <path d="M56 164L190 98L300 128L450 58L570 80" stroke="#E8A317" stroke-width="4" fill="none" stroke-linecap="round" />
+              <rect width="640" height="220" fill="#266264" />
+              <circle cx="530" cy="170" r="120" fill="#15803D" fill-opacity="0.6" />
+              <path d="M56 164L190 98L300 128L450 58L570 80" stroke="#FF8811" stroke-width="4" fill="none" stroke-linecap="round" />
               <circle cx="190" cy="98" r="6" fill="#FFFDF9" />
               <circle cx="300" cy="128" r="6" fill="#FFFDF9" />
-              <circle cx="450" cy="58" r="7" fill="#E8A317" />
+              <circle cx="450" cy="58" r="7" fill="#FF8811" />
             </svg>
           )}
           {article.motif === 'calourada' && (
@@ -133,33 +169,33 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
               <circle cx="120" cy="40" r="95" fill="#166534" />
               <circle cx="500" cy="110" r="56" stroke="#FEF3C7" stroke-width="3" fill="none" />
               <path d="M340 175C370 120 440 120 470 175" stroke="#FFFDF9" stroke-width="3" fill="none" />
-              <path d="M430 175C460 120 530 120 560 175" stroke="#E8A317" stroke-width="3" fill="none" />
+              <path d="M430 175C460 120 530 120 560 175" stroke="#FF8811" stroke-width="3" fill="none" />
             </svg>
           )}
           {article.motif === 'congresso' && (
             <svg viewBox="0 0 640 220" class="w-full h-full object-cover" aria-hidden="true">
-              <rect width="640" height="220" fill="#3B1D24" />
-              <circle cx="180" cy="110" r="42" stroke="#E8A317" stroke-width="2.5" fill="none" />
-              <circle cx="340" cy="70" r="32" stroke="#FFFDF9" stroke-width="2.5" fill="none" />
-              <circle cx="480" cy="135" r="38" stroke="#E8A317" stroke-width="2.5" fill="none" />
-              <path d="M220 96L310 78M370 84L444 120" stroke="#FFFDF9" stroke-width="2" stroke-opacity="0.65" />
+              <rect width="640" height="220" fill="#5B2A86" />
+              <circle cx="180" cy="110" r="42" stroke="#FF8811" stroke-width="3" fill="none" />
+              <circle cx="340" cy="70" r="32" stroke="#FFFDF9" stroke-width="3" fill="none" />
+              <circle cx="480" cy="135" r="38" stroke="#FF8811" stroke-width="3" fill="none" />
+              <path d="M220 96L310 78M370 84L444 120" stroke="#FFFDF9" stroke-width="2.5" stroke-opacity="0.8" />
             </svg>
           )}
 
           <div class="absolute top-4 left-4 right-4 flex flex-wrap items-center justify-between gap-2">
-            <span class={`text-xs font-bold px-3 py-1 rounded-full shadow-xs ${badgeClass}`}>
+            <span class={`text-xs font-head font-extrabold uppercase px-3 py-1 rounded-lg border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] ${badgeClass}`}>
               {article.tag}
             </span>
-            <span class="text-[11px] font-mono font-bold bg-black/70 text-white px-3 py-1 rounded-full">
+            <span class="text-[11px] font-mono font-bold bg-[#0A0A0A] text-white px-3 py-1 rounded-lg border-2 border-white/40 shadow-[2px_2px_0_0_#0A0A0A]">
               {article.meta}
             </span>
           </div>
         </div>
 
         <div class="p-6 sm:p-8 space-y-6">
-          <!-- Metadados & Carimbo Neo-Brutalista -->
-          <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[#DFDBD2]">
-            <div class="text-xs font-mono text-[#57534E] space-x-2">
+          <!-- Metadados & Carimbo Neobrutalista -->
+          <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b-2 border-[#0A0A0A]">
+            <div class="text-xs font-mono font-bold text-[#0A0A0A] space-x-2">
               <span>{article.dateLabel}</span>
               <span>•</span>
               <span>{article.author}</span>
@@ -167,7 +203,7 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
               <span>{article.readingTime}</span>
             </div>
 
-            <span class="cagp-stamp-badge is-deferido">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-[#E8F5E9] text-[#15803D] font-mono text-[11px] font-bold uppercase rounded-lg border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
               <span set:html={stampSvg} />
               <span>PUBLICAÇÃO CAGP</span>
             </span>
@@ -175,33 +211,39 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
 
           <!-- Título e Subtítulo Editorial -->
           <header class="space-y-3">
-            <h1 class="font-['Oswald'] text-2xl sm:text-3xl font-bold uppercase text-[#0A0A0A] leading-tight m-0">
+            <h1 class="font-head text-2xl sm:text-3xl font-extrabold uppercase text-[#0A0A0A] leading-tight m-0 tracking-tight">
               {article.title}
             </h1>
-            <p class="text-sm sm:text-base font-medium text-[#44403C] leading-relaxed m-0 max-w-[68ch]">
+            <p class="text-sm sm:text-base font-medium text-[#0A0A0A] leading-relaxed m-0 max-w-[68ch]">
               {article.summary}
             </p>
           </header>
 
-          <!-- Texto Integral da Notícia (Largura de leitura 65ch–72ch) -->
-          <div class="space-y-4 max-w-[70ch] text-sm sm:text-[15px] text-[#292524] leading-relaxed">
-            {article.fullContent.map((paragraph) => (
-              <p class="m-0 leading-relaxed">{paragraph}</p>
-            ))}
+          <!-- Texto Integral da Notícia -->
+          <div class="space-y-4 max-w-[70ch] text-sm sm:text-[15px] text-[#0A0A0A] leading-relaxed font-medium">
+            {Content ? (
+              <div class="space-y-4">
+                <Content />
+              </div>
+            ) : (
+              article.fullContent.map((paragraph) => (
+                <p class="m-0 leading-relaxed">{paragraph}</p>
+              ))
+            )}
           </div>
 
           <!-- Destaques Práticos e Normativos -->
           <section
             aria-labelledby="heading-article-highlights"
-            class="p-5 rounded-2xl bg-[#FBF8F3] border border-[#DFDBD2] space-y-3 max-w-[70ch]"
+            class="p-5 rounded-xl bg-[#FBF8F3] border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A] space-y-3 max-w-[70ch]"
           >
             <h2
               id="heading-article-highlights"
-              class="font-['Oswald'] text-base font-bold uppercase text-[#0A0A0A] m-0"
+              class="font-head text-base font-extrabold uppercase text-[#0A0A0A] m-0 tracking-tight"
             >
               Pontos-Chave &amp; Encaminhamentos
             </h2>
-            <ul class="space-y-2 m-0 pl-4 text-xs sm:text-sm text-[#292524]">
+            <ul class="space-y-2 m-0 pl-4 text-xs sm:text-sm text-[#0A0A0A] font-medium">
               {article.highlights.map((hl) => (
                 <li class="leading-relaxed">{hl}</li>
               ))}
@@ -209,10 +251,10 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
           </section>
 
           <!-- Botões de Ação da Notícia -->
-          <footer class="pt-4 border-t border-[#DFDBD2] flex flex-wrap items-center justify-between gap-3">
+          <footer class="pt-4 border-t-2 border-[#0A0A0A] flex flex-wrap items-center justify-between gap-3">
             <a
               href={route('/noticias')}
-              class="px-4 py-2.5 rounded-xl bg-[#FBF8F3] hover:bg-[#F4F1EA] border border-[#DFDBD2] text-xs font-bold text-[#292524] no-underline"
+              class="min-h-[44px] px-4 py-2.5 rounded-xl bg-[#FBF8F3] hover:bg-white border-2 border-[#0A0A0A] text-xs font-head font-bold uppercase text-[#0A0A0A] no-underline shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all"
             >
               &larr; Voltar para todas as notícias
             </a>
@@ -220,7 +262,7 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
             {article.ctaHref && (
               <a
                 href={article.ctaHref}
-                class="px-5 py-2.5 rounded-xl bg-[#8B1E2D] hover:bg-[#6E1420] text-white text-xs font-bold no-underline inline-flex items-center gap-2 transition-colors"
+                class="min-h-[44px] px-5 py-2.5 rounded-xl bg-[#8B1E2D] hover:bg-[#9E2424] text-white text-xs font-head font-extrabold uppercase tracking-wider no-underline inline-flex items-center gap-2 border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A] hover:shadow-[4px_4px_0_0_#0A0A0A] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
               >
                 <span>{article.ctaLabel}</span>
                 <span set:html={arrowRightSvg} />
@@ -230,21 +272,21 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
         </div>
       </article>
 
-      <!-- Coluna Lateral: Referências Oficiais & Outras Notícias do CAGP (4 Colunas) -->
+      <!-- Coluna Lateral: Referências Oficiais & Outras Notícias (4 Colunas) -->
       <aside class="xl:col-span-4 space-y-5 xl:sticky xl:top-6">
         <!-- Links e Serviços Relacionados -->
-        <div class="bg-white rounded-3xl border border-[#DFDBD2] p-5 shadow-2xs space-y-3.5">
-          <h2 class="font-['Oswald'] text-base font-bold uppercase text-[#0A0A0A] m-0">
+        <div class="bg-white rounded-xl border-[3px] border-[#0A0A0A] p-5 shadow-[4px_4px_0_0_#0A0A0A] space-y-3.5">
+          <h2 class="font-head text-base font-extrabold uppercase text-[#0A0A0A] m-0 tracking-tight">
             Referências &amp; Serviços Relacionados
           </h2>
-          <p class="text-xs text-[#57534E] m-0">
+          <p class="text-xs text-[#0A0A0A] m-0 font-medium">
             Acesse as páginas normativas e ferramentas oficiais ligadas a esta publicação:
           </p>
           <div class="space-y-2">
             {article.relatedLinks.map((link) => (
               <a
                 href={link.href}
-                class="p-3 rounded-2xl bg-[#FBF8F3] hover:bg-[#F4F1EA] border border-[#DFDBD2] no-underline text-[#0A0A0A] flex items-center justify-between gap-2 text-xs font-bold transition-colors"
+                class="p-3 rounded-xl bg-[#FBF8F3] hover:bg-white border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] no-underline text-[#0A0A0A] flex items-center justify-between gap-2 text-xs font-head font-bold uppercase transition-all"
               >
                 <span>{link.label}</span>
                 <span class="text-[#8B1E2D] shrink-0" set:html={arrowRightSvg} />
@@ -254,32 +296,32 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
         </div>
 
         <!-- Outras Notícias do Mural do CAGP -->
-        <div class="bg-white rounded-3xl border border-[#DFDBD2] p-5 shadow-2xs space-y-3.5">
-          <div class="flex items-center justify-between">
-            <h2 class="font-['Oswald'] text-base font-bold uppercase text-[#0A0A0A] m-0">
-              Outras Notícias no CAGP
+        <div class="bg-white rounded-xl border-[3px] border-[#0A0A0A] p-5 shadow-[4px_4px_0_0_#0A0A0A] space-y-3.5">
+          <div class="flex items-center justify-between border-b-2 border-[#0A0A0A] pb-2">
+            <h2 class="font-head text-base font-extrabold uppercase text-[#0A0A0A] m-0 tracking-tight">
+              Outras Notícias
             </h2>
             <a
               href={route('/noticias')}
-              class="text-xs font-bold text-[#8B1E2D] hover:underline no-underline"
+              class="text-xs font-head font-extrabold uppercase text-[#8B1E2D] hover:underline no-underline"
             >
               Ver todas &rarr;
             </a>
           </div>
 
-          <div class="space-y-2.5">
+          <div class="space-y-3">
             {otherArticles.map((other) => (
               <a
                 href={route(`/noticias/${other.slug}`)}
-                class="block p-3.5 rounded-2xl bg-[#FBF8F3] hover:bg-[#F4F1EA] border border-[#DFDBD2] no-underline transition-colors space-y-1"
+                class="block p-3.5 rounded-xl bg-[#FBF8F3] hover:bg-white border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] no-underline transition-all space-y-1.5"
               >
                 <span class="text-[10px] font-mono font-bold text-[#8B1E2D] block">
                   {other.tag}
                 </span>
-                <strong class="text-xs font-bold text-[#0A0A0A] block leading-snug">
+                <strong class="text-xs font-head font-extrabold uppercase text-[#0A0A0A] block leading-snug">
                   {other.title}
                 </strong>
-                <span class="text-[11px] font-bold text-[#8B1E2D] inline-flex items-center gap-1 pt-0.5">
+                <span class="text-[11px] font-head font-bold text-[#8B1E2D] inline-flex items-center gap-1 pt-0.5">
                   Ler notícia completa &rarr;
                 </span>
               </a>

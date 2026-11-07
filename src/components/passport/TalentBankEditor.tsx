@@ -49,11 +49,11 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 font-body">
       {/* Upload de Foto & Presets */}
-      <div className="bg-white border border-[#DFDBD2] p-3.5 rounded-xl space-y-3">
-        <span className="font-['Oswald'] font-bold text-xs uppercase text-[#0A0A0A] block">
-          1. Foto de Perfil & Avatar (256x256)
+      <div className="bg-white border-2 border-[#0A0A0A] p-4 rounded-xl shadow-[3px_3px_0_0_#0A0A0A] space-y-3">
+        <span className="font-head font-extrabold text-xs uppercase text-[#0A0A0A] block">
+          1. Foto de Perfil &amp; Avatar (256x256)
         </span>
 
         <input
@@ -69,7 +69,7 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="cagp-btn-primary text-xs py-1.5 px-3 cursor-pointer"
+            className="min-h-[44px] px-3.5 py-2 bg-[#8B1E2D] hover:bg-[#9E2424] text-white font-head font-bold uppercase text-xs rounded-xl border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer inline-flex items-center gap-1.5"
           >
             <i className="bi bi-camera-fill" aria-hidden="true" />
             <span>Tirar / Subir Foto</span>
@@ -78,7 +78,7 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
             <button
               type="button"
               onClick={() => onChange({ ...profile, photoDataUrl: undefined })}
-              className="cagp-btn-outline text-xs py-1.5 px-3 text-[#DC2626] border-[#DC2626]/30 cursor-pointer"
+              className="min-h-[44px] px-3.5 py-2 bg-white hover:bg-[#FFEBEE] text-[#DC2626] font-head font-bold uppercase text-xs rounded-xl border-2 border-[#DC2626] shadow-[2px_2px_0_0_#DC2626] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer inline-flex items-center gap-1.5"
             >
               <i className="bi bi-trash" aria-hidden="true" />
               <span>Remover Foto</span>
@@ -87,7 +87,7 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
         </div>
 
         <div>
-          <span className="text-[11px] font-['Oswald'] uppercase font-bold text-gray-700 block mb-1.5">
+          <span className="text-[11px] font-head uppercase font-bold text-[#0A0A0A] block mb-1.5">
             Ou escolha um avatar temático discente:
           </span>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -98,14 +98,14 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
                   key={p.id}
                   type="button"
                   onClick={() => onChange({ ...profile, avatarPreset: p.id, photoDataUrl: undefined })}
-                  className={`p-2 rounded-[4px] border-2 text-left flex items-center gap-2 transition-all cursor-pointer select-none ${
+                  className={`p-2 rounded-xl border-2 text-left flex items-center gap-2 transition-all cursor-pointer select-none ${
                     isSelected
-                      ? 'border-[#0A0A0A] bg-white shadow-[2px_2px_0px_#0A0A0A] scale-102'
-                      : 'border-[#DFDBD2] bg-[#F7F5F0] hover:border-gray-400 opacity-80'
+                      ? 'border-[#0A0A0A] bg-white shadow-[3px_3px_0px_#0A0A0A] -translate-x-[1px] -translate-y-[1px]'
+                      : 'border-[#0A0A0A] bg-[#FBF8F3] hover:bg-white'
                   }`}
                 >
                   <div
-                    className="w-7 h-7 rounded-[3px] border border-[#0A0A0A] flex items-center justify-center shrink-0 text-xs font-bold font-['Oswald']"
+                    className="w-7 h-7 rounded-lg border-2 border-[#0A0A0A] flex items-center justify-center shrink-0 text-xs font-head font-extrabold shadow-[1px_1px_0_0_#0A0A0A]"
                     style={{ backgroundColor: p.bg, color: p.color }}
                   >
                     {p.icon ? (
@@ -115,7 +115,7 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
                     )}
                   </div>
                   <div className="min-w-0">
-                    <span className="font-['Oswald'] text-xs font-bold uppercase text-[#0A0A0A] block truncate">
+                    <span className="font-head text-xs font-bold uppercase text-[#0A0A0A] block truncate">
                       {p.label}
                     </span>
                   </div>
@@ -127,8 +127,8 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
       </div>
 
       {/* Identificação Acadêmica */}
-      <div className="bg-white border border-[#DFDBD2] p-3.5 rounded-xl space-y-3">
-        <span className="font-['Oswald'] font-bold text-xs uppercase text-[#0A0A0A] block">
+      <div className="bg-white border-2 border-[#0A0A0A] p-4 rounded-xl shadow-[3px_3px_0_0_#0A0A0A] space-y-3">
+        <span className="font-head font-extrabold text-xs uppercase text-[#0A0A0A] block">
           2. Dados do Estudante
         </span>
 
@@ -185,17 +185,21 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
       </div>
 
       {/* Marcador de Orgulho */}
-      <div className="bg-white border border-[#DFDBD2] p-3.5 rounded-xl space-y-2">
-        <span className="font-['Oswald'] font-bold text-xs uppercase text-[#0A0A0A] block">
+      <div className="bg-white border-2 border-[#0A0A0A] p-4 rounded-xl shadow-[3px_3px_0_0_#0A0A0A] space-y-2.5">
+        <span className="font-head font-extrabold text-xs uppercase text-[#0A0A0A] block">
           3. Marcador / Pin de Diversidade (Opcional)
         </span>
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap gap-2">
           {PRIDE_OPTIONS.map((opt) => (
             <button
               key={opt.key}
               type="button"
               onClick={() => onChange({ ...profile, prideChoice: opt.key })}
-              className={`cagp-preset-chip flex items-center gap-1.5 ${profile.prideChoice === opt.key ? 'is-active' : ''}`}
+              className={`px-3 py-1.5 rounded-xl border-2 border-[#0A0A0A] text-xs font-head font-bold uppercase flex items-center gap-2 cursor-pointer transition-all ${
+                profile.prideChoice === opt.key
+                  ? 'bg-[#0A0A0A] text-white shadow-[2px_2px_0_0_#0A0A0A]'
+                  : 'bg-[#FBF8F3] hover:bg-white text-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none'
+              }`}
             >
               <span className={`cagp-pride-swatch cagp-pride-swatch--${opt.key}`} />
               <span>{opt.label}</span>
@@ -205,16 +209,16 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
       </div>
 
       {/* Áreas de Interesse (Banco de Talentos) */}
-      <div className="bg-white border border-[#DFDBD2] p-3.5 rounded-xl space-y-2">
-        <div className="flex items-center justify-between">
-          <span className="font-['Oswald'] font-bold text-xs uppercase text-[#0A0A0A]">
-            4. Áreas de Atuação & Banco de Talentos
+      <div className="bg-white border-2 border-[#0A0A0A] p-4 rounded-xl shadow-[3px_3px_0_0_#0A0A0A] space-y-2.5">
+        <div className="flex items-center justify-between border-b-2 border-[#0A0A0A] pb-2">
+          <span className="font-head font-extrabold text-xs uppercase text-[#0A0A0A]">
+            4. Áreas de Atuação &amp; Banco de Talentos
           </span>
-          <span className="text-[10px] font-mono text-gray-500">
+          <span className="text-[11px] font-mono font-bold text-[#0A0A0A]">
             {(profile.interests || []).length} selecionadas
           </span>
         </div>
-        <div className="flex flex-wrap gap-1.5 pt-1">
+        <div className="flex flex-wrap gap-2 pt-1">
           {TALENT_CATEGORIES.map((cat) => {
             const isSelected = (profile.interests || []).includes(cat.key);
             return (
@@ -223,7 +227,11 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
                 type="button"
                 onClick={() => toggleInterest(cat.key)}
                 aria-pressed={isSelected}
-                className={`cagp-interest-chip ${isSelected ? 'is-active' : ''}`}
+                className={`px-3 py-1.5 rounded-xl border-2 border-[#0A0A0A] text-xs font-head font-bold uppercase cursor-pointer transition-all ${
+                  isSelected
+                    ? 'bg-[#8B1E2D] text-white shadow-[2px_2px_0_0_#0A0A0A]'
+                    : 'bg-[#FBF8F3] hover:bg-white text-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none'
+                }`}
               >
                 <span>{cat.label}</span>
               </button>
@@ -236,9 +244,9 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
       <button
         type="button"
         onClick={onSave}
-        className="cagp-btn-primary w-full py-2.5 justify-center text-sm font-bold cursor-pointer"
+        className="min-h-[44px] w-full py-2.5 px-4 bg-[#8B1E2D] hover:bg-[#9E2424] text-white font-head font-extrabold uppercase tracking-wider text-xs rounded-xl border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A] hover:shadow-[4px_4px_0_0_#0A0A0A] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer inline-flex items-center justify-center gap-2"
       >
-        <i className="bi bi-check2-circle" aria-hidden="true" />
+        <i className="bi bi-check2-circle text-base" aria-hidden="true" />
         <span>Salvar no Cofre Discente</span>
       </button>
     </div>

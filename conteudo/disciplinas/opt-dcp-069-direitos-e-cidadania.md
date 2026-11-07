@@ -1,0 +1,13 @@
+---
+codigo: "DCP 069"
+nome: "DIREITOS E CIDADANIA"
+natureza: "optativa"
+ch: 60
+modulo: "Optativa"
+preRequisitos: []
+ementa: "Análise de processos que conduzem à expansão dos Direitos de Cidadania, com especial ênfase na condição de vida urbana, na experiência da gestão pública em suas interfaces com as lutas sociais e políticas. Direitos humanos e cidadania na construção das lutas sociais e na constituição de novos sujeitos de direito. Discussão sobre as origens e formas de compreensão dos Direitos: direitos políticos e civis, direitos e garantias individuais, direitos sociais e econômicos, direitos difusos. Integralidade e Indivisibilidade dos Direitos. Plataforma Internacional dos Direitos Humanos. Reconstrução histórica no processo de afirmação dos Direitos Humanos na sociedade brasileira."
+---
+
+## Ementa Oficial
+
+Análise de processos que conduzem à expansão dos Direitos de Cidadania, com especial ênfase na condição de vida urbana, na experiência da gestão pública em suas interfaces com as lutas sociais e políticas. Direitos humanos e cidadania na construção das lutas sociais e na constituição de novos sujeitos de direito. Discussão sobre as origens e formas de compreensão dos Direitos: direitos políticos e civis, direitos e garantias individuais, direitos sociais e econômicos, direitos difusos. Integralidade e Indivisibilidade dos Direitos. Plataforma Internacional dos Direitos Humanos. Reconstrução histórica no processo de afirmação dos Direitos Humanos na sociedade brasileira.

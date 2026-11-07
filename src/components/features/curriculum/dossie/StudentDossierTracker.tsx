@@ -56,32 +56,32 @@ export const StudentDossierTracker: React.FC = () => {
   const totalPct = Math.round((totalCompleted / degreeTotal) * 100);
 
   return (
-    <div className="cagp-student-dossier p-4 sm:p-5 bg-white border border-[#DFDBD2] rounded-xl space-y-4 shadow-xs select-none text-[#0A0A0A]">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#DFDBD2] pb-3">
+    <div className="cagp-student-dossier p-6 bg-white border-[3px] border-[#0A0A0A] rounded-xl space-y-5 shadow-[4px_4px_0_0_#0A0A0A] select-none text-[#0A0A0A]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-2 border-[#0A0A0A] pb-3">
         <div>
-          <span className="text-[11px] font-['Oswald'] uppercase font-bold tracking-wider text-[#8B1E2D]">
+          <span className="text-[11px] font-head uppercase font-bold tracking-wider text-[#9E2424]">
             Dossiê de Integralização Discente
           </span>
-          <h3 className="font-['Oswald'] text-base sm:text-lg font-bold uppercase text-[#0A0A0A] m-0">
+          <h3 className="font-head text-base sm:text-lg font-black uppercase text-[#0A0A0A] m-0">
             Termômetro das 3.000 Horas da Graduação
           </h3>
-          <p className="text-xs text-gray-600 mt-0.5 m-0">
+          <p className="font-body text-xs text-[#57534E] mt-0.5 m-0">
             Acompanhamento automatizado de créditos e cargas horárias do PPC 2020.
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <div className="text-right">
-            <span className="text-[10px] font-mono text-gray-500 uppercase block">Integralizado</span>
-            <span className="text-base sm:text-lg font-mono font-bold text-[#8B1E2D]">
+            <span className="text-[10px] font-mono text-[#57534E] uppercase font-bold block">Integralizado</span>
+            <span className="text-base sm:text-lg font-mono font-bold text-[#9E2424]">
               {totalCompleted}h / {degreeTotal}h
             </span>
           </div>
           {totalCompleted >= degreeTotal ? (
-            <span className="cagp-stamp-badge is-homologado text-xs py-1 px-2 shadow-[2px_2px_0_#B45309]">
+            <span className="cagp-stamp-badge is-homologado text-xs py-1.5 px-3 border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
               ★ APTO À COLAÇÃO
             </span>
           ) : (
-            <span className="px-2.5 py-1 rounded bg-[#0A0A0A] text-white font-mono text-xs font-bold shrink-0">
+            <span className="px-3 py-1.5 rounded-lg bg-[#0A0A0A] text-white font-mono text-xs font-bold border border-[#0A0A0A] shadow-[1.5px_1.5px_0_0_#0A0A0A] shrink-0">
               {totalPct}%
             </span>
           )}
@@ -89,14 +89,14 @@ export const StudentDossierTracker: React.FC = () => {
       </div>
 
       {/* Barra Principal Geral */}
-      <div className="space-y-1">
-        <div className="w-full bg-[#F7F5F0] border border-[#DFDBD2] rounded-lg h-3 overflow-hidden">
+      <div className="space-y-1.5">
+        <div className="w-full bg-[#F3ECE0] border-2 border-[#0A0A0A] rounded-full h-4 overflow-hidden shadow-[1.5px_1.5px_0_0_#0A0A0A]">
           <div
-            className="bg-[#8B1E2D] h-full transition-all duration-500"
+            className="bg-[#9E2424] h-full transition-all duration-500"
             style={{ width: `${Math.min(100, totalPct)}%` }}
           />
         </div>
-        <div className="flex justify-between text-[11px] text-gray-500 font-mono">
+        <div className="flex justify-between text-[11px] text-[#57534E] font-mono font-bold">
           <span>0h</span>
           <span>{totalCompleted}h cumpridas ({Math.round(totalCompleted / 15)} créditos)</span>
           <span>3.000h</span>
@@ -104,97 +104,97 @@ export const StudentDossierTracker: React.FC = () => {
       </div>
 
       {/* Grid das 4 Dimensões Oficiais */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
-        <div className="p-3 bg-[#F7F5F0] border border-[#DFDBD2] rounded-lg space-y-1.5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 pt-2">
+        <div className="p-3.5 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl space-y-2 shadow-[2px_2px_0_0_#0A0A0A]">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-['Oswald'] uppercase font-bold text-gray-700">
+            <span className="text-[10px] font-head uppercase font-bold text-[#0A0A0A]">
               1. Obrigatórias
             </span>
             <span className="text-[10px] font-mono font-bold text-[#0A0A0A]">
               {mandatoryDone}/1.860h
             </span>
           </div>
-          <div className="w-full bg-white border border-[#DFDBD2] rounded h-1.5 overflow-hidden">
+          <div className="w-full bg-white border border-[#0A0A0A] rounded-full h-2 overflow-hidden">
             <div
               className="bg-[#0A0A0A] h-full"
               style={{ width: `${Math.min(100, (mandatoryDone / mandatoryTotal) * 100)}%` }}
             />
           </div>
-          <span className="text-[10px] text-gray-500 block truncate">
+          <span className="text-[10px] text-[#57534E] block truncate font-body">
             27 matérias do núcleo
           </span>
         </div>
 
-        <div className="p-3 bg-[#F7F5F0] border border-[#DFDBD2] rounded-lg space-y-1.5">
+        <div className="p-3.5 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl space-y-2 shadow-[2px_2px_0_0_#0A0A0A]">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-['Oswald'] uppercase font-bold text-gray-700">
+            <span className="text-[10px] font-head uppercase font-bold text-[#0A0A0A]">
               2. Optativas / Livre
             </span>
-            <span className="text-[10px] font-mono font-bold text-[#8B1E2D]">
+            <span className="text-[10px] font-mono font-bold text-[#9E2424]">
               {optativasCapped}/1.020h
             </span>
           </div>
-          <div className="w-full bg-white border border-[#DFDBD2] rounded h-1.5 overflow-hidden">
+          <div className="w-full bg-white border border-[#0A0A0A] rounded-full h-2 overflow-hidden">
             <div
-              className="bg-[#8B1E2D] h-full"
+              className="bg-[#9E2424] h-full"
               style={{ width: `${Math.min(100, (optativasCapped / 1020) * 100)}%` }}
             />
           </div>
-          <span className="text-[10px] text-gray-500 block truncate">
+          <span className="text-[10px] text-[#57534E] block truncate font-body">
             {customCourses.length} alocada{customCourses.length === 1 ? '' : 's'} no grafo
           </span>
         </div>
 
-        <div className="p-3 bg-[#F7F5F0] border border-[#DFDBD2] rounded-lg space-y-1.5">
+        <div className="p-3.5 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl space-y-2 shadow-[2px_2px_0_0_#0A0A0A]">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-['Oswald'] uppercase font-bold text-gray-700">
+            <span className="text-[10px] font-head uppercase font-bold text-[#0A0A0A]">
               3. Extensão 300h
             </span>
             <div className="flex items-center gap-1">
-              <span className="text-[10px] font-mono font-bold text-[#15803D]">
+              <span className="text-[10px] font-mono font-bold text-[#266264]">
                 {extDone}/300h
               </span>
               {extDone >= 300 && (
-                <span className="cagp-stamp-badge is-teto text-[10px] py-0.5 px-1.5 rounded-full">
+                <span className="cagp-stamp-badge is-teto text-[10px] py-0.5 px-1.5 rounded-md border border-[#0A0A0A]">
                   TETO ✓
                 </span>
               )}
             </div>
           </div>
-          <div className="w-full bg-white border border-[#DFDBD2] rounded h-1.5 overflow-hidden">
+          <div className="w-full bg-white border border-[#0A0A0A] rounded-full h-2 overflow-hidden">
             <div
-              className="bg-[#15803D] h-full"
+              className="bg-[#266264] h-full"
               style={{ width: `${Math.min(100, (extDone / 300) * 100)}%` }}
             />
           </div>
-          <span className="text-[10px] text-gray-500 block truncate">
+          <span className="text-[10px] text-[#57534E] block truncate font-body">
             Resolução CEPE 10/19
           </span>
         </div>
 
-        <div className="p-3 bg-[#F7F5F0] border border-[#DFDBD2] rounded-lg space-y-1.5">
+        <div className="p-3.5 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl space-y-2 shadow-[2px_2px_0_0_#0A0A0A]">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-['Oswald'] uppercase font-bold text-gray-700">
+            <span className="text-[10px] font-head uppercase font-bold text-[#0A0A0A]">
               4. AAC (Art. 15)
             </span>
             <div className="flex items-center gap-1">
-              <span className="text-[10px] font-mono font-bold text-[#B45309]">
+              <span className="text-[10px] font-mono font-bold text-[#FF8811]">
                 {aacDone}/300h
               </span>
               {aacDone >= 300 && (
-                <span className="cagp-stamp-badge is-teto text-[10px] py-0.5 px-1.5 rounded-full">
+                <span className="cagp-stamp-badge is-teto text-[10px] py-0.5 px-1.5 rounded-md border border-[#0A0A0A]">
                   TETO ✓
                 </span>
               )}
             </div>
           </div>
-          <div className="w-full bg-white border border-[#DFDBD2] rounded h-1.5 overflow-hidden">
+          <div className="w-full bg-white border border-[#0A0A0A] rounded-full h-2 overflow-hidden">
             <div
-              className="bg-[#B45309] h-full"
+              className="bg-[#FF8811] h-full"
               style={{ width: `${Math.min(100, (aacDone / 300) * 100)}%` }}
             />
           </div>
-          <span className="text-[10px] text-gray-500 block truncate">
+          <span className="text-[10px] text-[#57534E] block truncate font-body">
             Abate horas de optativas
           </span>
         </div>

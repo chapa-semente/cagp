@@ -1,0 +1,201 @@
+/* sidebar.css - Estilos Estruturais e Responsividade da AppShellSidebar (Mobile, Tablet & Desktop) */
+
+#cagp-sidebar-toggle-btn svg {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* =========================================================================
+   1. MODO MOBILE (< 768px): Gaveta Lateral Off-Canvas Deslizante
+   ========================================================================= */
+@media (max-width: 767.98px) {
+  #cagp-app-sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 300px !important;
+    max-width: 86vw !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    z-index: 1090 !important;
+    transform: translateX(-100%);
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 12px 36px rgba(10, 10, 10, 0.18);
+    display: flex !important;
+  }
+
+  #cagp-app-sidebar.is-mobile-open {
+    transform: translateX(0) !important;
+  }
+
+  #cagp-app-sidebar .sidebar-expanded-show {
+    display: flex !important;
+  }
+
+  #cagp-app-sidebar .sidebar-expanded-block {
+    display: block !important;
+  }
+
+  #cagp-app-sidebar .sidebar-rail-only {
+    display: none !important;
+  }
+
+  #cagp-app-sidebar .cagp-sidebar-header {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+  }
+
+  #cagp-app-sidebar .cagp-sidebar-axis-link {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    padding: 0.625rem 0.75rem !important;
+    text-align: left !important;
+  }
+
+  #cagp-app-sidebar .cagp-sidebar-axis-content {
+    flex-direction: row !important;
+  }
+
+  #cagp-app-sidebar .cagp-sidebar-axis-label {
+    text-align: left !important;
+    max-width: none !important;
+  }
+
+  #cagp-app-sidebar .cagp-sidebar-axis-num {
+    display: inline-flex !important;
+  }
+
+  #cagp-app-sidebar .cagp-sidebar-actions-row {
+    flex-direction: row !important;
+    width: 100% !important;
+  }
+
+  #cagp-app-sidebar #cagp-sidebar-spotlight-btn {
+    flex: 1 1 0% !important;
+    width: auto !important;
+    min-width: 0 !important;
+    justify-content: space-between !important;
+  }
+
+  #cagp-app-sidebar #cagp-sidebar-passport-btn {
+    justify-content: flex-start !important;
+    padding: 0.625rem !important;
+  }
+}
+
+/* =========================================================================
+   2. MODO TABLET (768px a 1279.98px): Trilho Compacto 88px Expansível
+   ========================================================================= */
+@media (min-width: 768px) and (max-width: 1279.98px) {
+  #cagp-app-sidebar {
+    width: 88px;
+    position: sticky;
+    top: 0;
+    height: 100dvh;
+    max-height: 100dvh;
+    z-index: 1020;
+    transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex !important;
+  }
+
+  /* No modo trilho tablet (NÃO expandido): NUNCA exibe subnavs nem botões de acordeão */
+  #cagp-app-sidebar:not(.is-expanded) .cagp-axis-subnav,
+  #cagp-app-sidebar:not(.is-expanded) [data-axis-accordion-toggle] {
+    display: none !important;
+  }
+
+  #cagp-app-sidebar.is-expanded {
+    width: 264px !important;
+    position: fixed !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    box-shadow: 0 12px 32px rgba(10, 10, 10, 0.16) !important;
+    z-index: 1090 !important;
+  }
+
+  /* Espaçador tablet para manter fluxo e impedir salto de 88px */
+  #cagp-app-sidebar.is-expanded ~ #cagp-sidebar-tablet-spacer {
+    display: block !important;
+  }
+
+  #cagp-app-sidebar.is-expanded .cagp-sidebar-header {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+  }
+
+  #cagp-app-sidebar.is-expanded #cagp-sidebar-toggle-btn {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+  }
+
+  #cagp-app-sidebar.is-expanded #cagp-sidebar-toggle-btn svg {
+    transform: rotate(180deg);
+  }
+
+  #cagp-app-sidebar.is-expanded .cagp-sidebar-actions-row {
+    flex-direction: row !important;
+    width: 100% !important;
+  }
+
+  #cagp-app-sidebar.is-expanded .sidebar-expanded-show {
+    display: flex !important;
+  }
+
+  #cagp-app-sidebar.is-expanded .sidebar-expanded-block {
+    display: block !important;
+  }
+
+  #cagp-app-sidebar.is-expanded .sidebar-rail-only {
+    display: none !important;
+  }
+
+  #cagp-app-sidebar.is-expanded .cagp-sidebar-axis-link {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    padding: 0.625rem 0.75rem !important;
+    text-align: left !important;
+  }
+
+  #cagp-app-sidebar.is-expanded .cagp-sidebar-axis-content {
+    flex-direction: row !important;
+  }
+
+  #cagp-app-sidebar.is-expanded .cagp-sidebar-axis-label {
+    text-align: left !important;
+    max-width: none !important;
+  }
+
+  #cagp-app-sidebar.is-expanded .cagp-sidebar-axis-num {
+    display: inline-flex !important;
+  }
+
+  #cagp-app-sidebar.is-expanded #cagp-sidebar-spotlight-btn {
+    flex: 1 1 0% !important;
+    width: auto !important;
+    min-width: 0 !important;
+    justify-content: space-between !important;
+  }
+
+  #cagp-app-sidebar.is-expanded #cagp-sidebar-passport-btn {
+    justify-content: flex-start !important;
+    padding: 0.625rem !important;
+  }
+}
+
+/* =========================================================================
+   3. MODO DESKTOP (≥ 1280px): Sidebar Permanente Fixa 264px
+   ========================================================================= */
+@media (min-width: 1280px) {
+  #cagp-app-sidebar {
+    width: 264px !important;
+    position: sticky !important;
+    top: 0 !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    z-index: 1020 !important;
+    display: flex !important;
+  }
+}

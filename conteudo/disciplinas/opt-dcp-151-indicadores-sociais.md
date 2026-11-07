@@ -1,0 +1,13 @@
+---
+codigo: "DCP 151"
+nome: "INDICADORES SOCIAIS"
+natureza: "optativa"
+ch: 60
+modulo: "Optativa"
+preRequisitos: []
+ementa: "Indicadores sociais: noções conceituais e de construção, propriedades, características e usos. Bases de dados secundárias: indicadores prontos ou estatísticas básicas. Manipulação dos indicadores sociais com base em estatística descritiva básica: tabelas, gráficos e mapas. Construção de diagnósticos de áreas sociais ou de políticas específicas, com base em dados existentes."
+---
+
+## Ementa Oficial
+
+Indicadores sociais: noções conceituais e de construção, propriedades, características e usos. Bases de dados secundárias: indicadores prontos ou estatísticas básicas. Manipulação dos indicadores sociais com base em estatística descritiva básica: tabelas, gráficos e mapas. Construção de diagnósticos de áreas sociais ou de políticas específicas, com base em dados existentes.

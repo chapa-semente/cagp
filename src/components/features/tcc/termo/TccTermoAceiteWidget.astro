@@ -3,39 +3,39 @@
 import { asset } from '../../../../lib/paths';
 ---
 
-<div class="cagp-card p-4 bg-white border border-[#DFDBD2] rounded-xl flex flex-col justify-between h-full shadow-xs hover:border-[#0A0A0A] transition-all select-none">
+<div class="cagp-card p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between h-full shadow-[3px_3px_0_0_#0A0A0A] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0_0_#0A0A0A] transition-all select-none">
   <div>
     <div class="flex items-center justify-between gap-2 mb-3">
-      <div class="flex items-center gap-2">
-        <span class="w-9 h-9 rounded-lg bg-[#8B1E2D]/10 text-[#8B1E2D] flex items-center justify-center text-lg border border-[#8B1E2D]/20">
+      <div class="flex items-center gap-2.5">
+        <span class="w-9 h-9 rounded-lg bg-[#8B1E2D] text-white flex items-center justify-center text-lg border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
           <i class="bi bi-file-earmark-check-fill" aria-hidden="true" />
         </span>
         <div>
-          <h3 class="font-['Oswald'] font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0">
+          <h3 class="font-head font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0 tracking-wide">
             Termo de Aceite
           </h3>
-          <span class="text-[11px] text-gray-500 font-mono">Pré-requisito DCP 089</span>
+          <span class="text-[11px] text-gray-700 font-mono font-medium">Pré-requisito DCP 089</span>
         </div>
       </div>
-      <span class="px-2 py-0.5 rounded font-['Oswald'] text-[11px] font-bold bg-[#8B1E2D] text-white">
+      <span class="px-2 py-0.5 rounded-md font-head text-[11px] font-bold bg-[#8B1E2D] text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">
         Obrigatório
       </span>
     </div>
 
-    <p class="text-xs text-gray-700 leading-relaxed mb-3">
+    <p class="font-body text-xs text-gray-700 leading-relaxed mb-3 font-medium">
       Documento firmado com seu(sua) professor(a) orientador(a) antes de solicitar matrícula em Projeto de TCC no SIGA.
     </p>
 
-    <div class="p-2.5 bg-[#F7F5F0] border border-[#DFDBD2] rounded-lg mb-3 flex items-center justify-between text-xs">
-      <span class="text-gray-600">Formato Disponível:</span>
+    <div class="p-2.5 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-lg mb-3 flex items-center justify-between text-xs shadow-[1px_1px_0_0_#0A0A0A]">
+      <span class="text-gray-700 font-body font-medium">Formato Disponível:</span>
       <span class="font-mono font-bold text-[#0A0A0A]">PDF e DOCX</span>
     </div>
   </div>
 
-  <div class="flex items-center gap-2 pt-2 border-t border-[#DFDBD2]">
+  <div class="flex items-center gap-2 pt-3 border-t-2 border-[#0A0A0A]">
     <a
       href="#termo-aceite"
-      class="flex-1 min-h-[44px] px-3.5 py-2 bg-[#8B1E2D] hover:bg-[#6e1723] text-white rounded-xl font-['Oswald'] text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-1.5 transition-colors no-underline shadow-xs border border-[#8B1E2D]"
+      class="flex-1 min-h-[44px] px-3.5 py-2 bg-[#8B1E2D] hover:bg-[#6e1723] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-1.5 transition-all no-underline shadow-[3px_3px_0_0_#0A0A0A] border-2 border-[#0A0A0A]"
     >
       <span>Orientações & Regras</span>
       <i class="bi bi-arrow-right" aria-hidden="true" />
@@ -43,11 +43,11 @@ import { asset } from '../../../../lib/paths';
     <a
       href={asset('/documentos/termo-aceite-orientador-tcc.pdf')}
       download
-      class="min-h-[44px] min-w-[44px] px-3 py-2 bg-[#F7F5F0] hover:bg-[#EAE6DE] text-[#0A0A0A] border border-[#DFDBD2] rounded-lg flex items-center justify-center transition-all no-underline shrink-0"
+      class="min-h-[44px] min-w-[44px] px-3 py-2 bg-[#FBF8F3] hover:bg-[#EAE6DE] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-[#0A0A0A] border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A] rounded-xl flex items-center justify-center transition-all no-underline shrink-0"
       title="Baixar Termo de Aceite em PDF"
       aria-label="Baixar Termo de Aceite em PDF"
     >
-      <i class="bi bi-file-earmark-pdf-fill text-[#8B1E2D] text-base" aria-hidden="true" />
+      <i class="bi bi-file-earmark-pdf-fill text-[#8B1E2D] text-lg" aria-hidden="true" />
     </a>
   </div>
 </div>

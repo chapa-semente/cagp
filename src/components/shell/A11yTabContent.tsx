@@ -64,39 +64,28 @@ export const A11yTabContent: React.FC<Props> = ({ prefs, update }) => {
         </div>
       </div>
 
-      {/* Dislexia, Régua Guia e Movimento */}
-      <div className="grid grid-cols-3 gap-2">
-        <button
-          type="button"
-          onClick={() => update({ dyslexia: !prefs.dyslexia })}
-          className={`p-2.5 text-xs font-['Oswald'] uppercase font-bold rounded border text-left cursor-pointer transition-colors min-h-[44px] ${
-            prefs.dyslexia ? 'bg-[#8B1E2D] text-white border-[#0A0A0A]' : 'bg-[#F7F5F0] border-[#DFDBD2]'
+      {/* Dislexia */}
+      <button
+        type="button"
+        onClick={() => update({ dyslexia: !prefs.dyslexia })}
+        className={`w-full p-3 text-xs font-['Oswald'] uppercase font-bold rounded-lg border text-left cursor-pointer transition-colors min-h-[48px] flex items-center justify-between ${
+          prefs.dyslexia ? 'bg-[#8B1E2D] text-white border-[#0A0A0A]' : 'bg-[#F7F5F0] border-[#DFDBD2]'
+        }`}
+      >
+        <div>
+          <span className="block text-xs font-bold uppercase">Fonte para Dislexia (OpenDyslexic)</span>
+          <span className="text-[11px] font-normal opacity-85 block mt-0.5">Tipografia especializada com gravidade na base</span>
+        </div>
+        <span
+          className={`text-xs font-bold px-2.5 py-1 rounded border ${
+            prefs.dyslexia
+              ? 'bg-white/20 text-white border-white/30'
+              : 'bg-white text-gray-700 border-gray-300'
           }`}
         >
-          <span className="block">Dislexia</span>
-          <span className="text-[10px] font-normal opacity-80">Fonte Ampla</span>
-        </button>
-        <button
-          type="button"
-          onClick={() => update({ ruler: !prefs.ruler })}
-          className={`p-2.5 text-xs font-['Oswald'] uppercase font-bold rounded border text-left cursor-pointer transition-colors min-h-[44px] ${
-            prefs.ruler ? 'bg-[#8B1E2D] text-white border-[#0A0A0A]' : 'bg-[#F7F5F0] border-[#DFDBD2]'
-          }`}
-        >
-          <span className="block">Régua Guia</span>
-          <span className="text-[10px] font-normal opacity-80">{prefs.ruler ? 'Ativa' : 'Desativada'}</span>
-        </button>
-        <button
-          type="button"
-          onClick={() => update({ motion: prefs.motion === 'reduced' ? 'normal' : 'reduced' })}
-          className={`p-2.5 text-xs font-['Oswald'] uppercase font-bold rounded border text-left cursor-pointer transition-colors min-h-[44px] ${
-            prefs.motion === 'reduced' ? 'bg-[#8B1E2D] text-white border-[#0A0A0A]' : 'bg-[#F7F5F0] border-[#DFDBD2]'
-          }`}
-        >
-          <span className="block">Movimento</span>
-          <span className="text-[10px] font-normal opacity-80">{prefs.motion === 'reduced' ? 'Reduzido' : 'Padrão'}</span>
-        </button>
-      </div>
+          {prefs.dyslexia ? 'Ativa' : 'Desativada'}
+        </span>
+      </button>
 
       {/* Dock Flutuante Desktop */}
       <div className="bg-[#F7F5F0] p-3 rounded-lg border border-[#DFDBD2] flex items-center justify-between gap-3">

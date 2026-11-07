@@ -99,56 +99,56 @@ const nucleos = [
 ];
 ---
 
-<div class="space-y-4 text-[#0A0A0A]">
-  <div class="cagp-tool-box p-4 space-y-3">
-    <div class="border-b border-[#DFDBD2] pb-2.5 flex items-center justify-between flex-wrap gap-2">
+<div class="space-y-6 text-[#0A0A0A]">
+  <div class="cagp-tool-box p-5 bg-white border-2 border-[#0A0A0A] rounded-xl shadow-[4px_4px_0_0_#0A0A0A] space-y-4">
+    <div class="border-b-2 border-[#0A0A0A] pb-3 flex items-center justify-between flex-wrap gap-2">
       <div>
         <div class="flex items-center gap-2">
-          <i class="bi bi-diagram-3-fill text-[#8B1E2D] text-lg" aria-hidden="true"></i>
-          <h3 class="font-['Oswald'] text-base font-bold uppercase text-[#0A0A0A]">
+          <i class="bi bi-diagram-3-fill text-[#8B1E2D] text-xl" aria-hidden="true"></i>
+          <h3 class="font-head text-base sm:text-lg font-black uppercase text-[#0A0A0A] m-0 tracking-wide">
             Os 11 Núcleos de Pesquisa do DCP (Conceito 7 CAPES)
           </h3>
         </div>
-        <p class="text-xs text-gray-600 mt-0.5">
+        <p class="text-xs text-gray-700 mt-0.5 m-0 font-body font-medium">
           Projetos de iniciação científica e extensão com inserção prática na gestão pública:
         </p>
       </div>
-      <span class="cagp-badge cagp-badge-red font-mono">
+      <span class="cagp-badge cagp-badge-red font-mono font-bold">
         Até 90h AAC
       </span>
     </div>
 
     {nucleos.map((eixoGroup) => (
-      <div class="space-y-2 pt-2">
+      <div class="space-y-3 pt-2">
         <div class="flex items-center gap-2">
-          <i class={`bi ${eixoGroup.icon} text-[#8B1E2D] text-base`} aria-hidden="true"></i>
-          <span class="font-['Oswald'] text-xs font-bold uppercase text-[#8B1E2D] tracking-wide">
+          <i class={`bi ${eixoGroup.icon} text-[#8B1E2D] text-lg`} aria-hidden="true"></i>
+          <span class="font-head text-xs font-black uppercase text-[#8B1E2D] tracking-wider">
             {eixoGroup.eixo}
           </span>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5">
           {eixoGroup.items.map((item) => (
-            <div class="cagp-card p-3.5 bg-white flex flex-col justify-between">
+            <div class="cagp-card p-4 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between shadow-[2px_2px_0_0_#0A0A0A] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0_0_#0A0A0A] transition-all">
               <div>
-                <div class="flex items-center justify-between mb-1.5">
-                  <span class="font-['Oswald'] font-bold text-xs uppercase text-[#8B1E2D]">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-head font-black text-xs uppercase text-[#8B1E2D] tracking-wide">
                     {item.sigla}
                   </span>
-                  <span class="cagp-badge text-xs font-mono">DCP/UFMG</span>
+                  <span class="cagp-badge font-mono text-[10px] font-bold">DCP/UFMG</span>
                 </div>
-                <h4 class="font-bold text-xs text-[#0A0A0A] leading-tight mb-1">
+                <h4 class="font-head font-bold text-xs uppercase text-[#0A0A0A] leading-tight mb-1.5 tracking-wide">
                   {item.nome}
                 </h4>
-                <p class="text-xs text-gray-500 mb-1">
+                <p class="text-[11px] text-gray-600 mb-1.5 font-body">
                   <strong>Coordenação:</strong> {item.lider}
                 </p>
-                <p class="text-xs text-gray-600 leading-relaxed mb-2">
+                <p class="text-xs text-gray-700 leading-relaxed mb-3 font-body font-medium">
                   {item.tema}
                 </p>
               </div>
-              <div class="flex flex-wrap gap-1 pt-1.5 border-t border-[#DFDBD2]">
+              <div class="flex flex-wrap gap-1.5 pt-2.5 border-t-2 border-[#0A0A0A]">
                 {item.tags.map((t) => (
-                  <span class="cagp-badge">
+                  <span class="cagp-badge font-mono text-[10px] font-medium">
                     {t}
                   </span>
                 ))}

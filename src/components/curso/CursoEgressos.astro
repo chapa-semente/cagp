@@ -3,74 +3,79 @@
 import { asset } from '../../lib/paths';
 ---
 
-<div class="space-y-4 text-[#0A0A0A]">
+<div class="space-y-6 text-[#0A0A0A]">
   <!-- Estatísticas de Egressos Bento -->
-  <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-    <div class="cagp-card p-3.5 bg-white flex flex-col justify-between">
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+    <div class="cagp-card p-4 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between shadow-[3px_3px_0_0_#0A0A0A]">
       <div class="flex items-center justify-between">
         <span class="text-xs font-mono font-bold text-[#8B1E2D] uppercase">Inserção Pública</span>
-        <i class="bi bi-building-check text-[#8B1E2D] text-lg" aria-hidden="true"></i>
+        <i class="bi bi-building-check text-[#8B1E2D] text-xl" aria-hidden="true"></i>
       </div>
-      <span class="font-['Oswald'] text-2xl font-bold text-[#8B1E2D] my-1">65%</span>
-      <span class="text-xs text-gray-500">Atuando diretamente no setor público</span>
+      <span class="font-head text-3xl font-black text-[#8B1E2D] my-1">65%</span>
+      <span class="text-xs text-gray-700 font-body font-medium">Atuando diretamente no setor público</span>
     </div>
-    <div class="cagp-card p-3.5 bg-white flex flex-col justify-between">
+    <div class="cagp-card p-4 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between shadow-[3px_3px_0_0_#0A0A0A]">
       <div class="flex items-center justify-between">
         <span class="text-xs font-mono font-bold text-[#15803D] uppercase">Faixa Salarial</span>
-        <i class="bi bi-cash-stack text-[#15803D] text-lg" aria-hidden="true"></i>
+        <i class="bi bi-cash-stack text-[#15803D] text-xl" aria-hidden="true"></i>
       </div>
-      <span class="font-['Oswald'] text-2xl font-bold text-[#15803D] my-1">&gt; R$ 5.000</span>
-      <span class="text-xs text-gray-500">55% dos egressos formados</span>
+      <span class="font-head text-3xl font-black text-[#15803D] my-1">&gt; R$ 5.000</span>
+      <span class="text-xs text-gray-700 font-body font-medium">55% dos egressos formados</span>
     </div>
-    <div class="cagp-card p-3.5 bg-white flex flex-col justify-between">
+    <div class="cagp-card p-4 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between shadow-[3px_3px_0_0_#0A0A0A]">
       <div class="flex items-center justify-between">
         <span class="text-xs font-mono font-bold text-[#005A9C] uppercase">Alta Renda</span>
-        <i class="bi bi-graph-up-arrow text-[#005A9C] text-lg" aria-hidden="true"></i>
+        <i class="bi bi-graph-up-arrow text-[#005A9C] text-xl" aria-hidden="true"></i>
       </div>
-      <span class="font-['Oswald'] text-2xl font-bold text-[#005A9C] my-1">&gt; R$ 10.000</span>
-      <span class="text-xs text-gray-500">20% em carreiras públicas de estado</span>
+      <span class="font-head text-3xl font-black text-[#005A9C] my-1">&gt; R$ 10.000</span>
+      <span class="text-xs text-gray-700 font-body font-medium">20% em carreiras públicas de estado</span>
     </div>
   </div>
 
   <!-- Carreiras Típicas -->
-  <div class="cagp-tool-box p-4 space-y-3">
-    <div class="flex items-center gap-2 border-b border-[#DFDBD2] pb-2">
-      <i class="bi bi-briefcase-fill text-[#8B1E2D] text-lg" aria-hidden="true"></i>
-      <h3 class="font-['Oswald'] text-base font-bold uppercase text-[#0A0A0A]">
+  <div class="cagp-tool-box p-5 bg-white border-2 border-[#0A0A0A] rounded-xl shadow-[4px_4px_0_0_#0A0A0A] space-y-4">
+    <div class="flex items-center gap-2.5 border-b-2 border-[#0A0A0A] pb-3">
+      <i class="bi bi-briefcase-fill text-[#8B1E2D] text-xl" aria-hidden="true"></i>
+      <h3 class="font-head text-base sm:text-lg font-black uppercase text-[#0A0A0A] m-0 tracking-wide">
         Principais Carreiras Governamentais
       </h3>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-      <div class="cagp-card p-3.5 bg-white flex flex-col justify-between">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+      <div class="cagp-card p-4 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between shadow-[2px_2px_0_0_#0A0A0A]">
         <div>
-          <div class="flex items-center gap-2 mb-1.5">
-            <i class="bi bi-shield-check text-[#8B1E2D] text-base" aria-hidden="true"></i>
-            <span class="font-['Oswald'] font-bold uppercase text-xs text-[#8B1E2D]">
+          <div class="flex items-center gap-2 mb-2">
+            <i class="bi bi-shield-check text-[#8B1E2D] text-lg" aria-hidden="true"></i>
+            <span class="font-head font-black uppercase text-xs text-[#8B1E2D] tracking-wide">
               Carreiras de Estado (EPPGG / APO)
             </span>
           </div>
-          <p class="text-xs text-gray-600 leading-relaxed">
+          <p class="text-xs text-gray-700 leading-relaxed font-body font-medium m-0">
             Especialistas em Políticas Públicas e Gestão Governamental em Minas Gerais (SEPLAG) e no Governo Federal (MGI), além de Analistas de Planejamento e Orçamento (MPO).
           </p>
         </div>
       </div>
-      <div class="cagp-card p-3.5 bg-white flex flex-col justify-between">
+      <div class="cagp-card p-4 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between shadow-[2px_2px_0_0_#0A0A0A]">
         <div>
-          <div class="flex items-center gap-2 mb-1.5">
-            <i class="bi bi-bank text-[#0A0A0A] text-base" aria-hidden="true"></i>
-            <span class="font-['Oswald'] font-bold uppercase text-xs text-[#0A0A0A]">
+          <div class="flex items-center gap-2 mb-2">
+            <i class="bi bi-bank text-[#0A0A0A] text-lg" aria-hidden="true"></i>
+            <span class="font-head font-black uppercase text-xs text-[#0A0A0A] tracking-wide">
               Poder Legislativo & Consultoria
             </span>
           </div>
-          <p class="text-xs text-gray-600 leading-relaxed">
+          <p class="text-xs text-gray-700 leading-relaxed font-body font-medium m-0">
             Assessores e analistas na Assembleia Legislativa de Minas Gerais (ALMG) e Câmara Municipal de Belo Horizonte (CMBH), além de consultores na ATLAS Jr.
           </p>
         </div>
       </div>
     </div>
     <div class="pt-2">
-      <a href={asset('/documentos/depoimentos-de-egressos.pdf')} download class="cagp-btn-primary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
-        <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> Baixar Relatório Oficial de Egressos (PDF) &rarr;
+      <a
+        href={asset('/documentos/depoimentos-de-egressos.pdf')}
+        download
+        class="min-h-[44px] px-4 py-2 bg-[#8B1E2D] hover:bg-[#6D1723] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl text-xs font-head uppercase font-bold tracking-wider inline-flex items-center gap-2 transition-all no-underline border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A]"
+      >
+        <i class="bi bi-file-earmark-pdf text-base" aria-hidden="true"></i>
+        <span>Baixar Relatório Oficial de Egressos (PDF)</span>
       </a>
     </div>
   </div>

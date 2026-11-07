@@ -48,49 +48,49 @@ const espacos = [
 
 <div class="cagp-calouro-espacos space-y-6 select-none text-[#0A0A0A]">
   {/* Cabeçalho */}
-  <div class="p-4 bg-white border border-[#DFDBD2] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+  <div class="p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-[4px_4px_0_0_#0A0A0A]">
     <div>
-      <span class="text-[11px] font-['Oswald'] uppercase font-bold tracking-wider text-[#8B1E2D]">
+      <span class="text-xs font-head uppercase font-bold tracking-wider text-[#8B1E2D]">
         Mapeamento de Campo
       </span>
-      <h3 class="font-['Oswald'] text-base font-bold uppercase text-[#0A0A0A] m-0">
+      <h3 class="font-head text-lg font-black uppercase text-[#0A0A0A] m-0 tracking-wide">
         Espaços Estratégicos no Prédio da FAFICH
       </h3>
-      <p class="text-xs text-gray-600 mt-0.5 m-0">
+      <p class="text-xs text-gray-700 mt-0.5 m-0 font-body font-medium">
         Locais indispensáveis para sua rotina acadêmica, estudo e alimentação.
       </p>
     </div>
-    <span class="px-2.5 py-1 rounded bg-[#0A0A0A] text-white font-mono text-xs font-bold shrink-0">
+    <span class="px-3 py-1.5 rounded-lg bg-[#0A0A0A] text-white font-mono text-xs font-bold shrink-0 border border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
       Guia de Espaços
     </span>
   </div>
 
   {/* Grid dos Espaços */}
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
     {espacos.map((esp) => (
-      <div class="cagp-card p-4 bg-white border border-[#DFDBD2] hover:border-[#0A0A0A] rounded-xl flex flex-col justify-between shadow-xs transition-all">
+      <div class="cagp-card p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between shadow-[3px_3px_0_0_#0A0A0A] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[5px_5px_0_0_#0A0A0A] transition-all">
         <div>
-          <div class="flex items-center justify-between gap-2 mb-2">
-            <div class="flex items-center gap-2">
-              <span class="w-8 h-8 rounded-lg bg-[#8B1E2D]/10 text-[#8B1E2D] flex items-center justify-center text-sm border border-[#8B1E2D]/20">
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <div class="flex items-center gap-2.5">
+              <span class="w-9 h-9 rounded-lg bg-[#8B1E2D] text-white flex items-center justify-center text-sm border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] shrink-0">
                 <i class={`bi ${esp.icon}`} aria-hidden="true" />
               </span>
-              <span class="font-['Oswald'] text-xs font-bold uppercase text-[#0A0A0A] truncate">{esp.nome}</span>
+              <span class="font-head text-sm font-bold uppercase text-[#0A0A0A] truncate tracking-wide">{esp.nome}</span>
             </div>
           </div>
 
-          <span class="inline-block text-[10px] font-mono font-bold text-[#8B1E2D] uppercase tracking-wide mb-1.5">
+          <span class="inline-block text-[11px] font-mono font-bold text-[#8B1E2D] uppercase tracking-wide mb-2">
             {esp.local}
           </span>
 
-          <p class="text-xs text-gray-600 leading-relaxed m-0 mb-3">
+          <p class="text-xs text-gray-700 leading-relaxed m-0 mb-3 font-body font-medium">
             {esp.desc}
           </p>
         </div>
 
-        <div class="pt-2 border-t border-[#DFDBD2] flex items-center justify-between text-[11px] text-gray-500">
-          <i class="bi bi-clock me-1" aria-hidden="true" />
-          <span class="font-semibold text-gray-700">{esp.horario}</span>
+        <div class="pt-3 border-t-2 border-[#0A0A0A] flex items-center justify-between text-xs text-gray-800 font-mono font-bold">
+          <i class="bi bi-clock me-1 text-[#8B1E2D]" aria-hidden="true" />
+          <span>{esp.horario}</span>
         </div>
       </div>
     ))}

@@ -69,20 +69,20 @@ export const PassportCard: React.FC<PassportCardProps> = ({
         {/* Dados de Identidade */}
         <div className="flex-1 min-w-[180px]">
           <div className="flex items-center gap-1.5 flex-wrap">
-            <h3 className="font-['Oswald'] text-lg sm:text-xl font-bold uppercase text-[#0A0A0A] leading-tight m-0">
+            <h3 className="font-head text-lg sm:text-xl font-extrabold uppercase text-[#0A0A0A] leading-tight m-0">
               {profile.name}
             </h3>
             {profile.pronouns && (
-              <span className="text-xs text-gray-500 font-mono">
+              <span className="text-xs text-[#0A0A0A] font-mono font-bold">
                 ({profile.pronouns})
               </span>
             )}
           </div>
 
-          <div className="flex flex-wrap items-center gap-1 mt-1.5">
-            <span className="cagp-badge cagp-badge-red">{profile.period}</span>
-            <span className="cagp-badge cagp-badge-dark font-mono">Ingresso {profile.semester || '2026/1'}</span>
-            <span className="cagp-badge cagp-badge-blue">{profile.pathway || '01-01'} • Geral</span>
+          <div className="flex flex-wrap items-center gap-1.5 mt-2">
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-head font-extrabold uppercase bg-[#8B1E2D] text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">{profile.period}</span>
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-[#0A0A0A] text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">Ingresso {profile.semester || '2026/1'}</span>
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-head font-bold uppercase bg-[#5B2A86] text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">{profile.pathway || '01-01'} • Geral</span>
           </div>
         </div>
 
@@ -92,20 +92,20 @@ export const PassportCard: React.FC<PassportCardProps> = ({
           style={{ '--ring-pct': globalPct } as React.CSSProperties}
           title="Índice Médio de Integralização"
         >
-          <div className="cagp-metric-ring-inner">{globalPct}%</div>
+          <div className="cagp-metric-ring-inner font-mono font-bold">{globalPct}%</div>
         </div>
       </div>
 
       {/* Áreas de Interesse no Passaporte (Banco de Talentos) */}
       {profile.interests && profile.interests.length > 0 && (
-        <div className="px-3.5 py-2 bg-[#F7F5F0] border-t border-[#DFDBD2] flex flex-wrap items-center gap-1">
-          <span className="text-[10px] font-['Oswald'] uppercase font-bold text-gray-500 mr-1">
+        <div className="px-4 py-2.5 bg-[#FBF8F3] border-t-2 border-[#0A0A0A] flex flex-wrap items-center gap-1.5">
+          <span className="text-[11px] font-head uppercase font-extrabold text-[#0A0A0A] mr-1">
             Interesses:
           </span>
           {profile.interests.map((key) => (
             <span
               key={key}
-              className="text-[10px] font-semibold bg-white border border-[#DFDBD2] text-[#0A0A0A] px-2 py-0.5 rounded shadow-[1px_1px_0px_#0A0A0A]"
+              className="text-[10px] font-head font-bold uppercase bg-white border border-[#0A0A0A] text-[#0A0A0A] px-2 py-0.5 rounded shadow-[1px_1px_0px_#0A0A0A]"
             >
               {TALENT_LABELS[key] || key}
             </span>
@@ -117,7 +117,7 @@ export const PassportCard: React.FC<PassportCardProps> = ({
       <div className="cagp-passport-progress-grid">
         <div>
           <div className="flex justify-between items-center text-xs mb-1">
-            <span className="font-['Oswald'] font-bold uppercase text-[11px] text-gray-700">
+            <span className="font-head font-extrabold uppercase text-[11px] text-[#0A0A0A]">
               27 Obrigatórias
             </span>
             <span className="font-mono font-bold text-[11px] text-[#005A9C]">
@@ -134,7 +134,7 @@ export const PassportCard: React.FC<PassportCardProps> = ({
 
         <div>
           <div className="flex justify-between items-center text-xs mb-1">
-            <span className="font-['Oswald'] font-bold uppercase text-[11px] text-gray-700">
+            <span className="font-head font-extrabold uppercase text-[11px] text-[#0A0A0A]">
               600h Extensão & AAC
             </span>
             <span className="font-mono font-bold text-[11px] text-[#15803D]">

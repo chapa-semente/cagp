@@ -1,25 +1,84 @@
 @import "tailwindcss";
+@import "./neobrutalism.css";
+@import "./boldkit.css";
 @import "./animations.css";
 @import "./components.css";
 @import "./stamps.css";
 @import "./passport.css";
 @import "./settings.css";
 @import "./drawer.css";
+@import "./sidebar.css";
 @import "./navbar.css";
 @import "./grafo.css";
 
 @theme {
-  --color-cagp-burgundy: #8B1E2D;
-  --color-cagp-red: #9E2424;
-  --color-cagp-black: #0A0A0A;
-  --color-cagp-cream: #FBF8F3;
-  --color-cagp-surface: #FFFFFF;
-  --color-cagp-border: #DFDBD2;
+  /* Semantic Neobrutalism.com (rL9Ap) + Tri-Layer Tokens */
+  --color-background: var(--background, #f4f5f7);
+  --color-foreground: var(--foreground, #16181d);
+  --color-card: var(--card, #ffffff);
+  --color-card-foreground: var(--card-foreground, #16181d);
+  --color-popover: var(--popover, #ffffff);
+  --color-popover-foreground: var(--popover-foreground, #16181d);
+
+  --color-primary: var(--primary, #9E2424);
+  --color-primary-hover: var(--primary-hover, #8B1E2D);
+  --color-primary-foreground: var(--primary-foreground, #ffffff);
+
+  --color-secondary: var(--secondary, #5B2A86);
+  --color-secondary-hover: var(--secondary-hover, #4A216E);
+  --color-secondary-foreground: var(--secondary-foreground, #ffffff);
+
+  --color-accent: var(--accent, #FF8811);
+  --color-accent-hover: var(--accent-hover, #E07406);
+  --color-accent-foreground: var(--accent-foreground, #000000);
+
+  --color-muted: var(--muted, #e5e7ec);
+  --color-muted-foreground: var(--muted-foreground, #5d626e);
+
+  --color-destructive: var(--destructive, #DC2626);
+  --color-destructive-foreground: var(--destructive-foreground, #ffffff);
+  --color-success: var(--success, #15803D);
+  --color-success-foreground: var(--success-foreground, #ffffff);
+  --color-warning: var(--warning, #B45309);
+  --color-warning-foreground: var(--warning-foreground, #ffffff);
+  --color-info: var(--info, #005A9C);
+  --color-info-foreground: var(--info-foreground, #ffffff);
+
+  --color-border: var(--border, #16181d);
+  --color-input: var(--input, #ffffff);
+  --color-ring: var(--ring, #9E2424);
+
+  /* CAGP & Brand Aliases */
+  --color-cagp-burgundy: var(--cagp-brand-primary, #8B1E2D);
+  --color-cagp-red: var(--cagp-brand-hover, #9E2424);
+  --color-cagp-black: var(--cagp-content-primary, #16181d);
+  --color-cagp-cream: var(--cagp-surface-base, #f4f5f7);
+  --color-cagp-surface: var(--cagp-surface-card, #FFFFFF);
+  --color-cagp-border: var(--cagp-border-strong, #16181d);
   --color-cagp-success: #15803D;
   --color-cagp-warning: #B45309;
   --color-cagp-danger: #DC2626;
   --color-cagp-gold: #E8A317;
   --color-cagp-blue: #1E3F66;
+
+  /* Identidade Semente & UFMG */
+  --color-semente-purple: #5B2A86;
+  --color-semente-orange: #FF8811;
+  --color-semente-teal: #266264;
+  --color-ufmg-red: #C4161C;
+
+  --color-surface-base: var(--cagp-surface-base, #f4f5f7);
+  --color-surface-card: var(--cagp-surface-card, #FFFFFF);
+  --color-surface-subtle: var(--cagp-surface-subtle, #e5e7ec);
+  --color-surface-hover: var(--cagp-surface-hover, #ebeef2);
+  --color-border-subtle: #16181d;
+  --color-border-strong: #16181d;
+  --color-content-primary: #16181d;
+  --color-content-secondary: #4a4e58;
+  --color-content-muted: #5d626e;
+  --color-brand-primary: #9E2424;
+  --color-brand-hover: #8B1E2D;
+  --color-brand-accent: #FF8811;
 
   --color-ufmg-siga: #9E2424;
   --color-ufmg-minha: #005A9C;
@@ -27,27 +86,66 @@
   --color-ufmg-sei: #15803D;
   --color-ufmg-bu: #5B2C6F;
 
-  --font-display: 'Oswald', sans-serif;
-  --font-body: 'Public Sans Variable', 'Public Sans', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  /* Tipografia rL9Ap */
+  --font-heading: 'Bricolage Grotesque', sans-serif;
+  --font-head: 'Bricolage Grotesque', sans-serif;
+  --font-display: 'Bricolage Grotesque', sans-serif;
+  --font-sans: 'Space Grotesk', sans-serif;
+  --font-body: 'Space Grotesk', sans-serif;
+  --font-mono: 'Space Mono', monospace;
 
-  --shadow-cagp-hard: 0 1px 3px rgba(0, 0, 0, 0.08);
-  --shadow-cagp-hard-lg: 0 4px 14px rgba(0, 0, 0, 0.1);
+  /* Sombras Neobrutalistas Duras (rL9Ap) */
+  --shadow-xs: 1px 1px 0 0 var(--shadow-color, #16181d);
+  --shadow-sm: 2px 2px 0 0 var(--shadow-color, #16181d);
+  --shadow: 3px 3px 0 0 var(--shadow-color, #16181d);
+  --shadow-md: 4px 4px 0 0 var(--shadow-color, #16181d);
+  --shadow-lg: 6px 6px 0 0 var(--shadow-color, #16181d);
+  --shadow-xl: 10px 10px 0 1px var(--shadow-color, #16181d);
+  --shadow-2xl: 16px 16px 0 1px var(--shadow-color, #16181d);
+
+  --shadow-cagp-hard: 3px 3px 0 #16181d;
+  --shadow-cagp-hard-lg: 6px 6px 0 #16181d;
+  --shadow-chunky-xs: 1px 1px 0 #16181d;
+  --shadow-chunky-sm: 2px 2px 0 #16181d;
+  --shadow-chunky: 3px 3px 0 #16181d;
+  --shadow-chunky-md: 4px 4px 0 #16181d;
+  --shadow-chunky-lg: 6px 6px 0 #16181d;
+  --shadow-chunky-xl: 10px 10px 0 1px #16181d;
 
   --radius-xs: 4px;
   --radius-sm: 6px;
   --radius-md: 8px;
-  --radius-lg: 10px;
-  --radius-xl: 12px;
+  --radius-lg: 12px;
+  --radius-xl: 12px; /* 0.75rem */
   --radius-2xl: 16px;
   --radius-3xl: 20px;
 }
 
-/* Base typography & ergonomics (Apple HIG) */
+:root {
+  --cagp-surface-base: #f4f5f7;
+  --cagp-surface-card: #FFFFFF;
+  --cagp-surface-subtle: #e5e7ec;
+  --cagp-surface-hover: #ebeef2;
+  --cagp-border-subtle: #c8cdd6;
+  --cagp-border-strong: #16181d;
+  --cagp-content-primary: #16181d;
+  --cagp-content-secondary: #4a4e58;
+  --cagp-content-muted: #5d626e;
+  --cagp-brand-primary: #9E2424;
+  --cagp-brand-hover: #8B1E2D;
+  --cagp-brand-accent: #FF8811;
+}
+
+/* Utilitário de borda 3px rL9Ap */
+.border-3 {
+  border-width: 3px;
+}
+
+/* Base typography & ergonomics */
 html {
-  font-family: var(--font-body);
-  background-color: var(--color-cagp-cream);
-  color: var(--color-cagp-black);
+  font-family: var(--font-sans);
+  background-color: var(--background);
+  color: var(--foreground);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-synthesis: none;
@@ -60,13 +158,15 @@ html {
 body {
   font-synthesis: none;
   -moz-osx-font-smoothing: grayscale;
-  caret-color: #8B1E2D;
+  caret-color: #9E2424;
+  background-color: var(--background);
+  color: var(--foreground);
 }
 
-/* Browser surfaces tematizadas pela paleta CAGP (Craft Floor) */
+/* Browser surfaces tematizadas pela paleta CAGP */
 ::selection {
-  background-color: #8B1E2D;
-  color: #FFFDF9;
+  background-color: #9E2424;
+  color: #FFFFFF;
 }
 
 a {
@@ -115,16 +215,14 @@ p, .prose p {
   -webkit-backdrop-filter: none !important;
 }
 
-/* Transição Neo-Brutalismo -> Apple HIG Purity (V-17) */
-[class*="shadow-["][class*="#0A0A0A]"],
-[class*="shadow-["][class*="0A0A0A]"] {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+/* Regras de Bordas e Sombras Chunky Neobrutalistas */
+.neo-border-3 {
+  border-width: 3px !important;
+  border-color: #0A0A0A !important;
 }
 
-[class*="border-2"][class*="border-[#0A0A0A]"],
-[class*="border-2"][class*="border-black"] {
-  border-width: 1px !important;
-  border-color: rgba(10, 10, 10, 0.15) !important;
+.neo-shadow-chunky {
+  box-shadow: 4px 4px 0 0 #0A0A0A !important;
 }
 
 /* Preserva bordas sólidas e alto contraste estrito no modo AAA */
@@ -172,8 +270,17 @@ input, select, textarea, button {
   touch-action: manipulation;
 }
 
-/* Pisos táteis Apple HIG com proteção para slide dots (.cagp-dot-btn) */
-button:not(.cagp-dot-btn), a, input, select, summary {
+/* Pisos táteis Apple HIG com proteção para slide dots (.cagp-dot-btn) e links de texto inline */
+button:not(.cagp-dot-btn),
+a.cagp-btn,
+a.btn,
+a[role="button"],
+a.cagp-sidebar-axis-link,
+a.cagp-bottom-axis-item,
+a[class*="min-h-"],
+input,
+select,
+summary {
   min-height: 44px;
 }
 
@@ -193,16 +300,17 @@ details > summary {
   font-size: 11px !important;
 }
 
-/* Segmented Control - Sub-views bar */
+/* Segmented Control - Sub-views bar Neobrutalista */
 .cagp-workspace-bar {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: #FFFFFF;
-  border: 1.5px solid var(--color-cagp-border);
-  border-radius: 6px;
-  padding: 0.25rem;
-  margin-bottom: 1rem;
+  background-color: #EFE9E0;
+  border: 3px solid #0A0A0A;
+  border-radius: 12px;
+  box-shadow: 3px 3px 0 0 #0A0A0A;
+  padding: 0.35rem;
+  margin-bottom: 1.25rem;
   width: 100%;
 }
 .cagp-workspace-tabs {
@@ -252,30 +360,30 @@ details > summary {
   gap: 0.35rem;
   min-height: 44px;
   padding: 0.55rem 0.5rem;
-  font-family: var(--font-display);
-  font-weight: 700;
+  font-family: var(--font-heading);
+  font-weight: 800;
   font-size: 0.85rem;
   text-transform: uppercase;
-  border: 1.5px solid transparent;
-  border-radius: 4px;
+  border: 2px solid transparent;
+  border-radius: 8px;
   background: transparent;
-  color: #555555;
+  color: #0A0A0A;
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.15s ease;
   touch-action: manipulation;
 }
 .cagp-workspace-tab:hover {
-  background-color: var(--color-cagp-cream);
-  color: var(--color-cagp-black);
+  background-color: #FFFFFF;
 }
 .cagp-workspace-tab.is-active {
-  background-color: var(--color-cagp-cream);
-  color: var(--color-cagp-black);
-  border: 2px solid var(--color-cagp-black);
-  box-shadow: var(--shadow-cagp-hard);
+  background-color: #9E2424;
+  color: #FFFFFF;
+  border: 2px solid #0A0A0A;
+  box-shadow: 2px 2px 0 0 #0A0A0A;
+  transform: translateY(-1px);
 }
 
 .cagp-tab-label-short { display: inline; }
@@ -291,13 +399,19 @@ details > summary {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1.5px solid var(--color-cagp-border);
-  border-radius: 4px;
-  background: transparent;
-  color: var(--color-cagp-black);
+  background: #FFFFFF;
+  border: 2px solid #0A0A0A;
+  border-radius: 8px;
+  box-shadow: 2px 2px 0 0 #0A0A0A;
   cursor: pointer;
-  flex-shrink: 0;
   transition: all 0.15s ease;
+}
+.cagp-workspace-viewall:hover {
+  background-color: #FBF8F3;
+}
+.cagp-workspace-viewall.is-active {
+  background-color: #9E2424;
+  color: #FFFFFF;
 }
 .cagp-workspace-viewall[aria-pressed="true"] {
   background-color: var(--color-cagp-black);
@@ -306,6 +420,19 @@ details > summary {
 
 /* High Contrast AAA (BUG-11 fix: element-preserving specificity) */
 html[data-a11y-contrast="high"] {
+  --cagp-surface-base: #000000;
+  --cagp-surface-card: #000000;
+  --cagp-surface-subtle: #121212;
+  --cagp-surface-hover: #1A1A1A;
+  --cagp-border-subtle: #FFFF00;
+  --cagp-border-strong: #FFFF00;
+  --cagp-content-primary: #FFFF00;
+  --cagp-content-secondary: #FFFF00;
+  --cagp-content-muted: #E6E600;
+  --cagp-brand-primary: #FFFF00;
+  --cagp-brand-hover: #FFFFFF;
+  --cagp-brand-accent: #FFFF00;
+
   background-color: #000000 !important;
   color: #FFFF00 !important;
 }
@@ -335,17 +462,11 @@ html[data-a11y-contrast="high"] .cagp-pulse-indicator {
   background-color: #FFFF00 !important;
   outline: 1.5px solid #000000 !important;
 }
-html[data-a11y-contrast="high"] .cagp-reading-ruler {
-  background-color: rgba(255, 255, 0, 0.25) !important;
-  border-color: #FFFF00 !important;
-}
-
-
-
-
-/* Dyslexia mode */
-html[data-a11y-dyslexia="true"] body {
-  font-family: system-ui, -apple-system, sans-serif !important;
+/* Dyslexia mode with authentic OpenDyslexic font */
+html[data-a11y-dyslexia="true"],
+html[data-a11y-dyslexia="true"] body,
+html[data-a11y-dyslexia="true"] * {
+  font-family: 'OpenDyslexic', system-ui, -apple-system, sans-serif !important;
   letter-spacing: 0.05em;
   word-spacing: 0.1em;
 }
@@ -385,9 +506,9 @@ html[data-a11y-dyslexia="true"] body {
   color: #ffffff;
   border: 2px solid var(--color-cagp-black);
   box-shadow: 2px 2px 0px var(--color-cagp-black);
-  font-family: 'Oswald', sans-serif;
+  font-family: var(--font-head);
   font-size: 0.8rem;
-  font-weight: 700;
+  font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -589,15 +710,16 @@ html[data-a11y-dyslexia="true"] body {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  font-family: 'Oswald', sans-serif;
+  font-family: var(--font-head);
   font-size: 0.82rem;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: -0.01em;
   padding: 0.2rem 0.55rem;
   background-color: #0a0a0a;
   color: #ffffff;
-  border-radius: 3px;
+  border-radius: 8px;
+  border: 1.5px solid #0a0a0a;
 }
 
 .cagp-calc-celebration-box.is-all-complete .cagp-calc-status-badge {
@@ -608,10 +730,10 @@ html[data-a11y-dyslexia="true"] body {
 /* Mini-track individual de cada linha */
 .cagp-calc-mini-track {
   width: 100%;
-  height: 6px;
+  height: 8px;
   background-color: #eae5dc;
-  border: 1px solid #0a0a0a;
-  border-radius: 2px;
+  border: 1.5px solid #0a0a0a;
+  border-radius: 4px;
   overflow: hidden;
   margin-top: 0.35rem;
 }
@@ -633,18 +755,18 @@ html[data-a11y-dyslexia="true"] body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Oswald', sans-serif;
+  font-family: var(--font-head);
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 800;
   background-color: #ffffff;
   color: #0a0a0a;
   border: 2px solid #0a0a0a;
-  border-radius: 4px;
+  border-radius: 12px;
   box-shadow: 2px 2px 0px #0a0a0a;
   cursor: pointer;
   touch-action: manipulation;
   user-select: none;
-  transition: background-color 0.1s ease, transform 0.08s ease;
+  transition: background-color 0.1s ease, transform 0.08s ease, box-shadow 0.08s ease;
 }
 
 .cagp-step-btn:hover:not(:disabled) {
@@ -654,7 +776,7 @@ html[data-a11y-dyslexia="true"] body {
 
 .cagp-step-btn:active:not(:disabled) {
   transform: translate(1px, 1px);
-  box-shadow: 1px 1px 0px #0a0a0a;
+  box-shadow: none;
 }
 
 .cagp-step-btn:disabled {
@@ -666,7 +788,7 @@ html[data-a11y-dyslexia="true"] body {
 .cagp-calc-readout {
   min-width: 84px;
   text-align: center;
-  font-family: 'Oswald', sans-serif;
+  font-family: var(--font-mono);
   font-weight: 700;
   font-size: 0.95rem;
   font-variant-numeric: tabular-nums;

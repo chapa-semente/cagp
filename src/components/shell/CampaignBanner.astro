@@ -1,53 +1,58 @@
 ---
-// CampaignBanner.astro - Faixa Permanente de Transparência e Proposta da Chapa Semente (Cores: Laranja #FF8718, Roxo #5B2E85, Verde #2A6264)
+// CampaignBanner.astro - Faixa Permanente Neobrutalista da Chapa Semente + Marquee Institucional
+// Cores Oficiais: Laranja #FF8811, Roxo #5B2A86, Verde Petróleo #266264, Rubro CAGP #9E2424
 import { asset } from '../../lib/paths';
 ---
 
 <aside
   id="cagp-campaign-banner"
   transition:persist="campaign-banner"
-  class="w-full bg-[#5B2A86] text-white border-b border-black/15 select-none text-xs transition-all duration-200 z-[1050] relative shadow-xs"
+  class="w-full bg-[#5B2A86] text-white border-b-3 border-border select-none text-xs transition-all duration-200 z-[1050] relative shadow-sm"
 >
-  <!-- Micro-faixa Tricolor de Identidade da Chapa Semente -->
-  <div class="h-[3px] w-full flex" aria-hidden="true">
+  <!-- Micro-faixa Tricolor de Identidade (Laranja Germinar + Rubro CAGP + Verde Petróleo) -->
+  <div class="h-[5px] w-full flex border-b-2 border-border" aria-hidden="true">
     <div class="h-full w-1/3 bg-[#FF8811]"></div>
-    <div class="h-full w-1/3 bg-[#5B2A86]"></div>
+    <div class="h-full w-1/3 bg-[#9E2424]"></div>
     <div class="h-full w-1/3 bg-[#266264]"></div>
   </div>
 
-  <div class="max-w-7xl mx-auto px-3.5 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between gap-3">
+  <div class="max-w-7xl mx-auto px-3.5 sm:px-6 py-2.5 flex items-center justify-between gap-3">
     <div class="flex items-center gap-2.5 sm:gap-3.5 flex-1 min-w-0">
-      <!-- Logo Oficial da Chapa Semente em Destaque Visual Amplo -->
-      <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-[6px] overflow-hidden border border-black/20 shadow-xs shrink-0 bg-[#FF8811] flex items-center justify-center p-0.5">
+      <!-- Logo Oficial da Chapa Semente em Destaque Visual Neobrutalista -->
+      <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl overflow-hidden border-3 border-border shadow-sm shrink-0 bg-[#FF8811] flex items-center justify-center p-0.5">
         <img
           src={asset('/logos/semente_logo_fundo_laranja.png')}
           alt="Logo Oficial da Chapa Semente"
-          class="w-full h-full object-contain rounded-[4px]"
+          class="w-full h-full object-contain rounded-lg"
           loading="eager"
         />
       </div>
 
       <div class="flex flex-col gap-1 flex-1 min-w-0">
         <div class="flex items-center gap-1.5 flex-wrap">
-          <!-- Badge Principal: Chapa Semente -->
-          <span class="inline-flex items-center font-['Oswald'] text-[11px] sm:text-xs font-bold tracking-wider uppercase bg-[#FF8811] text-[#0A0A0A] px-2 py-0.5 rounded-[4px] border border-black/15 shadow-xs shrink-0">
-            CHAPA SEMENTE
+          <!-- Badge Principal: Chapa Semente com assinatura tipográfica no último E -->
+          <span class="inline-flex items-center font-heading text-[11px] sm:text-xs font-extrabold tracking-wider uppercase bg-white text-[#5B2A86] px-2.5 py-0.5 rounded-full border-2 border-border shadow-xs shrink-0 -rotate-1">
+            CHAPA SEM<span>E</span>NT<span class="text-[#FF8811]">E</span>
           </span>
 
           <!-- Badge Secundário: Verde Petróleo da Chapa -->
-          <span class="hidden sm:inline-flex items-center font-['Oswald'] text-[11px] font-bold uppercase bg-[#266264] text-white px-2 py-0.5 rounded-[4px] border border-white/20 shrink-0">
-            PROPOSTA DE GESTÃO
+          <span class="hidden sm:inline-flex items-center font-heading text-[11px] font-extrabold uppercase bg-[#266264] text-white px-2.5 py-0.5 rounded-lg border-2 border-border shadow-xs shrink-0">
+            POTENCIAL EM AÇÃO
           </span>
 
-          <!-- Ponto de ancoragem para futuro onboarding da chapa -->
-          <span id="cagp-chapa-semente-anchor" class="hidden md:inline-flex items-center text-[11px] font-mono text-[#FFD6A5]">
-            • Entrega Fev/2027
+          <!-- Badge Institucional CAGP -->
+          <span class="hidden lg:inline-flex items-center font-heading text-[11px] font-extrabold uppercase bg-[#9E2424] text-white px-2.5 py-0.5 rounded-lg border-2 border-border shadow-xs shrink-0">
+            FAFICH • UFMG
+          </span>
+
+          <span id="cagp-chapa-semente-anchor" class="hidden md:inline-flex items-center text-[11px] font-mono font-bold text-[#FFD6A5]">
+            • Gestão &amp; Transparência
           </span>
         </div>
 
-        <!-- Texto Oficial com Destaque WCAG AAA e Limite de Medida de Linha (65-72ch) -->
-        <p id="cagp-banner-text" class="text-[11px] sm:text-xs text-white/95 leading-relaxed m-0 line-clamp-1 max-w-[72ch] transition-all">
-          Este portal é uma proposta e projeto da <strong class="text-[#FFD6A5] font-bold">Chapa Semente</strong> para o <strong>CAGP (FAFICH/UFMG)</strong>. Nosso compromisso é institucional: <strong>independentemente do resultado da eleição, o código será entregue à gestão vencedora</strong>.
+        <!-- Texto Oficial com Destaque WCAG AAA -->
+        <p id="cagp-banner-text" class="text-[11px] sm:text-xs font-sans text-white/95 leading-relaxed m-0 line-clamp-1 max-w-[76ch] transition-all">
+          Este portal é uma proposta e projeto da <strong class="text-[#FF8811] font-extrabold">Chapa Semente</strong> para o <strong>CAGP (FAFICH/UFMG)</strong>. Nosso compromisso é institucional: <strong>independentemente do resultado da eleição, o código será entregue à gestão vencedora</strong>.
         </p>
       </div>
     </div>
@@ -56,12 +61,13 @@ import { asset } from '../../lib/paths';
     <button
       type="button"
       id="cagp-banner-toggle-btn"
-      class="px-3 py-1.5 min-h-[44px] bg-[#266264] hover:bg-[#1f5052] active:scale-95 text-white border border-[#FF8811]/60 rounded-[4px] text-[11px] font-mono font-bold shrink-0 flex items-center justify-center gap-1 transition-all cursor-pointer shadow-xs"
+      class="px-3.5 py-1.5 min-h-[44px] bg-[#FF8811] hover:bg-[#E07406] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none text-[#16181d] border-3 border-border rounded-xl text-[11px] font-heading font-extrabold uppercase shrink-0 flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm"
       aria-expanded="false"
       aria-controls="cagp-banner-text"
-      title="Alternar modo compacto do aviso da Chapa Semente"
+      title="Expandir ou recolher compromisso da Chapa Semente"
     >
-      <span id="cagp-banner-toggle-label">Expandir ▼</span>
+      <span id="cagp-banner-toggle-label">Compromisso</span>
+      <span id="cagp-banner-toggle-icon" class="text-[11px]" aria-hidden="true">▼</span>
     </button>
   </div>
 </aside>
@@ -69,33 +75,25 @@ import { asset } from '../../lib/paths';
 <script>
   function setupCampaignBanner() {
     const banner = document.getElementById('cagp-campaign-banner');
-    const text = document.getElementById('cagp-banner-text');
-    const btn = document.getElementById('cagp-banner-toggle-btn');
-    const label = document.getElementById('cagp-banner-toggle-label');
-    if (!banner || !text || !btn || !label) return;
+    const toggleBtn = document.getElementById('cagp-banner-toggle-btn');
+    const bannerText = document.getElementById('cagp-banner-text');
+    const toggleIcon = document.getElementById('cagp-banner-toggle-icon');
+    if (!banner || !toggleBtn || !bannerText || !toggleIcon) return;
 
-    let isExpanded = localStorage.getItem('cagp_campaign_banner_expanded') === 'true';
-
-    function renderState() {
-      if (isExpanded) {
-        text?.classList.remove('line-clamp-1');
-        label.textContent = 'Compactar ▲';
-        btn?.setAttribute('aria-expanded', 'true');
-      } else {
-        text?.classList.add('line-clamp-1');
-        label.textContent = 'Expandir ▼';
-        btn?.setAttribute('aria-expanded', 'false');
-      }
-    }
-
-    btn.addEventListener('click', () => {
+    let isExpanded = false;
+    toggleBtn.onclick = () => {
       isExpanded = !isExpanded;
-      localStorage.setItem('cagp_campaign_banner_expanded', isExpanded ? 'true' : 'false');
-      renderState();
-    });
-
-    renderState();
+      toggleBtn.setAttribute('aria-expanded', String(isExpanded));
+      if (isExpanded) {
+        bannerText.classList.remove('line-clamp-1');
+        toggleIcon.textContent = '▲';
+      } else {
+        bannerText.classList.add('line-clamp-1');
+        toggleIcon.textContent = '▼';
+      }
+    };
   }
 
+  setupCampaignBanner();
   document.addEventListener('astro:page-load', setupCampaignBanner);
 </script>

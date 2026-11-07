@@ -92,8 +92,6 @@ export const VaultSchemas = {
     font: z.string().default('md'),
     contrast: z.string().default('normal'),
     dyslexia: z.boolean().default(false),
-    motion: z.string().default('normal'),
-    ruler: z.boolean().optional().default(false),
     showDesktopDock: z.boolean().default(false),
   }),
   cagp_discente_shortcuts_v1: z.array(z.string()).min(1).max(5),
@@ -137,8 +135,6 @@ export const VaultDefaults: { [K in VaultKey]: VaultData<K> } = {
     font: 'md',
     contrast: 'normal',
     dyslexia: false,
-    motion: 'normal',
-    ruler: false,
     showDesktopDock: false,
   },
   cagp_discente_shortcuts_v1: ['hoje', 'curso', 'percurso', 'documentos', 'sobre'],
@@ -203,9 +199,8 @@ export function applyA11yPrefsToDOM(prefs?: VaultData<'cagp_a11y_prefs_v2'>): vo
   if (p.font) el.setAttribute('data-a11y-font', p.font);
   if (p.contrast) el.setAttribute('data-a11y-contrast', p.contrast);
   el.setAttribute('data-a11y-dyslexia', p.dyslexia ? 'true' : 'false');
-  if (p.motion) el.setAttribute('data-a11y-motion', p.motion);
-  el.setAttribute('data-a11y-ruler', p.ruler ? 'true' : 'false');
-
+  el.removeAttribute('data-a11y-motion');
+  el.removeAttribute('data-a11y-ruler');
   el.removeAttribute('data-theme');
   el.setAttribute('data-desktop-dock', p.showDesktopDock ? 'true' : 'false');
 }

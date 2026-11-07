@@ -81,46 +81,51 @@ const diretorias = [
 ];
 ---
 
-<div class="space-y-4 text-[#0A0A0A]">
+<div class="space-y-6 text-[#0A0A0A] font-body">
   <!-- Apresentação dos Quadros -->
-  <div class="cagp-tool-box p-4 space-y-3">
-    <div class="border-b border-[#DFDBD2] pb-2.5 flex items-center justify-between flex-wrap gap-2">
+  <div class="bg-white border-[3px] border-[#0A0A0A] rounded-xl p-5 sm:p-6 shadow-[4px_4px_0_0_#0A0A0A] space-y-4">
+    <div class="border-b-2 border-[#0A0A0A] pb-3 flex items-center justify-between flex-wrap gap-2">
       <div>
-        <div class="flex items-center gap-2">
-          <i class="bi bi-people-fill text-[#8B1E2D] text-lg" aria-hidden="true"></i>
-          <h3 class="font-['Oswald'] text-base font-bold uppercase text-[#0A0A0A]">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-[#8B1E2D] text-white flex items-center justify-center border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+            <i class="bi bi-people-fill text-base" aria-hidden="true"></i>
+          </div>
+          <h3 class="font-head text-base sm:text-lg font-extrabold uppercase text-[#0A0A0A] m-0 tracking-tight">
             Quadro das 7 Diretorias Estatutárias
           </h3>
         </div>
-        <p class="text-xs text-gray-600 mt-0.5">
+        <p class="text-xs text-[#0A0A0A] mt-1 m-0 font-medium">
           Distribuição de competências e contatos para acolhimento de demandas discentes:
         </p>
       </div>
-      <span class="cagp-badge cagp-badge-red font-mono">
+      <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-[#8B1E2D] text-white border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
         Arts. 24 e 25
       </span>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
       {diretorias.map((d) => (
-        <div class="cagp-card p-3.5 bg-white flex flex-col justify-between">
+        <div class="p-4 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl shadow-[2px_2px_0_0_#0A0A0A] flex flex-col justify-between">
           <div>
-            <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center justify-between gap-2 mb-2 pb-2 border-b border-[#0A0A0A]">
               <div class="flex items-center gap-2">
-                <span class="cagp-badge cagp-badge-red text-xs font-mono font-bold">
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono font-bold bg-[#8B1E2D] text-white border border-[#0A0A0A]">
                   {d.sigla}
                 </span>
                 <i class={`bi ${d.icon} text-[#8B1E2D] text-sm`} aria-hidden="true" />
               </div>
-              <span class="text-xs font-mono text-gray-500 font-semibold">{d.artigo}</span>
+              <span class="text-[11px] font-mono text-[#0A0A0A] font-bold">{d.artigo}</span>
             </div>
-            <h4 class="font-['Oswald'] font-bold text-xs uppercase text-[#0A0A0A] mb-0.5">{d.nome}</h4>
-            <span class="text-xs font-medium text-gray-700 block mb-1">{d.cargo}</span>
-            <p class="text-xs text-gray-600 leading-relaxed mb-2">{d.bio}</p>
+            <h4 class="font-head font-extrabold text-xs sm:text-sm uppercase text-[#0A0A0A] mb-1">{d.nome}</h4>
+            <span class="text-xs font-bold text-[#8B1E2D] block mb-1.5">{d.cargo}</span>
+            <p class="text-xs text-[#0A0A0A] leading-relaxed mb-3 font-medium">{d.bio}</p>
           </div>
-          <div class="pt-2 border-t border-[#DFDBD2] flex items-center justify-between text-xs">
-            <span class="text-gray-500 italic">{d.membros}</span>
-            <a href={`mailto:${d.email}`} class="text-[#8B1E2D] font-bold hover:underline inline-flex items-center gap-1">
+          <div class="pt-2.5 border-t-2 border-[#0A0A0A] flex items-center justify-between text-xs">
+            <span class="text-[#0A0A0A] font-mono text-[11px] font-bold italic">{d.membros}</span>
+            <a
+              href={`mailto:${d.email}`}
+              class="text-[#8B1E2D] font-head font-extrabold uppercase hover:underline inline-flex items-center gap-1"
+            >
               <i class="bi bi-envelope" aria-hidden="true"></i> Contatar
             </a>
           </div>
@@ -130,20 +135,23 @@ const diretorias = [
   </div>
 
   <!-- Chamada para Novos Assessores Discentes -->
-  <div class="p-5 rounded-2xl bg-[#0A0A0A] text-white border border-[#0A0A0A] shadow-xs space-y-3">
+  <div class="p-5 sm:p-6 rounded-xl bg-[#0A0A0A] text-white border-[3px] border-[#0A0A0A] shadow-[4px_4px_0_0_#0A0A0A] space-y-3">
     <div class="flex items-center gap-2">
-      <span class="cagp-badge cagp-badge-gold font-mono uppercase text-xs">
+      <span class="px-2.5 py-0.5 rounded-lg bg-[#FF8811] text-[#0A0A0A] font-mono font-bold uppercase text-[11px] border border-[#0A0A0A]">
         Edital Permanente
       </span>
-      <h3 class="font-['Oswald'] text-sm uppercase font-bold text-white tracking-wide">
+      <h3 class="font-head text-sm sm:text-base uppercase font-extrabold text-white tracking-wide m-0">
         Participe da Gestão: Chamada para Novos Assessores
       </h3>
     </div>
-    <p class="text-xs text-white/90 leading-relaxed">
+    <p class="text-xs text-white/90 leading-relaxed font-medium m-0">
       Todas as diretorias executivas possuem previsão regimental expressa para inclusão contínua de <strong>Assessores Discentes Voluntários</strong> (Arts. 24 a 34). A atuação discente proporciona vivência prática em gestão pública e contabilidade social, concessão de horas complementares (AAC/Extensão) e atuação direta nas decisões da faculdade.
     </p>
-    <div>
-      <a href="mailto:cagp@fafich.ufmg.br?subject=Interesse%20em%20Assessoria%20CAGP" class="cagp-btn-primary inline-flex items-center gap-2 text-xs py-2 px-3 no-underline">
+    <div class="pt-2">
+      <a
+        href="mailto:cagp@fafich.ufmg.br?subject=Interesse%20em%20Assessoria%20CAGP"
+        class="min-h-[44px] px-4 py-2 bg-[#8B1E2D] hover:bg-[#9E2424] text-white font-head font-bold uppercase text-xs tracking-wider border-2 border-white rounded-xl shadow-[3px_3px_0_0_#FFFFFF] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none inline-flex items-center gap-2 transition-all no-underline"
+      >
         <i class="bi bi-envelope-plus" aria-hidden="true"></i> Enviar Mensagem de Interesse para Assessoria &rarr;
       </a>
     </div>

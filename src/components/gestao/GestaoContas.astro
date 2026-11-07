@@ -3,104 +3,121 @@
 import { route, asset } from '../../lib/paths';
 ---
 
-<div class="space-y-4 text-[#0A0A0A]">
+<div class="space-y-6 text-[#0A0A0A] font-body">
   <!-- Mecanismos de Transparência Ativa -->
-  <div class="cagp-tool-box p-4 space-y-3">
-    <div class="border-b border-[#DFDBD2] pb-2.5 flex items-center justify-between flex-wrap gap-2">
+  <div class="bg-white border-[3px] border-[#0A0A0A] rounded-xl p-5 sm:p-6 shadow-[4px_4px_0_0_#0A0A0A] space-y-4">
+    <div class="border-b-2 border-[#0A0A0A] pb-3 flex items-center justify-between flex-wrap gap-2">
       <div>
-        <div class="flex items-center gap-2">
-          <i class="bi bi-cash-coin text-[#8B1E2D] text-lg" aria-hidden="true"></i>
-          <h3 class="font-['Oswald'] text-base font-bold uppercase text-[#0A0A0A]">
-            Transparência Ativa & Prestação de Contas
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-[#15803D] text-white flex items-center justify-center border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+            <i class="bi bi-cash-coin text-base" aria-hidden="true"></i>
+          </div>
+          <h3 class="font-head text-base sm:text-lg font-extrabold uppercase text-[#0A0A0A] m-0 tracking-tight">
+            Transparência Ativa &amp; Prestação de Contas
           </h3>
         </div>
-        <p class="text-xs text-gray-600 mt-0.5">
+        <p class="text-xs text-[#0A0A0A] mt-1 m-0 font-medium">
           Instrumentos de fiscalização contábil previstos no Regimento Interno (Arts. 8º, 15, 29 e 30):
         </p>
       </div>
-      <span class="cagp-badge cagp-badge-green font-mono">
+      <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-[#E8F5E9] text-[#15803D] border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
         Publicidade Irrevogável
       </span>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-      <div class="cagp-card p-3.5 bg-white flex flex-col justify-between">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div class="p-4 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl shadow-[2px_2px_0_0_#0A0A0A] flex flex-col justify-between">
         <div>
-          <div class="flex items-center gap-2 text-[#8B1E2D] mb-2">
-            <div class="w-8 h-8 rounded-[4px] bg-[#8B1E2D]/10 text-[#8B1E2D] border border-[#8B1E2D]/20 flex items-center justify-center shrink-0 shadow-[1px_1px_0_#0A0A0A]">
+          <div class="flex items-center gap-2 text-[#8B1E2D] mb-2 pb-2 border-b border-[#0A0A0A]">
+            <div class="w-8 h-8 rounded-lg bg-white text-[#8B1E2D] border-2 border-[#0A0A0A] flex items-center justify-center shrink-0 shadow-[1px_1px_0_0_#0A0A0A]">
               <i class="bi bi-file-earmark-spreadsheet-fill text-base" aria-hidden="true"></i>
             </div>
-            <h4 class="font-['Oswald'] font-bold text-xs uppercase text-[#0A0A0A]">RREO Mensal</h4>
+            <h4 class="font-head font-extrabold text-xs uppercase text-[#0A0A0A] m-0">RREO Mensal</h4>
           </div>
-          <p class="text-xs text-gray-600 leading-relaxed mb-2">
+          <p class="text-xs text-[#0A0A0A] leading-relaxed mb-3 font-medium">
             Elaboração e publicação periódica do <strong>Relatório Resumido de Execução Orçamentária</strong> pela DIFI, discriminando todas as receitas e despesas executadas.
           </p>
         </div>
-        <span class="cagp-badge cagp-badge-red text-xs font-mono w-fit">
+        <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-[#8B1E2D] text-white border border-[#0A0A0A] w-fit">
           Art. 30, Inciso V
         </span>
       </div>
 
-      <div class="cagp-card p-3.5 bg-white flex flex-col justify-between">
+      <div class="p-4 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl shadow-[2px_2px_0_0_#0A0A0A] flex flex-col justify-between">
         <div>
-          <div class="flex items-center gap-2 text-[#0A0A0A] mb-2">
-            <div class="w-8 h-8 rounded-[4px] bg-[#0A0A0A]/10 text-[#0A0A0A] border border-[#0A0A0A]/20 flex items-center justify-center shrink-0 shadow-[1px_1px_0_#0A0A0A]">
+          <div class="flex items-center gap-2 text-[#0A0A0A] mb-2 pb-2 border-b border-[#0A0A0A]">
+            <div class="w-8 h-8 rounded-lg bg-white text-[#0A0A0A] border-2 border-[#0A0A0A] flex items-center justify-center shrink-0 shadow-[1px_1px_0_0_#0A0A0A]">
               <i class="bi bi-journal-text text-base" aria-hidden="true"></i>
             </div>
-            <h4 class="font-['Oswald'] font-bold text-xs uppercase text-[#0A0A0A]">Livro de Atas</h4>
+            <h4 class="font-head font-extrabold text-xs uppercase text-[#0A0A0A] m-0">Livro de Atas</h4>
           </div>
-          <p class="text-xs text-gray-600 leading-relaxed mb-2">
+          <p class="text-xs text-[#0A0A0A] leading-relaxed mb-3 font-medium">
             Registro sistemático de todas as deliberações das reuniões de diretoria e Assembleias Gerais, arquivadas sob tutela da DIJUR e acessíveis no Drive institucional do CAGP.
           </p>
         </div>
-        <span class="cagp-badge cagp-badge-dark text-xs font-mono w-fit">
+        <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-[#0A0A0A] text-white border border-[#0A0A0A] w-fit">
           Art. 29, Inciso VII
         </span>
       </div>
 
-      <div class="cagp-card p-3.5 bg-white flex flex-col justify-between">
+      <div class="p-4 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl shadow-[2px_2px_0_0_#0A0A0A] flex flex-col justify-between">
         <div>
-          <div class="flex items-center gap-2 text-[#15803D] mb-2">
-            <div class="w-8 h-8 rounded-[4px] bg-[#15803D]/10 text-[#15803D] border border-[#15803D]/20 flex items-center justify-center shrink-0 shadow-[1px_1px_0_#0A0A0A]">
+          <div class="flex items-center gap-2 text-[#15803D] mb-2 pb-2 border-b border-[#0A0A0A]">
+            <div class="w-8 h-8 rounded-lg bg-white text-[#15803D] border-2 border-[#0A0A0A] flex items-center justify-center shrink-0 shadow-[1px_1px_0_0_#0A0A0A]">
               <i class="bi bi-clock-history text-base" aria-hidden="true"></i>
             </div>
-            <h4 class="font-['Oswald'] font-bold text-xs uppercase text-[#0A0A0A]">Acesso em 3 Dias</h4>
+            <h4 class="font-head font-extrabold text-xs uppercase text-[#0A0A0A] m-0">Acesso em 3 Dias</h4>
           </div>
-          <p class="text-xs text-gray-600 leading-relaxed mb-2">
+          <p class="text-xs text-[#0A0A0A] leading-relaxed mb-3 font-medium">
             Qualquer discente regularmente matriculado tem o direito estatutário de solicitar extratos bancários, notas fiscais e relatórios contábeis, com envio em <strong>até 3 dias úteis</strong>.
           </p>
         </div>
-        <span class="cagp-badge cagp-badge-green text-xs font-mono w-fit">
+        <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-[#15803D] text-white border border-[#0A0A0A] w-fit">
           Art. 15, Inciso V
         </span>
       </div>
     </div>
 
     <!-- Canal de Acesso à Informação Discente -->
-    <div class="cagp-card p-3.5 bg-[#F7F5F0] space-y-2 mt-2">
-      <div class="flex items-center justify-between flex-wrap gap-2">
+    <div class="p-5 bg-[#FBF8F3] border-2 border-[#0A0A0A] rounded-xl shadow-[3px_3px_0_0_#0A0A0A] space-y-3 mt-4">
+      <div class="flex items-center justify-between flex-wrap gap-2 border-b-2 border-[#0A0A0A] pb-2.5">
         <div class="flex items-center gap-2">
           <i class="bi bi-envelope-open-fill text-[#8B1E2D]" aria-hidden="true"></i>
-          <h4 class="font-['Oswald'] text-xs font-bold uppercase text-[#0A0A0A]">
+          <h4 class="font-head text-xs sm:text-sm font-extrabold uppercase text-[#0A0A0A] m-0">
             Solicitação de Acesso a Documentos ou Balancetes
           </h4>
         </div>
-        <span class="cagp-badge text-xs font-mono">Lei de Acesso à Informação Discente</span>
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-lg text-[11px] font-mono font-bold bg-[#E8F5E9] text-[#15803D] border border-[#0A0A0A]">
+          Lei de Acesso à Informação Discente
+        </span>
       </div>
-      <p class="text-xs text-gray-600 leading-relaxed">
+      <p class="text-xs text-[#0A0A0A] leading-relaxed font-medium m-0">
         Para requerer vistas de extratos contábeis, atas ou pareceres regimentais, basta enviar um e-mail com nome e número de matrícula para nossa ouvidoria financeira e jurídica. O prazo de resposta regimental é de até 72 horas úteis.
       </p>
-      <div class="flex flex-wrap gap-2 pt-1">
-        <a href={route('/transparencia')} class="cagp-btn-primary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
+      <div class="flex flex-wrap gap-2.5 pt-2">
+        <a
+          href={route('/transparencia')}
+          class="min-h-[44px] px-3.5 py-2 bg-[#8B1E2D] hover:bg-[#9E2424] text-white font-head font-bold uppercase text-xs tracking-wider border-2 border-[#0A0A0A] rounded-xl shadow-[3px_3px_0_0_#0A0A0A] hover:shadow-[4px_4px_0_0_#0A0A0A] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none inline-flex items-center gap-2 transition-all no-underline"
+        >
           <i class="bi bi-cash-coin" aria-hidden="true"></i> Abrir Portal da Transparência Completo
         </a>
-        <a href="mailto:cagp@fafich.ufmg.br?subject=Requerimento%20de%20Acesso%20a%20Contas%20-%20Art.%2015" class="cagp-btn-secondary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
-          <i class="bi bi-envelope" aria-hidden="true"></i> Solicitar Acesso às Contas (cagp@fafich.ufmg.br)
+        <a
+          href="mailto:cagp@fafich.ufmg.br?subject=Requerimento%20de%20Acesso%20a%20Contas%20-%20Art.%2015"
+          class="min-h-[44px] px-3.5 py-2 bg-[#FBF8F3] hover:bg-white text-[#0A0A0A] font-head font-bold uppercase text-xs tracking-wider border-2 border-[#0A0A0A] rounded-xl shadow-[2px_2px_0_0_#0A0A0A] hover:shadow-[3px_3px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none inline-flex items-center gap-2 transition-all no-underline"
+        >
+          <i class="bi bi-envelope" aria-hidden="true"></i> Solicitar Acesso às Contas
         </a>
-        <a href={route('/documentos/regimento-interno-cagp-ufmg')} class="cagp-btn-secondary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
+        <a
+          href={route('/documentos/regimento-interno-cagp-ufmg')}
+          class="min-h-[44px] px-3.5 py-2 bg-[#FBF8F3] hover:bg-white text-[#0A0A0A] font-head font-bold uppercase text-xs tracking-wider border-2 border-[#0A0A0A] rounded-xl shadow-[2px_2px_0_0_#0A0A0A] hover:shadow-[3px_3px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none inline-flex items-center gap-2 transition-all no-underline"
+        >
           <i class="bi bi-eye" aria-hidden="true"></i> Ler Regimento Transcrito
         </a>
-        <a href={asset('/documentos/regimento-interno-cagp-ufmg.pdf')} download class="cagp-btn-secondary inline-flex items-center gap-1.5 text-xs py-1.5 px-3 no-underline">
+        <a
+          href={asset('/documentos/regimento-interno-cagp-ufmg.pdf')}
+          download
+          class="min-h-[44px] px-3.5 py-2 bg-[#0A0A0A] hover:bg-[#8B1E2D] text-white font-head font-bold uppercase text-xs tracking-wider border-2 border-[#0A0A0A] rounded-xl shadow-[3px_3px_0_0_#0A0A0A] hover:shadow-[4px_4px_0_0_#0A0A0A] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none inline-flex items-center gap-2 transition-all no-underline"
+        >
           <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> Regimento 2024 (PDF)
         </a>
       </div>
