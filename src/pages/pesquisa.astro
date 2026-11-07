@@ -7,6 +7,7 @@ import JourneyNav from '../components/ui/JourneyNav.astro';
 import PesquisaNucleos from '../components/pesquisa/PesquisaNucleos.astro';
 import PesquisaIc from '../components/pesquisa/PesquisaIc.astro';
 import PesquisaImersao from '../components/pesquisa/PesquisaImersao.astro';
+import { PesquisaStatsBanner } from '../components/features/pesquisa/PesquisaStatsBanner';
 
 const tabs = [
   { id: 'v1', shortLabel: 'Núcleos', fullLabel: '1. Núcleos de Pesquisa (11)', hash: '#nucleos' },
@@ -36,6 +37,7 @@ const badges = [
   <!-- Sub-view 1: 11 Núcleos -->
   <section id="ws-panel-v1" class="cagp-workspace-view" data-ws-panel="v1">
     <div id="nucleos" class="cagp-anchor-target scroll-mt-24"></div>
+    <PesquisaStatsBanner client:visible />
     <PesquisaNucleos />
   </section>
 

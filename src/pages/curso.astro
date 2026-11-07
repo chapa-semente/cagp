@@ -9,6 +9,7 @@ import CursoEgressos from '../components/curso/CursoEgressos.astro';
 import CursoColegiado from '../components/curso/CursoColegiado.astro';
 import CursoIngresso from '../components/curso/CursoIngresso.astro';
 import AxisOverview from '../components/shell/AxisOverview.astro';
+import { CursoAnalyticsAndColegiado } from '../components/features/curso/CursoAnalyticsAndColegiado';
 
 const tabs = [
   { id: 'v0', shortLabel: 'Geral', fullLabel: 'Painel do Curso', hash: '#visao-geral' },
@@ -40,6 +41,7 @@ const badges = [
   <!-- Sub-view 0: Visão Geral do Eixo 2 (Curso) -->
   <section id="ws-panel-v0" class="cagp-workspace-view" data-ws-panel="v0">
     <div id="visao-geral" class="cagp-anchor-target scroll-mt-24"></div>
+    <CursoAnalyticsAndColegiado client:visible />
     <AxisOverview axisId="curso" />
   </section>
 

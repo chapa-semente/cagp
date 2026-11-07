@@ -1,28 +1,41 @@
-"use client"
+import * as React from 'react'
+import { Checkbox as CheckboxPrimitive } from 'radix-ui'
+import { Check, Minus } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
-import { Checkbox as CheckboxPrimitive } from "@base-ui/react/checkbox"
-import { CheckIcon } from "lucide-react"
+export interface CheckboxProps
+  extends React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> {
+  indeterminate?: boolean
+}
 
-import { cn } from "@/lib/utils"
+const Checkbox = React.forwardRef<
+  React.ElementRef<typeof CheckboxPrimitive.Root>,
+  CheckboxProps
+>(({ className, checked, indeterminate, ...props }, ref) => {
+  const resolvedChecked = indeterminate && !checked ? 'indeterminate' : checked
 
-function Checkbox({ className, ...props }: CheckboxPrimitive.Root.Props) {
   return (
     <CheckboxPrimitive.Root
-      data-slot="checkbox"
+      ref={ref}
+      checked={resolvedChecked}
       className={cn(
-        "peer relative flex size-5 shrink-0 items-center justify-center rounded border-2 bg-input shadow-sm transition-colors outline-none group-has-disabled/field:opacity-50 after:absolute after:-inset-x-3 after:-inset-y-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive data-checked:border-border data-checked:bg-primary data-checked:text-primary-foreground",
+        'peer h-5 w-5 shrink-0 rounded-md border-3 border-foreground bg-background shadow-[3px_3px_0px_var(--shadow-color)] transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground data-[state=indeterminate]:bg-secondary data-[state=indeterminate]:text-secondary-foreground hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none active:translate-x-[2px] active:translate-y-[2px] active:shadow-none',
         className
       )}
       {...props}
     >
       <CheckboxPrimitive.Indicator
-        data-slot="checkbox-indicator"
-        className="grid place-content-center text-current transition-none [&>svg]:size-3.5"
+        className={cn('flex items-center justify-center text-current')}
       >
-        <CheckIcon />
+        {resolvedChecked === 'indeterminate' ? (
+          <Minus className="h-3.5 w-3.5 stroke-[3]" />
+        ) : (
+          <Check className="h-3.5 w-3.5 stroke-[3]" />
+        )}
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
   )
-}
+})
+Checkbox.displayName = CheckboxPrimitive.Root.displayName
 
 export { Checkbox }

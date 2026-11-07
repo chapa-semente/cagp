@@ -1,65 +1,29 @@
-import * as React from "react"
-import { ChevronDownIcon } from "lucide-react"
+import * as React from 'react'
+import { ChevronDown } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
-import { cn } from "@/lib/utils"
-
-type NativeSelectProps = Omit<React.ComponentProps<"select">, "size"> & {
-  size?: "sm" | "default"
-}
-
-function NativeSelect({
-  className,
-  size = "default",
-  ...props
-}: NativeSelectProps) {
-  return (
-    <div
+/**
+ * A styled wrapper around the native <select> element — lightweight and
+ * a11y-first, for simple option lists that don't need a custom popover.
+ */
+const NativeSelect = React.forwardRef<
+  HTMLSelectElement,
+  React.SelectHTMLAttributes<HTMLSelectElement>
+>(({ className, children, ...props }, ref) => (
+  <div className="relative inline-flex w-full">
+    <select
+      ref={ref}
       className={cn(
-        "group/native-select relative w-fit has-[select:disabled]:opacity-50",
+        'bk-native-select h-11 w-full appearance-none rounded-xl border-3 border-foreground bg-background px-3 pr-10 text-sm font-bold uppercase tracking-wide shadow-[4px_4px_0px_var(--shadow-color)] outline-none transition focus-visible:translate-x-[2px] focus-visible:translate-y-[2px] focus-visible:shadow-none disabled:cursor-not-allowed disabled:opacity-50',
         className
       )}
-      data-slot="native-select-wrapper"
-      data-size={size}
+      {...props}
     >
-      <select
-        data-slot="native-select"
-        data-size={size}
-        className="h-8 w-full min-w-0 appearance-none rounded border-2 bg-input py-2 pr-8 pl-3 text-sm shadow-sm transition-colors outline-none select-none selection:bg-primary selection:text-primary-foreground placeholder:text-muted-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:pointer-events-none disabled:cursor-not-allowed aria-invalid:border-destructive data-[size=sm]:h-7 data-[size=sm]:rounded data-[size=sm]:py-0.5"
-        {...props}
-      />
-      <ChevronDownIcon
-        className="pointer-events-none absolute top-1/2 right-2.5 size-4 -translate-y-1/2 text-muted-foreground select-none"
-        aria-hidden="true"
-        data-slot="native-select-icon"
-      />
-    </div>
-  )
-}
+      {children}
+    </select>
+    <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 stroke-[3]" />
+  </div>
+))
+NativeSelect.displayName = 'NativeSelect'
 
-function NativeSelectOption({
-  className,
-  ...props
-}: React.ComponentProps<"option">) {
-  return (
-    <option
-      data-slot="native-select-option"
-      className={cn("bg-[Canvas] text-[CanvasText]", className)}
-      {...props}
-    />
-  )
-}
-
-function NativeSelectOptGroup({
-  className,
-  ...props
-}: React.ComponentProps<"optgroup">) {
-  return (
-    <optgroup
-      data-slot="native-select-optgroup"
-      className={cn("bg-[Canvas] text-[CanvasText]", className)}
-      {...props}
-    />
-  )
-}
-
-export { NativeSelect, NativeSelectOptGroup, NativeSelectOption }
+export { NativeSelect }

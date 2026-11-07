@@ -1,0 +1,222 @@
+---
+// src/pages/chapa-semente.astro — Apresentação da Chapa Semente & Carta-Programa Oficial
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/ui/PageHeader.astro';
+import JourneyNav from '../components/ui/JourneyNav.astro';
+import { CartaPropostaInteractive } from '../components/features/semente/CartaPropostaInteractive';
+import { asset, route } from '../lib/paths';
+
+const badges = [
+  { label: 'Eleições: 25 e 26/11 no CAGP', variant: 'red' as const, icon: 'bi-calendar-check' },
+  { label: '14 Propostas Estruturadas', variant: 'dark' as const, icon: 'bi-check2-circle' },
+  { label: 'Gestão Apartidária e Combativa', variant: 'blue' as const, icon: 'bi-shield-check' },
+  { label: 'Compromisso com o Código Aberto', variant: 'gold' as const, icon: 'bi-laptop' },
+];
+---
+
+<BaseLayout
+  title="Chapa Semente — Carta-Programa & Eleições CAGP 2026"
+  description="Carta-Programa oficial da Chapa Semente na eleição para o Centro Acadêmico de Gestão Pública da UFMG: 4 eixos, 14 propostas e cronograma do edital."
+>
+  <PageHeader
+    eyebrow="Eleições 2026 · Centro Acadêmico de Gestão Pública"
+    title="Chapa Semente — Potencial que se Transforma em Ação"
+    subtitle="Apresentamos nossa Carta-Programa para orientar as ações, diretrizes e prioridades na eleição do CAGP (FAFICH/UFMG). Representação estudantil combativa e apartidária, permanência, transparência e respeito à reserva do possível."
+    badges={badges}
+  />
+
+  <div class="space-y-8 my-6">
+    <!-- 1. BANNER DO CRONOGRAMA ELEITORAL (EDITAL DE CONVOCAÇÃO 2026) -->
+    <section aria-label="Cronograma Oficial das Eleições" class="p-5 sm:p-6 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0_0_#5B2A86] space-y-4">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b-2 border-border">
+        <div>
+          <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-[#5B2A86] block">
+            Junta Eleitoral CAGP 2026 • Edital de Convocação
+          </span>
+          <h2 className="font-heading text-lg sm:text-xl font-black uppercase text-[#16181d] m-0">
+            Regras do Jogo &amp; Calendário de Votação
+          </h2>
+        </div>
+
+        <a
+          href={asset('/documentos/edital-eleicoes-cagp-2026.pdf')}
+          download="edital-eleicoes-cagp-2026.pdf"
+          class="px-4 py-2 min-h-[40px] inline-flex items-center gap-2 rounded-xl bg-[#5B2A86] hover:bg-[#4A216E] text-white border-2 border-[#16181d] font-heading font-extrabold text-xs uppercase tracking-wider no-underline shadow-[2px_2px_0_0_#16181d] transition-all"
+        >
+          <span>Baixar Edital Oficial (PDF)</span>
+          <span>↓</span>
+        </a>
+      </div>
+
+      <!-- Timeline dos 6 Passos Oficiais -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-2.5 pt-2">
+        <div class="p-3 rounded-lg border-2 border-[#16181d] bg-[#f4f5f7]">
+          <span class="font-mono text-[10px] font-bold text-muted-foreground block">04/11/2026</span>
+          <span class="font-heading font-black text-xs uppercase text-[#16181d] block mt-0.5">Edital Publicado</span>
+          <span class="text-[11px] font-sans text-muted-foreground block mt-1">Convocação oficial</span>
+        </div>
+        <div class="p-3 rounded-lg border-2 border-[#16181d] bg-[#f4f5f7]">
+          <span class="font-mono text-[10px] font-bold text-muted-foreground block">04 a 10/11</span>
+          <span class="font-heading font-black text-xs uppercase text-[#16181d] block mt-0.5">Inscrição de Chapas</span>
+          <span class="text-[11px] font-sans text-muted-foreground block mt-1">Até 23h59 por e-mail</span>
+        </div>
+        <div class="p-3 rounded-lg border-2 border-[#16181d] bg-[#f4f5f7]">
+          <span class="font-mono text-[10px] font-bold text-muted-foreground block">11/11/2026</span>
+          <span class="font-heading font-black text-xs uppercase text-[#16181d] block mt-0.5">Homologação</span>
+          <span class="text-[11px] font-sans text-muted-foreground block mt-1">Divulgação das chapas</span>
+        </div>
+        <div class="p-3 rounded-lg border-2 border-[#16181d] bg-[#FFFDF9] border-[#FF8811]">
+          <span class="font-mono text-[10px] font-bold text-[#FF8811] block">11 a 24/11</span>
+          <span class="font-heading font-black text-xs uppercase text-[#16181d] block mt-0.5">Campanha Eleitoral</span>
+          <span class="text-[11px] font-sans text-muted-foreground block mt-1">Debate e diálogo aberto</span>
+        </div>
+        <div class="p-3 rounded-lg border-2 border-[#16181d] bg-[#FFFDF9] border-[#5B2A86]">
+          <span class="font-mono text-[10px] font-bold text-[#5B2A86] block">24/11 às 18h</span>
+          <span class="font-heading font-black text-xs uppercase text-[#16181d] block mt-0.5">Debate das Chapas</span>
+          <span class="text-[11px] font-sans text-muted-foreground block mt-1">Local a definir</span>
+        </div>
+        <div class="p-3 rounded-lg border-2 border-[#16181d] bg-[#5B2A86] text-white shadow-[2px_2px_0_0_#16181d]">
+          <span class="font-mono text-[10px] font-bold text-[#FFD6A5] block">25 e 26/11</span>
+          <span class="font-heading font-black text-xs uppercase text-white block mt-0.5">Votação no CAGP</span>
+          <span class="text-[11px] font-sans text-white/90 block mt-1">17h às 22h30 • Voto secreto</span>
+        </div>
+      </div>
+
+      <div class="p-3 rounded-lg bg-[#FFFBEB] border-2 border-[#B45309] text-xs font-sans text-[#16181d]">
+        <strong>Atenção às normas do Art. 17 do Edital:</strong> É expressamente proibida propaganda ou boca de urna no 1º andar da FAFICH nos dias 25 e 26 de novembro. Podem votar todos os estudantes com matrícula ativa no Curso de Gestão Pública da UFMG portando documento oficial com foto.
+      </div>
+    </section>
+
+    <!-- 2. IDENTIDADE VISUAL & SÍMBOLO DA SEMENTE -->
+    <section aria-label="Identidade Visual da Chapa Semente" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center p-6 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0_0_#16181d]">
+      <div class="lg:col-span-4 flex flex-col items-center justify-center p-6 rounded-xl border-3 border-[#16181d] bg-[#5B2A86] text-white shadow-[3px_3px_0_0_#16181d] relative overflow-hidden">
+        <div class="w-24 h-24 rounded-2xl border-3 border-[#16181d] bg-white p-2 shadow-sm flex items-center justify-center">
+          <img
+            src={asset('/logos/semente/simbolo_semente_fiel.svg')}
+            alt="Símbolo Chapa Semente"
+            class="w-full h-full object-contain"
+          />
+        </div>
+        <div class="mt-4 inline-flex items-center px-4 py-1 rounded-full bg-white border-2 border-[#16181d] shadow-xs font-heading font-black text-sm uppercase tracking-wider text-[#5B2A86]">
+          CHAPA SEM<span>E</span>NT<span class="text-[#FF8811]">E</span>
+        </div>
+        <span class="text-[11px] font-mono text-[#FFD6A5] mt-2 block font-bold">
+          POTENCIAL EM AÇÃO
+        </span>
+      </div>
+
+      <div class="lg:col-span-8 space-y-3">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="px-2.5 py-0.5 rounded-full bg-[#5B2A86] text-white text-[11px] font-mono font-bold">
+            Roxo #5B2A86 (Protagonismo)
+          </span>
+          <span class="px-2.5 py-0.5 rounded-full bg-[#FF8811] text-[#16181d] text-[11px] font-mono font-bold">
+            Laranja #FF8811 (Novas Ideias)
+          </span>
+          <span class="px-2.5 py-0.5 rounded-full bg-[#266264] text-white text-[11px] font-mono font-bold">
+            Verde Petróleo #266264 (Transparência)
+          </span>
+        </div>
+
+        <h3 class="font-heading text-xl sm:text-2xl font-black uppercase text-[#16181d] m-0">
+          Por que Chapa Semente?
+        </h3>
+        <p class="text-xs sm:text-sm font-sans text-[#16181d]/90 leading-relaxed m-0">
+          A semente não é estática; ela é o potencial latente que germina em ação concreta. Combinamos o rigor analítico e técnico da formação em políticas públicas com a vivência universitária viva da FAFICH. Construímos uma plataforma de representação que não aparelha o espaço e que coloca o estudante no centro das decisões orçamentárias, acadêmicas e culturais.
+        </p>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2">
+          <div class="p-2.5 rounded-lg border-2 border-[#16181d] bg-[#f4f5f7] text-center">
+            <span class="font-heading font-black text-sm uppercase text-[#5B2A86] block">Apartidária</span>
+            <span class="text-[10px] font-sans text-muted-foreground block">Foco na GP</span>
+          </div>
+          <div class="p-2.5 rounded-lg border-2 border-[#16181d] bg-[#f4f5f7] text-center">
+            <span class="font-heading font-black text-sm uppercase text-[#FF8811] block">Transparente</span>
+            <span class="text-[10px] font-sans text-muted-foreground block">Boletins 3M</span>
+          </div>
+          <div class="p-2.5 rounded-lg border-2 border-[#16181d] bg-[#f4f5f7] text-center">
+            <span class="font-heading font-black text-sm uppercase text-[#266264] block">Participativa</span>
+            <span class="text-[10px] font-sans text-muted-foreground block">Reuniões Abertas</span>
+          </div>
+          <div class="p-2.5 rounded-lg border-2 border-[#16181d] bg-[#f4f5f7] text-center">
+            <span class="font-heading font-black text-sm uppercase text-[#9E2424] block">Concreta</span>
+            <span class="text-[10px] font-sans text-muted-foreground block">Reserva Possível</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. EXPLORADOR INTERATIVO DAS 14 PROPOSTAS (4 EIXOS) -->
+    <section aria-label="Carta-Programa da Chapa Semente">
+      <div class="mb-4">
+        <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-[#5B2A86] block">
+          Carta-Programa Completa
+        </span>
+        <h2 class="font-heading text-2xl font-black uppercase text-[#16181d] m-0">
+          14 Propostas para Transformar o CAGP
+        </h2>
+        <p class="text-xs sm:text-sm font-sans text-muted-foreground mt-1 max-w-2xl m-0">
+          Filtre por eixo temático ou pesquise propostas específicas para conhecer nossos compromissos concretos de gestão.
+        </p>
+      </div>
+
+      <CartaPropostaInteractive client:load />
+    </section>
+
+    <!-- 4. ACERVO EM ANEXO & DOCUMENTOS ORIGINAIS -->
+    <section aria-label="Anexos Oficiais e Downloads" class="p-6 rounded-xl border-3 border-[#16181d] bg-[#f4f5f7] shadow-[3px_3px_0_0_#16181d] space-y-4">
+      <h3 class="font-heading text-lg font-black uppercase text-[#16181d] m-0">
+        Documentos Oficiais em Anexo para Consulta
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="p-4 rounded-xl border-2 border-[#16181d] bg-white flex items-center justify-between gap-3 shadow-xs">
+          <div class="min-w-0">
+            <span class="font-mono text-[10px] font-bold uppercase text-[#5B2A86] block">PDF Oficial</span>
+            <span class="font-heading font-bold text-sm uppercase text-[#16181d] block truncate">
+              Edital de Convocação de Eleições CAGP 2026
+            </span>
+            <span class="text-xs font-sans text-muted-foreground block truncate">
+              Junta Eleitoral • Cronograma, normas e requisitos de chapa
+            </span>
+          </div>
+          <a
+            href={asset('/documentos/edital-eleicoes-cagp-2026.pdf')}
+            download="edital-eleicoes-cagp-2026.pdf"
+            class="px-3 py-1.5 rounded-lg bg-[#5B2A86] text-white border-2 border-[#16181d] font-heading font-bold text-xs uppercase no-underline shrink-0"
+          >
+            Baixar PDF
+          </a>
+        </div>
+
+        <div class="p-4 rounded-xl border-2 border-[#16181d] bg-white flex items-center justify-between gap-3 shadow-xs">
+          <div class="min-w-0">
+            <span class="font-mono text-[10px] font-bold uppercase text-[#FF8811] block">Documento de Campanha</span>
+            <span class="font-heading font-bold text-sm uppercase text-[#16181d] block truncate">
+              Carta Proposta Completa — Chapa Semente
+            </span>
+            <span class="text-xs font-sans text-muted-foreground block truncate">
+              Carta-programa integral elaborada coletivamente pelos membros
+            </span>
+          </div>
+          <a
+            href={route('/documentos')}
+            class="px-3 py-1.5 rounded-lg bg-[#FF8811] text-[#16181d] border-2 border-[#16181d] font-heading font-bold text-xs uppercase no-underline shrink-0"
+          >
+            Ver Acervo
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <JourneyNav
+    prev={{
+      title: 'Hoje & Campus',
+      href: '/',
+    }}
+    next={{
+      title: 'Processo Eleitoral & Diretorias',
+      href: '/gestao',
+    }}
+  />
+</BaseLayout>

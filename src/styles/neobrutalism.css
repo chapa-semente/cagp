@@ -26,15 +26,15 @@
   --muted-foreground: #5d626e;
   --input: #ffffff;
 
-  /* Cores Semânticas Tri-Camada Harmonizadas */
-  /* Camada 1: Rubro Institucional CAGP (FAFICH / Candangos de Bruno Giorgi) */
-  --primary: #9E2424;
-  --primary-hover: #8B1E2D;
+  /* Cores Semânticas Tri-Camada Harmonizadas (Chapa Semente Primária) */
+  /* Camada 1: Roxo Semente (Identidade Primária & Realização) */
+  --primary: #5B2A86;
+  --primary-hover: #4A216E;
   --primary-foreground: #ffffff;
 
-  /* Camada 2: Roxo Semente (Gestão Discente & Liderança) */
-  --secondary: #5B2A86;
-  --secondary-hover: #4A216E;
+  /* Camada 2: Rubro Institucional CAGP & UFMG (Secundária & Memória FAFICH) */
+  --secondary: #9E2424;
+  --secondary-hover: #8B1E2D;
   --secondary-foreground: #ffffff;
 
   /* Camada 3: Laranja Germinar (CTA / Destaques / Energia Estudantil) */
@@ -43,7 +43,7 @@
   --accent-foreground: #000000;
 
   /* Anéis de foco e estados de alerta */
-  --ring: #9E2424;
+  --ring: #5B2A86;
   --destructive: #DC2626;
   --destructive-foreground: #ffffff;
   --success: #15803D;
@@ -63,9 +63,9 @@
   --cagp-black: #0A0A0A;
 
   /* Gráficos & Visualização BoldKit */
-  --chart-1: #9E2424; /* Rubro CAGP */
-  --chart-2: #5B2A86; /* Roxo Semente */
-  --chart-3: #FF8811; /* Laranja Germinar */
+  --chart-1: #5B2A86; /* Roxo Semente */
+  --chart-2: #FF8811; /* Laranja Germinar */
+  --chart-3: #9E2424; /* Rubro CAGP */
   --chart-4: #266264; /* Verde Petróleo Semente */
   --chart-5: #E8A317; /* Dourado FAFICH */
 

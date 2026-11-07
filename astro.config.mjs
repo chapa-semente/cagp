@@ -22,6 +22,25 @@ export default defineConfig({
     : '/',
   vite: {
     plugins: [tailwindcss()],
+    resolve: {
+      dedupe: ['react', 'react-dom'],
+    },
+    ssr: {
+      noExternal: [
+        'vaul',
+        'cmdk',
+        'radix-ui',
+        'sonner',
+        'recharts',
+        'lucide-react',
+        'embla-carousel-react',
+        'input-otp',
+        'react-day-picker',
+        'react-resizable-panels',
+        'motion',
+        '@headlessui/react',
+      ],
+    },
     optimizeDeps: {
       include: [
         'react',

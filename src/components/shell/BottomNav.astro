@@ -28,14 +28,14 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
           aria-current={isCurrent ? 'page' : undefined}
           class={`cagp-bottom-axis-item flex flex-col items-center justify-center gap-1 min-h-[48px] py-1 px-1 rounded-xl no-underline transition-all active:scale-95 ${
             isCurrent
-              ? 'is-active text-[#9E2424] font-bold'
-              : 'text-[#0A0A0A] hover:text-[#9E2424] font-semibold'
+              ? 'is-active text-[#5B2A86] font-bold'
+              : 'text-[#0A0A0A] hover:text-[#5B2A86] font-semibold'
           }`}
         >
           <span
             class={`cagp-bottom-axis-pill w-11 h-7 rounded-lg flex items-center justify-center transition-all ${
               isCurrent
-                ? 'bg-[#9E2424] text-white border-2 border-[#0A0A0A] shadow-[1.5px_1.5px_0_0_#0A0A0A] -translate-y-0.5'
+                ? 'bg-[#5B2A86] text-white border-2 border-[#0A0A0A] shadow-[1.5px_1.5px_0_0_#0A0A0A] -translate-y-0.5'
                 : 'bg-transparent text-[#0A0A0A]'
             }`}
             set:html={iconSvg}

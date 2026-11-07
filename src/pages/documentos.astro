@@ -8,6 +8,7 @@ import DocumentosCentralOverview from '../components/features/documentos/Documen
 import DocumentosAtosRegulamentares from '../components/features/documentos/atos/DocumentosAtosRegulamentares.astro';
 import DocumentosFormulariosOficiais from '../components/features/documentos/formularios/DocumentosFormulariosOficiais.astro';
 import DocumentosDrcaPrazos from '../components/features/documentos/drca/DocumentosDrcaPrazos.astro';
+import { DocumentosInteractiveSearch } from '../components/features/documentos/DocumentosInteractiveSearch';
 
 const tabs = [
   { id: 'v0', shortLabel: 'Geral', fullLabel: 'Visão Geral do Acervo', hash: '#visao-geral' },
@@ -40,6 +41,7 @@ const badges = [
   <!-- Sub-view 0: Visão Geral do Eixo 4 (Acervo) -->
   <section id="ws-panel-v0" class="cagp-workspace-view" data-ws-panel="v0">
     <div id="visao-geral" class="cagp-anchor-target scroll-mt-24"></div>
+    <DocumentosInteractiveSearch client:visible />
     <DocumentosCentralOverview />
   </section>
 

@@ -5,6 +5,14 @@ import { badgeVariants } from "@/components/ui/badge";
 import { cardVariants } from "@/components/ui/card";
 import { statCardVariants } from "@/components/ui/stat-card";
 import { stickerVariants } from "@/components/ui/sticker";
+import { Drawer, DrawerContent } from "@/components/ui/drawer";
+import { Sidebar, SidebarProvider } from "@/components/ui/sidebar";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { CommandDialog } from "@/components/ui/command";
+import { TreeView } from "@/components/ui/tree-view";
+import { Checkbox } from "@/components/ui/checkbox";
+import { EXTENSION_ITEMS, AAC_ITEMS } from "@/components/calculators/acgCatalog";
 import { TriangleShape, DiamondBadge, BurstShape } from "@/components/boldkit/shapes";
 
 describe("Neobrutalism.com (rL9Ap) & BoldKit Unified Design System Tests", () => {
@@ -54,6 +62,32 @@ describe("Neobrutalism.com (rL9Ap) & BoldKit Unified Design System Tests", () =>
     expect(statCard).toContain("bg-secondary");
     expect(sticker).toContain("border-3");
     expect(sticker).toContain("-rotate-2");
+  });
+
+  it("should export unified canonical UI primitives (Drawer, Sidebar, Dialog, Sheet, Command, TreeView, Checkbox)", () => {
+    expect(Drawer).toBeDefined();
+    expect(DrawerContent).toBeDefined();
+    expect(Sidebar).toBeDefined();
+    expect(SidebarProvider).toBeDefined();
+    expect(Dialog).toBeDefined();
+    expect(DialogContent).toBeDefined();
+    expect(Sheet).toBeDefined();
+    expect(SheetContent).toBeDefined();
+    expect(CommandDialog).toBeDefined();
+    expect(TreeView).toBeDefined();
+    expect(Checkbox).toBeDefined();
+  });
+
+  it("should validate N-20229 official barema codes (300h Extensão + 300h AAC)", () => {
+    expect(EXTENSION_ITEMS.length).toBeGreaterThanOrEqual(6);
+    expect(AAC_ITEMS.length).toBeGreaterThanOrEqual(10);
+    const codes = [...EXTENSION_ITEMS, ...AAC_ITEMS].map((i) => i.code);
+    expect(codes).toContain("DCP 195");
+    expect(codes).toContain("DCP 196");
+    expect(codes).toContain("DCP 187");
+    expect(codes).toContain("DCP 186");
+    expect(codes).toContain("DCP 208");
+    expect(codes).toContain("DCP 108–111");
   });
 
   it("should export BoldKit SVG shapes properly", () => {

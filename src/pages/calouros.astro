@@ -10,6 +10,7 @@ import CalourosVideos from '../components/calouros/CalourosVideos.astro';
 import CalouroNoturnoCore from '../components/features/calouros/noturno/CalouroNoturnoCore.astro';
 import CalouroEspacosCore from '../components/features/calouros/espacos/CalouroEspacosCore.astro';
 import CalouroFumpCore from '../components/features/calouros/fump/CalouroFumpCore.astro';
+import { CalourosOnboardingGuide } from '../components/features/calouros/CalourosOnboardingGuide';
 
 const tabs = [
   { id: 'v0', shortLabel: 'Geral', fullLabel: 'Visão Geral do Acolhimento', hash: '#visao-geral' },
@@ -43,6 +44,7 @@ const badges = [
   <!-- Sub-view 0: Visão Geral do Calouro -->
   <section id="ws-panel-v0" class="cagp-workspace-view" data-ws-panel="v0">
     <div id="visao-geral" class="cagp-anchor-target scroll-mt-24"></div>
+    <CalourosOnboardingGuide client:visible />
     <CalouroCentralOverview />
   </section>
 

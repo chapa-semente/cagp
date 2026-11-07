@@ -47,7 +47,7 @@
 .cagp-btn-primary,
 .btn-primary,
 .cagp-doc-btn-primary {
-  background-color: var(--primary, #9E2424);
+  background-color: var(--primary, #5B2A86);
   color: var(--primary-foreground, #FFFFFF) !important;
   border: var(--border-w, 3px) solid var(--border, #16181d);
   box-shadow: var(--shadow-md, 4px 4px 0 0 #16181d);
@@ -57,7 +57,7 @@
 .cagp-btn-primary:hover,
 .btn-primary:hover,
 .cagp-doc-btn-primary:hover {
-  background-color: var(--primary-hover, #8B1E2D);
+  background-color: var(--primary-hover, #4A216E);
   color: #FFFFFF !important;
   transform: translate(2px, 2px);
   box-shadow: var(--shadow-sm, 2px 2px 0 0 #16181d);
@@ -66,7 +66,7 @@
 .cagp-btn-secondary,
 .btn-secondary,
 .cagp-doc-btn-secondary {
-  background-color: var(--secondary, #5B2A86);
+  background-color: var(--secondary, #9E2424);
   color: var(--secondary-foreground, #FFFFFF) !important;
   border: var(--border-w, 3px) solid var(--border, #16181d);
   box-shadow: var(--shadow-md, 4px 4px 0 0 #16181d);

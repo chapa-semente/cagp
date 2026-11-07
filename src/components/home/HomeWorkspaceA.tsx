@@ -165,13 +165,18 @@ export const HomeWorkspaceA: React.FC = () => {
       {/* 1. MARQUEE NEOBRUTALISTA DE AVISOS EM TEMPO REAL */}
       <Marquee speed="normal" className="bg-card border-3 border-border shadow-sm">
         <MarqueeItem className="text-xs sm:text-sm">
-          <Badge variant="default" className="mr-1">CAGP FAFICH</Badge>
-          <span>Secretaria F-2039 • CEAG F-2033 (08h às 22h)</span>
+          <Badge variant="accent" className="mr-1 bg-[#FF8811] text-[#16181d] font-bold">ELEIÇÕES 25 E 26/NOV</Badge>
+          <span>Votação direta na sala do CAGP (17h às 22h30) • Vote Chapa Semente</span>
         </MarqueeItem>
         <MarqueeSeparator>✦</MarqueeSeparator>
         <MarqueeItem className="text-xs sm:text-sm">
-          <Badge variant="secondary" className="mr-1">CHAPA SEMENTE</Badge>
-          <span>Potencial que se transforma em ação • Gestão Pública UFMG</span>
+          <Badge variant="secondary" className="mr-1 bg-[#5B2A86] text-white">CHAPA SEMENTE</Badge>
+          <span>Potencial que se transforma em ação • 14 Propostas Estruturadas</span>
+        </MarqueeItem>
+        <MarqueeSeparator>✦</MarqueeSeparator>
+        <MarqueeItem className="text-xs sm:text-sm">
+          <Badge variant="default" className="mr-1">CAGP FAFICH</Badge>
+          <span>Secretaria F-2039 • CEAG F-2033 (08h às 22h)</span>
         </MarqueeItem>
         <MarqueeSeparator>✦</MarqueeSeparator>
         <MarqueeItem className="text-xs sm:text-sm">
@@ -197,7 +202,7 @@ export const HomeWorkspaceA: React.FC = () => {
             lineColor="#FF8811"
             levels={10}
             speed={0.6}
-            palette={['#9E2424', '#8B1E2D', '#5B2A86', '#266264', '#FF8811', '#FFD6A5']}
+            palette={['#5B2A86', '#4A216E', '#FF8811', '#FFD6A5', '#266264', '#9E2424']}
           />
         </div>
 
@@ -210,7 +215,7 @@ export const HomeWorkspaceA: React.FC = () => {
         />
         <Star4Shape
           size={42}
-          color="#5B2A86"
+          color="#FF8811"
           className="pointer-events-none absolute right-48 bottom-3 opacity-35 hidden lg:block -rotate-6"
           aria-hidden="true"
         />
@@ -231,11 +236,19 @@ export const HomeWorkspaceA: React.FC = () => {
                   <CagpIcon name="menu" className="w-5 h-5" />
                 </Button>
 
+                <a
+                  href={route('/chapa-semente')}
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-[#5B2A86] border-2 border-border shadow-xs text-xs font-heading font-black uppercase tracking-wider no-underline hover:bg-[#FFFDF9] transition-all"
+                >
+                  <span>CHAPA SEMENTE</span>
+                  <span className="text-[#FF8811]">✦ PROPOSTAS</span>
+                </a>
+
                 <Sticker variant="default" size="sm" rotation="slight">
                   Turno Noturno
                 </Sticker>
 
-                <Badge variant="secondary" className="hidden sm:inline-flex">
+                <Badge variant="secondary" className="hidden sm:inline-flex bg-[#9E2424] text-white">
                   FAFICH / UFMG • PPC 2020
                 </Badge>
 

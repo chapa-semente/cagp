@@ -1,33 +1,74 @@
-import * as React from "react"
-import { cn } from "@/lib/utils"
+/* eslint-disable react-refresh/only-export-components */
+import * as React from 'react'
+import { cva, type VariantProps } from 'class-variance-authority'
+import { cn } from '@/lib/utils'
 
-export interface KbdProps extends React.ComponentProps<"kbd"> {
-  size?: "sm" | "md" | "lg"
+const kbdVariants = cva(
+  'inline-flex items-center justify-center font-mono font-bold uppercase border-3 border-foreground',
+  {
+    variants: {
+      variant: {
+        default: 'bg-muted shadow-[2px_2px_0px_var(--shadow-color)]',
+        outline: 'bg-background',
+        ghost: 'bg-transparent border-transparent text-muted-foreground',
+      },
+      size: {
+        sm: 'min-w-5 h-5 px-1 text-[10px]',
+        md: 'min-w-6 h-6 px-1.5 text-xs',
+        lg: 'min-w-8 h-8 px-2 text-sm',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+      size: 'md',
+    },
+  }
+)
+
+export interface KbdProps
+  extends React.HTMLAttributes<HTMLElement>,
+    VariantProps<typeof kbdVariants> {}
+
+const Kbd = React.forwardRef<HTMLElement, KbdProps>(
+  ({ className, variant, size, ...props }, ref) => {
+    return (
+      <kbd
+        ref={ref}
+        className={cn(kbdVariants({ variant, size, className }))}
+        {...props}
+      />
+    )
+  }
+)
+Kbd.displayName = 'Kbd'
+
+export interface KbdComboProps extends Omit<KbdProps, 'children'> {
+  keys: string[]
+  separator?: React.ReactNode
 }
 
-function Kbd({ className, size = "md", ...props }: KbdProps) {
-  const sizeClass = size === "sm" ? "h-4 min-w-4 text-[10px] px-1" : size === "lg" ? "h-6 min-w-6 text-sm px-2" : "h-5 min-w-5 text-xs px-1.5"
-  return (
-    <kbd
-      data-slot="kbd"
-      className={cn(
-        "pointer-events-none inline-flex w-fit items-center justify-center gap-1 rounded border-2 bg-muted font-mono font-medium text-muted-foreground shadow-sm select-none in-data-[slot=tooltip-content]:bg-background/20 in-data-[slot=tooltip-content]:text-background dark:in-data-[slot=tooltip-content]:bg-background/10 [&_svg:not([class*='size-'])]:size-3",
-        sizeClass,
-        className
-      )}
-      {...props}
-    />
-  )
-}
+const KbdCombo = React.forwardRef<HTMLDivElement, KbdComboProps>(
+  ({ keys, separator = '+', variant, size, className, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cn('inline-flex items-center gap-1', className)}
+        {...props}
+      >
+        {keys.map((key, index) => (
+          <React.Fragment key={`kbd-${index}-${key}`}>
+            {index > 0 && (
+              <span className="text-muted-foreground text-xs font-bold">{separator}</span>
+            )}
+            <Kbd variant={variant} size={size}>
+              {key}
+            </Kbd>
+          </React.Fragment>
+        ))}
+      </div>
+    )
+  }
+)
+KbdCombo.displayName = 'KbdCombo'
 
-function KbdGroup({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <kbd
-      data-slot="kbd-group"
-      className={cn("inline-flex items-center gap-1", className)}
-      {...props}
-    />
-  )
-}
-
-export { Kbd, KbdGroup }
+export { Kbd, KbdCombo, kbdVariants }

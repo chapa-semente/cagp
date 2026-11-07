@@ -5,6 +5,7 @@ import PageHeader from '../components/ui/PageHeader.astro';
 import SegmentedControl from '../components/ui/SegmentedControl.astro';
 import JourneyNav from '../components/ui/JourneyNav.astro';
 import { FaqInteractiveExplorer } from '../components/features/faq/FaqInteractiveExplorer';
+import { CTASection } from '../components/boldkit/blocks/cta-section';
 import { asset } from '../lib/paths';
 
 const tabs = [
@@ -210,9 +211,15 @@ const faqs = [
   <SegmentedControl tabs={tabs} defaultTab="v1" />
 
   <!-- Sub-view 1: Perguntas Frequentes com Busca e Accordion BoldKit -->
-  <section id="ws-panel-v1" class="cagp-workspace-view space-y-3" data-ws-panel="v1">
+  <section id="ws-panel-v1" class="cagp-workspace-view space-y-6" data-ws-panel="v1">
     <div id="faq" class="cagp-anchor-target scroll-mt-24"></div>
     <FaqInteractiveExplorer client:load faqs={faqs} />
+    <CTASection
+      title="Ainda tem alguma dúvida sobre o curso?"
+      subtitle="Fale diretamente com a Secretaria do Curso (Sala 2039, 4ª feira 13h–19h • gestaopublica@ufmg.br), com a Coordenação (Profª Isabele Mitozo • coordgestaopublicaufmg@gmail.com) ou com a Diretoria Acadêmica do CAGP."
+      actionText="Abrir Acervo de Formulários"
+      className="rounded-xl bg-[#5B2A86]"
+    />
   </section>
 
   <!-- Sub-view 2: Acessibilidade & NAI -->
@@ -224,22 +231,22 @@ const faqs = [
             <i class="bi bi-universal-access text-base" aria-hidden="true"></i>
           </div>
           <h3 class="font-head font-extrabold text-sm uppercase text-[#0A0A0A] tracking-tight">
-            Núcleo de Acessibilidade e Inclusão (NAI/UFMG)
+            Núcleo de Acessibilidade e Inclusão (NAI/UFMG) &amp; Saúde Mental (DASE)
           </h3>
         </div>
         <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold bg-[#E8F5E9] text-[#15803D] border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
-          Apoio Pedagógico
+          Apoio Pedagógico &amp; Escuta
         </span>
       </div>
 
       <p class="text-xs text-[#0A0A0A] font-medium leading-relaxed">
-        O NAI assessora estudantes com deficiência física, visual, auditiva, transtorno do espectro autista e altas habilidades, garantindo mediação pedagógica, adaptação de provas e tecnologias assistivas.
+        O NAI assessora estudantes com deficiência física, visual, auditiva, transtorno do espectro autista e altas habilidades, garantindo mediação pedagógica, adaptação de provas e intérpretes de Libras.
       </p>
 
       <div class="p-4 bg-[#FBF8F3] rounded-xl border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A] space-y-2">
-        <p><strong>Contato Oficial:</strong> <span class="font-mono text-[#8B1E2D] font-bold">nai@ufmg.br</span> • Tel: <span class="font-mono font-bold">(31) 3409-4090</span></p>
-        <p><strong>Atendimento Presencial:</strong> Prédio da Biblioteca Central da UFMG, 1º Andar, Campus Pampulha</p>
-        <p><strong>Equipe de Tradutores-Intérpretes de Libras:</strong> Suporte em aulas expositivas e eventos acadêmicos</p>
+        <p><strong>Contato NAI Oficial:</strong> <span class="font-mono text-[#8B1E2D] font-bold">acessibilidade@ufmg.br</span> • Tel: <span class="font-mono font-bold">(31) 3409-4674</span> • Site: <span class="font-mono">ufmg.br/nai</span></p>
+        <p><strong>Saúde Mental e Escuta (DASE/PRAE):</strong> <span class="font-mono text-[#5B2A86] font-bold">dase@prae.ufmg.br</span> (Espaço de Escuta e Acolhimento na PRAE)</p>
+        <p><strong>Urgência e Vigilância no Campus:</strong> Ramal <span class="font-mono font-bold">(31) 3409-4444</span> / SAMU <span class="font-mono font-bold">192</span> • Ouvidoria UFMG: <span class="font-mono">ufmg.br/ouvidoria</span></p>
       </div>
 
       <div class="pt-2">

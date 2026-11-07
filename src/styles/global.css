@@ -20,12 +20,12 @@
   --color-popover: var(--popover, #ffffff);
   --color-popover-foreground: var(--popover-foreground, #16181d);
 
-  --color-primary: var(--primary, #9E2424);
-  --color-primary-hover: var(--primary-hover, #8B1E2D);
+  --color-primary: var(--primary, #5B2A86);
+  --color-primary-hover: var(--primary-hover, #4A216E);
   --color-primary-foreground: var(--primary-foreground, #ffffff);
 
-  --color-secondary: var(--secondary, #5B2A86);
-  --color-secondary-hover: var(--secondary-hover, #4A216E);
+  --color-secondary: var(--secondary, #9E2424);
+  --color-secondary-hover: var(--secondary-hover, #8B1E2D);
   --color-secondary-foreground: var(--secondary-foreground, #ffffff);
 
   --color-accent: var(--accent, #FF8811);
@@ -46,7 +46,7 @@
 
   --color-border: var(--border, #16181d);
   --color-input: var(--input, #ffffff);
-  --color-ring: var(--ring, #9E2424);
+  --color-ring: var(--ring, #5B2A86);
 
   /* CAGP & Brand Aliases */
   --color-cagp-burgundy: var(--cagp-brand-primary, #8B1E2D);
@@ -76,8 +76,8 @@
   --color-content-primary: #16181d;
   --color-content-secondary: #4a4e58;
   --color-content-muted: #5d626e;
-  --color-brand-primary: #9E2424;
-  --color-brand-hover: #8B1E2D;
+  --color-brand-primary: #5B2A86;
+  --color-brand-hover: #4A216E;
   --color-brand-accent: #FF8811;
 
   --color-ufmg-siga: #9E2424;

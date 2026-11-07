@@ -6,9 +6,35 @@ import { asset, route } from '../../lib/paths';
 <footer class="relative z-10 w-full bg-card border-t-3 border-border shadow-[0_-4px_0_0_var(--shadow-color)] mt-12 py-8 px-4 sm:px-6 select-none text-xs text-foreground pb-24 sm:pb-10">
   <!-- Barra Cromática Tri-Camada Superior -->
   <div class="max-w-[1360px] mx-auto space-y-6">
-    <!-- Régua de Chancelas Conjuntas (Manuais de Identidade Visual UFMG, CAGP e Semente) -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pb-6 border-b-3 border-border">
-      <!-- 1. REALIZAÇÃO: CAGP UFMG (Os Candangos de Bruno Giorgi, 1959) -->
+    <!-- Régua de Chancelas Conjuntas (Chapa Semente como Realizadora + CAGP UFMG) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pb-6 border-b-3 border-border">
+      <!-- 1. REALIZAÇÃO PRINCIPAL: CHAPA SEMENTE -->
+      <a
+        href={route('/chapa-semente')}
+        class="p-4 rounded-xl border-3 border-border bg-[#FFFDF9] shadow-sm flex items-center gap-3.5 no-underline text-inherit hover:translate-y-[-1px] transition-all"
+        title="Conheça a Carta-Programa da Chapa Semente"
+      >
+        <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center p-1.5 border-3 border-border shadow-xs shrink-0">
+          <img
+            src={asset('/logos/semente/simbolo_semente_fiel.svg')}
+            alt="Símbolo Chapa Semente"
+            class="w-full h-full object-contain"
+          />
+        </div>
+        <div class="min-w-0 flex-1">
+          <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-[#5B2A86] block">
+            REALIZAÇÃO DA PLATAFORMA • CAMPANHA 2026
+          </span>
+          <div class="inline-flex items-center px-2.5 py-0.5 mt-0.5 rounded-full bg-white border-2 border-border shadow-xs font-heading font-black text-xs uppercase tracking-wider text-[#5B2A86]">
+            CHAPA SEM<span>E</span>NT<span class="text-[#FF8811]">E</span>
+          </div>
+          <span class="block text-[11px] font-sans font-bold text-muted-foreground mt-1 truncate">
+            Potencial que se transforma em ação.
+          </span>
+        </div>
+      </a>
+
+      <!-- 2. ENTIDADE REPRESENTADA: CAGP UFMG (Os Candangos de Bruno Giorgi, 1959) -->
       <div class="p-4 rounded-xl border-3 border-border bg-[#f4f5f7] shadow-sm flex items-center gap-3.5">
         <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center p-1.5 border-3 border-border shadow-xs shrink-0">
           <img
@@ -18,8 +44,8 @@ import { asset, route } from '../../lib/paths';
           />
         </div>
         <div class="min-w-0">
-          <span class="font-mono text-[11px] font-bold uppercase tracking-widest text-muted-foreground block">
-            REALIZAÇÃO • REPRESENTAÇÃO DISCENTE
+          <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-muted-foreground block">
+            CENTRO ACADÊMICO DE GESTÃO PÚBLICA
           </span>
           <div class="font-heading font-black text-base uppercase tracking-tight text-[#0A0A0A] leading-none mt-0.5">
             CAGP
@@ -31,54 +57,82 @@ import { asset, route } from '../../lib/paths';
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- 2. PROPOSTA & DESENVOLVIMENTO: CHAPA SEMENTE -->
-      <div class="p-4 rounded-xl border-3 border-border bg-[#f4f5f7] shadow-sm flex items-center gap-3.5">
-        <div class="w-12 h-12 rounded-xl bg-[#FF8811] flex items-center justify-center p-1 border-3 border-border shadow-xs shrink-0">
-          <img
-            src={asset('/logos/semente_logo_fundo_laranja.png')}
-            alt="Símbolo Chapa Semente"
-            class="w-full h-full object-contain rounded-lg"
-          />
-        </div>
-        <div class="min-w-0">
-          <span class="font-mono text-[11px] font-bold uppercase tracking-widest text-[#266264] block">
-            CHAPA GESTÃO PÚBLICA
-          </span>
-          <!-- Badge Pílula Oficial com assinatura no último E -->
-          <div class="inline-flex items-center px-3 py-0.5 mt-1 rounded-full bg-white border-2 border-border shadow-xs font-heading font-black text-sm uppercase tracking-wider text-[#5B2A86]">
-            SEM<span>E</span>NT<span class="text-[#FF8811]">E</span>
-          </div>
-          <span class="block text-[11px] font-sans font-bold text-muted-foreground mt-1">
-            Potencial que se transforma em ação.
-          </span>
-        </div>
+    <!-- LogoCloud Oficial: Órgãos Universitários, Assistência Estudantil e Sistemas -->
+    <div class="pb-6 border-b-3 border-border space-y-3">
+      <div class="flex items-center justify-between">
+        <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+          ECOSSISTEMA INSTITUCIONAL UFMG • PRÓ-REITORIAS • SISTEMAS ACADÊMICOS
+        </span>
+        <span class="font-mono text-[10px] font-bold text-[#9E2424] uppercase">
+          Fontes Oficiais Verificadas
+        </span>
       </div>
-
-      <!-- 3. INSTITUIÇÃO SEDE: UFMG (CEDECOM — Híbrido Clássico-Gestual) -->
-      <div class="p-4 rounded-xl border-3 border-border bg-[#f4f5f7] shadow-sm flex items-center gap-3.5">
-        <div class="px-3 py-2 rounded-xl bg-white border-3 border-border shadow-xs shrink-0 flex flex-col items-center justify-center">
-          <div class="flex items-baseline gap-0.5 leading-none select-none" aria-label="Marca Institucional UFMG">
-            <span class="font-serif font-bold text-xl text-black tracking-tight">U</span>
-            <span class="font-serif font-bold text-xl text-black tracking-tight">F</span>
-            <span class="inline-flex flex-col items-center mx-0.5">
-              <span class="font-serif italic font-black text-xl text-[#C4161C] leading-none -translate-y-0.5">M</span>
-              <span class="w-full h-[3px] bg-[#C4161C] block -mt-0.5"></span>
-            </span>
-            <span class="font-serif font-bold text-xl text-black tracking-tight">G</span>
-          </div>
-        </div>
-        <div class="min-w-0">
-          <span class="font-mono text-[11px] font-bold uppercase tracking-widest text-muted-foreground block">
-            INSTITUIÇÃO FEDERAL (IFES • 1927)
-          </span>
-          <span class="font-heading font-extrabold text-xs uppercase tracking-wider text-black block mt-0.5 leading-snug">
-            UNIVERSIDADE FEDERAL DE MINAS GERAIS
-          </span>
-          <span class="text-[11px] font-sans font-medium text-muted-foreground block">
-            Faculdade de Filosofia e Ciências Humanas
-          </span>
-        </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5">
+        <a
+          href="https://www.ufmg.br/prograd/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="p-2 rounded-xl border-2 border-border bg-white shadow-xs hover:translate-y-[-1px] transition-all flex items-center justify-center h-12"
+          title="PROGRAD — Pró-Reitoria de Graduação UFMG"
+        >
+          <img src={asset('/logos/ufmg/assinaturas/prograd-ufmg.jpg')} alt="PROGRAD UFMG" class="max-h-8 max-w-full object-contain" />
+        </a>
+        <a
+          href="https://www.ufmg.br/proex/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="p-2 rounded-xl border-2 border-border bg-white shadow-xs hover:translate-y-[-1px] transition-all flex items-center justify-center h-12"
+          title="PROEX — Pró-Reitoria de Extensão UFMG"
+        >
+          <img src={asset('/logos/ufmg/assinaturas/proex-ufmg.jpg')} alt="PROEX UFMG" class="max-h-8 max-w-full object-contain" />
+        </a>
+        <a
+          href="https://www.ufmg.br/prae/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="p-2 rounded-xl border-2 border-border bg-white shadow-xs hover:translate-y-[-1px] transition-all flex items-center justify-center h-12"
+          title="PRAE — Pró-Reitoria de Assuntos Estudantis"
+        >
+          <img src={asset('/logos/ufmg/assinaturas/prae-ufmg.png')} alt="PRAE UFMG" class="max-h-8 max-w-full object-contain" />
+        </a>
+        <a
+          href="https://www.fump.ufmg.br/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="p-2 rounded-xl border-2 border-border bg-white shadow-xs hover:translate-y-[-1px] transition-all flex items-center justify-center h-12"
+          title="FUMP — Fundação Universitária Mendes Pimentel"
+        >
+          <img src={asset('/logos/fump/03-fump-sinae-logo-colorido-fundo-branco.png')} alt="FUMP SINAE" class="max-h-8 max-w-full object-contain" />
+        </a>
+        <a
+          href="https://www.ufmg.br/nai/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="p-2 rounded-xl border-2 border-border bg-white shadow-xs hover:translate-y-[-1px] transition-all flex items-center justify-center h-12"
+          title="NAI — Núcleo de Acessibilidade e Inclusão"
+        >
+          <img src={asset('/logos/ufmg/assinaturas/nai-ufmg.png')} alt="NAI UFMG" class="max-h-8 max-w-full object-contain" />
+        </a>
+        <a
+          href="https://sistemas.ufmg.br/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="p-2 rounded-xl border-2 border-border bg-white shadow-xs hover:translate-y-[-1px] transition-all flex items-center justify-center h-12"
+          title="Portal minhaUFMG"
+        >
+          <img src={asset('/logos/minhaufmg/logo-minha-ufmg.png')} alt="minhaUFMG" class="max-h-7 max-w-full object-contain" />
+        </a>
+        <a
+          href="https://sistemas.ufmg.br/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="p-2 rounded-xl border-2 border-border bg-white shadow-xs hover:translate-y-[-1px] transition-all flex items-center justify-center h-12"
+          title="SIGA UFMG — Sistema Acadêmico da Graduação"
+        >
+          <img src={asset('/logos/siga/siga-ufmg-fundo-branco.webp')} alt="SIGA UFMG" class="max-h-8 max-w-full object-contain" />
+        </a>
       </div>
     </div>
 
@@ -90,12 +144,19 @@ import { asset, route } from '../../lib/paths';
         </p>
         <p class="text-xs font-sans text-muted-foreground leading-relaxed m-0">
           Av. Pres. Antônio Carlos, 6627 — Campus Pampulha, Belo Horizonte - MG • CEP 31270-901<br />
-          Secretaria do Curso: Sala F-2039 • CEAG 2º Andar (Sala F-2033, 08h às 22h) • E-mail:{' '}
-          <span class="font-mono font-bold text-[#9E2424]">coordgestaopublica@gmail.com</span>
+          Secretaria GP: Sala 2039 (4ª feira, 13h–19h • Tel: 3409-3826) • CEAG 2º Andar (Seg a Sex, 08h–22h) • Coordenação (Profª Isabele Mitozo):{' '}
+          <span class="font-mono font-bold text-[#9E2424]">coordgestaopublicaufmg@gmail.com</span> / <span class="font-mono font-bold text-[#16181d]">gestaopublica@ufmg.br</span>
         </p>
       </div>
 
       <div class="flex flex-wrap items-center gap-2.5 text-xs font-heading font-extrabold uppercase">
+        <a
+          href={route('/chapa-semente')}
+          class="px-3.5 py-2 min-h-[40px] inline-flex items-center gap-1.5 rounded-xl border-3 border-border bg-[#5B2A86] text-white shadow-sm hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-xs no-underline transition-all"
+        >
+          <span class="w-2 h-2 rounded-full bg-[#FF8811]"></span>
+          <span>Chapa Semente</span>
+        </a>
         <a
           href={route('/mapa-do-site')}
           class="px-3.5 py-2 min-h-[40px] inline-flex items-center rounded-xl border-3 border-border bg-card text-foreground shadow-sm hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-xs hover:bg-muted no-underline transition-all"
@@ -116,7 +177,7 @@ import { asset, route } from '../../lib/paths';
         </a>
         <a
           href={route('/transparencia')}
-          class="px-3.5 py-2 min-h-[40px] inline-flex items-center rounded-xl border-3 border-border bg-[#5B2A86] text-white shadow-sm hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-xs no-underline transition-all"
+          class="px-3.5 py-2 min-h-[40px] inline-flex items-center rounded-xl border-3 border-border bg-card text-foreground shadow-sm hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-xs no-underline transition-all"
         >
           Transparência
         </a>

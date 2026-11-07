@@ -1,28 +1,99 @@
 ---
-// configuracoes.astro - Painel Completo de Configurações, Acessibilidade e Cofre Discente
+// configuracoes.astro - Painel Completo de Configurações, Acessibilidade, Carteirinha e Cofre Discente
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
 import { SettingsInteractive } from '../components/settings/SettingsInteractive';
+import { asset } from '../lib/paths';
 
 const badges = [
   { label: 'Preferências Locais', variant: 'blue' as const, icon: 'bi-sliders' },
   { label: 'Acessibilidade WCAG AAA', variant: 'gold' as const, icon: 'bi-universal-access' },
+  { label: 'Nome Social Res. 09/2015', variant: 'red' as const, icon: 'bi-person-badge-fill' },
   { label: 'Cofre 100% no Aparelho', variant: 'green' as const, icon: 'bi-shield-check' },
 ];
 ---
 
 <BaseLayout
-  title="Configurações & Acessibilidade Discente"
-  description="Central de configurações do Super App CAGP: tema visual, tipografia dinâmica, contraste, notificações de sobrevivência e backup do cofre."
+  title="Configurações, Carteirinha & Acessibilidade Discente"
+  description="Central de configurações do Super App CAGP: passaporte discente, nome social, sistemas digitais (minhaUFMG, SIGA, Office 365), tipografia, contraste e backup do cofre."
 >
   <PageHeader
-    eyebrow="Ajustes & Sistema"
-    title="Configurações do Super App Discente"
-    subtitle="Personalize sua experiência de uso, tipografia, contraste e gerencie o cofre de dados criptografado localmente no seu navegador."
+    eyebrow="Ajustes, Identidade Digital & Sistema"
+    title="Configurações, Carteirinha & Identidade UFMG"
+    subtitle="Personalize sua experiência de uso, emita seu Passaporte Discente, acesse os manuais de identidade digital da UFMG (minhaUFMG, SIGA, Office 365, Nome Social) e gerencie o cofre local."
     badges={badges}
   />
 
-  <div class="max-w-4xl mx-auto py-4">
+  <div class="max-w-4xl mx-auto py-4 space-y-6">
+    <!-- Guia Rápido de Identidade Digital UFMG, Carteirinha e Nome Social -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0px_#16181d] flex flex-col justify-between space-y-3">
+        <div>
+          <span class="font-mono text-[10px] font-black uppercase text-[#9E2424] block">
+            RESOLUÇÃO PRAE Nº 09/2015
+          </span>
+          <h3 class="font-heading text-sm font-black uppercase text-[#16181d] mt-0.5">
+            Inclusão de Nome Social
+          </h3>
+          <p class="text-xs text-[#3F3C38] mt-1 leading-relaxed">
+            Garantia institucional do uso do Nome Social para pessoas travestis, transexuais e não binárias em diários de classe, carteirinha, e-mail @ufmg.br e diplomas.
+          </p>
+        </div>
+        <a
+          href={asset('/documentos/requerimento-inclusao-nome-social.pdf')}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-3 py-2 rounded-xl border-2 border-[#16181d] bg-[#9E2424] text-white font-heading text-xs font-extrabold uppercase text-center no-underline shadow-[2px_2px_0px_#16181d]"
+        >
+          Baixar Requerimento (PDF) ↗
+        </a>
+      </div>
+
+      <div class="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0px_#16181d] flex flex-col justify-between space-y-3">
+        <div>
+          <span class="font-mono text-[10px] font-black uppercase text-[#5B2A86] block">
+            DTI / UFMG • MICROSOFT 365 &amp; EDUROAM
+          </span>
+          <h3 class="font-heading text-sm font-black uppercase text-[#16181d] mt-0.5">
+            Conta Office 365 &amp; Wi-Fi
+          </h3>
+          <p class="text-xs text-[#3F3C38] mt-1 leading-relaxed">
+            Seu login @ufmg.br dá direito ao pacote Microsoft 365 Educacional gratuito e à rede Wi-Fi global <strong>eduroam</strong> (WPA2-Enterprise / PEAP).
+          </p>
+        </div>
+        <a
+          href={asset('/documentos/dti-office365-criacao-conta.pdf')}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-3 py-2 rounded-xl border-2 border-[#16181d] bg-[#5B2A86] text-white font-heading text-xs font-extrabold uppercase text-center no-underline shadow-[2px_2px_0px_#16181d]"
+        >
+          Tutorial Office 365 (PDF) ↗
+        </a>
+      </div>
+
+      <div class="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0px_#16181d] flex flex-col justify-between space-y-3">
+        <div>
+          <span class="font-mono text-[10px] font-black uppercase text-[#266264] block">
+            CARTEIRA UFMG &amp; APP SIGA MÓVEL
+          </span>
+          <h3 class="font-heading text-sm font-black uppercase text-[#16181d] mt-0.5">
+            Manual do Aplicativo Siga
+          </h3>
+          <p class="text-xs text-[#3F3C38] mt-1 leading-relaxed">
+            Consulte notas, salas, horários e apresente sua carteirinha virtual nas catracas dos Restaurantes Universitários e na Biblioteca da FAFICH.
+          </p>
+        </div>
+        <a
+          href={asset('/documentos/manual-aplicativo-siga-ufmg.pdf')}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-3 py-2 rounded-xl border-2 border-[#16181d] bg-[#266264] text-white font-heading text-xs font-extrabold uppercase text-center no-underline shadow-[2px_2px_0px_#16181d]"
+        >
+          Manual App Siga (PDF) ↗
+        </a>
+      </div>
+    </div>
+
     <SettingsInteractive client:load />
   </div>
 </BaseLayout>

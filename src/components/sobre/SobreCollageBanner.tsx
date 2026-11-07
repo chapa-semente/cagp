@@ -120,11 +120,11 @@ export const SobreCollageBanner: React.FC = () => {
                   color="#FF8811"
                   className="absolute top-2 right-2 rotate-12"
                 />
-                <div className="w-24 h-24 rounded-2xl border-3 border-border bg-[#FF8811] p-2 shadow-sm flex items-center justify-center">
+                <div className="w-24 h-24 rounded-2xl border-3 border-border bg-white p-2 shadow-sm flex items-center justify-center">
                   <img
-                    src={asset('/logos/semente_logo_fundo_laranja.png')}
+                    src={asset('/logos/semente/simbolo_semente_fiel.svg')}
                     alt="Símbolo Chapa Semente"
-                    className="w-full h-full object-contain rounded-xl"
+                    className="w-full h-full object-contain"
                   />
                 </div>
                 <div className="mt-4 inline-flex items-center px-4 py-1 rounded-full bg-white border-3 border-border shadow-xs font-heading font-black text-base uppercase tracking-wider text-[#5B2A86]">

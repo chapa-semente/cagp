@@ -11,6 +11,7 @@ import CurriculumCentralOverview from '../components/features/curriculum/Curricu
 import { OptativasCatalogExplorer } from '../components/features/curriculum/catalog/OptativasCatalogExplorer';
 import MandatoryTimelineExplorer from '../components/features/curriculum/timeline/MandatoryTimelineExplorer.astro';
 import { StudentDossierTracker } from '../components/features/curriculum/dossie/StudentDossierTracker';
+import { PercursosComparativeMatrix } from '../components/features/percurso/PercursosComparativeMatrix';
 
 const allDisciplinas = await getCollection('disciplinas');
 
@@ -67,6 +68,7 @@ const badges = [
   <!-- Sub-view 0: Visão Geral da Central Curricular -->
   <section id="ws-panel-v0" class="cagp-workspace-view" data-ws-panel="v0">
     <div id="visao-geral" class="cagp-anchor-target scroll-mt-24"></div>
+    <PercursosComparativeMatrix client:visible />
     <CurriculumCentralOverview />
   </section>
 

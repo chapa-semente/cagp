@@ -1,101 +1,107 @@
-import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
+import * as React from 'react'
+import { cva, type VariantProps } from 'class-variance-authority'
+import { cn } from '@/lib/utils'
 
-import { cn } from "@/lib/utils"
-
-// CSS-grid layout (shadcn-style): drop an icon as a direct child and the alert
-// auto-arranges into an icon column + a content column — no manual flex wrapper.
-// `has-[>svg]` adds the icon column only when an icon is present. NeoBrutalist
-// chrome: hard 2px border, square corners, hard offset shadow.
 const alertVariants = cva(
-  cn(
-    "group/alert relative grid w-full grid-cols-[0_1fr] items-start gap-y-1 rounded border-2 px-4 py-3 text-left text-sm shadow-md",
-    "has-[>svg]:grid-cols-[1.25rem_1fr] has-[>svg]:gap-x-3",
-    "has-data-[slot=alert-action]:pr-14",
-    "[&>svg]:size-5 [&>svg]:translate-y-0.5 [&>svg]:shrink-0 [&>svg]:text-current"
-  ),
+  'relative w-full border-3 border-foreground p-4 shadow-[4px_4px_0px_var(--shadow-color)] ease-out animate-in fade-in-0 slide-in-from-top-2 duration-300 transition [&>svg~*:not([data-alert-action])]:pl-8 [&>svg~[data-alert-action]]:ml-8 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground',
   {
     variants: {
-      // shadcn's variant axis (kept for API compatibility). `solid` is a Neobrutalism
-      // addition.
       variant: {
-        default:
-          "border-border bg-background text-foreground *:data-[slot=alert-description]:text-muted-foreground",
-        destructive:
-          "border-red-900 bg-red-300 text-red-900 *:data-[slot=alert-description]:text-red-900/80",
-        solid:
-          "border-border bg-foreground text-background *:data-[slot=alert-description]:text-background/80",
-      },
-      // Neobrutalism status axis — additive; overrides the variant's colors when set.
-      status: {
-        error:
-          "border-red-900 bg-red-300 text-red-900 *:data-[slot=alert-description]:text-red-900/80",
-        success:
-          "border-green-900 bg-green-300 text-green-900 *:data-[slot=alert-description]:text-green-900/80",
-        warning:
-          "border-yellow-900 bg-yellow-300 text-yellow-900 *:data-[slot=alert-description]:text-yellow-900/80",
-        info: "border-blue-900 bg-blue-300 text-blue-900 *:data-[slot=alert-description]:text-blue-900/80",
+        default: 'bg-background text-foreground',
+        destructive: 'bg-destructive text-destructive-foreground [&>svg]:text-destructive-foreground',
+        success: 'bg-success text-success-foreground',
+        warning: 'bg-warning text-warning-foreground',
+        info: 'bg-info text-info-foreground',
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: 'default',
     },
   }
 )
 
-function Alert({
-  className,
-  variant,
-  status,
-  ...props
-}: React.ComponentProps<"div"> & VariantProps<typeof alertVariants>) {
-  return (
-    <div
-      data-slot="alert"
-      role="alert"
-      className={cn(alertVariants({ variant, status }), className)}
-      {...props}
-    />
-  )
+const Alert = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof alertVariants>
+>(({ className, variant, ...props }, ref) => (
+  <div
+    ref={ref}
+    role="alert"
+    className={cn(alertVariants({ variant }), className)}
+    {...props}
+  />
+))
+Alert.displayName = 'Alert'
+
+const AlertTitle = React.forwardRef<
+  HTMLHeadingElement,
+  React.HTMLAttributes<HTMLHeadingElement>
+>(({ className, ...props }, ref) => (
+  <h5
+    ref={ref}
+    className={cn('mb-1 font-bold uppercase tracking-wide leading-none', className)}
+    {...props}
+  />
+))
+AlertTitle.displayName = 'AlertTitle'
+
+const AlertDescription = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn('text-sm [&_p]:leading-relaxed', className)}
+    {...props}
+  />
+))
+AlertDescription.displayName = 'AlertDescription'
+
+export interface AlertActionProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  /** Shows an inline spinner and disables the button automatically */
+  loading?: boolean
 }
 
-function AlertTitle({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="alert-title"
+const AlertAction = React.forwardRef<HTMLButtonElement, AlertActionProps>(
+  ({ className, loading, disabled, children, ...props }, ref) => (
+    <button
+      ref={ref}
+      data-alert-action=""
+      disabled={disabled || loading}
       className={cn(
-        "col-start-2 min-h-5 font-head text-base leading-tight tracking-tight [&_a]:underline [&_a]:underline-offset-3",
+        // layout
+        'mt-3 inline-flex items-center gap-1.5 max-w-full min-w-0',
+        // shape — no rounded corners, thin border inheriting text color
+        'rounded-none border border-current',
+        // typography
+        'px-4 py-1 text-xs font-bold uppercase tracking-wide',
+        // transitions
+        'transition duration-150',
+        // hover
+        'hover:opacity-100 hover:bg-current/10',
+        // active
+        'active:scale-95',
+        // focus
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-1',
+        // cursor + pointer-events when non-interactive
+        'disabled:cursor-not-allowed disabled:pointer-events-none',
+        // opacity: loading stays visible, truly-disabled fades out, default is 80%
+        loading ? 'opacity-80' : disabled ? 'opacity-40' : 'opacity-80',
         className
       )}
       {...props}
-    />
-  )
-}
-
-function AlertDescription({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="alert-description"
-      className={cn(
-        "col-start-2 grid justify-items-start gap-1 text-sm [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground [&_p]:leading-relaxed [&_p:not(:last-child)]:mb-4",
-        className
+    >
+      {loading && (
+        <span
+          data-testid="alert-action-spinner"
+          aria-hidden="true"
+          className="h-3 w-3 shrink-0 animate-spin rounded-full border-2 border-current border-t-transparent"
+        />
       )}
-      {...props}
-    />
+      <span className="inline-flex items-center gap-1.5 whitespace-nowrap overflow-hidden">{children}</span>
+    </button>
   )
-}
+)
+AlertAction.displayName = 'AlertAction'
 
-function AlertAction({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="alert-action"
-      className={cn("absolute top-2 right-2", className)}
-      {...props}
-    />
-  )
-}
-
-export { Alert, AlertTitle, AlertDescription, AlertAction, alertVariants }
+export { Alert, AlertTitle, AlertDescription, AlertAction }

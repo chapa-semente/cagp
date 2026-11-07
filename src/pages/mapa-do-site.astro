@@ -1,47 +1,59 @@
 ---
-// mapa-do-site.astro - Redirecionamento canônico para FAQ e Busca Rápida
+// mapa-do-site.astro — Arquitetura de Informação e TreeView Interativo dos 5 Eixos Canônicos
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { route } from '../lib/paths';
+import PageHeader from '../components/ui/PageHeader.astro';
+import { SitemapTreeViewExplorer } from '../components/features/sitemap/SitemapTreeViewExplorer';
+import { AXIS_REGISTRY } from '../lib/navigationRegistry';
 
-const targetUrl = route('/faq');
+const badges = [
+  { label: '5 Eixos Canônicos', variant: 'red' as const, icon: 'bi-diagram-3-fill' },
+  { label: '20 Rotas & Micro-Apps', variant: 'dark' as const, icon: 'bi-compass-fill' },
+  { label: 'Command Palette (⌘K)', variant: 'blue' as const, icon: 'bi-search' },
+];
 ---
 
 <BaseLayout
-  title="Redirecionando para Central de Dúvidas & FAQ..."
-  description="A navegação panorâmica foi integrada ao Spotlight (⌘K) e ao Guia de Perguntas Frequentes em /faq."
+  title="Mapa do Site & Arquitetura de Informação"
+  description="Navegação panorâmica e árvore hierárquica interativa dos 5 Eixos Canônicos e 20 páginas do Superapp CAGP UFMG."
 >
-  <div class="py-16 text-center space-y-5 max-w-lg mx-auto font-body">
-    <div class="p-8 bg-white border-[3px] border-[#0A0A0A] rounded-xl shadow-[4px_4px_0_0_#0A0A0A] space-y-4">
-      <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-[#FBF8F3] text-[#8B1E2D] border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] text-2xl">
-        <i class="bi bi-compass-fill" aria-hidden="true"></i>
-      </div>
-      <h1 class="font-head text-2xl uppercase font-extrabold text-[#0A0A0A] m-0 tracking-tight">
-        Navegação Panorâmica Integrada
-      </h1>
-      <p class="text-sm text-[#0A0A0A] leading-relaxed font-medium m-0">
-        Todas as seções do portal estão indexadas na <strong>Busca Rápida</strong> (atalho <code class="font-mono bg-[#FBF8F3] px-1 py-0.5 rounded border border-[#0A0A0A]">⌘K</code>) e na <strong>Central de Dúvidas &amp; FAQ</strong> em <code class="font-mono bg-[#FBF8F3] px-1 py-0.5 rounded border border-[#0A0A0A]">/faq</code>.
-      </p>
-      <div class="flex flex-wrap items-center justify-center gap-3 pt-3 border-t-2 border-[#0A0A0A]">
-        <a
-          href={targetUrl}
-          class="min-h-[44px] px-4 py-2.5 bg-[#8B1E2D] hover:bg-[#9E2424] text-white font-head font-bold uppercase text-xs tracking-wider border-2 border-[#0A0A0A] rounded-xl shadow-[3px_3px_0_0_#0A0A0A] hover:shadow-[4px_4px_0_0_#0A0A0A] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none inline-flex items-center gap-2 transition-all no-underline"
-        >
-          <span>Acessar FAQ Geral</span>
-          <i class="bi bi-arrow-right" aria-hidden="true"></i>
-        </a>
-        <button
-          type="button"
-          onclick="window.dispatchEvent(new CustomEvent('cagp:open-spotlight'))"
-          class="min-h-[44px] px-4 py-2.5 bg-white hover:bg-[#FBF8F3] text-[#0A0A0A] font-head font-bold uppercase text-xs tracking-wider border-2 border-[#0A0A0A] rounded-xl shadow-[2px_2px_0_0_#0A0A0A] hover:shadow-[3px_3px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none inline-flex items-center gap-2 transition-all cursor-pointer"
-        >
-          <i class="bi bi-search" aria-hidden="true"></i>
-          <span>Abrir Busca (⌘K)</span>
-        </button>
-      </div>
-    </div>
-  </div>
+  <PageHeader
+    eyebrow="Eixo 4 · Arquitetura de Informação"
+    title="Mapa do Site & Árvore de Rotas"
+    subtitle="Explore todas as páginas, calculadoras, repositórios de documentos e portais oficiais da UFMG organizados nos 5 Eixos Canônicos do curso."
+    badges={badges}
+  />
 
-  <script is:inline define:vars={{ targetUrl }}>
-    window.location.replace(targetUrl);
-  </script>
+  <SitemapTreeViewExplorer client:load />
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-6">
+    {AXIS_REGISTRY.map((axis) => (
+      <div class="p-5 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0px_#16181d] space-y-3">
+        <div class="flex items-center justify-between border-b-2 border-[#16181d] pb-2">
+          <span class="font-mono text-xs font-black uppercase text-[#9E2424]">
+            EIXO {axis.number}
+          </span>
+          <span class="font-mono text-[10px] font-bold text-[#57534E]">
+            {axis.items.length} Rotas
+          </span>
+        </div>
+        <h3 class="font-heading text-base font-black uppercase text-[#16181d]">
+          {axis.name}
+        </h3>
+        <p class="text-xs text-[#57534E] font-medium">{axis.tagline}</p>
+        <ul class="space-y-1.5 pt-2 list-none p-0 m-0">
+          {axis.items.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="flex items-center justify-between p-2 rounded-lg border-2 border-[#16181d] bg-[#f4f5f7] hover:bg-[#FFFDF9] text-xs font-bold text-[#16181d] no-underline shadow-[2px_2px_0px_#16181d]"
+              >
+                <span>{item.label}</span>
+                <span class="font-mono text-[10px] text-[#9E2424]">→</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
 </BaseLayout>

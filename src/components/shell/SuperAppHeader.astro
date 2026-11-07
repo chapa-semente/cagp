@@ -21,7 +21,7 @@ const activeAxis = getAxisByPath(Astro.url.pathname) || AXIS_REGISTRY[0];
       <button
         type="button"
         id="cagp-mobile-menu-btn"
-        class="w-11 h-11 rounded-xl bg-[#FBF8F3] hover:bg-[#F4F1EA] border-[2.5px] border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] text-[#0A0A0A] hover:text-[#9E2424] flex items-center justify-center shrink-0 transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+        class="w-11 h-11 rounded-xl bg-[#FBF8F3] hover:bg-[#F4F1EA] border-[2.5px] border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] text-[#0A0A0A] hover:text-[#5B2A86] flex items-center justify-center shrink-0 transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
         title="Abrir Menu Geral"
         aria-label="Abrir gaveta de navegação"
       >
@@ -30,7 +30,7 @@ const activeAxis = getAxisByPath(Astro.url.pathname) || AXIS_REGISTRY[0];
 
       <a
         href={activeAxis.rootHref}
-        class="inline-flex items-center gap-1.5 text-xs font-bold text-[#9E2424] no-underline min-w-0 truncate py-1"
+        class="inline-flex items-center gap-1.5 text-xs font-bold text-[#5B2A86] no-underline min-w-0 truncate py-1"
       >
         <span class="shrink-0" set:html={getCagpIconSvg(resolveCagpIconName(activeAxis.id), 'w-4 h-4')} />
         <span class="font-heading text-sm font-extrabold uppercase tracking-tight text-[#0A0A0A] truncate">
@@ -48,7 +48,7 @@ const activeAxis = getAxisByPath(Astro.url.pathname) || AXIS_REGISTRY[0];
         title="Buscar no Super App (⌘K)"
         aria-label="Abrir busca Spotlight"
       >
-        <span class="text-[#9E2424]" set:html={getCagpIconSvg('search', 'w-4 h-4')} />
+        <span class="text-[#5B2A86]" set:html={getCagpIconSvg('search', 'w-4 h-4')} />
       </button>
 
       <button
@@ -65,7 +65,7 @@ const activeAxis = getAxisByPath(Astro.url.pathname) || AXIS_REGISTRY[0];
       <button
         type="button"
         id="cagp-btn-passport"
-        class="min-h-[44px] pl-1.5 pr-3 py-1 rounded-xl bg-[#9E2424] hover:bg-[#8B1E2D] text-white border-[2.5px] border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] text-xs font-heading font-bold flex items-center gap-1.5 transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+        class="min-h-[44px] pl-1.5 pr-3 py-1 rounded-xl bg-[#5B2A86] hover:bg-[#4A216E] text-white border-[2.5px] border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] text-xs font-heading font-bold flex items-center gap-1.5 transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
         title="Abrir Passaporte Discente"
         aria-label="Abrir Passaporte Discente"
       >

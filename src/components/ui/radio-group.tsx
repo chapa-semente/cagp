@@ -1,38 +1,41 @@
-"use client"
+import * as React from 'react'
+import { RadioGroup as RadioGroupPrimitive } from 'radix-ui'
+import { Circle } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
-import { Radio as RadioPrimitive } from "@base-ui/react/radio"
-import { RadioGroup as RadioGroupPrimitive } from "@base-ui/react/radio-group"
-
-import { cn } from "@/lib/utils"
-
-function RadioGroup({ className, ...props }: RadioGroupPrimitive.Props) {
+const RadioGroup = React.forwardRef<
+  React.ElementRef<typeof RadioGroupPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root>
+>(({ className, ...props }, ref) => {
   return (
-    <RadioGroupPrimitive
-      data-slot="radio-group"
-      className={cn("grid w-full gap-2", className)}
+    <RadioGroupPrimitive.Root
+      className={cn('grid gap-2', className)}
       {...props}
+      ref={ref}
     />
   )
-}
+})
+RadioGroup.displayName = RadioGroupPrimitive.Root.displayName
 
-function RadioGroupItem({ className, ...props }: RadioPrimitive.Root.Props) {
+const RadioGroupItem = React.forwardRef<
+  React.ElementRef<typeof RadioGroupPrimitive.Item>,
+  React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item>
+>(({ className, ...props }, ref) => {
   return (
-    <RadioPrimitive.Root
-      data-slot="radio-group-item"
+    <RadioGroupPrimitive.Item
+      ref={ref}
       className={cn(
-        "group/radio-group-item peer relative flex aspect-square size-5 shrink-0 rounded-full border-2 bg-input shadow-sm outline-none after:absolute after:-inset-x-3 after:-inset-y-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive",
+        'aspect-square h-5 w-5 rounded-full border-3 border-foreground bg-background shadow-[4px_4px_0px_var(--shadow-color)] transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none active:translate-x-[4px] active:translate-y-[4px] active:shadow-none data-[state=checked]:bg-primary',
         className
       )}
       {...props}
     >
-      <RadioPrimitive.Indicator
-        data-slot="radio-group-indicator"
-        className="flex size-4 items-center justify-center"
-      >
-        <span className="absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary" />
-      </RadioPrimitive.Indicator>
-    </RadioPrimitive.Root>
+      <RadioGroupPrimitive.Indicator className="flex items-center justify-center">
+        <Circle className="h-2.5 w-2.5 fill-primary stroke-none" />
+      </RadioGroupPrimitive.Indicator>
+    </RadioGroupPrimitive.Item>
   )
-}
+})
+RadioGroupItem.displayName = RadioGroupPrimitive.Item.displayName
 
 export { RadioGroup, RadioGroupItem }

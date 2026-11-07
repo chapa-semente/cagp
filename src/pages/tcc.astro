@@ -8,6 +8,7 @@ import TccCentralOverview from '../components/features/tcc/TccCentralOverview.as
 import TccModalidadesExplorer from '../components/features/tcc/modalidades/TccModalidadesExplorer.astro';
 import TccCronogramaTimeline from '../components/features/tcc/cronograma/TccCronogramaTimeline.astro';
 import TccTermoAceiteCore from '../components/features/tcc/termo/TccTermoAceiteCore.astro';
+import { asset } from '../lib/paths';
 
 const tabs = [
   { id: 'v0', shortLabel: 'Geral', fullLabel: 'Visão Geral do TCC', hash: '#visao-geral' },
@@ -38,8 +39,53 @@ const badges = [
   <SegmentedControl tabs={tabs} defaultTab="v0" />
 
   <!-- Sub-view 0: Visão Geral da Central de TCC -->
-  <section id="ws-panel-v0" class="cagp-workspace-view" data-ws-panel="v0">
+  <section id="ws-panel-v0" class="cagp-workspace-view space-y-6" data-ws-panel="v0">
     <div id="visao-geral" class="cagp-anchor-target scroll-mt-24"></div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+      <div class="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0px_#16181d] flex items-center justify-between gap-4">
+        <div>
+          <span class="font-mono text-[10px] font-black uppercase text-[#9E2424] block">
+            OBRIGATÓRIO • DCP 089 (9º P) &amp; DCP 137 (10º P)
+          </span>
+          <h3 class="font-heading text-sm font-black uppercase text-[#16181d]">
+            Termo de Aceite de Orientador(a) de TCC
+          </h3>
+          <p class="text-xs text-[#57534E] mt-0.5">
+            Formulário oficial assinado pelo docente orientador credenciado ao curso.
+          </p>
+        </div>
+        <a
+          href={asset('/documentos/termo-aceite-orientador-tcc.pdf')}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-3 py-2 rounded-xl border-2 border-[#16181d] bg-[#9E2424] text-white font-heading text-xs font-extrabold uppercase shrink-0 no-underline shadow-[2px_2px_0px_#16181d]"
+        >
+          Baixar PDF ↗
+        </a>
+      </div>
+
+      <div class="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0px_#16181d] flex items-center justify-between gap-4">
+        <div>
+          <span class="font-mono text-[10px] font-black uppercase text-[#5B2A86] block">
+            PREMIAÇÃO • RESOLUÇÃO CONGREGAÇÃO Nº 02/2018
+          </span>
+          <h3 class="font-heading text-sm font-black uppercase text-[#16181d]">
+            Concurso Anual de Melhores TCCs da FAFICH
+          </h3>
+          <p class="text-xs text-[#57534E] mt-0.5">
+            Regras de indicação pela banca examinadora e premiação acadêmica da unidade.
+          </p>
+        </div>
+        <a
+          href={asset('/documentos/resolucao-congrega-02-2018-concurso-tcc.pdf')}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-3 py-2 rounded-xl border-2 border-[#16181d] bg-[#5B2A86] text-white font-heading text-xs font-extrabold uppercase shrink-0 no-underline shadow-[2px_2px_0px_#16181d]"
+        >
+          Ver Edital (PDF) ↗
+        </a>
+      </div>
+    </div>
     <TccCentralOverview />
   </section>
 

@@ -1,5 +1,5 @@
 ---
-// gestao.astro - A4 Guia: 3 sub-views (Organograma · Equipe · Contas)
+// gestao.astro - A4 Guia: 4 sub-views (Eleições 2026 · Organograma · Equipe · Contas)
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
 import SegmentedControl from '../components/ui/SegmentedControl.astro';
@@ -7,35 +7,156 @@ import JourneyNav from '../components/ui/JourneyNav.astro';
 import GestaoOrganograma from '../components/gestao/GestaoOrganograma.astro';
 import GestaoEquipe from '../components/gestao/GestaoEquipe.astro';
 import GestaoContas from '../components/gestao/GestaoContas.astro';
+import { GestaoDiretoriaAndEstatuto } from '../components/features/gestao/GestaoDiretoriaAndEstatuto';
+import { asset, route } from '../lib/paths';
 
 const tabs = [
+  { id: 'v0', shortLabel: 'Eleições 2026', fullLabel: 'Processo Eleitoral 2026', hash: '#eleicoes' },
   { id: 'v1', shortLabel: 'Organograma', fullLabel: '1. Organograma da Gestão', hash: '#organograma' },
   { id: 'v2', shortLabel: 'Equipe', fullLabel: '2. Diretoria Executiva', hash: '#equipe' },
   { id: 'v3', shortLabel: 'Contas', fullLabel: '3. Prestação de Contas', hash: '#contas' },
 ];
 
 const badges = [
-  { label: 'Processo Eleitoral 2025/2026', variant: 'red' as const, icon: 'bi-calendar-event' },
+  { label: 'Eleições: 25 e 26/11 no CAGP', variant: 'red' as const, icon: 'bi-calendar-check' },
+  { label: 'Edital Oficial Publicado', variant: 'gold' as const, icon: 'bi-file-earmark-pdf' },
   { label: '7 Diretorias Executivas', variant: 'dark' as const, icon: 'bi-diagram-3-fill' },
-  { label: 'Transparência e RREO', variant: 'green' as const, icon: 'bi-cash-coin' },
-  { label: 'Art. 8º Regimento Interno', variant: 'blue' as const, icon: 'bi-bank' },
+  { label: 'Chapa Semente Concorrente', variant: 'blue' as const, icon: 'bi-flower1' },
 ];
-
 ---
 
-<BaseLayout title="Processo Eleitoral & Diretorias" description="Processo eleitoral, organograma regimental das 7 diretorias e prestação de contas do Centro Acadêmico de Gestão Pública FAFICH/UFMG.">
+<BaseLayout title="Processo Eleitoral & Diretorias" description="Processo eleitoral 2026, edital de convocação da Junta Eleitoral, candidatura da Chapa Semente e organograma regimental do CAGP FAFICH/UFMG.">
   <PageHeader
     eyebrow="Eixo 5 · Processo Eleitoral & Governança"
     title="Processo Eleitoral & Diretorias do CAGP"
-    subtitle="O CAGP encontra-se em período eleitoral. Conheça o organograma regimental das 7 diretorias executivas (Art. 8º do Regimento Interno), suas atribuições estatutárias e os mecanismos de prestação de contas."
+    subtitle="O CAGP encontra-se em processo eleitoral para a gestão 2026. Conheça o cronograma oficial da Junta Eleitoral, as regras do edital, as propostas da Chapa Semente e a estrutura regimental das 7 diretorias executivas."
     badges={badges}
   />
 
-  <SegmentedControl tabs={tabs} defaultTab="v1" />
+  <SegmentedControl tabs={tabs} defaultTab="v0" />
+
+  <!-- Sub-view 0: Eleições 2026 & Edital de Convocação -->
+  <section id="ws-panel-v0" class="cagp-workspace-view space-y-6" data-ws-panel="v0">
+    <div id="eleicoes" class="cagp-anchor-target scroll-mt-24"></div>
+
+    <!-- Banner Cronograma e Junta Eleitoral -->
+    <div class="p-5 sm:p-6 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0_0_#5B2A86] space-y-4">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b-2 border-border">
+        <div>
+          <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-[#5B2A86] block">
+            Junta Eleitoral CAGP 2026 • Edital de Convocação
+          </span>
+          <h2 className="font-heading text-lg sm:text-xl font-black uppercase text-[#16181d] m-0">
+            Cronograma Oficial das Eleições 2026
+          </h2>
+        </div>
+
+        <a
+          href={asset('/documentos/edital-eleicoes-cagp-2026.pdf')}
+          download="edital-eleicoes-cagp-2026.pdf"
+          class="px-4 py-2 min-h-[40px] inline-flex items-center gap-2 rounded-xl bg-[#5B2A86] hover:bg-[#4A216E] text-white border-2 border-[#16181d] font-heading font-extrabold text-xs uppercase tracking-wider no-underline shadow-[2px_2px_0_0_#16181d] transition-all shrink-0"
+        >
+          <span>Baixar Edital Oficial (PDF)</span>
+          <span>↓</span>
+        </a>
+      </div>
+
+      <!-- Grid dos 6 Prazos do Edital -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-2.5 pt-1">
+        <div class="p-3 rounded-lg border-2 border-[#16181d] bg-[#f4f5f7]">
+          <span class="font-mono text-[10px] font-bold text-muted-foreground block">04/11/2026</span>
+          <span class="font-heading font-black text-xs uppercase text-[#16181d] block mt-0.5">Edital Publicado</span>
+          <span class="text-[11px] font-sans text-muted-foreground block mt-1">Convocação oficial</span>
+        </div>
+        <div class="p-3 rounded-lg border-2 border-[#16181d] bg-[#f4f5f7]">
+          <span class="font-mono text-[10px] font-bold text-muted-foreground block">04 a 10/11</span>
+          <span class="font-heading font-black text-xs uppercase text-[#16181d] block mt-0.5">Inscrições</span>
+          <span class="text-[11px] font-sans text-muted-foreground block mt-1">Até 23h59 via e-mail</span>
+        </div>
+        <div class="p-3 rounded-lg border-2 border-[#16181d] bg-[#f4f5f7]">
+          <span class="font-mono text-[10px] font-bold text-muted-foreground block">11/11/2026</span>
+          <span class="font-heading font-black text-xs uppercase text-[#16181d] block mt-0.5">Homologação</span>
+          <span class="text-[11px] font-sans text-muted-foreground block mt-1">Divulgação de chapas</span>
+        </div>
+        <div class="p-3 rounded-lg border-2 border-[#16181d] bg-[#FFFDF9] border-[#FF8811]">
+          <span class="font-mono text-[10px] font-bold text-[#FF8811] block">11 a 24/11</span>
+          <span class="font-heading font-black text-xs uppercase text-[#16181d] block mt-0.5">Campanha</span>
+          <span class="text-[11px] font-sans text-muted-foreground block mt-1">Debate e diálogo aberto</span>
+        </div>
+        <div class="p-3 rounded-lg border-2 border-[#16181d] bg-[#FFFDF9] border-[#5B2A86]">
+          <span class="font-mono text-[10px] font-bold text-[#5B2A86] block">24/11 às 18h</span>
+          <span class="font-heading font-black text-xs uppercase text-[#16181d] block mt-0.5">Debate Oficial</span>
+          <span class="text-[11px] font-sans text-muted-foreground block mt-1">Local a definir</span>
+        </div>
+        <div class="p-3 rounded-lg border-2 border-[#16181d] bg-[#5B2A86] text-white shadow-[2px_2px_0_0_#16181d]">
+          <span class="font-mono text-[10px] font-bold text-[#FFD6A5] block">25 e 26/11</span>
+          <span class="font-heading font-black text-xs uppercase text-white block mt-0.5">Votação no CAGP</span>
+          <span class="text-[11px] font-sans text-white/90 block mt-1">17h às 22h30 • Presencial</span>
+        </div>
+      </div>
+
+      <!-- Regras da Junta Eleitoral e Normas de Votação -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+        <div class="p-4 rounded-xl border-2 border-[#16181d] bg-[#f4f5f7] space-y-2">
+          <span class="font-heading font-black text-xs uppercase text-[#5B2A86] block">
+            Junta Eleitoral 2026 (Comissão Eleitoral)
+          </span>
+          <p class="text-xs font-sans text-[#16181d] leading-relaxed m-0">
+            Composta por 3 estudantes de Gestão Pública eleitos em Assembleia Geral: <strong>Fernanda Abadia Couto</strong>, <strong>Laura Borges Souza</strong> e <strong>Anderson Batista de Sousa Santos</strong>.<br />
+            Contato institucional para dúvidas, inscrições e recursos: <span class="font-mono font-bold text-[#5B2A86]">juntaeleitoralcagp2026@gmail.com</span>.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl border-2 border-[#16181d] bg-[#FFFBEB] space-y-2">
+          <span class="font-heading font-black text-xs uppercase text-[#B45309] block">
+            Regras de Votação &amp; Boca de Urna (Art. 17 e 20)
+          </span>
+          <p class="text-xs font-sans text-[#16181d] leading-relaxed m-0">
+            Podem votar todos os estudantes matriculados em Gestão Pública portando documento oficial com foto. É estritamente vedada a prática de campanha eleitoral no <strong>1º andar da FAFICH</strong> durante os dois dias de eleição (25 e 26 de novembro).
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card Destaque: Candidatura da Chapa Semente -->
+    <div class="p-6 rounded-xl border-3 border-[#16181d] bg-[#FFFDF9] shadow-[4px_4px_0_0_#FF8811] flex flex-col md:flex-row items-center justify-between gap-5">
+      <div class="flex items-center gap-4">
+        <div class="w-16 h-16 rounded-2xl bg-white p-2 border-3 border-[#16181d] shadow-sm flex items-center justify-center shrink-0">
+          <img
+            src={asset('/logos/semente/simbolo_semente_fiel.svg')}
+            alt="Chapa Semente"
+            class="w-full h-full object-contain"
+          />
+        </div>
+        <div class="space-y-1">
+          <div class="flex items-center gap-2">
+            <span class="font-heading text-lg font-black uppercase text-[#16181d]">
+              CHAPA SEM<span>E</span>NT<span class="text-[#FF8811]">E</span>
+            </span>
+            <span class="px-2 py-0.5 rounded-full bg-[#FF8811] text-[#16181d] font-mono text-[10px] font-black uppercase">
+              Candidata Inscrita
+            </span>
+          </div>
+          <p class="text-xs font-sans text-[#16181d]/90 leading-relaxed max-w-xl m-0">
+            A Chapa Semente apresenta sua <strong>Carta-Programa com 14 propostas</strong> divididas em 4 eixos (Transparência, Cultura, Desenvolvimento de Carreiras e Comunicação), além do compromisso público de manutenção e entrega deste Superapp à comunidade acadêmica.
+          </p>
+        </div>
+      </div>
+
+      <a
+        href={route('/chapa-semente')}
+        class="px-5 py-3 min-h-[44px] inline-flex items-center gap-2 rounded-xl bg-[#5B2A86] hover:bg-[#4A216E] text-white border-2 border-[#16181d] font-heading font-black text-xs uppercase tracking-wider no-underline shadow-[3px_3px_0_0_#16181d] transition-all shrink-0 active:translate-x-0.5 active:translate-y-0.5"
+      >
+        <span>Ver Carta-Programa Completa</span>
+        <span class="text-[#FF8811]">→</span>
+      </a>
+    </div>
+  </section>
 
   <!-- Sub-view 1: Organograma Funcional -->
-  <section id="ws-panel-v1" class="cagp-workspace-view" data-ws-panel="v1">
+  <section id="ws-panel-v1" class="cagp-workspace-view" data-ws-panel="v1" hidden>
     <div id="organograma" class="cagp-anchor-target scroll-mt-24"></div>
+    <GestaoDiretoriaAndEstatuto client:visible />
     <GestaoOrganograma />
   </section>
 
