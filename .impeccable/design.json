@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-07T19:07:00Z",
+  "title": "Design System: CAGP SuperApp",
+  "creativeNorthStar": "O Manifesto Tátil Estudantil",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Roxo Semente",
+        "canonical": "#5B2A86",
+        "hover": "#4A216E",
+        "context": "Identidade e liderança Chapa Semente, governança, títulos e badges principais"
+      },
+      "accent": {
+        "role": "tertiary",
+        "displayName": "Laranja Germinar",
+        "canonical": "#FF8811",
+        "hover": "#E07406",
+        "context": "Ação e conversão de alta prioridade, credenciamento, botões de voto"
+      },
+      "petrol": {
+        "role": "tertiary",
+        "displayName": "Verde Petróleo",
+        "canonical": "#134E4A",
+        "hover": "#0F3D3E",
+        "context": "Sucesso acadêmico, calculadora 600h, estágio Art. 41 e portal de transparência"
+      },
+      "secondary": {
+        "role": "secondary",
+        "displayName": "Vermelho CAGP / FAFICH",
+        "canonical": "#9E2424",
+        "hover": "#8B1E2D",
+        "context": "Memória estudantil, tradição UFMG e alertas críticos de 120 dias do ACG Guardian"
+      },
+      "background": {
+        "role": "neutral",
+        "displayName": "Papel Creme",
+        "canonical": "#F4F0EA",
+        "context": "Fundo editorial confortável para leitura contínua diurna"
+      },
+      "foreground": {
+        "role": "neutral",
+        "displayName": "Preto Tinta",
+        "canonical": "#16181D",
+        "context": "Contorno de 3px, tipografia e sombras duras sem desfoque"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display / Hero",
+        "family": "Bricolage Grotesque",
+        "purpose": "Títulos de alto impacto editorial e slogans de campanha."
+      },
+      "headline": {
+        "displayName": "Headline / Seção",
+        "family": "Bricolage Grotesque",
+        "purpose": "Cabeçalhos de páginas e módulos funcionais."
+      },
+      "body": {
+        "displayName": "Body / Leitura",
+        "family": "Plus Jakarta Sans",
+        "purpose": "Textos de apoio, tutoriais e explicações de resoluções."
+      },
+      "label": {
+        "displayName": "Data / Monospace",
+        "family": "Space Mono",
+        "purpose": "Horas ACG, códigos de disciplina, valores financeiros e prazos."
+      }
+    },
+    "shadowMeta": {
+      "xs": "1px 1px 0 0 #16181D",
+      "sm": "2px 2px 0 0 #16181D",
+      "default": "3px 3px 0 0 #16181D",
+      "md": "4px 4px 0 0 #16181D",
+      "lg": "6px 6px 0 0 #16181D",
+      "xl": "10px 10px 0 1px #16181D"
+    },
+    "motionMeta": {
+      "activePress": "translate(2px, 2px)",
+      "transition": "all 0.15s cubic-bezier(0.16, 1, 0.3, 1)"
+    },
+    "rules": [
+      {
+        "name": "The Exclusive Light-Mode Rule",
+        "doctrine": "O sistema opera estritamente e exclusivamente em Modo Claro (Papel Creme #F4F0EA e Branco #FFFFFF com traço #16181D). Modo escuro é terminantemente proibido."
+      },
+      {
+        "name": "The Ink Integrity Rule",
+        "doctrine": "Todos os cards, botões e modais devem ter traço sólido de 3px (#16181D)."
+      },
+      {
+        "name": "The No-Blur Reality Rule",
+        "doctrine": "Desfoque de sombra deve ser sempre 0px. Sombras duras e estruturais."
+      },
+      {
+        "name": "The 44pt Touch Floor",
+        "doctrine": "Área de toque mínima de 44x44pt para qualquer elemento interativo móvel."
+      },
+      {
+        "name": "The Client-Side Sovereignty Rule",
+        "doctrine": "100% dos dados dos estudantes são locais; zero servidores externos ou rastreamento."
+      }
+    ]
+  }
+}
