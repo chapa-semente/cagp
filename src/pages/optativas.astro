@@ -1,34 +1,73 @@
 ---
-// optativas.astro - Redirecionamento canônico para a Central Curricular em /percurso#optativas
+// optativas.astro - Tela 10: Catálogo de Optativas & Formação Livre (Eixo 3)
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { route } from '../lib/paths';
+import PageHeader from '../components/ui/PageHeader.astro';
+import JourneyNav from '../components/ui/JourneyNav.astro';
+import { OptativasCatalogExplorer } from '../components/features/curriculum/catalog/OptativasCatalogExplorer';
+import { route } from '@/lib/paths';
 
-const targetUrl = route('/percurso#optativas');
+const allDisciplinas = await getCollection('disciplinas');
+const optativasList = allDisciplinas.filter((d) => d.data.natureza === 'optativa');
+optativasList.sort((a, b) => a.data.codigo.localeCompare(b.data.codigo, 'pt-BR'));
+
+const optativasData = optativasList.map((d) => ({
+  code: d.data.codigo,
+  name: d.data.nome,
+  ch: d.data.carga_horaria,
+  modulo: d.data.modulo || undefined,
+  ementa: d.data.ementa || '',
+}));
 ---
 
 <BaseLayout
-  title="Redirecionando para Central Curricular..."
-  description="O Catálogo de 68 Optativas e Formação Livre agora faz parte da Central Curricular unificada em /percurso."
+  title="Catálogo de Optativas & Formação Livre • Gestão Pública UFMG"
+  description="Catálogo interativo das disciplinas optativas do PPC N-20229 de Gestão Pública UFMG com busca Roxo Semente, filtro por departamento (DCP, FACE, FAE, FAFICH) e alocação direta no Grafo."
+  mode="operate"
 >
-  <div class="py-16 text-center space-y-4 max-w-lg mx-auto">
-    <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-[#9E2424]/10 text-[#9E2424] border-2 border-[#0A0A0A] shadow-[2.5px_2.5px_0_0_#0A0A0A] text-2xl">
-      <i class="bi bi-collection-fill" aria-hidden="true"></i>
+  <PageHeader
+    title="Catálogo de Optativas & Formação Livre"
+    subtitle="Explore as disciplinas optativas homologadas no PPC 2020 por departamento (DCP, FACE, FAE, FAFICH, Direito) e vincule diretamente ao seu Grafo de 10 Períodos."
+    badge={{ text: 'Eixo 3 • Vida Acadêmica & 600h', variant: 'primary' }}
+    breadcrumbs={[{ label: 'Eixo 3: Vida Acadêmica', href: route('/percurso') }, { label: 'Catálogo de Optativas' }]}
+    axisId="percurso"
+    activeId="optativas"
+    mode="operate"
+    condensed={true}
+  />
+
+  {/* Banner de Conversão Eleitoral — Chapa Semente */}
+  <div class="mb-5 p-3.5 sm:p-4 rounded-xl border-3 border-[#16181d] bg-[#F2CD5C] text-[#16181d] shadow-[4px_4px_0_0_#16181d] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <div class="flex items-start sm:items-center gap-3">
+      <span class="inline-flex items-center justify-center px-2.5 py-1 rounded-lg bg-[#5B2A86] text-white font-heading text-[11px] font-black uppercase tracking-wider border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] shrink-0">
+        ✦ FERRAMENTA CRIADA PELA CHAPA SEMENTE
+      </span>
+      <p class="text-xs sm:text-sm font-sans font-bold text-[#16181d] m-0 leading-snug">
+        Chega de procurar ementas em PDFs espalhados: filtre por departamento, veja a avaliação discente e monte sua grade no Grafo.
+      </p>
     </div>
-    <h1 class="font-head text-2xl uppercase font-black text-[#0A0A0A] m-0">
-      Catálogo Integrado à Central Curricular
-    </h1>
-    <p class="font-body text-sm text-[#57534E] leading-relaxed">
-      As 68 disciplinas optativas, regras de 120h de Formação Livre e a Minha Grade agora estão unificadas na <strong>Central Curricular</strong> em <code>/percurso</code>.
-    </p>
-    <div class="pt-2">
-      <a href={targetUrl} class="cagp-btn-primary inline-flex items-center gap-2 text-sm px-5 py-2.5 min-h-[44px] rounded-xl font-head font-bold border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all no-underline">
-        <span>Acessar Central Curricular</span>
+    <div class="flex flex-wrap items-center gap-2 shrink-0">
+      <a
+        href={route('/percurso')}
+        class="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-3.5 py-2 rounded-xl bg-white text-[#16181d] font-heading text-xs font-black uppercase tracking-wider border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] hover:bg-[#FAF6F0] transition-all no-underline"
+      >
+        <i class="bi bi-diagram-3-fill" aria-hidden="true"></i>
+        <span>Ver no Grafo 10P</span>
+      </a>
+      <a
+        href={route('/chapa-semente')}
+        class="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-3.5 py-2 rounded-xl bg-[#16181d] text-[#F2CD5C] font-heading text-xs font-black uppercase tracking-wider border-3 border-[#16181d] shadow-[3px_3px_0_0_#5B2A86] hover:bg-[#5B2A86] hover:text-white transition-all no-underline"
+      >
+        <span>Votar Semente 25–26/11</span>
         <i class="bi bi-arrow-right" aria-hidden="true"></i>
       </a>
     </div>
   </div>
 
-  <script is:inline define:vars={{ targetUrl }}>
-    window.location.replace(targetUrl);
-  </script>
+  <OptativasCatalogExplorer client:load optativas={optativasData} />
+
+  <JourneyNav
+    prev={{ label: 'Grafo Curricular de 10 Períodos', href: route('/percurso'), meta: 'Fluxo de Pré-Requisitos e Dossiê 3.000h' }}
+    next={{ label: 'Cursos Livres & Formação (ENAP)', href: route('/cursos'), meta: 'Proposta 10 da Chapa Semente • Certificados ACG' }}
+  />
 </BaseLayout>

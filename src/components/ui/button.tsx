@@ -15,33 +15,33 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "border-3 border-border bg-primary text-primary-foreground shadow-md hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-primary-hover hover:shadow-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none",
+          "border-3 border-border bg-primary text-primary-foreground shadow-md hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-primary-hover hover:shadow-sm active:translate-x-[3px] active:translate-y-[3px] active:shadow-none",
         secondary:
-          "border-3 border-border bg-secondary text-secondary-foreground shadow-md hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-secondary-hover hover:shadow-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none",
+          "border-3 border-border bg-secondary text-secondary-foreground shadow-md hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-secondary-hover hover:shadow-sm active:translate-x-[3px] active:translate-y-[3px] active:shadow-none",
         accent:
-          "border-3 border-border bg-accent text-accent-foreground shadow-md hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-accent-hover hover:shadow-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none",
+          "border-3 border-border bg-accent text-accent-foreground shadow-md hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-accent-hover hover:shadow-sm active:translate-x-[3px] active:translate-y-[3px] active:shadow-none",
         destructive:
-          "border-3 border-border bg-destructive text-destructive-foreground shadow-md hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-destructive/90 hover:shadow-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none",
+          "border-3 border-border bg-destructive text-destructive-foreground shadow-md hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-destructive/90 hover:shadow-sm active:translate-x-[3px] active:translate-y-[3px] active:shadow-none",
         outline:
-          "border-3 border-border bg-card text-foreground shadow-md hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-muted hover:shadow-sm active:translate-x-[4px] active:translate-y-[4px] active:shadow-none",
+          "border-3 border-border bg-card text-foreground shadow-md hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-muted hover:shadow-sm active:translate-x-[3px] active:translate-y-[3px] active:shadow-none",
         ghost:
-          "border-3 border-transparent bg-transparent text-foreground shadow-none hover:bg-muted hover:border-border",
+          "border-3 border-transparent bg-transparent text-foreground shadow-none hover:bg-muted hover:border-border active:translate-x-[2px] active:translate-y-[2px]",
         link:
           "border-transparent bg-transparent text-primary shadow-none underline-offset-4 hover:underline",
         noShadow:
-          "border-3 border-border bg-primary text-primary-foreground shadow-none hover:bg-primary-hover",
+          "border-3 border-border bg-primary text-primary-foreground shadow-none hover:bg-primary-hover active:translate-x-[2px] active:translate-y-[2px]",
         reverse:
-          "border-3 border-border bg-primary text-primary-foreground shadow-none hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-md",
+          "border-3 border-border bg-primary text-primary-foreground shadow-none hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-md active:translate-x-[3px] active:translate-y-[3px] active:shadow-none",
       },
       size: {
         default: "min-h-[44px] px-5 py-2 text-sm",
-        xs: "min-h-[32px] px-2.5 py-1 text-xs rounded-lg",
-        sm: "min-h-[38px] px-3.5 py-1.5 text-xs rounded-lg",
+        xs: "relative min-h-[32px] px-2.5 py-1 text-xs rounded-lg before:content-[''] before:absolute before:inset-[-4px]",
+        sm: "relative min-h-[38px] px-3.5 py-1.5 text-xs rounded-lg before:content-[''] before:absolute before:inset-[-4px]",
         lg: "min-h-[48px] px-7 py-2.5 text-base",
         xl: "min-h-[54px] px-9 py-3 text-lg",
         icon: "size-11 p-2",
-        "icon-xs": "size-8 p-1 rounded-lg",
-        "icon-sm": "size-9 p-1.5 rounded-lg",
+        "icon-xs": "relative size-8 p-1 rounded-lg before:content-[''] before:absolute before:inset-[-4px]",
+        "icon-sm": "relative size-9 p-1.5 rounded-lg before:content-[''] before:absolute before:inset-[-4px]",
         "icon-lg": "size-12 p-3",
       },
       animation: {

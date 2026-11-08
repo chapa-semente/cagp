@@ -53,4 +53,9 @@ export default defineConfig({
     },
   },
   integrations: [react(), mdx()],
+  redirects: {
+    '/estagio': '/carreira',
+    '/tcc': '/carreira',
+    '/estagio-tcc': '/carreira',
+  },
 });

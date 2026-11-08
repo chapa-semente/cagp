@@ -98,13 +98,12 @@ A análise profunda do código-fonte e das matrizes identificou **6 pontos de at
 
 ### 🟡 Alertas Altos (P1)
 
-#### [ALERTA P1.1] Sobrecarga de Shaders WebGL / Canvas em Dispositivos Móveis
+#### [RESOLUÇÃO ARQUITETURAL] Full-Fidelity 60fps em WebGL / Canvas em Todos os Dispositivos
 - **Arquivos Envolvidos**: [`src/components/boldkit/lib/canvas-effect-core.ts`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/boldkit/lib/canvas-effect-core.ts) e os 23 componentes em `src/components/boldkit/canvas-effects/`.
-- **Diagnóstico**: O núcleo `canvas-effect-core.ts` possui excelente engenharia com `ResizeObserver`, desativação quando invisível (`isTabVisible`, `pauseOffscreen`) e respeito a `prefersReducedMotion()`. Contudo, **ele não possui nenhum limitador de taxa de quadros (frame rate cap) ou verificação de nível de bateria**.
-- **Risco**: Em smartphones de entrada ou aparelhos em Modo de Economia de Bateria, a execução contínua de shaders 60fps (como *Aurora*, *MatrixRain* ou *GravityWells*) drena a bateria rapidamente e causa engasgos (*dropped frames*) na rolagem das páginas Astro.
-- **Remediação Recomendada**:
-  - Inserir no `canvas-effect-core.ts` limitação dinâmica para 30fps em viewports móveis (`window.innerWidth < 768px`).
-  - Implementar verificação de `navigator.getBattery?.()`: se o nível estiver abaixo de 20% ou se `saveData` estiver ativo, renderizar apenas o frame estático inicial via `renderStaticFrame()`.
+- **Diretriz Canônica Aprovada**: Operar todos os 23 shaders WebGL a 60fps irrestrito, sem throttling por viewport mobile, bateria ou reduções artificiais de frame rate, garantindo a experiência visual máxima desejada para o SuperApp.
+- **Implementação**:
+  - `canvas-effect-core.ts` configurado para renderização contínua e fluida a 60fps.
+  - Animações ricas ativas nos cartazes, hero sections e backdrops.
 
 #### [ALERTA P1.2] Coexistência de Primitivas Headless Concorrentes (`@base-ui/react` e `@radix-ui/*`)
 - **Arquivos Envolvidos**: [`package.json`](file:///home/gsathler/Nextcloud/Projects/cagp/package.json), componentes em `src/components/ui/`.
@@ -151,10 +150,10 @@ A análise profunda do código-fonte e das matrizes identificou **6 pontos de at
 > **Parecer**: Deve ser unificada gradualmente em favor do ecossistema `radix-ui`. O Shadcn CLI e o BoldKit são nativos em Radix, permitindo que todas as 91 primitivas compartilhem os mesmos utilitários de acessibilidade (como `@radix-ui/react-primitive`), poupando até 45 KB gzipped no bundle das ilhas client-side.
 
 ### Q3: Qual a política de Shaders Canvas recomendada para o SuperApp?
-> **Parecer**: Adotar a política *Ambient Backgrounds with Strict Fallbacks*:
-> 1. Telas desktop com alimentação ligada: 60fps livre.
-> 2. Mobile (`< 768px`): 30fps cap automático.
-> 3. Dispositivos com `prefers-reduced-motion` ou Bateria < 20%: Renderização estática de 1 frame e cancelamento imediato do `requestAnimationFrame`.
+> **Parecer**: Adotar a política *Full-Fidelity 60fps Everywhere*:
+> 1. Execução contínua a 60fps pleno em todas as plataformas (desktop, tablet e mobile).
+> 2. Zero throttling artificial por nível de bateria ou largura de tela.
+> 3. Respeito estrito à preferência de acessibilidade do usuário via `prefers-reduced-motion` no sistema operacional.
 
 ### Q4: Como garantir o legado permanente do CAGP sem apagar o histórico da Chapa Semente?
 > **Parecer**: O SuperApp foi desenhado com o conceito de *Duplo Mandato*:

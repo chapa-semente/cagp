@@ -1,23 +1,63 @@
 ---
-// src/components/features/tcc/cronograma/TccCronogramaTimeline.astro — Cronograma do Ciclo de TCC (180h) e Regras de Banca
+// src/components/features/tcc/cronograma/TccCronogramaTimeline.astro — Linha do Tempo do Ciclo de TCC (180h), Regras de Banca & Detalhes Normativos Expansíveis
+import NormativeDetails from '@/components/ui/NormativeDetails.astro';
+
 const etapas = [
   {
     disciplina: 'DCP 089',
     periodo: '9º Período',
     ch: '60h (4 créditos)',
     nome: 'Projeto de Pesquisa em TCC',
-    foco: 'Delimitação do problema de pesquisa, justificativa, revisão bibliográfica e desenho metodológico.',
-    requisito: 'Exige o Termo de Aceite assinado pelo docente orientador credenciado antes da matrícula.',
+    foco: 'Delimitação do problema de pesquisa, escolha da modalidade (Art. 19), revisão bibliográfica e desenho metodológico.',
+    requisito: 'Exige o Termo de Aceite assinado pelo docente orientador credenciado antes da matrícula no SIGA.',
     icon: 'bi-compass-fill',
   },
   {
     disciplina: 'DCP 137',
     periodo: '10º Período',
     ch: '120h (8 créditos)',
-    nome: 'Monografia / Trabalho de Conclusão',
-    foco: 'Redação final da versão de defesa, coleta e análise de evidências e submissão à banca examinadora.',
-    requisito: 'Aprovação prévia em DCP 089 e agendamento da sessão pública de defesa na Secretaria.',
+    nome: 'Defesa Pública do TCC',
+    foco: 'Redação final (Monografia, Artigo ou Projeto de Intervenção), coleta de evidências e arguição perante banca examinadora.',
+    requisito: 'Aprovação prévia em DCP 089 e protocolo da versão de defesa com 15 dias de antecedência da banca.',
     icon: 'bi-mortarboard-fill',
+  },
+];
+
+const linhaDoTempoDefesa = [
+  {
+    passo: ' Marco 01',
+    momento: 'Fim do 8ºP / Acerto do 9ºP',
+    titulo: 'Escolha do Orientador & Termo de Aceite',
+    desc: 'Convide um(a) docente do DCP (ou credenciado pelo Colegiado) respeitando o teto de 4 orientandos por professor e protocole o Termo de Aceite na Sala F-2039.',
+    cor: 'bg-primary text-white',
+  },
+  {
+    passo: 'Marco 02',
+    momento: 'Durante o 9º Período (DCP 089)',
+    titulo: 'Qualificação do Projeto de TCC (60h)',
+    desc: 'Defina a modalidade do Art. 19 (Monografia, Artigo, Intervenção ou IC), estruture o recorte empírico e entregue o projeto qualificado ao orientador.',
+    cor: 'bg-secondary text-white',
+  },
+  {
+    passo: 'Marco 03',
+    momento: '10º Período • Até 15 dias antes da Banca',
+    titulo: 'Depósito da Versão de Defesa & Agendamento',
+    desc: 'Envie o arquivo completo para os membros da banca examinadora (orientador + avaliador titular) e confirme a sala/link da sessão pública na Secretaria.',
+    cor: 'bg-[#FF8811] text-[#16181d]',
+  },
+  {
+    passo: 'Marco 04',
+    momento: '10º Período • Sessão Pública (DCP 137)',
+    titulo: 'Defesa Oral (20 min) & Arguição da Banca',
+    desc: 'Apresentação oral de até 20 minutos seguida de arguição. A aprovação exige nota mínima de 60 pontos em 100. Bancas de excelência podem indicar o trabalho ao Prêmio Anual FAFICH.',
+    cor: 'bg-[#134E4A] text-white',
+  },
+  {
+    passo: 'Marco 05',
+    momento: 'Pós-Defesa • Fechamento do Semestre',
+    titulo: 'Depósito da Versão Final Corrigida & Ata',
+    desc: 'Incorpore os ajustes sugeridos pela banca e entregue o PDF definitivo + ficha catalográfica à Secretaria do Colegiado para lançamento dos 8 créditos de DCP 137.',
+    cor: 'bg-foreground text-white',
   },
 ];
 
@@ -25,36 +65,39 @@ const regrasBanca = [
   {
     art: 'Arts. 21 e 22',
     titulo: 'Orientação Acadêmica',
-    desc: 'Docentes do Departamento de Ciência Política (DCP) ou autorizados pelo Colegiado. Limite de até 4 orientandos por docente.',
+    desc: 'Docentes do Departamento de Ciência Política (DCP) ou autorizados pelo Colegiado. Limite estrito de até 4 orientandos por docente.',
+    detalheNormativo: 'O coorientador é facultativo (podendo incluir mestres, doutorandos ou especialistas de órgãos públicos mediante aprovação do orientador titular). Caso o orientador entre em licença, o Colegiado garante a substituição sem prejuízo de prazo ao formando.',
   },
   {
     art: 'Arts. 24 a 27',
-    titulo: 'Banca Examinadora',
+    titulo: 'Banca Examinadora & Defesa',
     desc: 'Composta por no mínimo 2 membros titulares (orientador + avaliador). Defesa pública com nota mínima de 60 pontos em 100.',
+    detalheNormativo: 'A sessão de defesa é pública. O estudante dispõe de até 20 minutos para exposição síntese, seguidos de até 15 minutos de arguição por cada examinador e tempo igual para resposta. A ata é assinada ao término da sessão.',
   },
   {
-    art: 'Art. 28',
-    titulo: 'Depósito Final',
+    art: 'Art. 28 & Res. 02/18',
+    titulo: 'Depósito Final & Premiação',
     desc: 'Entrega da versão final corrigida em PDF à Secretaria do Colegiado (Sala F-2039) para emissão de ata e homologação do diploma.',
+    detalheNormativo: 'Trabalhos aprovados com nota máxima (100 pontos) e distinção podem ser indicados pela banca examinadora ao Concurso Anual de Melhores TCCs da FAFICH (Resolução Congregação nº 02/2018), recebendo diploma de honra ao mérito acadêmico.',
   },
 ];
 ---
 
-<div class="cagp-tcc-cronograma space-y-6 select-none text-[#0A0A0A]">
+<div class="cagp-tcc-cronograma space-y-6 select-none text-foreground">
   {/* Cabeçalho */}
-  <div class="p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-[4px_4px_0_0_#0A0A0A]">
+  <div class="p-5 sm:p-6 bg-white border-3 border-[#16181d] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-[4px_4px_0_0_#16181d]">
     <div>
-      <span class="text-xs font-head uppercase font-bold tracking-wider text-[#8B1E2D]">
+      <span class="text-xs font-head uppercase font-bold tracking-wider text-secondary">
         Fluxo Curricular de Formatura
       </span>
-      <h3 class="font-head text-lg font-black uppercase text-[#0A0A0A] m-0 tracking-wide">
-        Ciclo do TCC: 9º e 10º Períodos (180h)
+      <h3 class="font-head text-lg font-black uppercase text-foreground m-0 tracking-wide">
+        Linha do Tempo de Defesa do TCC: 9º e 10º Períodos (180h)
       </h3>
       <p class="font-body text-xs text-gray-700 mt-0.5 m-0 font-medium">
-        Estrutura em duas fases sequenciais: Projeto (DCP 089) e Defesa Pública (DCP 137).
+        Estrutura em duas fases sequenciais: Projeto (DCP 089) e Defesa Pública (DCP 137) com detalhes normativos expansíveis.
       </p>
     </div>
-    <span class="px-3 py-1.5 rounded-lg bg-[#0A0A0A] text-white font-mono text-xs font-bold shrink-0 border border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+    <span class="px-3 py-1.5 rounded-lg bg-foreground text-white font-mono text-xs font-bold shrink-0 border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
       180h • 12 Créditos
     </span>
   </div>
@@ -62,48 +105,102 @@ const regrasBanca = [
   {/* As 2 Etapas Curriculares */}
   <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
     {etapas.map((et) => (
-      <div class="cagp-card p-5 bg-white border-2 border-[#0A0A0A] rounded-xl space-y-3.5 shadow-[3px_3px_0_0_#0A0A0A] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[5px_5px_0_0_#0A0A0A] transition-all">
-        <div class="flex items-center justify-between border-b-2 border-[#0A0A0A] pb-3">
+      <div class="cagp-card p-5 bg-white border-3 border-[#16181d] rounded-xl space-y-3.5 shadow-[4px_4px_0_0_#16181d] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0_0_#16181d] transition-all">
+        <div class="flex items-center justify-between border-b-3 border-[#16181d] pb-3">
           <div class="flex items-center gap-2.5">
-            <span class="w-9 h-9 rounded-lg bg-[#8B1E2D] text-white flex items-center justify-center font-head text-xs font-bold border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+            <span class="w-10 h-10 rounded-lg bg-secondary text-white flex items-center justify-center font-head text-xs font-bold border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
               {et.disciplina}
             </span>
-            <span class="font-head text-sm font-bold uppercase text-[#0A0A0A] tracking-wide">{et.nome}</span>
+            <span class="font-head text-sm font-bold uppercase text-foreground tracking-wide">{et.nome}</span>
           </div>
-          <span class="text-xs font-mono font-bold text-[#8B1E2D]">{et.periodo} • {et.ch}</span>
+          <span class="text-xs font-mono font-bold text-secondary">{et.periodo} • {et.ch}</span>
         </div>
 
         <p class="font-body text-xs text-gray-700 leading-relaxed m-0 font-medium">
           {et.foco}
         </p>
 
-        <div class="p-3 bg-white border-2 border-[#0A0A0A] rounded-lg text-xs text-gray-800 shadow-[1px_1px_0_0_#0A0A0A]">
-          <strong class="text-[#8B1E2D] font-head uppercase tracking-wider text-[11px] block mb-1">Requisito Formal:</strong>
+        <div class="p-3.5 bg-[#f4f0ea] border-3 border-[#16181d] rounded-xl text-xs text-foreground shadow-[3px_3px_0_0_#16181d]">
+          <strong class="text-secondary font-head uppercase tracking-wider text-[11px] block mb-1">Requisito Formal:</strong>
           <span class="font-body font-medium">{et.requisito}</span>
         </div>
       </div>
     ))}
   </div>
 
-  {/* Regras Regimentais de Banca */}
-  <div class="p-5 bg-white border-2 border-[#0A0A0A] rounded-xl space-y-4 shadow-[4px_4px_0_0_#0A0A0A]">
-    <div class="flex items-center justify-between border-b-2 border-[#0A0A0A] pb-3">
-      <h4 class="font-head text-sm font-bold uppercase text-[#0A0A0A] m-0 flex items-center gap-2 tracking-wide">
-        <i class="bi bi-shield-check text-[#8B1E2D] text-base" aria-hidden="true" />
-        <span>Normas Regimentais de Orientação, Banca e Depósito</span>
+  {/* Linha do Tempo Visual Passo a Passo (5 Marcos de Defesa) */}
+  <div class="p-5 sm:p-6 bg-white border-3 border-[#16181d] rounded-xl space-y-5 shadow-[4px_4px_0_0_#16181d]">
+    <div class="flex flex-wrap items-center justify-between border-b-3 border-[#16181d] pb-3 gap-2">
+      <div>
+        <span class="font-mono text-[10px] font-bold uppercase text-primary block">
+           PASSO A PASSO DA RETA FINAL
+        </span>
+        <h4 class="font-head text-sm sm:text-base font-black uppercase text-foreground m-0 flex items-center gap-2">
+          <i class="bi bi-calendar2-week-fill text-primary" aria-hidden="true"></i>
+          <span>Linha do Tempo de Defesa &amp; Depósito (5 Marcos Obrigatórios)</span>
+        </h4>
+      </div>
+      <span class="px-2.5 py-1 rounded-md bg-[#f4f0ea] border-2 border-[#16181d] font-mono text-[11px] font-bold">
+        DCP 089 ➔ DCP 137
+      </span>
+    </div>
+
+    <div class="relative pl-4 sm:pl-6 border-l-3 border-[#16181d] space-y-4">
+      {linhaDoTempoDefesa.map((item) => (
+        <div class="relative p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0_0_#16181d] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[5px_5px_0_0_#16181d] transition-all">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+            <span class={`px-2.5 py-0.5 rounded-md border-2 border-[#16181d] font-mono text-[10px] font-bold uppercase shadow-xs ${item.cor}`}>
+              {item.passo}
+            </span>
+            <span class="font-mono text-[11px] font-bold text-muted-foreground">
+              {item.momento}
+            </span>
+          </div>
+          <h5 class="font-head text-sm font-black uppercase text-foreground m-0 mb-1">
+            {item.titulo}
+          </h5>
+          <p class="font-body text-xs text-gray-700 leading-relaxed m-0 font-medium">
+            {item.desc}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  {/* Regras Regimentais de Banca com Detalhes Normativos Expansíveis */}
+  <div class="p-5 sm:p-6 bg-white border-3 border-[#16181d] rounded-xl space-y-4 shadow-[4px_4px_0_0_#16181d]">
+    <div class="flex items-center justify-between border-b-3 border-[#16181d] pb-3">
+      <h4 class="font-head text-sm sm:text-base font-black uppercase text-foreground m-0 flex items-center gap-2 tracking-wide">
+        <i class="bi bi-shield-check text-secondary text-base" aria-hidden="true" />
+        <span>Normas Regimentais de Orientação, Banca e Depósito (Expansíveis)</span>
       </h4>
-      <span class="text-xs text-[#0A0A0A] font-mono font-bold">Regulamento Arts. 21 a 28</span>
+      <span class="text-xs text-foreground font-mono font-bold">Regulamento Arts. 21 a 28</span>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
       {regrasBanca.map((r) => (
-        <div class="p-3.5 bg-white border-2 border-[#0A0A0A] rounded-xl space-y-1.5 shadow-[2px_2px_0_0_#0A0A0A]">
+        <div class="p-4 bg-white border-3 border-[#16181d] rounded-xl space-y-1.5 shadow-[4px_4px_0_0_#16181d]">
           <div class="flex items-center justify-between gap-1">
-            <span class="font-head text-xs font-bold uppercase text-[#0A0A0A] tracking-wide">{r.titulo}</span>
+            <span class="font-head text-xs font-bold uppercase text-foreground tracking-wide">{r.titulo}</span>
             <span class="cagp-badge cagp-badge-red text-[10px] shrink-0 font-mono font-bold">{r.art}</span>
           </div>
           <p class="font-body text-xs text-gray-700 leading-relaxed m-0 font-medium">{r.desc}</p>
         </div>
+      ))}
+    </div>
+
+    <div class="pt-2 space-y-2.5">
+      {regrasBanca.map((r, idx) => (
+        <NormativeDetails
+          title={`${r.titulo} — Detalhamento Normativo (${r.art})`}
+          badge={r.art}
+          icon="bi-file-earmark-ruled-fill"
+          open={idx === 0}
+        >
+          <p class="text-xs sm:text-sm text-foreground leading-relaxed m-0">
+            {r.detalheNormativo}
+          </p>
+        </NormativeDetails>
       ))}
     </div>
   </div>

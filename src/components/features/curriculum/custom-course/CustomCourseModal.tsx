@@ -93,14 +93,14 @@ export const CustomCourseModal: React.FC<Props> = ({
     >
       <div className="p-4 sm:p-5 space-y-4 overflow-y-auto">
         {/* Alternador de Modo: Catálogo vs Externa Personalizada */}
-        <div className="flex items-center gap-1.5 p-1 bg-[#F7F5F0] rounded-lg border border-[#DFDBD2]">
+        <div className="flex items-center gap-1.5 p-1 bg-background rounded-lg border border-muted">
           <button
             type="button"
             onClick={() => setMode('catalog')}
             className={`flex-1 py-2 px-2 rounded-md text-xs font-['Oswald'] uppercase font-bold transition-all min-h-[44px] flex items-center justify-center cursor-pointer ${
               mode === 'catalog'
-                ? 'bg-[#0A0A0A] text-white shadow-xs'
-                : 'text-gray-600 hover:text-[#0A0A0A]'
+                ? 'bg-foreground text-background text-white shadow-xs'
+                : 'text-gray-600 hover:text-foreground'
             }`}
           >
             1. Do Catálogo Oficial (68)
@@ -113,8 +113,8 @@ export const CustomCourseModal: React.FC<Props> = ({
             }}
             className={`flex-1 py-2 px-2 rounded-md text-xs font-['Oswald'] uppercase font-bold transition-all min-h-[44px] flex items-center justify-center cursor-pointer ${
               mode === 'custom'
-                ? 'bg-[#8B1E2D] text-white shadow-xs'
-                : 'text-gray-600 hover:text-[#0A0A0A]'
+                ? 'bg-secondary text-white shadow-xs'
+                : 'text-gray-600 hover:text-foreground'
             }`}
           >
             2. Disciplina Livre / Externa
@@ -133,7 +133,7 @@ export const CustomCourseModal: React.FC<Props> = ({
                 required
                 value={selectedCatalogCode}
                 onChange={(e) => setSelectedCatalogCode(e.target.value)}
-                className="w-full bg-[#F7F5F0] border border-[#DFDBD2] px-3 py-2 rounded text-base sm:text-xs text-[#0A0A0A] focus:border-[#8B1E2D] focus:bg-white focus:outline-none"
+                className="w-full bg-background border border-muted px-3 py-2 rounded text-base sm:text-xs text-foreground focus:border-secondary focus:bg-white focus:outline-none"
               >
                 <option value="">Selecione uma optativa homologada...</option>
                 {catalogOptions.map((opt) => (
@@ -145,8 +145,8 @@ export const CustomCourseModal: React.FC<Props> = ({
             </div>
           ) : (
             <div className="space-y-3">
-              <div className="p-2.5 bg-[#FEF3C7] border border-[#B45309]/30 rounded text-xs text-[#0A0A0A] leading-relaxed">
-                <i className="bi bi-info-circle-fill text-[#B45309] mr-1" aria-hidden="true" />
+              <div className="p-2.5 bg-[#FEF3C7] border border-warning/30 rounded text-xs text-foreground leading-relaxed">
+                <i className="bi bi-info-circle-fill text-warning mr-1" aria-hidden="true" />
                 Você pode adicionar qualquer disciplina cursada em outros departamentos da UFMG (FACE, Faculdade de Direito, ECI, ICEx, etc.) para compor as <strong>120h de Formação Livre</strong> ou eletivas.
               </div>
 
@@ -163,7 +163,7 @@ export const CustomCourseModal: React.FC<Props> = ({
                     placeholder="Ex: DIR010"
                     value={customCode}
                     onChange={(e) => setCustomCode(e.target.value)}
-                    className="w-full bg-[#F7F5F0] border border-[#DFDBD2] px-3 py-2 rounded text-base sm:text-xs text-[#0A0A0A] uppercase focus:border-[#8B1E2D] focus:bg-white focus:outline-none"
+                    className="w-full bg-background border border-muted px-3 py-2 rounded text-base sm:text-xs text-foreground uppercase focus:border-secondary focus:bg-white focus:outline-none"
                   />
                 </div>
 
@@ -179,7 +179,7 @@ export const CustomCourseModal: React.FC<Props> = ({
                     placeholder="Ex: Direito / FACE"
                     value={customDept}
                     onChange={(e) => setCustomDept(e.target.value)}
-                    className="w-full bg-[#F7F5F0] border border-[#DFDBD2] px-3 py-2 rounded text-base sm:text-xs text-[#0A0A0A] focus:border-[#8B1E2D] focus:bg-white focus:outline-none"
+                    className="w-full bg-background border border-muted px-3 py-2 rounded text-base sm:text-xs text-foreground focus:border-secondary focus:bg-white focus:outline-none"
                   />
                 </div>
               </div>
@@ -196,7 +196,7 @@ export const CustomCourseModal: React.FC<Props> = ({
                   placeholder="Ex: Direito Constitucional Aplicado"
                   value={customName}
                   onChange={(e) => setCustomName(e.target.value)}
-                  className="w-full bg-[#F7F5F0] border border-[#DFDBD2] px-3 py-2 rounded text-base sm:text-xs text-[#0A0A0A] focus:border-[#8B1E2D] focus:bg-white focus:outline-none"
+                  className="w-full bg-background border border-muted px-3 py-2 rounded text-base sm:text-xs text-foreground focus:border-secondary focus:bg-white focus:outline-none"
                 />
               </div>
 
@@ -210,7 +210,7 @@ export const CustomCourseModal: React.FC<Props> = ({
                     name="customCh"
                     value={customCh}
                     onChange={(e) => setCustomCh(Number(e.target.value))}
-                    className="w-full bg-[#F7F5F0] border border-[#DFDBD2] px-3 py-2 rounded text-base sm:text-xs text-[#0A0A0A] focus:border-[#8B1E2D] focus:bg-white focus:outline-none"
+                    className="w-full bg-background border border-muted px-3 py-2 rounded text-base sm:text-xs text-foreground focus:border-secondary focus:bg-white focus:outline-none"
                   >
                     <option value={30}>30 horas (2 créditos)</option>
                     <option value={60}>60 horas (4 créditos)</option>
@@ -227,7 +227,7 @@ export const CustomCourseModal: React.FC<Props> = ({
                     name="customCategory"
                     value={category}
                     onChange={(e) => setCategory(e.target.value as any)}
-                    className="w-full bg-[#F7F5F0] border border-[#DFDBD2] px-3 py-2 rounded text-base sm:text-xs text-[#0A0A0A] focus:border-[#8B1E2D] focus:bg-white focus:outline-none"
+                    className="w-full bg-background border border-muted px-3 py-2 rounded text-base sm:text-xs text-foreground focus:border-secondary focus:bg-white focus:outline-none"
                   >
                     <option value="formacao_livre">Formação Livre (120h)</option>
                     <option value="eletiva_externa">Optativa Eletiva</option>
@@ -247,7 +247,7 @@ export const CustomCourseModal: React.FC<Props> = ({
               name="periodSelect"
               value={period}
               onChange={(e) => setPeriod(Number(e.target.value))}
-              className="w-full bg-[#F7F5F0] border border-[#DFDBD2] px-3 py-2 rounded text-base sm:text-xs text-[#0A0A0A] focus:border-[#8B1E2D] focus:bg-white focus:outline-none"
+              className="w-full bg-background border border-muted px-3 py-2 rounded text-base sm:text-xs text-foreground focus:border-secondary focus:bg-white focus:outline-none"
             >
               {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((p) => (
                 <option key={p} value={p}>
@@ -257,17 +257,17 @@ export const CustomCourseModal: React.FC<Props> = ({
             </select>
           </div>
 
-          <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#DFDBD2]">
+          <div className="flex items-center justify-end gap-2 pt-3 border-t border-muted">
             <button
               type="button"
               onClick={onClose}
-              className="min-h-[44px] px-4 py-2 bg-[#F7F5F0] hover:bg-[#EAE6DE] border border-[#DFDBD2] rounded-lg text-xs font-['Oswald'] uppercase font-bold text-gray-700"
+              className="min-h-[44px] px-4 py-2 bg-background hover:bg-[#EAE6DE] border border-muted rounded-lg text-xs font-['Oswald'] uppercase font-bold text-gray-700"
             >
               Cancelar
             </button>
             <button
               type="submit"
-              className="min-h-[44px] px-5 py-2 bg-[#8B1E2D] text-white hover:bg-[#0A0A0A] rounded-lg font-['Oswald'] text-xs uppercase font-bold tracking-wider shadow-[2px_2px_0px_#0A0A0A] transition-all"
+              className="min-h-[44px] px-5 py-2 bg-secondary text-white hover:bg-foreground text-background rounded-lg font-['Oswald'] text-xs uppercase font-bold tracking-wider shadow-[2px_2px_0px_#0A0A0A] transition-all"
             >
               Confirmar & Inserir no Grafo
             </button>

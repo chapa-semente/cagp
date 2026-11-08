@@ -171,7 +171,7 @@ const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePickerProps
         <PopoverContent
           className={cn(
             'w-auto p-0 overflow-hidden',
-            'shadow-[8px_8px_0px_var(--shadow-color)]',
+            'shadow-xl',
             'ease-out animate-in fade-in-0 zoom-in-95 duration-200',
             'max-w-[calc(100vw-2rem)]',
             'max-h-[calc(100vh-4rem)] overflow-auto'
@@ -210,8 +210,8 @@ const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePickerProps
                         className={cn(
                           'text-left text-sm font-bold border-3 border-foreground bg-background transition duration-150',
                           isMobile
-                            ? 'px-2 py-1 text-xs shadow-[2px_2px_0px_var(--shadow-color)]'
-                            : 'w-full px-3 py-2 shadow-[3px_3px_0px_var(--shadow-color)]',
+                            ? 'px-2 py-1 text-xs shadow-sm'
+                            : 'w-full px-3 py-2 shadow',
                           // press-in on hover/focus
                           isMobile
                             ? 'hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none focus-visible:translate-x-[2px] focus-visible:translate-y-[2px] focus-visible:shadow-none'

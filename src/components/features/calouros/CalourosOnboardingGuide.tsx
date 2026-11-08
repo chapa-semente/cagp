@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
-import { Progress } from '@/components/ui/progress';
-import { asset } from '@/lib/paths';
+import { Questionnaire, type QuestionnaireQuestion } from '@/components/ui/questionnaire';
+import { TagInput } from '@/components/ui/tag-input';
+import { OnboardingWizard, type OnboardingStep } from '@/components/boldkit/blocks/onboarding-flow';
+import { asset, route } from '@/lib/paths';
+import { bounceSpring, tactileSpring } from '@/lib/motion';
 
 const ONBOARDING_STEPS = [
   {
@@ -29,7 +33,7 @@ const ONBOARDING_STEPS = [
     summary: 'Conecte-se à rede mundial acadêmica em todos os prédios da UFMG e emita sua carteira.',
     points: [
       'Rede Wi-Fi Oficial: Selecione o SSID "eduroam". O usuário deve conter o sufixo completo (ex: seu_login@ufmg.br) e a mesma senha do minhaUFMG (WPA2-Enterprise / PEAP / MSCHAPv2).',
-      'Carteira da UFMG: Solicitada no portal minhaUFMG, indispensável para passar nas catracas dos Restaurantes Universitários (RU) com subsídio e fazer empréstimos na Biblioteca da FAFICH (2º andar).',
+      'Carteira da UFMG: Solicitada no portal minhaUFMG, indispensável para passar nas catracas dos Restaurantes Universitários (RU) com subsídio e fazer empréstimos na Biblioteca Baeta Neves (1º andar da FAFICH).',
     ],
     logo: asset('/logos/siga/siga-ufmg-fundo-branco.webp'),
   },
@@ -50,11 +54,11 @@ const ONBOARDING_STEPS = [
   {
     step: 4,
     tag: 'PASSO 4 • ATENDIMENTO & PRAZOS',
-    title: 'Secretaria (Sala 2039) vs. CEAG Noturno (08h–22h)',
+    title: 'Secretaria (Sala F-2039) vs. CEAG Noturno (08h–22h)',
     color: '#266264',
     summary: 'Saiba exatamente onde protocolar cada requerimento no 2º andar da FAFICH e não perca prazos.',
     points: [
-      'Secretaria de Gestão Pública (Sala 2039 — 2º andar): Atendimento presencial às quartas-feiras (13h00 às 19h00) com Wander Wenceslau Pereira e Ubirajara Dutra. Tel: (31) 3409-3826 | gestaopublica@ufmg.br.',
+      'Secretaria de Gestão Pública (Sala F-2039 — 2º andar): Atendimento presencial às quartas-feiras (13h00 às 19h00) com Wander Wenceslau Pereira e Ubirajara Dutra. Tel: (31) 3409-3826 | gestaopublica@ufmg.br.',
       'CEAG FAFICH (2º andar, em frente aos caixas eletrônicos): Plantão contínuo de segunda a sexta-feira, das 08h00 às 22h00, para protocolo geral, atestados médicos, regime especial e declarações.',
       'Prazo de Aproveitamento de Estudos (Res. CEPE 06/2019): Quem cursou disciplinas em outra faculdade deve pedir aproveitamento até o final do 2º período de vínculo!',
     ],
@@ -62,23 +66,52 @@ const ONBOARDING_STEPS = [
   },
   {
     step: 5,
-    tag: 'PASSO 5 • DIREITOS, INCLUSÃO E SAÚDE',
-    title: 'NAI, Nome Social, Saúde Mental (DASE) e Contra o Assédio',
+    tag: 'PASSO 5 • DIREITOS, INCLUSÃO E RECEPÇÃO SEMENTE',
+    title: 'NAI, Nome Social, Saúde Mental (DASE) e Proposta 7 (Recepção)',
     color: '#C4161C',
-    summary: 'Acolhimento institucional, acessibilidade pedagógica e canais de proteção discente.',
+    summary: 'Acolhimento institucional, acessibilidade pedagógica, canais de proteção discente e integração.',
     points: [
       'Acessibilidade e Inclusão (NAI/UFMG): Adaptação de materiais, Libras e mediação pedagógica — acessibilidade@ufmg.br | (31) 3409-4674.',
       'Direito ao Nome Social (Resolução 09/2015): Garantido em chamadas, carteirinha, e-mail e diploma mediante requerimento simples.',
-      'Política Contra o Assédio (Resolução 07/2025) e Proibição de Trote (Resolução 06/2014): Tolerância zero a trotes violentos ou assédio.',
+      'Política Contra o Assédio (Resolução 07/2025) e Proibição de Trote Violento (Resolução 06/2014): Recepção segura e acolhedora com a Chapa Semente (Proposta 7).',
       'Saúde Mental e Escuta (DASE/PRAE): Acolhimento psicológico estudantil pelo e-mail dase@prae.ufmg.br. Emergências no campus: Vigilância (31) 3409-4444 / SAMU 192.',
     ],
     logo: asset('/logos/ufmg/assinaturas/nai-ufmg.png'),
   },
 ];
 
+const CALOURO_QUIZ_QUESTIONS: QuestionnaireQuestion[] = [
+  {
+    id: 'perfil_turno',
+    type: 'single',
+    title: 'Qual é o seu regime de dedicação e turno no curso?',
+    description: 'Ajuda a calibrar seus prazos de ACG, rotas de circular e auxílios da FUMP.',
+    choices: [
+      { value: 'trabalhador_noturno', label: 'Estudante Trabalhador (Turno Noturno)', description: 'Trabalho de dia e chego às 19h na FAFICH' },
+      { value: 'dedicacao_exclusiva', label: 'Dedicação Exclusiva à Universidade', description: 'Tempo disponível para bolsas, IC e extensão diurna' },
+      { value: 'transicao_carreira', label: 'Segunda Graduação / Transição de Carreira', description: 'Já possuo formação prévia e busco concursos/gestão' },
+    ],
+  },
+  {
+    id: 'areas_interesse',
+    type: 'multiple',
+    title: 'Quais áreas da Gestão Pública mais despertam seu interesse?',
+    description: 'Selecione as frentes para personalizar suas recomendações curriculares.',
+    choices: [
+      { value: 'politicas_sociais', label: 'Políticas Sociais & Direitos Humanos', description: 'Saúde, Educação, Assistência e Moradia' },
+      { value: 'planejamento_orcamento', label: 'Planejamento, Orçamento & Finanças Públicas', description: 'LOA, LDO, PPA e Responsabilidade Fiscal' },
+      { value: 'dados_govtech', label: 'Análise de Dados, GovTech & Inovação', description: 'Indicadores, Evidências e Transformação Digital' },
+      { value: 'carreira_pesquisa', label: 'Carreira Acadêmica & Pesquisa em Políticas', description: 'Mestrado, Doutorado e Docência' },
+    ],
+  },
+];
+
 export const CalourosOnboardingGuide: React.FC = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState<number[]>([1]);
+  const [showQuiz, setShowQuiz] = useState(false);
+  const [interests, setInterests] = useState<string[]>(['RU Setorial', 'Bolsa FUMP', 'Circular 3/4']);
+  const [quizResult, setQuizResult] = useState<string | null>(null);
 
   const current = ONBOARDING_STEPS[activeStep];
   const progressPct = Math.round((completed.length / ONBOARDING_STEPS.length) * 100);
@@ -89,10 +122,29 @@ export const CalourosOnboardingGuide: React.FC = () => {
     );
   };
 
+  const wizardSteps: OnboardingStep[] = ONBOARDING_STEPS.map((s) => ({
+    id: `step-${s.step}`,
+    title: s.title,
+    description: s.summary,
+    content: (
+      <div className="space-y-3 py-2 text-foreground">
+        <div className="flex items-center gap-3">
+          {s.logo && <img src={s.logo} alt="" className="h-8 object-contain" />}
+          <Badge variant="outline" className="text-xs font-mono font-bold uppercase">{s.tag}</Badge>
+        </div>
+        <ul className="space-y-1.5 text-xs font-sans text-muted-foreground list-disc pl-4">
+          {s.points.map((p, i) => (
+            <li key={i}>{p}</li>
+          ))}
+        </ul>
+      </div>
+    ),
+  }));
+
   return (
-    <section className="space-y-6 my-6" aria-label="Tour Interativo de Primeiros Passos na UFMG">
-      {/* Barra de Progresso do Calouro */}
-      <Card className="bg-white">
+    <section className="space-y-6 my-4" aria-label="Tour Interativo de Primeiros Passos na UFMG">
+      {/* Trilha Interativa dos 5 Primeiros Passos do Ingressante */}
+      <Card className="bg-white border-3 border-[#16181d] shadow-[6px_6px_0_0_#16181d]">
         <CardHeader className="border-b-3 border-[#16181d] bg-[#FFFDF9]">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
@@ -106,29 +158,39 @@ export const CalourosOnboardingGuide: React.FC = () => {
                 Marque cada etapa concluída para dominar os sistemas, restaurantes, ônibus e secretarias da FAFICH.
               </CardDescription>
             </div>
-            <div className="min-w-[180px] text-right">
-              <span className="font-mono text-xs font-black uppercase text-[#16181d] block mb-1">
+            <div className="min-w-[200px] text-right space-y-1">
+              <span className="font-mono text-xs font-black uppercase text-[#16181d] block">
                 {completed.length} de {ONBOARDING_STEPS.length} Etapas ({progressPct}%)
               </span>
-              <Progress value={progressPct} className="h-4" />
+              <div className="w-full bg-[#f4f0ea] border-3 border-[#16181d] rounded-full h-4 overflow-hidden p-0.5 shadow-[2px_2px_0_0_#16181d]">
+                <motion.div
+                  initial={false}
+                  animate={{ width: `${progressPct}%` }}
+                  transition={bounceSpring}
+                  className="bg-gradient-to-r from-[#5B2A86] to-[#FF8811] h-full rounded-full"
+                />
+              </div>
             </div>
           </div>
         </CardHeader>
 
         <CardContent className="pt-6 space-y-6">
-          {/* Stepper Buttons */}
+          {/* Stepper Buttons com 44x44pt Touch Targets */}
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
             {ONBOARDING_STEPS.map((item, idx) => {
               const isSelected = idx === activeStep;
               const isDone = completed.includes(item.step);
               return (
-                <button
+                <motion.button
                   key={item.step}
                   type="button"
+                  whileHover={{ y: -2 }}
+                  whileTap={{ x: 2, y: 2 }}
+                  transition={tactileSpring}
                   onClick={() => setActiveStep(idx)}
-                  className={`p-3 rounded-xl border-3 border-[#16181d] text-left transition-all cursor-pointer ${
+                  className={`min-h-[64px] p-3 rounded-xl border-3 border-[#16181d] text-left transition-colors cursor-pointer ${
                     isSelected
-                      ? 'bg-[#16181d] text-white shadow-[4px_4px_0px_#9E2424] -translate-y-0.5'
+                      ? 'bg-[#16181d] text-white shadow-[4px_4px_0px_#9E2424]'
                       : isDone
                       ? 'bg-[#DCFCE7] text-[#16181d] shadow-[2px_2px_0px_#16181d]'
                       : 'bg-white text-[#16181d] hover:bg-muted shadow-[2px_2px_0px_#16181d]'
@@ -147,75 +209,164 @@ export const CalourosOnboardingGuide: React.FC = () => {
                   <span className="font-heading text-xs font-extrabold uppercase line-clamp-2 leading-tight">
                     {item.title}
                   </span>
-                </button>
+                </motion.button>
               );
             })}
           </div>
 
-          {/* Active Step Detail Box */}
-          <div className="p-5 rounded-xl border-3 border-[#16181d] bg-[#FFFDF9] shadow-[6px_6px_0px_#16181d] space-y-4">
-            <div className="flex flex-wrap items-center justify-between gap-4 border-b-3 border-[#16181d] pb-4">
-              <div className="flex items-center gap-3.5">
-                <div className="w-14 h-14 rounded-xl border-3 border-[#16181d] bg-white p-1.5 flex items-center justify-center shrink-0 shadow-[3px_3px_0px_#16181d]">
-                  <img src={current.logo} alt="" className="max-h-10 max-w-full object-contain" />
+          {/* Active Step Detail Box com Transição Animada */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={current.step}
+              initial={{ opacity: 0, y: 10, scale: 0.99 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.99 }}
+              transition={tactileSpring}
+              className="p-5 rounded-xl border-3 border-[#16181d] bg-[#FFFDF9] shadow-[6px_6px_0px_#16181d] space-y-4"
+            >
+              <div className="flex flex-wrap items-center justify-between gap-4 border-b-3 border-[#16181d] pb-4">
+                <div className="flex items-center gap-3.5">
+                  <div className="w-14 h-14 rounded-xl border-3 border-[#16181d] bg-white p-1.5 flex items-center justify-center shrink-0 shadow-[3px_3px_0px_#16181d]">
+                    <img src={current.logo} alt="" className="max-h-10 max-w-full object-contain" />
+                  </div>
+                  <div>
+                    <span
+                      className="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-mono font-black uppercase text-white border-2 border-[#16181d] mb-1"
+                      style={{ backgroundColor: current.color }}
+                    >
+                      {current.tag}
+                    </span>
+                    <h3 className="font-heading text-lg sm:text-xl font-black uppercase text-[#16181d]">
+                      {current.title}
+                    </h3>
+                    <p className="text-xs text-[#57534E] font-medium">{current.summary}</p>
+                  </div>
                 </div>
-                <div>
-                  <span
-                    className="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-mono font-black uppercase text-white border-2 border-[#16181d] mb-1"
-                    style={{ backgroundColor: current.color }}
-                  >
-                    {current.tag}
-                  </span>
-                  <h3 className="font-heading text-lg sm:text-xl font-black uppercase text-[#16181d]">
-                    {current.title}
-                  </h3>
-                  <p className="text-xs text-[#57534E] font-medium">{current.summary}</p>
-                </div>
+
+                <Button
+                  variant={completed.includes(current.step) ? 'secondary' : 'default'}
+                  size="sm"
+                  onClick={() => toggleComplete(current.step)}
+                  className="min-h-[44px] px-4"
+                >
+                  {completed.includes(current.step) ? '✓ Etapa Carimbada' : 'Carimbar como Concluída'}
+                </Button>
               </div>
 
-              <Button
-                variant={completed.includes(current.step) ? 'secondary' : 'default'}
-                size="sm"
-                onClick={() => toggleComplete(current.step)}
-              >
-                {completed.includes(current.step) ? '✓ Etapa Concluída' : 'Marcar como Concluída'}
-              </Button>
-            </div>
+              <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 list-none p-0 m-0">
+                {current.points.map((pt, i) => (
+                  <li
+                    key={i}
+                    className="p-3.5 rounded-xl border-2 border-[#16181d] bg-white shadow-[2px_2px_0px_#16181d] text-xs text-[#16181d] leading-relaxed font-medium flex gap-2.5"
+                  >
+                    <span className="w-6 h-6 rounded-md bg-[#9E2424] text-white font-mono text-[10px] font-black flex items-center justify-center shrink-0 mt-0.5 border border-[#16181d]">
+                      {i + 1}
+                    </span>
+                    <span>{pt}</span>
+                  </li>
+                ))}
+              </ul>
 
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 list-none p-0 m-0">
-              {current.points.map((pt, i) => (
-                <li
-                  key={i}
-                  className="p-3.5 rounded-xl border-2 border-[#16181d] bg-white shadow-[2px_2px_0px_#16181d] text-xs text-[#16181d] leading-relaxed font-medium flex gap-2.5"
+              <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled={activeStep === 0}
+                  onClick={() => setActiveStep((prev) => Math.max(0, prev - 1))}
+                  className="min-h-[44px] px-4"
                 >
-                  <span className="w-5 h-5 rounded-md bg-[#9E2424] text-white font-mono text-[10px] font-black flex items-center justify-center shrink-0 mt-0.5">
-                    {i + 1}
-                  </span>
-                  <span>{pt}</span>
-                </li>
-              ))}
-            </ul>
+                  ← Passo Anterior
+                </Button>
+                <a
+                  href={route('/chapa-semente#propostas')}
+                  className="text-xs font-mono font-black uppercase text-[#5B2A86] hover:underline py-2"
+                >
+                  ✦ Proposta 7 Semente: Recepção de Calouros →
+                </a>
+                <Button
+                  variant="accent"
+                  size="sm"
+                  disabled={activeStep === ONBOARDING_STEPS.length - 1}
+                  onClick={() =>
+                    setActiveStep((prev) => Math.min(ONBOARDING_STEPS.length - 1, prev + 1))
+                  }
+                  className="min-h-[44px] px-4"
+                >
+                  Próximo Passo →
+                </Button>
+              </div>
+            </motion.div>
+          </AnimatePresence>
 
-            <div className="flex items-center justify-between pt-2">
+          {/* Onboarding Wizard BoldKit Compacto */}
+          <OnboardingWizard
+            steps={wizardSteps}
+            className="border-3 border-[#16181d] bg-card shadow-[4px_4px_0_0_#16181d]"
+          />
+
+          {/* Filtro Rápido com TagInput */}
+          <div className="p-4 bg-[#FFFDF9] border-3 border-[#16181d] rounded-xl space-y-2 shadow-[3px_3px_0_0_#16181d]">
+            <span className="text-xs font-head uppercase font-bold text-[#16181d] block">
+              Tópicos de Interesse do Ingressante (TagInput):
+            </span>
+            <TagInput
+              value={interests}
+              onChange={setInterests}
+              suggestions={['RU Setorial', 'Bolsa FUMP', 'Circular 3/4', 'Biblioteca', 'eduroam', 'CEAG', 'DCP', 'Estágio', 'NAI']}
+              placeholder="Adicionar tema de interesse..."
+              className="bg-white border-3 border-[#16181d] rounded-xl shadow-xs"
+            />
+          </div>
+
+          {/* Seção do Quiz do Calouro com Questionnaire */}
+          <div className="p-5 bg-card border-3 border-[#16181d] rounded-xl shadow-[4px_4px_0_0_#16181d] space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <span className="text-[10px] font-mono font-bold uppercase text-secondary block">
+                  Questionário Interativo
+                </span>
+                <h4 className="font-head text-base uppercase font-extrabold text-foreground m-0">
+                  Quiz Diagnóstico: Perfil Discente do Ingressante
+                </h4>
+                <p className="text-xs text-muted-foreground m-0 font-sans">
+                  Responda 2 perguntas para orientar sua rota inicial na UFMG.
+                </p>
+              </div>
               <Button
-                variant="outline"
+                variant={showQuiz ? 'outline' : 'secondary'}
                 size="sm"
-                disabled={activeStep === 0}
-                onClick={() => setActiveStep((prev) => Math.max(0, prev - 1))}
+                onClick={() => setShowQuiz(!showQuiz)}
+                className="min-h-[44px] px-4"
               >
-                ← Passo Anterior
-              </Button>
-              <Button
-                variant="accent"
-                size="sm"
-                disabled={activeStep === ONBOARDING_STEPS.length - 1}
-                onClick={() =>
-                  setActiveStep((prev) => Math.min(ONBOARDING_STEPS.length - 1, prev + 1))
-                }
-              >
-                Próximo Passo →
+                {showQuiz ? 'Ocultar Questionário' : 'Iniciar Quiz do Calouro →'}
               </Button>
             </div>
+
+            {showQuiz && (
+              <div className="pt-3 border-t-2 border-border/20">
+                {quizResult ? (
+                  <div className="p-4 bg-[#DCFCE7] border-3 border-[#16181d] rounded-xl text-xs font-sans text-[#16181d] space-y-2 shadow-[3px_3px_0_0_#16181d]">
+                    <strong className="font-head uppercase block text-[#15803D]">
+                      Perfil Diagnóstico Identificado:
+                    </strong>
+                    <p className="m-0 leading-relaxed font-medium">{quizResult}</p>
+                    <Button variant="outline" size="sm" onClick={() => setQuizResult(null)} className="mt-2 min-h-[44px]">
+                      Refazer Quiz
+                    </Button>
+                  </div>
+                ) : (
+                  <Questionnaire
+                    questions={CALOURO_QUIZ_QUESTIONS}
+                    onSubmit={(answers) => {
+                      const turno = answers['perfil_turno'] === 'trabalhador_noturno' ? 'Estudante Trabalhador Noturno' : 'Dedicação Universitária';
+                      setQuizResult(`Você se enquadra prioritariamente no perfil de ${turno}! Suas prioridades são: circular noturno, assistência FUMP e planejamento do teto de ACG.`);
+                    }}
+                    submitLabel="Concluir Diagnóstico"
+                    className="max-w-xl mx-auto"
+                  />
+                )}
+              </div>
+            )}
           </div>
 
           {/* Accordion Rápido de Perguntas de Calouros */}

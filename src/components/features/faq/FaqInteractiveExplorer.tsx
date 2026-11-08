@@ -4,13 +4,13 @@ import {
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from '../../ui/accordion';
-import { Input } from '../../ui/input';
-import { Badge } from '../../ui/badge';
-import { Button } from '../../ui/button';
-import { Sticker } from '../../ui/sticker';
-import { Card, CardContent } from '../../ui/card';
-import { asset } from '../../../lib/paths';
+} from '@/components/ui/accordion';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Sticker } from '@/components/ui/sticker';
+import { Card, CardContent } from '@/components/ui/card';
+import { asset } from '@/lib/paths';
 
 export interface FaqItem {
   id: string;

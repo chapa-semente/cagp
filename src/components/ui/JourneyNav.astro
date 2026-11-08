@@ -1,6 +1,6 @@
 ---
 // JourneyNav.astro - Trilha de continuidade discente no rodapé de páginas
-import { route } from '../../lib/paths';
+import { route } from '@/lib/paths';
 
 interface Step {
   title: string;
@@ -17,39 +17,39 @@ const { prev, next } = Astro.props;
 ---
 
 {(prev || next) && (
-  <nav class="mt-12 pt-8 border-t-[3px] border-[#0A0A0A] select-none" aria-label="Continuidade da jornada acadêmica">
+  <nav class="mt-12 pt-8 border-t-3 border-border select-none" aria-label="Continuidade da jornada acadêmica">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       {prev ? (
         <a
           href={route(prev.href)}
-          class="p-5 rounded-xl bg-white border-[3px] border-[#0A0A0A] shadow-[4px_4px_0_0_#0A0A0A] hover:shadow-[2px_2px_0_0_#0A0A0A] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline text-[#0A0A0A] flex flex-col justify-between group"
+          class="p-5 rounded-xl bg-card border-3 border-border shadow-md hover:shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline text-foreground flex flex-col justify-between group"
         >
           <div>
-            <span class="font-head font-bold text-xs uppercase tracking-wider text-[#9E2424] block mb-1">
+            <span class="font-heading font-extrabold text-xs uppercase tracking-wider text-secondary block mb-1">
               &larr; Passo Anterior
             </span>
-            <h4 class="font-head font-bold text-base uppercase text-[#0A0A0A] group-hover:text-[#9E2424] transition-colors leading-tight">
+            <h4 class="font-heading font-extrabold text-base uppercase text-foreground group-hover:text-primary transition-colors leading-tight m-0">
               {prev.title}
             </h4>
           </div>
-          <p class="font-body text-xs text-[#57534E] mt-2 leading-relaxed">{prev.desc}</p>
+          <p class="font-sans text-xs text-muted-foreground mt-2 leading-relaxed m-0">{prev.desc}</p>
         </a>
       ) : <div class="hidden md:block" />}
 
       {next ? (
         <a
           href={route(next.href)}
-          class="p-5 rounded-xl bg-white border-[3px] border-[#0A0A0A] shadow-[4px_4px_0_0_#0A0A0A] hover:shadow-[2px_2px_0_0_#0A0A0A] hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline text-[#0A0A0A] flex flex-col justify-between group text-left md:text-right"
+          class="p-5 rounded-xl bg-card border-3 border-border shadow-md hover:shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline text-foreground flex flex-col justify-between group text-left md:text-right"
         >
           <div>
-            <span class="font-head font-bold text-xs uppercase tracking-wider text-[#9E2424] block mb-1">
+            <span class="font-heading font-extrabold text-xs uppercase tracking-wider text-primary block mb-1">
               Próximo Passo &rarr;
             </span>
-            <h4 class="font-head font-bold text-base uppercase text-[#0A0A0A] group-hover:text-[#9E2424] transition-colors leading-tight">
+            <h4 class="font-heading font-extrabold text-base uppercase text-foreground group-hover:text-primary transition-colors leading-tight m-0">
               {next.title}
             </h4>
           </div>
-          <p class="font-body text-xs text-[#57534E] mt-2 leading-relaxed">{next.desc}</p>
+          <p class="font-sans text-xs text-muted-foreground mt-2 leading-relaxed m-0">{next.desc}</p>
         </a>
       ) : <div class="hidden md:block" />}
     </div>

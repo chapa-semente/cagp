@@ -1,0 +1,69 @@
+---
+// SobreEsferas.astro - Sub-view 3: Esferas de Representação Discente Tripartite
+const esferas = [
+  {
+    orgao: 'Colegiado do Curso de Gestão Pública',
+    icon: 'bi-door-closed-fill',
+    nivel: 'Instância Local (DCP/FAFICH)',
+    desc: 'Representação formal com direito a voz e voto nas deliberações sobre planos de ensino, equivalências, jubilamento e dispensas pelo Art. 41.',
+  },
+  {
+    orgao: 'Congregação da FAFICH',
+    icon: 'bi-building',
+    nivel: 'Instância Departamental e da Unidade',
+    desc: 'Órgão máximo da FAFICH que vota orçamento anual, abertura de concursos para professores e infraestrutura dos prédios.',
+  },
+  {
+    orgao: 'DAFAFICH (Diretório Acadêmico)',
+    icon: 'bi-people-fill',
+    nivel: 'Articulação entre Cursos da FAFICH',
+    desc: 'Espaço de integração com os centros acadêmicos de Ciências Sociais, História, Filosofia, Psicologia e Comunicação Social.',
+  },
+  {
+    orgao: 'DCE UFMG & Conselho de Entidades de Base',
+    icon: 'bi-megaphone-fill',
+    nivel: 'Instância Universitária Geral',
+    desc: 'Representação de Gestão Pública nas plenárias do Diretório Central dos Estudantes na defesa do RU, assistência e segurança no campus.',
+  },
+];
+---
+
+<div class="space-y-6 text-foreground font-body">
+  <div class="bg-white border-[3px] border-border rounded-xl p-5 sm:p-6 shadow-md space-y-4">
+    <div class="border-b-2 border-border pb-3 flex items-center justify-between flex-wrap gap-2">
+      <div>
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center border-3 border-border shadow-sm">
+            <i class="bi bi-diagram-3-fill text-base" aria-hidden="true"></i>
+          </div>
+          <h3 class="font-head text-base sm:text-lg font-extrabold uppercase text-foreground m-0 tracking-tight">
+            As 4 Esferas de Representação Política
+          </h3>
+        </div>
+        <p class="text-xs text-foreground mt-1 m-0 font-medium">Onde os delegados eleitos do CAGP atuam em defesa da comunidade discente:</p>
+      </div>
+      <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-foreground text-background text-white border-3 border-border shadow-sm">
+        Representação Tripartite
+      </span>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+      {esferas.map((e) => (
+        <div class="p-4 bg-white border-3 border-border rounded-xl shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-2 pb-2 border-b border-border">
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-secondary text-white border border-border">
+                {e.nivel}
+              </span>
+              <div class="w-8 h-8 rounded-lg bg-white border-3 border-border flex items-center justify-center text-secondary shrink-0 shadow-xs">
+                <i class={`bi ${e.icon} text-sm`} aria-hidden="true" />
+              </div>
+            </div>
+            <h4 class="font-head font-extrabold uppercase text-xs text-foreground mb-1.5">{e.orgao}</h4>
+            <p class="text-xs text-foreground leading-relaxed font-medium m-0">{e.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>

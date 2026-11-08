@@ -1,79 +1,113 @@
 ---
 // CampaignBanner.astro - Faixa Permanente Neobrutalista da Chapa Semente + Marquee Institucional
 // Cores Oficiais: Laranja #FF8811, Roxo #5B2A86, Verde Petróleo #266264, Rubro CAGP #9E2424
-import { asset } from '../../lib/paths';
+import { asset } from '@/lib/paths';
 ---
 
 <aside
   id="cagp-campaign-banner"
   transition:persist="campaign-banner"
-  class="w-full bg-[#5B2A86] text-white border-b-3 border-border select-none text-xs transition-all duration-200 z-[1050] relative shadow-sm"
+  data-collapsed="false"
+  class="sticky top-0 w-full bg-primary text-white border-b-3 border-border select-none text-xs transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] z-[1050] shadow-sm overflow-hidden"
 >
   <!-- Micro-faixa Tricolor de Identidade (Laranja Germinar + Rubro CAGP + Verde Petróleo) -->
-  <div class="h-[5px] w-full flex border-b-2 border-border" aria-hidden="true">
-    <div class="h-full w-1/3 bg-[#FF8811]"></div>
-    <div class="h-full w-1/3 bg-[#9E2424]"></div>
-    <div class="h-full w-1/3 bg-[#266264]"></div>
+  <div class="h-[4px] w-full flex border-b-2 border-border shrink-0" aria-hidden="true">
+    <div class="h-full w-1/3 bg-accent"></div>
+    <div class="h-full w-1/3 bg-secondary"></div>
+    <div class="h-full w-1/3 bg-teal-700"></div>
   </div>
 
-  <div class="max-w-7xl mx-auto px-3.5 sm:px-6 py-2.5 flex items-center justify-between gap-3">
+  <!-- Modo Smart Scroll Colapsado (24px total height com micro-faixa: h-5 = 20px + 4px = 24px) -->
+  <div
+    id="cagp-banner-compact-strip"
+    class="hidden h-5 max-w-[1440px] 2xl:max-w-[1600px] mx-auto px-3 sm:px-6 items-center justify-between gap-2 bg-primary text-white"
+  >
+    <a
+      href={asset('/chapa-semente')}
+      class="inline-flex items-center gap-1.5 text-[10px] font-mono font-extrabold uppercase tracking-wider text-white no-underline truncate"
+    >
+      <span class="inline-block w-2 h-2 rounded-full bg-accent border border-border animate-pulse shrink-0"></span>
+      <span class="truncate">PROPOSTA MATERIALIZADA SEMENTE • VOTE 25 E 26/11</span>
+    </a>
+
+    <button
+      type="button"
+      id="cagp-banner-restore-btn"
+      class="inline-flex items-center gap-1 px-2 py-0 h-4 bg-accent text-foreground border border-border rounded text-[9px] font-heading font-black uppercase tracking-wider cursor-pointer shrink-0 hover:bg-[#E07406] transition-transform active:scale-95"
+      title="Restaurar faixa completa de compromisso da Chapa Semente"
+    >
+      <span class="hidden sm:inline">Compromisso Semente ▼</span>
+      <span class="sm:hidden">Compromisso ▼</span>
+    </button>
+  </div>
+
+  <!-- Corpo Completo do Banner no Topo (scrollY <= 80px) -->
+  <div
+    id="cagp-banner-full-body"
+    class="max-w-[1440px] 2xl:max-w-[1600px] mx-auto px-3 sm:px-6 py-2 flex items-center justify-between gap-2.5 sm:gap-3 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]"
+  >
     <div class="flex items-center gap-2.5 sm:gap-3.5 flex-1 min-w-0">
       <!-- Logo Oficial da Chapa Semente em Destaque Visual Neobrutalista -->
-      <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl overflow-hidden border-3 border-border shadow-sm shrink-0 bg-white flex items-center justify-center p-1">
+      <a
+        href={asset('/chapa-semente')}
+        class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl overflow-hidden border-3 border-border shadow-xs shrink-0 bg-white flex items-center justify-center p-1 hover:-rotate-3 hover:scale-105 transition-transform"
+        title="Conheça as 14 propostas da Chapa Semente"
+      >
         <img
           src={asset('/logos/semente/simbolo_semente_fiel.svg')}
           alt="Logo Oficial da Chapa Semente"
           class="w-full h-full object-contain"
           loading="eager"
         />
-      </div>
+      </a>
 
       <div class="flex flex-col gap-1 flex-1 min-w-0">
         <div class="flex items-center gap-1.5 flex-wrap">
           <!-- Badge Principal: Chapa Semente com assinatura tipográfica no último E -->
-          <span class="inline-flex items-center font-heading text-[11px] sm:text-xs font-extrabold tracking-wider uppercase bg-white text-[#5B2A86] px-2.5 py-0.5 rounded-full border-2 border-border shadow-xs shrink-0 -rotate-1">
-            CHAPA SEM<span>E</span>NT<span class="text-[#FF8811]">E</span>
+          <span class="inline-flex items-center font-heading text-[11px] sm:text-xs font-extrabold tracking-wider uppercase bg-white text-primary px-2.5 py-0.5 rounded-full border-3 border-border shadow-xs shrink-0 -rotate-1">
+            CHAPA SEM<span>E</span>NT<span class="text-accent">E</span>
+          </span>
+
+          <!-- Selo de Proposta Materializada -->
+          <span class="inline-flex items-center font-mono text-[10px] sm:text-[11px] font-extrabold uppercase bg-accent text-foreground px-2 py-0.5 rounded-lg border-2 border-border shadow-xs shrink-0">
+            ✦ PROPOSTA MATERIALIZADA
           </span>
 
           <!-- Badge Secundário: Verde Petróleo da Chapa -->
-          <span class="hidden sm:inline-flex items-center font-heading text-[11px] font-extrabold uppercase bg-[#266264] text-white px-2.5 py-0.5 rounded-lg border-2 border-border shadow-xs shrink-0">
-            POTENCIAL EM AÇÃO
+          <span class="hidden md:inline-flex items-center font-heading text-[11px] font-extrabold uppercase bg-teal-700 text-white px-2.5 py-0.5 rounded-lg border-2 border-border shadow-xs shrink-0">
+            VOTE 25 E 26/11
           </span>
 
-          <!-- Badge Institucional CAGP -->
-          <span class="hidden lg:inline-flex items-center font-heading text-[11px] font-extrabold uppercase bg-[#9E2424] text-white px-2.5 py-0.5 rounded-lg border-2 border-border shadow-xs shrink-0">
-            FAFICH • UFMG
-          </span>
-
-          <span id="cagp-chapa-semente-anchor" class="hidden md:inline-flex items-center text-[11px] font-mono font-bold text-[#FFD6A5]">
-            • Gestão &amp; Transparência
+          <span id="cagp-chapa-semente-anchor" class="hidden xl:inline-flex items-center text-[11px] font-mono font-bold text-[#FFD6A5]">
+            • Eixo 1 (Proposta 3) Entregue à FAFICH
           </span>
         </div>
 
         <!-- Texto Oficial com Destaque WCAG AAA -->
-        <p id="cagp-banner-text" class="text-[11px] sm:text-xs font-sans text-white/95 leading-relaxed m-0 line-clamp-1 max-w-[76ch] transition-all">
-          Este portal é uma realização da <strong class="text-[#FF8811] font-extrabold">Chapa Semente</strong> para o <strong>CAGP UFMG</strong>. Eleições nos dias <strong>25 e 26/Nov</strong>. Independentemente do resultado eleitoral, <strong>o código e a plataforma serão entregues à comunidade</strong> (Proposta 3 do Eixo 1).
+        <p id="cagp-banner-text" class="text-[11px] sm:text-xs font-sans text-white/95 leading-relaxed m-0 line-clamp-1 max-w-[82ch] transition-all">
+          Este SuperApp já é uma <strong class="text-accent font-extrabold">proposta da Chapa Semente materializada</strong> antes da urna para o <strong>CAGP FAFICH/UFMG</strong>. Conheça nossas <strong>14 propostas</strong> e vote nos dias <strong>25 e 26 de novembro</strong>!
         </p>
       </div>
     </div>
 
-    <!-- Ações Rápidas: Link para Propostas + Alternância de texto -->
-    <div class="flex items-center gap-2 shrink-0">
+    <!-- Ações Rápidas: CTA Laranja Germinar + Alternância de texto / Smart Scroll -->
+    <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
       <a
         href={asset('/chapa-semente')}
-        class="hidden sm:inline-flex items-center gap-1 px-3 py-1.5 min-h-[40px] bg-white hover:bg-[#FFFDF9] text-[#5B2A86] border-2 border-border rounded-xl text-[11px] font-heading font-black uppercase tracking-wider no-underline shadow-xs transition-all active:translate-x-0.5 active:translate-y-0.5"
+        class="inline-flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 min-h-[40px] bg-accent hover:bg-[#E07406] text-foreground border-3 border-border rounded-xl text-[10px] sm:text-[11px] font-heading font-black uppercase tracking-wider no-underline shadow-xs transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
       >
-        <span>Carta-Programa</span>
-        <span class="text-[#FF8811]">→</span>
+        <span class="hidden sm:inline">14 Propostas • Vote 25 e 26/11</span>
+        <span class="sm:hidden">Vote 25-26/11</span>
+        <span aria-hidden="true">→</span>
       </a>
 
       <button
         type="button"
         id="cagp-banner-toggle-btn"
-        class="px-3 py-1.5 min-h-[40px] bg-[#FF8811] hover:bg-[#E07406] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none text-[#16181d] border-2 border-border rounded-xl text-[11px] font-heading font-extrabold uppercase shrink-0 flex items-center justify-center gap-1 transition-all cursor-pointer shadow-xs"
+        class="px-2.5 sm:px-3 py-1.5 min-h-[40px] bg-white hover:bg-card active:translate-x-0.5 active:translate-y-0.5 active:shadow-none text-primary border-3 border-border rounded-xl text-[10px] sm:text-[11px] font-heading font-extrabold uppercase shrink-0 flex items-center justify-center gap-1 transition-all cursor-pointer shadow-xs"
         aria-expanded="false"
         aria-controls="cagp-banner-text"
-        title="Expandir ou recolher compromisso da Chapa Semente"
+        title="Expandir compromisso ou recolher faixa"
       >
         <span id="cagp-banner-toggle-label">Compromisso</span>
         <span id="cagp-banner-toggle-icon" class="text-[10px]" aria-hidden="true">▼</span>
@@ -86,15 +120,49 @@ import { asset } from '../../lib/paths';
   function setupCampaignBanner() {
     const banner = document.getElementById('cagp-campaign-banner');
     const toggleBtn = document.getElementById('cagp-banner-toggle-btn');
+    const restoreBtn = document.getElementById('cagp-banner-restore-btn');
     const bannerText = document.getElementById('cagp-banner-text');
     const toggleIcon = document.getElementById('cagp-banner-toggle-icon');
-    if (!banner || !toggleBtn || !bannerText || !toggleIcon) return;
+    const compactStrip = document.getElementById('cagp-banner-compact-strip');
+    const fullBody = document.getElementById('cagp-banner-full-body');
+    if (!banner || !toggleBtn || !bannerText || !toggleIcon || !compactStrip || !fullBody) return;
 
-    let isExpanded = false;
+    let isTextExpanded = false;
+    let manualMinimized = false;
+    try {
+      manualMinimized = localStorage.getItem('cagp_banner_minimized') === 'true';
+    } catch {
+      manualMinimized = false;
+    }
+
+    const applyCollapsedState = (collapsed: boolean) => {
+      banner.setAttribute('data-collapsed', collapsed ? 'true' : 'false');
+      if (collapsed) {
+        compactStrip.classList.remove('hidden');
+        compactStrip.classList.add('flex');
+        fullBody.classList.add('hidden');
+        fullBody.classList.remove('flex');
+      } else {
+        compactStrip.classList.add('hidden');
+        compactStrip.classList.remove('flex');
+        fullBody.classList.remove('hidden');
+        fullBody.classList.add('flex');
+      }
+    };
+
+    const handleScroll = () => {
+      const y = window.scrollY || document.documentElement.scrollTop || 0;
+      if (y > 80 || manualMinimized) {
+        applyCollapsedState(true);
+      } else if (y <= 40 && !manualMinimized) {
+        applyCollapsedState(false);
+      }
+    };
+
     toggleBtn.onclick = () => {
-      isExpanded = !isExpanded;
-      toggleBtn.setAttribute('aria-expanded', String(isExpanded));
-      if (isExpanded) {
+      isTextExpanded = !isTextExpanded;
+      toggleBtn.setAttribute('aria-expanded', String(isTextExpanded));
+      if (isTextExpanded) {
         bannerText.classList.remove('line-clamp-1');
         toggleIcon.textContent = '▲';
       } else {
@@ -102,6 +170,25 @@ import { asset } from '../../lib/paths';
         toggleIcon.textContent = '▼';
       }
     };
+
+    if (restoreBtn) {
+      restoreBtn.onclick = () => {
+        manualMinimized = false;
+        try {
+          localStorage.removeItem('cagp_banner_minimized');
+        } catch {}
+        applyCollapsedState(false);
+        isTextExpanded = true;
+        bannerText.classList.remove('line-clamp-1');
+        toggleIcon.textContent = '▲';
+      };
+    }
+
+    handleScroll();
+    if (!(window as any).__cagp_banner_scroll_bound) {
+      (window as any).__cagp_banner_scroll_bound = true;
+      window.addEventListener('scroll', handleScroll, { passive: true });
+    }
   }
 
   setupCampaignBanner();

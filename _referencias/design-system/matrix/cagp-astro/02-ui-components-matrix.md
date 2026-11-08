@@ -1,12 +1,12 @@
-# Part 3: Exhaustive 92 UI Primitives Audit & Compliance Matrix (`02-ui-components-matrix.md`)
+# Part 3: Exhaustive 102 UI Primitives Audit & Compliance Matrix (`02-ui-components-matrix.md`)
 
 ## Executive Summary
 
-This document provides a complete 1:1 audit of all **92 UI components** in `src/components/ui/`. Every component is evaluated across the 5-tier taxonomy and scored for compliance against Impeccable, Apple HIG, BoldKit, and Neobrutalism standards.
+This document provides a complete 1:1 audit of all **102 UI components** in `src/components/ui/`. Every component is evaluated across the 5-tier taxonomy and scored for compliance against Impeccable, Apple HIG, BoldKit, and Neobrutalism standards. All intermediary proxies in `src/components/boldkit/ui/` have been expurgated; `src/components/ui/` is the single canonical source of truth.
 
 ---
 
-## 1. Master UI Components Table (92 Components)
+## 1. Master UI Components Table (102 Components)
 
 | Component | Taxonomy | Size | IMP | HIG | BK | NEO |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -33,6 +33,8 @@ This document provides a complete 1:1 audit of all **92 UI components** in `src/
 | [`calendar.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/calendar.tsx) | `UPSTREAM_ADAPTED` | 2.5 KB | 90% | 88% | 95% | 92% |
 | [`card.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/card.tsx) | `UPSTREAM_ADAPTED` | 4.2 KB | 90% | 88% | 95% | 92% |
 | [`carousel.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/carousel.tsx) | `UPSTREAM_ADAPTED` | 8.7 KB | 90% | 88% | 95% | 92% |
+| [`chart-toolbar.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/chart-toolbar.tsx) | `UPSTREAM_ADAPTED` | 3.8 KB | 92% | 90% | 95% | 92% |
+| [`chart.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/chart.tsx) | `UPSTREAM_ADAPTED` | 22.7 KB | 92% | 90% | 95% | 92% |
 | [`checkbox.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/checkbox.tsx) | `UPSTREAM_ADAPTED` | 1.7 KB | 90% | 88% | 95% | 92% |
 | [`collapsible.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/collapsible.tsx) | `UPSTREAM_ADAPTED` | 1.3 KB | 90% | 88% | 95% | 92% |
 | [`combobox.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/combobox.tsx) | `UPSTREAM_ADAPTED` | 5.0 KB | 90% | 88% | 95% | 92% |
@@ -43,12 +45,16 @@ This document provides a complete 1:1 audit of all **92 UI components** in `src/
 | [`date-range-picker.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/date-range-picker.tsx) | `UPSTREAM_ADAPTED` | 8.7 KB | 90% | 88% | 95% | 92% |
 | [`dialog.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/dialog.tsx) | `UPSTREAM_ADAPTED` | 3.9 KB | 90% | 88% | 95% | 92% |
 | [`direction.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/direction.tsx) | `FULL_CUSTOM` | 0.2 KB | 92% | 90% | 90% | 90% |
+| [`donut-chart.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/donut-chart.tsx) | `UPSTREAM_ADAPTED` | 4.8 KB | 92% | 90% | 95% | 92% |
 | [`drawer.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/drawer.tsx) | `UPSTREAM_ADAPTED` | 3.0 KB | 90% | 88% | 95% | 92% |
 | [`dropdown-menu.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/dropdown-menu.tsx) | `UPSTREAM_ADAPTED` | 7.4 KB | 90% | 88% | 95% | 92% |
 | [`dropzone.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/dropzone.tsx) | `UPSTREAM_ADAPTED` | 12.7 KB | 90% | 88% | 95% | 92% |
 | [`empty-state.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/empty-state.tsx) | `UPSTREAM_ADAPTED` | 12.0 KB | 90% | 88% | 95% | 92% |
 | [`empty.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/empty.tsx) | `FULL_CUSTOM` | 2.6 KB | 92% | 90% | 90% | 90% |
 | [`field.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/field.tsx) | `UPSTREAM_ADAPTED` | 1.8 KB | 90% | 88% | 95% | 92% |
+| [`funnel-chart.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/funnel-chart.tsx) | `UPSTREAM_ADAPTED` | 3.5 KB | 92% | 90% | 95% | 92% |
+| [`gauge-chart.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/gauge-chart.tsx) | `UPSTREAM_ADAPTED` | 12.8 KB | 92% | 90% | 95% | 92% |
+| [`heatmap-chart.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/heatmap-chart.tsx) | `UPSTREAM_ADAPTED` | 4.8 KB | 92% | 90% | 95% | 92% |
 | [`hover-card.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/hover-card.tsx) | `UPSTREAM_ADAPTED` | 1.3 KB | 90% | 88% | 95% | 92% |
 | [`input-group.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/input-group.tsx) | `UPSTREAM_ADAPTED` | 1.8 KB | 90% | 88% | 95% | 92% |
 | [`input-otp.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/input-otp.tsx) | `UPSTREAM_ADAPTED` | 2.3 KB | 90% | 88% | 95% | 92% |
@@ -74,9 +80,12 @@ This document provides a complete 1:1 audit of all **92 UI components** in `src/
 | [`popover.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/popover.tsx) | `UPSTREAM_ADAPTED` | 1.4 KB | 90% | 88% | 95% | 92% |
 | [`progress.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/progress.tsx) | `UPSTREAM_ADAPTED` | 1.6 KB | 90% | 88% | 95% | 92% |
 | [`questionnaire.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/questionnaire.tsx) | `UPSTREAM_ADAPTED` | 25.6 KB | 90% | 88% | 95% | 92% |
+| [`radar-chart.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/radar-chart.tsx) | `UPSTREAM_ADAPTED` | 4.2 KB | 92% | 90% | 95% | 92% |
+| [`radial-bar-chart.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/radial-bar-chart.tsx) | `UPSTREAM_ADAPTED` | 4.1 KB | 92% | 90% | 95% | 92% |
 | [`radio-group.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/radio-group.tsx) | `UPSTREAM_ADAPTED` | 1.6 KB | 90% | 88% | 95% | 92% |
 | [`rating.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/rating.tsx) | `UPSTREAM_ADAPTED` | 9.2 KB | 90% | 88% | 95% | 92% |
 | [`resizable.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/resizable.tsx) | `UPSTREAM_ADAPTED` | 1.7 KB | 90% | 88% | 95% | 92% |
+| [`sankey-chart.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/sankey-chart.tsx) | `UPSTREAM_ADAPTED` | 5.3 KB | 92% | 90% | 95% | 92% |
 | [`scroll-area.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/scroll-area.tsx) | `UPSTREAM_ADAPTED` | 1.6 KB | 90% | 88% | 95% | 92% |
 | [`select.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/select.tsx) | `UPSTREAM_ADAPTED` | 5.7 KB | 90% | 88% | 95% | 92% |
 | [`separator.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/separator.tsx) | `UPSTREAM_ADAPTED` | 0.7 KB | 90% | 88% | 95% | 92% |
@@ -102,6 +111,7 @@ This document provides a complete 1:1 audit of all **92 UI components** in `src/
 | [`tooltip.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/tooltip.tsx) | `UPSTREAM_ADAPTED` | 1.3 KB | 90% | 88% | 95% | 92% |
 | [`tour.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/tour.tsx) | `UPSTREAM_ADAPTED` | 15.3 KB | 90% | 88% | 95% | 92% |
 | [`tree-view.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/tree-view.tsx) | `UPSTREAM_ADAPTED` | 12.2 KB | 90% | 88% | 95% | 92% |
+| [`treemap-chart.tsx`](file:///home/gsathler/Nextcloud/Projects/cagp/src/components/ui/treemap-chart.tsx) | `UPSTREAM_ADAPTED` | 4.3 KB | 92% | 90% | 95% | 92% |
 
 ---
 
@@ -1119,3 +1129,41 @@ This document provides a complete 1:1 audit of all **92 UI components** in `src/
   - Verify focus-visible double outline on keyboard navigation.
   - Ensure zero text truncation on 320px mobile viewports.
 
+
+
+---
+
+## 4. The 6 Functional Families & Dual Interaction Specification (Desktop x Mobile)
+
+Grounded in the 95 component documentation `.md` files of `_referencias/design-system/boldkit/components/` and `_referencias/design-system/neobrutalism/components/`, every component is governed by the following Dual Interaction Contract:
+
+### 4.1. The 4-Level Sensory & Haptic Feedback Engine (`navigator.vibrate`)
+1. **Level 1 (Light Tap - 12ms)**: Buttons, tabs, toggles, segmented controls, checkboxes, switches, and radio items. Visual pair: `translate-x-[2px] translate-y-[2px]`.
+2. **Level 2 (Medium Impact - 25ms)**: 500ms long-press on elements with `data-context-type`, opening of `GlobalContextMenu`, opening of `Drawer` or `Sheet`. Visual pair: `scale-[0.98]` micro-compression during press.
+3. **Level 3 (Success Double-Pulse - [15, 40, 15]ms)**: Saving ACG calculation, toggling course status in Vault, exporting backup, copying link. Visual pair: brutalist `pop` animation and green check toast.
+4. **Level 4 (Critical Alert - [30, 50, 30]ms)**: 120-day legal deadline alert, vault wipe, destructive deletion, form validation error. Visual pair: `shake` animation and high-contrast red ink stroke.
+
+### 4.2. Mobile Gesture Contract
+- **Swipe-Down to Dismiss**: Applied on `sheet.tsx` and `drawer.tsx` (< 768px viewports). Vertical drag follows pointer and dismisses container past 30% viewport height threshold.
+- **Inertial Horizontal Swipe**: Applied on `carousel.tsx` and scrollable `tabs.tsx` with `scroll-snap-type: x mandatory` and touch momentum.
+- **Browser Callout Suppression**: Interactive cards with `data-context-type` enforce `-webkit-touch-callout: none; user-select: none; touch-action: pan-x pan-y;` to enable seamless 500ms long-press gestures.
+
+### 4.3. Desktop & Accessibility Strict Contract (Radix UI / WCAG AAA)
+- **High-Contrast Focus Ring**: All interactive controls carry `focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring` with contrast ratio >= 7:1.
+- **Arrow Key Navigation**: Fully enabled in `tabs`, `menubar`, `dropdown-menu`, `context-menu`, `combobox`, `radio-group`, and `slider`.
+- **Universal Escape Dismissal**: Pressing `Escape` closes the topmost active layer (`dialog`, `sheet`, `popover`, `dropdown-menu`, `context-menu`, `command`).
+- **Semantic Slot Polymorphism (`asChild`)**: Full support across buttons, badges, and triggers for clean DOM nesting without duplicate anchor wrappers.
+- **Global Keyboard Shortcuts (`kbd`)**:
+  - `Cmd+K` or `/`: Open Spotlight Search Modal.
+  - `g h`: Navigate to Home & Campus.
+  - `g a`: Navigate to ACG 600h Calculator.
+  - `g p`: Navigate to Academic Pathway Simulator.
+  - `?`: Open Global Shortcuts Sheet.
+
+### 4.4. Decomposed Component Families Overview
+- **Family 1: Shell & Cross-Cutting Universals (15 Components)**: `context-menu`, `command`, `kbd`, `sidebar`, `sheet`, `dialog`, `alert-dialog`, `toast`, `sonner`, `tooltip`, `hover-card`, `menubar`, `navigation-menu`, `motion`, `tour`.
+- **Family 2: Forms, Inputs & Data Capture (23 Components)**: `input`, `input-group`, `input-otp`, `textarea`, `number-field`, `native-select`, `select`, `combobox`, `checkbox`, `radio-group`, `switch`, `slider`, `rating`, `tag-input`, `time-picker`, `date-picker`, `date-range-picker`, `dropzone`, `attachment`, `field`, `form`, `label`, `multi-step-form`.
+- **Family 3: Feedback, Status & Progress (10 Components)**: `progress`, `spinner`, `skeleton`, `alert`, `badge`, `empty`, `emptystate`, `math-curve-loader`, `math-curve-progress`, `marker`.
+- **Family 4: Presentation, Media & Content (17 Components)**: `card`, `layered-card`, `statcard`, `image-card`, `sticker`, `marquee`, `bubble`, `message`, `message-scroller`, `timeline`, `stepper`, `avatar`, `separator`, `aspect-ratio`, `math-curve-background`, `ascii-shapes`, `visitors`.
+- **Family 5: Navigation, Structure & Layout (16 Components)**: `tabs`, `accordion`, `collapsible`, `pagination`, `resizable`, `scroll-area`, `tree-view`, `carousel`, `direction`, `item`, `button`, `button-group`, `toggle`, `toggle-group`, `breadcrumb`, `error-boundary`.
+- **Family 6: Data & Analytics / Charts (14 Components)**: `table`, `data-table`, `chart`, `donutchart`, `gaugechart`, `radarchart`, `radialbarchart`, `sparkline`, `funnel-chart`, `heatmap-chart`, `sankey-chart`, `treemap-chart`, `chart-toolbar`, `questionnaire`.

@@ -1,7 +1,7 @@
 ---
 // FactCheckBanner.astro - Tarja Editorial Neobrutalista de Homologação e Checagem de Fatos
 import CagpIcon from './CagpIcon.astro';
-import type { CagpIconName } from '../../lib/cagpIcons';
+import type { CagpIconName } from '@/lib/cagpIcons';
 
 interface Props {
   claim: string;
@@ -31,16 +31,16 @@ const verdictConfig: Record<string, {
   homologado: {
     badge: 'VERIFICADO • NORMA REGIMENTAL',
     stamp: stampText || 'HOMOLOGADO',
-    stampClass: 'text-[#15803D] bg-[#DCFCE7]',
+    stampClass: 'text-success bg-success/20',
     iconName: 'check',
-    iconColor: 'text-[#15803D]',
+    iconColor: 'text-success',
   },
   obrigatorio: {
     badge: 'TRAVA OFICIAL • PPC 2020',
     stamp: stampText || 'OBRIGATÓRIO',
-    stampClass: 'text-[#9E2424] bg-[#FEE2E2]',
+    stampClass: 'text-secondary bg-[#FEE2E2]',
     iconName: 'shield',
-    iconColor: 'text-[#9E2424]',
+    iconColor: 'text-secondary',
   },
   atencao: {
     badge: 'PRAZO PEREMPTÓRIO • ATENÇÃO',
@@ -65,7 +65,7 @@ const current = verdictConfig[verdict];
   <!-- Top Editorial Bar -->
   <div class="flex flex-wrap items-center justify-between gap-3 border-b-3 border-border pb-3 mb-4">
     <div class="flex items-center gap-2.5">
-      <div class={`p-2 rounded-xl bg-white border-2 border-border shadow-xs ${current.iconColor} shrink-0`}>
+      <div class={`p-2 rounded-xl bg-white border-3 border-border shadow-xs ${current.iconColor} shrink-0`}>
         <CagpIcon name={current.iconName} class="w-5 h-5" />
       </div>
       <div>
@@ -79,7 +79,7 @@ const current = verdictConfig[verdict];
     </div>
 
     <!-- Authentic Rubber Stamp com Animação BoldKit -->
-    <div class={`border-2 border-border rounded-lg ${current.stampClass} font-heading font-extrabold text-xs px-3 py-1 uppercase tracking-wider shadow-xs -rotate-1 animate-[bk-stamp-in_0.35s_cubic-bezier(0.22,1,0.3,1.12)_both]`}>
+    <div class={`border-3 border-border rounded-lg ${current.stampClass} font-heading font-extrabold text-xs px-3 py-1 uppercase tracking-wider shadow-xs -rotate-1 animate-[bk-stamp-in_0.35s_cubic-bezier(0.22,1,0.3,1.12)_both]`}>
       {current.stamp}
     </div>
   </div>
@@ -95,8 +95,8 @@ const current = verdictConfig[verdict];
   </div>
 
   <!-- Editorial Explanation -->
-  <div class="bg-white border-2 border-border rounded-xl p-4 text-xs sm:text-sm text-foreground leading-relaxed mb-3 shadow-xs">
-    <span class="font-extrabold text-[#9E2424] block mb-1 font-heading uppercase text-xs">
+  <div class="bg-white border-3 border-border rounded-xl p-4 text-xs sm:text-sm text-foreground leading-relaxed mb-3 shadow-xs">
+    <span class="font-extrabold text-secondary block mb-1 font-heading uppercase text-xs">
       Checagem do Colegiado &amp; CAGP:
     </span>
     {explanation}
@@ -104,15 +104,15 @@ const current = verdictConfig[verdict];
 
   <!-- Optional Official Excerpt Drawer -->
   {officialRuleExcerpt && (
-    <details class="cagp-normative-details group bg-white border-2 border-border rounded-xl text-xs overflow-hidden shadow-xs">
+    <details class="cagp-normative-details group bg-white border-3 border-border rounded-xl text-xs overflow-hidden shadow-xs">
       <summary class="px-3.5 py-2.5 min-h-[44px] cursor-pointer font-heading font-extrabold uppercase text-foreground bg-white hover:bg-muted flex items-center justify-between select-none transition-colors border-b group-open:border-border">
         <span class="flex items-center gap-2">
           <CagpIcon name="file-text" class="w-4 h-4 text-muted-foreground" />
           <span>Ver texto legal literal da UFMG</span>
         </span>
-        <CagpIcon name="chevron-right" class="w-3.5 h-3.5 text-[#0A0A0A] transition-transform duration-200 group-open:rotate-90" />
+        <CagpIcon name="chevron-right" class="w-3.5 h-3.5 text-foreground transition-transform duration-200 group-open:rotate-90" />
       </summary>
-      <div class="px-4 py-3 font-mono text-xs text-[#0A0A0A] bg-white whitespace-pre-line leading-relaxed">
+      <div class="px-4 py-3 font-mono text-xs text-foreground bg-white whitespace-pre-line leading-relaxed">
         {officialRuleExcerpt}
       </div>
     </details>

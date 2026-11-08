@@ -5,7 +5,7 @@
  * Framework-agnostic. Works with React, Vue, Svelte, Solid,
  * Astro, plain HTML — anywhere CSS works.
  *
- * Honors prefers-reduced-motion automatically.
+ * Unconditional expressive motion (60fps active).
  *
  * Install via shadcn CLI:
  *   npx shadcn@latest add "https://boldkit.dev/r/motion.json"
@@ -153,20 +153,8 @@
 }
 
 /* ──────────────────────────────────────────────────────
-   A11y — Universal reduced-motion guard
+   Unconditional Expressive Motion (60fps Active)
    ────────────────────────────────────────────────────── */
-
-@media (prefers-reduced-motion: reduce) {
-  [class*="bk-press"],
-  [class*="bk-stamp-in"],
-  [class*="bk-shake"],
-  [class*="bk-reveal"],
-  [class*="bk-slide-hard"],
-  [class*="bk-pulse-shadow"] {
-    animation: none !important;
-    transition-duration: 0.01ms !important;
-  }
-}
 
 /* ══════════════════════════════════════════════════════
    BoldKit Motion System v3.5 — Part 2
@@ -357,36 +345,8 @@ html[data-bk-transition='stamp']::view-transition-new(root) {
 }
 
 /* ──────────────────────────────────────────────────────
-   v3.5 — A11y guard
+   v3.5 — Unconditional Expressive Motion
    ────────────────────────────────────────────────────── */
-
-@media (prefers-reduced-motion: reduce) {
-  [class*='shape-animate-spin-step'],
-  [class*='shape-animate-pulse-hard'],
-  [class*='shape-animate-marquee-stamp'],
-  [class*='bk-skeleton-'],
-  [class*='bk-skeleton-']::after,
-  [class*='bk-progress-'] {
-    animation: none !important;
-    transition-duration: 0.01ms !important;
-  }
-  /* Keep an indeterminate bar legible when its motion is removed. */
-  .bk-progress-marquee {
-    width: 100% !important;
-    opacity: 0.6;
-  }
-  html[data-bk-transition]::view-transition-old(root),
-  html[data-bk-transition]::view-transition-new(root) {
-    animation: none !important;
-  }
-  ::view-transition-old(.bk-hard-wipe),
-  ::view-transition-new(.bk-hard-wipe),
-  ::view-transition-old(.bk-color-block),
-  ::view-transition-new(.bk-color-block),
-  ::view-transition-new(.bk-stamp) {
-    animation: none !important;
-  }
-}
 
 /* ──────────────────────────────────────────────────────
    v3.6 — Chat kit (MessageScroller fade, Marker shimmer).
@@ -449,9 +409,6 @@ html[data-bk-transition='stamp']::view-transition-new(root) {
   to   { background-position: 0% 0; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .bk-shimmer { animation: none; background: none; -webkit-text-fill-color: currentColor; }
-}
 @media (forced-colors: active) {
   .bk-shimmer { background: none; -webkit-text-fill-color: currentColor; }
 }
@@ -497,11 +454,6 @@ html[data-bk-transition='stamp']::view-transition-new(root) {
   50% { opacity: 0; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .bk-typing > span { animation: none; opacity: 0.7; }
-  .bk-stream-caret:not(:has(> *))::after,
-  .bk-stream-caret > :last-child::after { animation: none; }
-}
 @media (forced-colors: active) {
   .bk-typing > span,
   .bk-stream-caret:not(:has(> *))::after,

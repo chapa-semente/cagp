@@ -1,38 +1,45 @@
 ---
-// estagio-tcc.astro - Redirecionamento canônico para Estágio Supervisionado (/estagio)
+// src/pages/estagio-tcc.astro — Hub Integrador Estágio & TCC (Painel Visual Unificado para a Persona Formando)
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { route } from '../lib/paths';
+import PageHeader from '../components/ui/PageHeader.astro';
+import JourneyNav from '../components/ui/JourneyNav.astro';
+import { FormandoRetaFinalHub } from '../components/features/carreira/FormandoRetaFinalHub';
 
-const targetUrl = route('/estagio');
+const badges = [
+  { label: 'Persona Formando (8º–10ºP)', variant: 'purple' as const, icon: 'bi-mortarboard-fill' },
+  { label: 'Aproveitamento Servidor (Art. 41)', variant: 'green' as const, icon: 'bi-file-earmark-check-fill' },
+  { label: 'Estágio 300h + TCC 180h', variant: 'red' as const, icon: 'bi-briefcase-fill' },
+  { label: 'Progresso no Cofre Local', variant: 'gold' as const, icon: 'bi-shield-check' },
+];
 ---
 
 <BaseLayout
-  title="Redirecionando para Estágio Supervisionado..."
-  description="A página legada de Estágio e TCC foi reorganizada. Redirecionando para o portal especializado de Estágio Supervisionado."
+  title="Hub Integrador Estágio & TCC (Checklist Reta Final)"
+  description="Painel visual unificado para a persona Formando em Gestão Pública na UFMG: checklist animado de colação de grau, Estágio 300h, Aproveitamento Servidor (Art. 41) e TCC (180h)."
+  mode="operate"
 >
-  <div class="py-16 text-center space-y-4 max-w-lg mx-auto">
-    <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-[#15803D] text-white border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A] text-2xl">
-      <i class="bi bi-briefcase-fill" aria-hidden="true"></i>
-    </div>
-    <h1 class="font-head text-2xl uppercase font-black text-[#0A0A0A] m-0 tracking-wide">
-      Estágio e TCC Especializados
-    </h1>
-    <p class="font-body text-sm text-gray-700 leading-relaxed font-medium">
-      Para maior clareza pedagógica e conformidade regimental, o conteúdo foi desmembrado em portais autônomos para <strong>Estágio (300h)</strong> e <strong>TCC (180h)</strong>.
-    </p>
-    <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
-      <a href={route('/estagio')} class="cagp-btn-primary inline-flex items-center gap-2 text-xs uppercase font-head font-bold tracking-wider px-4 py-2 min-h-[44px]">
-        <span>Ir para Estágio (300h)</span>
-        <i class="bi bi-arrow-right" aria-hidden="true"></i>
-      </a>
-      <a href={route('/tcc')} class="cagp-btn-secondary inline-flex items-center gap-2 text-xs uppercase font-head font-bold tracking-wider px-4 py-2 min-h-[44px]">
-        <span>Ir para TCC (180h)</span>
-        <i class="bi bi-arrow-right" aria-hidden="true"></i>
-      </a>
-    </div>
-  </div>
+  <PageHeader
+    axisId="carreira"
+    mode="operate"
+    condensed={true}
+    eyebrow="Eixo 4 · Hub Integrador Reta Final"
+    title="Hub Integrador Estágio & TCC"
+    subtitle="Painel unificado para a persona Formando: acompanhe os 10 marcos obrigatórios de Estágio (300h / Art. 41), TCC (180h) e Colação de Grau salvos no seu navegador."
+    badges={badges}
+  />
 
-  <script is:inline define:vars={{ targetUrl }}>
-    window.location.replace(targetUrl);
-  </script>
+  <FormandoRetaFinalHub client:load />
+
+  <JourneyNav
+    prev={{
+      title: 'Trabalho de Conclusão de Curso (180h)',
+      href: '/tcc',
+      desc: 'Compare Monografia vs Artigo Científico (Art. 19) e veja a linha do tempo de defesa.',
+    }}
+    next={{
+      title: 'Carreira, Vagas & Banco de Talentos GP',
+      href: '/carreira',
+      desc: 'Conecte-se às Propostas 9, 11 e 12 da Chapa Semente, editais de estágio e Banco de Talentos.',
+    }}
+  />
 </BaseLayout>

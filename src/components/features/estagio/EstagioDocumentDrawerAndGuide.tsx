@@ -43,21 +43,21 @@ const MODELOS_ESTAGIO = [
   },
   {
     titulo: '5. Relatório Final de Estágio Supervisionado',
-    desc: 'Avaliação conclusiva para integralização de DCP 135 (150h) ou DCP 136 (150h).',
+    desc: 'Avaliação conclusiva para integralização de DCP 135 (180h) ou DCP 136 (120h).',
     pdf: '/documentos/estagio-modelo-relatorio-final.pdf',
     docx: '/documentos/estagio-modelo-relatorio-final.docx',
     drive: 'https://docs.google.com/document/d/1fB4afw-U3ODnZrkOjk9R5q3-a8qYNtVV/edit',
   },
   {
-    titulo: '6. Requerimento de Integralização por Experiência Profissional',
-    desc: 'Exclusivo para servidores públicos efetivos ou empregados públicos em função correlata.',
+    titulo: '6. Requerimento de Aproveitamento Servidor (Art. 41)',
+    desc: 'Exclusivo para servidores públicos efetivos, comissionados, empregados públicos ou OSC em função correlata.',
     pdf: '/documentos/estagio-requerimento-integralizacao-experiencia-profissional.pdf',
     docx: '/documentos/estagio-requerimento-integralizacao-experiencia-profissional.docx',
     drive: 'https://docs.google.com/document/d/1QJJ8wLISxpztQFH--V2aYm8-509D6_418o14zSfxbe4/edit',
   },
   {
-    titulo: '7. Relatório de Atividades — Experiência Profissional',
-    desc: 'Entregue ao final do semestre no Moodle pelos servidores públicos dispensados.',
+    titulo: '7. Relatório de Atividades — Aproveitamento Servidor (Art. 41)',
+    desc: 'Entregue ao final do semestre no Moodle pelos servidores públicos dispensados pelo Art. 41.',
     pdf: '/documentos/estagio-relatorio-atividades-experiencia-profissional.pdf',
     docx: '/documentos/estagio-relatorio-atividades-experiencia-profissional.docx',
     drive: 'https://docs.google.com/document/d/1Uc3oHwEBM9zbf9tJ2q5N80YPQme3niFh/edit',
@@ -66,9 +66,9 @@ const MODELOS_ESTAGIO = [
 
 export const EstagioDocumentDrawerAndGuide: React.FC = () => {
   return (
-    <section className="space-y-6 my-6" aria-label="Central de Minutas, Modelos e Dispensa de Estágio">
-      <Card className="bg-white">
-        <CardHeader className="border-b-3 border-[#16181d] bg-[#FFFDF9]">
+    <section className="space-y-6 my-6" aria-label="Central de Minutas, Modelos e Aproveitamento Servidor">
+      <Card className="bg-white border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]">
+        <CardHeader className="border-b-3 border-[#16181d] bg-card">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <div className="flex flex-wrap items-center gap-2 mb-1.5">
@@ -76,61 +76,61 @@ export const EstagioDocumentDrawerAndGuide: React.FC = () => {
                 <Badge variant="secondary">300 HORAS OBRIGATÓRIAS (DCP 135 + DCP 136)</Badge>
               </div>
               <CardTitle className="text-xl uppercase">
-                Modelos Oficiais, Formulários Google &amp; Dispensa para Servidores
+                Modelos Oficiais, Formulários Google &amp; Aproveitamento Servidor
               </CardTitle>
-              <CardDescription className="text-xs font-medium text-[#57534E]">
+              <CardDescription className="text-xs font-medium text-muted-foreground">
                 Acesse todas as minutas editáveis (.DOCX, .PDF e Google Drive) e os formulários eletrônicos de protocolo do Colegiado.
               </CardDescription>
             </div>
 
             <Drawer>
               <DrawerTrigger asChild>
-                <Button variant="accent" size="sm">
+                <Button variant="accent" size="default" className="min-h-[44px]">
                   Abrir Gaveta de Minutas (.DOCX / .PDF)
                 </Button>
               </DrawerTrigger>
-              <DrawerContent className="max-h-[85dvh] bg-white">
-                <DrawerHeader className="border-b-3 border-[#16181d] bg-[#FFFDF9]">
-                  <DrawerTitle className="font-heading text-lg font-black uppercase text-[#16181d]">
+              <DrawerContent className="max-h-[85dvh] bg-white border-t-3 border-[#16181d]">
+                <DrawerHeader className="border-b-3 border-[#16181d] bg-card">
+                  <DrawerTitle className="font-heading text-lg font-black uppercase text-foreground">
                     7 Modelos Oficiais de Estágio — Colegiado GP FAFICH
                   </DrawerTitle>
-                  <DrawerDescription className="text-xs text-[#57534E]">
+                  <DrawerDescription className="text-xs text-muted-foreground">
                     Baixe em Word (.docx), PDF ou abra diretamente no Google Docs oficial do curso.
                   </DrawerDescription>
                 </DrawerHeader>
-                <div className="p-4 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[68dvh]">
+                <div className="p-4 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-3.5 max-h-[68dvh]">
                   {MODELOS_ESTAGIO.map((m) => (
                     <div
                       key={m.titulo}
-                      className="p-3.5 rounded-xl border-3 border-[#16181d] bg-white shadow-[3px_3px_0px_#16181d] flex flex-col justify-between gap-3"
+                      className="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0_0_#16181d] flex flex-col justify-between gap-3"
                     >
                       <div>
-                        <h4 className="font-heading text-xs font-black uppercase text-[#16181d]">
+                        <h4 className="font-heading text-xs font-black uppercase text-foreground">
                           {m.titulo}
                         </h4>
-                        <p className="text-[11px] text-[#57534E] mt-1">{m.desc}</p>
+                        <p className="text-[11px] text-muted-foreground mt-1">{m.desc}</p>
                       </div>
                       <div className="flex flex-wrap gap-2">
                         <a
                           href={asset(m.pdf)}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-2.5 py-1 rounded-lg border-2 border-[#16181d] bg-[#9E2424] text-white text-[10px] font-mono font-bold no-underline shadow-[2px_2px_0px_#16181d]"
+                          className="min-h-[44px] px-3 py-2 rounded-lg border-2 border-[#16181d] bg-secondary text-white text-xs font-mono font-bold no-underline inline-flex items-center justify-center shadow-[2px_2px_0_0_#16181d] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all"
                         >
-                          PDF Local
+                          Termo (PDF)
                         </a>
                         <a
                           href={asset(m.docx)}
                           download
-                          className="px-2.5 py-1 rounded-lg border-2 border-[#16181d] bg-white text-[#16181d] text-[10px] font-mono font-bold no-underline shadow-[2px_2px_0px_#16181d]"
+                          className="min-h-[44px] px-3 py-2 rounded-lg border-2 border-[#16181d] bg-white text-foreground text-xs font-mono font-bold no-underline inline-flex items-center justify-center shadow-[2px_2px_0_0_#16181d] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all"
                         >
-                          Word (.DOCX)
+                          Modelo (.DOCX)
                         </a>
                         <a
                           href={m.drive}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-2.5 py-1 rounded-lg border-2 border-[#16181d] bg-[#5B2A86] text-white text-[10px] font-mono font-bold no-underline shadow-[2px_2px_0px_#16181d]"
+                          className="min-h-[44px] px-3 py-2 rounded-lg border-2 border-[#16181d] bg-primary text-white text-xs font-mono font-bold no-underline inline-flex items-center justify-center shadow-[2px_2px_0_0_#16181d] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all"
                         >
                           Google Docs ↗
                         </a>
@@ -146,19 +146,19 @@ export const EstagioDocumentDrawerAndGuide: React.FC = () => {
         <CardContent className="pt-6 space-y-5">
           {/* 3 Modalidades */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[3px_3px_0px_#16181d] space-y-2">
+            <div className="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0_0_#16181d] space-y-2">
               <Badge variant="default">OBRIGATÓRIO • 7º E 8º PERÍODOS</Badge>
-              <h4 className="font-heading text-sm font-black uppercase text-[#16181d]">
-                DCP 135 (150h) + DCP 136 (150h)
+              <h4 className="font-heading text-sm font-black uppercase text-foreground">
+                DCP 135 (180h) + DCP 136 (120h)
               </h4>
               <p className="text-xs text-[#3F3C38] leading-relaxed">
                 Total de <strong>300 horas</strong> dedicadas à prática profissional em órgãos governamentais, autarquias, fundações, terceiro setor ou estatais. Exige matrícula no SIGA e homologação prévia do Termo e Plano.
               </p>
             </div>
 
-            <div className="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[3px_3px_0px_#16181d] space-y-2">
-              <Badge variant="secondary">NÃO-OBRIGATÓRIO • A PARTIR DO 3º P</Badge>
-              <h4 className="font-heading text-sm font-black uppercase text-[#16181d]">
+            <div className="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0_0_#16181d] space-y-2">
+              <Badge variant="secondary">NÃO-OBRIGATÓRIO • 1º AO 10º P</Badge>
+              <h4 className="font-heading text-sm font-black uppercase text-foreground">
                 Até 30h Semanais (6h Diárias)
               </h4>
               <p className="text-xs text-[#3F3C38] leading-relaxed">
@@ -166,21 +166,23 @@ export const EstagioDocumentDrawerAndGuide: React.FC = () => {
               </p>
             </div>
 
-            <div className="p-4 rounded-xl border-3 border-[#16181d] bg-[#FFFDF9] border-l-8 border-l-[#266264] shadow-[3px_3px_0px_#16181d] space-y-2">
-              <Badge variant="teal">SERVIDORES E EMPREGADOS PÚBLICOS</Badge>
-              <h4 className="font-heading text-sm font-black uppercase text-[#16181d]">
-                Integralização por Experiência (Art. 41)
+            <div className="p-4 rounded-xl border-3 border-[#16181d] bg-[#F0FDF4] shadow-[4px_4px_0_0_#16181d] space-y-2">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-md border-2 border-[#16181d] bg-[#134E4A] text-white font-mono text-[10px] font-bold uppercase">
+                TRILHA ESPECIAL • ART. 41
+              </span>
+              <h4 className="font-heading text-sm font-black uppercase text-foreground">
+                Aproveitamento Servidor (Art. 41)
               </h4>
               <p className="text-xs text-[#3F3C38] leading-relaxed">
-                Servidores efetivos ou empregados públicos em funções correlatas à Gestão Pública podem solicitar dispensa no início do semestre via Google Forms e entregar o Relatório de Experiência no Moodle ao final.
+                Servidores efetivos, comissionados ou empregados públicos em funções correlatas à Gestão Pública podem solicitar dispensa no início do semestre via Google Forms e entregar o Relatório no Moodle ao final.
               </p>
             </div>
           </div>
 
           {/* Links Diretos para os 2 Formulários Google Forms Oficiais */}
-          <div className="p-4 rounded-xl border-3 border-[#16181d] bg-[#16181d] text-white flex flex-wrap items-center justify-between gap-4">
+          <div className="p-4 rounded-xl border-3 border-[#16181d] bg-foreground text-white shadow-[4px_4px_0_0_#16181d] flex flex-wrap items-center justify-between gap-4">
             <div>
-              <span className="font-mono text-[10px] font-bold uppercase text-[#FF8811] block">
+              <span className="font-mono text-[10px] font-bold uppercase text-accent block">
                 PROTOCOLO ELETRÔNICO OFICIAL (NÃO ENVIAR PEDIDOS SOLTOS POR E-MAIL)
               </span>
               <h4 className="font-heading text-sm font-black uppercase">
@@ -188,7 +190,7 @@ export const EstagioDocumentDrawerAndGuide: React.FC = () => {
               </h4>
             </div>
             <div className="flex flex-wrap gap-2.5">
-              <Button asChild variant="accent" size="sm">
+              <Button asChild variant="accent" size="sm" className="min-h-[44px]">
                 <a
                   href="https://docs.google.com/forms/d/e/1FAIpQLScnRdWYJDa4yERPesbL4IZ-Atk2uPBE4ihR2ht9ho0mIeumMQ/viewform"
                   target="_blank"
@@ -197,13 +199,13 @@ export const EstagioDocumentDrawerAndGuide: React.FC = () => {
                   Solicitação Inicial de Estágio ↗
                 </a>
               </Button>
-              <Button asChild variant="secondary" size="sm">
+              <Button asChild variant="secondary" size="sm" className="min-h-[44px]">
                 <a
                   href="https://docs.google.com/forms/d/e/1FAIpQLSdIGMGFzJMsnyLTvkDTDVPQddU37S_OO1ABuQbMv5F3wElKLA/viewform"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Envio Experiência Profissional ↗
+                  Protocolar Aproveitamento Servidor ↗
                 </a>
               </Button>
             </div>

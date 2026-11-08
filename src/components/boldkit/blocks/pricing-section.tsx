@@ -1,44 +1,151 @@
-import * as React from 'react';
-import { cn } from '@/lib/utils';
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Check } from 'lucide-react';
+ 
+import { Check } from 'lucide-react'
+import { cn, safeHref } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
 
-export interface PricingPlan {
-  title: string;
-  price: string;
-  description: string;
-  features: string[];
-  highlight?: boolean;
+export interface PricingTier {
+  name: string
+  price: string
+  period?: string
+  description?: string
+  features: string[]
+  cta?: string
+  /** Navigate on click. Takes precedence over `onCtaClick`. */
+  ctaHref?: string
+  /** Called when the tier's CTA is clicked and no `ctaHref` is set. */
+  onCtaClick?: () => void
+  featured?: boolean
 }
 
-export function PricingSection({ plans, className }: { plans: PricingPlan[]; className?: string }) {
+export interface PricingSectionProps {
+  title?: string
+  subtitle?: string
+  tiers: PricingTier[]
+  className?: string
+}
+
+// ============================================================================
+// PRICING VARIANT 1: Tiers
+// ============================================================================
+export function PricingSection({
+  title = 'Pricing',
+  subtitle,
+  tiers,
+  className,
+}: PricingSectionProps) {
   return (
-    <section className={cn("py-12 px-4 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6", className)}>
-      {plans.map((p, idx) => (
-        <Card key={idx} className={cn("border-4 border-black p-6 flex flex-col justify-between", p.highlight ? "bg-cagp-cream shadow-xl border-cagp-burgundy" : "bg-white shadow-md")}>
-          <div>
-            <CardHeader className="p-0 mb-4">
-              <CardTitle className="text-2xl font-black font-mono">{p.title}</CardTitle>
-              <div className="text-3xl font-black font-mono mt-2">{p.price}</div>
-              <p className="text-xs text-neutral-600 font-medium mt-1">{p.description}</p>
-            </CardHeader>
-            <CardContent className="p-0 space-y-2 mb-6">
-              {p.features.map((f, i) => (
-                <div key={i} className="flex items-center gap-2 text-sm font-medium">
-                  <Check className="w-4 h-4 text-cagp-burgundy shrink-0" />
-                  <span>{f}</span>
-                </div>
-              ))}
-            </CardContent>
-          </div>
-          <CardFooter className="p-0">
-            <Button className={cn("w-full font-bold border-2 border-black", p.highlight ? "bg-cagp-burgundy text-white" : "bg-neutral-100 text-black")}>
-              Selecionar
-            </Button>
-          </CardFooter>
-        </Card>
-      ))}
+    <section className={cn('py-16 px-4 md:px-8 lg:px-16', className)}>
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-12 space-y-3">
+          <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight">{title}</h2>
+          {subtitle && <p className="text-muted-foreground max-w-xl mx-auto">{subtitle}</p>}
+        </div>
+        <div className="grid gap-6 md:grid-cols-3">
+          {tiers.map((tier) => (
+            <div
+              key={tier.name}
+              className={cn(
+                'flex flex-col border-3 border-foreground bg-card p-6',
+                tier.featured
+                  ? 'shadow-xl md:-translate-y-2'
+                  : 'shadow-md'
+              )}
+            >
+              <div className="flex items-center justify-between">
+                <h3 className="text-xl font-black uppercase tracking-wide">{tier.name}</h3>
+                {tier.featured && <Badge variant="accent">Popular</Badge>}
+              </div>
+              {tier.description && (
+                <p className="mt-2 text-sm text-muted-foreground">{tier.description}</p>
+              )}
+              <div className="mt-4 flex items-baseline gap-1">
+                <span className="text-4xl font-black">{tier.price}</span>
+                {tier.period && (
+                  <span className="text-sm font-bold text-muted-foreground">/{tier.period}</span>
+                )}
+              </div>
+              <ul className="mt-6 space-y-3 flex-1">
+                {tier.features.map((feature) => (
+                  <li key={feature} className="flex items-start gap-2 text-sm font-medium">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center border-2 border-foreground bg-success">
+                      <Check className="h-3 w-3 text-success-foreground" />
+                    </span>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              {tier.ctaHref ? (
+                <Button
+                  className="mt-6 w-full"
+                  variant={tier.featured ? 'default' : 'outline'}
+                  asChild
+                >
+                  <a href={safeHref(tier.ctaHref)}>{tier.cta ?? 'Get started'}</a>
+                </Button>
+              ) : (
+                <Button
+                  className="mt-6 w-full"
+                  variant={tier.featured ? 'default' : 'outline'}
+                  onClick={tier.onCtaClick}
+                >
+                  {tier.cta ?? 'Get started'}
+                </Button>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
     </section>
-  );
+  )
+}
+
+// ============================================================================
+// PRICING VARIANT 2: WithCheckout — tiers + an order-summary panel
+// ============================================================================
+export interface CheckoutSummaryProps {
+  planName: string
+  lineItems: { label: string; amount: string }[]
+  total: string
+  /** Label for the checkout button. Defaults to "Checkout". */
+  checkoutLabel?: string
+  /** Called when the checkout button is clicked. */
+  onCheckout?: () => void
+  className?: string
+}
+
+export function CheckoutSummary({
+  planName,
+  lineItems,
+  total,
+  checkoutLabel = 'Checkout',
+  onCheckout,
+  className,
+}: CheckoutSummaryProps) {
+  return (
+    <div
+      className={cn(
+        'border-3 border-foreground bg-card p-6 shadow-md',
+        className
+      )}
+    >
+      <h3 className="text-lg font-black uppercase tracking-wide">Order summary</h3>
+      <p className="mt-1 text-sm font-bold text-muted-foreground">{planName}</p>
+      <div className="mt-4 space-y-2 border-t-2 border-foreground pt-4">
+        {lineItems.map((item) => (
+          <div key={item.label} className="flex justify-between text-sm font-medium">
+            <span>{item.label}</span>
+            <span className="font-bold">{item.amount}</span>
+          </div>
+        ))}
+      </div>
+      <div className="mt-4 flex justify-between border-t-3 border-foreground pt-4 text-lg font-black uppercase">
+        <span>Total</span>
+        <span>{total}</span>
+      </div>
+      <Button className="mt-6 w-full" onClick={onCheckout}>
+        {checkoutLabel}
+      </Button>
+    </div>
+  )
 }

@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const stickerVariants = cva(
-  "relative inline-flex items-center justify-center gap-1.5 rounded-xl border-3 border-border font-heading font-extrabold uppercase tracking-wide transition-all duration-150 select-none",
+  "relative inline-flex items-center justify-center gap-1.5 rounded-xl border-3 border-[#16181d] font-heading font-extrabold uppercase tracking-wide transition-all duration-150 select-none hover:scale-105 hover:-rotate-2",
   {
     variants: {
       variant: {
@@ -13,7 +13,7 @@ const stickerVariants = cva(
         secondary: "bg-secondary text-secondary-foreground",
         destructive: "bg-destructive text-destructive-foreground",
         outline: "bg-card text-foreground",
-        teal: "bg-[#266264] text-white",
+        teal: "bg-teal-700 text-white",
         ufmg: "bg-[#C4161C] text-white",
         neon: "bg-[#ff2d78] text-white",
       },
@@ -34,9 +34,9 @@ const stickerVariants = cva(
       },
       shadow: {
         none: "",
-        default: "shadow-md",
+        default: "shadow-[4px_4px_0_0_#16181d]",
         colored: "shadow-[4px_4px_0px_var(--primary)]",
-        double: "shadow-[3px_3px_0px_var(--primary),6px_6px_0px_var(--shadow-color)]",
+        double: "shadow-[3px_3px_0px_var(--primary),6px_6px_0px_#16181d]",
       },
     },
     defaultVariants: {
@@ -156,8 +156,8 @@ const stickyNoteVariants = cva(
       variant: {
         yellow: "bg-accent text-accent-foreground",
         pink: "bg-primary text-primary-foreground",
-        blue: "bg-[#E0F2FE] text-[#005A9C]",
-        green: "bg-[#DCFCE7] text-[#15803D]",
+        blue: "bg-[#E0F2FE] text-info",
+        green: "bg-success/20 text-success",
         purple: "bg-secondary text-secondary-foreground",
       },
       size: {
@@ -201,7 +201,7 @@ const StickyNote = React.forwardRef<HTMLDivElement, StickyNoteProps>(
         {...props}
       >
         {pin && (
-          <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-destructive border-2 border-border shadow-xs" />
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-destructive border-3 border-border shadow-xs" />
         )}
         {children}
       </div>

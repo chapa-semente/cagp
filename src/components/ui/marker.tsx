@@ -52,7 +52,7 @@ const Marker = React.forwardRef<HTMLDivElement, MarkerProps>(
         {variant === 'separator' ? (
           <>
             <span aria-hidden="true" className="h-[3px] flex-1 bg-foreground" />
-            <span className="inline-flex items-center gap-2 border-3 border-foreground bg-background px-2 py-0.5 shadow-[2px_2px_0px_var(--shadow-color)]">
+            <span className="inline-flex items-center gap-2 border-3 border-foreground bg-background px-2 py-0.5 shadow-sm">
               {iconNode}
               {label}
             </span>

@@ -1,6 +1,45 @@
 ---
 // PageFooter.astro - Rodapé Institucional Neobrutalista (Chancelas UFMG + CAGP Candangos + Chapa Semente)
-import { asset, route } from '../../lib/paths';
+import { FooterMultiColumn, type FooterColumn, type FooterSocialLink } from '@/components/boldkit/blocks/footer-section';
+import { asset, route } from '@/lib/paths';
+
+const footerColumns: FooterColumn[] = [
+  {
+    title: 'Eixos do SuperApp',
+    links: [
+      { label: 'Hoje & Campus', href: route('/') },
+      { label: 'O Bacharelado', href: route('/curso') },
+      { label: 'Calouros (1º Período)', href: route('/calouros') },
+      { label: 'Central Curricular 10P', href: route('/percurso') },
+      { label: 'Extensão & ACG (600h)', href: route('/acg') },
+      { label: 'Estágio & TCC', href: route('/estagio') },
+    ],
+  },
+  {
+    title: 'Governança Discente',
+    links: [
+      { label: 'O CAGP UFMG', href: route('/sobre') },
+      { label: 'Diretoria Executiva', href: route('/gestao') },
+      { label: 'Chapa Semente 2026', href: route('/chapa-semente') },
+      { label: 'Portal da Transparência', href: route('/transparencia') },
+      { label: 'Acervo de Documentos', href: route('/documentos') },
+    ],
+  },
+  {
+    title: 'Suporte & Inclusão',
+    links: [
+      { label: 'Dúvidas Regimentais', href: route('/faq') },
+      { label: 'Acessibilidade & NAI', href: route('/faq#acessibilidade') },
+      { label: 'Configurações do Cofre', href: route('/configuracoes') },
+      { label: 'Mapa Panorâmico', href: route('/mapa-do-site') },
+    ],
+  },
+];
+
+const socialLinks: FooterSocialLink[] = [
+  { platform: 'instagram', href: 'https://instagram.com/cagpufmg' },
+  { platform: 'github', href: 'https://github.com/gsathler/cagp' },
+];
 ---
 
 <footer class="relative z-10 w-full bg-card border-t-3 border-border shadow-[0_-4px_0_0_var(--shadow-color)] mt-12 py-8 px-4 sm:px-6 select-none text-xs text-foreground pb-24 sm:pb-10">
@@ -11,7 +50,7 @@ import { asset, route } from '../../lib/paths';
       <!-- 1. REALIZAÇÃO PRINCIPAL: CHAPA SEMENTE -->
       <a
         href={route('/chapa-semente')}
-        class="p-4 rounded-xl border-3 border-border bg-[#FFFDF9] shadow-sm flex items-center gap-3.5 no-underline text-inherit hover:translate-y-[-1px] transition-all"
+        class="p-4 rounded-xl border-3 border-border bg-card shadow-sm flex items-center gap-3.5 no-underline text-inherit hover:translate-y-[-1px] transition-all"
         title="Conheça a Carta-Programa da Chapa Semente"
       >
         <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center p-1.5 border-3 border-border shadow-xs shrink-0">
@@ -22,11 +61,11 @@ import { asset, route } from '../../lib/paths';
           />
         </div>
         <div class="min-w-0 flex-1">
-          <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-[#5B2A86] block">
+          <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-primary block">
             REALIZAÇÃO DA PLATAFORMA • CAMPANHA 2026
           </span>
-          <div class="inline-flex items-center px-2.5 py-0.5 mt-0.5 rounded-full bg-white border-2 border-border shadow-xs font-heading font-black text-xs uppercase tracking-wider text-[#5B2A86]">
-            CHAPA SEM<span>E</span>NT<span class="text-[#FF8811]">E</span>
+          <div class="inline-flex items-center px-2.5 py-0.5 mt-0.5 rounded-full bg-white border-3 border-border shadow-xs font-heading font-black text-xs uppercase tracking-wider text-primary">
+            CHAPA SEM<span>E</span>NT<span class="text-accent">E</span>
           </div>
           <span class="block text-[11px] font-sans font-bold text-muted-foreground mt-1 truncate">
             Potencial que se transforma em ação.
@@ -47,13 +86,13 @@ import { asset, route } from '../../lib/paths';
           <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-muted-foreground block">
             CENTRO ACADÊMICO DE GESTÃO PÚBLICA
           </span>
-          <div class="font-heading font-black text-base uppercase tracking-tight text-[#0A0A0A] leading-none mt-0.5">
+          <div class="font-heading font-black text-base uppercase tracking-tight text-foreground leading-none mt-0.5">
             CAGP
           </div>
-          <div class="h-[3px] w-24 bg-[#9E2424] my-1" aria-hidden="true"></div>
+          <div class="h-[3px] w-24 bg-secondary my-1" aria-hidden="true"></div>
           <div class="font-heading text-[11px] font-extrabold tracking-wider uppercase">
-            <span class="text-[#0A0A0A]">FAFICH</span>{' '}
-            <span class="text-[#9E2424]">UFMG</span>
+            <span class="text-foreground">FAFICH</span>{' '}
+            <span class="text-secondary">UFMG</span>
           </div>
         </div>
       </div>
@@ -65,7 +104,7 @@ import { asset, route } from '../../lib/paths';
         <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
           ECOSSISTEMA INSTITUCIONAL UFMG • PRÓ-REITORIAS • SISTEMAS ACADÊMICOS
         </span>
-        <span class="font-mono text-[10px] font-bold text-[#9E2424] uppercase">
+        <span class="font-mono text-[10px] font-bold text-secondary uppercase">
           Fontes Oficiais Verificadas
         </span>
       </div>
@@ -74,7 +113,7 @@ import { asset, route } from '../../lib/paths';
           href="https://www.ufmg.br/prograd/"
           target="_blank"
           rel="noopener noreferrer"
-          class="p-2 rounded-xl border-2 border-border bg-white shadow-xs hover:translate-y-[-1px] transition-all flex items-center justify-center h-12"
+          class="p-2 rounded-xl border-3 border-border bg-white shadow-xs hover:translate-y-[-1px] transition-all flex items-center justify-center h-12"
           title="PROGRAD — Pró-Reitoria de Graduação UFMG"
         >
           <img src={asset('/logos/ufmg/assinaturas/prograd-ufmg.jpg')} alt="PROGRAD UFMG" class="max-h-8 max-w-full object-contain" />
@@ -83,7 +122,7 @@ import { asset, route } from '../../lib/paths';
           href="https://www.ufmg.br/proex/"
           target="_blank"
           rel="noopener noreferrer"
-          class="p-2 rounded-xl border-2 border-border bg-white shadow-xs hover:translate-y-[-1px] transition-all flex items-center justify-center h-12"
+          class="p-2 rounded-xl border-3 border-border bg-white shadow-xs hover:translate-y-[-1px] transition-all flex items-center justify-center h-12"
           title="PROEX — Pró-Reitoria de Extensão UFMG"
         >
           <img src={asset('/logos/ufmg/assinaturas/proex-ufmg.jpg')} alt="PROEX UFMG" class="max-h-8 max-w-full object-contain" />
@@ -92,7 +131,7 @@ import { asset, route } from '../../lib/paths';
           href="https://www.ufmg.br/prae/"
           target="_blank"
           rel="noopener noreferrer"
-          class="p-2 rounded-xl border-2 border-border bg-white shadow-xs hover:translate-y-[-1px] transition-all flex items-center justify-center h-12"
+          class="p-2 rounded-xl border-3 border-border bg-white shadow-xs hover:translate-y-[-1px] transition-all flex items-center justify-center h-12"
           title="PRAE — Pró-Reitoria de Assuntos Estudantis"
         >
           <img src={asset('/logos/ufmg/assinaturas/prae-ufmg.png')} alt="PRAE UFMG" class="max-h-8 max-w-full object-contain" />
@@ -101,7 +140,7 @@ import { asset, route } from '../../lib/paths';
           href="https://www.fump.ufmg.br/"
           target="_blank"
           rel="noopener noreferrer"
-          class="p-2 rounded-xl border-2 border-border bg-white shadow-xs hover:translate-y-[-1px] transition-all flex items-center justify-center h-12"
+          class="p-2 rounded-xl border-3 border-border bg-white shadow-xs hover:translate-y-[-1px] transition-all flex items-center justify-center h-12"
           title="FUMP — Fundação Universitária Mendes Pimentel"
         >
           <img src={asset('/logos/fump/03-fump-sinae-logo-colorido-fundo-branco.png')} alt="FUMP SINAE" class="max-h-8 max-w-full object-contain" />
@@ -110,7 +149,7 @@ import { asset, route } from '../../lib/paths';
           href="https://www.ufmg.br/nai/"
           target="_blank"
           rel="noopener noreferrer"
-          class="p-2 rounded-xl border-2 border-border bg-white shadow-xs hover:translate-y-[-1px] transition-all flex items-center justify-center h-12"
+          class="p-2 rounded-xl border-3 border-border bg-white shadow-xs hover:translate-y-[-1px] transition-all flex items-center justify-center h-12"
           title="NAI — Núcleo de Acessibilidade e Inclusão"
         >
           <img src={asset('/logos/ufmg/assinaturas/nai-ufmg.png')} alt="NAI UFMG" class="max-h-8 max-w-full object-contain" />
@@ -119,7 +158,7 @@ import { asset, route } from '../../lib/paths';
           href="https://sistemas.ufmg.br/"
           target="_blank"
           rel="noopener noreferrer"
-          class="p-2 rounded-xl border-2 border-border bg-white shadow-xs hover:translate-y-[-1px] transition-all flex items-center justify-center h-12"
+          class="p-2 rounded-xl border-3 border-border bg-white shadow-xs hover:translate-y-[-1px] transition-all flex items-center justify-center h-12"
           title="Portal minhaUFMG"
         >
           <img src={asset('/logos/minhaufmg/logo-minha-ufmg.png')} alt="minhaUFMG" class="max-h-7 max-w-full object-contain" />
@@ -128,7 +167,7 @@ import { asset, route } from '../../lib/paths';
           href="https://sistemas.ufmg.br/"
           target="_blank"
           rel="noopener noreferrer"
-          class="p-2 rounded-xl border-2 border-border bg-white shadow-xs hover:translate-y-[-1px] transition-all flex items-center justify-center h-12"
+          class="p-2 rounded-xl border-3 border-border bg-white shadow-xs hover:translate-y-[-1px] transition-all flex items-center justify-center h-12"
           title="SIGA UFMG — Sistema Acadêmico da Graduação"
         >
           <img src={asset('/logos/siga/siga-ufmg-fundo-branco.webp')} alt="SIGA UFMG" class="max-h-8 max-w-full object-contain" />
@@ -145,16 +184,16 @@ import { asset, route } from '../../lib/paths';
         <p class="text-xs font-sans text-muted-foreground leading-relaxed m-0">
           Av. Pres. Antônio Carlos, 6627 — Campus Pampulha, Belo Horizonte - MG • CEP 31270-901<br />
           Secretaria GP: Sala 2039 (4ª feira, 13h–19h • Tel: 3409-3826) • CEAG 2º Andar (Seg a Sex, 08h–22h) • Coordenação (Profª Isabele Mitozo):{' '}
-          <span class="font-mono font-bold text-[#9E2424]">coordgestaopublicaufmg@gmail.com</span> / <span class="font-mono font-bold text-[#16181d]">gestaopublica@ufmg.br</span>
+          <span class="font-mono font-bold text-secondary">coordgestaopublicaufmg@gmail.com</span> / <span class="font-mono font-bold text-foreground">gestaopublica@ufmg.br</span>
         </p>
       </div>
 
       <div class="flex flex-wrap items-center gap-2.5 text-xs font-heading font-extrabold uppercase">
         <a
           href={route('/chapa-semente')}
-          class="px-3.5 py-2 min-h-[40px] inline-flex items-center gap-1.5 rounded-xl border-3 border-border bg-[#5B2A86] text-white shadow-sm hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-xs no-underline transition-all"
+          class="px-3.5 py-2 min-h-[40px] inline-flex items-center gap-1.5 rounded-xl border-3 border-border bg-primary text-white shadow-sm hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-xs no-underline transition-all"
         >
-          <span class="w-2 h-2 rounded-full bg-[#FF8811]"></span>
+          <span class="w-2 h-2 rounded-full bg-accent"></span>
           <span>Chapa Semente</span>
         </a>
         <a
@@ -184,12 +223,23 @@ import { asset, route } from '../../lib/paths';
         <button
           type="button"
           onclick="window.dispatchEvent(new CustomEvent('cagp:open-settings'))"
-          class="px-3.5 py-2 min-h-[40px] inline-flex items-center rounded-xl border-3 border-border bg-[#FF8811] text-[#16181d] shadow-sm hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-xs cursor-pointer font-heading text-xs font-extrabold uppercase transition-all"
+          class="px-3.5 py-2 min-h-[40px] inline-flex items-center rounded-xl border-3 border-border bg-accent text-foreground shadow-sm hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-xs cursor-pointer font-heading text-xs font-extrabold uppercase transition-all"
           aria-label="Abrir painel de configurações"
         >
           Ajustes
         </button>
       </div>
+    </div>
+
+    <!-- BoldKit Multi-Column Footer Grid -->
+    <div class="pt-6 border-t-3 border-border">
+      <FooterMultiColumn
+        client:visible
+        columns={footerColumns}
+        socialLinks={socialLinks}
+        copyright="© 2026 Centro Acadêmico de Gestão Pública (CAGP) • FAFICH / UFMG • Código Aberto sob Licença MIT"
+        className="py-2 px-0 bg-transparent border-t-0"
+      />
     </div>
   </div>
 </footer>

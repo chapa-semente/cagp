@@ -33,7 +33,7 @@ const ComboboxTrigger = React.forwardRef<
       // role="combobox" with no expanded state (axe aria-required-attr).
       {...(open !== undefined ? { 'aria-expanded': open } : {})}
       className={cn(
-        'flex h-11 w-full items-center justify-between border-3 border-input bg-background px-4 py-2 text-sm font-medium shadow-[4px_4px_0px_var(--shadow-color)] focus:outline-none focus:translate-x-[4px] focus:translate-y-[4px] focus:shadow-none disabled:cursor-not-allowed disabled:opacity-50 transition duration-200',
+        'flex h-11 w-full items-center justify-between border-3 border-input bg-background px-4 py-2 text-sm font-medium shadow-md focus:outline-none focus:translate-x-[4px] focus:translate-y-[4px] focus:shadow-none disabled:cursor-not-allowed disabled:opacity-50 transition duration-200',
         className
       )}
       {...props}
@@ -67,7 +67,7 @@ const ComboboxMultiTrigger = React.forwardRef<
   // interactive content nested inside the trigger (axe `nested-interactive`).
   <div
     className={cn(
-      'flex min-h-11 w-full flex-wrap items-center gap-1.5 border-3 border-input bg-background px-3 py-2 text-sm font-medium shadow-[4px_4px_0px_var(--shadow-color)] transition duration-200 focus-within:translate-x-[4px] focus-within:translate-y-[4px] focus-within:shadow-none',
+      'flex min-h-11 w-full flex-wrap items-center gap-1.5 border-3 border-input bg-background px-3 py-2 text-sm font-medium shadow-md transition duration-200 focus-within:translate-x-[4px] focus-within:translate-y-[4px] focus-within:shadow-none',
       className
     )}
   >

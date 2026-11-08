@@ -2,7 +2,7 @@
 import * as React from 'react'
 import { flushSync } from 'react-dom'
 
-type Theme = 'light' | 'dark' | 'system'
+type Theme = 'light' | 'system'
 
 /**
  * Where a circular reveal starts: an element (its centre — works for keyboard
@@ -25,7 +25,7 @@ interface ThemeProviderProps {
 interface ThemeProviderState {
   theme: Theme
   setTheme: (theme: Theme, options?: SetThemeOptions) => void
-  resolvedTheme: 'light' | 'dark'
+  resolvedTheme: 'light'
 }
 
 type ViewTransitionDocument = Document & {
@@ -35,16 +35,15 @@ type ViewTransitionDocument = Document & {
 /**
  * Run `update` behind a circular-reveal View Transition: the page as it looks
  * after `update` wipes in over the old one, from `origin`. Falls back to
- * running `update` directly when View Transitions are unsupported, the user
- * prefers reduced motion, or there is no DOM (SSR). `update` must change the
- * DOM synchronously; React state set inside it is flushed with flushSync.
+ * running `update` directly when View Transitions are unsupported or there is
+ * no DOM (SSR). `update` must change the DOM synchronously; React state set
+ * inside it is flushed with flushSync.
  */
 export function circularReveal(update: () => void, origin?: RevealOrigin): void {
   const run = () => flushSync(update)
   if (typeof document === 'undefined' || !origin) return run()
   const doc = document as ViewTransitionDocument
-  const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
-  if (typeof doc.startViewTransition !== 'function' || reduced) return run()
+  if (typeof doc.startViewTransition !== 'function') return run()
 
   const { x, y } =
     'getBoundingClientRect' in origin
@@ -66,9 +65,6 @@ export function circularReveal(update: () => void, origin?: RevealOrigin): void 
       const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y))
       const timing = { duration: 600, easing: 'cubic-bezier(0.165, 0.84, 0.44, 1)' }
       const root = document.documentElement
-      // Hold the old view still and opaque (replacing the default cross-fade)
-      // so only the circle moves. Done here rather than in CSS so the hook
-      // needs no stylesheet.
       const solid = { opacity: [1, 1], mixBlendMode: ['normal', 'normal'] }
       root.animate(solid, { ...timing, pseudoElement: '::view-transition-old(root)' })
       root.animate(
@@ -81,9 +77,8 @@ export function circularReveal(update: () => void, origin?: RevealOrigin): void 
     })
 }
 
-function resolve(theme: Theme): 'light' | 'dark' {
-  if (theme !== 'system') return theme
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+function resolve(): 'light' {
+  return 'light'
 }
 
 const ThemeProviderContext = React.createContext<ThemeProviderState | undefined>(
@@ -92,57 +87,38 @@ const ThemeProviderContext = React.createContext<ThemeProviderState | undefined>
 
 export function ThemeProvider({
   children,
-  defaultTheme = 'system',
+  defaultTheme = 'light',
   storageKey = 'boldkit-theme',
 }: ThemeProviderProps) {
-  const [theme, setTheme] = React.useState<Theme>(() => {
-    if (typeof window === 'undefined') return defaultTheme
-    try {
-      return (localStorage.getItem(storageKey) as Theme) || defaultTheme
-    } catch {
-      return defaultTheme
-    }
-  })
+  const [theme, setTheme] = React.useState<Theme>(defaultTheme)
 
-  const resolvedTheme = React.useMemo<'light' | 'dark'>(
-    () => (typeof window === 'undefined' ? 'light' : resolve(theme)),
-    [theme]
-  )
+  const resolvedTheme = 'light' as const
 
   React.useEffect(() => {
     const root = window.document.documentElement
-    // Idempotent: during a circular-reveal theme toggle the class is flipped
-    // imperatively inside the View Transition callback (see circularReveal).
-    // Re-running remove('light','dark') + add() here would momentarily leave the
-    // element with no theme class — a one-frame flash that races the transition
-    // and reads as "switch first, then animate". Skip when already correct —
-    // but only when the *other* class is absent, so a root that somehow carries
-    // both still gets healed instead of being stuck forever.
-    const stale = resolvedTheme === 'dark' ? 'light' : 'dark'
-    if (root.classList.contains(resolvedTheme) && !root.classList.contains(stale)) return
-    root.classList.remove('light', 'dark')
-    root.classList.add(resolvedTheme)
-  }, [resolvedTheme])
+    root.classList.remove('dark')
+    root.classList.add('light')
+    root.style.colorScheme = 'light'
+  }, [])
 
   const value = React.useMemo(
     () => ({
       theme,
-      setTheme: (newTheme: Theme, options?: SetThemeOptions) => {
+      setTheme: (_newTheme: Theme, options?: SetThemeOptions) => {
         const commit = () => {
           try {
-            localStorage.setItem(storageKey, newTheme)
+            localStorage.setItem(storageKey, 'light')
           } catch {
-            // Storage blocked (private mode, sandboxed iframe): theme still applies.
+            // Storage blocked
           }
-          setTheme(newTheme)
+          setTheme('light')
         }
         if (!options?.origin) return commit()
         circularReveal(() => {
-          // Flip the class here, not in the effect, so the "new" snapshot is
-          // guaranteed to show the new theme.
           const root = document.documentElement
-          root.classList.remove('light', 'dark')
-          root.classList.add(resolve(newTheme))
+          root.classList.remove('dark')
+          root.classList.add(resolve())
+          root.style.colorScheme = 'light'
           commit()
         }, options.origin)
       },
@@ -158,11 +134,36 @@ export function ThemeProvider({
   )
 }
 
+const fallbackThemeState: ThemeProviderState = {
+  theme: 'light',
+  setTheme: () => {},
+  resolvedTheme: 'light',
+}
+
 export function useTheme() {
   const context = React.useContext(ThemeProviderContext)
 
   if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider')
+    if (typeof window === 'undefined') {
+      return fallbackThemeState
+    }
+    return {
+      theme: 'light' as Theme,
+      setTheme: (_newTheme: Theme, options?: SetThemeOptions) => {
+        const commit = () => {
+          const root = document.documentElement
+          root.classList.remove('dark')
+          root.classList.add(resolve())
+          root.style.colorScheme = 'light'
+          try {
+            localStorage.setItem('boldkit-theme', 'light')
+          } catch {}
+        }
+        if (!options?.origin) return commit()
+        circularReveal(commit, options.origin)
+      },
+      resolvedTheme: 'light' as const,
+    }
   }
 
   return context

@@ -8,7 +8,7 @@ const kbdVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-muted shadow-[2px_2px_0px_var(--shadow-color)]',
+        default: 'bg-muted shadow-sm',
         outline: 'bg-background',
         ghost: 'bg-transparent border-transparent text-muted-foreground',
       },

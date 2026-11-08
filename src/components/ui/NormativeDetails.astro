@@ -11,20 +11,20 @@ interface Props {
 const { id, title, badge, icon, open = false } = Astro.props;
 ---
 
-<details id={id} class="cagp-normative-details bg-white border-[3px] border-[#0A0A0A] rounded-xl my-3 overflow-hidden transition-all shadow-[3px_3px_0_0_#0A0A0A] font-sans" open={open}>
-  <summary class="px-4 py-3 min-h-[44px] cursor-pointer font-heading font-extrabold text-sm uppercase text-[#0A0A0A] bg-white hover:bg-muted flex items-center justify-between select-none transition-colors border-b-[3px] border-transparent open:border-[#0A0A0A]">
+<details id={id} class="cagp-normative-details bg-white border-[3px] border-border rounded-xl my-3 overflow-hidden transition-all shadow font-sans" open={open}>
+  <summary class="px-4 py-3 min-h-[44px] cursor-pointer font-heading font-extrabold text-sm uppercase text-foreground bg-white hover:bg-muted flex items-center justify-between select-none transition-colors border-b-[3px] border-transparent open:border-border">
     <span class="flex items-center gap-2.5">
-      <i class="bi bi-chevron-right text-xs transition-transform duration-200 details-icon text-[#0A0A0A]" aria-hidden="true"></i>
-      {icon && <i class={`bi ${icon} text-[#9E2424] text-base shrink-0`} aria-hidden="true"></i>}
+      <i class="bi bi-chevron-right text-xs transition-transform duration-200 details-icon text-foreground" aria-hidden="true"></i>
+      {icon && <i class={`bi ${icon} text-secondary text-base shrink-0`} aria-hidden="true"></i>}
       <span class="leading-tight">{title}</span>
     </span>
     {badge && (
-      <span class="bg-[#9E2424] text-white font-heading font-bold text-xs uppercase px-2.5 py-0.5 rounded-lg border-2 border-black shadow-[1.5px_1.5px_0_0_#0A0A0A] shrink-0 ml-2">
+      <span class="bg-secondary text-white font-heading font-bold text-xs uppercase px-2.5 py-0.5 rounded-lg border-2 border-black shadow-xs shrink-0 ml-2">
         {badge}
       </span>
     )}
   </summary>
-  <div class="px-5 py-4 text-sm text-[#0A0A0A] leading-relaxed border-t-[3px] border-[#0A0A0A] bg-white font-sans">
+  <div class="px-5 py-4 text-sm text-foreground leading-relaxed border-t-[3px] border-border bg-white font-sans">
     <slot />
   </div>
 </details>
@@ -53,13 +53,6 @@ const { id, title, badge, icon, open = false } = Astro.props;
 
       summary.addEventListener('click', (e) => {
         e.preventDefault();
-
-        const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-        if (isReducedMotion) {
-          details.open = !details.open;
-          return;
-        }
 
         if (details.open) {
           const startHeight = content.offsetHeight;

@@ -467,11 +467,11 @@ const Questionnaire = React.forwardRef<HTMLFormElement, QuestionnaireProps>(
           data-state={checked ? 'checked' : 'unchecked'}
           data-disabled={disabled ? '' : undefined}
           className={cn(
-            'flex cursor-pointer items-start gap-3 border-3 border-foreground bg-background px-4 py-3 shadow-[4px_4px_0px_var(--shadow-color)] transition duration-150 ease-out motion-reduce:transition-none',
+            'flex cursor-pointer items-start gap-3 border-3 border-foreground bg-background px-4 py-3 shadow-md transition duration-150 ease-out motion-reduce:transition-none',
             'hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none',
             'has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring has-[:focus-visible]:ring-offset-2 has-[:focus-visible]:ring-offset-background',
             'data-[state=checked]:translate-x-[4px] data-[state=checked]:translate-y-[4px] data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground data-[state=checked]:shadow-none',
-            'data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50 data-[disabled]:hover:translate-x-0 data-[disabled]:hover:translate-y-0 data-[disabled]:hover:shadow-[4px_4px_0px_var(--shadow-color)]'
+            'data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50 data-[disabled]:hover:translate-x-0 data-[disabled]:hover:translate-y-0 data-[disabled]:hover:shadow-md'
           )}
         >
           <input
@@ -514,7 +514,7 @@ const Questionnaire = React.forwardRef<HTMLFormElement, QuestionnaireProps>(
         className={cn(
           'text-foreground',
           variant === 'default' &&
-            'border-3 border-foreground bg-background p-5 shadow-[4px_4px_0px_var(--shadow-color)] sm:p-6',
+            'border-3 border-foreground bg-background p-5 shadow-md sm:p-6',
           className
         )}
         onSubmit={handleSubmit}
@@ -659,7 +659,7 @@ const Questionnaire = React.forwardRef<HTMLFormElement, QuestionnaireProps>(
             <Button
               type="submit"
               aria-disabled={error !== null || undefined}
-              className="aria-disabled:cursor-not-allowed aria-disabled:opacity-50 aria-disabled:hover:translate-x-0 aria-disabled:hover:translate-y-0 aria-disabled:hover:shadow-[4px_4px_0px_var(--shadow-color)]"
+              className="aria-disabled:cursor-not-allowed aria-disabled:opacity-50 aria-disabled:hover:translate-x-0 aria-disabled:hover:translate-y-0 aria-disabled:hover:shadow-md"
             >
               {isLast ? (
                 <>

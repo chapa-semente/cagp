@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { BottomSheet } from './BottomSheet';
-import { PassportCard } from '../passport/PassportCard';
-import { TalentBankEditor } from '../passport/TalentBankEditor';
+import { PassportCard } from '@/components/features/passport/PassportCard';
+import { TalentBankEditor } from '@/components/features/passport/TalentBankEditor';
+import { LoginForm, OTPVerificationForm } from '@/components/boldkit/blocks/auth-forms';
 import {
   getVaultItem,
   setVaultItem,
   USER_ROLE_META,
   type UserRole,
   type VaultData,
-} from '../../lib/storage/studentVault';
-import { exportVaultBackup, importVaultBackup } from '../../lib/storage/backupVault';
+} from '@/lib/storage/studentVault';
+import { exportVaultBackup, importVaultBackup } from '@/lib/storage/backupVault';
 
 interface PassportSheetProps {
   isOpen: boolean;
@@ -17,7 +18,8 @@ interface PassportSheetProps {
 }
 
 export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose }) => {
-  const [activeTab, setActiveTab] = useState<'passport' | 'talent'>('passport');
+  const [activeTab, setActiveTab] = useState<'passport' | 'talent' | 'auth'>('passport');
+  const [authStep, setAuthStep] = useState<'login' | 'otp'>('login');
   const [userRole, setUserRole] = useState<UserRole>('calouro');
   const [profile, setProfile] = useState<VaultData<'cagp_student_profile_v1'>>({
     name: 'Estudante de Gestão Pública',
@@ -84,15 +86,15 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
       title="Passaporte & Perfil Discente"
       initialDetent="large"
     >
-      <div className="space-y-4 text-[#0A0A0A]">
+      <div className="space-y-4 text-foreground">
         {/* Controle Segmentado Interno: [Passaporte] [Banco de Talentos] */}
-        <div className="flex items-center gap-1 bg-white p-1 rounded-xl border-2 border-border shadow-xs">
+        <div className="flex items-center gap-1 bg-white p-1 rounded-xl border-3 border-border shadow-xs">
           <button
             type="button"
             onClick={() => setActiveTab('passport')}
             className={`flex-1 min-h-[44px] py-2 px-3 rounded-lg text-xs font-heading uppercase font-extrabold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
               activeTab === 'passport'
-                ? 'bg-primary text-primary-foreground border-2 border-border shadow-xs'
+                ? 'bg-primary text-primary-foreground border-3 border-border shadow-xs'
                 : 'text-muted-foreground hover:text-foreground'
             }`}
           >
@@ -104,12 +106,24 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
             onClick={() => setActiveTab('talent')}
             className={`flex-1 min-h-[44px] py-2 px-3 rounded-lg text-xs font-heading uppercase font-extrabold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
               activeTab === 'talent'
-                ? 'bg-primary text-primary-foreground border-2 border-border shadow-xs'
+                ? 'bg-primary text-primary-foreground border-3 border-border shadow-xs'
                 : 'text-muted-foreground hover:text-foreground'
             }`}
           >
             <i className="bi bi-briefcase text-sm" aria-hidden="true" />
             <span>Perfil & Talentos</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('auth')}
+            className={`flex-1 min-h-[44px] py-2 px-3 rounded-lg text-xs font-heading uppercase font-extrabold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+              activeTab === 'auth'
+                ? 'bg-primary text-primary-foreground border-3 border-border shadow-xs'
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            <i className="bi bi-shield-lock text-sm" aria-hidden="true" />
+            <span>Acesso minhaUFMG</span>
           </button>
         </div>
 
@@ -118,8 +132,8 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
           <div
             className={`p-2.5 rounded text-xs font-semibold border flex items-center gap-2 ${
               toastMsg.type === 'success'
-                ? 'bg-[#15803D]/10 text-[#15803D] border-[#15803D]'
-                : 'bg-[#DC2626]/10 text-[#DC2626] border-[#DC2626]'
+                ? 'bg-success/10 text-success border-success'
+                : 'bg-destructive/10 text-destructive border-destructive'
             }`}
           >
             <i className={`bi ${toastMsg.type === 'success' ? 'bi-check-circle-fill' : 'bi-exclamation-triangle-fill'}`} />
@@ -131,16 +145,16 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
         {activeTab === 'passport' && (
           <div>
             {/* Seletor de Perfil / Momento no Curso */}
-            <div className="p-3 bg-white border border-[#DFDBD2] rounded-xl mb-3 shadow-xs">
+            <div className="p-3.5 bg-white border-3 border-[#16181d] rounded-xl mb-3 shadow-[4px_4px_0_0_#16181d]">
               <div className="flex items-center justify-between mb-2">
-                <strong className="font-['Oswald'] text-xs uppercase text-[#0A0A0A]">
+                <strong className="font-heading font-black text-xs uppercase text-[#16181d]">
                   Momento no Curso (Perfil da Home)
                 </strong>
-                <span className="text-[10px] font-mono text-[#8B1E2D] font-bold">
+                <span className="text-[10px] font-mono text-secondary font-bold">
                   {USER_ROLE_META[userRole].badge}
                 </span>
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 {(['calouro', 'veterano', 'formando', 'ingressar'] as UserRole[]).map((r) => {
                   const active = userRole === r;
                   return (
@@ -155,10 +169,10 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
                           type: 'success',
                         });
                       }}
-                      className={`py-2 px-2 rounded-lg text-xs font-bold transition-all cursor-pointer border ${
+                      className={`min-h-[40px] py-2 px-2 rounded-lg text-xs font-heading font-black uppercase transition-all cursor-pointer border-2 border-[#16181d] ${
                         active
-                          ? 'bg-[#8B1E2D] text-white border-[#8B1E2D]'
-                          : 'bg-white text-[#292524] border-[#DFDBD2] hover:border-[#8B1E2D]'
+                          ? 'bg-secondary text-white shadow-[2px_2px_0_0_#16181d]'
+                          : 'bg-white text-[#16181d] hover:bg-[#f4f0ea]'
                       }`}
                     >
                       {USER_ROLE_META[r].shortLabel}
@@ -180,13 +194,13 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
             />
 
             {/* Atalho para Configurações do Super App (BUG-12 in-place fix) */}
-            <div className="p-3 bg-white border border-[#DFDBD2] rounded-xl flex items-center justify-between gap-2 mb-3">
+            <div className="p-3.5 bg-white border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] rounded-xl flex items-center justify-between gap-2 mb-3">
               <div>
-                <strong className="block font-['Oswald'] text-xs uppercase text-[#0A0A0A]">
-                  <i className="bi bi-gear-fill text-[#8B1E2D] mr-1" aria-hidden="true" />
+                <strong className="block font-heading font-black text-xs uppercase text-[#16181d]">
+                  <i className="bi bi-gear-fill text-secondary mr-1" aria-hidden="true" />
                   Configurações do Super App
                 </strong>
-                <span className="text-[11px] text-gray-500">
+                <span className="text-[11px] text-gray-600 font-medium">
                   Acessibilidade, alarmes do RU/Circular e portabilidade.
                 </span>
               </div>
@@ -196,25 +210,25 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
                   onClose();
                   window.dispatchEvent(new CustomEvent('cagp:open-settings'));
                 }}
-                className="cagp-btn-secondary text-xs py-1 px-2.5 cursor-pointer min-h-[36px]"
+                className="cagp-btn-secondary text-xs py-1.5 px-3 cursor-pointer min-h-[40px]"
               >
                 Abrir &rarr;
               </button>
             </div>
 
             {/* Backup & Restauração Rápida */}
-            <div className="bg-[#F7F5F0] p-3 rounded-xl border border-[#DFDBD2] space-y-2">
-              <span className="font-['Oswald'] font-bold text-xs uppercase text-[#0A0A0A] block">
+            <div className="bg-[#f4f0ea] p-3.5 rounded-xl border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] space-y-2">
+              <span className="font-heading font-black text-xs uppercase text-[#16181d] block">
                 Cofre Discente Offline (Meu CAGP Sync)
               </span>
-              <p className="text-[11px] text-gray-600">
+              <p className="text-[11px] text-gray-700 font-medium">
                 Seus dados acadêmicos ficam protegidos localmente. Exporte seu token Base64 seguro para trocar de aparelho:
               </p>
               <div className="flex gap-2">
                 <button
                   type="button"
                   onClick={handleExport}
-                  className="cagp-btn-secondary text-xs py-1.5 px-3 flex-1 cursor-pointer"
+                  className="min-h-[44px] cagp-btn-secondary text-xs py-1.5 px-3 flex-1 cursor-pointer"
                 >
                   <i className="bi bi-clipboard-check" aria-hidden="true" />
                   <span>Copiar Token CAGP1</span>
@@ -228,12 +242,12 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
                   placeholder="Cole o token CAGP1:... para restaurar"
                   value={backupInput}
                   onChange={(e) => setBackupInput(e.target.value)}
-                  className="w-full bg-white border border-[#DFDBD2] p-2 text-xs font-mono rounded focus:border-[#8B1E2D] focus:outline-none"
+                  className="w-full bg-white border-2 border-[#16181d] p-2.5 text-xs font-mono rounded-lg focus:border-secondary focus:outline-none"
                 />
                 <button
                   type="button"
                   onClick={handleImport}
-                  className="cagp-btn-primary w-full mt-1.5 text-xs py-1.5 justify-center cursor-pointer"
+                  className="min-h-[44px] cagp-btn-primary w-full mt-2 text-xs py-2 justify-center cursor-pointer"
                 >
                   Restaurar do Token
                 </button>
@@ -249,6 +263,43 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
             onChange={(updated) => setProfile(updated)}
             onSave={handleSaveProfile}
           />
+        )}
+
+        {/* Aba 3: Validação de Acesso & Credencial UFMG */}
+        {activeTab === 'auth' && (
+          <div className="space-y-4">
+            {authStep === 'login' ? (
+              <LoginForm
+                title="Acesso Institucional minhaUFMG"
+                description="Simulação de login federado para autenticação de histórico e notas acadêmicas."
+                onSubmit={(data) => {
+                  setToastMsg({
+                    text: `Credencial recebida para ${data.email}. Digite o código OTP enviado.`,
+                    type: 'success',
+                  });
+                  setAuthStep('otp');
+                }}
+                className="border-3 border-border bg-card shadow-md"
+              />
+            ) : (
+              <OTPVerificationForm
+                title="Verificação em Duas Etapas"
+                description="Insira o código de 6 dígitos gerado pelo seu aplicativo autenticador UFMG."
+                email="discente@ufmg.br"
+                length={6}
+                onSubmit={(code) => {
+                  setToastMsg({
+                    text: `Código ${code} validado com sucesso! Credencial autenticada no cofre local.`,
+                    type: 'success',
+                  });
+                  setAuthStep('login');
+                  setActiveTab('passport');
+                }}
+                onBackToLogin={() => setAuthStep('login')}
+                className="border-3 border-border bg-card shadow-md"
+              />
+            )}
+          </div>
         )}
       </div>
     </BottomSheet>

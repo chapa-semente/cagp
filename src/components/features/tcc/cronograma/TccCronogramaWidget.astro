@@ -2,21 +2,21 @@
 // src/components/features/tcc/cronograma/TccCronogramaWidget.astro — Widget de Resumo do Ciclo de TCC
 ---
 
-<div class="cagp-card p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between h-full shadow-[3px_3px_0_0_#0A0A0A] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0_0_#0A0A0A] transition-all select-none">
+<div class="cagp-card p-5 bg-white border-3 border-border rounded-xl flex flex-col justify-between h-full shadow hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-md transition-all select-none">
   <div>
     <div class="flex items-center justify-between gap-2 mb-3">
       <div class="flex items-center gap-2.5">
-        <span class="w-9 h-9 rounded-lg bg-[#0A0A0A] text-white flex items-center justify-center text-lg border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+        <span class="w-9 h-9 rounded-lg bg-foreground text-background text-white flex items-center justify-center text-lg border-3 border-border shadow-sm">
           <i class="bi bi-mortarboard-fill text-white" aria-hidden="true" />
         </span>
         <div>
-          <h3 class="font-head font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0 tracking-wide">
+          <h3 class="font-head font-bold text-sm uppercase text-foreground leading-tight m-0 tracking-wide">
             Ciclo de TCC (180h)
           </h3>
           <span class="text-[11px] text-gray-700 font-mono font-medium">DCP 089 (60h) + DCP 137 (120h)</span>
         </div>
       </div>
-      <span class="px-2 py-0.5 rounded-md font-head text-[11px] font-bold bg-[#0A0A0A] text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">
+      <span class="px-2 py-0.5 rounded-md font-head text-[11px] font-bold bg-foreground text-background text-white border border-border shadow-xs">
         9º e 10ºP
       </span>
     </div>
@@ -26,20 +26,20 @@
     </p>
 
     <div class="grid grid-cols-2 gap-2 mb-3 text-xs">
-      <div class="p-2.5 bg-white border-2 border-[#0A0A0A] rounded-lg text-center shadow-[1px_1px_0_0_#0A0A0A]">
-        <div class="font-mono font-bold text-[#8B1E2D] text-sm">60h (4 cr)</div>
-        <div class="text-[11px] text-[#0A0A0A] uppercase font-head font-bold tracking-wider mt-0.5">DCP 089 • Projeto</div>
+      <div class="p-2.5 bg-white border-3 border-border rounded-lg text-center shadow-xs">
+        <div class="font-mono font-bold text-secondary text-sm">60h (4 cr)</div>
+        <div class="text-[11px] text-foreground uppercase font-head font-bold tracking-wider mt-0.5">DCP 089 • Projeto</div>
       </div>
-      <div class="p-2.5 bg-white border-2 border-[#0A0A0A] rounded-lg text-center shadow-[1px_1px_0_0_#0A0A0A]">
-        <div class="font-mono font-bold text-[#8B1E2D] text-sm">120h (8 cr)</div>
-        <div class="text-[11px] text-[#0A0A0A] uppercase font-head font-bold tracking-wider mt-0.5">DCP 137 • Defesa</div>
+      <div class="p-2.5 bg-white border-3 border-border rounded-lg text-center shadow-xs">
+        <div class="font-mono font-bold text-secondary text-sm">120h (8 cr)</div>
+        <div class="text-[11px] text-foreground uppercase font-head font-bold tracking-wider mt-0.5">DCP 137 • Defesa</div>
       </div>
     </div>
   </div>
 
   <a
     href="#cronograma"
-    class="min-h-[44px] px-3.5 py-2 bg-[#8B1E2D] hover:bg-[#6e1723] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline shadow-[3px_3px_0_0_#0A0A0A] border-2 border-[#0A0A0A]"
+    class="min-h-[44px] px-3.5 py-2 bg-secondary hover:bg-[#6e1723] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline shadow border-3 border-border"
   >
     <span>Ver Cronograma Completo</span>
     <i class="bi bi-arrow-right" aria-hidden="true" />

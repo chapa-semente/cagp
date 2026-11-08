@@ -7,13 +7,16 @@ import SuperAppHeader from '../components/shell/SuperAppHeader.astro';
 import PageFooter from '../components/shell/PageFooter.astro';
 import BackToTop from '../components/shell/BackToTop.astro';
 import DynamicToast from '../components/shell/DynamicToast.astro';
+import { Toaster } from '@/components/ui/sonner';
 import BottomNav from '../components/shell/BottomNav.astro';
 import { GlobalSheets } from '../components/shell/GlobalSheets';
+import { GlobalContextMenu } from '../components/shell/GlobalContextMenu';
 import { SuperAppWelcomeModal } from '../components/shell/SuperAppWelcomeModal';
-import { PwaElectionCredenciamentoModal } from '../components/pwa/PwaElectionCredenciamentoModal';
-import { PwaCredenciamentoPill } from '../components/pwa/PwaCredenciamentoPill';
+import { PwaElectionCredenciamentoModal } from '@/components/features/pwa/PwaElectionCredenciamentoModal';
+import { PwaCredenciamentoPill } from '@/components/features/pwa/PwaCredenciamentoPill';
+import { GlobalTourHost } from '@/components/features/semente/GlobalTourHost';
 import { GlobalCanvasBackdrop } from '../components/shell/GlobalCanvasBackdrop';
-import { asset } from '../lib/paths';
+import { asset } from '@/lib/paths';
 import '@fontsource/bricolage-grotesque/600.css';
 import '@fontsource/bricolage-grotesque/700.css';
 import '@fontsource/bricolage-grotesque/800.css';
@@ -31,19 +34,24 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  mode?: 'persuade' | 'operate' | 'read';
+  activePage?: string;
+  activeGroup?: string;
 }
 
 const {
   title,
   description = 'Portal Institucional & Super App Discente — Centro Acadêmico de Gestão Pública (CAGP FAFICH/UFMG)',
+  mode = 'operate',
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="pt-BR" data-base-url={import.meta.env.BASE_URL}>
+<html lang="pt-BR" style="color-scheme: light;" data-visitor-mode={mode} data-base-url={import.meta.env.BASE_URL}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light" />
     <meta name="theme-color" content="#5B2A86" />
     <meta name="description" content={description} />
     <!-- Favicon Chapa Semente com Fundo Branco (SVG moderno + ICO fallback) -->
@@ -80,6 +88,9 @@ const {
             var raw = localStorage.getItem('cagp_a11y_prefs_v2');
             var el = document.documentElement;
             var p = raw ? JSON.parse(raw) : {};
+            el.classList.remove('dark');
+            el.classList.add('light');
+            el.style.colorScheme = 'light';
             el.setAttribute('data-a11y-font', p.font || 'md');
             el.setAttribute('data-a11y-contrast', p.contrast || 'normal');
             el.setAttribute('data-a11y-dyslexia', p.dyslexia ? 'true' : 'false');
@@ -112,23 +123,24 @@ const {
       </style>
     </noscript>
   </head>
-  <body class="bg-[#f4f5f7] text-[#16181d] font-['Space_Grotesk',sans-serif] antialiased min-h-[100dvh] flex flex-col selection:bg-[#5B2A86] selection:text-white relative isolate">
+  <body class="bg-background text-foreground font-['Space_Grotesk',sans-serif] antialiased min-h-[100dvh] flex flex-col selection:bg-primary selection:text-white relative isolate">
     <!-- Canvas Interativo Temático por Eixo Neobrutalista BoldKit -->
     <GlobalCanvasBackdrop client:load />
 
-    <!-- Cápsula Tátil Flutuante (Dynamic Island Toast) -->
+    <!-- Cápsula Tátil Flutuante (Dynamic Island Toast) & Sonner Toaster -->
     <DynamicToast />
+    <Toaster client:load />
 
     <!-- Barra Superior de Carregamento de Rota -->
     <div id="cagp-route-progress-bar" class="cagp-route-progress-bar" aria-hidden="true">
       <div class="cagp-route-progress-fill"></div>
     </div>
 
-    <!-- Casca Principal Proposta A: Sidebar Esquerda (Tablet/Desktop/Drawer) via React Island + Coluna de Conteúdo -->
-    <div class="relative z-10 flex-1 flex min-h-0 w-full">
+    <!-- Casca Principal Proposta A: Sidebar Esquerda (Tablet/Desktop/Drawer) via React Island + Coluna de Conteúdo com transições fluidas de redimensionamento -->
+    <div class="relative z-10 flex-1 flex min-h-0 w-full transition-[padding,margin,width] duration-250 ease-out">
       <AppShellSidebarIsland client:load initialPath={Astro.url.pathname} />
 
-      <div class="flex-1 flex flex-col min-w-0">
+      <div class="flex-1 flex flex-col min-w-0 transition-all duration-250 ease-out">
         <!-- Faixa Permanente de Campanha & Transparência -->
         <CampaignBanner />
 
@@ -138,7 +150,7 @@ const {
         <!-- Main Content Area -->
         <main
           id="main-content"
-          class="relative z-10 flex-1 w-full max-w-[1360px] mx-auto px-3 sm:px-6 py-4 sm:py-6 pb-24 md:pb-8 focus:outline-none"
+          class="relative z-10 flex-1 w-full max-w-[1440px] 2xl:max-w-[1600px] mx-auto px-3 sm:px-6 py-4 sm:py-6 pb-24 md:pb-8 overflow-x-clip focus:outline-none"
         >
           <slot />
         </main>
@@ -157,12 +169,18 @@ const {
     <!-- Global React Sheets & Spotlight Command Palette -->
     <GlobalSheets client:load />
 
+    <!-- Global Context Menu (Desktop Right-Click & Mobile Long-Press) -->
+    <GlobalContextMenu client:load />
+
     <!-- Welcome Onboarding & Role Picker -->
     <SuperAppWelcomeModal client:load />
 
     <!-- Indução Obrigatória PWA & Ativação Eleitoral Chapa Semente -->
     <PwaElectionCredenciamentoModal client:load />
     <PwaCredenciamentoPill client:load />
+
+    <!-- Tour Global Persistente Multi-Páginas da Chapa Semente -->
+    <GlobalTourHost client:load />
 
     <!-- Directional Navigation & Progress Bar Controller -->
     <script is:inline>

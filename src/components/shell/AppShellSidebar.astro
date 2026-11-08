@@ -1,10 +1,10 @@
 ---
 // src/components/shell/AppShellSidebar.astro — Sidebar Responsiva Neobrutalista Integral
 // RetroUI Neobrutalism (Borders 3px, Radius 12px, Chunky Shadows, Bricolage & Space Grotesk)
-import { AXIS_REGISTRY, getAxisByPath } from '../../lib/navigationRegistry';
-import { SHORTCUTS_CATALOG, DEFAULT_SHORTCUT_IDS } from '../../lib/shortcutsCatalog';
-import { getCagpIconSvg, resolveCagpIconName } from '../../lib/cagpIcons';
-import { asset, route } from '../../lib/paths';
+import { AXIS_REGISTRY, getAxisByPath } from '@/lib/navigationRegistry';
+import { SHORTCUTS_CATALOG, DEFAULT_SHORTCUT_IDS } from '@/lib/shortcutsCatalog';
+import { getCagpIconSvg, resolveCagpIconName } from '@/lib/cagpIcons';
+import { asset, route } from '@/lib/paths';
 
 const currentPath = Astro.url.pathname;
 const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
@@ -13,13 +13,13 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
 <!-- Backdrop Overlay Unificado (Mobile e Tablet) -->
 <div
   id="cagp-sidebar-backdrop"
-  class="fixed inset-0 bg-black/60 z-[1085] transition-opacity duration-200 pointer-events-none opacity-0 xl:hidden"
+  class="fixed inset-0 bg-black/65 bg-[radial-gradient(#16181d_1px,transparent_1px)] [background-size:12px_12px] z-[1095] transition-opacity duration-200 pointer-events-none opacity-0 xl:hidden"
   aria-hidden="true"
 ></div>
 
 <aside
   id="cagp-app-sidebar"
-  class="cagp-app-sidebar flex flex-col justify-between bg-white border-r-[3px] border-[#0A0A0A] select-none overflow-x-hidden shrink-0"
+  class="cagp-app-sidebar flex flex-col justify-between bg-white border-r-3 border-[#16181d] select-none overflow-x-hidden shrink-0"
   aria-label="Navegação Principal Lateral"
   data-shortcuts-catalog={JSON.stringify(SHORTCUTS_CATALOG)}
   data-shortcuts-defaults={JSON.stringify(DEFAULT_SHORTCUT_IDS)}
@@ -27,14 +27,14 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
   <!-- Topo Rolável: Marca + Botões de Ação + 5 Eixos Canônicos + Atalhos -->
   <div class="flex flex-col flex-1 min-h-0 overflow-y-auto no-scrollbar p-2.5 xl:p-4 gap-4">
     <!-- Cabeçalho da Sidebar: Identidade CAGP + Botões Responsivos (Fechar no Mobile / Alternar no Tablet) -->
-    <div class="cagp-sidebar-header flex flex-col xl:flex-row items-center xl:justify-between gap-2 pb-3 border-b-[3px] border-[#0A0A0A]">
+    <div class="cagp-sidebar-header flex flex-col xl:flex-row items-center xl:justify-between gap-2 pb-3 border-b-[3px] border-border">
       <a
         href={route('/')}
         class="flex items-center justify-center xl:justify-start gap-3 p-1 rounded-xl hover:bg-muted transition-transform no-underline group min-h-[44px] min-w-0"
         aria-label="Início — Centro Acadêmico de Gestão Pública UFMG"
         title="Início — CAGP UFMG"
       >
-        <div class="w-10 h-10 rounded-xl bg-[#9E2424] text-white flex items-center justify-center shrink-0 border-[3px] border-[#0A0A0A] shadow-[2.5px_2.5px_0_0_#0A0A0A] group-hover:translate-x-[-1px] group-hover:translate-y-[-1px] group-hover:shadow-[3.5px_3.5px_0_0_#0A0A0A] transition-all">
+        <div class="w-10 h-10 rounded-xl bg-secondary text-white flex items-center justify-center shrink-0 border-[3px] border-border shadow-sm group-hover:translate-x-[-1px] group-hover:translate-y-[-1px] group-hover:shadow-[3.5px_3.5px_0_0_#0A0A0A] transition-all">
           <img
             src={asset('/logos/cagp/12_simbolo_transparente_negativo.svg')}
             alt=""
@@ -43,10 +43,10 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
           />
         </div>
         <div class="sidebar-expanded-block hidden xl:block min-w-0">
-          <span class="font-heading text-sm font-extrabold uppercase tracking-tight text-[#0A0A0A] block leading-none">
+          <span class="font-heading text-sm font-extrabold uppercase tracking-tight text-foreground block leading-none">
             CAGP UFMG
           </span>
-          <span class="text-[11px] font-sans text-[#57534E] font-medium block mt-1 truncate">
+          <span class="text-[11px] font-sans text-muted-foreground font-medium block mt-1 truncate">
             Gestão Pública • FAFICH
           </span>
         </div>
@@ -56,7 +56,7 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
       <button
         type="button"
         id="cagp-sidebar-close-btn"
-        class="md:hidden w-11 h-11 rounded-xl bg-white hover:bg-muted border-[3px] border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] text-[#0A0A0A] hover:text-[#9E2424] flex items-center justify-center transition-all cursor-pointer shrink-0 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+        class="md:hidden w-11 h-11 rounded-xl bg-white hover:bg-muted border-[3px] border-border shadow-sm text-foreground hover:text-secondary flex items-center justify-center transition-all cursor-pointer shrink-0 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
         title="Fechar menu lateral"
         aria-label="Fechar menu lateral"
       >
@@ -67,7 +67,7 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
       <button
         type="button"
         id="cagp-sidebar-toggle-btn"
-        class="hidden md:flex xl:hidden w-10 h-8 rounded-xl bg-white hover:bg-muted border-[3px] border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] text-[#0A0A0A] hover:text-[#9E2424] items-center justify-center transition-all cursor-pointer shrink-0 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+        class="hidden md:flex xl:hidden w-10 h-8 rounded-xl bg-white hover:bg-muted border-[3px] border-border shadow-sm text-foreground hover:text-secondary items-center justify-center transition-all cursor-pointer shrink-0 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
         title="Alternar largura da barra lateral (Rail / Completa)"
         aria-label="Alternar expansão da barra lateral"
       >
@@ -75,13 +75,37 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
       </button>
     </div>
 
+    <!-- Destaque Eleitoral Fixo da Chapa Semente -->
+    <a
+      href={route('/chapa-semente')}
+      class="sidebar-expanded-show hidden xl:flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl bg-primary text-white border-3 border-border shadow-md no-underline hover:bg-[#4A216E] transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+      title="Proposta Materializada — Vote Semente 25 e 26/11"
+    >
+      <div class="flex items-center gap-2 min-w-0">
+        <span class="w-6 h-6 rounded-lg bg-accent text-foreground flex items-center justify-center font-heading font-black text-xs shrink-0 border-2 border-border">
+          ★
+        </span>
+        <div class="text-left min-w-0">
+          <span class="font-heading text-[11px] font-black uppercase tracking-tight block truncate">
+            Proposta Materializada
+          </span>
+          <span class="text-[10px] font-mono font-bold text-[#FFD6A5] block truncate">
+            Vote Semente • 25 e 26/11
+          </span>
+        </div>
+      </div>
+      <span class="font-mono text-[9px] font-extrabold uppercase bg-accent text-foreground px-1.5 py-0.5 rounded border border-border shrink-0">
+        VOTE
+      </span>
+    </a>
+
     <!-- Navegação Primária: Os 5 Eixos Canônicos com Acordeão Inteligente -->
     <nav aria-label="Cinco Eixos do Curso" class="space-y-1.5" id="cagp-sidebar-axes-nav">
       <div class="sidebar-expanded-show hidden xl:flex items-center justify-between px-2.5 mb-1.5">
-        <span class="text-[11px] font-mono uppercase tracking-wider text-[#57534E] font-bold">
+        <span class="text-[11px] font-mono uppercase tracking-wider text-muted-foreground font-bold">
           5 Eixos Canônicos
         </span>
-        <span class="text-[11px] font-mono text-[#9E2424] font-bold tabular-nums">PPC 2020</span>
+        <span class="text-[11px] font-mono text-secondary font-bold tabular-nums">PPC 2020</span>
       </div>
 
       {AXIS_REGISTRY.map((axis) => {
@@ -100,8 +124,8 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
                 aria-current={isCurrentAxis ? 'page' : undefined}
                 class={`cagp-sidebar-axis-link flex-1 flex flex-col xl:flex-row items-center xl:justify-between gap-1 xl:gap-2.5 px-2 xl:px-3 py-2 xl:py-2.5 rounded-xl no-underline transition-all min-h-[48px] xl:min-h-[44px] min-w-0 ${
                   isCurrentAxis
-                    ? 'is-active bg-[#9E2424] text-white font-bold border-[2.5px] border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A]'
-                    : 'text-[#0A0A0A] hover:bg-muted hover:text-[#9E2424] font-semibold border-[2px] border-transparent hover:border-[#0A0A0A]'
+                    ? 'is-active bg-secondary text-white font-bold border-[2.5px] border-border shadow'
+                    : 'text-foreground hover:bg-muted hover:text-secondary font-semibold border-[2px] border-transparent hover:border-border'
                 }`}
                 title={`${axis.number}. ${axis.name} — ${axis.tagline}`}
               >
@@ -115,7 +139,7 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
                   class={`cagp-sidebar-axis-num sidebar-expanded-show hidden xl:inline-flex items-center justify-center text-[11px] font-mono font-bold px-1.5 py-0.5 rounded-md tabular-nums shrink-0 border ${
                     isCurrentAxis
                       ? 'bg-white/20 text-white border-white/40'
-                      : 'bg-[#F4F1EA] text-[#0A0A0A] border-[#0A0A0A]/20'
+                      : 'bg-background text-foreground border-border/20'
                   }`}
                 >
                   0{axis.number}
@@ -127,8 +151,8 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
                 <button
                   type="button"
                   data-axis-accordion-toggle={axis.id}
-                  class={`sidebar-expanded-show hidden xl:flex w-8 h-8 rounded-lg hover:bg-[#F4F1EA] border border-transparent hover:border-[#0A0A0A] items-center justify-center transition-colors cursor-pointer shrink-0 ${
-                    isCurrentAxis ? 'text-[#9E2424]' : 'text-[#78716C] hover:text-[#9E2424]'
+                  class={`sidebar-expanded-show hidden xl:flex w-8 h-8 rounded-lg hover:bg-background border border-transparent hover:border-border items-center justify-center transition-colors cursor-pointer shrink-0 ${
+                    isCurrentAxis ? 'text-secondary' : 'text-[#78716C] hover:text-secondary'
                   }`}
                   title={`Alternar sub-rotas de ${axis.name}`}
                   aria-label={`Alternar sub-rotas de ${axis.name}`}
@@ -148,16 +172,16 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
                 data-axis-subnav={axis.id}
                 class={`cagp-axis-subnav ${
                   isCurrentAxis ? 'flex' : 'hidden'
-                } flex-col pl-6 pr-1 py-1 space-y-0.5 border-l-[3px] border-[#9E2424] ml-4`}
+                } flex-col pl-6 pr-1 py-1 space-y-0.5 border-l-[3px] border-secondary ml-4`}
               >
                 {subItems.map((sub) => (
                   <a
                     href={sub.href}
                     data-axis-sublink={sub.href}
-                    class="text-xs font-sans font-medium text-[#0A0A0A] hover:text-[#9E2424] hover:bg-muted px-2.5 py-1.5 rounded-lg no-underline flex items-center justify-between transition-colors truncate min-h-[36px]"
+                    class="text-xs font-sans font-medium text-foreground hover:text-secondary hover:bg-muted px-2.5 py-1.5 rounded-lg no-underline flex items-center justify-between transition-colors truncate min-h-[36px]"
                   >
                     <span class="truncate">{sub.shortLabel || sub.label}</span>
-                    <span class="text-[11px] font-bold text-[#9E2424]" aria-hidden="true">&rarr;</span>
+                    <span class="text-[11px] font-bold text-secondary" aria-hidden="true">&rarr;</span>
                   </a>
                 ))}
               </div>
@@ -168,16 +192,16 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
     </nav>
 
     <!-- Seção de Atalhos Favoritos do Student Vault -->
-    <div class="pt-3 border-t-[3px] border-[#0A0A0A]">
+    <div class="pt-3 border-t-[3px] border-border">
       <!-- Cabeçalho no Desktop, Tablet Expandido e Mobile -->
       <div class="sidebar-expanded-show hidden xl:flex items-center justify-between px-2.5 mb-1.5">
-        <span class="text-[11px] font-mono uppercase tracking-wider text-[#57534E] font-bold">
+        <span class="text-[11px] font-mono uppercase tracking-wider text-muted-foreground font-bold">
           Meus Atalhos
         </span>
         <button
           type="button"
           id="cagp-sidebar-edit-shortcuts"
-          class="text-xs font-bold text-[#9E2424] hover:underline cursor-pointer bg-transparent border-0 p-0"
+          class="text-xs font-bold text-secondary hover:underline cursor-pointer bg-transparent border-0 p-0"
           title="Personalizar atalhos favoritos"
         >
           Editar
@@ -186,7 +210,7 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
 
       <!-- Cabeçalho no Modo Rail Tablet (Separador Sutil) -->
       <div class="sidebar-rail-only flex xl:hidden items-center justify-center py-1">
-        <span class="w-6 h-[2px] bg-[#0A0A0A]"></span>
+        <span class="w-6 h-[2px] bg-foreground text-background"></span>
       </div>
 
       <!-- 1. Lista Completa de Atalhos (Desktop xl, Tablet Expandido e Mobile) -->
@@ -199,13 +223,13 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
               href={item.href}
               data-sidebar-shortcut={item.id}
               data-action={item.isAction ? item.actionEvent : undefined}
-              class="flex items-center justify-between gap-2.5 px-2.5 py-1.5 rounded-xl border border-transparent hover:border-[#0A0A0A] hover:bg-muted text-xs text-[#0A0A0A] hover:text-[#9E2424] no-underline transition-all min-h-[38px]"
+              class="flex items-center justify-between gap-2.5 px-2.5 py-1.5 rounded-xl border border-transparent hover:border-border hover:bg-muted text-xs text-foreground hover:text-secondary no-underline transition-all min-h-[38px]"
             >
               <span class="flex items-center gap-2 min-w-0 truncate">
-                <span class="text-[#9E2424]" set:html={iconSvg} />
+                <span class="text-secondary" set:html={iconSvg} />
                 <span class="truncate font-sans font-bold">{item.label}</span>
               </span>
-              <span class="text-[10px] font-mono font-bold bg-[#EFE9E0] px-1.5 py-0.5 rounded border border-black/20 text-[#57534E]">{item.category}</span>
+              <span class="text-[10px] font-mono font-bold bg-[#EFE9E0] px-1.5 py-0.5 rounded border border-black/20 text-muted-foreground">{item.category}</span>
             </a>
           );
         })}
@@ -221,11 +245,11 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
               href={item.href}
               data-sidebar-shortcut={item.id}
               data-action={item.isAction ? item.actionEvent : undefined}
-              class="w-11 h-11 rounded-xl bg-white hover:bg-muted text-[#0A0A0A] hover:text-[#9E2424] border-[2.5px] border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] flex items-center justify-center transition-all cursor-pointer no-underline group active:translate-x-0.5 active:translate-y-0.5 active:shadow-none shrink-0"
+              class="w-11 h-11 rounded-xl bg-white hover:bg-muted text-foreground hover:text-secondary border-[2.5px] border-border shadow-sm flex items-center justify-center transition-all cursor-pointer no-underline group active:translate-x-0.5 active:translate-y-0.5 active:shadow-none shrink-0"
               title={`${item.fullLabel} (${item.category}) — Toque para abrir`}
               aria-label={item.label}
             >
-              <span class="text-[#9E2424] group-hover:scale-110 transition-transform" set:html={iconSvg} />
+              <span class="text-secondary group-hover:scale-110 transition-transform" set:html={iconSvg} />
             </a>
           );
         })}
@@ -234,7 +258,7 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
         <button
           type="button"
           id="cagp-rail-edit-shortcuts-btn"
-          class="w-8 h-8 rounded-lg text-[#0A0A0A] hover:text-[#9E2424] hover:bg-muted border-2 border-dashed border-[#0A0A0A] flex items-center justify-center transition-colors cursor-pointer mt-1 font-bold"
+          class="w-8 h-8 rounded-lg text-foreground hover:text-secondary hover:bg-muted border-2 border-dashed border-border flex items-center justify-center transition-colors cursor-pointer mt-1 font-bold"
           title="Personalizar Meus Atalhos"
           aria-label="Personalizar Meus Atalhos"
         >
@@ -245,22 +269,22 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
   </div>
 
   <!-- Base da Sidebar: Trio de Ferramentas Rápidas + Cartão do Estudante (Ancorada com shrink-0) -->
-  <div class="p-2.5 xl:p-3 border-t-[3px] border-[#0A0A0A] bg-white space-y-2.5 shrink-0">
+  <div class="p-2.5 xl:p-3 border-t-[3px] border-border bg-white space-y-2.5 shrink-0">
     <!-- 1. Linha de Ações Expandida (Desktop, Tablet Expandido e Mobile) -->
     <div class="cagp-sidebar-actions-row sidebar-expanded-show hidden xl:flex items-center gap-1.5 w-full min-w-0">
       <!-- Busca Spotlight: flex-1 com ⌘K -->
       <button
         type="button"
         id="cagp-sidebar-spotlight-btn"
-        class="flex-1 min-w-0 min-h-[44px] px-2.5 py-1.5 rounded-xl bg-white hover:bg-[#F4F1EA] border-[2.5px] border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] text-[#0A0A0A] text-xs font-bold flex items-center justify-between gap-1.5 transition-all cursor-pointer shrink-0 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+        class="flex-1 min-w-0 min-h-[44px] px-2.5 py-1.5 rounded-xl bg-white hover:bg-background border-[2.5px] border-border shadow-sm text-foreground text-xs font-bold flex items-center justify-between gap-1.5 transition-all cursor-pointer shrink-0 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
         title="Busca Universal (⌘K ou Ctrl+K)"
         aria-label="Abrir Busca Universal Spotlight"
       >
         <span class="flex items-center gap-1.5 truncate">
-          <span class="text-[#9E2424]" set:html={getCagpIconSvg('search', 'w-4 h-4')} />
+          <span class="text-secondary" set:html={getCagpIconSvg('search', 'w-4 h-4')} />
           <span class="truncate font-sans font-bold">Buscar...</span>
         </span>
-        <kbd class="text-[10px] font-mono font-bold bg-[#EFE9E0] text-[#0A0A0A] px-1.5 py-0.5 rounded border border-[#0A0A0A] shrink-0">
+        <kbd class="text-[10px] font-mono font-bold bg-[#EFE9E0] text-foreground px-1.5 py-0.5 rounded border border-border shrink-0">
           ⌘K
         </kbd>
       </button>
@@ -269,7 +293,7 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
       <button
         type="button"
         id="cagp-sidebar-a11y-btn"
-        class="w-10 h-10 min-h-[44px] min-w-[40px] rounded-xl bg-white hover:bg-[#F4F1EA] border-[2.5px] border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] text-[#0A0A0A] flex items-center justify-center transition-all cursor-pointer shrink-0 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+        class="w-10 h-10 min-h-[44px] min-w-[40px] rounded-xl bg-white hover:bg-background border-[2.5px] border-border shadow-sm text-foreground flex items-center justify-center transition-all cursor-pointer shrink-0 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
         title="Acessibilidade e Ajustes de Leitura (Alt+A)"
         aria-label="Abrir Preferências de Acessibilidade"
       >
@@ -280,7 +304,7 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
       <button
         type="button"
         id="cagp-sidebar-settings-btn"
-        class="w-10 h-10 min-h-[44px] min-w-[40px] rounded-xl bg-white hover:bg-[#F4F1EA] border-[2.5px] border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] text-[#0A0A0A] flex items-center justify-center transition-all cursor-pointer shrink-0 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+        class="w-10 h-10 min-h-[44px] min-w-[40px] rounded-xl bg-white hover:bg-background border-[2.5px] border-border shadow-sm text-foreground flex items-center justify-center transition-all cursor-pointer shrink-0 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
         title="Ajustes e Cofre Local (Alt+S)"
         aria-label="Abrir Ajustes e Cofre Local"
       >
@@ -293,18 +317,18 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
       <button
         type="button"
         id="cagp-rail-spotlight-btn"
-        class="w-11 h-11 rounded-xl bg-white hover:bg-[#F4F1EA] border-[2.5px] border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] text-[#0A0A0A] flex items-center justify-center transition-all cursor-pointer shrink-0 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+        class="w-11 h-11 rounded-xl bg-white hover:bg-background border-[2.5px] border-border shadow-sm text-foreground flex items-center justify-center transition-all cursor-pointer shrink-0 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
         title="Busca Universal (⌘K)"
         aria-label="Abrir Busca Universal Spotlight"
       >
-        <span class="text-[#9E2424]" set:html={getCagpIconSvg('search', 'w-4 h-4')} />
+        <span class="text-secondary" set:html={getCagpIconSvg('search', 'w-4 h-4')} />
       </button>
 
       <div class="flex items-center gap-1">
         <button
           type="button"
           id="cagp-rail-a11y-btn"
-          class="w-8 h-8 rounded-lg bg-white hover:bg-[#F4F1EA] border-[2px] border-[#0A0A0A] shadow-[1.5px_1.5px_0_0_#0A0A0A] text-[#0A0A0A] flex items-center justify-center transition-all cursor-pointer shrink-0 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+          class="w-8 h-8 rounded-lg bg-white hover:bg-background border-[2px] border-border shadow-xs text-foreground flex items-center justify-center transition-all cursor-pointer shrink-0 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
           title="Acessibilidade (Alt+A)"
           aria-label="Abrir Preferências de Acessibilidade"
         >
@@ -314,7 +338,7 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
         <button
           type="button"
           id="cagp-rail-settings-btn"
-          class="w-8 h-8 rounded-lg bg-white hover:bg-[#F4F1EA] border-[2px] border-[#0A0A0A] shadow-[1.5px_1.5px_0_0_#0A0A0A] text-[#0A0A0A] flex items-center justify-center transition-all cursor-pointer shrink-0 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+          class="w-8 h-8 rounded-lg bg-white hover:bg-background border-[2px] border-border shadow-xs text-foreground flex items-center justify-center transition-all cursor-pointer shrink-0 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
           title="Ajustes e Cofre Local (Alt+S)"
           aria-label="Abrir Ajustes e Cofre Local"
         >
@@ -327,23 +351,23 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
     <button
       type="button"
       id="cagp-sidebar-passport-btn"
-      class="w-full bg-white hover:bg-[#F4F1EA] border-[3px] border-[#0A0A0A] rounded-xl p-2 flex items-center justify-center xl:justify-start gap-2.5 text-left transition-all cursor-pointer shadow-[3px_3px_0_0_#0A0A0A] hover:shadow-[4px_4px_0_0_#0A0A0A] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none group min-h-[50px]"
+      class="w-full bg-white hover:bg-background border-[3px] border-border rounded-xl p-2 flex items-center justify-center xl:justify-start gap-2.5 text-left transition-all cursor-pointer shadow hover:shadow-md active:translate-x-0.5 active:translate-y-0.5 active:shadow-none group min-h-[50px]"
       title="Abrir Passaporte Discente e Perfil"
       aria-label="Abrir Passaporte Discente"
     >
       <div
         id="cagp-sidebar-avatar"
-        class="w-10 h-10 rounded-lg bg-[#9E2424] text-white font-heading font-extrabold text-xs flex items-center justify-center shrink-0 border-2 border-[#0A0A0A] shadow-[1.5px_1.5px_0_0_#0A0A0A] overflow-hidden"
+        class="w-10 h-10 rounded-lg bg-secondary text-white font-heading font-extrabold text-xs flex items-center justify-center shrink-0 border-3 border-border shadow-xs overflow-hidden"
       >
         GP
       </div>
       <div class="sidebar-expanded-block hidden xl:block flex-1 min-w-0">
-        <p id="cagp-sidebar-student-name" class="text-xs font-heading font-bold text-[#0A0A0A] truncate m-0 leading-tight">
+        <p id="cagp-sidebar-student-name" class="text-xs font-heading font-bold text-foreground truncate m-0 leading-tight">
           Estudante GP
         </p>
         <div class="flex items-center gap-1.5 mt-0.5">
-          <span class="w-2 h-2 rounded-full bg-[#15803D] shrink-0 border border-black" aria-hidden="true"></span>
-          <span id="cagp-sidebar-student-meta" class="text-[11px] font-mono font-bold text-[#15803D] truncate tabular-nums">
+          <span class="w-2 h-2 rounded-full bg-success shrink-0 border border-black" aria-hidden="true"></span>
+          <span id="cagp-sidebar-student-meta" class="text-[11px] font-mono font-bold text-success truncate tabular-nums">
             1º Período • Calouro
           </span>
         </div>
@@ -353,7 +377,7 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
 </aside>
 
 <script>
-  import { initAppShellSidebar } from '../../lib/sidebarController';
+  import { initAppShellSidebar } from '@/lib/sidebarController';
 
   initAppShellSidebar();
   document.addEventListener('astro:page-load', initAppShellSidebar);

@@ -1,13 +1,13 @@
 ---
 // src/components/shell/AxisOverview.astro — Dashboard Bento-Grid Apple HIG para a "Visão Geral" de Cada Eixo
-import { type AxisId, getAxisById } from '../../lib/navigationRegistry';
-import { OverviewCalcWidget } from '../widgets/OverviewCalcWidget';
-import { OverviewGuardianWidget } from '../widgets/OverviewGuardianWidget';
-import { OverviewStageWidget } from '../widgets/OverviewStageWidget';
-import { OverviewCalouroWidget } from '../widgets/OverviewCalouroWidget';
-import OverviewFaqWidget from '../widgets/OverviewFaqWidget.astro';
-import OverviewGestaoWidget from '../widgets/OverviewGestaoWidget.astro';
-import { route } from '../../lib/paths';
+import { type AxisId, getAxisById } from '@/lib/navigationRegistry';
+import { OverviewCalcWidget } from '@/components/features/home/widgets/OverviewCalcWidget';
+import { OverviewGuardianWidget } from '@/components/features/home/widgets/OverviewGuardianWidget';
+import { OverviewStageWidget } from '@/components/features/home/widgets/OverviewStageWidget';
+import { OverviewCalouroWidget } from '@/components/features/home/widgets/OverviewCalouroWidget';
+import OverviewFaqWidget from '@/components/features/home/widgets/OverviewFaqWidget.astro';
+import OverviewGestaoWidget from '@/components/features/home/widgets/OverviewGestaoWidget.astro';
+import { route } from '@/lib/paths';
 
 interface Props {
   axisId: AxisId;
@@ -22,20 +22,20 @@ if (!axis) {
 
 <div class="cagp-axis-overview space-y-5 select-none">
   <!-- Banner Executivo do Eixo -->
-  <div class="p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-[4px_4px_0_0_#0A0A0A]">
+  <div class="p-5 bg-white border-3 border-border rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
     <div class="flex items-start gap-3.5">
-      <span class="w-11 h-11 rounded-xl bg-[#0A0A0A] text-white flex items-center justify-center text-xl shrink-0 mt-0.5 border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+      <span class="w-11 h-11 rounded-xl bg-foreground text-background text-white flex items-center justify-center text-xl shrink-0 mt-0.5 border-3 border-border shadow-sm">
         <i class={`bi ${axis.icon}`} aria-hidden="true" />
       </span>
       <div>
         <div class="flex items-center gap-2">
-          <span class="text-xs font-head uppercase font-bold tracking-wider text-[#8B1E2D]">
+          <span class="text-xs font-head uppercase font-bold tracking-wider text-secondary">
             Eixo {axis.number} Canônico
           </span>
-          <span class="text-[#0A0A0A]">•</span>
-          <span class="text-xs text-[#0A0A0A] font-mono font-bold">{axis.items.length} funcionalidades</span>
+          <span class="text-foreground">•</span>
+          <span class="text-xs text-foreground font-mono font-bold">{axis.items.length} funcionalidades</span>
         </div>
-        <h2 class="font-head text-lg sm:text-xl font-black uppercase text-[#0A0A0A] leading-tight m-0 tracking-wide">
+        <h2 class="font-head text-lg sm:text-xl font-black uppercase text-foreground leading-tight m-0 tracking-wide">
           {axis.tagline}
         </h2>
       </div>
@@ -58,52 +58,52 @@ if (!axis) {
       <>
         <OverviewCalouroWidget client:load />
 
-        <div class="cagp-card p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between h-full shadow-[3px_3px_0_0_#0A0A0A] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0_0_#0A0A0A] transition-all">
+        <div class="cagp-card p-5 bg-white border-3 border-border rounded-xl flex flex-col justify-between h-full shadow hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-md transition-all">
           <div>
             <div class="flex items-center justify-between gap-2 mb-3">
               <div class="flex items-center gap-2.5">
-                <span class="w-9 h-9 rounded-lg bg-[#8B1E2D] text-white flex items-center justify-center text-lg border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+                <span class="w-9 h-9 rounded-lg bg-secondary text-white flex items-center justify-center text-lg border-3 border-border shadow-sm">
                   <i class="bi bi-geo-alt" aria-hidden="true" />
                 </span>
                 <div>
-                  <h3 class="font-head font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0 tracking-wide">
+                  <h3 class="font-head font-bold text-sm uppercase text-foreground leading-tight m-0 tracking-wide">
                     Colegiado & Secretaria
                   </h3>
                   <span class="text-[11px] text-gray-700 font-mono font-medium">Sala F-2039 FAFICH</span>
                 </div>
               </div>
-              <span class="px-2 py-0.5 rounded-md font-head text-[11px] font-bold bg-[#0A0A0A] text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">
+              <span class="px-2 py-0.5 rounded-md font-head text-[11px] font-bold bg-foreground text-background text-white border border-border shadow-xs">
                 Presencial
               </span>
             </div>
             <p class="font-body text-xs text-gray-700 leading-relaxed mb-3 font-medium">
-              Atendimento discente com <strong>Norma Guedes</strong>. E-mail oficial: <code class="text-xs bg-white px-1.5 py-0.5 rounded border border-[#0A0A0A] font-mono text-[#8B1E2D]">coordgestaopublica@gmail.com</code>.
+              Atendimento discente com <strong>Norma Guedes</strong>. E-mail oficial: <code class="text-xs bg-white px-1.5 py-0.5 rounded border border-border font-mono text-secondary">coordgestaopublica@gmail.com</code>.
             </p>
           </div>
           <a
             href={route('/curso') + '#colegiado'}
-            class="min-h-[44px] px-3.5 py-2 bg-[#0A0A0A] text-white hover:bg-[#8B1E2D] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline mt-2 border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A]"
+            class="min-h-[44px] px-3.5 py-2 bg-foreground text-background text-white hover:bg-secondary active:translate-x-[2px] active:translate-y-[2px] active:shadow-none rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline mt-2 border-3 border-border shadow"
           >
             <span>Ver Horários & Contatos</span>
             <i class="bi bi-arrow-right" aria-hidden="true" />
           </a>
         </div>
 
-        <div class="cagp-card p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between h-full shadow-[3px_3px_0_0_#0A0A0A] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0_0_#0A0A0A] transition-all">
+        <div class="cagp-card p-5 bg-white border-3 border-border rounded-xl flex flex-col justify-between h-full shadow hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-md transition-all">
           <div>
             <div class="flex items-center justify-between gap-2 mb-3">
               <div class="flex items-center gap-2.5">
-                <span class="w-9 h-9 rounded-lg bg-[#2A6264] text-white flex items-center justify-center text-lg border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+                <span class="w-9 h-9 rounded-lg bg-[#2A6264] text-white flex items-center justify-center text-lg border-3 border-border shadow-sm">
                   <i class="bi bi-lightbulb" aria-hidden="true" />
                 </span>
                 <div>
-                  <h3 class="font-head font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0 tracking-wide">
+                  <h3 class="font-head font-bold text-sm uppercase text-foreground leading-tight m-0 tracking-wide">
                     Pesquisa & Extensão
                   </h3>
                   <span class="text-[11px] text-gray-700 font-mono font-medium">11 Núcleos do DCP</span>
                 </div>
               </div>
-              <span class="px-2 py-0.5 rounded-md font-head text-[11px] font-bold bg-[#2A6264] text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">
+              <span class="px-2 py-0.5 rounded-md font-head text-[11px] font-bold bg-[#2A6264] text-white border border-border shadow-xs">
                 Nota 7 CAPES
               </span>
             </div>
@@ -113,7 +113,7 @@ if (!axis) {
           </div>
           <a
             href={route('/pesquisa')}
-            class="min-h-[44px] px-3.5 py-2 bg-[#0A0A0A] text-white hover:bg-[#2A6264] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline mt-2 border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A]"
+            class="min-h-[44px] px-3.5 py-2 bg-foreground text-background text-white hover:bg-[#2A6264] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline mt-2 border-3 border-border shadow"
           >
             <span>Explorar Núcleos de Pesquisa</span>
             <i class="bi bi-arrow-right" aria-hidden="true" />
@@ -127,21 +127,21 @@ if (!axis) {
       <>
         <OverviewFaqWidget />
 
-        <div class="cagp-card p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between h-full shadow-[3px_3px_0_0_#0A0A0A] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0_0_#0A0A0A] transition-all">
+        <div class="cagp-card p-5 bg-white border-3 border-border rounded-xl flex flex-col justify-between h-full shadow hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-md transition-all">
           <div>
             <div class="flex items-center justify-between gap-2 mb-3">
               <div class="flex items-center gap-2.5">
-                <span class="w-9 h-9 rounded-lg bg-[#B45309] text-white flex items-center justify-center text-lg border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+                <span class="w-9 h-9 rounded-lg bg-warning text-white flex items-center justify-center text-lg border-3 border-border shadow-sm">
                   <i class="bi bi-file-earmark-pdf" aria-hidden="true" />
                 </span>
                 <div>
-                  <h3 class="font-head font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0 tracking-wide">
+                  <h3 class="font-head font-bold text-sm uppercase text-foreground leading-tight m-0 tracking-wide">
                     Atos Oficiais & PPC
                   </h3>
                   <span class="text-[11px] text-gray-700 font-mono font-medium">Leitor e Downloads</span>
                 </div>
               </div>
-              <span class="px-2 py-0.5 rounded-md font-head text-[11px] font-bold bg-[#B45309] text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">
+              <span class="px-2 py-0.5 rounded-md font-head text-[11px] font-bold bg-warning text-white border border-border shadow-xs">
                 PDFs Oficiais
               </span>
             </div>
@@ -151,28 +151,28 @@ if (!axis) {
           </div>
           <a
             href={route('/documentos') + '#atos'}
-            class="min-h-[44px] px-3.5 py-2 bg-[#0A0A0A] text-white hover:bg-[#B45309] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline mt-2 border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A]"
+            class="min-h-[44px] px-3.5 py-2 bg-foreground text-background text-white hover:bg-warning active:translate-x-[2px] active:translate-y-[2px] active:shadow-none rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline mt-2 border-3 border-border shadow"
           >
             <span>Abrir Repositório de PDFs</span>
             <i class="bi bi-arrow-right" aria-hidden="true" />
           </a>
         </div>
 
-        <div class="cagp-card p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between h-full shadow-[3px_3px_0_0_#0A0A0A] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0_0_#0A0A0A] transition-all">
+        <div class="cagp-card p-5 bg-white border-3 border-border rounded-xl flex flex-col justify-between h-full shadow hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-md transition-all">
           <div>
             <div class="flex items-center justify-between gap-2 mb-3">
               <div class="flex items-center gap-2.5">
-                <span class="w-9 h-9 rounded-lg bg-[#0A0A0A] text-white flex items-center justify-center text-lg border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+                <span class="w-9 h-9 rounded-lg bg-foreground text-background text-white flex items-center justify-center text-lg border-3 border-border shadow-sm">
                   <i class="bi bi-mic text-white" aria-hidden="true" />
                 </span>
                 <div>
-                  <h3 class="font-head font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0 tracking-wide">
+                  <h3 class="font-head font-bold text-sm uppercase text-foreground leading-tight m-0 tracking-wide">
                     Transcrições Históricas
                   </h3>
                   <span class="text-[11px] text-gray-700 font-mono font-medium">Memória Discente</span>
                 </div>
               </div>
-              <span class="px-2 py-0.5 rounded-md font-head text-[11px] font-bold bg-[#0A0A0A] text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">
+              <span class="px-2 py-0.5 rounded-md font-head text-[11px] font-bold bg-foreground text-background text-white border border-border shadow-xs">
                 Histórico
               </span>
             </div>
@@ -182,7 +182,7 @@ if (!axis) {
           </div>
           <a
             href={route('/documentos/transcricao-recepcao-ingressantes-2024-2')}
-            class="min-h-[44px] px-3.5 py-2 bg-[#0A0A0A] text-white hover:bg-[#8B1E2D] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline mt-2 border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A]"
+            class="min-h-[44px] px-3.5 py-2 bg-foreground text-background text-white hover:bg-secondary active:translate-x-[2px] active:translate-y-[2px] active:shadow-none rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline mt-2 border-3 border-border shadow"
           >
             <span>Ler Transcrições</span>
             <i class="bi bi-arrow-right" aria-hidden="true" />
@@ -196,21 +196,21 @@ if (!axis) {
       <>
         <OverviewGestaoWidget />
 
-        <div class="cagp-card p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between h-full shadow-[3px_3px_0_0_#0A0A0A] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0_0_#0A0A0A] transition-all">
+        <div class="cagp-card p-5 bg-white border-3 border-border rounded-xl flex flex-col justify-between h-full shadow hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-md transition-all">
           <div>
             <div class="flex items-center justify-between gap-2 mb-3">
               <div class="flex items-center gap-2.5">
-                <span class="w-9 h-9 rounded-lg bg-[#8B1E2D] text-white flex items-center justify-center text-lg border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+                <span class="w-9 h-9 rounded-lg bg-secondary text-white flex items-center justify-center text-lg border-3 border-border shadow-sm">
                   <i class="bi bi-building" aria-hidden="true" />
                 </span>
                 <div>
-                  <h3 class="font-head font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0 tracking-wide">
+                  <h3 class="font-head font-bold text-sm uppercase text-foreground leading-tight m-0 tracking-wide">
                     Sobre o CAGP & Estatuto
                   </h3>
                   <span class="text-[11px] text-gray-700 font-mono font-medium">Fundação e Princípios</span>
                 </div>
               </div>
-              <span class="px-2 py-0.5 rounded-md font-head text-[11px] font-bold bg-[#8B1E2D] text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">
+              <span class="px-2 py-0.5 rounded-md font-head text-[11px] font-bold bg-secondary text-white border border-border shadow-xs">
                 Soberano
               </span>
             </div>
@@ -220,7 +220,7 @@ if (!axis) {
           </div>
           <a
             href={route('/sobre') + '#governanca'}
-            class="min-h-[44px] px-3.5 py-2 bg-[#0A0A0A] text-white hover:bg-[#8B1E2D] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline mt-2 border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A]"
+            class="min-h-[44px] px-3.5 py-2 bg-foreground text-background text-white hover:bg-secondary active:translate-x-[2px] active:translate-y-[2px] active:shadow-none rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline mt-2 border-3 border-border shadow"
           >
             <span>Ver Estatuto do CAGP</span>
             <i class="bi bi-arrow-right" aria-hidden="true" />
@@ -231,9 +231,9 @@ if (!axis) {
   </div>
 
   <!-- Barra de Acesso Direto a Todas as Ferramentas do Eixo -->
-  <div class="p-4 bg-white border-2 border-[#0A0A0A] rounded-xl shadow-[3px_3px_0_0_#0A0A0A]">
+  <div class="p-4 bg-white border-3 border-border rounded-xl shadow">
     <div class="flex items-center justify-between mb-2.5 px-1">
-      <span class="text-xs font-head uppercase tracking-wider text-[#0A0A0A] font-bold">
+      <span class="text-xs font-head uppercase tracking-wider text-foreground font-bold">
         Todas as Funcionalidades do Eixo {axis.number} ({axis.name}):
       </span>
     </div>
@@ -241,11 +241,11 @@ if (!axis) {
       {axis.items.filter((it) => !it.isOverview).map((item) => (
         <a
           href={item.href}
-          class="min-h-[44px] px-3.5 py-2 bg-white hover:bg-muted active:translate-x-[1px] active:translate-y-[1px] active:shadow-none border-2 border-[#0A0A0A] rounded-xl text-xs font-head uppercase font-bold text-[#0A0A0A] flex items-center gap-2 transition-all no-underline shadow-[2px_2px_0_0_#0A0A0A]"
+          class="min-h-[44px] px-3.5 py-2 bg-white hover:bg-muted active:translate-x-[1px] active:translate-y-[1px] active:shadow-none border-3 border-border rounded-xl text-xs font-head uppercase font-bold text-foreground flex items-center gap-2 transition-all no-underline shadow-sm"
         >
-          <i class={`bi ${item.icon} text-[#8B1E2D]`} aria-hidden="true" />
+          <i class={`bi ${item.icon} text-secondary`} aria-hidden="true" />
           <span>{item.label}</span>
-          <i class="bi bi-chevron-right text-[#0A0A0A] text-[10px]" aria-hidden="true" />
+          <i class="bi bi-chevron-right text-foreground text-[10px]" aria-hidden="true" />
         </a>
       ))}
     </div>

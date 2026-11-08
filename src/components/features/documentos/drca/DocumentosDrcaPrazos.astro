@@ -1,7 +1,7 @@
 ---
 // src/components/features/documentos/drca/DocumentosDrcaPrazos.astro — Processos e Requerimentos do DRCA / UFMG
 import { asset } from '../../../../lib/paths';
-import DocumentosTutorialDrca from '../../../documentos/DocumentosTutorialDrca.astro';
+import DocumentosTutorialDrca from '@/components/features/documentos/DocumentosTutorialDrca.astro';
 
 interface DrcaDoc {
   title: string;
@@ -52,35 +52,35 @@ const drca: DrcaDoc[] = [
 ];
 ---
 
-<div class="cagp-documentos-drca space-y-6 select-none text-[#0A0A0A]">
-  <div class="p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-[4px_4px_0_0_#0A0A0A]">
+<div class="cagp-documentos-drca space-y-6 select-none text-foreground">
+  <div class="p-5 bg-white border-3 border-border rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
     <div>
-      <span class="text-xs font-head uppercase font-bold tracking-wider text-[#8B1E2D]">
+      <span class="text-xs font-head uppercase font-bold tracking-wider text-secondary">
         Departamento de Registro e Controle Acadêmico (DRCA)
       </span>
-      <h3 class="font-head text-lg font-black uppercase text-[#0A0A0A] m-0 tracking-wide">
+      <h3 class="font-head text-lg font-black uppercase text-foreground m-0 tracking-wide">
         Processos Administrativos, Trancamentos e Requerimentos DRCA
       </h3>
       <p class="text-xs text-gray-700 mt-0.5 m-0 font-body font-medium">
         Formulários homologados para solicitações perante o DRCA, Colegiado e Reitoria da UFMG.
       </p>
     </div>
-    <span class="px-3 py-1.5 rounded-lg bg-[#0A0A0A] text-white font-mono text-xs font-bold shrink-0 border border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+    <span class="px-3 py-1.5 rounded-lg bg-foreground text-background text-white font-mono text-xs font-bold shrink-0 border border-border shadow-sm">
       {drca.length} Requerimentos DRCA
     </span>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     {drca.map((doc) => (
-      <div class="cagp-card p-4 bg-white border-2 border-[#0A0A0A] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0_0_#0A0A0A] rounded-xl flex items-center justify-between gap-3.5 transition-all shadow-[2px_2px_0_0_#0A0A0A]">
+      <div class="cagp-card p-4 bg-white border-3 border-border hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-md rounded-xl flex items-center justify-between gap-3.5 transition-all shadow-sm">
         <div class="flex items-start gap-3 min-w-0">
-          <div class="w-10 h-10 rounded-lg bg-[#0A0A0A] text-white border-2 border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A] flex items-center justify-center shrink-0 mt-0.5">
+          <div class="w-10 h-10 rounded-lg bg-foreground text-background text-white border-3 border-border shadow-xs flex items-center justify-center shrink-0 mt-0.5">
             <i class="bi bi-archive-fill text-lg text-white" aria-hidden="true" />
           </div>
           <div class="min-w-0">
             <div class="flex items-center gap-1.5 mb-1 flex-wrap">
               <span class="cagp-badge cagp-badge-dark text-[10px] font-mono font-bold">{doc.badge}</span>
-              <h4 class="font-head font-bold text-xs uppercase text-[#0A0A0A] truncate m-0 tracking-wide">{doc.title}</h4>
+              <h4 class="font-head font-bold text-xs uppercase text-foreground truncate m-0 tracking-wide">{doc.title}</h4>
             </div>
             <p class="text-xs text-gray-700 leading-tight m-0 font-body font-medium">{doc.desc}</p>
           </div>
@@ -89,7 +89,7 @@ const drca: DrcaDoc[] = [
         <a
           href={asset(`/documentos/${doc.file}`)}
           download
-          class="min-h-[44px] px-3.5 py-1.5 bg-[#0A0A0A] hover:bg-[#8B1E2D] active:translate-x-[1px] active:translate-y-[1px] text-white rounded-xl text-xs font-head uppercase font-bold tracking-wider flex items-center gap-1.5 transition-all no-underline shrink-0 border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]"
+          class="min-h-[44px] px-3.5 py-1.5 bg-foreground text-background hover:bg-secondary active:translate-x-[1px] active:translate-y-[1px] text-white rounded-xl text-xs font-head uppercase font-bold tracking-wider flex items-center gap-1.5 transition-all no-underline shrink-0 border-3 border-border shadow-sm"
           title={`Baixar ${doc.title}`}
         >
           <i class="bi bi-download" aria-hidden="true" />

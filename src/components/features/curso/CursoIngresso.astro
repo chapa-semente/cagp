@@ -1,0 +1,152 @@
+---
+// CursoIngresso.astro - Sub-view 4: Formas de Ingresso na Graduação
+import { asset } from '@/lib/paths';
+import { PricingSection } from '@/components/boldkit/blocks/pricing-section';
+
+const pricingTiers = [
+  {
+    name: 'SiSU / ENEM',
+    price: 'R$ 0',
+    period: '/ Gratuito (UFMG)',
+    description: 'Via principal de ingresso com 80 vagas anuais divididas entre o 1º e 2º períodos.',
+    features: [
+      'Turno Noturno na FAFICH (19h–22h30)',
+      'Cotas Sociais, Raciais e PCD',
+      'Acesso ao RU subsidiado e FUMP',
+      'Auxílio Permanência e Moradia',
+    ],
+    cta: 'Acessar Edital SiSU',
+    ctaHref: asset('/documentos/forma-ingresso-sisu.pdf'),
+    featured: true,
+  },
+  {
+    name: 'Reopção Interna',
+    price: 'R$ 0',
+    period: '/ Sem Custos',
+    description: 'Migração de curso para estudantes já matriculados em outras graduações da UFMG.',
+    features: [
+      'Aproveitamento automático de créditos',
+      'Processo semestral via DRCA',
+      'Análise de rendimento global (RSG)',
+      'Sem perda de vínculo institucional',
+    ],
+    cta: 'Guia de Reopção',
+    ctaHref: asset('/documentos/forma-ingresso-reopcao.pdf'),
+  },
+  {
+    name: 'Novo Título / Transf.',
+    price: 'R$ 0',
+    period: '/ Ensino Público',
+    description: 'Vagas remanescentes para graduados com diploma reconhecido ou transferência externa.',
+    features: [
+      'Edital COPEVE anual',
+      'Dispensa de disciplinas afins',
+      'Diplomação de Bacharel UFMG',
+      'Aproveitamento de até 50% da carga',
+    ],
+    cta: 'Edital COPEVE',
+    ctaHref: asset('/documentos/forma-ingresso-obtencao-novo-titulo.pdf'),
+  },
+];
+---
+
+<div class="space-y-6 text-foreground">
+  <PricingSection
+    client:visible
+    title="Modalidades de Ingresso Gratuito"
+    subtitle="O Bacharelado em Gestão Pública da UFMG é 100% público, gratuito e de excelência acadêmica Nota 4 MEC."
+    tiers={pricingTiers}
+    className="py-2 px-0"
+  />
+
+  <div class="cagp-tool-box p-5 bg-white border-3 border-border rounded-xl shadow-md space-y-4">
+    <div class="border-b-2 border-border pb-3 flex items-center justify-between flex-wrap gap-2">
+      <div>
+        <div class="flex items-center gap-2">
+          <i class="bi bi-box-arrow-in-right text-secondary text-xl" aria-hidden="true"></i>
+          <h3 class="font-head text-base sm:text-lg font-black uppercase text-foreground m-0 tracking-wide">
+            Processos Seletivos e Formas de Ingresso
+          </h3>
+        </div>
+        <p class="text-xs text-gray-700 mt-0.5 font-body font-medium">Conheça as 4 vias oficiais de entrada no Bacharelado em Gestão Pública:</p>
+      </div>
+      <span class="cagp-badge cagp-badge-dark font-mono font-bold">
+        <i class="bi bi-signpost mr-1" aria-hidden="true"></i> 4 Vias Oficiais
+      </span>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-body">
+      <!-- 1. SiSU -->
+      <div class="cagp-card p-4 bg-white border-3 border-border rounded-xl flex flex-col justify-between shadow-sm">
+        <div>
+          <div class="flex items-center gap-2.5 mb-2.5">
+            <div class="w-9 h-9 rounded-lg bg-secondary text-white border-3 border-border shadow-sm flex items-center justify-center shrink-0">
+              <i class="bi bi-pencil-fill text-sm" aria-hidden="true"></i>
+            </div>
+            <span class="font-head font-black uppercase text-xs text-secondary tracking-wide">1. SiSU / ENEM</span>
+          </div>
+          <p class="text-xs text-gray-700 leading-relaxed font-medium m-0">
+            Entrada principal de 80 vagas anuais divididas entre o 1º e 2º períodos letivos, com reserva de vagas por cotas sociais e raciais.
+          </p>
+        </div>
+        <a href={asset('/documentos/forma-ingresso-sisu.pdf')} download class="text-xs font-head font-bold uppercase tracking-wider text-secondary hover:underline mt-3 inline-flex items-center gap-1.5 no-underline">
+          <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> Guia SiSU (PDF) &rarr;
+        </a>
+      </div>
+
+      <!-- 2. Obtenção de Novo Título -->
+      <div class="cagp-card p-4 bg-white border-3 border-border rounded-xl flex flex-col justify-between shadow-sm">
+        <div>
+          <div class="flex items-center gap-2.5 mb-2.5">
+            <div class="w-9 h-9 rounded-lg bg-foreground text-background text-white border-3 border-border shadow-sm flex items-center justify-center shrink-0">
+              <i class="bi bi-mortarboard-fill text-sm" aria-hidden="true"></i>
+            </div>
+            <span class="font-head font-black uppercase text-xs text-foreground tracking-wide">2. Obtenção de Novo Título</span>
+          </div>
+          <p class="text-xs text-gray-700 leading-relaxed font-medium m-0">
+            Vagas remanescentes para candidatos com diploma de graduação reconhecido pelo MEC via edital do DRCA.
+          </p>
+        </div>
+        <a href={asset('/documentos/forma-ingresso-obtencao-novo-titulo.pdf')} download class="text-xs font-head font-bold uppercase tracking-wider text-foreground hover:underline mt-3 inline-flex items-center gap-1.5 no-underline">
+          <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> Guia Novo Título (PDF) &rarr;
+        </a>
+      </div>
+
+      <!-- 3. Reopção de Curso -->
+      <div class="cagp-card p-4 bg-white border-3 border-border rounded-xl flex flex-col justify-between shadow-sm">
+        <div>
+          <div class="flex items-center gap-2.5 mb-2.5">
+            <div class="w-9 h-9 rounded-lg bg-info text-white border-3 border-border shadow-sm flex items-center justify-center shrink-0">
+              <i class="bi bi-arrow-left-right text-sm" aria-hidden="true"></i>
+            </div>
+            <span class="font-head font-black uppercase text-xs text-info tracking-wide">3. Reopção Interna</span>
+          </div>
+          <p class="text-xs text-gray-700 leading-relaxed font-medium m-0">
+            Destinado a estudantes de outros cursos de graduação da UFMG que queiram migrar para Gestão Pública.
+          </p>
+        </div>
+        <a href={asset('/documentos/forma-ingresso-reopcao.pdf')} download class="text-xs font-head font-bold uppercase tracking-wider text-info hover:underline mt-3 inline-flex items-center gap-1.5 no-underline">
+          <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> Guia Reopção (PDF) &rarr;
+        </a>
+      </div>
+
+      <!-- 4. Transferência Externa -->
+      <div class="cagp-card p-4 bg-white border-3 border-border rounded-xl flex flex-col justify-between shadow-sm">
+        <div>
+          <div class="flex items-center gap-2.5 mb-2.5">
+            <div class="w-9 h-9 rounded-lg bg-success text-white border-3 border-border shadow-sm flex items-center justify-center shrink-0">
+              <i class="bi bi-send-fill text-sm" aria-hidden="true"></i>
+            </div>
+            <span class="font-head font-black uppercase text-xs text-success tracking-wide">4. Transferência Externa</span>
+          </div>
+          <p class="text-xs text-gray-700 leading-relaxed font-medium m-0">
+            Para graduandos matriculados em cursos de Gestão Pública ou áreas afins de outras faculdades do Brasil.
+          </p>
+        </div>
+        <a href={asset('/documentos/requerimento-transferencia-outra-ies.pdf')} download class="text-xs font-head font-bold uppercase tracking-wider text-success hover:underline mt-3 inline-flex items-center gap-1.5 no-underline">
+          <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> Formulário DRCA (PDF) &rarr;
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

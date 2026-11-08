@@ -5,8 +5,10 @@ import PageHeader from '../components/ui/PageHeader.astro';
 import SegmentedControl from '../components/ui/SegmentedControl.astro';
 import JourneyNav from '../components/ui/JourneyNav.astro';
 import { FaqInteractiveExplorer } from '../components/features/faq/FaqInteractiveExplorer';
+import { FaqChatAssistant } from '../components/features/faq/FaqChatAssistant';
 import { CTASection } from '../components/boldkit/blocks/cta-section';
-import { asset } from '../lib/paths';
+import { FAQAccordion, type FAQItem } from '../components/boldkit/blocks/faq-section';
+import { asset } from '@/lib/paths';
 
 const tabs = [
   { id: 'v1', shortLabel: 'Perguntas', fullLabel: '1. Perguntas Frequentes', hash: '#faq' },
@@ -198,6 +200,10 @@ const faqs = [
     ],
   },
 ];
+const quickFaqItems: FAQItem[] = faqs.slice(0, 5).map((f) => ({
+  question: f.q,
+  answer: f.a,
+}));
 ---
 
 <BaseLayout title="Dúvidas Frequentes & Acessibilidade" description="Perguntas frequentes regimentais e recursos de acessibilidade institucional do curso de Gestão Pública UFMG.">
@@ -213,47 +219,92 @@ const faqs = [
   <!-- Sub-view 1: Perguntas Frequentes com Busca e Accordion BoldKit -->
   <section id="ws-panel-v1" class="cagp-workspace-view space-y-6" data-ws-panel="v1">
     <div id="faq" class="cagp-anchor-target scroll-mt-24"></div>
+    <FAQAccordion
+      client:visible
+      title="Dúvidas Rápidas em Destaque"
+      subtitle="Top 5 Regimentais"
+      description="Perguntas mais frequentes sobre o regulamento de graduação e funcionamento das aulas noturnas."
+      items={quickFaqItems}
+      className="py-2 px-0"
+    />
     <FaqInteractiveExplorer client:load faqs={faqs} />
+    <FaqChatAssistant client:load faqs={faqs} />
+
+    <!-- Card Final: Convite para Conhecer as 14 Propostas da Chapa Semente -->
+    <div class="p-6 sm:p-7 rounded-2xl border-3 border-[#16181d] bg-[#5B2A86] text-white shadow-[8px_8px_0_0_#FF8811] flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+      <div class="space-y-2 max-w-2xl">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="px-2.5 py-1 rounded-md bg-[#FF8811] text-[#16181d] font-mono text-[10px] font-black uppercase border-2 border-[#16181d]">
+            ★ DESCOMPLICAR A UFMG É COMPROMISSO DA SEMENTE
+          </span>
+          <span class="font-mono text-[11px] font-bold text-[#FFD6A5]">
+            ELEIÇÕES: 25 E 26 DE NOVEMBRO DE 2026
+          </span>
+        </div>
+        <h3 class="font-heading text-xl sm:text-2xl font-black uppercase text-white m-0 tracking-tight">
+          Gostou de ter as regras do curso claras e a um clique?
+        </h3>
+        <p class="text-xs sm:text-sm text-white/90 leading-relaxed m-0 font-medium">
+          Esta Central de Dúvidas e o Manual &ldquo;Como se Formar&rdquo; fazem parte das <strong>14 Propostas da Chapa Semente</strong> para um Centro Acadêmico presente, transparente e útil para quem estuda e trabalha à noite na FAFICH.
+        </p>
+      </div>
+      <div class="flex flex-wrap items-center gap-3 shrink-0">
+        <a
+          href="/chapa-semente#propostas"
+          class="min-h-[48px] px-5 py-3 rounded-xl bg-[#FF8811] text-[#16181d] font-heading font-black text-xs uppercase tracking-wider border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all inline-flex items-center gap-2 no-underline"
+        >
+          <span>Conhecer as 14 Propostas da Semente</span>
+          <span aria-hidden="true">→</span>
+        </a>
+        <a
+          href="/documentos"
+          class="min-h-[48px] px-4 py-3 rounded-xl bg-white text-[#16181d] font-heading font-black text-xs uppercase tracking-wider border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] hover:bg-[#f4f0ea] transition-all inline-flex items-center gap-2 no-underline"
+        >
+          <span>Abrir Acervo de PDFs</span>
+        </a>
+      </div>
+    </div>
+
     <CTASection
-      title="Ainda tem alguma dúvida sobre o curso?"
+      title="Ainda tem alguma dúvida específica sobre o curso?"
       subtitle="Fale diretamente com a Secretaria do Curso (Sala 2039, 4ª feira 13h–19h • gestaopublica@ufmg.br), com a Coordenação (Profª Isabele Mitozo • coordgestaopublicaufmg@gmail.com) ou com a Diretoria Acadêmica do CAGP."
-      actionText="Abrir Acervo de Formulários"
-      className="rounded-xl bg-[#5B2A86]"
+      actionText="Abrir Fala com o CA (Ouvidoria)"
+      className="rounded-xl bg-primary"
     />
   </section>
 
   <!-- Sub-view 2: Acessibilidade & NAI -->
-  <section id="ws-panel-v2" class="cagp-workspace-view space-y-4" data-ws-panel="v2" hidden>
-    <div id="acessibilidade" class="bg-white border-[3px] border-[#0A0A0A] rounded-xl p-5 shadow-[4px_4px_0_0_#0A0A0A] space-y-4 text-xs font-body text-[#0A0A0A] leading-relaxed">
-      <div class="flex items-center justify-between border-b-2 border-[#0A0A0A] pb-3 flex-wrap gap-2">
+  <section id="ws-panel-v2" class="cagp-workspace-view space-y-4" data-ws-panel="v2" data-context-type="faq-item" hidden>
+    <div class="bg-card border-3 border-border rounded-xl p-5 shadow-md space-y-4 text-xs font-sans text-foreground leading-relaxed">
+      <div class="flex items-center justify-between border-b-2 border-border pb-3 flex-wrap gap-2">
         <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-lg bg-[#266264] text-white flex items-center justify-center border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+          <div class="w-8 h-8 rounded-lg bg-[#134E4A] text-white flex items-center justify-center border-3 border-border shadow-xs">
             <i class="bi bi-universal-access text-base" aria-hidden="true"></i>
           </div>
-          <h3 class="font-head font-extrabold text-sm uppercase text-[#0A0A0A] tracking-tight">
+          <h3 class="font-heading font-extrabold text-sm uppercase text-foreground tracking-tight m-0">
             Núcleo de Acessibilidade e Inclusão (NAI/UFMG) &amp; Saúde Mental (DASE)
           </h3>
         </div>
-        <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold bg-[#E8F5E9] text-[#15803D] border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+        <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold bg-emerald-100 text-emerald-800 border-3 border-border shadow-xs">
           Apoio Pedagógico &amp; Escuta
         </span>
       </div>
 
-      <p class="text-xs text-[#0A0A0A] font-medium leading-relaxed">
+      <p class="text-xs text-muted-foreground font-medium leading-relaxed m-0">
         O NAI assessora estudantes com deficiência física, visual, auditiva, transtorno do espectro autista e altas habilidades, garantindo mediação pedagógica, adaptação de provas e intérpretes de Libras.
       </p>
 
-      <div class="p-4 bg-white rounded-xl border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A] space-y-2">
-        <p><strong>Contato NAI Oficial:</strong> <span class="font-mono text-[#8B1E2D] font-bold">acessibilidade@ufmg.br</span> • Tel: <span class="font-mono font-bold">(31) 3409-4674</span> • Site: <span class="font-mono">ufmg.br/nai</span></p>
-        <p><strong>Saúde Mental e Escuta (DASE/PRAE):</strong> <span class="font-mono text-[#5B2A86] font-bold">dase@prae.ufmg.br</span> (Espaço de Escuta e Acolhimento na PRAE)</p>
-        <p><strong>Urgência e Vigilância no Campus:</strong> Ramal <span class="font-mono font-bold">(31) 3409-4444</span> / SAMU <span class="font-mono font-bold">192</span> • Ouvidoria UFMG: <span class="font-mono">ufmg.br/ouvidoria</span></p>
+      <div class="p-4 bg-muted/40 rounded-xl border-3 border-border shadow-xs space-y-2">
+        <p class="m-0"><strong>Contato NAI Oficial:</strong> <span class="font-mono text-secondary font-bold">acessibilidade@ufmg.br</span> • Tel: <span class="font-mono font-bold">(31) 3409-4674</span> • Site: <span class="font-mono">ufmg.br/nai</span></p>
+        <p class="m-0"><strong>Saúde Mental e Escuta (DASE/PRAE):</strong> <span class="font-mono text-primary font-bold">dase@prae.ufmg.br</span> (Espaço de Escuta e Acolhimento na PRAE)</p>
+        <p class="m-0"><strong>Urgência e Vigilância no Campus:</strong> Ramal <span class="font-mono font-bold">(31) 3409-4444</span> / SAMU <span class="font-mono font-bold">192</span> • Ouvidoria UFMG: <span class="font-mono">ufmg.br/ouvidoria</span></p>
       </div>
 
       <div class="pt-2">
         <button
           type="button"
           onclick="window.dispatchEvent(new CustomEvent('cagp:open-a11y'))"
-          class="min-h-[44px] px-4 py-2 bg-[#8B1E2D] hover:bg-[#9E2424] text-white font-head font-bold uppercase text-xs tracking-wider border-2 border-[#0A0A0A] rounded-xl shadow-[3px_3px_0_0_#0A0A0A] hover:shadow-[4px_4px_0_0_#0A0A0A] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none inline-flex items-center gap-2 transition-all cursor-pointer"
+          class="min-h-[44px] px-4 py-2 bg-secondary hover:bg-secondary-hover text-secondary-foreground font-heading font-extrabold uppercase text-xs tracking-wider border-3 border-border rounded-xl shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none inline-flex items-center gap-2 transition-all cursor-pointer"
         >
           <i class="bi bi-universal-access text-base" aria-hidden="true"></i> Abrir Painel de Acessibilidade do Super App
         </button>

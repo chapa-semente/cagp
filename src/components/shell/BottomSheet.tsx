@@ -96,7 +96,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
 
       {/* Sheet / Form Sheet Modal Container Neobrutalista */}
       <div
-        className={`relative z-[1090] w-full max-w-2xl md:max-w-xl mx-auto bg-white rounded-t-2xl md:rounded-2xl border-[3px] border-[#0A0A0A] shadow-[0_-6px_0_0_#0A0A0A] md:shadow-[6px_6px_0_0_#0A0A0A] flex flex-col transition-all duration-200 animate-in slide-in-from-bottom md:zoom-in-95 ease-out ${heightClass}`}
+        className={`relative z-[1090] w-full max-w-2xl md:max-w-xl mx-auto bg-white rounded-t-2xl md:rounded-2xl border-[3px] border-border shadow-[0_-6px_0_0_#0A0A0A] md:shadow-lg flex flex-col transition-all duration-200 animate-in slide-in-from-bottom md:zoom-in-95 ease-out ${heightClass}`}
         style={{
           transform: `translateY(${dragY}px)`,
           paddingBottom: 'calc(1rem + env(safe-area-inset-bottom, 0px))',
@@ -111,19 +111,19 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
           onClick={() => setDetent(detent === 'medium' ? 'large' : 'medium')}
           aria-label="Alternar altura da gaveta"
         >
-          <div className="w-12 h-2 bg-[#0A0A0A] rounded-full hover:bg-black transition-colors" />
+          <div className="w-12 h-2 bg-foreground text-background rounded-full hover:bg-black transition-colors" />
         </div>
 
         {/* Sheet Topbar */}
-        <div className="flex items-center justify-between px-4 pt-2 md:pt-4 pb-3 border-b-[3px] border-[#0A0A0A] shrink-0">
-          <h2 id={`${id}-title`} className="font-heading text-lg md:text-xl font-extrabold text-[#0A0A0A] uppercase tracking-tight">
+        <div className="flex items-center justify-between px-4 pt-2 md:pt-4 pb-3 border-b-[3px] border-border shrink-0">
+          <h2 id={`${id}-title`} className="font-heading text-lg md:text-xl font-extrabold text-foreground uppercase tracking-tight">
             {title}
           </h2>
           <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={() => setDetent(detent === 'medium' ? 'large' : 'medium')}
-              className="hidden md:flex w-9 h-9 items-center justify-center rounded-xl bg-white hover:bg-muted border-[2px] border-[#0A0A0A] shadow-[1.5px_1.5px_0_0_#0A0A0A] text-[#0A0A0A] text-xs font-bold transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+              className="hidden md:flex w-9 h-9 items-center justify-center rounded-xl bg-white hover:bg-muted border-[2px] border-border shadow-xs text-foreground text-xs font-bold transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
               title={detent === 'medium' ? 'Expandir' : 'Recolher'}
               aria-label={detent === 'medium' ? 'Expandir gaveta' : 'Recolher gaveta'}
             >
@@ -132,7 +132,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="w-9 h-9 flex items-center justify-center rounded-xl bg-white hover:bg-muted border-[2px] border-[#0A0A0A] shadow-[1.5px_1.5px_0_0_#0A0A0A] text-[#0A0A0A] hover:text-[#9E2424] font-bold text-sm transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+              className="w-9 h-9 flex items-center justify-center rounded-xl bg-white hover:bg-muted border-[2px] border-border shadow-xs text-foreground hover:text-secondary font-bold text-sm transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
               aria-label="Fechar gaveta"
             >
               ✕

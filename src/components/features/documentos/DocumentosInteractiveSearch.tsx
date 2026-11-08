@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -10,8 +11,18 @@ import {
   ContextMenuSeparator,
   ContextMenuTrigger,
 } from '@/components/ui/context-menu';
+import {
+  Menubar,
+  MenubarMenu,
+  MenubarTrigger,
+  MenubarContent,
+  MenubarItem,
+  MenubarSeparator,
+} from '@/components/ui/menubar';
+import { DatePicker } from '@/components/ui/date-picker';
 import { ArrowUpRight, Copy, FileText } from 'lucide-react';
 import { asset, route } from '@/lib/paths';
+import { tactileSpring } from '@/lib/motion';
 
 interface DocEntry {
   title: string;
@@ -133,6 +144,7 @@ const CATEGORIES = ['Todos', 'Normativas GP', 'Formulários', 'Estágio & TCC', 
 export const DocumentosInteractiveSearch: React.FC = () => {
   const [query, setQuery] = useState('');
   const [selectedCat, setSelectedCat] = useState<string>('Todos');
+  const [filterDate, setFilterDate] = useState<Date | undefined>();
 
   const filtered = useMemo(() => {
     return CANONICAL_DOCS.filter((doc) => {
@@ -150,7 +162,7 @@ export const DocumentosInteractiveSearch: React.FC = () => {
   return (
     <section className="my-6" aria-label="Busca Instantânea no Acervo de Documentos">
       <Card className="bg-white">
-        <CardHeader className="border-b-3 border-[#16181d] bg-[#FFFDF9]">
+        <CardHeader className="border-b-3 border-border bg-card">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <Badge variant="default" className="mb-1.5">
@@ -159,7 +171,7 @@ export const DocumentosInteractiveSearch: React.FC = () => {
               <CardTitle className="text-xl uppercase">
                 Explorador Rápido de Documentos Canônicos
               </CardTitle>
-              <CardDescription className="text-xs font-medium text-[#57534E]">
+              <CardDescription className="text-xs font-medium text-muted-foreground">
                 A fonte oficial prevalecente é sempre o PDF publicado em documentos/.
               </CardDescription>
             </div>
@@ -186,71 +198,119 @@ export const DocumentosInteractiveSearch: React.FC = () => {
               </Button>
             ))}
           </div>
+
+          {/* Barra de Menus Neobrutalista Canônica & DatePicker */}
+          <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t-2 border-border/20">
+            <Menubar className="rounded-lg">
+              <MenubarMenu>
+                <MenubarTrigger>Filtrar Acervo</MenubarTrigger>
+                <MenubarContent className="border-3 border-border bg-card shadow-md">
+                  {CATEGORIES.map((cat) => (
+                    <MenubarItem key={cat} onClick={() => setSelectedCat(cat)} className="cursor-pointer">
+                      {cat} {selectedCat === cat && '✓'}
+                    </MenubarItem>
+                  ))}
+                  <MenubarSeparator />
+                  <MenubarItem onClick={() => { setSelectedCat('Todos'); setQuery(''); setFilterDate(undefined); }} className="cursor-pointer text-destructive">
+                    Limpar Todos os Filtros
+                  </MenubarItem>
+                </MenubarContent>
+              </MenubarMenu>
+              <MenubarMenu>
+                <MenubarTrigger>Ações Rápidas</MenubarTrigger>
+                <MenubarContent className="border-3 border-border bg-card shadow-md">
+                  <MenubarItem onClick={() => window.print()} className="cursor-pointer">
+                    Imprimir Catálogo Geral
+                  </MenubarItem>
+                  <MenubarItem onClick={() => navigator.clipboard.writeText(window.location.href)} className="cursor-pointer">
+                    Copiar Link Desta Pesquisa
+                  </MenubarItem>
+                </MenubarContent>
+              </MenubarMenu>
+            </Menubar>
+
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-mono font-bold text-muted-foreground uppercase">Data de Corte:</span>
+              <DatePicker
+                value={filterDate}
+                onChange={setFilterDate}
+                placeholder="Filtrar por data..."
+                className="min-h-[38px] text-xs font-mono bg-white"
+              />
+            </div>
+          </div>
         </CardHeader>
 
         <CardContent className="pt-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
-            {filtered.map((doc) => (
-              <ContextMenu key={doc.pdf}>
-                <ContextMenuTrigger asChild>
-                  <div
-                    className="p-4 rounded-xl border-3 border-border bg-white shadow-xs hover:shadow-md flex flex-col justify-between gap-3 transition-all cursor-context-menu"
-                  >
-                    <div className="space-y-1.5">
-                      <Badge variant="secondary" className="text-[10px]">
-                        {doc.category}
-                      </Badge>
-                      <h4 className="font-heading text-xs font-black uppercase text-foreground leading-snug">
-                        {doc.title}
-                      </h4>
-                      <p className="text-[11px] text-muted-foreground leading-relaxed">{doc.desc}</p>
-                    </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <AnimatePresence mode="popLayout">
+              {filtered.map((doc) => (
+                <ContextMenu key={doc.pdf}>
+                  <ContextMenuTrigger asChild>
+                    <motion.div
+                      layout
+                      initial={{ opacity: 0, scale: 0.96 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={tactileSpring}
+                      className="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0_0_#16181d] hover:shadow-[6px_6px_0_0_#16181d] hover:translate-x-[-1px] hover:translate-y-[-1px] flex flex-col justify-between gap-3 transition-all cursor-context-menu"
+                    >
+                      <div className="space-y-1.5">
+                        <Badge variant="secondary" className="text-[10px]">
+                          {doc.category}
+                        </Badge>
+                        <h4 className="font-heading text-xs font-black uppercase text-foreground leading-snug">
+                          {doc.title}
+                        </h4>
+                        <p className="text-[11px] text-muted-foreground leading-relaxed">{doc.desc}</p>
+                      </div>
 
-                    <div className="flex flex-wrap items-center gap-2 pt-2 border-t-2 border-border/15">
-                      <a
-                        href={asset(doc.pdf)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-2.5 py-1 min-h-[36px] inline-flex items-center rounded-lg border-2 border-border bg-secondary hover:bg-secondary-hover text-secondary-foreground text-[10px] font-mono font-bold no-underline shadow-xs transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
-                      >
-                        Abrir PDF Oficial ↗
-                      </a>
-                      {doc.slug && (
+                      <div className="flex flex-wrap items-center gap-2 pt-2 border-t-2 border-[#16181d]/20">
                         <a
-                          href={route(`/documentos/${doc.slug}`)}
-                          className="px-2.5 py-1 min-h-[36px] inline-flex items-center rounded-lg border-2 border-border bg-white hover:bg-[#F4F1EA] text-foreground text-[10px] font-mono font-bold no-underline shadow-xs transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+                          href={asset(doc.pdf)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-3 py-1.5 min-h-[40px] inline-flex items-center rounded-lg border-3 border-[#16181d] bg-secondary hover:bg-secondary-hover text-secondary-foreground text-[10px] font-mono font-bold no-underline shadow-[2px_2px_0_0_#16181d] transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
                         >
-                          Transcrição Web →
+                          Baixar / Abrir PDF ↗
                         </a>
-                      )}
-                    </div>
-                  </div>
-                </ContextMenuTrigger>
+                        {doc.slug && (
+                          <a
+                            href={route(`/documentos/${doc.slug}`)}
+                            className="px-3 py-1.5 min-h-[40px] inline-flex items-center rounded-lg border-3 border-[#16181d] bg-white hover:bg-background text-foreground text-[10px] font-mono font-bold no-underline shadow-[2px_2px_0_0_#16181d] transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+                          >
+                            Leitor Normativo →
+                          </a>
+                        )}
+                      </div>
+                    </motion.div>
+                  </ContextMenuTrigger>
 
-                <ContextMenuContent>
-                  <ContextMenuItem onClick={() => window.open(asset(doc.pdf), '_blank')}>
-                    <FileText className="w-4 h-4 mr-2" />
-                    Abrir PDF Oficial ↗
-                  </ContextMenuItem>
-                  {doc.slug && (
-                    <ContextMenuItem onClick={() => { window.location.href = route(`/documentos/${doc.slug}`); }}>
-                      <ArrowUpRight className="w-4 h-4 mr-2" />
-                      Ver Transcrição Web
+                  <ContextMenuContent>
+                    <ContextMenuItem onClick={() => window.open(asset(doc.pdf), '_blank')}>
+                      <FileText className="w-4 h-4 mr-2" />
+                      Abrir PDF Oficial ↗
                     </ContextMenuItem>
-                  )}
-                  <ContextMenuSeparator />
-                  <ContextMenuItem onClick={() => {
-                    const fullUrl = window.location.origin + asset(doc.pdf);
-                    navigator.clipboard.writeText(fullUrl);
-                    if (typeof navigator !== 'undefined' && 'vibrate' in navigator) navigator.vibrate(15);
-                    (window as any).cagpToast?.('Link do PDF copiado para a área de transferência!', 'bi-clipboard-check');
-                  }}>
-                    <Copy className="w-4 h-4 mr-2" />
-                    Copiar Link Direto
-                  </ContextMenuItem>
-                </ContextMenuContent>
-              </ContextMenu>
-            ))}
+                    {doc.slug && (
+                      <ContextMenuItem onClick={() => { window.location.href = route(`/documentos/${doc.slug}`); }}>
+                        <ArrowUpRight className="w-4 h-4 mr-2" />
+                        Ver Transcrição Web
+                      </ContextMenuItem>
+                    )}
+                    <ContextMenuSeparator />
+                    <ContextMenuItem onClick={() => {
+                      const fullUrl = window.location.origin + asset(doc.pdf);
+                      navigator.clipboard.writeText(fullUrl);
+                      if (typeof navigator !== 'undefined' && 'vibrate' in navigator) navigator.vibrate(15);
+                      (window as any).cagpToast?.('Link do PDF copiado para a área de transferência!', 'bi-clipboard-check');
+                    }}>
+                      <Copy className="w-4 h-4 mr-2" />
+                      Copiar Link Direto
+                    </ContextMenuItem>
+                  </ContextMenuContent>
+                </ContextMenu>
+              ))}
+            </AnimatePresence>
           </div>
         </CardContent>
       </Card>

@@ -12,6 +12,8 @@ import { OptativasCatalogExplorer } from '../components/features/curriculum/cata
 import MandatoryTimelineExplorer from '../components/features/curriculum/timeline/MandatoryTimelineExplorer.astro';
 import { StudentDossierTracker } from '../components/features/curriculum/dossie/StudentDossierTracker';
 import { PercursosComparativeMatrix } from '../components/features/percurso/PercursosComparativeMatrix';
+import { PercursoNavigationMenu } from '../components/features/percurso/PercursoNavigationMenu';
+import { route } from '../lib/paths';
 
 const allDisciplinas = await getCollection('disciplinas');
 
@@ -55,25 +57,52 @@ const badges = [
 <BaseLayout
   title="Central Curricular & Grafo Dinâmico 10P"
   description="Central Curricular unificada de Gestão Pública UFMG: grafo reativo dos 10 semestres, 27 obrigatórias, 68 optativas e adição de disciplinas livres."
+  mode="operate"
 >
-  <PageHeader
-    eyebrow="Eixo 3 · Central Curricular & Matriz 10P"
-    title="Trajetória Curricular, Grafo Vivo & Optativas"
-    subtitle="Navegue pelas 27 disciplinas obrigatórias com travas do SIGA, adicione matérias optativas e de formação livre no Grafo interativo e acompanhe o percentual de integralização no dossiê."
-    badges={badges}
-  />
+  <div id="cagp-percurso-header">
+    <PageHeader
+      mode="operate"
+      condensed={true}
+      axisId="percurso"
+      activeId="percurso"
+      eyebrow="Eixo 3 · Central Curricular & Matriz 10P"
+      title="Trajetória Curricular, Grafo Vivo & Optativas"
+      subtitle="Navegue pelas 27 disciplinas obrigatórias com travas do SIGA, adicione matérias optativas e de formação livre no Grafo interativo e acompanhe o percentual de integralização no dossiê."
+      badges={badges}
+    />
+  </div>
+
+  <!-- Faixa Tátil de Conversão Eleitoral Chapa Semente -->
+  <div class="mb-4 p-3.5 sm:p-4 rounded-xl border-3 border-[#16181d] bg-[#FAF5FF] shadow-[4px_4px_0_0_#16181d] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <div class="flex items-start sm:items-center gap-3">
+      <span class="cagp-stamp-badge is-semente shrink-0 text-[11px] py-1 px-2.5">
+        ✦ PROPOSTA 3 MATERIALIZADA • CHAPA SEMENTE
+      </span>
+      <p class="font-sans text-xs text-[#16181d] font-medium m-0 leading-snug">
+        O Grafo Vivo dos 10 Períodos mostra todas as <strong>travas do SIGA e cadeias de pré-requisitos</strong> com um clique. Planeje sua matrícula sem surpresas e apoie quem faz!
+      </p>
+    </div>
+    <a
+      href={route('/chapa-semente')}
+      class="min-h-[44px] px-4 py-2 rounded-xl bg-[#FF8811] hover:bg-[#E07406] text-[#16181d] font-heading text-xs font-extrabold uppercase tracking-wider border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all inline-flex items-center justify-center gap-1.5 no-underline shrink-0"
+    >
+      <span>Votar Semente 25–26/11</span>
+      <i class="bi bi-arrow-right-circle-fill" aria-hidden="true"></i>
+    </a>
+  </div>
 
   <SegmentedControl tabs={tabs} defaultTab="v0" />
 
   <!-- Sub-view 0: Visão Geral da Central Curricular -->
   <section id="ws-panel-v0" class="cagp-workspace-view" data-ws-panel="v0">
     <div id="visao-geral" class="cagp-anchor-target scroll-mt-24"></div>
+    <PercursoNavigationMenu client:load />
     <PercursosComparativeMatrix client:visible />
     <CurriculumCentralOverview />
   </section>
 
   <!-- Sub-view 1: Grafo Dinâmico 10P -->
-  <section id="ws-panel-v1" class="cagp-workspace-view space-y-4" data-ws-panel="v1" hidden>
+  <section id="ws-panel-v1" class="cagp-workspace-view space-y-4" data-ws-panel="v1" data-context-type="course" hidden>
     <div id="grafo" class="cagp-anchor-target scroll-mt-24"></div>
     <FactCheckBanner
       claim="Posso me matricular em matérias avançadas sem cumprir os pré-requisitos formais se o professor autorizar de boca?"

@@ -193,7 +193,7 @@ const Toast = React.forwardRef<
     ref={ref}
     data-slot="toast"
     className={cn(
-      'group/toast pointer-events-auto relative flex w-full items-stretch rounded-xl border-3 border-foreground bg-background text-foreground shadow-[4px_4px_0px_var(--shadow-color)] outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+      'group/toast pointer-events-auto relative flex w-full items-stretch rounded-xl border-3 border-foreground bg-background text-foreground shadow-md outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
       // enter / exit + swipe (Radix exposes the drag offset as CSS vars)
       'duration-200 ease-out data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=closed]:animate-out data-[state=closed]:fade-out-0',
       'data-[swipe=move]:[transform:translateX(var(--radix-toast-swipe-move-x))] data-[swipe=cancel]:[transform:translateX(0)] data-[swipe=cancel]:transition-[transform] data-[swipe=end]:[transform:translateX(var(--radix-toast-swipe-end-x))]',
@@ -239,7 +239,7 @@ const ToastAction = React.forwardRef<
     ref={ref}
     data-slot="toast-action"
     className={cn(
-      'inline-flex shrink-0 items-center self-center border-2 border-foreground bg-primary px-3 py-1 text-xs font-bold uppercase tracking-wide text-primary-foreground shadow-[2px_2px_0px_var(--shadow-color)] transition duration-150 ease-out hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none',
+      'inline-flex shrink-0 items-center self-center border-2 border-foreground bg-primary px-3 py-1 text-xs font-bold uppercase tracking-wide text-primary-foreground shadow-sm transition duration-150 ease-out hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none',
       className
     )}
     {...props}

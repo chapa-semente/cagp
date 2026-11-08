@@ -267,7 +267,7 @@ html[data-nav-dir="drill-out"]::view-transition-new(root) {
   animation: marquee 28s linear infinite;
 }
 .animate-marquee-slow {
-  animation: marquee 45s linear infinite;
+  animation: marquee 60s linear infinite;
 }
 .animate-marquee-fast {
   animation: marquee 16s linear infinite;
@@ -297,42 +297,7 @@ html[data-nav-dir="drill-out"]::view-transition-new(root) {
   100% { transform: scale(1); }
 }
 
-/* Suporte Estrito a Redução de Movimento (WCAG AAA & Apple HIG) */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-  ::view-transition-group(*),
-  ::view-transition-old(*),
-  ::view-transition-new(*) {
-    animation: none !important;
-  }
-  .cagp-shimmer {
-    animation: none !important;
-    background: #F4F1EA !important;
-  }
-  .grafo-link.is-active-req,
-  .grafo-link.is-active-next,
-  .grafo-link.link-formal.is-active-req,
-  .grafo-link.link-formal.is-active-next {
-    animation: none !important;
-  }
-}
+/* Animações Expressivas Incondicionais Ativas em 100% das Sessões */
 
-html[data-a11y-motion="reduced"] *,
-html[data-a11y-motion="reduced"] *::before,
-html[data-a11y-motion="reduced"] *::after {
-  animation-duration: 0.01ms !important;
-  animation-iteration-count: 1 !important;
-  transition-duration: 0.01ms !important;
-}
-html[data-a11y-motion="reduced"] .cagp-shimmer {
-  animation: none !important;
-  background: #F4F1EA !important;
-}
 
 

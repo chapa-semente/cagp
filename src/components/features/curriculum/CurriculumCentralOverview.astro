@@ -3,8 +3,8 @@
 import { CurriculumGraphWidget } from './graph/CurriculumGraphWidget';
 import { CurriculumDossierWidget } from './dossie/CurriculumDossierWidget';
 import { AcgCalculatorWidget } from '../acg/calculator/AcgCalculatorWidget';
-import CagpIcon from '../../ui/CagpIcon.astro';
-import { route, asset } from '../../../lib/paths';
+import CagpIcon from '@/components/ui/CagpIcon.astro';
+import { route, asset } from '@/lib/paths';
 
 const percursos = [
   {
@@ -46,11 +46,11 @@ const percursos = [
 ];
 ---
 
-<div class="cagp-curriculum-central-overview space-y-6 select-none text-[#0A0A0A]">
+<div class="cagp-curriculum-central-overview space-y-6 select-none text-foreground">
   <!-- Apresentação da Central Curricular -->
-  <div class="p-6 bg-white border-[3px] border-[#0A0A0A] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-[4px_4px_0_0_#0A0A0A]">
+  <div class="p-6 bg-white border-[3px] border-border rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-md">
     <div class="flex items-start gap-3.5">
-      <span class="w-12 h-12 rounded-xl bg-[#266264] text-white flex items-center justify-center shrink-0 mt-0.5 border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+      <span class="w-12 h-12 rounded-xl bg-teal-700 text-white flex items-center justify-center shrink-0 mt-0.5 border-3 border-border shadow-sm">
         <CagpIcon name="curriculo" class="w-6 h-6" />
       </span>
       <div>
@@ -58,13 +58,13 @@ const percursos = [
           <span class="text-[11px] font-head uppercase font-bold tracking-wider text-[#266264]">
             Central Curricular &amp; Matriz 10P
           </span>
-          <span class="text-[#0A0A0A] font-bold">•</span>
-          <span class="text-xs text-[#57534E] font-mono">3.000 horas de integralização</span>
+          <span class="text-foreground font-bold">•</span>
+          <span class="text-xs text-muted-foreground font-mono">3.000 horas de integralização</span>
         </div>
-        <h2 class="font-head text-lg sm:text-xl font-black uppercase text-[#0A0A0A] leading-tight m-0">
+        <h2 class="font-head text-lg sm:text-xl font-black uppercase text-foreground leading-tight m-0">
           27 Obrigatórias, 68 Optativas, 120h Livres, Estágio e TCC
         </h2>
-        <p class="font-body text-xs text-[#57534E] mt-1 max-w-3xl leading-relaxed m-0">
+        <p class="font-body text-xs text-muted-foreground mt-1 max-w-3xl leading-relaxed m-0">
           Navegue pela matriz de 10 semestres, adicione disciplinas optativas diretamente nas colunas do Grafo e monitore o seu progresso rumo à colação de grau.
         </p>
       </div>
@@ -74,9 +74,9 @@ const percursos = [
       <a
         href={asset('/documentos/ementario-gestao-publica-ufmg.pdf')}
         download
-        class="min-h-[44px] px-4 py-2 bg-white hover:bg-[#9E2424] hover:text-white border-2 border-[#0A0A0A] rounded-xl text-xs font-head uppercase font-bold text-[#0A0A0A] inline-flex items-center gap-2 transition-all no-underline shadow-[2.5px_2.5px_0_0_#0A0A0A] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
+        class="min-h-[44px] px-4 py-2 bg-white hover:bg-secondary hover:text-white border-3 border-border rounded-xl text-xs font-head uppercase font-bold text-foreground inline-flex items-center gap-2 transition-all no-underline shadow-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
       >
-        <CagpIcon name="file-text" class="w-4 h-4 text-[#9E2424]" />
+        <CagpIcon name="file-text" class="w-4 h-4 text-secondary" />
         <span>Ementário Geral (PDF)</span>
       </a>
     </div>
@@ -90,65 +90,65 @@ const percursos = [
   </div>
 
   <!-- Os 3 Percursos Curriculares Oficiais -->
-  <div class="p-6 bg-white border-[3px] border-[#0A0A0A] rounded-xl space-y-5 shadow-[4px_4px_0_0_#0A0A0A]">
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b-2 border-[#0A0A0A] pb-3">
+  <div class="p-6 bg-white border-[3px] border-border rounded-xl space-y-5 shadow-md">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b-2 border-border pb-3">
       <div>
-        <span class="text-[11px] font-head uppercase font-bold tracking-wider text-[#9E2424]">
+        <span class="text-[11px] font-head uppercase font-bold tracking-wider text-secondary">
           Regulamento do Curso · Art. 3º &amp; PPC 2020
         </span>
-        <h3 class="font-head text-base sm:text-lg font-black uppercase text-[#0A0A0A] m-0">
+        <h3 class="font-head text-base sm:text-lg font-black uppercase text-foreground m-0">
           Os 3 Percursos Formativos Oficiais
         </h3>
-        <p class="font-body text-xs text-[#57534E] mt-0.5 m-0">
+        <p class="font-body text-xs text-muted-foreground mt-0.5 m-0">
           Todo discente ingressa no Percurso 01-01 e pode optar no 4º período por direcionar sua carga optativa em Formação Complementar ou Pós-Graduação.
         </p>
       </div>
-      <span class="px-3 py-1 rounded-lg bg-[#0A0A0A] text-white font-mono text-xs font-bold border border-[#0A0A0A] self-start sm:self-auto shrink-0 shadow-[1.5px_1.5px_0_0_#0A0A0A]">
+      <span class="px-3 py-1 rounded-lg bg-foreground text-background text-white font-mono text-xs font-bold border border-border self-start sm:self-auto shrink-0 shadow-xs">
         Versão N-20229
       </span>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       {percursos.map((p) => (
-        <div class="p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between space-y-4 shadow-[3px_3px_0_0_#0A0A0A]">
+        <div class="p-5 bg-white border-3 border-border rounded-xl flex flex-col justify-between space-y-4 shadow">
           <div class="space-y-3">
             <div class="flex items-center justify-between gap-2 flex-wrap">
-              <span class="font-mono text-xs font-bold px-2 py-0.5 rounded bg-[#0A0A0A] text-white">
+              <span class="font-mono text-xs font-bold px-2 py-0.5 rounded bg-foreground text-background text-white">
                 {p.codigo}
               </span>
-              <span class={`text-[10px] font-mono font-bold px-2.5 py-1 rounded-md border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A] ${
-                p.badgeVariant === 'green' ? 'bg-[#266264] text-white' :
-                p.badgeVariant === 'red' ? 'bg-[#9E2424] text-white' :
-                'bg-[#5B2A86] text-white'
+              <span class={`text-[10px] font-mono font-bold px-2.5 py-1 rounded-md border border-border shadow-xs ${
+                p.badgeVariant === 'green' ? 'bg-teal-700 text-white' :
+                p.badgeVariant === 'red' ? 'bg-secondary text-white' :
+                'bg-primary text-white'
               }`}>
                 {p.badge}
               </span>
             </div>
 
-            <h4 class="font-head text-base font-bold uppercase text-[#0A0A0A] m-0 leading-snug">
+            <h4 class="font-head text-base font-bold uppercase text-foreground m-0 leading-snug">
               {p.nome}
             </h4>
 
-            <p class="font-body text-xs text-[#292524] leading-relaxed m-0">
+            <p class="font-body text-xs text-muted-foreground leading-relaxed m-0">
               {p.desc}
             </p>
 
-            <div class="pt-3 border-t-2 border-[#0A0A0A]/20 space-y-1.5 text-xs">
+            <div class="pt-3 border-t-2 border-border/20 space-y-1.5 text-xs">
               <div>
-                <span class="font-bold text-[#0A0A0A]">Carga Obrigatória:</span>
-                <span class="text-[#57534E] block font-mono">{p.obrig}</span>
+                <span class="font-bold text-foreground">Carga Obrigatória:</span>
+                <span class="text-muted-foreground block font-mono">{p.obrig}</span>
               </div>
               <div>
-                <span class="font-bold text-[#0A0A0A]">Flexibilidade:</span>
-                <span class="text-[#57534E] block font-mono">{p.opt}</span>
+                <span class="font-bold text-foreground">Flexibilidade:</span>
+                <span class="text-muted-foreground block font-mono">{p.opt}</span>
               </div>
             </div>
           </div>
 
-          <div class="pt-3 border-t-2 border-[#0A0A0A]/20 flex flex-wrap gap-2">
+          <div class="pt-3 border-t-2 border-border/20 flex flex-wrap gap-2">
             <a
               href={route(`/documentos/${p.slug}`)}
-              class="flex-1 min-h-[40px] px-3 py-2 bg-white hover:bg-[#0A0A0A] hover:text-white border-2 border-[#0A0A0A] rounded-xl text-xs font-head uppercase font-bold text-[#0A0A0A] inline-flex items-center justify-center gap-1.5 transition-all no-underline text-center shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
+              class="flex-1 min-h-[40px] px-3 py-2 bg-white hover:bg-foreground text-background hover:text-white border-3 border-border rounded-xl text-xs font-head uppercase font-bold text-foreground inline-flex items-center justify-center gap-1.5 transition-all no-underline text-center shadow-sm active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
             >
               <CagpIcon name="thesis" class="w-3.5 h-3.5" />
               <span>Matriz Web</span>
@@ -156,7 +156,7 @@ const percursos = [
             <a
               href={asset(p.pdf)}
               download
-              class="flex-1 min-h-[40px] px-3 py-2 bg-[#9E2424] hover:bg-[#851E1E] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl text-xs font-mono font-bold inline-flex items-center justify-center gap-1.5 transition-all no-underline text-center border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]"
+              class="flex-1 min-h-[40px] px-3 py-2 bg-secondary hover:bg-[#851E1E] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl text-xs font-mono font-bold inline-flex items-center justify-center gap-1.5 transition-all no-underline text-center border-3 border-border shadow-sm"
             >
               <CagpIcon name="download" class="w-3.5 h-3.5" />
               <span>PDF ({p.size})</span>
@@ -167,16 +167,16 @@ const percursos = [
     </div>
 
     <!-- Requerimentos de Mudança de Percurso no DRCA -->
-    <div class="p-4 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-[2.5px_2.5px_0_0_#0A0A0A]">
+    <div class="p-4 bg-white border-3 border-border rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
       <div class="flex items-center gap-3">
-        <span class="w-10 h-10 rounded-xl bg-[#0A0A0A] text-white flex items-center justify-center shrink-0 border border-[#0A0A0A] shadow-[1.5px_1.5px_0_0_#0A0A0A]">
+        <span class="w-10 h-10 rounded-xl bg-foreground text-background text-white flex items-center justify-center shrink-0 border border-border shadow-xs">
           <CagpIcon name="sliders" class="w-4 h-4" />
         </span>
         <div>
-          <h4 class="font-head text-xs uppercase font-bold text-[#0A0A0A] m-0">
+          <h4 class="font-head text-xs uppercase font-bold text-foreground m-0">
             Formulários Oficiais do DRCA para Mudança de Percurso
           </h4>
-          <p class="font-body text-xs text-[#57534E] m-0">
+          <p class="font-body text-xs text-muted-foreground m-0">
             Protocolo semestral junto ao DRCA e ao Colegiado de Gestão Pública para alteração formal de percurso curricular.
           </p>
         </div>
@@ -185,17 +185,17 @@ const percursos = [
         <a
           href={asset('/documentos/requerimento-mudanca-percurso-curricular-drca.pdf')}
           download
-          class="min-h-[40px] px-3.5 py-2 bg-white hover:bg-[#0A0A0A] hover:text-white border-2 border-[#0A0A0A] rounded-xl text-xs font-mono font-bold text-[#0A0A0A] inline-flex items-center gap-2 transition-all no-underline shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
+          class="min-h-[40px] px-3.5 py-2 bg-white hover:bg-foreground text-background hover:text-white border-3 border-border rounded-xl text-xs font-mono font-bold text-foreground inline-flex items-center gap-2 transition-all no-underline shadow-sm active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
         >
-          <CagpIcon name="download" class="w-3.5 h-3.5 text-[#9E2424]" />
+          <CagpIcon name="download" class="w-3.5 h-3.5 text-secondary" />
           <span>Mudança de Percurso DRCA (PDF)</span>
         </a>
         <a
           href={asset('/documentos/requerimento-mudanca-percurso-modalidade-habilitacao-enfase.pdf')}
           download
-          class="min-h-[40px] px-3.5 py-2 bg-white hover:bg-[#0A0A0A] hover:text-white border-2 border-[#0A0A0A] rounded-xl text-xs font-mono font-bold text-[#0A0A0A] inline-flex items-center gap-2 transition-all no-underline shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
+          class="min-h-[40px] px-3.5 py-2 bg-white hover:bg-foreground text-background hover:text-white border-3 border-border rounded-xl text-xs font-mono font-bold text-foreground inline-flex items-center gap-2 transition-all no-underline shadow-sm active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
         >
-          <CagpIcon name="download" class="w-3.5 h-3.5 text-[#9E2424]" />
+          <CagpIcon name="download" class="w-3.5 h-3.5 text-secondary" />
           <span>Modalidade / Habilitação (PDF)</span>
         </a>
       </div>
@@ -203,56 +203,56 @@ const percursos = [
   </div>
 
   <!-- Formação Complementar Aberta (FCA) e Formação Transversal -->
-  <div class="p-6 bg-white border-[3px] border-[#0A0A0A] rounded-xl space-y-5 shadow-[4px_4px_0_0_#0A0A0A]">
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b-2 border-[#0A0A0A] pb-3">
+  <div class="p-6 bg-white border-[3px] border-border rounded-xl space-y-5 shadow-md">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b-2 border-border pb-3">
       <div>
-        <span class="text-[11px] font-head uppercase font-bold tracking-wider text-[#5B2A86]">
+        <span class="text-[11px] font-head uppercase font-bold tracking-wider text-primary">
           Interdisciplinaridade · Resoluções CEPE &amp; Congregação
         </span>
-        <h3 class="font-head text-base sm:text-lg font-black uppercase text-[#0A0A0A] m-0">
+        <h3 class="font-head text-base sm:text-lg font-black uppercase text-foreground m-0">
           Formação Complementar Aberta (FCA) &amp; Formações Transversais (300h)
         </h3>
-        <p class="font-body text-xs text-[#57534E] mt-0.5 m-0">
+        <p class="font-body text-xs text-muted-foreground mt-0.5 m-0">
           O Percurso 01-02 permite integralizar 300h em pacotes curriculares certificados em outros departamentos da UFMG ou em grandes áreas temáticas institucionais.
         </p>
       </div>
-      <span class="px-3 py-1 rounded-lg bg-[#5B2A86] text-white font-mono text-xs font-bold border border-[#0A0A0A] self-start sm:self-auto shrink-0 shadow-[1.5px_1.5px_0_0_#0A0A0A]">
+      <span class="px-3 py-1 rounded-lg bg-primary text-white font-mono text-xs font-bold border border-border self-start sm:self-auto shrink-0 shadow-xs">
         300 Horas / 20 Créditos
       </span>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <!-- Card FCA -->
-      <div class="p-5 bg-white border-2 border-[#0A0A0A] rounded-xl space-y-3.5 shadow-[3px_3px_0_0_#0A0A0A]">
+      <div class="p-5 bg-white border-3 border-border rounded-xl space-y-3.5 shadow">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2.5">
-            <span class="w-9 h-9 rounded-xl bg-[#5B2A86] text-white flex items-center justify-center border border-[#0A0A0A] shadow-[1.5px_1.5px_0_0_#0A0A0A]">
+            <span class="w-9 h-9 rounded-xl bg-primary text-white flex items-center justify-center border border-border shadow-xs">
               <CagpIcon name="curso" class="w-4 h-4" />
             </span>
-            <h4 class="font-head text-sm uppercase font-bold text-[#0A0A0A] m-0">
+            <h4 class="font-head text-sm uppercase font-bold text-foreground m-0">
               Formação Complementar Aberta (FCA)
             </h4>
           </div>
-          <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-md bg-[#5B2A86]/10 text-[#5B2A86] border border-[#5B2A86]">
+          <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-md bg-primary/10 text-primary border border-primary">
             Res. 01/2016 e 01/2018
           </span>
         </div>
-        <p class="font-body text-xs text-[#292524] leading-relaxed m-0">
+        <p class="font-body text-xs text-muted-foreground leading-relaxed m-0">
           Permite ao estudante de Gestão Pública montar um percurso personalizado de 300 horas cursando disciplinas em faculdades parceiras da UFMG (Direito, FACE/Economia/Administração, ECI/Ciência da Informação, ICEx, Belas Artes, etc.), mediante aprovação prévia de plano de estudos pelo Colegiado.
         </p>
-        <div class="pt-3 border-t-2 border-[#0A0A0A]/20 flex flex-wrap gap-2">
+        <div class="pt-3 border-t-2 border-border/20 flex flex-wrap gap-2">
           <a
             href={asset('/documentos/fca-formacao-complementar-aberta.pdf')}
             download
-            class="min-h-[38px] px-3.5 py-1.5 bg-white hover:bg-[#5B2A86] hover:text-white border-2 border-[#0A0A0A] rounded-xl text-xs font-mono font-bold text-[#0A0A0A] inline-flex items-center gap-1.5 transition-all no-underline shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
+            class="min-h-[38px] px-3.5 py-1.5 bg-white hover:bg-primary hover:text-white border-3 border-border rounded-xl text-xs font-mono font-bold text-foreground inline-flex items-center gap-1.5 transition-all no-underline shadow-sm active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
           >
-            <CagpIcon name="file-text" class="w-3.5 h-3.5 text-[#5B2A86]" />
+            <CagpIcon name="file-text" class="w-3.5 h-3.5 text-primary" />
             <span>Guia FCA (PDF - 62 KB)</span>
           </a>
           <a
             href={asset('/documentos/requerimento-formacao-complementar-aberta-fca.pdf')}
             download
-            class="min-h-[38px] px-3.5 py-1.5 bg-[#5B2A86] hover:bg-[#49216C] text-white rounded-xl text-xs font-mono font-bold inline-flex items-center gap-1.5 transition-all no-underline border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
+            class="min-h-[38px] px-3.5 py-1.5 bg-primary hover:bg-[#49216C] text-white rounded-xl text-xs font-mono font-bold inline-flex items-center gap-1.5 transition-all no-underline border-3 border-border shadow-sm active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
           >
             <CagpIcon name="download" class="w-3.5 h-3.5" />
             <span>Requerimento FCA (PDF - 90 KB)</span>
@@ -261,28 +261,28 @@ const percursos = [
       </div>
 
       <!-- Card Formação Transversal -->
-      <div class="p-5 bg-white border-2 border-[#0A0A0A] rounded-xl space-y-3.5 shadow-[3px_3px_0_0_#0A0A0A]">
+      <div class="p-5 bg-white border-3 border-border rounded-xl space-y-3.5 shadow">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2.5">
-            <span class="w-9 h-9 rounded-xl bg-[#266264] text-white flex items-center justify-center border border-[#0A0A0A] shadow-[1.5px_1.5px_0_0_#0A0A0A]">
+            <span class="w-9 h-9 rounded-xl bg-teal-700 text-white flex items-center justify-center border border-border shadow-xs">
               <CagpIcon name="curriculo" class="w-4 h-4" />
             </span>
-            <h4 class="font-head text-sm uppercase font-bold text-[#0A0A0A] m-0">
+            <h4 class="font-head text-sm uppercase font-bold text-foreground m-0">
               Formações Transversais da UFMG
             </h4>
           </div>
-          <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-md bg-[#266264]/10 text-[#266264] border border-[#266264]">
+          <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-md bg-teal-700/10 text-[#266264] border border-[#266264]">
             Res. CEPE 19/2014
           </span>
         </div>
-        <p class="font-body text-xs text-[#292524] leading-relaxed m-0">
+        <p class="font-body text-xs text-muted-foreground leading-relaxed m-0">
           Formações interdisciplinares temáticas estruturadas pela Pró-Reitoria de Graduação (PROGRAD): <em>Direitos Humanos</em>, <em>Relações Étnico-Raciais e Gênero</em>, <em>Meio Ambiente e Sustentabilidade</em>, <em>Divulgação Científica</em>, entre outras.
         </p>
-        <div class="pt-3 border-t-2 border-[#0A0A0A]/20 flex flex-wrap gap-2">
+        <div class="pt-3 border-t-2 border-border/20 flex flex-wrap gap-2">
           <a
             href={asset('/documentos/resolucao-cepe-19-2014-formacao-transversal.pdf')}
             download
-            class="min-h-[38px] px-3.5 py-1.5 bg-white hover:bg-[#266264] hover:text-white border-2 border-[#0A0A0A] rounded-xl text-xs font-mono font-bold text-[#0A0A0A] inline-flex items-center gap-1.5 transition-all no-underline shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
+            class="min-h-[38px] px-3.5 py-1.5 bg-white hover:bg-teal-700 hover:text-white border-3 border-border rounded-xl text-xs font-mono font-bold text-foreground inline-flex items-center gap-1.5 transition-all no-underline shadow-sm active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
           >
             <CagpIcon name="file-text" class="w-3.5 h-3.5 text-[#266264]" />
             <span>Resolução CEPE 19/2014 (PDF)</span>
@@ -293,83 +293,83 @@ const percursos = [
   </div>
 
   <!-- Formação Livre (120h) & Pós-Graduação (PPGCP) -->
-  <div class="p-6 bg-white border-[3px] border-[#0A0A0A] rounded-xl space-y-5 shadow-[4px_4px_0_0_#0A0A0A]">
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b-2 border-[#0A0A0A] pb-3">
+  <div class="p-6 bg-white border-[3px] border-border rounded-xl space-y-5 shadow-md">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b-2 border-border pb-3">
       <div>
-        <span class="text-[11px] font-head uppercase font-bold tracking-wider text-[#FF8811]">
+        <span class="text-[11px] font-head uppercase font-bold tracking-wider text-accent">
           PPC Art. 13 &amp; Regulamento Art. 3º
         </span>
-        <h3 class="font-head text-base sm:text-lg font-black uppercase text-[#0A0A0A] m-0">
+        <h3 class="font-head text-base sm:text-lg font-black uppercase text-foreground m-0">
           Formação Livre (120h) &amp; Matrícula na Pós-Graduação (PPGCP)
         </h3>
-        <p class="font-body text-xs text-[#57534E] mt-0.5 m-0">
+        <p class="font-body text-xs text-muted-foreground mt-0.5 m-0">
           Documentos e requerimentos para cursar disciplinas fora da FAFICH ou disciplinas adiantadas de mestrado/doutorado.
         </p>
       </div>
-      <span class="px-3 py-1 rounded-lg bg-[#FF8811] text-[#0A0A0A] font-mono text-xs font-bold border border-[#0A0A0A] self-start sm:self-auto shrink-0 shadow-[1.5px_1.5px_0_0_#0A0A0A]">
+      <span class="px-3 py-1 rounded-lg bg-accent text-foreground font-mono text-xs font-bold border border-border self-start sm:self-auto shrink-0 shadow-xs">
         120h Livre • Até 120h Pós
       </span>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="p-5 bg-white border-2 border-[#0A0A0A] rounded-xl space-y-3.5 shadow-[3px_3px_0_0_#0A0A0A]">
+      <div class="p-5 bg-white border-3 border-border rounded-xl space-y-3.5 shadow">
         <div class="flex items-center gap-3">
-          <span class="w-9 h-9 rounded-xl bg-[#FF8811]/15 text-[#FF8811] flex items-center justify-center shrink-0 border border-[#FF8811]">
+          <span class="w-9 h-9 rounded-xl bg-accent/15 text-accent flex items-center justify-center shrink-0 border border-accent">
             <CagpIcon name="bolt" class="w-4 h-4" />
           </span>
           <div>
-            <h4 class="font-head text-xs uppercase font-bold text-[#0A0A0A] m-0">
+            <h4 class="font-head text-xs uppercase font-bold text-foreground m-0">
               Formação Livre (120h • 8 Créditos)
             </h4>
-            <p class="font-body text-xs text-[#57534E] m-0">
+            <p class="font-body text-xs text-muted-foreground m-0">
               Direito regulamentar garantido a todo discente no PPC Art. 13.
             </p>
           </div>
         </div>
-        <p class="font-body text-xs text-[#292524] leading-relaxed m-0">
+        <p class="font-body text-xs text-muted-foreground leading-relaxed m-0">
           Você tem direito a cursar até 120 horas em qualquer departamento da UFMG (Direito, Economia, Ciência da Informação, Engenharia, Belas Artes, etc.). Matrícula realizada na 3ª Fase do SIGA ou por acerto com o formulário oficial.
         </p>
-        <div class="pt-3 border-t-2 border-[#0A0A0A]/20 flex flex-wrap gap-2">
+        <div class="pt-3 border-t-2 border-border/20 flex flex-wrap gap-2">
           <a
             href={asset('/documentos/requerimento-matricula-formacao-livre.pdf')}
             download
-            class="min-h-[38px] px-3.5 py-1.5 bg-[#FF8811] hover:bg-[#E67A0F] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-[#0A0A0A] rounded-xl text-xs font-mono font-bold inline-flex items-center gap-1.5 transition-all no-underline border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]"
+            class="min-h-[38px] px-3.5 py-1.5 bg-accent hover:bg-[#E67A0F] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-foreground rounded-xl text-xs font-mono font-bold inline-flex items-center gap-1.5 transition-all no-underline border-3 border-border shadow-sm"
           >
             <CagpIcon name="download" class="w-3.5 h-3.5" />
             <span>Requerimento Formação Livre (PDF)</span>
           </a>
           <a
             href="#grafo"
-            class="min-h-[38px] px-3.5 py-1.5 bg-white hover:bg-[#0A0A0A] hover:text-white border-2 border-[#0A0A0A] rounded-xl text-xs font-head uppercase font-bold text-[#0A0A0A] inline-flex items-center gap-1.5 transition-all no-underline shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
+            class="min-h-[38px] px-3.5 py-1.5 bg-white hover:bg-foreground text-background hover:text-white border-3 border-border rounded-xl text-xs font-head uppercase font-bold text-foreground inline-flex items-center gap-1.5 transition-all no-underline shadow-sm active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
           >
-            <CagpIcon name="curriculo" class="w-3.5 h-3.5 text-[#FF8811]" />
+            <CagpIcon name="curriculo" class="w-3.5 h-3.5 text-accent" />
             <span>Inserir no Grafo 10P</span>
           </a>
         </div>
       </div>
 
-      <div class="p-5 bg-white border-2 border-[#0A0A0A] rounded-xl space-y-3.5 shadow-[3px_3px_0_0_#0A0A0A]">
+      <div class="p-5 bg-white border-3 border-border rounded-xl space-y-3.5 shadow">
         <div class="flex items-center gap-3">
-          <span class="w-9 h-9 rounded-xl bg-[#5B2A86]/15 text-[#5B2A86] flex items-center justify-center shrink-0 border border-[#5B2A86]">
+          <span class="w-9 h-9 rounded-xl bg-primary/15 text-primary flex items-center justify-center shrink-0 border border-primary">
             <CagpIcon name="curso" class="w-4 h-4" />
           </span>
           <div>
-            <h4 class="font-head text-xs uppercase font-bold text-[#0A0A0A] m-0">
+            <h4 class="font-head text-xs uppercase font-bold text-foreground m-0">
               Matrícula na Pós-Graduação (PPGCP)
             </h4>
-            <p class="font-body text-xs text-[#57534E] m-0">
+            <p class="font-body text-xs text-muted-foreground m-0">
               Percurso 01-03 (Núcleo Avançado) ou disciplinas isoladas de mestrado.
             </p>
           </div>
         </div>
-        <p class="font-body text-xs text-[#292524] leading-relaxed m-0">
+        <p class="font-body text-xs text-muted-foreground leading-relaxed m-0">
           Discentes de alto rendimento a partir do 7º período podem requerer autorização do Colegiado e da Coordenação do PPGCP para cursar disciplinas do mestrado, com aproveitamento integral para futura pós-graduação.
         </p>
-        <div class="pt-3 border-t-2 border-[#0A0A0A]/20 flex flex-wrap gap-2">
+        <div class="pt-3 border-t-2 border-border/20 flex flex-wrap gap-2">
           <a
             href={asset('/documentos/requerimento-matricula-pos-graduacao.pdf')}
             download
-            class="min-h-[38px] px-3.5 py-1.5 bg-[#5B2A86] hover:bg-[#49216C] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl text-xs font-mono font-bold inline-flex items-center gap-1.5 transition-all no-underline border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]"
+            class="min-h-[38px] px-3.5 py-1.5 bg-primary hover:bg-[#49216C] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl text-xs font-mono font-bold inline-flex items-center gap-1.5 transition-all no-underline border-3 border-border shadow-sm"
           >
             <CagpIcon name="download" class="w-3.5 h-3.5" />
             <span>Requerimento Matrícula Pós (PDF)</span>

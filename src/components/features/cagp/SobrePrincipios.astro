@@ -1,0 +1,235 @@
+---
+// SobrePrincipios.astro - Sub-view 1: Candangos, Identidade Visual e Princípios Regimentais
+import { asset } from '@/lib/paths';
+---
+
+<div class="space-y-6 text-foreground font-body">
+  <!-- Os Candangos de Bruno Giorgi -->
+  <div class="bg-white border-[3px] border-border rounded-xl p-5 sm:p-6 shadow-md space-y-4">
+    <div class="border-b-2 border-border pb-3 flex items-center justify-between flex-wrap gap-2">
+      <div>
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-secondary text-white flex items-center justify-center border-3 border-border shadow-sm">
+            <i class="bi bi-people-fill text-base" aria-hidden="true"></i>
+          </div>
+          <h3 class="font-head text-base sm:text-lg font-extrabold uppercase text-foreground m-0 tracking-tight">
+            A Identidade Visual &amp; O Símbolo dos Candangos
+          </h3>
+        </div>
+        <p class="text-xs text-foreground mt-1 m-0 font-medium">
+          Origem e semiótica da marca oficial do Centro Acadêmico:
+        </p>
+      </div>
+      <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-secondary text-white border-3 border-border shadow-sm">
+        Bruno Giorgi (1959)
+      </span>
+    </div>
+
+    <p class="text-xs text-foreground leading-relaxed font-medium m-0">
+      A identidade visual do CAGP é diretamente inspirada no monumento histórico <strong>"Os Candangos"</strong> (título original: <em>Dois Guerreiros</em>), obra-prima do escultor <strong>Bruno Giorgi (1905–1993)</strong> inaugurada em 1959 na Praça dos Três Poderes, em Brasília.
+    </p>
+
+    <!-- Galeria Editorial Ampliada: Monumento de Bruno Giorgi, Sede F-4000 & Campus FAFICH -->
+    <div class="my-5 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="space-y-2.5">
+        <div class="cagp-photo-frame relative aspect-[4/5] min-h-[320px] sm:min-h-[360px] w-full rounded-xl border-3 border-[#16181d] shadow-[8px_8px_0_0_#16181d] overflow-hidden bg-[#f4f0ea]">
+          <img
+            src={asset('/imagens/os-candangos.jpg')}
+            alt="Monumento Dois Guerreiros (Os Candangos) de Bruno Giorgi na Praça dos Três Poderes em Brasília"
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#16181d]/85 via-transparent to-transparent pointer-events-none" />
+          <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-[#9E2424] text-white font-mono font-bold text-[10px] uppercase tracking-wider border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+            PATRIMÔNIO HISTÓRICO • 1959
+          </span>
+          <div class="absolute bottom-3 left-3 right-3 text-white">
+            <span class="font-head font-black uppercase text-sm sm:text-base block leading-tight">
+              Monumento &ldquo;Os Candangos&rdquo; (Dois Guerreiros)
+            </span>
+            <span class="font-mono text-[11px] text-white/90">
+              Escultura em bronze de Bruno Giorgi • Praça dos Três Poderes, Brasília/DF
+            </span>
+          </div>
+        </div>
+        <p class="text-xs font-mono text-[#16181d] leading-snug font-bold m-0 px-1">
+          [ACERVO 01] Símbolo oficial do Centro Acadêmico de Gestão Pública da UFMG desde 2009.
+        </p>
+      </div>
+
+      <div class="space-y-2.5">
+        <div class="cagp-photo-frame relative aspect-[4/5] min-h-[320px] sm:min-h-[360px] w-full rounded-xl border-3 border-[#16181d] shadow-[8px_8px_0_0_#16181d] overflow-hidden bg-[#f4f0ea]">
+          <img
+            src={asset('/imagens/semente/post_02_quem_somos_nos.jpg')}
+            alt="Sede do CAGP na Sala F-4000 (4º andar da FAFICH) e convivência estudantil"
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#16181d]/85 via-transparent to-transparent pointer-events-none" />
+          <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-[#FF8811] text-[#16181d] font-mono font-black text-[10px] uppercase tracking-wider border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+            SEDE F-4000 • 4º ANDAR FAFICH
+          </span>
+          <div class="absolute bottom-3 left-3 right-3 text-white">
+            <span class="font-head font-black uppercase text-sm sm:text-base block leading-tight">
+              Sede Discente F-4000 &amp; Acolhimento Noturno
+            </span>
+            <span class="font-mono text-[11px] text-white/90">
+              Espaço permanente de estudo, assembleias e convivência na FAFICH/UFMG
+            </span>
+          </div>
+        </div>
+        <p class="text-xs font-mono text-[#16181d] leading-snug font-bold m-0 px-1">
+          [ACERVO 02] Sala F-4000 no 4º andar da FAFICH: ponto de encontro e plantão da diretoria.
+        </p>
+      </div>
+
+      <div class="space-y-2.5">
+        <div class="cagp-photo-frame relative aspect-[4/5] min-h-[320px] sm:min-h-[360px] w-full rounded-xl border-3 border-[#16181d] shadow-[8px_8px_0_0_#16181d] overflow-hidden bg-[#f4f0ea]">
+          <img
+            src={asset('/imagens/semente/foto_campus_universitario.jpg')}
+            alt="Vivência Universitária no Campus Pampulha e FAFICH UFMG"
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#16181d]/85 via-transparent to-transparent pointer-events-none" />
+          <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-[#5B2A86] text-white font-mono font-bold text-[10px] uppercase tracking-wider border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+            FAFICH / UFMG • DESDE 2009
+          </span>
+          <div class="absolute bottom-3 left-3 right-3 text-white">
+            <span class="font-head font-black uppercase text-sm sm:text-base block leading-tight">
+              Território Discente no Campus Pampulha
+            </span>
+            <span class="font-mono text-[11px] text-white/90">
+              Formação crítica no Campo de Públicas e defesa da universidade pública
+            </span>
+          </div>
+        </div>
+        <p class="text-xs font-mono text-[#16181d] leading-snug font-bold m-0 px-1">
+          [ACERVO 03] Cotidiano estudantil e mobilização no Campus Pampulha da UFMG.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 text-xs">
+      <div class="p-4 bg-white border-3 border-border rounded-xl shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-2 mb-2 pb-2 border-b border-border">
+            <i class="bi bi-people-fill text-secondary text-base" aria-hidden="true"></i>
+            <span class="font-head font-extrabold uppercase text-xs text-secondary">
+              Trabalho Coletivo
+            </span>
+          </div>
+          <p class="text-xs text-foreground leading-relaxed font-medium m-0">
+            A união das duas figuras simboliza o esforço solidário dos construtores da nação e a centralidade dos cidadãos no centro da ação estatal.
+          </p>
+        </div>
+      </div>
+
+      <div class="p-4 bg-white border-3 border-border rounded-xl shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-2 mb-2 pb-2 border-b border-border">
+            <i class="bi bi-symmetry-horizontal text-foreground text-base" aria-hidden="true"></i>
+            <span class="font-head font-extrabold uppercase text-xs text-foreground">
+              Prumo Republicano
+            </span>
+          </div>
+          <p class="text-xs text-foreground leading-relaxed font-medium m-0">
+            A haste horizontal representa o equilíbrio, a transparência, a equidade distributiva e o rigor ético que pautam a gestão pública.
+          </p>
+        </div>
+      </div>
+
+      <div class="p-4 bg-white border-3 border-border rounded-xl shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-2 mb-2 pb-2 border-b border-border">
+            <i class="bi bi-columns-gap text-success text-base" aria-hidden="true"></i>
+            <span class="font-head font-extrabold uppercase text-xs text-success">
+              Pilares Democráticos
+            </span>
+          </div>
+          <p class="text-xs text-foreground leading-relaxed font-medium m-0">
+            As colunas ascendentes personificam a perenidade das instituições republicanas e a defesa irrestrita dos direitos fundamentais.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Princípios Regimentais -->
+  <div class="bg-white border-[3px] border-border rounded-xl p-5 sm:p-6 shadow-md space-y-4">
+    <div class="border-b-2 border-border pb-3 flex items-center justify-between flex-wrap gap-2">
+      <div>
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-foreground text-background text-white flex items-center justify-center border-3 border-border shadow-sm">
+            <i class="bi bi-shield-check text-base" aria-hidden="true"></i>
+          </div>
+          <h3 class="font-head text-base sm:text-lg font-extrabold uppercase text-foreground m-0 tracking-tight">
+            Princípios e Fundamentos Regimentais (Estatuto de 14/10/2024)
+          </h3>
+        </div>
+        <p class="text-xs text-foreground mt-1 m-0 font-medium">Conforme os Arts. 2º, 3º, 4º e 8º do Regimento Interno Discente:</p>
+      </div>
+      <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-foreground text-background text-white border-3 border-border shadow-sm">
+        Arts. 2º a 8º
+      </span>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+      <div class="p-4 bg-white border-3 border-border rounded-xl shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-2 mb-2 pb-2 border-b border-border">
+            <i class="bi bi-shield-lock-fill text-secondary text-base" aria-hidden="true"></i>
+            <span class="font-head font-extrabold uppercase text-xs text-secondary">
+              Princípios Constitucionais (LIMPE)
+            </span>
+          </div>
+          <p class="text-xs text-foreground leading-relaxed font-medium m-0">
+            Subordinação expressa aos preceitos do Art. 37 da Constituição Federal: legalidade, impessoalidade, moralidade, publicidade e eficiência.
+          </p>
+        </div>
+      </div>
+
+      <div class="p-4 bg-white border-3 border-border rounded-xl shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-2 mb-2 pb-2 border-b border-border">
+            <i class="bi bi-flag-fill text-foreground text-base" aria-hidden="true"></i>
+            <span class="font-head font-extrabold uppercase text-xs text-foreground">
+              Independência &amp; Suprapartidarismo
+            </span>
+          </div>
+          <p class="text-xs text-foreground leading-relaxed font-medium m-0">
+            Autonomia completa frente à reitoria, direções partidárias, corporações sindicais e governos estaduais ou federais.
+          </p>
+        </div>
+      </div>
+
+      <div class="p-4 bg-white border-3 border-border rounded-xl shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-2 mb-2 pb-2 border-b border-border">
+            <i class="bi bi-mortarboard-fill text-success text-base" aria-hidden="true"></i>
+            <span class="font-head font-extrabold uppercase text-xs text-success">
+              Universidade Pública e Gratuita
+            </span>
+          </div>
+          <p class="text-xs text-foreground leading-relaxed font-medium m-0">
+            Luta intransigente contra a privatização do ensino superior, cobrança de mensalidades e precarização da assistência estudantil.
+          </p>
+        </div>
+      </div>
+
+      <div class="p-4 bg-white border-3 border-border rounded-xl shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-2 mb-2 pb-2 border-b border-border">
+            <i class="bi bi-heart-fill text-info text-base" aria-hidden="true"></i>
+            <span class="font-head font-extrabold uppercase text-xs text-info">
+              Combate a Opressões &amp; Assédio
+            </span>
+          </div>
+          <p class="text-xs text-foreground leading-relaxed font-medium m-0">
+            Tolerância zero contra o racismo, machismo, homofobia, capacitismo e assédio moral ou sexual no ambiente universitário (Res. UFMG 07/2025).
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

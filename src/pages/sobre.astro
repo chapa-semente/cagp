@@ -8,7 +8,63 @@ import CagpCentralOverview from '../components/features/cagp/CagpCentralOverview
 import CagpHistoriaCore from '../components/features/cagp/historia/CagpHistoriaCore.astro';
 import CagpEstatutoCore from '../components/features/cagp/estatuto/CagpEstatutoCore.astro';
 import CagpGestaoDiretoria from '../components/features/cagp/gestao/CagpGestaoDiretoria.astro';
-import { SobreCollageBanner } from '../components/sobre/SobreCollageBanner';
+import { SobreCollageBanner } from '../components/features/cagp/SobreCollageBanner';
+import { TestimonialsGrid } from '../components/boldkit/blocks/testimonials';
+import { ContactWithCards } from '../components/boldkit/blocks/contact-section';
+import { LogoCloudGrid } from '../components/boldkit/blocks/logo-cloud';
+
+const testimonialsData = [
+  {
+    quote: 'A formação interdisciplinar entre Ciência Política, Economia e Direito na UFMG me deu toda a base analítica para atuar na formulação de políticas no setor público.',
+    author: 'Beatriz Vasconcelos',
+    role: 'Egressa GP • Especialista em Políticas Públicas e Gestão Governamental (EPPGG)',
+    rating: 5,
+  },
+  {
+    quote: 'O CAGP foi onde vivenciei negociação, liderança e gestão pública na prática diária da FAFICH. Uma verdadeira escola de cidadania republicana.',
+    author: 'Lucas Meireles',
+    role: 'Discente 8º Período • Bolsista de Iniciação Científica DCP/UFMG',
+    rating: 5,
+  },
+  {
+    quote: 'Conciliar trabalho durante o dia e o turno noturno na UFMG é desafiador. A luta do Centro Acadêmico pelo RU e circulares noturnos é vital para nossa permanência.',
+    author: 'Mariana Duarte',
+    role: 'Discente 4º Período • Estagiária na Secretaria de Estado de Planejamento',
+    rating: 5,
+  },
+];
+
+const contactCards = [
+  {
+    icon: '🏛️',
+    title: 'Sede do CAGP (Sala F-4000)',
+    description: 'Espaço de convivência discente e plantão da diretoria executiva.',
+    contact: 'FAFICH 4º Andar • 18h às 22h',
+    action: { label: 'Conhecer Sede', href: '#visao-geral' },
+  },
+  {
+    icon: '✉️',
+    title: 'E-mail Oficial do CAGP',
+    description: 'Comunicação institucional, solicitações de ofício e ouvidoria.',
+    contact: 'cagp@fafich.ufmg.br',
+    action: { label: 'Enviar E-mail', href: 'mailto:cagp@fafich.ufmg.br' },
+  },
+  {
+    icon: '🎓',
+    title: 'Secretaria do Curso (F-2039)',
+    description: 'Atendimento do Colegiado de Gestão Pública com Wander e Ubirajara.',
+    contact: '(31) 3409-3826 • gestaopublica@ufmg.br',
+    action: { label: 'Ver Contatos', href: '/curso#colegiado' },
+  },
+];
+
+const partnerLogos = [
+  { name: 'FAFICH UFMG', logo: '🏛️ FAFICH' },
+  { name: 'DCP UFMG', logo: '🎓 DCP CAPES 7' },
+  { name: 'FACE UFMG', logo: '📊 FACE' },
+  { name: 'Cedeplar IGC', logo: '🗺️ CEDEPLAR' },
+  { name: 'PROEX UFMG', logo: '🤝 PROEX' },
+];
 
 const tabs = [
   { id: 'v0', shortLabel: 'Geral', fullLabel: 'Visão Geral do CAGP', hash: '#visao-geral' },
@@ -41,9 +97,35 @@ const badges = [
   <SegmentedControl tabs={tabs} defaultTab="v0" />
 
   <!-- Sub-view 0: Visão Geral do Eixo 5 (O CAGP) -->
-  <section id="ws-panel-v0" class="cagp-workspace-view" data-ws-panel="v0">
+  <section id="ws-panel-v0" class="cagp-workspace-view space-y-6" data-ws-panel="v0">
     <div id="visao-geral" class="cagp-anchor-target scroll-mt-24"></div>
     <CagpCentralOverview />
+
+    <TestimonialsGrid
+      client:visible
+      title="Vozes da Gestão Pública UFMG"
+      subtitle="Egressos & Discentes"
+      testimonials={testimonialsData}
+      columns={3}
+      className="py-4 px-0 bg-transparent"
+    />
+
+    <ContactWithCards
+      client:visible
+      title="Canais de Atendimento & Representação"
+      description="Entre em contato com as diretorias do CAGP ou com a secretaria do Colegiado na FAFICH."
+      contactMethods={contactCards}
+      className="py-4 px-0"
+    />
+
+    <LogoCloudGrid
+      client:visible
+      title="Unidades Acadêmicas & Laboratórios Integrados"
+      subtitle="Rede Interdisciplinar"
+      logos={partnerLogos}
+      columns={5}
+      className="py-4 px-0"
+    />
   </section>
 
   <!-- Sub-view 1: Princípios & História -->

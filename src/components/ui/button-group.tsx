@@ -16,7 +16,7 @@ const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
       ref={ref}
       role="group"
       className={cn(
-        'inline-flex shadow-[4px_4px_0px_var(--shadow-color)]',
+        'inline-flex shadow-md',
         // neutralize each child's own shadow + press-translate so the group reads as one block
         '[&>*]:shadow-none [&>*]:hover:translate-x-0 [&>*]:hover:translate-y-0 [&>*]:active:translate-x-0 [&>*]:active:translate-y-0',
         orientation === 'horizontal'

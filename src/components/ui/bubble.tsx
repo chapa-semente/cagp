@@ -27,7 +27,7 @@ const variantClasses: Record<BubbleVariant, string> = {
   outline: 'bg-transparent text-foreground',
 }
 
-const shadowStart = 'shadow-[4px_4px_0px_var(--shadow-color)]'
+const shadowStart = 'shadow-md'
 const shadowEnd = 'shadow-[-4px_4px_0px_var(--shadow-color)]'
 const alignClasses: Record<BubbleAlign, string> = {
   start: shadowStart,
@@ -161,7 +161,7 @@ const Bubble = React.forwardRef<HTMLDivElement, BubbleProps>(
                       onClick={() => onReactionClick(reaction, index)}
                       className={cn(
                         chip,
-                        'shadow-[2px_2px_0px_var(--shadow-color)] transition duration-200 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring'
+                        'shadow-sm transition duration-200 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring'
                       )}
                     >
                       <span aria-hidden="true">{reaction.emoji}</span>

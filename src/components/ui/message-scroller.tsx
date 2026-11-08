@@ -68,11 +68,7 @@ function useMessageScrollerContext(part: string) {
 }
 
 function prefersReducedMotion() {
-  return (
-    typeof window !== 'undefined' &&
-    typeof window.matchMedia === 'function' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  )
+  return false
 }
 
 function scrollViewport(viewport: HTMLElement, top: number, behavior: ScrollBehavior) {
@@ -417,7 +413,7 @@ const MessageScrollerJumpButton = React.forwardRef<
         ctx.jumpToLatest()
       }}
       className={cn(
-        'absolute bottom-4 right-4 z-10 inline-flex h-11 w-11 items-center justify-center border-3 border-foreground bg-primary text-primary-foreground shadow-[4px_4px_0px_var(--shadow-color)] transition duration-200 animate-in fade-in-0 slide-in-from-bottom-2 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring focus-visible:ring-offset-2',
+        'absolute bottom-4 right-4 z-10 inline-flex h-11 w-11 items-center justify-center border-3 border-foreground bg-primary text-primary-foreground shadow-md transition duration-200 animate-in fade-in-0 slide-in-from-bottom-2 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring focus-visible:ring-offset-2',
         className
       )}
     >

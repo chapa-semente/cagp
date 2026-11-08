@@ -1,11 +1,26 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { tactileSpring, bounceSpring } from '@/lib/motion';
 import { getVaultItem, setVaultItem, type VaultData } from '../../../../lib/storage/studentVault';
-import { LinearHud } from '../../../calculators/LinearHud';
-import { EXTENSION_ITEMS, AAC_ITEMS, type AcgItemDef } from '../../../calculators/acgCatalog';
-import { GaugeChart } from '../../../boldkit/charts/gauge-chart';
-import { Button } from '../../../ui/button';
-import { Sticker } from '../../../ui/sticker';
-import { Card, CardContent } from '../../../ui/card';
+import { LinearHud } from '@/components/features/acg/calculator/LinearHud';
+import { EXTENSION_ITEMS, AAC_ITEMS, type AcgItemDef } from '@/components/features/acg/calculator/acgCatalog';
+import { GaugeChart } from '@/components/boldkit/charts/gauge-chart';
+import { Button } from '@/components/ui/button';
+import { Sticker } from '@/components/ui/sticker';
+import { Card, CardContent } from '@/components/ui/card';
+import { Slider } from '@/components/ui/slider';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 export const AcgCalculatorCore: React.FC = () => {
   const [data, setData] = useState<VaultData<'cagp_calc_ext_aac_v1'>>({});
@@ -88,19 +103,13 @@ export const AcgCalculatorCore: React.FC = () => {
     setOpenDrawers(updated);
   };
 
-  const handleReset = () => {
-    if (!confirmReset) {
-      setConfirmReset(true);
-      setTimeout(() => setConfirmReset(false), 4000);
-      return;
-    }
+  const executeReset = () => {
     const empty: Record<string, number> = {};
     [...EXTENSION_ITEMS, ...AAC_ITEMS].forEach((it) => {
       empty[it.key] = 0;
     });
     setData(empty);
     setVaultItem('cagp_calc_ext_aac_v1', empty);
-    setConfirmReset(false);
   };
 
   const handlePresetExample = () => {
@@ -129,43 +138,48 @@ export const AcgCalculatorCore: React.FC = () => {
 
     return (
       <div className="mb-6">
-        <div className="flex flex-wrap items-center justify-between gap-2 mb-3 pb-2 border-b-2 border-[#0A0A0A]">
+        <div className="flex flex-wrap items-center justify-between gap-2 mb-3 pb-2 border-b-2 border-border">
           <div>
             <div className="flex items-center gap-2 flex-wrap">
-              <h2 className="font-head text-lg uppercase font-black text-[#0A0A0A] m-0">
+              <h2 className="font-head text-lg uppercase font-black text-foreground m-0">
                 {title}
               </h2>
-              <span className={`px-2.5 py-1 rounded-md text-xs font-head font-bold text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A] ${colorClass}`}>
+              <span className={`px-2.5 py-1 rounded-md text-xs font-head font-bold text-white border border-border shadow-xs ${colorClass}`}>
                 {badgeText}
               </span>
               {clampedSum >= targetMax && (
-                <span className="cagp-stamp-badge is-deferido text-[10px] py-0.5 px-2 border border-[#0A0A0A]">
+                <motion.span
+                  initial={{ scale: 1.4, rotate: -10, opacity: 0 }}
+                  animate={{ scale: 1, rotate: -2, opacity: 1 }}
+                  transition={bounceSpring}
+                  className="cagp-stamp-badge is-deferido text-[10px] py-0.5 px-2 border border-border"
+                >
                   <i className="bi bi-award-fill" aria-hidden="true" />
                   <span>300h ATINGIDAS</span>
-                </span>
+                </motion.span>
               )}
             </div>
-            <p className="font-body text-xs text-[#57534E] mt-0.5 m-0 font-normal">{subtitle}</p>
+            <p className="font-body text-xs text-muted-foreground mt-0.5 m-0 font-normal">{subtitle}</p>
           </div>
           <div className="text-right">
-            <span className="font-mono text-sm font-bold text-[#0A0A0A]">
+            <span className="font-mono text-sm font-bold text-foreground">
               {clampedSum} / {targetMax}h
             </span>
-            <span className="font-mono text-xs text-[#57534E] ml-1">({pct}%)</span>
+            <span className="font-mono text-xs text-muted-foreground ml-1">({pct}%)</span>
           </div>
         </div>
 
-        {/* Colunas Independentes com Física Desacoplada (Masonry 2-Col) */}
-        <div className="flex flex-col md:flex-row gap-3.5 items-start">
+        {/* Colunas Independentes Empilhadas em 320px-767px e Lado a Lado em 1024px+ */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
           {/* Coluna 1 Independente */}
-          <div className="flex-1 flex flex-col gap-3.5 w-full">
+          <div className="flex flex-col gap-3.5 w-full">
             {items
               .filter((_, idx) => idx % 2 === 0)
               .map((item) => renderCard(item))}
           </div>
 
           {/* Coluna 2 Independente */}
-          <div className="flex-1 flex flex-col gap-3.5 w-full">
+          <div className="flex flex-col gap-3.5 w-full">
             {items
               .filter((_, idx) => idx % 2 === 1)
               .map((item) => renderCard(item))}
@@ -182,69 +196,87 @@ export const AcgCalculatorCore: React.FC = () => {
     const isMaxed = val >= item.max;
 
     return (
-      <div
+      <motion.div
         key={item.key}
-        className="cagp-card p-4 bg-white border-2 border-[#0A0A0A] rounded-xl shadow-[3px_3px_0_0_#0A0A0A] flex flex-col h-fit transition-all duration-200"
+        layout="position"
+        transition={tactileSpring}
+        className="cagp-card p-4 bg-white border-3 border-border rounded-xl shadow flex flex-col h-fit transition-all duration-200"
       >
         <div>
           <div className="flex items-start justify-between gap-2 mb-2">
             <div className="flex items-center gap-2.5">
-              <span className="w-8 h-8 rounded-lg bg-white border border-[#0A0A0A] flex items-center justify-center text-sm text-[#9E2424] shrink-0 shadow-[1px_1px_0_0_#0A0A0A]">
+              <span className="w-8 h-8 rounded-lg bg-white border border-border flex items-center justify-center text-sm text-secondary shrink-0 shadow-xs">
                 <i className={`bi ${item.icon}`} aria-hidden="true" />
               </span>
               <div>
-                <span className="text-[10px] font-mono font-bold uppercase text-[#57534E]">
+                <span className="text-[10px] font-mono font-bold uppercase text-muted-foreground">
                   {item.code}
                 </span>
-                <h3 className="font-head text-sm font-bold text-[#0A0A0A] leading-tight m-0">
+                <h3 className="font-head text-sm font-bold text-foreground leading-tight m-0">
                   {item.label}
                 </h3>
               </div>
             </div>
-            {isMaxed ? (
-              <span className="cagp-stamp-badge is-teto text-[10px] py-0.5 px-1.5 shrink-0 border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">
-                <i className="bi bi-patch-check-fill" aria-hidden="true" />
-                <span>TETO {item.max}h</span>
-              </span>
-            ) : (
-              <span className="text-[11px] font-mono font-bold text-[#57534E] shrink-0">
-                Teto: {item.max}h
-              </span>
-            )}
+            <AnimatePresence mode="wait">
+              {isMaxed ? (
+                <motion.span
+                  key="maxed"
+                  initial={{ scale: 1.5, rotate: -12, opacity: 0 }}
+                  animate={{ scale: 1, rotate: 1.5, opacity: 1 }}
+                  exit={{ scale: 0.8, opacity: 0 }}
+                  transition={bounceSpring}
+                  className="cagp-stamp-badge is-teto text-[10px] py-0.5 px-1.5 shrink-0 border border-border shadow-xs"
+                >
+                  <i className="bi bi-patch-check-fill" aria-hidden="true" />
+                  <span>TETO {item.max}h</span>
+                </motion.span>
+              ) : (
+                <motion.span
+                  key="limit"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="text-[11px] font-mono font-bold text-muted-foreground shrink-0"
+                >
+                  Teto: {item.max}h
+                </motion.span>
+              )}
+            </AnimatePresence>
           </div>
 
-          <p className="font-body text-xs text-[#292524] mb-2.5 leading-relaxed">{item.desc}</p>
+          <p className="font-body text-xs text-muted-foreground mb-2.5 leading-relaxed">{item.desc}</p>
 
-          {/* Barra de Progresso do Item */}
-          <div className="w-full h-2 bg-[#F3ECE0] border border-[#0A0A0A] rounded-full overflow-hidden mb-2.5">
-            <div
-              className={`h-full transition-all duration-200 ${
-                isMaxed ? 'bg-[#266264]' : 'bg-[#9E2424]'
+          {/* Barra de Progresso do Item com Física de Mola */}
+          <div className="w-full h-2.5 bg-[#F3ECE0] border-2 border-border rounded-full overflow-hidden mb-2.5">
+            <motion.div
+              initial={false}
+              animate={{ width: `${itemPct}%` }}
+              transition={bounceSpring}
+              className={`h-full ${
+                isMaxed ? 'bg-teal-700' : 'bg-secondary'
               }`}
-              style={{ width: `${itemPct}%` }}
             />
           </div>
         </div>
 
         {/* Controles Táteis Apple HIG */}
         <div>
-          <div className="flex items-center justify-between gap-2 pt-2.5 border-t-2 border-[#0A0A0A]/20">
+          <div className="flex items-center justify-between gap-2 pt-2.5 border-t-2 border-border/20">
             <div className="flex items-center gap-1.5">
               <button
                 type="button"
                 onClick={() => handleStep(item, -item.step)}
                 disabled={val <= 0}
-                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white hover:bg-muted border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center text-base font-bold text-[#0A0A0A] cursor-pointer transition-all"
+                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white hover:bg-muted border-3 border-border shadow-sm active:translate-x-[1px] active:translate-y-[1px] active:shadow-none disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center text-base font-bold text-foreground cursor-pointer transition-all"
                 aria-label={`Diminuir ${item.step}h de ${item.label}`}
               >
                 <i className="bi bi-dash" aria-hidden="true" />
               </button>
 
-              <div className="w-16 h-11 min-h-[44px] bg-[#FFFFFF] border-2 border-[#0A0A0A] rounded-xl shadow-[2px_2px_0_0_#0A0A0A] flex flex-col items-center justify-center">
-                <span className="font-mono text-xs font-black text-[#0A0A0A] leading-none">
+              <div className="w-16 h-11 min-h-[44px] bg-card border-3 border-border rounded-xl shadow-sm flex flex-col items-center justify-center">
+                <span className="font-mono text-xs font-black text-foreground leading-none">
                   {val}h
                 </span>
-                <span className="text-[10px] text-[#57534E] font-mono">
+                <span className="text-[10px] text-muted-foreground font-mono">
                   /{item.max}h
                 </span>
               </div>
@@ -253,7 +285,7 @@ export const AcgCalculatorCore: React.FC = () => {
                 type="button"
                 onClick={() => handleStep(item, item.step)}
                 disabled={isMaxed}
-                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white hover:bg-muted border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center text-base font-bold text-[#0A0A0A] cursor-pointer transition-all"
+                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white hover:bg-muted border-3 border-border shadow-sm active:translate-x-[1px] active:translate-y-[1px] active:shadow-none disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center text-base font-bold text-foreground cursor-pointer transition-all"
                 aria-label={`Adicionar ${item.step}h em ${item.label}`}
               >
                 <i className="bi bi-plus" aria-hidden="true" />
@@ -262,7 +294,7 @@ export const AcgCalculatorCore: React.FC = () => {
 
             <div className="flex items-center gap-1.5">
               {isMaxed ? (
-                <span className="min-h-[44px] text-xs font-mono font-bold text-white bg-[#266264] border-2 border-[#0A0A0A] px-2.5 py-1 rounded-xl flex items-center gap-1 shadow-[2px_2px_0_0_#0A0A0A]">
+                <span className="min-h-[44px] text-xs font-mono font-bold text-white bg-teal-700 border-3 border-border px-2.5 py-1 rounded-xl flex items-center gap-1 shadow-sm">
                   <i className="bi bi-check-circle-fill text-xs" aria-hidden="true" />
                   <span>100%</span>
                 </span>
@@ -270,7 +302,7 @@ export const AcgCalculatorCore: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => handleMaxOut(item)}
-                  className="px-3 py-1.5 rounded-xl bg-white hover:bg-[#9E2424] hover:text-white border-2 border-[#0A0A0A] text-xs font-head uppercase font-bold text-[#0A0A0A] transition-all shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer min-h-[44px] flex items-center gap-1"
+                  className="px-3 py-1.5 rounded-xl bg-white hover:bg-secondary hover:text-white border-3 border-border text-xs font-head uppercase font-bold text-foreground transition-all shadow-sm active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer min-h-[44px] flex items-center gap-1"
                   title={`Preencher teto de ${item.max}h`}
                 >
                   <i className="bi bi-arrow-bar-up text-xs" aria-hidden="true" />
@@ -281,10 +313,10 @@ export const AcgCalculatorCore: React.FC = () => {
               <button
                 type="button"
                 onClick={() => toggleDrawer(item.key)}
-                className={`px-3 py-1.5 rounded-xl border-2 border-[#0A0A0A] text-xs font-head uppercase font-bold transition-all flex items-center gap-1 min-h-[44px] shadow-[2px_2px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer ${
+                className={`px-3 py-1.5 rounded-xl border-3 border-border text-xs font-head uppercase font-bold transition-all flex items-center gap-1 min-h-[44px] shadow-sm active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer ${
                   isDrawerOpen
-                    ? 'bg-[#0A0A0A] text-white'
-                    : 'bg-white text-[#0A0A0A] hover:bg-muted'
+                    ? 'bg-foreground text-background text-white'
+                    : 'bg-white text-foreground hover:bg-muted'
                 }`}
                 aria-expanded={isDrawerOpen}
                 aria-controls={`drawer-${item.key}`}
@@ -296,6 +328,23 @@ export const AcgCalculatorCore: React.FC = () => {
                 />
               </button>
             </div>
+          </div>
+
+          {/* Ajuste Fino via Slider Neobrutalista */}
+          <div className="mt-3 pt-2.5 border-t-2 border-border/15">
+            <div className="flex items-center justify-between text-[11px] font-mono text-muted-foreground mb-1.5 font-bold">
+              <span>Ajuste Rápido (Slider)</span>
+              <span className="text-foreground">{val}h / {item.max}h</span>
+            </div>
+            <Slider
+              value={[val]}
+              min={0}
+              max={item.max}
+              step={item.step || 5}
+              onValueChange={([newVal]) => updateItemHours(item.key, newVal, item.max)}
+              aria-label={`Ajuste de horas para ${item.label}`}
+              className="py-1"
+            />
           </div>
 
           {/* Gaveta Normativa de Regras com Interpolação Fluida 0fr -> 1fr */}
@@ -310,7 +359,7 @@ export const AcgCalculatorCore: React.FC = () => {
               <div className="cagp-calc-drawer-grid">
                 <div className="cagp-calc-drawer-section is-accepted">
                   <div className="cagp-calc-drawer-header">
-                    <i className="bi bi-check-circle-fill text-[#15803D]" aria-hidden="true" />
+                    <i className="bi bi-check-circle-fill text-success" aria-hidden="true" />
                     <span>O que pontua:</span>
                   </div>
                   <ul>
@@ -322,7 +371,7 @@ export const AcgCalculatorCore: React.FC = () => {
 
                 <div className="cagp-calc-drawer-section is-rejected">
                   <div className="cagp-calc-drawer-header">
-                    <i className="bi bi-x-circle-fill text-[#DC2626]" aria-hidden="true" />
+                    <i className="bi bi-x-circle-fill text-destructive" aria-hidden="true" />
                     <span>O que não pontua:</span>
                   </div>
                   <ul>
@@ -334,7 +383,7 @@ export const AcgCalculatorCore: React.FC = () => {
 
                 {item.alertNote && (
                   <div className="cagp-calc-drawer-alert">
-                    <i className="bi bi-exclamation-triangle-fill text-[#B45309]" aria-hidden="true" />
+                    <i className="bi bi-exclamation-triangle-fill text-warning" aria-hidden="true" />
                     <span>{item.alertNote}</span>
                   </div>
                 )}
@@ -342,7 +391,7 @@ export const AcgCalculatorCore: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     );
   };
 
@@ -352,20 +401,36 @@ export const AcgCalculatorCore: React.FC = () => {
 
   return (
     <div className="cagp-calculator-core select-none space-y-6">
-      {/* HUD Linear Integrado + Velocímetro BoldKit GaugeChart */}
+      {/* Alerta Normativo Institucional Resolução Complementar 01/2023 */}
+      <Alert variant="info" className="rounded-xl border-3 border-border shadow-sm">
+        <i className="bi bi-info-circle-fill text-info text-base" aria-hidden="true" />
+        <div>
+          <AlertTitle>Diretriz Curricular Resolução Complementar 01/2023</AlertTitle>
+          <AlertDescription className="text-xs text-muted-foreground font-medium">
+            São exigidas no mínimo 300h de Atividades de Extensão e 300h de Atividades Complementares (AAC) para colação de grau. O limite máximo por atividade segue os tetos regimentais.
+          </AlertDescription>
+        </div>
+      </Alert>
+
+      {/* HUD Linear Integrado + Velocímetro BoldKit GaugeChart (Empilhado em 320px-767px, Lado a Lado em 1024px+) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
         <div className="lg:col-span-7">
           <LinearHud />
         </div>
-        <Card className="lg:col-span-5 flex flex-col justify-between">
-          <CardContent className="p-4 sm:p-5 flex flex-col items-center justify-between h-full">
-            <div className="flex items-center justify-between w-full mb-2">
+        <Card className="lg:col-span-5 flex flex-col justify-between border-3 border-[#16181d] shadow-[6px_6px_0_0_#16181d]">
+          <CardContent className="p-4 sm:p-5 flex flex-col items-center justify-between h-full gap-2">
+            <div className="flex items-center justify-between w-full gap-2 flex-wrap">
               <span className="font-heading text-xs font-extrabold uppercase text-foreground">
                 Velocímetro Guardião 600h
               </span>
-              <Sticker variant="default" size="sm" rotation="slight">
-                PPC 2020
-              </Sticker>
+              <div className="flex items-center gap-1.5">
+                <span className="cagp-stamp-badge is-semente text-[10px] py-0.5 px-2">
+                  ✦ Ferramenta Criada pela Chapa Semente
+                </span>
+                <Sticker variant="default" size="sm" rotation="slight">
+                  PPC 2020
+                </Sticker>
+              </div>
             </div>
             <GaugeChart
               value={grandTotal}
@@ -385,7 +450,7 @@ export const AcgCalculatorCore: React.FC = () => {
         </Card>
       </div>
 
-      {/* Barra de Ações Rápidas Neobrutalista */}
+      {/* Barra de Ações Rápidas Neobrutalista com Microcopy Canônico */}
       <Card>
         <CardContent className="flex flex-wrap items-center justify-between gap-3 p-4">
           <div className="flex items-center gap-2 flex-wrap">
@@ -394,12 +459,13 @@ export const AcgCalculatorCore: React.FC = () => {
             </span>
             <Button
               type="button"
-              variant="outline"
+              variant="default"
               size="sm"
               onClick={handlePresetExample}
               title="Preencher com exemplo de percurso balanceado de 360h"
             >
-              Exemplo (360h)
+              <i className="bi bi-lightning-charge-fill mr-1.5" aria-hidden="true" />
+              Simular Horas (Exemplo 360h)
             </Button>
             <Button
               type="button"
@@ -411,14 +477,26 @@ export const AcgCalculatorCore: React.FC = () => {
             </Button>
           </div>
 
-          <Button
-            type="button"
-            variant={confirmReset ? 'destructive' : 'outline'}
-            size="sm"
-            onClick={handleReset}
-          >
-            {confirmReset ? 'Confirmar Zerar?' : 'Zerar Horas'}
-          </Button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button type="button" variant="outline" size="sm">
+                <i className="bi bi-arrow-counterclockwise mr-1.5" aria-hidden="true" />
+                Zerar Horas
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Zerar horas calculadas?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Esta ação limpará todas as horas de Extensão e AAC registradas no simulador local. Seus dados no cofre discente serão redefinidos para zero.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                <AlertDialogAction onClick={executeReset}>Confirmar e Zerar</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </CardContent>
       </Card>
 
@@ -428,7 +506,7 @@ export const AcgCalculatorCore: React.FC = () => {
         'Resolução CEPE 10/2019 • Laboratórios práticos DCP 195/196 e projetos SIEX homologados',
         '300h Exigidas',
         EXTENSION_ITEMS,
-        'bg-[#9E2424]',
+        'bg-secondary',
         300,
       )}
 
@@ -438,7 +516,7 @@ export const AcgCalculatorCore: React.FC = () => {
         'Regulamento N-20229 Art. 15 • Cursos livres, monitoria, pesquisa, eventos e estágio extracurricular',
         'Até 300h',
         AAC_ITEMS,
-        'bg-[#266264]',
+        'bg-teal-700',
         300,
       )}
     </div>

@@ -3,29 +3,29 @@
 import { AcgCalculatorWidget } from './calculator/AcgCalculatorWidget';
 import { AcgGuardianWidget } from './guardian/AcgGuardianWidget';
 import AcgTramitacaoWidget from './tramitacao/AcgTramitacaoWidget.astro';
-import CagpIcon from '../../ui/CagpIcon.astro';
-import { asset } from '../../../lib/paths';
+import CagpIcon from '@/components/ui/CagpIcon.astro';
+import { asset } from '@/lib/paths';
 ---
 
-<div class="cagp-acg-central-overview space-y-6 select-none">
+<div class="cagp-acg-central-overview space-y-6 select-none" data-context-type="cert">
   <!-- Apresentação da Central de Horas -->
-  <div class="p-6 bg-white border-[3px] border-[#0A0A0A] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-[4px_4px_0_0_#0A0A0A]">
+  <div class="p-6 bg-card border-3 border-border rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-md text-foreground">
     <div class="flex items-start gap-3.5">
-      <span class="w-12 h-12 rounded-xl bg-[#9E2424] text-white flex items-center justify-center shrink-0 mt-0.5 border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+      <span class="w-12 h-12 rounded-xl bg-secondary text-secondary-foreground flex items-center justify-center shrink-0 mt-0.5 border-3 border-border shadow-xs">
         <CagpIcon name="clock" class="w-6 h-6" />
       </span>
       <div>
         <div class="flex items-center gap-2">
-          <span class="text-[11px] font-head uppercase font-bold tracking-wider text-[#9E2424]">
+          <span class="text-[11px] font-heading uppercase font-extrabold tracking-wider text-secondary">
             Central de Horas &amp; Certificados
           </span>
-          <span class="text-[#0A0A0A] font-bold">•</span>
-          <span class="text-xs text-[#57534E] font-mono">600 horas totais</span>
+          <span class="text-foreground font-bold">•</span>
+          <span class="text-xs text-muted-foreground font-mono">600 horas totais</span>
         </div>
-        <h2 class="font-head text-lg sm:text-xl font-black uppercase text-[#0A0A0A] leading-tight m-0">
+        <h2 class="font-heading text-lg sm:text-xl font-extrabold uppercase text-foreground leading-tight m-0">
           Extensão Obrigatória (300h) &amp; Atividades Complementares (AAC • 300h)
         </h2>
-        <p class="font-body text-xs text-[#57534E] mt-1 max-w-3xl leading-relaxed m-0">
+        <p class="font-sans text-xs text-muted-foreground mt-1 max-w-3xl leading-relaxed m-0">
           Monitore sua integralização, cadastre certificados no Guardião de 120 dias corridos e consulte o protocolo oficial do Colegiado (Formulário N-20229).
         </p>
       </div>
@@ -40,16 +40,16 @@ import { asset } from '../../../lib/paths';
   </div>
 
   <!-- Banner de Acesso Rápido ao Formulário N-20229 -->
-  <div class="p-6 bg-white border-[3px] border-[#0A0A0A] rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-[4px_4px_0_0_#0A0A0A]">
+  <div class="p-6 bg-card border-3 border-border rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-md text-foreground">
     <div class="flex items-center gap-3.5">
-      <span class="w-12 h-12 rounded-xl bg-[#0A0A0A] text-white flex items-center justify-center shrink-0 border border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
-        <CagpIcon name="file-text" class="w-6 h-6 text-[#FF8811]" />
+      <span class="w-12 h-12 rounded-xl bg-foreground text-background flex items-center justify-center shrink-0 border border-border shadow-xs">
+        <CagpIcon name="file-text" class="w-6 h-6 text-accent" />
       </span>
       <div>
-        <h3 class="font-head text-sm uppercase font-bold text-[#0A0A0A] leading-tight m-0">
+        <h3 class="font-heading text-sm uppercase font-extrabold text-foreground leading-tight m-0">
           Requerimento Oficial de AAC (Versão N-20229)
         </h3>
-        <p class="font-body text-xs text-[#57534E] mt-0.5 m-0">
+        <p class="font-sans text-xs text-muted-foreground mt-0.5 m-0">
           Formulário padrão do Colegiado para solicitação de aproveitamento de carga horária.
         </p>
       </div>
@@ -59,14 +59,14 @@ import { asset } from '../../../lib/paths';
       <a
         href={asset('/documentos/requerimento-atividade-integralizadora-credito-v20229.pdf')}
         download
-        class="min-h-[44px] flex-1 sm:flex-none px-4 py-2.5 bg-[#9E2424] hover:bg-[#851E1E] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl text-xs font-head uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-2 border-[#0A0A0A] shadow-[2.5px_2.5px_0_0_#0A0A0A]"
+        class="min-h-[44px] flex-1 sm:flex-none px-4 py-2.5 bg-secondary hover:bg-secondary-hover text-secondary-foreground rounded-xl text-xs font-heading uppercase font-extrabold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-3 border-border shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none"
       >
         <CagpIcon name="download" class="w-4 h-4" />
         <span>Baixar PDF</span>
       </a>
       <a
         href="#protocolo-colegiado"
-        class="min-h-[44px] px-4 py-2.5 bg-white hover:bg-[#F3ECE0] text-[#0A0A0A] border-2 border-[#0A0A0A] rounded-xl text-xs font-head uppercase font-bold flex items-center justify-center transition-all no-underline shadow-[2.5px_2.5px_0_0_#0A0A0A] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
+        class="min-h-[44px] px-4 py-2.5 bg-card hover:bg-muted text-foreground border-3 border-border rounded-xl text-xs font-heading uppercase font-extrabold flex items-center justify-center transition-all no-underline shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none"
       >
         <span>Ver Guia</span>
       </a>

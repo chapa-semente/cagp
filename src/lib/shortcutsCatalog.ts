@@ -200,6 +200,19 @@ export const SHORTCUTS_CATALOG: ShortcutItem[] = [
     actionEvent: 'cagp:toggle-drawer',
     match: [],
   },
+  {
+    id: 'tour',
+    label: 'Tour',
+    fullLabel: 'Tour Guiado do SuperApp',
+    description: 'Tour interativo passo a passo pelas principais ferramentas discentes.',
+    href: '#tour',
+    icon: 'bi-compass',
+    color: '#FF8811',
+    category: 'Ferramentas',
+    isAction: true,
+    actionEvent: 'cagp:start-tour',
+    match: [],
+  },
 ];
 
 export const DEFAULT_SHORTCUT_IDS = ['hoje', 'busca', 'campus', 'percurso', 'menu'];

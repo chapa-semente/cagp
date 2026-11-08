@@ -3,39 +3,39 @@
 import { asset } from '../../../../lib/paths';
 ---
 
-<div class="cagp-card p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between h-full shadow-[3px_3px_0_0_#0A0A0A] hover:shadow-[1.5px_1.5px_0_0_#0A0A0A] hover:translate-x-[1px] hover:translate-y-[1px] transition-all select-none">
+<div class="cagp-card p-5 bg-white border-3 border-border rounded-xl flex flex-col justify-between h-full shadow hover:shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] transition-all select-none">
   <div>
     <div class="flex items-center justify-between gap-2 mb-3.5">
       <div class="flex items-center gap-2.5">
-        <span class="w-10 h-10 rounded-xl bg-[#5B2A86]/10 text-[#5B2A86] flex items-center justify-center text-lg border border-[#5B2A86] shadow-[1px_1px_0_0_#0A0A0A]">
+        <span class="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-lg border border-primary shadow-xs">
           <i class="bi bi-journal-text" aria-hidden="true" />
         </span>
         <div>
-          <h3 class="font-head font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0">
+          <h3 class="font-head font-bold text-sm uppercase text-foreground leading-tight m-0">
             Termo de Estágio (TCE)
           </h3>
-          <span class="text-[11px] text-[#57534E] font-mono">Lei nº 11.788/2008</span>
+          <span class="text-[11px] text-muted-foreground font-mono">Lei nº 11.788/2008</span>
         </div>
       </div>
-      <span class="px-2.5 py-1 rounded-md font-head text-[11px] font-bold bg-[#5B2A86] text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">
+      <span class="px-2.5 py-1 rounded-md font-head text-[11px] font-bold bg-primary text-white border border-border shadow-xs">
         Modelos
       </span>
     </div>
 
-    <p class="font-body text-xs text-[#292524] leading-relaxed mb-3.5">
+    <p class="font-body text-xs text-muted-foreground leading-relaxed mb-3.5">
       Tutorial visual passo a passo para preenchimento do modelo oficial com interveniência da FAFICH/UFMG.
     </p>
 
-    <div class="p-3 bg-white border border-[#0A0A0A] rounded-lg mb-4 flex items-center justify-between text-xs shadow-[1px_1px_0_0_#0A0A0A]">
-      <span class="text-[#57534E] font-medium">Modelos Oficiais:</span>
-      <span class="font-mono font-bold text-[#0A0A0A]">PDF & DOCX</span>
+    <div class="p-3 bg-white border border-border rounded-lg mb-4 flex items-center justify-between text-xs shadow-xs">
+      <span class="text-muted-foreground font-medium">Modelos Oficiais:</span>
+      <span class="font-mono font-bold text-foreground">PDF & DOCX</span>
     </div>
   </div>
 
-  <div class="flex items-center gap-2 pt-3 border-t-2 border-[#0A0A0A]/20">
+  <div class="flex items-center gap-2 pt-3 border-t-2 border-border/20">
     <a
       href="#tutorial"
-      class="flex-1 min-h-[44px] px-4 py-2.5 bg-[#5B2A86] hover:bg-[#49216C] text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-2 border-[#0A0A0A] shadow-[2.5px_2.5px_0_0_#0A0A0A] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
+      class="flex-1 min-h-[44px] px-4 py-2.5 bg-primary hover:bg-[#49216C] text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-3 border-border shadow-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
     >
       <span>Ver Tutorial TCE</span>
       <i class="bi bi-arrow-right" aria-hidden="true" />
@@ -43,11 +43,11 @@ import { asset } from '../../../../lib/paths';
     <a
       href={asset('/documentos/estagio-modelo-termo-de-compromisso-com-convenio.pdf')}
       download
-      class="min-h-[44px] min-w-[44px] px-3 py-2 bg-white hover:bg-[#F3ECE0] text-[#0A0A0A] border-2 border-[#0A0A0A] rounded-xl flex items-center justify-center transition-all no-underline shrink-0 shadow-[2.5px_2.5px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
+      class="min-h-[44px] min-w-[44px] px-3 py-2 bg-white hover:bg-[#F3ECE0] text-foreground border-3 border-border rounded-xl flex items-center justify-center transition-all no-underline shrink-0 shadow-sm active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
       title="Baixar Modelo de TCE em PDF"
       aria-label="Baixar Modelo de TCE em PDF"
     >
-      <i class="bi bi-file-earmark-pdf-fill text-[#5B2A86] text-lg" aria-hidden="true" />
+      <i class="bi bi-file-earmark-pdf-fill text-primary text-lg" aria-hidden="true" />
     </a>
   </div>
 </div>

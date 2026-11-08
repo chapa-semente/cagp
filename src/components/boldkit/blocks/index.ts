@@ -1,4 +1,6 @@
+// Marketing Blocks (14)
 export * from './hero-section';
+export * from './bento-grid';
 export * from './feature-grid';
 export * from './testimonials';
 export * from './logo-cloud';
@@ -8,8 +10,14 @@ export * from './team-section';
 export * from './faq-section';
 export * from './footer-section';
 export * from './contact-section';
-export * from './auth-forms';
-export * from './settings-page';
-export * from './onboarding-flow';
-export * from './error-pages';
+export * from './changelog-section';
+export * from './comparison-table';
 export * from './pricing-section';
+
+// Application Blocks (6)
+export * from './auth-forms';
+export * from './dashboard-layout';
+export * from './error-pages';
+export * from './invoice';
+export * from './onboarding-flow';
+export * from './settings-page';

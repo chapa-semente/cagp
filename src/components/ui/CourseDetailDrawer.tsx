@@ -1,4 +1,5 @@
 import React from 'react'
+import { motion } from 'motion/react'
 import {
   Drawer,
   DrawerContent,
@@ -11,6 +12,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { CheckCircle2, PlusCircle, Trash2 } from 'lucide-react'
+import { tactileSpring, bounceSpring } from '@/lib/motion'
 
 export interface CourseDetailNode {
   code: string
@@ -67,27 +69,32 @@ export const CourseDetailDrawer: React.FC<CourseDetailDrawerProps> = ({
   return (
     <Drawer open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DrawerContent className="max-h-[85vh] p-0 font-sans border-3 border-b-0 border-border bg-card text-foreground">
-        <DrawerHeader className="border-b-2 border-border p-4 sm:p-6 text-left">
-          <div className="flex flex-wrap items-center gap-2 mb-2">
-            <Badge variant="default" className="font-mono text-xs">
-              {node.code}
-            </Badge>
-            <Badge variant="outline" className="text-xs">
-              {node.dept}
-            </Badge>
-            <Badge variant="secondary" className="text-xs">
-              {node.period}º Período • {node.ch}h
-            </Badge>
-            {node.isFormalLock && (
-              <Badge variant="destructive" className="text-xs font-bold">
-                🔒 Trava SIGA
+        <DrawerHeader className="border-b-3 border-border p-4 sm:p-6 text-left bg-white">
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <div className="flex flex-wrap items-center gap-2">
+              <Badge variant="default" className="font-mono text-xs">
+                {node.code}
               </Badge>
-            )}
-            {node.isCustom && (
-              <Badge variant="accent" className="text-xs">
-                ✦ Formação Livre
+              <Badge variant="outline" className="text-xs">
+                {node.dept}
               </Badge>
-            )}
+              <Badge variant="secondary" className="text-xs">
+                {node.period}º Período • {node.ch}h
+              </Badge>
+              {node.isFormalLock && (
+                <Badge variant="destructive" className="text-xs font-bold">
+                  🔒 Trava SIGA
+                </Badge>
+              )}
+              {node.isCustom && (
+                <Badge variant="accent" className="text-xs">
+                  ✦ Formação Livre
+                </Badge>
+              )}
+            </div>
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#F2CD5C] border-2 border-[#16181d] text-[10px] font-heading font-black uppercase text-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+              ✦ Mapa Chapa Semente
+            </span>
           </div>
           <DrawerTitle className="font-heading text-lg sm:text-xl font-extrabold uppercase leading-snug tracking-tight text-foreground">
             {node.name}
@@ -99,29 +106,40 @@ export const CourseDetailDrawer: React.FC<CourseDetailDrawerProps> = ({
           )}
         </DrawerHeader>
 
-        <div className="p-4 sm:p-6 space-y-4 overflow-y-auto max-h-[50vh] text-sm">
+        <motion.div
+          key={node.code}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={tactileSpring}
+          className="p-4 sm:p-6 space-y-4 overflow-y-auto max-h-[50vh] text-sm"
+        >
           {/* Ementa */}
           <div>
             <h4 className="font-heading text-xs font-extrabold uppercase tracking-wider text-muted-foreground mb-1">
               Ementa Oficial & Conteúdo Programático
             </h4>
-            <p className="text-foreground leading-relaxed bg-white p-3.5 rounded-xl border-2 border-border text-xs sm:text-sm shadow-xs">
+            <p className="text-foreground leading-relaxed bg-white p-3.5 rounded-xl border-3 border-border text-xs sm:text-sm shadow-[3px_3px_0_0_#16181d]">
               {node.desc || 'Ementa cadastrada em conformidade com o Projeto Pedagógico do Curso (PPC 2020).'}
             </p>
           </div>
 
           {/* Pré-requisitos Formais e Sugeridos */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div className="p-3 rounded-xl border-2 border-border bg-white space-y-1">
-              <span className="text-[11px] font-heading font-extrabold uppercase text-[#9E2424] block">
-                Pré-Requisitos Formais (SIGA)
+            <motion.div
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={bounceSpring}
+              className="p-3 rounded-xl border-3 border-border bg-white space-y-1 shadow-[3px_3px_0_0_#16181d]"
+            >
+              <span className="text-[11px] font-heading font-extrabold uppercase text-secondary block">
+                ⬅ Pré-Requisitos Formais (SIGA)
               </span>
               {node.formalReqs && node.formalReqs.length > 0 ? (
                 <div className="flex flex-wrap gap-1.5 pt-1">
                   {node.formalReqs.map((req) => (
                     <span
                       key={req}
-                      className="px-2 py-0.5 rounded-md bg-[#FEE2E2] border border-[#9E2424] text-[#9E2424] font-mono text-xs font-bold"
+                      className="px-2 py-0.5 rounded-md bg-[#FEE2E2] border-2 border-[#16181d] text-secondary font-mono text-xs font-bold shadow-[2px_2px_0_0_#16181d]"
                     >
                       {req}
                     </span>
@@ -130,18 +148,23 @@ export const CourseDetailDrawer: React.FC<CourseDetailDrawerProps> = ({
               ) : (
                 <p className="text-xs text-muted-foreground">Sem pré-requisito formal cadastrado.</p>
               )}
-            </div>
+            </motion.div>
 
-            <div className="p-3 rounded-xl border-2 border-border bg-white space-y-1">
+            <motion.div
+              initial={{ opacity: 0, x: 8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={bounceSpring}
+              className="p-3 rounded-xl border-3 border-border bg-white space-y-1 shadow-[3px_3px_0_0_#16181d]"
+            >
               <span className="text-[11px] font-heading font-extrabold uppercase text-primary block">
-                Libera no Fluxo Curricular
+                Libera no Fluxo Curricular ➡
               </span>
               {node.formalUnlocks && node.formalUnlocks.length > 0 ? (
                 <div className="flex flex-wrap gap-1.5 pt-1">
                   {node.formalUnlocks.map((unl) => (
                     <span
                       key={unl}
-                      className="px-2 py-0.5 rounded-md bg-[#EDE9FE] border border-primary text-primary font-mono text-xs font-bold"
+                      className="px-2 py-0.5 rounded-md bg-[#EDE9FE] border-2 border-[#16181d] text-primary font-mono text-xs font-bold shadow-[2px_2px_0_0_#16181d]"
                     >
                       {unl}
                     </span>
@@ -150,9 +173,9 @@ export const CourseDetailDrawer: React.FC<CourseDetailDrawerProps> = ({
               ) : (
                 <p className="text-xs text-muted-foreground">Não bloqueia formalmente outras disciplinas.</p>
               )}
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         <DrawerFooter className="border-t-2 border-border p-4 sm:p-6 bg-card flex flex-col sm:flex-row gap-2.5">
           <Button

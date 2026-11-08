@@ -1,13 +1,15 @@
 /* eslint-disable react-refresh/only-export-components */
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
+import { motion } from "motion/react"
+import { cardHoverVariants, tactileSpring } from "@/lib/motion"
 import { cn } from "@/lib/utils"
 import { Card, CardContent } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { TrendingUp, TrendingDown, Minus } from "lucide-react"
 
 const statCardVariants = cva(
-  "relative overflow-hidden",
+  "relative overflow-hidden border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]",
   {
     variants: {
       variant: {
@@ -19,10 +21,10 @@ const statCardVariants = cva(
         primary: "[&_.stat-icon]:bg-primary [&_.stat-icon]:text-primary-foreground [&_.stat-bg]:bg-primary",
         secondary: "[&_.stat-icon]:bg-secondary [&_.stat-icon]:text-secondary-foreground [&_.stat-bg]:bg-secondary",
         accent: "[&_.stat-icon]:bg-accent [&_.stat-icon]:text-accent-foreground [&_.stat-bg]:bg-accent",
-        success: "[&_.stat-icon]:bg-[#15803D] [&_.stat-icon]:text-white [&_.stat-bg]:bg-[#15803D]",
-        warning: "[&_.stat-icon]:bg-[#B45309] [&_.stat-icon]:text-white [&_.stat-bg]:bg-[#B45309]",
-        info: "[&_.stat-icon]:bg-[#005A9C] [&_.stat-icon]:text-white [&_.stat-bg]:bg-[#005A9C]",
-        teal: "[&_.stat-icon]:bg-[#266264] [&_.stat-icon]:text-white [&_.stat-bg]:bg-[#266264]",
+        success: "[&_.stat-icon]:bg-success [&_.stat-icon]:text-white [&_.stat-bg]:bg-success",
+        warning: "[&_.stat-icon]:bg-warning [&_.stat-icon]:text-white [&_.stat-bg]:bg-warning",
+        info: "[&_.stat-icon]:bg-info [&_.stat-icon]:text-white [&_.stat-bg]:bg-info",
+        teal: "[&_.stat-icon]:bg-teal-700 [&_.stat-icon]:text-white [&_.stat-bg]:bg-teal-700",
         destructive: "[&_.stat-icon]:bg-destructive [&_.stat-icon]:text-destructive-foreground [&_.stat-bg]:bg-destructive",
       },
     },
@@ -73,68 +75,77 @@ const StatCard = React.forwardRef<HTMLDivElement, StatCardProps>(
     const TrendIcon = trend === "up" ? TrendingUp : trend === "down" ? TrendingDown : Minus
     const trendColor =
       trend === "up"
-        ? "text-[#15803D]"
+        ? "text-success"
         : trend === "down"
           ? "text-destructive"
           : "text-muted-foreground"
 
     return (
-      <Card
-        ref={ref}
-        className={cn(statCardVariants({ variant, colorScheme: resolvedColorScheme }), className)}
-        {...props}
+      <motion.div
+        variants={cardHoverVariants}
+        initial="rest"
+        whileHover="hover"
+        whileTap="tap"
+        transition={tactileSpring}
+        className={cn(variant === "large" && "md:col-span-2")}
       >
-        {/* Decorative background shape */}
-        <div className="stat-bg pointer-events-none absolute top-0 right-0 w-24 h-24 rounded-xl opacity-15 -translate-y-8 translate-x-8 rotate-12" />
+        <Card
+          ref={ref}
+          className={cn(statCardVariants({ variant, colorScheme: resolvedColorScheme }), className)}
+          {...props}
+        >
+          {/* Decorative background shape */}
+          <div className="stat-bg pointer-events-none absolute top-0 right-0 w-24 h-24 rounded-xl opacity-15 -translate-y-8 translate-x-8 rotate-12" />
 
-        <CardContent className="stat-content p-5">
-          <div className="flex items-start justify-between gap-3">
-            <div className="min-w-0">
-              <p className="font-heading text-xs font-extrabold uppercase tracking-wider text-muted-foreground mb-1">
-                {title}
-              </p>
-              <p className="font-heading text-2xl sm:text-3xl font-black tracking-tight text-foreground tabular-nums">
-                {value}
-              </p>
-              {subtitle && (
-                <p className="font-sans text-xs font-semibold text-muted-foreground mt-1">
-                  {subtitle}
+          <CardContent className="stat-content p-5">
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <p className="font-heading text-xs font-extrabold uppercase tracking-wider text-muted-foreground mb-1">
+                  {title}
                 </p>
-              )}
-              {change && (
-                <div className={cn("flex items-center gap-1 mt-2", trendColor)}>
-                  <TrendIcon className="h-4 w-4 shrink-0" />
-                  <span className="font-mono text-xs font-bold">{change}</span>
-                  {comparison && (
-                    <span className="text-xs text-muted-foreground">{comparison}</span>
-                  )}
+                <p className="font-heading text-2xl sm:text-3xl font-black tracking-tight text-foreground tabular-nums">
+                  {value}
+                </p>
+                {subtitle && (
+                  <p className="font-sans text-xs font-semibold text-muted-foreground mt-1">
+                    {subtitle}
+                  </p>
+                )}
+                {change && (
+                  <div className={cn("flex items-center gap-1 mt-2", trendColor)}>
+                    <TrendIcon className="h-4 w-4 shrink-0" />
+                    <span className="font-mono text-xs font-bold">{change}</span>
+                    {comparison && (
+                      <span className="text-xs text-muted-foreground">{comparison}</span>
+                    )}
+                  </div>
+                )}
+              </div>
+              {icon && (
+                <div className="stat-icon w-11 h-11 rounded-xl border-3 border-[#16181d] flex items-center justify-center shadow-[2px_2px_0_0_#16181d] shrink-0">
+                  {icon}
                 </div>
               )}
             </div>
-            {icon && (
-              <div className="stat-icon w-11 h-11 rounded-xl border-3 border-border flex items-center justify-center shadow-sm shrink-0">
-                {icon}
+
+            {progress && (
+              <div className="mt-4 pt-3.5 border-t-2 border-[#16181d]/20">
+                <div className="flex items-center justify-between text-xs mb-1.5 font-sans">
+                  <span className="font-bold text-muted-foreground">
+                    {progress.label || "Progresso"}
+                  </span>
+                  <span className="font-mono font-extrabold text-foreground tabular-nums">
+                    {progress.value}%
+                  </span>
+                </div>
+                <Progress value={progress.value} className="h-3 border-3 border-[#16181d] rounded-lg" />
               </div>
             )}
-          </div>
 
-          {progress && (
-            <div className="mt-4 pt-3.5 border-t-2 border-border/20">
-              <div className="flex items-center justify-between text-xs mb-1.5 font-sans">
-                <span className="font-bold text-muted-foreground">
-                  {progress.label || "Progresso"}
-                </span>
-                <span className="font-mono font-extrabold text-foreground tabular-nums">
-                  {progress.value}%
-                </span>
-              </div>
-              <Progress value={progress.value} className="h-3 border-2 border-border rounded-lg" />
-            </div>
-          )}
-
-          {footer && <div className="mt-3 pt-3 border-t-2 border-border/20">{footer}</div>}
-        </CardContent>
-      </Card>
+            {footer && <div className="mt-3 pt-3 border-t-2 border-[#16181d]/20">{footer}</div>}
+          </CardContent>
+        </Card>
+      </motion.div>
     )
   }
 )

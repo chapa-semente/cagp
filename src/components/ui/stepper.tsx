@@ -28,8 +28,8 @@ const stepVariants = cva(
   {
     variants: {
       state: {
-        completed: 'bg-success text-success-foreground shadow-[4px_4px_0px_var(--shadow-color)]',
-        active: 'bg-primary text-primary-foreground shadow-[4px_4px_0px_var(--shadow-color)] scale-110',
+        completed: 'bg-success text-success-foreground shadow-md',
+        active: 'bg-primary text-primary-foreground shadow-md scale-110',
         upcoming: 'bg-muted text-muted-foreground',
       },
       size: {
@@ -355,7 +355,7 @@ const StepperActions = React.forwardRef<HTMLDivElement, StepperActionsProps>(
               disabled={isFirst}
               className={cn(
                 'px-4 py-2 border-3 border-foreground font-bold uppercase text-sm',
-                'bg-muted shadow-[4px_4px_0px_var(--shadow-color)]',
+                'bg-muted shadow-md',
                 'hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none',
                 'disabled:opacity-50 disabled:pointer-events-none',
                 'transition duration-200'
@@ -368,7 +368,7 @@ const StepperActions = React.forwardRef<HTMLDivElement, StepperActionsProps>(
               onClick={handleNext}
               className={cn(
                 'px-4 py-2 border-3 border-foreground font-bold uppercase text-sm',
-                'bg-primary text-primary-foreground shadow-[4px_4px_0px_var(--shadow-color)]',
+                'bg-primary text-primary-foreground shadow-md',
                 'hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none',
                 'transition duration-200'
               )}

@@ -26,35 +26,35 @@ export const CurriculumDossierWidget: React.FC = () => {
   const extTotal = Math.min(300, (calcData['ext_lab_a'] || 0) + (calcData['ext_lab_b'] || 0) + (calcData['ext_junior'] || 0) + (calcData['ext_siex'] || 0) + (calcData['ext_cursos'] || 0));
 
   return (
-    <div className="cagp-card p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between h-full shadow-[3px_3px_0_0_#0A0A0A] hover:shadow-[1.5px_1.5px_0_0_#0A0A0A] hover:translate-x-[1px] hover:translate-y-[1px] transition-all select-none">
+    <div className="cagp-card p-5 bg-white border-3 border-border rounded-xl flex flex-col justify-between h-full shadow hover:shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] transition-all select-none">
       <div>
         <div className="flex items-center justify-between gap-2 mb-3.5">
           <div className="flex items-center gap-2.5">
-            <span className="w-10 h-10 rounded-xl bg-[#9E2424]/10 text-[#9E2424] flex items-center justify-center text-lg border border-[#9E2424] shadow-[1px_1px_0_0_#0A0A0A]">
+            <span className="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center text-lg border border-secondary shadow-xs">
               <i className="bi bi-mortarboard-fill" aria-hidden="true" />
             </span>
             <div>
-              <h3 className="font-head font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0">
+              <h3 className="font-head font-bold text-sm uppercase text-foreground leading-tight m-0">
                 Dossiê Discente
               </h3>
-              <span className="text-[11px] text-[#57534E] font-mono">Meta de 3.000h</span>
+              <span className="text-[11px] text-muted-foreground font-mono">Meta de 3.000h</span>
             </div>
           </div>
-          <span className="px-2.5 py-1 rounded-md font-head text-[11px] font-bold bg-[#9E2424] text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">
+          <span className="px-2.5 py-1 rounded-md font-head text-[11px] font-bold bg-secondary text-white border border-border shadow-xs">
             PPC 2020
           </span>
         </div>
 
-        <p className="font-body text-xs text-[#292524] leading-relaxed mb-3.5">
+        <p className="font-body text-xs text-muted-foreground leading-relaxed mb-3.5">
           Termômetro com divisão entre 27 obrigatórias, optativas do curso, formação livre (120h) e extensão.
         </p>
 
         <div className="space-y-2 mb-4 text-xs">
-          <div className="flex justify-between items-center text-[#292524] p-2 bg-white border-2 border-[#0A0A0A] rounded-lg shadow-[1px_1px_0_0_#0A0A0A]">
+          <div className="flex justify-between items-center text-muted-foreground p-2 bg-white border-3 border-border rounded-lg shadow-xs">
             <span className="font-medium">Optativas Vinculadas:</span>
-            <span className="font-mono font-bold text-[#9E2424]">{optativasHours}h / 1.020h</span>
+            <span className="font-mono font-bold text-secondary">{optativasHours}h / 1.020h</span>
           </div>
-          <div className="flex justify-between items-center text-[#292524] p-2 bg-white border-2 border-[#0A0A0A] rounded-lg shadow-[1px_1px_0_0_#0A0A0A]">
+          <div className="flex justify-between items-center text-muted-foreground p-2 bg-white border-3 border-border rounded-lg shadow-xs">
             <span className="font-medium">Extensão Curricular:</span>
             <span className="font-mono font-bold text-[#266264]">{extTotal}h / 300h</span>
           </div>
@@ -63,7 +63,7 @@ export const CurriculumDossierWidget: React.FC = () => {
 
       <a
         href="#minha-grade"
-        className="min-h-[44px] px-4 py-2.5 bg-[#0A0A0A] hover:bg-[#9E2424] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-2 border-[#0A0A0A] shadow-[2.5px_2.5px_0_0_#0A0A0A]"
+        className="min-h-[44px] px-4 py-2.5 bg-foreground text-background hover:bg-secondary active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-3 border-border shadow-sm"
       >
         <span>Abrir Dossiê Completo</span>
         <i className="bi bi-arrow-right" aria-hidden="true" />

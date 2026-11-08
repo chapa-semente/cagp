@@ -238,7 +238,7 @@ const TimePicker = React.forwardRef<HTMLButtonElement, TimePickerProps>(
                         'transition duration-150 ease-out',
                         'hover:bg-muted hover:scale-105',
                         'focus:outline-none focus:bg-muted',
-                        selectedHour === hour && 'bg-primary text-primary-foreground shadow-[2px_2px_0px_var(--shadow-color)] scale-105',
+                        selectedHour === hour && 'bg-primary text-primary-foreground shadow-sm scale-105',
                         'disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100'
                       )}
                     >
@@ -274,7 +274,7 @@ const TimePicker = React.forwardRef<HTMLButtonElement, TimePickerProps>(
                         'transition duration-150 ease-out',
                         'hover:bg-muted hover:scale-105',
                         'focus:outline-none focus:bg-muted',
-                        selectedMinute === minute && 'bg-primary text-primary-foreground shadow-[2px_2px_0px_var(--shadow-color)] scale-105',
+                        selectedMinute === minute && 'bg-primary text-primary-foreground shadow-sm scale-105',
                         'disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100'
                       )}
                     >
@@ -308,7 +308,7 @@ const TimePicker = React.forwardRef<HTMLButtonElement, TimePickerProps>(
                           'transition duration-150 ease-out',
                           'hover:bg-muted hover:scale-105',
                           'focus:outline-none focus:bg-muted',
-                          selectedSecond === second && 'bg-primary text-primary-foreground shadow-[2px_2px_0px_var(--shadow-color)] scale-105'
+                          selectedSecond === second && 'bg-primary text-primary-foreground shadow-sm scale-105'
                         )}
                       >
                         {second.toString().padStart(2, '0')}
@@ -337,7 +337,7 @@ const TimePicker = React.forwardRef<HTMLButtonElement, TimePickerProps>(
                         'transition duration-150 ease-out',
                         'hover:bg-muted hover:scale-105',
                         'focus:outline-none focus:bg-muted',
-                        selectedPeriod === period && 'bg-primary text-primary-foreground shadow-[2px_2px_0px_var(--shadow-color)] scale-105'
+                        selectedPeriod === period && 'bg-primary text-primary-foreground shadow-sm scale-105'
                       )}
                     >
                       {period}

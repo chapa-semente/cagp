@@ -232,7 +232,7 @@ const CarouselPrevious = React.forwardRef<
       className={cn(
         'absolute h-10 w-10',
         // Disable translate on hover - use scale instead for carousel buttons
-        'hover:translate-x-0 hover:translate-y-0 hover:scale-105 hover:shadow-[4px_4px_0px_var(--shadow-color)]',
+        'hover:translate-x-0 hover:translate-y-0 hover:scale-105 hover:shadow-md',
         orientation === 'horizontal'
           ? '-left-12 top-1/2 -translate-y-1/2'
           : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
@@ -263,7 +263,7 @@ const CarouselNext = React.forwardRef<
       className={cn(
         'absolute h-10 w-10',
         // Disable translate on hover - use scale instead for carousel buttons
-        'hover:translate-x-0 hover:translate-y-0 hover:scale-105 hover:shadow-[4px_4px_0px_var(--shadow-color)]',
+        'hover:translate-x-0 hover:translate-y-0 hover:scale-105 hover:shadow-md',
         orientation === 'horizontal'
           ? '-right-12 top-1/2 -translate-y-1/2'
           : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
@@ -302,7 +302,7 @@ const CarouselDots = React.forwardRef<
           className={cn(
             'h-3 w-3 border-2 border-foreground transition duration-200',
             index === selectedIndex
-              ? 'bg-primary scale-110 shadow-[2px_2px_0px_var(--shadow-color)]'
+              ? 'bg-primary scale-110 shadow-sm'
               : 'bg-muted hover:bg-muted/80'
           )}
           aria-label={`Go to slide ${index + 1} of ${scrollSnaps.length}`}

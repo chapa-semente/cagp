@@ -12,7 +12,7 @@ const InputGroup = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      'flex items-stretch border-3 border-foreground bg-background shadow-[4px_4px_0px_var(--shadow-color)] transition focus-within:translate-x-[2px] focus-within:translate-y-[2px] focus-within:shadow-none',
+      'flex items-stretch border-3 border-foreground bg-background shadow-md transition focus-within:translate-x-[2px] focus-within:translate-y-[2px] focus-within:shadow-none',
       className
     )}
     {...props}

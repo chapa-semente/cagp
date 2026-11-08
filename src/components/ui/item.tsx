@@ -38,7 +38,7 @@ const itemVariants = cva(
   {
     variants: {
       variant: {
-        default: "border-foreground bg-card shadow-[4px_4px_0px_var(--shadow-color)]",
+        default: "border-foreground bg-card shadow-md",
         outline: "border-foreground bg-background",
         muted: "border-foreground/30 bg-muted/60",
       },

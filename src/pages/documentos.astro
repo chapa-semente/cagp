@@ -28,25 +28,27 @@ const badges = [
 <BaseLayout
   title="Acervo de Documentos Oficiais"
   description="Atos normativos, requerimentos acadêmicos, termos de estágio e processos do DRCA do curso de Gestão Pública UFMG."
+  mode="read"
 >
   <PageHeader
     eyebrow="Eixo 4 · Repositório & Documentos Oficiais"
     title="Acervo de Documentos & Modelos"
     subtitle="Cofre offline de atos normativos, matrizes curriculares e formulários oficiais da FAFICH/UFMG em PDF com integridade factual preservada."
     badges={badges}
+    mode="read"
   />
 
   <SegmentedControl tabs={tabs} defaultTab="v0" />
 
   <!-- Sub-view 0: Visão Geral do Eixo 4 (Acervo) -->
-  <section id="ws-panel-v0" class="cagp-workspace-view" data-ws-panel="v0">
+  <section id="ws-panel-v0" class="cagp-workspace-view" data-ws-panel="v0" data-context-type="doc-template">
     <div id="visao-geral" class="cagp-anchor-target scroll-mt-24"></div>
     <DocumentosInteractiveSearch client:visible />
     <DocumentosCentralOverview />
   </section>
 
   <!-- Sub-view 1: Atos Normativos -->
-  <section id="ws-panel-v1" class="cagp-workspace-view" data-ws-panel="v1" hidden>
+  <section id="ws-panel-v1" class="cagp-workspace-view space-y-4" data-ws-panel="v1" data-context-type="doc-template" hidden>
     <div id="atos" class="cagp-anchor-target scroll-mt-24"></div>
     <DocumentosAtosRegulamentares />
   </section>

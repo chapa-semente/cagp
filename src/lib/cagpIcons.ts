@@ -2,8 +2,10 @@
 
 export type CagpIconName =
   | 'hoje'
+  | 'compass'
   | 'curso'
   | 'curriculo'
+  | 'carreira'
   | 'acervo'
   | 'cagp'
   | 'search'
@@ -55,6 +57,11 @@ const ICON_PATHS: Record<CagpIconName, string> = {
     <polygon points="15.5,8.5 13.4,13.4 8.5,15.5 10.6,10.6" />
     <circle cx="12" cy="12" r="1" fill="currentColor" stroke="none" />
   `,
+  compass: `
+    <circle cx="12" cy="12" r="9" />
+    <polygon points="15.5,8.5 13.4,13.4 8.5,15.5 10.6,10.6" />
+    <circle cx="12" cy="12" r="1" fill="currentColor" stroke="none" />
+  `,
   // Eixo 2: Curso — Capelo & Coluna Institucional
   curso: `
     <path d="M2.5 9.5L12 4.5L21.5 9.5L12 14.5L2.5 9.5Z" />
@@ -72,7 +79,14 @@ const ICON_PATHS: Record<CagpIconName, string> = {
     <path d="M16.2 7.8L7.8 16.2" />
     <path d="M8.5 18H15.5" />
   `,
-  // Eixo 4: Acervo — Pasta Documental com Chancela
+  // Eixo 4: Carreira — Maleta de Oportunidades & Estágio
+  carreira: `
+    <rect x="3" y="7" width="18" height="13" rx="2" />
+    <path d="M8 7V5C8 3.9 8.9 3 10 3H14C15.1 3 16 3.9 16 5V7" />
+    <path d="M12 12V14" />
+    <path d="M3 11H21" />
+  `,
+  // Acervo Legado
   acervo: `
     <path d="M3 7.5C3 6.4 3.9 5.5 5 5.5H9.2L11.2 7.8H19C20.1 7.8 21 8.7 21 9.8V17.5C21 18.6 20.1 19.5 19 19.5H5C3.9 19.5 3 18.6 3 17.5V7.5Z" />
     <path d="M8 13.5H16" />
@@ -317,6 +331,8 @@ export function resolveCagpIconName(raw: string): CagpIconName {
     percurso: 'curriculo',
     'diagram-3': 'curriculo',
     'diagram-3-fill': 'curriculo',
+    carreira: 'carreira',
+    estagio: 'carreira',
     acervo: 'acervo',
     documentos: 'acervo',
     'folder2-open': 'acervo',

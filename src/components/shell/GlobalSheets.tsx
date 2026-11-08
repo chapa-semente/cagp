@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import { PassportSheet } from './PassportSheet';
 import { CampusSheet } from './CampusSheet';
 import { A11ySheet } from './A11ySheet';
 import { ShortcutsSheet } from './ShortcutsSheet';
-import { SpotlightModal } from './SpotlightModal';
 
 export const GlobalSheets: React.FC = () => {
   const [activeSheet, setActiveSheet] = useState<'passport' | 'campus' | 'a11y' | 'settings' | 'shortcuts' | null>(null);
@@ -31,7 +31,7 @@ export const GlobalSheets: React.FC = () => {
   }, []);
 
   return (
-    <>
+    <ErrorBoundary>
       <PassportSheet isOpen={activeSheet === 'passport'} onClose={() => setActiveSheet(null)} />
       <CampusSheet isOpen={activeSheet === 'campus'} onClose={() => setActiveSheet(null)} />
       <A11ySheet
@@ -40,7 +40,6 @@ export const GlobalSheets: React.FC = () => {
         onClose={() => setActiveSheet(null)}
       />
       <ShortcutsSheet isOpen={activeSheet === 'shortcuts'} onClose={() => setActiveSheet(null)} />
-      <SpotlightModal />
-    </>
+    </ErrorBoundary>
   );
 };

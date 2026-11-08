@@ -19,7 +19,7 @@ const Checkbox = React.forwardRef<
       ref={ref}
       checked={resolvedChecked}
       className={cn(
-        'peer h-5 w-5 shrink-0 rounded-md border-3 border-foreground bg-background shadow-[3px_3px_0px_var(--shadow-color)] transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground data-[state=indeterminate]:bg-secondary data-[state=indeterminate]:text-secondary-foreground hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none active:translate-x-[2px] active:translate-y-[2px] active:shadow-none',
+        'peer h-5 w-5 shrink-0 rounded-md border-3 border-foreground bg-background shadow transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground data-[state=indeterminate]:bg-secondary data-[state=indeterminate]:text-secondary-foreground hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none active:translate-x-[2px] active:translate-y-[2px] active:shadow-none',
         className
       )}
       {...props}

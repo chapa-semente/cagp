@@ -84,10 +84,10 @@ export const GestaoDiretoriaAndEstatuto: React.FC = () => {
   return (
     <section className="space-y-6 my-6" aria-label="Estrutura Regimental das 7 Diretorias do CAGP">
       <Card className="bg-white">
-        <CardHeader className="border-b-3 border-[#16181d] bg-[#FFFDF9]">
+        <CardHeader className="border-b-3 border-border bg-card">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-3.5">
-              <div className="w-14 h-14 rounded-xl bg-[#FF8811] border-3 border-[#16181d] shadow-[3px_3px_0px_#16181d] p-1.5 flex items-center justify-center shrink-0">
+              <div className="w-14 h-14 rounded-xl bg-accent border-3 border-border shadow p-1.5 flex items-center justify-center shrink-0">
                 <img
                   src={asset('/logos/semente_logo_fundo_laranja.png')}
                   alt="Chapa Semente"
@@ -102,7 +102,7 @@ export const GestaoDiretoriaAndEstatuto: React.FC = () => {
                 <CardTitle className="text-xl uppercase">
                   As 7 Diretorias Regimentais do CAGP (Art. 24º a 34º)
                 </CardTitle>
-                <CardDescription className="text-xs font-medium text-[#57534E]">
+                <CardDescription className="text-xs font-medium text-muted-foreground">
                   Estrutura mínima obrigatória de 8 representantes eleitos, suprapartidária, autônoma e regida pelos princípios da Administração Pública (LIMPE).
                 </CardDescription>
               </div>
@@ -126,26 +126,26 @@ export const GestaoDiretoriaAndEstatuto: React.FC = () => {
             {SETE_DIRETORIAS.map((dir) => (
               <div
                 key={dir.sigla}
-                className="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0px_#16181d] flex flex-col justify-between space-y-3"
+                className="p-4 rounded-xl border-3 border-border bg-white shadow-[4px_4px_0px_#16181d] flex flex-col justify-between space-y-3"
               >
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
                     <span
-                      className="px-2.5 py-0.5 rounded-lg text-xs font-mono font-black text-white border-2 border-[#16181d]"
+                      className="px-2.5 py-0.5 rounded-lg text-xs font-mono font-black text-white border-3 border-border"
                       style={{ backgroundColor: dir.cor }}
                     >
                       {dir.sigla}
                     </span>
-                    <span className="font-mono text-[10px] font-bold text-[#57534E]">
+                    <span className="font-mono text-[10px] font-bold text-muted-foreground">
                       {dir.artigo}
                     </span>
                   </div>
-                  <h4 className="font-heading text-sm font-black uppercase text-[#16181d]">
+                  <h4 className="font-heading text-sm font-black uppercase text-foreground">
                     {dir.nome}
                   </h4>
                   <p className="text-xs text-[#3F3C38] leading-relaxed">{dir.atribuicoes}</p>
                 </div>
-                <div className="pt-2 border-t-2 border-[#16181d]/20 text-[11px] font-mono font-bold text-[#5B2A86]">
+                <div className="pt-2 border-t-2 border-border/20 text-[11px] font-mono font-bold text-primary">
                   {dir.composicao}
                 </div>
               </div>
@@ -154,9 +154,9 @@ export const GestaoDiretoriaAndEstatuto: React.FC = () => {
 
           {/* Linha Sucessória e Comissão de Reformulação 2024 */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div className="p-4 rounded-xl border-3 border-[#16181d] bg-[#FFFDF9] shadow-[3px_3px_0px_#16181d] space-y-2">
+            <div className="p-4 rounded-xl border-3 border-border bg-card shadow space-y-2">
               <Badge variant="ufmg">LINHA SUCESSÓRIA &amp; TRANSPARÊNCIA (ART. 15º E 26º)</Badge>
-              <h4 className="font-heading text-sm font-black uppercase text-[#16181d]">
+              <h4 className="font-heading text-sm font-black uppercase text-foreground">
                 Sucessão Presidencial e Direito de Fiscalização
               </h4>
               <p className="text-xs text-[#3F3C38] leading-relaxed">
@@ -164,19 +164,19 @@ export const GestaoDiretoriaAndEstatuto: React.FC = () => {
               </p>
             </div>
 
-            <div className="p-4 rounded-xl border-3 border-[#16181d] bg-[#FFFDF9] shadow-[3px_3px_0px_#16181d] space-y-2">
+            <div className="p-4 rounded-xl border-3 border-border bg-card shadow space-y-2">
               <Badge variant="teal">HISTÓRICO • REFORMULAÇÃO ESTATUTÁRIA DE 14/10/2024</Badge>
-              <h4 className="font-heading text-sm font-black uppercase text-[#16181d]">
+              <h4 className="font-heading text-sm font-black uppercase text-foreground">
                 Comissão de Reformulação do Regimento Interno
               </h4>
-              <p className="text-xs text-[#57534E]">
+              <p className="text-xs text-muted-foreground">
                 Revogou o Estatuto de 30/09/2010 e o Regimento de 04/02/2021. Membros signatários:
               </p>
               <div className="flex flex-wrap gap-1.5 pt-1">
                 {COMISSAO_REFORMULACAO_2024.map((nome) => (
                   <span
                     key={nome}
-                    className="px-2 py-0.5 rounded-md border-2 border-[#16181d] bg-white text-[10px] font-heading font-extrabold text-[#16181d]"
+                    className="px-2 py-0.5 rounded-md border-3 border-border bg-white text-[10px] font-heading font-extrabold text-foreground"
                   >
                     {nome}
                   </span>

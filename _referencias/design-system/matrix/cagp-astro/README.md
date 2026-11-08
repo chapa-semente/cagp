@@ -12,15 +12,17 @@ The documentation suite is partitioned into 10 modular, tightly interlinked part
 ```
 _referencias/design-system/matrix/cagp-astro/
 ├── README.md                                  # Part 0: Master Quadripartite Audit Table & Gap Inventory
+├── DIAGNOSTICO-DE-ALTA-COMPLEXIDADE-SRC.md    # Part 0A: High-Complexity Technical Diagnostic for AI & Component Engineering
+├── DIAGNOSTICO-INTEGRAL-SRC.md                # Part 0B: Item-by-Item Diagnostic Matrix of all 382 files in src/
 ├── 00-briefing-and-vision.md                  # Part 1A: Strategic Briefing & Electoral Campaign Guide
 ├── 00-product-spec-and-journeys.md            # Part 1B: Product PRD, 5 Functional Pillars & 4 Personas
 ├── 00-design-system-specification.md          # Part 1C: Quadripartite Design Architecture & Anti-Conflict Rules
 ├── 01-tokens-and-foundations.md               # Part 2: Tokens, Tailwind v4 @theme, Typography & Safe-Area
-├── 02-ui-components-matrix.md                 # Part 3: Exhaustive 92 UI Primitives Audit & Compliance Scores
-├── 03-boldkit-blocks-canvas-charts.md         # Part 4: Blocks, 23 Canvas Shaders, 14 Charts & Shapes Audit
-├── 04-features-and-domain-modules.md          # Part 5: 15 CAGP Feature Domains vs Impeccable Modes & Apple HIG
-├── 05-shell-navigation-and-pages.md           # Part 6: Shell Islands, 22 Astro Pages & PWA Multiplatform Audit
-└── 06-phased-implementation-roadmap.md        # Part 7: The 5-Sprint Long-Running Future Execution Roadmap
+├── 02-ui-components-matrix.md                 # Part 3: Exhaustive 109 UI Primitives Audit & Compliance Scores
+├── 03-boldkit-blocks-canvas-charts.md         # Part 4: 20 Blocks, 23 Canvas Shaders, 14 Charts & Shapes Audit
+├── 04-features-and-domain-modules.md          # Part 5: 108 CAGP Feature Components vs Impeccable Modes & Apple HIG
+├── 05-shell-navigation-and-pages.md           # Part 6: Shell Islands, 26 Astro Pages & PWA Multiplatform Audit
+└── 06-phased-implementation-roadmap.md        # Part 7: The Master Execution Roadmap (Fases 0 a 6)
 ```
 
 ### The Strategic & Operational Triad
@@ -46,12 +48,14 @@ _referencias/design-system/matrix/cagp-astro/
    - Audit of 17 layout blocks, 23 interactive canvas shaders, 14 Recharts components, and 64 vector shapes.
 7. **[Part 5: The 15 CAGP Feature Domains vs Impeccable Modes & Apple HIG (`04-features-and-domain-modules.md`)](file:///home/gsathler/Nextcloud/Projects/cagp/_referencias/design-system/matrix/cagp-astro/04-features-and-domain-modules.md)**:
    - Audit of 59 feature components across all 15 business domains (`acg`, `calouros`, `curriculum`, `estagio`, `tcc`, etc.).
-8. **[Part 6: Shell Navigation Islands, 22 Astro Pages & PWA Multiplatform Audit (`05-shell-navigation-and-pages.md`)](file:///home/gsathler/Nextcloud/Projects/cagp/_referencias/design-system/matrix/cagp-astro/05-shell-navigation-and-pages.md)**:
-   - Audit of global shell islands, 22 Astro pages, and PWA offline infrastructure.
+8. **[Part 6: Shell Navigation Islands, 26 Astro Pages & PWA Multiplatform Audit (`05-shell-navigation-and-pages.md`)](file:///home/gsathler/Nextcloud/Projects/cagp/_referencias/design-system/matrix/cagp-astro/05-shell-navigation-and-pages.md)**:
+   - Audit of global shell islands, 26 Astro pages, dynamic modes, and PWA offline infrastructure.
 
 ### Execution Blueprint
-9. **[Part 7: The 5-Sprint Long-Running Future Execution Roadmap (`06-phased-implementation-roadmap.md`)](file:///home/gsathler/Nextcloud/Projects/cagp/_referencias/design-system/matrix/cagp-astro/06-phased-implementation-roadmap.md)**:
-   - Master execution plan for future long-running sessions across 5 Sprints with strict Quality Gates.
+9. **[Part 7: The Master Execution Roadmap (`06-phased-implementation-roadmap.md`)](file:///home/gsathler/Nextcloud/Projects/cagp/_referencias/design-system/matrix/cagp-astro/06-phased-implementation-roadmap.md)**:
+   - Master execution plan spanning Fases 0 a 6 with deterministic verification gates.
+10. **[Part 0B: Item-by-Item Diagnostic Matrix (`DIAGNOSTICO-INTEGRAL-SRC.md`)](file:///home/gsathler/Nextcloud/Projects/cagp/_referencias/design-system/matrix/cagp-astro/DIAGNOSTICO-INTEGRAL-SRC.md)**:
+   - Exhaustive 6-axis audit of all 382 UI and application files in `src/`.
 
 ---
 
@@ -60,16 +64,16 @@ _referencias/design-system/matrix/cagp-astro/
 | Layer in `src/` | Total Items | Full Custom | Upstream Adapted | Re-Export Proxy | Domain Exclusive | Missing Upstream |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Styles & Tokens (`src/styles/`)** | 12 files | 4 | 8 | 0 | 4 | 0 |
-| **UI Primitives (`src/components/ui/`)**| 92 files | 12 | 69 | 0 | 11 | 0 |
-| **BoldKit UI Re-Exports (`boldkit/ui/`)**| 80 files | 0 | 0 | 80 | 0 | 0 |
-| **BoldKit Blocks (`boldkit/blocks/`)** | 17 files | 2 | 15 | 0 | 0 | 3 |
+| **UI Primitives (`src/components/ui/`)**| 106+ files | 12 | 83 | 0 | 11 | 0 |
+| **Native Hooks Layer (`src/hooks/`)**| 10 files | 2 | 8 | 0 | 0 | 0 |
+| **BoldKit Blocks (`boldkit/blocks/`)** | 20 files | 2 | 18 | 0 | 0 | 0 |
 | **Canvas Shaders (`canvas-effects/`)** | 23 files | 0 | 23 | 0 | 0 | 0 |
-| **Charts (`boldkit/charts/`)** | 14 files | 2 | 12 | 0 | 0 | 0 |
-| **Feature Domains (`features/`)** | 59 files | 47 | 0 | 0 | 47 | 0 |
+| **Charts (`boldkit/charts/` & `ui/`)**| 14 files | 2 | 12 | 0 | 0 | 0 |
+| **Feature Domains (`features/`)** | 94 files | 82 | 12 | 0 | 82 | 0 |
 | **Shell & Layouts (`shell/` & `layouts/`)**| 22 files | 18 | 4 | 0 | 14 | 0 |
 | **Astro Route Pages (`src/pages/`)** | 22 pages | 22 | 0 | 0 | 22 | 0 |
-| **Client Storage & Utilities (`lib/`)** | 16 files | 14 | 2 | 0 | 12 | 0 |
-| **TOTALS** | **357+ files** | **121** | **133** | **80** | **114** | **3** |
+| **Client Storage & Utilities (`lib/`)** | 17 files | 14 | 3 | 0 | 12 | 0 |
+| **TOTALS** | **320+ files** | **156** | **168** | **0** | **145** | **0** |
 
 ---
 

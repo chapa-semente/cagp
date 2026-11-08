@@ -35,14 +35,22 @@ For all design and audit operations in this repository, the primary operational 
 👉 **[CAGP Astro SuperApp Correlation Matrix & Blueprint](file:///home/gsathler/Nextcloud/Projects/cagp/_referencias/design-system/matrix/cagp-astro/README.md)**
 
 ### Strategic Guides to Consult Before Making Changes:
-1. **[Strategic Briefing & Campaign Tenets](file:///home/gsathler/Nextcloud/Projects/cagp/_referencias/design-system/matrix/cagp-astro/00-briefing-and-vision.md)**: Political context for Chapa Semente, electoral vote-capture objectives, and student pain points by directorate.
+1. **[Strategic Briefing & Campaign Tenets](file:///home/gsathler/Nextcloud/Projects/cagp/_referencias/design-system/matrix/cagp-astro/00-briefing-and-vision.md)**: Political context for Chapa Semente, 14 Carta-Programa proposals, and student pain points by directorate.
 2. **[Product PRD & 5 Functional Pillars](file:///home/gsathler/Nextcloud/Projects/cagp/_referencias/design-system/matrix/cagp-astro/00-product-spec-and-journeys.md)**: Student personas (`calouro`, `veterano`, `formando`, `ingressar`) and functional workflows.
-3. **[Quadripartite Design Architecture](file:///home/gsathler/Nextcloud/Projects/cagp/_referencias/design-system/matrix/cagp-astro/00-design-system-specification.md)**: Tri-Layer Semente palette, 3px ink strokes, mechanical active press states, and safe-area insets.
-4. **[Long-Running 5-Sprint Roadmap](file:///home/gsathler/Nextcloud/Projects/cagp/_referencias/design-system/matrix/cagp-astro/06-phased-implementation-roadmap.md)**: 5 Sprints with Quality Gates for autonomous execution sessions.
+3. **[Quadripartite Design Architecture](file:///home/gsathler/Nextcloud/Projects/cagp/_referencias/design-system/matrix/cagp-astro/00-design-system-specification.md)**: Tri-Layer Semente palette, 3px ink strokes, dynamic modes (`Persuade`/`Operate`/`Read`), and canonical microcopy.
+4. **[Item-by-Item Diagnostic Matrix](file:///home/gsathler/Nextcloud/Projects/cagp/_referencias/design-system/matrix/cagp-astro/DIAGNOSTICO-INTEGRAL-SRC.md)**: Exhaustive 6-axis audit of all 382 UI and application files in `src/`.
+5. **[Phased Implementation Roadmap](file:///home/gsathler/Nextcloud/Projects/cagp/_referencias/design-system/matrix/cagp-astro/06-phased-implementation-roadmap.md)**: Master execution roadmap spanning Fases 0 a 6 with deterministic verification gates.
 
-### Anti-Conflict Operating Rules:
-- **`impeccable init`**: Do NOT scaffold new configuration or component boilerplates; `cagp-astro/` is already the established canonical design system substrate.
+### Anti-Conflict & Binding Campaign Directives:
+- **`impeccable init`**: Do NOT scaffold new configuration or component boilerplates; `cagp-astro/` (with `<!-- impeccable:product-schema 1 -->` inside `00-product-spec-and-journeys.md`) is already the established canonical design system substrate.
+- **Foco Central (Proposta Materializada para Conquista de Votos)**: The #1 strategic purpose of the CAGP SuperApp is to serve as a **materialized campaign proposal of Chapa Semente** before the election, converting student utility and visual awe into **votes**. Every Impeccable skill (`bolder`, `overdrive`, `animate`, `delight`, `polish`, `mode-persuade`) must reinforce this electoral conversion goal.
+- **Unificação Estrita BoldKit.dev + Neobrutalism.com**: Standardize all surfaces, cards, buttons, and layout blocks strictly under BoldKit and Neobrutalist geometry (`3px` solid `#16181d` borders, `4px` to `8px` hard offset shadows, mechanical press physics, stickers, stamps, and Tri-Layer Semente colors).
+- **Animações Expressivas Incondicionais (Ignorar `prefers-reduced-motion`)**: Keep all animations, spring physics (`motion/react`), Sidebar transitions, Tour steps, marquees, and 60fps Canvas Shaders 100% active at all times. Do NOT disable or strip motion via `prefers-reduced-motion`.
+- **Restrição Estrita de Dark Mode (`Light Mode Exclusivo`)**: Prohibit traditional Dark Mode (`dark:*`, `.dark`, `prefers-color-scheme: dark`). Enforce `color-scheme: light` with Warm Paper (`#f4f5f7`/`#f4f0ea`), White Cards (`#ffffff`), and Black Ink (`#16181d`), keeping only High Contrast AAA (`data-a11y-contrast="high"`) for accessibility.
+- **Responsividade Multi-Tela (`320px` a `1920px+`)**: Ensure flawless reflow across compact mobile (`320px`), modern smartphones (`375px–430px`), tablets in portrait/landscape (`768px–1024px`), laptops (`1280px–1440px`), and ultrawide (`1920px+`), with 44x44pt touch targets and zero `overflow-x`.
+- **Destaque no Aumento das Fotos & Animações Fotográficas**: Enlarge candidate, leadership, historical, and campus photos prominently (`aspect-[4/5]` / large editorial frames with 3px borders and 6px/8px hard shadows) and animate them with elastic zoom/tilt (`photoZoomSpring` / `photoCardHover`).
 - **`impeccable document`**: Write all component catalog or architecture documentation updates directly into `_referencias/design-system/matrix/cagp-astro/02-ui-components-matrix.md` and `04-features-and-domain-modules.md`, avoiding redundant root documents.
+- **`impeccable distill` (Above-The-Fold Rule)**: Never stack more than 2 header banners on mobile viewports (< 768px). In `Persuade` mode, `HeroCentered` replaces `PageHeader`. In `Operate` mode, use `PageHeader` condensed. Always enforce 44x44pt touch targets.
 
 ---
 

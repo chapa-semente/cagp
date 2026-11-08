@@ -115,3 +115,74 @@ To comply with Apple HIG touch standards without bloating desktop screen density
 ```html
 <nav class="fixed bottom-0 left-0 right-0 z-50 bg-background border-t-3 border-border pb-[env(safe-area-inset-bottom)]">
 ```
+
+---
+
+## 5. Motion Spring Tokens (`motion/react` — Unconditional Expressive Motion)
+
+To ensure sensory consistency, reinforce electoral persuasion, and replace static or suppressed transitions with tactile physics across all islands (**ignoring `prefers-reduced-motion` globally**):
+
+```typescript
+// Unified Spring Presets for Motion components (src/lib/motion.ts)
+export const FORCE_EXPRESSIVE_MOTION = true;
+export const tactileSpring = { type: "spring" as const, stiffness: 450, damping: 30 };
+export const bounceSpring = { type: "spring" as const, stiffness: 500, damping: 22 };
+export const photoZoomSpring = { type: "spring" as const, stiffness: 380, damping: 24 };
+export const drawerSpring = { type: "spring" as const, stiffness: 350, damping: 35 };
+
+export const photoCardHover = {
+  scale: 1.06,
+  rotate: -1.5,
+  y: -4,
+  transition: photoZoomSpring
+};
+
+export const staggerContainer = (delay = 0.05) => ({
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { staggerChildren: delay } }
+});
+
+export const staggerItem = {
+  hidden: { opacity: 0, y: 14, scale: 0.97 },
+  show: { opacity: 1, y: 0, scale: 1, transition: tactileSpring }
+};
+```
+
+---
+
+## 6. Horizontal Scroll-Masking Tokens (`.scroll-mask-x`)
+
+To eliminate abrupt visual cuts on mobile screens in `SegmentedControl`, `AxisNavBar` and `Percurso` graphs:
+
+```css
+/* src/styles/components.css */
+.scroll-mask-x {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0px,
+    black 16px,
+    black calc(100% - 16px),
+    transparent 100%
+  );
+}
+```
+
+---
+
+## 7. Canonical Microcopy Equivalence Dictionary
+
+| Location / Control | Legacy / Verbose Copy | Canonical Concise Discente Copy | Rationale |
+| :--- | :--- | :--- | :--- |
+| Global Topbar | Buscar edital, disciplina ou sala (⌘K) | **Buscar (⌘K)** | Frees 26 characters on mobile |
+| Campaign Banner | Expandir ou recolher compromisso | **Compromisso ▼** | Clean and punchy CTA |
+| Home Workspace | Meu momento: Calouro / Veterano | **Perfil Discente** | Shortens segmented pill bar |
+| Axis 3 Header | Central de Horas & Certificados (600h) | **Horas & 600h** | Eliminates second header line |
+| AAC Rule Card | Guardião 120 Dias Corridos | **Alerta 120 Dias** | Emphasizes critical urgency |
+| 600h Calculator | Simulação Paramétrica de Extensão e AAC | **Simular Horas** | Action-first discente CTA |
+| Stage Rule Card | Integralização por Experiência Art. 41 | **Aproveitamento Servidor** | Speaks to civil servant students |
+| Axis 5 Portal | Balancete Demonstrativo de Despesas | **Livro-Caixa Aberto** | Transparent, non-bureaucratic |
+| Student Union | Canal de Denúncias e Reclamações | **Fala com o CA** | Empathetic and approachable |
+| PWA Mobile Pill | Credenciamento Discente Chapa Semente | **Ativar Meu App** | High-conversion student action |
+

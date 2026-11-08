@@ -1,0 +1,151 @@
+---
+// src/pages/permanencia.astro — Central FUMP & Guia do Estudante Noturno da FAFICH (Super App CAGP UFMG)
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+import JourneyNav from '@/components/ui/JourneyNav.astro';
+import { PermanenciaInteractiveHub } from '@/components/features/permanencia/PermanenciaInteractiveHub';
+
+const badges = [
+  { label: 'Níveis I, II e III FUMP', variant: 'green' as const, icon: 'bi-shield-check' },
+  { label: 'Isenção RU & Moradia', variant: 'orange' as const, icon: 'bi-house-heart-fill' },
+  { label: 'Acolhimento Direto CA', variant: 'purple' as const, icon: 'bi-heart-pulse-fill' },
+];
+---
+
+<BaseLayout
+  title="Permanência Estudantil & Assistência FUMP"
+  description="Central de permanência discente em modo operacional: Níveis I, II e III da FUMP, moradia, auxílio alimentação, bolsas, simulador interativo e acolhimento direto pelo CAGP."
+  mode="operate"
+>
+  <PageHeader
+    eyebrow="Eixo 2 · Permanência & Assistência FUMP"
+    title="Permanência & Assistência Estudantil FUMP"
+    subtitle="Regras mastigadas dos Níveis I, II e III da FUMP, moradia universitária, isenção no RU Setorial I e II, simulador mensal e acolhimento direto pelo CA."
+    badges={badges}
+    axisId="curso"
+    activeId="calouros"
+    mode="operate"
+    condensed={true}
+  />
+
+  <div class="space-y-8">
+    {/* Bloco 1: Central Interativa da FUMP (Cards BoldKit + Simulador Animado + Passo a Passo + Botão Acolhimento CA) */}
+    <section class="space-y-4" aria-label="Simulador e Guia Interativo da FUMP">
+      <PermanenciaInteractiveHub client:load />
+    </section>
+
+    {/* Compromissos da Chapa Semente com o Estudante Fumpista e Trabalhador Noturno */}
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-5" aria-label="Compromissos da Chapa Semente com a Permanência">
+      <div class="p-5 rounded-xl border-3 border-[#16181d] bg-white shadow-[6px_6px_0px_#16181d] flex gap-3.5">
+        <div class="w-11 h-11 rounded-xl bg-[#DCFCE7] text-[#15803D] border-3 border-[#16181d] shadow-[2px_2px_0_0_#16181d] flex items-center justify-center shrink-0 text-xl font-bold">
+          <i class="bi bi-currency-dollar" aria-hidden="true"></i>
+        </div>
+        <div class="space-y-1.5">
+          <span class="font-mono text-[10px] font-black uppercase text-[#15803D] block">
+            DIRETORIA FINANCEIRA • CHAPA SEMENTE
+          </span>
+          <p class="text-xs sm:text-sm text-[#16181d] font-body font-medium italic leading-relaxed m-0">
+            "O estudante trabalhador e o fumpista sustentam a universidade no dia a dia. Colocamos tutoriais mastigados e simuladores no SuperApp para que ninguém perca prazos de auxílios da FUMP por falta de informação."
+          </p>
+          <span class="block text-xs font-head font-black text-[#5B2A86] uppercase">
+            — Vitória Moraes, Diretora Financeira da Chapa Semente
+          </span>
+        </div>
+      </div>
+
+      <div class="p-5 rounded-xl border-3 border-[#16181d] bg-white shadow-[6px_6px_0px_#16181d] flex gap-3.5">
+        <div class="w-11 h-11 rounded-xl bg-[#FAF5FF] text-[#5B2A86] border-3 border-[#16181d] shadow-[2px_2px_0_0_#16181d] flex items-center justify-center shrink-0 text-xl font-bold">
+          <i class="bi bi-moon-stars-fill" aria-hidden="true"></i>
+        </div>
+        <div class="space-y-1.5">
+          <span class="font-mono text-[10px] font-black uppercase text-[#5B2A86] block">
+            CULTURA, EVENTOS E ACOLHIMENTO • CHAPA SEMENTE
+          </span>
+          <p class="text-xs sm:text-sm text-[#16181d] font-body font-medium italic leading-relaxed m-0">
+            "Gestão Pública é um curso noturno, feito por quem trabalha o dia inteiro e não pode ir a eventos às duas da tarde. Nossa cultura e suporte respeitam o tempo e a rotina do aluno trabalhador."
+          </p>
+          <span class="block text-xs font-head font-black text-[#9E2424] uppercase">
+            — Paloma Correia &amp; Alice Maurício, Cultura e Acolhimento
+          </span>
+        </div>
+      </div>
+    </section>
+
+    {/* Bloco 2: Guia Prático de Sobrevivência Noturna na FAFICH */}
+    <section class="space-y-4">
+      <div class="flex items-center gap-2 border-b-3 border-[#16181d] pb-2">
+        <i class="bi bi-moon-stars-fill text-secondary text-xl" aria-hidden="true"></i>
+        <h2 class="text-lg sm:text-xl font-head font-black uppercase text-[#16181d] m-0">
+          Infraestrutura de Apoio ao Turno Noturno na FAFICH
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Card 1: RU Noturno */}
+        <div class="p-4 sm:p-5 rounded-xl border-3 border-[#16181d] bg-white shadow-[5px_5px_0px_#16181d] space-y-2">
+          <div class="w-10 h-10 rounded-lg bg-[#FEF08A] text-[#854D0E] border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] flex items-center justify-center text-lg font-bold">
+            <i class="bi bi-cup-hot-fill" aria-hidden="true"></i>
+          </div>
+          <h3 class="font-head font-black text-sm text-[#16181d] uppercase m-0">
+            RU II Setorial Noturno
+          </h3>
+          <p class="text-xs text-gray-800 font-body font-medium leading-relaxed m-0">
+            Jantar servido das <strong>17h10 às 19h30</strong> (horário de ouro sem fila: 18h00–18h25). Gratuito para Níveis I e II da FUMP.
+          </p>
+        </div>
+
+        {/* Card 2: Circular 22:45 */}
+        <div class="p-4 sm:p-5 rounded-xl border-3 border-[#16181d] bg-white shadow-[5px_5px_0px_#16181d] space-y-2">
+          <div class="w-10 h-10 rounded-lg bg-[#DCFCE7] text-[#15803D] border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] flex items-center justify-center text-lg font-bold">
+            <i class="bi bi-bus-front-fill" aria-hidden="true"></i>
+          </div>
+          <h3 class="font-head font-black text-sm text-[#16181d] uppercase m-0">
+            Circular Noturno 22h45
+          </h3>
+          <p class="text-xs text-gray-800 font-body font-medium leading-relaxed m-0">
+            Reforço das Linhas 3 e 4 para o jantar e última saída às <strong>22h45</strong> na porta da FAFICH rumo à Estação Pampulha (MOVE).
+          </p>
+        </div>
+
+        {/* Card 3: Segurança no Campus */}
+        <div class="p-4 sm:p-5 rounded-xl border-3 border-[#16181d] bg-white shadow-[5px_5px_0px_#16181d] space-y-2">
+          <div class="w-10 h-10 rounded-lg bg-[#FEE2E2] text-[#991B1B] border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] flex items-center justify-center text-lg font-bold">
+            <i class="bi bi-shield-lock-fill" aria-hidden="true"></i>
+          </div>
+          <h3 class="font-head font-black text-sm text-[#16181d] uppercase m-0">
+            Rotas Iluminadas &amp; Apoio
+          </h3>
+          <p class="text-xs text-gray-800 font-body font-medium leading-relaxed m-0">
+            Caminhos vigiados entre FAFICH, CAD 2 e Praça de Serviços. Vigilância Universitária 24h: <strong class="font-mono">(31) 3409-4444</strong>.
+          </p>
+        </div>
+
+        {/* Card 4: Biblioteca & CEAG Noturno */}
+        <div class="p-4 sm:p-5 rounded-xl border-3 border-[#16181d] bg-white shadow-[5px_5px_0px_#16181d] space-y-2">
+          <div class="w-10 h-10 rounded-lg bg-[#E0E7FF] text-[#3730A3] border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] flex items-center justify-center text-lg font-bold">
+            <i class="bi bi-book-fill" aria-hidden="true"></i>
+          </div>
+          <h3 class="font-head font-black text-sm text-[#16181d] uppercase m-0">
+            Biblioteca &amp; CEAG (Até 22h)
+          </h3>
+          <p class="text-xs text-gray-800 font-body font-medium leading-relaxed m-0">
+            Biblioteca Baeta Neves aberta até <strong>21h45</strong> (1º andar) e protocolo noturno no CEAG aberto até <strong>22h00</strong> (2º andar).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <JourneyNav
+      prev={{
+        title: 'Guia de Sobrevivência do Calouro',
+        href: '/calouros',
+        desc: 'Checklist dos primeiros 30 dias, espaços da FAFICH e recepção.',
+      }}
+      next={{
+        title: 'Núcleos de Pesquisa & Extensão',
+        href: '/pesquisa',
+        desc: 'Os 11 grupos de pesquisa do DCP, bolsas de IC (90h) e Imersão.',
+      }}
+    />
+  </div>
+</BaseLayout>

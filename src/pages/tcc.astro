@@ -8,18 +8,18 @@ import TccCentralOverview from '../components/features/tcc/TccCentralOverview.as
 import TccModalidadesExplorer from '../components/features/tcc/modalidades/TccModalidadesExplorer.astro';
 import TccCronogramaTimeline from '../components/features/tcc/cronograma/TccCronogramaTimeline.astro';
 import TccTermoAceiteCore from '../components/features/tcc/termo/TccTermoAceiteCore.astro';
-import { asset } from '../lib/paths';
+import { asset, route } from '@/lib/paths';
 
 const tabs = [
   { id: 'v0', shortLabel: 'Geral', fullLabel: 'Visão Geral do TCC', hash: '#visao-geral' },
-  { id: 'v1', shortLabel: 'Modalidades', fullLabel: '1. Modalidades de TCC (Art. 19)', hash: '#modalidades' },
-  { id: 'v2', shortLabel: 'Cronograma', fullLabel: '2. Cronograma 9º/10ºP & Bancas', hash: '#cronograma' },
+  { id: 'v1', shortLabel: 'Modalidades', fullLabel: '1. Modalidades & Comparativo (Art. 19)', hash: '#modalidades' },
+  { id: 'v2', shortLabel: 'Cronograma', fullLabel: '2. Linha do Tempo 9º/10ºP & Bancas', hash: '#cronograma' },
   { id: 'v3', shortLabel: 'Termo Aceite', fullLabel: '3. Termo de Aceite & Modelos', hash: '#termo-aceite' },
 ];
 
 const badges = [
   { label: '180h (DCP 089 + DCP 137)', variant: 'red' as const, icon: 'bi-mortarboard-fill' },
-  { label: '4 Modalidades (Art. 19)', variant: 'dark' as const, icon: 'bi-grid-fill' },
+  { label: 'Monografia vs Artigo (Art. 19)', variant: 'dark' as const, icon: 'bi-grid-fill' },
   { label: '9º e 10º Períodos', variant: 'blue' as const, icon: 'bi-calendar-check' },
   { label: 'Termo de Aceite Obrigatório', variant: 'gold' as const, icon: 'bi-file-earmark-check-fill' },
 ];
@@ -27,30 +27,61 @@ const badges = [
 
 <BaseLayout
   title="Trabalho de Conclusão de Curso (180h)"
-  description="Regulamento oficial do TCC de Gestão Pública da UFMG (180h: DCP 089 e DCP 137), 4 modalidades do Art. 19, regras de banca e download do Termo de Aceite."
+  description="Regulamento oficial do TCC de Gestão Pública da UFMG (180h: DCP 089 e DCP 137), tabela comparativa Monografia vs Artigo Científico (Art. 19), linha do tempo de defesa e Termo de Aceite."
+  mode="read"
 >
   <PageHeader
-    eyebrow="Eixo 3 · Trabalho de Conclusão de Curso"
+    axisId="carreira"
+    condensed={true}
+    eyebrow="Eixo 4 · Reta Final & Carreira"
     title="Trabalho de Conclusão de Curso (180h)"
-    subtitle="Matriz das 4 modalidades oficiais aceitas pelo Colegiado (Art. 19), projeto em DCP 089 (60h), defesa em DCP 137 (120h) e termo de aceite orientador."
+    subtitle="Tabela comparativa (Monografia vs Artigo Científico • Art. 19), linha do tempo de defesa em DCP 089 (60h) e DCP 137 (120h) e download do Termo de Aceite."
     badges={badges}
   />
+
+  <!-- Faixa de Conexão Reta Final & Chapa Semente -->
+  <div class="mb-4 p-3.5 sm:p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0_0_#16181d] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <div class="flex items-start sm:items-center gap-3">
+      <span class="px-2.5 py-1 rounded-lg border-2 border-[#16181d] bg-primary text-white font-mono text-[11px] font-bold uppercase shrink-0 shadow-[2px_2px_0_0_#16181d]">
+        Apoio ao Formando
+      </span>
+      <p class="font-sans text-xs text-foreground font-medium m-0 leading-snug">
+        <strong>Vai defender o TCC?</strong> Compare Monografia vs Artigo Científico e acompanhe todas as suas pendências de colação no Hub Reta Final criado pela Chapa Semente.
+      </p>
+    </div>
+    <div class="flex flex-wrap items-center gap-2 shrink-0">
+      <a
+        href={route('/estagio-tcc')}
+        class="min-h-[44px] px-3.5 py-2 rounded-xl border-3 border-[#16181d] bg-white hover:bg-muted text-foreground font-heading text-xs font-extrabold uppercase no-underline inline-flex items-center gap-1.5 shadow-[3px_3px_0_0_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
+      >
+        <i class="bi bi-check2-square text-[#134E4A]" aria-hidden="true"></i>
+        <span>Ver Checklist Reta Final</span>
+      </a>
+      <a
+        href={route('/chapa-semente')}
+        class="min-h-[44px] px-3.5 py-2 rounded-xl border-3 border-[#16181d] bg-[#FF8811] hover:bg-[#e67600] text-[#16181d] font-heading text-xs font-extrabold uppercase no-underline inline-flex items-center gap-1.5 shadow-[3px_3px_0_0_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
+      >
+        <span>Propostas Chapa Semente</span>
+        <i class="bi bi-arrow-right" aria-hidden="true"></i>
+      </a>
+    </div>
+  </div>
 
   <SegmentedControl tabs={tabs} defaultTab="v0" />
 
   <!-- Sub-view 0: Visão Geral da Central de TCC -->
-  <section id="ws-panel-v0" class="cagp-workspace-view space-y-6" data-ws-panel="v0">
+  <section id="ws-panel-v0" class="cagp-workspace-view space-y-6" data-ws-panel="v0" data-context-type="doc-template">
     <div id="visao-geral" class="cagp-anchor-target scroll-mt-24"></div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
-      <div class="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0px_#16181d] flex items-center justify-between gap-4">
+      <div class="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0_0_#16181d] flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-foreground">
         <div>
-          <span class="font-mono text-[10px] font-black uppercase text-[#9E2424] block">
+          <span class="font-mono text-[10px] font-extrabold uppercase text-secondary block">
             OBRIGATÓRIO • DCP 089 (9º P) &amp; DCP 137 (10º P)
           </span>
-          <h3 class="font-heading text-sm font-black uppercase text-[#16181d]">
+          <h3 class="font-heading text-sm font-extrabold uppercase text-foreground m-0">
             Termo de Aceite de Orientador(a) de TCC
           </h3>
-          <p class="text-xs text-[#57534E] mt-0.5">
+          <p class="text-xs text-muted-foreground mt-0.5 m-0">
             Formulário oficial assinado pelo docente orientador credenciado ao curso.
           </p>
         </div>
@@ -58,21 +89,21 @@ const badges = [
           href={asset('/documentos/termo-aceite-orientador-tcc.pdf')}
           target="_blank"
           rel="noopener noreferrer"
-          class="px-3 py-2 rounded-xl border-2 border-[#16181d] bg-[#9E2424] text-white font-heading text-xs font-extrabold uppercase shrink-0 no-underline shadow-[2px_2px_0px_#16181d]"
+          class="min-h-[44px] px-4 py-2.5 rounded-xl border-3 border-[#16181d] bg-secondary hover:bg-secondary-hover text-secondary-foreground font-heading text-xs font-extrabold uppercase shrink-0 no-underline inline-flex items-center justify-center shadow-[3px_3px_0_0_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
         >
-          Baixar PDF ↗
+          Modelo de Aceite (PDF) ↗
         </a>
       </div>
 
-      <div class="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0px_#16181d] flex items-center justify-between gap-4">
+      <div class="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0_0_#16181d] flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-foreground">
         <div>
-          <span class="font-mono text-[10px] font-black uppercase text-[#5B2A86] block">
+          <span class="font-mono text-[10px] font-extrabold uppercase text-primary block">
             PREMIAÇÃO • RESOLUÇÃO CONGREGAÇÃO Nº 02/2018
           </span>
-          <h3 class="font-heading text-sm font-black uppercase text-[#16181d]">
+          <h3 class="font-heading text-sm font-extrabold uppercase text-foreground m-0">
             Concurso Anual de Melhores TCCs da FAFICH
           </h3>
-          <p class="text-xs text-[#57534E] mt-0.5">
+          <p class="text-xs text-muted-foreground mt-0.5 m-0">
             Regras de indicação pela banca examinadora e premiação acadêmica da unidade.
           </p>
         </div>
@@ -80,7 +111,7 @@ const badges = [
           href={asset('/documentos/resolucao-congrega-02-2018-concurso-tcc.pdf')}
           target="_blank"
           rel="noopener noreferrer"
-          class="px-3 py-2 rounded-xl border-2 border-[#16181d] bg-[#5B2A86] text-white font-heading text-xs font-extrabold uppercase shrink-0 no-underline shadow-[2px_2px_0px_#16181d]"
+          class="min-h-[44px] px-4 py-2.5 rounded-xl border-3 border-[#16181d] bg-primary hover:bg-primary-hover text-primary-foreground font-heading text-xs font-extrabold uppercase shrink-0 no-underline inline-flex items-center justify-center shadow-[3px_3px_0_0_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
         >
           Ver Edital (PDF) ↗
         </a>
@@ -110,14 +141,14 @@ const badges = [
   <!-- Journey Navigation Trail -->
   <JourneyNav
     prev={{
-      title: 'Estágio Supervisionado (300h) & Art. 41',
+      title: 'Estágio Supervisionado (300h) & Aproveitamento Servidor',
       href: '/estagio',
-      desc: 'Simulador de dispensa por experiência profissional e tutorial do TCE.',
+      desc: 'Simulador de Aproveitamento Servidor (Art. 41) e tutorial do TCE.',
     }}
     next={{
-      title: 'Acervo de Documentos & Formulários Oficiais',
-      href: '/documentos',
-      desc: 'Acesse o acervo completo de documentos oficiais, formulários e modelos em PDF.',
+      title: 'Hub Integrador Reta Final (Estágio & TCC)',
+      href: '/estagio-tcc',
+      desc: 'Painel unificado para Formandos com checklist animado de colação de grau.',
     }}
   />
 </BaseLayout>

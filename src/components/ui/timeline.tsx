@@ -78,9 +78,9 @@ const timelineDotVariants = cva(
     variants: {
       status: {
         completed:
-          'bg-success shadow-[4px_4px_0px_var(--shadow-color)]',
+          'bg-success shadow-md',
         current:
-          'bg-primary shadow-[4px_4px_0px_var(--shadow-color)] scale-110',
+          'bg-primary shadow-md scale-110',
         upcoming: 'bg-muted',
       },
       size: {
@@ -253,7 +253,7 @@ const TimelineCard = React.forwardRef<
       ref={ref}
       className={cn(
         'border-3 border-foreground bg-card p-4',
-        'shadow-[4px_4px_0px_var(--shadow-color)]',
+        'shadow-md',
         className
       )}
       {...props}

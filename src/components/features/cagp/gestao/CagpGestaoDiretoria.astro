@@ -1,25 +1,25 @@
 ---
 // src/components/features/cagp/gestao/CagpGestaoDiretoria.astro — As 7 Diretorias Executivas e Prestação de Contas
-import GestaoOrganograma from '../../../gestao/GestaoOrganograma.astro';
-import GestaoEquipe from '../../../gestao/GestaoEquipe.astro';
-import GestaoContas from '../../../gestao/GestaoContas.astro';
+import GestaoOrganograma from '@/components/features/gestao/GestaoOrganograma.astro';
+import GestaoEquipe from '@/components/features/gestao/GestaoEquipe.astro';
+import GestaoContas from '@/components/features/gestao/GestaoContas.astro';
 ---
 
-<div class="cagp-gestao-diretoria space-y-6 select-none text-[#0A0A0A]">
-  <div class="p-5 bg-white border-[3px] border-[#0A0A0A] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-[4px_4px_0_0_#0A0A0A]">
+<div class="cagp-gestao-diretoria space-y-6 select-none text-foreground">
+  <div class="p-5 bg-white border-[3px] border-border rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
     <div>
-      <span class="text-xs font-head uppercase font-extrabold tracking-wider text-[#8B1E2D]">
-        Processo Eleitoral & Diretorias do CAGP
+      <span class="text-xs font-head uppercase font-extrabold tracking-wider text-secondary">
+        Processo Eleitoral &amp; Diretorias do CAGP
       </span>
-      <h3 class="font-head text-base font-extrabold uppercase text-[#0A0A0A] m-0 tracking-tight">
-        As 7 Diretorias Estatutárias e Transparência
+      <h3 class="font-head text-base font-extrabold uppercase text-foreground m-0 tracking-tight">
+        As 9 Pastas &amp; Diretorias Estatutárias e Transparência
       </h3>
-      <p class="text-xs font-body text-[#0A0A0A] font-medium mt-1 m-0">
-        Organograma regimental, diretorias estatutárias e transição do processo eleitoral.
+      <p class="text-xs font-body text-foreground font-medium mt-1 m-0">
+        Organograma regimental, retratos ampliados das 9 pastas da gestão e transição do processo eleitoral.
       </p>
     </div>
-    <span class="px-3 py-1 rounded-lg bg-[#266264] text-white font-mono text-xs font-bold border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] shrink-0">
-      7 Diretorias
+    <span class="px-3 py-1 rounded-lg bg-teal-700 text-white font-mono text-xs font-bold border-3 border-border shadow-sm shrink-0">
+      9 Pastas &amp; Diretorias
     </span>
   </div>
 

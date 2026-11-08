@@ -174,7 +174,7 @@ const TreeView = React.forwardRef<HTMLDivElement, TreeViewProps>(
           role="tree"
           className={cn(
             'border-3 border-foreground bg-background p-2',
-            'shadow-[4px_4px_0px_var(--shadow-color)]',
+            'shadow-md',
             className
           )}
           {...props}
@@ -353,7 +353,7 @@ function TreeNodeItem({ node, level }: TreeNodeProps) {
             aria-hidden="true"
             className={cn(
               'flex h-5 w-5 shrink-0 items-center justify-center border-2 border-foreground',
-              isSelected && 'bg-primary shadow-[2px_2px_0px_var(--shadow-color)]'
+              isSelected && 'bg-primary shadow-sm'
             )}
           >
             {isSelected && <Check className="h-3.5 w-3.5 stroke-[4]" />}

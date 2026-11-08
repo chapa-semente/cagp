@@ -1,0 +1,166 @@
+---
+// src/pages/carreira.astro — Hub Unificado de Carreira, Vagas, Empresa Júnior & Banco de Talentos (Super App CAGP UFMG)
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+import SegmentedControl from '@/components/ui/SegmentedControl.astro';
+import FactCheckBanner from '@/components/ui/FactCheckBanner.astro';
+import JourneyNav from '@/components/ui/JourneyNav.astro';
+import EstagioCentralOverview from '@/components/features/estagio/EstagioCentralOverview.astro';
+import { Art41SimulatorCore } from '@/components/features/estagio/art41/Art41SimulatorCore';
+import EstagioObrigatorioCore from '@/components/features/estagio/obrigatorio/EstagioObrigatorioCore.astro';
+import EstagioTceCore from '@/components/features/estagio/tce/EstagioTceCore.astro';
+import { EstagioDocumentDrawerAndGuide } from '@/components/features/estagio/EstagioDocumentDrawerAndGuide';
+import TccCentralOverview from '@/components/features/tcc/TccCentralOverview.astro';
+import { CarreiraTalentosTab } from '@/components/features/carreira/CarreiraTalentosTab';
+import { route } from '@/lib/paths';
+
+const tabs = [
+  { id: 'v0', shortLabel: 'Vagas & Talentos', fullLabel: '1. Vagas, Empresa Júnior & Banco de Talentos', hash: '#talentos' },
+  { id: 'v1', shortLabel: 'Aproveitamento Servidor', fullLabel: '2. Estágio 300h & Aproveitamento Servidor (Art. 41)', hash: '#art41' },
+  { id: 'v2', shortLabel: 'Não Obrigatório & TCE', fullLabel: '3. Estágio Não Obrigatório (1º–10ºP) & TCE', hash: '#nao-obrigatorio' },
+  { id: 'v3', shortLabel: 'TCC & Colação', fullLabel: '4. TCC Art. 19 (180h) & Reta Final', hash: '#tcc' },
+];
+
+const badges = [
+  { label: 'Propostas 9, 11 e 12 Chapa Semente', variant: 'purple' as const, icon: 'bi-briefcase-fill' },
+  { label: 'Aproveitamento Servidor (Art. 41)', variant: 'green' as const, icon: 'bi-file-earmark-check-fill' },
+  { label: 'Empresa Júnior GP & OSCs', variant: 'orange' as const, icon: 'bi-stars' },
+  { label: 'TCC Art. 19 (180h)', variant: 'red' as const, icon: 'bi-mortarboard-fill' },
+];
+---
+
+<BaseLayout
+  title="Carreira, Vagas & Banco de Talentos • CAGP FAFICH/UFMG"
+  description="Hub unificado de carreira discente conectado às Propostas 9, 11 e 12 da Chapa Semente: parcerias com órgãos públicos/OSCs, Empresa Júnior de Gestão Pública, divulgação ativa de vagas e Banco de Talentos."
+  mode="operate"
+>
+  <div id="cagp-carreira-header" class="space-y-6 max-w-6xl mx-auto">
+    <PageHeader
+      axisId="carreira"
+      mode="operate"
+      condensed={true}
+      eyebrow="Eixo 4 · Inserção Profissional, Estágio & Carreira"
+      title="Carreira, Vagas & Banco de Talentos"
+      subtitle="Conectado às Propostas 9, 11 e 12 da Chapa Semente: oportunidades em órgãos públicos e OSCs, apoio à Empresa Júnior de Gestão Pública, Aproveitamento Servidor (Art. 41) e Banco de Talentos."
+      badges={badges}
+    />
+
+    {/* Citação Oficial Lara Soares & Lívia Martins com Atalho para o Hub Reta Final */}
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0_0_#16181d] flex gap-3.5">
+        <div class="w-11 h-11 rounded-xl bg-primary text-white border-2 border-[#16181d] flex items-center justify-center shrink-0 text-xl font-bold shadow-[2px_2px_0_0_#16181d]">
+          <i class="bi bi-file-earmark-check" aria-hidden="true"></i>
+        </div>
+        <div class="space-y-1">
+          <p class="text-xs text-foreground font-medium italic leading-relaxed m-0">
+            "Poucas coisas causam tanto estresse quanto conseguir uma vaga e ver o contrato travado por desconhecimento das regras. A Diretoria Jurídica estruturou no site um guia com modelos de TCE e instruções para você não bater cabeça em secretaria."
+          </p>
+          <span class="block text-[11px] font-heading font-black text-primary uppercase">
+            — Lara Soares, Diretora Jurídica da Chapa Semente
+          </span>
+        </div>
+      </div>
+
+      <div class="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0_0_#16181d] flex gap-3.5">
+        <div class="w-11 h-11 rounded-xl bg-[#134E4A] text-white border-2 border-[#16181d] flex items-center justify-center shrink-0 text-xl font-bold shadow-[2px_2px_0_0_#16181d]">
+          <i class="bi bi-stars" aria-hidden="true"></i>
+        </div>
+        <div class="space-y-1">
+          <p class="text-xs text-foreground font-medium italic leading-relaxed m-0">
+            "A gente merece um curso descomplicado: manual prático e currículo a um clique. Com as Propostas 9, 11 e 12, conectamos os alunos diretamente aos melhores editais, órgãos públicos, OSCs e à nossa futura Empresa Júnior."
+          </p>
+          <span class="block text-[11px] font-heading font-black text-[#134E4A] uppercase">
+            — Lívia Martins, Assessora da Presidência da Chapa Semente
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <SegmentedControl tabs={tabs} defaultTab="v0" />
+
+    {/* Aba 0: Vagas, Propostas 9/11/12 & Banco de Talentos */}
+    <section id="ws-panel-v0" class="cagp-workspace-view space-y-6" data-ws-panel="v0">
+      <div id="talentos" class="cagp-anchor-target scroll-mt-24"></div>
+      <CarreiraTalentosTab client:load />
+    </section>
+
+    {/* Aba 1: Estágio Obrigatório 300h & Aproveitamento Servidor (Art. 41) */}
+    <section id="ws-panel-v1" class="cagp-workspace-view space-y-6" data-ws-panel="v1" hidden>
+      <div id="cagp-carreira-art41" class="cagp-anchor-target scroll-mt-24"></div>
+      <div id="art41" class="cagp-anchor-target scroll-mt-24"></div>
+
+      <FactCheckBanner
+        claim="Servidor público em exercício, celetista no setor público ou comissionado tem dispensa do Estágio Supervisionado (300h)?"
+        verdict="homologado"
+        stampText="APROVEITAMENTO SERVIDOR"
+        normativeSource="Art. 41 do Regulamento Versão N-20229 & Parecer CNE/CES 01/2006"
+        explanation="VERDADEIRO, MEDIANTE PROTOCOLO FORMAL. O discente com vínculo formal ativo na administração pública direta ou indireta pode obter o Aproveitamento Servidor (dispensa total das 300h de DCP 135 e DCP 136). Para isso, deve apresentar declaração da chefia e relatório de atividades correlatas à Gestão Pública."
+        officialRuleExcerpt={`Regulamento do Curso — Art. 41:
+O discente que comprovar exercício profissional ou estágio não-obrigatório correlato à área de Gestão Pública na administração direta ou indireta, por período mínimo regulamentar, poderá requerer a dispensa das disciplinas de Estágio Supervisionado A e B, mediante parecer fundamentado da comissão avaliadora designada pelo Colegiado.`}
+      />
+
+      <Art41SimulatorCore client:load />
+      <EstagioObrigatorioCore />
+    </section>
+
+    {/* Aba 2: Estágio Não Obrigatório */}
+    <section id="ws-panel-v2" class="cagp-workspace-view space-y-6" data-ws-panel="v2" hidden>
+      <div id="nao-obrigatorio" class="cagp-anchor-target scroll-mt-24"></div>
+
+      <div class="p-5 sm:p-6 rounded-xl bg-white border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] space-y-3">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="px-2.5 py-1 rounded-md bg-[#FF8811] text-[#16181d] font-heading font-black text-xs uppercase border-2 border-[#16181d]">
+            Disponível do 1º ao 10º Período
+          </span>
+          <span class="text-xs font-mono font-bold text-muted-foreground">Lei Federal 11.788/2008</span>
+        </div>
+        <h3 class="text-lg sm:text-xl font-heading font-black text-foreground uppercase tracking-tight m-0">
+          Direitos do Estagiário &amp; Formalização do Termo de Compromisso (TCE)
+        </h3>
+        <p class="text-xs sm:text-sm text-foreground/85 leading-relaxed font-medium m-0">
+          O estágio não obrigatório é facultativo e pode ser realizado desde o primeiro período de Gestão Pública. A jornada máxima legal é de <strong>6 horas diárias e 30 horas semanais</strong>, compatível com o horário das aulas no turno noturno. É obrigatória a concessão de bolsa ou outra forma de contraprestação, além de auxílio-transporte e seguro de acidentes pessoais.
+        </p>
+      </div>
+
+      <EstagioDocumentDrawerAndGuide client:visible />
+      <EstagioTceCore />
+      <EstagioCentralOverview />
+    </section>
+
+    {/* Aba 3: TCC & Colação de Grau */}
+    <section id="ws-panel-v3" class="cagp-workspace-view space-y-6" data-ws-panel="v3" hidden>
+      <div id="tcc" class="cagp-anchor-target scroll-mt-24"></div>
+      <div class="p-4 rounded-xl border-3 border-[#16181d] bg-[#f4f0ea] shadow-[4px_4px_0_0_#16181d] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <span class="font-mono text-[10px] font-bold uppercase text-primary block">
+            PAINEL DO FORMANDO • RETA FINAL
+          </span>
+          <h4 class="font-heading text-sm font-black uppercase text-foreground m-0">
+            Quer acompanhar seu checklist completo de Estágio (300h) + TCC (180h) + Colação?
+          </h4>
+        </div>
+        <a
+          href={route('/estagio-tcc')}
+          class="min-h-[44px] px-4 py-2 rounded-xl border-3 border-[#16181d] bg-primary text-white font-heading text-xs font-black uppercase no-underline inline-flex items-center justify-center gap-1.5 shrink-0 shadow-[3px_3px_0_0_#16181d]"
+        >
+          <span>Abrir Hub Estágio &amp; TCC</span>
+          <i class="bi bi-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+      <TccCentralOverview />
+    </section>
+
+    <JourneyNav
+      prev={{
+        title: 'Hub Integrador Estágio & TCC (Formando)',
+        href: '/estagio-tcc',
+        desc: 'Checklist animado de colação de grau com progresso salvo no cofre local.',
+      }}
+      next={{
+        title: 'Chapa Semente — Carta-Programa & 14 Propostas',
+        href: '/chapa-semente',
+        desc: 'Conheça todas as propostas da Chapa Semente e declare seu apoio nos dias 25 e 26/11.',
+      }}
+    />
+  </div>
+</BaseLayout>

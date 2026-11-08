@@ -1,23 +1,23 @@
 ---
 // src/components/features/cagp/estatuto/CagpEstatutoCore.astro — Regimento Interno de 14/10/2024 e Instâncias Deliberativas
-import SobreGovernanca from '../../../sobre/SobreGovernanca.astro';
-import SobreEsferas from '../../../sobre/SobreEsferas.astro';
+import SobreGovernanca from '@/components/features/cagp/SobreGovernanca.astro';
+import SobreEsferas from '@/components/features/cagp/SobreEsferas.astro';
 ---
 
-<div class="cagp-estatuto-core space-y-6 select-none text-[#0A0A0A]">
-  <div class="p-5 bg-white border-[3px] border-[#0A0A0A] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-[4px_4px_0_0_#0A0A0A]">
+<div class="cagp-estatuto-core space-y-6 select-none text-foreground">
+  <div class="p-5 bg-white border-[3px] border-border rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
     <div>
-      <span class="text-xs font-head uppercase font-extrabold tracking-wider text-[#8B1E2D]">
+      <span class="text-xs font-head uppercase font-extrabold tracking-wider text-secondary">
         Regimento Interno Aprovado em 14/10/2024
       </span>
-      <h3 class="font-head text-base font-extrabold uppercase text-[#0A0A0A] m-0 tracking-tight">
+      <h3 class="font-head text-base font-extrabold uppercase text-foreground m-0 tracking-tight">
         Governança, Instâncias Deliberativas e Estatuto
       </h3>
-      <p class="text-xs font-body text-[#0A0A0A] font-medium mt-1 m-0">
+      <p class="text-xs font-body text-foreground font-medium mt-1 m-0">
         Estrutura de poder baseada na soberania da Assembleia Geral e participação democrática discente.
       </p>
     </div>
-    <span class="px-3 py-1 rounded-lg bg-[#5B2A86] text-white font-mono text-xs font-bold border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] shrink-0">
+    <span class="px-3 py-1 rounded-lg bg-primary text-white font-mono text-xs font-bold border-3 border-border shadow-sm shrink-0">
       Estatuto Vigente
     </span>
   </div>

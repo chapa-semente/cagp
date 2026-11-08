@@ -1,5 +1,5 @@
 import React from 'react';
-import { getCagpIconPaths, type CagpIconName } from '../../lib/cagpIcons';
+import { getCagpIconPaths, type CagpIconName } from '@/lib/cagpIcons';
 
 export type { CagpIconName };
 

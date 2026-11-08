@@ -1,8 +1,10 @@
 /* eslint-disable react-refresh/only-export-components */
 import * as React from 'react'
 import { createPortal } from 'react-dom'
+import { motion, AnimatePresence } from 'motion/react'
 import { X } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { bounceSpring, tactileSpring } from '@/lib/motion'
 import { Button } from '@/components/ui/button'
 
 // Typed here so the dev-only guards compile without @types/node (Vite's
@@ -23,10 +25,14 @@ export interface TourProps {
   steps: TourStep[]
   open?: boolean
   onOpenChange?: (open: boolean) => void
+  currentStep?: number
+  onStepChange?: (index: number) => void
   onComplete?: () => void
   onSkip?: () => void
   showSkipButton?: boolean
   showProgress?: boolean
+  autoPlay?: boolean
+  autoPlayInterval?: number
 }
 
 interface TourContextValue {
@@ -37,6 +43,12 @@ interface TourContextValue {
   goToStep: (index: number) => void
   close: () => void
   skip: () => void
+  isPlaying: boolean
+  togglePlay: () => void
+  progress: number
+  pause: () => void
+  resume: () => void
+  autoPlay: boolean
 }
 
 const TourContext = React.createContext<TourContextValue | null>(null)
@@ -49,11 +61,21 @@ function useTour() {
   return context
 }
 
-// Get element from target
+// Helper to check if an element is currently rendered and visible in layout
+function isElementVisible(el: HTMLElement): boolean {
+  return el.offsetWidth > 0 || el.offsetHeight > 0 || el.getClientRects().length > 0
+}
+
+// Get element from target (supports comma-separated selectors with responsive visibility fallback)
 function getTargetElement(
   target: string | HTMLElement | React.RefObject<HTMLElement>
 ): HTMLElement | null {
   if (typeof target === 'string') {
+    if (target.includes(',')) {
+      const candidates = Array.from(document.querySelectorAll<HTMLElement>(target))
+      const visible = candidates.find((el) => isElementVisible(el))
+      return visible || candidates[0] || null
+    }
     return document.querySelector(target)
   }
   if (target instanceof HTMLElement) {
@@ -150,16 +172,35 @@ function TourOverlay({ targetRect, spotlightPadding }: TourOverlayProps) {
   }
 
   return (
-    <div
-      className="fixed inset-0 z-[9998]"
-      style={{
-        background: `
-          linear-gradient(to right, rgba(0,0,0,0.7) ${spotlightRect.left}px, transparent ${spotlightRect.left}px, transparent ${spotlightRect.left + spotlightRect.width}px, rgba(0,0,0,0.7) ${spotlightRect.left + spotlightRect.width}px),
-          linear-gradient(to bottom, rgba(0,0,0,0.7) ${spotlightRect.top}px, transparent ${spotlightRect.top}px, transparent ${spotlightRect.top + spotlightRect.height}px, rgba(0,0,0,0.7) ${spotlightRect.top + spotlightRect.height}px)
-        `,
-        backgroundBlendMode: 'multiply',
-      }}
-    />
+    <>
+      <div
+        className="fixed inset-0 z-[9998]"
+        style={{
+          background: `
+            linear-gradient(to right, rgba(0,0,0,0.65) ${spotlightRect.left}px, transparent ${spotlightRect.left}px, transparent ${spotlightRect.left + spotlightRect.width}px, rgba(0,0,0,0.65) ${spotlightRect.left + spotlightRect.width}px),
+            linear-gradient(to bottom, rgba(0,0,0,0.65) ${spotlightRect.top}px, transparent ${spotlightRect.top}px, transparent ${spotlightRect.top + spotlightRect.height}px, rgba(0,0,0,0.65) ${spotlightRect.top + spotlightRect.height}px)
+          `,
+          backgroundBlendMode: 'multiply',
+        }}
+      />
+      {/* Moldura Neon Tátil de Highlight Pulsante com Transição Elástica (tactileSpring) */}
+      <motion.div
+        initial={false}
+        animate={{
+          top: spotlightRect.top,
+          left: spotlightRect.left,
+          width: spotlightRect.width,
+          height: spotlightRect.height,
+        }}
+        transition={tactileSpring}
+        className="fixed z-[9998] pointer-events-none rounded-xl border-3 border-[#FF8811] shadow-[0_0_0_3px_#16181d,0_0_30px_rgba(255,136,17,0.85)]"
+      >
+        <div className="absolute -top-4 left-2 px-2 py-0.5 rounded-md bg-[#FF8811] text-[#16181d] font-mono font-bold text-[10px] uppercase tracking-wider shadow-[2px_2px_0_0_#16181d] flex items-center gap-1.5 border-2 border-[#16181d]">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#16181d] animate-ping" />
+          <span>DESTAQUE SEMENTE</span>
+        </div>
+      </motion.div>
+    </>
   )
 }
 
@@ -177,21 +218,37 @@ function TourPopover({
   showSkipButton,
   showProgress,
 }: TourPopoverProps) {
-  const { currentStep, totalSteps, nextStep, prevStep, close, skip } = useTour()
+  const {
+    currentStep,
+    totalSteps,
+    nextStep,
+    prevStep,
+    close,
+    skip,
+    isPlaying,
+    togglePlay,
+    progress,
+    pause,
+    resume,
+    autoPlay,
+  } = useTour()
   const popoverRef = React.useRef<HTMLDivElement>(null)
   const [position, setPosition] = React.useState({ top: 0, left: 0 })
+  const [isMobile, setIsMobile] = React.useState(
+    typeof window !== 'undefined' ? window.innerWidth < 768 : false
+  )
   const titleId = React.useId()
   const descriptionId = React.useId()
 
   const isFirst = currentStep === 0
   const isLast = currentStep === totalSteps - 1
 
-  // The tour visually covers the page with an opaque scrim, so it has to
-  // behave like the modal dialog it looks like: focus moves in, Tab stays in,
-  // Escape closes, and focus returns where it came from. Previously focus
-  // stayed on the obscured page behind the scrim and Escape did nothing
-  // (WCAG 2.1.2 / 4.1.2). Every other overlay in the library gets this from
-  // Radix; Tour hand-rolls its portal, so it has to do it itself.
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   React.useEffect(() => {
     const previouslyFocused = document.activeElement as HTMLElement | null
     popoverRef.current?.focus()
@@ -223,9 +280,6 @@ function TourPopover({
       const last = focusable[focusable.length - 1]
       const active = document.activeElement
 
-      // `active === root` on open (the container holds initial focus but is
-      // tabindex=-1, so it isn't in `focusable`) — without this the very first
-      // Shift+Tab walked straight out of the dialog.
       if (!root.contains(active) || active === root) {
         e.preventDefault()
         ;(e.shiftKey ? last : first).focus()
@@ -245,27 +299,31 @@ function TourPopover({
     }
   }, [close])
 
-  // Calculate position
+  // Calculate position (desktop only - on mobile it docks as a bottom sheet)
   React.useEffect(() => {
-    if (!popoverRef.current) return
+    if (!popoverRef.current || isMobile) return
 
     const popoverRect = popoverRef.current.getBoundingClientRect()
 
     if (step.placement === 'center' || !targetRect) {
       setPosition({
-        top: window.innerHeight / 2 - popoverRect.height / 2,
-        left: window.innerWidth / 2 - popoverRect.width / 2,
+        top: Math.max(16, window.innerHeight / 2 - popoverRect.height / 2),
+        left: Math.max(16, window.innerWidth / 2 - popoverRect.width / 2),
       })
     } else {
       const pos = calculatePosition(
         targetRect,
         popoverRect,
         step.placement,
-        16
+        20
       )
       setPosition({ top: pos.top, left: pos.left })
     }
-  }, [step, targetRect])
+  }, [step, targetRect, isMobile])
+
+  const stepPct = Math.round(((currentStep + 1) / Math.max(1, totalSteps)) * 100)
+  const stepNumStr = String(currentStep + 1).padStart(2, '0')
+  const totalNumStr = String(totalSteps).padStart(2, '0')
 
   return (
     <div
@@ -275,80 +333,127 @@ function TourPopover({
       aria-labelledby={titleId}
       aria-describedby={descriptionId}
       tabIndex={-1}
+      onMouseEnter={pause}
+      onMouseLeave={resume}
       className={cn(
-        'fixed z-[9999] w-80 border-3 border-foreground bg-popover p-4',
-        'shadow-[8px_8px_0px_var(--shadow-color)]',
-        'ease-out animate-in fade-in-0 zoom-in-95 duration-200',
-        'focus:outline-none'
+        'fixed z-[9999] focus:outline-none',
+        'inset-x-3 bottom-3 max-w-[calc(100vw-1.5rem)] sm:bottom-auto sm:inset-x-auto sm:w-[400px]'
       )}
-      style={{ top: position.top, left: position.left }}
+      style={isMobile ? undefined : { top: position.top, left: position.left }}
     >
-      {/* Close button */}
-      <button
-        type="button"
-        onClick={close}
-        className={cn(
-          'absolute -right-3 -top-3 border-2 border-foreground bg-background p-1',
-          'shadow-[2px_2px_0px_var(--shadow-color)]',
-          'hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none',
-          'transition duration-150'
-        )}
-      >
-        <X className="h-3 w-3 stroke-[3]" />
-        <span className="sr-only">Close</span>
-      </button>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={`tour-step-${currentStep}`}
+          initial={{ opacity: 0, scale: 0.92, y: 12 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.95, y: -8 }}
+          transition={bounceSpring}
+          className="relative border-3 border-[#16181d] bg-white rounded-2xl shadow-[6px_6px_0_0_#16181d] flex flex-col max-h-[44vh] sm:max-h-none overflow-hidden"
+        >
+          {/* Faixa Superior Editorial Semente */}
+          <div className="bg-[#5B2A86] text-white px-3.5 py-2 border-b-3 border-[#16181d] flex items-center justify-between gap-2 shrink-0">
+            <div className="flex items-center gap-2">
+              <span className="px-2 py-0.5 rounded bg-[#FF8811] text-[#16181d] font-mono font-bold text-[10px] uppercase tracking-wider border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+                PASSO {stepNumStr}/{totalNumStr}
+              </span>
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-white/90 hidden xs:inline">
+                Parada {currentStep + 1} de {totalSteps}
+              </span>
+            </div>
 
-      {/* Content */}
-      <div className="space-y-3">
-        <h3 id={titleId} className="text-base font-bold uppercase tracking-wide">
-          {step.title}
-        </h3>
-        <p id={descriptionId} className="text-sm text-muted-foreground">
-          {step.description}
-        </p>
-        {step.content}
-      </div>
-
-      {/* Progress dots */}
-      {showProgress && totalSteps > 1 && (
-        <div className="mt-4 flex items-center justify-center gap-1.5">
-          {Array.from({ length: totalSteps }, (_, i) => (
-            <div
-              key={i}
-              className={cn(
-                'h-2 w-2 border-2 border-foreground transition duration-150',
-                i === currentStep ? 'bg-primary scale-110' : 'bg-muted'
+            <div className="flex items-center gap-1.5">
+              {autoPlay && (
+                <button
+                  type="button"
+                  onClick={togglePlay}
+                  title={isPlaying ? 'Pausar avanço automático' : 'Retomar avanço automático'}
+                  className="border-2 border-[#16181d] bg-white text-[#16181d] px-2 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider shadow-[2px_2px_0_0_#16181d] hover:bg-[#f4f0ea] transition cursor-pointer"
+                >
+                  {isPlaying ? '⏸ Pausar' : '▶ Auto'}
+                </button>
               )}
-            />
-          ))}
-        </div>
-      )}
+              <button
+                type="button"
+                onClick={close}
+                aria-label="Fechar tour"
+                className="border-2 border-[#16181d] bg-white text-[#16181d] p-1 rounded-md cursor-pointer shadow-[2px_2px_0_0_#16181d] hover:bg-[#FF8811] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition"
+              >
+                <X className="h-3.5 w-3.5 stroke-[3]" />
+              </button>
+            </div>
+          </div>
 
-      {/* Navigation */}
-      <div className="mt-4 flex items-center justify-between gap-2">
-        <div>
-          {showSkipButton && !isLast && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={skip}
-              className="text-muted-foreground"
+          {/* Barra de Progresso Listrada Mecânica */}
+          {showProgress && (
+            <div className="w-full bg-[#f4f0ea] h-2.5 border-b-2 border-[#16181d] overflow-hidden shrink-0">
+              <div
+                className="h-full bg-[#FF8811] transition-all duration-300 ease-out"
+                style={{
+                  width: `${autoPlay && isPlaying ? progress : stepPct}%`,
+                  backgroundImage:
+                    'repeating-linear-gradient(45deg, rgba(22,24,29,0.18) 0, rgba(22,24,29,0.18) 6px, transparent 6px, transparent 12px)',
+                }}
+              />
+            </div>
+          )}
+
+          {/* Corpo do Passo */}
+          <div className="p-3.5 sm:p-4 space-y-2 flex-1 overflow-y-auto no-scrollbar">
+            <h3
+              id={titleId}
+              className="text-sm sm:text-base font-heading font-black uppercase tracking-tight text-[#16181d] leading-snug m-0"
             >
-              Skip Tour
-            </Button>
-          )}
-        </div>
-        <div className="flex items-center gap-2">
-          {!isFirst && (
-            <Button variant="outline" size="sm" onClick={prevStep}>
-              Previous
-            </Button>
-          )}
-          <Button size="sm" onClick={nextStep}>
-            {isLast ? 'Finish' : 'Next'}
-          </Button>
-        </div>
-      </div>
+              {step.title}
+            </h3>
+            <p
+              id={descriptionId}
+              className="text-xs text-[#16181d]/85 font-sans leading-relaxed m-0"
+            >
+              {step.description}
+            </p>
+            {step.content}
+          </div>
+
+          {/* Indicadores de Passo & Navegação Tátil (min-h-[44px]) */}
+          <div className="px-3.5 sm:px-4 py-2.5 bg-[#f4f0ea] border-t-3 border-[#16181d] flex items-center justify-between gap-2 shrink-0">
+            <div>
+              {showSkipButton && !isLast ? (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={skip}
+                  className="text-[#16181d]/80 hover:text-[#16181d] font-mono font-bold text-xs px-2.5 min-h-[44px]"
+                >
+                  Pular Tour
+                </Button>
+              ) : (
+                <span className="font-mono text-[10px] font-bold uppercase text-[#5B2A86] px-1">
+                  ✦ Chapa Semente
+                </span>
+              )}
+            </div>
+            <div className="flex items-center gap-2">
+              {!isFirst && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={prevStep}
+                  className="text-xs px-3 min-h-[44px] border-3 border-[#16181d] bg-white font-heading font-black uppercase"
+                >
+                  ← Anterior
+                </Button>
+              )}
+              <Button
+                size="sm"
+                onClick={nextStep}
+                className="text-xs px-4 min-h-[44px] border-3 border-[#16181d] bg-[#FF8811] hover:bg-[#e67300] text-[#16181d] font-heading font-black uppercase shadow-[3px_3px_0_0_#16181d]"
+              >
+                {isLast ? 'Concluir Tour ✓' : 'Próximo →'}
+              </Button>
+            </div>
+          </div>
+        </motion.div>
+      </AnimatePresence>
     </div>
   )
 }
@@ -360,16 +465,38 @@ const Tour = React.forwardRef<HTMLDivElement, TourProps>(
       steps,
       open: controlledOpen,
       onOpenChange,
+      currentStep: controlledStep,
+      onStepChange,
       onComplete,
       onSkip,
       showSkipButton = true,
       showProgress = true,
+      autoPlay = false,
+      autoPlayInterval = 8000,
     },
     ref
   ) => {
     const [uncontrolledOpen, setUncontrolledOpen] = React.useState(false)
-    const [currentStep, setCurrentStep] = React.useState(0)
+    const [uncontrolledStep, setUncontrolledStep] = React.useState(0)
+    const isControlledStep = controlledStep !== undefined
+    const currentStep = isControlledStep ? controlledStep : uncontrolledStep
+
+    const updateStep = React.useCallback(
+      (newStepOrFn: number | ((prev: number) => number)) => {
+        const next = typeof newStepOrFn === 'function' ? newStepOrFn(currentStep) : newStepOrFn
+        if (!isControlledStep) {
+          setUncontrolledStep(next)
+        }
+        onStepChange?.(next)
+      },
+      [currentStep, isControlledStep, onStepChange]
+    )
+
     const [targetRect, setTargetRect] = React.useState<DOMRect | null>(null)
+    const [isPlaying, setIsPlaying] = React.useState(autoPlay)
+    const [isHovered, setIsHovered] = React.useState(false)
+    const [progress, setProgress] = React.useState(0)
+    const elapsedRef = React.useRef(0)
 
     const isControlled = controlledOpen !== undefined
     const open = isControlled ? controlledOpen : uncontrolledOpen
@@ -386,35 +513,73 @@ const Tour = React.forwardRef<HTMLDivElement, TourProps>(
 
     const currentStepData = steps[currentStep]
 
-    // Update target rect when step changes
+    // Reset progress and timer on step change
+    React.useEffect(() => {
+      elapsedRef.current = 0
+      setProgress(0)
+    }, [currentStep, open])
+
+    // Auto-advance loop
+    React.useEffect(() => {
+      if (!open || !autoPlay || !isPlaying || isHovered) return
+
+      const intervalMs = 50
+      const timer = setInterval(() => {
+        elapsedRef.current += intervalMs
+        const pct = Math.min(100, (elapsedRef.current / autoPlayInterval) * 100)
+        setProgress(pct)
+
+        if (elapsedRef.current >= autoPlayInterval) {
+          elapsedRef.current = 0
+          setProgress(0)
+          if (currentStep < steps.length - 1) {
+            updateStep(currentStep + 1)
+          } else {
+            setOpen(false)
+            onComplete?.()
+          }
+        }
+      }, intervalMs)
+
+      return () => clearInterval(timer)
+    }, [open, autoPlay, isPlaying, isHovered, currentStep, steps.length, autoPlayInterval, updateStep, setOpen, onComplete])
+
+    // Update target rect when step changes and scroll smartly into view
     React.useEffect(() => {
       if (!open || !currentStepData) return
 
-      // Measure only. This runs on every scroll event, so it must NOT scroll:
-      // calling scrollIntoView here re-entered itself through its own smooth
-      // animation and pinned the page to the spotlight, fighting the user.
+      // Measure helper
       const measure = () => {
         const element = getTargetElement(currentStepData.target)
         if (element) {
           setTargetRect(element.getBoundingClientRect())
         } else {
-          // Target not found — fall back to center placement
-          if (process.env.NODE_ENV === 'development') {
-            console.warn(`[Tour] Step target "${currentStepData.target}" not found in DOM`)
-          }
           setTargetRect(null)
         }
       }
 
-      // Scrolling belongs to the step transition, not to measurement.
-      getTargetElement(currentStepData.target)?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-      })
+      const el = getTargetElement(currentStepData.target)
+      if (el) {
+        if (typeof window !== 'undefined' && window.innerWidth < 768) {
+          // On mobile, the Bottom Sheet occupies up to 38vh at the bottom.
+          // Therefore, scroll the target element to the upper third (Y ~ 80px),
+          // completely away from the bottom sheet!
+          const rect = el.getBoundingClientRect()
+          const currentScrollY = window.pageYOffset || document.documentElement.scrollTop
+          const targetY = currentScrollY + rect.top - 80
+          window.scrollTo({
+            top: Math.max(0, targetY),
+            behavior: 'smooth',
+          })
+        } else {
+          el.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+          })
+        }
+      }
       measure()
 
-      // Coalesce to one measurement per frame — a capture-phase scroll handler
-      // otherwise fires a setState per scroll event.
       let frame = 0
       const onViewportChange = () => {
         if (frame) return
@@ -434,34 +599,39 @@ const Tour = React.forwardRef<HTMLDivElement, TourProps>(
       }
     }, [open, currentStep, currentStepData])
 
-    // Reset to the first step when the tour closes. Adjusted during render
-    // rather than in an effect — reopening then never flashes the old step.
+    // Reset to the first step when the tour closes if uncontrolled.
     const [prevOpen, setPrevOpen] = React.useState(open)
     if (prevOpen !== open) {
       setPrevOpen(open)
-      if (!open) setCurrentStep(0)
+      if (!open && !isControlledStep) setUncontrolledStep(0)
     }
 
     const nextStep = React.useCallback(() => {
+      elapsedRef.current = 0
+      setProgress(0)
       if (currentStep < steps.length - 1) {
-        setCurrentStep((prev) => prev + 1)
+        updateStep(currentStep + 1)
       } else {
         setOpen(false)
         onComplete?.()
       }
-    }, [currentStep, steps.length, setOpen, onComplete])
+    }, [currentStep, steps.length, updateStep, setOpen, onComplete])
 
     const prevStep = React.useCallback(() => {
+      elapsedRef.current = 0
+      setProgress(0)
       if (currentStep > 0) {
-        setCurrentStep((prev) => prev - 1)
+        updateStep(currentStep - 1)
       }
-    }, [currentStep])
+    }, [currentStep, updateStep])
 
     const goToStep = React.useCallback((index: number) => {
+      elapsedRef.current = 0
+      setProgress(0)
       if (index >= 0 && index < steps.length) {
-        setCurrentStep(index)
+        updateStep(index)
       }
-    }, [steps.length])
+    }, [steps.length, updateStep])
 
     const close = React.useCallback(() => {
       setOpen(false)
@@ -472,6 +642,18 @@ const Tour = React.forwardRef<HTMLDivElement, TourProps>(
       onSkip?.()
     }, [setOpen, onSkip])
 
+    const togglePlay = React.useCallback(() => {
+      setIsPlaying((p) => !p)
+    }, [])
+
+    const pause = React.useCallback(() => {
+      setIsHovered(true)
+    }, [])
+
+    const resume = React.useCallback(() => {
+      setIsHovered(false)
+    }, [])
+
     const contextValue = React.useMemo<TourContextValue>(
       () => ({
         currentStep,
@@ -481,8 +663,28 @@ const Tour = React.forwardRef<HTMLDivElement, TourProps>(
         goToStep,
         close,
         skip,
+        isPlaying,
+        togglePlay,
+        progress,
+        pause,
+        resume,
+        autoPlay,
       }),
-      [currentStep, steps.length, nextStep, prevStep, goToStep, close, skip]
+      [
+        currentStep,
+        steps.length,
+        nextStep,
+        prevStep,
+        goToStep,
+        close,
+        skip,
+        isPlaying,
+        togglePlay,
+        progress,
+        pause,
+        resume,
+        autoPlay,
+      ]
     )
 
     return (

@@ -4,6 +4,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@boldkit/hooks/*": ["src/hooks/*"],
       "@boldkit/*": ["src/components/boldkit/*"],
       "@components/*": ["src/components/*"],
       "next/link": ["src/lib/link.tsx"],

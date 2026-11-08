@@ -4,23 +4,85 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
 import SegmentedControl from '../components/ui/SegmentedControl.astro';
 import JourneyNav from '../components/ui/JourneyNav.astro';
-import GestaoOrganograma from '../components/gestao/GestaoOrganograma.astro';
-import GestaoEquipe from '../components/gestao/GestaoEquipe.astro';
-import GestaoContas from '../components/gestao/GestaoContas.astro';
+import GestaoOrganograma from '../components/features/gestao/GestaoOrganograma.astro';
+import GestaoEquipe from '../components/features/gestao/GestaoEquipe.astro';
+import GestaoContas from '../components/features/gestao/GestaoContas.astro';
 import { GestaoDiretoriaAndEstatuto } from '../components/features/gestao/GestaoDiretoriaAndEstatuto';
-import { asset, route } from '../lib/paths';
+import { TeamGrid, type TeamMember } from '../components/boldkit/blocks/team-section';
+import { asset, route } from '@/lib/paths';
+
+const gestaoMembers: TeamMember[] = [
+  {
+    name: 'Gabriel Sathler',
+    role: '1. Presidência (DIPRE • Art. 28)',
+    bio: 'Representação institucional perante a Reitoria e Colegiado, assinatura de convênios e criação do SuperApp discente.',
+    image: asset('/images/chapa/Gabriel Sathler.jpg'),
+    social: { email: 'cagp@fafich.ufmg.br' },
+  },
+  {
+    name: 'Lívia Martins',
+    role: '2. Assessoria da Presidência (DIPRE • Art. 28)',
+    bio: 'Idealizadora do Manual "Como se Formar", direção de arte institucional e banco de currículos integrado.',
+    image: asset('/images/chapa/Livia Martins.jpeg'),
+    social: { email: 'cagp@fafich.ufmg.br' },
+  },
+  {
+    name: 'Larissa Prado',
+    role: '3. Vice-Presidência (DIPRE • Art. 28)',
+    bio: 'Acolhimento estudantil, coordenação do canal de escuta permanente ("Fala com o CA") e integração de calouros.',
+    social: { email: 'cagp@fafich.ufmg.br' },
+  },
+  {
+    name: 'Mariana Presti',
+    role: '4. Diretoria Acadêmica (DIAC • Art. 31)',
+    bio: 'Orientação sobre percursos curriculares, mapeamento dos 11 núcleos de pesquisa do DCP e diálogo com o Colegiado.',
+    image: asset('/images/chapa/MarianaPresti.jpeg'),
+    social: { email: 'cagp@fafich.ufmg.br' },
+  },
+  {
+    name: 'João Pedro Fragoso',
+    role: '5. Comunicação & Marketing (DIMAC • Art. 34)',
+    bio: 'Seriedade institucional, portal de notícias, atualização de ementas junto ao Colegiado e mídias sociais.',
+    image: asset('/images/chapa/João Pedro Fragoso.jpg'),
+    social: { email: 'cagp@fafich.ufmg.br' },
+  },
+  {
+    name: 'Vitória Moraes',
+    role: '6. Diretoria Financeira (DIFI • Art. 30)',
+    bio: 'Livro-Caixa Aberto centavo a centavo, emissão mensal do RREO e tutoriais de assistência estudantil FUMP.',
+    social: { email: 'cagp@fafich.ufmg.br' },
+  },
+  {
+    name: 'Ítalo de Morais',
+    role: '7. Articulação & Assuntos Políticos (DIAP • Art. 32)',
+    bio: 'Representação no Conselho de CAs (CEB), interlocução com DA FAFICH, DCE UFMG e ENECAP (Campo de Públicas).',
+    social: { email: 'cagp@fafich.ufmg.br' },
+  },
+  {
+    name: 'David',
+    role: '8. Diretoria de Assuntos Jurídicos (DIJUR • Art. 29)',
+    bio: 'Consultoria normativa interna, guarda dos Livros de Atas, defesa de direitos estudantis e conformidade estatutária.',
+    social: { email: 'cagp@fafich.ufmg.br' },
+  },
+  {
+    name: 'Clarisse',
+    role: '9. Diretoria de Cultura & Integração (DICULT • Art. 33)',
+    bio: 'Recepção de calouros, Semana Acadêmica, cineclubes temáticos, vivência noturna e eventos culturais na FAFICH.',
+    social: { email: 'cagp@fafich.ufmg.br' },
+  },
+];
 
 const tabs = [
   { id: 'v0', shortLabel: 'Eleições 2026', fullLabel: 'Processo Eleitoral 2026', hash: '#eleicoes' },
   { id: 'v1', shortLabel: 'Organograma', fullLabel: '1. Organograma da Gestão', hash: '#organograma' },
-  { id: 'v2', shortLabel: 'Equipe', fullLabel: '2. Diretoria Executiva', hash: '#equipe' },
+  { id: 'v2', shortLabel: '9 Diretorias', fullLabel: '2. As 9 Pastas & Diretorias', hash: '#equipe' },
   { id: 'v3', shortLabel: 'Contas', fullLabel: '3. Prestação de Contas', hash: '#contas' },
 ];
 
 const badges = [
   { label: 'Eleições: 25 e 26/11 no CAGP', variant: 'red' as const, icon: 'bi-calendar-check' },
   { label: 'Edital Oficial Publicado', variant: 'gold' as const, icon: 'bi-file-earmark-pdf' },
-  { label: '7 Diretorias Executivas', variant: 'dark' as const, icon: 'bi-diagram-3-fill' },
+  { label: '9 Pastas & Diretorias', variant: 'dark' as const, icon: 'bi-diagram-3-fill' },
   { label: 'Chapa Semente Concorrente', variant: 'blue' as const, icon: 'bi-flower1' },
 ];
 ---
@@ -54,7 +116,7 @@ const badges = [
         <a
           href={asset('/documentos/edital-eleicoes-cagp-2026.pdf')}
           download="edital-eleicoes-cagp-2026.pdf"
-          class="px-4 py-2 min-h-[44px] inline-flex items-center gap-2 rounded-xl bg-primary hover:bg-primary-hover text-white border-2 border-border font-heading font-extrabold text-xs uppercase tracking-wider no-underline shadow-xs transition-all shrink-0 active:translate-x-0.5 active:translate-y-0.5"
+          class="px-4 py-2 min-h-[44px] inline-flex items-center gap-2 rounded-xl bg-primary hover:bg-primary-hover text-white border-3 border-border font-heading font-extrabold text-xs uppercase tracking-wider no-underline shadow-xs transition-all shrink-0 active:translate-x-0.5 active:translate-y-0.5"
         >
           <span>Baixar Edital Oficial (PDF)</span>
           <span>↓</span>
@@ -63,32 +125,32 @@ const badges = [
 
       <!-- Grid dos 6 Prazos do Edital com Quebra Fluida -->
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 pt-1">
-        <div class="p-3 rounded-lg border-2 border-border bg-white shadow-xs">
+        <div class="p-3 rounded-lg border-3 border-border bg-white shadow-xs">
           <span class="font-mono text-[10px] font-bold text-muted-foreground block">04/11/2026</span>
           <span class="font-heading font-black text-xs uppercase text-foreground block mt-0.5">Edital Publicado</span>
           <span class="text-[11px] font-sans text-muted-foreground block mt-1">Convocação oficial</span>
         </div>
-        <div class="p-3 rounded-lg border-2 border-border bg-white shadow-xs">
+        <div class="p-3 rounded-lg border-3 border-border bg-white shadow-xs">
           <span class="font-mono text-[10px] font-bold text-muted-foreground block">04 a 10/11</span>
           <span class="font-heading font-black text-xs uppercase text-foreground block mt-0.5">Inscrições</span>
           <span class="text-[11px] font-sans text-muted-foreground block mt-1">Até 23h59 via e-mail</span>
         </div>
-        <div class="p-3 rounded-lg border-2 border-border bg-white shadow-xs">
+        <div class="p-3 rounded-lg border-3 border-border bg-white shadow-xs">
           <span class="font-mono text-[10px] font-bold text-muted-foreground block">11/11/2026</span>
           <span class="font-heading font-black text-xs uppercase text-foreground block mt-0.5">Homologação</span>
           <span class="text-[11px] font-sans text-muted-foreground block mt-1">Divulgação de chapas</span>
         </div>
-        <div class="p-3 rounded-lg border-2 border-[#FF8811] bg-[#FFFDF9]">
-          <span class="font-mono text-[10px] font-bold text-[#FF8811] block">11 a 24/11</span>
+        <div class="p-3 rounded-lg border-2 border-accent bg-card">
+          <span class="font-mono text-[10px] font-bold text-accent block">11 a 24/11</span>
           <span class="font-heading font-black text-xs uppercase text-foreground block mt-0.5">Campanha</span>
           <span class="text-[11px] font-sans text-muted-foreground block mt-1">Debate e diálogo aberto</span>
         </div>
-        <div class="p-3 rounded-lg border-2 border-primary bg-[#FFFDF9]">
+        <div class="p-3 rounded-lg border-2 border-primary bg-card">
           <span class="font-mono text-[10px] font-bold text-primary block">24/11 às 18h</span>
           <span class="font-heading font-black text-xs uppercase text-foreground block mt-0.5">Debate Oficial</span>
           <span class="text-[11px] font-sans text-muted-foreground block mt-1">Local a definir</span>
         </div>
-        <div class="p-3 rounded-lg border-2 border-border bg-primary text-white shadow-xs">
+        <div class="p-3 rounded-lg border-3 border-border bg-primary text-white shadow-xs">
           <span class="font-mono text-[10px] font-bold text-[#FFD6A5] block">25 e 26/11</span>
           <span class="font-heading font-black text-xs uppercase text-white block mt-0.5">Votação no CAGP</span>
           <span class="text-[11px] font-sans text-white/90 block mt-1">17h às 22h30 • Presencial</span>
@@ -97,21 +159,21 @@ const badges = [
 
       <!-- Regras da Junta Eleitoral e Normas de Votação -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-        <div class="p-4 rounded-xl border-2 border-[#16181d] bg-white shadow-xs space-y-2">
-          <span class="font-heading font-black text-xs uppercase text-[#5B2A86] block">
+        <div class="p-4 rounded-xl border-3 border-border bg-white shadow-xs space-y-2">
+          <span class="font-heading font-black text-xs uppercase text-primary block">
             Junta Eleitoral 2026 (Comissão Eleitoral)
           </span>
-          <p class="text-xs font-sans text-[#16181d] leading-relaxed m-0">
+          <p class="text-xs font-sans text-foreground leading-relaxed m-0">
             Composta por 3 estudantes de Gestão Pública eleitos em Assembleia Geral: <strong>Fernanda Abadia Couto</strong>, <strong>Laura Borges Souza</strong> e <strong>Anderson Batista de Sousa Santos</strong>.<br />
-            Contato institucional para dúvidas, inscrições e recursos: <span class="font-mono font-bold text-[#5B2A86]">juntaeleitoralcagp2026@gmail.com</span>.
+            Contato institucional para dúvidas, inscrições e recursos: <span class="font-mono font-bold text-primary">juntaeleitoralcagp2026@gmail.com</span>.
           </p>
         </div>
 
-        <div class="p-4 rounded-xl border-2 border-[#16181d] bg-[#FFFBEB] space-y-2">
-          <span class="font-heading font-black text-xs uppercase text-[#B45309] block">
+        <div class="p-4 rounded-xl border-3 border-border bg-[#FFFBEB] space-y-2">
+          <span class="font-heading font-black text-xs uppercase text-warning block">
             Regras de Votação &amp; Boca de Urna (Art. 17 e 20)
           </span>
-          <p class="text-xs font-sans text-[#16181d] leading-relaxed m-0">
+          <p class="text-xs font-sans text-foreground leading-relaxed m-0">
             Podem votar todos os estudantes matriculados em Gestão Pública portando documento oficial com foto. É estritamente vedada a prática de campanha eleitoral no <strong>1º andar da FAFICH</strong> durante os dois dias de eleição (25 e 26 de novembro).
           </p>
         </div>
@@ -119,9 +181,9 @@ const badges = [
     </div>
 
     <!-- Card Destaque: Candidatura da Chapa Semente -->
-    <div class="p-6 rounded-xl border-3 border-[#16181d] bg-[#FFFDF9] shadow-[4px_4px_0_0_#FF8811] flex flex-col md:flex-row items-center justify-between gap-5">
+    <div class="p-6 rounded-xl border-3 border-border bg-card shadow-[4px_4px_0_0_#FF8811] flex flex-col md:flex-row items-center justify-between gap-5">
       <div class="flex items-center gap-4">
-        <div class="w-16 h-16 rounded-2xl bg-white p-2 border-3 border-[#16181d] shadow-sm flex items-center justify-center shrink-0">
+        <div class="w-16 h-16 rounded-2xl bg-white p-2 border-3 border-border shadow-sm flex items-center justify-center shrink-0">
           <img
             src={asset('/logos/semente/simbolo_semente_fiel.svg')}
             alt="Chapa Semente"
@@ -130,14 +192,14 @@ const badges = [
         </div>
         <div class="space-y-1">
           <div class="flex items-center gap-2">
-            <span class="font-heading text-lg font-black uppercase text-[#16181d]">
-              CHAPA SEM<span>E</span>NT<span class="text-[#FF8811]">E</span>
+            <span class="font-heading text-lg font-black uppercase text-foreground">
+              CHAPA SEM<span>E</span>NT<span class="text-accent">E</span>
             </span>
-            <span class="px-2 py-0.5 rounded-full bg-[#FF8811] text-[#16181d] font-mono text-[10px] font-black uppercase">
+            <span class="px-2 py-0.5 rounded-full bg-accent text-foreground font-mono text-[10px] font-black uppercase">
               Candidata Inscrita
             </span>
           </div>
-          <p class="text-xs font-sans text-[#16181d]/90 leading-relaxed max-w-xl m-0">
+          <p class="text-xs font-sans text-foreground/90 leading-relaxed max-w-xl m-0">
             A Chapa Semente apresenta sua <strong>Carta-Programa com 14 propostas</strong> divididas em 4 eixos (Transparência, Cultura, Desenvolvimento de Carreiras e Comunicação), além do compromisso público de manutenção e entrega deste Superapp à comunidade acadêmica.
           </p>
         </div>
@@ -145,10 +207,10 @@ const badges = [
 
       <a
         href={route('/chapa-semente')}
-        class="px-5 py-3 min-h-[44px] inline-flex items-center gap-2 rounded-xl bg-[#5B2A86] hover:bg-[#4A216E] text-white border-2 border-[#16181d] font-heading font-black text-xs uppercase tracking-wider no-underline shadow-[3px_3px_0_0_#16181d] transition-all shrink-0 active:translate-x-0.5 active:translate-y-0.5"
+        class="px-5 py-3 min-h-[44px] inline-flex items-center gap-2 rounded-xl bg-primary hover:bg-[#4A216E] text-white border-3 border-border font-heading font-black text-xs uppercase tracking-wider no-underline shadow transition-all shrink-0 active:translate-x-0.5 active:translate-y-0.5"
       >
         <span>Ver Carta-Programa Completa</span>
-        <span class="text-[#FF8811]">→</span>
+        <span class="text-accent">→</span>
       </a>
     </div>
   </section>
@@ -161,8 +223,17 @@ const badges = [
   </section>
 
   <!-- Sub-view 2: Equipe por Diretoria -->
-  <section id="ws-panel-v2" class="cagp-workspace-view" data-ws-panel="v2" hidden>
+  <section id="ws-panel-v2" class="cagp-workspace-view space-y-4" data-ws-panel="v2" hidden>
     <div id="equipe" class="cagp-anchor-target scroll-mt-24"></div>
+    <TeamGrid
+      client:visible
+      title="Diretoria Executiva"
+      subtitle="Governança Estatutária"
+      description="Composição das 7 diretorias executivas regimentais responsáveis pela representação discente."
+      members={gestaoMembers}
+      columns={3}
+      className="py-4 px-0"
+    />
     <GestaoEquipe />
   </section>
 

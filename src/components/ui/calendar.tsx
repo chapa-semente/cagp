@@ -16,7 +16,7 @@ function Calendar({
     <DayPicker
       showOutsideDays={showOutsideDays}
       className={cn(
-        'p-3 rounded-xl border-3 border-foreground bg-background shadow-[4px_4px_0px_var(--shadow-color)]',
+        'p-3 rounded-xl border-3 border-foreground bg-background shadow-md',
         className
       )}
       classNames={{

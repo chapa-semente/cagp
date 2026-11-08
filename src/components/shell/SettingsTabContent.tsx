@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { getVaultItem, setVaultItem, type VaultData, getAllVaultData } from '../../lib/storage/studentVault';
-import { exportVaultBackup, importVaultBackup } from '../../lib/storage/backupVault';
-import { downloadPresetIcs } from '../../lib/calendar/icsGenerator';
-import { route } from '../../lib/paths';
+import { getVaultItem, setVaultItem, type VaultData, getAllVaultData } from '@/lib/storage/studentVault';
+import { exportVaultBackup, importVaultBackup } from '@/lib/storage/backupVault';
+import { downloadPresetIcs } from '@/lib/calendar/icsGenerator';
+import { route } from '@/lib/paths';
 
 export const SettingsTabContent: React.FC = () => {
   const [notifs, setNotifs] = useState<VaultData<'cagp_notifications_prefs_v1'>>({
@@ -60,24 +60,24 @@ export const SettingsTabContent: React.FC = () => {
   };
 
   return (
-    <div className="space-y-4 text-[#0A0A0A]">
+    <div className="space-y-4 text-foreground">
       {feedback && (
-        <div className={`p-2.5 rounded-lg border text-xs font-semibold flex items-center gap-2 ${feedback.isSuccess ? 'bg-[#15803D]/10 text-[#15803D] border-[#15803D]' : 'bg-[#DC2626]/10 text-[#DC2626] border-[#DC2626]'}`}>
+        <div className={`p-2.5 rounded-lg border text-xs font-semibold flex items-center gap-2 ${feedback.isSuccess ? 'bg-success/10 text-success border-success' : 'bg-destructive/10 text-destructive border-destructive'}`}>
           <i className={`bi ${feedback.isSuccess ? 'bi-check-circle-fill' : 'bi-exclamation-triangle-fill'}`} />
           <span>{feedback.text}</span>
         </div>
       )}
 
       {/* Alertas do Campus */}
-      <div className="bg-[#F7F5F0] p-3 rounded-lg border border-[#DFDBD2] space-y-2.5">
+      <div className="bg-background p-3 rounded-lg border border-muted space-y-2.5">
         <div className="flex items-center justify-between">
-          <span className="font-['Oswald'] font-bold text-xs uppercase text-[#0A0A0A]">
-            <i className="bi bi-bell-fill text-[#B45309] me-1"></i> Alertas Noturnos
+          <span className="font-['Oswald'] font-bold text-xs uppercase text-foreground">
+            <i className="bi bi-bell-fill text-warning me-1"></i> Alertas Noturnos
           </span>
           <span className="text-[10px] font-mono text-gray-500">Noturno FAFICH</span>
         </div>
 
-        <div className="flex items-center justify-between text-xs pt-1 border-t border-[#DFDBD2]">
+        <div className="flex items-center justify-between text-xs pt-1 border-t border-muted">
           <div>
             <span className="font-bold block">Jantar RU II Setorial (18h15)</span>
             <span className="text-[10px] text-gray-500">Catracas até 19h30</span>
@@ -108,7 +108,7 @@ export const SettingsTabContent: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex items-center justify-between text-xs pt-1 border-t border-[#DFDBD2]">
+        <div className="flex items-center justify-between text-xs pt-1 border-t border-muted">
           <div>
             <span className="font-bold block">Último Circular FAFICH (22h30)</span>
             <span className="text-[10px] text-gray-500">Gratuito até 22h45</span>
@@ -141,12 +141,12 @@ export const SettingsTabContent: React.FC = () => {
       </div>
 
       {/* Cofre Discente */}
-      <div className="bg-[#F7F5F0] p-3 rounded-lg border border-[#DFDBD2] space-y-2">
+      <div className="bg-background p-3 rounded-lg border border-muted space-y-2">
         <div className="flex items-center justify-between">
-          <span className="font-['Oswald'] font-bold text-xs uppercase text-[#0A0A0A]">
-            <i className="bi bi-safe2-fill text-[#15803D] me-1"></i> Meu CAGP Sync
+          <span className="font-['Oswald'] font-bold text-xs uppercase text-foreground">
+            <i className="bi bi-safe2-fill text-success me-1"></i> Meu CAGP Sync
           </span>
-          <span className="text-[10px] font-mono font-bold bg-white px-2 py-0.5 rounded border border-[#DFDBD2]">
+          <span className="text-[10px] font-mono font-bold bg-white px-2 py-0.5 rounded border border-muted">
             {vaultBytes} bytes
           </span>
         </div>
@@ -162,7 +162,7 @@ export const SettingsTabContent: React.FC = () => {
           <button
             type="button"
             onClick={handleClear}
-            className="cagp-btn-outline text-xs min-h-[44px] min-w-[44px] px-3 text-[#DC2626] border-[#DC2626]/30 cursor-pointer inline-flex items-center justify-center"
+            className="cagp-btn-outline text-xs min-h-[44px] min-w-[44px] px-3 text-destructive border-destructive/30 cursor-pointer inline-flex items-center justify-center"
             title="Redefinir Cofre Local"
             aria-label="Redefinir Cofre Local"
           >
@@ -170,7 +170,7 @@ export const SettingsTabContent: React.FC = () => {
           </button>
         </div>
 
-        <div className="pt-2 border-t border-[#DFDBD2] flex gap-1.5 items-center">
+        <div className="pt-2 border-t border-muted flex gap-1.5 items-center">
           <input
             id="settings-tab-backup-input"
             name="settingsBackupToken"
@@ -178,7 +178,7 @@ export const SettingsTabContent: React.FC = () => {
             placeholder="Restaurar token CAGP1:..."
             value={backupInput}
             onChange={(e) => setBackupInput(e.target.value)}
-            className="flex-1 min-h-[44px] bg-white border border-[#DFDBD2] px-3 py-2 text-xs font-mono rounded focus:border-[#8B1E2D] focus:outline-none"
+            className="flex-1 min-h-[44px] bg-white border border-muted px-3 py-2 text-xs font-mono rounded focus:border-secondary focus:outline-none"
           />
           <button
             type="button"
@@ -194,7 +194,7 @@ export const SettingsTabContent: React.FC = () => {
       <div className="pt-1 text-center">
         <a
           href={route('/configuracoes')}
-          className="text-xs font-['Oswald'] font-bold uppercase text-[#8B1E2D] hover:underline inline-flex items-center justify-center gap-1 min-h-[44px] px-3 py-2"
+          className="text-xs font-['Oswald'] font-bold uppercase text-secondary hover:underline inline-flex items-center justify-center gap-1 min-h-[44px] px-3 py-2"
         >
           Abrir Página Completa de Configurações <i className="bi bi-arrow-right"></i>
         </a>

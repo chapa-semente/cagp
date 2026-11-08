@@ -1,5 +1,6 @@
-import { useTheme } from '@boldkit/hooks/use-theme'
-import { Toaster as Sonner } from 'sonner'
+import { useTheme } from '@/hooks/use-theme'
+import { Toaster as Sonner, toast } from 'sonner'
+import { toast as radixToast } from '@/components/ui/toast'
 
 type ToasterProps = React.ComponentProps<typeof Sonner>
 
@@ -8,12 +9,12 @@ const Toaster = ({ ...props }: ToasterProps) => {
 
   return (
     <Sonner
-      theme={resolvedTheme as ToasterProps['theme']}
+      theme={(props.theme ?? resolvedTheme) as ToasterProps['theme']}
       className="toaster group"
       toastOptions={{
         classNames: {
           toast:
-            'group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-3 group-[.toaster]:border-foreground group-[.toaster]:shadow-[4px_4px_0px_var(--shadow-color)] group-[.toaster]:rounded-none group-[.toaster]:font-bold',
+            'group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-3 group-[.toaster]:border-foreground group-[.toaster]:shadow-md group-[.toaster]:rounded-none group-[.toaster]:font-bold',
           title: 'group-[.toast]:font-black group-[.toast]:uppercase group-[.toast]:tracking-wide',
           description: 'group-[.toast]:text-muted-foreground group-[.toast]:font-medium',
           actionButton:
@@ -37,4 +38,4 @@ const Toaster = ({ ...props }: ToasterProps) => {
   )
 }
 
-export { Toaster }
+export { Toaster, toast, radixToast }

@@ -1,0 +1,52 @@
+---
+// src/components/widgets/OverviewGestaoWidget.astro — Widget do Processo Eleitoral e Talentos (Eixo 5: O CAGP)
+import { route } from '@/lib/paths';
+---
+
+<div class="cagp-card p-5 bg-white border-3 border-border rounded-xl flex flex-col justify-between h-full shadow hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-md transition-all select-none">
+  <div>
+    <!-- Header do Widget -->
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <div class="flex items-center gap-2.5">
+        <span class="w-9 h-9 rounded-lg bg-secondary text-white flex items-center justify-center text-lg border-3 border-border shadow-sm">
+          <i class="bi bi-people-fill text-white" aria-hidden="true"></i>
+        </span>
+        <div>
+          <h3 class="font-head font-bold text-sm uppercase text-foreground leading-tight m-0 tracking-wide">
+            Processo Eleitoral & Diretorias
+          </h3>
+          <span class="text-[11px] text-gray-700 font-mono font-medium">7 Diretorias Estatutárias</span>
+        </div>
+      </div>
+      <span class="px-2 py-0.5 rounded-md font-head text-xs font-bold bg-secondary text-white border border-border shadow-xs">
+        Eleições
+      </span>
+    </div>
+
+    <!-- Conteúdo & Banco de Talentos -->
+    <div class="space-y-2 mb-4">
+      <p class="text-xs text-gray-700 leading-relaxed font-body font-medium">
+        O CAGP está em período eleitoral. Conheça o organograma regimental (Art. 8º do Regimento), as 7 diretorias executivas e as comissões discentes.
+      </p>
+
+      <div class="p-3 bg-white border-3 border-border rounded-lg text-xs space-y-1.5 shadow-xs">
+        <div class="font-bold text-foreground flex items-center gap-1.5 font-head uppercase tracking-wider text-[11px]">
+          <i class="bi bi-stars text-secondary" aria-hidden="true"></i>
+          <span>Banco de Talentos Discente</span>
+        </div>
+        <p class="text-xs text-gray-700 font-body font-medium m-0">
+          Cadastre suas habilidades no Passaporte para atuar em projetos, representação discente e comissões do centro acadêmico.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ação -->
+  <a
+    href={route('/gestao')}
+    class="min-h-[44px] px-3.5 py-2 bg-foreground text-background text-white hover:bg-secondary hover:text-white active:translate-x-[2px] active:translate-y-[2px] active:shadow-none rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline mt-2 border-3 border-border shadow"
+  >
+    <span>Conhecer Diretorias & Transição</span>
+    <i class="bi bi-arrow-right" aria-hidden="true"></i>
+  </a>
+</div>

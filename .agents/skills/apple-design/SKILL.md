@@ -54,8 +54,10 @@ When a user asks you to audit or review a design:
 1. **Identify the Surface**: Mobile (iOS), Tablet (iPadOS), Desktop (macOS), or Cross-Platform Web.
 2. **Load Target Guidelines**: Open 4 to 8 relevant files from `_referencias/design-system/apple_design/skill/references/hig/` before writing findings.
 3. **Audit Against HIG Non-Negotiables**:
-   - Touch targets: strictly minimum 44x44pt on iOS (`min-h-[44px]`).
+   - Touch targets: strictly minimum 44x44pt on iOS (`min-h-[44px]`). For compact brutalist controls (`size="xs"`/`"sm"`), enforce touch slop via `before:content-[''] before:absolute before:inset-[-4px]`.
    - Apple Pay: must use official Apple Pay button; no hand-drawn redraws or custom styling.
-   - Safe areas: proper padding for notches, Dynamic Island, and home bars.
+   - Safe areas: proper padding for notches (`env(safe-area-inset-top)`), Dynamic Island (`DynamicToast.astro`), and home bars (`pb-[env(safe-area-inset-bottom)]`).
+   - Viewport protection: ensure sticky headers do not exceed 25% of vertical mobile viewport; adopt smart-scroll auto-collapse for banners (`CampaignBanner.astro` ➔ 24px on scroll-down).
    - Contrast: 4.5:1 minimum for body text.
 4. **Offer Concrete Component Replacements**: Provide exact code references using the Neobrutalism / BoldKit / Shadcn components cataloged in `_referencias/design-system/matrix/`.
+5. **Consult Codebase Correlation**: Consult the exhaustive 382-file diagnostic in `_referencias/design-system/matrix/cagp-astro/DIAGNOSTICO-INTEGRAL-SRC.md` and `00-design-system-specification.md`.

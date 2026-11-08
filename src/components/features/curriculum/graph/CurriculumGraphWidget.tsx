@@ -21,38 +21,38 @@ export const CurriculumGraphWidget: React.FC = () => {
   }, []);
 
   return (
-    <div className="cagp-card p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between h-full shadow-[3px_3px_0_0_#0A0A0A] hover:shadow-[1.5px_1.5px_0_0_#0A0A0A] hover:translate-x-[1px] hover:translate-y-[1px] transition-all select-none">
+    <div className="cagp-card p-5 bg-white border-3 border-border rounded-xl flex flex-col justify-between h-full shadow hover:shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] transition-all select-none">
       <div>
         <div className="flex items-center justify-between gap-2 mb-3.5">
           <div className="flex items-center gap-2.5">
-            <span className="w-10 h-10 rounded-xl bg-[#266264]/10 text-[#266264] flex items-center justify-center text-lg border border-[#266264] shadow-[1px_1px_0_0_#0A0A0A]">
+            <span className="w-10 h-10 rounded-xl bg-teal-700/10 text-[#266264] flex items-center justify-center text-lg border border-[#266264] shadow-xs">
               <i className="bi bi-diagram-3-fill" aria-hidden="true" />
             </span>
             <div>
-              <h3 className="font-head font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0">
+              <h3 className="font-head font-bold text-sm uppercase text-foreground leading-tight m-0">
                 Grafo Dinâmico 10P
               </h3>
-              <span className="text-[11px] text-[#57534E] font-mono">10 Semestres Noturno</span>
+              <span className="text-[11px] text-muted-foreground font-mono">10 Semestres Noturno</span>
             </div>
           </div>
-          <span className="px-2.5 py-1 rounded-md font-head text-[11px] font-bold bg-[#266264] text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">
+          <span className="px-2.5 py-1 rounded-md font-head text-[11px] font-bold bg-teal-700 text-white border border-border shadow-xs">
             {customList.length} optativa{customList.length === 1 ? '' : 's'}
           </span>
         </div>
 
-        <p className="font-body text-xs text-[#292524] leading-relaxed mb-3.5">
+        <p className="font-body text-xs text-muted-foreground leading-relaxed mb-3.5">
           Grafo interativo com 27 disciplinas obrigatórias e slots customizáveis para simular seu fluxo de matrícula no SIGA.
         </p>
 
-        <div className="p-3 bg-white border-2 border-[#0A0A0A] rounded-lg mb-4 flex items-center justify-between text-xs shadow-[1px_1px_0_0_#0A0A0A]">
-          <span className="text-[#57534E] font-medium">Matérias Obrigatórias:</span>
-          <span className="font-mono font-bold text-[#0A0A0A]">27 (1.860h)</span>
+        <div className="p-3 bg-white border-3 border-border rounded-lg mb-4 flex items-center justify-between text-xs shadow-xs">
+          <span className="text-muted-foreground font-medium">Matérias Obrigatórias:</span>
+          <span className="font-mono font-bold text-foreground">27 (1.860h)</span>
         </div>
       </div>
 
       <a
         href="#grafo"
-        className="min-h-[44px] px-4 py-2.5 bg-[#0A0A0A] hover:bg-[#266264] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-2 border-[#0A0A0A] shadow-[2.5px_2.5px_0_0_#0A0A0A]"
+        className="min-h-[44px] px-4 py-2.5 bg-foreground text-background hover:bg-teal-700 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-3 border-border shadow-sm"
       >
         <span>Explorar Grafo Vivo</span>
         <i className="bi bi-arrow-right" aria-hidden="true" />

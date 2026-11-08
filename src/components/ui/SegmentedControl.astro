@@ -17,14 +17,14 @@ interface Props {
 const { tabs, defaultTab = tabs[0]?.id } = Astro.props;
 ---
 
-<nav class="cagp-workspace-bar" aria-label="Abas operacionais da página">
-  <div class="cagp-workspace-tabs flex-1 min-w-0 overflow-x-auto scrollbar-none snap-x snap-proximity" role="tablist" data-tab-count={tabs.length}>
+<nav class="cagp-workspace-bar border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]" aria-label="Abas operacionais da página">
+  <div class="cagp-workspace-tabs scroll-mask-x flex-1 min-w-0 overflow-x-auto scrollbar-none snap-x snap-proximity" role="tablist" data-tab-count={tabs.length}>
     {tabs.map((tab) => {
       const isSelected = tab.id === defaultTab;
       return (
         <button
           type="button"
-          class={`cagp-workspace-tab snap-start ${isSelected ? 'is-active' : ''}`}
+          class={`cagp-workspace-tab min-h-[44px] snap-start ${isSelected ? 'is-active' : ''}`}
           role="tab"
           id={`ws-tab-${tab.id}`}
           aria-controls={`ws-panel-${tab.id}`}
@@ -41,7 +41,7 @@ const { tabs, defaultTab = tabs[0]?.id } = Astro.props;
   </div>
   <button
     type="button"
-    class="cagp-workspace-viewall shrink-0"
+    class="cagp-workspace-viewall min-h-[44px] min-w-[44px] shrink-0"
     aria-pressed="false"
     aria-label="Ver todas as abas"
     data-ws-tab="__all__"
@@ -63,6 +63,9 @@ const { tabs, defaultTab = tabs[0]?.id } = Astro.props;
       const panels = document.querySelectorAll<HTMLElement>('.cagp-workspace-view');
 
       function activate(tabId: string, updateHash = true) {
+        if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
+          navigator.vibrate(12);
+        }
         if (tabId === '__all__') {
           tabs.forEach((t) => {
             t.classList.remove('is-active');

@@ -178,45 +178,45 @@ const formularios: FormularioItem[] = [
 ];
 ---
 
-<div class="cagp-documentos-formularios space-y-6 select-none text-[#0A0A0A]">
-  <div class="p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-[4px_4px_0_0_#0A0A0A]">
+<div class="cagp-documentos-formularios space-y-6 select-none text-foreground">
+  <div class="p-5 bg-white border-3 border-border rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
     <div>
-      <span class="text-xs font-head uppercase font-bold tracking-wider text-[#15803D]">
+      <span class="text-xs font-head uppercase font-bold tracking-wider text-success">
         Modelos Padronizados & Minutas Editáveis
       </span>
-      <h3 class="font-head text-lg font-black uppercase text-[#0A0A0A] m-0 tracking-wide">
+      <h3 class="font-head text-lg font-black uppercase text-foreground m-0 tracking-wide">
         Formulários Oficiais, Modelos de Estágio e Roteiros
       </h3>
       <p class="text-xs text-gray-700 mt-0.5 m-0 font-body font-medium">
         Requerimentos para protocolo no Colegiado e os 7 modelos de estágio em formato duplo (PDF e DOCX editável).
       </p>
     </div>
-    <span class="px-3 py-1.5 rounded-lg bg-[#15803D] text-white font-mono text-xs font-bold shrink-0 border border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+    <span class="px-3 py-1.5 rounded-lg bg-success text-white font-mono text-xs font-bold shrink-0 border border-border shadow-sm">
       {formularios.length} Modelos Catalogados
     </span>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     {formularios.map((doc) => (
-      <div class="cagp-card p-5 bg-white border-2 border-[#0A0A0A] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[5px_5px_0_0_#0A0A0A] rounded-xl flex flex-col justify-between gap-3.5 transition-all shadow-[3px_3px_0_0_#0A0A0A]">
+      <div class="cagp-card p-5 bg-white border-3 border-border hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[5px_5px_0_0_#0A0A0A] rounded-xl flex flex-col justify-between gap-3.5 transition-all shadow">
         <div class="flex items-start gap-3 min-w-0">
-          <div class="w-10 h-10 rounded-lg bg-[#15803D] text-white border-2 border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A] flex items-center justify-center shrink-0 mt-0.5">
+          <div class="w-10 h-10 rounded-lg bg-success text-white border-3 border-border shadow-xs flex items-center justify-center shrink-0 mt-0.5">
             <i class="bi bi-file-earmark-check-fill text-lg text-white" aria-hidden="true" />
           </div>
           <div class="min-w-0 flex-1">
             <div class="flex items-center gap-1.5 mb-1.5 flex-wrap">
               <span class="cagp-badge cagp-badge-dark text-[10px] font-mono font-bold">{doc.badge}</span>
-              <h4 class="font-head font-bold text-xs uppercase text-[#0A0A0A] leading-snug m-0 tracking-wide">{doc.title}</h4>
+              <h4 class="font-head font-bold text-xs uppercase text-foreground leading-snug m-0 tracking-wide">{doc.title}</h4>
             </div>
             <p class="text-xs text-gray-700 leading-relaxed m-0 font-body font-medium">{doc.desc}</p>
           </div>
         </div>
 
-        <div class="pt-3 border-t-2 border-[#0A0A0A] flex items-center justify-end gap-2 flex-wrap">
+        <div class="pt-3 border-t-2 border-border flex items-center justify-end gap-2 flex-wrap">
           <a
             href={asset(`/documentos/${doc.pdf}`)}
             download
-            class="min-h-[40px] px-3.5 py-1.5 bg-[#8B1E2D] hover:bg-[#6D1723] active:translate-x-[1px] active:translate-y-[1px] text-white rounded-xl text-xs font-head uppercase font-bold tracking-wider inline-flex items-center gap-1.5 transition-all no-underline border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]"
+            class="min-h-[40px] px-3.5 py-1.5 bg-secondary hover:bg-[#6D1723] active:translate-x-[1px] active:translate-y-[1px] text-white rounded-xl text-xs font-head uppercase font-bold tracking-wider inline-flex items-center gap-1.5 transition-all no-underline border-3 border-border shadow-sm"
             title={`Baixar PDF: ${doc.title}`}
           >
             <i class="bi bi-file-earmark-pdf" aria-hidden="true" />
@@ -226,7 +226,7 @@ const formularios: FormularioItem[] = [
             <a
               href={asset(`/documentos/${doc.docx}`)}
               download
-              class="min-h-[40px] px-3.5 py-1.5 bg-[#005A9C] hover:bg-[#004080] active:translate-x-[1px] active:translate-y-[1px] text-white rounded-xl text-xs font-head uppercase font-bold tracking-wider inline-flex items-center gap-1.5 transition-all no-underline border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]"
+              class="min-h-[40px] px-3.5 py-1.5 bg-info hover:bg-[#004080] active:translate-x-[1px] active:translate-y-[1px] text-white rounded-xl text-xs font-head uppercase font-bold tracking-wider inline-flex items-center gap-1.5 transition-all no-underline border-3 border-border shadow-sm"
               title={`Baixar DOCX editável: ${doc.title}`}
             >
               <i class="bi bi-file-earmark-word" aria-hidden="true" />

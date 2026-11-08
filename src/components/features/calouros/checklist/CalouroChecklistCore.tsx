@@ -1,8 +1,10 @@
-// src/components/features/calouros/checklist/CalouroChecklistCore.tsx — Checklist Interativo dos Primeiros 30 Dias (Padrão Dossiê Tátil)
+// src/components/features/calouros/checklist/CalouroChecklistCore.tsx — Checklist Interativo dos Primeiros 30 Dias (Padrão Dossiê Tátil + Motion Expressivo)
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { getVaultItem, setVaultItem, type VaultData } from '../../../../lib/storage/studentVault';
-import { asset } from '../../../../lib/paths';
-import { CagpIcon, type CagpIconName } from '../../../ui/CagpIcon';
+import { asset, route } from '../../../../lib/paths';
+import { CagpIcon, type CagpIconName } from '@/components/ui/CagpIcon';
+import { bounceSpring, tactileSpring, staggerContainer, staggerItem } from '@/lib/motion';
 
 interface ChecklistItem {
   id: string;
@@ -49,7 +51,7 @@ const CHECKLIST_ITEMS: ChecklistItem[] = [
     id: 'chk_secretaria',
     category: 'espaco',
     title: '5. Conhecer a Secretaria Sala F-2039',
-    desc: 'Localize a secretaria do Colegiado no 2º andar da FAFICH para atendimento presencial com Norma Guedes às quartas-feiras (13h às 19h).',
+    desc: 'Localize a secretaria do Colegiado no 2º andar da FAFICH para atendimento presencial às quartas-feiras (13h às 19h).',
     iconName: 'door-open',
   },
   {
@@ -76,9 +78,10 @@ const CHECKLIST_ITEMS: ChecklistItem[] = [
   {
     id: 'chk_cagp',
     category: 'academico',
-    title: '9. Seguir o CAGP e Participar dos Grupos de Turma',
-    desc: 'Participe dos canais de acolhimento discente e grupos oficiais para avisos sobre calendários e oportunidades.',
+    title: '9. Conhecer a Sala do CAGP (F-4000) & Grupos de Turma',
+    desc: 'Visite a sede do Centro Acadêmico e participe da Recepção de Calouros (Proposta 7 da Chapa Semente com TEMAS, SENATUS e Atlética).',
     iconName: 'users',
+    link: { label: 'Conhecer Proposta 7 (Semente)', url: route('/chapa-semente#propostas'), ext: false },
   },
   {
     id: 'chk_transporte',
@@ -89,19 +92,46 @@ const CHECKLIST_ITEMS: ChecklistItem[] = [
   },
 ];
 
+const CONFETTI_PARTICLES = [
+  { dx: -38, dy: -28, rot: -45, color: '#5B2A86' },
+  { dx: -18, dy: -42, rot: 25, color: '#FF8811' },
+  { dx: 12, dy: -38, rot: -20, color: '#9E2424' },
+  { dx: 36, dy: -26, rot: 40, color: '#15803D' },
+  { dx: -32, dy: 18, rot: 35, color: '#FF8811' },
+  { dx: 32, dy: 20, rot: -35, color: '#5B2A86' },
+];
+
 export const CalouroChecklistCore: React.FC = () => {
   const [checks, setChecks] = useState<VaultData<'cagp_calouro_checklist_v1'>>({});
   const [filter, setFilter] = useState<string>('todos');
+  const [justCheckedId, setJustCheckedId] = useState<string | null>(null);
 
   useEffect(() => {
-    const raw = getVaultItem('cagp_calouro_checklist_v1') || {};
-    setChecks(raw);
+    const load = () => {
+      const raw = getVaultItem('cagp_calouro_checklist_v1') || {};
+      setChecks(raw);
+    };
+    load();
+    window.addEventListener('cagp:vault-updated', load);
+    window.addEventListener('storage', load);
+    return () => {
+      window.removeEventListener('cagp:vault-updated', load);
+      window.removeEventListener('storage', load);
+    };
   }, []);
 
   const toggleCheck = (id: string) => {
-    const next = { ...checks, [id]: !checks[id] };
+    const willBeChecked = !checks[id];
+    const next = { ...checks, [id]: willBeChecked };
     setChecks(next);
     setVaultItem('cagp_calouro_checklist_v1', next);
+
+    if (willBeChecked) {
+      setJustCheckedId(id);
+      window.setTimeout(() => {
+        setJustCheckedId((curr) => (curr === id ? null : curr));
+      }, 900);
+    }
   };
 
   const completedCount = CHECKLIST_ITEMS.filter((item) => checks[item.id]).length;
@@ -113,118 +143,214 @@ export const CalouroChecklistCore: React.FC = () => {
   });
 
   return (
-    <div className="cagp-calouro-checklist space-y-6 select-none text-[#0A0A0A]">
-      {/* Painel de Progresso */}
-      <div className="p-5 sm:p-6 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-[4px_4px_0_0_#0A0A0A]">
+    <div className="cagp-calouro-checklist space-y-6 select-none text-foreground">
+      {/* Painel de Progresso Animado com Persistência no studentVault */}
+      <div className="p-5 sm:p-6 bg-white border-3 border-[#16181d] rounded-xl flex flex-col lg:flex-row lg:items-center justify-between gap-4 shadow-[6px_6px_0_0_#16181d]">
         <div>
-          <span className="text-xs font-head uppercase font-bold tracking-wider text-[#8B1E2D]">
-            Acolhimento Discente • 1º Período
-          </span>
-          <h3 className="font-head text-base sm:text-lg font-black uppercase text-[#0A0A0A] m-0 tracking-wide">
-            Checklist de Integração Acadêmica
+          <div className="flex flex-wrap items-center gap-2 mb-1">
+            <span className="px-2.5 py-0.5 rounded-md bg-[#5B2A86] text-white font-mono text-[10px] font-black uppercase border-2 border-[#16181d]">
+              COFRE LOCAL • STUDENTVAULT
+            </span>
+            <span className="text-xs font-head uppercase font-bold tracking-wider text-secondary">
+              Acolhimento Discente • Primeiros 30 Dias
+            </span>
+          </div>
+          <h3 className="font-head text-lg sm:text-xl font-black uppercase text-[#16181d] m-0 tracking-wide">
+            Checklist Tátil de Integração Acadêmica (1º Período)
           </h3>
-          <p className="text-xs text-gray-700 mt-0.5 m-0 font-body font-medium">
-            Conclua os 10 passos nos primeiros 30 dias de aula para garantir plena regularidade.
+          <p className="text-xs text-gray-700 mt-1 m-0 font-body font-medium">
+            Toque em cada etapa para carimbar sua conquista. Seu progresso fica salvo automaticamente no seu navegador.
           </p>
         </div>
 
-        <div className="flex items-center gap-4 w-full sm:w-auto">
-          <div className="space-y-1.5 flex-1 sm:w-48">
-            <div className="flex justify-between text-xs font-mono text-gray-800 font-bold">
-              <span>Conclusão</span>
-              <span className="text-[#8B1E2D]">{completedCount} de 10 ({pct}%)</span>
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 w-full lg:w-auto">
+          <div className="space-y-1.5 flex-1 sm:w-64">
+            <div className="flex justify-between items-center text-xs font-mono text-[#16181d] font-black">
+              <span>PROGRESSO 30 DIAS</span>
+              <motion.span
+                key={pct}
+                initial={{ scale: 1.35, color: '#FF8811' }}
+                animate={{ scale: 1, color: '#9E2424' }}
+                transition={bounceSpring}
+                className="text-secondary font-black"
+              >
+                {completedCount} de {CHECKLIST_ITEMS.length} ({pct}%)
+              </motion.span>
             </div>
-            <div className="w-full bg-white border-2 border-[#0A0A0A] rounded-full h-3 overflow-hidden p-0.5">
-              <div
-                className="bg-[#8B1E2D] h-full transition-all duration-300 rounded-full"
-                style={{ width: `${pct}%` }}
+            <div
+              className="w-full bg-[#f4f0ea] border-3 border-[#16181d] rounded-full h-4 overflow-hidden p-0.5 shadow-[2px_2px_0_0_#16181d]"
+              role="progressbar"
+              aria-valuenow={pct}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-label="Progresso do Checklist de 30 dias do Calouro"
+            >
+              <motion.div
+                initial={false}
+                animate={{ width: `${pct}%` }}
+                transition={bounceSpring}
+                className="bg-gradient-to-r from-[#5B2A86] via-[#9E2424] to-[#FF8811] h-full rounded-full"
               />
             </div>
           </div>
-          {completedCount === CHECKLIST_ITEMS.length && (
-            <span className="cagp-stamp-badge is-homologado text-[11px] py-1 px-3 shadow-[2px_2px_0_0_#0A0A0A] shrink-0 font-head uppercase font-bold tracking-wider">
-              <span className="inline-flex items-center gap-1">
-                <CagpIcon name="stamp" className="w-3.5 h-3.5 inline" />
-                <span>INTEGRALIZADO</span>
-              </span>
-            </span>
-          )}
+
+          <AnimatePresence>
+            {completedCount === CHECKLIST_ITEMS.length && (
+              <motion.span
+                initial={{ scale: 2, rotate: -14, opacity: 0 }}
+                animate={{ scale: 1, rotate: -2, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
+                transition={bounceSpring}
+                className="cagp-stamp-badge is-homologado text-[11px] py-1.5 px-3 shadow-[3px_3px_0_0_#16181d] shrink-0 font-head uppercase font-black tracking-wider"
+              >
+                <span className="inline-flex items-center gap-1">
+                  <CagpIcon name="stamp" className="w-3.5 h-3.5 inline" />
+                  <span>INTEGRALIZADO</span>
+                </span>
+              </motion.span>
+            )}
+          </AnimatePresence>
         </div>
       </div>
 
-      {/* Filtros por Categoria */}
-      <div className="flex flex-wrap items-center gap-2">
+      {/* Filtros por Categoria com Alvos Táteis 44x44pt */}
+      <div className="flex flex-wrap items-center gap-2" role="tablist" aria-label="Filtrar itens do checklist">
         {[
-          { id: 'todos', label: 'Todos os Passos' },
+          { id: 'todos', label: 'Todos os Passos (10)' },
           { id: 'acesso', label: 'Sistemas & Wi-Fi' },
           { id: 'documento', label: 'Carteirinha & FUMP' },
           { id: 'espaco', label: 'Espaços & RU II' },
           { id: 'academico', label: 'Grade & CAGP' },
         ].map((f) => (
-          <button
+          <motion.button
             key={f.id}
             type="button"
+            role="tab"
+            aria-selected={filter === f.id}
+            whileHover={{ y: -2 }}
+            whileTap={{ x: 2, y: 2 }}
+            transition={tactileSpring}
             onClick={() => setFilter(f.id)}
-            className={`px-3.5 py-2 rounded-xl text-xs font-head uppercase font-bold tracking-wider transition-all cursor-pointer border-2 border-[#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] ${
+            className={`min-h-[44px] px-4 py-2 rounded-xl text-xs font-head uppercase font-black tracking-wider transition-colors cursor-pointer border-3 border-[#16181d] ${
               filter === f.id
-                ? 'bg-[#8B1E2D] text-white shadow-[3px_3px_0_0_#0A0A0A]'
-                : 'bg-white text-[#0A0A0A] hover:bg-muted shadow-[2px_2px_0_0_#0A0A0A]'
+                ? 'bg-secondary text-white shadow-[4px_4px_0_0_#16181d]'
+                : 'bg-white text-[#16181d] hover:bg-[#f4f0ea] shadow-[2px_2px_0_0_#16181d]'
             }`}
           >
             {f.label}
-          </button>
+          </motion.button>
         ))}
       </div>
 
-      {/* Lista de Passos do Checklist */}
-      <div className="bg-white border-2 border-[#0A0A0A] rounded-xl divide-y-2 divide-[#0A0A0A] shadow-[4px_4px_0_0_#0A0A0A] overflow-hidden">
+      {/* Lista de Passos do Checklist com Carimbo e Confete Tátil (bounceSpring) */}
+      <motion.div
+        variants={staggerContainer(0.04)}
+        initial="hidden"
+        animate="show"
+        className="bg-white border-3 border-[#16181d] rounded-xl divide-y-3 divide-[#16181d] shadow-[6px_6px_0_0_#16181d] overflow-hidden"
+      >
         {filteredItems.map((item) => {
           const isDone = !!checks[item.id];
+          const isBursting = justCheckedId === item.id;
+
           return (
-            <div
+            <motion.div
               key={item.id}
-              className={`p-4 sm:p-5 flex items-start gap-4 transition-colors ${
-                isDone ? 'bg-[#DCFCE7]/40' : 'hover:bg-muted/40'
+              variants={staggerItem}
+              layout
+              className={`relative p-4 sm:p-5 flex items-start gap-4 transition-colors ${
+                isDone ? 'bg-[#F0FDF4]' : 'bg-white hover:bg-[#FFFDF9]'
               }`}
             >
-              <label
-                htmlFor={`chk-${item.id}`}
-                className="pt-0.5 cursor-pointer shrink-0"
-              >
-                <input
-                  type="checkbox"
-                  id={`chk-${item.id}`}
-                  checked={isDone}
-                  onChange={() => toggleCheck(item.id)}
-                  className="w-5 h-5 text-[#15803D] accent-[#15803D] rounded border-2 border-[#0A0A0A] cursor-pointer"
-                />
-              </label>
+              {/* Botão / Checkbox Tátil 44x44pt com Confete Explosivo */}
+              <div className="relative shrink-0">
+                <motion.button
+                  type="button"
+                  role="checkbox"
+                  aria-checked={isDone}
+                  aria-label={`Marcar passo: ${item.title}`}
+                  onClick={() => toggleCheck(item.id)}
+                  whileTap={{ scale: 0.85 }}
+                  animate={isDone ? { scale: [1, 1.22, 1], rotate: [0, -6, 0] } : { scale: 1, rotate: 0 }}
+                  transition={bounceSpring}
+                  className={`w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border-3 border-[#16181d] flex items-center justify-center cursor-pointer transition-colors ${
+                    isDone
+                      ? 'bg-[#15803D] text-white shadow-[3px_3px_0_0_#16181d]'
+                      : 'bg-white text-[#16181d] hover:bg-[#f4f0ea] shadow-[3px_3px_0_0_#16181d]'
+                  }`}
+                >
+                  {isDone ? (
+                    <CagpIcon name="check" className="w-5 h-5 text-white" />
+                  ) : (
+                    <span className="font-mono text-xs font-black text-gray-500">✓</span>
+                  )}
+                </motion.button>
+
+                {/* Explosão de Confete Tátil ao Carimbar */}
+                <AnimatePresence>
+                  {isBursting && (
+                    <div className="pointer-events-none absolute inset-0 flex items-center justify-center z-20" aria-hidden="true">
+                      {CONFETTI_PARTICLES.map((p, idx) => (
+                        <motion.span
+                          key={idx}
+                          initial={{ x: 0, y: 0, scale: 0, rotate: 0, opacity: 1 }}
+                          animate={{
+                            x: p.dx,
+                            y: p.dy,
+                            scale: [0, 1.25, 0.8],
+                            rotate: p.rot,
+                            opacity: [1, 1, 0],
+                          }}
+                          exit={{ opacity: 0 }}
+                          transition={bounceSpring}
+                          style={{ backgroundColor: p.color }}
+                          className="absolute w-3 h-3 rounded-sm border-2 border-[#16181d]"
+                        />
+                      ))}
+                    </div>
+                  )}
+                </AnimatePresence>
+              </div>
 
               <div className="min-w-0 flex-1">
-                <div className="flex items-center justify-between gap-2 mb-1.5">
-                  <h4
-                    className={`font-head text-sm sm:text-base font-bold uppercase leading-tight m-0 tracking-wide ${
-                      isDone ? 'line-through text-gray-500' : 'text-[#0A0A0A]'
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+                  <button
+                    type="button"
+                    onClick={() => toggleCheck(item.id)}
+                    className={`text-left font-head text-sm sm:text-base font-black uppercase leading-tight m-0 tracking-wide cursor-pointer bg-transparent border-0 p-0 ${
+                      isDone ? 'line-through text-gray-500' : 'text-[#16181d]'
                     }`}
                   >
                     {item.title}
-                  </h4>
+                  </button>
+
                   <div className="flex items-center gap-2 shrink-0">
-                    {isDone && (
-                      <span className="cagp-stamp-badge is-feito text-[10px] py-0.5 px-2.5 shadow-[1px_1px_0_0_#0A0A0A]">
-                        <span className="inline-flex items-center gap-1 font-head font-bold uppercase tracking-wider">
-                          <CagpIcon name="check" className="w-3 h-3 inline" />
-                          <span>FEITO</span>
-                        </span>
-                      </span>
-                    )}
-                    <span className={isDone ? 'text-[#15803D]' : 'text-gray-400'}>
+                    <AnimatePresence mode="popLayout">
+                      {isDone && (
+                        <motion.span
+                          key="stamp-done"
+                          initial={{ scale: 2.2, rotate: -16, opacity: 0 }}
+                          animate={{ scale: 1, rotate: -2, opacity: 1 }}
+                          exit={{ scale: 0.5, opacity: 0 }}
+                          transition={bounceSpring}
+                          className="cagp-stamp-badge is-feito text-[10px] py-1 px-2.5 shadow-[2px_2px_0_0_#16181d]"
+                        >
+                          <span className="inline-flex items-center gap-1 font-head font-black uppercase tracking-wider">
+                            <CagpIcon name="stamp" className="w-3 h-3 inline" />
+                            <span>CARIMBADO</span>
+                          </span>
+                        </motion.span>
+                      )}
+                    </AnimatePresence>
+                    <span className={`w-8 h-8 rounded-lg border-2 border-[#16181d] flex items-center justify-center ${
+                      isDone ? 'bg-[#DCFCE7] text-[#15803D]' : 'bg-[#f4f0ea] text-[#16181d]'
+                    }`}>
                       <CagpIcon name={item.iconName} className="w-4 h-4" />
                     </span>
                   </div>
                 </div>
 
-                <p className="text-xs text-gray-700 leading-relaxed m-0 mb-2 font-body font-medium">
+                <p className="text-xs text-gray-800 leading-relaxed m-0 mb-2.5 font-body font-medium">
                   {item.desc}
                 </p>
 
@@ -233,38 +359,46 @@ export const CalouroChecklistCore: React.FC = () => {
                     href={item.link.url}
                     target={item.link.ext ? '_blank' : undefined}
                     rel={item.link.ext ? 'noopener noreferrer' : undefined}
-                    className="inline-flex items-center gap-1.5 text-xs font-head font-bold uppercase tracking-wider text-[#8B1E2D] hover:underline"
+                    className="min-h-[44px] px-3.5 py-2 rounded-xl border-2 border-[#16181d] bg-[#FFFDF9] hover:bg-[#FF8811] text-[#16181d] shadow-[2px_2px_0_0_#16181d] inline-flex items-center gap-1.5 text-xs font-head font-black uppercase tracking-wider no-underline transition-all"
                   >
                     <span>{item.link.label}</span>
                     <CagpIcon name="arrow-up-right" className="w-3.5 h-3.5" />
                   </a>
                 )}
               </div>
-            </div>
+            </motion.div>
           );
         })}
-      </div>
+      </motion.div>
 
-      {/* Banner de Celebração */}
-      {completedCount === CHECKLIST_ITEMS.length && completedCount > 0 && (
-        <div className="p-5 sm:p-6 rounded-xl bg-[#DCFCE7] border-2 border-[#0A0A0A] shadow-[4px_4px_0_0_#0A0A0A] flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-          <div>
-            <div className="flex items-center gap-2 justify-center sm:justify-start mb-1.5">
-              <span className="cagp-stamp-badge is-homologado shadow-[2px_2px_0_0_#0A0A0A]">★ 100% CONCLUÍDO</span>
-              <span className="font-head font-black text-base uppercase text-[#15803D] tracking-wide">
-                Todos os 30 Dias Ativados!
-              </span>
+      {/* Banner de Celebração Animado quando 100% Concluído */}
+      <AnimatePresence>
+        {completedCount === CHECKLIST_ITEMS.length && completedCount > 0 && (
+          <motion.div
+            initial={{ scale: 0.9, y: 16, opacity: 0 }}
+            animate={{ scale: 1, y: 0, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            transition={bounceSpring}
+            className="p-5 sm:p-6 rounded-xl bg-[#DCFCE7] border-3 border-[#16181d] shadow-[6px_6px_0_0_#16181d] flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left"
+          >
+            <div>
+              <div className="flex flex-wrap items-center gap-2 justify-center sm:justify-start mb-1.5">
+                <span className="cagp-stamp-badge is-homologado shadow-sm">★ 100% CONCLUÍDO</span>
+                <span className="font-head font-black text-base uppercase text-[#15803D] tracking-wide">
+                  Todos os 30 Dias Ativados!
+                </span>
+              </div>
+              <p className="text-xs text-[#16181d] font-body font-bold m-0">
+                Parabéns! Todos os sistemas, acessos e rotinas da UFMG foram integralmente configurados no seu Cofre Discente.
+              </p>
             </div>
-            <p className="text-xs text-gray-800 font-body font-medium m-0">
-              Parabéns! Todos os sistemas, acessos e rotinas da UFMG foram integralmente configurados.
-            </p>
-          </div>
-          <div className="cagp-big-stamp shrink-0 scale-90 sm:scale-100 shadow-[3px_3px_0_0_#0A0A0A]">
-            <span className="cagp-big-stamp-title">★ CALOURO INTEGRALIZADO</span>
-            <span className="cagp-big-stamp-sub">FAFICH / UFMG</span>
-          </div>
-        </div>
-      )}
+            <div className="cagp-big-stamp shrink-0 scale-90 sm:scale-100 shadow">
+              <span className="cagp-big-stamp-title">★ CALOURO INTEGRALIZADO</span>
+              <span className="cagp-big-stamp-sub">FAFICH / UFMG • CHAPA SEMENTE</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

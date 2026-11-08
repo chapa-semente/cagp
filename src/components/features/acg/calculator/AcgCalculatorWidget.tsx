@@ -1,5 +1,7 @@
 // src/components/features/acg/calculator/AcgCalculatorWidget.tsx — Widget de Resumo das 600h
 import React, { useState, useEffect } from 'react';
+import { motion } from 'motion/react';
+import { bounceSpring } from '@/lib/motion';
 import { getVaultItem } from '../../../../lib/storage/studentVault';
 import { route } from '../../../../lib/paths';
 
@@ -46,48 +48,50 @@ export const AcgCalculatorWidget: React.FC = () => {
   const pct = Math.round((total / 600) * 100);
 
   return (
-    <div className="cagp-card p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between h-full shadow-[3px_3px_0_0_#0A0A0A] hover:shadow-[1.5px_1.5px_0_0_#0A0A0A] hover:translate-x-[1px] hover:translate-y-[1px] transition-all select-none">
+    <div className="cagp-card p-5 bg-white border-3 border-border rounded-xl flex flex-col justify-between h-full shadow hover:shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] transition-all select-none">
       <div>
         <div className="flex items-center justify-between gap-2 mb-3.5">
           <div className="flex items-center gap-2.5">
-            <span className="w-10 h-10 rounded-xl bg-[#9E2424]/10 text-[#9E2424] flex items-center justify-center text-lg border border-[#9E2424] shadow-[1px_1px_0_0_#0A0A0A]">
+            <span className="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center text-lg border border-secondary shadow-xs">
               <i className="bi bi-calculator-fill" aria-hidden="true" />
             </span>
             <div>
-              <h3 className="font-head font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0">
+              <h3 className="font-head font-bold text-sm uppercase text-foreground leading-tight m-0">
                 Calculadora 600h
               </h3>
-              <span className="text-[11px] text-[#57534E] font-mono">Extensão 300h + AAC 300h</span>
+              <span className="text-[11px] text-muted-foreground font-mono">Extensão 300h + AAC 300h</span>
             </div>
           </div>
           <span
-            className={`px-2.5 py-1 rounded-md font-head text-[11px] font-bold border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A] ${
+            className={`px-2.5 py-1 rounded-md font-head text-[11px] font-bold border border-border shadow-xs ${
               total >= 600
-                ? 'bg-[#266264] text-white'
+                ? 'bg-teal-700 text-white'
                 : total > 0
-                ? 'bg-[#9E2424] text-white'
-                : 'bg-white text-[#0A0A0A]'
+                ? 'bg-secondary text-white'
+                : 'bg-white text-foreground'
             }`}
           >
             {total >= 600 ? '100% Concluído' : `${pct}% Integralizado`}
           </span>
         </div>
 
-        <p className="font-body text-xs text-[#292524] leading-relaxed mb-3.5">
+        <p className="font-body text-xs text-muted-foreground leading-relaxed mb-3.5">
           Simulador com trava automática dos tetos do Art. 15 e cálculo em blocos de 15h (1 crédito).
         </p>
 
-        {/* Barras Lineares de Progresso */}
+        {/* Barras Lineares de Progresso com Mola */}
         <div className="space-y-3 mb-4">
           <div>
             <div className="flex justify-between items-center text-[11px] font-bold mb-1">
-              <span className="text-[#9E2424] uppercase font-head">Extensão Obrigatória</span>
-              <span className="font-mono text-[#0A0A0A]">{extTotal}/300h ({Math.round(extTotal / 15)} cr)</span>
+              <span className="text-secondary uppercase font-head">Extensão Obrigatória</span>
+              <span className="font-mono text-foreground">{extTotal}/300h ({Math.round(extTotal / 15)} cr)</span>
             </div>
-            <div className="w-full bg-[#F3ECE0] border-2 border-[#0A0A0A] rounded-full h-3 overflow-hidden shadow-[1px_1px_0_0_#0A0A0A]">
-              <div
-                className="bg-[#9E2424] h-full transition-all duration-300"
-                style={{ width: `${Math.min(100, (extTotal / 300) * 100)}%` }}
+            <div className="w-full bg-[#F3ECE0] border-3 border-border rounded-full h-3 overflow-hidden shadow-xs">
+              <motion.div
+                initial={false}
+                animate={{ width: `${Math.min(100, (extTotal / 300) * 100)}%` }}
+                transition={bounceSpring}
+                className="bg-secondary h-full"
               />
             </div>
           </div>
@@ -95,12 +99,14 @@ export const AcgCalculatorWidget: React.FC = () => {
           <div>
             <div className="flex justify-between items-center text-[11px] font-bold mb-1">
               <span className="text-[#266264] uppercase font-head">Atividades Complementares (AAC)</span>
-              <span className="font-mono text-[#0A0A0A]">{aacTotal}/300h ({Math.round(aacTotal / 15)} cr)</span>
+              <span className="font-mono text-foreground">{aacTotal}/300h ({Math.round(aacTotal / 15)} cr)</span>
             </div>
-            <div className="w-full bg-[#F3ECE0] border-2 border-[#0A0A0A] rounded-full h-3 overflow-hidden shadow-[1px_1px_0_0_#0A0A0A]">
-              <div
-                className="bg-[#266264] h-full transition-all duration-300"
-                style={{ width: `${Math.min(100, (aacTotal / 300) * 100)}%` }}
+            <div className="w-full bg-[#F3ECE0] border-3 border-border rounded-full h-3 overflow-hidden shadow-xs">
+              <motion.div
+                initial={false}
+                animate={{ width: `${Math.min(100, (aacTotal / 300) * 100)}%` }}
+                transition={bounceSpring}
+                className="bg-teal-700 h-full"
               />
             </div>
           </div>
@@ -109,9 +115,9 @@ export const AcgCalculatorWidget: React.FC = () => {
 
       <a
         href={route('/acg') + '#calculadora'}
-        className="min-h-[44px] px-4 py-2.5 bg-[#0A0A0A] hover:bg-[#9E2424] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-2 border-[#0A0A0A] shadow-[2.5px_2.5px_0_0_#0A0A0A]"
+        className="min-h-[44px] px-4 py-2.5 bg-foreground text-background hover:bg-secondary active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-3 border-border shadow-sm"
       >
-        <span>Abrir Simulador Completo</span>
+        <span>Simular Horas</span>
         <i className="bi bi-arrow-right" aria-hidden="true" />
       </a>
     </div>

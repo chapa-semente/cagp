@@ -6,7 +6,7 @@ import SegmentedControl from '../components/ui/SegmentedControl.astro';
 import JourneyNav from '../components/ui/JourneyNav.astro';
 import CalouroCentralOverview from '../components/features/calouros/CalouroCentralOverview.astro';
 import { CalouroChecklistCore } from '../components/features/calouros/checklist/CalouroChecklistCore';
-import CalourosVideos from '../components/calouros/CalourosVideos.astro';
+import CalourosVideos from '../components/features/calouros/CalourosVideos.astro';
 import CalouroNoturnoCore from '../components/features/calouros/noturno/CalouroNoturnoCore.astro';
 import CalouroEspacosCore from '../components/features/calouros/espacos/CalouroEspacosCore.astro';
 import CalouroFumpCore from '../components/features/calouros/fump/CalouroFumpCore.astro';
@@ -22,7 +22,7 @@ const tabs = [
 
 const badges = [
   { label: 'Turno Noturno 19h–22h30', variant: 'red' as const, icon: 'bi-moon-stars-fill' },
-  { label: 'Jantar RU II 17h30–19h00', variant: 'dark' as const, icon: 'bi-cup-hot-fill' },
+  { label: 'Jantar RU II 17h10–19h30', variant: 'dark' as const, icon: 'bi-cup-hot-fill' },
   { label: 'Circulares até 22h45', variant: 'green' as const, icon: 'bi-bus-front' },
   { label: 'CEAG FAFICH 08h–22h', variant: 'blue' as const, icon: 'bi-building' },
 ];
@@ -31,25 +31,30 @@ const badges = [
 <BaseLayout
   title="Guia de Sobrevivência do Calouro"
   description="Checklist interativo dos primeiros 30 dias na UFMG, rotina noturna, jantar no RU II às 18h15, circulares gratuitos, secretaria Sala F-2039 e suporte FUMP."
+  mode="operate"
 >
   <PageHeader
-    eyebrow="Eixo 2 · Guia de Sobrevivência"
+    eyebrow="Eixo 2 · Guia do Calouro"
     title="Guia de Sobrevivência do Calouro"
-    subtitle="Checklist interativo dos primeiros 30 dias, rotina noturna, jantar no RU II, circulares gratuitos, secretaria Sala F-2039 e suporte FUMP."
+    subtitle="Checklist interativo dos primeiros 30 dias, rotina noturna, jantar no RU II, circulares gratuitos, Sala F-4000, Secretaria F-2039 e suporte FUMP."
     badges={badges}
+    axisId="curso"
+    activeId="calouros"
+    mode="operate"
+    condensed={true}
   />
 
   <SegmentedControl tabs={tabs} defaultTab="v0" />
 
-  <!-- Sub-view 0: Visão Geral do Calouro -->
-  <section id="ws-panel-v0" class="cagp-workspace-view" data-ws-panel="v0">
+  <!-- Sub-view 0: Visão Geral do Calouro (Sem banner duplicado para acesso imediato no mobile) -->
+  <section id="ws-panel-v0" class="cagp-workspace-view relative overflow-hidden space-y-6" data-ws-panel="v0" data-context-type="checklist">
     <div id="visao-geral" class="cagp-anchor-target scroll-mt-24"></div>
-    <CalourosOnboardingGuide client:visible />
     <CalouroCentralOverview />
+    <CalourosOnboardingGuide client:visible />
   </section>
 
   <!-- Sub-view 1: Checklist & Tutoriais em Vídeo -->
-  <section id="ws-panel-v1" class="cagp-workspace-view space-y-4" data-ws-panel="v1" hidden>
+  <section id="ws-panel-v1" class="cagp-workspace-view space-y-4" data-ws-panel="v1" data-context-type="checklist" hidden>
     <div id="checklist" class="cagp-anchor-target scroll-mt-24"></div>
     <CalouroChecklistCore client:load />
     <CalourosVideos />

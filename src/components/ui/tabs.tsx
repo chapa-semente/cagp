@@ -1,5 +1,7 @@
 import * as React from "react"
 import { Tabs as TabsPrimitive } from "radix-ui"
+import { motion } from "motion/react"
+import { tactileSpring } from "@/lib/motion"
 import { cn } from "@/lib/utils"
 
 function Tabs({
@@ -23,7 +25,7 @@ function TabsList({
     <TabsPrimitive.List
       data-slot="tabs-list"
       className={cn(
-        "inline-flex min-h-12 items-center justify-center rounded-xl border-3 border-border bg-muted/70 p-1.5 text-foreground shadow-md gap-1.5",
+        "scroll-mask-x inline-flex max-w-full min-h-12 items-center justify-start sm:justify-center overflow-x-auto scrollbar-none rounded-xl border-3 border-[#16181d] bg-muted/80 p-1.5 text-foreground shadow-[4px_4px_0_0_#16181d] gap-1.5",
         className
       )}
       {...props}
@@ -39,7 +41,7 @@ function TabsTrigger({
     <TabsPrimitive.Trigger
       data-slot="tabs-trigger"
       className={cn(
-        "inline-flex items-center justify-center whitespace-nowrap rounded-lg border-2 border-transparent px-4 py-2 gap-1.5 font-heading text-xs sm:text-sm font-extrabold uppercase tracking-wide cursor-pointer transition-all duration-150 hover:bg-card/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-border data-[state=active]:shadow-sm",
+        "inline-flex min-h-[44px] items-center justify-center whitespace-nowrap rounded-lg border-2 border-transparent px-4 py-2 gap-1.5 font-heading text-xs sm:text-sm font-extrabold uppercase tracking-wide cursor-pointer transition-all duration-150 hover:bg-card/90 active:translate-x-[2px] active:translate-y-[2px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-[#16181d] data-[state=active]:shadow-[2px_2px_0_0_#16181d]",
         className
       )}
       {...props}
@@ -49,6 +51,7 @@ function TabsTrigger({
 
 function TabsContent({
   className,
+  children,
   ...props
 }: React.ComponentProps<typeof TabsPrimitive.Content>) {
   return (
@@ -59,7 +62,15 @@ function TabsContent({
         className
       )}
       {...props}
-    />
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 6 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={tactileSpring}
+      >
+        {children}
+      </motion.div>
+    </TabsPrimitive.Content>
   )
 }
 

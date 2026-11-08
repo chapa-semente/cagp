@@ -1,24 +1,24 @@
 ---
 // src/components/features/documentos/DocumentosCentralOverview.astro — Visão Geral do Acervo de Documentos
-import { asset } from '../../../lib/paths';
+import { asset } from '@/lib/paths';
 ---
 
-<div class="cagp-documentos-central-overview space-y-6 select-none text-[#0A0A0A]">
+<div class="cagp-documentos-central-overview space-y-6 select-none text-foreground">
   {/* Apresentação do Acervo */}
-  <div class="p-5 sm:p-6 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-[4px_4px_0_0_#0A0A0A]">
+  <div class="p-5 sm:p-6 bg-white border-3 border-border rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-md">
     <div class="flex items-start gap-3.5">
-      <span class="w-12 h-12 rounded-xl bg-[#8B1E2D] text-white flex items-center justify-center text-xl shrink-0 mt-0.5 border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+      <span class="w-12 h-12 rounded-xl bg-secondary text-white flex items-center justify-center text-xl shrink-0 mt-0.5 border-3 border-border shadow-sm">
         <i class="bi bi-folder2-open" aria-hidden="true" />
       </span>
       <div>
         <div class="flex items-center gap-2">
-          <span class="text-xs font-head uppercase font-bold tracking-wider text-[#8B1E2D]">
+          <span class="text-xs font-head uppercase font-bold tracking-wider text-secondary">
             Acervo Documental & Normativo
           </span>
-          <span class="text-[#0A0A0A]">•</span>
-          <span class="text-xs text-[#0A0A0A] font-mono font-bold">100% Autêntico</span>
+          <span class="text-foreground">•</span>
+          <span class="text-xs text-foreground font-mono font-bold">100% Autêntico</span>
         </div>
-        <h2 class="font-head text-lg sm:text-xl font-black uppercase text-[#0A0A0A] leading-tight m-0 tracking-wide">
+        <h2 class="font-head text-lg sm:text-xl font-black uppercase text-foreground leading-tight m-0 tracking-wide">
           Cofre de Atos Normativos, Formulários e Processos DRCA
         </h2>
         <p class="text-xs text-gray-700 mt-1 max-w-3xl leading-relaxed m-0 font-body font-medium">
@@ -31,21 +31,21 @@ import { asset } from '../../../lib/paths';
   {/* Bento Grid das 3 Seções */}
   <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
     {/* Card 1: Atos Normativos */}
-    <div class="cagp-card p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between h-full shadow-[3px_3px_0_0_#0A0A0A] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0_0_#0A0A0A] transition-all">
+    <div class="cagp-card p-5 bg-white border-3 border-border rounded-xl flex flex-col justify-between h-full shadow hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-md transition-all">
       <div>
         <div class="flex items-center justify-between gap-2 mb-3">
           <div class="flex items-center gap-2.5">
-            <span class="w-9 h-9 rounded-lg bg-[#8B1E2D] text-white flex items-center justify-center text-lg border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+            <span class="w-9 h-9 rounded-lg bg-secondary text-white flex items-center justify-center text-lg border-3 border-border shadow-sm">
               <i class="bi bi-file-earmark-ruled-fill text-white" aria-hidden="true" />
             </span>
             <div>
-              <h3 class="font-head font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0 tracking-wide">
+              <h3 class="font-head font-bold text-sm uppercase text-foreground leading-tight m-0 tracking-wide">
                 Atos Normativos
               </h3>
               <span class="text-[11px] text-gray-700 font-mono font-medium">PPC, Regulamento & Estatuto</span>
             </div>
           </div>
-          <span class="px-2 py-0.5 rounded-md font-head text-[11px] font-bold bg-[#8B1E2D] text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">
+          <span class="px-2 py-0.5 rounded-md font-head text-[11px] font-bold bg-secondary text-white border border-border shadow-xs">
             Leis
           </span>
         </div>
@@ -56,7 +56,7 @@ import { asset } from '../../../lib/paths';
 
       <a
         href="#atos"
-        class="min-h-[44px] px-3.5 py-2 bg-[#0A0A0A] hover:bg-[#8B1E2D] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A]"
+        class="min-h-[44px] px-3.5 py-2 bg-foreground text-background hover:bg-secondary active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-3 border-border shadow"
       >
         <span>Consultar Atos</span>
         <i class="bi bi-arrow-right" aria-hidden="true" />
@@ -64,21 +64,21 @@ import { asset } from '../../../lib/paths';
     </div>
 
     {/* Card 2: Formulários Oficiais */}
-    <div class="cagp-card p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between h-full shadow-[3px_3px_0_0_#0A0A0A] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0_0_#0A0A0A] transition-all">
+    <div class="cagp-card p-5 bg-white border-3 border-border rounded-xl flex flex-col justify-between h-full shadow hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-md transition-all">
       <div>
         <div class="flex items-center justify-between gap-2 mb-3">
           <div class="flex items-center gap-2.5">
-            <span class="w-9 h-9 rounded-lg bg-[#15803D] text-white flex items-center justify-center text-lg border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+            <span class="w-9 h-9 rounded-lg bg-success text-white flex items-center justify-center text-lg border-3 border-border shadow-sm">
               <i class="bi bi-journal-check text-white" aria-hidden="true" />
             </span>
             <div>
-              <h3 class="font-head font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0 tracking-wide">
+              <h3 class="font-head font-bold text-sm uppercase text-foreground leading-tight m-0 tracking-wide">
                 Formulários & Modelos
               </h3>
               <span class="text-[11px] text-gray-700 font-mono font-medium">AAC, Estágio & TCC</span>
             </div>
           </div>
-          <span class="px-2 py-0.5 rounded-md font-head text-[11px] font-bold bg-[#15803D] text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">
+          <span class="px-2 py-0.5 rounded-md font-head text-[11px] font-bold bg-success text-white border border-border shadow-xs">
             Modelos
           </span>
         </div>
@@ -89,7 +89,7 @@ import { asset } from '../../../lib/paths';
 
       <a
         href="#formularios"
-        class="min-h-[44px] px-3.5 py-2 bg-[#0A0A0A] hover:bg-[#15803D] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A]"
+        class="min-h-[44px] px-3.5 py-2 bg-foreground text-background hover:bg-success active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-3 border-border shadow"
       >
         <span>Ver Formulários</span>
         <i class="bi bi-arrow-right" aria-hidden="true" />
@@ -97,21 +97,21 @@ import { asset } from '../../../lib/paths';
     </div>
 
     {/* Card 3: Processos DRCA */}
-    <div class="cagp-card p-5 bg-white border-2 border-[#0A0A0A] rounded-xl flex flex-col justify-between h-full shadow-[3px_3px_0_0_#0A0A0A] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0_0_#0A0A0A] transition-all">
+    <div class="cagp-card p-5 bg-white border-3 border-border rounded-xl flex flex-col justify-between h-full shadow hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-md transition-all">
       <div>
         <div class="flex items-center justify-between gap-2 mb-3">
           <div class="flex items-center gap-2.5">
-            <span class="w-9 h-9 rounded-lg bg-[#0A0A0A] text-white flex items-center justify-center text-lg border-2 border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A]">
+            <span class="w-9 h-9 rounded-lg bg-foreground text-background text-white flex items-center justify-center text-lg border-3 border-border shadow-sm">
               <i class="bi bi-archive-fill text-white" aria-hidden="true" />
             </span>
             <div>
-              <h3 class="font-head font-bold text-sm uppercase text-[#0A0A0A] leading-tight m-0 tracking-wide">
+              <h3 class="font-head font-bold text-sm uppercase text-foreground leading-tight m-0 tracking-wide">
                 DRCA & Prazos
               </h3>
               <span class="text-[11px] text-gray-700 font-mono font-medium">Trancamento & Res. 06/2019</span>
             </div>
           </div>
-          <span class="px-2 py-0.5 rounded-md font-head text-[11px] font-bold bg-[#0A0A0A] text-white border border-[#0A0A0A] shadow-[1px_1px_0_0_#0A0A0A]">
+          <span class="px-2 py-0.5 rounded-md font-head text-[11px] font-bold bg-foreground text-background text-white border border-border shadow-xs">
             UFMG
           </span>
         </div>
@@ -122,7 +122,7 @@ import { asset } from '../../../lib/paths';
 
       <a
         href="#drca"
-        class="min-h-[44px] px-3.5 py-2 bg-[#0A0A0A] hover:bg-[#8B1E2D] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-2 border-[#0A0A0A] shadow-[3px_3px_0_0_#0A0A0A]"
+        class="min-h-[44px] px-3.5 py-2 bg-foreground text-background hover:bg-secondary active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-3 border-border shadow"
       >
         <span>Processos DRCA</span>
         <i class="bi bi-arrow-right" aria-hidden="true" />

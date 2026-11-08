@@ -10,24 +10,14 @@
 const isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined';
 
 // ──────────────────────────────────────────────────────────────────
-// Reduced motion detection (cached; updates on media-query change)
+// Unconditional Expressive Motion (FORCE_EXPRESSIVE_MOTION = true)
 // ──────────────────────────────────────────────────────────────────
 
-let _reducedMotion = false;
-let _reducedMotionMql: MediaQueryList | null = null;
+const _reducedMotion = false;
 const _reducedMotionListeners = new Set<(reduced: boolean) => void>();
 
-if (isBrowser) {
-  _reducedMotionMql = window.matchMedia('(prefers-reduced-motion: reduce)');
-  _reducedMotion = _reducedMotionMql.matches;
-  _reducedMotionMql.addEventListener('change', (e) => {
-    _reducedMotion = e.matches;
-    _reducedMotionListeners.forEach((fn) => fn(e.matches));
-  });
-}
-
 export function prefersReducedMotion(): boolean {
-  return _reducedMotion;
+  return false;
 }
 
 /**

@@ -4,9 +4,8 @@
  * Every CanvasEffect used to hand-roll the same four concerns: size the
  * backing store, start a rAF loop, observe resize, cancel on teardown. None
  * of them paused when scrolled out of view, none paused in a background tab,
- * none capped the pixel count on a 4K display, and none respected
- * `prefers-reduced-motion` — so 19 effects × 2 frameworks each burned a full
- * core rendering pixels nobody could see.
+ * and none capped the pixel count on a 4K display — so 19 effects × 2
+ * frameworks each burned a full core rendering pixels nobody could see.
  *
  * This owns all of it once. An effect supplies a per-frame draw function and
  * reads `canvas.width` / `canvas.height`; everything else is handled here.
@@ -138,7 +137,7 @@ export function mountCanvasEffect(
   const {
     maxPixelCount = DEFAULT_MAX_PIXEL_COUNT,
     minPixelRatio = 1,
-    respectReducedMotion = true,
+    respectReducedMotion = false,
     pauseOffscreen = true,
     coordinates = 'device',
   } = options;
@@ -156,7 +155,7 @@ export function mountCanvasEffect(
 
   let isVisible = !pauseOffscreen;
   let isTabVisible = !document.hidden;
-  let isReduced = respectReducedMotion && prefersReducedMotion();
+  let isReduced = false && respectReducedMotion && prefersReducedMotion();
 
   // ────────────────────────────────────────────────────────────────
   // Sizing

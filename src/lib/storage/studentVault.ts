@@ -105,6 +105,7 @@ export const VaultSchemas = {
     contrast: z.string().default('normal'),
     dyslexia: z.boolean().default(false),
     showDesktopDock: z.boolean().default(false),
+    shader: z.string().default('auto'),
   }),
   cagp_discente_shortcuts_v1: z.array(z.string()).min(1).max(5),
   cagp_user_role_v1: UserRoleSchema,
@@ -124,6 +125,39 @@ export const VaultSchemas = {
     bio: z.string().optional(),
     linkedin: z.string().optional(),
   }),
+  cagp_ouvidoria_manifestacoes_v1: z.array(
+    z.object({
+      id: z.string(),
+      protocol: z.string(),
+      category: z.string(),
+      subject: z.string(),
+      message: z.string(),
+      isAnonymous: z.boolean().default(false),
+      targetDept: z.string().optional(),
+      status: z.enum(['registrada', 'em_analise', 'encaminhada_colegiado', 'concluida']).default('registrada'),
+      createdAt: z.string(),
+    })
+  ),
+  cagp_cursos_enap_salvos_v1: z.array(
+    z.object({
+      id: z.string(),
+      title: z.string(),
+      hours: z.number(),
+      category: z.string(),
+      addedAt: z.string(),
+    })
+  ),
+  cagp_carreira_talentos_v1: z.object({
+    interestAreas: z.array(z.string()).default([]),
+    stageStatus: z.enum(['buscando_estagio', 'estagiando_nao_obrigatorio', 'estagiando_obrigatorio', 'servidor_art41', 'concluido']).default('buscando_estagio'),
+    weeklyHoursAvailable: z.number().default(30),
+    lattesUrl: z.string().default(''),
+    linkedinUrl: z.string().default(''),
+    skills: z.array(z.string()).default([]),
+    interestedInEmpresaJunior: z.boolean().default(false),
+    updatedAt: z.string().optional(),
+  }),
+  cagp_reta_final_checklist_v1: z.record(z.string(), z.boolean()),
 } as const;
 
 export type VaultKey = keyof typeof VaultSchemas;
@@ -149,6 +183,7 @@ export const VaultDefaults: { [K in VaultKey]: VaultData<K> } = {
     contrast: 'normal',
     dyslexia: false,
     showDesktopDock: false,
+    shader: 'auto',
   },
   cagp_discente_shortcuts_v1: ['hoje', 'curso', 'percurso', 'documentos', 'sobre'],
   cagp_user_role_v1: 'calouro',
@@ -175,6 +210,18 @@ export const VaultDefaults: { [K in VaultKey]: VaultData<K> } = {
     bio: '',
     linkedin: '',
   },
+  cagp_ouvidoria_manifestacoes_v1: [],
+  cagp_cursos_enap_salvos_v1: [],
+  cagp_carreira_talentos_v1: {
+    interestAreas: [],
+    stageStatus: 'buscando_estagio',
+    weeklyHoursAvailable: 30,
+    lattesUrl: '',
+    linkedinUrl: '',
+    skills: [],
+    interestedInEmpresaJunior: false,
+  },
+  cagp_reta_final_checklist_v1: {},
 };
 
 export function getVaultItem<K extends VaultKey>(key: K): VaultData<K> {
@@ -218,6 +265,9 @@ export function applyA11yPrefsToDOM(prefs?: VaultData<'cagp_a11y_prefs_v2'>): vo
   if (typeof document === 'undefined') return;
   const p = prefs || getVaultItem('cagp_a11y_prefs_v2');
   const el = document.documentElement;
+  el.classList.remove('dark');
+  el.classList.add('light');
+  el.style.colorScheme = 'light';
   if (p.font) el.setAttribute('data-a11y-font', p.font);
   if (p.contrast) el.setAttribute('data-a11y-contrast', p.contrast);
   el.setAttribute('data-a11y-dyslexia', p.dyslexia ? 'true' : 'false');

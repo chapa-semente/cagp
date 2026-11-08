@@ -1,10 +1,15 @@
 ---
 // src/pages/chapa-semente.astro — Apresentação da Chapa Semente & Carta-Programa Oficial
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHeader from '../components/ui/PageHeader.astro';
 import JourneyNav from '../components/ui/JourneyNav.astro';
 import { CartaPropostaInteractive } from '../components/features/semente/CartaPropostaInteractive';
-import { asset, route } from '../lib/paths';
+import { ChapaSementeTour } from '../components/features/semente/ChapaSementeTour';
+import { ParticleWeb } from '../components/boldkit/canvas-effects/ParticleWeb';
+import { BentoGrid } from '../components/boldkit/blocks/bento-grid';
+import { HeroCentered } from '../components/boldkit/blocks/hero-section';
+import { CHAPA_LEADERS } from '@/lib/chapaSementeData';
+import { LeaderAvatar } from '../components/features/semente/LeaderAvatar';
+import { asset, route } from '@/lib/paths';
 
 const badges = [
   { label: 'Eleições: 25 e 26/11 no CAGP', variant: 'red' as const, icon: 'bi-calendar-check' },
@@ -12,28 +17,92 @@ const badges = [
   { label: 'Gestão Apartidária e Combativa', variant: 'blue' as const, icon: 'bi-shield-check' },
   { label: 'Compromisso com o Código Aberto', variant: 'gold' as const, icon: 'bi-laptop' },
 ];
+
+const bentoItems = [
+  {
+    title: 'Acolhimento & Permanência Noturna',
+    description: 'Jantar no RU Setorial I, reforço de circulares após 22h30 e permanência material para discentes trabalhadores.',
+    span: 'large' as const,
+    accent: 'primary' as const,
+  },
+  {
+    title: 'Transparência Ativa & RREO',
+    description: 'Prestação de contas mensal pública, balancetes abertos no SuperApp e livros de atas 100% digitalizados.',
+    span: 'tall' as const,
+    accent: 'secondary' as const,
+  },
+  {
+    title: 'Fortalecimento do Campo de Públicas',
+    description: 'Diálogo permanente com a FENEP, ampliação de convênios de estágio governamental e valorização profissional.',
+    span: 'wide' as const,
+    accent: 'accent' as const,
+  },
+  {
+    title: 'Tecnologia Aberta & Inovação CAGP',
+    description: 'SuperApp discente de código aberto sob licença MIT, cofre local com privacidade e calculadora de 600h.',
+    span: 'normal' as const,
+    accent: 'card' as const,
+  },
+];
 ---
 
 <BaseLayout
+  mode="persuade"
   title="Chapa Semente — Carta-Programa & Eleições CAGP 2026"
   description="Carta-Programa oficial da Chapa Semente na eleição para o Centro Acadêmico de Gestão Pública da UFMG: 4 eixos, 14 propostas e cronograma do edital."
 >
-  <PageHeader
-    eyebrow="Eleições 2026 · Centro Acadêmico de Gestão Pública"
-    title="Chapa Semente — Potencial que se Transforma em Ação"
-    subtitle="Apresentamos nossa Carta-Programa para orientar as ações, diretrizes e prioridades na eleição do CAGP (FAFICH/UFMG). Representação estudantil combativa e apartidária, permanência, transparência e respeito à reserva do possível."
-    badges={badges}
-  />
+  <!-- PALCO PRINCIPAL (PRIMEIRO VIEWPORT): HeroCentered + Canvas Shader 60fps Protagonista -->
+  <div class="relative overflow-hidden my-3 rounded-2xl border-3 border-[#16181d] bg-card shadow-[8px_8px_0_0_#16181d]">
+    <div class="absolute inset-0 opacity-20 pointer-events-none" aria-hidden="true">
+      <ParticleWeb client:load count={55} particleColor="#5B2A86" lineColor="#FF8811" maxDistance={115} speed={1.0} />
+    </div>
+
+    <div class="relative z-10">
+      <HeroCentered
+        client:load
+        badge="Eleições CAGP 2026 • Votação 25 e 26 de Novembro (17h às 22h30)"
+        title="Chapa Semente"
+        titleHighlight="Potencial em Ação"
+        description="Este SuperApp é a nossa Proposta 3 já materializada e entregue à comunidade de Gestão Pública antes mesmo das urnas. Representação combativa, apartidária, transparente e focada no estudante noturno da FAFICH/UFMG."
+        primaryAction={{ label: "Explorar 14 Propostas Oficiais", href: "#propostas" }}
+        secondaryAction={{ label: "Baixar Edital Oficial (PDF)", href: asset('/documentos/edital-eleicoes-cagp-2026.pdf') }}
+        className="py-10 sm:py-14 px-4 sm:px-8"
+      />
+
+      <!-- Selos Táteis + Gatilho do Tour Guiado das 9 Lideranças -->
+      <div class="px-4 sm:px-8 pb-8 flex flex-col items-center gap-4 border-t-2 border-[#16181d]/15 pt-5 bg-white/80 backdrop-blur-xs">
+        <div class="flex flex-wrap items-center justify-center gap-2">
+          {badges.map((b) => (
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg border-2 border-[#16181d] bg-white shadow-[2px_2px_0_0_#16181d] font-mono text-[11px] font-extrabold uppercase text-[#16181d]">
+              <i class={`bi ${b.icon} text-primary`} aria-hidden="true"></i>
+              <span>{b.label}</span>
+            </span>
+          ))}
+        </div>
+        <ChapaSementeTour client:load />
+      </div>
+    </div>
+  </div>
 
   <div class="space-y-8 my-6">
-    <!-- 1. BANNER DO CRONOGRAMA ELEITORAL (EDITAL DE CONVOCAÇÃO 2026) -->
-    <section aria-label="Cronograma Oficial das Eleições" class="p-5 sm:p-6 rounded-xl border-3 border-border bg-card shadow-md space-y-4">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b-2 border-border">
+    <!-- 1. BANNER DO CRONOGRAMA ELEITORAL (EDITAL DE CONVOCAÇÃO 2026) COM PARTICLEWEB SHADER -->
+    <section
+      aria-label="Cronograma Oficial das Eleições"
+      class="relative overflow-hidden p-5 sm:p-6 rounded-xl border-3 border-border bg-card shadow-md space-y-4"
+      data-context-type="proposal"
+      data-context-data='{"id": "cronograma-eleitoral", "title": "Cronograma Oficial das Eleições CAGP 2026"}'
+    >
+      <!-- Shader WebGL 60fps de Proximidade e Rede (ParticleWeb) -->
+      <div class="absolute inset-0 opacity-15 pointer-events-none" aria-hidden="true">
+        <ParticleWeb client:load count={45} particleColor="#5B2A86" lineColor="#FF8811" maxDistance={100} speed={0.9} />
+      </div>
+
+      <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b-2 border-border">
         <div>
           <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-primary block">
             Junta Eleitoral CAGP 2026 • Edital de Convocação
           </span>
-          <h2 class="font-heading text-lg sm:text-xl font-black uppercase text-foreground m-0">
+          <h2 class="font-heading text-lg sm:text-xl font-extrabold uppercase text-foreground m-0">
             Regras do Jogo &amp; Calendário de Votação
           </h2>
         </div>
@@ -41,7 +110,7 @@ const badges = [
         <a
           href={asset('/documentos/edital-eleicoes-cagp-2026.pdf')}
           download="edital-eleicoes-cagp-2026.pdf"
-          class="px-4 py-2 min-h-[44px] inline-flex items-center gap-2 rounded-xl bg-primary hover:bg-primary-hover text-white border-2 border-border font-heading font-extrabold text-xs uppercase tracking-wider no-underline shadow-xs transition-all active:translate-x-0.5 active:translate-y-0.5"
+          class="px-4 py-2 min-h-[44px] inline-flex items-center gap-2 rounded-xl bg-primary hover:bg-primary-hover text-primary-foreground border-3 border-border font-heading font-extrabold text-xs uppercase tracking-wider no-underline shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all"
         >
           <span>Baixar Edital Oficial (PDF)</span>
           <span>↓</span>
@@ -49,56 +118,56 @@ const badges = [
       </div>
 
       <!-- Timeline dos 6 Passos Oficiais com Quebra Fluida -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 pt-2">
-        <div class="p-3 rounded-lg border-2 border-border bg-white shadow-xs">
+      <div class="relative z-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 pt-2">
+        <div class="p-3 rounded-lg border-3 border-border bg-card shadow-xs">
           <span class="font-mono text-[10px] font-bold text-muted-foreground block">04/11/2026</span>
-          <span class="font-heading font-black text-xs uppercase text-foreground block mt-0.5">Edital Publicado</span>
+          <span class="font-heading font-extrabold text-xs uppercase text-foreground block mt-0.5">Edital Publicado</span>
           <span class="text-[11px] font-sans text-muted-foreground block mt-1">Convocação oficial</span>
         </div>
-        <div class="p-3 rounded-lg border-2 border-border bg-white shadow-xs">
+        <div class="p-3 rounded-lg border-3 border-border bg-card shadow-xs">
           <span class="font-mono text-[10px] font-bold text-muted-foreground block">04 a 10/11</span>
-          <span class="font-heading font-black text-xs uppercase text-foreground block mt-0.5">Inscrição de Chapas</span>
+          <span class="font-heading font-extrabold text-xs uppercase text-foreground block mt-0.5">Inscrição de Chapas</span>
           <span class="text-[11px] font-sans text-muted-foreground block mt-1">Até 23h59 por e-mail</span>
         </div>
-        <div class="p-3 rounded-lg border-2 border-border bg-white shadow-xs">
+        <div class="p-3 rounded-lg border-3 border-border bg-card shadow-xs">
           <span class="font-mono text-[10px] font-bold text-muted-foreground block">11/11/2026</span>
-          <span class="font-heading font-black text-xs uppercase text-foreground block mt-0.5">Homologação</span>
+          <span class="font-heading font-extrabold text-xs uppercase text-foreground block mt-0.5">Homologação</span>
           <span class="text-[11px] font-sans text-muted-foreground block mt-1">Divulgação das chapas</span>
         </div>
-        <div class="p-3 rounded-lg border-2 border-[#FF8811] bg-[#FFFDF9]">
-          <span class="font-mono text-[10px] font-bold text-[#FF8811] block">11 a 24/11</span>
-          <span class="font-heading font-black text-xs uppercase text-foreground block mt-0.5">Campanha Eleitoral</span>
+        <div class="p-3 rounded-lg border-2 border-accent bg-card shadow-xs">
+          <span class="font-mono text-[10px] font-bold text-accent block">11 a 24/11</span>
+          <span class="font-heading font-extrabold text-xs uppercase text-foreground block mt-0.5">Campanha Eleitoral</span>
           <span class="text-[11px] font-sans text-muted-foreground block mt-1">Debate e diálogo aberto</span>
         </div>
-        <div class="p-3 rounded-lg border-2 border-primary bg-[#FFFDF9]">
+        <div class="p-3 rounded-lg border-2 border-primary bg-card shadow-xs">
           <span class="font-mono text-[10px] font-bold text-primary block">24/11 às 18h</span>
-          <span class="font-heading font-black text-xs uppercase text-foreground block mt-0.5">Debate das Chapas</span>
+          <span class="font-heading font-extrabold text-xs uppercase text-foreground block mt-0.5">Debate das Chapas</span>
           <span class="text-[11px] font-sans text-muted-foreground block mt-1">Local a definir</span>
         </div>
-        <div class="p-3 rounded-lg border-2 border-border bg-primary text-white shadow-xs">
+        <div class="p-3 rounded-lg border-3 border-border bg-primary text-primary-foreground shadow-xs">
           <span class="font-mono text-[10px] font-bold text-[#FFD6A5] block">25 e 26/11</span>
-          <span class="font-heading font-black text-xs uppercase text-white block mt-0.5">Votação no CAGP</span>
+          <span class="font-heading font-extrabold text-xs uppercase text-white block mt-0.5">Votação no CAGP</span>
           <span class="text-[11px] font-sans text-white/90 block mt-1">17h às 22h30 • Voto secreto</span>
         </div>
       </div>
 
-      <div class="p-3 rounded-lg bg-[#FFFBEB] border-2 border-[#B45309] text-xs font-sans text-foreground">
+      <div class="relative z-10 p-3 rounded-lg bg-amber-50 border-2 border-amber-600 text-xs font-sans text-foreground">
         <strong>Atenção às normas do Art. 17 do Edital:</strong> É expressamente proibida propaganda ou boca de urna no 1º andar da FAFICH nos dias 25 e 26 de novembro. Podem votar todos os estudantes com matrícula ativa no Curso de Gestão Pública da UFMG portando documento oficial com foto.
       </div>
     </section>
 
     <!-- 2. IDENTIDADE VISUAL & SÍMBOLO DA SEMENTE -->
-    <section aria-label="Identidade Visual da Chapa Semente" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center p-6 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0_0_#16181d]">
-      <div class="lg:col-span-4 flex flex-col items-center justify-center p-6 rounded-xl border-3 border-[#16181d] bg-[#5B2A86] text-white shadow-[3px_3px_0_0_#16181d] relative overflow-hidden">
-        <div class="w-24 h-24 rounded-2xl border-3 border-[#16181d] bg-white p-2 shadow-sm flex items-center justify-center">
+    <section aria-label="Identidade Visual da Chapa Semente" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center p-6 rounded-xl border-3 border-border bg-card shadow-md">
+      <div class="lg:col-span-4 flex flex-col items-center justify-center p-6 rounded-xl border-3 border-border bg-primary text-white shadow-sm relative overflow-hidden">
+        <div class="w-24 h-24 rounded-2xl border-3 border-border bg-white p-2 shadow-sm flex items-center justify-center">
           <img
             src={asset('/logos/semente/simbolo_semente_fiel.svg')}
             alt="Símbolo Chapa Semente"
             class="w-full h-full object-contain"
           />
         </div>
-        <div class="mt-4 inline-flex items-center px-4 py-1 rounded-full bg-white border-2 border-[#16181d] shadow-xs font-heading font-black text-sm uppercase tracking-wider text-[#5B2A86]">
-          CHAPA SEM<span>E</span>NT<span class="text-[#FF8811]">E</span>
+        <div class="mt-4 inline-flex items-center px-4 py-1 rounded-full bg-white border-3 border-border shadow-xs font-heading font-extrabold text-sm uppercase tracking-wider text-primary">
+          CHAPA SEM<span>E</span>NT<span class="text-accent">E</span>
         </div>
         <span class="text-[11px] font-mono text-[#FFD6A5] mt-2 block font-bold">
           POTENCIAL EM AÇÃO
@@ -107,52 +176,211 @@ const badges = [
 
       <div class="lg:col-span-8 space-y-3">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="px-2.5 py-0.5 rounded-full bg-[#5B2A86] text-white text-[11px] font-mono font-bold">
+          <span class="px-2.5 py-0.5 rounded-full bg-primary text-white text-[11px] font-mono font-bold">
             Roxo #5B2A86 (Protagonismo)
           </span>
-          <span class="px-2.5 py-0.5 rounded-full bg-[#FF8811] text-[#16181d] text-[11px] font-mono font-bold">
+          <span class="px-2.5 py-0.5 rounded-full bg-accent text-black text-[11px] font-mono font-bold">
             Laranja #FF8811 (Novas Ideias)
           </span>
-          <span class="px-2.5 py-0.5 rounded-full bg-[#266264] text-white text-[11px] font-mono font-bold">
-            Verde Petróleo #266264 (Transparência)
+          <span class="px-2.5 py-0.5 rounded-full bg-[#134E4A] text-white text-[11px] font-mono font-bold">
+            Verde Petróleo #134E4A (Transparência)
           </span>
         </div>
 
-        <h3 class="font-heading text-xl sm:text-2xl font-black uppercase text-[#16181d] m-0">
+        <h3 class="font-heading text-xl sm:text-2xl font-extrabold uppercase text-foreground m-0">
           Por que Chapa Semente?
         </h3>
-        <p class="text-xs sm:text-sm font-sans text-[#16181d]/90 leading-relaxed m-0">
+        <p class="text-xs sm:text-sm font-sans text-muted-foreground leading-relaxed m-0">
           A semente não é estática; ela é o potencial latente que germina em ação concreta. Combinamos o rigor analítico e técnico da formação em políticas públicas com a vivência universitária viva da FAFICH. Construímos uma plataforma de representação que não aparelha o espaço e que coloca o estudante no centro das decisões orçamentárias, acadêmicas e culturais.
         </p>
 
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2">
-          <div class="p-2.5 rounded-lg border-2 border-[#16181d] bg-white text-center shadow-xs">
-            <span class="font-heading font-black text-sm uppercase text-[#5B2A86] block">Apartidária</span>
+          <div class="p-2.5 rounded-lg border-3 border-border bg-card text-center shadow-xs">
+            <span class="font-heading font-extrabold text-sm uppercase text-primary block">Apartidária</span>
             <span class="text-[10px] font-sans text-muted-foreground block">Foco na GP</span>
           </div>
-          <div class="p-2.5 rounded-lg border-2 border-[#16181d] bg-white text-center shadow-xs">
-            <span class="font-heading font-black text-sm uppercase text-[#FF8811] block">Transparente</span>
+          <div class="p-2.5 rounded-lg border-3 border-border bg-card text-center shadow-xs">
+            <span class="font-heading font-extrabold text-sm uppercase text-accent block">Transparente</span>
             <span class="text-[10px] font-sans text-muted-foreground block">Boletins 3M</span>
           </div>
-          <div class="p-2.5 rounded-lg border-2 border-[#16181d] bg-white text-center shadow-xs">
-            <span class="font-heading font-black text-sm uppercase text-[#266264] block">Participativa</span>
+          <div class="p-2.5 rounded-lg border-3 border-border bg-card text-center shadow-xs">
+            <span class="font-heading font-extrabold text-sm uppercase text-[#134E4A] block">Participativa</span>
             <span class="text-[10px] font-sans text-muted-foreground block">Reuniões Abertas</span>
           </div>
-          <div class="p-2.5 rounded-lg border-2 border-[#16181d] bg-white text-center shadow-xs">
-            <span class="font-heading font-black text-sm uppercase text-[#9E2424] block">Concreta</span>
+          <div class="p-2.5 rounded-lg border-3 border-border bg-card text-center shadow-xs">
+            <span class="font-heading font-extrabold text-sm uppercase text-secondary block">Concreta</span>
             <span class="text-[10px] font-sans text-muted-foreground block">Reserva Possível</span>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- 2. NOMINATA DAS 9 LIDERANÇAS & COMPROMISSOS OFICIAIS (TOUR BOLDKIT) -->
+    <section aria-label="Nominata das 9 Lideranças da Chapa Semente" class="space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b-2 border-border">
+        <div>
+          <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-primary block">
+            Nominata Oficial • Gestão 2026
+          </span>
+          <h2 class="font-heading text-xl sm:text-2xl font-extrabold uppercase text-foreground m-0">
+            As 9 Lideranças da Chapa Semente
+          </h2>
+        </div>
+        <ChapaSementeTour client:load />
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {CHAPA_LEADERS.map((leader, idx) => (
+          <article
+            id={leader.targetId}
+            class="p-4 sm:p-5 rounded-2xl border-3 border-[#16181d] bg-white shadow-[6px_6px_0_0_#16181d] hover:shadow-[8px_8px_0_0_#16181d] transition-shadow flex flex-col justify-between gap-4 scroll-mt-24"
+          >
+            <div class="space-y-3.5">
+              {/* Retrato Editorial Ampliado 4:5 com Zoom & Inclinação */}
+              <LeaderAvatar
+                client:load
+                variant="portrait"
+                name={leader.name}
+                photoFilename={leader.photoFilename}
+                initials={leader.initials}
+                deptColor={leader.deptColor}
+                role={leader.role}
+                tagline={leader.tagline}
+                index={idx}
+              />
+
+              {/* Cargo e Meta */}
+              <div class="flex items-center justify-between gap-2 pt-1">
+                <span class={`text-[10px] font-heading font-black uppercase px-2.5 py-0.5 rounded-md border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] ${leader.badgeBg}`}>
+                  {leader.role}
+                </span>
+                <span class="text-xs font-mono font-bold text-primary">
+                  Liderança {idx + 1}/9
+                </span>
+              </div>
+
+              {/* Citação em Destaque */}
+              <blockquote class="p-3 rounded-xl bg-background border-2 border-[#16181d] text-xs font-sans text-foreground italic leading-relaxed m-0">
+                "{leader.quote}"
+              </blockquote>
+
+              {/* Dor Discente Resolvida */}
+              <div class="p-3 rounded-xl bg-card border-2 border-[#16181d]/30 space-y-1">
+                <span class="font-mono text-[10px] font-extrabold uppercase text-secondary block">
+                  Dor Discente Resolvida:
+                </span>
+                <p class="text-xs text-muted-foreground leading-snug m-0">
+                  {leader.painPoint}
+                </p>
+              </div>
+            </div>
+
+            <div class="pt-3 border-t-2 border-[#16181d] space-y-2.5">
+              <div class="text-xs font-sans text-foreground leading-snug">
+                <strong class="font-heading uppercase text-primary block text-[11px]">
+                  Entrega Materializada no SuperApp:
+                </strong>
+                <span>{leader.solution}</span>
+              </div>
+              <a
+                href={leader.toolHref}
+                class="w-full min-h-[44px] px-4 py-2.5 rounded-xl bg-primary hover:bg-[#4A216E] text-white border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none inline-flex items-center justify-between gap-2 text-xs font-heading font-black uppercase tracking-wider no-underline transition-all"
+              >
+                <span>{leader.toolLabel}</span>
+                <i class="bi bi-arrow-right text-sm" aria-hidden="true"></i>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- 2.5. GALERIA VISUAL E ARTES OFICIAIS DA CAMPANHA SEMENTE -->
+    <section aria-label="Galeria Visual da Campanha Chapa Semente" class="p-5 sm:p-6 rounded-2xl border-3 border-[#16181d] bg-card shadow-[6px_6px_0_0_#16181d] space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b-2 border-[#16181d]">
+        <div>
+          <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-primary block">
+            Identidade &amp; Mobilização Presencial na FAFICH
+          </span>
+          <h2 class="font-heading text-xl sm:text-2xl font-extrabold uppercase text-foreground m-0">
+            Galeria Oficial da Campanha Semente
+          </h2>
+        </div>
+        <span class="px-3 py-1 rounded-lg bg-accent text-foreground border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-mono text-xs font-extrabold uppercase self-start sm:self-center">
+          Urnas: 25 e 26/11
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <figure class="m-0 flex flex-col gap-2.5">
+          <div class="cagp-photo-frame relative aspect-[4/5] min-h-[320px] rounded-xl overflow-hidden border-3 border-[#16181d] shadow-[8px_8px_0_0_#16181d] bg-white">
+            <img
+              src={asset('/imagens/semente/post_02_quem_somos_nos.jpg')}
+              alt="Arte oficial da Chapa Semente: Quem Somos Nós e o manifesto de renovação do CAGP"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-primary text-white border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-mono text-[10px] font-extrabold uppercase">
+              MANIFESTO SEMENTE
+            </span>
+          </div>
+          <figcaption class="font-mono text-xs font-bold text-foreground px-1">
+            01. Quem Somos Nós — Potencial que germina em ação concreta na FAFICH.
+          </figcaption>
+        </figure>
+
+        <figure class="m-0 flex flex-col gap-2.5">
+          <div class="cagp-photo-frame relative aspect-[4/5] min-h-[320px] rounded-xl overflow-hidden border-3 border-[#16181d] shadow-[8px_8px_0_0_#16181d] bg-white">
+            <img
+              src={asset('/imagens/semente/post_01_propostas_david.jpg')}
+              alt="Arte oficial de propostas da Chapa Semente para o Centro Acadêmico de Gestão Pública"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-accent text-foreground border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-mono text-[10px] font-extrabold uppercase">
+              COMPROMISSO PÚBLICO
+            </span>
+          </div>
+          <figcaption class="font-mono text-xs font-bold text-foreground px-1">
+            02. Propostas Estruturadas — Transparência ativa, escaninhos e recepção noturna.
+          </figcaption>
+        </figure>
+
+        <figure class="m-0 flex flex-col gap-2.5">
+          <div class="cagp-photo-frame relative aspect-[4/5] min-h-[320px] rounded-xl overflow-hidden border-3 border-[#16181d] shadow-[8px_8px_0_0_#16181d] bg-white">
+            <img
+              src={asset('/imagens/semente/foto_campus_universitario.jpg')}
+              alt="Fotografia do Campus Pampulha e vivência universitária na FAFICH/UFMG"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-teal-700 text-white border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-mono text-[10px] font-extrabold uppercase">
+              CAMPUS PAMPULHA
+            </span>
+          </div>
+          <figcaption class="font-mono text-xs font-bold text-foreground px-1">
+            03. Vivência na FAFICH/UFMG — Defesa intransigente do turno noturno e da permanência.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Bento Grid dos 4 Eixos da Chapa Semente -->
+    <BentoGrid
+      client:load
+      title="Eixos Estratégicos de Gestão"
+      subtitle="Os 4 pilares fundamentais da plataforma de gestão da Chapa Semente para o biênio 2026."
+      items={bentoItems}
+      className="py-6 px-0"
+    />
+
     <!-- 3. EXPLORADOR INTERATIVO DAS 14 PROPOSTAS (4 EIXOS) -->
-    <section aria-label="Carta-Programa da Chapa Semente">
+    <section id="propostas" aria-label="Carta-Programa da Chapa Semente">
       <div class="mb-4">
-        <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-[#5B2A86] block">
+        <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-primary block">
           Carta-Programa Completa
         </span>
-        <h2 class="font-heading text-2xl font-black uppercase text-[#16181d] m-0">
+        <h2 class="font-heading text-2xl font-extrabold uppercase text-foreground m-0">
           14 Propostas para Transformar o CAGP
         </h2>
         <p class="text-xs sm:text-sm font-sans text-muted-foreground mt-1 max-w-2xl m-0">
@@ -164,15 +392,15 @@ const badges = [
     </section>
 
     <!-- 4. ACERVO EM ANEXO & DOCUMENTOS ORIGINAIS -->
-    <section aria-label="Anexos Oficiais e Downloads" class="p-6 rounded-xl border-3 border-[#16181d] bg-white shadow-[3px_3px_0_0_#16181d] space-y-4">
-      <h3 class="font-heading text-lg font-black uppercase text-[#16181d] m-0">
+    <section aria-label="Anexos Oficiais e Downloads" class="p-6 rounded-xl border-3 border-border bg-card shadow-md space-y-4">
+      <h3 class="font-heading text-lg font-extrabold uppercase text-foreground m-0">
         Documentos Oficiais em Anexo para Consulta
       </h3>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="p-4 rounded-xl border-2 border-[#16181d] bg-white flex items-center justify-between gap-3 shadow-xs">
+        <div class="p-4 rounded-xl border-3 border-border bg-card flex items-center justify-between gap-3 shadow-xs">
           <div class="min-w-0">
-            <span class="font-mono text-[10px] font-bold uppercase text-[#5B2A86] block">PDF Oficial</span>
-            <span class="font-heading font-bold text-sm uppercase text-[#16181d] block truncate">
+            <span class="font-mono text-[10px] font-bold uppercase text-primary block">PDF Oficial</span>
+            <span class="font-heading font-bold text-sm uppercase text-foreground block truncate">
               Edital de Convocação de Eleições CAGP 2026
             </span>
             <span class="text-xs font-sans text-muted-foreground block truncate">
@@ -182,16 +410,16 @@ const badges = [
           <a
             href={asset('/documentos/edital-eleicoes-cagp-2026.pdf')}
             download="edital-eleicoes-cagp-2026.pdf"
-            class="px-3 py-1.5 rounded-lg bg-[#5B2A86] text-white border-2 border-[#16181d] font-heading font-bold text-xs uppercase no-underline shrink-0"
+            class="px-3 py-1.5 rounded-lg bg-primary text-primary-foreground border-3 border-border font-heading font-extrabold text-xs uppercase no-underline shrink-0 shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] transition-all"
           >
             Baixar PDF
           </a>
         </div>
 
-        <div class="p-4 rounded-xl border-2 border-[#16181d] bg-white flex items-center justify-between gap-3 shadow-xs">
+        <div class="p-4 rounded-xl border-3 border-border bg-card flex items-center justify-between gap-3 shadow-xs">
           <div class="min-w-0">
-            <span class="font-mono text-[10px] font-bold uppercase text-[#FF8811] block">Documento de Campanha</span>
-            <span class="font-heading font-bold text-sm uppercase text-[#16181d] block truncate">
+            <span class="font-mono text-[10px] font-bold uppercase text-accent block">Documento de Campanha</span>
+            <span class="font-heading font-bold text-sm uppercase text-foreground block truncate">
               Carta Proposta Completa — Chapa Semente
             </span>
             <span class="text-xs font-sans text-muted-foreground block truncate">
@@ -200,7 +428,7 @@ const badges = [
           </div>
           <a
             href={route('/documentos')}
-            class="px-3 py-1.5 rounded-lg bg-[#FF8811] text-[#16181d] border-2 border-[#16181d] font-heading font-bold text-xs uppercase no-underline shrink-0"
+            class="px-3 py-1.5 rounded-lg bg-accent text-accent-foreground border-3 border-border font-heading font-extrabold text-xs uppercase no-underline shrink-0 shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] transition-all"
           >
             Ver Acervo
           </a>
@@ -209,14 +437,17 @@ const badges = [
     </section>
   </div>
 
+  <!-- Journey Navigation Trail -->
   <JourneyNav
     prev={{
-      title: 'Hoje & Campus',
+      title: 'Bússola Discente & Rotina do Campus',
       href: '/',
+      desc: 'Retorne à página inicial do Super App discente com avisos em tempo real.',
     }}
     next={{
-      title: 'Processo Eleitoral & Diretorias',
-      href: '/gestao',
+      title: 'História & Regimento do CAGP',
+      href: '/sobre',
+      desc: 'Conheça o estatuto e os marcos históricos dos Candangos de 1959.',
     }}
   />
 </BaseLayout>

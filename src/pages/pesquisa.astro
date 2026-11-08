@@ -4,10 +4,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
 import SegmentedControl from '../components/ui/SegmentedControl.astro';
 import JourneyNav from '../components/ui/JourneyNav.astro';
-import PesquisaNucleos from '../components/pesquisa/PesquisaNucleos.astro';
-import PesquisaIc from '../components/pesquisa/PesquisaIc.astro';
-import PesquisaImersao from '../components/pesquisa/PesquisaImersao.astro';
+import PesquisaNucleos from '../components/features/pesquisa/PesquisaNucleos.astro';
+import PesquisaIc from '../components/features/pesquisa/PesquisaIc.astro';
+import PesquisaImersao from '../components/features/pesquisa/PesquisaImersao.astro';
 import { PesquisaStatsBanner } from '../components/features/pesquisa/PesquisaStatsBanner';
+import { MathCurveBackground } from '../components/ui/math-curve-background';
 
 const tabs = [
   { id: 'v1', shortLabel: 'Núcleos', fullLabel: '1. Núcleos de Pesquisa (11)', hash: '#nucleos' },
@@ -24,20 +25,32 @@ const badges = [
 
 ---
 
-<BaseLayout title="Pesquisa & Extensão" description="Diretório dos 11 núcleos de pesquisa do DCP (Conceito 7 CAPES), Iniciação Científica (90h AAC) e Programa de Imersão.">
-  <PageHeader
-    eyebrow="Eixo 2 · Pesquisa, IC & Imersão"
-    title="Pesquisa, Iniciação Científica & Imersão"
-    subtitle="Diretório dos 11 núcleos de pesquisa do DCP (Conceito 7 CAPES), Iniciação Científica (até 90h AAC) e Programa de Imersão Docente."
-    badges={badges}
-  />
+<BaseLayout
+  title="Pesquisa & Extensão"
+  description="Diretório Bento animado dos 11 núcleos de pesquisa do DCP (Conceito 7 CAPES), Iniciação Científica (90h AAC) e Programa de Imersão."
+  mode="operate"
+>
+  <div id="cagp-pesquisa-header">
+    <PageHeader
+      eyebrow="Eixo 2 · Pesquisa, IC & Imersão"
+      title="Pesquisa, Iniciação Científica & Imersão"
+      subtitle="Diretório interativo dos 11 núcleos de pesquisa do DCP (Conceito 7 CAPES), Iniciação Científica (até 90h AAC) e Programa de Imersão Docente."
+      badges={badges}
+      axisId="curso"
+      activeId="pesquisa"
+      mode="operate"
+      condensed={true}
+    />
+  </div>
 
   <SegmentedControl tabs={tabs} defaultTab="v1" />
 
   <!-- Sub-view 1: 11 Núcleos -->
   <section id="ws-panel-v1" class="cagp-workspace-view" data-ws-panel="v1">
     <div id="nucleos" class="cagp-anchor-target scroll-mt-24"></div>
-    <PesquisaStatsBanner client:visible />
+    <MathCurveBackground client:visible curve="lemniscate" opacity={0.12} speed="slow" className="relative p-2 rounded-2xl border-3 border-border bg-card">
+      <PesquisaStatsBanner client:visible />
+    </MathCurveBackground>
     <PesquisaNucleos />
   </section>
 

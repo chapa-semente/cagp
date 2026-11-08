@@ -414,7 +414,7 @@ const NumberFieldContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes
       ref={ref}
       data-slot="number-field-content"
       className={cn(
-        'flex h-11 w-full items-stretch border-3 border-foreground bg-background shadow-[4px_4px_0px_var(--shadow-color)] bk-interactive focus-within:translate-x-[4px] focus-within:translate-y-[4px] focus-within:shadow-none has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-50',
+        'flex h-11 w-full items-stretch border-3 border-foreground bg-background shadow-md bk-interactive focus-within:translate-x-[4px] focus-within:translate-y-[4px] focus-within:shadow-none has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-50',
         className
       )}
       {...props}

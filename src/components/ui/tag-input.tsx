@@ -224,7 +224,7 @@ const TagInput = React.forwardRef<TagInputHandle, TagInputProps>(
           onClick={handleContainerClick}
           className={cn(
             'flex flex-wrap items-center gap-2 min-h-11 w-full border-3 border-input bg-background px-3 py-2',
-            'shadow-[4px_4px_0px_var(--shadow-color)] transition duration-200',
+            'shadow-md transition duration-200',
             'focus-within:translate-x-[4px] focus-within:translate-y-[4px] focus-within:shadow-none',
             disabled && 'opacity-50 cursor-not-allowed',
             error && 'border-destructive',
@@ -238,7 +238,7 @@ const TagInput = React.forwardRef<TagInputHandle, TagInputProps>(
               className={cn(
                 'inline-flex items-center gap-1 px-2 py-0.5 text-xs font-bold uppercase tracking-wide',
                 'border-2 border-foreground bg-primary text-primary-foreground',
-                'shadow-[2px_2px_0px_var(--shadow-color)]'
+                'shadow-sm'
               )}
             >
               {tag}
@@ -303,7 +303,7 @@ const TagInput = React.forwardRef<TagInputHandle, TagInputProps>(
             className={cn(
               'absolute z-50 mt-1 w-full',
               'border-3 border-foreground bg-popover',
-              'shadow-[4px_4px_0px_var(--shadow-color)]'
+              'shadow-md'
             )}
           >
             {filteredSuggestions.map((suggestion, index) => (

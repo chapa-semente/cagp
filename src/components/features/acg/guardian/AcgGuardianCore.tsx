@@ -1,11 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { bounceSpring, tactileSpring } from '@/lib/motion';
 import {
   getVaultItem,
   setVaultItem,
   type StudentCert,
 } from '../../../../lib/storage/studentVault';
 import { downloadAac120dIcs } from '../../../../lib/ics';
-import { CagpIcon } from '../../../ui/CagpIcon';
+import { CagpIcon } from '@/components/ui/CagpIcon';
+import { Dropzone } from '@/components/ui/dropzone';
+import { FormItem, FormLabel, FormControl } from '@/components/ui/form';
+import {
+  NumberField,
+  NumberFieldContent,
+  NumberFieldInput,
+  NumberFieldIncrement,
+  NumberFieldDecrement,
+} from '@/components/ui/number-field';
 
 export const AcgGuardianCore: React.FC = () => {
   const [certs, setCerts] = useState<StudentCert[]>([]);
@@ -46,8 +57,41 @@ export const AcgGuardianCore: React.FC = () => {
     setVaultItem('cagp_aac_120d_certs_v1', nextList);
 
     setTitle('');
-    setStatusMessage(`Certificado "${newCert.title}" cadastrado com sucesso!`);
+    setStatusMessage(`Certificado "${newCert.title}" cadastrado no Alerta 120 Dias!`);
     setTimeout(() => setStatusMessage(null), 4000);
+  };
+
+  const handleSimulateUrgentCert = () => {
+    const now = new Date();
+    const urgentDate = new Date(now.getTime() - 112 * 24 * 60 * 60 * 1000)
+      .toISOString()
+      .split('T')[0];
+    const expiredDate = new Date(now.getTime() - 128 * 24 * 60 * 60 * 1000)
+      .toISOString()
+      .split('T')[0];
+
+    const sampleCerts: StudentCert[] = [
+      {
+        id: `cert-urg-${Date.now()}`,
+        title: 'Seminário Nacional de Orçamento e Políticas Públicas (FAFICH)',
+        mod: 'Eventos & Congressos',
+        date: urgentDate,
+        hours: 30,
+      },
+      {
+        id: `cert-exp-${Date.now() + 1}`,
+        title: 'Congresso Mineiro de Administração Pública (Fora do Prazo)',
+        mod: 'Eventos & Congressos',
+        date: expiredDate,
+        hours: 15,
+      },
+    ];
+
+    const nextList = [...sampleCerts, ...certs];
+    setCerts(nextList);
+    setVaultItem('cagp_aac_120d_certs_v1', nextList);
+    setStatusMessage('Simulação ativada: confira o carimbo mecânico vermelho (#9E2424) nos certificados em risco!');
+    setTimeout(() => setStatusMessage(null), 5000);
   };
 
   const handleDeleteCert = (id: string) => {
@@ -66,62 +110,113 @@ export const AcgGuardianCore: React.FC = () => {
 
   return (
     <div className="cagp-guardian-core select-none space-y-6">
-      {/* Alerta Normativo do Art. 15, § 4º */}
-      <div className="p-5 bg-[#FFFBEB] border-[3px] border-[#FF8811] rounded-xl shadow-[4px_4px_0_0_#FF8811]">
+      {/* Alerta Normativo do Art. 15, § 4º com Microcopy Canônico "Alerta 120 Dias" */}
+      <div className="p-5 bg-[#FFFBEB] border-[3px] border-[#16181d] rounded-xl shadow-[6px_6px_0_0_#9E2424] flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-start gap-3.5">
-          <span className="w-10 h-10 rounded-xl bg-[#FF8811] text-[#0A0A0A] flex items-center justify-center shrink-0 mt-0.5 border-2 border-[#0A0A0A] shadow-[1.5px_1.5px_0_0_#0A0A0A]">
+          <span className="w-11 h-11 rounded-xl bg-[#9E2424] text-white flex items-center justify-center shrink-0 mt-0.5 border-3 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
             <CagpIcon name="shield" className="w-5 h-5" />
           </span>
           <div>
-            <h3 className="font-head text-base uppercase font-black text-[#0A0A0A] leading-tight m-0">
-              Guardião do Prazo Fatal de 120 Dias Corridos
+            <div className="flex flex-wrap items-center gap-2 mb-1">
+              <span className="cagp-stamp-badge is-semente text-[10px] py-0.5 px-2">
+                ✦ Ferramenta Criada pela Chapa Semente
+              </span>
+              <span className="px-2 py-0.5 rounded-md bg-[#9E2424] text-white font-mono text-[10px] font-bold border border-[#16181d]">
+                ART. 15, § 4º • N-20229
+              </span>
+            </div>
+            <h3 className="font-head text-base sm:text-lg uppercase font-black text-foreground leading-tight m-0">
+              Alerta 120 Dias • Guardião do Prazo Fatal Corrido
             </h3>
-            <p className="font-body text-xs text-[#57534E] mt-1 leading-relaxed m-0">
-              <strong>Art. 15, § 4º do Regulamento do Curso (Versão N-20229):</strong> Certificados de atividades complementares (AAC) devem ser obrigatoriamente protocolados perante o Colegiado de Gestão Pública em até <strong>120 dias corridos</strong> após a emissão do documento. Após esse prazo, o aproveitamento prescreve e é indeferido pela Coordenação.
+            <p className="font-body text-xs text-muted-foreground mt-1 leading-relaxed m-0">
+              Certificados de atividades complementares (AAC) devem ser protocolados no Colegiado em até <strong>120 dias corridos</strong> após a emissão. Quando um certificado entra na faixa crítica (≤ 30 dias) ou ultrapassa 120 dias, o sistema aplica o <strong>Carimbo Mecânico Rubro (`#9E2424`)</strong>.
             </p>
           </div>
         </div>
+
+        <button
+          type="button"
+          onClick={handleSimulateUrgentCert}
+          className="min-h-[44px] px-4 py-2.5 rounded-xl bg-[#9E2424] hover:bg-[#851E1E] text-white font-head text-xs uppercase font-black tracking-wider border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all shrink-0 cursor-pointer flex items-center justify-center gap-2"
+        >
+          <i className="bi bi-PatchExclamationFill bi-exclamation-octagon-fill" aria-hidden="true" />
+          <span>Simular Alerta 120 Dias</span>
+        </button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      {/* Layout Empilhado em 320px–767px e Lado a Lado em 1024px+ */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Formulário de Cadastro de Certificado */}
-        <div className="lg:col-span-1 cagp-card p-5 bg-white border-2 border-[#0A0A0A] rounded-xl h-fit shadow-[3px_3px_0_0_#0A0A0A]">
-          <h4 className="font-head text-sm uppercase font-bold text-[#0A0A0A] mb-3 pb-2 border-b-2 border-[#0A0A0A]/20 flex items-center gap-2">
-            <i className="bi bi-plus-circle text-[#9E2424]" aria-hidden="true" />
-            <span>Cadastrar Novo Certificado</span>
+        <div className="lg:col-span-5 cagp-card p-5 bg-white border-3 border-border rounded-xl h-fit shadow">
+          <h4 className="font-head text-sm uppercase font-bold text-foreground mb-3 pb-2 border-b-2 border-border/20 flex items-center gap-2">
+            <i className="bi bi-plus-circle text-secondary" aria-hidden="true" />
+            <span>Cadastrar no Alerta 120 Dias</span>
           </h4>
 
           {statusMessage && (
-            <div className="p-3 mb-3 bg-[#DCFCE7] border-2 border-[#266264] rounded-xl text-xs text-[#266264] font-bold shadow-[2px_2px_0_0_#0A0A0A]">
+            <div className="p-3 mb-3 bg-success/20 border-2 border-[#266264] rounded-xl text-xs text-[#266264] font-bold shadow-sm">
               {statusMessage}
             </div>
           )}
 
           <form onSubmit={handleAddCert} className="space-y-3.5 font-body">
-            <div>
-              <label htmlFor="cert-title" className="block text-xs font-head font-bold text-[#0A0A0A] mb-1">
+            {/* Primitiva Dropzone para carregar certificado */}
+            <Dropzone
+              variant="compact"
+              onFilesAccepted={(files) => {
+                if (files.length > 0) {
+                  const file = files[0];
+                  const cleanName = file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
+                  setTitle(cleanName);
+                  setStatusMessage(`Arquivo "${file.name}" pronto para cadastro.`);
+                }
+              }}
+              accept={{
+                'application/pdf': ['.pdf'],
+                'image/*': ['.png', '.jpg', '.jpeg'],
+              }}
+              maxFiles={1}
+              className="rounded-xl bg-card border-3 border-dashed border-border shadow-sm p-4 text-center cursor-pointer hover:bg-muted/30"
+            >
+              {({ isDragging }) => (
+                <div className="space-y-1">
+                  <i className="bi bi-file-earmark-arrow-up text-xl text-secondary block" />
+                  <span className="text-xs font-head font-bold uppercase text-foreground block">
+                    {isDragging ? 'Solte o arquivo aqui' : 'Arrastar Certificado (PDF ou Foto)'}
+                  </span>
+                  <span className="text-[10px] text-muted-foreground font-sans block">
+                    Preenche o título automaticamente
+                  </span>
+                </div>
+              )}
+            </Dropzone>
+
+            <FormItem>
+              <FormLabel htmlFor="cert-title" className="block text-xs font-head font-bold text-foreground mb-1">
                 Título do Evento ou Curso:
-              </label>
-              <input
-                id="cert-title"
-                type="text"
-                required
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="Ex: I Seminário de Políticas Públicas UFMG"
-                className="w-full bg-white border-2 border-[#0A0A0A] px-3.5 py-2.5 rounded-xl text-sm text-[#0A0A0A] placeholder-[#57534E] shadow-[2px_2px_0_0_#0A0A0A] focus:outline-none focus:ring-2 focus:ring-[#9E2424] transition-all"
-              />
-            </div>
+              </FormLabel>
+              <FormControl>
+                <input
+                  id="cert-title"
+                  type="text"
+                  required
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder="Ex: I Seminário de Políticas Públicas UFMG"
+                  className="w-full bg-white border-3 border-border px-3.5 py-2.5 rounded-xl text-sm text-foreground placeholder-[#57534E] shadow-sm focus:outline-none focus:ring-2 focus:ring-[#9E2424] transition-all"
+                />
+              </FormControl>
+            </FormItem>
 
             <div>
-              <label htmlFor="cert-mod" className="block text-xs font-head font-bold text-[#0A0A0A] mb-1">
+              <label htmlFor="cert-mod" className="block text-xs font-head font-bold text-foreground mb-1">
                 Modalidade de AAC:
               </label>
               <select
                 id="cert-mod"
                 value={mod}
                 onChange={(e) => setMod(e.target.value)}
-                className="w-full bg-white border-2 border-[#0A0A0A] px-3.5 py-2.5 rounded-xl text-sm text-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] focus:outline-none focus:ring-2 focus:ring-[#9E2424] transition-all cursor-pointer font-medium"
+                className="w-full bg-white border-3 border-border px-3.5 py-2.5 rounded-xl text-sm text-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-[#9E2424] transition-all cursor-pointer font-medium"
               >
                 <option value="Eventos & Congressos">Eventos & Congressos (Teto 60h)</option>
                 <option value="Cursos Livres">Cursos Livres de Extensão (Teto 60h)</option>
@@ -132,9 +227,9 @@ export const AcgGuardianCore: React.FC = () => {
               </select>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-3 items-end">
               <div>
-                <label htmlFor="cert-date" className="block text-xs font-head font-bold text-[#0A0A0A] mb-1">
+                <label htmlFor="cert-date" className="block text-xs font-head font-bold text-foreground mb-1">
                   Data de Emissão:
                 </label>
                 <input
@@ -143,122 +238,163 @@ export const AcgGuardianCore: React.FC = () => {
                   required
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
-                  className="w-full bg-white border-2 border-[#0A0A0A] px-3 py-2.5 rounded-xl text-sm text-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] focus:outline-none focus:ring-2 focus:ring-[#9E2424] transition-all font-mono"
+                  className="w-full bg-white border-3 border-border px-3 py-2 rounded-xl text-sm text-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-[#9E2424] transition-all font-mono"
                 />
               </div>
 
               <div>
-                <label htmlFor="cert-hours" className="block text-xs font-head font-bold text-[#0A0A0A] mb-1">
-                  Carga Horária:
+                <label htmlFor="cert-hours" className="block text-xs font-head font-bold text-foreground mb-1">
+                  Horas Declaradas:
                 </label>
-                <input
-                  id="cert-hours"
-                  type="number"
-                  min="1"
-                  max="180"
-                  required
+                <NumberField
                   value={hours}
-                  onChange={(e) => setHours(Number(e.target.value))}
-                  className="w-full bg-white border-2 border-[#0A0A0A] px-3 py-2.5 rounded-xl text-sm text-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] focus:outline-none focus:ring-2 focus:ring-[#9E2424] transition-all font-mono"
-                />
+                  onValueChange={(val) => setHours(val ?? 0)}
+                  min={1}
+                  max={180}
+                  step={5}
+                >
+                  <NumberFieldContent className="flex items-center border-3 border-border rounded-xl bg-white shadow-sm overflow-hidden h-[42px]">
+                    <NumberFieldDecrement className="p-2 bg-muted hover:bg-secondary hover:text-white transition-colors cursor-pointer border-none" />
+                    <NumberFieldInput
+                      id="cert-hours"
+                      className="w-full text-center font-mono font-bold text-xs bg-transparent border-none focus:outline-none"
+                    />
+                    <NumberFieldIncrement className="p-2 bg-muted hover:bg-secondary hover:text-white transition-colors cursor-pointer border-none" />
+                  </NumberFieldContent>
+                </NumberField>
               </div>
             </div>
 
             <button
               type="submit"
-              className="w-full min-h-[44px] px-4 py-2.5 bg-[#9E2424] text-white hover:bg-[#851E1E] rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 border-2 border-[#0A0A0A] shadow-[2.5px_2.5px_0_0_#0A0A0A] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all mt-4 cursor-pointer"
+              className="w-full min-h-[44px] px-4 py-2.5 bg-secondary text-white hover:bg-[#851E1E] rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 border-3 border-border shadow-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all mt-4 cursor-pointer"
             >
               <CagpIcon name="shield" className="w-4 h-4 text-white" />
-              <span>Adicionar ao Guardião</span>
+              <span>Ativar Alerta 120 Dias</span>
             </button>
           </form>
         </div>
 
         {/* Listagem de Certificados Monitorados */}
-        <div className="lg:col-span-2 space-y-3.5">
-          <div className="flex items-center justify-between pb-2.5 border-b-2 border-[#0A0A0A] flex-wrap gap-2">
-            <h4 className="font-head text-base uppercase font-bold text-[#0A0A0A] m-0 flex items-center gap-2">
-              <CagpIcon name="clock" className="w-4 h-4 text-[#FF8811]" />
-              <span>Certificados Monitorados ({certs.length})</span>
+        <div className="lg:col-span-7 space-y-3.5">
+          <div className="flex items-center justify-between pb-2.5 border-b-2 border-border flex-wrap gap-2">
+            <h4 className="font-head text-base uppercase font-bold text-foreground m-0 flex items-center gap-2">
+              <CagpIcon name="clock" className="w-4 h-4 text-accent" />
+              <span>Certificados no Alerta 120 Dias ({certs.length})</span>
             </h4>
-            <span className="text-xs text-[#0A0A0A] font-mono font-bold px-2.5 py-1 bg-white border border-[#0A0A0A] rounded-md shadow-[1px_1px_0_0_#0A0A0A] tabular-nums">
+            <span className="text-xs text-foreground font-mono font-bold px-2.5 py-1 bg-white border border-border rounded-md shadow-xs tabular-nums">
               Total: {certs.reduce((acc, c) => acc + c.hours, 0)} horas
             </span>
           </div>
 
           {certs.length === 0 ? (
-            <div className="p-8 text-center bg-white border-2 border-[#0A0A0A] rounded-xl text-[#57534E] shadow-[3px_3px_0_0_#0A0A0A]">
-              <i className="bi bi-folder2-open text-4xl text-[#57534E] block mb-2" aria-hidden="true" />
-              <p className="text-sm font-head font-bold uppercase text-[#0A0A0A] m-0">Nenhum certificado cadastrado.</p>
-              <p className="font-body text-xs text-[#57534E] mt-1 max-w-sm mx-auto">
-                Cadastre seus certificados assim que forem emitidos para receber alertas e nunca perder os 120 dias regimentais.
+            <div className="p-8 text-center bg-white border-3 border-border rounded-xl text-muted-foreground shadow space-y-3">
+              <i className="bi bi-folder2-open text-4xl text-muted-foreground block mb-1" aria-hidden="true" />
+              <p className="text-sm font-head font-bold uppercase text-foreground m-0">Nenhum certificado cadastrado no Alerta 120 Dias.</p>
+              <p className="font-body text-xs text-muted-foreground max-w-sm mx-auto m-0">
+                Cadastre seus certificados assim que forem emitidos ou clique abaixo para testar o carimbo mecânico vermelho do Art. 15:
               </p>
+              <button
+                type="button"
+                onClick={handleSimulateUrgentCert}
+                className="min-h-[44px] px-4 py-2 rounded-xl bg-[#9E2424] text-white font-head text-xs uppercase font-black border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all inline-flex items-center gap-2 cursor-pointer"
+              >
+                <i className="bi bi-lightning-charge-fill" aria-hidden="true" />
+                <span>Simular Certificado Crítico (Carimbo 120d)</span>
+              </button>
             </div>
           ) : (
             <div className="space-y-3">
-              {certs.map((c) => {
-                const daysLeft = getDaysLeft(c.date);
-                const isExpired = daysLeft <= 0;
-                const isUrgent = daysLeft > 0 && daysLeft <= 20;
+              <AnimatePresence mode="popLayout">
+                {certs.map((c) => {
+                  const daysLeft = getDaysLeft(c.date);
+                  const isExpired = daysLeft <= 0;
+                  const isUrgent = daysLeft > 0 && daysLeft <= 30;
+                  const isCriticalStamp = isExpired || isUrgent;
 
-                return (
-                  <div
-                    key={c.id}
-                    className="p-4 bg-white border-2 border-[#0A0A0A] rounded-xl shadow-[3px_3px_0_0_#0A0A0A] flex flex-col sm:flex-row sm:items-center justify-between gap-3"
-                  >
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-2 mb-1 flex-wrap">
-                        <span className="px-2 py-0.5 rounded-md bg-[#0A0A0A] text-white font-mono text-[10px] font-bold border border-[#0A0A0A]">{c.mod}</span>
-                        <span className="font-mono text-xs font-bold text-[#9E2424]">{c.hours} horas</span>
-                      </div>
-                      <h5 className="font-head text-sm font-bold text-[#0A0A0A] truncate m-0">
-                        {c.title}
-                      </h5>
-                      <span className="text-[11px] text-[#57534E] font-mono">
-                        Emitido em: {new Date(c.date).toLocaleDateString('pt-BR')}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center gap-2 shrink-0">
-                      <div className="text-right">
-                        {isExpired ? (
-                          <span className="cagp-stamp-badge text-[10px] font-mono font-bold tracking-wider text-white border border-[#0A0A0A] bg-[#9E2424] rounded-md block py-1 px-2.5 shadow-[1px_1px_0_0_#0A0A0A]">
-                            EXPIRADO (0D)
+                  return (
+                    <motion.div
+                      key={c.id}
+                      layout
+                      initial={{ opacity: 0, y: 14, scale: 0.96 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.92 }}
+                      transition={tactileSpring}
+                      className={`p-4 bg-white border-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
+                        isCriticalStamp
+                          ? 'border-[#9E2424] shadow-[5px_5px_0_0_#9E2424] bg-[#FFF5F5]'
+                          : 'border-border shadow'
+                      }`}
+                    >
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2 mb-1 flex-wrap">
+                          <span className="px-2 py-0.5 rounded-md bg-foreground text-background text-white font-mono text-[10px] font-bold border border-border">
+                            {c.mod}
                           </span>
-                        ) : isUrgent ? (
-                          <span className="cagp-stamp-badge text-[10px] font-mono font-bold tracking-wider text-[#0A0A0A] border border-[#0A0A0A] bg-[#FF8811] rounded-md block py-1 px-2.5 shadow-[1px_1px_0_0_#0A0A0A] animate-pulse">
-                            URGENTE ({daysLeft}D)
-                          </span>
-                        ) : (
-                          <span className="cagp-stamp-badge is-feito text-[10px] font-mono font-bold tracking-wider text-white border border-[#0A0A0A] bg-[#266264] rounded-md block py-1 px-2.5 shadow-[1px_1px_0_0_#0A0A0A]">
-                            NO PRAZO ({daysLeft}D)
-                          </span>
-                        )}
+                          <span className="font-mono text-xs font-bold text-secondary">{c.hours} horas</span>
+                        </div>
+                        <h5 className="font-head text-sm font-bold text-foreground truncate m-0">
+                          {c.title}
+                        </h5>
+                        <span className="text-[11px] text-muted-foreground font-mono">
+                          Emitido em: {new Date(c.date).toLocaleDateString('pt-BR')} • Prazo Art. 15: 120 dias corridos
+                        </span>
                       </div>
 
-                      <button
-                        type="button"
-                        onClick={() => downloadAac120dIcs(c.title, new Date(c.date))}
-                        className="w-10 h-10 rounded-xl bg-white hover:bg-[#F3ECE0] border-2 border-[#0A0A0A] text-[#0A0A0A] flex items-center justify-center text-sm shadow-[1.5px_1.5px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer"
-                        title="Baixar lembrete de calendário (.ics)"
-                        aria-label="Baixar lembrete de calendário (.ics)"
-                      >
-                        <CagpIcon name="calendar" className="w-4 h-4 text-[#9E2424]" />
-                      </button>
+                      <div className="flex items-center gap-2 shrink-0 flex-wrap sm:flex-nowrap">
+                        <div className="text-right">
+                          {isExpired ? (
+                            <motion.span
+                              initial={{ scale: 2.2, rotate: -14, opacity: 0 }}
+                              animate={{ scale: 1, rotate: -2.5, opacity: 1 }}
+                              transition={bounceSpring}
+                              className="cagp-stamp-badge is-indeferido text-[11px] font-mono font-black tracking-wider text-white border-3 border-[#16181d] bg-[#9E2424] rounded-lg inline-flex items-center gap-1.5 py-1.5 px-3 shadow-[3px_3px_0_0_#16181d]"
+                            >
+                              <i className="bi bi-x-octagon-fill" aria-hidden="true" />
+                              <span>PRESCRITO • FORA DOS 120D ({daysLeft}D)</span>
+                            </motion.span>
+                          ) : isUrgent ? (
+                            <motion.span
+                              initial={{ scale: 2.2, rotate: 12, opacity: 0 }}
+                              animate={{ scale: 1, rotate: 2, opacity: 1 }}
+                              transition={bounceSpring}
+                              className="cagp-stamp-badge text-[11px] font-mono font-black tracking-wider text-white border-3 border-[#16181d] bg-[#9E2424] rounded-lg inline-flex items-center gap-1.5 py-1.5 px-3 shadow-[3px_3px_0_0_#16181d]"
+                            >
+                              <i className="bi bi-alarm-fill" aria-hidden="true" />
+                              <span>PRAZO FATAL • RESTAM {daysLeft}D</span>
+                            </motion.span>
+                          ) : (
+                            <span className="cagp-stamp-badge is-feito text-[10px] font-mono font-bold tracking-wider text-white border-2 border-[#16181d] bg-teal-700 rounded-md inline-flex items-center gap-1 py-1 px-2.5 shadow-xs">
+                              <i className="bi bi-check-circle-fill" aria-hidden="true" />
+                              <span>NO PRAZO ({daysLeft}D RESTANTES)</span>
+                            </span>
+                          )}
+                        </div>
 
-                      <button
-                        type="button"
-                        onClick={() => handleDeleteCert(c.id)}
-                        className="w-10 h-10 rounded-xl bg-white hover:bg-red-50 text-[#9E2424] border-2 border-[#0A0A0A] flex items-center justify-center text-sm shadow-[1.5px_1.5px_0_0_#0A0A0A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer"
-                        title="Excluir certificado"
-                        aria-label="Excluir certificado"
-                      >
-                        <CagpIcon name="close" className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
+                        <button
+                          type="button"
+                          onClick={() => downloadAac120dIcs(c.title, new Date(c.date))}
+                          className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white hover:bg-[#F3ECE0] border-3 border-border text-foreground flex items-center justify-center text-sm shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer"
+                          title="Baixar lembrete de calendário (.ics)"
+                          aria-label="Baixar lembrete de calendário (.ics)"
+                        >
+                          <CagpIcon name="calendar" className="w-4 h-4 text-secondary" />
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteCert(c.id)}
+                          className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white hover:bg-red-50 text-secondary border-3 border-border flex items-center justify-center text-sm shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer"
+                          title="Excluir certificado"
+                          aria-label="Excluir certificado"
+                        >
+                          <CagpIcon name="close" className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </AnimatePresence>
             </div>
           )}
         </div>

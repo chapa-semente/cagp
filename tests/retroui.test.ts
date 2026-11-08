@@ -12,7 +12,7 @@ import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { CommandDialog } from "@/components/ui/command";
 import { TreeView } from "@/components/ui/tree-view";
 import { Checkbox } from "@/components/ui/checkbox";
-import { EXTENSION_ITEMS, AAC_ITEMS } from "@/components/calculators/acgCatalog";
+import { EXTENSION_ITEMS, AAC_ITEMS } from "@/components/features/acg/calculator/acgCatalog";
 import { TriangleShape, DiamondBadge, BurstShape } from "@/components/boldkit/shapes";
 
 describe("Neobrutalism.com (rL9Ap) & BoldKit Unified Design System Tests", () => {
@@ -45,7 +45,7 @@ describe("Neobrutalism.com (rL9Ap) & BoldKit Unified Design System Tests", () =>
     const accentBadge = badgeVariants({ variant: "accent" });
     const ufmgBadge = badgeVariants({ variant: "ufmg" });
 
-    expect(defaultBadge).toContain("border-2");
+    expect(defaultBadge).toContain("border-3");
     expect(defaultBadge).toContain("bg-primary");
     expect(secondaryBadge).toContain("bg-secondary");
     expect(accentBadge).toContain("bg-accent");

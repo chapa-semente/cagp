@@ -465,10 +465,10 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
           className={cn(
             'relative cursor-pointer overflow-hidden',
             'border-3 border-foreground bg-muted',
-            'shadow-[4px_4px_0px_var(--shadow-color)]',
+            'shadow-md',
             'transition-shadow duration-200',
             orientation === 'vertical' ? 'h-full w-4' : 'h-4 w-full',
-            activeThumb !== null && 'shadow-[2px_2px_0px_var(--shadow-color)]'
+            activeThumb !== null && 'shadow-sm'
           )}
           onPointerDown={handleTrackPointerDown}
         >
@@ -524,10 +524,10 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
             className={cn(
               'absolute h-7 w-7 cursor-grab',
               'border-3 border-foreground bg-background',
-              'shadow-[4px_4px_0px_var(--shadow-color)]',
+              'shadow-md',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
               'transition-shadow duration-150',
-              activeThumb === index && 'cursor-grabbing shadow-[2px_2px_0px_var(--shadow-color)] z-10',
+              activeThumb === index && 'cursor-grabbing shadow-sm z-10',
               hoveringThumb === index && activeThumb !== index && 'shadow-[5px_5px_0px_var(--shadow-color)]'
             )}
             style={

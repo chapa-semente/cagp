@@ -345,7 +345,7 @@ const sidebarItemVariants = cva(
     variants: {
       variant: {
         default: 'hover:bg-muted',
-        active: 'bg-accent shadow-[4px_4px_0px_var(--shadow-color)]',
+        active: 'bg-accent shadow-md',
       },
     },
     defaultVariants: {

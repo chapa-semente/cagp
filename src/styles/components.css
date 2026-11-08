@@ -374,3 +374,32 @@ html[data-a11y-contrast="high"] .cagp-toast {
   box-shadow: var(--shadow, 3px 3px 0 0 #16181d) !important;
   transform: translate(-1px, -1px) !important;
 }
+
+/* ==========================================================================
+   4. Rolagem Horizontal Suave com Máscara (.scroll-mask-x) — Mobile 320px-430px
+   ========================================================================== */
+.scroll-mask-x {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0px,
+    black 12px,
+    black calc(100% - 16px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0px,
+    black 12px,
+    black calc(100% - 16px),
+    transparent 100%
+  );
+}
+
+.scroll-mask-x::-webkit-scrollbar {
+  display: none;
+}
+

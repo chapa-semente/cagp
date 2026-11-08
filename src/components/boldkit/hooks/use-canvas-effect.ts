@@ -2,8 +2,8 @@
  * useCanvasEffect — React adapter over canvas-effect-core.
  *
  * Owns the whole canvas lifecycle so an effect only has to describe how to
- * paint one frame: sizing (DPR-aware, pixel-count capped), pausing when
- * off-screen or backgrounded, and `prefers-reduced-motion`.
+ * paint one frame: sizing (DPR-aware, pixel-count capped) and pausing when
+ * off-screen or backgrounded (runs unconditionally at 60fps).
  */
 import { useEffect, useLayoutEffect, useRef, type RefObject } from 'react';
 import {

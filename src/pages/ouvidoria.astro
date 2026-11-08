@@ -1,0 +1,105 @@
+---
+// src/pages/ouvidoria.astro — Canal Contínuo de Escuta Discente & Ouvidoria (Super App CAGP UFMG)
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { OuvidoriaInteractiveCenter } from '@/components/features/ouvidoria/OuvidoriaInteractiveCenter';
+import { route } from '@/lib/paths';
+---
+
+<BaseLayout
+  title="Fala com o CA • Ouvidoria Discente Segura (CAGP UFMG)"
+  description="Fala com o CA (Proposta 14 da Chapa Semente): canal contínuo de escuta discente segura, Reclame Aqui GP e denúncias formais de ementas defasadas ao Colegiado."
+>
+  <div class="space-y-8 max-w-5xl mx-auto">
+    {/* Breadcrumbs */}
+    <nav class="flex items-center gap-2 text-xs font-mono text-muted-foreground" aria-label="Navegação estrutural">
+      <a href={route('/')} class="hover:text-primary transition-colors">Hoje</a>
+      <span>/</span>
+      <a href={route('/transparencia')} class="hover:text-primary transition-colors">O CAGP</a>
+      <span>/</span>
+      <span class="text-foreground font-bold" aria-current="page">Fala com o CA (Ouvidoria)</span>
+    </nav>
+
+    {/* Hero Section */}
+    <header id="cagp-ouvidoria-header" class="p-6 sm:p-8 rounded-2xl bg-[#5B2A86] text-white border-3 border-[#16181d] shadow-[8px_8px_0px_#16181d] relative overflow-hidden">
+      <div class="relative z-10 space-y-3 max-w-2xl">
+        <div class="flex flex-wrap items-center gap-2">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 border-2 border-white/30 text-xs font-heading font-black uppercase tracking-wider">
+            <i class="bi bi-megaphone-fill text-[#FF8811]"></i>
+            <span>Canal de Escuta Permanente</span>
+          </div>
+          <span class="px-2.5 py-1 rounded-md bg-[#FF8811] text-[#16181d] font-mono text-[10px] font-black uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+            ★ PROPOSTA 14 DA CHAPA SEMENTE
+          </span>
+        </div>
+        <h1 class="text-2xl sm:text-4xl font-heading font-black uppercase tracking-tight leading-tight">
+          Fala com o CA — Ouvidoria Discente Segura
+        </h1>
+        <p class="text-sm sm:text-base text-white/95 font-medium leading-relaxed">
+          Centro Acadêmico não pode ser uma panelinha isolada. No <strong>Fala com o CA</strong> você denuncia disciplinas com bibliografias defasadas, reporta problemas estruturais na FAFICH e envia pautas formais ao Colegiado com sigilo criptográfico no seu próprio aparelho.
+        </p>
+      </div>
+
+      <div class="hidden md:block absolute -right-6 -bottom-8 opacity-20 pointer-events-none" aria-hidden="true">
+        <i class="bi bi-chat-heart text-[220px]"></i>
+      </div>
+    </header>
+
+    {/* Compromisso Oficial Larissa Prado & João Pedro Fragoso */}
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="p-4 rounded-xl border-3 border-border bg-card shadow-[3px_3px_0px_#000] flex gap-3">
+        <div class="w-10 h-10 rounded-lg bg-[#FEF08A] text-[#854D0E] border-2 border-[#CA8A04] flex items-center justify-center shrink-0 text-xl font-bold">
+          <i class="bi bi-quote"></i>
+        </div>
+        <div class="space-y-1">
+          <p class="text-xs text-foreground font-medium italic leading-relaxed">
+            "Chegar a uma universidade imensa sem saber para onde correr gera angústia real. A ouvidoria permanente serve para registrar críticas sobre a sala do CA, a infraestrutura ou o colegiado. A gestão existe para servir a todas as salas."
+          </p>
+          <span class="block text-[11px] font-heading font-black text-primary uppercase">
+            — Larissa Prado, Vice-Presidente da Chapa Semente
+          </span>
+        </div>
+      </div>
+
+      <div class="p-4 rounded-xl border-3 border-border bg-card shadow-[3px_3px_0px_#000] flex gap-3">
+        <div class="w-10 h-10 rounded-lg bg-[#DCFCE7] text-[#166534] border-2 border-[#16A34A] flex items-center justify-center shrink-0 text-xl font-bold">
+          <i class="bi bi-megaphone"></i>
+        </div>
+        <div class="space-y-1">
+          <p class="text-xs text-foreground font-medium italic leading-relaxed">
+            "Comunicação de CA pede seriedade e profundidade. O site é a nossa âncora: o espaço onde sua voz vira pauta e denúncias de ementas defasadas são encaminhadas institucionalmente ao colegiado."
+          </p>
+          <span class="block text-[11px] font-heading font-black text-primary uppercase">
+            — João Pedro Fragoso, Diretor de Comunicação e Marketing
+          </span>
+        </div>
+      </div>
+    </section>
+
+    {/* Centro Interativo de Manifestações */}
+    <section aria-label="Área de Protocolo e Histórico">
+      <OuvidoriaInteractiveCenter client:load />
+    </section>
+
+    {/* Dúvidas Rápidas sobre Ouvidoria */}
+    <footer class="p-5 rounded-xl border-2 border-border/80 bg-muted/40 space-y-3">
+      <h3 class="font-heading font-extrabold text-sm uppercase tracking-wider text-foreground flex items-center gap-2">
+        <i class="bi bi-info-circle-fill text-primary"></i>
+        Como funciona o fluxo de encaminhamento?
+      </h3>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-muted-foreground leading-relaxed">
+        <div>
+          <strong class="text-foreground block mb-0.5">1. Triagem Semanal</strong>
+          As demandas registradas são compiladas sigilosamente pela Vice-Presidência sem expor dados individuais.
+        </div>
+        <div>
+          <strong class="text-foreground block mb-0.5">2. Pauta no Colegiado</strong>
+          Ementas desatualizadas e cobranças irregulares são levadas para as reuniões formais do Colegiado DCP.
+        </div>
+        <div>
+          <strong class="text-foreground block mb-0.5">3. Cobrança de Soluções</strong>
+          Problemas de infraestrutura são protocolados diretamente junto à Diretoria da FAFICH e Chefia do DCP.
+        </div>
+      </div>
+    </footer>
+  </div>
+</BaseLayout>

@@ -30,7 +30,7 @@ const emptyStateVariants = cva(
       variant: {
         default: '',
         filled: 'bg-muted/30 border-3 border-dashed border-foreground p-8',
-        card: 'bg-card border-3 border-foreground shadow-[4px_4px_0px_var(--shadow-color)] p-8',
+        card: 'bg-card border-3 border-foreground shadow-md p-8',
       },
       size: {
         compact: 'gap-2 p-2',
@@ -82,7 +82,7 @@ EmptyState.displayName = 'EmptyState'
 // ============================================================================
 
 const iconContainerVariants = cva(
-  'flex items-center justify-center border-3 border-foreground shadow-[3px_3px_0px_var(--shadow-color)]',
+  'flex items-center justify-center border-3 border-foreground shadow',
   {
     variants: {
       size: {

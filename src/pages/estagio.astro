@@ -1,5 +1,5 @@
 ---
-// estagio.astro — Central de Estágio Supervisionado (300h) & Dispensa Art. 41
+// estagio.astro — Central de Estágio Supervisionado (300h) & Aproveitamento Servidor (Art. 41)
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
 import SegmentedControl from '../components/ui/SegmentedControl.astro';
@@ -10,32 +10,65 @@ import { Art41SimulatorCore } from '../components/features/estagio/art41/Art41Si
 import EstagioObrigatorioCore from '../components/features/estagio/obrigatorio/EstagioObrigatorioCore.astro';
 import EstagioTceCore from '../components/features/estagio/tce/EstagioTceCore.astro';
 import { EstagioDocumentDrawerAndGuide } from '../components/features/estagio/EstagioDocumentDrawerAndGuide';
+import { route } from '@/lib/paths';
 
 const tabs = [
-  { id: 'v0', shortLabel: 'Geral', fullLabel: 'Visão Geral do Estágio', hash: '#visao-geral' },
-  { id: 'v1', shortLabel: 'Art. 41', fullLabel: '1. Dispensa Art. 41', hash: '#art41' },
+  { id: 'v0', shortLabel: 'Estágio Geral', fullLabel: 'Visão Geral & Modelos', hash: '#visao-geral' },
+  { id: 'v1', shortLabel: 'Aproveitamento Servidor', fullLabel: '1. Aproveitamento Servidor (Art. 41)', hash: '#art41' },
   { id: 'v2', shortLabel: 'Estágio 300h', fullLabel: '2. Estágio Obrigatório (300h)', hash: '#obrigatorio' },
-  { id: 'v3', shortLabel: 'Tutorial TCE', fullLabel: '3. Tutorial TCE & Modelos', hash: '#tutorial' },
+  { id: 'v3', shortLabel: 'Tutorial TCE', fullLabel: '3. Tutorial TCE & Minutas', hash: '#tutorial' },
 ];
 
 const badges = [
+  { label: 'Aproveitamento Servidor (Art. 41)', variant: 'green' as const, icon: 'bi-file-earmark-check-fill' },
   { label: '300h Obrigatórias (DCP 135/136)', variant: 'red' as const, icon: 'bi-briefcase-fill' },
-  { label: 'Dispensa Art. 41 Regulamento', variant: 'dark' as const, icon: 'bi-file-earmark-check-fill' },
   { label: 'Lei Federal 11.788/2008', variant: 'blue' as const, icon: 'bi-journal-text' },
-  { label: 'Regulamento N-20229', variant: 'green' as const, icon: 'bi-shield-check' },
+  { label: 'Regulamento N-20229', variant: 'dark' as const, icon: 'bi-shield-check' },
 ];
 ---
 
 <BaseLayout
-  title="Estágio Supervisionado (300h) & Art. 41"
-  description="Regras do estágio supervisionado de Gestão Pública da UFMG (300h: DCP 135 e DCP 136), simulador do Art. 41 para servidores e modelos oficiais de TCE."
+  title="Estágio Supervisionado (300h) & Aproveitamento Servidor (Art. 41)"
+  description="Regras do estágio supervisionado de Gestão Pública da UFMG (300h: DCP 135 e DCP 136), simulador de Aproveitamento Servidor (Art. 41) e modelos oficiais de TCE."
+  mode="operate"
 >
   <PageHeader
-    eyebrow="Eixo 3 · Estágio Supervisionado"
-    title="Estágio Supervisionado (300h)"
-    subtitle="Verificador interativo de integralização por experiência profissional (Art. 41), regras do Estágio Obrigatório A e B e tutorial visual do Termo de Compromisso (TCE)."
+    axisId="carreira"
+    mode="operate"
+    condensed={true}
+    eyebrow="Eixo 4 · Reta Final & Carreira"
+    title="Estágio Supervisionado (300h) & Art. 41"
+    subtitle="Simulador interativo de Aproveitamento Servidor (Art. 41), regras do Estágio Obrigatório A e B (DCP 135/136) e tutorial visual do Termo de Compromisso (TCE)."
     badges={badges}
   />
+
+  <!-- Faixa de Proposta Materializada Chapa Semente -->
+  <div class="mb-4 p-3.5 sm:p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0_0_#16181d] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <div class="flex items-start sm:items-center gap-3">
+      <span class="px-2.5 py-1 rounded-lg border-2 border-[#16181d] bg-[#134E4A] text-white font-mono text-[11px] font-bold uppercase shrink-0 shadow-[2px_2px_0_0_#16181d]">
+        Proposta 3 &amp; 12 em Ação
+      </span>
+      <p class="font-sans text-xs text-foreground font-medium m-0 leading-snug">
+        <strong>Desburocratização real antes da eleição:</strong> A Chapa Semente reuniu todas as minutas do TCE e o simulador de <strong>Aproveitamento Servidor</strong> em 1 clique.
+      </p>
+    </div>
+    <div class="flex flex-wrap items-center gap-2 shrink-0">
+      <a
+        href={route('/estagio-tcc')}
+        class="min-h-[44px] px-3.5 py-2 rounded-xl border-3 border-[#16181d] bg-white hover:bg-muted text-foreground font-heading text-xs font-extrabold uppercase no-underline inline-flex items-center gap-1.5 shadow-[3px_3px_0_0_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
+      >
+        <i class="bi bi-check2-square text-[#134E4A]" aria-hidden="true"></i>
+        <span>Checklist Formando</span>
+      </a>
+      <a
+        href={route('/chapa-semente')}
+        class="min-h-[44px] px-3.5 py-2 rounded-xl border-3 border-[#16181d] bg-[#FF8811] hover:bg-[#e67600] text-[#16181d] font-heading text-xs font-extrabold uppercase no-underline inline-flex items-center gap-1.5 shadow-[3px_3px_0_0_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
+      >
+        <span>Apoiar Chapa Semente</span>
+        <i class="bi bi-arrow-right" aria-hidden="true"></i>
+      </a>
+    </div>
+  </div>
 
   <SegmentedControl tabs={tabs} defaultTab="v0" />
 
@@ -46,15 +79,15 @@ const badges = [
     <EstagioCentralOverview />
   </section>
 
-  <!-- Sub-view 1: Dispensa Art. 41 -->
+  <!-- Sub-view 1: Aproveitamento Servidor (Art. 41) -->
   <section id="ws-panel-v1" class="cagp-workspace-view space-y-4" data-ws-panel="v1" hidden>
     <div id="art41" class="cagp-anchor-target scroll-mt-24"></div>
     <FactCheckBanner
       claim="Servidor público em exercício, celetista no setor público ou comissionado tem dispensa do Estágio Supervisionado (300h)?"
       verdict="homologado"
-      stampText="DISPENSA ART. 41"
+      stampText="APROVEITAMENTO SERVIDOR"
       normativeSource="Art. 41 do Regulamento Versão N-20229 & Parecer CNE/CES 01/2006"
-      explanation="VERDADEIRO, MEDIANTE PROTOCOLO FORMAL. O discente com vínculo formal ativo na administração pública direta ou indireta pode obter a dispensa total das 300h de estágio (DCP 135 e DCP 136). Para isso, deve apresentar portaria de posse, CTPS ou contrato acompanhado de declaração da chefia e memorial de atividades correlatas à Gestão Pública."
+      explanation="VERDADEIRO, MEDIANTE PROTOCOLO FORMAL. O discente com vínculo formal ativo na administração pública direta ou indireta ou em OSC de interesse público pode obter o Aproveitamento Servidor (dispensa das 300h de DCP 135 e DCP 136). Basta apresentar requerimento, declaração da chefia e relatório de atividades correlatas à Gestão Pública."
       officialRuleExcerpt={`Regulamento do Curso — Art. 41:
 O discente que comprovar exercício profissional ou estágio não-obrigatório correlato à área de Gestão Pública na administração direta ou indireta, por período mínimo regulamentar, poderá requerer a dispensa das disciplinas de Estágio Supervisionado A e B, mediante parecer fundamentado da comissão avaliadora designada pelo Colegiado.`}
     />
@@ -76,14 +109,14 @@ O discente que comprovar exercício profissional ou estágio não-obrigatório c
   <!-- Journey Navigation Trail -->
   <JourneyNav
     prev={{
-      title: 'Extensão & Horas AAC (Calculadora 600h)',
+      title: 'Horas & 600h (Calculadora Extensão/AAC)',
       href: '/acg',
-      desc: 'Simule suas horas de Extensão e Atividades Complementares nas 9 categorias do Art. 15.',
+      desc: 'Simule suas horas de Extensão e Atividades Complementares com o Alerta 120 Dias.',
     }}
     next={{
       title: 'Trabalho de Conclusão de Curso (180h)',
       href: '/tcc',
-      desc: 'Conheça as 4 modalidades oficiais (Art. 19), baixe o Termo de Aceite e veja as regras de banca.',
+      desc: 'Compare Monografia vs Artigo Científico (Art. 19), baixe o Termo de Aceite e veja o cronograma de defesa.',
     }}
   />
 </BaseLayout>

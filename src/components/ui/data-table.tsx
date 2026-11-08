@@ -16,6 +16,13 @@ import {
 import { ArrowDown, ArrowUp, ArrowUpDown, ChevronDown, Search, Settings2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import {
@@ -100,23 +107,23 @@ interface DataTableToolbarProps<TData> {
 
 function DataTableToolbar<TData>({
   table,
-  filterPlaceholder = 'Filter...',
+  filterPlaceholder = 'Filtrar...',
   filterColumn,
   showColumnVisibility = true,
 }: DataTableToolbarProps<TData>) {
   const column = filterColumn ? table.getColumn(filterColumn) : null
 
   return (
-    <div className="flex items-center justify-between py-4">
-      <div className="flex flex-1 items-center space-x-2">
+    <div className="flex flex-wrap items-center justify-between gap-3 py-3">
+      <div className="flex flex-1 items-center space-x-2 min-w-[200px]">
         {column && (
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <div className="relative w-full sm:w-auto flex-1 max-w-md">
+            <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#5B2A86]" />
             <Input
               placeholder={filterPlaceholder}
               value={String(column.getFilterValue() ?? '')}
               onChange={(event) => column.setFilterValue(event.target.value)}
-              className="h-9 w-[150px] pl-9 lg:w-[250px]"
+              className="min-h-[44px] h-11 w-full pl-10 rounded-xl border-3 border-[#16181d] bg-white font-sans shadow-[3px_3px_0_0_#16181d] focus-visible:ring-3 focus-visible:ring-[#5B2A86] focus-visible:border-[#5B2A86]"
             />
           </div>
         )}
@@ -124,9 +131,9 @@ function DataTableToolbar<TData>({
       {showColumnVisibility && (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="sm" className="ml-auto h-9">
+            <Button variant="outline" size="sm" className="ml-auto min-h-[44px] h-11 rounded-xl border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] font-heading font-extrabold uppercase text-xs">
               <Settings2 className="mr-2 h-4 w-4" />
-              Columns
+              Colunas
               <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -164,25 +171,27 @@ function DataTablePagination<TData>({
   pageSizeOptions = [10, 20, 30, 50],
 }: DataTablePaginationProps<TData>) {
   return (
-    <div className="flex items-center justify-between py-4">
-      <div className="flex-1 text-sm text-muted-foreground">
-        {table.getFilteredSelectedRowModel().rows.length > 0 && (
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 py-3">
+      <div className="text-xs font-mono font-bold text-muted-foreground">
+        {table.getFilteredSelectedRowModel().rows.length > 0 ? (
           <>
-            {table.getFilteredSelectedRowModel().rows.length} of{' '}
-            {table.getFilteredRowModel().rows.length} row(s) selected.
+            {table.getFilteredSelectedRowModel().rows.length} de{' '}
+            {table.getFilteredRowModel().rows.length} selecionada(s).
           </>
+        ) : (
+          <span>Total: {table.getFilteredRowModel().rows.length} registro(s)</span>
         )}
       </div>
-      <div className="flex items-center space-x-6 lg:space-x-8">
+      <div className="flex flex-wrap items-center justify-between sm:justify-end gap-3 sm:gap-6">
         <div className="flex items-center space-x-2">
-          <p className="text-sm font-medium">Rows per page</p>
+          <p className="text-xs font-heading font-bold uppercase text-foreground m-0">Por pág.</p>
           <Select
             value={`${table.getState().pagination.pageSize}`}
             onValueChange={(value) => {
               table.setPageSize(Number(value))
             }}
           >
-            <SelectTrigger className="h-9 w-[85px]">
+            <SelectTrigger className="min-h-[44px] h-11 w-[88px] rounded-xl border-3 border-[#16181d] bg-white font-mono font-bold">
               <SelectValue placeholder={table.getState().pagination.pageSize} />
             </SelectTrigger>
             <SelectContent side="top">
@@ -194,28 +203,44 @@ function DataTablePagination<TData>({
             </SelectContent>
           </Select>
         </div>
-        <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-          Page {table.getState().pagination.pageIndex + 1} of{' '}
-          {table.getPageCount()}
+        <div className="flex items-center justify-center text-xs font-mono font-bold text-foreground px-2">
+          Pág. {table.getState().pagination.pageIndex + 1} de{' '}
+          {Math.max(1, table.getPageCount())}
         </div>
-        <div className="flex items-center space-x-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Previous
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            Next
-          </Button>
-        </div>
+        <Pagination className="mx-0 w-auto">
+          <PaginationContent className="gap-2">
+            <PaginationItem>
+              <PaginationPrevious
+                role="button"
+                tabIndex={table.getCanPreviousPage() ? 0 : -1}
+                size="sm"
+                onClick={(e) => {
+                  e.preventDefault()
+                  if (table.getCanPreviousPage()) table.previousPage()
+                }}
+                className={cn(
+                  'min-h-[44px] px-3 rounded-xl border-3 border-[#16181d] bg-white font-heading font-extrabold uppercase text-xs shadow-[2px_2px_0_0_#16181d] cursor-pointer select-none',
+                  !table.getCanPreviousPage() && 'pointer-events-none opacity-45'
+                )}
+              />
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationNext
+                role="button"
+                tabIndex={table.getCanNextPage() ? 0 : -1}
+                size="sm"
+                onClick={(e) => {
+                  e.preventDefault()
+                  if (table.getCanNextPage()) table.nextPage()
+                }}
+                className={cn(
+                  'min-h-[44px] px-3 rounded-xl border-3 border-[#16181d] bg-white font-heading font-extrabold uppercase text-xs shadow-[2px_2px_0_0_#16181d] cursor-pointer select-none',
+                  !table.getCanNextPage() && 'pointer-events-none opacity-45'
+                )}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       </div>
     </div>
   )
@@ -359,65 +384,68 @@ function DataTable<TData, TValue>({
         )}
 
         {/* Table */}
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  )
-                })}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {isLoading ? (
-              <TableRow>
-                <TableCell
-                  colSpan={tableColumns.length}
-                  className="h-24 text-center"
-                >
-                  <div className="flex items-center justify-center">
-                    <div className="h-6 w-6 animate-spin border-3 border-foreground border-t-transparent" />
-                  </div>
-                </TableCell>
-              </TableRow>
-            ) : table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
+        <div className="scroll-mask-x overflow-x-auto rounded-xl border-3 border-[#16181d] bg-card shadow-[6px_6px_0_0_#16181d]">
+          <Table>
+            <TableHeader className="border-b-3 border-[#16181d] bg-muted/80">
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id} className="border-b-2 border-[#16181d]">
+                  {headerGroup.headers.map((header) => {
+                    return (
+                      <TableHead key={header.id} className="font-heading font-extrabold uppercase tracking-wider text-foreground">
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                      </TableHead>
+                    )
+                  })}
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={tableColumns.length}
-                  className="h-24 text-center"
-                >
-                  {emptyMessage}
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+              ))}
+            </TableHeader>
+            <TableBody>
+              {isLoading ? (
+                <TableRow>
+                  <TableCell
+                    colSpan={tableColumns.length}
+                    className="h-24 text-center"
+                  >
+                    <div className="flex items-center justify-center">
+                      <div className="h-6 w-6 animate-spin border-3 border-[#16181d] border-t-transparent" />
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ) : table.getRowModel().rows?.length ? (
+                table.getRowModel().rows.map((row) => (
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && 'selected'}
+                    className="border-b-2 border-[#16181d]/20 hover:bg-accent/15 transition-colors"
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={tableColumns.length}
+                    className="h-24 text-center font-heading font-bold uppercase text-muted-foreground"
+                  >
+                    {emptyMessage}
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
 
         {/* Pagination */}
         {enablePagination && (
@@ -434,4 +462,5 @@ export {
   DataTableToolbar,
   DataTablePagination,
   useDataTable,
+  type ColumnDef,
 }

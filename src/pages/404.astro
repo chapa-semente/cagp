@@ -1,60 +1,73 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { ErrorPageBlock } from '../components/boldkit/blocks/error-pages';
-import { route } from '../lib/paths';
+import { MatrixRain } from '../components/boldkit/canvas-effects/MatrixRain';
+import { route } from '@/lib/paths';
 ---
 
 <BaseLayout
-  title="404 — Página Não Encontrada"
+  title="404 — Rota Não Localizada na FAFICH • CAGP UFMG"
   description="A rota solicitada não foi localizada no Superapp do Centro Acadêmico de Gestão Pública (CAGP FAFICH/UFMG)."
+  mode="persuade"
 >
-  <div class="my-8 rounded-xl border-3 border-[#16181d] bg-white shadow-[8px_8px_0px_#16181d] p-6 sm:p-10 space-y-8">
-    <ErrorPageBlock
-      code="404"
-      message="Rota ou processo não localizado no arquivo da FAFICH."
-      homeHref={route('/')}
-    />
+  <div class="relative overflow-hidden my-6 rounded-2xl border-3 border-[#16181d] bg-card shadow-[8px_8px_0_0_#16181d] p-6 sm:p-10 space-y-8" data-context-type="shell">
+    <!-- WebGL 60fps Canvas Shader MatrixRain no Fundo -->
+    <div class="absolute inset-0 opacity-15 pointer-events-none" aria-hidden="true">
+      <MatrixRain client:load color="#9E2424" speed={1.2} />
+    </div>
 
-    <div class="border-t-3 border-[#16181d] pt-6">
-      <span class="font-mono text-xs font-black uppercase text-[#9E2424] block text-center mb-4">
-        Atalhos de Resgate Rápido pelos 5 Eixos Canônicos
-      </span>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
-        <a
-          href={route('/')}
-          class="p-3.5 rounded-xl border-3 border-[#16181d] bg-white hover:bg-[#FFFDF9] shadow-[3px_3px_0px_#16181d] no-underline text-[#16181d]"
-        >
-          <span class="font-mono text-[10px] font-bold text-[#9E2424] block">EIXO 1</span>
-          <span class="font-heading text-xs font-black uppercase">Hoje &amp; Campus</span>
-        </a>
-        <a
-          href={route('/calouros')}
-          class="p-3.5 rounded-xl border-3 border-[#16181d] bg-white hover:bg-[#FFFDF9] shadow-[3px_3px_0px_#16181d] no-underline text-[#16181d]"
-        >
-          <span class="font-mono text-[10px] font-bold text-[#5B2A86] block">EIXO 2</span>
-          <span class="font-heading text-xs font-black uppercase">Manual Calouros</span>
-        </a>
-        <a
-          href={route('/percurso')}
-          class="p-3.5 rounded-xl border-3 border-[#16181d] bg-white hover:bg-[#FFFDF9] shadow-[3px_3px_0px_#16181d] no-underline text-[#16181d]"
-        >
-          <span class="font-mono text-[10px] font-bold text-[#266264] block">EIXO 3</span>
-          <span class="font-heading text-xs font-black uppercase">Grade &amp; 600h</span>
-        </a>
-        <a
-          href={route('/documentos')}
-          class="p-3.5 rounded-xl border-3 border-[#16181d] bg-white hover:bg-[#FFFDF9] shadow-[3px_3px_0px_#16181d] no-underline text-[#16181d]"
-        >
-          <span class="font-mono text-[10px] font-bold text-[#FF8811] block">EIXO 4</span>
-          <span class="font-heading text-xs font-black uppercase">Acervo &amp; PDFs</span>
-        </a>
-        <a
-          href={route('/gestao')}
-          class="p-3.5 rounded-xl border-3 border-[#16181d] bg-white hover:bg-[#FFFDF9] shadow-[3px_3px_0px_#16181d] no-underline text-[#16181d]"
-        >
-          <span class="font-mono text-[10px] font-bold text-[#C4161C] block">EIXO 5</span>
-          <span class="font-heading text-xs font-black uppercase">CAGP &amp; Semente</span>
-        </a>
+    <div class="relative z-10">
+      <ErrorPageBlock
+        client:load
+        title="404"
+        description="Parece que você entrou no corredor errado do 4º andar da FAFICH! Esta página ou processo não consta no arquivo oficial do CAGP."
+        showSearch={true}
+        homeHref={route('/')}
+        backHref={route('/chapa-semente')}
+        className="min-h-0 bg-transparent py-4"
+      />
+
+      <div class="border-t-3 border-border pt-6 mt-8">
+        <span class="font-mono text-xs font-black uppercase text-secondary block text-center mb-4">
+          Atalhos de Resgate Rápido pelos 5 Eixos Canônicos
+        </span>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+          <a
+            href={route('/')}
+            class="p-3.5 rounded-xl border-3 border-border bg-card hover:bg-muted shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline text-foreground"
+          >
+            <span class="font-mono text-[10px] font-bold text-secondary block">EIXO 1</span>
+            <span class="font-heading text-xs font-extrabold uppercase">Hoje &amp; Campus</span>
+          </a>
+          <a
+            href={route('/calouros')}
+            class="p-3.5 rounded-xl border-3 border-border bg-card hover:bg-muted shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline text-foreground"
+          >
+            <span class="font-mono text-[10px] font-bold text-primary block">EIXO 2</span>
+            <span class="font-heading text-xs font-extrabold uppercase">Manual Calouros</span>
+          </a>
+          <a
+            href={route('/percurso')}
+            class="p-3.5 rounded-xl border-3 border-border bg-card hover:bg-muted shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline text-foreground"
+          >
+            <span class="font-mono text-[10px] font-bold text-[#134E4A] block">EIXO 3</span>
+            <span class="font-heading text-xs font-extrabold uppercase">Grade &amp; 600h</span>
+          </a>
+          <a
+            href={route('/documentos')}
+            class="p-3.5 rounded-xl border-3 border-border bg-card hover:bg-muted shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline text-foreground"
+          >
+            <span class="font-mono text-[10px] font-bold text-accent block">EIXO 4</span>
+            <span class="font-heading text-xs font-extrabold uppercase">Acervo &amp; PDFs</span>
+          </a>
+          <a
+            href={route('/gestao')}
+            class="p-3.5 rounded-xl border-3 border-border bg-card hover:bg-muted shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline text-foreground"
+          >
+            <span class="font-mono text-[10px] font-bold text-secondary block">EIXO 5</span>
+            <span class="font-heading text-xs font-extrabold uppercase">CAGP &amp; Semente</span>
+          </a>
+        </div>
       </div>
     </div>
   </div>

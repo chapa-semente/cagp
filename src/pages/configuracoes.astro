@@ -2,8 +2,9 @@
 // configuracoes.astro - Painel Completo de Configurações, Acessibilidade, Carteirinha e Cofre Discente
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
-import { SettingsInteractive } from '../components/settings/SettingsInteractive';
-import { asset } from '../lib/paths';
+import { SettingsInteractive } from '../components/features/settings/SettingsInteractive';
+import { SettingsPage } from '../components/boldkit/blocks/settings-page';
+import { asset } from '@/lib/paths';
 
 const badges = [
   { label: 'Preferências Locais', variant: 'blue' as const, icon: 'bi-sliders' },
@@ -26,16 +27,16 @@ const badges = [
 
   <div class="max-w-4xl mx-auto py-4 space-y-6">
     <!-- Guia Rápido de Identidade Digital UFMG, Carteirinha e Nome Social -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0px_#16181d] flex flex-col justify-between space-y-3">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4" data-context-type="doc-template">
+      <div class="p-4 rounded-xl border-3 border-border bg-card shadow-md flex flex-col justify-between space-y-3 text-foreground">
         <div>
-          <span class="font-mono text-[10px] font-black uppercase text-[#9E2424] block">
+          <span class="font-mono text-[10px] font-extrabold uppercase text-secondary block">
             RESOLUÇÃO PRAE Nº 09/2015
           </span>
-          <h3 class="font-heading text-sm font-black uppercase text-[#16181d] mt-0.5">
+          <h3 class="font-heading text-sm font-extrabold uppercase text-foreground mt-0.5 m-0">
             Inclusão de Nome Social
           </h3>
-          <p class="text-xs text-[#3F3C38] mt-1 leading-relaxed">
+          <p class="text-xs text-muted-foreground mt-1 leading-relaxed m-0">
             Garantia institucional do uso do Nome Social para pessoas travestis, transexuais e não binárias em diários de classe, carteirinha, e-mail @ufmg.br e diplomas.
           </p>
         </div>
@@ -43,21 +44,21 @@ const badges = [
           href={asset('/documentos/requerimento-inclusao-nome-social.pdf')}
           target="_blank"
           rel="noopener noreferrer"
-          class="px-3 py-2 rounded-xl border-2 border-[#16181d] bg-[#9E2424] text-white font-heading text-xs font-extrabold uppercase text-center no-underline shadow-[2px_2px_0px_#16181d]"
+          class="px-3.5 py-2 rounded-xl border-3 border-border bg-secondary hover:bg-secondary-hover text-secondary-foreground font-heading text-xs font-extrabold uppercase text-center no-underline shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all"
         >
           Baixar Requerimento (PDF) ↗
         </a>
       </div>
 
-      <div class="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0px_#16181d] flex flex-col justify-between space-y-3">
+      <div class="p-4 rounded-xl border-3 border-border bg-card shadow-md flex flex-col justify-between space-y-3 text-foreground">
         <div>
-          <span class="font-mono text-[10px] font-black uppercase text-[#5B2A86] block">
+          <span class="font-mono text-[10px] font-extrabold uppercase text-primary block">
             DTI / UFMG • MICROSOFT 365 &amp; EDUROAM
           </span>
-          <h3 class="font-heading text-sm font-black uppercase text-[#16181d] mt-0.5">
+          <h3 class="font-heading text-sm font-extrabold uppercase text-foreground mt-0.5 m-0">
             Conta Office 365 &amp; Wi-Fi
           </h3>
-          <p class="text-xs text-[#3F3C38] mt-1 leading-relaxed">
+          <p class="text-xs text-muted-foreground mt-1 leading-relaxed m-0">
             Seu login @ufmg.br dá direito ao pacote Microsoft 365 Educacional gratuito e à rede Wi-Fi global <strong>eduroam</strong> (WPA2-Enterprise / PEAP).
           </p>
         </div>
@@ -65,21 +66,21 @@ const badges = [
           href={asset('/documentos/dti-office365-criacao-conta.pdf')}
           target="_blank"
           rel="noopener noreferrer"
-          class="px-3 py-2 rounded-xl border-2 border-[#16181d] bg-[#5B2A86] text-white font-heading text-xs font-extrabold uppercase text-center no-underline shadow-[2px_2px_0px_#16181d]"
+          class="px-3.5 py-2 rounded-xl border-3 border-border bg-primary hover:bg-primary-hover text-primary-foreground font-heading text-xs font-extrabold uppercase text-center no-underline shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all"
         >
           Tutorial Office 365 (PDF) ↗
         </a>
       </div>
 
-      <div class="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0px_#16181d] flex flex-col justify-between space-y-3">
+      <div class="p-4 rounded-xl border-3 border-border bg-card shadow-md flex flex-col justify-between space-y-3 text-foreground">
         <div>
-          <span class="font-mono text-[10px] font-black uppercase text-[#266264] block">
+          <span class="font-mono text-[10px] font-extrabold uppercase text-[#134E4A] block">
             CARTEIRA UFMG &amp; APP SIGA MÓVEL
           </span>
-          <h3 class="font-heading text-sm font-black uppercase text-[#16181d] mt-0.5">
+          <h3 class="font-heading text-sm font-extrabold uppercase text-foreground mt-0.5 m-0">
             Manual do Aplicativo Siga
           </h3>
-          <p class="text-xs text-[#3F3C38] mt-1 leading-relaxed">
+          <p class="text-xs text-muted-foreground mt-1 leading-relaxed m-0">
             Consulte notas, salas, horários e apresente sua carteirinha virtual nas catracas dos Restaurantes Universitários e na Biblioteca da FAFICH.
           </p>
         </div>
@@ -87,7 +88,7 @@ const badges = [
           href={asset('/documentos/manual-aplicativo-siga-ufmg.pdf')}
           target="_blank"
           rel="noopener noreferrer"
-          class="px-3 py-2 rounded-xl border-2 border-[#16181d] bg-[#266264] text-white font-heading text-xs font-extrabold uppercase text-center no-underline shadow-[2px_2px_0px_#16181d]"
+          class="px-3.5 py-2 rounded-xl border-3 border-border bg-[#134E4A] hover:bg-[#0E3A37] text-white font-heading text-xs font-extrabold uppercase text-center no-underline shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all"
         >
           Manual App Siga (PDF) ↗
         </a>
@@ -95,5 +96,10 @@ const badges = [
     </div>
 
     <SettingsInteractive client:load />
+
+    <!-- Painel de Preferências e Aparência BoldKit -->
+    <section aria-label="Painel Avançado de Aparência e Segurança" class="mt-8">
+      <SettingsPage client:load defaultTab="appearance" className="border-3 border-border rounded-2xl bg-card shadow-md" />
+    </section>
   </div>
 </BaseLayout>

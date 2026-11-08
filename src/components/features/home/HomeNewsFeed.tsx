@@ -1,10 +1,17 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import {
   SIMULATED_NEWS,
   SIMULATION_NOTICE,
   type SimulatedNewsItem,
-} from '../../../lib/simulatedData';
-import { route } from '../../../lib/paths';
+} from '@/lib/simulatedData';
+import { route } from '@/lib/paths';
+import {
+  photoCardHover,
+  photoCardTap,
+  photoZoomSpring,
+  tactileSpring,
+} from '@/lib/motion';
 
 export function renderNewsMotifSvg(motif: SimulatedNewsItem['motif']) {
   if (motif === 'assembleia') {
@@ -57,13 +64,17 @@ export const HomeNewsFeed: React.FC = () => {
   const featured = SIMULATED_NEWS.slice(0, 3);
 
   return (
-    <section aria-labelledby="heading-news-mural" className="space-y-3.5 font-sans">
+    <section
+      id="cagp-home-news-feed"
+      aria-labelledby="heading-news-mural"
+      className="space-y-3.5 font-sans"
+    >
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2.5">
-          <span className="w-3 h-3 rounded-full bg-[#9E2424] border border-black shrink-0" aria-hidden="true" />
+          <span className="w-3 h-3 rounded-full bg-secondary border border-black shrink-0" aria-hidden="true" />
           <h2
             id="heading-news-mural"
-            className="font-heading text-base sm:text-lg font-extrabold uppercase text-[#0A0A0A] m-0"
+            className="font-heading text-base sm:text-lg font-extrabold uppercase text-foreground m-0"
           >
             Mural de Notícias, Eventos & Carreiras
           </h2>
@@ -71,7 +82,7 @@ export const HomeNewsFeed: React.FC = () => {
 
         <a
           href={route('/noticias')}
-          className="min-h-[44px] px-3.5 py-1.5 rounded-xl text-xs font-heading font-bold uppercase bg-white hover:bg-muted text-[#0A0A0A] hover:text-[#9E2424] border-[2.5px] border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] no-underline inline-flex items-center gap-1.5 transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none tabular-nums"
+          className="min-h-[44px] px-3.5 py-1.5 rounded-xl text-xs font-heading font-bold uppercase bg-white hover:bg-muted text-foreground hover:text-secondary border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] no-underline inline-flex items-center gap-1.5 transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none tabular-nums"
         >
           <span>Mural completo ({SIMULATED_NEWS.length})</span>
           <span aria-hidden="true">&rarr;</span>
@@ -81,69 +92,79 @@ export const HomeNewsFeed: React.FC = () => {
       {/* Tarja de Transparência Simulação */}
       <div
         role="note"
-        className="px-4 py-2.5 rounded-xl bg-[#FEF08A] border-[2.5px] border-[#0A0A0A] shadow-[2px_2px_0_0_#0A0A0A] flex flex-wrap items-center justify-between gap-2 text-xs text-[#0A0A0A]"
+        className="px-4 py-2.5 rounded-xl bg-[#FEF08A] border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] flex flex-wrap items-center justify-between gap-2 text-xs text-foreground"
       >
         <span className="font-medium">
           <strong>Aviso:</strong> {SIMULATION_NOTICE}
         </span>
-        <span className="font-mono text-[11px] font-bold uppercase bg-white px-2 py-0.5 rounded border-2 border-black">
+        <span className="font-mono text-[11px] font-bold uppercase bg-white px-2 py-0.5 rounded border-2 border-[#16181d]">
           simulado
         </span>
       </div>
 
-      {/* Grid de Notícias Neobrutalistas */}
-      <div className="flex md:grid md:grid-cols-3 gap-4 overflow-x-auto md:overflow-visible no-scrollbar pb-2 snap-x snap-mandatory">
+      {/* Grid Bento de Notícias Neobrutalistas (1 col 320-639px, 2 cols 640-1023px, 3 cols 1024px+) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {featured.map((item) => {
           const badgeClass =
             item.tagColor === 'burgundy'
-              ? 'bg-[#9E2424] text-white'
+              ? 'bg-secondary text-white'
               : item.tagColor === 'gold'
-              ? 'bg-[#E8A317] text-[#0A0A0A]'
+              ? 'bg-[#E8A317] text-foreground'
               : item.tagColor === 'green'
-              ? 'bg-[#15803D] text-white'
-              : 'bg-[#5B2A86] text-white';
+              ? 'bg-success text-white'
+              : 'bg-primary text-white';
 
           const articleUrl = route(`/noticias/${item.slug}`);
 
           return (
-            <article
+            <motion.article
               key={item.id}
-              className="w-[285px] md:w-auto shrink-0 snap-start bg-white rounded-xl overflow-hidden border-[3px] border-[#0A0A0A] shadow-[4px_4px_0_0_#0A0A0A] hover:shadow-[6px_6px_0_0_#0A0A0A] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 transition-all flex flex-col justify-between group"
+              data-context-type="news"
+              data-context-data={JSON.stringify({ id: item.id, title: item.title, slug: item.slug })}
+              whileHover={{ y: -3, x: -2 }}
+              whileTap={{ y: 2, x: 2 }}
+              transition={tactileSpring}
+              className="bg-card rounded-xl overflow-hidden border-3 border-[#16181d] shadow-[5px_5px_0_0_#16181d] hover:shadow-[7px_7px_0_0_#16181d] transition-shadow flex flex-col justify-between group cursor-pointer"
             >
               <a
                 href={articleUrl}
-                className="no-underline text-inherit flex flex-col flex-1 justify-between"
+                className="no-underline text-inherit flex flex-col flex-1 justify-between p-3"
               >
                 <div>
-                  <div className="h-32 relative overflow-hidden border-b-[3px] border-[#0A0A0A]">
+                  <motion.div
+                    whileHover={photoCardHover}
+                    whileTap={photoCardTap}
+                    transition={photoZoomSpring}
+                    className="aspect-[16/10] relative overflow-hidden rounded-lg border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] mb-3"
+                  >
                     {renderNewsMotifSvg(item.motif)}
                     <span
-                      className={`absolute top-2.5 left-2.5 text-[11px] font-heading font-extrabold uppercase px-2.5 py-1 rounded-lg border-2 border-black shadow-[1.5px_1.5px_0_0_#0A0A0A] ${badgeClass}`}
+                      className={`absolute top-2.5 left-2.5 text-[11px] font-heading font-extrabold uppercase px-2.5 py-1 rounded-lg border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] ${badgeClass}`}
                     >
                       {item.tag}
                     </span>
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-heading font-extrabold text-sm text-[#0A0A0A] group-hover:text-[#9E2424] transition-colors leading-snug m-0">
+                  </motion.div>
+                  <div className="px-1 pb-2">
+                    <h3 className="font-heading font-extrabold text-sm text-foreground group-hover:text-secondary transition-colors leading-snug m-0">
                       {item.title}
                     </h3>
-                    <p className="text-xs text-[#57534E] font-medium mt-2 mb-0 line-clamp-2 leading-relaxed">
+                    <p className="text-xs text-muted-foreground font-medium mt-2 mb-0 line-clamp-2 leading-relaxed">
                       {item.summary}
                     </p>
                   </div>
                 </div>
 
-                <div className="px-4 pb-3 pt-2.5 border-t-[2px] border-[#0A0A0A]/15 flex items-center justify-between text-xs bg-white">
-                  <span className="text-[#57534E] font-mono text-[11px] font-medium truncate tabular-nums">
+                <div className="px-1 pt-2.5 mt-2 border-t-2 border-[#16181d]/20 flex items-center justify-between text-xs">
+                  <span className="text-muted-foreground font-mono text-[11px] font-bold truncate tabular-nums">
                     {item.meta}
                   </span>
-                  <span className="font-heading font-bold text-[#9E2424] shrink-0 ml-2 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                  <span className="font-heading font-extrabold uppercase text-secondary shrink-0 ml-2 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                     <span>Ler</span>
                     <span aria-hidden="true">&rarr;</span>
                   </span>
                 </div>
               </a>
-            </article>
+            </motion.article>
           );
         })}
       </div>

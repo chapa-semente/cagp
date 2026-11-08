@@ -59,7 +59,7 @@ export interface AttachmentProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const actionClass =
-  'relative z-10 flex h-8 w-8 shrink-0 items-center justify-center border-2 border-foreground bg-background text-foreground transition duration-200 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[2px_2px_0px_var(--shadow-color)] focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring'
+  'relative z-10 flex h-8 w-8 shrink-0 items-center justify-center border-2 border-foreground bg-background text-foreground transition duration-200 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-sm focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring'
 
 const Attachment = React.forwardRef<HTMLDivElement, AttachmentProps>(
   (
@@ -120,7 +120,7 @@ const Attachment = React.forwardRef<HTMLDivElement, AttachmentProps>(
         data-slot="attachment"
         data-state={state}
         className={cn(
-          'relative flex w-72 max-w-full flex-col border-3 border-foreground bg-card text-card-foreground shadow-[4px_4px_0px_var(--shadow-color)] transition duration-200',
+          'relative flex w-72 max-w-full flex-col border-3 border-foreground bg-card text-card-foreground shadow-md transition duration-200',
           opens && 'hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none',
           failed && 'border-destructive shadow-[4px_4px_0px_var(--destructive)]',
           className

@@ -237,26 +237,31 @@ export function initAppShellSidebar(): void {
     cleanPath = cleanPath.replace(/\/index\.html$/, '') || '/';
 
     let activeId = 'hoje';
-    if (cleanPath.startsWith('/curso') || cleanPath.startsWith('/calouros') || cleanPath.startsWith('/pesquisa')) {
+    if (cleanPath.startsWith('/curso') || cleanPath.startsWith('/calouros') || cleanPath.startsWith('/permanencia') || cleanPath.startsWith('/pesquisa')) {
       activeId = 'curso';
     } else if (
       cleanPath.startsWith('/percurso') ||
+      cleanPath.startsWith('/optativas') ||
       cleanPath.startsWith('/acg') ||
-      cleanPath.startsWith('/estagio') ||
-      cleanPath.startsWith('/tcc') ||
-      cleanPath.startsWith('/optativas')
+      cleanPath.startsWith('/cursos')
     ) {
       activeId = 'curriculo';
     } else if (
-      cleanPath.startsWith('/documentos') ||
-      cleanPath.startsWith('/faq') ||
-      cleanPath.startsWith('/mapa-do-site')
+      cleanPath.startsWith('/carreira') ||
+      cleanPath.startsWith('/estagio') ||
+      cleanPath.startsWith('/tcc') ||
+      cleanPath.startsWith('/estagio-tcc')
     ) {
-      activeId = 'acervo';
+      activeId = 'carreira';
     } else if (
+      cleanPath.startsWith('/transparencia') ||
+      cleanPath.startsWith('/ouvidoria') ||
+      cleanPath.startsWith('/chapa-semente') ||
+      cleanPath.startsWith('/documentos') ||
       cleanPath.startsWith('/sobre') ||
       cleanPath.startsWith('/gestao') ||
-      cleanPath.startsWith('/transparencia')
+      cleanPath.startsWith('/faq') ||
+      cleanPath.startsWith('/mapa-do-site')
     ) {
       activeId = 'cagp';
     }
