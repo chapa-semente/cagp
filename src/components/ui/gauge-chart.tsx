@@ -51,8 +51,8 @@ export interface GaugeChartProps
 
 const DEFAULT_ZONES: GaugeChartZone[] = [
   { from: 0, to: 33, color: '#9E2424', label: 'Baixo' },
-  { from: 33, to: 66, color: '#FF8811', label: 'Médio' },
-  { from: 66, to: 100, color: '#5B2A86', label: 'Alto' },
+  { from: 33, to: 66, color: '#FE8812', label: 'Médio' },
+  { from: 66, to: 100, color: '#5B2A85', label: 'Alto' },
 ]
 
 /**

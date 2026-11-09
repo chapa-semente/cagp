@@ -61,14 +61,6 @@ const CANDANGOS_TIMELINE: HistoricalMilestone[] = [
     status: 'completed',
     desc: 'Modernização curricular estruturada em 3.000 horas (200 créditos em 10 semestres), com 3 percursos formativos, 300h de Formação em Extensão Obrigatória (DCP 195/196) e até 300h de AAC.',
   },
-  {
-    year: '2026',
-    title: 'Renovação Democrática CAGP & Chapa Semente (Potencial em Ação)',
-    tag: 'PROPOSTA MATERIALIZADA • 25 E 26/11',
-    status: 'current',
-    desc: 'Com 426 estudantes ativos, a Chapa Semente materializa antes mesmo da eleição o SuperApp Discente (Proposta 3), o Livro-Caixa Aberto (Proposta 1) e a defesa intransigente do estudante trabalhador noturno.',
-    highlight: true,
-  },
 ];
 
 interface PublicCareerCard {
@@ -99,7 +91,7 @@ const CARREIRAS_COMPARATIVAS: PublicCareerCard[] = [
       'Elaboração do PPA, LDO e LOA federal e governança de dados governamentais',
       'Direção e assessoramento superior (DAS/FCE) em ministérios e autarquias',
     ],
-    corDestaque: '#5B2A86',
+    corDestaque: '#5B2A85',
   },
   {
     id: 'eppgg-mg',
@@ -147,7 +139,7 @@ const CARREIRAS_COMPARATIVAS: PublicCareerCard[] = [
       'Captação de recursos, gestão de convênios e transformação digital em prefeituras',
       'Coordenação de projetos sociais em ONGs, fundações e institutos de pesquisa',
     ],
-    corDestaque: '#FF8811',
+    corDestaque: '#FE8812',
   },
 ];
 
@@ -162,7 +154,7 @@ export const CursoCandangosAndTimeline: React.FC = () => {
               <span className="px-2.5 py-0.5 rounded-md bg-[#9E2424] text-white font-mono text-xs font-black uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
                 MEMÓRIA HISTÓRICA • BRUNO GIORGI (1959)
               </span>
-              <span className="px-2.5 py-0.5 rounded-md bg-[#5B2A86] text-white font-mono text-xs font-black uppercase border-2 border-[#16181d]">
+              <span className="px-2.5 py-0.5 rounded-md bg-[#5B2A85] text-white font-mono text-xs font-black uppercase border-2 border-[#16181d]">
                 SÍMBOLO OFICIAL DO CAGP UFMG
               </span>
             </div>
@@ -173,7 +165,7 @@ export const CursoCandangosAndTimeline: React.FC = () => {
               Por que o monumento <em>Dois Guerreiros ("Os Candangos")</em>, inaugurado em 1959 na Praça dos Três Poderes, batiza a identidade visual do Bacharelado em Gestão Pública da FAFICH/UFMG?
             </p>
           </div>
-          <span className="px-3.5 py-2 rounded-xl bg-[#16181d] text-white font-mono text-xs font-black uppercase shrink-0 border-2 border-[#16181d] shadow-[3px_3px_0_0_#FF8811]">
+          <span className="px-3.5 py-2 rounded-xl bg-[#16181d] text-white font-mono text-xs font-black uppercase shrink-0 border-2 border-[#16181d] shadow-[3px_3px_0_0_#FE8812]">
             1959 → 2009 → 2026
           </span>
         </div>
@@ -231,7 +223,7 @@ export const CursoCandangosAndTimeline: React.FC = () => {
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#16181d]/90 via-[#16181d]/25 to-transparent pointer-events-none" />
-              <span className="absolute top-3 left-3 px-3 py-1 rounded-md bg-[#5B2A86] text-white font-mono font-black text-xs uppercase tracking-wider border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+              <span className="absolute top-3 left-3 px-3 py-1 rounded-md bg-[#5B2A85] text-white font-mono font-black text-xs uppercase tracking-wider border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
                 FAFICH / UFMG • REUNI 2009
               </span>
               <div className="absolute bottom-4 left-4 right-4 text-white space-y-1">
@@ -245,7 +237,7 @@ export const CursoCandangosAndTimeline: React.FC = () => {
             </motion.div>
 
             <div className="p-4 rounded-xl border-3 border-[#16181d] bg-[#FAF5FF] shadow-[4px_4px_0_0_#16181d] space-y-1.5">
-              <span className="font-mono text-xs font-black uppercase text-[#5B2A86] block">
+              <span className="font-mono text-xs font-black uppercase text-[#5B2A85] block">
                 SEMIÓTICA TRÍPLICE • CANDANGOS + SEMENTE + UFMG
               </span>
               <p className="text-xs text-[#16181d] font-body font-medium leading-relaxed m-0">
@@ -291,8 +283,8 @@ export const CursoCandangosAndTimeline: React.FC = () => {
                       size="md"
                       className={
                         milestone.highlight
-                          ? 'bg-[#FF8811] text-[#16181d] border-3 border-[#16181d]'
-                          : 'bg-[#5B2A86] text-white border-3 border-[#16181d]'
+                          ? 'bg-[#FE8812] text-[#16181d] border-3 border-[#16181d]'
+                          : 'bg-[#5B2A85] text-white border-3 border-[#16181d]'
                       }
                     >
                       <span className="font-mono text-xs font-black">{idx + 1}</span>
@@ -341,7 +333,7 @@ export const CursoCandangosAndTimeline: React.FC = () => {
         <div className="flex flex-wrap gap-2.5 shrink-0">
           <a
             href="#egressos"
-            className="min-h-[44px] px-4 py-2 bg-secondary hover:bg-[#7A1C1C] text-white rounded-xl font-head text-xs uppercase font-black tracking-wider inline-flex items-center justify-center gap-1.5 no-underline border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5 transition-all"
+            className="min-h-[44px] px-4 py-2 bg-secondary hover:bg-secondary-hover text-white rounded-xl font-head text-xs uppercase font-black tracking-wider inline-flex items-center justify-center gap-1.5 no-underline border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5 transition-all"
           >
             <span>Ver Egressos &amp; Salários →</span>
           </a>

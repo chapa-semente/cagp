@@ -116,7 +116,7 @@ export const CarreiraTalentosPreview: React.FC = () => {
             <button
               type="button"
               onClick={copySummary}
-              className="min-h-[44px] w-full px-3 py-2 rounded-xl border-2 border-border bg-[#FF8811] hover:bg-[#e67600] text-foreground font-heading text-xs font-black uppercase flex items-center justify-center gap-1.5 cursor-pointer shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 transition-all"
+              className="min-h-[44px] w-full px-3 py-2 rounded-xl border-2 border-border bg-[#FE8812] hover:bg-[#e67600] text-foreground font-heading text-xs font-black uppercase flex items-center justify-center gap-1.5 cursor-pointer shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 transition-all"
             >
               <i className="bi bi-clipboard-check-fill" aria-hidden="true" />
               <span>Copiar Resumo</span>

@@ -214,7 +214,7 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
               <i class="bi bi-layout-sidebar-inset text-secondary text-sm" aria-hidden="true"></i>
               <span>Gaveta de Sumário Normativo ({filteredHeadings.length} seções)</span>
             </span>
-            <span class="px-2 py-0.5 rounded bg-[#16181d] text-white font-mono text-[10px] group-open:bg-[#9E2424] transition-colors">
+            <span class="px-2 py-0.5 rounded bg-[#16181d] text-white font-mono text-[10px] group-open:bg-secondary transition-colors">
               ABRIR / FECHAR
             </span>
           </summary>
@@ -289,12 +289,12 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
 <style is:global>
   /* Tipografia Editorial Neobrutalista para o Leitor de Documentos */
   .cagp-doc-reader {
-    font-family: var(--font-body, 'Space Grotesk', system-ui, sans-serif);
+    font-family: var(--font-body, 'Poppins', system-ui, sans-serif);
     color: #0A0A0A;
   }
 
   .cagp-doc-reader h1 {
-    font-family: var(--font-head, 'Bricolage Grotesque', sans-serif);
+    font-family: var(--font-head, 'Poppins', sans-serif);
     font-size: clamp(1.35rem, 2.5vw, 1.875rem);
     font-weight: 800;
     text-transform: uppercase;
@@ -307,7 +307,7 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
   }
 
   .cagp-doc-reader h2 {
-    font-family: var(--font-head, 'Bricolage Grotesque', sans-serif);
+    font-family: var(--font-head, 'Poppins', sans-serif);
     font-size: 1.25rem;
     font-weight: 800;
     text-transform: uppercase;
@@ -320,7 +320,7 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
   }
 
   .cagp-doc-reader h3 {
-    font-family: var(--font-head, 'Bricolage Grotesque', sans-serif);
+    font-family: var(--font-head, 'Poppins', sans-serif);
     font-size: 1rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -330,7 +330,7 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
   }
 
   .cagp-doc-reader h4 {
-    font-family: var(--font-head, 'Bricolage Grotesque', sans-serif);
+    font-family: var(--font-head, 'Poppins', sans-serif);
     font-size: 0.95rem;
     font-weight: 700;
     color: #0A0A0A;
@@ -396,7 +396,7 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
     background-color: #F4F1EA;
     border: 2px solid #0A0A0A;
     padding: 0.6rem 0.75rem;
-    font-family: var(--font-head, 'Bricolage Grotesque', sans-serif);
+    font-family: var(--font-head, 'Poppins', sans-serif);
     font-weight: 800;
     text-transform: uppercase;
     text-align: left;

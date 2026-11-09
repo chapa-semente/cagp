@@ -1,79 +1,78 @@
+// Gera todos os assets da Chapa Semente a partir dos PNGs OFICIAIS do manual
+// (_referencias/identidade_visual_chapa_semente/1.png … 12.png, 1080×1350 com margem).
+//
+// 1. Recorta a margem transparente de cada arquivo e publica em public/logos/semente/*.webp
+// 2. Gera favicon, apple-touch-icon e ícones PWA (any + maskable) a partir do isotipo 10.png
+// 3. Gera o badge monocromático de notificação a partir do isotipo branco 12.png
+//
+// Uso: node scripts/generate-pwa-icons.mjs   (requer ImageMagick 7 — comando `magick`)
+
 import fs from 'node:fs';
 import path from 'node:path';
-import { execSync } from 'node:child_process';
+import { execFileSync } from 'node:child_process';
 
 const ROOT_DIR = process.cwd();
-const SEMENTE_SYMBOL_PATH = path.join(ROOT_DIR, 'public/logos/semente/simbolo_semente_fiel.svg');
-const OUT_SYMBOL_WHITE_BG = path.join(ROOT_DIR, 'public/logos/semente/simbolo_semente_fundo_branco.svg');
-const OUT_FAVICON_SVG = path.join(ROOT_DIR, 'public/favicon.svg');
-const OUT_PWA_SVG = path.join(ROOT_DIR, 'public/imagens/pwa/pwa-icon.svg');
-const OUT_PWA_192 = path.join(ROOT_DIR, 'public/imagens/pwa/pwa-192x192.png');
-const OUT_PWA_512 = path.join(ROOT_DIR, 'public/imagens/pwa/pwa-512x512.png');
-const OUT_PWA_MASKABLE_512 = path.join(ROOT_DIR, 'public/imagens/pwa/pwa-maskable-512x512.png');
-const OUT_APPLE_TOUCH = path.join(ROOT_DIR, 'public/imagens/pwa/apple-touch-icon.png');
-const OUT_FAVICON_ICO = path.join(ROOT_DIR, 'public/favicon.ico');
+const SRC_DIR = path.join(ROOT_DIR, '_referencias/identidade_visual_chapa_semente');
+const LOGO_DIR = path.join(ROOT_DIR, 'public/logos/semente');
+const PWA_DIR = path.join(ROOT_DIR, 'public/imagens/pwa');
 
-// Ensure output dirs exist
-fs.mkdirSync(path.dirname(OUT_SYMBOL_WHITE_BG), { recursive: true });
-fs.mkdirSync(path.dirname(OUT_PWA_SVG), { recursive: true });
+// Numeração do manual (seção 6) → nome publicado
+const OFFICIAL_ASSETS = {
+  1: 'semente-horizontal',
+  2: 'semente-horizontal-preto',
+  3: 'semente-horizontal-branco',
+  4: 'semente-horizontal-badge-laranja',
+  5: 'semente-horizontal-badge-petroleo',
+  6: 'semente-vertical',
+  7: 'semente-vertical-badge',
+  8: 'semente-vertical-branco',
+  9: 'semente-vertical-preto',
+  10: 'semente-simbolo',
+  11: 'semente-simbolo-preto',
+  12: 'semente-simbolo-branco',
+};
 
-const sementeSymbolContent = fs.readFileSync(SEMENTE_SYMBOL_PATH, 'utf8');
+const magick = (...args) => execFileSync('magick', args, { stdio: 'inherit' });
+const src = (n) => path.join(SRC_DIR, `${n}.png`);
 
-// Extract inner elements of the symbol (<defs> and <g id="simbolo-semente">)
-const defsMatch = sementeSymbolContent.match(/<defs>[\s\S]*?<\/defs>/);
-const defsContent = defsMatch ? defsMatch[0] : '';
-const groupMatch = sementeSymbolContent.match(/<g id="simbolo-semente"[\s\S]*?<\/g>/);
-const groupContent = groupMatch ? groupMatch[0] : '';
+fs.mkdirSync(LOGO_DIR, { recursive: true });
+fs.mkdirSync(PWA_DIR, { recursive: true });
 
-if (!groupContent) {
-  throw new Error('Failed to extract <g id="simbolo-semente"> from ' + SEMENTE_SYMBOL_PATH);
+console.log('[1/3] Logos oficiais recortados → public/logos/semente/');
+for (const [n, name] of Object.entries(OFFICIAL_ASSETS)) {
+  const out = path.join(LOGO_DIR, `${name}.webp`);
+  magick(src(n), '-trim', '+repage', '-quality', '90', '-define', 'webp:alpha-quality=100', out);
+  console.log(`  - ${n}.png → ${name}.webp`);
 }
 
-function buildSvgWithWhiteBg(innerX, innerY, innerW, innerH) {
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
-  <rect width="512" height="512" fill="#FFFFFF"/>
-  <svg x="${innerX}" y="${innerY}" width="${innerW}" height="${innerH}" viewBox="57 24 1205 1982" preserveAspectRatio="xMidYMid meet">
-    ${defsContent}
-    ${groupContent}
-  </svg>
-</svg>
-`;
+// Isotipo centralizado num quadrado branco. `fill` = fração do lado ocupada pela altura do símbolo.
+function squareIcon(sourceN, size, fill, out, background = '#FFFFFF') {
+  const inner = Math.round(size * fill);
+  magick(
+    src(sourceN), '-trim', '+repage',
+    '-resize', `${inner}x${inner}`,
+    '-background', background, '-gravity', 'center', '-extent', `${size}x${size}`,
+    '-alpha', background === 'none' ? 'on' : 'remove',
+    out,
+  );
 }
 
-// 1. Standard icon SVG (ideal for square display, favicon, PWA standard: padding ~11%)
-const standardSvg = buildSvgWithWhiteBg(56, 56, 400, 400);
-fs.writeFileSync(OUT_SYMBOL_WHITE_BG, standardSvg, 'utf8');
-fs.writeFileSync(OUT_FAVICON_SVG, standardSvg, 'utf8');
-fs.writeFileSync(OUT_PWA_SVG, standardSvg, 'utf8');
+console.log('[2/3] Ícones PWA, apple-touch e favicon (isotipo 10.png)');
+// "any": respiro ~12% (regra 02 do manual: o símbolo nunca encosta na borda)
+squareIcon(10, 192, 0.76, path.join(PWA_DIR, 'pwa-192x192.png'));
+squareIcon(10, 512, 0.76, path.join(PWA_DIR, 'pwa-512x512.png'));
+// "maskable": símbolo inteiro dentro do círculo seguro de 80%
+squareIcon(10, 192, 0.6, path.join(PWA_DIR, 'pwa-maskable-192x192.png'));
+squareIcon(10, 512, 0.6, path.join(PWA_DIR, 'pwa-maskable-512x512.png'));
+squareIcon(10, 180, 0.72, path.join(PWA_DIR, 'apple-touch-icon.png'));
+squareIcon(10, 96, 0.84, path.join(ROOT_DIR, 'public/favicon-96x96.png'));
+// favicon.ico multi-resolução (16/32/48)
+const tmp = path.join(PWA_DIR, '.favicon-src.png');
+squareIcon(10, 256, 0.86, tmp);
+magick(tmp, '-define', 'icon:auto-resize=48,32,16', path.join(ROOT_DIR, 'public/favicon.ico'));
+fs.unlinkSync(tmp);
 
-console.log('[1/4] SVG files generated:');
-console.log('  -', OUT_SYMBOL_WHITE_BG);
-console.log('  -', OUT_FAVICON_SVG);
-console.log('  -', OUT_PWA_SVG);
+console.log('[3/3] Badge monocromático de notificação (isotipo 12.png)');
+squareIcon(12, 96, 0.84, path.join(PWA_DIR, 'badge-96x96.png'), 'none');
 
-// 2. Maskable icon SVG (inner size 340x340, strictly within 80% safe zone circle diameter 409.6px)
-const maskableSvg = buildSvgWithWhiteBg(86, 86, 340, 340);
-const tempMaskableSvgPath = path.join(ROOT_DIR, 'public/imagens/pwa/temp-maskable.svg');
-fs.writeFileSync(tempMaskableSvgPath, maskableSvg, 'utf8');
-
-// 3. Render PNGs using rsvg-convert
-console.log('[2/4] Rendering PNG raster assets:');
-execSync(`rsvg-convert -w 192 -h 192 "${OUT_PWA_SVG}" -o "${OUT_PWA_192}"`);
-console.log('  - pwa-192x192.png created');
-
-execSync(`rsvg-convert -w 512 -h 512 "${OUT_PWA_SVG}" -o "${OUT_PWA_512}"`);
-console.log('  - pwa-512x512.png created');
-
-execSync(`rsvg-convert -w 512 -h 512 "${tempMaskableSvgPath}" -o "${OUT_PWA_MASKABLE_512}"`);
-console.log('  - pwa-maskable-512x512.png created');
-fs.unlinkSync(tempMaskableSvgPath);
-
-execSync(`rsvg-convert -w 180 -h 180 "${OUT_PWA_SVG}" -o "${OUT_APPLE_TOUCH}"`);
-console.log('  - apple-touch-icon.png (180x180) created');
-
-// 4. Generate multi-resolution favicon.ico
-console.log('[3/4] Generating favicon.ico:');
-execSync(`magick "${OUT_PWA_SVG}" -resize 32x32 "${OUT_FAVICON_ICO}"`);
-console.log('  - favicon.ico (32x32) created');
-
-console.log('[4/4] All PWA & Favicon assets successfully generated with solid white background!');
+console.log('Pronto: todos os assets vêm dos arquivos oficiais do manual.');

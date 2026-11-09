@@ -31,6 +31,8 @@ export interface AxisConfig {
   id: AxisId;
   number: number;
   name: string;
+  /** Rótulo curto da barra inferior no celular (cabe em ~60px com Poppins Bold 12px) */
+  mobileLabel: string;
   tagline: string;
   icon: string;
   color: string;
@@ -44,6 +46,7 @@ export const AXIS_REGISTRY: AxisConfig[] = [
     id: 'hoje',
     number: 1,
     name: 'Hoje',
+    mobileLabel: 'Hoje',
     tagline: 'Rotina do Campus, RU & Bússola Discente',
     icon: 'bi-compass',
     color: '#8B1E2D',
@@ -102,6 +105,7 @@ export const AXIS_REGISTRY: AxisConfig[] = [
     id: 'curso',
     number: 2,
     name: 'Acolhimento',
+    mobileLabel: 'Acolhida',
     tagline: 'Vida Universitária, Permanência FUMP & Pesquisa DCP',
     icon: 'bi-mortarboard',
     color: '#005A9C',
@@ -109,11 +113,11 @@ export const AXIS_REGISTRY: AxisConfig[] = [
     items: [
       {
         id: 'curso-overview',
-        label: 'Visão Geral do Curso',
+        label: 'O Curso de Gestão Pública',
         shortLabel: 'Curso',
         href: route('/curso'),
         icon: 'bi-mortarboard',
-        description: 'Sumário executivo do curso, Colegiado DCP e matriz acadêmica.',
+        description: 'Onde fica, quem atende e horários de hoje; história, egressos e Colegiado.',
         type: 'overview',
         isOverview: true,
         match: ['^/curso$', '^/curso/$', '^/curso/index\\.html$'],
@@ -124,7 +128,7 @@ export const AXIS_REGISTRY: AxisConfig[] = [
         shortLabel: 'Calouros',
         href: route('/calouros'),
         icon: 'bi-backpack',
-        description: 'Checklist interativo de 30 dias e acolhimento na FAFICH.',
+        description: 'Checklist dos primeiros 30 dias, salas da FAFICH e horários da noite.',
         type: 'guide',
         match: ['^/calouros'],
       },
@@ -140,11 +144,11 @@ export const AXIS_REGISTRY: AxisConfig[] = [
       },
       {
         id: 'curso-pesquisa',
-        label: 'Pesquisa & 11 Núcleos',
+        label: 'Pesquisa & Extensão',
         shortLabel: 'Pesquisa',
         href: route('/pesquisa'),
         icon: 'bi-journal-bookmark',
-        description: 'Laboratórios, 11 núcleos do DCP e oportunidades de iniciação científica.',
+        description: 'Os 11 núcleos do DCP e como entrar em iniciação científica e extensão.',
         type: 'page',
         match: ['^/pesquisa'],
       },
@@ -161,15 +165,15 @@ export const AXIS_REGISTRY: AxisConfig[] = [
       },
       {
         id: 'hl-permanencia',
-        title: 'FUMP & Noturno FAFICH',
-        desc: 'Bolsas permanência, auxílios, RU e Circular Noturno 22:30.',
+        title: 'Permanência & Noturno',
+        desc: 'Níveis da FUMP, auxílios, jantar no RU e circular até 22h45.',
         icon: 'bi-shield-heart',
         href: route('/permanencia'),
         actionLabel: 'Ver Permanência',
       },
       {
         id: 'hl-pesquisa',
-        title: 'Pesquisa & 11 Núcleos',
+        title: 'Pesquisa & Extensão',
         desc: 'Bolsas PIBIC e iniciação científica no Departamento de Ciência Política.',
         icon: 'bi-journal-bookmark',
         href: route('/pesquisa'),
@@ -181,6 +185,7 @@ export const AXIS_REGISTRY: AxisConfig[] = [
     id: 'curriculo',
     number: 3,
     name: 'Trajetória 600h',
+    mobileLabel: '600h',
     tagline: 'Grade 10P, Grafo Vivo, Calculadora 600h & Cursos ENAP',
     icon: 'bi-diagram-3',
     color: '#15803D',
@@ -260,6 +265,7 @@ export const AXIS_REGISTRY: AxisConfig[] = [
     id: 'carreira',
     number: 4,
     name: 'Carreira',
+    mobileLabel: 'Carreira',
     tagline: 'Estágio Não Obrigatório, Obrigatório 300h, Art. 41 & TCC',
     icon: 'bi-briefcase',
     color: '#B45309',
@@ -359,9 +365,10 @@ export const AXIS_REGISTRY: AxisConfig[] = [
     id: 'cagp',
     number: 5,
     name: 'O CAGP',
+    mobileLabel: 'CAGP',
     tagline: 'Transparência Centavo a Centavo, Ouvidoria & Chapa Semente',
     icon: 'bi-shield-check',
-    color: '#5B2A86',
+    color: '#5B2A85',
     rootHref: route('/transparencia'),
     items: [
       {

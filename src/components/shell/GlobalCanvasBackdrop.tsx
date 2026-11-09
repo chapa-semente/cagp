@@ -168,9 +168,9 @@ export const GlobalCanvasBackdrop: React.FC = () => {
   const renderShader = () => {
     switch (activeShader) {
       case 'aurora':
-        return <Aurora colors={['#5B2A86', '#FF8811', '#266264', '#9E2424']} speed={0.7} />
+        return <Aurora colors={['#5B2A85', '#FE8812', '#266264', '#9E2424']} speed={0.7} />
       case 'crt':
-        return <CRT color="#5B2A86" scanGap={3} flicker={0.2} speed={0.8} />
+        return <CRT color="#5B2A85" scanGap={3} flicker={0.2} speed={0.8} />
       case 'dither':
         return <Dither />
       case 'dotblob':
@@ -196,7 +196,7 @@ export const GlobalCanvasBackdrop: React.FC = () => {
       case 'mouseripple':
         return <MouseRipple />
       case 'particleweb':
-        return <ParticleWeb particleColor="#5B2A86" lineColor="#FF8811" count={38} speed={0.8} />
+        return <ParticleWeb particleColor="#5B2A85" lineColor="#FE8812" count={38} speed={0.8} />
       case 'plasma':
         return <Plasma />
       case 'pulsingborder':
@@ -204,7 +204,7 @@ export const GlobalCanvasBackdrop: React.FC = () => {
       case 'swirl':
         return <Swirl />
       case 'topography':
-        return <Topography lineColor="#5B2A86" speed={0.5} />
+        return <Topography lineColor="#5B2A85" speed={0.5} />
       case 'truchet':
         return <Truchet />
       case 'voronoipulse':

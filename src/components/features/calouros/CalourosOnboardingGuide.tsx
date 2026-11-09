@@ -29,7 +29,7 @@ const ONBOARDING_STEPS = [
     step: 2,
     tag: 'PASSO 2 • CONECTIVIDADE & BIBLIOTECA',
     title: 'Wi-Fi eduroam & Carteirinha da UFMG',
-    color: '#5B2A86',
+    color: '#5B2A85',
     summary: 'Conecte-se à rede mundial acadêmica em todos os prédios da UFMG e emita sua carteira.',
     points: [
       'Rede Wi-Fi Oficial: Selecione o SSID "eduroam". O usuário deve conter o sufixo completo (ex: seu_login@ufmg.br) e a mesma senha do minhaUFMG (WPA2-Enterprise / PEAP / MSCHAPv2).',
@@ -41,7 +41,7 @@ const ONBOARDING_STEPS = [
     step: 3,
     tag: 'PASSO 3 • ASSISTÊNCIA ESTUDANTIL & RU',
     title: 'FUMP (Níveis I, II e III), RUs e Circular Noturno',
-    color: '#FF8811',
+    color: '#FE8812',
     summary: 'Garanta alimentação subsidiada/gratuita, moradia, auxílio-transporte e saiba chegar ao jantar.',
     points: [
       'Questionário Socioeconômico FUMP (fump.ufmg.br): Preencha na Área do Aluno selecionando "Estudantes da Graduação" para classificação nos Níveis I (isenção total), II ou III. WhatsApp FUMP: (31) 97537-0115.',
@@ -167,7 +167,7 @@ export const CalourosOnboardingGuide: React.FC = () => {
                   initial={false}
                   animate={{ width: `${progressPct}%` }}
                   transition={bounceSpring}
-                  className="bg-gradient-to-r from-[#5B2A86] to-[#FF8811] h-full rounded-full"
+                  className="bg-gradient-to-r from-[#5B2A85] to-[#FE8812] h-full rounded-full"
                 />
               </div>
             </div>
@@ -266,7 +266,7 @@ export const CalourosOnboardingGuide: React.FC = () => {
                     key={i}
                     className="p-3.5 rounded-xl border-2 border-[#16181d] bg-white shadow-[2px_2px_0px_#16181d] text-xs text-[#16181d] leading-relaxed font-medium flex gap-2.5"
                   >
-                    <span className="w-6 h-6 rounded-md bg-[#9E2424] text-white font-mono text-xs font-black flex items-center justify-center shrink-0 mt-0.5 border border-[#16181d]">
+                    <span className="w-6 h-6 rounded-md bg-secondary text-white font-mono text-xs font-black flex items-center justify-center shrink-0 mt-0.5 border border-[#16181d]">
                       {i + 1}
                     </span>
                     <span>{pt}</span>
@@ -286,9 +286,9 @@ export const CalourosOnboardingGuide: React.FC = () => {
                 </Button>
                 <a
                   href={route('/chapa-semente#propostas')}
-                  className="text-xs font-mono font-black uppercase text-[#5B2A86] hover:underline py-2 inline-flex items-center gap-1.5"
+                  className="text-xs font-mono font-black uppercase text-[#5B2A85] hover:underline py-2 inline-flex items-center gap-1.5"
                 >
-                  <i className="bi bi-stars text-xs text-[#FF8811]" aria-hidden="true" />
+                  <i className="bi bi-stars text-xs text-[#FE8812]" aria-hidden="true" />
                   <span>Proposta 7 Semente: Recepção de Calouros →</span>
                 </a>
                 <Button

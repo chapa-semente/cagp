@@ -28,9 +28,9 @@ const { prev, next } = Astro.props;
             <span class="font-heading font-extrabold text-xs uppercase tracking-wider text-secondary block mb-1">
               &larr; Passo Anterior
             </span>
-            <h4 class="font-heading font-extrabold text-base uppercase text-foreground group-hover:text-primary transition-colors leading-tight m-0">
+            <span class="block font-heading font-extrabold text-base uppercase text-foreground group-hover:text-primary transition-colors leading-tight m-0">
               {prev.title}
-            </h4>
+            </span>
           </div>
           <p class="font-sans text-xs text-muted-foreground mt-2 leading-relaxed m-0">{prev.desc}</p>
         </a>
@@ -45,9 +45,9 @@ const { prev, next } = Astro.props;
             <span class="font-heading font-extrabold text-xs uppercase tracking-wider text-primary block mb-1">
               Próximo Passo &rarr;
             </span>
-            <h4 class="font-heading font-extrabold text-base uppercase text-foreground group-hover:text-primary transition-colors leading-tight m-0">
+            <span class="block font-heading font-extrabold text-base uppercase text-foreground group-hover:text-primary transition-colors leading-tight m-0">
               {next.title}
-            </h4>
+            </span>
           </div>
           <p class="font-sans text-xs text-muted-foreground mt-2 leading-relaxed m-0">{next.desc}</p>
         </a>

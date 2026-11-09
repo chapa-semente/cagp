@@ -1,8 +1,9 @@
 // src/components/pwa/PwaElectionCredenciamentoModal.tsx
 // Modal Fullscreen Neobrutalista e Ultra-Expressivo de Indução PWA & Notificações (Zero Emojis)
-// Fiel à Identidade da Chapa Semente: Roxo #5B2A86, Laranja #FF8811, Verde Petróleo #266264, Rubro #9E2424
+// Fiel à Identidade da Chapa Semente: Roxo #5B2A85, Laranja #FE8812, Verde Petróleo #266264, Rubro #9E2424
 
 import React, { useState, useEffect } from 'react';
+import { asset } from '@/lib/paths';
 import {
   getVaultItem,
   setVaultItem,
@@ -191,18 +192,18 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
       {/* 2. TOPBAR DE COMANDO INSTITUCIONAL */}
       <header className="px-3.5 sm:px-6 py-2.5 bg-primary text-white border-b-3 border-border flex items-center justify-between gap-3 shrink-0 shadow-md">
         <div className="flex items-center gap-3 min-w-0">
-          <div className="w-10 h-10 rounded-xl overflow-hidden border-3 border-border bg-white p-1 shadow-sm shrink-0 flex items-center justify-center">
-            <img
-              src="/logos/semente/simbolo_semente_fiel.svg"
-              alt="Logo Chapa Semente"
-              className="w-full h-full object-contain"
-            />
-          </div>
+          <img
+            src={asset('/logos/semente/semente-simbolo-branco.webp')}
+            alt="Chapa Semente"
+            width={466}
+            height={603}
+            className="h-10 w-auto shrink-0"
+          />
 
           <div className="flex flex-col min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="font-heading text-xs font-black tracking-wider uppercase bg-white text-primary px-2 py-0.5 rounded-full border border-border shadow-xs">
-                CHAPA SEM<span>E</span>NT<span className="text-accent">E</span>
+              <span className="font-heading text-xs font-bold bg-white text-primary px-2 py-0.5 rounded-full border border-border shadow-xs">
+                Chapa Semente
               </span>
               <span className="hidden sm:inline-flex font-mono text-[10px] font-bold uppercase bg-teal-700 text-white px-2 py-0.5 rounded border border-border">
                 POTENCIAL EM AÇÃO
@@ -305,7 +306,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
             <div className="space-y-5 animate-in fade-in duration-200">
               {/* Card Destaque Hero */}
               <div className="p-4 sm:p-6 rounded-2xl border-4 border-border bg-white shadow-lg relative overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-[#FF8811] via-[#9E2424] to-[#266264]" />
+                <div className="absolute top-0 left-0 right-0 h-2 bg-accent" />
 
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-2">
                   <div className="space-y-1">
@@ -385,10 +386,10 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
               <div className="p-4 rounded-xl border-3 border-border bg-[#FAF5FF] flex items-center gap-3.5 shadow-md">
                 <div className="w-12 h-12 rounded-xl bg-primary border-3 border-border p-1.5 shrink-0 flex items-center justify-center shadow-sm">
                   <img
-                    src="/logos/semente/icone_semente_central.svg"
+                    src={asset('/logos/semente/semente-simbolo-branco.webp')}
                     alt=""
                     aria-hidden="true"
-                    className="w-full h-full object-contain invert brightness-0"
+                    className="w-full h-full object-contain"
                   />
                 </div>
                 <div>
@@ -804,10 +805,10 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                 <div className="cagp-big-stamp is-semente w-full max-w-md text-center py-4 px-6">
                   <div className="flex items-center justify-center gap-2 mb-1">
                     <img
-                      src="/logos/semente/icone_folha_superior.svg"
+                      src={asset('/logos/semente/semente-simbolo.webp')}
                       alt=""
                       aria-hidden="true"
-                      className="w-5 h-5 object-contain invert brightness-0"
+                      className="w-6 h-6 object-contain"
                     />
                     <span className="cagp-big-stamp-title tracking-wider">CHAPA SEMENTE 2026</span>
                   </div>

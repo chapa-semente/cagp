@@ -6,31 +6,31 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 
 const EGRESSOS_DATA = [
   { name: 'Executivo Estadual', value: 37, fill: '#9E2424', desc: 'Secretarias de Estado, EPPGG-MG e fundações' },
-  { name: 'Executivo Federal', value: 15, fill: '#5B2A86', desc: 'Ministérios, agências reguladoras e autarquias' },
+  { name: 'Executivo Federal', value: 15, fill: '#5B2A85', desc: 'Ministérios, agências reguladoras e autarquias' },
   { name: 'Executivo Municipal', value: 13, fill: '#266264', desc: 'Prefeituras (PBH e região metropolitana)' },
-  { name: 'Consultoria Especializada', value: 12, fill: '#FF8811', desc: 'Empresas de assessoria governamental e projetos' },
+  { name: 'Consultoria Especializada', value: 12, fill: '#FE8812', desc: 'Empresas de assessoria governamental e projetos' },
   { name: 'Terceiro Setor / ONGs', value: 6, fill: '#15803D', desc: 'Institutos sociais, fundações e advocacy' },
   { name: 'Outros Setores / Academia', value: 17, fill: '#57534E', desc: 'Pós-graduação, pesquisa acadêmica e setor privado' },
 ];
 
 const FUNNEL_STAGES = [
-  { stage: '1. Vagas SiSU / Ano', value: 80, percent: 100, fill: '#5B2A86', desc: '40 vagas no 1º semestre e 40 no 2º semestre via SiSU' },
+  { stage: '1. Vagas SiSU / Ano', value: 80, percent: 100, fill: '#5B2A85', desc: '40 vagas no 1º semestre e 40 no 2º semestre via SiSU' },
   { stage: '2. Matrículas Confirmadas', value: 78, percent: 97.5, fill: '#9E2424', desc: 'Taxa histórica de preenchimento e confirmação de matrícula' },
-  { stage: '3. Ciclo Básico Concluído', value: 68, percent: 85, fill: '#FF8811', desc: 'Integralização dos primeiros 4 períodos interdisciplinares' },
+  { stage: '3. Ciclo Básico Concluído', value: 68, percent: 85, fill: '#FE8812', desc: 'Integralização dos primeiros 4 períodos interdisciplinares' },
   { stage: '4. Estágio Supervisionado', value: 56, percent: 70, fill: '#266264', desc: 'Atuação profissional em órgãos públicos ou terceiro setor' },
   { stage: '5. Bacharéis Diplomados', value: 48, percent: 60, fill: '#15803D', desc: 'Colação de grau e obtenção do diploma de Gestor Público' },
 ];
 
 const SALARY_RANGES = [
-  { range: 'Mais de R$ 10.000', value: 24, fill: '#5B2A86', desc: 'Carreiras de Estado estruturadas (EPPGG Federal, EPPGG-MG e consultorias seniores)' },
-  { range: 'R$ 7.000 a R$ 10.000', value: 32, fill: '#FF8811', desc: 'Cargos comissionados, coordenações estaduais e analistas plenos' },
+  { range: 'Mais de R$ 10.000', value: 24, fill: '#5B2A85', desc: 'Carreiras de Estado estruturadas (EPPGG Federal, EPPGG-MG e consultorias seniores)' },
+  { range: 'R$ 7.000 a R$ 10.000', value: 32, fill: '#FE8812', desc: 'Cargos comissionados, coordenações estaduais e analistas plenos' },
   { range: 'R$ 4.500 a R$ 7.000', value: 28, fill: '#266264', desc: 'Analistas municipais, assessores de secretarias e analistas juniores' },
   { range: 'Até R$ 4.500', value: 16, fill: '#9E2424', desc: 'Técnicos recém-formados, residentes de gestão e bolsas de pesquisa' },
 ];
 
 const DEPARTAMENTOS_DATA = [
-  { depto: 'DCP / FAFICH (Ciência Política)', horas: 1560, pct: 52, fill: '#5B2A86' },
-  { depto: 'FACE / UFMG (Economia & Finanças)', horas: 360, pct: 12, fill: '#FF8811' },
+  { depto: 'DCP / FAFICH (Ciência Política)', horas: 1560, pct: 52, fill: '#5B2A85' },
+  { depto: 'FACE / UFMG (Economia & Finanças)', horas: 360, pct: 12, fill: '#FE8812' },
   { depto: 'Extensão Universitária (SIEX Obrigatória)', horas: 300, pct: 10, fill: '#15803D' },
   { depto: 'DSO / FAFICH (Sociologia & Políticas Sociais)', horas: 180, pct: 6, fill: '#9E2424' },
   { depto: 'Faculdade de Direito (Direito Público)', horas: 180, pct: 6, fill: '#266264' },
@@ -113,7 +113,7 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
                   <span className="font-head text-xs font-black uppercase text-foreground tracking-wide">
                     Distribuição Proporcional por Setor (% do Total de Egressos)
                   </span>
-                  <span className="px-2.5 py-0.5 rounded-md bg-[#9E2424] text-white font-mono text-xs font-black">
+                  <span className="px-2.5 py-0.5 rounded-md bg-secondary text-white font-mono text-xs font-black">
                     65% Executivo Consolidado
                   </span>
                 </div>
@@ -179,7 +179,7 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
                 {/* 1. Funil de Integralização */}
                 <div className="p-5 rounded-xl border-2 border-border bg-[#FFFDF9] space-y-4">
                   <div>
-                    <span className="font-mono text-xs font-black uppercase text-[#5B2A86] block">
+                    <span className="font-mono text-xs font-black uppercase text-[#5B2A85] block">
                       Taxas de Retenção &amp; Sucesso Discente
                     </span>
                     <h4 className="font-head text-base font-black uppercase text-foreground m-0">
@@ -214,7 +214,7 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
                 {/* 2. Faixas Salariais dos Egressos */}
                 <div className="p-5 rounded-xl border-2 border-border bg-[#FFFDF9] space-y-4">
                   <div>
-                    <span className="font-mono text-xs font-black uppercase text-[#9E2424] block">
+                    <span className="font-mono text-xs font-black uppercase text-secondary block">
                       Remuneração Média na Carreira Pública
                     </span>
                     <h4 className="font-head text-base font-black uppercase text-foreground m-0">
@@ -258,16 +258,16 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
                   </span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-                  <div className="p-3 rounded-lg bg-[#FAF5FF] border border-[#5B2A86]/30">
-                    <strong className="block font-head font-black uppercase text-[#5B2A86]">1º Horário (Aulas 1 e 2)</strong>
+                  <div className="p-3 rounded-lg bg-[#FAF5FF] border border-[#5B2A85]/30">
+                    <strong className="block font-head font-black uppercase text-[#5B2A85]">1º Horário (Aulas 1 e 2)</strong>
                     <span className="text-muted-foreground font-body font-medium">19h00 às 20h35 (100 minutos de exposição teórica e metodológica).</span>
                   </div>
-                  <div className="p-3 rounded-lg bg-[#FAF5FF] border border-[#5B2A86]/30">
-                    <strong className="block font-head font-black uppercase text-[#5B2A86]">Intervalo Discente</strong>
+                  <div className="p-3 rounded-lg bg-[#FAF5FF] border border-[#5B2A85]/30">
+                    <strong className="block font-head font-black uppercase text-[#5B2A85]">Intervalo Discente</strong>
                     <span className="text-muted-foreground font-body font-medium">20h35 às 20h50 (Acesso ao DA FAFICH, Cantina e Café da Filosofia).</span>
                   </div>
-                  <div className="p-3 rounded-lg bg-[#FAF5FF] border border-[#5B2A86]/30">
-                    <strong className="block font-head font-black uppercase text-[#5B2A86]">2º Horário (Aulas 3 e 4)</strong>
+                  <div className="p-3 rounded-lg bg-[#FAF5FF] border border-[#5B2A85]/30">
+                    <strong className="block font-head font-black uppercase text-[#5B2A85]">2º Horário (Aulas 3 e 4)</strong>
                     <span className="text-muted-foreground font-body font-medium">20h50 às 22h25 (Seminários, laboratórios computacionais e debates).</span>
                   </div>
                 </div>

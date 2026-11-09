@@ -1,538 +1,401 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { bounceSpring, tactileSpring, staggerContainer, staggerItem } from '@/lib/motion';
+// PermanenciaInteractiveHub.tsx — Ilhas da página /permanencia, uma por aba:
+// <PermanenciaNiveis /> (o que cada nível garante), <PermanenciaSimulador /> (estimativa ilustrativa)
+// e <PermanenciaPedido /> (as 4 etapas do pedido + ajuda do CAGP).
+// Regras: nenhuma escolha é feita pelo estudante sem ele tocar; valores em R$ são simulados e rotulados.
+import React, { useId, useState } from 'react';
 import { asset, route } from '@/lib/paths';
+import { SIMULATION_NOTICE, SIMULATION_BADGE_TEXT } from '@/lib/simulatedData';
 
 interface FumpLevelMeta {
+  id: string;
   level: string;
-  tag: string;
-  badge: string;
-  accentBg: string;
-  accentText: string;
-  ruPrice: number;
+  resumo: string;
   ruDiscount: string;
   housing: string;
   transport: string;
   maintenance: string;
   health: string;
-  monthlyAidEstimate: number;
+  /** Valores ilustrativos do simulador (sem fonte oficial). */
+  sim: { ruPrice: number; transporte: number; moradia: number };
 }
 
 const FUMP_LEVELS: FumpLevelMeta[] = [
   {
-    level: 'Nível I',
-    tag: 'PRIORIDADE MÁXIMA • PORTARIA PRAE 1.286/2026',
-    badge: 'Isenção 100% RU + Moradia',
-    accentBg: 'bg-[#15803D]',
-    accentText: 'text-white',
-    ruPrice: 0,
-    ruDiscount: '100% Gratuito — Café da manhã (Setorial I), Almoço e Jantar (R$ 0,00)',
-    housing: 'Vaga nas Moradias Universitárias (Ouro Preto I, II e III) ou Auxílio Moradia mensal em espécie',
-    transport: 'Auxílio Transporte Urbano integral + Circular Interno gratuito até 22h45',
-    maintenance: 'Bolsa Manutenção Socioeconômica prioritária + Auxílio Material Didático e Creche',
-    health: 'Assistência médica, odontológica (DAST) e psicossocial (DASE/PRAE) integral com prioridade',
-    monthlyAidEstimate: 650,
+    id: 'geral',
+    level: 'Sem nível FUMP',
+    resumo: 'Todo estudante da UFMG',
+    ruDiscount: 'Almoço nos RUs Setorial I e II e jantar no Setorial II com a tarifa subsidiada padrão da UFMG.',
+    housing: 'Editais gerais da UFMG (intercâmbio e programas universais).',
+    transport: 'Circular interno gratuito em todas as linhas do Campus Pampulha.',
+    maintenance: 'Bolsas por mérito acadêmico: PIBIC (CNPq/FAPEMIG), PET, extensão e estágios.',
+    health: 'Urgência, campanhas de vacinação e escuta inicial na DASE/PRAE.',
+    sim: { ruPrice: 5.6, transporte: 0, moradia: 0 },
   },
   {
-    level: 'Nível II',
-    tag: 'ALTA VULNERABILIDADE • SUBSÍDIO AMPLIADO',
-    badge: 'Isenção RU + Auxílios',
-    accentBg: 'bg-[#5B2A86]',
-    accentText: 'text-white',
-    ruPrice: 0,
-    ruDiscount: 'Isenção / Subsídio máximo no Almoço, Jantar e Café da Manhã no RU',
-    housing: 'Auxílio Financeiro à Moradia ou vaga conforme disponibilidade de edital FUMP',
-    transport: 'Auxílio Transporte Urbano mensal + Circular Interno gratuito',
-    maintenance: 'Bolsa de Apoio Acadêmico, prioridade em PIBIC/Extensão/Monitoria e Empréstimo de Notebook',
-    health: 'Atendimento médico, odontológico e escuta psicológica gratuita no campus',
-    monthlyAidEstimate: 450,
-  },
-  {
+    id: 'n3',
     level: 'Nível III',
-    tag: 'MÉDIA VULNERABILIDADE • SUBSÍDIO PARCIAL',
-    badge: 'RU R$ 1,00 / Refeição',
-    accentBg: 'bg-[#FF8811]',
-    accentText: 'text-[#16181d]',
-    ruPrice: 1.0,
-    ruDiscount: 'Tarifa reduzida de R$ 1,00 por refeição (Almoço, Jantar e Café da Manhã)',
-    housing: 'Apoio habitacional em casos extraordinários mediante parecer de assistente social',
-    transport: 'Elegível a auxílios emergenciais de deslocamento e Circular gratuito',
-    maintenance: 'Elegível a bolsas acadêmicas institucionais (Pronoturno, Monitoria, Extensão PROEX)',
-    health: 'Acesso integral aos ambulatórios da DAST/FUMP e acolhimento DASE',
-    monthlyAidEstimate: 200,
+    resumo: 'Média vulnerabilidade',
+    ruDiscount: 'Subsídio parcial: tarifa reduzida no almoço, no jantar e no café da manhã.',
+    housing: 'Apoio habitacional só em casos extraordinários, com parecer da assistência social.',
+    transport: 'Auxílios emergenciais de deslocamento e circular gratuito.',
+    maintenance: 'Bolsas acadêmicas institucionais (Pronoturno, monitoria, extensão PROEX).',
+    health: 'Ambulatórios da DAST/FUMP e acolhimento da DASE.',
+    sim: { ruPrice: 1, transporte: 110, moradia: 200 },
   },
   {
-    level: 'Geral UFMG',
-    tag: 'COMUNIDADE DISCENTE • SEM CADASTRO FUMP',
-    badge: 'Tarifa Discente Subsidiada',
-    accentBg: 'bg-[#16181d]',
-    accentText: 'text-white',
-    ruPrice: 5.6,
-    ruDiscount: 'Acesso regular ao Almoço (Setorial I e II) e Jantar (Setorial II) com tarifa subsidiada pela UFMG',
-    housing: 'Elegível a editais gerais de intercâmbio e programas universais da UFMG',
-    transport: 'Uso livre de todas as linhas do Ônibus Circular Interno no Campus Pampulha',
-    maintenance: 'Bolsas de mérito acadêmico (PIBIC CNPq/FAPEMIG, PET, Extensão e Estágios)',
-    health: 'Atendimento de urgência, campanhas de vacinação e escuta inicial DASE/PRAE',
-    monthlyAidEstimate: 0,
+    id: 'n2',
+    level: 'Nível II',
+    resumo: 'Alta vulnerabilidade',
+    ruDiscount: 'Subsídio ampliado de alimentação no RU.',
+    housing: 'Auxílio financeiro à moradia ou vaga, conforme edital da FUMP.',
+    transport: 'Auxílio transporte urbano mensal e circular gratuito.',
+    maintenance: 'Bolsa de apoio acadêmico, prioridade em PIBIC, extensão e monitoria, empréstimo de notebook.',
+    health: 'Atendimento médico, odontológico e escuta psicológica gratuita no campus.',
+    sim: { ruPrice: 0, transporte: 180, moradia: 450 },
+  },
+  {
+    id: 'n1',
+    level: 'Nível I',
+    resumo: 'Extrema vulnerabilidade',
+    ruDiscount: 'Isenção total de alimentação: café da manhã (Setorial I), almoço e jantar.',
+    housing: 'Vaga nas moradias universitárias ou auxílio moradia mensal.',
+    transport: 'Auxílio transporte urbano e circular gratuito.',
+    maintenance: 'Prioridade máxima em bolsas e auxílios, incluindo material didático e creche.',
+    health: 'Assistência médica, odontológica (DAST) e psicossocial (DASE/PRAE) com prioridade.',
+    sim: { ruPrice: 0, transporte: 240, moradia: 650 },
   },
 ];
 
-const FUMP_STEPS = [
-  {
-    step: 1,
-    code: 'ETAPA 01 • PORTAL SINAE',
-    title: 'Acesso à Área do Aluno (fump.ufmg.br)',
-    desc: 'Entre em fump.ufmg.br → Área do Aluno usando seu login e senha do minhaUFMG e selecione "Questionário Socioeconômico — Estudantes da Graduação".',
-    tip: 'Dica Chapa Semente: Você pode preencher mesmo já estando matriculado em qualquer período!',
-  },
-  {
-    step: 2,
-    code: 'ETAPA 02 • GRUPO FAMILIAR & RENDA',
-    title: 'Anexo Digital de Comprovantes',
-    desc: 'Envie pelo próprio sistema os comprovantes de renda do núcleo familiar (contracheques, CadÚnico, declaração de autônomo ou desemprego) e despesas de moradia.',
-    tip: 'Se faltar algum documento, o assistente social da FUMP abre prazo complementar sem cancelar seu pedido.',
-  },
-  {
-    step: 3,
-    code: 'ETAPA 03 • AVALIAÇÃO SOCIAL',
-    title: 'Análise Técnica & Entrevista Social',
-    desc: 'A equipe de Serviço Social da FUMP analisa o perfil socioeconômico conforme a Portaria PRAE nº 1.286/2026 e agenda entrevista (presencial ou remota) se necessário.',
-    tip: 'Dúvidas no preenchimento? Acione o WhatsApp Oficial da FUMP: (31) 97537-0115 ou peça ajuda ao CAGP!',
-  },
-  {
-    step: 4,
-    code: 'ETAPA 04 • HOMOLOGAÇÃO IMEDIATA',
-    title: 'Ativação na Carteirinha do RU & Bolsas',
-    desc: 'Assim que o nível (I, II ou III) é homologado no SINAE, o desconto/isenção no RU II é ativado automaticamente no código de barras da sua Carteirinha UFMG.',
-    tip: 'Com o nível ativo, inscreva-se nos editais contínuos de Auxílio Moradia, Transporte e Manutenção!',
-  },
+const CATEGORIAS: Array<{ key: keyof Pick<FumpLevelMeta, 'ruDiscount' | 'housing' | 'maintenance' | 'transport' | 'health'>; label: string }> = [
+  { key: 'ruDiscount', label: 'Alimentação' },
+  { key: 'housing', label: 'Moradia' },
+  { key: 'maintenance', label: 'Bolsas' },
+  { key: 'transport', label: 'Transporte' },
+  { key: 'health', label: 'Saúde' },
 ];
 
-export const PermanenciaInteractiveHub: React.FC = () => {
-  const [selectedLevel, setSelectedLevel] = useState<number>(0);
-  const [mealsPerMonth, setMealsPerMonth] = useState<number>(44); // 2 por dia útil ~ 22 dias
-  const [hasTransport, setHasTransport] = useState<boolean>(true);
-  const [includeHousingAid, setIncludeHousingAid] = useState<boolean>(true);
-  const [completedSteps, setCompletedSteps] = useState<number[]>([1]);
+const brl = (n: number) => n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-  const currentMeta = FUMP_LEVELS[selectedLevel];
+const cardClass = 'rounded-xl border-3 border-border bg-card shadow-lg';
 
-  // Valor refeição inteira base estudante ~ R$ 5,60 (custo real > R$ 16,00)
-  const costWithoutFump = mealsPerMonth * 5.6;
-  const costWithFump = mealsPerMonth * currentMeta.ruPrice;
-  const savingsMeals = Math.max(0, costWithoutFump - costWithFump);
-  const savingsTransport = hasTransport ? (selectedLevel === 0 ? 240 : selectedLevel === 1 ? 180 : selectedLevel === 2 ? 110 : 0) : 0;
-  const housingAndMaintenance = includeHousingAid ? currentMeta.monthlyAidEstimate : 0;
-  const totalMonthlyImpact = savingsMeals + savingsTransport + housingAndMaintenance;
+/** Seletor de nível como grupo de rádio (2x2 no celular, 4 colunas no desktop). */
+function LevelPicker({
+  value,
+  onChange,
+  options,
+  label,
+}: {
+  value: string | null;
+  onChange: (id: string) => void;
+  options: FumpLevelMeta[];
+  label: string;
+}) {
+  const name = useId();
+  return (
+    <fieldset className="m-0 p-0 border-0">
+      <legend className="font-heading font-bold text-sm mb-2">{label}</legend>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+        {options.map((opt) => {
+          const checked = value === opt.id;
+          return (
+            <label
+              key={opt.id}
+              className={`relative flex flex-col justify-center min-h-[64px] px-3 py-2.5 rounded-lg border-3 border-border cursor-pointer transition-[transform,box-shadow,background-color] duration-150 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-primary has-[:focus-visible]:outline-offset-2 ${
+                checked ? 'bg-primary text-primary-foreground shadow-sm -translate-y-0.5' : 'bg-card hover:bg-muted shadow-xs'
+              }`}
+            >
+              <input
+                type="radio"
+                name={name}
+                value={opt.id}
+                checked={checked}
+                onChange={() => onChange(opt.id)}
+                className="sr-only"
+              />
+              <span className="font-heading font-extrabold uppercase text-sm leading-tight">{opt.level}</span>
+              <span className={`text-xs leading-snug mt-0.5 ${checked ? 'text-primary-foreground/90' : 'text-muted-foreground'}`}>
+                {opt.resumo}
+              </span>
+            </label>
+          );
+        })}
+      </div>
+    </fieldset>
+  );
+}
 
-  const toggleStep = (step: number) => {
-    setCompletedSteps((prev) =>
-      prev.includes(step) ? prev.filter((s) => s !== step) : [...prev, step]
-    );
-  };
+/* ───────────────────────── Aba "Níveis" ───────────────────────── */
+
+export const PermanenciaNiveis: React.FC = () => {
+  // Começa no que todo estudante já tem: nenhuma suposição sobre o nível de quem lê.
+  const [selected, setSelected] = useState<string>('geral');
+  const meta = FUMP_LEVELS.find((l) => l.id === selected) ?? FUMP_LEVELS[0];
 
   return (
-    <div className="space-y-8 text-foreground select-none">
-      {/* 1. Cards BoldKit de Leitura Rápida: Níveis da FUMP */}
-      <div className="space-y-3">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <label className="text-xs sm:text-sm font-head font-black uppercase tracking-wider text-[#16181d] block">
-            1. Selecione o Nível FUMP para Comparar Direitos (Portaria PRAE 1.286/2026)
-          </label>
-          <span className="font-mono text-xs font-bold text-secondary">
-            Toque nos cards para simular →
-          </span>
-        </div>
+    <div className="space-y-5">
+      <LevelPicker
+        value={selected}
+        onChange={setSelected}
+        options={FUMP_LEVELS}
+        label="Compare o que cada nível garante"
+      />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" role="tablist" aria-label="Níveis de Classificação FUMP">
-          {FUMP_LEVELS.map((f, idx) => {
-            const isSelected = selectedLevel === idx;
-            return (
-              <motion.button
-                key={f.level}
-                type="button"
-                role="tab"
-                aria-selected={isSelected}
-                whileHover={{ x: -2, y: -2 }}
-                whileTap={{ x: 2, y: 2 }}
-                transition={tactileSpring}
-                onClick={() => setSelectedLevel(idx)}
-                className={`p-4 rounded-xl border-3 border-[#16181d] text-left transition-colors min-h-[140px] cursor-pointer flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
-                  isSelected
-                    ? 'bg-[#FFFDF9] shadow-[6px_6px_0px_#16181d] ring-3 ring-[#5B2A86]'
-                    : 'bg-white hover:bg-[#f4f0ea] shadow-[4px_4px_0px_#16181d]'
-                }`}
-              >
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-2">
-                    <span className="font-head font-black text-lg text-[#16181d] uppercase">
-                      {f.level}
-                    </span>
-                    <span className={`text-xs font-mono font-black uppercase px-2.5 py-1 rounded-md border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] ${f.accentBg} ${f.accentText}`}>
-                      {f.badge}
-                    </span>
-                  </div>
-                  <p className="text-xs font-body font-medium text-gray-800 leading-relaxed m-0">
-                    {f.ruDiscount}
-                  </p>
-                </div>
-                <div className="text-xs font-mono font-bold text-[#5B2A86] mt-3 pt-2 border-t-2 border-[#16181d]/20 flex items-center justify-between">
-                  <span>{isSelected ? '✓ Nível Selecionado' : 'Ver garantias'}</span>
-                  <span>→</span>
-                </div>
-              </motion.button>
-            );
-          })}
-        </div>
+      <section className={cardClass} aria-live="polite" aria-labelledby="niveis-quadro-titulo">
+        <h3 id="niveis-quadro-titulo" className="font-heading font-extrabold uppercase tracking-tight text-base sm:text-lg leading-tight m-0 px-4 pt-4 pb-3 border-b-3 border-border">
+          {meta.level}: o que você recebe
+        </h3>
+        <dl className="m-0 divide-y-2 divide-border/15">
+          {CATEGORIAS.map((c) => (
+            <div key={c.key} className="grid grid-cols-1 sm:grid-cols-[9rem_1fr] gap-x-4 gap-y-0.5 px-4 py-3">
+              <dt className="font-mono text-xs font-bold uppercase tracking-wide text-muted-foreground pt-0.5">{c.label}</dt>
+              <dd className="m-0 text-base leading-relaxed text-pretty">{meta[c.key]}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <p className="text-sm text-muted-foreground m-0">
+        O nível é definido pela FUMP depois da análise socioeconômica (Portaria PRAE nº 1.286/2026). Veja na aba{' '}
+        <a href="#pedir" className="font-bold text-foreground underline underline-offset-4 decoration-2 decoration-primary">Pedir</a>{' '}
+        como solicitar.
+      </p>
+    </div>
+  );
+};
+
+/* ───────────────────────── Aba "Simular" ───────────────────────── */
+
+export const PermanenciaSimulador: React.FC = () => {
+  const [selected, setSelected] = useState<string | null>(null);
+  // Padrão do estudante noturno: só o jantar nos dias úteis.
+  const [meals, setMeals] = useState<number>(22);
+  const [hasTransport, setHasTransport] = useState<boolean>(true);
+  const [includeHousing, setIncludeHousing] = useState<boolean>(true);
+  const sliderId = useId();
+
+  const meta = FUMP_LEVELS.find((l) => l.id === selected) ?? null;
+  const base = FUMP_LEVELS[0].sim.ruPrice;
+  const ru = meta ? Math.max(0, meals * base - meals * meta.sim.ruPrice) : 0;
+  const transporte = meta && hasTransport ? meta.sim.transporte : 0;
+  const moradia = meta && includeHousing ? meta.sim.moradia : 0;
+  const total = ru + transporte + moradia;
+
+  const toggleClass = (on: boolean) =>
+    `flex items-center gap-3 min-h-[48px] px-3.5 py-2.5 rounded-lg border-3 border-border text-left cursor-pointer transition-[transform,box-shadow] duration-150 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none ${
+      on ? 'bg-card shadow-sm' : 'bg-muted'
+    }`;
+
+  return (
+    <div className="space-y-5">
+      <div role="note" className="flex flex-col sm:flex-row gap-1.5 sm:gap-3 sm:items-start rounded-xl border-3 border-border bg-accent px-4 py-3">
+        <span className="font-mono text-xs font-bold uppercase sm:whitespace-nowrap sm:pt-0.5">{SIMULATION_BADGE_TEXT}</span>
+        <p className="text-sm leading-snug m-0">
+          {SIMULATION_NOTICE} Os valores em R$ são ilustrativos e não vêm de edital: confirme sempre no{' '}
+          <a href="https://www.fump.ufmg.br/" target="_blank" rel="noopener noreferrer" className="font-bold underline underline-offset-4 decoration-2">
+            portal da FUMP
+          </a>
+          .
+        </p>
       </div>
 
-      {/* 2. Quadro de Garantias: Alimentação, Moradia, Transporte e Bolsas */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentMeta.level}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -8 }}
-          transition={tactileSpring}
-          className="p-5 sm:p-6 rounded-2xl bg-white border-3 border-[#16181d] shadow-[5px_5px_0_0_#16181d] space-y-4"
-        >
-          <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b-3 border-[#16181d]">
-            <div>
-              <h3 className="font-head font-black text-lg sm:text-xl uppercase text-[#16181d] m-0">
-                Quadro de Direitos &amp; Benefícios — {currentMeta.level}
-              </h3>
-            </div>
-            <span className={`text-xs font-mono font-black uppercase px-3 py-1.5 rounded-lg border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] ${currentMeta.accentBg} ${currentMeta.accentText}`}>
-              {currentMeta.badge}
-            </span>
-          </div>
+      <LevelPicker
+        value={selected}
+        onChange={setSelected}
+        options={FUMP_LEVELS.slice(1)}
+        label="1. Escolha um nível para simular"
+      />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-xs text-[#16181d]">
-            <div className="p-4 rounded-xl bg-[#FFFDF9] border-2 border-[#16181d] space-y-1.5">
-              <span className="px-2 py-0.5 rounded bg-[#FF8811] text-[#16181d] font-mono text-xs font-black uppercase border border-[#16181d] inline-block">
-                1. ALIMENTAÇÃO (RU)
-              </span>
-              <strong className="block text-[#16181d] font-head font-black uppercase text-sm">
-                Restaurantes Setorial I &amp; II
-              </strong>
-              <p className="text-gray-800 font-body font-medium leading-relaxed m-0">
-                {currentMeta.ruDiscount}
-              </p>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        <div className={`${cardClass} lg:col-span-7 p-4 space-y-4`}>
+          <div className="space-y-2">
+            <div className="flex flex-wrap items-baseline justify-between gap-2">
+              <label htmlFor={sliderId} className="font-heading font-bold text-sm">
+                2. Refeições no RU por mês
+              </label>
+              <output htmlFor={sliderId} className="font-mono text-sm font-bold tabular-nums">
+                {meals} refeições
+              </output>
             </div>
-
-            <div className="p-4 rounded-xl bg-[#FFFDF9] border-2 border-[#16181d] space-y-1.5">
-              <span className="px-2 py-0.5 rounded bg-[#5B2A86] text-white font-mono text-xs font-black uppercase border border-[#16181d] inline-block">
-                2. MORADIA ESTUDANTIL
-              </span>
-              <strong className="block text-[#16181d] font-head font-black uppercase text-sm">
-                Moradia &amp; Auxílio Aluguel
-              </strong>
-              <p className="text-gray-800 font-body font-medium leading-relaxed m-0">
-                {currentMeta.housing}
-              </p>
-            </div>
-
-            <div className="p-4 rounded-xl bg-[#FFFDF9] border-2 border-[#16181d] space-y-1.5">
-              <span className="px-2 py-0.5 rounded bg-[#15803D] text-white font-mono text-xs font-black uppercase border border-[#16181d] inline-block">
-                3. BOLSAS &amp; MANUTENÇÃO
-              </span>
-              <strong className="block text-[#16181d] font-head font-black uppercase text-sm">
-                Apoio Financeiro &amp; IC
-              </strong>
-              <p className="text-gray-800 font-body font-medium leading-relaxed m-0">
-                {currentMeta.maintenance}
-              </p>
-            </div>
-
-            <div className="p-4 rounded-xl bg-[#FFFDF9] border-2 border-[#16181d] space-y-1.5">
-              <span className="px-2 py-0.5 rounded bg-[#9E2424] text-white font-mono text-xs font-black uppercase border border-[#16181d] inline-block">
-                4. TRANSPORTE &amp; SAÚDE
-              </span>
-              <strong className="block text-[#16181d] font-head font-black uppercase text-sm">
-                Deslocamento, DAST &amp; DASE
-              </strong>
-              <p className="text-gray-800 font-body font-medium leading-relaxed m-0">
-                {currentMeta.transport}. {currentMeta.health}.
-              </p>
-            </div>
-          </div>
-        </motion.div>
-      </AnimatePresence>
-
-      {/* 3. Simulador Interativo Animado de Retorno da Assistência Estudantil */}
-      <div className="p-5 sm:p-6 rounded-2xl bg-[#DCFCE7] text-[#16181d] border-3 border-[#16181d] shadow-[5px_5px_0_0_#16181d] space-y-5">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b-3 border-[#16181d] pb-3">
-          <div>
-            <h3 className="font-head font-black text-lg sm:text-xl uppercase tracking-tight text-[#16181d] m-0">
-              Simulador de Impacto Mensal no Orçamento do Estudante
-            </h3>
-            <p className="text-xs text-gray-800 font-body font-medium mt-0.5 m-0">
-              Calcule sua economia direta com refeições no RU II, auxílio transporte e bolsa moradia/manutenção no <strong>{currentMeta.level}</strong>:
+            <input
+              id={sliderId}
+              type="range"
+              min={4}
+              max={60}
+              step={2}
+              value={meals}
+              onChange={(e) => setMeals(Number(e.target.value))}
+              className="w-full h-11 accent-primary cursor-pointer"
+              aria-describedby={`${sliderId}-hint`}
+            />
+            <p id={`${sliderId}-hint`} className="text-xs text-muted-foreground m-0">
+              22 = jantar em todos os dias úteis · 44 = almoço e jantar
             </p>
           </div>
-          <span className="px-3 py-1 rounded-lg bg-[#16181d] text-[#FEF08A] font-mono text-xs font-black uppercase">
-            Simulação Real-Time
-          </span>
-        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
-          <div className="lg:col-span-7 space-y-4">
-            <div className="p-4 bg-white rounded-xl border-2 border-[#16181d] space-y-2">
-              <div className="flex justify-between items-center">
-                <label htmlFor="ru-meals-slider" className="text-xs font-head font-black uppercase tracking-wider text-[#16181d]">
-                  Refeições no RU por Mês (Almoço / Jantar):
-                </label>
-                <span className="px-2.5 py-0.5 rounded bg-[#5B2A86] text-white font-mono text-xs font-black">
-                  {mealsPerMonth} refeições/mês
-                </span>
-              </div>
-              <input
-                id="ru-meals-slider"
-                type="range"
-                min={10}
-                max={60}
-                step={2}
-                value={mealsPerMonth}
-                onChange={(e) => setMealsPerMonth(Number(e.target.value))}
-                className="w-full h-3 accent-[#5B2A86] cursor-pointer"
-              />
-              <div className="flex justify-between text-xs font-mono font-bold text-gray-700">
-                <span>10 ref (2x/sem)</span>
-                <span>22 ref (Jantar diário)</span>
-                <span>44 ref (Almoço + Jantar)</span>
-                <span>60 ref</span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <button
-                type="button"
-                onClick={() => setHasTransport(!hasTransport)}
-                className={`min-h-[48px] p-3.5 rounded-xl border-3 border-[#16181d] text-left flex items-center gap-3 cursor-pointer transition-all active:translate-x-0.5 active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ${
-                  hasTransport
-                    ? 'bg-white shadow-[3px_3px_0_0_#16181d]'
-                    : 'bg-white/60 hover:bg-white opacity-80'
-                }`}
-              >
-                <span className={`w-7 h-7 rounded-lg border-2 border-[#16181d] flex items-center justify-center font-mono text-xs font-black shrink-0 ${
-                  hasTransport ? 'bg-[#15803D] text-white' : 'bg-white text-transparent'
-                }`}>
-                  ✓
-                </span>
-                <span className="text-xs font-head font-black uppercase text-[#16181d] leading-tight">
-                  Incluir Auxílio Transporte Urbano
-                </span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setIncludeHousingAid(!includeHousingAid)}
-                className={`min-h-[48px] p-3.5 rounded-xl border-3 border-[#16181d] text-left flex items-center gap-3 cursor-pointer transition-all active:translate-x-0.5 active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ${
-                  includeHousingAid
-                    ? 'bg-white shadow-[3px_3px_0_0_#16181d]'
-                    : 'bg-white/60 hover:bg-white opacity-80'
-                }`}
-              >
-                <span className={`w-7 h-7 rounded-lg border-2 border-[#16181d] flex items-center justify-center font-mono text-xs font-black shrink-0 ${
-                  includeHousingAid ? 'bg-[#5B2A86] text-white' : 'bg-white text-transparent'
-                }`}>
-                  ✓
-                </span>
-                <span className="text-xs font-head font-black uppercase text-[#16181d] leading-tight">
-                  Incluir Auxílio Moradia / Manutenção
-                </span>
-              </button>
-            </div>
-          </div>
-
-          {/* Resultado Animado do Simulador */}
-          <div className="lg:col-span-5 p-5 bg-white rounded-xl border-3 border-[#16181d] shadow-[5px_5px_0_0_#16181d] space-y-4">
-            <div>
-              <span className="text-xs font-mono font-black uppercase tracking-wider text-gray-600 block">
-                Benefício Econômico Estimado ({currentMeta.level})
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <button type="button" aria-pressed={hasTransport} onClick={() => setHasTransport(!hasTransport)} className={toggleClass(hasTransport)}>
+              <span aria-hidden="true" className={`w-6 h-6 rounded-md border-2 border-border shrink-0 flex items-center justify-center ${hasTransport ? 'bg-success text-white' : 'bg-card'}`}>
+                {hasTransport && <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="3"><path d="M5 12l5 5 9-10" /></svg>}
               </span>
-              <motion.div
-                key={totalMonthlyImpact}
-                initial={{ scale: 1.15, color: '#5B2A86' }}
-                animate={{ scale: 1, color: '#15803D' }}
-                transition={bounceSpring}
-                className="text-3xl sm:text-4xl font-head font-black text-[#15803D] my-1"
-              >
-                R$ {totalMonthlyImpact.toFixed(2).replace('.', ',')} <span className="text-sm font-mono text-[#16181d]">/ mês</span>
-              </motion.div>
-              <span className="text-xs font-mono font-bold text-gray-700 block">
-                Equivalente a R$ {(totalMonthlyImpact * 12).toFixed(0)} por ano de proteção estudantil
+              <span className="font-heading font-bold text-sm leading-tight">Incluir auxílio transporte</span>
+            </button>
+            <button type="button" aria-pressed={includeHousing} onClick={() => setIncludeHousing(!includeHousing)} className={toggleClass(includeHousing)}>
+              <span aria-hidden="true" className={`w-6 h-6 rounded-md border-2 border-border shrink-0 flex items-center justify-center ${includeHousing ? 'bg-success text-white' : 'bg-card'}`}>
+                {includeHousing && <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="3"><path d="M5 12l5 5 9-10" /></svg>}
               </span>
-            </div>
-
-            <div className="space-y-1.5 pt-2 border-t-2 border-[#16181d] text-xs font-mono">
-              <div className="flex justify-between">
-                <span>Subsídio Direto RU ({mealsPerMonth} ref):</span>
-                <strong className="text-[#15803D]">+ R$ {savingsMeals.toFixed(2).replace('.', ',')}</strong>
-              </div>
-              <div className="flex justify-between">
-                <span>Auxílio Transporte Estimado:</span>
-                <strong className="text-[#15803D]">+ R$ {savingsTransport.toFixed(2).replace('.', ',')}</strong>
-              </div>
-              <div className="flex justify-between">
-                <span>Moradia / Bolsa Manutenção:</span>
-                <strong className="text-[#5B2A86]">+ R$ {housingAndMaintenance.toFixed(2).replace('.', ',')}</strong>
-              </div>
-            </div>
-
-            <div className="pt-2 flex flex-col sm:flex-row gap-2.5">
-              <a
-                href="https://www.fump.ufmg.br/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="min-h-[44px] flex-1 px-4 py-2.5 bg-[#15803D] hover:bg-[#166534] text-white font-head font-black text-xs uppercase rounded-xl border-3 border-[#16181d] shadow-[3px_3px_0px_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer inline-flex items-center justify-center gap-2 no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-              >
-                <span>Portal SINAE / FUMP</span>
-                <i className="bi bi-box-arrow-up-right" aria-hidden="true"></i>
-              </a>
-            </div>
+              <span className="font-heading font-bold text-sm leading-tight">Incluir moradia e manutenção</span>
+            </button>
           </div>
         </div>
-      </div>
 
-      {/* 4. Passo a Passo Interativo para Cadastro na FUMP */}
-      <div className="p-5 sm:p-6 rounded-2xl bg-white border-3 border-[#16181d] shadow-[5px_5px_0_0_#16181d] space-y-6">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b-3 border-[#16181d] pb-3">
-          <div>
-            <h3 className="font-head font-black text-lg sm:text-xl uppercase text-[#16181d] m-0">
-              Como Solicitar seu Nível FUMP sem Perder Prazos (4 Etapas)
-            </h3>
-          </div>
-          <span className="px-3 py-1 rounded-lg bg-[#FEF08A] text-[#16181d] font-mono text-xs font-black border-2 border-[#16181d]">
-            {completedSteps.length}/4 Etapas Conferidas
-          </span>
-        </div>
-
-        <motion.div
-          variants={staggerContainer(0.05)}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.15 }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-4"
-        >
-          {FUMP_STEPS.map((st) => {
-            const isChecked = completedSteps.includes(st.step);
-            return (
-              <motion.div
-                key={st.step}
-                variants={staggerItem}
-                role="checkbox"
-                aria-checked={isChecked}
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === ' ' || e.key === 'Enter') {
-                    e.preventDefault();
-                    toggleStep(st.step);
-                  }
-                }}
-                onClick={() => toggleStep(st.step)}
-                className={`p-4 sm:p-5 rounded-xl border-3 border-[#16181d] cursor-pointer transition-all flex flex-col justify-between gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5 ${
-                  isChecked
-                    ? 'bg-[#F0FDF4] shadow-[4px_4px_0_0_#15803D]'
-                    : 'bg-[#FFFDF9] hover:bg-white shadow-[4px_4px_0_0_#16181d]'
-                }`}
-              >
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="px-2.5 py-0.5 rounded bg-[#16181d] text-white font-mono text-xs font-black uppercase">
-                      {st.code}
-                    </span>
-                    <motion.span
-                      animate={isChecked ? { scale: [1, 1.2, 1], rotate: -2 } : { scale: 1, rotate: 0 }}
-                      transition={bounceSpring}
-                      className={`px-2.5 py-0.5 rounded-md font-mono text-xs font-black uppercase border-2 border-[#16181d] ${
-                        isChecked ? 'bg-[#15803D] text-white' : 'bg-white text-[#16181d]'
-                      }`}
-                    >
-                      {isChecked ? '✓ CONFERIDO' : 'MARCAR ETAPA'}
-                    </motion.span>
-                  </div>
-                  <h4 className="font-head text-base font-black uppercase text-[#16181d] m-0">
-                    {st.title}
-                  </h4>
-                  <p className="text-xs text-gray-800 font-body font-medium leading-relaxed m-0">
-                    {st.desc}
-                  </p>
-                </div>
-
-                <div className="p-2.5 rounded-lg bg-[#FAF5FF] border border-[#5B2A86]/30 text-xs font-mono font-bold text-[#5B2A86] flex items-center gap-2">
-                  <i className="bi bi-lightbulb-fill text-sm text-[#FF8811] shrink-0" aria-hidden="true" />
-                  <span>{st.tip}</span>
-                </div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
-
-        {/* Galeria Visual Ampliada da Campanha Permanecer FUMP & Passo a Passo Oficial */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-2">
-          <div className="space-y-2">
-            <div className="cagp-photo-frame relative aspect-[16/10] min-h-[240px] w-full rounded-xl border-3 border-[#16181d] shadow-[6px_6px_0_0_#16181d] overflow-hidden bg-[#f4f0ea]">
-              <img
-                src={asset('/imagens/campanha-permanecer-fump.png')}
-                alt="Campanha Institucional Permanecer é Direito — FUMP e UFMG"
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
-            <span className="font-mono text-xs font-bold text-[#16181d] block">
-              [CARTILHA VISUAL 01] Campanha Institucional de Permanência Estudantil FUMP/UFMG.
-            </span>
-          </div>
-
-          <div className="space-y-2">
-            <div className="cagp-photo-frame relative aspect-[16/10] min-h-[240px] w-full rounded-xl border-3 border-[#16181d] shadow-[6px_6px_0_0_#16181d] overflow-hidden bg-[#f4f0ea]">
-              <img
-                src={asset('/imagens/dast-novo-bh.jpg')}
-                alt="Divisão de Atenção à Saúde do Estudante (DAST / FUMP) no Campus Pampulha"
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
-            <span className="font-mono text-xs font-bold text-[#16181d] block">
-              [CARTILHA VISUAL 02] Atendimento médico, odontológico e psicossocial gratuito (DAST &amp; DASE/PRAE).
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* 5. Botão Direto de Acolhimento pelo CA & Compromisso Eleitoral Chapa Semente */}
-      <div className="p-5 sm:p-6 rounded-2xl bg-[#5B2A86] text-white border-3 border-[#16181d] shadow-[8px_8px_0px_#16181d] flex flex-col lg:flex-row lg:items-center justify-between gap-5">
-        <div className="space-y-2 max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#FF8811] text-[#16181d] border-2 border-[#16181d] font-mono text-xs font-black uppercase shadow-[2px_2px_0_0_#16181d]">
-            <i className="bi bi-heart-fill" aria-hidden="true"></i>
-            <span>ACOLHIMENTO DIRETO PELO CAGP • CHAPA SEMENTE</span>
-          </div>
-          <h3 className="font-head text-xl sm:text-2xl font-black uppercase tracking-tight m-0">
-            Travou no Cadastro da FUMP ou Precisa de Apoio Urgente?
+        <section className={`${cardClass} lg:col-span-5 p-4`} aria-live="polite" aria-labelledby="sim-resultado-titulo">
+          <h3 id="sim-resultado-titulo" className="font-heading font-bold text-sm m-0">
+            {meta ? `Estimativa ilustrativa · ${meta.level}` : 'Estimativa ilustrativa'}
           </h3>
-          <p className="text-xs sm:text-sm text-white/95 font-body font-medium leading-relaxed m-0">
-            Nenhum estudante de Gestão Pública ficará desamparado. Acione diretamente o canal de acolhimento sigiloso do Centro Acadêmico para orientação no preenchimento do SINAE, recursos de bolsa ou demandas do turno noturno.
-          </p>
-        </div>
-
-        <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-          <a
-            href={route('/ouvidoria')}
-            className="min-h-[48px] px-5 py-3 bg-[#FF8811] hover:bg-[#e67300] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#5B2A86] text-[#16181d] rounded-xl font-head text-xs sm:text-sm uppercase font-black tracking-wider inline-flex items-center justify-center gap-2 transition-all no-underline border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]"
-          >
-            <i className="bi bi-chat-heart-fill text-base" aria-hidden="true"></i>
-            <span>Pedir Acolhimento Direto ao CA →</span>
-          </a>
-          <a
-            href={route('/chapa-semente')}
-            className="min-h-[48px] px-5 py-3 bg-white hover:bg-[#f4f0ea] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#5B2A86] text-[#16181d] rounded-xl font-head text-xs sm:text-sm uppercase font-black tracking-wider inline-flex items-center justify-center gap-2 transition-all no-underline border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]"
-          >
-            <i className="bi bi-check2-circle text-base text-[#5B2A86]" aria-hidden="true"></i>
-            <span>Votar Chapa Semente (25 e 26/11)</span>
-          </a>
-        </div>
+          {meta ? (
+            <>
+              <p className="font-heading font-extrabold text-3xl sm:text-4xl tabular-nums tracking-tight my-2">
+                {brl(total)}
+                <span className="font-mono text-sm font-bold text-muted-foreground"> /mês</span>
+              </p>
+              <dl className="m-0 space-y-1.5 pt-3 border-t-2 border-border font-mono text-sm tabular-nums">
+                <div className="flex justify-between gap-3"><dt>Economia no RU</dt><dd className="m-0 font-bold">{brl(ru)}</dd></div>
+                <div className="flex justify-between gap-3"><dt>Transporte</dt><dd className="m-0 font-bold">{brl(transporte)}</dd></div>
+                <div className="flex justify-between gap-3"><dt>Moradia e manutenção</dt><dd className="m-0 font-bold">{brl(moradia)}</dd></div>
+              </dl>
+            </>
+          ) : (
+            <p className="text-sm text-muted-foreground mt-2 mb-0">Escolha um nível acima para ver a estimativa.</p>
+          )}
+        </section>
       </div>
     </div>
   );
 };
+
+/* ───────────────────────── Aba "Pedir" ───────────────────────── */
+
+const FUMP_STEPS = [
+  {
+    title: 'Entre na Área do Aluno da FUMP',
+    desc: 'Em fump.ufmg.br, entre com o login da UFMG e abra "Questionário Socioeconômico — Estudantes da Graduação".',
+    tip: 'Pode preencher em qualquer período do curso, não só no 1º.',
+  },
+  {
+    title: 'Envie os comprovantes do grupo familiar',
+    desc: 'Comprovantes de renda de todos da família (contracheque, CadÚnico, declaração de autônomo ou desemprego), comprovante de residência e despesas de moradia.',
+    tip: 'Faltou documento? A assistência social abre prazo complementar sem cancelar o pedido.',
+  },
+  {
+    title: 'Análise e entrevista social',
+    desc: 'O Serviço Social da FUMP analisa o perfil (Portaria PRAE nº 1.286/2026) e pode marcar entrevista presencial ou remota.',
+    tip: 'Dúvida no preenchimento: WhatsApp oficial da FUMP (31) 97537-0115.',
+  },
+  {
+    title: 'Homologação e ativação',
+    desc: 'Com o nível homologado, o desconto ou a isenção no RU passa a valer na sua carteirinha UFMG.',
+    tip: 'Com o nível ativo, inscreva-se nos editais de auxílio moradia, transporte e manutenção.',
+  },
+];
+
+export const PermanenciaPedido: React.FC = () => {
+  const [done, setDone] = useState<number[]>([]);
+  const toggle = (i: number) => setDone((prev) => (prev.includes(i) ? prev.filter((s) => s !== i) : [...prev, i]));
+
+  return (
+    <div className="space-y-6">
+      <section className={`${cardClass} overflow-hidden`} aria-labelledby="pedido-titulo">
+        <div className="flex flex-wrap items-center justify-between gap-2 px-4 pt-4 pb-3 border-b-3 border-border">
+          <h3 id="pedido-titulo" className="font-heading font-extrabold uppercase tracking-tight text-base sm:text-lg leading-tight m-0">
+            Como pedir seu nível na FUMP
+          </h3>
+          <span className="font-mono text-sm font-bold tabular-nums" aria-live="polite">
+            {done.length}/{FUMP_STEPS.length} feitas
+          </span>
+        </div>
+        <ol className="m-0 p-0 list-none divide-y-2 divide-border/15">
+          {FUMP_STEPS.map((st, i) => {
+            const isDone = done.includes(i);
+            return (
+              <li key={st.title} className="grid grid-cols-[auto_1fr] gap-x-3 px-4 py-4">
+                <span
+                  aria-hidden="true"
+                  className={`w-9 h-9 rounded-lg border-3 border-border flex items-center justify-center font-mono font-bold tabular-nums ${isDone ? 'bg-success text-white' : 'bg-muted'}`}
+                >
+                  {isDone ? <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="3"><path d="M5 12l5 5 9-10" /></svg> : i + 1}
+                </span>
+                <div className="min-w-0 space-y-1.5">
+                  <h4 className="font-heading font-bold text-base leading-snug m-0">{st.title}</h4>
+                  <p className="text-sm leading-relaxed text-muted-foreground m-0 text-pretty">{st.desc}</p>
+                  <p className="text-sm leading-relaxed m-0 text-pretty">
+                    <span className="font-mono text-xs font-bold uppercase">Dica · </span>
+                    {st.tip}
+                  </p>
+                  <button
+                    type="button"
+                    aria-pressed={isDone}
+                    onClick={() => toggle(i)}
+                    className={`mt-1 inline-flex items-center gap-2 min-h-[44px] px-3 rounded-lg border-2 border-border font-heading font-bold text-sm cursor-pointer transition-[transform,box-shadow] duration-150 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 active:translate-x-0.5 active:translate-y-0.5 ${
+                      isDone ? 'bg-success text-white' : 'bg-card shadow-xs hover:bg-muted'
+                    }`}
+                  >
+                    {isDone ? 'Etapa feita' : 'Marcar como feita'}
+                  </button>
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+        <a
+          href="https://www.fump.ufmg.br/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-between gap-2 min-h-[48px] px-4 py-3 border-t-3 border-border bg-primary text-primary-foreground font-heading font-extrabold uppercase text-sm tracking-tight no-underline hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+        >
+          <span>Abrir a Área do Aluno da FUMP</span>
+          <svg aria-hidden="true" viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M8 7h9v9" /></svg>
+          <span className="sr-only">(abre em nova aba)</span>
+        </a>
+      </section>
+
+      <section className="rounded-xl border-3 border-border bg-secondary text-secondary-foreground shadow-lg p-4 sm:p-5 space-y-3" aria-labelledby="pedido-ajuda-titulo">
+        <h3 id="pedido-ajuda-titulo" className="font-heading font-extrabold uppercase tracking-tight text-lg sm:text-xl leading-tight m-0">
+          Travou no cadastro?
+        </h3>
+        <p className="text-base leading-relaxed m-0 max-w-2xl text-pretty">
+          O Centro Acadêmico ajuda no preenchimento do questionário, em recursos de bolsa e em demandas do turno noturno, com sigilo.
+        </p>
+        <a
+          href={route('/ouvidoria')}
+          className="inline-flex items-center justify-center gap-2 min-h-[48px] px-5 rounded-xl border-3 border-border bg-accent text-accent-foreground font-heading font-extrabold uppercase text-sm tracking-tight no-underline shadow-md hover:bg-accent-hover active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-[transform,box-shadow] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+        >
+          Pedir ajuda ao CAGP
+        </a>
+      </section>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <figure className="m-0 space-y-2">
+          <div className="aspect-[16/10] w-full rounded-xl border-3 border-border shadow-lg overflow-hidden bg-muted">
+            <img src={asset('/imagens/campanha-permanecer-fump.png')} alt="Cartaz da campanha institucional Permanecer é Direito, da FUMP e da UFMG" className="w-full h-full object-cover" loading="lazy" />
+          </div>
+          <figcaption className="text-sm text-muted-foreground">Campanha institucional de permanência da FUMP/UFMG.</figcaption>
+        </figure>
+        <figure className="m-0 space-y-2">
+          <div className="aspect-[16/10] w-full rounded-xl border-3 border-border shadow-lg overflow-hidden bg-muted">
+            <img src={asset('/imagens/dast-novo-bh.jpg')} alt="Prédio da Divisão de Atenção à Saúde do Estudante (DAST/FUMP) no Campus Pampulha" className="w-full h-full object-cover" loading="lazy" />
+          </div>
+          <figcaption className="text-sm text-muted-foreground">DAST e DASE/PRAE: atendimento médico, odontológico e psicossocial gratuito.</figcaption>
+        </figure>
+      </div>
+    </div>
+  );
+};
+
+/** Compatibilidade: versão de página única (todas as seções em sequência). */
+export const PermanenciaInteractiveHub: React.FC = () => (
+  <div className="space-y-10">
+    <PermanenciaNiveis />
+    <PermanenciaSimulador />
+    <PermanenciaPedido />
+  </div>
+);

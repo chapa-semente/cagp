@@ -102,7 +102,7 @@
 
 .cagp-grouped-chevron {
   font-size: 0.95rem;
-  color: #8B1E2D;
+  color: var(--primary, #5B2A85);
   margin-left: 12px;
   flex-shrink: 0;
   transition: transform 0.15s ease;

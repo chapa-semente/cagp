@@ -1,0 +1,158 @@
+---
+// NoturnoHoje.astro — Painel "Hoje à noite na FAFICH": horários e contatos do turno noturno.
+// Fonte única: src/data/acolhimento.ts. Zero JS de framework; um script mínimo marca o que está aberto agora.
+import CagpIcon from '@/components/ui/CagpIcon.astro';
+import { NOTURNO_HOJE, ATENDIMENTO_CURSO } from '@/data/acolhimento';
+import { route } from '@/lib/paths';
+
+interface Props {
+  /** Mostra a linha da secretaria (útil na raiz do eixo). */
+  showSecretaria?: boolean;
+  /** Link "guia noturno completo" no rodapé do painel. */
+  showGuideLink?: boolean;
+  headingLevel?: 'h2' | 'h3';
+  class?: string;
+}
+
+const {
+  showSecretaria = false,
+  showGuideLink = true,
+  headingLevel = 'h2',
+  class: className = '',
+} = Astro.props;
+
+const Heading = headingLevel;
+const sec = ATENDIMENTO_CURSO.secretaria;
+---
+
+<section
+  class={`cagp-noturno-hoje rounded-xl border-3 border-border bg-card shadow-lg overflow-hidden ${className}`.trim()}
+  aria-labelledby="noturno-hoje-titulo"
+>
+  <header class="flex items-center justify-between gap-3 bg-primary text-primary-foreground px-4 py-3 border-b-3 border-border">
+    <div class="flex items-center gap-2.5 min-w-0">
+      <CagpIcon name="moon" class="w-5 h-5 shrink-0 text-accent" />
+      <Heading id="noturno-hoje-titulo" class="font-heading font-extrabold uppercase tracking-tight text-base sm:text-lg leading-tight m-0">
+        Hoje à noite na FAFICH
+      </Heading>
+    </div>
+    <span class="cagp-noturno-clock font-mono text-sm font-bold tabular-nums shrink-0" aria-hidden="true"></span>
+  </header>
+
+  <ul class="divide-y-2 divide-border/15 m-0 p-0 list-none" role="list">
+    {NOTURNO_HOJE.map((item) => (
+      <li
+        class="cagp-noturno-row grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 px-4 py-3.5"
+        data-abre={item.janela?.abre}
+        data-fecha={item.janela?.fecha}
+        data-dias={item.janela?.dias.join(',')}
+      >
+        <span class="row-span-2 mt-0.5 w-9 h-9 rounded-lg border-2 border-border bg-muted flex items-center justify-center shrink-0">
+          <CagpIcon name={item.icon} class="w-[18px] h-[18px]" />
+        </span>
+        <div class="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 min-w-0">
+          <span class="font-heading font-bold text-base leading-snug text-foreground">{item.label}</span>
+          <span class="flex items-center gap-2">
+            <span class="cagp-noturno-status hidden font-mono text-xs font-bold uppercase px-1.5 py-0.5 rounded-md border-2 border-border"></span>
+            <span class="font-mono text-sm font-bold tabular-nums text-foreground whitespace-nowrap">{item.horario}</span>
+          </span>
+        </div>
+        <p class="col-start-2 text-sm leading-relaxed text-muted-foreground m-0 text-pretty">
+          {item.detalhe}
+          {item.href && (
+            <>
+              {' '}
+              <a href={item.href} class="cagp-noturno-link font-mono font-bold text-foreground underline underline-offset-4 decoration-2 decoration-primary whitespace-nowrap">{item.hrefLabel}</a>
+            </>
+          )}
+        </p>
+      </li>
+    ))}
+
+    {showSecretaria && (
+      <li class="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 px-4 py-3.5 bg-muted/50">
+        <span class="row-span-2 mt-0.5 w-9 h-9 rounded-lg border-2 border-border bg-card flex items-center justify-center shrink-0">
+          <CagpIcon name="building" class="w-[18px] h-[18px]" />
+        </span>
+        <div class="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 min-w-0">
+          <span class="font-heading font-bold text-base leading-snug text-foreground">{sec.label}</span>
+          <span class="font-mono text-sm font-bold tabular-nums whitespace-nowrap">{sec.horario}</span>
+        </div>
+        <p class="col-start-2 text-sm leading-relaxed text-muted-foreground m-0 text-pretty">
+          {sec.sala}. {sec.alternativaNoturna}{' '}
+          <a href={`mailto:${sec.email}`} class="cagp-noturno-link font-mono font-bold text-foreground underline underline-offset-4 decoration-2 decoration-primary break-all">{sec.email}</a>
+        </p>
+      </li>
+    )}
+  </ul>
+
+  {showGuideLink && (
+    <a
+      href={route('/permanencia') + '#noturno'}
+      class="flex items-center justify-between gap-2 min-h-[48px] px-4 py-3 border-t-3 border-border bg-card font-heading font-extrabold uppercase text-sm tracking-tight text-foreground no-underline hover:bg-muted focus-visible:outline-2 focus-visible:outline-primary focus-visible:-outline-offset-4"
+    >
+      <span>Guia noturno completo</span>
+      <CagpIcon name="chevron-right" class="w-4 h-4" />
+    </a>
+  )}
+</section>
+
+<style>
+  .cagp-noturno-link {
+    display: inline-block;
+    padding-block: 0.6rem;
+    margin-block: -0.6rem;
+  }
+  .cagp-noturno-status[data-state='aberto'] {
+    background: var(--color-success);
+    color: var(--color-success-foreground);
+  }
+  .cagp-noturno-status[data-state='fechado'] {
+    background: var(--color-card);
+    color: var(--color-muted-foreground);
+  }
+</style>
+
+<script>
+  // Marca "aberto"/"fechado" pelo horário de Belo Horizonte. Sem JS, o painel continua completo.
+  function minutos(hhmm: string) {
+    const [h, m] = hhmm.split(':').map(Number);
+    return h * 60 + m;
+  }
+
+  function atualizarNoturno() {
+    const partes = new Intl.DateTimeFormat('pt-BR', {
+      timeZone: 'America/Sao_Paulo',
+      hour: '2-digit',
+      minute: '2-digit',
+      weekday: 'short',
+      hour12: false,
+    }).formatToParts(new Date());
+    const hora = partes.find((p) => p.type === 'hour')?.value ?? '00';
+    const min = partes.find((p) => p.type === 'minute')?.value ?? '00';
+    const diaNome = (partes.find((p) => p.type === 'weekday')?.value ?? '').replace('.', '').toLowerCase();
+    const mapa: Record<string, number> = { dom: 0, seg: 1, ter: 2, qua: 3, qui: 4, sex: 5, 'sáb': 6, sab: 6 };
+    const dia = mapa[diaNome] ?? new Date().getDay();
+    const agora = Number(hora) * 60 + Number(min);
+
+    document.querySelectorAll<HTMLElement>('.cagp-noturno-hoje').forEach((painel) => {
+      const relogio = painel.querySelector<HTMLElement>('.cagp-noturno-clock');
+      if (relogio) relogio.textContent = `${hora}:${min}`;
+
+      painel.querySelectorAll<HTMLElement>('.cagp-noturno-row').forEach((linha) => {
+        const status = linha.querySelector<HTMLElement>('.cagp-noturno-status');
+        const { abre, fecha, dias } = linha.dataset;
+        if (!status || !abre || !fecha || !dias) return;
+        const funcionaHoje = dias.split(',').map(Number).includes(dia);
+        const aberto = funcionaHoje && agora >= minutos(abre) && agora < minutos(fecha);
+        status.dataset.state = aberto ? 'aberto' : 'fechado';
+        status.textContent = aberto ? 'Aberto' : funcionaHoje ? 'Fechado' : 'Só dias úteis';
+        status.classList.remove('hidden');
+      });
+    });
+  }
+
+  atualizarNoturno();
+  document.addEventListener('astro:page-load', atualizarNoturno);
+  window.setInterval(atualizarNoturno, 60_000);
+</script>

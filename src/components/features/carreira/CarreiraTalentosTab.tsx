@@ -68,7 +68,7 @@ const SEMENTE_CAREER_PROPOSALS = [
     title: 'Divulgação Ágil de Vagas, Estágios, Bolsas e Concursos',
     desc: 'Radar permanente de editais de estágio, programas de trainee em gestão pública (Vetores, FJP), bolsas de extensão/IC e concursos com alertas diretos no SuperApp.',
     badge: 'Mural de Vagas Ativo',
-    color: 'bg-[#FF8811] text-[#16181d]',
+    color: 'bg-[#FE8812] text-[#16181d]',
     icon: 'bi-megaphone-fill',
   },
 ];
@@ -277,7 +277,7 @@ export const CarreiraTalentosTab: React.FC = () => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-3 border-[#16181d] pb-4">
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-1">
-              <span className="px-2.5 py-0.5 rounded bg-[#5B2A86] text-white font-mono text-xs font-bold uppercase border-2 border-[#16181d]">
+              <span className="px-2.5 py-0.5 rounded bg-[#5B2A85] text-white font-mono text-xs font-bold uppercase border-2 border-[#16181d]">
                 Carta-Programa Chapa Semente
               </span>
               <span className="font-mono text-xs font-bold text-secondary">
@@ -293,7 +293,7 @@ export const CarreiraTalentosTab: React.FC = () => {
           </div>
           <a
             href={route('/chapa-semente')}
-            className="min-h-[44px] px-4 py-2 rounded-xl border-3 border-[#16181d] bg-[#FF8811] hover:bg-[#e67600] text-[#16181d] font-heading text-xs font-black uppercase no-underline inline-flex items-center justify-center gap-1.5 shrink-0 shadow-[3px_3px_0_0_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
+            className="min-h-[44px] px-4 py-2 rounded-xl border-3 border-[#16181d] bg-[#FE8812] hover:bg-[#e67600] text-[#16181d] font-heading text-xs font-black uppercase no-underline inline-flex items-center justify-center gap-1.5 shrink-0 shadow-[3px_3px_0_0_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
           >
             <span>Ver Carta-Programa</span>
             <i className="bi bi-arrow-right" aria-hidden="true" />
@@ -726,7 +726,7 @@ export const CarreiraTalentosTab: React.FC = () => {
           <button
             type="button"
             onClick={copySummaryToClipboard}
-            className="min-h-[44px] w-full px-4 py-2.5 rounded-xl border-3 border-[#16181d] bg-[#FF8811] hover:bg-[#e67600] text-[#16181d] font-heading text-xs font-black uppercase flex items-center justify-center gap-2 cursor-pointer shadow-[3px_3px_0_0_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
+            className="min-h-[44px] w-full px-4 py-2.5 rounded-xl border-3 border-[#16181d] bg-[#FE8812] hover:bg-[#e67600] text-[#16181d] font-heading text-xs font-black uppercase flex items-center justify-center gap-2 cursor-pointer shadow-[3px_3px_0_0_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
           >
             <i className="bi bi-clipboard-check-fill" aria-hidden="true" />
             <span>Copiar Resumo para Currículo</span>

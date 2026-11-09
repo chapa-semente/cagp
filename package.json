@@ -16,6 +16,7 @@
     "audit:sync": "node --experimental-strip-types scripts/audit-holistic-sync.ts",
     "verify:holistic": "node --experimental-strip-types scripts/verify-holistic-integration.ts",
     "verify:design-system": "node scripts/verify-quadripartite-compliance.mjs",
+    "lint:styles": "node scripts/check-hardcoded-styles.mjs",
     "typecheck": "tsc -b",
     "test": "vitest run"
   },
@@ -29,6 +30,8 @@
     "@fontsource/jetbrains-mono": "^5.3.0",
     "@fontsource/opendyslexic": "^5.3.0",
     "@fontsource/oswald": "^5.3.0",
+    "@fontsource/permanent-marker": "^5.3.0",
+    "@fontsource/poppins": "^5.3.0",
     "@fontsource/space-grotesk": "^5.3.0",
     "@fontsource/space-mono": "^5.3.0",
     "@headlessui/react": "^2.2.10",

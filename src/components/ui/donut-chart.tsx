@@ -90,7 +90,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>(
             labelLine={showLabels === 'outside'}
           >
             {data.map((entry, index) => {
-              const sementeColors = ['#5B2A86', '#FF8811', '#134E4A', '#9E2424', '#15803D', '#1E3F66']
+              const sementeColors = ['#5B2A85', '#FE8812', '#134E4A', '#9E2424', '#15803D', '#1E3F66']
               return (
                 <Cell
                   key={`cell-${index}`}

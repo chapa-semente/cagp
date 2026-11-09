@@ -44,7 +44,7 @@ export const Art41Widget: React.FC = () => {
               isEligible
                 ? 'bg-[#134E4A] text-white'
                 : checkedCount > 0
-                ? 'bg-[#FF8811] text-[#16181d]'
+                ? 'bg-[#FE8812] text-[#16181d]'
                 : 'bg-white text-foreground'
             }`}
           >

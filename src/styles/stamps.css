@@ -5,7 +5,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  font-family: var(--font-heading, 'Bricolage Grotesque', sans-serif);
+  font-family: var(--font-heading, 'Poppins', sans-serif);
   font-size: 0.75rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -80,7 +80,7 @@
   border: 3px dashed #166534;
   background-color: #DCFCE7;
   color: #166534;
-  font-family: var(--font-head, 'Bricolage Grotesque', sans-serif);
+  font-family: var(--font-head, 'Poppins', sans-serif);
   text-transform: uppercase;
   font-weight: 900;
   border-radius: 12px;
@@ -105,17 +105,17 @@
 }
 
 .cagp-big-stamp.is-semente {
-  border: 3.5px dashed #5B2A86;
+  border: 3.5px dashed #5B2A85;
   background-color: #FAF5FF;
-  color: #5B2A86;
-  box-shadow: 4px 4px 0 #5B2A86;
+  color: #5B2A85;
+  box-shadow: 4px 4px 0 #5B2A85;
   transform: rotate(-2.5deg);
 }
 
 .cagp-stamp-badge.is-semente {
   border: 2.5px solid #16181d;
   color: #FFFFFF;
-  background-color: #5B2A86;
+  background-color: #5B2A85;
   box-shadow: 2px 2px 0 #16181d;
   transform: rotate(-1.5deg);
 }

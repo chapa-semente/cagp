@@ -49,7 +49,7 @@ const CAGP_COURSES = [
     modality: 'Presencial Auditório Baesse / FAFICH UFMG',
     status: 'Confirmado 2026/1 • Chapa Semente',
     tag: 'Carreira & Extensão UFMG',
-    color: 'bg-[#EDE9FE] text-[#5B2A86] border-[#16181d]',
+    color: 'bg-[#EDE9FE] text-[#5B2A85] border-[#16181d]',
     desc: 'Encontros com servidores de carreira da União e do Estado de Minas Gerais para debater concursos, desafios e autonomia técnica.',
   },
 ];
@@ -156,7 +156,7 @@ export const CursosCatalogHub: React.FC = () => {
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-1">
-              <span className="text-[11px] font-heading font-black uppercase text-[#5B2A86] tracking-wider">
+              <span className="text-[11px] font-heading font-black uppercase text-[#5B2A85] tracking-wider">
                 Proposta 10 da Chapa Semente • Formação Livre UFMG
               </span>
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#F2CD5C] border-2 border-[#16181d] text-[10px] font-heading font-black uppercase text-[#16181d] shadow-[2px_2px_0_0_#16181d]">
@@ -205,13 +205,13 @@ export const CursosCatalogHub: React.FC = () => {
                   <div className="mt-3 p-2.5 rounded-lg bg-[#FAF6F0] border-2 border-[#16181d] text-[11px] font-mono text-foreground space-y-1">
                     <div><strong>📍 Modalidade:</strong> {cur.modality}</div>
                     <div><strong>👤 Ministrantes:</strong> {cur.speaker}</div>
-                    <div className="text-[#5B2A86] font-bold"><strong>⚖️ Enquadramento:</strong> {cur.acgGroup}</div>
+                    <div className="text-[#5B2A85] font-bold"><strong>⚖️ Enquadramento:</strong> {cur.acgGroup}</div>
                   </div>
                 </div>
 
                 <div className="pt-3 border-t-2 border-border/30 space-y-2">
                   <div className="flex items-center justify-between text-[11px]">
-                    <span className="font-heading font-black text-[#5B2A86] uppercase">
+                    <span className="font-heading font-black text-[#5B2A85] uppercase">
                       {cur.status}
                     </span>
                     <span className="font-mono font-bold text-[#15803D]">
@@ -232,7 +232,7 @@ export const CursosCatalogHub: React.FC = () => {
                     className={`w-full min-h-[44px] py-2 px-3 rounded-xl text-xs font-heading font-black uppercase border-3 border-[#16181d] transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                       isSimulated
                         ? 'bg-[#DCFCE7] text-[#166534] shadow-[2px_2px_0_0_#16181d]'
-                        : 'bg-[#5B2A86] text-white shadow-[3px_3px_0_0_#16181d] hover:bg-[#48206B] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none'
+                        : 'bg-[#5B2A85] text-white shadow-[3px_3px_0_0_#16181d] hover:bg-[#48206B] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none'
                     }`}
                   >
                     {isSimulated ? (
@@ -258,7 +258,7 @@ export const CursosCatalogHub: React.FC = () => {
       <div className="p-4 sm:p-6 rounded-xl bg-card border-3 border-[#16181d] shadow-[5px_5px_0px_#16181d] space-y-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b-3 border-[#16181d]">
           <div>
-            <span className="text-[11px] font-heading font-black uppercase text-[#5B2A86] tracking-wider">
+            <span className="text-[11px] font-heading font-black uppercase text-[#5B2A85] tracking-wider">
               Escola Virtual de Governo (EV.G / ENAP) • Curadoria Proposta 10
             </span>
             <h3 className="text-lg sm:text-xl font-heading font-black uppercase tracking-tight text-foreground flex items-center gap-2 m-0">
@@ -282,7 +282,7 @@ export const CursosCatalogHub: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Barra de Filtros e Busca com Foco Roxo Semente (#5B2A86) */}
+        {/* Barra de Filtros e Busca com Foco Roxo Semente (#5B2A85) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-3">
           <div className="lg:col-span-7 relative">
             <input
@@ -290,9 +290,9 @@ export const CursosCatalogHub: React.FC = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Buscar curso gratuito ENAP por título, ementa ou área (ex: Licitações, Dados, Orçamento)..."
-              className="w-full pl-10 pr-4 py-2.5 text-sm bg-white border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] rounded-xl focus:outline-none focus:ring-3 focus:ring-[#5B2A86] focus:border-[#5B2A86] min-h-[46px] font-sans"
+              className="w-full pl-10 pr-4 py-2.5 text-sm bg-white border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] rounded-xl focus:outline-none focus:ring-3 focus:ring-[#5B2A85] focus:border-[#5B2A85] min-h-[46px] font-sans"
             />
-            <i className="bi bi-search absolute left-3.5 top-3.5 text-[#5B2A86] text-sm font-bold" aria-hidden="true"></i>
+            <i className="bi bi-search absolute left-3.5 top-3.5 text-[#5B2A85] text-sm font-bold" aria-hidden="true"></i>
           </div>
 
           <div className="lg:col-span-5 flex gap-1.5 overflow-x-auto pb-1 lg:pb-0 scroll-mask-x scrollbar-none">
@@ -308,7 +308,7 @@ export const CursosCatalogHub: React.FC = () => {
                 onClick={() => setSelectedHoursFilter(f.id as any)}
                 className={`px-3 py-2 rounded-xl text-xs font-heading font-black uppercase border-3 border-[#16181d] transition-all shrink-0 cursor-pointer min-h-[44px] ${
                   selectedHoursFilter === f.id
-                    ? 'bg-[#5B2A86] text-white shadow-[3px_3px_0px_#16181d]'
+                    ? 'bg-[#5B2A85] text-white shadow-[3px_3px_0px_#16181d]'
                     : 'bg-white hover:bg-[#FAF6F0] text-foreground shadow-[2px_2px_0px_#16181d]'
                 }`}
               >
@@ -337,7 +337,7 @@ export const CursosCatalogHub: React.FC = () => {
               onClick={() => setSelectedAxis(ax.id)}
               className={`min-h-[44px] px-3 py-1.5 rounded-xl text-xs font-heading uppercase font-extrabold border-2 border-[#16181d] cursor-pointer shrink-0 transition-all ${
                 selectedAxis === ax.id
-                  ? 'bg-[#16181d] text-[#F2CD5C] shadow-[2px_2px_0_0_#5B2A86]'
+                  ? 'bg-[#16181d] text-[#F2CD5C] shadow-[2px_2px_0_0_#5B2A85]'
                   : 'bg-white hover:bg-[#FAF6F0] text-foreground shadow-[2px_2px_0_0_#16181d]'
               }`}
             >
@@ -352,7 +352,7 @@ export const CursosCatalogHub: React.FC = () => {
             <span>
               Exibindo {Math.min(visibleCount, filteredCourses.length)} de {filteredCourses.length} cursos gratuitos encontrados
             </span>
-            <span className="text-[#5B2A86]">
+            <span className="text-[#5B2A85]">
               ✦ Clique em "Simular / Inscrever" para somar na Calculadora 600h
             </span>
           </div>
@@ -381,7 +381,7 @@ export const CursosCatalogHub: React.FC = () => {
                           {c.axis}
                         </span>
                         <span className="inline-flex items-center gap-1 text-[11px] font-mono font-black text-[#16181d] px-2 py-0.5 bg-[#F2CD5C] rounded-md border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] shrink-0">
-                          <i className="bi bi-patch-check-fill text-[#5B2A86]" aria-hidden="true"></i>
+                          <i className="bi bi-patch-check-fill text-[#5B2A85]" aria-hidden="true"></i>
                           <span>ACG • {c.hours}h</span>
                         </span>
                       </div>
@@ -407,7 +407,7 @@ export const CursosCatalogHub: React.FC = () => {
                         className={`w-full py-2 px-3 text-xs font-heading font-black uppercase rounded-xl border-3 border-[#16181d] transition-all flex items-center justify-center gap-1.5 cursor-pointer min-h-[44px] ${
                           isSaved
                             ? 'bg-[#DCFCE7] text-[#166534] shadow-[2px_2px_0px_#16181d] font-bold'
-                            : 'bg-[#5B2A86] text-white shadow-[3px_3px_0px_#16181d] hover:bg-[#48206B] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none'
+                            : 'bg-[#5B2A85] text-white shadow-[3px_3px_0px_#16181d] hover:bg-[#48206B] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none'
                         }`}
                       >
                         {isSaved ? (
@@ -444,7 +444,7 @@ export const CursosCatalogHub: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setVisibleCount((prev) => prev + 18)}
-                className="px-6 py-3 bg-[#F2CD5C] text-[#16181d] font-heading font-black text-xs uppercase rounded-xl border-3 border-[#16181d] shadow-[4px_4px_0px_#16181d] hover:bg-[#5B2A86] hover:text-white active:translate-y-[1px] transition-all cursor-pointer min-h-[48px]"
+                className="px-6 py-3 bg-[#F2CD5C] text-[#16181d] font-heading font-black text-xs uppercase rounded-xl border-3 border-[#16181d] shadow-[4px_4px_0px_#16181d] hover:bg-[#5B2A85] hover:text-white active:translate-y-[1px] transition-all cursor-pointer min-h-[48px]"
               >
                 Carregar Mais Cursos Gratuitos (+18)
               </button>

@@ -134,8 +134,8 @@ export function sendWelcomeNotification(): void {
     const title = '[SEMENTE] Radar Discente Ativado';
     const options: NotificationOptions = {
       body: 'Seu acesso offline esta sincronizado. Voce recebera os avisos oficiais do Debate (24/11) e das Eleicoes no 1o andar da FAFICH (25 e 26/11).',
-      icon: '/logos/semente/simbolo_semente_fundo_branco.svg',
-      badge: '/logos/semente/simbolo_semente_fundo_branco.svg',
+      icon: '/imagens/pwa/pwa-192x192.png',
+      badge: '/imagens/pwa/badge-96x96.png',
       tag: 'cagp-election-welcome',
     };
 

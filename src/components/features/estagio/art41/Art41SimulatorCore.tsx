@@ -439,7 +439,7 @@ export const Art41SimulatorCore: React.FC = () => {
               className={`w-12 h-12 rounded-xl flex items-center justify-center text-xl shrink-0 border-2 border-border shadow-xs ${
                 isFullyEligible
                   ? 'bg-[#134E4A] text-white'
-                  : 'bg-[#FF8811] text-foreground'
+                  : 'bg-[#FE8812] text-foreground'
               }`}
             >
               <CagpIcon
@@ -574,7 +574,7 @@ export const Art41SimulatorCore: React.FC = () => {
                 href="https://docs.google.com/forms/d/e/1FAIpQLSdIGMGFzJMsnyLTvkDTDVPQddU37S_OO1ABuQbMv5F3wElKLA/viewform"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="min-h-[44px] w-full px-3 py-2 rounded-lg border-2 border-border bg-[#FF8811] hover:bg-[#e67600] text-foreground font-heading text-xs font-black uppercase no-underline inline-flex items-center justify-center gap-1.5 shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
+                className="min-h-[44px] w-full px-3 py-2 rounded-lg border-2 border-border bg-[#FE8812] hover:bg-[#e67600] text-foreground font-heading text-xs font-black uppercase no-underline inline-flex items-center justify-center gap-1.5 shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
               >
                 <span>Protocolar Requerimento ↗</span>
               </a>

@@ -1,0 +1,103 @@
+---
+// CursoPainelGeral.astro — Aba "Geral" de /curso (raiz do eixo Acolhimento).
+// Responde em até 1,5 tela de celular: o que funciona hoje à noite, quem atende e por onde começar.
+import CagpIcon from '@/components/ui/CagpIcon.astro';
+import NoturnoHoje from '@/components/features/acolhimento/NoturnoHoje.astro';
+import { ATENDIMENTO_CURSO, PAGINAS_ACOLHIMENTO } from '@/data/acolhimento';
+import { route } from '@/lib/paths';
+
+const { coordenacao, cagp } = ATENDIMENTO_CURSO;
+
+const comeceAqui = [
+  {
+    pergunta: 'Acabou de entrar?',
+    resposta: 'Checklist dos primeiros 30 dias e as salas da FAFICH.',
+    href: route(PAGINAS_ACOLHIMENTO.calouros.href),
+    destino: PAGINAS_ACOLHIMENTO.calouros.titulo,
+    icon: 'checklist' as const,
+  },
+  {
+    pergunta: 'Precisa de auxílio para continuar?',
+    resposta: 'Níveis da FUMP, como pedir e o que cada um garante.',
+    href: route(PAGINAS_ACOLHIMENTO.permanencia.href),
+    destino: PAGINAS_ACOLHIMENTO.permanencia.titulo,
+    icon: 'heart' as const,
+  },
+  {
+    pergunta: 'Quer pesquisar ou fazer extensão?',
+    resposta: 'Os 11 núcleos do DCP e como conseguir uma vaga de IC.',
+    href: route(PAGINAS_ACOLHIMENTO.pesquisa.href),
+    destino: PAGINAS_ACOLHIMENTO.pesquisa.titulo,
+    icon: 'search' as const,
+  },
+];
+---
+
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-start">
+  <NoturnoHoje showSecretaria class="lg:col-span-7" />
+
+  <div class="lg:col-span-5 space-y-5">
+    <section class="rounded-xl border-3 border-border bg-card shadow-lg" aria-labelledby="curso-comece-titulo">
+      <h2 id="curso-comece-titulo" class="font-heading font-extrabold uppercase tracking-tight text-base sm:text-lg leading-tight m-0 px-4 pt-4 pb-2">
+        Por onde começar
+      </h2>
+      <ul class="m-0 p-0 list-none" role="list">
+        {comeceAqui.map((item) => (
+          <li class="border-t-2 border-border/15 first:border-t-0">
+            <a
+              href={item.href}
+              class="group flex items-center gap-3 px-4 py-3.5 min-h-[64px] no-underline text-foreground hover:bg-muted focus-visible:outline-2 focus-visible:outline-primary focus-visible:-outline-offset-4"
+            >
+              <span class="w-9 h-9 rounded-lg border-2 border-border bg-accent flex items-center justify-center shrink-0">
+                <CagpIcon name={item.icon} class="w-[18px] h-[18px]" />
+              </span>
+              <span class="min-w-0 flex-1">
+                <span class="block font-heading font-bold text-base leading-snug">{item.pergunta}</span>
+                <span class="block text-sm text-muted-foreground leading-snug">{item.resposta}</span>
+              </span>
+              <CagpIcon name="chevron-right" class="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-0.5" />
+              <span class="sr-only">Abrir {item.destino}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="rounded-xl border-3 border-border bg-card shadow-lg p-4 space-y-3" aria-labelledby="curso-quem-atende-titulo">
+      <h2 id="curso-quem-atende-titulo" class="font-heading font-extrabold uppercase tracking-tight text-base sm:text-lg leading-tight m-0">
+        Quem mais atende
+      </h2>
+      <dl class="m-0 space-y-3 text-sm">
+        <div>
+          <dt class="font-heading font-bold">{coordenacao.label}</dt>
+          <dd class="m-0 text-muted-foreground">
+            {coordenacao.nome} ·{' '}
+            <a href={`mailto:${coordenacao.email}`} class="cagp-inline-tap font-mono font-bold text-foreground underline underline-offset-4 decoration-2 decoration-primary break-all">{coordenacao.email}</a>
+          </dd>
+        </div>
+        <div>
+          <dt class="font-heading font-bold">{cagp.label}</dt>
+          <dd class="m-0 text-muted-foreground">
+            {cagp.sala}. Para dúvidas ou pedidos de ajuda, use a{' '}
+            <a href={route(cagp.canal)} class="cagp-inline-tap font-bold text-foreground underline underline-offset-4 decoration-2 decoration-primary">ouvidoria do CAGP</a>.
+          </dd>
+        </div>
+      </dl>
+      <a
+        href="#colegiado"
+        class="flex items-center justify-between gap-2 min-h-[44px] px-3 rounded-lg border-2 border-border bg-muted font-heading font-extrabold uppercase text-sm tracking-tight text-foreground no-underline hover:bg-card focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+      >
+        <span>Colegiado, NDE e documentos</span>
+        <CagpIcon name="chevron-right" class="w-4 h-4" />
+      </a>
+    </section>
+  </div>
+</div>
+
+<style>
+  .cagp-inline-tap {
+    display: inline-block;
+    padding-block: 0.65rem;
+    margin-block: -0.65rem;
+  }
+</style>

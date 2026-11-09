@@ -44,7 +44,7 @@ export const SettingsAlertsSection: React.FC<Props> = ({ notifs, updateNotifs })
               type="checkbox"
               checked={notifs.ru1815}
               onChange={(e) => updateNotifs({ ru1815: e.target.checked })}
-              className="w-5 h-5 accent-[#8B1E2D] cursor-pointer rounded border-3 border-border"
+              className="w-5 h-5 accent-primary cursor-pointer rounded border-3 border-border"
             />
           </div>
         </div>
@@ -68,7 +68,7 @@ export const SettingsAlertsSection: React.FC<Props> = ({ notifs, updateNotifs })
               type="checkbox"
               checked={notifs.circular2230}
               onChange={(e) => updateNotifs({ circular2230: e.target.checked })}
-              className="w-5 h-5 accent-[#8B1E2D] cursor-pointer rounded border-3 border-border"
+              className="w-5 h-5 accent-primary cursor-pointer rounded border-3 border-border"
             />
           </div>
         </div>
@@ -84,7 +84,7 @@ export const SettingsAlertsSection: React.FC<Props> = ({ notifs, updateNotifs })
             type="checkbox"
             checked={notifs.aac120d}
             onChange={(e) => updateNotifs({ aac120d: e.target.checked })}
-            className="w-5 h-5 accent-[#8B1E2D] cursor-pointer rounded border-3 border-border"
+            className="w-5 h-5 accent-primary cursor-pointer rounded border-3 border-border"
           />
         </div>
       </div>

@@ -32,8 +32,8 @@ import { tactileSpring } from '@/lib/motion';
 
 const BUDGET_ALLOCATION_DATA = [
   { name: 'Semana Acadêmica & Debates', value: 42, fill: '#9E2424' },
-  { name: 'Acolhimento Calouros', value: 28, fill: '#5B2A86' },
-  { name: 'Manutenção Sede F-4000', value: 18, fill: '#FF8811' },
+  { name: 'Acolhimento Calouros', value: 28, fill: '#5B2A85' },
+  { name: 'Manutenção Sede F-4000', value: 18, fill: '#FE8812' },
   { name: 'Fundo de Reserva', value: 12, fill: '#266264' },
 ];
 
@@ -102,7 +102,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
         <div className="flex flex-wrap items-start justify-between gap-3 pb-3 border-b-2 border-border">
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-1">
-              <span className="px-2 py-0.5 rounded bg-[#5B2A86] text-white font-mono text-[10px] font-black uppercase">
+              <span className="px-2 py-0.5 rounded bg-[#5B2A85] text-white font-mono text-[10px] font-black uppercase">
                 PROPOSTA 1 • EIXO 1 SEMENTE
               </span>
               <span className="font-mono text-[10px] font-bold uppercase text-secondary">
@@ -241,7 +241,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
                 valueFormatter={(v) => `${v}%`}
                 zones={[
                   { from: 0, to: 50, color: '#9E2424', label: 'Atenção' },
-                  { from: 50, to: 80, color: '#FF8811', label: 'Em Análise' },
+                  { from: 50, to: 80, color: '#FE8812', label: 'Em Análise' },
                   { from: 80, to: 100, color: '#15803D', label: 'Regular' },
                 ]}
               />

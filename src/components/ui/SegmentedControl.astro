@@ -41,6 +41,7 @@ const {
           type="button"
           class={`cagp-workspace-tab min-h-[44px] snap-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5 ${isSelected ? 'is-active' : ''}`}
           role="tab"
+          aria-label={tab.fullLabel}
           id={`ws-tab-${tab.id}`}
           aria-controls={`ws-panel-${tab.id}`}
           aria-selected={isSelected ? 'true' : 'false'}
@@ -49,7 +50,7 @@ const {
           data-ws-hash={tab.hash}
         >
           <span class="cagp-tab-label-full truncate">{tab.fullLabel}</span>
-          <span class="cagp-tab-label-short truncate" aria-hidden="true">{tab.shortLabel}</span>
+          <span class="cagp-tab-label-short truncate">{tab.shortLabel}</span>
         </button>
       );
     })}
@@ -83,6 +84,46 @@ const {
 
     const unbindCallbacks: Array<() => void> = [];
 
+    // Altura ocupada no topo pela faixa de campanha e pela barra superior (ambas sticky).
+    const stickyTopOffset = () => {
+      let bottom = 0;
+      ['cagp-campaign-banner', 'cagp-super-app-header'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (!el || el.offsetParent === null) return;
+        const r = el.getBoundingClientRect();
+        if (r.bottom > bottom && r.top <= 1) bottom = r.bottom;
+      });
+      return Math.max(0, Math.round(bottom));
+    };
+
+    let offsetFrame = 0;
+    const syncStickyOffset = () => {
+      cancelAnimationFrame(offsetFrame);
+      offsetFrame = requestAnimationFrame(() => {
+        document.documentElement.style.setProperty('--cagp-sticky-top', `${stickyTopOffset()}px`);
+      });
+    };
+    syncStickyOffset();
+    window.addEventListener('scroll', syncStickyOffset, { passive: true });
+    window.addEventListener('resize', syncStickyOffset);
+    unbindCallbacks.push(() => {
+      window.removeEventListener('scroll', syncStickyOffset);
+      window.removeEventListener('resize', syncStickyOffset);
+    });
+
+    // Ao trocar de aba com a barra já fixada, leva o leitor ao início do painel novo.
+    const revealPanelTop = (tabId: string) => {
+      const panel = document.getElementById(`ws-panel-${tabId}`);
+      const bar = bars[0];
+      if (!panel || !bar) return;
+      const barBottom = bar.getBoundingClientRect().bottom;
+      const panelTop = panel.getBoundingClientRect().top;
+      if (panelTop < barBottom) {
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.scrollTo({ top: window.scrollY + panelTop - barBottom - 8, behavior: reduce ? 'auto' : 'smooth' });
+      }
+    };
+
     bars.forEach((bar) => {
       const tabs = bar.querySelectorAll<HTMLButtonElement>('.cagp-workspace-tab');
       const viewAllBtn = bar.querySelector<HTMLButtonElement>('.cagp-workspace-viewall');
@@ -99,12 +140,6 @@ const {
       });
 
       function activate(tabId: string, updateHash = true) {
-        if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
-          try {
-            navigator.vibrate(12);
-          } catch {}
-        }
-
         if (tabId === '__all__') {
           tabs.forEach((t) => {
             t.classList.remove('is-active');
@@ -150,9 +185,17 @@ const {
       }
 
       tabs.forEach((tab, index) => {
-        const handleTabClick = () => {
+        const handleTabClick = (e: MouseEvent) => {
           const id = tab.getAttribute('data-ws-tab');
-          if (id) activate(id);
+          if (!id) return;
+          // Vibração só em toque real do usuário (navegadores bloqueiam fora de gesto).
+          if (e.isTrusted && typeof navigator !== 'undefined' && 'vibrate' in navigator) {
+            try {
+              navigator.vibrate(12);
+            } catch {}
+          }
+          activate(id);
+          revealPanelTop(id);
         };
         tab.addEventListener('click', handleTabClick);
 

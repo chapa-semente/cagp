@@ -71,17 +71,17 @@ export function NotFoundPage({
         initial={{ opacity: 0, y: 18, scale: 0.96 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={bounceSpring}
-        className="text-center space-y-7 max-w-xl"
+        className="w-full min-w-0 text-center space-y-7 max-w-xl"
       >
         {/* Sticker Brutalista da FAFICH */}
         <div className="flex flex-wrap items-center justify-center gap-2">
           <motion.span
             whileHover={photoCardHover}
-            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#FF8811] text-[#16181d] font-mono text-xs font-black uppercase border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] -rotate-2 cursor-default"
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#FE8812] text-[#16181d] font-mono text-xs font-black uppercase border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] -rotate-2 cursor-default"
           >
             <span>🏛️ SALA F-4000 • 4º ANDAR FAFICH</span>
           </motion.span>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#5B2A86] text-white font-mono text-xs font-black uppercase border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] rotate-1">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#5B2A85] text-white font-mono text-xs font-black uppercase border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] rotate-1">
             <span>🌱 CHAPA SEMENTE 2026</span>
           </span>
         </div>
@@ -91,7 +91,7 @@ export function NotFoundPage({
           <motion.h1
             animate={{ rotate: [-1.5, 1.5, -1.5] }}
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-            className="text-[120px] sm:text-[165px] font-black leading-none text-[#16181d]/15 select-none m-0"
+            className="font-accent font-normal text-[120px] sm:text-[165px] leading-none text-[#16181d]/15 select-none m-0"
           >
             {displayCode}
           </motion.h1>
@@ -99,7 +99,7 @@ export function NotFoundPage({
             <motion.div
               whileHover={{ scale: 1.08, rotate: -4 }}
               transition={bounceSpring}
-              className="w-24 h-24 flex flex-col items-center justify-center border-3 border-[#16181d] bg-[#9E2424] text-white rounded-2xl shadow-[6px_6px_0_0_#16181d]"
+              className="w-24 h-24 flex flex-col items-center justify-center border-3 border-[#16181d] bg-secondary text-white rounded-2xl shadow-[6px_6px_0_0_#16181d]"
             >
               <FileQuestion className="h-10 w-10 text-white" />
               <span className="font-mono text-[10px] font-black uppercase mt-1">EXTRVIADO</span>
@@ -161,7 +161,7 @@ export function NotFoundPage({
               variant="outline"
               size="lg"
               asChild
-              className="min-h-[48px] bg-[#FF8811] hover:bg-[#ff9831] text-[#16181d] font-black border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]"
+              className="min-h-[48px] bg-[#FE8812] hover:bg-[#ff9831] text-[#16181d] font-black border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]"
             >
               <a href={safeHref(backHref)}>
                 <Sparkles className="mr-2 h-4 w-4" />
@@ -207,7 +207,7 @@ export function ServerErrorPage({
       <div className="text-center space-y-8 max-w-lg">
         {/* Large 500 */}
         <div className="relative">
-          <h1 className="text-[150px] md:text-[200px] font-black leading-none text-muted-foreground/20">
+          <h1 className="font-accent font-normal text-[150px] md:text-[200px] leading-none text-muted-foreground/20">
             {title}
           </h1>
           <div className="absolute inset-0 flex items-center justify-center">
@@ -417,7 +417,7 @@ export function ForbiddenPage({
       <div className="text-center space-y-8 max-w-lg">
         {/* Large 403 */}
         <div className="relative">
-          <h1 className="text-[150px] md:text-[200px] font-black leading-none text-muted-foreground/20">
+          <h1 className="font-accent font-normal text-[150px] md:text-[200px] leading-none text-muted-foreground/20">
             {title}
           </h1>
           <div className="absolute inset-0 flex items-center justify-center">

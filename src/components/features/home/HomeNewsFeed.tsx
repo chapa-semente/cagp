@@ -23,7 +23,7 @@ export function renderNewsMotifSvg(motif: SimulatedNewsItem['motif']) {
         <rect x="32" y="34" width="14" height="62" rx="2" fill="#FFFFFF" fillOpacity="0.4" stroke="#0A0A0A" strokeWidth="2" />
         <rect x="58" y="24" width="14" height="72" rx="2" fill="#FFFFFF" fillOpacity="0.6" stroke="#0A0A0A" strokeWidth="2" />
         <rect x="84" y="42" width="14" height="54" rx="2" fill="#FFFFFF" fillOpacity="0.4" stroke="#0A0A0A" strokeWidth="2" />
-        <circle cx="248" cy="64" r="24" stroke="#0A0A0A" strokeWidth="3" fill="#FF8811" />
+        <circle cx="248" cy="64" r="24" stroke="#0A0A0A" strokeWidth="3" fill="#FE8812" />
       </svg>
     );
   }
@@ -35,7 +35,7 @@ export function renderNewsMotifSvg(motif: SimulatedNewsItem['motif']) {
         <path d="M30 88L95 54L150 70L225 32L285 44" stroke="#0A0A0A" strokeWidth="4" fill="none" strokeLinecap="round" />
         <circle cx="95" cy="54" r="6" fill="#FFFDF9" stroke="#0A0A0A" strokeWidth="2" />
         <circle cx="150" cy="70" r="6" fill="#FFFDF9" stroke="#0A0A0A" strokeWidth="2" />
-        <circle cx="225" cy="32" r="7" fill="#FF8811" stroke="#0A0A0A" strokeWidth="2" />
+        <circle cx="225" cy="32" r="7" fill="#FE8812" stroke="#0A0A0A" strokeWidth="2" />
       </svg>
     );
   }
@@ -46,14 +46,14 @@ export function renderNewsMotifSvg(motif: SimulatedNewsItem['motif']) {
         <circle cx="60" cy="20" r="50" fill="#166534" />
         <circle cx="255" cy="60" r="32" stroke="#0A0A0A" strokeWidth="3" fill="#FEF08A" />
         <path d="M180 95C195 68 230 68 245 95" stroke="#FFFDF9" strokeWidth="3.5" fill="none" />
-        <path d="M225 95C240 68 275 68 290 95" stroke="#FF8811" strokeWidth="3.5" fill="none" />
+        <path d="M225 95C240 68 275 68 290 95" stroke="#FE8812" strokeWidth="3.5" fill="none" />
       </svg>
     );
   }
   return (
     <svg viewBox="0 0 320 120" className="w-full h-full object-cover" aria-hidden="true">
-      <rect width="320" height="120" fill="#5B2A86" />
-      <circle cx="90" cy="60" r="24" stroke="#0A0A0A" strokeWidth="3" fill="#FF8811" />
+      <rect width="320" height="120" fill="#5B2A85" />
+      <circle cx="90" cy="60" r="24" stroke="#0A0A0A" strokeWidth="3" fill="#FE8812" />
       <circle cx="170" cy="38" r="18" stroke="#0A0A0A" strokeWidth="3" fill="#FFFFFF" />
       <circle cx="240" cy="74" r="22" stroke="#0A0A0A" strokeWidth="3" fill="#266264" />
     </svg>

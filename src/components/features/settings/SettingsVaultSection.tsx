@@ -71,7 +71,7 @@ export const SettingsVaultSection: React.FC<Props> = ({
               placeholder="Cole o token CAGP1:... aqui"
               value={backupInput}
               onChange={(e) => setBackupInput(e.target.value)}
-              className="flex-1 min-w-0 bg-white border-3 border-border p-2.5 text-xs font-mono rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#8B1E2D]"
+              className="flex-1 min-w-0 bg-white border-3 border-border p-2.5 text-xs font-mono rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-primary"
             />
             <button
               type="button"

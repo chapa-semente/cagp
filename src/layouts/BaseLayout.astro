@@ -16,13 +16,9 @@ import { PwaCredenciamentoPill } from '@/components/features/pwa/PwaCredenciamen
 import { GlobalTourHost } from '@/components/features/semente/GlobalTourHost';
 import { GlobalCanvasBackdrop } from '../components/shell/GlobalCanvasBackdrop';
 import { asset } from '@/lib/paths';
-import '@fontsource/bricolage-grotesque/600.css';
-import '@fontsource/bricolage-grotesque/700.css';
-import '@fontsource/bricolage-grotesque/800.css';
-import '@fontsource/space-grotesk/400.css';
-import '@fontsource/space-grotesk/500.css';
-import '@fontsource/space-grotesk/600.css';
-import '@fontsource/space-grotesk/700.css';
+import '@fontsource/poppins/400.css';
+import '@fontsource/poppins/700.css';
+import '@fontsource/permanent-marker/400.css';
 import '@fontsource/space-mono/400.css';
 import '@fontsource/space-mono/700.css';
 import '@fontsource/opendyslexic/400.css';
@@ -51,11 +47,11 @@ const {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="light" />
-    <meta name="theme-color" content="#5B2A86" />
+    <meta name="theme-color" content="#5B2A85" />
     <meta name="description" content={description} />
-    <!-- Favicon Chapa Semente com Fundo Branco (SVG moderno + ICO fallback) -->
-    <link rel="icon" type="image/svg+xml" href={asset('/logos/semente/simbolo_semente_fundo_branco.svg')} />
-    <link rel="alternate icon" type="image/x-icon" href={asset('/favicon.ico')} />
+    <!-- Favicon: isotipo oficial (manual Chapa Semente, arquivo 10) — gerado por scripts/generate-pwa-icons.mjs -->
+    <link rel="icon" type="image/png" sizes="96x96" href={asset('/favicon-96x96.png')} />
+    <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href={asset('/favicon.ico')} />
     <!-- Web App & iOS Touch Icon -->
     <link rel="apple-touch-icon" sizes="180x180" href={asset('/imagens/pwa/apple-touch-icon.png')} />
     <meta name="apple-mobile-web-app-title" content="Semente" />
@@ -122,7 +118,7 @@ const {
       </style>
     </noscript>
   </head>
-  <body class="bg-background text-foreground font-['Space_Grotesk',sans-serif] antialiased min-h-[100dvh] flex flex-col selection:bg-primary selection:text-white relative isolate">
+  <body class="bg-background text-foreground font-sans antialiased min-h-[100dvh] flex flex-col selection:bg-primary selection:text-white relative isolate">
     <!-- Canvas Interativo Temático por Eixo Neobrutalista BoldKit -->
     <GlobalCanvasBackdrop client:load />
 

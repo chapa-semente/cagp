@@ -40,7 +40,7 @@ export function CTASimple({
         {badge && (
           <motion.div variants={staggerItem}>
             <Badge variant="semente" className="text-xs px-3 py-1">
-              <Sparkles className="h-3.5 w-3.5 mr-1.5 text-[#FF8811]" />
+              <Sparkles className="h-3.5 w-3.5 mr-1.5 text-[#FE8812]" />
               {badge}
             </Badge>
           </motion.div>

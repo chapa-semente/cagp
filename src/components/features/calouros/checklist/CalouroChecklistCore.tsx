@@ -65,7 +65,7 @@ const CHECKLIST_ITEMS: ChecklistItem[] = [
     id: 'chk_ru',
     category: 'espaco',
     title: '7. Almoçar ou Jantar no RU II Setorial',
-    desc: 'Restaurante Universitário atrás da FAFICH. Jantar das 17h10 às 19h30 (horário de ouro entre 18h00 e 18h25).',
+    desc: 'Jantar no RU Setorial II, perto do ICB (subida a partir da FAFICH), das 17h10 às 19h30. Chegando às 18h30, vá direto.',
     iconName: 'utensils',
   },
   {
@@ -93,12 +93,12 @@ const CHECKLIST_ITEMS: ChecklistItem[] = [
 ];
 
 const CONFETTI_PARTICLES = [
-  { dx: -38, dy: -28, rot: -45, color: '#5B2A86' },
-  { dx: -18, dy: -42, rot: 25, color: '#FF8811' },
+  { dx: -38, dy: -28, rot: -45, color: '#5B2A85' },
+  { dx: -18, dy: -42, rot: 25, color: '#FE8812' },
   { dx: 12, dy: -38, rot: -20, color: '#9E2424' },
   { dx: 36, dy: -26, rot: 40, color: '#15803D' },
-  { dx: -32, dy: 18, rot: 35, color: '#FF8811' },
-  { dx: 32, dy: 20, rot: -35, color: '#5B2A86' },
+  { dx: -32, dy: 18, rot: 35, color: '#FE8812' },
+  { dx: 32, dy: 20, rot: -35, color: '#5B2A85' },
 ];
 
 export const CalouroChecklistCore: React.FC = () => {
@@ -147,19 +147,11 @@ export const CalouroChecklistCore: React.FC = () => {
       {/* Painel de Progresso Animado com Persistência no studentVault */}
       <div className="p-5 sm:p-6 bg-white border-3 border-[#16181d] rounded-xl flex flex-col lg:flex-row lg:items-center justify-between gap-4 shadow-[6px_6px_0_0_#16181d]">
         <div>
-          <div className="flex flex-wrap items-center gap-2 mb-1">
-            <span className="px-2.5 py-0.5 rounded-md bg-[#5B2A86] text-white font-mono text-xs font-black uppercase border-2 border-[#16181d]">
-              COFRE LOCAL • STUDENTVAULT
-            </span>
-            <span className="text-xs font-head uppercase font-bold tracking-wider text-secondary">
-              Acolhimento Discente • Primeiros 30 Dias
-            </span>
-          </div>
           <h3 className="font-head text-lg sm:text-xl font-black uppercase text-[#16181d] m-0 tracking-wide">
-            Checklist Tátil de Integração Acadêmica (1º Período)
+            Checklist dos primeiros 30 dias
           </h3>
           <p className="text-xs text-gray-700 mt-1 m-0 font-body font-medium">
-            Toque em cada etapa para carimbar sua conquista. Seu progresso fica salvo automaticamente no seu navegador.
+            Toque em cada etapa para carimbar. O progresso fica salvo neste aparelho.
           </p>
         </div>
 
@@ -169,8 +161,8 @@ export const CalouroChecklistCore: React.FC = () => {
               <span>PROGRESSO 30 DIAS</span>
               <motion.span
                 key={pct}
-                initial={{ scale: 1.35, color: '#FF8811' }}
-                animate={{ scale: 1, color: '#9E2424' }}
+                initial={{ scale: 1.2 }}
+                animate={{ scale: 1 }}
                 transition={bounceSpring}
                 className="text-secondary font-black"
               >
@@ -189,7 +181,7 @@ export const CalouroChecklistCore: React.FC = () => {
                 initial={false}
                 animate={{ width: `${pct}%` }}
                 transition={bounceSpring}
-                className="bg-gradient-to-r from-[#5B2A86] via-[#9E2424] to-[#FF8811] h-full rounded-full"
+                className="bg-accent h-full rounded-full"
               />
             </div>
           </div>
@@ -214,13 +206,13 @@ export const CalouroChecklistCore: React.FC = () => {
       </div>
 
       {/* Filtros por Categoria com Alvos Táteis 44x44pt */}
-      <div className="flex flex-wrap items-center gap-2" role="tablist" aria-label="Filtrar itens do checklist">
+      <div className="flex flex-nowrap items-center gap-2 overflow-x-auto scrollbar-none -mx-1 px-1 py-1" role="tablist" aria-label="Filtrar itens do checklist">
         {[
-          { id: 'todos', label: 'Todos os Passos (10)' },
-          { id: 'acesso', label: 'Sistemas & Wi-Fi' },
-          { id: 'documento', label: 'Carteirinha & FUMP' },
-          { id: 'espaco', label: 'Espaços & RU II' },
-          { id: 'academico', label: 'Grade & CAGP' },
+          { id: 'todos', label: 'Todos' },
+          { id: 'acesso', label: 'Acessos' },
+          { id: 'documento', label: 'Documentos' },
+          { id: 'espaco', label: 'Espaços' },
+          { id: 'academico', label: 'Curso' },
         ].map((f) => (
           <motion.button
             key={f.id}
@@ -231,7 +223,7 @@ export const CalouroChecklistCore: React.FC = () => {
             whileTap={{ x: 2, y: 2 }}
             transition={tactileSpring}
             onClick={() => setFilter(f.id)}
-            className={`min-h-[44px] px-4 py-2 rounded-xl text-xs font-head uppercase font-black tracking-wider transition-colors cursor-pointer border-3 border-[#16181d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
+            className={`shrink-0 min-h-[44px] px-3.5 py-2 rounded-xl text-sm font-head uppercase font-black tracking-wider transition-colors cursor-pointer border-3 border-[#16181d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
               filter === f.id
                 ? 'bg-secondary text-white shadow-[4px_4px_0_0_#16181d]'
                 : 'bg-white text-[#16181d] hover:bg-[#f4f0ea] shadow-[2px_2px_0_0_#16181d]'
@@ -359,7 +351,7 @@ export const CalouroChecklistCore: React.FC = () => {
                     href={item.link.url}
                     target={item.link.ext ? '_blank' : undefined}
                     rel={item.link.ext ? 'noopener noreferrer' : undefined}
-                    className="min-h-[44px] px-3.5 py-2 rounded-xl border-2 border-[#16181d] bg-[#FFFDF9] hover:bg-[#FF8811] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 text-[#16181d] shadow-[2px_2px_0_0_#16181d] inline-flex items-center gap-1.5 text-xs font-head font-black uppercase tracking-wider no-underline transition-all"
+                    className="min-h-[44px] px-3.5 py-2 rounded-xl border-2 border-[#16181d] bg-[#FFFDF9] hover:bg-[#FE8812] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 text-[#16181d] shadow-[2px_2px_0_0_#16181d] inline-flex items-center gap-1.5 text-xs font-head font-black uppercase tracking-wider no-underline transition-all"
                   >
                     <span>{item.link.label}</span>
                     <CagpIcon name="arrow-up-right" className="w-3.5 h-3.5" />
@@ -389,7 +381,7 @@ export const CalouroChecklistCore: React.FC = () => {
                 </span>
               </div>
               <p className="text-xs text-[#16181d] font-body font-bold m-0">
-                Parabéns! Todos os sistemas, acessos e rotinas da UFMG foram integralmente configurados no seu Cofre Discente.
+                Parabéns! Você configurou todos os sistemas, acessos e rotinas da UFMG.
               </p>
             </div>
             <div className="cagp-big-stamp shrink-0 scale-90 sm:scale-100 shadow">

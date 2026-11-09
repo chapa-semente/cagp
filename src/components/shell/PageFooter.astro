@@ -50,20 +50,21 @@ const socialLinks: FooterSocialLink[] = [
       <!-- 1. REALIZAÇÃO PRINCIPAL: CHAPA SEMENTE -->
       <a
         href={route('/chapa-semente')}
-        class="p-4 rounded-xl border-3 border-border bg-card shadow-sm flex items-center gap-3.5 no-underline text-inherit hover:translate-y-[-1px] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+        class="p-4 rounded-xl border-3 border-border bg-white shadow-sm flex items-center gap-3.5 no-underline text-inherit hover:translate-y-[-1px] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         title="Conheça a Carta-Programa da Chapa Semente"
       >
-        <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center p-1.5 border-3 border-border shadow-xs shrink-0">
-          <img
-            src={asset('/logos/semente/simbolo_semente_fiel.svg')}
-            alt="Símbolo Chapa Semente"
-            class="w-full h-full object-contain"
-          />
-        </div>
         <div class="min-w-0 flex-1">
-          <div class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-white border-3 border-border shadow-xs font-heading font-black text-xs uppercase tracking-wider text-primary">
-            CHAPA SEM<span>E</span>NT<span class="text-[#C2410C]">E</span>
-          </div>
+          <img
+            src={asset('/logos/semente/semente-horizontal.webp')}
+            alt="Chapa Gestão Pública Semente"
+            width="768"
+            height="229"
+            loading="lazy"
+            class="h-12 w-auto max-w-full"
+          />
+          <span class="block font-accent text-lg leading-tight text-primary mt-2">
+            Toda mudança começa pequena.
+          </span>
           <span class="block text-xs font-sans font-bold text-muted-foreground mt-1 truncate">
             Potencial que se transforma em ação • Campanha 2026
           </span>

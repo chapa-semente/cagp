@@ -30,9 +30,9 @@ export function BoldLineChart({ data, config, className, dataKey = 'value', cate
           <Line
             type="monotone"
             dataKey={dataKey}
-            stroke="#5B2A86"
+            stroke="#5B2A85"
             strokeWidth={3}
-            dot={{ stroke: '#16181d', strokeWidth: 3, r: 5, fill: '#FF8811' }}
+            dot={{ stroke: '#16181d', strokeWidth: 3, r: 5, fill: '#FE8812' }}
             isAnimationActive={true}
             animationDuration={400}
           />
@@ -53,7 +53,7 @@ export function BoldBarChart({ data, config, className, dataKey = 'value', categ
           <ChartTooltip content={<ChartTooltipContent />} />
           <Bar
             dataKey={dataKey}
-            fill="#5B2A86"
+            fill="#5B2A85"
             stroke="#16181d"
             strokeWidth={3}
             isAnimationActive={true}
@@ -79,7 +79,7 @@ export function BoldAreaChart({ data, config, className, dataKey = 'value', cate
             dataKey={dataKey}
             stroke="#16181d"
             strokeWidth={3}
-            fill="#5B2A86"
+            fill="#5B2A85"
             fillOpacity={0.75}
             isAnimationActive={true}
             animationDuration={400}
@@ -91,7 +91,7 @@ export function BoldAreaChart({ data, config, className, dataKey = 'value', cate
 }
 
 export function BoldPieChart({ data, config, className, dataKey = 'value', categoryKey = 'name' }: BaseChartProps) {
-  const COLORS = ['#5B2A86', '#FF8811', '#134E4A', '#9E2424', '#15803D', '#1E3F66'];
+  const COLORS = ['#5B2A85', '#FE8812', '#134E4A', '#9E2424', '#15803D', '#1E3F66'];
   return (
     <ChartContainer config={config || {}} className={className}>
       <ResponsiveContainer width="100%" height="100%">
@@ -130,7 +130,7 @@ export function BoldScatterChart({ data, config, className, dataKey = 'y', categ
           <ChartTooltip content={<ChartTooltipContent />} />
           <Scatter
             data={data}
-            fill="#5B2A86"
+            fill="#5B2A85"
             stroke="#16181d"
             strokeWidth={3}
             isAnimationActive={true}

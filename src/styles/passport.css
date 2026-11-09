@@ -11,7 +11,7 @@
 .cagp-passport-topbar {
   background-color: #16181d;
   color: #FFFFFF;
-  border-bottom: 3px solid #9E2424;
+  border-bottom: 3px solid var(--accent, #FE8812);
   padding: 0.65rem 1rem;
   display: flex;
   flex-wrap: wrap;
@@ -21,12 +21,12 @@
 }
 
 .cagp-passport-inst {
-  font-family: var(--font-heading, 'Bricolage Grotesque', sans-serif);
+  font-family: var(--font-heading, 'Poppins', sans-serif);
   font-size: 0.8rem;
   font-weight: 800;
   letter-spacing: -0.01em;
   text-transform: uppercase;
-  color: #FF8811;
+  color: #FE8812;
   display: flex;
   align-items: center;
   gap: 0.45rem;
@@ -65,7 +65,7 @@
   left: -6px;
   width: 26px;
   height: 26px;
-  background-color: #FF8811;
+  background-color: #FE8812;
   color: #16181d;
   border: 2px solid #16181d;
   border-radius: 6px;
@@ -145,7 +145,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  background: conic-gradient(#8B1E2D calc(var(--ring-pct, 0) * 1%), #DFDBD2 0);
+  background: conic-gradient(var(--secondary, #266264) calc(var(--ring-pct, 0) * 1%), #DFDBD2 0);
   border: 2px solid #0A0A0A;
   box-shadow: 2px 2px 0px #0A0A0A;
 }
@@ -157,7 +157,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-family: var(--font-mono, 'Space Mono', monospace);
   font-size: 0.7rem;
   font-weight: 700;
   color: #0A0A0A;
@@ -185,7 +185,7 @@
 }
 .cagp-interest-chip.is-active,
 .cagp-interest-chip[aria-pressed="true"] {
-  background-color: #8B1E2D;
+  background-color: var(--secondary, #266264);
   color: #FFFFFF;
   border-color: #0A0A0A;
   box-shadow: 1.5px 1.5px 0px #0A0A0A;

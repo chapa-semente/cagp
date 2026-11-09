@@ -109,13 +109,13 @@ export function TeamGrid({
                       loading="lazy"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-[#5B2A86] text-white">
+                    <div className="w-full h-full flex items-center justify-center bg-[#5B2A85] text-white">
                       <span className="font-heading font-black text-5xl tracking-tight">
                         {getInitials(member.name)}
                       </span>
                     </div>
                   )}
-                  <span className="absolute top-3 left-3 z-10 px-2.5 py-1 rounded-lg bg-[#FF8811] text-[#16181d] border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-heading text-[10px] font-black uppercase tracking-wider -rotate-2">
+                  <span className="absolute top-3 left-3 z-10 px-2.5 py-1 rounded-lg bg-[#FE8812] text-[#16181d] border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-heading text-[10px] font-black uppercase tracking-wider -rotate-2">
                     {member.role}
                   </span>
                 </motion.div>
@@ -267,13 +267,13 @@ export function TeamLargePhotos({
                     loading="lazy"
                   />
                 ) : (
-                  <div className="w-full h-full bg-[#5B2A86] text-white flex items-center justify-center">
+                  <div className="w-full h-full bg-[#5B2A85] text-white flex items-center justify-center">
                     <span className="text-6xl font-black">
                       {getInitials(member.name)}
                     </span>
                   </div>
                 )}
-                <span className="absolute top-3 left-3 z-10 px-2.5 py-1 rounded-lg bg-[#FF8811] text-[#16181d] border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-heading text-[10px] font-black uppercase tracking-wider -rotate-2">
+                <span className="absolute top-3 left-3 z-10 px-2.5 py-1 rounded-lg bg-[#FE8812] text-[#16181d] border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-heading text-[10px] font-black uppercase tracking-wider -rotate-2">
                   {member.role}
                 </span>
 

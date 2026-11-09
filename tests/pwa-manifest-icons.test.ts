@@ -14,7 +14,7 @@ describe("PWA Manifest, Favicon & Chapa Semente Brand Assets", () => {
 
     expect(manifest.short_name).toBe("Semente");
     expect(manifest.name).toContain("Semente");
-    expect(manifest.theme_color).toBe("#5B2A86");
+    expect(manifest.theme_color).toBe("#5B2A85");
     expect(manifest.background_color).toBe("#FFFFFF");
   });
 
@@ -33,28 +33,43 @@ describe("PWA Manifest, Favicon & Chapa Semente Brand Assets", () => {
     }
   });
 
-  it("should verify white background vector assets and favicons exist", () => {
-    const symbolWhiteBg = path.join(rootDir, "public/logos/semente/simbolo_semente_fundo_branco.svg");
-    const faviconSvg = path.join(rootDir, "public/favicon.svg");
-    const faviconIco = path.join(rootDir, "public/favicon.ico");
-    const appleTouchIcon = path.join(rootDir, "public/imagens/pwa/apple-touch-icon.png");
+  it("should verify official Semente assets, PWA icons and favicons exist", () => {
+    const officialAssets = [
+      "semente-horizontal", "semente-horizontal-preto", "semente-horizontal-branco",
+      "semente-horizontal-badge-laranja", "semente-horizontal-badge-petroleo",
+      "semente-vertical", "semente-vertical-badge", "semente-vertical-branco", "semente-vertical-preto",
+      "semente-simbolo", "semente-simbolo-preto", "semente-simbolo-branco",
+    ];
+    for (const name of officialAssets) {
+      const file = path.join(rootDir, `public/logos/semente/${name}.webp`);
+      expect(fs.existsSync(file), `Official asset missing: ${name}.webp`).toBe(true);
+    }
 
-    expect(fs.existsSync(symbolWhiteBg)).toBe(true);
-    expect(fs.existsSync(faviconSvg)).toBe(true);
-    expect(fs.existsSync(faviconIco)).toBe(true);
-    expect(fs.existsSync(appleTouchIcon)).toBe(true);
+    for (const file of [
+      "public/favicon.ico",
+      "public/favicon-96x96.png",
+      "public/imagens/pwa/apple-touch-icon.png",
+      "public/imagens/pwa/badge-96x96.png",
+    ]) {
+      expect(fs.existsSync(path.join(rootDir, file)), `Missing: ${file}`).toBe(true);
+    }
+  });
 
-    const svgContent = fs.readFileSync(symbolWhiteBg, "utf8");
-    expect(svgContent).toContain('fill="#FFFFFF"');
-    expect(svgContent).toContain("simbolo-semente");
+  it("should not reference the retired traced Semente SVGs anywhere in src", () => {
+    const retired = /simbolo_semente_|logo_completo_horizontal|icone_(folha|pessoa|semente)/;
+    const walk = (dir: string): string[] =>
+      fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) =>
+        e.isDirectory() ? walk(path.join(dir, e.name)) : [path.join(dir, e.name)],
+      );
+    const offenders = walk(path.join(rootDir, "src")).filter((f) => retired.test(fs.readFileSync(f, "utf8")));
+    expect(offenders).toEqual([]);
   });
 
   it("should verify BaseLayout.astro includes Semente mobile titles and favicon links", () => {
     const layout = fs.readFileSync(baseLayoutPath, "utf8");
 
-    expect(layout).toContain('rel="icon" type="image/svg+xml"');
-    expect(layout).toContain("simbolo_semente_fundo_branco.svg");
-    expect(layout).toContain('rel="alternate icon"');
+    expect(layout).toContain('rel="icon" type="image/png"');
+    expect(layout).toContain("favicon-96x96.png");
     expect(layout).toContain("favicon.ico");
     expect(layout).toContain('rel="apple-touch-icon"');
     expect(layout).toContain('name="apple-mobile-web-app-title" content="Semente"');

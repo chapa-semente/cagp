@@ -460,8 +460,8 @@ export interface AppearanceSettingsProps {
 }
 
 const accentColors = [
-  { name: 'Roxo Semente', value: '#5B2A86' },
-  { name: 'Laranja Germinar', value: '#FF8811' },
+  { name: 'Roxo Semente', value: '#5B2A85' },
+  { name: 'Laranja Germinar', value: '#FE8812' },
   { name: 'Rubro CAGP', value: '#9E2424' },
   { name: 'Verde Petróleo', value: '#134E4A' },
   { name: 'Dourado FAFICH', value: '#E8A317' },
@@ -470,7 +470,7 @@ const accentColors = [
 
 export function AppearanceSettings({
   theme = 'light',
-  accentColor = '#5B2A86',
+  accentColor = '#5B2A85',
   onThemeChange,
   onAccentColorChange,
   className,
@@ -648,7 +648,7 @@ const APPEARANCE_STORAGE_KEY = 'boldkit-settings-appearance'
 
 /** Read/write appearance prefs. Never throws — private mode blocks localStorage. */
 function readAppearance(): { theme: AppearanceTheme; accentColor: string } {
-  const fallback = { theme: 'light' as AppearanceTheme, accentColor: '#5B2A86' }
+  const fallback = { theme: 'light' as AppearanceTheme, accentColor: '#5B2A85' }
   try {
     const raw = localStorage.getItem(APPEARANCE_STORAGE_KEY)
     if (!raw) return fallback

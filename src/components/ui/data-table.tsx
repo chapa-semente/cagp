@@ -118,12 +118,12 @@ function DataTableToolbar<TData>({
       <div className="flex flex-1 items-center space-x-2 min-w-[200px]">
         {column && (
           <div className="relative w-full sm:w-auto flex-1 max-w-md">
-            <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#5B2A86]" />
+            <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#5B2A85]" />
             <Input
               placeholder={filterPlaceholder}
               value={String(column.getFilterValue() ?? '')}
               onChange={(event) => column.setFilterValue(event.target.value)}
-              className="min-h-[44px] h-11 w-full pl-10 rounded-xl border-3 border-[#16181d] bg-white font-sans shadow-[3px_3px_0_0_#16181d] focus-visible:ring-3 focus-visible:ring-[#5B2A86] focus-visible:border-[#5B2A86]"
+              className="min-h-[44px] h-11 w-full pl-10 rounded-xl border-3 border-[#16181d] bg-white font-sans shadow-[3px_3px_0_0_#16181d] focus-visible:ring-3 focus-visible:ring-[#5B2A85] focus-visible:border-[#5B2A85]"
             />
           </div>
         )}

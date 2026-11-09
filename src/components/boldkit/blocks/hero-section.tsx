@@ -46,7 +46,7 @@ export function HeroCentered({
         {badge && (
           <motion.div variants={staggerItem}>
             <Badge variant="semente" className="text-xs sm:text-sm px-4 py-1.5 shadow-[3px_3px_0_0_#16181d]">
-              <Sparkles className="h-3.5 w-3.5 mr-2 text-[#FF8811]" />
+              <Sparkles className="h-3.5 w-3.5 mr-2 text-[#FE8812]" />
               {badge}
             </Badge>
           </motion.div>
@@ -58,7 +58,7 @@ export function HeroCentered({
         >
           {title}{' '}
           {titleHighlight && (
-            <span className="inline-block bg-primary px-3 py-0.5 text-primary-foreground border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] -rotate-1">
+            <span className="inline-block bg-primary px-3 pt-1 pb-0.5 font-accent font-normal normal-case tracking-normal text-primary-foreground border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] -rotate-1">
               {titleHighlight}
             </span>
           )}
@@ -78,7 +78,7 @@ export function HeroCentered({
           >
             {primaryAction && (
               primaryAction.href ? (
-                <Button size="lg" asChild>
+                <Button size="lg" className="h-auto min-h-12 whitespace-normal text-center" asChild>
                   <a href={safeHref(primaryAction.href)}>{primaryAction.label}<ArrowRight className="ml-2 h-4 w-4" /></a>
                 </Button>
               ) : (
@@ -90,7 +90,7 @@ export function HeroCentered({
             )}
             {secondaryAction && (
               secondaryAction.href ? (
-                <Button size="lg" variant="outline" asChild>
+                <Button size="lg" variant="outline" className="h-auto min-h-12 whitespace-normal text-center" asChild>
                   <a href={safeHref(secondaryAction.href)}>{secondaryAction.label}</a>
                 </Button>
               ) : (
@@ -147,7 +147,7 @@ export function HeroSplit({
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight leading-[1.08]">
             {title}{' '}
             {titleHighlight && (
-              <span className="inline-block bg-accent px-2.5 py-0.5 text-accent-foreground border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]">
+              <span className="inline-block bg-accent px-2.5 pt-1 pb-0.5 font-accent font-normal normal-case tracking-normal text-accent-foreground border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]">
                 {titleHighlight}
               </span>
             )}
@@ -240,7 +240,7 @@ export function HeroWithStats({
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight">
             {title}{' '}
             {titleHighlight && (
-              <span className="inline-block bg-secondary px-2.5 py-0.5 text-secondary-foreground border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]">
+              <span className="inline-block bg-secondary px-2.5 pt-1 pb-0.5 font-accent font-normal normal-case tracking-normal text-secondary-foreground border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]">
                 {titleHighlight}
               </span>
             )}

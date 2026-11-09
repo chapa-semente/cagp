@@ -64,7 +64,7 @@ export const SettingsA11ySection: React.FC<Props> = ({ a11y, updateA11y }) => {
               name="a11y-dyslexia"
               checked={a11y.dyslexia}
               onChange={(e) => updateA11y({ dyslexia: e.target.checked })}
-              className="w-5 h-5 accent-[#8B1E2D] cursor-pointer rounded border-3 border-border"
+              className="w-5 h-5 accent-primary cursor-pointer rounded border-3 border-border"
             />
           </label>
         </div>
@@ -82,7 +82,7 @@ export const SettingsA11ySection: React.FC<Props> = ({ a11y, updateA11y }) => {
               name="a11y-contrast"
               checked={a11y.contrast === 'high'}
               onChange={(e) => updateA11y({ contrast: e.target.checked ? 'high' : 'normal' })}
-              className="w-5 h-5 accent-[#8B1E2D] cursor-pointer rounded border-3 border-border"
+              className="w-5 h-5 accent-primary cursor-pointer rounded border-3 border-border"
             />
           </label>
         </div>
@@ -100,7 +100,7 @@ export const SettingsA11ySection: React.FC<Props> = ({ a11y, updateA11y }) => {
               name="a11y-dock"
               checked={!!a11y.showDesktopDock}
               onChange={(e) => updateA11y({ showDesktopDock: e.target.checked })}
-              className="w-5 h-5 accent-[#8B1E2D] cursor-pointer rounded border-3 border-border"
+              className="w-5 h-5 accent-primary cursor-pointer rounded border-3 border-border"
             />
           </label>
         </div>

@@ -1,0 +1,13 @@
+---
+codigo: "DCP 028"
+nome: "POLITICA INTERNACIONAL"
+natureza: "optativa"
+ch: 60
+modulo: "Optativa"
+preRequisitos: []
+ementa: "Atores e interações políticas próprios do espaço internacional. Identificação dos temas e princípios articuladores da política internacional. Apresentação e crítica das teorias mais difundidas das relações internacionais. Tendências de mudança na organização da economia e nos graus de autonomia dos Estados soberanos."
+---
+
+## Ementa Oficial
+
+Atores e interações políticas próprios do espaço internacional. Identificação dos temas e princípios articuladores da política internacional. Apresentação e crítica das teorias mais difundidas das relações internacionais. Tendências de mudança na organização da economia e nos graus de autonomia dos Estados soberanos.

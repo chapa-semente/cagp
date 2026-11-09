@@ -442,7 +442,7 @@ export const AcgCalculatorCore: React.FC = () => {
               valueFormatter={(v) => `${v}h`}
               zones={[
                 { from: 0, to: 200, color: '#9E2424', label: 'Início' },
-                { from: 200, to: 450, color: '#FF8811', label: 'Avançando' },
+                { from: 200, to: 450, color: '#FE8812', label: 'Avançando' },
                 { from: 450, to: 600, color: '#15803D', label: 'Meta' },
               ]}
             />

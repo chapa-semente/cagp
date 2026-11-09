@@ -102,7 +102,7 @@ export const SettingsTabContent: React.FC = () => {
                 type="checkbox"
                 checked={notifs.ru1815}
                 onChange={(e) => updateNotif({ ru1815: e.target.checked })}
-                className="w-5 h-5 accent-[#8B1E2D] cursor-pointer"
+                className="w-5 h-5 accent-primary cursor-pointer"
               />
             </label>
           </div>
@@ -133,7 +133,7 @@ export const SettingsTabContent: React.FC = () => {
                 type="checkbox"
                 checked={notifs.circular2230}
                 onChange={(e) => updateNotif({ circular2230: e.target.checked })}
-                className="w-5 h-5 accent-[#8B1E2D] cursor-pointer"
+                className="w-5 h-5 accent-primary cursor-pointer"
               />
             </label>
           </div>

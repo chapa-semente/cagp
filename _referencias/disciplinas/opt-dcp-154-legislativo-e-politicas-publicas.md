@@ -1,0 +1,13 @@
+---
+codigo: "DCP 154"
+nome: "LEGISLATIVO E POLÍTICAS PÚBLICAS"
+natureza: "optativa"
+ch: 60
+modulo: "Optativa"
+preRequisitos: []
+ementa: "Modelos de Organização Legislativa e seus efeitos sobre o comportamento e a produção legislativos. Legística. Distribuição de atribuições, direitos e recursos legislativos entre legisladores individuais, grupos de legisladores e plenário. Partidos e Comissões. Desenvolvimento institucional. Modelos de organização legislativa e seus efeitos sobre os padrões de interação entre os atores relevantes: cidadãos, grupos de interesses, representantes eleitos e burocracias públicas."
+---
+
+## Ementa Oficial
+
+Modelos de Organização Legislativa e seus efeitos sobre o comportamento e a produção legislativos. Legística. Distribuição de atribuições, direitos e recursos legislativos entre legisladores individuais, grupos de legisladores e plenário. Partidos e Comissões. Desenvolvimento institucional. Modelos de organização legislativa e seus efeitos sobre os padrões de interação entre os atores relevantes: cidadãos, grupos de interesses, representantes eleitos e burocracias públicas.

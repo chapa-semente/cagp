@@ -171,7 +171,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                   }}
                   className={`min-h-[48px] p-3 rounded-xl border-3 text-left transition-all cursor-pointer flex items-center gap-3 ${
                     isCurrent
-                      ? 'bg-[#5B2A86] text-white border-[#16181d] shadow-[3px_3px_0_0_#FF8811]'
+                      ? 'bg-[#5B2A85] text-white border-[#16181d] shadow-[3px_3px_0_0_#FE8812]'
                       : isDone
                       ? 'bg-[#DCFCE7] text-[#16181d] border-[#16181d]'
                       : 'bg-[#f4f0ea] text-[#16181d] border-[#16181d]/60 hover:bg-white'
@@ -273,7 +273,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setActiveStep(1)}
-                    className="min-h-[48px] px-6 py-3 rounded-xl bg-[#5B2A86] text-white font-heading font-black text-xs uppercase tracking-wider border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all cursor-pointer inline-flex items-center gap-2"
+                    className="min-h-[48px] px-6 py-3 rounded-xl bg-[#5B2A85] text-white font-heading font-black text-xs uppercase tracking-wider border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all cursor-pointer inline-flex items-center gap-2"
                   >
                     <span>Avançar para o Relato</span>
                     <span aria-hidden="true">→</span>
@@ -363,7 +363,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                       }
                       setActiveStep(2);
                     }}
-                    className="min-h-[48px] px-6 py-3 rounded-xl bg-[#5B2A86] text-white font-heading font-black text-xs uppercase tracking-wider border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] cursor-pointer inline-flex items-center gap-2"
+                    className="min-h-[48px] px-6 py-3 rounded-xl bg-[#5B2A85] text-white font-heading font-black text-xs uppercase tracking-wider border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] cursor-pointer inline-flex items-center gap-2"
                   >
                     <span>Revisar &amp; Carimbar Protocolo</span>
                     <span aria-hidden="true">→</span>
@@ -400,7 +400,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                           setLastStamped(null);
                           setActiveStep(0);
                         }}
-                        className="min-h-[44px] px-5 py-2.5 rounded-xl bg-[#16181d] text-white font-heading font-black text-xs uppercase border-2 border-[#16181d] shadow-[3px_3px_0_0_#FF8811] cursor-pointer"
+                        className="min-h-[44px] px-5 py-2.5 rounded-xl bg-[#16181d] text-white font-heading font-black text-xs uppercase border-2 border-[#16181d] shadow-[3px_3px_0_0_#FE8812] cursor-pointer"
                       >
                         Registrar Nova Manifestação
                       </button>
@@ -410,7 +410,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                   <div className="space-y-4">
                     <div className="p-4 rounded-xl bg-[#FFFDF9] border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] space-y-2">
                       <div className="flex items-center justify-between flex-wrap gap-2">
-                        <span className="font-mono text-xs font-black uppercase text-[#5B2A86]">
+                        <span className="font-mono text-xs font-black uppercase text-[#5B2A85]">
                           Resumo para Protocolo • {getCategoryMeta(selectedCategory).title}
                         </span>
                         <span className="font-mono text-[11px] font-bold px-2 py-0.5 rounded bg-[#FEF3C7] border border-[#16181d]">
@@ -442,7 +442,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#FF8811] text-[#16181d] font-heading font-black text-sm uppercase tracking-wider rounded-xl border-3 border-[#16181d] shadow-[5px_5px_0px_#16181d] hover:bg-[#ff9831] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer min-h-[48px] disabled:opacity-50"
+                        className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#FE8812] text-[#16181d] font-heading font-black text-sm uppercase tracking-wider rounded-xl border-3 border-[#16181d] shadow-[5px_5px_0px_#16181d] hover:bg-[#ff9831] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer min-h-[48px] disabled:opacity-50"
                       >
                         {isSubmitting ? (
                           <>

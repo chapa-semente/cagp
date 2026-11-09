@@ -325,7 +325,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
 
       {periods.length === 0 && (
         <div className="flex flex-col items-center justify-center p-8 border-3 border-border rounded-xl bg-card gap-4">
-          <MathCurveLoader curve="lissajous" size="lg" headColor="#5B2A86" trackColor="#FF8811" />
+          <MathCurveLoader curve="lissajous" size="lg" headColor="#5B2A85" trackColor="#FE8812" />
           <span className="font-mono text-xs font-bold uppercase text-muted-foreground">
             Calculando topologia e travas regimentais do grafo 10P...
           </span>
@@ -353,7 +353,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
               onClick={() => setStatusFilter(flt.id as any)}
               className={`min-h-[44px] px-3 py-1.5 rounded-xl font-heading text-xs uppercase font-extrabold border-2 transition-all shrink-0 cursor-pointer ${
                 statusFilter === flt.id
-                  ? 'bg-[#5B2A86] text-white border-[#16181d] shadow-[2px_2px_0_0_#16181d]'
+                  ? 'bg-[#5B2A85] text-white border-[#16181d] shadow-[2px_2px_0_0_#16181d]'
                   : 'bg-white text-foreground border-border hover:bg-muted'
               }`}
             >
@@ -426,10 +426,10 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.98 }}
             transition={bounceSpring}
-            className="p-3.5 bg-[#FAF5FF] border-3 border-[#16181d] rounded-xl shadow-[4px_4px_0_0_#5B2A86] flex flex-wrap items-center justify-between gap-3 text-xs"
+            className="p-3.5 bg-[#FAF5FF] border-3 border-[#16181d] rounded-xl shadow-[4px_4px_0_0_#5B2A85] flex flex-wrap items-center justify-between gap-3 text-xs"
           >
             <div className="flex flex-wrap items-center gap-2">
-              <span className="px-2.5 py-1 rounded-lg bg-[#5B2A86] text-white font-mono font-bold border-2 border-[#16181d]">
+              <span className="px-2.5 py-1 rounded-lg bg-[#5B2A85] text-white font-mono font-bold border-2 border-[#16181d]">
                 FOCO: {activeChainData.code} ({activeChainData.name})
               </span>
               {activePrereqCodes.size > 0 ? (
@@ -531,7 +531,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                                   transition={tactileSpring}
                                   className={`p-2.5 rounded-lg border-2 transition-colors text-xs cursor-pointer ${
                                     isCurrentFocus
-                                      ? 'bg-[#FAF5FF] border-[#5B2A86] shadow-[4px_4px_0_0_#5B2A86]'
+                                      ? 'bg-[#FAF5FF] border-[#5B2A85] shadow-[4px_4px_0_0_#5B2A85]'
                                       : isPrereqChain
                                       ? 'bg-[#FFF5F5] border-[#9E2424] shadow-[4px_4px_0_0_#9E2424]'
                                       : isUnlockChain

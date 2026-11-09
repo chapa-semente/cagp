@@ -1,199 +1,88 @@
 ---
-// src/components/features/calouros/CalouroCentralOverview.astro — Visão Geral do Guia do Calouro (Padrão Dossiê Tátil)
+// CalouroCentralOverview.astro — Aba "Geral" do Guia do Calouro.
+// Ordem pensada para a primeira noite: o que funciona agora, o próximo passo do checklist e onde ficam as salas.
 import { CalouroChecklistWidget } from './checklist/CalouroChecklistWidget';
+import NoturnoHoje from '@/components/features/acolhimento/NoturnoHoje.astro';
 import CagpIcon from '@/components/ui/CagpIcon.astro';
+import { ATENDIMENTO_CURSO } from '@/data/acolhimento';
 import { asset, route } from '@/lib/paths';
+
+const salas = [
+  { nome: 'Sala do CAGP', onde: ATENDIMENTO_CURSO.cagp.sala.replace('FAFICH, ', '') },
+  { nome: 'Secretaria do curso', onde: ATENDIMENTO_CURSO.secretaria.sala.replace('FAFICH, ', '') },
+  { nome: 'CEAG (protocolo)', onde: '2º andar, em frente aos caixas' },
+];
+
+const frentes = [
+  { titulo: 'Simulações TEMAS', texto: 'Inserção dos calouros em simulações diplomáticas e de políticas públicas.' },
+  { titulo: 'Debates SENATUS', texto: 'Oficinas de oratória e argumentação com a Sociedade de Debates da UFMG.' },
+  { titulo: 'Atlética & calouradas', texto: 'Integração esportiva e cultural com a Atlética FAFICH/IGC/FAE, em horário de quem trabalha.' },
+];
 ---
 
-<div class="cagp-calouro-central-overview space-y-6 select-none text-foreground">
-  {/* Bento Grid dos Widgets de Calouro (Acesso Imediato Acima da Dobra) */}
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-    {/* Widget do Checklist */}
-    <CalouroChecklistWidget client:load />
+<div class="space-y-6 text-foreground">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-start">
+    <NoturnoHoje class="lg:col-span-7" />
 
-    {/* Card dos Espaços da FAFICH */}
-    <div class="p-5 sm:p-6 bg-white border-3 border-[#16181d] rounded-xl flex flex-col justify-between h-full shadow-[5px_5px_0_0_#16181d] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[7px_7px_0_0_#16181d] transition-all">
-      <div>
-        <div class="flex items-center justify-between gap-2 mb-3">
-          <div class="flex items-center gap-2.5">
-            <span class="w-10 h-10 rounded-lg bg-[#134E4A] text-white flex items-center justify-center border-3 border-[#16181d] shadow-[2px_2px_0_0_#16181d] shrink-0">
-              <CagpIcon name="building" class="w-5 h-5 text-white" />
-            </span>
-            <div>
-              <h3 class="font-head font-black text-sm uppercase text-[#16181d] leading-tight m-0 tracking-wide">
-                Salas &amp; Espaços da FAFICH
-              </h3>
-              <span class="text-xs text-gray-700 font-mono font-bold">F-4000, F-2039 &amp; CEAG</span>
+    <div class="lg:col-span-5 space-y-5">
+      <CalouroChecklistWidget client:visible />
+
+      <section class="rounded-xl border-3 border-border bg-card shadow-lg" aria-labelledby="calouro-salas-titulo">
+        <h3 id="calouro-salas-titulo" class="font-heading font-extrabold uppercase tracking-tight text-base leading-tight m-0 px-4 pt-4 pb-2">
+          Onde fica cada coisa na FAFICH
+        </h3>
+        <dl class="m-0 px-4 pb-1">
+          {salas.map((s) => (
+            <div class="flex items-baseline justify-between gap-3 py-2.5 border-t-2 border-border/15">
+              <dt class="font-heading font-bold text-base">{s.nome}</dt>
+              <dd class="m-0 font-mono text-sm font-bold text-right">{s.onde}</dd>
             </div>
-          </div>
-          <span class="px-2.5 py-0.5 rounded-md font-mono text-xs font-black uppercase bg-[#134E4A] text-white border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
-            Mapa Local
-          </span>
-        </div>
-
-        <p class="text-xs text-gray-800 leading-relaxed mb-4 font-body font-medium">
-          Mapeamento visual da Sala do CAGP (F-4000), Secretaria (F-2039), CEAG 2º Andar, Biblioteca Baeta Neves e Auditório Sônia Viegas.
-        </p>
-
-        <div class="p-3 bg-[#FFFDF9] border-2 border-[#16181d] rounded-lg mb-4 flex items-center justify-between text-xs">
-          <span class="text-gray-800 font-body font-bold">Sede CAGP &amp; Secretaria:</span>
-          <span class="font-mono font-black text-[#16181d]">4º e 2º Andar FAFICH</span>
-        </div>
-      </div>
-
-      <a
-        href="#espacos"
-        class="min-h-[44px] px-4 py-2.5 bg-[#FFFDF9] hover:bg-[#f4f0ea] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 text-[#16181d] rounded-xl font-head text-xs uppercase font-black tracking-wider flex items-center justify-center gap-2 transition-all no-underline shadow-[3px_3px_0_0_#16181d] border-3 border-[#16181d]"
-      >
-        <span>Explorar Salas e Espaços</span>
-        <CagpIcon name="chevron-right" class="w-4 h-4" />
-      </a>
-    </div>
-
-    {/* Card Ponte: Permanência, FUMP & Apoio Noturno */}
-    <div class="p-5 sm:p-6 bg-white border-3 border-[#16181d] rounded-xl flex flex-col justify-between h-full shadow-[5px_5px_0_0_#16181d] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[7px_7px_0_0_#16181d] transition-all">
-      <div>
-        <div class="flex items-center justify-between gap-2 mb-3">
-          <div class="flex items-center gap-2.5">
-            <span class="w-10 h-10 rounded-lg bg-secondary text-white flex items-center justify-center border-3 border-[#16181d] shadow-[2px_2px_0_0_#16181d] shrink-0">
-              <CagpIcon name="moon" class="w-5 h-5 text-white" />
-            </span>
-            <div>
-              <h3 class="font-head font-black text-sm uppercase text-[#16181d] leading-tight m-0 tracking-wide">
-                Permanência FUMP &amp; Noturno
-              </h3>
-              <span class="text-xs text-gray-700 font-mono font-bold">RU II, Bolsas &amp; Circulares</span>
-            </div>
-          </div>
-          <span class="px-2.5 py-0.5 rounded-md font-mono text-xs font-black uppercase bg-secondary text-white border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
-            Central Eixo 2
-          </span>
-        </div>
-
-        <p class="text-xs text-gray-800 leading-relaxed mb-4 font-body font-medium">
-          Tudo sobre os Níveis I, II e III da FUMP, auxílio moradia, isenção nas refeições do RU e horários dos circulares até 22h45.
-        </p>
-
-        <div class="p-3 bg-[#FFFDF9] border-2 border-[#16181d] rounded-lg mb-4 flex items-center justify-between text-xs">
-          <span class="text-gray-800 font-body font-bold">Jantar RU II &amp; Circular:</span>
-          <span class="font-mono font-black text-secondary">17h10 e 22h45</span>
-        </div>
-      </div>
-
-      <a
-        href={route('/permanencia')}
-        class="min-h-[44px] px-4 py-2.5 bg-[#FFFDF9] hover:bg-[#f4f0ea] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 text-[#16181d] rounded-xl font-head text-xs uppercase font-black tracking-wider flex items-center justify-center gap-2 transition-all no-underline shadow-[3px_3px_0_0_#16181d] border-3 border-[#16181d]"
-      >
-        <span>Abrir Central de Permanência</span>
-        <CagpIcon name="chevron-right" class="w-4 h-4" />
-      </a>
+          ))}
+        </dl>
+        <a
+          href="#espacos"
+          class="flex items-center justify-between gap-2 min-h-[48px] px-4 py-3 border-t-3 border-border font-heading font-extrabold uppercase text-sm tracking-tight text-foreground no-underline hover:bg-muted focus-visible:outline-2 focus-visible:outline-primary focus-visible:-outline-offset-4"
+        >
+          <span>Ver salas com fotos</span>
+          <CagpIcon name="chevron-right" class="w-4 h-4" />
+        </a>
+      </section>
     </div>
   </div>
 
-  {/* Destaque Eleitoral: Proposta 7 da Chapa Semente (Recepção e Integração de Calouros) */}
-  <div class="p-5 sm:p-6 bg-white border-3 border-[#16181d] rounded-2xl shadow-[8px_8px_0_0_#16181d] relative overflow-hidden">
-    <div class="absolute top-0 left-0 right-0 h-2 flex border-b-2 border-[#16181d]" aria-hidden="true">
-      <div class="flex-1 bg-[#5B2A86]"></div>
-      <div class="flex-1 bg-[#FF8811]"></div>
-      <div class="w-1/4 bg-[#9E2424]"></div>
-    </div>
-
-    <div class="pt-2 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-      {/* Moldura Fotográfica Ampliada da Recepção & Vivência Universitária */}
-      <div class="lg:col-span-5">
-        <div class="cagp-photo-frame relative aspect-[4/3] min-h-[240px] sm:min-h-[270px] w-full rounded-xl border-3 border-[#16181d] shadow-[6px_6px_0_0_#16181d] overflow-hidden bg-[#f4f0ea]">
-          <img
-            src={asset('/imagens/semente/post_02_quem_somos_nos.jpg')}
-            alt="Integrantes da Chapa Semente no acolhimento e recepção de calouros na FAFICH UFMG"
-            class="w-full h-full object-cover"
-            loading="lazy"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-[#16181d]/85 via-transparent to-transparent pointer-events-none" />
-          <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-[#FF8811] text-[#16181d] font-mono font-black text-xs uppercase tracking-wider border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
-            PROPOSTA 7 • EIXO 2 CULTURA &amp; BEM VIVER
-          </span>
-          <div class="absolute bottom-3 left-3 right-3 text-white">
-            <span class="font-head font-black uppercase text-sm sm:text-base block leading-tight">
-              Acolhimento Real desde o 1º Dia na FAFICH
-            </span>
-            <span class="font-mono text-xs text-white/90">
-              Chapa Semente • Paloma Correia &amp; Alice Maurício (Cultura e Eventos)
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* Conteúdo da Proposta 7 e CTA Eleitoral */}
-      <div class="lg:col-span-7 space-y-4">
-        <div class="flex flex-wrap items-center gap-2">
-          <span class="px-3 py-1 rounded-lg bg-[#5B2A86] text-white font-mono text-xs font-black uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
-            PROPOSTA MATERIALIZADA #07
-          </span>
-          <span class="px-2.5 py-1 rounded-lg bg-[#FEF08A] text-[#16181d] font-mono text-xs font-black uppercase border-2 border-[#16181d]">
-            Trote Solidário &amp; Integração Noturna
-          </span>
-        </div>
-
-        <h2 class="font-head text-xl sm:text-2xl font-black uppercase text-[#16181d] leading-tight m-0">
-          Política Permanente de Recepção &amp; Integração de Calouros
-        </h2>
-
-        <p class="text-xs sm:text-sm text-gray-800 leading-relaxed font-body font-medium m-0">
-          Chegar à UFMG à noite não precisa ser solitário nem burocrático. Além de entregar este <strong>Guia Interativo de Sobrevivência</strong> pronto antes mesmo da eleição, a <strong>Chapa Semente</strong> estruturou na <strong>Proposta 7 da Carta-Programa</strong> uma recepção presencial acolhedora, segura (Res. 06/2014) e integrada às entidades estudantis da FAFICH:
+  <section class="rounded-xl border-3 border-border bg-card shadow-lg overflow-hidden" aria-labelledby="calouro-proposta-titulo">
+    <div class="grid grid-cols-1 lg:grid-cols-12">
+      <figure class="m-0 lg:col-span-5 border-b-3 lg:border-b-0 lg:border-r-3 border-border">
+        <img
+          src={asset('/imagens/semente/post_02_quem_somos_nos.jpg')}
+          alt="Integrantes da Chapa Semente na FAFICH"
+          class="w-full h-full max-h-[320px] lg:max-h-none object-cover aspect-[4/3]"
+          loading="lazy"
+        />
+      </figure>
+      <div class="lg:col-span-7 p-4 sm:p-5 space-y-3">
+        <h3 id="calouro-proposta-titulo" class="font-heading font-extrabold uppercase tracking-tight text-lg sm:text-xl leading-tight m-0">
+          Proposta 7 da Chapa Semente: recepção permanente de calouros
+        </h3>
+        <p class="text-base leading-relaxed m-0 max-w-[65ch] text-pretty">
+          Este guia já está no ar. A recepção presencial é uma proposta: acolhimento seguro (Res. 06/2014) e integrado às entidades estudantis da FAFICH, com três frentes:
         </p>
-
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-          <div class="p-3.5 rounded-xl border-3 border-[#16181d] bg-[#FFFDF9] shadow-[3px_3px_0_0_#16181d] flex flex-col justify-between">
-            <div>
-              <div class="flex items-center gap-2 mb-1.5">
-                <span class="w-6 h-6 rounded-md bg-[#5B2A86] text-white flex items-center justify-center border-2 border-[#16181d] shadow-[1px_1px_0_0_#16181d] shrink-0">
-                  <i class="bi bi-globe-americas text-xs" aria-hidden="true"></i>
-                </span>
-                <strong class="font-head uppercase text-[#5B2A86] text-xs font-black m-0">Simulações TEMAS</strong>
-              </div>
-              <span class="text-gray-800 font-medium">Parceria para inserção dos calouros em simulações diplomáticas e de políticas públicas.</span>
+        <dl class="m-0 grid grid-cols-1 sm:grid-cols-3 gap-x-5">
+          {frentes.map((f) => (
+            <div class="py-2.5 border-t-2 border-border/15">
+              <dt class="font-heading font-bold text-sm">{f.titulo}</dt>
+              <dd class="m-0 mt-0.5 text-sm text-muted-foreground leading-snug">{f.texto}</dd>
             </div>
-          </div>
-          <div class="p-3.5 rounded-xl border-3 border-[#16181d] bg-[#FFFDF9] shadow-[3px_3px_0_0_#16181d] flex flex-col justify-between">
-            <div>
-              <div class="flex items-center gap-2 mb-1.5">
-                <span class="w-6 h-6 rounded-md bg-[#9E2424] text-white flex items-center justify-center border-2 border-[#16181d] shadow-[1px_1px_0_0_#16181d] shrink-0">
-                  <i class="bi bi-mic-fill text-xs" aria-hidden="true"></i>
-                </span>
-                <strong class="font-head uppercase text-[#9E2424] text-xs font-black m-0">Debates SENATUS</strong>
-              </div>
-              <span class="text-gray-800 font-medium">Oficinas de oratória e argumentação com a Sociedade de Debates da UFMG.</span>
-            </div>
-          </div>
-          <div class="p-3.5 rounded-xl border-3 border-[#16181d] bg-[#FFFDF9] shadow-[3px_3px_0_0_#16181d] flex flex-col justify-between">
-            <div>
-              <div class="flex items-center gap-2 mb-1.5">
-                <span class="w-6 h-6 rounded-md bg-[#134E4A] text-white flex items-center justify-center border-2 border-[#16181d] shadow-[1px_1px_0_0_#16181d] shrink-0">
-                  <i class="bi bi-trophy-fill text-xs" aria-hidden="true"></i>
-                </span>
-                <strong class="font-head uppercase text-[#134E4A] text-xs font-black m-0">Atlética &amp; Calouradas</strong>
-              </div>
-              <span class="text-gray-800 font-medium">Integração esportiva e cultural com a Atlética FAFICH/IGC/FAE pensando no aluno trabalhador.</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="pt-1 flex flex-wrap items-center gap-3">
-          <a
-            href={route('/chapa-semente#propostas')}
-            class="min-h-[44px] px-5 py-2.5 bg-[#FF8811] hover:bg-[#e67300] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 text-[#16181d] rounded-xl font-head text-xs sm:text-sm uppercase font-black tracking-wider inline-flex items-center justify-center gap-2 transition-all no-underline border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]"
-          >
-            <i class="bi bi-check2-circle text-base" aria-hidden="true"></i>
-            <span>Votar Chapa Semente (25 e 26/11) • Ver Proposta 7</span>
-          </a>
-          <a
-            href="#checklist"
-            class="min-h-[44px] px-4 py-2.5 bg-white hover:bg-[#f4f0ea] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 text-[#16181d] rounded-xl font-head text-xs uppercase font-black tracking-wider inline-flex items-center justify-center gap-2 transition-all no-underline border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d]"
-          >
-            <span>Começar Checklist 30 Dias →</span>
-          </a>
-        </div>
+          ))}
+        </dl>
+        <a
+          href={route('/chapa-semente#propostas')}
+          class="inline-flex items-center gap-1.5 min-h-[44px] font-heading font-bold text-sm text-foreground underline underline-offset-4 decoration-2 decoration-primary"
+        >
+          Ler a proposta completa
+          <CagpIcon name="chevron-right" class="w-4 h-4" />
+        </a>
       </div>
     </div>
-  </div>
+  </section>
 </div>

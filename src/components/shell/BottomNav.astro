@@ -40,9 +40,10 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
             }`}
             set:html={iconSvg}
           />
-          <span class="text-xs font-heading font-extrabold uppercase tracking-tight leading-none truncate max-w-full">
-            {axis.name}
+          <span class="text-xs font-heading font-extrabold uppercase tracking-tight leading-none truncate max-w-full" aria-hidden="true">
+            {axis.mobileLabel}
           </span>
+          <span class="sr-only">{axis.name}</span>
         </a>
       );
     })}

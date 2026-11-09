@@ -207,7 +207,7 @@ export const SHORTCUTS_CATALOG: ShortcutItem[] = [
     description: 'Tour interativo passo a passo pelas principais ferramentas discentes.',
     href: '#tour',
     icon: 'bi-compass',
-    color: '#FF8811',
+    color: '#FE8812',
     category: 'Ferramentas',
     isAction: true,
     actionEvent: 'cagp:start-tour',

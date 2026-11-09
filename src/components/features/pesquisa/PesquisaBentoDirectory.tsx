@@ -32,7 +32,7 @@ const NUCLEOS_DCP: ResearchCenterItem[] = [
     span: 'wide',
     accent: 'primary',
     url: 'https://www.fafich.ufmg.br/dcp/',
-    iconClass: 'bi-building-gear text-[#5B2A86]',
+    iconClass: 'bi-building-gear text-[#5B2A85]',
   },
   {
     id: 'ceppi',
@@ -46,7 +46,7 @@ const NUCLEOS_DCP: ResearchCenterItem[] = [
     span: 'normal',
     accent: 'accent',
     url: 'https://www.fafich.ufmg.br/ceppi/',
-    iconClass: 'bi-globe2 text-[#FF8811]',
+    iconClass: 'bi-globe2 text-[#FE8812]',
   },
   {
     id: 'nesth',
@@ -60,7 +60,7 @@ const NUCLEOS_DCP: ResearchCenterItem[] = [
     span: 'normal',
     accent: 'card',
     url: 'https://www.fafich.ufmg.br/dcp/',
-    iconClass: 'bi-person-workspace text-[#9E2424]',
+    iconClass: 'bi-person-workspace text-secondary',
   },
   {
     id: 'cel',
@@ -74,7 +74,7 @@ const NUCLEOS_DCP: ResearchCenterItem[] = [
     span: 'wide',
     accent: 'secondary',
     url: 'https://www.fafich.ufmg.br/cel/',
-    iconClass: 'bi-bank2 text-[#9E2424]',
+    iconClass: 'bi-bank2 text-secondary',
   },
   {
     id: 'femjusp',
@@ -88,7 +88,7 @@ const NUCLEOS_DCP: ResearchCenterItem[] = [
     span: 'normal',
     accent: 'primary',
     url: 'https://www.fafich.ufmg.br/dcp/',
-    iconClass: 'bi-shield-shaded text-[#5B2A86]',
+    iconClass: 'bi-shield-shaded text-[#5B2A85]',
   },
   {
     id: 'margem',
@@ -130,7 +130,7 @@ const NUCLEOS_DCP: ResearchCenterItem[] = [
     span: 'normal',
     accent: 'card',
     url: 'https://www.fafich.ufmg.br/prodep/',
-    iconClass: 'bi-people-fill text-[#5B2A86]',
+    iconClass: 'bi-people-fill text-[#5B2A85]',
   },
   {
     id: 'inct-iddc',
@@ -144,7 +144,7 @@ const NUCLEOS_DCP: ResearchCenterItem[] = [
     span: 'wide',
     accent: 'primary',
     url: 'https://www.institutodademocracia.org/',
-    iconClass: 'bi-megaphone-fill text-[#5B2A86]',
+    iconClass: 'bi-megaphone-fill text-[#5B2A85]',
   },
   {
     id: 'nepem',
@@ -158,7 +158,7 @@ const NUCLEOS_DCP: ResearchCenterItem[] = [
     span: 'normal',
     accent: 'secondary',
     url: 'https://www.fafich.ufmg.br/nepem/',
-    iconClass: 'bi-gender-female text-[#9E2424]',
+    iconClass: 'bi-gender-female text-secondary',
   },
   {
     id: 'cecomp',
@@ -242,7 +242,7 @@ export const PesquisaBentoDirectory: React.FC = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Buscar sigla, docente, SUS, legislativo..."
-                className="w-full min-h-[44px] pl-9 pr-3 py-2 rounded-xl border-3 border-[#16181d] bg-[#FFFDF9] font-mono text-xs font-bold text-[#16181d] shadow-[2px_2px_0_0_#16181d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5B2A86] focus-visible:ring-offset-2 transition-all"
+                className="w-full min-h-[44px] pl-9 pr-3 py-2 rounded-xl border-3 border-[#16181d] bg-card font-mono text-base md:text-sm font-bold text-foreground placeholder:text-muted-foreground shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5B2A85] focus-visible:ring-offset-2 transition-all"
               />
             </div>
           </div>
@@ -264,7 +264,7 @@ export const PesquisaBentoDirectory: React.FC = () => {
                 onClick={() => setActiveEixo(f.id)}
                 className={`min-h-[44px] px-4 py-2 rounded-xl font-mono text-xs font-black uppercase border-3 border-[#16181d] cursor-pointer transition-colors active:translate-x-0.5 active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
                   isSelected
-                    ? 'bg-[#5B2A86] text-white shadow-[4px_4px_0_0_#16181d]'
+                    ? 'bg-[#5B2A85] text-white shadow-[4px_4px_0_0_#16181d]'
                     : 'bg-white text-[#16181d] hover:bg-[#f4f0ea] shadow-[2px_2px_0_0_#16181d]'
                 }`}
               >
@@ -300,7 +300,7 @@ export const PesquisaBentoDirectory: React.FC = () => {
               setSearchQuery('');
               setActiveEixo('todos');
             }}
-            className="min-h-[44px] px-4 py-2 rounded-xl bg-[#5B2A86] hover:bg-[#4A216E] active:translate-x-0.5 active:translate-y-0.5 text-white font-head text-xs font-black uppercase border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            className="min-h-[44px] px-4 py-2 rounded-xl bg-[#5B2A85] hover:bg-[#4A216E] active:translate-x-0.5 active:translate-y-0.5 text-white font-head text-xs font-black uppercase border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             Mostrar Todos os 11 Núcleos
           </button>
@@ -311,7 +311,7 @@ export const PesquisaBentoDirectory: React.FC = () => {
       <div className="p-5 sm:p-6 bg-[#FFFDF9] border-3 border-[#16181d] rounded-2xl shadow-[6px_6px_0_0_#16181d] flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div className="space-y-1.5 max-w-3xl">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="px-2.5 py-0.5 rounded-md bg-[#5B2A86] text-white font-mono text-xs font-black uppercase border-2 border-[#16181d]">
+            <span className="px-2.5 py-0.5 rounded-md bg-[#5B2A85] text-white font-mono text-xs font-black uppercase border-2 border-[#16181d]">
               PROPOSTAS 9 E 12 • PESQUISA, EXTENSÃO &amp; RADAR DE BOLSAS
             </span>
             <span className="font-mono text-xs font-bold text-secondary">Chapa Semente 2026</span>
@@ -333,10 +333,9 @@ export const PesquisaBentoDirectory: React.FC = () => {
           </a>
           <a
             href={route('/chapa-semente#propostas')}
-            className="min-h-[44px] px-5 py-2.5 bg-[#FF8811] hover:bg-[#e67300] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none text-[#16181d] rounded-xl font-head text-xs uppercase font-black tracking-wider inline-flex items-center justify-center gap-1.5 no-underline border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            className="min-h-[44px] px-4 py-2.5 bg-card hover:bg-muted active:translate-x-0.5 active:translate-y-0.5 active:shadow-none text-foreground rounded-xl font-head text-xs uppercase font-black tracking-wider inline-flex items-center justify-center gap-1.5 no-underline border-3 border-border shadow-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
-            <i className="bi bi-check2-circle text-base" aria-hidden="true" />
-            <span>Votar Chapa Semente →</span>
+            <span>Ler as propostas 9 e 12</span>
           </a>
         </div>
       </div>

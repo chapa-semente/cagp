@@ -131,7 +131,14 @@ const activeItemId = axis
 
         if (matchedPill) {
           // Centralizar suavemente no viewport mobile (BUG-17)
-          (matchedPill as HTMLElement).scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+          // Centraliza a pílula ativa só dentro da faixa (sem mexer na rolagem da página).
+          const strip = bar.querySelector<HTMLElement>('.cagp-axis-navbar-container');
+          const pill = matchedPill as HTMLElement;
+          if (strip) {
+            const offset = pill.getBoundingClientRect().left - strip.getBoundingClientRect().left + strip.scrollLeft;
+            const target = offset - (strip.clientWidth - pill.offsetWidth) / 2;
+            strip.scrollTo({ left: Math.max(0, target), behavior: 'auto' });
+          }
 
           pills.forEach((p) => {
             const isMatch = p === matchedPill;

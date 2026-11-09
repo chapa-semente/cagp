@@ -22,6 +22,10 @@ export const GlobalTourHost: React.FC = () => {
     return raw;
   };
 
+  // Destino com barra final: o GitHub Pages serve páginas como diretórios e
+  // responde 301 para '/cagp/rota' -> '/cagp/rota/'. Indo direto evita o redirect.
+  const toPageUrl = (p: string) => (p.endsWith('/') ? p : `${p}/`);
+
   // 1. Inicialização: carregar estado do sessionStorage na montagem da página
   useEffect(() => {
     const session = loadTourSession();
@@ -40,7 +44,7 @@ export const GlobalTourHost: React.FC = () => {
       if (currentPath !== targetPath) {
         // Redireciona para a página da parada atual caso a página ainda seja diferente
         isNavigatingRef.current = true;
-        window.location.href = stop.pageRoute;
+        window.location.href = toPageUrl(stop.pageRoute);
         return;
       }
 
@@ -84,7 +88,7 @@ export const GlobalTourHost: React.FC = () => {
 
       if (currentPath !== targetPath) {
         isNavigatingRef.current = true;
-        window.location.href = firstStop.pageRoute;
+        window.location.href = toPageUrl(firstStop.pageRoute);
       } else {
         setIsOpen(true);
         setIsReady(true);
@@ -130,7 +134,7 @@ export const GlobalTourHost: React.FC = () => {
       if (currentPath !== targetPath) {
         isNavigatingRef.current = true;
         setIsOpen(false); // Fecha brevemente antes do descarregamento da página
-        window.location.href = nextStop.pageRoute;
+        window.location.href = toPageUrl(nextStop.pageRoute);
       } else {
         // Mesma página: ativa hash de aba se necessário
         if (nextStop.toolHref.includes('#')) {

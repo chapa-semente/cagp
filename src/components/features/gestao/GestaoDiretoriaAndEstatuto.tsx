@@ -18,7 +18,7 @@ const SETE_DIRETORIAS = [
     sigla: 'DIJUR',
     nome: 'II. Diretoria de Assuntos Jurídicos',
     artigo: 'Art. 24º, II & Art. 29º',
-    cor: '#5B2A86',
+    cor: '#5B2A85',
     composicao: 'Diretor(a) Jurídico(a), Vice-Diretor(a) e Assessores',
     atribuicoes:
       'Zelar pelo cumprimento do Regimento Interno, manter a regularidade do CNPJ, redigir atas oficiais e prestar suporte normativo aos discentes.',
@@ -36,7 +36,7 @@ const SETE_DIRETORIAS = [
     sigla: 'DIAC',
     nome: 'IV. Diretoria Acadêmica',
     artigo: 'Art. 24º, IV & Art. 31º',
-    cor: '#FF8811',
+    cor: '#FE8812',
     composicao: 'Diretor(a) Acadêmico(a), Vice-Diretor(a) e Assessores',
     atribuicoes:
       'Articular melhorias na grade curricular N-20229, dialogar com o Colegiado e NDE, promover debates científicos e orientar discentes sobre normas.',
@@ -54,7 +54,7 @@ const SETE_DIRETORIAS = [
     sigla: 'DICULT',
     nome: 'VI. Diretoria de Cultura',
     artigo: 'Art. 24º, VI & Art. 33º',
-    cor: '#5B2A86',
+    cor: '#5B2A85',
     composicao: 'Diretor(a) de Cultura, Vice-Diretor(a) e Assessores',
     atribuicoes:
       'Promover eventos culturais, integração de calouros, atividades artísticas e gerir a convivência democrática no Espaço do CAGP.',
@@ -87,11 +87,11 @@ export const GestaoDiretoriaAndEstatuto: React.FC = () => {
         <CardHeader className="border-b-3 border-border bg-card">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-3.5">
-              <div className="w-14 h-14 rounded-xl bg-accent border-3 border-border shadow p-1.5 flex items-center justify-center shrink-0">
+              <div className="w-14 h-14 rounded-xl bg-white border-3 border-border shadow p-1.5 flex items-center justify-center shrink-0">
                 <img
-                  src={asset('/logos/semente_logo_fundo_laranja.png')}
+                  src={asset('/logos/semente/semente-simbolo.webp')}
                   alt="Chapa Semente"
-                  className="w-full h-full object-contain rounded-lg"
+                  className="w-full h-full object-contain"
                 />
               </div>
               <div>

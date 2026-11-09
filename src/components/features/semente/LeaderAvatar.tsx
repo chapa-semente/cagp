@@ -87,11 +87,11 @@ export const LeaderAvatar: React.FC<LeaderAvatarProps> = ({
               )}
             </div>
 
-            {/* Centro: Ilustração Vetorial Semente + Iniciais Gigantes em Bricolage Grotesque */}
+            {/* Centro: Ilustração Vetorial Semente + Iniciais Gigantes em Poppins Bold */}
             <div className="relative my-auto flex flex-col items-center justify-center z-10">
-              <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl bg-white border-3 border-border shadow-md flex items-center justify-center p-3 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3">
+              <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl bg-white border-3 border-border shadow-md flex items-center justify-center p-3 transition-transform duration-300 group-hover:scale-110">
                 <img
-                  src={asset('/logos/semente/simbolo_semente_fiel.svg')}
+                  src={asset('/logos/semente/semente-simbolo.webp')}
                   alt=""
                   aria-hidden="true"
                   className="w-full h-full object-contain opacity-20 absolute inset-0 p-2"

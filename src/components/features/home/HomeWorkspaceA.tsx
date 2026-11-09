@@ -213,23 +213,23 @@ export const HomeWorkspaceA: React.FC = () => {
         {/* Canvas Effect Topography (BoldKit) */}
         <div className="pointer-events-none absolute inset-0 opacity-25 mix-blend-screen" aria-hidden="true">
           <Topography
-            lineColor="#FF8811"
+            lineColor="#FE8812"
             levels={10}
             speed={0.6}
-            palette={['#5B2A86', '#4A216E', '#FF8811', '#FFD6A5', '#266264', '#9E2424']}
+            palette={['#5B2A85', '#4A216E', '#FE8812', '#FFD6A5', '#266264', '#9E2424']}
           />
         </div>
 
         {/* Shapes Decorativos Vetoriais BoldKit */}
         <BurstShape
           size={84}
-          color="#FF8811"
+          color="#FE8812"
           className="pointer-events-none absolute -right-4 -top-4 opacity-25 hidden sm:block rotate-12"
           aria-hidden="true"
         />
         <Star4Shape
           size={42}
-          color="#FF8811"
+          color="#FE8812"
           className="pointer-events-none absolute right-48 bottom-3 opacity-35 hidden lg:block -rotate-6"
           aria-hidden="true"
         />
@@ -253,13 +253,13 @@ export const HomeWorkspaceA: React.FC = () => {
 
                 <a
                   href={route('/chapa-semente')}
-                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-primary border-3 border-border shadow-xs text-xs font-heading font-black uppercase tracking-wider no-underline hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary transition-all"
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-primary border-3 border-border shadow-xs text-xs font-heading font-black uppercase tracking-wide whitespace-nowrap no-underline hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary transition-all"
                 >
                   <span>CHAPA SEMENTE</span>
-                  <span className="text-[#9E2424]">✦ PROPOSTAS</span>
+                  <span className="text-secondary hidden min-[400px]:inline">✦ PROPOSTAS</span>
                 </a>
 
-                <Sticker variant="default" size="sm" rotation="slight">
+                <Sticker variant="default" size="sm" rotation="slight" className="font-accent font-normal normal-case tracking-normal text-base leading-none pt-1.5">
                   Turno Noturno
                 </Sticker>
 

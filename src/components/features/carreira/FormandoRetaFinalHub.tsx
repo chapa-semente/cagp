@@ -228,7 +228,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
                 transition={tactileSpring}
                 type="button"
                 onClick={activateFormandoPersona}
-                className="min-h-[44px] px-4 py-2.5 rounded-xl border-3 border-border bg-[#FF8811] hover:bg-[#e67600] text-[#16181d] font-heading text-xs font-black uppercase shadow-sm cursor-pointer transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                className="min-h-[44px] px-4 py-2.5 rounded-xl border-3 border-border bg-[#FE8812] hover:bg-[#e67600] text-[#16181d] font-heading text-xs font-black uppercase shadow-sm cursor-pointer transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
                 Ativar Modo Formando no App
               </motion.button>
@@ -363,7 +363,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
               className={`px-3 py-1 rounded-lg border-2 border-border font-mono text-xs font-black shadow-2xs ${
                 isGradReady
                   ? 'bg-[#134E4A] text-white'
-                  : 'bg-[#FF8811] text-[#16181d]'
+                  : 'bg-[#FE8812] text-[#16181d]'
               }`}
             >
               {isGradReady ? '🎓 100% PRONTO P/ FORMATURA' : `${progressPct}% INTEGRALIZADO`}
@@ -527,7 +527,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
       {/* Kit Rápido de Downloads para Formandos & Chamada Eleitoral Chapa Semente */}
       <div className="p-5 sm:p-6 rounded-xl border-3 border-border bg-card shadow-md flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
         <div className="space-y-1 max-w-2xl">
-          <span className="px-2.5 py-0.5 rounded bg-[#FF8811] text-[#16181d] border-2 border-border font-mono text-xs font-black uppercase shadow-2xs">
+          <span className="px-2.5 py-0.5 rounded bg-[#FE8812] text-[#16181d] border-2 border-border font-mono text-xs font-black uppercase shadow-2xs">
             PROPOSTA DA CHAPA SEMENTE MATERIALIZADA • 25 E 26/11
           </span>
           <h4 className="font-heading text-base sm:text-lg font-black uppercase text-foreground m-0 pt-1">

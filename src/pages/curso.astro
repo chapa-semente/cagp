@@ -1,95 +1,85 @@
 ---
-// curso.astro - A4 Guia: 4 sub-views (Visão · Egressos · Colegiado · Ingresso)
+// curso.astro — Raiz do eixo Acolhimento. Estrutura padrão do eixo:
+// cabeçalho compacto → faixa do eixo → abas fixas → painel → navegação anterior/próxima.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
 import SegmentedControl from '../components/ui/SegmentedControl.astro';
 import JourneyNav from '../components/ui/JourneyNav.astro';
+import CursoPainelGeral from '../components/features/curso/CursoPainelGeral.astro';
 import CursoVisao from '../components/features/curso/CursoVisao.astro';
+import CursoPilares from '../components/features/curso/CursoPilares.astro';
 import CursoEgressos from '../components/features/curso/CursoEgressos.astro';
 import CursoColegiado from '../components/features/curso/CursoColegiado.astro';
 import CursoIngresso from '../components/features/curso/CursoIngresso.astro';
-import AxisOverview from '../components/shell/AxisOverview.astro';
-import { CursoAnalyticsAndColegiado } from '../components/features/curso/CursoAnalyticsAndColegiado';
-import { CursoPillarsFeatureGrid } from '../components/features/curso/CursoPillarsFeatureGrid';
+import { PAGINAS_ACOLHIMENTO as P } from '@/data/acolhimento';
 
 const tabs = [
-  { id: 'v0', shortLabel: 'Geral', fullLabel: 'Painel & Pilares', hash: '#visao-geral' },
-  { id: 'v1', shortLabel: 'História', fullLabel: '1. História & Candangos', hash: '#historia' },
-  { id: 'v2', shortLabel: 'Egressos', fullLabel: '2. Egressos & Carreiras', hash: '#egressos' },
-  { id: 'v3', shortLabel: 'Colegiado', fullLabel: '3. Colegiado & Secretaria', hash: '#colegiado' },
-  { id: 'v4', shortLabel: 'Ingresso', fullLabel: '4. Formas de Ingresso', hash: '#ingresso' },
+  { id: 'v0', shortLabel: 'Geral', fullLabel: 'Hoje & atendimento', hash: '#visao-geral' },
+  { id: 'v1', shortLabel: 'História', fullLabel: 'História & currículo', hash: '#historia' },
+  { id: 'v2', shortLabel: 'Egressos', fullLabel: 'Egressos & carreiras', hash: '#egressos' },
+  { id: 'v3', shortLabel: 'Colegiado', fullLabel: 'Colegiado & ingresso', hash: '#colegiado' },
 ];
 
 const badges = [
-  { label: 'Nota 4 CPC/MEC', variant: 'red' as const, icon: 'bi-star-fill' },
-  { label: 'Candangos 1959 • REUNI 2009', variant: 'dark' as const, icon: 'bi-bank' },
-  { label: 'DCP • FAFICH • UFMG', variant: 'blue' as const, icon: 'bi-mortarboard-fill' },
-  { label: 'Turno Noturno', variant: 'green' as const, icon: 'bi-moon-stars-fill' },
+  { label: 'Noturno · FAFICH/UFMG', variant: 'dark' as const, icon: 'bi-moon-stars-fill' },
+  { label: 'Nota 4 MEC', variant: 'purple' as const, icon: 'bi-star-fill' },
 ];
-
 ---
 
 <BaseLayout
-  title="O Curso de Gestão Pública"
-  description="História dos Candangos de 1959, excelência Nota 4 MEC, cientometria, cartões comparativos de carreira pública, salários dos egressos e governança na FAFICH/UFMG."
-  mode="read"
+  title={P.curso.titulo}
+  description="O que funciona hoje à noite na FAFICH, quem atende, história do curso, egressos, Colegiado e formas de ingresso em Gestão Pública na UFMG."
+  mode="operate"
 >
   <PageHeader
-    title="O Bacharelado em Gestão Pública"
-    subtitle="Formação pública de excelência voltada para formulação, implementação e avaliação de políticas públicas no Estado brasileiro, sediada no Departamento de Ciência Política (Conceito 7 CAPES)."
+    title={P.curso.titulo}
+    subtitle="Bacharelado noturno do Departamento de Ciência Política (FAFICH/UFMG). Comece pelo que está aberto hoje e por quem atende."
     badges={badges}
     axisId="curso"
-    activeId="curso"
-    mode="read"
-    showAxisNav={false}
+    activeId="curso-overview"
+    mode="operate"
     condensed={true}
   />
 
   <SegmentedControl tabs={tabs} defaultTab="v0" />
 
-  <!-- Sub-view 0: Visão Geral do Eixo 2 (Pilares, Analytics Curricular e Governança) -->
-  <section id="ws-panel-v0" class="cagp-workspace-view space-y-6" data-ws-panel="v0">
-    <div id="visao-geral" class="cagp-anchor-target scroll-mt-24"></div>
-    <CursoPillarsFeatureGrid client:load />
-    <CursoAnalyticsAndColegiado client:visible />
-    <AxisOverview axisId="curso" />
+  <section id="ws-panel-v0" class="cagp-workspace-view" data-ws-panel="v0">
+    <div id="visao-geral" class="cagp-anchor-target"></div>
+    <h2 class="sr-only">Hoje e atendimento</h2>
+    <CursoPainelGeral />
   </section>
 
-  <!-- Sub-view 1: Visão Geral & História -->
-  <section id="ws-panel-v1" class="cagp-workspace-view" data-ws-panel="v1" hidden>
-    <div id="historia" class="cagp-anchor-target scroll-mt-24"></div>
+  <section id="ws-panel-v1" class="cagp-workspace-view space-y-6" data-ws-panel="v1" hidden>
+    <div id="historia" class="cagp-anchor-target"></div>
+    <h2 class="sr-only">História e currículo</h2>
     <CursoVisao />
+    <CursoPilares />
   </section>
 
-  <!-- Sub-view 2: Egressos -->
   <section id="ws-panel-v2" class="cagp-workspace-view" data-ws-panel="v2" hidden>
-    <div id="egressos" class="cagp-anchor-target scroll-mt-24"></div>
+    <div id="egressos" class="cagp-anchor-target"></div>
+    <h2 class="sr-only">Egressos e carreiras</h2>
     <CursoEgressos />
   </section>
 
-  <!-- Sub-view 3: Colegiado -->
-  <section id="ws-panel-v3" class="cagp-workspace-view" data-ws-panel="v3" hidden>
-    <div id="colegiado" class="cagp-anchor-target scroll-mt-24"></div>
+  <section id="ws-panel-v3" class="cagp-workspace-view space-y-8" data-ws-panel="v3" hidden>
+    <div id="colegiado" class="cagp-anchor-target"></div>
+    <h2 class="sr-only">Colegiado e formas de ingresso</h2>
     <CursoColegiado />
-  </section>
-
-  <!-- Sub-view 4: Ingresso -->
-  <section id="ws-panel-v4" class="cagp-workspace-view" data-ws-panel="v4" hidden>
-    <div id="ingresso" class="cagp-anchor-target scroll-mt-24"></div>
+    <div id="ingresso" class="cagp-anchor-target"></div>
     <CursoIngresso />
   </section>
 
-  <!-- Journey Navigation Trail -->
   <JourneyNav
     prev={{
-      title: 'Página Inicial do Super App',
+      title: 'Início',
       href: '/',
-      desc: 'Bússola discente, sistemas oficiais e avisos do campus.',
+      desc: 'Atalhos do dia, sistemas oficiais e avisos do campus.',
     }}
     next={{
-      title: 'Guia de Sobrevivência do Calouro',
-      href: '/calouros',
-      desc: 'Checklist dos primeiros 30 dias, rotina noturna e atendimento na FAFICH.',
+      title: P.calouros.titulo,
+      href: P.calouros.href,
+      desc: 'Checklist dos primeiros 30 dias e as salas da FAFICH.',
     }}
   />
 </BaseLayout>

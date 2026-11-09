@@ -66,7 +66,8 @@ const isOperateOrCondensed = mode === 'operate' || condensed;
 
 const mapToBadgeVariant = (v?: string): any => {
   switch (v) {
-    case 'red': return 'destructive';
+    // 'red' era usado para informação neutra; vermelho fica reservado a erro (variant destructive direto).
+    case 'red': return 'default';
     case 'purple': return 'default';
     case 'orange': return 'accent';
     case 'dark': return 'dark';

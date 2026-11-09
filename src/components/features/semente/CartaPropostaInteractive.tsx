@@ -42,7 +42,7 @@ export const CARTA_PROPOSTAS_DATA: PropostaItem[] = [
     eixoId: 1,
     eixoName: 'Transparência e Gestão',
     eixoBadge: 'Eixo 1',
-    eixoColor: '#5B2A86',
+    eixoColor: '#5B2A85',
     title: 'Prestação de Contas Trimestral',
     summary: 'Publicação trimestral de boletins detalhando todas as entradas, saídas e aplicações financeiras.',
     fullText: 'A Gestão se compromete com a publicação trimestral de boletins detalhando todas as movimentações financeiras (entradas, saídas, aplicações, etc) do caixa da Entidade.',
@@ -53,7 +53,7 @@ export const CARTA_PROPOSTAS_DATA: PropostaItem[] = [
     eixoId: 1,
     eixoName: 'Transparência e Gestão',
     eixoBadge: 'Eixo 1',
-    eixoColor: '#5B2A86',
+    eixoColor: '#5B2A85',
     title: 'Reuniões Ordinárias Mensais Abertas e Fechadas',
     summary: 'Reuniões mensais internas e abertas a todos os discentes, com atas públicas das decisões tomadas.',
     fullText: 'A Gestão irá se reunir mensalmente em reuniões fechadas (somente para integrantes da chapa) e em reuniões abertas (permitidos todos os alunos do curso), com publicização das decisões tomadas.',
@@ -64,7 +64,7 @@ export const CARTA_PROPOSTAS_DATA: PropostaItem[] = [
     eixoId: 1,
     eixoName: 'Transparência e Gestão',
     eixoBadge: 'Eixo 1',
-    eixoColor: '#5B2A86',
+    eixoColor: '#5B2A85',
     title: 'Site do Curso de Gestão Pública (Compromisso Público)',
     summary: 'Criação e entrega da plataforma completa do curso independente do resultado da eleição.',
     fullText: 'A Chapa Semente se compromete em criar e disponibilizar, mesmo em uma eventual derrota eleitoral, um site para o curso de Gestão Pública. Neste site se concentrarão informações sobre a Universidade (questões relativas à vivência universitária) e sobre o Curso de Gestão Pública, além de um portal de transparência para publicação das decisões das reuniões e dos boletins de prestação de contas.',
@@ -75,7 +75,7 @@ export const CARTA_PROPOSTAS_DATA: PropostaItem[] = [
     eixoId: 1,
     eixoName: 'Transparência e Gestão',
     eixoBadge: 'Eixo 1',
-    eixoColor: '#5B2A86',
+    eixoColor: '#5B2A85',
     title: 'Abertura do CNPJ do CAGP',
     summary: 'Formalização e registro do CA como personalidade jurídica própria (associação sem fins lucrativos).',
     fullText: 'Conforme previsto no Regimento Interno/Estatuto da Entidade, a Gestão irá se comprometer com a formalização e o efetivo cadastro do CA como personalidade jurídica própria (associação civil sem fins lucrativos).',
@@ -86,7 +86,7 @@ export const CARTA_PROPOSTAS_DATA: PropostaItem[] = [
     eixoId: 1,
     eixoName: 'Transparência e Gestão',
     eixoBadge: 'Eixo 1',
-    eixoColor: '#5B2A86',
+    eixoColor: '#5B2A85',
     title: 'Políticas de Segurança e Escaninhos Discentes',
     summary: 'Medidas de proteção contra furtos no CA em parceria com DCE/DA FAFICH e estudo de escaninhos.',
     fullText: 'Serão estudadas, junto do Diretório Central Estudantil da UFMG (DCE-UFMG), o Diretório Acadêmico Idalísio Aranha (DA FAFICH-UFMG) e a administração da Faculdade de Filosofia e Ciências Humanas (FAFICH-UFMG) a adoção de medidas de segurança para evitar e coibir os furtos de itens pessoais dos estudantes que frequentam as dependências do Centro Acadêmico de Gestão Pública. Estas medidas serão estudadas durante a Gestão e se comprometerão, acima de tudo, com os limites legais e as normas de convivência dentro do ambiente universitário. Além do mais, anexamente proposta de Revitalização participativa do patrimônio do CA, será estudada a possibilidade de adição de escaninhos para estudantes dentro das dependências da entidade, tendo em vista experiências exitosas em outros espaços dentro do Campus Pampulha da UFMG.',
@@ -97,7 +97,7 @@ export const CARTA_PROPOSTAS_DATA: PropostaItem[] = [
     eixoId: 1,
     eixoName: 'Transparência e Gestão',
     eixoBadge: 'Eixo 1',
-    eixoColor: '#5B2A86',
+    eixoColor: '#5B2A85',
     title: 'Revitalização Participativa do Patrimônio do CA',
     summary: 'Votação aberta com o corpo discente sobre melhorias e reformas patrimoniais (Reserva do Possível).',
     fullText: 'Durante as reuniões trimestrais abertas, a Gestão decidirá questões de revitalização patrimonial a serem perseguidas. Serão votadas, junto ao corpo discente, o que do patrimônio da entidade deverá ser revitalizado ou adquirido durante a gestão, tendo em vista uma política de Reserva do Possível.',
@@ -108,7 +108,7 @@ export const CARTA_PROPOSTAS_DATA: PropostaItem[] = [
     eixoId: 2,
     eixoName: 'Cultura e Bem Viver Universitário',
     eixoBadge: 'Eixo 2',
-    eixoColor: '#FF8811',
+    eixoColor: '#FE8812',
     title: 'Política de Recepção de Calouros e Integração',
     summary: 'Nova cultura de acolhimento e eventos de integração com parcerias com TEMAS, SENATUS e Atlética.',
     fullText: 'Compreendendo que a permanência estudantil transcende a esfera patrimonial, a Gestão irá se comprometer com uma nova cultura de recepção de calouros e a organização de eventos (acadêmicos ou não) para integrar o corpo discente. Serão estudadas parcerias com instituições externas, como o TEMAS - Simulações Temáticas da Universidade Federal de Minas Gerais, a Sociedade de Debates da UFMG (SENATUS) e a Associação Atlética da FAFICH, IGC e FAE da UFMG, dentre outras, para a realização destas atividades.',
@@ -119,7 +119,7 @@ export const CARTA_PROPOSTAS_DATA: PropostaItem[] = [
     eixoId: 2,
     eixoName: 'Cultura e Bem Viver Universitário',
     eixoBadge: 'Eixo 2',
-    eixoColor: '#FF8811',
+    eixoColor: '#FE8812',
     title: 'Contato e Articulação com Entidades Estudantis',
     summary: 'Diálogo permanente com atores do Movimento Estudantil sem aparelhamento, em defesa do curso.',
     fullText: 'A Gestão irá se comprometer com a ideia de que uma entidade estudantil combativa exige constante diálogo com os diversos atores dentro do Movimento Estudantil, o que não significa alinhamento ideológico. Essa interlocução é fundamental para garantir a fluidez nas negociações e uma articulação rápida e eficaz em momentos de crise para o enfrentamento de pautas comuns. Ademais, a atuação política ativa e contínua previne um futuro aparelhamento do espaço, resguardando seu propósito essencial de garantir a efetiva representação dos estudantes do Curso de Gestão Pública.',
@@ -235,20 +235,20 @@ export const CartaPropostaInteractive: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* 1. COMPROMISSO INSTITUCIONAL DESTAQUE (PROPOSTA 3 MATERIALIZADA) COM FOTOGRAFIA AMPLIADA */}
-      <Card className="border-3 border-[#16181d] bg-[#FFFDF9] shadow-[8px_8px_0_0_#FF8811] p-5 sm:p-6 relative overflow-hidden">
+      <Card className="border-3 border-[#16181d] bg-[#FFFDF9] shadow-[8px_8px_0_0_#FE8812] p-5 sm:p-6 relative overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
           <div className="lg:col-span-8 space-y-3">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-gradient-to-r from-[#FF8811] to-[#F59E0B] text-[#16181d] font-heading font-black text-xs uppercase border-2 border-[#16181d] shadow-[3px_3px_0_0_#16181d] -rotate-1">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#FE8812] text-[#16181d] font-heading font-black text-xs uppercase border-2 border-[#16181d] shadow-[3px_3px_0_0_#16181d] -rotate-1">
                 <Sparkles className="w-3.5 h-3.5" />
                 CARIMBO DOURADO • PROPOSTA 3 JÁ MATERIALIZADA
               </span>
-              <Badge variant="secondary" className="bg-[#5B2A86] text-white font-mono text-[10px] uppercase border-2 border-[#16181d]">
+              <Badge variant="secondary" className="bg-[#5B2A85] text-white font-mono text-[10px] uppercase border-2 border-[#16181d]">
                 Votação: 25 e 26 de Novembro
               </Badge>
             </div>
             <h2 className="font-heading text-xl sm:text-2xl font-black uppercase text-[#16181d] m-0">
-              Este SuperApp já é a Proposta 3 Entregue para Toda a Comunidade
+              Este SuperApp <span className="font-accent font-normal normal-case tracking-normal text-primary text-[1.15em]">já é</span> a Proposta 3 Entregue para Toda a Comunidade
             </h2>
             <p className="text-xs sm:text-sm font-sans text-[#16181d]/90 leading-relaxed max-w-3xl m-0">
               Enquanto campanhas tradicionais prometem no papel, a <strong>Chapa Semente</strong> construiu e entregou antecipadamente o <strong>SuperApp do Curso de Gestão Pública</strong> — com grafo curricular, calculadora de 600h, simulador do Art. 41, livro-caixa aberto e acervo de 80 documentos. <strong>Vote Chapa Semente nos dias 25 e 26 de Novembro no CAGP!</strong>
@@ -257,31 +257,31 @@ export const CartaPropostaInteractive: React.FC = () => {
               <button
                 type="button"
                 onClick={handlePledgeVote}
-                className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#FF8811] hover:bg-[#e67300] text-[#16181d] border-3 border-[#16181d] font-heading font-black text-xs uppercase tracking-wide shrink-0 shadow-[4px_4px_0_0_#16181d] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none cursor-pointer transition-all"
+                className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#FE8812] hover:bg-[#e67300] text-[#16181d] border-3 border-[#16181d] font-heading font-black text-xs uppercase tracking-wide max-w-full text-left shadow-[4px_4px_0_0_#16181d] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none cursor-pointer transition-all"
               >
-                <CheckCircle2 className="w-4 h-4" />
+                <CheckCircle2 className="w-4 h-4 shrink-0" />
                 <span>{votePledged ? 'Compromisso Confirmado (25 e 26/11) ✓' : 'Firmar Compromisso de Voto (25 e 26/11)'}</span>
               </button>
               <button
                 type="button"
                 onClick={() => downloadPresetIcs('eleicoes-cagp-2026')}
-                className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#5B2A86] hover:bg-[#4A216E] text-white border-3 border-[#16181d] font-heading font-black text-xs uppercase tracking-wide shrink-0 shadow-[4px_4px_0_0_#16181d] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none cursor-pointer transition-all"
+                className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#5B2A85] hover:bg-[#4A216E] text-white border-3 border-[#16181d] font-heading font-black text-xs uppercase tracking-wide max-w-full text-left shadow-[4px_4px_0_0_#16181d] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none cursor-pointer transition-all"
               >
-                <CalendarCheck className="w-4 h-4" />
+                <CalendarCheck className="w-4 h-4 shrink-0" />
                 <span>Salvar Votação 25 e 26/11 na Agenda (.ICS)</span>
               </button>
             </div>
           </div>
 
           <div className="lg:col-span-4">
-            <div className="cagp-photo-frame relative aspect-[4/5] min-h-[260px] w-full rounded-xl border-3 border-[#16181d] shadow-[8px_8px_0_0_#16181d] overflow-hidden bg-[#5B2A86]">
+            <div className="cagp-photo-frame relative aspect-[4/5] min-h-[260px] w-full rounded-xl border-3 border-[#16181d] shadow-[8px_8px_0_0_#16181d] overflow-hidden bg-[#5B2A85]">
               <img
                 src={asset('/imagens/semente/post_01_propostas_david.jpg')}
                 alt="Propostas da Chapa Semente — Germinar o CAGP"
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
-              <span className="absolute bottom-3 left-3 px-2.5 py-1 rounded-lg bg-[#FF8811] text-[#16181d] font-mono text-[10px] font-black uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+              <span className="absolute bottom-3 left-3 px-2.5 py-1 rounded-lg bg-[#FE8812] text-[#16181d] font-mono text-[10px] font-black uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
                 14 Propostas Auditáveis
               </span>
             </div>
@@ -376,14 +376,14 @@ export const CartaPropostaInteractive: React.FC = () => {
                       <NeobrutalistMotionCard
                         className={`h-full border-3 border-[#16181d] transition-all flex flex-col justify-between cursor-context-menu overflow-hidden ${
                           isProposta3
-                            ? 'bg-[#FFFDF5] shadow-[6px_6px_0_0_#FF8811] ring-2 ring-[#FF8811]'
+                            ? 'bg-[#FFFDF5] shadow-[6px_6px_0_0_#FE8812] ring-2 ring-[#FE8812]'
                             : 'bg-card shadow-[4px_4px_0_0_#16181d] hover:shadow-[6px_6px_0_0_#16181d]'
                         }`}
                       >
                         <CardHeader className="p-4 pb-2 space-y-2">
                           {isProposta3 && (
                             <div className="flex items-center justify-between gap-2 pb-1">
-                              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-gradient-to-r from-[#FF8811] to-[#F59E0B] text-[#16181d] border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-mono text-[10px] font-black uppercase -rotate-1">
+                              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#FE8812] text-[#16181d] border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-mono text-[10px] font-black uppercase -rotate-1">
                                 <Sparkles className="w-3 h-3" />
                                 ESTE SUPERAPP JÁ MATERIALIZADO • ENTREGUE!
                               </span>
@@ -433,7 +433,7 @@ export const CartaPropostaInteractive: React.FC = () => {
                                         <button
                                           type="button"
                                           onClick={handlePledgeVote}
-                                          className="min-h-[40px] px-3 py-1.5 rounded-lg bg-[#FF8811] text-[#16181d] border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-heading font-black text-[11px] uppercase cursor-pointer"
+                                          className="min-h-[40px] px-3 py-1.5 rounded-lg bg-[#FE8812] text-[#16181d] border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-heading font-black text-[11px] uppercase cursor-pointer"
                                         >
                                           Votar Chapa Semente em 25 e 26/11 →
                                         </button>

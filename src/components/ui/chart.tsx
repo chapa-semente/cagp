@@ -40,16 +40,16 @@ export type ChartAnnotation =
 // Neubrutalism color palettes for charts (Paleta Semente Canônica)
 export const CHART_PALETTES = {
   bold: [
-    '#5B2A86', // Roxo Semente
-    '#FF8811', // Laranja Germinar
+    '#5B2A85', // Roxo Semente
+    '#FE8812', // Laranja Germinar
     '#134E4A', // Teal Acadêmico
     '#9E2424', // Vermelho CAGP
     '#15803D', // Verde
     '#1E3F66', // Azul
   ],
   vibrant: [
-    '#5B2A86',
-    '#FF8811',
+    '#5B2A85',
+    '#FE8812',
     '#134E4A',
     '#9E2424',
     '#15803D',

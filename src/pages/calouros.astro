@@ -1,5 +1,6 @@
 ---
-// calouros.astro — Central de Acolhimento & Guia de Sobrevivência do Calouro (1º Período)
+// calouros.astro — Guia do Calouro. Estrutura padrão do eixo Acolhimento:
+// cabeçalho compacto → faixa do eixo → abas fixas → painel → navegação anterior/próxima.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
 import SegmentedControl from '../components/ui/SegmentedControl.astro';
@@ -8,69 +9,65 @@ import CalouroCentralOverview from '../components/features/calouros/CalouroCentr
 import { CalouroChecklistCore } from '../components/features/calouros/checklist/CalouroChecklistCore';
 import CalourosVideos from '../components/features/calouros/CalourosVideos.astro';
 import CalouroEspacosCore from '../components/features/calouros/espacos/CalouroEspacosCore.astro';
+import { PAGINAS_ACOLHIMENTO as P } from '@/data/acolhimento';
 
 const tabs = [
-  { id: 'v0', shortLabel: 'Geral', fullLabel: 'Visão Geral & Primeiros 30 Dias', hash: '#visao-geral' },
-  { id: 'v1', shortLabel: 'Checklist', fullLabel: '1. Checklist Interativo & Vídeos', hash: '#checklist' },
-  { id: 'v2', shortLabel: 'Espaços', fullLabel: '2. Salas & Espaços FAFICH', hash: '#espacos' },
+  { id: 'v0', shortLabel: 'Geral', fullLabel: 'Hoje & primeiros passos', hash: '#visao-geral' },
+  { id: 'v1', shortLabel: 'Checklist', fullLabel: 'Checklist & vídeos', hash: '#checklist' },
+  { id: 'v2', shortLabel: 'Espaços', fullLabel: 'Salas da FAFICH', hash: '#espacos' },
 ];
 
 const badges = [
-  { label: 'Turno Noturno 19h–22h30', variant: 'red' as const, icon: 'bi-moon-stars-fill' },
-  { label: 'Jantar RU II 17h10–19h30', variant: 'dark' as const, icon: 'bi-cup-hot-fill' },
-  { label: 'Circulares até 22h45', variant: 'green' as const, icon: 'bi-bus-front' },
-  { label: 'CEAG FAFICH 08h–22h', variant: 'blue' as const, icon: 'bi-building' },
+  { label: 'Primeiros 30 dias', variant: 'purple' as const, icon: 'bi-backpack' },
 ];
 ---
 
 <BaseLayout
-  title="Guia de Sobrevivência do Calouro"
-  description="Checklist interativo dos primeiros 30 dias na UFMG, rotina noturna, jantar no RU II às 18h15, circulares gratuitos, secretaria Sala F-2039 e suporte FUMP."
+  title={P.calouros.titulo}
+  description="O que funciona hoje à noite na FAFICH, checklist dos primeiros 30 dias na UFMG, salas do curso, jantar no RU Setorial II (17h10–19h30), circular e secretaria F-2039."
   mode="operate"
 >
   <PageHeader
-    title="Guia de Sobrevivência do Calouro"
-    subtitle="Checklist interativo dos primeiros 30 dias, salas da FAFICH (F-4000 e F-2039), rotina noturna, emissão de carteirinha e acolhimento direto pelo CAGP."
+    title={P.calouros.titulo}
+    subtitle="O que funciona hoje à noite, os 10 passos dos primeiros 30 dias e onde fica cada sala da FAFICH."
     badges={badges}
     axisId="curso"
-    activeId="calouros"
+    activeId="curso-calouros"
     mode="operate"
-    showAxisNav={false}
     condensed={true}
   />
 
   <SegmentedControl tabs={tabs} defaultTab="v0" />
 
-  <!-- Sub-view 0: Visão Geral do Calouro (Recepção e Primeiros 30 Dias com Foco Linear) -->
-  <section id="ws-panel-v0" class="cagp-workspace-view relative overflow-hidden space-y-6" data-ws-panel="v0" data-context-type="checklist">
-    <div id="visao-geral" class="cagp-anchor-target scroll-mt-24"></div>
+  <section id="ws-panel-v0" class="cagp-workspace-view" data-ws-panel="v0" data-context-type="checklist">
+    <div id="visao-geral" class="cagp-anchor-target"></div>
+    <h2 class="sr-only">Hoje e primeiros passos</h2>
     <CalouroCentralOverview />
   </section>
 
-  <!-- Sub-view 1: Checklist & Tutoriais em Vídeo -->
-  <section id="ws-panel-v1" class="cagp-workspace-view space-y-4" data-ws-panel="v1" data-context-type="checklist" hidden>
-    <div id="checklist" class="cagp-anchor-target scroll-mt-24"></div>
-    <CalouroChecklistCore client:load />
+  <section id="ws-panel-v1" class="cagp-workspace-view space-y-6" data-ws-panel="v1" data-context-type="checklist" hidden>
+    <div id="checklist" class="cagp-anchor-target"></div>
+    <h2 class="sr-only">Checklist e vídeos</h2>
+    <CalouroChecklistCore client:visible />
     <CalourosVideos />
   </section>
 
-  <!-- Sub-view 2: Espaços FAFICH -->
   <section id="ws-panel-v2" class="cagp-workspace-view" data-ws-panel="v2" hidden>
-    <div id="espacos" class="cagp-anchor-target scroll-mt-24"></div>
+    <div id="espacos" class="cagp-anchor-target"></div>
+    <h2 class="sr-only">Salas da FAFICH</h2>
     <CalouroEspacosCore />
   </section>
 
-  <!-- Journey Navigation Trail -->
   <JourneyNav
     prev={{
-      title: 'O Bacharelado em Gestão Pública',
-      href: '/curso',
-      desc: 'História, colegiado, secretaria Sala F-2039 e formas de ingresso.',
+      title: P.curso.titulo,
+      href: P.curso.href,
+      desc: 'Quem atende, história do curso, egressos e Colegiado.',
     }}
     next={{
-      title: 'Permanência Estudantil & Assistência FUMP',
-      href: '/permanencia',
-      desc: 'Regras dos Níveis I a III da FUMP, simulador mensal e apoio ao estudante noturno.',
+      title: P.permanencia.titulo,
+      href: P.permanencia.href,
+      desc: 'Níveis da FUMP, como pedir e o guia do turno noturno.',
     }}
   />
 </BaseLayout>

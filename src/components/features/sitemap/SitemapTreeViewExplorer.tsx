@@ -51,7 +51,7 @@ export const SitemapTreeViewExplorer: React.FC = () => {
             <button
               type="button"
               onClick={() => window.dispatchEvent(new CustomEvent('cagp:open-spotlight'))}
-              className="min-h-[44px] px-4 py-2 rounded-xl bg-[#16181d] text-white font-mono text-xs font-black uppercase border-2 border-[#16181d] shadow-[3px_3px_0_0_#FF8811] hover:bg-[#5B2A86] transition-colors cursor-pointer inline-flex items-center gap-2"
+              className="min-h-[44px] px-4 py-2 rounded-xl bg-[#16181d] text-white font-mono text-xs font-black uppercase border-2 border-[#16181d] shadow-[3px_3px_0_0_#FE8812] hover:bg-[#5B2A85] transition-colors cursor-pointer inline-flex items-center gap-2"
             >
               <span>Buscar Rota</span>
               <kbd className="px-1.5 py-0.5 rounded bg-white text-[#16181d] text-[10px]">⌘K</kbd>

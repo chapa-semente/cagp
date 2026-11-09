@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { getVaultItem, type VaultData } from '@/lib/storage/studentVault';
 import { bounceSpring } from '@/lib/motion';
 import { AvatarRenderer } from './AvatarRenderer';
+import { asset } from '@/lib/paths';
 
 interface PassportCardProps {
   profile: VaultData<'cagp_student_profile_v1'>;
@@ -95,10 +96,10 @@ export const PassportCard: React.FC<PassportCardProps> = ({
             {isSementeEleitor && (
               <span className="cagp-stamp-badge is-semente text-[10px] py-0.5 px-2 flex items-center gap-1">
                 <img
-                  src="/logos/semente/icone_folha_superior.svg"
+                  src={asset('/logos/semente/semente-simbolo-branco.webp')}
                   alt=""
                   aria-hidden="true"
-                  className="w-3 h-3 object-contain invert brightness-0"
+                  className="w-3.5 h-3.5 object-contain"
                 />
                 <span>Eleitor Semente 2026</span>
               </span>
@@ -179,7 +180,7 @@ export const PassportCard: React.FC<PassportCardProps> = ({
           initial={{ scale: 1.35, rotate: -8, opacity: 0 }}
           animate={{ scale: 1, rotate: -2, opacity: 1 }}
           transition={bounceSpring}
-          className="px-2 py-0.5 rounded bg-[#5B2A86] text-white font-mono text-[10px] font-bold uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]"
+          className="px-2 py-0.5 rounded bg-[#5B2A85] text-white font-mono text-[10px] font-bold uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]"
         >
           ✦ {isSementeEleitor ? 'Eleitor Semente 2026' : 'Passaporte Semente Ativo'}
         </motion.span>
@@ -198,7 +199,7 @@ export const PassportCard: React.FC<PassportCardProps> = ({
             initial={{ scale: 1.35, rotate: -5, opacity: 0 }}
             animate={{ scale: 1, rotate: -1, opacity: 1 }}
             transition={bounceSpring}
-            className="px-2 py-0.5 rounded bg-[#FF8811] text-[#16181d] font-mono text-[10px] font-bold uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]"
+            className="px-2 py-0.5 rounded bg-[#FE8812] text-[#16181d] font-mono text-[10px] font-bold uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]"
           >
             ★ {extHours}h ACG/Extensão
           </motion.span>

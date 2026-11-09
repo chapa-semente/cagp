@@ -221,7 +221,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-1">
-              <span className="text-[11px] font-head uppercase font-extrabold tracking-wider text-[#5B2A86]">
+              <span className="text-[11px] font-head uppercase font-extrabold tracking-wider text-[#5B2A85]">
                 Catálogo Curricular Homologado • PPC N-20229
               </span>
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#F2CD5C] border-2 border-[#16181d] text-[10px] font-head font-black uppercase text-[#16181d] shadow-[2px_2px_0_0_#16181d]">
@@ -258,9 +258,9 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
           </div>
         </div>
 
-        {/* Busca Instantânea com Foco Roxo Semente (#5B2A86) */}
-        <InputGroup className="rounded-xl overflow-hidden border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] focus-within:ring-3 focus-within:ring-[#5B2A86] focus-within:border-[#5B2A86] transition-all">
-          <InputGroupAddon position="leading" className="bg-[#FAF6F0] text-[#5B2A86] font-bold border-r-2 border-[#16181d]">
+        {/* Busca Instantânea com Foco Roxo Semente (#5B2A85) */}
+        <InputGroup className="rounded-xl overflow-hidden border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] focus-within:ring-3 focus-within:ring-[#5B2A85] focus-within:border-[#5B2A85] transition-all">
+          <InputGroupAddon position="leading" className="bg-[#FAF6F0] text-[#5B2A85] font-bold border-r-2 border-[#16181d]">
             <i className="bi bi-search" aria-hidden="true" />
           </InputGroupAddon>
           <InputGroupInput
@@ -288,7 +288,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                   onClick={() => setSelectedDept(dept.id)}
                   className={`min-h-[44px] px-3.5 py-1.5 rounded-xl text-xs font-head uppercase tracking-tight shrink-0 transition-all cursor-pointer border-3 border-[#16181d] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none ${
                     active
-                      ? 'bg-[#5B2A86] text-white font-black shadow-[3px_3px_0_0_#16181d]'
+                      ? 'bg-[#5B2A85] text-white font-black shadow-[3px_3px_0_0_#16181d]'
                       : 'bg-white text-foreground hover:bg-[#FAF6F0] font-bold shadow-[2px_2px_0_0_#16181d]'
                   }`}
                 >
@@ -310,7 +310,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
               onClick={() => setSelectedModulo('todos')}
               className={`min-h-[44px] px-3.5 py-1.5 rounded-xl text-xs font-head uppercase tracking-tight shrink-0 transition-all cursor-pointer border-3 border-[#16181d] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none ${
                 selectedModulo === 'todos'
-                  ? 'bg-[#16181d] text-white font-black shadow-[3px_3px_0_0_#5B2A86]'
+                  ? 'bg-[#16181d] text-white font-black shadow-[3px_3px_0_0_#5B2A85]'
                   : 'bg-white text-foreground hover:bg-[#F3ECE0] font-bold shadow-[2px_2px_0_0_#16181d]'
               }`}
             >
@@ -383,7 +383,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                 >
                   <div>
                     <div className="flex items-center justify-between gap-2 mb-2">
-                      <span className="font-mono text-xs font-black px-2.5 py-0.5 rounded-md bg-[#FAF6F0] border-2 border-[#16181d] text-[#5B2A86] shadow-[2px_2px_0_0_#16181d]">
+                      <span className="font-mono text-xs font-black px-2.5 py-0.5 rounded-md bg-[#FAF6F0] border-2 border-[#16181d] text-[#5B2A85] shadow-[2px_2px_0_0_#16181d]">
                         {item.code}
                       </span>
                       <div className="flex items-center gap-1.5">
@@ -437,7 +437,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                           <button
                             type="button"
                             onClick={() => setExpandedCode(isExpanded ? null : item.code)}
-                            className="min-h-[36px] text-[11px] font-head font-extrabold text-[#5B2A86] hover:underline mt-1 bg-transparent border-none p-0 cursor-pointer"
+                            className="min-h-[36px] text-[11px] font-head font-extrabold text-[#5B2A85] hover:underline mt-1 bg-transparent border-none p-0 cursor-pointer"
                           >
                             {isExpanded ? 'Ver menos ▲' : 'Ler ementa completa ▼'}
                           </button>
@@ -459,7 +459,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                               key={p}
                               type="button"
                               onClick={() => handleAllocate(item, p)}
-                              className="min-h-[44px] py-1 bg-white hover:bg-[#5B2A86] hover:text-white border-2 border-[#16181d] rounded-lg text-xs font-mono font-black transition-all shadow-[2px_2px_0_0_#16181d] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer"
+                              className="min-h-[44px] py-1 bg-white hover:bg-[#5B2A85] hover:text-white border-2 border-[#16181d] rounded-lg text-xs font-mono font-black transition-all shadow-[2px_2px_0_0_#16181d] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer"
                             >
                               {p}ºP
                             </button>
@@ -496,7 +496,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                       <button
                         type="button"
                         onClick={() => setAllocatingCode(item.code)}
-                        className="w-full min-h-[44px] px-3 py-2 bg-[#5B2A86] hover:bg-[#48206B] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl text-xs font-head uppercase font-extrabold tracking-wider flex items-center justify-center gap-1.5 transition-all border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] cursor-pointer"
+                        className="w-full min-h-[44px] px-3 py-2 bg-[#5B2A85] hover:bg-[#48206B] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl text-xs font-head uppercase font-extrabold tracking-wider flex items-center justify-center gap-1.5 transition-all border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] cursor-pointer"
                       >
                         <i className="bi bi-plus-circle" aria-hidden="true" />
                         <span>Vincular ao Grafo</span>

@@ -1,0 +1,13 @@
+---
+codigo: "DCP 055"
+nome: "LEGISLATIVOS SUBNACIONAIS EM PERSPECTIVA COMPARADA"
+natureza: "optativa"
+ch: 60
+modulo: "Optativa"
+preRequisitos: []
+ementa: "Análise das diferentes combinações entre instituições e condições (políticas, socioeconômicas e culturais) nas unidades subnacionais e de seus efeitos combinados sobre: os perfis e as trajetórias das elites políticas a distribuição de preferências e recursos entre os atores relevantes as atitudes, o comportamento e os padrões de interação entre os atores relevantes e seus resultados."
+---
+
+## Ementa Oficial
+
+Análise das diferentes combinações entre instituições e condições (políticas, socioeconômicas e culturais) nas unidades subnacionais e de seus efeitos combinados sobre: os perfis e as trajetórias das elites políticas a distribuição de preferências e recursos entre os atores relevantes as atitudes, o comportamento e os padrões de interação entre os atores relevantes e seus resultados.

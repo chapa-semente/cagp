@@ -19,15 +19,15 @@
   --color-popover: var(--popover, #ffffff);
   --color-popover-foreground: var(--popover-foreground, #16181d);
 
-  --color-primary: var(--primary, #5B2A86);
+  --color-primary: var(--primary, #5B2A85);
   --color-primary-hover: var(--primary-hover, #4A216E);
   --color-primary-foreground: var(--primary-foreground, #ffffff);
 
-  --color-secondary: var(--secondary, #9E2424);
-  --color-secondary-hover: var(--secondary-hover, #8B1E2D);
+  --color-secondary: var(--secondary, #266264);
+  --color-secondary-hover: var(--secondary-hover, #1E4A4C);
   --color-secondary-foreground: var(--secondary-foreground, #ffffff);
 
-  --color-accent: var(--accent, #FF8811);
+  --color-accent: var(--accent, #FE8812);
   --color-accent-hover: var(--accent-hover, #E07406);
   --color-accent-foreground: var(--accent-foreground, #000000);
 
@@ -45,7 +45,7 @@
 
   --color-border: var(--border, #16181d);
   --color-input: var(--input, #ffffff);
-  --color-ring: var(--ring, #5B2A86);
+  --color-ring: var(--ring, #5B2A85);
 
   /* CAGP & Brand Aliases */
   --color-cagp-burgundy: var(--cagp-brand-primary, #8B1E2D);
@@ -61,8 +61,8 @@
   --color-cagp-blue: #1E3F66;
 
   /* Identidade Semente & UFMG */
-  --color-semente-purple: #5B2A86;
-  --color-semente-orange: #FF8811;
+  --color-semente-purple: #5B2A85;
+  --color-semente-orange: #FE8812;
   --color-semente-teal: #266264;
   --color-ufmg-red: #C4161C;
 
@@ -75,9 +75,9 @@
   --color-content-primary: #16181d;
   --color-content-secondary: #4a4e58;
   --color-content-muted: #5d626e;
-  --color-brand-primary: #5B2A86;
+  --color-brand-primary: #5B2A85;
   --color-brand-hover: #4A216E;
-  --color-brand-accent: #FF8811;
+  --color-brand-accent: #FE8812;
 
   --color-ufmg-siga: #9E2424;
   --color-ufmg-minha: #005A9C;
@@ -85,13 +85,15 @@
   --color-ufmg-sei: #15803D;
   --color-ufmg-bu: #5B2C6F;
 
-  /* Tipografia rL9Ap */
-  --font-heading: 'Bricolage Grotesque', sans-serif;
-  --font-head: 'Bricolage Grotesque', sans-serif;
-  --font-display: 'Bricolage Grotesque', sans-serif;
-  --font-sans: 'Space Grotesk', sans-serif;
-  --font-body: 'Space Grotesk', sans-serif;
+  /* Tipografia — Manual Chapa Semente: Poppins Regular/Bold + Permanent Marker (destaque) + Space Mono (protocolo) */
+  --font-heading: 'Poppins', sans-serif;
+  --font-head: 'Poppins', sans-serif;
+  --font-display: 'Poppins', sans-serif;
+  --font-sans: 'Poppins', sans-serif;
+  --font-body: 'Poppins', sans-serif;
   --font-mono: 'Space Mono', monospace;
+  /* Destaque pontual (substitui Cinema Outfit do manual): nunca em texto corrido */
+  --font-accent: 'Permanent Marker', 'Poppins', cursive;
 
   /* Sombras Neobrutalistas Duras (rL9Ap) */
   --shadow-xs: 1px 1px 0 0 var(--shadow-color, #16181d);
@@ -135,7 +137,7 @@ html.dark {
   --cagp-content-muted: #5d626e;
   --cagp-brand-primary: #9E2424;
   --cagp-brand-hover: #8B1E2D;
-  --cagp-brand-accent: #FF8811;
+  --cagp-brand-accent: #FE8812;
 }
 
 /* Utilitário de borda 3px rL9Ap */
@@ -162,7 +164,7 @@ html {
 body {
   font-synthesis: none;
   -moz-osx-font-smoothing: grayscale;
-  caret-color: #9E2424;
+  caret-color: #5B2A85;
   background-color: var(--background);
   color: var(--foreground);
   overflow-x: clip;
@@ -170,7 +172,7 @@ body {
 
 /* Browser surfaces tematizadas pela paleta CAGP */
 ::selection {
-  background-color: #9E2424;
+  background-color: #5B2A85;
   color: #FFFFFF;
 }
 
@@ -198,7 +200,7 @@ a {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #8B1E2D;
+  background: #5B2A85;
 }
 
 /* Balanço tipográfico de títulos (Apple HIG Editorial) */
@@ -318,6 +320,11 @@ details > summary {
   margin-bottom: 1.5rem;
   width: 100%;
   box-sizing: border-box;
+  /* Fica fixa sob a faixa de campanha/barra superior: em painéis longos a aba atual continua visível. */
+  position: sticky;
+  top: calc(var(--cagp-sticky-top, 0px) + 0.5rem);
+  z-index: 20;
+  transition: top 0.2s ease-out;
 }
 .cagp-workspace-tabs {
   display: flex;
@@ -335,11 +342,22 @@ details > summary {
   flex: 1 1 0;
 }
 @media (max-width: 767px) {
-  .cagp-workspace-tabs[data-tab-count="4"],
+  /* 4 abas no celular: grade 2x2, todas visíveis (nada escondido no scroll lateral). */
+  .cagp-workspace-tabs[data-tab-count="4"] {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    overflow: visible;
+  }
+  .cagp-workspace-tabs[data-tab-count="2"] .cagp-workspace-tab,
+  .cagp-workspace-tabs[data-tab-count="3"] .cagp-workspace-tab,
+  .cagp-workspace-tabs[data-tab-count="4"] .cagp-workspace-tab {
+    padding-inline: 0.375rem;
+    font-size: 0.8rem;
+    letter-spacing: 0;
+  }
   .cagp-workspace-tabs[data-tab-count="5"] {
     scroll-snap-type: x mandatory;
   }
-  .cagp-workspace-tabs[data-tab-count="4"] .cagp-workspace-tab,
   .cagp-workspace-tabs[data-tab-count="5"] .cagp-workspace-tab {
     flex: 0 0 auto;
     min-width: max-content;
@@ -386,12 +404,12 @@ details > summary {
 }
 .cagp-workspace-tab:hover {
   background-color: var(--color-card, #ffffff);
-  color: var(--color-primary, #5B2A86);
+  color: var(--color-primary, #5B2A85);
   border-color: var(--color-border, #16181d);
   box-shadow: var(--shadow-xs, 1px 1px 0 0 var(--color-border, #16181d));
 }
 .cagp-workspace-tab:focus-visible {
-  outline: 2px solid var(--color-primary, #5B2A86);
+  outline: 2px solid var(--color-primary, #5B2A85);
   outline-offset: 2px;
 }
 .cagp-workspace-tab:active {
@@ -399,15 +417,27 @@ details > summary {
   box-shadow: none;
 }
 .cagp-workspace-tab.is-active {
-  background-color: var(--color-secondary, #9E2424);
+  background-color: var(--color-secondary, #266264);
   color: #FFFFFF;
   border: 2px solid var(--color-border, #16181d);
   box-shadow: var(--shadow-sm, 2px 2px 0 0 var(--color-border, #16181d));
   transform: translateY(-1px);
 }
 .cagp-workspace-tab.is-active:hover {
-  background-color: var(--color-secondary-hover, #8B1E2D);
+  background-color: var(--color-secondary-hover, #1E4A4C);
   color: #FFFFFF;
+}
+
+/* Âncoras e painéis não ficam escondidos sob a barra de abas fixa. */
+.cagp-workspace-view,
+.cagp-anchor-target {
+  scroll-margin-top: calc(var(--cagp-sticky-top, 0px) + 5.5rem);
+}
+@media (max-width: 767px) {
+  .cagp-workspace-bar:has([data-tab-count="4"]) ~ .cagp-workspace-view,
+  .cagp-workspace-bar:has([data-tab-count="4"]) ~ .cagp-workspace-view .cagp-anchor-target {
+    scroll-margin-top: calc(var(--cagp-sticky-top, 0px) + 8.5rem);
+  }
 }
 
 /* Rótulos responsivos: tablets exibem shortLabel em 4 e 5 abas para prevenir quebra de layout */
@@ -448,10 +478,10 @@ details > summary {
 }
 .cagp-workspace-viewall:hover {
   background-color: var(--color-surface-hover, #ebeef2);
-  color: var(--color-primary, #5B2A86);
+  color: var(--color-primary, #5B2A85);
 }
 .cagp-workspace-viewall:focus-visible {
-  outline: 2px solid var(--color-primary, #5B2A86);
+  outline: 2px solid var(--color-primary, #5B2A85);
   outline-offset: 2px;
 }
 .cagp-workspace-viewall:active {
@@ -460,7 +490,7 @@ details > summary {
 }
 .cagp-workspace-viewall.is-active,
 .cagp-workspace-viewall[aria-pressed="true"] {
-  background-color: var(--color-secondary, #9E2424);
+  background-color: var(--color-secondary, #266264);
   color: #FFFFFF;
   border-color: var(--color-border, #16181d);
   box-shadow: var(--shadow-sm, 2px 2px 0 0 var(--color-border, #16181d));
@@ -670,7 +700,7 @@ html[data-a11y-dyslexia="true"] * {
 }
 
 .cagp-hours-bank-top {
-  background-color: #8b1e2d;
+  background-color: var(--secondary, #266264);
   color: #ffffff;
   border-bottom: 2px solid #0a0a0a;
   padding: 1rem 1.25rem;
@@ -713,7 +743,7 @@ html[data-a11y-dyslexia="true"] * {
 /* Anel Métrico Conic Gradient (.cagp-metric-ring) */
 .cagp-metric-ring {
   --ring-pct: 0;
-  --ring-color: #9e2424;
+  --ring-color: var(--secondary, #266264);
   --ring-size: 64px;
   width: var(--ring-size);
   height: var(--ring-size);
@@ -745,7 +775,7 @@ html[data-a11y-dyslexia="true"] * {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Space Mono', monospace;
   font-weight: 700;
   font-size: 0.75rem;
   line-height: 1;
@@ -804,7 +834,7 @@ html[data-a11y-dyslexia="true"] * {
 
 .cagp-calc-mini-fill {
   height: 100%;
-  background-color: #9e2424;
+  background-color: var(--secondary, #266264);
   transition: width 0.2s ease;
 }
 
@@ -834,7 +864,7 @@ html[data-a11y-dyslexia="true"] * {
 }
 
 .cagp-step-btn:hover:not(:disabled) {
-  background-color: #9e2424;
+  background-color: var(--secondary, #266264);
   color: #ffffff;
 }
 
@@ -882,7 +912,7 @@ html[data-a11y-dyslexia="true"] * {
 }
 
 .cagp-calc-drawer-toggle:hover {
-  background-color: #9e2424;
+  background-color: var(--secondary, #266264);
   color: #ffffff;
   box-shadow: 2px 2px 0 #0a0a0a;
 }

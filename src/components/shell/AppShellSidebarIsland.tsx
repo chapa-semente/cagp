@@ -183,26 +183,33 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
     <div className="flex flex-col justify-between h-full bg-white text-foreground select-none">
       {/* Top Scrollable Area */}
       <div className="flex flex-col flex-1 min-h-0 overflow-y-auto no-scrollbar p-3 xl:p-4 gap-3.5">
-        {/* Brand Header */}
-        <div className="flex items-center justify-between gap-2 pb-3 border-b-3 border-border">
+        {/* Brand Header (no drawer mobile o logo oficial já está no DrawerHeader) */}
+        <div className={`${layoutScope === 'mobile-drawer' ? 'hidden' : 'flex'} items-center justify-between gap-2 pb-3 border-b-3 border-border`}>
           <a
             href={route('/chapa-semente')}
             className="flex items-center gap-2.5 p-1 rounded-xl hover:bg-background transition-all no-underline group min-w-0"
             title="Chapa Semente — Proposta Materializada para o CAGP UFMG"
           >
-            <div className="w-10 h-10 rounded-xl bg-white text-foreground flex items-center justify-center shrink-0 border-3 border-border shadow-xs group-hover:translate-x-[-1px] group-hover:translate-y-[-1px] transition-all p-1">
-              <img
-                src={asset('/logos/semente/simbolo_semente_fiel.svg')}
-                alt="Chapa Semente"
-                className="w-full h-full object-contain"
-              />
-            </div>
-            {!isCompact && (
+            {isCompact ? (
+              <div className="w-10 h-10 rounded-xl bg-white text-foreground flex items-center justify-center shrink-0 border-3 border-border shadow-xs group-hover:translate-x-[-1px] group-hover:translate-y-[-1px] transition-all p-1">
+                <img
+                  src={asset('/logos/semente/semente-simbolo.webp')}
+                  alt="Chapa Semente"
+                  width={466}
+                  height={603}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            ) : (
               <div className="min-w-0 flex-1">
-                <span className="font-heading text-sm font-black uppercase tracking-tight text-foreground block leading-none">
-                  CHAPA SEM<span>E</span>NT<span className="text-[#C2410C]">E</span>
-                </span>
-                <div className="flex items-center gap-1 mt-1 truncate">
+                <img
+                  src={asset('/logos/semente/semente-horizontal.webp')}
+                  alt="Chapa Gestão Pública Semente"
+                  width={768}
+                  height={229}
+                  className="h-9 w-auto max-w-full block"
+                />
+                <div className="flex items-center gap-1 mt-1.5 truncate">
                   <span className="text-xs font-mono text-primary font-bold truncate">
                     Proposta Materializada
                   </span>
@@ -535,16 +542,15 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
           <DrawerHeader className="border-b-3 border-border bg-card pb-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-white p-1 border-3 border-border shadow-xs flex items-center justify-center shrink-0">
-                  <img
-                    src={asset('/logos/semente/simbolo_semente_fiel.svg')}
-                    alt="Chapa Semente"
-                    className="w-full h-full object-contain"
-                  />
-                </div>
                 <div className="text-left">
-                  <DrawerTitle className="font-heading text-sm font-black uppercase text-foreground">
-                    CHAPA SEM<span>E</span>NT<span className="text-[#C2410C]">E</span>
+                  <DrawerTitle className="m-0">
+                    <img
+                      src={asset('/logos/semente/semente-horizontal.webp')}
+                      alt="Chapa Gestão Pública Semente"
+                      width={768}
+                      height={229}
+                      className="h-8 w-auto block"
+                    />
                   </DrawerTitle>
                   <DrawerDescription className="text-xs font-semibold text-muted-foreground">
                     Proposta Materializada • CAGP UFMG

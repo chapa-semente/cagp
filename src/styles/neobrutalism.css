@@ -28,22 +28,22 @@
 
   /* Cores Semânticas Tri-Camada Harmonizadas (Chapa Semente Primária) */
   /* Camada 1: Roxo Semente (Identidade Primária & Realização) */
-  --primary: #5B2A86;
+  --primary: #5B2A85;
   --primary-hover: #4A216E;
   --primary-foreground: #ffffff;
 
-  /* Camada 2: Rubro Institucional CAGP & UFMG (Secundária & Memória FAFICH) */
-  --secondary: #9E2424;
-  --secondary-hover: #8B1E2D;
+  /* Camada 2: Verde-Petróleo Semente (Secundária analítica). Rubro CAGP = apenas selo (--cagp-rubro) */
+  --secondary: #266264;
+  --secondary-hover: #1E4A4C;
   --secondary-foreground: #ffffff;
 
   /* Camada 3: Laranja Germinar (CTA / Destaques / Energia Estudantil) */
-  --accent: #FF8811;
+  --accent: #FE8812;
   --accent-hover: #E07406;
   --accent-foreground: #000000;
 
   /* Anéis de foco e estados de alerta */
-  --ring: #5B2A86;
+  --ring: #5B2A85;
   --destructive: #DC2626;
   --destructive-foreground: #ffffff;
   --success: #15803D;
@@ -56,21 +56,22 @@
   /* Cores Complementares Manuais UFMG & Semente */
   --ufmg-red: #C4161C;
   --ufmg-red-dark: #B81217;
-  --semente-purple: #5B2A86;
-  --semente-orange: #FF8811;
+  --semente-purple: #5B2A85;
+  --semente-orange: #FE8812;
   --semente-teal: #266264;
+  --cagp-rubro: #9E2424; /* Selo institucional CAGP — não usar como cor de interface */
   --cagp-gold: #E8A317;
   --cagp-black: #0A0A0A;
 
   /* Gráficos & Visualização BoldKit */
-  --chart-1: #5B2A86; /* Roxo Semente */
-  --chart-2: #FF8811; /* Laranja Germinar */
+  --chart-1: #5B2A85; /* Roxo Semente */
+  --chart-2: #FE8812; /* Laranja Germinar */
   --chart-3: #9E2424; /* Rubro CAGP */
   --chart-4: #266264; /* Verde Petróleo Semente */
   --chart-5: #E8A317; /* Dourado FAFICH */
 
   /* Tipografia rL9Ap */
-  --font-heading: 'Bricolage Grotesque', sans-serif;
-  --font-sans: 'Space Grotesk', sans-serif;
+  --font-heading: 'Poppins', sans-serif;
+  --font-sans: 'Poppins', sans-serif;
   --font-mono: 'Space Mono', monospace;
 }

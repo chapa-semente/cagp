@@ -20,14 +20,31 @@ const PRECACHE_ASSETS = [
   '/manifest.webmanifest'
 ];
 
+// Base path derivado do escopo do SW (ex: '/cagp' no GitHub Pages, '' na raiz)
+const SCOPE_BASE = new URL(self.registration.scope).pathname.replace(/\/$/, '');
+
+// Navegações não aceitam respostas marcadas como "redirected" (o Chrome mostra
+// página de erro). O GitHub Pages responde 301 para rotas sem barra final
+// (/cagp/carreira -> /cagp/carreira/), então toda resposta redirecionada é
+// "limpa" antes de ir para o cache ou para o navegador.
+async function cleanResponse(res) {
+  if (!res || !res.redirected) return res;
+  const body = await res.blob();
+  return new Response(body, {
+    status: res.status,
+    statusText: res.statusText,
+    headers: res.headers,
+  });
+}
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return Promise.allSettled(
         PRECACHE_ASSETS.map((url) =>
           fetch(url)
-            .then((res) => {
-              if (res.ok) return cache.put(url, res);
+            .then(async (res) => {
+              if (res.ok) return cache.put(url, await cleanResponse(res));
             })
             .catch(() => {})
         )
@@ -67,21 +84,28 @@ self.addEventListener('fetch', (event) => {
             setTimeout(() => reject(new Error('Anti-Lie-Fi timeout (2.5s)')), 2500)
           );
           const networkResponse = await Promise.race([fetch(req), timeoutPromise]);
-          if (networkResponse && networkResponse.status === 200) {
-            const cache = await caches.open(CACHE_NAME);
-            cache.put(req, networkResponse.clone());
+          // Redirect do servidor (ex: 301 para a versão com barra final):
+          // devolve ao navegador para que ele siga o redirect normalmente.
+          if (networkResponse && networkResponse.type === 'opaqueredirect') {
             return networkResponse;
+          }
+          if (networkResponse && networkResponse.status === 200) {
+            const clean = await cleanResponse(networkResponse);
+            const cache = await caches.open(CACHE_NAME);
+            cache.put(req, clean.clone());
+            return clean;
           }
         } catch (_) {
           // Fallback para cache imediato
         }
         const cached = await caches.match(req);
-        if (cached) return cached;
+        if (cached) return cleanResponse(cached);
         const dirPath = url.pathname.endsWith('/') ? url.pathname + 'index.html' : url.pathname + '/index.html';
         const dirCached = await caches.match(dirPath);
-        if (dirCached) return dirCached;
-        const indexCached = await caches.match('/index.html') || await caches.match('/');
-        if (indexCached) return indexCached;
+        if (dirCached) return cleanResponse(dirCached);
+        const indexCached =
+          (await caches.match(`${SCOPE_BASE}/index.html`)) || (await caches.match(`${SCOPE_BASE}/`));
+        if (indexCached) return cleanResponse(indexCached);
         return new Response('Sem conexão e sem cache disponível.', {
           status: 503,
           headers: { 'Content-Type': 'text/plain; charset=utf-8' }

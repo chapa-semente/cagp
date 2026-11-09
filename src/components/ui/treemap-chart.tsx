@@ -22,8 +22,8 @@ export interface TreemapChartProps extends React.HTMLAttributes<HTMLDivElement> 
 }
 
 const NEUBRUTALISM_COLORS = [
-  '#5B2A86',
-  '#FF8811',
+  '#5B2A85',
+  '#FE8812',
   '#134E4A',
   '#9E2424',
   '#15803D',

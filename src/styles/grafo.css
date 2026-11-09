@@ -29,7 +29,7 @@
 }
 
 .grafo-col-header {
-  font-family: var(--font-head, 'Bricolage Grotesque', sans-serif);
+  font-family: var(--font-head, 'Poppins', sans-serif);
   font-size: 11px;
   font-weight: 800;
   fill: #0A0A0A;
@@ -54,7 +54,7 @@
 }
 
 .grafo-link.is-active-req {
-  stroke: #FF8811 !important;
+  stroke: #FE8812 !important;
   stroke-width: 3.5px !important;
   opacity: 1 !important;
   stroke-dasharray: 6 3;
@@ -110,28 +110,28 @@
 }
 
 .grafo-node:hover:not(.is-dimmed) rect.node-card {
-  stroke: #9E2424;
-  filter: drop-shadow(4px 4px 0px #9E2424);
+  stroke: var(--primary, #5B2A85);
+  filter: drop-shadow(4px 4px 0px #16181d);
   transform: translate(-1.5px, -1.5px);
 }
 
 .grafo-node:focus-visible rect.node-card {
-  stroke: #9E2424;
+  stroke: var(--primary, #5B2A85);
   stroke-width: 3px;
 }
 
 .grafo-node.is-selected rect.node-card {
-  stroke: #9E2424;
+  stroke: var(--primary, #5B2A85);
   stroke-width: 3px;
-  fill: #FEE2E2;
-  filter: drop-shadow(4px 4px 0px #9E2424);
+  fill: #F3EAFE;
+  filter: drop-shadow(4px 4px 0px #16181d);
 }
 
 .grafo-node.is-prereq rect.node-card {
-  stroke: #FF8811;
+  stroke: #FE8812;
   stroke-width: 2.5px;
   fill: #FFF7ED;
-  filter: drop-shadow(3px 3px 0px #FF8811);
+  filter: drop-shadow(3px 3px 0px #FE8812);
 }
 
 .grafo-node.is-unlocked rect.node-card {
@@ -161,7 +161,7 @@
 }
 
 .grafo-node text.node-name {
-  font-family: var(--font-body, 'Space Grotesk', sans-serif);
+  font-family: var(--font-body, 'Poppins', sans-serif);
   font-size: 9.5px;
   font-weight: 700;
   fill: #0A0A0A;
@@ -174,7 +174,7 @@
 }
 
 .grafo-node text.node-badge-text {
-  font-family: var(--font-head, 'Bricolage Grotesque', sans-serif);
+  font-family: var(--font-head, 'Poppins', sans-serif);
   font-size: 7.5px;
   font-weight: 800;
   fill: #FFFFFF;
@@ -189,7 +189,7 @@
 }
 
 .grafo-node text.node-lock-text {
-  font-family: var(--font-head, 'Bricolage Grotesque', sans-serif);
+  font-family: var(--font-head, 'Poppins', sans-serif);
   font-size: 7.5px;
   font-weight: 800;
   fill: #FFFFFF;

@@ -23,6 +23,27 @@ export const PwaCredenciamentoPill: React.FC = () => {
   const [activation, setActivation] = useState<ElectionActivation | null>(null);
   const [studentName, setStudentName] = useState('Estudante de Gestão Pública');
   const [isDismissed, setIsDismissed] = useState(false);
+  // Some enquanto o estudante rola para baixo lendo (no celular cobria o conteúdo) e volta ao rolar para cima.
+  const [tucked, setTucked] = useState(false);
+
+  useEffect(() => {
+    let lastY = window.scrollY;
+    let frame = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if (Math.abs(y - lastY) < 8) return;
+        setTucked(y > lastY && y > 160);
+        lastY = y;
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(frame);
+    };
+  }, []);
 
   const syncState = () => {
     try {
@@ -78,14 +99,15 @@ export const PwaCredenciamentoPill: React.FC = () => {
         key="cagp-semente-floating-pill"
         aria-label="Status do Credenciamento Discente e Eleições"
         initial={{ opacity: 0, y: 16, scale: 0.96 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
+        animate={tucked ? { opacity: 0, y: 24, scale: 0.96 } : { opacity: 1, y: 0, scale: 1 }}
+        aria-hidden={tucked || undefined}
         exit={{ opacity: 0, y: 16, scale: 0.96 }}
         transition={tactileSpring}
         style={{
           position: 'fixed',
           top: 'auto',
         }}
-        className="fixed bottom-[calc(4.75rem+env(safe-area-inset-bottom,0px))] md:bottom-5 xl:bottom-6 left-3 md:left-[108px] xl:left-[288px] z-[1070] pointer-events-auto select-none max-w-[calc(100vw-1.5rem)] sm:max-w-max"
+        className={`fixed ${tucked ? 'pointer-events-none' : ''} bottom-[calc(4.75rem+env(safe-area-inset-bottom,0px))] md:bottom-5 xl:bottom-6 left-3 md:left-[108px] xl:left-[288px] z-[1070] select-none max-w-[calc(100vw-1.5rem)] sm:max-w-max`}
       >
         {isCompleted ? (
           /* Pílula de Apoiador Confirmado da Chapa Semente */
@@ -99,10 +121,10 @@ export const PwaCredenciamentoPill: React.FC = () => {
           >
             <div className="w-6 h-6 rounded-full bg-primary border-2 border-border flex items-center justify-center p-0.5 shrink-0">
               <img
-                src={asset('/logos/semente/icone_folha_superior.svg')}
+                src={asset('/logos/semente/semente-simbolo-branco.webp')}
                 alt=""
                 aria-hidden="true"
-                className="w-full h-full object-contain invert brightness-0"
+                className="w-full h-full object-contain"
               />
             </div>
             <span className="font-heading text-xs font-black uppercase text-foreground tracking-tight whitespace-nowrap">

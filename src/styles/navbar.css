@@ -12,7 +12,7 @@
   border: 1.5px solid transparent;
   border-radius: 9999px;
   padding: 0.35rem 0.75rem;
-  font-family: var(--font-body, 'Space Grotesk', sans-serif);
+  font-family: var(--font-body, 'Poppins', sans-serif);
   font-weight: 600;
   font-size: 0.8rem;
   color: #111111;
@@ -28,7 +28,7 @@
 
 .cagp-island-dropdown-btn.is-active,
 .cagp-island-nav-link.is-active {
-  background: #8B1E2D !important;
+  background: var(--primary, #5B2A85) !important;
   border: 1.5px solid #0A0A0A !important;
   color: #FFFFFF !important;
   font-weight: 700;
@@ -43,11 +43,11 @@
 .cagp-island-dropdown.is-open .cagp-island-dropdown-btn {
   background: #F7F5F0;
   border-color: #0A0A0A;
-  color: #8B1E2D;
+  color: var(--primary, #5B2A85);
 }
 
 .cagp-island-dropdown.is-open .cagp-island-dropdown-btn.is-active {
-  background: #8B1E2D !important;
+  background: var(--primary, #5B2A85) !important;
   color: #FFFFFF !important;
 }
 
@@ -114,12 +114,12 @@
 }
 
 .cagp-island-dropdown-item.is-active {
-  background: #FEE2E2;
-  border-color: #8B1E2D;
+  background: #F3EAFE;
+  border-color: var(--primary, #5B2A85);
 }
 
 .cagp-island-dropdown-item.is-active span {
-  color: #8B1E2D;
+  color: var(--primary, #5B2A85);
 }
 
 html[data-a11y-contrast="high"] .cagp-island-dropdown-menu {

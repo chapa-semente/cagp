@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-09T00:00:00Z",
+  "title": "Design System: Super App Discente — Chapa Semente • CAGP UFMG",
+  "extensions": {
+    "colorMeta": {
+      "semente-purple": { "role": "primary", "displayName": "Roxo Semente Profundo", "canonical": "#5B2A85", "tonalRamp": ["#1b032d", "#35174f", "#522e73", "#764aa1", "#9a6fc6", "#bc98e4", "#dec3fe", "#f3eafe"] },
+      "semente-purple-hover": { "role": "primary", "displayName": "Roxo Semente Pressionado", "canonical": "#4A216E" },
+      "petroleo-teal": { "role": "secondary", "displayName": "Verde-Petróleo", "canonical": "#266264", "tonalRamp": ["#001617", "#092f30", "#1e4a4c", "#376d6f", "#5c9192", "#88b4b6", "#b5d9da", "#d7f6f6"] },
+      "germinar-orange": { "role": "tertiary", "displayName": "Laranja Germinar", "canonical": "#FE8812", "tonalRamp": ["#230900", "#431d00", "#673200", "#954d06", "#c86906", "#ec924d", "#fec39a", "#ffeadc"] },
+      "germinar-orange-hover": { "role": "tertiary", "displayName": "Laranja Germinar Pressionado", "canonical": "#E07406" },
+      "orange-text": { "role": "tertiary", "displayName": "Laranja Contraste", "canonical": "#A85300" },
+      "cagp-rubro": { "role": "seal", "displayName": "Rubro CAGP (selo)", "canonical": "#9E2424", "tonalRamp": ["#2c0000", "#520508", "#771c1b", "#a83733", "#cf5e56", "#ee8b82", "#fdc0b9", "#fee9e6"] },
+      "ink": { "role": "neutral", "displayName": "Tinta Grafite", "canonical": "#16181d", "tonalRamp": ["#101214", "#27292c", "#404247", "#616369", "#84868c", "#a8abb0", "#cfd1d5", "#edeef2"] },
+      "paper": { "role": "neutral", "displayName": "Papel Frio", "canonical": "#f4f5f7", "tonalRamp": ["#111213", "#28292a", "#414244", "#626365", "#858688", "#aaabad", "#d0d1d3", "#edeef0"] },
+      "card-white": { "role": "neutral", "displayName": "Branco Ficha", "canonical": "#ffffff" },
+      "muted-fog": { "role": "neutral", "displayName": "Névoa", "canonical": "#e5e7ec" },
+      "content-secondary": { "role": "neutral", "displayName": "Texto Secundário", "canonical": "#4a4e58" },
+      "content-muted": { "role": "neutral", "displayName": "Texto Apagado", "canonical": "#5d626e" },
+      "success": { "role": "status", "displayName": "Deferido", "canonical": "#15803D" },
+      "warning": { "role": "status", "displayName": "Pendente", "canonical": "#B45309" },
+      "destructive": { "role": "status", "displayName": "Indeferido", "canonical": "#DC2626" },
+      "info": { "role": "status", "displayName": "Informativo", "canonical": "#005A9C" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Título de página em Persuade/Read; caixa alta; 1.5rem no celular, 2.25rem a partir de 640px." },
+      "headline": { "displayName": "Headline", "purpose": "Título de página em Operate/condensado e seções principais." },
+      "title": { "displayName": "Title", "purpose": "Títulos de cartão e ficha." },
+      "body": { "displayName": "Body", "purpose": "Texto corrido e inputs no celular." },
+      "body-sm": { "displayName": "Body small", "purpose": "Cartões e inputs a partir de 768px." },
+      "label": { "displayName": "Label de protocolo", "purpose": "Eyebrows, códigos de disciplina, horas, datas, chips; caixa alta, tabular." },
+      "button": { "displayName": "Button", "purpose": "Botões e badges; caixa alta." }
+    },
+    "shadows": [
+      { "name": "hairline", "value": "1px 1px 0 0 #16181d", "purpose": "Ícones e microchips." },
+      { "name": "chip", "value": "2px 2px 0 0 #16181d", "purpose": "Badges; botões no hover." },
+      { "name": "rest", "value": "4px 4px 0 0 #16181d", "purpose": "Botões em repouso; input em foco." },
+      { "name": "card", "value": "6px 6px 0 0 #16181d", "purpose": "Cartões e painéis." },
+      { "name": "card-lifted", "value": "8px 8px 0 0 #16181d", "purpose": "Cartão interativo no hover; heróis." },
+      { "name": "stage", "value": "10px 10px 0 1px #16181d", "purpose": "Palcos de destaque raros." }
+    ],
+    "motion": [
+      { "name": "ease-out-natural", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Padrão para transições de vista, revelações e carimbos." },
+      { "name": "ease-spring-snappy", "value": "cubic-bezier(0.25, 1, 0.5, 1)", "purpose": "Movimentos espaciais rápidos." },
+      { "name": "cagp-spring", "value": "cubic-bezier(0.32, 0.72, 0, 1)", "purpose": "Sheets e gavetas." },
+      { "name": "press", "value": "150ms", "purpose": "Translate de pressão em botões e cartões." },
+      { "name": "view-transition", "value": "220ms", "purpose": "Troca de página e de workspace." },
+      { "name": "stamp-impact", "value": "240ms", "purpose": "Impacto de carimbo/selo." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" },
+      { "name": "2xl", "value": "1536px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Ação principal; campo roxo Semente que afunda na sombra.",
+      "html": "<button class=\"ds-btn ds-btn-primary\">Abrir guia</button>",
+      "css": ".ds-btn { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; text-transform: uppercase; letter-spacing: 0.025em; font-size: 0.875rem; min-height: 44px; padding: 8px 20px; border: 3px solid #16181d; border-radius: 12px; box-shadow: 4px 4px 0 0 #16181d; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: transform 150ms, box-shadow 150ms, background-color 150ms; } .ds-btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 0 #16181d; } .ds-btn:active { transform: translate(3px, 3px); box-shadow: none; } .ds-btn:focus-visible { outline: 2px solid #5B2A85; outline-offset: 2px; } .ds-btn-primary { background: #5B2A85; color: #fff; } .ds-btn-primary:hover { background: #4A216E; }"
+    },
+    {
+      "name": "Accent Button",
+      "kind": "button",
+      "refersTo": "button-accent",
+      "description": "CTA de maior energia (votar, tour, passaporte); texto em tinta.",
+      "html": "<button class=\"ds-btn-accent\">Tour das lideranças</button>",
+      "css": ".ds-btn-accent { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; text-transform: uppercase; letter-spacing: 0.025em; font-size: 0.875rem; min-height: 44px; padding: 8px 20px; border: 3px solid #16181d; border-radius: 12px; box-shadow: 4px 4px 0 0 #16181d; background: #FE8812; color: #16181d; cursor: pointer; transition: transform 150ms, box-shadow 150ms, background-color 150ms; } .ds-btn-accent:hover { background: #E07406; transform: translate(2px, 2px); box-shadow: 2px 2px 0 0 #16181d; } .ds-btn-accent:active { transform: translate(3px, 3px); box-shadow: none; } .ds-btn-accent:focus-visible { outline: 2px solid #5B2A85; outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Ação de apoio em verde-petróleo.",
+      "html": "<button class=\"ds-btn-secondary\">Ver dados</button>",
+      "css": ".ds-btn-secondary { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; text-transform: uppercase; letter-spacing: 0.025em; font-size: 0.875rem; min-height: 44px; padding: 8px 20px; border: 3px solid #16181d; border-radius: 12px; box-shadow: 4px 4px 0 0 #16181d; background: #266264; color: #fff; cursor: pointer; transition: transform 150ms, box-shadow 150ms; } .ds-btn-secondary:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 0 #16181d; } .ds-btn-secondary:active { transform: translate(3px, 3px); box-shadow: none; } .ds-btn-secondary:focus-visible { outline: 2px solid #5B2A85; outline-offset: 2px; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Ação neutra sobre papel.",
+      "html": "<button class=\"ds-btn-outline\">Sou calouro(a)</button>",
+      "css": ".ds-btn-outline { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; text-transform: uppercase; letter-spacing: 0.025em; font-size: 0.875rem; min-height: 44px; padding: 8px 20px; border: 3px solid #16181d; border-radius: 12px; box-shadow: 4px 4px 0 0 #16181d; background: #fff; color: #16181d; cursor: pointer; transition: transform 150ms, box-shadow 150ms, background-color 150ms; } .ds-btn-outline:hover { background: #e5e7ec; transform: translate(2px, 2px); box-shadow: 2px 2px 0 0 #16181d; } .ds-btn-outline:active { transform: translate(3px, 3px); box-shadow: none; } .ds-btn-outline:focus-visible { outline: 2px solid #5B2A85; outline-offset: 2px; }"
+    },
+    {
+      "name": "Search Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Campo de busca/formulário; contorno grosso, foco roxo.",
+      "html": "<input class=\"ds-input\" placeholder=\"Buscar disciplina, norma, sala...\" />",
+      "css": ".ds-input { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; min-height: 44px; width: 100%; max-width: 360px; padding: 8px 16px; background: #fff; color: #16181d; border: 3px solid #16181d; border-radius: 12px; box-shadow: 2px 2px 0 0 #16181d; transition: box-shadow 150ms; } .ds-input::placeholder { color: #5d626e; } .ds-input:focus-visible { outline: 2px solid #5B2A85; outline-offset: 2px; box-shadow: 4px 4px 0 0 #16181d; }"
+    },
+    {
+      "name": "Badge",
+      "kind": "chip",
+      "refersTo": "badge",
+      "description": "Selo de categoria/estado; chapado e contornado.",
+      "html": "<span class=\"ds-badge\">Turno noturno</span> <span class=\"ds-badge ds-badge-accent\">14 propostas</span> <span class=\"ds-badge ds-badge-teal\">Dados</span>",
+      "css": ".ds-badge { display: inline-flex; align-items: center; gap: 6px; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.025em; padding: 2px 10px; border: 3px solid #16181d; border-radius: 8px; box-shadow: 2px 2px 0 0 #16181d; background: #5B2A85; color: #fff; } .ds-badge-accent { background: #FE8812; color: #16181d; } .ds-badge-teal { background: #266264; color: #fff; }"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Ficha de protocolo; ergue-se no hover e afunda no clique quando interativa.",
+      "html": "<article class=\"ds-card\" tabindex=\"0\"><span class=\"ds-card-eyebrow\">DCP-124 · 60h</span><h3 class=\"ds-card-title\">Estágio obrigatório</h3><p class=\"ds-card-body\">Termo de compromisso, plano de atividades e relatório final em três passos.</p></article>",
+      "css": ".ds-card { display: flex; flex-direction: column; gap: 8px; max-width: 320px; padding: 20px; background: #fff; color: #16181d; border: 3px solid #16181d; border-radius: 12px; box-shadow: 6px 6px 0 0 #16181d; cursor: pointer; transition: transform 150ms, box-shadow 150ms; } .ds-card:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 0 #16181d; } .ds-card:active { transform: translate(3px, 3px); box-shadow: none; } .ds-card:focus-visible { outline: 2px solid #5B2A85; outline-offset: 2px; } .ds-card-eyebrow { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase; color: #4a4e58; font-variant-numeric: tabular-nums; } .ds-card-title { margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 1.25rem; line-height: 1.2; } .ds-card-body { margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 0.875rem; line-height: 1.5; color: #4a4e58; }"
+    },
+    {
+      "name": "Bottom Nav",
+      "kind": "nav",
+      "refersTo": "bottom-nav",
+      "description": "Barra inferior do celular com os 5 eixos; ativo em pílula roxa.",
+      "html": "<nav class=\"ds-bnav\"><a class=\"ds-bnav-item is-active\" href=\"#\"><span class=\"ds-bnav-pill\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M15 9l-2 4-4 2 2-4z\"/></svg></span><span class=\"ds-bnav-label\">Hoje</span></a><a class=\"ds-bnav-item\" href=\"#\"><span class=\"ds-bnav-pill\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\"><path d=\"M4 11l8-6 8 6v9H4z\"/></svg></span><span class=\"ds-bnav-label\">Acolher</span></a><a class=\"ds-bnav-item\" href=\"#\"><span class=\"ds-bnav-pill\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\"><path d=\"M4 19h16M7 15l4-4 3 3 5-6\"/></svg></span><span class=\"ds-bnav-label\">600h</span></a><a class=\"ds-bnav-item\" href=\"#\"><span class=\"ds-bnav-pill\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\"><rect x=\"3\" y=\"7\" width=\"18\" height=\"13\" rx=\"2\"/><path d=\"M9 7V4h6v3\"/></svg></span><span class=\"ds-bnav-label\">Carreira</span></a><a class=\"ds-bnav-item\" href=\"#\"><span class=\"ds-bnav-pill\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\"><path d=\"M12 3l8 4v5c0 5-4 8-8 9-4-1-8-4-8-9V7z\"/></svg></span><span class=\"ds-bnav-label\">CAGP</span></a></nav>",
+      "css": ".ds-bnav { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; max-width: 420px; padding: 6px 8px; background: #fff; border-top: 3px solid #16181d; box-shadow: 0 -3px 0 0 #16181d; } .ds-bnav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; min-height: 48px; padding: 4px; border-radius: 12px; color: #16181d; text-decoration: none; transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-bnav-item:active { transform: translateY(2px) scale(0.95); } .ds-bnav-item:focus-visible { outline: 2px solid #5B2A85; outline-offset: -2px; } .ds-bnav-pill { width: 44px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 8px; border: 2px solid transparent; } .ds-bnav-item:hover .ds-bnav-pill { background: #e5e7ec; } .ds-bnav-item.is-active .ds-bnav-pill { background: #5B2A85; color: #fff; border-color: #16181d; box-shadow: 2px 2px 0 0 #16181d; } .ds-bnav-label { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; line-height: 1; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Movimento Estudantil Neoburocrata",
+    "overview": "A burocracia da UFMG traduzida num balcão direto: carimbos, protocolos e passaportes, mas sem fila nem labirinto. O sistema é material de luta estudantil — cartaz chapado, adesivo, carimbo — firme, impresso, sem verniz. Blocos sólidos onde as coisas germinam: estrutura rígida em tinta preta, energia laranja brotando dos pontos de ação.\n\nA linguagem é neobrutalista: contornos pretos grossos (3px), sombras duras deslocadas sem desfoque, campos de cor chapada e tipografia pesada em caixa alta. Tudo é opaco, como papel impresso ou adesivo colado; nada flutua em vidro, nada se dissolve em degradê. A densidade é de ferramenta, não de revista: muitos trâmites por tela, organizados em cartões que se comportam como fichas de protocolo. A hierarquia de marca é fixa: a Chapa Semente é a base cromática; o CAGP comparece como selo institucional.\n\nO sistema roda só em modo claro e precisa funcionar primeiro num celular, à noite, com pressa. O vocabulário burocrático (carimbos DEFERIDO/HOMOLOGADO, passaporte discente, selos) é a assinatura gráfica: transforma o trâmite em algo tátil e resolvível.",
+    "keyCharacteristics": [
+      "Contorno preto de 3px em toda superfície interativa e contêiner.",
+      "Sombra dura deslocada (offset puro, zero blur) como elevação estrutural; o clique \"afunda\" o elemento na sombra.",
+      "Roxo Semente como campo de autoridade; laranja Germinar como energia de ação; verde-petróleo como apoio analítico.",
+      "Títulos e botões em Bricolage Grotesque 800, caixa alta; rótulos técnicos em Space Mono.",
+      "Vocabulário de carimbo, selo e passaporte como motivo gráfico recorrente.",
+      "Superfícies 100% opacas; modo claro exclusivo."
+    ],
+    "rules": [
+      { "name": "The Flat Poster Rule", "body": "Toda área de cor é bloco chapado sólido. Zero degradês lineares, radiais ou mesh entre cores da paleta.", "section": "colors" },
+      { "name": "The Orange Never Reads Rule", "body": "germinar-orange nunca é cor de texto de leitura. Texto laranja pequeno sobre claro usa orange-text; texto sobre campo laranja usa ink.", "section": "colors" },
+      { "name": "The Rubro Is a Seal Rule", "body": "O rubro do CAGP aparece apenas como selo institucional. Botões, seleção de texto, cursor e scrollbar vestem a Semente.", "section": "colors" },
+      { "name": "The Protocol Mono Rule", "body": "Código de disciplina, carga horária, data, prazo e valor monetário vão em Space Mono com algarismos tabulares — são números de protocolo, não prosa.", "section": "typography" },
+      { "name": "The Wordmark Is an Asset Rule", "body": "O wordmark SEMENTE e a sigla CAGP nunca são redigitados em fonte; sempre os arquivos de public/logos/.", "section": "typography" },
+      { "name": "The Opaque Paper Rule", "body": "Zero vidro, zero blur: backdrop-filter é anulado globalmente. Toda superfície é opaca.", "section": "elevation" },
+      { "name": "The Press-Into-Shadow Rule", "body": "Estado ativo = translate de 2–3px na direção da sombra + sombra reduzida ou nula. Nunca se usa sombra difusa ou glow para indicar estado.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do contornar toda superfície interativa e todo cartão com 3px de ink.",
+      "Do usar sombra dura deslocada (offset, zero blur) em ink para elevação, e afundar o elemento na sombra ao clicar.",
+      "Do manter alvos de toque ≥44px e pensar primeiro no celular com a barra inferior.",
+      "Do pôr texto ink sobre laranja Germinar e branco sobre roxo Semente / verde-petróleo.",
+      "Do usar Space Mono tabular para códigos, horas, datas e valores.",
+      "Do aplicar os logos SEMENTE e CAGP a partir dos arquivos oficiais.",
+      "Do respeitar prefers-reduced-motion e a escala de fonte do painel de acessibilidade."
+    ],
+    "donts": [
+      "Don't usar degradês entre cores da paleta, nem glassmorphism ou backdrop-filter.",
+      "Don't usar germinar-orange como cor de texto de leitura.",
+      "Don't usar o rubro do CAGP como cor de interface (botão, seleção, cursor, scrollbar); ele é selo.",
+      "Don't usar sombras difusas, glows ou elevação em blur.",
+      "Don't redigitar os wordmarks SEMENTE ou CAGP em fonte.",
+      "Don't introduzir modo escuro; o sistema é exclusivamente claro."
+    ]
+  }
+}

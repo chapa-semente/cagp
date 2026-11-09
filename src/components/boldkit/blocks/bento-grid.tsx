@@ -81,7 +81,7 @@ export function BentoGrid({ title, subtitle, items, className }: BentoGridProps)
                     </div>
                   )}
                   {item.badge && (
-                    <span className="px-2.5 py-1 rounded-md bg-[#16181d] text-white font-mono text-xs font-black uppercase tracking-wider border-2 border-[#16181d] shadow-[2px_2px_0_0_#FF8811]">
+                    <span className="px-2.5 py-1 rounded-md bg-[#16181d] text-white font-mono text-xs font-black uppercase tracking-wider border-2 border-[#16181d] shadow-[2px_2px_0_0_#FE8812]">
                       {item.badge}
                     </span>
                   )}
@@ -92,7 +92,7 @@ export function BentoGrid({ title, subtitle, items, className }: BentoGridProps)
                     {item.title}
                   </h3>
                   {item.meta && (
-                    <p className="mt-1 font-mono text-xs font-bold text-[#5B2A86] m-0">
+                    <p className="mt-1 font-mono text-xs font-bold text-[#5B2A85] m-0">
                       {item.meta}
                     </p>
                   )}
@@ -126,7 +126,7 @@ export function BentoGrid({ title, subtitle, items, className }: BentoGridProps)
                           href={item.href}
                           target={item.external ? '_blank' : undefined}
                           rel={item.external ? 'noopener noreferrer' : undefined}
-                          className="min-h-[44px] min-w-[44px] flex-1 px-3.5 py-2 rounded-xl bg-[#5B2A86] hover:bg-[#461e69] text-white font-head text-xs font-black uppercase tracking-wider border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] inline-flex items-center justify-center gap-1.5 no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5"
+                          className="min-h-[48px] min-w-[48px] flex-1 px-3.5 py-2 rounded-xl bg-[#5B2A85] hover:bg-[#461e69] text-white font-head text-xs font-black uppercase tracking-wider border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] inline-flex items-center justify-center gap-1.5 no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5"
                         >
                           <span>{item.ctaLabel || 'Acessar Núcleo'}</span>
                           <i className={`bi ${item.external ? 'bi-box-arrow-up-right' : 'bi-arrow-right'} text-xs`} aria-hidden="true" />
@@ -135,7 +135,7 @@ export function BentoGrid({ title, subtitle, items, className }: BentoGridProps)
                       {item.secondaryHref && (
                         <a
                           href={item.secondaryHref}
-                          className="min-h-[44px] min-w-[44px] px-3 py-2 rounded-xl bg-[#FFFDF9] hover:bg-[#FF8811] text-[#16181d] font-mono text-xs font-black uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] inline-flex items-center justify-center gap-1 no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5"
+                          className="min-h-[48px] min-w-[48px] px-3 py-2 rounded-xl bg-[#FFFDF9] hover:bg-[#FE8812] text-[#16181d] font-mono text-xs font-black uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] inline-flex items-center justify-center gap-1 no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5"
                         >
                           <span>{item.secondaryLabel || '90h AAC'}</span>
                         </a>
