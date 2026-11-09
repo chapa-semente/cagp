@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { BottomSheet } from './BottomSheet';
 import { PassportCard } from '@/components/features/passport/PassportCard';
 import { TalentBankEditor } from '@/components/features/passport/TalentBankEditor';
-import { LoginForm, OTPVerificationForm } from '@/components/boldkit/blocks/auth-forms';
 import {
   getVaultItem,
   setVaultItem,
@@ -18,8 +17,7 @@ interface PassportSheetProps {
 }
 
 export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose }) => {
-  const [activeTab, setActiveTab] = useState<'passport' | 'talent' | 'auth'>('passport');
-  const [authStep, setAuthStep] = useState<'login' | 'otp'>('login');
+  const [activeTab, setActiveTab] = useState<'passport' | 'talent'>('passport');
   const [userRole, setUserRole] = useState<UserRole>('calouro');
   const [profile, setProfile] = useState<VaultData<'cagp_student_profile_v1'>>({
     name: 'Estudante de Gestão Pública',
@@ -88,11 +86,11 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
     >
       <div className="space-y-4 text-foreground">
         {/* Controle Segmentado Interno: [Passaporte] [Banco de Talentos] */}
-        <div className="flex items-center gap-1 bg-white p-1 rounded-xl border-3 border-border shadow-xs">
+        <div className="grid grid-cols-2 gap-1.5 bg-white p-1 rounded-xl border-3 border-border shadow-xs">
           <button
             type="button"
             onClick={() => setActiveTab('passport')}
-            className={`flex-1 min-h-[44px] py-2 px-3 rounded-lg text-xs font-heading uppercase font-extrabold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+            className={`min-h-[44px] py-2 px-3 rounded-lg text-xs font-heading uppercase font-extrabold transition-all cursor-pointer flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 ${
               activeTab === 'passport'
                 ? 'bg-primary text-primary-foreground border-3 border-border shadow-xs'
                 : 'text-muted-foreground hover:text-foreground'
@@ -104,7 +102,7 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
           <button
             type="button"
             onClick={() => setActiveTab('talent')}
-            className={`flex-1 min-h-[44px] py-2 px-3 rounded-lg text-xs font-heading uppercase font-extrabold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+            className={`min-h-[44px] py-2 px-3 rounded-lg text-xs font-heading uppercase font-extrabold transition-all cursor-pointer flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 ${
               activeTab === 'talent'
                 ? 'bg-primary text-primary-foreground border-3 border-border shadow-xs'
                 : 'text-muted-foreground hover:text-foreground'
@@ -112,18 +110,6 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
           >
             <i className="bi bi-briefcase text-sm" aria-hidden="true" />
             <span>Perfil & Talentos</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab('auth')}
-            className={`flex-1 min-h-[44px] py-2 px-3 rounded-lg text-xs font-heading uppercase font-extrabold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
-              activeTab === 'auth'
-                ? 'bg-primary text-primary-foreground border-3 border-border shadow-xs'
-                : 'text-muted-foreground hover:text-foreground'
-            }`}
-          >
-            <i className="bi bi-shield-lock text-sm" aria-hidden="true" />
-            <span>Acesso minhaUFMG</span>
           </button>
         </div>
 
@@ -145,9 +131,9 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
         {activeTab === 'passport' && (
           <div>
             {/* Seletor de Perfil / Momento no Curso */}
-            <div className="p-3.5 bg-white border-3 border-[#16181d] rounded-xl mb-3 shadow-[4px_4px_0_0_#16181d]">
+            <div className="p-3.5 bg-white border-3 border-border rounded-xl mb-3 shadow-md">
               <div className="flex items-center justify-between mb-2">
-                <strong className="font-heading font-black text-xs uppercase text-[#16181d]">
+                <strong className="font-heading font-black text-xs uppercase text-foreground">
                   Momento no Curso (Perfil da Home)
                 </strong>
                 <span className="text-[10px] font-mono text-secondary font-bold">
@@ -169,10 +155,10 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
                           type: 'success',
                         });
                       }}
-                      className={`min-h-[40px] py-2 px-2 rounded-lg text-xs font-heading font-black uppercase transition-all cursor-pointer border-2 border-[#16181d] ${
+                      className={`min-h-[40px] py-2 px-2 rounded-lg text-xs font-heading font-black uppercase transition-all cursor-pointer border-2 border-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed ${
                         active
-                          ? 'bg-secondary text-white shadow-[2px_2px_0_0_#16181d]'
-                          : 'bg-white text-[#16181d] hover:bg-[#f4f0ea]'
+                          ? 'bg-secondary text-white shadow-sm'
+                          : 'bg-white text-foreground hover:bg-muted'
                       }`}
                     >
                       {USER_ROLE_META[r].shortLabel}
@@ -194,9 +180,9 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
             />
 
             {/* Atalho para Configurações do Super App (BUG-12 in-place fix) */}
-            <div className="p-3.5 bg-white border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] rounded-xl flex items-center justify-between gap-2 mb-3">
+            <div className="p-3.5 bg-white border-3 border-border shadow-md rounded-xl flex items-center justify-between gap-2 mb-3">
               <div>
-                <strong className="block font-heading font-black text-xs uppercase text-[#16181d]">
+                <strong className="block font-heading font-black text-xs uppercase text-foreground">
                   <i className="bi bi-gear-fill text-secondary mr-1" aria-hidden="true" />
                   Configurações do Super App
                 </strong>
@@ -210,15 +196,15 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
                   onClose();
                   window.dispatchEvent(new CustomEvent('cagp:open-settings'));
                 }}
-                className="cagp-btn-secondary text-xs py-1.5 px-3 cursor-pointer min-h-[40px]"
+                className="cagp-btn-secondary text-xs py-1.5 px-3 cursor-pointer min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed"
               >
                 Abrir &rarr;
               </button>
             </div>
 
             {/* Backup & Restauração Rápida */}
-            <div className="bg-[#f4f0ea] p-3.5 rounded-xl border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] space-y-2">
-              <span className="font-heading font-black text-xs uppercase text-[#16181d] block">
+            <div className="bg-muted p-3.5 rounded-xl border-3 border-border shadow-md space-y-2">
+              <span className="font-heading font-black text-xs uppercase text-foreground block">
                 Cofre Discente Offline (Meu CAGP Sync)
               </span>
               <p className="text-[11px] text-gray-700 font-medium">
@@ -228,7 +214,7 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
                 <button
                   type="button"
                   onClick={handleExport}
-                  className="min-h-[44px] cagp-btn-secondary text-xs py-1.5 px-3 flex-1 cursor-pointer"
+                  className="min-h-[44px] cagp-btn-secondary text-xs py-1.5 px-3 flex-1 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed"
                 >
                   <i className="bi bi-clipboard-check" aria-hidden="true" />
                   <span>Copiar Token CAGP1</span>
@@ -242,12 +228,12 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
                   placeholder="Cole o token CAGP1:... para restaurar"
                   value={backupInput}
                   onChange={(e) => setBackupInput(e.target.value)}
-                  className="w-full bg-white border-2 border-[#16181d] p-2.5 text-xs font-mono rounded-lg focus:border-secondary focus:outline-none"
+                  className="w-full bg-white border-2 border-border p-2.5 text-xs font-mono rounded-lg focus:border-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary disabled:opacity-50 disabled:cursor-not-allowed"
                 />
                 <button
                   type="button"
                   onClick={handleImport}
-                  className="min-h-[44px] cagp-btn-primary w-full mt-2 text-xs py-2 justify-center cursor-pointer"
+                  className="min-h-[44px] cagp-btn-primary w-full mt-2 text-xs py-2 justify-center cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed"
                 >
                   Restaurar do Token
                 </button>
@@ -263,43 +249,6 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
             onChange={(updated) => setProfile(updated)}
             onSave={handleSaveProfile}
           />
-        )}
-
-        {/* Aba 3: Validação de Acesso & Credencial UFMG */}
-        {activeTab === 'auth' && (
-          <div className="space-y-4">
-            {authStep === 'login' ? (
-              <LoginForm
-                title="Acesso Institucional minhaUFMG"
-                description="Simulação de login federado para autenticação de histórico e notas acadêmicas."
-                onSubmit={(data) => {
-                  setToastMsg({
-                    text: `Credencial recebida para ${data.email}. Digite o código OTP enviado.`,
-                    type: 'success',
-                  });
-                  setAuthStep('otp');
-                }}
-                className="border-3 border-border bg-card shadow-md"
-              />
-            ) : (
-              <OTPVerificationForm
-                title="Verificação em Duas Etapas"
-                description="Insira o código de 6 dígitos gerado pelo seu aplicativo autenticador UFMG."
-                email="discente@ufmg.br"
-                length={6}
-                onSubmit={(code) => {
-                  setToastMsg({
-                    text: `Código ${code} validado com sucesso! Credencial autenticada no cofre local.`,
-                    type: 'success',
-                  });
-                  setAuthStep('login');
-                  setActiveTab('passport');
-                }}
-                onBackToLogin={() => setAuthStep('login')}
-                className="border-3 border-border bg-card shadow-md"
-              />
-            )}
-          </div>
         )}
       </div>
     </BottomSheet>

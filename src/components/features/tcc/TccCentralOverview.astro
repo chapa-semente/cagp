@@ -7,25 +7,25 @@ import CagpIcon from '@/components/ui/CagpIcon.astro';
 import { asset } from '@/lib/paths';
 ---
 
-<div class="cagp-tcc-central-overview space-y-6 select-none text-foreground">
+<div class="cagp-tcc-central-overview space-y-6 select-none text-foreground font-sans">
   {/* Apresentação da Central de TCC */}
   <div class="p-5 sm:p-6 bg-white border-3 border-border rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-md">
     <div class="flex items-start gap-3.5">
-      <span class="w-12 h-12 rounded-xl bg-secondary text-white flex items-center justify-center shrink-0 mt-0.5 border-3 border-border shadow-sm">
+      <span class="w-12 h-12 rounded-xl bg-secondary text-white flex items-center justify-center shrink-0 mt-0.5 border-3 border-border shadow-xs">
         <CagpIcon name="thesis" class="w-6 h-6" />
       </span>
       <div>
         <div class="flex items-center gap-2">
-          <span class="text-xs font-head uppercase font-bold tracking-wider text-secondary">
+          <span class="text-xs font-heading uppercase font-bold tracking-wider text-secondary">
             Trabalho de Conclusão de Curso
           </span>
           <span class="text-foreground">•</span>
           <span class="text-xs text-foreground font-mono font-bold">180 horas regimentais</span>
         </div>
-        <h2 class="font-head text-lg sm:text-xl font-black uppercase text-foreground leading-tight m-0 tracking-wide">
+        <h2 class="font-heading text-lg sm:text-xl font-black uppercase text-foreground leading-tight m-0 tracking-wide">
           As 4 Modalidades do Art. 19, Cronograma 9º/10ºP e Termo de Aceite
         </h2>
-        <p class="font-body text-xs text-gray-700 mt-1 max-w-3xl leading-relaxed m-0 font-medium">
+        <p class="font-sans text-xs text-muted-foreground mt-1 max-w-3xl leading-relaxed m-0 font-medium">
           Planeje sua formatura no curso noturno: escolha sua modalidade de TCC, formalize a orientação com o docente do DCP e confira o rito de banca examinadora.
         </p>
       </div>
@@ -40,16 +40,17 @@ import { asset } from '@/lib/paths';
   </div>
 
   {/* Banner Informativo sobre o Termo de Aceite */}
-  <div class="p-5 bg-white border-3 border-border rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow">
+  <div id="termo-aceite-banner" class="cagp-anchor-target scroll-mt-24"></div>
+  <div class="p-5 bg-white border-3 border-border rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
     <div class="flex items-center gap-3.5">
-      <span class="w-11 h-11 rounded-xl bg-foreground text-background text-white flex items-center justify-center shrink-0 border-3 border-border shadow-sm">
+      <span class="w-11 h-11 rounded-xl bg-foreground text-background text-white flex items-center justify-center shrink-0 border-3 border-border shadow-xs">
         <CagpIcon name="file-text" class="w-5 h-5 text-white" />
       </span>
       <div>
-        <h3 class="font-head text-sm uppercase font-bold text-foreground leading-tight m-0 tracking-wide">
+        <h3 class="font-heading text-sm uppercase font-black text-foreground leading-tight m-0 tracking-wide">
           Termo de Aceite de Orientação (PDF Oficial)
         </h3>
-        <p class="font-body text-xs text-gray-700 mt-0.5 m-0 font-medium">
+        <p class="font-sans text-xs text-muted-foreground mt-0.5 m-0 font-medium">
           Exigência regimental para efetivar a matrícula em DCP 089 (Projeto de TCC).
         </p>
       </div>
@@ -59,14 +60,14 @@ import { asset } from '@/lib/paths';
       <a
         href={asset('/documentos/termo-aceite-orientador-tcc.pdf')}
         download
-        class="min-h-[44px] flex-1 sm:flex-none px-4 py-2 bg-secondary hover:bg-[#6D1723] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl text-xs font-head uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-3 border-border shadow"
+        class="min-h-[44px] flex-1 sm:flex-none px-4 py-2 bg-secondary hover:bg-[#6D1723] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl text-xs font-heading uppercase font-black tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-3 border-border shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
       >
         <CagpIcon name="download" class="w-4 h-4" />
         <span>Baixar Termo (PDF)</span>
       </a>
       <a
-        href="#termo-aceite"
-        class="min-h-[44px] px-3.5 py-2 bg-white hover:bg-background active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-foreground border-3 border-border shadow rounded-xl text-xs font-head uppercase font-bold flex items-center justify-center transition-all no-underline"
+        href="#modalidades"
+        class="min-h-[44px] px-3.5 py-2 bg-white hover:bg-background active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-foreground border-3 border-border shadow-xs rounded-xl text-xs font-heading uppercase font-black flex items-center justify-center transition-all no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
       >
         <span>Ver Regras</span>
       </a>

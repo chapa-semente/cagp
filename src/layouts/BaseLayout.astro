@@ -1,7 +1,6 @@
 ---
 // BaseLayout.astro - Casca Global Astro 7 (Proposta A: App Shell + Sidebar Responsiva & View Transitions)
 import { ClientRouter } from 'astro:transitions';
-import CampaignBanner from '../components/shell/CampaignBanner.astro';
 import { AppShellSidebarIsland } from '../components/shell/AppShellSidebarIsland';
 import SuperAppHeader from '../components/shell/SuperAppHeader.astro';
 import PageFooter from '../components/shell/PageFooter.astro';
@@ -34,7 +33,7 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
-  mode?: 'persuade' | 'operate' | 'read';
+  mode?: 'persuade' | 'operate' | 'read' | 'experience';
   activePage?: string;
   activeGroup?: string;
 }
@@ -141,9 +140,6 @@ const {
       <AppShellSidebarIsland client:load initialPath={Astro.url.pathname} />
 
       <div class="flex-1 flex flex-col min-w-0 transition-all duration-250 ease-out">
-        <!-- Faixa Permanente de Campanha & Transparência -->
-        <CampaignBanner />
-
         <!-- Topbar Contextual para Sub-rotas -->
         <SuperAppHeader />
 

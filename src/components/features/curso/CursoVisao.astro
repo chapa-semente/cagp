@@ -43,48 +43,48 @@ import { CursoCandangosAndTimeline } from './CursoCandangosAndTimeline';
   <!-- História dos Candangos de 1959, Linha do Tempo Animada & Carreiras Comparativas -->
   <CursoCandangosAndTimeline client:visible />
 
-  <!-- Missão & Lotação -->
-  <div class="cagp-tool-box p-5 bg-white border-3 border-border rounded-xl shadow-md space-y-4">
-    <div class="flex items-center gap-2.5 border-b-2 border-border pb-3">
+  <!-- Missão & Lotação (Estrutura Desinchada sem Cards Aninhados) -->
+  <section class="p-5 sm:p-6 bg-white border-3 border-[#16181d] rounded-2xl shadow-[6px_6px_0_0_#16181d] space-y-4" aria-label="Excelência Acadêmica">
+    <div class="flex items-center gap-2.5 border-b-3 border-[#16181d] pb-3">
       <i class="bi bi-mortarboard-fill text-secondary text-xl" aria-hidden="true"></i>
-      <h3 class="font-head text-base sm:text-lg font-black uppercase text-foreground m-0 tracking-wide">
-        Excelência Acadêmica & Conceito 7 CAPES
+      <h3 class="font-head text-base sm:text-xl font-black uppercase text-[#16181d] m-0 tracking-wide">
+        Excelência Acadêmica &amp; Conceito 7 CAPES
       </h3>
     </div>
-    <p class="text-xs text-gray-700 leading-relaxed font-body font-medium m-0">
+    <p class="text-xs sm:text-sm text-gray-800 leading-relaxed font-body font-medium m-0">
       Sediado na <strong>Faculdade de Filosofia e Ciências Humanas (FAFICH)</strong> e vinculado ao <strong>Departamento de Ciência Política (DCP)</strong> — centro de pesquisa com nota máxima nacional (<strong>Conceito 7 CAPES</strong>) —, o curso alia teoria democrática, análise de políticas públicas e métodos quantitativos.
     </p>
-    <blockquote class="p-4 rounded-xl bg-white border-3 border-border text-xs italic text-gray-800 shadow-sm font-body">
+    <blockquote class="p-4 rounded-xl bg-[#FAF5FF] border-2 border-[#16181d] text-xs sm:text-sm italic text-gray-900 shadow-[2px_2px_0_0_#16181d] font-body">
       "O objetivo geral do curso é formar profissionais críticos e reflexivos para o desempenho competente da função de gestor público, diretamente comprometidos com a efetivação do interesse público e a equidade social."
       <footer class="text-xs text-gray-700 not-italic mt-2 font-bold font-head uppercase tracking-wide">
         — Projeto Pedagógico do Curso (PPC 2020, p. 21)
       </footer>
     </blockquote>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1 text-xs">
-      <div class="cagp-card p-4 bg-white border-3 border-border rounded-xl flex items-start gap-3 shadow-sm">
+      <div class="p-4 bg-[#FFFDF9] border-2 border-[#16181d] rounded-xl flex items-start gap-3 shadow-[2px_2px_0_0_#16181d]">
         <i class="bi bi-moon-stars-fill text-secondary text-xl shrink-0 mt-0.5" aria-hidden="true"></i>
         <div>
-          <span class="font-head font-bold uppercase text-foreground block tracking-wide">Turno Noturno</span>
+          <span class="font-head font-bold uppercase text-[#16181d] block tracking-wide">Turno Noturno</span>
           <span class="text-xs text-gray-700 font-body font-medium">Aulas de 19h00 às 22h30, viabilizando estágio governamental durante o dia.</span>
         </div>
       </div>
-      <div class="cagp-card p-4 bg-white border-3 border-border rounded-xl flex items-start gap-3 shadow-sm">
-        <i class="bi bi-people-fill text-foreground text-xl shrink-0 mt-0.5" aria-hidden="true"></i>
+      <div class="p-4 bg-[#FFFDF9] border-2 border-[#16181d] rounded-xl flex items-start gap-3 shadow-[2px_2px_0_0_#16181d]">
+        <i class="bi bi-people-fill text-[#16181d] text-xl shrink-0 mt-0.5" aria-hidden="true"></i>
         <div>
-          <span class="font-head font-bold uppercase text-foreground block tracking-wide">Corpo Discente Ativo</span>
+          <span class="font-head font-bold uppercase text-[#16181d] block tracking-wide">Corpo Discente Ativo</span>
           <span class="text-xs text-gray-700 font-body font-medium">426 estudantes ativos: 356 na versão vigente N-20229 e 70 na transição N-20152.</span>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- Cientometria do Campo de Públicas -->
-  <div class="cagp-tool-box p-5 bg-white border-3 border-border rounded-xl shadow-md space-y-4">
-    <div class="border-b-2 border-border pb-3 flex items-center justify-between flex-wrap gap-2">
+  <section class="p-5 sm:p-6 bg-white border-3 border-[#16181d] rounded-2xl shadow-[6px_6px_0_0_#16181d] space-y-4" aria-label="Cientometria do Campo de Públicas">
+    <div class="border-b-3 border-[#16181d] pb-3 flex items-center justify-between flex-wrap gap-2">
       <div>
         <div class="flex items-center gap-2">
           <i class="bi bi-pie-chart-fill text-secondary text-lg" aria-hidden="true"></i>
-          <h3 class="font-head text-base sm:text-lg font-black uppercase text-foreground m-0 tracking-wide">
+          <h3 class="font-head text-base sm:text-xl font-black uppercase text-[#16181d] m-0 tracking-wide">
             Cientometria do Campo de Públicas
           </h3>
         </div>
@@ -106,10 +106,10 @@ import { CursoCandangosAndTimeline } from './CursoCandangosAndTimeline';
           </span>
         </div>
         <div class="flex flex-wrap gap-1.5 mb-2.5">
-          <span class="cagp-badge cagp-badge-dark font-mono text-[10px]">UFMG</span>
-          <span class="cagp-badge font-mono text-[10px]">USP Leste</span>
-          <span class="cagp-badge font-mono text-[10px]">UFABC</span>
-          <span class="cagp-badge font-mono text-[10px]">UFRN</span>
+          <span class="cagp-badge cagp-badge-dark font-mono text-xs">UFMG</span>
+          <span class="cagp-badge font-mono text-xs">USP Leste</span>
+          <span class="cagp-badge font-mono text-xs">UFABC</span>
+          <span class="cagp-badge font-mono text-xs">UFRN</span>
         </div>
         <ul class="list-disc pl-4 space-y-1 text-gray-800 text-xs font-body font-medium">
           <li>Foco no <strong>ciclo completo de políticas</strong>: formulação, implementação e avaliação.</li>
@@ -126,10 +126,10 @@ import { CursoCandangosAndTimeline } from './CursoCandangosAndTimeline';
           </span>
         </div>
         <div class="flex flex-wrap gap-1.5 mb-2.5">
-          <span class="cagp-badge font-mono text-[10px]">FJP</span>
-          <span class="cagp-badge font-mono text-[10px]">UFLA</span>
-          <span class="cagp-badge font-mono text-[10px]">UDESC</span>
-          <span class="cagp-badge font-mono text-[10px]">UNIFAL</span>
+          <span class="cagp-badge font-mono text-xs">FJP</span>
+          <span class="cagp-badge font-mono text-xs">UFLA</span>
+          <span class="cagp-badge font-mono text-xs">UDESC</span>
+          <span class="cagp-badge font-mono text-xs">UNIFAL</span>
         </div>
         <ul class="list-disc pl-4 space-y-1 text-gray-700 text-xs font-body font-medium">
           <li>Foco em rotinas administrativas internas e logística de compras públicas.</li>
@@ -138,5 +138,5 @@ import { CursoCandangosAndTimeline } from './CursoCandangosAndTimeline';
         </ul>
       </div>
     </div>
-  </div>
+  </section>
 </div>

@@ -54,14 +54,14 @@ export const A11ySheet: React.FC<A11ySheetProps> = ({ isOpen, onClose, initialTa
       <BottomSheet id="cagp-a11y-sheet" isOpen={isOpen} onClose={onClose} title={title} initialDetent="medium">
         <div className="space-y-4">
           {/* Segmented Control Unificado: Acessibilidade vs Configurações */}
-          <div className="grid grid-cols-2 gap-1 p-1 bg-background rounded-xl border border-muted">
+          <div className="grid grid-cols-2 gap-1.5 p-1 bg-muted/60 rounded-xl border-2 border-border">
             <button
               type="button"
               onClick={() => setActiveTab('a11y')}
-              className={`py-2 px-3 text-xs font-['Oswald'] uppercase font-bold rounded-lg transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+              className={`min-h-[44px] py-2 px-3 text-xs font-heading font-extrabold uppercase rounded-lg transition-all cursor-pointer flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 ${
                 activeTab === 'a11y'
-                  ? 'bg-secondary text-white border border-border shadow-[2px_2px_0px_#0A0A0A]'
-                  : 'text-gray-700 hover:text-foreground'
+                  ? 'bg-secondary text-white border-2 border-border shadow-xs'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-background/80'
               }`}
             >
               <i className="bi bi-universal-access"></i> Acessibilidade
@@ -69,10 +69,10 @@ export const A11ySheet: React.FC<A11ySheetProps> = ({ isOpen, onClose, initialTa
             <button
               type="button"
               onClick={() => setActiveTab('settings')}
-              className={`py-2 px-3 text-xs font-['Oswald'] uppercase font-bold rounded-lg transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+              className={`min-h-[44px] py-2 px-3 text-xs font-heading font-extrabold uppercase rounded-lg transition-all cursor-pointer flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 ${
                 activeTab === 'settings'
-                  ? 'bg-secondary text-white border border-border shadow-[2px_2px_0px_#0A0A0A]'
-                  : 'text-gray-700 hover:text-foreground'
+                  ? 'bg-secondary text-white border-2 border-border shadow-xs'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-background/80'
               }`}
             >
               <i className="bi bi-gear-fill"></i> Configurações

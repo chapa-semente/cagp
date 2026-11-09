@@ -36,7 +36,7 @@ export const OverviewCalouroWidget: React.FC = () => {
               <h3 className="font-head font-bold text-sm uppercase text-foreground leading-tight m-0 tracking-wide">
                 Guia do Calouro
               </h3>
-              <span className="text-[11px] text-gray-700 font-mono font-medium">Primeiros 30 Dias na FAFICH</span>
+              <span className="text-xs text-gray-700 font-mono font-medium">Primeiros 30 Dias na FAFICH</span>
             </div>
           </div>
           <span className="px-2 py-0.5 rounded-md font-head text-xs font-bold bg-info text-white border border-border shadow-xs">

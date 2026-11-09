@@ -49,17 +49,17 @@ export const HomeCalouroGuide: React.FC<Props> = ({ checklist, toggleStep }) => 
   return (
     <section
       aria-labelledby="heading-role-calouro"
-      className="bg-white rounded-xl border-[3px] border-border p-5 sm:p-6 shadow-md space-y-4 font-sans"
+      className="bg-white rounded-xl border-3 border-border p-5 sm:p-6 shadow-md space-y-4 font-sans"
     >
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h2
             id="heading-role-calouro"
-            className="font-heading text-base sm:text-lg font-extrabold uppercase text-foreground m-0"
+            className="font-heading text-base sm:text-lg font-extrabold uppercase tracking-wide text-foreground m-0"
           >
             Primeiros 30 Dias na FAFICH • Dossiê de Ingresso
           </h2>
-          <p className="text-xs text-muted-foreground font-medium mt-1 m-0">
+          <p className="text-xs text-muted-foreground font-medium mt-1 m-0 max-w-prose">
             Marque cada visto concluído. Seu progresso fica salvo neste dispositivo, sem login.
           </p>
         </div>
@@ -67,7 +67,7 @@ export const HomeCalouroGuide: React.FC<Props> = ({ checklist, toggleStep }) => 
         {/* Carimbo Neobrutalista que reage ao progresso */}
         <span
           key={`calouro-stamp-${doneCount}`}
-          className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-lg border-2 border-black font-heading font-extrabold text-xs uppercase shadow-sm ${
+          className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-lg border-2 border-border font-heading font-extrabold text-xs uppercase tracking-wide shadow-sm ${
             allDone
               ? 'bg-success/20 text-success'
               : doneCount > 0
@@ -112,8 +112,8 @@ export const HomeCalouroGuide: React.FC<Props> = ({ checklist, toggleStep }) => 
               aria-pressed={checked}
               whileHover={{ y: -2, x: -1 }}
               whileTap={{ y: 2, x: 2 }}
-              transition={{ type: 'spring', stiffness: 450, damping: 28 }}
-              className={`p-3.5 rounded-xl border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] text-left cursor-pointer flex flex-col justify-between min-h-[96px] ${
+              transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+              className={`p-3.5 rounded-xl border-3 border-border shadow text-left cursor-pointer flex flex-col justify-between min-h-[96px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed ${
                 checked
                   ? 'bg-success/20 text-foreground'
                   : 'bg-white hover:bg-muted text-foreground'
@@ -121,7 +121,7 @@ export const HomeCalouroGuide: React.FC<Props> = ({ checklist, toggleStep }) => 
             >
               <div className="flex items-start gap-2.5 mb-2">
                 <span
-                  className={`w-6 h-6 rounded-md flex items-center justify-center shrink-0 mt-0.5 border-2 border-black text-xs font-mono font-bold transition-colors tabular-nums ${
+                  className={`w-6 h-6 rounded-md flex items-center justify-center shrink-0 mt-0.5 border-2 border-border text-xs font-mono font-bold transition-colors tabular-nums ${
                     checked
                       ? 'bg-success text-white'
                       : 'bg-white text-foreground'
@@ -130,14 +130,14 @@ export const HomeCalouroGuide: React.FC<Props> = ({ checklist, toggleStep }) => 
                   {checked ? <CagpIcon name="check" className="w-3.5 h-3.5" /> : idx + 1}
                 </span>
                 <span
-                  className={`text-xs font-heading font-extrabold block leading-snug ${
+                  className={`text-xs font-heading font-extrabold tracking-tight block leading-snug ${
                     checked ? 'line-through text-success' : 'text-foreground'
                   }`}
                 >
                   {step.title}
                 </span>
               </div>
-              <span className="text-[11px] font-sans font-medium text-muted-foreground block leading-relaxed">
+              <span className="text-xs font-sans font-medium text-muted-foreground block leading-relaxed">
                 {step.detail}
               </span>
             </motion.button>
@@ -149,24 +149,24 @@ export const HomeCalouroGuide: React.FC<Props> = ({ checklist, toggleStep }) => 
       {allDone && (
         <div
           role="status"
-          className="pt-3 border-t-[2.5px] border-border flex flex-wrap items-center justify-between gap-3"
+          className="pt-3 border-t-2 border-border flex flex-wrap items-center justify-between gap-3"
         >
           <div className="flex items-center gap-2.5">
-            <span className="w-9 h-9 rounded-xl bg-success text-white border-2 border-black shadow-xs flex items-center justify-center shrink-0">
+            <span className="w-9 h-9 rounded-xl bg-success text-white border-2 border-border shadow-xs flex items-center justify-center shrink-0">
               <CagpIcon name="check" className="w-5 h-5" />
             </span>
             <div>
-              <strong className="text-xs font-heading font-extrabold text-success uppercase block">
+              <strong className="text-xs font-heading font-extrabold tracking-wide text-success uppercase block">
                 Vistos de Ingresso Concluídos
               </strong>
-              <span className="text-xs text-muted-foreground font-medium">
+              <span className="text-xs text-muted-foreground font-medium max-w-prose">
                 Parabéns! Você concluiu a ambientação. Agora avance para a Matriz Curricular.
               </span>
             </div>
           </div>
           <a
             href={route('/percurso')}
-            className="min-h-[44px] px-4 py-2 rounded-xl bg-secondary hover:bg-secondary text-white text-xs font-heading font-extrabold uppercase border-[2.5px] border-black shadow-sm inline-flex items-center gap-1.5 no-underline transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+            className="min-h-[44px] px-4 py-2 rounded-xl bg-secondary hover:bg-secondary/90 text-white text-xs font-heading font-extrabold uppercase tracking-wide border-2 border-border shadow-sm inline-flex items-center gap-1.5 no-underline transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             <span>Explorar Matriz Curricular</span>
             <span aria-hidden="true">&rarr;</span>

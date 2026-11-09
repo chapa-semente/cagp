@@ -12,8 +12,6 @@ import {
   photoCardHover,
   photoCardTap,
   photoZoomSpring,
-  staggerContainer,
-  staggerItem,
 } from '@/lib/motion';
 import { AvatarRenderer } from '@/components/features/passport/AvatarRenderer';
 import { TALENT_CATEGORIES } from '@/components/features/passport/talentConstants';
@@ -174,34 +172,34 @@ export const HomeWorkspaceA: React.FC = () => {
   return (
     <div className="space-y-6 pb-8 font-sans">
       {/* 1. MARQUEE NEOBRUTALISTA DE AVISOS EM TEMPO REAL (Rolagem Contínua Ativa 60fps) */}
-      <Marquee speed="slow" pauseOnHover={true} className="bg-card border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]">
+      <Marquee data-impeccable-ignore="marquee" speed="slow" pauseOnHover={true} className="bg-card border-3 border-border shadow-md">
         <MarqueeItem className="text-xs sm:text-sm">
-          <Badge variant="accent" className="mr-1 bg-accent text-foreground font-bold border-2 border-[#16181d]">PROPOSTA MATERIALIZADA</Badge>
+          <Badge variant="accent" className="mr-1 bg-accent text-foreground font-bold border-2 border-border">PROPOSTA MATERIALIZADA</Badge>
           <span>Este SuperApp já é entrega real da Chapa Semente para a Gestão Pública UFMG</span>
         </MarqueeItem>
         <MarqueeSeparator>✦</MarqueeSeparator>
         <MarqueeItem className="text-xs sm:text-sm">
-          <Badge variant="accent" className="mr-1 bg-accent text-foreground font-bold border-2 border-[#16181d]">ELEIÇÕES 25 E 26/NOV</Badge>
+          <Badge variant="accent" className="mr-1 bg-accent text-foreground font-bold border-2 border-border">ELEIÇÕES 25 E 26/NOV</Badge>
           <span>Votação direta na sala do CAGP (17h às 22h30) • Vote Chapa Semente</span>
         </MarqueeItem>
         <MarqueeSeparator>✦</MarqueeSeparator>
         <MarqueeItem className="text-xs sm:text-sm">
-          <Badge variant="secondary" className="mr-1 bg-primary text-white border-2 border-[#16181d]">CHAPA SEMENTE</Badge>
+          <Badge variant="secondary" className="mr-1 bg-primary text-white border-2 border-border">CHAPA SEMENTE</Badge>
           <span>Potencial que se transforma em ação • 14 Propostas Estruturadas</span>
         </MarqueeItem>
         <MarqueeSeparator>✦</MarqueeSeparator>
         <MarqueeItem className="text-xs sm:text-sm">
-          <Badge variant="default" className="mr-1 border-2 border-[#16181d]">1.045 CURSOS ENAP</Badge>
+          <Badge variant="default" className="mr-1 border-2 border-border">1.045 CURSOS ENAP</Badge>
           <span>Catálogo filtrável com 1 clique p/ abater suas 600h de Extensão &amp; AAC</span>
         </MarqueeItem>
         <MarqueeSeparator>✦</MarqueeSeparator>
         <MarqueeItem className="text-xs sm:text-sm">
-          <Badge variant="accent" className="mr-1 border-2 border-[#16181d]">REGRA 120 DIAS</Badge>
+          <Badge variant="accent" className="mr-1 border-2 border-border">REGRA 120 DIAS</Badge>
           <span>Protocole seus certificados AAC até 120 dias após o evento</span>
         </MarqueeItem>
         <MarqueeSeparator>✦</MarqueeSeparator>
         <MarqueeItem className="text-xs sm:text-sm">
-          <Badge variant="teal" className="mr-1 border-2 border-[#16181d]">ART. 41 ESTÁGIO</Badge>
+          <Badge variant="teal" className="mr-1 border-2 border-border">ART. 41 ESTÁGIO</Badge>
           <span>Servidor ou empregado público tem direito a integralização de estágio</span>
         </MarqueeItem>
         <MarqueeSeparator>✦</MarqueeSeparator>
@@ -246,7 +244,7 @@ export const HomeWorkspaceA: React.FC = () => {
                   variant="outline"
                   size="icon"
                   onClick={openDrawer}
-                  className="md:hidden bg-white/20 text-white hover:bg-white/30 border-3 border-border"
+                  className="md:hidden bg-white/20 text-white hover:bg-white/30 border-3 border-border focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary disabled:opacity-50 disabled:pointer-events-none"
                   title="Abrir Menu Geral"
                   aria-label="Abrir gaveta de navegação"
                 >
@@ -255,10 +253,10 @@ export const HomeWorkspaceA: React.FC = () => {
 
                 <a
                   href={route('/chapa-semente')}
-                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-primary border-3 border-border shadow-xs text-xs font-heading font-black uppercase tracking-wider no-underline hover:bg-card transition-all"
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-primary border-3 border-border shadow-xs text-xs font-heading font-black uppercase tracking-wider no-underline hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary transition-all"
                 >
                   <span>CHAPA SEMENTE</span>
-                  <span className="text-accent">✦ PROPOSTAS</span>
+                  <span className="text-[#9E2424]">✦ PROPOSTAS</span>
                 </a>
 
                 <Sticker variant="default" size="sm" rotation="slight">
@@ -288,6 +286,7 @@ export const HomeWorkspaceA: React.FC = () => {
                   variant="outline"
                   size="icon"
                   onClick={openSpotlight}
+                  className="focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary disabled:opacity-50 disabled:pointer-events-none"
                   title="Buscar no app (⌘K)"
                   aria-label="Buscar edital, disciplina ou sala"
                 >
@@ -299,12 +298,12 @@ export const HomeWorkspaceA: React.FC = () => {
                   variant="outline"
                   size="icon"
                   onClick={openCampus}
-                  className="relative"
+                  className="relative focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary disabled:opacity-50 disabled:pointer-events-none"
                   title="Plantão Noturno • RU II & Circular"
                   aria-label="Abrir status do Campus Agora"
                 >
                   <CagpIcon name="bell" className="w-4 h-4" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-success border border-black absolute top-1.5 right-1.5 animate-pulse" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-success border border-black absolute top-1.5 right-1.5" />
                 </Button>
               </div>
             </div>
@@ -321,7 +320,7 @@ export const HomeWorkspaceA: React.FC = () => {
                 </div>
               )}
               <div className="min-w-0">
-                <h1 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight text-white m-0 leading-tight drop-shadow-[2px_2px_0_#16181d]">
+                <h1 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight text-white m-0 leading-tight drop-shadow-[2px_2px_0_var(--color-border)]">
                   {userRole === 'ingressar'
                     ? 'Gestão Pública • FAFICH / UFMG'
                     : `Olá, ${firstName}!`}
@@ -339,7 +338,7 @@ export const HomeWorkspaceA: React.FC = () => {
               id="cagp-home-spotlight-btn"
               variant="outline"
               onClick={openSpotlight}
-              className="bg-card text-foreground font-heading text-xs px-4 py-2.5 gap-3"
+              className="bg-card text-foreground font-heading text-xs px-4 py-2.5 gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none"
               aria-label="Buscar edital, disciplina ou sala (⌘K)"
             >
               <span className="flex items-center gap-2">
@@ -356,7 +355,7 @@ export const HomeWorkspaceA: React.FC = () => {
               id="cagp-home-passport-btn"
               variant="accent"
               onClick={openPassport}
-              className="xl:hidden text-xs px-4 py-2.5"
+              className="xl:hidden text-xs px-4 py-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none"
             >
               <CagpIcon name="passport" className="w-4 h-4" />
               <span>{userRole === 'ingressar' ? 'Perfil' : 'Passaporte'}</span>
@@ -383,9 +382,9 @@ export const HomeWorkspaceA: React.FC = () => {
                   type="button"
                   onClick={() => handleRoleSwitch(r)}
                   aria-pressed={active}
-                  className={`relative min-h-[44px] px-4 py-1.5 rounded-xl text-xs font-heading font-extrabold uppercase transition-all cursor-pointer shrink-0 border-3 border-[#16181d] inline-flex items-center gap-1.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none ${
+                  className={`relative min-h-[44px] px-4 py-1.5 rounded-xl text-xs font-heading font-extrabold uppercase transition-all cursor-pointer shrink-0 border-3 border-border inline-flex items-center gap-1.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed ${
                     active
-                      ? 'bg-accent text-accent-foreground shadow-[3px_3px_0_0_#16181d] -translate-y-0.5'
+                      ? 'bg-accent text-accent-foreground shadow -translate-y-0.5'
                       : 'bg-black/30 hover:bg-black/45 text-white shadow-none'
                   }`}
                 >
@@ -402,54 +401,25 @@ export const HomeWorkspaceA: React.FC = () => {
             })}
           </div>
 
-          <Badge variant="dark" className="hidden sm:inline-flex font-mono tabular-nums border-2 border-[#16181d]">
+          <Badge variant="dark" className="hidden sm:inline-flex font-mono tabular-nums border-2 border-border">
             {roleMeta.periodHint}
           </Badge>
         </div>
-      </section>
 
-      {/* 2.5 BANNER PROEMINENTE DE ALTO IMPACTO: PROPOSTA MATERIALIZADA DA CHAPA SEMENTE + STICKER GIRATÓRIO */}
-      <section
-        id="cagp-home-banner-semente"
-        aria-label="Proposta Materializada da Chapa Semente e Tour das 9 Lideranças"
-        className="p-5 sm:p-6 rounded-2xl bg-card border-3 border-[#16181d] shadow-[6px_6px_0px_#16181d] relative overflow-hidden flex flex-col lg:flex-row lg:items-center justify-between gap-6"
-      >
-        {/* Faixa lateral decorativa Tri-Layer Semente */}
-        <div
-          className="pointer-events-none absolute inset-y-0 left-0 w-2.5 bg-gradient-to-b from-[#5B2A86] via-[#FF8811] to-[#15803D]"
-          aria-hidden="true"
-        />
-
-        <div className="space-y-3 max-w-2xl pl-2">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="px-3 py-1 rounded-lg bg-primary text-white text-[11px] font-mono font-extrabold uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
-              Proposta Materializada • Chapa Semente 2026
-            </span>
-            <span className="px-3 py-1 rounded-lg bg-accent text-[#16181d] text-[11px] font-mono font-extrabold uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] tabular-nums">
-              Eleições 25 e 26/Nov
-            </span>
-          </div>
-
-          <h2 className="text-xl sm:text-2xl lg:text-3xl font-heading font-black uppercase text-foreground leading-tight m-0 tracking-tight">
-            Este SuperApp é a Proposta da Chapa Semente Materializada para Você
-          </h2>
-
-          <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed m-0 font-medium">
-            Não esperamos a eleição para trabalhar: entregamos hoje a Ouvidoria Digital, o Guia do Noturno, 1.045 cursos ENAP com 1 clique para suas 600h e o Caixa transparente centavo a centavo.
-          </p>
-
-          {/* Grupo de Avatares Ampliados das 9 Lideranças com Zoom Elástico */}
-          <div className="flex flex-wrap items-center gap-3.5 pt-1.5">
-            <div className="flex -space-x-2.5 overflow-visible py-1 pl-1">
-              {CHAPA_LEADERS.slice(0, 7).map((leader) => (
+        {/* Faixa Integrada: Compromisso das 11 Lideranças da Chapa Semente & Tour */}
+        <div className="relative z-10 pt-4 border-t-2 border-white/20 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="flex -space-x-2 sm:-space-x-2.5 overflow-x-auto no-scrollbar py-1.5 pl-1 items-center max-w-full">
+              {CHAPA_LEADERS.map((leader) => (
                 <motion.a
                   key={leader.id}
                   href={route('/chapa-semente')}
                   whileHover={photoCardHover}
                   whileTap={photoCardTap}
                   transition={photoZoomSpring}
-                  className="relative inline-block rounded-full focus:outline-none"
+                  className="relative inline-flex items-center justify-center p-0.5 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary shrink-0 transition-transform hover:z-20"
                   title={`${leader.name} — ${leader.role}`}
+                  aria-label={`${leader.name} — ${leader.role}`}
                 >
                   <LeaderAvatar
                     name={leader.name}
@@ -457,255 +427,195 @@ export const HomeWorkspaceA: React.FC = () => {
                     initials={leader.initials}
                     deptColor={leader.deptColor}
                     size="md"
-                    className="ring-2 ring-white"
+                    className="ring-2 ring-white border-2 border-border shadow-sm"
                   />
                 </motion.a>
               ))}
-              <a
-                href={route('/chapa-semente')}
-                className="w-12 h-12 rounded-full bg-accent text-[#16181d] font-heading font-black text-xs flex items-center justify-center border-3 border-[#16181d] shadow-[2px_2px_0_0_#16181d] ring-2 ring-white no-underline hover:scale-105 transition-transform tabular-nums"
-                title="Ver todas as 9 Lideranças da Chapa Semente"
-              >
-                +2
-              </a>
             </div>
+
             <div className="text-xs">
-              <strong className="font-heading font-black uppercase text-foreground block">
-                9 Lideranças Comprometidas
+              <strong className="font-heading font-extrabold uppercase text-white block leading-tight tracking-wide">
+                {CHAPA_LEADERS.length} Lideranças Comprometidas
               </strong>
-              <span className="font-mono text-[11px] font-bold text-primary">
-                Clique nos retratos ou conheça a chapa completa
+              <span className="font-sans text-xs text-white/80 font-medium max-w-prose block">
+                Proposta da Chapa Semente materializada para a Gestão Pública UFMG
               </span>
             </div>
           </div>
-        </div>
 
-        {/* Coluna Direita do Banner: Sticker Giratório + CTAs Diretos */}
-        <div className="flex flex-col sm:flex-row lg:flex-col items-stretch sm:items-center lg:items-end justify-between gap-3.5 shrink-0 pl-2 lg:pl-0">
-          {/* Sticker Giratório Neobrutalista */}
-          <motion.a
-            href={route('/chapa-semente')}
-            animate={{ rotate: [0, 6, -6, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-            whileHover={{ scale: 1.08, rotate: -8 }}
-            whileTap={{ scale: 0.95 }}
-            className="self-start sm:self-center lg:self-end inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#FEF08A] text-[#16181d] border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] font-heading text-xs font-black uppercase tracking-wider no-underline cursor-pointer"
-          >
-            <motion.span
-              animate={{ rotate: 360 }}
-              transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-              className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-accent border-2 border-[#16181d] text-[11px]"
-              aria-hidden="true"
-            >
-              ✦
-            </motion.span>
-            <span>VOTE CHAPA SEMENTE • 14 PROPOSTAS</span>
-          </motion.a>
-
-          <div className="flex flex-col sm:flex-row lg:flex-col items-stretch sm:items-center lg:items-end gap-2.5 w-full sm:w-auto">
+          <div className="flex items-center gap-2.5 shrink-0">
+            <ChapaSementeTour buttonText="Tour das Lideranças" variant="hero" />
             <a
               href={route('/chapa-semente')}
-              className="min-h-[44px] px-5 py-2.5 rounded-xl bg-accent hover:bg-[#E07406] text-[#16181d] border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_0_#16181d] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none font-heading text-xs sm:text-sm font-black uppercase tracking-wide no-underline inline-flex items-center justify-center gap-2 transition-all"
+              className="min-h-[44px] px-4 py-2 rounded-xl bg-accent hover:bg-accent-hover text-foreground border-3 border-border shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] font-heading text-xs font-black uppercase tracking-wide no-underline inline-flex items-center gap-1.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
             >
-              <span>Conhecer a Chapa Semente</span>
+              <span>14 Propostas</span>
               <span aria-hidden="true">&rarr;</span>
             </a>
-            <ChapaSementeTour buttonText="Iniciar Tour das 9 Lideranças" variant="hero" />
           </div>
         </div>
       </section>
 
-      {/* 2.6 ATALHOS RÁPIDOS DA GESTÃO • OS 5 EIXOS E SOLUÇÕES CENTRAIS (Grid Bento 1 col 320-639px, 2 cols 640-1023px, 3-4 cols 1024px+) */}
+      {/* 3. ATALHOS RÁPIDOS DA GESTÃO • OS 5 EIXOS E SOLUÇÕES CENTRAIS (Container Único / Zero Nested Cards) */}
       <section
         aria-label="Atalhos das Soluções e Ferramentas da Chapa Semente"
-        className="space-y-3"
+        className="space-y-2.5"
       >
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-primary border border-[#16181d]" />
-            <h3 className="text-xs sm:text-sm font-heading font-black uppercase text-foreground m-0 tracking-wide">
-              Ferramentas &amp; Soluções dos 5 Eixos
-            </h3>
-          </div>
-          <span className="text-[11px] font-mono text-muted-foreground font-bold">
-            Acesso Direto
-          </span>
+        <div className="flex items-center gap-2">
+          <span className="w-2.5 h-2.5 rounded-full bg-primary border border-border" />
+          <h2 className="text-xs sm:text-sm font-heading font-black uppercase text-foreground m-0 tracking-wide">
+            Ferramentas &amp; Soluções dos 5 Eixos
+          </h2>
         </div>
 
-        <motion.div
-          variants={staggerContainer(0.04)}
-          initial="hidden"
-          animate="show"
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-3"
-        >
-          <motion.a
-            variants={staggerItem}
+        <div className="rounded-2xl border-3 border-border bg-card shadow-md overflow-hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 divide-y sm:divide-y-0 sm:divide-x divide-border">
+          <a
             id="cagp-shortcut-carreira"
             href={route('/carreira')}
-            className="flex flex-col justify-between p-3.5 rounded-xl bg-card border-3 border-[#16181d] shadow-[4px_4px_0px_#16181d] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#16181d] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline min-h-[84px] group"
+            className="p-3.5 bg-card hover:bg-muted/70 flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[92px]"
           >
             <div className="flex items-center justify-between">
-              <span className="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-xs border-2 border-[#16181d] shadow-xs">
+              <span className="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-xs border-2 border-border shadow-xs">
                 <CagpIcon name="carreira" className="w-4 h-4" />
               </span>
-              <span className="text-[10px] font-mono font-bold text-muted-foreground uppercase">
-                Lívia
-              </span>
+              <CagpIcon name="arrow-up-right" className="w-3.5 h-3.5 text-muted-foreground/60 group-hover:text-primary transition-colors" />
             </div>
-            <div className="pt-2">
-              <span className="font-heading font-extrabold text-xs text-foreground group-hover:text-primary transition-colors block truncate">
+            <div>
+              <span className="font-heading font-black text-xs text-foreground group-hover:text-primary tracking-tight transition-colors block truncate">
                 Hub Carreira
               </span>
-              <span className="text-[11px] text-muted-foreground block truncate">
+              <span className="text-xs font-medium text-muted-foreground block truncate">
                 Como se Formar
               </span>
             </div>
-          </motion.a>
+          </a>
 
-          <motion.a
-            variants={staggerItem}
+          <a
             id="cagp-shortcut-ouvidoria"
             href={route('/ouvidoria')}
-            className="flex flex-col justify-between p-3.5 rounded-xl bg-card border-3 border-[#16181d] shadow-[4px_4px_0px_#16181d] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#16181d] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline min-h-[84px] group"
+            className="p-3.5 bg-card hover:bg-muted/70 flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[92px]"
           >
             <div className="flex items-center justify-between">
-              <span className="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center text-xs border-2 border-[#16181d] shadow-xs">
+              <span className="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center text-xs border-2 border-border shadow-xs">
                 <CagpIcon name="bell" className="w-4 h-4" />
               </span>
-              <span className="text-[10px] font-mono font-bold text-muted-foreground uppercase">
-                Larissa
-              </span>
+              <CagpIcon name="arrow-up-right" className="w-3.5 h-3.5 text-muted-foreground/60 group-hover:text-primary transition-colors" />
             </div>
-            <div className="pt-2">
-              <span className="font-heading font-extrabold text-xs text-foreground group-hover:text-primary transition-colors block truncate">
+            <div>
+              <span className="font-heading font-black text-xs text-foreground group-hover:text-primary tracking-tight transition-colors block truncate">
                 Ouvidoria GP
               </span>
-              <span className="text-[11px] text-muted-foreground block truncate">
+              <span className="text-xs font-medium text-muted-foreground block truncate">
                 Escuta &amp; Ementas
               </span>
             </div>
-          </motion.a>
+          </a>
 
-          <motion.a
-            variants={staggerItem}
+          <a
             id="cagp-shortcut-pesquisa"
             href={route('/pesquisa')}
-            className="flex flex-col justify-between p-3.5 rounded-xl bg-card border-3 border-[#16181d] shadow-[4px_4px_0px_#16181d] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#16181d] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline min-h-[84px] group"
+            className="p-3.5 bg-card hover:bg-muted/70 flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[92px]"
           >
             <div className="flex items-center justify-between">
-              <span className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center text-xs border-2 border-[#16181d] shadow-xs">
+              <span className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center text-xs border-2 border-border shadow-xs">
                 <CagpIcon name="curso" className="w-4 h-4" />
               </span>
-              <span className="text-[10px] font-mono font-bold text-muted-foreground uppercase">
-                Mariana
-              </span>
+              <CagpIcon name="arrow-up-right" className="w-3.5 h-3.5 text-muted-foreground/60 group-hover:text-primary transition-colors" />
             </div>
-            <div className="pt-2">
-              <span className="font-heading font-extrabold text-xs text-foreground group-hover:text-primary transition-colors block truncate">
+            <div>
+              <span className="font-heading font-black text-xs text-foreground group-hover:text-primary tracking-tight transition-colors block truncate">
                 Pesquisa DCP
               </span>
-              <span className="text-[11px] text-muted-foreground block truncate">
+              <span className="text-xs font-medium text-muted-foreground block truncate">
                 11 Núcleos &amp; PIBIC
               </span>
             </div>
-          </motion.a>
+          </a>
 
-          <motion.a
-            variants={staggerItem}
+          <a
             id="cagp-shortcut-transparencia"
             href={route('/transparencia')}
-            className="flex flex-col justify-between p-3.5 rounded-xl bg-card border-3 border-[#16181d] shadow-[4px_4px_0px_#16181d] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#16181d] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline min-h-[84px] group"
+            className="p-3.5 bg-card hover:bg-muted/70 flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[92px]"
           >
             <div className="flex items-center justify-between">
-              <span className="w-8 h-8 rounded-lg bg-emerald-700 text-white flex items-center justify-center text-xs border-2 border-[#16181d] shadow-xs">
+              <span className="w-8 h-8 rounded-lg bg-emerald-700 text-white flex items-center justify-center text-xs border-2 border-border shadow-xs">
                 <CagpIcon name="file-text" className="w-4 h-4" />
               </span>
-              <span className="text-[10px] font-mono font-bold text-muted-foreground uppercase">
-                Vitória
-              </span>
+              <CagpIcon name="arrow-up-right" className="w-3.5 h-3.5 text-muted-foreground/60 group-hover:text-primary transition-colors" />
             </div>
-            <div className="pt-2">
-              <span className="font-heading font-extrabold text-xs text-foreground group-hover:text-primary transition-colors block truncate">
+            <div>
+              <span className="font-heading font-black text-xs text-foreground group-hover:text-primary tracking-tight transition-colors block truncate">
                 Transparência
               </span>
-              <span className="text-[11px] text-muted-foreground block truncate">
+              <span className="text-xs font-medium text-muted-foreground block truncate">
                 Caixa Centavo a Centavo
               </span>
             </div>
-          </motion.a>
+          </a>
 
-          <motion.a
-            variants={staggerItem}
+          <a
             id="cagp-shortcut-cursos"
             href={route('/cursos')}
-            className="flex flex-col justify-between p-3.5 rounded-xl bg-card border-3 border-[#16181d] shadow-[4px_4px_0px_#16181d] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#16181d] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline min-h-[84px] group"
+            className="p-3.5 bg-card hover:bg-muted/70 flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[92px]"
           >
             <div className="flex items-center justify-between">
-              <span className="w-8 h-8 rounded-lg bg-cyan-700 text-white flex items-center justify-center text-xs border-2 border-[#16181d] shadow-xs">
+              <span className="w-8 h-8 rounded-lg bg-cyan-700 text-white flex items-center justify-center text-xs border-2 border-border shadow-xs">
                 <CagpIcon name="calculator" className="w-4 h-4" />
               </span>
-              <span className="text-[10px] font-mono font-bold text-muted-foreground uppercase">
-                Ítalo
-              </span>
+              <CagpIcon name="arrow-up-right" className="w-3.5 h-3.5 text-muted-foreground/60 group-hover:text-primary transition-colors" />
             </div>
-            <div className="pt-2">
-              <span className="font-heading font-extrabold text-xs text-foreground group-hover:text-primary transition-colors block truncate">
+            <div>
+              <span className="font-heading font-black text-xs text-foreground group-hover:text-primary tracking-tight transition-colors block truncate">
                 Cursos &amp; ENAP
               </span>
-              <span className="text-[11px] text-muted-foreground block truncate">
+              <span className="text-xs font-medium text-muted-foreground block truncate">
                 1.045 Cursos p/ 600h
               </span>
             </div>
-          </motion.a>
+          </a>
 
-          <motion.a
-            variants={staggerItem}
+          <a
             id="cagp-shortcut-estagio"
-            href={route('/carreira') + '#art41'}
-            className="flex flex-col justify-between p-3.5 rounded-xl bg-card border-3 border-[#16181d] shadow-[4px_4px_0px_#16181d] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#16181d] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline min-h-[84px] group"
+            href={route('/estagio') + '#art41'}
+            className="p-3.5 bg-card hover:bg-muted/70 flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[92px]"
           >
             <div className="flex items-center justify-between">
-              <span className="w-8 h-8 rounded-lg bg-indigo-700 text-white flex items-center justify-center text-xs border-2 border-[#16181d] shadow-xs">
+              <span className="w-8 h-8 rounded-lg bg-indigo-700 text-white flex items-center justify-center text-xs border-2 border-border shadow-xs">
                 <CagpIcon name="shield" className="w-4 h-4" />
               </span>
-              <span className="text-[10px] font-mono font-bold text-muted-foreground uppercase">
-                Lara
-              </span>
+              <CagpIcon name="arrow-up-right" className="w-3.5 h-3.5 text-muted-foreground/60 group-hover:text-primary transition-colors" />
             </div>
-            <div className="pt-2">
-              <span className="font-heading font-extrabold text-xs text-foreground group-hover:text-primary transition-colors block truncate">
+            <div>
+              <span className="font-heading font-black text-xs text-foreground group-hover:text-primary tracking-tight transition-colors block truncate">
                 Guia de Estágio
               </span>
-              <span className="text-[11px] text-muted-foreground block truncate">
+              <span className="text-xs font-medium text-muted-foreground block truncate">
                 TCE &amp; Artigo 41
               </span>
             </div>
-          </motion.a>
+          </a>
 
-          <motion.a
-            variants={staggerItem}
+          <a
             id="cagp-shortcut-permanencia"
             href={route('/permanencia')}
-            className="flex flex-col justify-between p-3.5 rounded-xl bg-card border-3 border-[#16181d] shadow-[4px_4px_0px_#16181d] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#16181d] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline min-h-[84px] group sm:col-span-2 lg:col-span-2 xl:col-span-1"
+            className="p-3.5 bg-card hover:bg-muted/70 flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[92px]"
           >
             <div className="flex items-center justify-between">
-              <span className="w-8 h-8 rounded-lg bg-orange-600 text-white flex items-center justify-center text-xs border-2 border-[#16181d] shadow-xs">
+              <span className="w-8 h-8 rounded-lg bg-orange-600 text-white flex items-center justify-center text-xs border-2 border-border shadow-xs">
                 <CagpIcon name="moon" className="w-4 h-4" />
               </span>
-              <span className="text-[10px] font-mono font-bold text-muted-foreground uppercase">
-                Paloma &amp; Alice
-              </span>
+              <CagpIcon name="arrow-up-right" className="w-3.5 h-3.5 text-muted-foreground/60 group-hover:text-primary transition-colors" />
             </div>
-            <div className="pt-2">
-              <span className="font-heading font-extrabold text-xs text-foreground group-hover:text-primary transition-colors block truncate">
+            <div>
+              <span className="font-heading font-black text-xs text-foreground group-hover:text-primary tracking-tight transition-colors block truncate">
                 Guia do Noturno
               </span>
-              <span className="text-[11px] text-muted-foreground block truncate">
+              <span className="text-xs font-medium text-muted-foreground block truncate">
                 FUMP &amp; Permanência
               </span>
             </div>
-          </motion.a>
-        </motion.div>
+          </a>
+        </div>
       </section>
 
       {/* 3. FAIXA DE INDICADORES BOLDKIT STATCARDS (KPIs DISCENTES) */}
@@ -713,9 +623,10 @@ export const HomeWorkspaceA: React.FC = () => {
         <section
           id="cagp-statcard-curriculo"
           aria-label="Indicadores de Integralização PPC 2020"
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 min-w-0"
         >
           <StatCard
+            className="min-w-0"
             title="Integralização Global"
             value={`${globalPct}%`}
             subtitle="3.000 Horas • PPC 2020"
@@ -724,6 +635,7 @@ export const HomeWorkspaceA: React.FC = () => {
             progress={{ value: globalPct, label: 'Meta Curricular' }}
           />
           <StatCard
+            className="min-w-0"
             title="Matérias Obrigatórias"
             value={`${obrigCount}/27`}
             subtitle={`Percurso ${profile.pathway || '01-01'}`}
@@ -732,6 +644,7 @@ export const HomeWorkspaceA: React.FC = () => {
             progress={{ value: obrigPct, label: 'Grade Obrigatória' }}
           />
           <StatCard
+            className="min-w-0"
             title="Extensão & AAC (600h)"
             value={`${extHours}h`}
             subtitle={`Faltam ${Math.max(0, 600 - extHours)}h p/ meta`}
@@ -740,6 +653,7 @@ export const HomeWorkspaceA: React.FC = () => {
             progress={{ value: extPct, label: 'Teto 600 Horas' }}
           />
           <StatCard
+            className="min-w-0"
             title="Marco Candango"
             value={candangoMilestone}
             subtitle={`${certs.length} certificado(s) no cofre 120d`}
@@ -812,7 +726,7 @@ export const HomeWorkspaceA: React.FC = () => {
           {userRole !== 'ingressar' ? (
             <div className="hidden xl:block pb-2 pr-2">
               <LayeredCard layers="single" offset="sm" layerColor="secondary" className="rounded-xl">
-                <div className="p-5 space-y-4 rounded-xl bg-card">
+                <div className="p-5 space-y-4">
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex items-center gap-3 min-w-0">
                       <AvatarRenderer
@@ -823,7 +737,7 @@ export const HomeWorkspaceA: React.FC = () => {
                         title="Editar foto e Passaporte"
                       />
                       <div className="min-w-0">
-                        <h2 className="text-base font-heading font-extrabold text-foreground m-0 truncate uppercase">
+                        <h2 className="text-base font-heading font-extrabold text-foreground m-0 truncate uppercase tracking-wide">
                           {profile.name}
                         </h2>
                         <p className="text-xs text-muted-foreground font-semibold m-0 mt-0.5 tabular-nums">
@@ -833,8 +747,8 @@ export const HomeWorkspaceA: React.FC = () => {
                     </div>
 
                     <div className="w-12 h-12 rounded-xl bg-primary text-white border-3 border-border shadow-sm flex flex-col items-center justify-center shrink-0 tabular-nums">
-                      <span className="text-xs font-heading font-extrabold">{globalPct}%</span>
-                      <span className="text-[11px] font-mono">3.000h</span>
+                      <span className="text-xs font-heading font-extrabold tabular-nums">{globalPct}%</span>
+                      <span className="text-xs font-mono font-bold tabular-nums">3.000h</span>
                     </div>
                   </div>
 
@@ -862,7 +776,7 @@ export const HomeWorkspaceA: React.FC = () => {
                     <div>
                       <div className="flex justify-between text-xs font-bold mb-1.5 tabular-nums">
                         <span className="text-foreground">Extensão &amp; AAC (600h)</span>
-                        <span className="font-mono text-[#E07406] font-extrabold">
+                        <span className="font-mono text-[#9A3412] font-extrabold">
                           {extHours}h / 600h ({extPct}%)
                         </span>
                       </div>
@@ -907,12 +821,12 @@ export const HomeWorkspaceA: React.FC = () => {
             <Card className="overflow-hidden">
               <CardHeader className="border-b bg-secondary text-secondary-foreground">
                 <div className="flex items-center justify-between gap-2">
-                  <CardTitle className="text-base">
+                  <CardTitle className="text-base font-heading font-extrabold tracking-tight">
                     Raio-X • Gestão Pública UFMG
                   </CardTitle>
                   <Badge variant="accent">PPC 2020</Badge>
                 </div>
-                <p className="text-xs text-white/90 font-medium m-0 leading-relaxed">
+                <p className="text-xs text-white/90 font-medium m-0 leading-relaxed max-w-prose">
                   Curso sediado na FAFICH (Campus Pampulha) e vinculado ao Departamento de Ciência Política (DCP).
                 </p>
               </CardHeader>

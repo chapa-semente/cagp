@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
 import JourneyNav from '../components/ui/JourneyNav.astro';
 import { FormandoRetaFinalHub } from '../components/features/carreira/FormandoRetaFinalHub';
+import { route } from '@/lib/paths';
 
 const badges = [
   { label: 'Persona Formando (8º–10ºP)', variant: 'purple' as const, icon: 'bi-mortarboard-fill' },
@@ -14,32 +15,55 @@ const badges = [
 ---
 
 <BaseLayout
-  title="Hub Integrador Estágio & TCC (Checklist Reta Final)"
+  title="Hub Integrador Estágio & TCC (Checklist Reta Final) • CAGP FAFICH/UFMG"
   description="Painel visual unificado para a persona Formando em Gestão Pública na UFMG: checklist animado de colação de grau, Estágio 300h, Aproveitamento Servidor (Art. 41) e TCC (180h)."
   mode="operate"
 >
-  <PageHeader
-    axisId="carreira"
-    mode="operate"
-    condensed={true}
-    eyebrow="Eixo 4 · Hub Integrador Reta Final"
-    title="Hub Integrador Estágio & TCC"
-    subtitle="Painel unificado para a persona Formando: acompanhe os 10 marcos obrigatórios de Estágio (300h / Art. 41), TCC (180h) e Colação de Grau salvos no seu navegador."
-    badges={badges}
-  />
+  <div class="space-y-6 max-w-6xl mx-auto font-sans">
+    <!-- Barra Superior Fixa / Breadcrumb (Mobile-First com Retorno Rápido) -->
+    <div
+      id="cagp-reta-final-back-bar"
+      class="sticky top-0 z-30 -mx-3 sm:-mx-6 mb-2 bg-background/95 backdrop-blur-sm border-b-3 border-border px-3 sm:px-6 py-2.5 flex items-center justify-between gap-3 shadow-xs select-none"
+    >
+      <div class="flex items-center gap-2">
+        <a
+          href={route('/carreira')}
+          class="min-h-[44px] px-3.5 py-1.5 rounded-xl bg-card hover:bg-muted border-2 border-border text-xs font-heading font-extrabold uppercase text-foreground no-underline inline-flex items-center gap-2 shadow-xs active:translate-x-0.5 active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 transition-all"
+        >
+          <span aria-hidden="true">&larr;</span>
+          <span>Voltar ao Hub de Carreira</span>
+        </a>
+      </div>
+      <div class="flex items-center gap-2 text-xs font-mono font-bold text-muted-foreground uppercase">
+        <span class="hidden sm:inline">Eixo 4 • Carreira</span>
+        <span class="hidden sm:inline">•</span>
+        <span class="text-primary">Checklist Formando</span>
+      </div>
+    </div>
 
-  <FormandoRetaFinalHub client:load />
+    <PageHeader
+      axisId="carreira"
+      mode="operate"
+      condensed={true}
+      showAxisNav={false}
+      title="Hub Integrador Estágio & TCC"
+      subtitle="Painel unificado para a persona Formando: acompanhe os 10 marcos obrigatórios de Estágio (300h / Art. 41), TCC (180h) e Colação de Grau salvos no seu navegador."
+      badges={badges}
+    />
 
-  <JourneyNav
-    prev={{
-      title: 'Trabalho de Conclusão de Curso (180h)',
-      href: '/tcc',
-      desc: 'Compare Monografia vs Artigo Científico (Art. 19) e veja a linha do tempo de defesa.',
-    }}
-    next={{
-      title: 'Carreira, Vagas & Banco de Talentos GP',
-      href: '/carreira',
-      desc: 'Conecte-se às Propostas 9, 11 e 12 da Chapa Semente, editais de estágio e Banco de Talentos.',
-    }}
-  />
+    <FormandoRetaFinalHub client:load />
+
+    <JourneyNav
+      prev={{
+        title: 'Trabalho de Conclusão de Curso (180h)',
+        href: '/tcc',
+        desc: 'Compare Monografia vs Artigo Científico (Art. 19) e veja a linha do tempo de defesa.',
+      }}
+      next={{
+        title: 'Hub de Carreira, Vagas & Banco de Talentos GP',
+        href: '/carreira',
+        desc: 'Conecte-se às Propostas 9, 11 e 12 da Chapa Semente, editais de estágio e Banco de Talentos.',
+      }}
+    />
+  </div>
 </BaseLayout>

@@ -75,35 +75,35 @@ const comparativoRows = [
 
 <div class="cagp-tcc-modalidades space-y-6 select-none text-foreground">
   {/* Cabeçalho */}
-  <div class="p-5 sm:p-6 bg-white border-3 border-[#16181d] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-[4px_4px_0_0_#16181d]">
+  <div class="p-5 sm:p-6 bg-white border-3 border-border rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
     <div>
-      <span class="text-xs font-head uppercase font-bold tracking-wider text-secondary">
+      <span class="text-xs font-heading uppercase font-bold tracking-wider text-secondary">
         Regulamento do Curso • Artigo 19
       </span>
-      <h3 class="font-head text-lg font-black uppercase text-foreground m-0 tracking-wide">
+      <h3 class="font-heading text-lg font-black uppercase text-foreground m-0 tracking-wide">
         As 4 Modalidades Oficiais de TCC &amp; Comparativo Monografia vs. Artigo
       </h3>
-      <p class="font-body text-xs text-gray-700 mt-0.5 m-0 font-medium">
+      <p class="font-sans text-xs text-foreground/85 mt-0.5 m-0 font-medium">
         Compare lado a lado o formato tradicional de Monografia, o Artigo Científico publicável e o Projeto de Intervenção Governamental.
       </p>
     </div>
-    <span class="px-3 py-1.5 rounded-lg bg-foreground text-white font-mono text-xs font-bold shrink-0 border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+    <span class="px-3 py-1.5 rounded-lg bg-foreground text-background text-white font-mono text-xs font-bold shrink-0 border border-border shadow-xs">
       4 Opções Regimentais
     </span>
   </div>
 
   {/* Tabela Comparativa Padronizada (Monografia vs Artigo Científico vs Intervenção) */}
-  <div class="bg-white border-3 border-[#16181d] rounded-xl shadow-[4px_4px_0_0_#16181d] overflow-hidden">
-    <div class="p-4 sm:p-5 border-b-3 border-[#16181d] bg-[#f4f0ea] flex flex-wrap items-center justify-between gap-2">
+  <div class="bg-white border-3 border-border rounded-xl shadow-md overflow-hidden">
+    <div class="p-4 sm:p-5 border-b-2 border-border bg-[#f4f0ea] flex flex-wrap items-center justify-between gap-2">
       <div>
-        <span class="font-mono text-[10px] font-bold uppercase text-primary block">
+        <span class="font-mono text-xs font-bold uppercase text-primary block">
           MATRIZ COMPARATIVA DE DECISÃO DISCENTE
         </span>
-        <h4 class="font-head text-sm sm:text-base font-black uppercase text-foreground m-0">
+        <h4 class="font-heading text-sm sm:text-base font-black uppercase text-foreground m-0">
           Tabela Comparativa: Monografia Tradicional vs. Artigo Científico vs. Intervenção
         </h4>
       </div>
-      <span class="px-2.5 py-1 rounded-md bg-white border-2 border-[#16181d] font-mono text-[11px] font-bold text-foreground">
+      <span class="px-2.5 py-1 rounded-md bg-white border border-border font-mono text-xs font-bold text-foreground">
         Art. 19 • Mesmo Peso Regimental (180h)
       </span>
     </div>
@@ -111,23 +111,23 @@ const comparativoRows = [
     <div class="overflow-x-auto scroll-mask-x">
       <table class="w-full text-left border-collapse min-w-[680px]">
         <thead>
-          <tr class="border-b-3 border-[#16181d] bg-white">
-            <th class="p-3.5 font-head text-xs font-black uppercase text-foreground border-r-3 border-[#16181d] w-[18%]">
+          <tr class="border-b-2 border-border bg-white">
+            <th class="p-3.5 font-heading text-xs font-black uppercase text-foreground border-r border-border w-[18%]">
               Dimensão
             </th>
-            <th class="p-3.5 font-head text-xs font-black uppercase text-foreground border-r-3 border-[#16181d] w-[27%] bg-muted/30">
+            <th class="p-3.5 font-heading text-xs font-black uppercase text-foreground border-r border-border w-[27%] bg-muted/30">
               <div class="flex items-center gap-1.5">
                 <i class="bi bi-journal-richtext text-secondary" aria-hidden="true"></i>
                 <span>1. Monografia Tradicional</span>
               </div>
             </th>
-            <th class="p-3.5 font-head text-xs font-black uppercase text-[#134E4A] border-r-3 border-[#16181d] w-[28%] bg-[#F0FDF4]">
+            <th class="p-3.5 font-heading text-xs font-black uppercase text-[#134E4A] border-r border-border w-[28%] bg-[#F0FDF4]">
               <div class="flex items-center gap-1.5">
                 <i class="bi bi-file-earmark-text-fill text-[#134E4A]" aria-hidden="true"></i>
                 <span>2. Artigo Científico (Qualis)</span>
               </div>
             </th>
-            <th class="p-3.5 font-head text-xs font-black uppercase text-primary w-[27%]">
+            <th class="p-3.5 font-heading text-xs font-black uppercase text-primary w-[27%]">
               <div class="flex items-center gap-1.5">
                 <i class="bi bi-kanban-fill text-primary" aria-hidden="true"></i>
                 <span>3. Projeto de Intervenção</span>
@@ -135,16 +135,16 @@ const comparativoRows = [
             </th>
           </tr>
         </thead>
-        <tbody class="divide-y-2 divide-[#16181d] text-xs font-body">
+        <tbody class="divide-y divide-border text-xs font-sans">
           {comparativoRows.map((row) => (
             <tr class="hover:bg-muted/20 transition-colors">
-              <td class="p-3.5 font-head font-extrabold uppercase text-foreground border-r-3 border-[#16181d] bg-[#f4f0ea]/60">
+              <td class="p-3.5 font-heading font-extrabold uppercase text-foreground border-r border-border bg-[#f4f0ea]/60">
                 {row.criterio}
               </td>
-              <td class="p-3.5 text-foreground font-medium leading-relaxed border-r-3 border-[#16181d]">
+              <td class="p-3.5 text-foreground font-medium leading-relaxed border-r border-border">
                 {row.monografia}
               </td>
-              <td class="p-3.5 text-foreground font-medium leading-relaxed border-r-3 border-[#16181d] bg-[#F0FDF4]/60">
+              <td class="p-3.5 text-foreground font-medium leading-relaxed border-r border-border bg-[#F0FDF4]/60">
                 {row.artigo}
               </td>
               <td class="p-3.5 text-foreground font-medium leading-relaxed">
@@ -157,42 +157,43 @@ const comparativoRows = [
     </div>
   </div>
 
-  {/* Grid das 4 Modalidades */}
+  {/* Grid das 4 Modalidades — Contêineres Aplanados Sem Cards Aninhados */}
   <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
     {modalidades.map((m) => (
-      <div class="cagp-card p-5 bg-white border-3 border-[#16181d] rounded-xl flex flex-col justify-between shadow-[4px_4px_0_0_#16181d] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0_0_#16181d] transition-all">
+      <div class="cagp-card p-5 bg-white border-2 border-border/80 rounded-xl flex flex-col justify-between shadow-xs hover:shadow-sm hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all">
         <div>
           <div class="flex items-center justify-between gap-2 mb-3">
             <div class="flex items-center gap-2.5">
-              <span class="w-9 h-9 rounded-lg bg-secondary text-white flex items-center justify-center text-sm border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+              <span class="w-9 h-9 rounded-lg bg-secondary text-white flex items-center justify-center text-sm border border-border shadow-xs">
                 <i class={`bi ${m.icon}`} aria-hidden="true" />
               </span>
               <span class="font-mono text-xs font-bold text-foreground">Modalidade 0{m.num}</span>
             </div>
-            <span class={`px-2.5 py-1 rounded-md text-[11px] font-head uppercase font-bold border-2 border-[#16181d] shadow-xs ${m.badgeColor}`}>
+            <span class={`px-2.5 py-1 rounded-md text-xs font-heading uppercase font-bold border border-border shadow-2xs ${m.badgeColor}`}>
               {m.badge}
             </span>
           </div>
 
-          <h4 class="font-head text-base font-bold uppercase text-foreground leading-snug mb-3 m-0 tracking-wide">
+          <h4 class="font-heading text-base font-bold uppercase text-foreground leading-snug mb-3 m-0 tracking-wide">
             {m.nome}
           </h4>
 
-          <div class="space-y-2.5 text-xs text-gray-700 font-body">
+          <div class="space-y-2.5 text-xs text-foreground/85 font-sans">
             <div>
-              <strong class="text-foreground font-head uppercase tracking-wider text-[11px] block">Foco Analítico:</strong>
-              <span class="text-gray-700 font-medium">{m.foco}</span>
+              <strong class="text-foreground font-heading uppercase tracking-wider text-xs block">Foco Analítico:</strong>
+              <span class="text-foreground/85 font-medium">{m.foco}</span>
             </div>
             <div>
-              <strong class="text-foreground font-head uppercase tracking-wider text-[11px] block">Estrutura Esperada:</strong>
-              <span class="text-gray-700 font-medium">{m.estrutura}</span>
+              <strong class="text-foreground font-heading uppercase tracking-wider text-xs block">Estrutura Esperada:</strong>
+              <span class="text-foreground/85 font-medium">{m.estrutura}</span>
             </div>
           </div>
         </div>
 
-        <div class="pt-3 mt-4 text-xs bg-[#f4f0ea] p-3.5 rounded-xl border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d]">
-          <strong class="text-secondary font-head uppercase tracking-wider text-[11px] block mb-1">Sinergia Recomendada:</strong>
-          <span class="text-foreground font-medium font-body">{m.sinergia}</span>
+        {/* Bloco Aplanado com Divisor Sem Sombra Aninhada */}
+        <div class="pt-3 mt-4 text-xs bg-muted/40 p-3 rounded-lg border-t border-border">
+          <strong class="text-secondary font-heading uppercase tracking-wider text-xs block mb-1">Sinergia Recomendada:</strong>
+          <span class="text-foreground font-medium font-sans">{m.sinergia}</span>
         </div>
       </div>
     ))}

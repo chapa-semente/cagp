@@ -26,129 +26,187 @@ const badges = [
 ---
 
 <BaseLayout
-  title="Trabalho de Conclusão de Curso (180h)"
+  title="Trabalho de Conclusão de Curso (180h) • CAGP FAFICH/UFMG"
   description="Regulamento oficial do TCC de Gestão Pública da UFMG (180h: DCP 089 e DCP 137), tabela comparativa Monografia vs Artigo Científico (Art. 19), linha do tempo de defesa e Termo de Aceite."
   mode="read"
 >
-  <PageHeader
-    axisId="carreira"
-    condensed={true}
-    eyebrow="Eixo 4 · Reta Final & Carreira"
-    title="Trabalho de Conclusão de Curso (180h)"
-    subtitle="Tabela comparativa (Monografia vs Artigo Científico • Art. 19), linha do tempo de defesa em DCP 089 (60h) e DCP 137 (120h) e download do Termo de Aceite."
-    badges={badges}
-  />
+  <div class="space-y-6 max-w-6xl mx-auto font-sans">
+    <!-- Barra Superior Fixa / Breadcrumb (Mobile-First com Retorno Rápido) -->
+    <div
+      id="cagp-tcc-back-bar"
+      class="sticky top-0 z-30 -mx-3 sm:-mx-6 mb-2 bg-background/95 backdrop-blur-sm border-b-3 border-border px-3 sm:px-6 py-2.5 flex items-center justify-between gap-3 shadow-xs select-none"
+    >
+      <div class="flex items-center gap-2">
+        <a
+          href={route('/carreira')}
+          class="min-h-[44px] px-3.5 py-1.5 rounded-xl bg-card hover:bg-muted border-2 border-border text-xs font-heading font-extrabold uppercase text-foreground no-underline inline-flex items-center gap-2 shadow-xs active:translate-x-0.5 active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 transition-all"
+        >
+          <span aria-hidden="true">&larr;</span>
+          <span>Voltar ao Hub de Carreira</span>
+        </a>
+      </div>
+      <div class="flex items-center gap-2 text-xs font-mono font-bold text-muted-foreground uppercase">
+        <span class="hidden sm:inline">Eixo 4 • Carreira</span>
+        <span class="hidden sm:inline">•</span>
+        <span class="text-primary">TCC (180h)</span>
+      </div>
+    </div>
 
-  <!-- Faixa de Conexão Reta Final & Chapa Semente -->
-  <div class="mb-4 p-3.5 sm:p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0_0_#16181d] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-    <div class="flex items-start sm:items-center gap-3">
-      <span class="px-2.5 py-1 rounded-lg border-2 border-[#16181d] bg-primary text-white font-mono text-[11px] font-bold uppercase shrink-0 shadow-[2px_2px_0_0_#16181d]">
-        Apoio ao Formando
-      </span>
-      <p class="font-sans text-xs text-foreground font-medium m-0 leading-snug">
-        <strong>Vai defender o TCC?</strong> Compare Monografia vs Artigo Científico e acompanhe todas as suas pendências de colação no Hub Reta Final criado pela Chapa Semente.
-      </p>
-    </div>
-    <div class="flex flex-wrap items-center gap-2 shrink-0">
-      <a
-        href={route('/estagio-tcc')}
-        class="min-h-[44px] px-3.5 py-2 rounded-xl border-3 border-[#16181d] bg-white hover:bg-muted text-foreground font-heading text-xs font-extrabold uppercase no-underline inline-flex items-center gap-1.5 shadow-[3px_3px_0_0_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
-      >
-        <i class="bi bi-check2-square text-[#134E4A]" aria-hidden="true"></i>
-        <span>Ver Checklist Reta Final</span>
-      </a>
-      <a
-        href={route('/chapa-semente')}
-        class="min-h-[44px] px-3.5 py-2 rounded-xl border-3 border-[#16181d] bg-[#FF8811] hover:bg-[#e67600] text-[#16181d] font-heading text-xs font-extrabold uppercase no-underline inline-flex items-center gap-1.5 shadow-[3px_3px_0_0_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
-      >
-        <span>Propostas Chapa Semente</span>
-        <i class="bi bi-arrow-right" aria-hidden="true"></i>
-      </a>
-    </div>
+    <PageHeader
+      axisId="carreira"
+      mode="read"
+      condensed={true}
+      showAxisNav={false}
+      title="Trabalho de Conclusão de Curso (180h)"
+      subtitle="Tabela comparativa (Monografia vs Artigo Científico • Art. 19), linha do tempo de defesa em DCP 089 (60h) e DCP 137 (120h) e download do Termo de Aceite."
+      badges={badges}
+    >
+      {/* Faixa Destilada da Chapa Semente (Read + Persuade) com Divulgação Progressiva */}
+      <details class="group mt-3 pt-3 border-t-2 border-border/70 text-xs">
+        <summary class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 cursor-pointer list-none select-none hover:bg-muted/40 -mx-1.5 px-2 py-1.5 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary [&::-webkit-details-marker]:hidden">
+          <div class="flex items-center gap-2.5 min-w-0">
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-primary text-white font-heading font-black text-xs uppercase tracking-wide shrink-0 shadow-2xs">
+              🌱 Semente
+            </span>
+            <p class="text-xs text-foreground font-medium m-0 truncate">
+              <span class="font-heading font-bold text-primary uppercase">Apoio ao Formando:</span>
+              <span class="text-foreground/90"> Compare Monografia vs Artigo Científico e acompanhe todas as suas pendências de colação no Hub Reta Final.</span>
+            </p>
+          </div>
+          <div class="flex items-center gap-2 shrink-0 self-end sm:self-center">
+            <span class="font-heading font-extrabold text-xs uppercase text-primary inline-flex items-center gap-1 group-open:hidden">
+              <span>Ver Detalhes</span>
+              <span aria-hidden="true">↓</span>
+            </span>
+            <span class="font-heading font-extrabold text-xs uppercase text-primary inline-flex items-center gap-1 hidden group-open:inline-flex">
+              <span>Recolher</span>
+              <span aria-hidden="true">↑</span>
+            </span>
+            <a
+              href={route('/estagio-tcc')}
+              onclick="event.stopPropagation()"
+              class="min-h-[32px] px-2.5 py-1 rounded-md bg-secondary hover:bg-[#851E1E] text-white font-heading font-black text-xs uppercase tracking-wider no-underline inline-flex items-center gap-1 border border-border shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-1 transition-all"
+            >
+              <span>Checklist Formando</span>
+              <i class="bi bi-arrow-right text-xs" aria-hidden="true"></i>
+            </a>
+          </div>
+        </summary>
+
+        <div class="pt-3 pb-1 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs leading-relaxed border-t border-border/60 mt-2">
+          <div class="p-3 rounded-lg bg-background/80 border border-border/80 space-y-1">
+            <span class="font-heading font-black text-secondary uppercase text-xs block">
+              DCP 089 (60h) &amp; DCP 137 (120h)
+            </span>
+            <p class="text-xs text-foreground font-medium italic leading-relaxed m-0">
+              "No 9º período você elabora o Projeto de Pesquisa e protocola o Termo de Aceite. No 10º período redige a monografia ou artigo e realiza a defesa perante a banca examinadora."
+            </p>
+          </div>
+
+          <div class="p-3 rounded-lg bg-background/80 border border-border/80 space-y-1 flex flex-col justify-between">
+            <div>
+              <span class="font-heading font-black text-primary uppercase text-xs block">
+                Artigo Científico vs Monografia
+              </span>
+              <p class="text-xs text-foreground/80 mt-1 m-0">
+                O Artigo (15 a 30 laudas) é o formato ideal para quem busca publicação acadêmica rápida ou já participa de grupos de pesquisa do DCP.
+              </p>
+            </div>
+            <a
+              href="#modalidades"
+              class="text-xs font-heading font-black text-primary hover:underline uppercase inline-flex items-center gap-1 mt-2"
+            >
+              <span>Ver Tabela Comparativa (Aba 1)</span>
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        </div>
+      </details>
+    </PageHeader>
+
+    <SegmentedControl tabs={tabs} defaultTab="v0" />
+
+    <!-- Sub-view 0: Visão Geral da Central de TCC -->
+    <section id="ws-panel-v0" class="cagp-workspace-view space-y-6" data-ws-panel="v0" data-context-type="doc-template">
+      <div id="visao-geral" class="cagp-anchor-target scroll-mt-24"></div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+        <div class="p-4 sm:p-5 rounded-xl border-3 border-border bg-white shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-foreground">
+          <div>
+            <span class="font-mono text-xs font-extrabold uppercase text-secondary block">
+              OBRIGATÓRIO • DCP 089 (9º P) &amp; DCP 137 (10º P)
+            </span>
+            <h3 class="font-heading text-sm font-black uppercase text-foreground m-0 mt-0.5">
+              Termo de Aceite de Orientador(a) de TCC
+            </h3>
+            <p class="text-xs text-muted-foreground mt-0.5 m-0 font-medium">
+              Formulário oficial assinado pelo docente orientador credenciado ao curso.
+            </p>
+          </div>
+          <a
+            href={asset('/documentos/termo-aceite-orientador-tcc.pdf')}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="min-h-[44px] px-4 py-2.5 rounded-xl border-3 border-border bg-secondary hover:bg-secondary-hover text-secondary-foreground font-heading text-xs font-black uppercase shrink-0 no-underline inline-flex items-center justify-center shadow-xs active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
+          >
+            Modelo de Aceite (PDF) ↗
+          </a>
+        </div>
+
+        <div class="p-4 sm:p-5 rounded-xl border-3 border-border bg-white shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-foreground">
+          <div>
+            <span class="font-mono text-xs font-extrabold uppercase text-primary block">
+              PREMIAÇÃO • RESOLUÇÃO CONGREGAÇÃO Nº 02/2018
+            </span>
+            <h3 class="font-heading text-sm font-black uppercase text-foreground m-0 mt-0.5">
+              Concurso Anual de Melhores TCCs da FAFICH
+            </h3>
+            <p class="text-xs text-muted-foreground mt-0.5 m-0 font-medium">
+              Regras de indicação pela banca examinadora e premiação acadêmica da unidade.
+            </p>
+          </div>
+          <a
+            href={asset('/documentos/resolucao-congrega-02-2018-concurso-tcc.pdf')}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="min-h-[44px] px-4 py-2.5 rounded-xl border-3 border-border bg-primary hover:bg-primary-hover text-primary-foreground font-heading text-xs font-black uppercase shrink-0 no-underline inline-flex items-center justify-center shadow-xs active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          >
+            Ver Edital (PDF) ↗
+          </a>
+        </div>
+      </div>
+      <TccCentralOverview />
+    </section>
+
+    <!-- Sub-view 1: Modalidades de TCC -->
+    <section id="ws-panel-v1" class="cagp-workspace-view" data-ws-panel="v1" hidden>
+      <div id="modalidades" class="cagp-anchor-target scroll-mt-24"></div>
+      <TccModalidadesExplorer />
+    </section>
+
+    <!-- Sub-view 2: Cronograma e Bancas -->
+    <section id="ws-panel-v2" class="cagp-workspace-view" data-ws-panel="v2" hidden>
+      <div id="cronograma" class="cagp-anchor-target scroll-mt-24"></div>
+      <TccCronogramaTimeline />
+    </section>
+
+    <!-- Sub-view 3: Termo de Aceite & Modelos -->
+    <section id="ws-panel-v3" class="cagp-workspace-view" data-ws-panel="v3" hidden>
+      <div id="termo-aceite" class="cagp-anchor-target scroll-mt-24"></div>
+      <TccTermoAceiteCore />
+    </section>
+
+    <!-- Journey Navigation Trail -->
+    <JourneyNav
+      prev={{
+        title: 'Estágio Supervisionado (300h) & Art. 41',
+        href: '/estagio',
+        desc: 'Simulador de Aproveitamento Servidor (Art. 41) e modelos oficiais de TCE.',
+      }}
+      next={{
+        title: 'Hub Integrador Reta Final (Estágio & TCC)',
+        href: '/estagio-tcc',
+        desc: 'Painel unificado para Formandos com checklist animado de colação de grau.',
+      }}
+    />
   </div>
-
-  <SegmentedControl tabs={tabs} defaultTab="v0" />
-
-  <!-- Sub-view 0: Visão Geral da Central de TCC -->
-  <section id="ws-panel-v0" class="cagp-workspace-view space-y-6" data-ws-panel="v0" data-context-type="doc-template">
-    <div id="visao-geral" class="cagp-anchor-target scroll-mt-24"></div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
-      <div class="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0_0_#16181d] flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-foreground">
-        <div>
-          <span class="font-mono text-[10px] font-extrabold uppercase text-secondary block">
-            OBRIGATÓRIO • DCP 089 (9º P) &amp; DCP 137 (10º P)
-          </span>
-          <h3 class="font-heading text-sm font-extrabold uppercase text-foreground m-0">
-            Termo de Aceite de Orientador(a) de TCC
-          </h3>
-          <p class="text-xs text-muted-foreground mt-0.5 m-0">
-            Formulário oficial assinado pelo docente orientador credenciado ao curso.
-          </p>
-        </div>
-        <a
-          href={asset('/documentos/termo-aceite-orientador-tcc.pdf')}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="min-h-[44px] px-4 py-2.5 rounded-xl border-3 border-[#16181d] bg-secondary hover:bg-secondary-hover text-secondary-foreground font-heading text-xs font-extrabold uppercase shrink-0 no-underline inline-flex items-center justify-center shadow-[3px_3px_0_0_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
-        >
-          Modelo de Aceite (PDF) ↗
-        </a>
-      </div>
-
-      <div class="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0_0_#16181d] flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-foreground">
-        <div>
-          <span class="font-mono text-[10px] font-extrabold uppercase text-primary block">
-            PREMIAÇÃO • RESOLUÇÃO CONGREGAÇÃO Nº 02/2018
-          </span>
-          <h3 class="font-heading text-sm font-extrabold uppercase text-foreground m-0">
-            Concurso Anual de Melhores TCCs da FAFICH
-          </h3>
-          <p class="text-xs text-muted-foreground mt-0.5 m-0">
-            Regras de indicação pela banca examinadora e premiação acadêmica da unidade.
-          </p>
-        </div>
-        <a
-          href={asset('/documentos/resolucao-congrega-02-2018-concurso-tcc.pdf')}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="min-h-[44px] px-4 py-2.5 rounded-xl border-3 border-[#16181d] bg-primary hover:bg-primary-hover text-primary-foreground font-heading text-xs font-extrabold uppercase shrink-0 no-underline inline-flex items-center justify-center shadow-[3px_3px_0_0_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
-        >
-          Ver Edital (PDF) ↗
-        </a>
-      </div>
-    </div>
-    <TccCentralOverview />
-  </section>
-
-  <!-- Sub-view 1: Modalidades de TCC -->
-  <section id="ws-panel-v1" class="cagp-workspace-view" data-ws-panel="v1" hidden>
-    <div id="modalidades" class="cagp-anchor-target scroll-mt-24"></div>
-    <TccModalidadesExplorer />
-  </section>
-
-  <!-- Sub-view 2: Cronograma e Bancas -->
-  <section id="ws-panel-v2" class="cagp-workspace-view" data-ws-panel="v2" hidden>
-    <div id="cronograma" class="cagp-anchor-target scroll-mt-24"></div>
-    <TccCronogramaTimeline />
-  </section>
-
-  <!-- Sub-view 3: Termo de Aceite & Modelos -->
-  <section id="ws-panel-v3" class="cagp-workspace-view" data-ws-panel="v3" hidden>
-    <div id="termo-aceite" class="cagp-anchor-target scroll-mt-24"></div>
-    <TccTermoAceiteCore />
-  </section>
-
-  <!-- Journey Navigation Trail -->
-  <JourneyNav
-    prev={{
-      title: 'Estágio Supervisionado (300h) & Aproveitamento Servidor',
-      href: '/estagio',
-      desc: 'Simulador de Aproveitamento Servidor (Art. 41) e tutorial do TCE.',
-    }}
-    next={{
-      title: 'Hub Integrador Reta Final (Estágio & TCC)',
-      href: '/estagio-tcc',
-      desc: 'Painel unificado para Formandos com checklist animado de colação de grau.',
-    }}
-  />
 </BaseLayout>

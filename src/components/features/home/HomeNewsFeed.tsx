@@ -71,10 +71,10 @@ export const HomeNewsFeed: React.FC = () => {
     >
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2.5">
-          <span className="w-3 h-3 rounded-full bg-secondary border border-black shrink-0" aria-hidden="true" />
+          <span className="w-3 h-3 rounded-full bg-secondary border border-border shrink-0" aria-hidden="true" />
           <h2
             id="heading-news-mural"
-            className="font-heading text-base sm:text-lg font-extrabold uppercase text-foreground m-0"
+            className="font-heading text-base sm:text-lg font-extrabold uppercase tracking-wide text-foreground m-0"
           >
             Mural de Notícias, Eventos & Carreiras
           </h2>
@@ -82,7 +82,7 @@ export const HomeNewsFeed: React.FC = () => {
 
         <a
           href={route('/noticias')}
-          className="min-h-[44px] px-3.5 py-1.5 rounded-xl text-xs font-heading font-bold uppercase bg-white hover:bg-muted text-foreground hover:text-secondary border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] no-underline inline-flex items-center gap-1.5 transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none tabular-nums"
+          className="min-h-[44px] px-3.5 py-1.5 rounded-xl text-xs font-heading font-bold uppercase tracking-wide bg-white hover:bg-muted text-foreground hover:text-secondary border-3 border-border shadow-xs no-underline inline-flex items-center gap-1.5 transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 tabular-nums"
         >
           <span>Mural completo ({SIMULATED_NEWS.length})</span>
           <span aria-hidden="true">&rarr;</span>
@@ -92,12 +92,12 @@ export const HomeNewsFeed: React.FC = () => {
       {/* Tarja de Transparência Simulação */}
       <div
         role="note"
-        className="px-4 py-2.5 rounded-xl bg-[#FEF08A] border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] flex flex-wrap items-center justify-between gap-2 text-xs text-foreground"
+        className="px-4 py-2.5 rounded-xl bg-[#FEF08A] border-3 border-border shadow-xs flex flex-wrap items-center justify-between gap-2 text-xs text-foreground"
       >
-        <span className="font-medium">
+        <span className="font-medium max-w-prose">
           <strong>Aviso:</strong> {SIMULATION_NOTICE}
         </span>
-        <span className="font-mono text-[11px] font-bold uppercase bg-white px-2 py-0.5 rounded border-2 border-[#16181d]">
+        <span className="font-mono text-xs font-bold uppercase bg-white px-2 py-0.5 rounded border-2 border-border tracking-wider">
           simulado
         </span>
       </div>
@@ -124,41 +124,41 @@ export const HomeNewsFeed: React.FC = () => {
               whileHover={{ y: -3, x: -2 }}
               whileTap={{ y: 2, x: 2 }}
               transition={tactileSpring}
-              className="bg-card rounded-xl overflow-hidden border-3 border-[#16181d] shadow-[5px_5px_0_0_#16181d] hover:shadow-[7px_7px_0_0_#16181d] transition-shadow flex flex-col justify-between group cursor-pointer"
+              className="bg-card rounded-xl overflow-hidden border-3 border-border shadow-md hover:shadow-lg transition-shadow flex flex-col justify-between group cursor-pointer"
             >
               <a
                 href={articleUrl}
-                className="no-underline text-inherit flex flex-col flex-1 justify-between p-3"
+                className="no-underline text-inherit flex flex-col flex-1 justify-between p-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-xl"
               >
                 <div>
                   <motion.div
                     whileHover={photoCardHover}
                     whileTap={photoCardTap}
                     transition={photoZoomSpring}
-                    className="aspect-[16/10] relative overflow-hidden rounded-lg border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] mb-3"
+                    className="aspect-[16/10] relative overflow-hidden rounded-lg border-3 border-border shadow-xs mb-3"
                   >
                     {renderNewsMotifSvg(item.motif)}
                     <span
-                      className={`absolute top-2.5 left-2.5 text-[11px] font-heading font-extrabold uppercase px-2.5 py-1 rounded-lg border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] ${badgeClass}`}
+                      className={`absolute top-2.5 left-2.5 text-xs font-heading font-extrabold uppercase tracking-wide px-2.5 py-1 rounded-lg border-2 border-border shadow-xs ${badgeClass}`}
                     >
                       {item.tag}
                     </span>
                   </motion.div>
                   <div className="px-1 pb-2">
-                    <h3 className="font-heading font-extrabold text-sm text-foreground group-hover:text-secondary transition-colors leading-snug m-0">
+                    <h3 className="font-heading font-extrabold text-sm tracking-tight text-foreground group-hover:text-secondary transition-colors leading-snug m-0">
                       {item.title}
                     </h3>
-                    <p className="text-xs text-muted-foreground font-medium mt-2 mb-0 line-clamp-2 leading-relaxed">
+                    <p className="text-xs text-muted-foreground font-medium mt-2 mb-0 line-clamp-2 leading-relaxed max-w-prose">
                       {item.summary}
                     </p>
                   </div>
                 </div>
 
-                <div className="px-1 pt-2.5 mt-2 border-t-2 border-[#16181d]/20 flex items-center justify-between text-xs">
-                  <span className="text-muted-foreground font-mono text-[11px] font-bold truncate tabular-nums">
+                <div className="px-1 pt-2.5 mt-2 border-t-2 border-border/20 flex items-center justify-between text-xs">
+                  <span className="text-muted-foreground font-mono text-xs font-bold truncate tabular-nums">
                     {item.meta}
                   </span>
-                  <span className="font-heading font-extrabold uppercase text-secondary shrink-0 ml-2 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                  <span className="font-heading font-extrabold uppercase tracking-wide text-secondary shrink-0 ml-2 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                     <span>Ler</span>
                     <span aria-hidden="true">&rarr;</span>
                   </span>

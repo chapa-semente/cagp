@@ -36,11 +36,11 @@ export const Art41Widget: React.FC = () => {
               <h3 className="font-head font-bold text-sm uppercase text-foreground leading-tight m-0">
                 Aproveitamento Servidor
               </h3>
-              <span className="text-[11px] text-muted-foreground font-mono">Dispensa Art. 41 • Setor Público</span>
+              <span className="text-xs text-muted-foreground font-mono">Dispensa Art. 41 • Setor Público</span>
             </div>
           </div>
           <span
-            className={`px-2.5 py-1 rounded-md font-head text-[11px] font-bold border-2 border-[#16181d] shadow-xs ${
+            className={`px-2.5 py-1 rounded-md font-head text-xs font-bold border-2 border-[#16181d] shadow-xs ${
               isEligible
                 ? 'bg-[#134E4A] text-white'
                 : checkedCount > 0

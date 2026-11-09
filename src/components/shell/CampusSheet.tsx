@@ -68,7 +68,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
         {/* Banner Informativo */}
         <div className="bg-white border-[2.5px] border-border p-4 rounded-xl shadow">
           <div className="flex items-center gap-2 mb-1">
-            <span className="w-3 h-3 rounded-full bg-success border border-black animate-pulse" />
+            <span className="w-3 h-3 rounded-full bg-success border-2 border-border shrink-0" aria-hidden="true" />
             <span className="font-heading text-xs uppercase font-extrabold text-secondary">
               Plantão Noturno • FAFICH & Campus Pampulha
             </span>
@@ -82,17 +82,17 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
         <div className="bg-white p-4 rounded-xl border-[2.5px] border-border shadow space-y-3">
           <div className="flex items-center justify-between flex-wrap gap-2">
             <div className="flex items-center gap-2.5">
-              <span className="w-9 h-9 rounded-xl bg-secondary text-white flex items-center justify-center shrink-0 border-2 border-black shadow-xs">
+              <span className="w-9 h-9 rounded-xl bg-secondary text-white flex items-center justify-center shrink-0 border-2 border-border shadow-xs">
                 <CagpIcon name="utensils" className="w-4 h-4" />
               </span>
               <div>
                 <span className="font-heading font-extrabold text-sm uppercase text-foreground">RU II Setorial</span>
-                <span className="text-[10px] font-mono bg-success/20 text-success font-bold px-2 py-0.5 rounded border border-black/30 ml-2">
+                <span className="text-[10px] font-mono bg-success/20 text-success font-bold px-2 py-0.5 rounded border border-border/30 ml-2">
                   Almoço 11h–14h · Jantar 17h30–19h30
                 </span>
               </div>
             </div>
-            <span className="font-mono text-xs font-bold text-foreground bg-[#EFE9E0] px-2 py-1 rounded border border-black tabular-nums">R$ 5,60</span>
+            <span className="font-mono text-xs font-bold text-foreground bg-[#EFE9E0] px-2 py-1 rounded border border-border tabular-nums">R$ 5,60</span>
           </div>
           <p className="text-xs text-muted-foreground m-0 leading-snug font-medium">
             Catracas fecham <strong>impreterivelmente às 19h30</strong>. Chegue antes das 18h30 para evitar fila extensa.
@@ -101,7 +101,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
             <button
               type="button"
               onClick={() => togglePref('ru1815')}
-              className={`min-h-[44px] py-2 px-3 text-xs rounded-xl font-heading font-bold uppercase border-2 border-black transition-all cursor-pointer flex items-center gap-1.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none ${
+              className={`min-h-[44px] py-2 px-3 text-xs rounded-xl font-heading font-bold uppercase border-2 border-border transition-all cursor-pointer flex items-center gap-1.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed ${
                 prefs.ru1815
                   ? 'bg-secondary text-white shadow-sm'
                   : 'bg-white text-foreground shadow-sm hover:bg-muted'
@@ -113,7 +113,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
             <button
               type="button"
               onClick={downloadRu1815Ics}
-              className="min-h-[44px] py-2 px-3 text-xs rounded-xl font-heading font-bold uppercase bg-white border-2 border-black shadow-sm hover:bg-muted text-foreground transition-all cursor-pointer flex items-center gap-1.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+              className="min-h-[44px] py-2 px-3 text-xs rounded-xl font-heading font-bold uppercase bg-white border-2 border-border shadow-sm hover:bg-muted text-foreground transition-all cursor-pointer flex items-center gap-1.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed"
               title="Baixar evento para Apple / Google Calendar"
             >
               <CagpIcon name="calendar" className="w-3.5 h-3.5 text-secondary" />
@@ -126,12 +126,12 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
         <div className="bg-white p-4 rounded-xl border-[2.5px] border-border shadow space-y-3">
           <div className="flex items-center justify-between flex-wrap gap-2">
             <div className="flex items-center gap-2.5">
-              <span className="w-9 h-9 rounded-xl bg-info text-white flex items-center justify-center shrink-0 border-2 border-black shadow-xs">
+              <span className="w-9 h-9 rounded-xl bg-info text-white flex items-center justify-center shrink-0 border-2 border-border shadow-xs">
                 <i className="bi bi-bus-front-fill text-base" aria-hidden="true" />
               </span>
               <div>
                 <span className="font-heading font-extrabold text-sm uppercase text-foreground">Circular Noturno FAFICH</span>
-                <span className="text-[10px] font-mono bg-[#E0F2FE] text-[#0369A1] font-bold px-2 py-0.5 rounded border border-black/30 ml-2">
+                <span className="text-[10px] font-mono bg-[#E0F2FE] text-[#0369A1] font-bold px-2 py-0.5 rounded border border-border/30 ml-2">
                   17h00 às 22h45
                 </span>
               </div>
@@ -145,7 +145,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
             <button
               type="button"
               onClick={() => togglePref('circular2230')}
-              className={`min-h-[44px] py-2 px-3 text-xs rounded-xl font-heading font-bold uppercase border-2 border-black transition-all cursor-pointer flex items-center gap-1.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none ${
+              className={`min-h-[44px] py-2 px-3 text-xs rounded-xl font-heading font-bold uppercase border-2 border-border transition-all cursor-pointer flex items-center gap-1.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed ${
                 prefs.circular2230
                   ? 'bg-secondary text-white shadow-sm'
                   : 'bg-white text-foreground shadow-sm hover:bg-muted'
@@ -157,7 +157,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
             <button
               type="button"
               onClick={downloadCircular2230Ics}
-              className="min-h-[44px] py-2 px-3 text-xs rounded-xl font-heading font-bold uppercase bg-white border-2 border-black shadow-sm hover:bg-muted text-foreground transition-all cursor-pointer flex items-center gap-1.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+              className="min-h-[44px] py-2 px-3 text-xs rounded-xl font-heading font-bold uppercase bg-white border-2 border-border shadow-sm hover:bg-muted text-foreground transition-all cursor-pointer flex items-center gap-1.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed"
               title="Baixar evento para Apple / Google Calendar"
             >
               <i className="bi bi-calendar-plus text-xs text-info" />
@@ -170,12 +170,12 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
         <div className="bg-white p-4 rounded-xl border-[2.5px] border-border shadow space-y-3">
           <div className="flex items-center justify-between flex-wrap gap-2">
             <div className="flex items-center gap-2.5">
-              <span className="w-9 h-9 rounded-xl bg-[#E8A317] text-black flex items-center justify-center shrink-0 border-2 border-black shadow-xs">
+              <span className="w-9 h-9 rounded-xl bg-[#E8A317] text-black flex items-center justify-center shrink-0 border-2 border-border shadow-xs">
                 <i className="bi bi-shield-exclamation text-base" aria-hidden="true" />
               </span>
               <div>
                 <span className="font-heading font-extrabold text-sm uppercase text-foreground">Guardião de 120 Dias AAC</span>
-                <span className="text-[10px] font-mono bg-[#FEF08A] text-[#854D0E] font-bold px-2 py-0.5 rounded border border-black/30 ml-2">
+                <span className="text-[10px] font-mono bg-[#FEF08A] text-[#854D0E] font-bold px-2 py-0.5 rounded border border-border/30 ml-2">
                   Art. 15, § 4º
                 </span>
               </div>
@@ -183,7 +183,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
             <button
               type="button"
               onClick={() => togglePref('aac120d')}
-              className={`min-h-[44px] py-2 px-3 text-xs rounded-xl font-heading font-bold uppercase border-2 border-black transition-all cursor-pointer flex items-center justify-center active:translate-x-0.5 active:translate-y-0.5 active:shadow-none ${
+              className={`min-h-[44px] py-2 px-3 text-xs rounded-xl font-heading font-bold uppercase border-2 border-border transition-all cursor-pointer flex items-center justify-center active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed ${
                 prefs.aac120d
                   ? 'bg-success text-white shadow-sm'
                   : 'bg-white text-gray-700 shadow-sm'
@@ -222,7 +222,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
         <button
           type="button"
           onClick={handleTestNotification}
-          className="w-full min-h-[44px] py-2.5 bg-white hover:bg-muted text-foreground font-heading text-xs font-bold uppercase rounded-xl border-[2.5px] border-border shadow-sm flex items-center justify-center gap-1.5 transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+          className="w-full min-h-[44px] py-2.5 bg-white hover:bg-muted text-foreground font-heading text-xs font-bold uppercase rounded-xl border-[2.5px] border-border shadow-sm flex items-center justify-center gap-1.5 transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed"
         >
           <CagpIcon name="bell" className="w-4 h-4 text-secondary" />
           <span>Testar Notificação do Navegador</span>

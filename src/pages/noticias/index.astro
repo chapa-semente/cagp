@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { CagpNewsMural } from '../../components/features/cagp/CagpNewsMural';
 import { getCollection } from 'astro:content';
 import { SIMULATED_NEWS, type SimulatedNewsItem } from '@/lib/simulatedData';
+import { route } from '@/lib/paths';
 
 const rawNoticias = await getCollection('noticias');
 
@@ -41,27 +42,19 @@ const noticiasItems: SimulatedNewsItem[] = rawNoticias.length > 0
   activeGroup="hoje"
 >
   <div class="py-2 space-y-6" data-context-type="news">
-    <header id="cagp-noticias-header" class="border-b-3 border-[#16181d] pb-4 flex flex-col md:flex-row md:items-end justify-between gap-4">
-      <div class="space-y-1.5">
-        <div class="flex flex-wrap items-center gap-2">
-          <span class="px-2.5 py-0.5 rounded-md bg-primary text-white font-mono text-[11px] font-bold uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
-            Eixo 1 • Comunicação Transparente
-          </span>
-          <span class="px-2.5 py-0.5 rounded-md bg-accent text-[#16181d] font-mono text-[11px] font-bold uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
-            Proposta Materializada • Chapa Semente
-          </span>
-        </div>
-        <h1 class="font-heading text-2xl sm:text-3xl font-extrabold uppercase text-foreground tracking-tight m-0">
-          Mural de Notícias, Eventos &amp; Carreiras • CAGP
+    <header id="cagp-noticias-header" class="border-b-3 border-border pb-5 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div class="space-y-2">
+        <h1 class="font-heading text-2xl sm:text-3xl lg:text-4xl font-black uppercase text-foreground tracking-tight m-0">
+          Mural de Notícias, Eventos &amp; Carreiras
         </h1>
-        <p class="text-xs sm:text-sm font-sans text-muted-foreground m-0 max-w-[70ch] font-medium">
-          Subseção editorial de Início: convocações de assembleia, oportunidades de estágio,
-          chamadas de congressos, seminários e comunicados da vida discente no campus.
+        <p class="text-xs sm:text-sm font-sans text-muted-foreground m-0 max-w-2xl font-medium leading-relaxed">
+          Comunicação transparente e oficial do Centro Acadêmico: convocações de assembleia, oportunidades de estágio,
+          seminários acadêmicos e comunicados essenciais da vida discente na FAFICH/UFMG.
         </p>
       </div>
       <a
-        href="/chapa-semente"
-        class="min-h-[44px] px-4 py-2 rounded-xl bg-accent hover:bg-[#E07406] text-[#16181d] border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_0_#16181d] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none font-heading text-xs font-black uppercase tracking-wide no-underline inline-flex items-center justify-center gap-2 shrink-0 transition-all self-start md:self-auto"
+        href={route('/chapa-semente')}
+        class="min-h-[44px] px-4 py-2.5 rounded-xl bg-accent hover:bg-accent-hover text-foreground border-3 border-border shadow-sm hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none font-heading text-xs font-black uppercase tracking-wide no-underline inline-flex items-center justify-center gap-2 shrink-0 transition-all self-start md:self-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
       >
         <span>Vote Chapa Semente • 25 e 26/Nov</span>
         <span aria-hidden="true">&rarr;</span>

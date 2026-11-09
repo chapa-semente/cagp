@@ -29,12 +29,12 @@ const docs = [
   <div class="p-5 sm:p-6 bg-white border-3 border-border rounded-xl shadow-md space-y-4">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-2 border-border pb-3">
       <div>
-        <span class="cagp-badge cagp-badge-red font-mono text-[10px] uppercase font-bold">
+        <span class="cagp-badge cagp-badge-red font-mono text-xs uppercase font-bold">
           Requisito Obrigatório para Matrícula em DCP 089
         </span>
         <div class="flex items-center gap-2 mt-1.5">
           <i class="bi bi-file-earmark-check-fill text-secondary text-xl" aria-hidden="true" />
-          <h3 class="font-head text-base sm:text-lg font-black uppercase text-foreground m-0 tracking-wide">
+          <h3 class="font-heading text-base sm:text-lg font-black uppercase text-foreground m-0 tracking-wide">
             Termo de Aceite de Orientador(a) de TCC
           </h3>
         </div>
@@ -43,29 +43,29 @@ const docs = [
       <a
         href={asset('/documentos/termo-aceite-orientador-tcc.pdf')}
         download
-        class="min-h-[44px] px-4 py-2 bg-secondary hover:bg-[#6e1723] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl text-xs font-head uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline shrink-0 shadow border-3 border-border"
+        class="min-h-[44px] px-4 py-2 bg-secondary hover:bg-[#6e1723] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl text-xs font-heading uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline shrink-0 shadow-xs border-2 border-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
       >
         <i class="bi bi-download" aria-hidden="true" />
         <span>Baixar Termo Oficial (PDF)</span>
       </a>
     </div>
 
-    <p class="font-body text-xs text-gray-700 leading-relaxed m-0 font-medium">
+    <p class="font-sans text-xs text-foreground/85 leading-relaxed m-0 font-medium">
       Nenhum discente pode se matricular na disciplina de Projeto de TCC (DCP 089) no 9º período sem antes colher a assinatura de um(a) professor(a) credenciado(a). Entregue o formulário assinado na Secretaria do Colegiado (Sala F-2039 com Norma Guedes) antes do início do semestre letivo.
     </p>
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-      <div class="p-3.5 bg-white border-3 border-border rounded-xl shadow-sm">
-        <strong class="text-xs text-foreground font-head uppercase tracking-wider block mb-1">Quem pode orientar?</strong>
-        <p class="text-xs text-gray-700 m-0 font-body font-medium">Docentes do DCP/UFMG ou de outros departamentos da UFMG homologados pelo Colegiado.</p>
+      <div class="p-3.5 bg-muted/20 border-2 border-border/70 rounded-xl">
+        <strong class="text-xs text-foreground font-heading uppercase tracking-wider block mb-1">Quem pode orientar?</strong>
+        <p class="text-xs text-foreground/85 m-0 font-sans font-medium">Docentes do DCP/UFMG ou de outros departamentos da UFMG homologados pelo Colegiado.</p>
       </div>
-      <div class="p-3.5 bg-white border-3 border-border rounded-xl shadow-sm">
-        <strong class="text-xs text-foreground font-head uppercase tracking-wider block mb-1">Qual o prazo de entrega?</strong>
-        <p class="text-xs text-gray-700 m-0 font-body font-medium">Durante a fase de acerto de matrícula no SIGA anterior ao início das aulas do 9º período.</p>
+      <div class="p-3.5 bg-muted/20 border-2 border-border/70 rounded-xl">
+        <strong class="text-xs text-foreground font-heading uppercase tracking-wider block mb-1">Qual o prazo de entrega?</strong>
+        <p class="text-xs text-foreground/85 m-0 font-sans font-medium">Durante a fase de acerto de matrícula no SIGA anterior ao início das aulas do 9º período.</p>
       </div>
-      <div class="p-3.5 bg-white border-3 border-border rounded-xl shadow-sm">
-        <strong class="text-xs text-foreground font-head uppercase tracking-wider block mb-1">Limite de Vagas:</strong>
-        <p class="text-xs text-gray-700 m-0 font-body font-medium">Cada docente pode orientar no máximo 4 estudantes simultaneamente por semestre letivo.</p>
+      <div class="p-3.5 bg-muted/20 border-2 border-border/70 rounded-xl">
+        <strong class="text-xs text-foreground font-heading uppercase tracking-wider block mb-1">Limite de Vagas:</strong>
+        <p class="text-xs text-foreground/85 m-0 font-sans font-medium">Cada docente pode orientar no máximo 4 estudantes simultaneamente por semestre letivo.</p>
       </div>
     </div>
   </div>
@@ -73,7 +73,7 @@ const docs = [
   {/* Acervo de Minutas e Manuais */}
   <div class="p-5 bg-white border-3 border-border rounded-xl space-y-4 shadow-md">
     <div class="flex items-center justify-between border-b-2 border-border pb-3">
-      <h4 class="font-head text-sm font-bold uppercase text-foreground m-0 flex items-center gap-2 tracking-wide">
+      <h4 class="font-heading text-sm font-bold uppercase text-foreground m-0 flex items-center gap-2 tracking-wide">
         <i class="bi bi-folder-symlink text-secondary text-base" aria-hidden="true" />
         <span>Modelos e Manuais de TCC para Download</span>
       </h4>
@@ -85,17 +85,17 @@ const docs = [
         <a
           href={asset(d.link)}
           download
-          class="p-3.5 bg-white hover:bg-muted active:translate-x-[2px] active:translate-y-[2px] active:shadow-none border-3 border-border rounded-xl flex items-center justify-between gap-3 transition-all no-underline text-foreground shadow-sm"
+          class="p-3.5 bg-white hover:bg-muted active:translate-x-[2px] active:translate-y-[2px] active:shadow-none border-2 border-border rounded-xl flex items-center justify-between gap-3 transition-all no-underline text-foreground shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           <div class="min-w-0">
-            <div class="font-head text-xs font-bold uppercase text-foreground truncate tracking-wide">
+            <div class="font-heading text-xs font-bold uppercase text-foreground truncate tracking-wide">
               {d.titulo}
             </div>
-            <div class="text-[11px] text-gray-600 truncate mt-0.5 font-body font-medium">
+            <div class="text-xs text-muted-foreground truncate mt-0.5 font-sans font-medium">
               {d.desc}
             </div>
           </div>
-          <span class="px-2 py-1 rounded-md bg-foreground text-background text-white font-mono text-[10px] font-bold shrink-0 border border-border">
+          <span class="px-2 py-1 rounded-md bg-foreground text-background text-white font-mono text-xs font-bold shrink-0 border border-border">
             {d.ext}
           </span>
         </a>

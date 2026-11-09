@@ -1,23 +1,24 @@
 ---
 // PesquisaImersao.astro - Sub-view 3: Programa de Imersão e Extensão Universitária
+import { route } from '@/lib/paths';
 ---
 
 <div class="space-y-6 text-foreground">
-  <div class="cagp-tool-box p-5 bg-white border-3 border-border rounded-xl shadow-md space-y-4">
-    <div class="border-b-2 border-border pb-3 flex items-center justify-between flex-wrap gap-2">
+  <section class="space-y-4" aria-label="Programa de Imersão">
+    <div class="border-b-3 border-[#16181d] pb-3 flex items-center justify-between flex-wrap gap-2">
       <div>
         <div class="flex items-center gap-2">
           <i class="bi bi-geo-alt-fill text-secondary text-xl" aria-hidden="true"></i>
-          <h3 class="font-head text-base sm:text-lg font-black uppercase text-foreground m-0 tracking-wide">
+          <h2 class="font-head text-base sm:text-xl font-black uppercase text-foreground m-0 tracking-wide">
             Programa de Imersão no Campo de Públicas
-          </h3>
+          </h2>
         </div>
         <p class="text-xs text-gray-700 mt-0.5 m-0 font-body font-medium">
           Vivência prática direta em prefeituras, câmaras e comunidades do estado de Minas Gerais:
         </p>
       </div>
-      <span class="cagp-badge cagp-badge-red font-mono font-bold">
-        SIEX 109111 & 109109
+      <span class="px-3 py-1 rounded-lg bg-secondary text-white font-mono text-xs font-bold">
+        SIEX 109111 &amp; 109109
       </span>
     </div>
 
@@ -26,7 +27,7 @@
     </p>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-body">
-      <div class="cagp-card p-4 bg-white border-3 border-border rounded-xl flex flex-col justify-between shadow-sm">
+      <article class="p-5 bg-white border-3 border-[#16181d] rounded-xl flex flex-col justify-between shadow-[4px_4px_0_0_#16181d]">
         <div>
           <div class="flex items-center gap-2 mb-2">
             <i class="bi bi-clipboard2-data-fill text-secondary text-lg" aria-hidden="true"></i>
@@ -38,9 +39,9 @@
             Mapeamento de gargalos em saúde, educação e saneamento básico em municípios de pequeno porte, com relatórios técnicos entregues aos prefeitos e secretários.
           </p>
         </div>
-      </div>
+      </article>
 
-      <div class="cagp-card p-4 bg-white border-3 border-border rounded-xl flex flex-col justify-between shadow-sm">
+      <article class="p-5 bg-white border-3 border-[#16181d] rounded-xl flex flex-col justify-between shadow-[4px_4px_0_0_#16181d]">
         <div>
           <div class="flex items-center gap-2 mb-2">
             <i class="bi bi-check2-circle text-success text-lg" aria-hidden="true"></i>
@@ -52,14 +53,14 @@
             A participação integral nos módulos de imersão gera certificados automáticos no SIEX válidos para as 300 horas de Formação em Extensão Obrigatória.
           </p>
         </div>
-      </div>
+      </article>
     </div>
 
     <div class="pt-2">
-      <a href="/acg#calculadora" class="min-h-[44px] cagp-btn-primary inline-flex items-center gap-2 text-xs py-2.5 px-4 no-underline font-head font-bold uppercase tracking-wider">
+      <a href={route('/acg#calculadora')} class="min-h-[44px] cagp-btn-primary inline-flex items-center gap-2 text-xs py-2.5 px-4 no-underline font-head font-bold uppercase tracking-wider focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5">
         <i class="bi bi-calculator" aria-hidden="true"></i>
         <span>Ver Regras de Extensão &rarr;</span>
       </a>
     </div>
-  </div>
+  </section>
 </div>

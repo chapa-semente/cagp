@@ -106,7 +106,7 @@ export function FooterMultiColumn({
                   <li key={`link-${link.label}`}>
                     <a
                       href={safeHref(link.href)}
-                      className="text-muted-foreground hover:text-foreground font-medium transition-colors"
+                      className="text-muted-foreground hover:text-foreground font-medium transition-colors inline-flex items-center min-h-[44px] sm:min-h-0 py-2 sm:py-0.5 text-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 rounded"
                     >
                       {link.label}
                     </a>
@@ -424,8 +424,8 @@ function SocialIcon({
   }
 
   const Icon = icons[platform]
-  const sizeClasses = size === 'sm' ? 'w-7 h-7' : 'w-9 h-9'
-  const iconSize = size === 'sm' ? 'h-3.5 w-3.5' : 'h-4 w-4'
+  const sizeClasses = size === 'sm' ? 'w-8 h-8 min-w-[32px] min-h-[32px]' : 'w-11 h-11 min-w-[44px] min-h-[44px]'
+  const iconSize = size === 'sm' ? 'h-4 w-4' : 'h-5 w-5'
 
   return (
     <a
@@ -433,7 +433,7 @@ function SocialIcon({
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        'flex items-center justify-center border-2 border-foreground bg-muted hover:bg-primary hover:text-primary-foreground transition hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-sm',
+        'flex items-center justify-center border-2 border-foreground bg-muted hover:bg-primary hover:text-primary-foreground transition hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 rounded-lg',
         sizeClasses
       )}
     >

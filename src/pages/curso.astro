@@ -11,11 +11,10 @@ import CursoIngresso from '../components/features/curso/CursoIngresso.astro';
 import AxisOverview from '../components/shell/AxisOverview.astro';
 import { CursoAnalyticsAndColegiado } from '../components/features/curso/CursoAnalyticsAndColegiado';
 import { CursoPillarsFeatureGrid } from '../components/features/curso/CursoPillarsFeatureGrid';
-import { CursoCandangosAndTimeline } from '../components/features/curso/CursoCandangosAndTimeline';
 
 const tabs = [
-  { id: 'v0', shortLabel: 'Geral', fullLabel: 'Painel & Candangos 1959', hash: '#visao-geral' },
-  { id: 'v1', shortLabel: 'História', fullLabel: '1. História & Cientometria', hash: '#historia' },
+  { id: 'v0', shortLabel: 'Geral', fullLabel: 'Painel & Pilares', hash: '#visao-geral' },
+  { id: 'v1', shortLabel: 'História', fullLabel: '1. História & Candangos', hash: '#historia' },
   { id: 'v2', shortLabel: 'Egressos', fullLabel: '2. Egressos & Carreiras', hash: '#egressos' },
   { id: 'v3', shortLabel: 'Colegiado', fullLabel: '3. Colegiado & Secretaria', hash: '#colegiado' },
   { id: 'v4', shortLabel: 'Ingresso', fullLabel: '4. Formas de Ingresso', hash: '#ingresso' },
@@ -33,27 +32,26 @@ const badges = [
 <BaseLayout
   title="O Curso de Gestão Pública"
   description="História dos Candangos de 1959, excelência Nota 4 MEC, cientometria, cartões comparativos de carreira pública, salários dos egressos e governança na FAFICH/UFMG."
-  mode="operate"
+  mode="read"
 >
   <PageHeader
-    eyebrow="Eixo 2 · O Bacharelado em Gestão Pública"
     title="O Bacharelado em Gestão Pública"
     subtitle="Formação pública de excelência voltada para formulação, implementação e avaliação de políticas públicas no Estado brasileiro, sediada no Departamento de Ciência Política (Conceito 7 CAPES)."
     badges={badges}
     axisId="curso"
     activeId="curso"
-    mode="operate"
+    mode="read"
+    showAxisNav={false}
     condensed={true}
   />
 
   <SegmentedControl tabs={tabs} defaultTab="v0" />
 
-  <!-- Sub-view 0: Visão Geral do Eixo 2 (Curso + Candangos 1959 + Linha do Tempo + Carreiras) -->
-  <section id="ws-panel-v0" class="cagp-workspace-view" data-ws-panel="v0">
+  <!-- Sub-view 0: Visão Geral do Eixo 2 (Pilares, Analytics Curricular e Governança) -->
+  <section id="ws-panel-v0" class="cagp-workspace-view space-y-6" data-ws-panel="v0">
     <div id="visao-geral" class="cagp-anchor-target scroll-mt-24"></div>
-    <CursoCandangosAndTimeline client:load />
+    <CursoPillarsFeatureGrid client:load />
     <CursoAnalyticsAndColegiado client:visible />
-    <CursoPillarsFeatureGrid client:visible />
     <AxisOverview axisId="curso" />
   </section>
 

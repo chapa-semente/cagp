@@ -277,7 +277,7 @@ export const CarreiraTalentosTab: React.FC = () => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-3 border-[#16181d] pb-4">
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-1">
-              <span className="px-2.5 py-0.5 rounded bg-[#5B2A86] text-white font-mono text-[10px] font-bold uppercase border-2 border-[#16181d]">
+              <span className="px-2.5 py-0.5 rounded bg-[#5B2A86] text-white font-mono text-xs font-bold uppercase border-2 border-[#16181d]">
                 Carta-Programa Chapa Semente
               </span>
               <span className="font-mono text-xs font-bold text-secondary">
@@ -293,7 +293,7 @@ export const CarreiraTalentosTab: React.FC = () => {
           </div>
           <a
             href={route('/chapa-semente')}
-            className="min-h-[44px] px-4 py-2 rounded-xl border-3 border-[#16181d] bg-[#FF8811] hover:bg-[#e67600] text-[#16181d] font-heading text-xs font-black uppercase no-underline inline-flex items-center justify-center gap-1.5 shrink-0 shadow-[3px_3px_0_0_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
+            className="min-h-[44px] px-4 py-2 rounded-xl border-3 border-[#16181d] bg-[#FF8811] hover:bg-[#e67600] text-[#16181d] font-heading text-xs font-black uppercase no-underline inline-flex items-center justify-center gap-1.5 shrink-0 shadow-[3px_3px_0_0_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
           >
             <span>Ver Carta-Programa</span>
             <i className="bi bi-arrow-right" aria-hidden="true" />
@@ -306,14 +306,14 @@ export const CarreiraTalentosTab: React.FC = () => {
               key={prop.num}
               whileHover={{ x: -2, y: -2 }}
               transition={tactileSpring}
-              className="p-4 rounded-xl border-3 border-[#16181d] bg-[#f4f0ea] shadow-[4px_4px_0_0_#16181d] flex flex-col justify-between gap-3"
+              className="p-4 rounded-xl border-2 border-border/80 bg-[#f4f0ea] flex flex-col justify-between gap-3"
             >
               <div className="space-y-2">
                 <div className="flex items-center justify-between gap-2">
-                  <span className={`px-2.5 py-1 rounded-md border-2 border-[#16181d] font-mono text-[11px] font-black uppercase shadow-xs ${prop.color}`}>
+                  <span className={`px-2.5 py-1 rounded-md border-2 border-[#16181d] font-mono text-xs font-black uppercase shadow-xs ${prop.color}`}>
                     {prop.num}
                   </span>
-                  <span className="font-mono text-[10px] font-bold text-foreground uppercase">
+                  <span className="font-mono text-xs font-bold text-foreground uppercase">
                     {prop.badge}
                   </span>
                 </div>
@@ -325,7 +325,7 @@ export const CarreiraTalentosTab: React.FC = () => {
                   {prop.desc}
                 </p>
               </div>
-              <span className="font-mono text-[10px] font-bold text-muted-foreground pt-2 border-t-2 border-[#16181d]/15 block">
+              <span className="font-mono text-xs font-bold text-muted-foreground pt-2 border-t-2 border-[#16181d]/15 block">
                 {prop.eixo}
               </span>
             </motion.div>
@@ -333,9 +333,9 @@ export const CarreiraTalentosTab: React.FC = () => {
         </div>
 
         {/* Card Interativo Proposta 11: Apoio à Fundação da Empresa Júnior de Gestão Pública */}
-        <div className="p-4 rounded-xl border-3 border-[#16181d] bg-[#F0FDF4] shadow-[4px_4px_0_0_#16181d] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="p-4 rounded-xl border-2 border-[#134E4A]/40 bg-[#F0FDF4] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1">
-            <span className="font-mono text-[10px] font-black uppercase text-[#134E4A] block">
+            <span className="font-mono text-xs font-black uppercase text-[#134E4A] block">
               PROPOSTA 11 EM MOBILIZAÇÃO • EMPRESA JÚNIOR DE GESTÃO PÚBLICA UFMG
             </span>
             <h4 className="font-heading text-sm font-black uppercase text-foreground m-0">
@@ -351,7 +351,7 @@ export const CarreiraTalentosTab: React.FC = () => {
             transition={tactileSpring}
             type="button"
             onClick={toggleEmpresaJunior}
-            className={`min-h-[44px] px-4 py-2.5 rounded-xl border-3 border-[#16181d] font-heading text-xs font-black uppercase shrink-0 cursor-pointer flex items-center gap-2 shadow-[3px_3px_0_0_#16181d] ${
+            className={`min-h-[44px] px-4 py-2.5 rounded-xl border-3 border-[#16181d] font-heading text-xs font-black uppercase shrink-0 cursor-pointer flex items-center gap-2 shadow-[3px_3px_0_0_#16181d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
               profile.interestedInEmpresaJunior
                 ? 'bg-[#134E4A] text-white'
                 : 'bg-white text-foreground hover:bg-muted'
@@ -391,7 +391,7 @@ export const CarreiraTalentosTab: React.FC = () => {
                 key={sp}
                 type="button"
                 onClick={() => setSphereFilter(sp)}
-                className={`min-h-[44px] px-3 py-1.5 rounded-xl border-2 border-[#16181d] font-heading text-xs font-extrabold uppercase shrink-0 cursor-pointer transition-all ${
+                className={`min-h-[44px] px-3.5 py-1.5 rounded-xl border-2 border-[#16181d] font-heading text-xs font-extrabold uppercase shrink-0 cursor-pointer transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 active:translate-x-0.5 active:translate-y-0.5 ${
                   sphereFilter === sp
                     ? 'bg-primary text-white shadow-[2px_2px_0_0_#16181d]'
                     : 'bg-white text-foreground hover:bg-muted'
@@ -421,10 +421,10 @@ export const CarreiraTalentosTab: React.FC = () => {
               >
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-2">
-                    <span className="text-[10px] font-mono font-black uppercase px-2 py-0.5 rounded bg-[#f4f0ea] border-2 border-[#16181d] text-foreground">
+                    <span className="text-xs font-mono font-black uppercase px-2 py-0.5 rounded bg-[#f4f0ea] border-2 border-[#16181d] text-foreground">
                       {v.tag}
                     </span>
-                    <span className="text-[10px] font-heading font-black uppercase px-2 py-0.5 rounded bg-[#134E4A] text-white border-2 border-[#16181d]">
+                    <span className="text-xs font-heading font-black uppercase px-2 py-0.5 rounded bg-[#134E4A] text-white border-2 border-[#16181d]">
                       {v.status}
                     </span>
                   </div>
@@ -434,7 +434,7 @@ export const CarreiraTalentosTab: React.FC = () => {
                   <p className="text-xs font-medium text-foreground/80 mt-1 mb-0">
                     {v.role}
                   </p>
-                  <div className="mt-3 p-2.5 rounded-lg bg-[#f4f0ea] border-2 border-[#16181d] space-y-1 text-[11px] font-mono text-foreground">
+                  <div className="mt-3 p-2.5 rounded-lg bg-[#f4f0ea] border border-border/80 space-y-1 text-xs font-mono text-foreground tabular-nums">
                     <div className="flex items-center justify-between">
                       <span>Jornada:</span>
                       <strong>{v.hours}</strong>
@@ -451,17 +451,17 @@ export const CarreiraTalentosTab: React.FC = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <span className="block font-mono text-[10px] font-bold text-primary uppercase">
+                  <span className="block font-mono text-xs font-bold text-primary uppercase">
                     ✦ {v.proposalLink}
                   </span>
                   <a
                     href={v.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-1.5 w-full py-2.5 px-3 bg-primary text-white text-xs font-heading font-black uppercase rounded-xl border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] hover:bg-primary/90 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer min-h-[44px] no-underline"
+                    className="inline-flex items-center justify-center gap-1.5 w-full py-2.5 px-3 bg-primary text-white text-xs font-heading font-black uppercase rounded-xl border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] hover:bg-primary/90 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all cursor-pointer min-h-[44px] no-underline"
                   >
                     <span>Acessar Portal do Órgão</span>
-                    <i className="bi bi-box-arrow-up-right text-[10px]" aria-hidden="true"></i>
+                    <i className="bi bi-box-arrow-up-right text-xs" aria-hidden="true"></i>
                   </a>
                 </div>
               </motion.div>
@@ -483,7 +483,7 @@ export const CarreiraTalentosTab: React.FC = () => {
                 Monte seu perfil de competências em Gestão Pública para exportar junto ao Passaporte Estudantil.
               </p>
             </div>
-            <span className="px-2.5 py-1 rounded-md bg-[#f4f0ea] border-2 border-[#16181d] font-mono text-[11px] font-bold">
+            <span className="px-2.5 py-1 rounded-md bg-[#f4f0ea] border-2 border-[#16181d] font-mono text-xs font-bold">
               100% Privado no Navegador
             </span>
           </div>
@@ -507,14 +507,14 @@ export const CarreiraTalentosTab: React.FC = () => {
                     key={st.id}
                     type="button"
                     onClick={() => handleStatusChange(st.id as any)}
-                    className={`p-3.5 rounded-xl border-3 border-[#16181d] text-left transition-all min-h-[56px] cursor-pointer ${
+                    className={`p-3.5 rounded-xl border-3 border-[#16181d] text-left transition-all min-h-[56px] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5 ${
                       isSelected
                         ? 'bg-primary text-white shadow-[3px_3px_0_0_#16181d]'
                         : 'bg-white hover:bg-muted text-foreground shadow-[2px_2px_0_0_#16181d]'
                     }`}
                   >
                     <div className="text-xs font-heading font-extrabold uppercase">{st.label}</div>
-                    <div className={`text-[11px] mt-0.5 ${isSelected ? 'text-white/90' : 'text-muted-foreground'}`}>
+                    <div className={`text-xs mt-0.5 ${isSelected ? 'text-white/90' : 'text-muted-foreground'}`}>
                       {st.desc}
                     </div>
                   </motion.button>
@@ -536,7 +536,7 @@ export const CarreiraTalentosTab: React.FC = () => {
                     key={hrs}
                     type="button"
                     onClick={() => handleHoursChange(hrs)}
-                    className={`min-h-[44px] px-3 py-2 rounded-xl border-2 border-[#16181d] font-mono text-xs font-bold cursor-pointer transition-all ${
+                    className={`min-h-[44px] px-3 py-2 rounded-xl border-2 border-[#16181d] font-mono text-xs font-bold cursor-pointer transition-all tabular-nums focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5 ${
                       active
                         ? 'bg-[#134E4A] text-white shadow-[3px_3px_0_0_#16181d]'
                         : 'bg-white text-foreground hover:bg-muted'
@@ -552,7 +552,7 @@ export const CarreiraTalentosTab: React.FC = () => {
           {/* 3. Áreas de Interesse */}
           <div className="space-y-2.5">
             <label className="text-xs font-heading font-black uppercase tracking-wider text-foreground block">
-              3. Áreas de Atuação de Maior Interesse ({profile.interestAreas.length} selecionadas)
+              3. Áreas de Atuação de Maior Interesse (<span className="tabular-nums">{profile.interestAreas.length}</span> selecionadas)
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               {AREAS.map((area) => {
@@ -563,7 +563,7 @@ export const CarreiraTalentosTab: React.FC = () => {
                     key={area}
                     type="button"
                     onClick={() => toggleArea(area)}
-                    className={`p-3 rounded-xl border-2 border-[#16181d] text-left text-xs transition-all flex items-center justify-between gap-2 cursor-pointer min-h-[44px] ${
+                    className={`p-3 rounded-xl border-2 border-[#16181d] text-left text-xs transition-all flex items-center justify-between gap-2 cursor-pointer min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5 ${
                       active
                         ? 'bg-[#F0FDF4] text-[#134E4A] font-extrabold shadow-[3px_3px_0_0_#16181d]'
                         : 'bg-white hover:bg-muted text-foreground font-medium'
@@ -594,7 +594,7 @@ export const CarreiraTalentosTab: React.FC = () => {
                   value={profile.lattesUrl}
                   onChange={(e) => setProfile({ ...profile, lattesUrl: e.target.value })}
                   placeholder="http://lattes.cnpq.br/..."
-                  className="w-full px-3 py-2 text-base sm:text-xs bg-white border-3 border-[#16181d] rounded-xl focus:outline-none focus:ring-2 focus:ring-primary font-mono min-h-[44px]"
+                  className="w-full px-3 py-2 text-base sm:text-xs bg-white border-3 border-[#16181d] rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary font-mono min-h-[44px]"
                 />
               </div>
               <div className="space-y-1.5">
@@ -607,7 +607,7 @@ export const CarreiraTalentosTab: React.FC = () => {
                   value={profile.linkedinUrl}
                   onChange={(e) => setProfile({ ...profile, linkedinUrl: e.target.value })}
                   placeholder="https://linkedin.com/in/..."
-                  className="w-full px-3 py-2 text-base sm:text-xs bg-white border-3 border-[#16181d] rounded-xl focus:outline-none focus:ring-2 focus:ring-primary font-mono min-h-[44px]"
+                  className="w-full px-3 py-2 text-base sm:text-xs bg-white border-3 border-[#16181d] rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary font-mono min-h-[44px]"
                 />
               </div>
             </div>
@@ -626,7 +626,7 @@ export const CarreiraTalentosTab: React.FC = () => {
                       key={sug}
                       type="button"
                       onClick={() => (hasSkill ? removeSkill(sug) : addSkillString(sug))}
-                      className={`min-h-[36px] px-2.5 py-1 rounded-lg border-2 border-[#16181d] font-mono text-[11px] font-bold cursor-pointer transition-all ${
+                      className={`min-h-[44px] px-3 py-1.5 rounded-lg border-2 border-[#16181d] font-mono text-xs font-bold cursor-pointer transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 active:translate-x-0.5 active:translate-y-0.5 ${
                         hasSkill
                           ? 'bg-[#134E4A] text-white'
                           : 'bg-[#f4f0ea] text-foreground hover:bg-muted'
@@ -645,7 +645,7 @@ export const CarreiraTalentosTab: React.FC = () => {
                 onChange={(e) => setNewSkill(e.target.value)}
                 onKeyDown={addSkill}
                 placeholder="Digite outra competência e pressione Enter..."
-                className="w-full px-3 py-2 text-base sm:text-xs bg-white border-3 border-[#16181d] rounded-xl focus:outline-none focus:ring-2 focus:ring-primary min-h-[44px]"
+                className="w-full px-3 py-2 text-base sm:text-xs bg-white border-3 border-[#16181d] rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary min-h-[44px]"
               />
 
               {profile.skills.length > 0 && (
@@ -659,7 +659,7 @@ export const CarreiraTalentosTab: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => removeSkill(sk)}
-                        className="w-5 h-5 rounded bg-secondary text-white inline-flex items-center justify-center cursor-pointer font-bold"
+                        className="w-7 h-7 rounded bg-secondary hover:bg-secondary/90 text-white inline-flex items-center justify-center cursor-pointer font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                         aria-label={`Remover ${sk}`}
                       >
                         ×
@@ -673,7 +673,7 @@ export const CarreiraTalentosTab: React.FC = () => {
             <div className="flex flex-wrap items-center justify-end gap-3 pt-2">
               <button
                 type="submit"
-                className="min-h-[44px] px-5 py-2.5 bg-primary text-white font-heading font-black text-xs uppercase tracking-wider rounded-xl border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] hover:bg-primary/95 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer"
+                className="min-h-[44px] px-5 py-2.5 bg-primary text-white font-heading font-black text-xs uppercase tracking-wider rounded-xl border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] hover:bg-primary/95 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all cursor-pointer"
               >
                 Cadastrar Currículo no Cofre
               </button>
@@ -689,7 +689,7 @@ export const CarreiraTalentosTab: React.FC = () => {
         >
           <div className="flex items-center justify-between border-b-3 border-[#16181d] pb-3">
             <div>
-              <span className="font-mono text-[10px] font-black uppercase text-primary block">
+              <span className="font-mono text-xs font-black uppercase text-primary block">
                 CARTÃO DE TALENTO DISCENTE GP
               </span>
               <h4 className="font-heading text-sm font-black uppercase text-foreground m-0">
@@ -701,22 +701,24 @@ export const CarreiraTalentosTab: React.FC = () => {
             </span>
           </div>
 
-          <div className="p-3.5 rounded-xl border-3 border-[#16181d] bg-white shadow-[3px_3px_0_0_#16181d] space-y-2.5 text-xs">
-            <div className="flex items-center justify-between">
-              <span className="font-mono text-[11px] text-muted-foreground">Disponibilidade:</span>
-              <span className="font-mono font-black text-[#134E4A]">{profile.weeklyHoursAvailable}h / semana</span>
+          <div className="p-4 rounded-xl border-2 border-border/80 bg-white divide-y divide-border/60 text-xs">
+            <div className="pb-2.5 flex items-center justify-between">
+              <span className="font-mono text-xs text-muted-foreground">Disponibilidade:</span>
+              <span className="font-mono font-black text-[#134E4A] tabular-nums">{profile.weeklyHoursAvailable}h / semana</span>
             </div>
-            <div className="flex items-center justify-between">
-              <span className="font-mono text-[11px] text-muted-foreground">Áreas Foco:</span>
-              <span className="font-mono font-black text-foreground">{profile.interestAreas.length} áreas</span>
+            <div className="py-2.5 flex items-center justify-between">
+              <span className="font-mono text-xs text-muted-foreground">Áreas Foco:</span>
+              <span className="font-mono font-black text-foreground tabular-nums">{profile.interestAreas.length} áreas</span>
             </div>
-            <div className="flex items-center justify-between">
-              <span className="font-mono text-[11px] text-muted-foreground">Competências:</span>
-              <span className="font-mono font-black text-primary">{profile.skills.length} registradas</span>
+            <div className="py-2.5 flex items-center justify-between">
+              <span className="font-mono text-xs text-muted-foreground">Competências:</span>
+              <span className="font-mono font-black text-primary tabular-nums">{profile.skills.length} registradas</span>
             </div>
             {profile.interestedInEmpresaJunior && (
-              <div className="px-2.5 py-1.5 rounded-lg bg-[#134E4A] text-white font-mono text-[10px] font-bold uppercase text-center border border-[#16181d]">
-                ★ Membro Apoiador Empresa Júnior GP
+              <div className="pt-2.5">
+                <div className="px-2.5 py-1.5 rounded-lg bg-[#134E4A] text-white font-mono text-xs font-bold uppercase text-center border border-[#16181d]">
+                  ★ Membro Apoiador Empresa Júnior GP
+                </div>
               </div>
             )}
           </div>
@@ -724,7 +726,7 @@ export const CarreiraTalentosTab: React.FC = () => {
           <button
             type="button"
             onClick={copySummaryToClipboard}
-            className="min-h-[44px] w-full px-4 py-2.5 rounded-xl border-3 border-[#16181d] bg-[#FF8811] hover:bg-[#e67600] text-[#16181d] font-heading text-xs font-black uppercase flex items-center justify-center gap-2 cursor-pointer shadow-[3px_3px_0_0_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
+            className="min-h-[44px] w-full px-4 py-2.5 rounded-xl border-3 border-[#16181d] bg-[#FF8811] hover:bg-[#e67600] text-[#16181d] font-heading text-xs font-black uppercase flex items-center justify-center gap-2 cursor-pointer shadow-[3px_3px_0_0_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
           >
             <i className="bi bi-clipboard-check-fill" aria-hidden="true" />
             <span>Copiar Resumo para Currículo</span>

@@ -1,25 +1,27 @@
 // src/lib/motion.ts
 // Motor Central de Física Tátil & Animações Expressivas (motion/react)
-// Regra Canônica: Animações 100% ativas em todo o SuperApp (ignora prefers-reduced-motion)
+// Diretriz Impeccable: Desaceleração natural confiante, sem oscilações artificiais/bounce excessivo
 
 export const FORCE_EXPRESSIVE_MOTION = true;
 
+export const easeOutExpo = [0.16, 1, 0.3, 1] as const;
+
 export const tactileSpring = {
   type: "spring" as const,
-  stiffness: 450,
+  stiffness: 420,
   damping: 30,
 };
 
 export const bounceSpring = {
   type: "spring" as const,
-  stiffness: 500,
-  damping: 22,
+  stiffness: 400,
+  damping: 32,
 };
 
 export const photoZoomSpring = {
   type: "spring" as const,
-  stiffness: 380,
-  damping: 24,
+  stiffness: 360,
+  damping: 28,
 };
 
 export const drawerSpring = {
@@ -46,19 +48,19 @@ export const cardHoverVariants = {
   rest: {
     x: 0,
     y: 0,
-    boxShadow: "4px 4px 0px #16181d",
+    boxShadow: "4px 4px 0px var(--border, #16181d)",
     transition: tactileSpring,
   },
   hover: {
     x: -2,
     y: -2,
-    boxShadow: "6px 6px 0px #16181d",
+    boxShadow: "6px 6px 0px var(--border, #16181d)",
     transition: tactileSpring,
   },
   tap: {
     x: 2,
     y: 2,
-    boxShadow: "0px 0px 0px #16181d",
+    boxShadow: "0px 0px 0px var(--border, #16181d)",
     transition: tactileSpring,
   },
 };

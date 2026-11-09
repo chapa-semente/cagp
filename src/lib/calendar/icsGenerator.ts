@@ -58,11 +58,21 @@ export function downloadIcs(options: IcsOptions): void {
   URL.revokeObjectURL(url);
 }
 
-export function downloadPresetIcs(preset: 'ru-1815' | 'circular-2230' | 'secretaria-f2039'): void {
+export function downloadPresetIcs(preset: 'ru-1815' | 'circular-2230' | 'secretaria-f2039' | 'eleicoes-cagp-2026'): void {
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
 
-  if (preset === 'ru-1815') {
+  if (preset === 'eleicoes-cagp-2026') {
+    const electionDay = new Date(2026, 10, 25, 17, 0, 0, 0); // 25/11/2026 17h
+    downloadIcs({
+      title: 'Votação Eleições CAGP 2026 (Chapa Semente)',
+      description: 'Votação presencial nas Eleições do Centro Acadêmico de Gestão Pública da UFMG (CAGP FAFICH). Horário: 17h às 22h30 na Sede F-4000.',
+      location: 'Sede do CAGP (Sala F-4000) • 4º Andar FAFICH/UFMG',
+      filename: 'eleicoes-cagp-2026',
+      startDate: electionDay,
+      durationMinutes: 330,
+    });
+  } else if (preset === 'ru-1815') {
     tomorrow.setHours(18, 15, 0, 0);
     downloadIcs({
       title: 'Jantar no RU II Setorial (18h15) — Horário Noturno',

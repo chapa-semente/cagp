@@ -24,8 +24,8 @@
   border: var(--border-w, 3px) solid var(--border, #16181d);
   box-shadow: var(--shadow-md, 4px 4px 0 0 #16181d);
   touch-action: manipulation;
-  transition: transform 0.15s var(--bk-ease-snap, cubic-bezier(0.22, 1, 0.3, 1.12)),
-              box-shadow 0.15s var(--bk-ease-snap, cubic-bezier(0.22, 1, 0.3, 1.12)),
+  transition: transform 0.15s var(--bk-ease-snap, cubic-bezier(0.16, 1, 0.3, 1)),
+              box-shadow 0.15s var(--bk-ease-snap, cubic-bezier(0.16, 1, 0.3, 1)),
               background-color 0.15s ease,
               color 0.15s ease;
 }
@@ -134,8 +134,8 @@
   box-shadow: var(--shadow, 3px 3px 0 0 #16181d);
   text-decoration: none !important;
   color: var(--foreground, #16181d) !important;
-  transition: transform 0.15s var(--bk-ease-snap, cubic-bezier(0.22, 1, 0.3, 1.12)),
-              box-shadow 0.15s var(--bk-ease-snap, cubic-bezier(0.22, 1, 0.3, 1.12)),
+  transition: transform 0.15s var(--bk-ease-snap, cubic-bezier(0.16, 1, 0.3, 1)),
+              box-shadow 0.15s var(--bk-ease-snap, cubic-bezier(0.16, 1, 0.3, 1)),
               background-color 0.15s ease;
 }
 
@@ -176,8 +176,8 @@
   background-color: var(--card, #FFFFFF);
   color: var(--card-foreground, #16181d);
   box-shadow: var(--shadow-md, 4px 4px 0 0 #16181d);
-  transition: transform 0.15s var(--bk-ease-snap, cubic-bezier(0.22, 1, 0.3, 1.12)),
-              box-shadow 0.15s var(--bk-ease-snap, cubic-bezier(0.22, 1, 0.3, 1.12));
+  transition: transform 0.15s var(--bk-ease-snap, cubic-bezier(0.16, 1, 0.3, 1)),
+              box-shadow 0.15s var(--bk-ease-snap, cubic-bezier(0.16, 1, 0.3, 1));
 }
 
 .cagp-card:hover,
@@ -258,7 +258,7 @@
   transform: rotate(-1.5deg);
   border-radius: 8px;
   line-height: 1.2;
-  animation: bk-stamp-in 0.24s var(--bk-ease-snap, cubic-bezier(0.22, 1, 0.3, 1.12)) forwards;
+  animation: bk-stamp-in 0.24s var(--bk-ease-snap, cubic-bezier(0.16, 1, 0.3, 1)) forwards;
   will-change: transform, opacity;
 }
 .cagp-stamp-badge.is-visto {

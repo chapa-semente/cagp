@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'motion/react';
 import {
   Timeline,
@@ -152,13 +152,6 @@ const CARREIRAS_COMPARATIVAS: PublicCareerCard[] = [
 ];
 
 export const CursoCandangosAndTimeline: React.FC = () => {
-  const [selectedEsfera, setSelectedEsfera] = useState<string>('Todas');
-
-  const filteredCareers =
-    selectedEsfera === 'Todas'
-      ? CARREIRAS_COMPARATIVAS
-      : CARREIRAS_COMPARATIVAS.filter((c) => c.esfera === selectedEsfera);
-
   return (
     <section className="space-y-8 my-6 text-foreground" aria-label="Memória dos Candangos de 1959, Linha do Tempo e Carreiras Públicas">
       {/* 1. Dossiê Editorial Ampliado: Os Candangos de 1959 & A Identidade da Gestão Pública na UFMG */}
@@ -166,10 +159,10 @@ export const CursoCandangosAndTimeline: React.FC = () => {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b-3 border-[#16181d] pb-4">
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-1.5">
-              <span className="px-2.5 py-0.5 rounded-md bg-[#9E2424] text-white font-mono text-[10px] font-black uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+              <span className="px-2.5 py-0.5 rounded-md bg-[#9E2424] text-white font-mono text-xs font-black uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
                 MEMÓRIA HISTÓRICA • BRUNO GIORGI (1959)
               </span>
-              <span className="px-2.5 py-0.5 rounded-md bg-[#5B2A86] text-white font-mono text-[10px] font-black uppercase border-2 border-[#16181d]">
+              <span className="px-2.5 py-0.5 rounded-md bg-[#5B2A86] text-white font-mono text-xs font-black uppercase border-2 border-[#16181d]">
                 SÍMBOLO OFICIAL DO CAGP UFMG
               </span>
             </div>
@@ -252,7 +245,7 @@ export const CursoCandangosAndTimeline: React.FC = () => {
             </motion.div>
 
             <div className="p-4 rounded-xl border-3 border-[#16181d] bg-[#FAF5FF] shadow-[4px_4px_0_0_#16181d] space-y-1.5">
-              <span className="font-mono text-[10px] font-black uppercase text-[#5B2A86] block">
+              <span className="font-mono text-xs font-black uppercase text-[#5B2A86] block">
                 SEMIÓTICA TRÍPLICE • CANDANGOS + SEMENTE + UFMG
               </span>
               <p className="text-xs text-[#16181d] font-body font-medium leading-relaxed m-0">
@@ -302,7 +295,7 @@ export const CursoCandangosAndTimeline: React.FC = () => {
                           : 'bg-[#5B2A86] text-white border-3 border-[#16181d]'
                       }
                     >
-                      <span className="font-mono text-[10px] font-black">{idx + 1}</span>
+                      <span className="font-mono text-xs font-black">{idx + 1}</span>
                     </TimelineDot>
                     {idx < CANDANGOS_TIMELINE.length - 1 && (
                       <TimelineConnector status="completed" className="min-h-14" />
@@ -312,14 +305,14 @@ export const CursoCandangosAndTimeline: React.FC = () => {
                   <TimelineContent className="pb-6">
                     <TimelineCard
                       className={`rounded-xl border-3 border-[#16181d] p-4 sm:p-5 shadow-[4px_4px_0_0_#16181d] ${
-                        milestone.highlight ? 'bg-[#FFFDF9] border-l-8 border-l-[#9E2424]' : 'bg-white'
+                        milestone.highlight ? 'bg-[#FFF8F6] border-[#9E2424]' : 'bg-white'
                       }`}
                     >
                       <div className="flex flex-wrap items-center justify-between gap-2 mb-1.5">
                         <TimelineTitle className="font-head text-sm sm:text-base font-black uppercase text-[#16181d] m-0">
                           {milestone.title}
                         </TimelineTitle>
-                        <span className="px-2.5 py-0.5 rounded-md bg-[#16181d] text-white font-mono text-[10px] font-bold uppercase">
+                        <span className="px-2.5 py-0.5 rounded-md bg-[#16181d] text-white font-mono text-xs font-bold uppercase">
                           {milestone.tag}
                         </span>
                       </div>
@@ -335,141 +328,29 @@ export const CursoCandangosAndTimeline: React.FC = () => {
         </motion.div>
       </div>
 
-      {/* 3. Cartões Comparativos de Carreira Pública */}
-      <div className="p-5 sm:p-7 bg-white border-3 border-[#16181d] rounded-2xl shadow-[6px_6px_0_0_#16181d] space-y-6">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b-3 border-[#16181d] pb-4">
-          <div>
-            <span className="font-mono text-xs font-black uppercase text-[#134E4A] block">
-              COMPARATIVO DE CARREIRAS DE ESTADO • CAMPO DE PÚBLICAS
-            </span>
-            <h3 className="font-head text-lg sm:text-2xl font-black uppercase text-[#16181d] m-0">
-              Cartões Comparativos de Carreira Pública &amp; Remuneração
-            </h3>
-            <p className="text-xs sm:text-sm text-gray-800 mt-1 m-0 font-body font-medium">
-              Compare remuneração inicial, topo de carreira, forma de ingresso e atribuições das principais carreiras dos bacharéis em Gestão Pública pela UFMG:
-            </p>
-          </div>
-
-          {/* Filtro por Esfera com Alvos 44x44pt */}
-          <div className="flex flex-wrap items-center gap-2" role="tablist" aria-label="Filtrar carreiras por esfera">
-            {['Todas', 'Federal', 'Estadual MG', 'Legislativo & Controle', 'Internacional & 3º Setor'].map((esf) => (
-              <motion.button
-                key={esf}
-                type="button"
-                role="tab"
-                aria-selected={selectedEsfera === esf}
-                whileHover={{ y: -2 }}
-                whileTap={{ x: 2, y: 2 }}
-                transition={tactileSpring}
-                onClick={() => setSelectedEsfera(esf)}
-                className={`min-h-[44px] px-3.5 py-2 rounded-xl font-mono text-xs font-black uppercase border-3 border-[#16181d] cursor-pointer transition-colors ${
-                  selectedEsfera === esf
-                    ? 'bg-[#5B2A86] text-white shadow-[3px_3px_0_0_#16181d]'
-                    : 'bg-[#FFFDF9] text-[#16181d] hover:bg-[#f4f0ea] shadow-[2px_2px_0_0_#16181d]'
-                }`}
-              >
-                {esf}
-              </motion.button>
-            ))}
-          </div>
+      {/* Ponte Direta para Egressos & Central de Carreira */}
+      <div className="p-5 rounded-2xl bg-[#FFFDF9] border-3 border-[#16181d] shadow-[5px_5px_0_0_#16181d] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="space-y-1">
+          <h3 className="font-head text-base sm:text-lg font-black uppercase text-[#16181d] m-0">
+            Carreiras Públicas, Salários &amp; Inserção no Mercado
+          </h3>
+          <p className="text-xs sm:text-sm text-gray-700 font-body font-medium m-0">
+            Compare remuneração (EPPGG Federal, EPPGG-MG, Municípios e Consultorias) e veja dados oficiais de empregabilidade dos egressos na aba dedicada a Egressos.
+          </p>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {filteredCareers.map((car) => (
-            <motion.article
-              key={car.id}
-              layout
-              whileHover={{ x: -2, y: -2, boxShadow: '8px 8px 0px 0px #16181d' }}
-              transition={tactileSpring}
-              className="p-5 rounded-xl border-3 border-[#16181d] bg-[#FFFDF9] shadow-[6px_6px_0_0_#16181d] flex flex-col justify-between space-y-4"
-            >
-              <div className="space-y-3">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span
-                    className="px-3 py-1 rounded-md text-white font-mono text-[11px] font-black uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]"
-                    style={{ backgroundColor: car.corDestaque }}
-                  >
-                    {car.esfera}
-                  </span>
-                  <span className="px-2.5 py-1 rounded-md bg-white text-[#16181d] font-mono text-[11px] font-bold border-2 border-[#16181d]">
-                    {car.insercaoUFMG}
-                  </span>
-                </div>
-
-                <div>
-                  <h4 className="font-head text-base sm:text-lg font-black uppercase text-[#16181d] leading-snug m-0">
-                    {car.cargo}
-                  </h4>
-                  <p className="text-xs font-mono font-bold text-gray-700 mt-0.5 m-0">
-                    {car.orgao}
-                  </p>
-                </div>
-
-                {/* Faixas Remuneratórias Comparativas */}
-                <div className="grid grid-cols-2 gap-3 p-3 rounded-xl bg-white border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d]">
-                  <div>
-                    <span className="font-mono text-[10px] font-bold uppercase text-gray-600 block">
-                      Inicial Estimado
-                    </span>
-                    <span className="font-head text-sm sm:text-base font-black text-[#15803D]">
-                      {car.remuneracaoInicial}
-                    </span>
-                  </div>
-                  <div className="border-l-2 border-[#16181d] pl-3">
-                    <span className="font-mono text-[10px] font-bold uppercase text-gray-600 block">
-                      Topo da Carreira
-                    </span>
-                    <span className="font-head text-sm sm:text-base font-black text-[#5B2A86]">
-                      {car.remuneracaoTopo}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="text-xs text-[#16181d] space-y-1.5">
-                  <strong className="font-head uppercase text-xs block text-secondary">
-                    Atribuições Estratégicas:
-                  </strong>
-                  <ul className="space-y-1 pl-4 list-disc font-body font-medium text-gray-800">
-                    {car.atribuicoes.map((atr, i) => (
-                      <li key={i}>{atr}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              <div className="pt-3 border-t-2 border-[#16181d] text-xs font-mono text-gray-800 flex items-center justify-between gap-2">
-                <span>
-                  <strong>Ingresso:</strong> {car.ingresso}
-                </span>
-              </div>
-            </motion.article>
-          ))}
-        </div>
-
-        {/* CTA Eleitoral Chapa Semente: Propostas 9, 10, 11 e 12 (Carreira, Eventos, Cursos Livres e Empresa Júnior) */}
-        <div className="p-4 sm:p-5 rounded-xl bg-[#FAF5FF] border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="space-y-1">
-            <span className="font-mono text-[10px] font-black uppercase text-[#5B2A86] block">
-              EIXO 3 DA CARTA-PROGRAMA • CARREIRA, EVENTOS E EMPRESA JÚNIOR (PROPOSTAS 9, 10 E 11)
-            </span>
-            <p className="text-xs sm:text-sm font-bold text-[#16181d] m-0">
-              A Chapa Semente vai conectar você às carreiras públicas com seminários com egressos (Proposta 9), cursos livres (Proposta 10) e apoio à Empresa Júnior de Gestão Pública (Proposta 11).
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-2.5 shrink-0">
-            <a
-              href={route('/carreira')}
-              className="min-h-[44px] px-4 py-2 bg-white hover:bg-[#f4f0ea] text-[#16181d] rounded-xl font-head text-xs uppercase font-black tracking-wider inline-flex items-center justify-center gap-1.5 no-underline border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d]"
-            >
-              <span>Central de Carreira</span>
-            </a>
-            <a
-              href={route('/chapa-semente#propostas')}
-              className="min-h-[44px] px-4 py-2 bg-[#FF8811] hover:bg-[#e67300] text-[#16181d] rounded-xl font-head text-xs uppercase font-black tracking-wider inline-flex items-center justify-center gap-1.5 no-underline border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d]"
-            >
-              <span>Votar Semente (25 e 26/11) →</span>
-            </a>
-          </div>
+        <div className="flex flex-wrap gap-2.5 shrink-0">
+          <a
+            href="#egressos"
+            className="min-h-[44px] px-4 py-2 bg-secondary hover:bg-[#7A1C1C] text-white rounded-xl font-head text-xs uppercase font-black tracking-wider inline-flex items-center justify-center gap-1.5 no-underline border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5 transition-all"
+          >
+            <span>Ver Egressos &amp; Salários →</span>
+          </a>
+          <a
+            href={route('/carreira')}
+            className="min-h-[44px] px-4 py-2 bg-white hover:bg-[#f4f0ea] text-[#16181d] rounded-xl font-head text-xs uppercase font-black tracking-wider inline-flex items-center justify-center gap-1.5 no-underline border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5 transition-all"
+          >
+            <span>Central de Carreira</span>
+          </a>
         </div>
       </div>
     </section>

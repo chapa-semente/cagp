@@ -31,9 +31,9 @@ const verdictConfig: Record<string, {
   homologado: {
     badge: 'VERIFICADO • NORMA REGIMENTAL',
     stamp: stampText || 'HOMOLOGADO',
-    stampClass: 'text-success bg-success/20',
+    stampClass: 'text-[#166534] bg-[#D0E5D8]',
     iconName: 'check',
-    iconColor: 'text-success',
+    iconColor: 'text-[#166534]',
   },
   obrigatorio: {
     badge: 'TRAVA OFICIAL • PPC 2020',
@@ -79,14 +79,14 @@ const current = verdictConfig[verdict];
     </div>
 
     <!-- Authentic Rubber Stamp com Animação BoldKit -->
-    <div class={`border-3 border-border rounded-lg ${current.stampClass} font-heading font-extrabold text-xs px-3 py-1 uppercase tracking-wider shadow-xs -rotate-1 animate-[bk-stamp-in_0.35s_cubic-bezier(0.22,1,0.3,1.12)_both]`}>
+    <div class={`border-3 border-border rounded-lg ${current.stampClass} font-heading font-extrabold text-xs px-3 py-1 uppercase tracking-wider shadow-xs -rotate-1 animate-[bk-stamp-in_0.35s_cubic-bezier(0.16,1,0.3,1)_both]`}>
       {current.stamp}
     </div>
   </div>
 
   <!-- Central Question / Claim -->
   <div class="mb-3">
-    <span class="text-[11px] uppercase font-mono font-bold text-muted-foreground tracking-wider block mb-1">
+    <span class="text-xs uppercase font-mono font-bold text-muted-foreground tracking-wider block mb-1">
       O que circula / O que você precisa checar:
     </span>
     <p class="font-heading font-extrabold text-base sm:text-lg text-foreground leading-snug m-0">
@@ -105,7 +105,7 @@ const current = verdictConfig[verdict];
   <!-- Optional Official Excerpt Drawer -->
   {officialRuleExcerpt && (
     <details class="cagp-normative-details group bg-white border-3 border-border rounded-xl text-xs overflow-hidden shadow-xs">
-      <summary class="px-3.5 py-2.5 min-h-[44px] cursor-pointer font-heading font-extrabold uppercase text-foreground bg-white hover:bg-muted flex items-center justify-between select-none transition-colors border-b group-open:border-border">
+      <summary class="px-3.5 py-2.5 min-h-[44px] cursor-pointer font-heading font-extrabold uppercase text-foreground bg-white hover:bg-muted flex items-center justify-between select-none transition-colors border-b group-open:border-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset">
         <span class="flex items-center gap-2">
           <CagpIcon name="file-text" class="w-4 h-4 text-muted-foreground" />
           <span>Ver texto legal literal da UFMG</span>

@@ -39,7 +39,6 @@ export function CursoPillarsFeatureGrid() {
   return (
     <FeatureGridWithIcons
       title="Pilares Curriculares da Formação"
-      subtitle="Eixo 2 • Excelência Interdisciplinar"
       description="Conheça as seis dimensões integradas do currículo de Gestão Pública na UFMG (PPC 2020)."
       features={PILLARS}
       columns={3}

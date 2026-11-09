@@ -1,4 +1,4 @@
-// src/lib/chapaSementeData.ts — Mapeamento Central das 9 Lideranças da Chapa Semente e Tour dos 5 Eixos
+// src/lib/chapaSementeData.ts — Mapeamento Central das Lideranças da Chapa Semente e Tour dos 5 Eixos
 // Baseado estritamente em _referencias/documentos-oficiais/briefing_do_site.md
 
 import { asset, route } from '@/lib/paths';
@@ -70,9 +70,9 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
       'O desamparo de quem vem de fora ou ingressa sem conhecer ninguém, deparando-se com um centro acadêmico fechado em círculos de amizade.',
     solution:
       'Hub de acolhimento estudantil, mapas do campus, guia de recepção de calouros e canal de ouvidoria permanente ("Reclame Aqui GP").',
-    photoFilename: 'Larissa Prado.jpg',
+    photoFilename: 'Larissa Prado.png',
     initials: 'LP',
-    deptColor: 'bg-amber-600 text-white border-amber-800',
+    deptColor: 'bg-amber-700 text-white border-amber-900',
     badgeBg: 'bg-amber-100 text-amber-900 border-amber-300',
     toolLabel: 'Abrir Canal de Ouvidoria',
     toolHref: route('/ouvidoria'),
@@ -98,6 +98,25 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
     targetId: 'cagp-shortcut-pesquisa',
   },
   {
+    id: 'nilo',
+    name: 'Nilo Neto',
+    role: 'Vice-Diretoria Acadêmica',
+    tagline: 'Iniciação Científica & Fortalecimento Acadêmico',
+    quote:
+      'A formação acadêmica em Gestão Pública se consolida na ponte entre a teoria de sala de aula e a prática da pesquisa. Nosso papel é aproximar o estudante de todas as portas que a universidade oferece.',
+    painPoint:
+      'Desconhecimento dos caminhos para ingressar na iniciação científica e falta de suporte para novos pesquisadores no curso.',
+    solution:
+      'Mapeamento de grupos de pesquisa, editais de fomento científico e apoio aos percursos acadêmicos dos discentes.',
+    photoFilename: 'Nilo Neto.png',
+    initials: 'NN',
+    deptColor: 'bg-sky-700 text-white border-sky-900',
+    badgeBg: 'bg-sky-100 text-sky-900 border-sky-300',
+    toolLabel: 'Ver Oportunidades de Pesquisa',
+    toolHref: route('/pesquisa'),
+    targetId: 'cagp-shortcut-pesquisa',
+  },
+  {
     id: 'joao',
     name: 'João Pedro Fragoso',
     role: 'Comunicação e Marketing',
@@ -110,7 +129,7 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
       'Portal oficial de notícias, canal de escuta para reportar disciplinas com ementas defasadas diretamente ao Colegiado e vídeos demonstrativos.',
     photoFilename: 'João Pedro Fragoso.jpg',
     initials: 'JF',
-    deptColor: 'bg-rose-600 text-white border-rose-800',
+    deptColor: 'bg-rose-700 text-white border-rose-900',
     badgeBg: 'bg-rose-100 text-rose-900 border-rose-300',
     toolLabel: 'Acessar Mural de Notícias',
     toolHref: route('/noticias'),
@@ -127,7 +146,7 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
       'Caixas opacos com movimentações obscuras e falta de orientação prática para obtenção de auxílios socioeconômicos da assistência estudantil.',
     solution:
       'Portal da Transparência em tempo real centavo a centavo e tutoriais passo a passo para requerimento de benefícios da FUMP e estágio.',
-    photoFilename: 'Vitoria Moraes.jpg',
+    photoFilename: 'Vitoria.png',
     initials: 'VM',
     deptColor: 'bg-emerald-700 text-white border-emerald-900',
     badgeBg: 'bg-emerald-100 text-emerald-900 border-emerald-300',
@@ -146,7 +165,7 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
       'O isolamento institucional do CA, a falta de formação crítica ampla e o desperdício de recursos contratando terceiros para serviços básicos.',
     solution:
       'Solução de hospedagem técnica em cooperação discente, divulgação aberta de cursos livres de ciência política e defesa da independência do CA.',
-    photoFilename: 'Italo de Morais.jpg',
+    photoFilename: 'Italo.png',
     initials: 'IM',
     deptColor: 'bg-cyan-700 text-white border-cyan-900',
     badgeBg: 'bg-cyan-100 text-cyan-900 border-cyan-300',
@@ -165,31 +184,50 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
       'A insegurança e o desgaste burocrático de perder estágios ou ter contratos travados por desconhecimento das regras institucionais da UFMG.',
     solution:
       'Roteiro de preenchimento de Termos de Compromisso de Estágio (TCE), minutas para download e instruções claras para dispensa do Artigo 41.',
-    photoFilename: 'Lara Soares.jpg',
+    photoFilename: 'Lara.png',
     initials: 'LS',
     deptColor: 'bg-indigo-700 text-white border-indigo-900',
     badgeBg: 'bg-indigo-100 text-indigo-900 border-indigo-300',
     toolLabel: 'Acessar Guia de Estágio',
-    toolHref: route('/carreira') + '#art41',
+    toolHref: route('/estagio') + '#art41',
     targetId: 'cagp-shortcut-estagio',
   },
   {
-    id: 'paloma-alice',
-    name: 'Paloma Correia & Alice Maurício',
-    role: 'Cultura e Acolhimento',
+    id: 'paloma',
+    name: 'Paloma Correia',
+    role: 'Diretoria de Cultura',
     tagline: 'Voz do Turno Noturno & Integração na FAFICH',
     quote:
       'Gestão Pública é um curso noturno, feito por quem trabalha o dia inteiro e não pode comparecer a eventos às duas da tarde. Nossa cultura universitária respeita o tempo do aluno trabalhador.',
     painPoint:
-      'Atividades de convivência marcadas em horários incompatíveis com o turno da noite e calouros sem referências sobre os espaços da universidade.',
+      'Atividades de convivência marcadas em horários incompatíveis com o turno da noite e falta de acolhimento nos espaços da universidade.',
     solution:
-      'Calendário cultural planejado para o período noturno, tutoriais validados diretamente por ingressantes e defesa das linhas do Circular 22:30.',
-    photoFilename: 'Paloma Correia.jpg',
-    initials: 'PA',
-    deptColor: 'bg-orange-600 text-white border-orange-800',
+      'Calendário cultural planejado para o período noturno, integração permanente e defesa das linhas do Circular 22:30.',
+    photoFilename: 'Paloma.png',
+    initials: 'PC',
+    deptColor: 'bg-orange-700 text-white border-orange-900',
     badgeBg: 'bg-orange-100 text-orange-900 border-orange-300',
     toolLabel: 'Ver Guia Noturno & FUMP',
     toolHref: route('/permanencia'),
+    targetId: 'cagp-shortcut-permanencia',
+  },
+  {
+    id: 'alice',
+    name: 'Alice Maurício',
+    role: 'Vice-Diretoria de Cultura',
+    tagline: 'Acolhimento de Calouros & Tutoriais Ingressantes',
+    quote:
+      'Como caloura, sei o quanto é desafiador chegar à UFMG sem saber por onde começar. Os tutoriais e o acolhimento do CAGP precisam falar a língua de quem acabou de ingressar.',
+    painPoint:
+      'Calouros e ingressantes sem referências sobre os espaços da universidade, trâmites e vida estudantil.',
+    solution:
+      'Tutoriais descomplicados e validados por quem acabou de ingressar, cronograma cultural antecipado e apoio de recepção discente.',
+    photoFilename: 'Alice.png',
+    initials: 'AM',
+    deptColor: 'bg-amber-600 text-white border-amber-800',
+    badgeBg: 'bg-amber-100 text-amber-900 border-amber-300',
+    toolLabel: 'Ver Guia de Calouros',
+    toolHref: route('/'),
     targetId: 'cagp-shortcut-permanencia',
   },
 ];
@@ -197,8 +235,15 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
 const AVAILABLE_LEADER_PHOTOS = new Set([
   'Gabriel Sathler.jpg',
   'Livia Martins.jpeg',
+  'Larissa Prado.png',
   'MarianaPresti.jpeg',
+  'Nilo Neto.png',
   'João Pedro Fragoso.jpg',
+  'Vitoria.png',
+  'Italo.png',
+  'Lara.png',
+  'Paloma.png',
+  'Alice.png',
 ]);
 
 export function getLeaderPhotoUrl(filename?: string): string | null {
@@ -448,8 +493,8 @@ export const CHAPA_TOUR_12_STOPS: ChapaTourStop[] = [
     stepNumber: 10,
     title: '10. Lara Soares — Diretoria Jurídica',
     subtitle: 'Estágio sem Travas & Segurança Burocrática',
-    pageRoute: route('/carreira'),
-    target: '#cagp-carreira-art41, #art41, #ws-panel-v1, main',
+    pageRoute: route('/estagio'),
+    target: '#art41, #ws-panel-v1, main',
     placement: 'bottom',
     leader: CHAPA_LEADERS[7],
     badge: 'Segurança Jurídica & Estágio',
@@ -461,12 +506,12 @@ export const CHAPA_TOUR_12_STOPS: ChapaTourStop[] = [
     solution:
       'Roteiro de preenchimento de Termos de Compromisso de Estágio (TCE), minutas para download e instruções claras para dispensa de estágio de servidores (Artigo 41).',
     toolLabel: 'Consultar Guia de Estágio & Art. 41',
-    toolHref: route('/carreira') + '#art41',
+    toolHref: route('/estagio') + '#art41',
   },
   {
     id: 'stop-paloma-alice',
     stepNumber: 11,
-    title: '11. Paloma & Alice — Cultura e Acolhimento',
+    title: '11. Paloma Correia & Alice Maurício — Cultura e Acolhimento',
     subtitle: 'Voz do Turno Noturno & Integração na FAFICH',
     pageRoute: route('/permanencia'),
     target: '#cagp-permanencia-header, main',

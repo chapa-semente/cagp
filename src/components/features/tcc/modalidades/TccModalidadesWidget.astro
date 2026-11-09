@@ -1,5 +1,6 @@
 ---
 // src/components/features/tcc/modalidades/TccModalidadesWidget.astro — Widget de Resumo das 4 Modalidades
+import { route } from '@/lib/paths';
 ---
 
 <div class="cagp-card p-5 bg-white border-3 border-border rounded-xl flex flex-col justify-between h-full shadow hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-md transition-all select-none">
@@ -13,10 +14,10 @@
           <h3 class="font-head font-bold text-sm uppercase text-foreground leading-tight m-0 tracking-wide">
             4 Modalidades (Art. 19)
           </h3>
-          <span class="text-[11px] text-gray-700 font-mono font-medium">Monografia, Intervenção, Artigo ou IC</span>
+          <span class="text-xs text-gray-700 font-mono font-medium">Monografia, Intervenção, Artigo ou IC</span>
         </div>
       </div>
-      <span class="px-2 py-0.5 rounded-md font-head text-[11px] font-bold bg-secondary text-white border border-border shadow-xs">
+      <span class="px-2 py-0.5 rounded-md font-head text-xs font-bold bg-secondary text-white border border-border shadow-xs">
         Art. 19
       </span>
     </div>
@@ -42,8 +43,8 @@
   </div>
 
   <a
-    href="#modalidades"
-    class="min-h-[44px] px-3.5 py-2 bg-secondary hover:bg-[#6e1723] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline shadow border-3 border-border"
+    href={route('/tcc') + '#modalidades'}
+    class="min-h-[44px] px-3.5 py-2 bg-secondary hover:bg-[#6e1723] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline shadow border-3 border-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
   >
     <span>Comparar Modalidades</span>
     <i class="bi bi-arrow-right" aria-hidden="true" />

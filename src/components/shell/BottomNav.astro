@@ -9,7 +9,7 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
 
 <nav
   id="cagp-bottom-nav"
-  class="md:hidden fixed inset-x-0 bottom-0 z-[1040] bg-white border-t-3 border-[#16181d] shadow-[0_-3px_0_0_#16181d] select-none"
+  class="md:hidden fixed inset-x-0 bottom-0 z-[1040] bg-white border-t-3 border-border shadow-[0_-3px_0_0_var(--color-border,#16181d)] select-none"
   style="padding-bottom: env(safe-area-inset-bottom, 0px);"
   aria-label="Navegação Principal Mobile (5 Eixos)"
 >
@@ -26,21 +26,21 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
           href={axis.rootHref}
           data-bottom-axis={axis.id}
           aria-current={isCurrent ? 'page' : undefined}
-          class={`cagp-bottom-axis-item flex flex-col items-center justify-center gap-1 min-h-[48px] min-w-[44px] py-1 px-1 rounded-xl no-underline transition-all duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] active:translate-y-0.5 active:scale-95 ${
+          class={`cagp-bottom-axis-item flex flex-col items-center justify-center gap-1 min-h-[48px] min-w-[44px] py-1 px-1 rounded-xl no-underline transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] active:translate-y-0.5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset ${
             isCurrent
               ? 'is-active text-primary font-extrabold'
               : 'text-foreground hover:text-primary font-semibold'
           }`}
         >
           <span
-            class={`cagp-bottom-axis-pill w-11 h-7 rounded-lg flex items-center justify-center transition-all duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            class={`cagp-bottom-axis-pill w-11 h-7 rounded-lg flex items-center justify-center transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] ${
               isCurrent
-                ? 'bg-primary text-white border-3 border-[#16181d] shadow-xs -translate-y-0.5 scale-105'
+                ? 'bg-primary text-white border-3 border-border shadow-xs -translate-y-0.5 scale-105'
                 : 'bg-transparent text-foreground border-3 border-transparent'
             }`}
             set:html={iconSvg}
           />
-          <span class="text-[10px] font-heading font-extrabold uppercase tracking-tight leading-none truncate max-w-full">
+          <span class="text-xs font-heading font-extrabold uppercase tracking-tight leading-none truncate max-w-full">
             {axis.name}
           </span>
         </a>
@@ -103,7 +103,7 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
         pill.classList.toggle('bg-primary', isCurrent);
         pill.classList.toggle('text-white', isCurrent);
         pill.classList.toggle('border-3', true);
-        pill.classList.toggle('border-[#16181d]', isCurrent);
+        pill.classList.toggle('border-border', isCurrent);
         pill.classList.toggle('border-transparent', !isCurrent);
         pill.classList.toggle('shadow-xs', isCurrent);
         pill.classList.toggle('-translate-y-0.5', isCurrent);

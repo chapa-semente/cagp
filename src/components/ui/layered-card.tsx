@@ -107,7 +107,7 @@ const LayeredCard = React.forwardRef<HTMLDivElement, LayeredCardProps>(
         {/* Main card (top layer) */}
         <div
           className={cn(
-            'relative border-3 border-[#16181d] bg-card text-card-foreground shadow-[6px_6px_0_0_#16181d]',
+            'relative border-3 border-border bg-card text-card-foreground shadow-lg',
             interactive &&
               'cursor-pointer transition-transform duration-200 hover:scale-[1.03] hover:-rotate-1 hover:translate-x-[-3px] hover:translate-y-[-3px]'
           )}

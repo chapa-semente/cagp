@@ -188,7 +188,7 @@ export const CalourosOnboardingGuide: React.FC = () => {
                   whileTap={{ x: 2, y: 2 }}
                   transition={tactileSpring}
                   onClick={() => setActiveStep(idx)}
-                  className={`min-h-[64px] p-3 rounded-xl border-3 border-[#16181d] text-left transition-colors cursor-pointer ${
+                  className={`min-h-[64px] p-3 rounded-xl border-3 border-[#16181d] text-left transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
                     isSelected
                       ? 'bg-[#16181d] text-white shadow-[4px_4px_0px_#9E2424]'
                       : isDone
@@ -197,11 +197,11 @@ export const CalourosOnboardingGuide: React.FC = () => {
                   }`}
                 >
                   <div className="flex items-center justify-between mb-1">
-                    <span className="font-mono text-[10px] font-black uppercase">
+                    <span className="font-mono text-xs font-black uppercase">
                       Passo {item.step}
                     </span>
                     {isDone && (
-                      <span className="px-1.5 py-0.5 text-[9px] font-mono font-black bg-[#15803D] text-white rounded">
+                      <span className="px-1.5 py-0.5 text-xs font-mono font-black bg-[#15803D] text-white rounded">
                         OK
                       </span>
                     )}
@@ -231,7 +231,7 @@ export const CalourosOnboardingGuide: React.FC = () => {
                   </div>
                   <div>
                     <span
-                      className="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-mono font-black uppercase text-white border-2 border-[#16181d] mb-1"
+                      className="inline-block px-2.5 py-0.5 rounded-md text-xs font-mono font-black uppercase text-white border-2 border-[#16181d] mb-1"
                       style={{ backgroundColor: current.color }}
                     >
                       {current.tag}
@@ -247,9 +247,16 @@ export const CalourosOnboardingGuide: React.FC = () => {
                   variant={completed.includes(current.step) ? 'secondary' : 'default'}
                   size="sm"
                   onClick={() => toggleComplete(current.step)}
-                  className="min-h-[44px] px-4"
+                  className="min-h-[44px] px-4 inline-flex items-center gap-1.5"
                 >
-                  {completed.includes(current.step) ? '✓ Etapa Carimbada' : 'Carimbar como Concluída'}
+                  {completed.includes(current.step) ? (
+                    <>
+                      <i className="bi bi-check-circle-fill text-sm" aria-hidden="true" />
+                      <span>Etapa Carimbada</span>
+                    </>
+                  ) : (
+                    <span>Carimbar como Concluída</span>
+                  )}
                 </Button>
               </div>
 
@@ -259,7 +266,7 @@ export const CalourosOnboardingGuide: React.FC = () => {
                     key={i}
                     className="p-3.5 rounded-xl border-2 border-[#16181d] bg-white shadow-[2px_2px_0px_#16181d] text-xs text-[#16181d] leading-relaxed font-medium flex gap-2.5"
                   >
-                    <span className="w-6 h-6 rounded-md bg-[#9E2424] text-white font-mono text-[10px] font-black flex items-center justify-center shrink-0 mt-0.5 border border-[#16181d]">
+                    <span className="w-6 h-6 rounded-md bg-[#9E2424] text-white font-mono text-xs font-black flex items-center justify-center shrink-0 mt-0.5 border border-[#16181d]">
                       {i + 1}
                     </span>
                     <span>{pt}</span>
@@ -279,9 +286,10 @@ export const CalourosOnboardingGuide: React.FC = () => {
                 </Button>
                 <a
                   href={route('/chapa-semente#propostas')}
-                  className="text-xs font-mono font-black uppercase text-[#5B2A86] hover:underline py-2"
+                  className="text-xs font-mono font-black uppercase text-[#5B2A86] hover:underline py-2 inline-flex items-center gap-1.5"
                 >
-                  ✦ Proposta 7 Semente: Recepção de Calouros →
+                  <i className="bi bi-stars text-xs text-[#FF8811]" aria-hidden="true" />
+                  <span>Proposta 7 Semente: Recepção de Calouros →</span>
                 </a>
                 <Button
                   variant="accent"
@@ -322,7 +330,7 @@ export const CalourosOnboardingGuide: React.FC = () => {
           <div className="p-5 bg-card border-3 border-[#16181d] rounded-xl shadow-[4px_4px_0_0_#16181d] space-y-3">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
-                <span className="text-[10px] font-mono font-bold uppercase text-secondary block">
+                <span className="text-xs font-mono font-bold uppercase text-secondary block">
                   Questionário Interativo
                 </span>
                 <h4 className="font-head text-base uppercase font-extrabold text-foreground m-0">

@@ -69,24 +69,24 @@ export const SettingsTabContent: React.FC = () => {
       )}
 
       {/* Alertas do Campus */}
-      <div className="bg-background p-3 rounded-lg border border-muted space-y-2.5">
+      <div className="bg-background p-3.5 rounded-xl border-2 border-border shadow-xs space-y-3">
         <div className="flex items-center justify-between">
-          <span className="font-['Oswald'] font-bold text-xs uppercase text-foreground">
-            <i className="bi bi-bell-fill text-warning me-1"></i> Alertas Noturnos
+          <span className="font-heading font-extrabold text-xs uppercase tracking-tight text-foreground">
+            <i className="bi bi-bell-fill text-warning me-1.5"></i> Alertas Noturnos
           </span>
-          <span className="text-[10px] font-mono text-gray-500">Noturno FAFICH</span>
+          <span className="text-xs font-mono font-bold text-muted-foreground">Noturno FAFICH</span>
         </div>
 
-        <div className="flex items-center justify-between text-xs pt-1 border-t border-muted">
+        <div className="flex items-center justify-between text-xs pt-2 border-t-2 border-border">
           <div>
-            <span className="font-bold block">Jantar RU II Setorial (18h15)</span>
-            <span className="text-[10px] text-gray-500">Catracas até 19h30</span>
+            <span className="font-heading font-bold block text-foreground">Jantar RU II Setorial (18h15)</span>
+            <span className="text-xs text-muted-foreground">Catracas até 19h30</span>
           </div>
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={() => downloadPresetIcs('ru-1815')}
-              className="cagp-btn-secondary text-xs min-h-[44px] px-2.5 cursor-pointer inline-flex items-center justify-center"
+              className="cagp-btn-secondary text-xs min-h-[44px] px-3 font-heading font-extrabold cursor-pointer inline-flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
               aria-label="Baixar evento iCalendar para Jantar RU II 18h15"
             >
               .ics
@@ -102,22 +102,22 @@ export const SettingsTabContent: React.FC = () => {
                 type="checkbox"
                 checked={notifs.ru1815}
                 onChange={(e) => updateNotif({ ru1815: e.target.checked })}
-                className="w-4 h-4 accent-[#8B1E2D]"
+                className="w-5 h-5 accent-[#8B1E2D] cursor-pointer"
               />
             </label>
           </div>
         </div>
 
-        <div className="flex items-center justify-between text-xs pt-1 border-t border-muted">
+        <div className="flex items-center justify-between text-xs pt-2 border-t-2 border-border">
           <div>
-            <span className="font-bold block">Último Circular FAFICH (22h30)</span>
-            <span className="text-[10px] text-gray-500">Gratuito até 22h45</span>
+            <span className="font-heading font-bold block text-foreground">Último Circular FAFICH (22h30)</span>
+            <span className="text-xs text-muted-foreground">Gratuito até 22h45</span>
           </div>
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={() => downloadPresetIcs('circular-2230')}
-              className="cagp-btn-secondary text-xs min-h-[44px] px-2.5 cursor-pointer inline-flex items-center justify-center"
+              className="cagp-btn-secondary text-xs min-h-[44px] px-3 font-heading font-extrabold cursor-pointer inline-flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
               aria-label="Baixar evento iCalendar para Circular FAFICH 22h30"
             >
               .ics
@@ -133,7 +133,7 @@ export const SettingsTabContent: React.FC = () => {
                 type="checkbox"
                 checked={notifs.circular2230}
                 onChange={(e) => updateNotif({ circular2230: e.target.checked })}
-                className="w-4 h-4 accent-[#8B1E2D]"
+                className="w-5 h-5 accent-[#8B1E2D] cursor-pointer"
               />
             </label>
           </div>
@@ -141,12 +141,12 @@ export const SettingsTabContent: React.FC = () => {
       </div>
 
       {/* Cofre Discente */}
-      <div className="bg-background p-3 rounded-lg border border-muted space-y-2">
+      <div className="bg-background p-3.5 rounded-xl border-2 border-border shadow-xs space-y-3">
         <div className="flex items-center justify-between">
-          <span className="font-['Oswald'] font-bold text-xs uppercase text-foreground">
-            <i className="bi bi-safe2-fill text-success me-1"></i> Meu CAGP Sync
+          <span className="font-heading font-extrabold text-xs uppercase tracking-tight text-foreground">
+            <i className="bi bi-safe2-fill text-success me-1.5"></i> Meu CAGP Sync
           </span>
-          <span className="text-[10px] font-mono font-bold bg-white px-2 py-0.5 rounded border border-muted">
+          <span className="text-xs font-mono font-bold bg-white px-2.5 py-1 rounded-md border-2 border-border shadow-xs tabular-nums">
             {vaultBytes} bytes
           </span>
         </div>
@@ -155,14 +155,14 @@ export const SettingsTabContent: React.FC = () => {
           <button
             type="button"
             onClick={handleCopyBackup}
-            className="cagp-btn-secondary text-xs min-h-[44px] px-3 flex-1 justify-center cursor-pointer inline-flex items-center"
+            className="cagp-btn-secondary text-xs font-heading font-extrabold min-h-[44px] px-3 flex-1 justify-center cursor-pointer inline-flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
           >
             <i className="bi bi-clipboard-check me-1.5"></i> Copiar Backup CAGP1
           </button>
           <button
             type="button"
             onClick={handleClear}
-            className="cagp-btn-outline text-xs min-h-[44px] min-w-[44px] px-3 text-destructive border-destructive/30 cursor-pointer inline-flex items-center justify-center"
+            className="cagp-btn-outline text-xs min-h-[44px] min-w-[44px] px-3 text-destructive border-2 border-destructive/40 cursor-pointer inline-flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive focus-visible:ring-offset-1"
             title="Redefinir Cofre Local"
             aria-label="Redefinir Cofre Local"
           >
@@ -170,7 +170,7 @@ export const SettingsTabContent: React.FC = () => {
           </button>
         </div>
 
-        <div className="pt-2 border-t border-muted flex gap-1.5 items-center">
+        <div className="pt-2 border-t-2 border-border flex gap-2 items-center">
           <input
             id="settings-tab-backup-input"
             name="settingsBackupToken"
@@ -178,12 +178,12 @@ export const SettingsTabContent: React.FC = () => {
             placeholder="Restaurar token CAGP1:..."
             value={backupInput}
             onChange={(e) => setBackupInput(e.target.value)}
-            className="flex-1 min-h-[44px] bg-white border border-muted px-3 py-2 text-xs font-mono rounded focus:border-secondary focus:outline-none"
+            className="flex-1 min-h-[44px] bg-white border-2 border-border px-3 py-2 text-xs font-mono rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
           />
           <button
             type="button"
             onClick={handleRestore}
-            className="cagp-btn-primary text-xs min-h-[44px] px-3.5 cursor-pointer inline-flex items-center justify-center shrink-0"
+            className="cagp-btn-primary text-xs font-heading font-extrabold min-h-[44px] px-3.5 cursor-pointer inline-flex items-center justify-center shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
           >
             Restaurar
           </button>
@@ -194,7 +194,7 @@ export const SettingsTabContent: React.FC = () => {
       <div className="pt-1 text-center">
         <a
           href={route('/configuracoes')}
-          className="text-xs font-['Oswald'] font-bold uppercase text-secondary hover:underline inline-flex items-center justify-center gap-1 min-h-[44px] px-3 py-2"
+          className="text-xs font-heading font-extrabold uppercase tracking-tight text-secondary hover:underline inline-flex items-center justify-center gap-1.5 min-h-[44px] px-3 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
         >
           Abrir Página Completa de Configurações <i className="bi bi-arrow-right"></i>
         </a>

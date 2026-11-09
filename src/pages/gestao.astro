@@ -30,6 +30,7 @@ const gestaoMembers: TeamMember[] = [
     name: 'Larissa Prado',
     role: '3. Vice-Presidência (DIPRE • Art. 28)',
     bio: 'Acolhimento estudantil, coordenação do canal de escuta permanente ("Fala com o CA") e integração de calouros.',
+    image: asset('/images/chapa/Larissa Prado.png'),
     social: { email: 'cagp@fafich.ufmg.br' },
   },
   {
@@ -37,6 +38,13 @@ const gestaoMembers: TeamMember[] = [
     role: '4. Diretoria Acadêmica (DIAC • Art. 31)',
     bio: 'Orientação sobre percursos curriculares, mapeamento dos 11 núcleos de pesquisa do DCP e diálogo com o Colegiado.',
     image: asset('/images/chapa/MarianaPresti.jpeg'),
+    social: { email: 'cagp@fafich.ufmg.br' },
+  },
+  {
+    name: 'Nilo Neto',
+    role: 'Vice-Diretoria Acadêmica (DIAC • Art. 31)',
+    bio: 'Apoio à coordenação de pesquisa discente, fomento à iniciação científica e aproximação com os laboratórios do DCP.',
+    image: asset('/images/chapa/Nilo Neto.png'),
     social: { email: 'cagp@fafich.ufmg.br' },
   },
   {
@@ -50,12 +58,14 @@ const gestaoMembers: TeamMember[] = [
     name: 'Vitória Moraes',
     role: '6. Diretoria Financeira (DIFI • Art. 30)',
     bio: 'Livro-Caixa Aberto centavo a centavo, emissão mensal do RREO e tutoriais de assistência estudantil FUMP.',
+    image: asset('/images/chapa/Vitoria.png'),
     social: { email: 'cagp@fafich.ufmg.br' },
   },
   {
     name: 'Ítalo de Morais',
     role: '7. Articulação & Assuntos Políticos (DIAP • Art. 32)',
     bio: 'Representação no Conselho de CAs (CEB), interlocução com DA FAFICH, DCE UFMG e ENECAP (Campo de Públicas).',
+    image: asset('/images/chapa/Italo.png'),
     social: { email: 'cagp@fafich.ufmg.br' },
   },
   {
@@ -87,12 +97,17 @@ const badges = [
 ];
 ---
 
-<BaseLayout title="Processo Eleitoral & Diretorias" description="Processo eleitoral 2026, edital de convocação da Junta Eleitoral, candidatura da Chapa Semente e organograma regimental do CAGP FAFICH/UFMG.">
+<BaseLayout
+  title="Processo Eleitoral & Diretorias"
+  description="Processo eleitoral 2026, edital de convocação da Junta Eleitoral, candidatura da Chapa Semente e organograma regimental do CAGP FAFICH/UFMG."
+  mode="read"
+>
   <PageHeader
     eyebrow="Eixo 5 · Processo Eleitoral & Governança"
     title="Processo Eleitoral & Diretorias do CAGP"
     subtitle="O CAGP encontra-se em processo eleitoral para a gestão 2026. Conheça o cronograma oficial da Junta Eleitoral, as regras do edital, as propostas da Chapa Semente e a estrutura regimental das 7 diretorias executivas."
     badges={badges}
+    mode="read"
   />
 
   <SegmentedControl tabs={tabs} defaultTab="v0" />

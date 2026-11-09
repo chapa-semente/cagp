@@ -43,7 +43,7 @@ const linhaDoTempoDefesa = [
     momento: '10º Período • Até 15 dias antes da Banca',
     titulo: 'Depósito da Versão de Defesa & Agendamento',
     desc: 'Envie o arquivo completo para os membros da banca examinadora (orientador + avaliador titular) e confirme a sala/link da sessão pública na Secretaria.',
-    cor: 'bg-[#FF8811] text-[#16181d]',
+    cor: 'bg-[#FF8811] text-foreground',
   },
   {
     passo: 'Marco 04',
@@ -85,19 +85,19 @@ const regrasBanca = [
 
 <div class="cagp-tcc-cronograma space-y-6 select-none text-foreground">
   {/* Cabeçalho */}
-  <div class="p-5 sm:p-6 bg-white border-3 border-[#16181d] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-[4px_4px_0_0_#16181d]">
+  <div class="p-5 sm:p-6 bg-white border-3 border-border rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
     <div>
-      <span class="text-xs font-head uppercase font-bold tracking-wider text-secondary">
+      <span class="text-xs font-heading uppercase font-bold tracking-wider text-secondary">
         Fluxo Curricular de Formatura
       </span>
-      <h3 class="font-head text-lg font-black uppercase text-foreground m-0 tracking-wide">
+      <h3 class="font-heading text-lg font-black uppercase text-foreground m-0 tracking-wide">
         Linha do Tempo de Defesa do TCC: 9º e 10º Períodos (180h)
       </h3>
-      <p class="font-body text-xs text-gray-700 mt-0.5 m-0 font-medium">
+      <p class="font-sans text-xs text-foreground/85 mt-0.5 m-0 font-medium">
         Estrutura em duas fases sequenciais: Projeto (DCP 089) e Defesa Pública (DCP 137) com detalhes normativos expansíveis.
       </p>
     </div>
-    <span class="px-3 py-1.5 rounded-lg bg-foreground text-white font-mono text-xs font-bold shrink-0 border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+    <span class="px-3 py-1.5 rounded-lg bg-foreground text-background text-white font-mono text-xs font-bold shrink-0 border border-border shadow-xs">
       180h • 12 Créditos
     </span>
   </div>
@@ -105,61 +105,61 @@ const regrasBanca = [
   {/* As 2 Etapas Curriculares */}
   <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
     {etapas.map((et) => (
-      <div class="cagp-card p-5 bg-white border-3 border-[#16181d] rounded-xl space-y-3.5 shadow-[4px_4px_0_0_#16181d] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0_0_#16181d] transition-all">
-        <div class="flex items-center justify-between border-b-3 border-[#16181d] pb-3">
+      <div class="cagp-card p-5 bg-white border-2 border-border/80 rounded-xl space-y-3.5 shadow-xs hover:shadow-sm hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all">
+        <div class="flex items-center justify-between border-b-2 border-border pb-3">
           <div class="flex items-center gap-2.5">
-            <span class="w-10 h-10 rounded-lg bg-secondary text-white flex items-center justify-center font-head text-xs font-bold border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+            <span class="w-10 h-10 rounded-lg bg-secondary text-white flex items-center justify-center font-heading text-xs font-bold border border-border shadow-xs">
               {et.disciplina}
             </span>
-            <span class="font-head text-sm font-bold uppercase text-foreground tracking-wide">{et.nome}</span>
+            <span class="font-heading text-sm font-bold uppercase text-foreground tracking-wide">{et.nome}</span>
           </div>
           <span class="text-xs font-mono font-bold text-secondary">{et.periodo} • {et.ch}</span>
         </div>
 
-        <p class="font-body text-xs text-gray-700 leading-relaxed m-0 font-medium">
+        <p class="font-sans text-xs text-foreground/85 leading-relaxed m-0 font-medium">
           {et.foco}
         </p>
 
-        <div class="p-3.5 bg-[#f4f0ea] border-3 border-[#16181d] rounded-xl text-xs text-foreground shadow-[3px_3px_0_0_#16181d]">
-          <strong class="text-secondary font-head uppercase tracking-wider text-[11px] block mb-1">Requisito Formal:</strong>
-          <span class="font-body font-medium">{et.requisito}</span>
+        <div class="p-3 bg-muted/40 border-t border-border rounded-lg text-xs text-foreground">
+          <strong class="text-secondary font-heading uppercase tracking-wider text-xs block mb-1">Requisito Formal:</strong>
+          <span class="font-sans font-medium">{et.requisito}</span>
         </div>
       </div>
     ))}
   </div>
 
   {/* Linha do Tempo Visual Passo a Passo (5 Marcos de Defesa) */}
-  <div class="p-5 sm:p-6 bg-white border-3 border-[#16181d] rounded-xl space-y-5 shadow-[4px_4px_0_0_#16181d]">
-    <div class="flex flex-wrap items-center justify-between border-b-3 border-[#16181d] pb-3 gap-2">
+  <div class="p-5 sm:p-6 bg-white border-3 border-border rounded-xl space-y-5 shadow-md">
+    <div class="flex flex-wrap items-center justify-between border-b-2 border-border pb-3 gap-2">
       <div>
-        <span class="font-mono text-[10px] font-bold uppercase text-primary block">
+        <span class="font-mono text-xs font-bold uppercase text-primary block">
            PASSO A PASSO DA RETA FINAL
         </span>
-        <h4 class="font-head text-sm sm:text-base font-black uppercase text-foreground m-0 flex items-center gap-2">
+        <h4 class="font-heading text-sm sm:text-base font-black uppercase text-foreground m-0 flex items-center gap-2">
           <i class="bi bi-calendar2-week-fill text-primary" aria-hidden="true"></i>
           <span>Linha do Tempo de Defesa &amp; Depósito (5 Marcos Obrigatórios)</span>
         </h4>
       </div>
-      <span class="px-2.5 py-1 rounded-md bg-[#f4f0ea] border-2 border-[#16181d] font-mono text-[11px] font-bold">
+      <span class="px-2.5 py-1 rounded-md bg-[#f4f0ea] border border-border font-mono text-xs font-bold">
         DCP 089 ➔ DCP 137
       </span>
     </div>
 
-    <div class="relative pl-4 sm:pl-6 border-l-3 border-[#16181d] space-y-4">
+    <div class="relative pl-4 sm:pl-6 border-l-3 border-border space-y-4">
       {linhaDoTempoDefesa.map((item) => (
-        <div class="relative p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0_0_#16181d] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[5px_5px_0_0_#16181d] transition-all">
+        <div class="relative p-4 rounded-xl border-2 border-border/80 bg-white shadow-xs hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all">
           <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
-            <span class={`px-2.5 py-0.5 rounded-md border-2 border-[#16181d] font-mono text-[10px] font-bold uppercase shadow-xs ${item.cor}`}>
+            <span class={`px-2.5 py-0.5 rounded-md border border-border font-mono text-xs font-bold uppercase shadow-2xs ${item.cor}`}>
               {item.passo}
             </span>
-            <span class="font-mono text-[11px] font-bold text-muted-foreground">
+            <span class="font-mono text-xs font-bold text-muted-foreground">
               {item.momento}
             </span>
           </div>
-          <h5 class="font-head text-sm font-black uppercase text-foreground m-0 mb-1">
+          <h5 class="font-heading text-sm font-black uppercase text-foreground m-0 mb-1">
             {item.titulo}
           </h5>
-          <p class="font-body text-xs text-gray-700 leading-relaxed m-0 font-medium">
+          <p class="font-sans text-xs text-foreground/85 leading-relaxed m-0 font-medium">
             {item.desc}
           </p>
         </div>
@@ -168,9 +168,9 @@ const regrasBanca = [
   </div>
 
   {/* Regras Regimentais de Banca com Detalhes Normativos Expansíveis */}
-  <div class="p-5 sm:p-6 bg-white border-3 border-[#16181d] rounded-xl space-y-4 shadow-[4px_4px_0_0_#16181d]">
-    <div class="flex items-center justify-between border-b-3 border-[#16181d] pb-3">
-      <h4 class="font-head text-sm sm:text-base font-black uppercase text-foreground m-0 flex items-center gap-2 tracking-wide">
+  <div class="p-5 sm:p-6 bg-white border-3 border-border rounded-xl space-y-4 shadow-md">
+    <div class="flex items-center justify-between border-b-2 border-border pb-3">
+      <h4 class="font-heading text-sm sm:text-base font-black uppercase text-foreground m-0 flex items-center gap-2 tracking-wide">
         <i class="bi bi-shield-check text-secondary text-base" aria-hidden="true" />
         <span>Normas Regimentais de Orientação, Banca e Depósito (Expansíveis)</span>
       </h4>
@@ -179,12 +179,12 @@ const regrasBanca = [
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
       {regrasBanca.map((r) => (
-        <div class="p-4 bg-white border-3 border-[#16181d] rounded-xl space-y-1.5 shadow-[4px_4px_0_0_#16181d]">
+        <div class="p-4 bg-muted/20 border-2 border-border/80 rounded-xl space-y-1.5 shadow-xs">
           <div class="flex items-center justify-between gap-1">
-            <span class="font-head text-xs font-bold uppercase text-foreground tracking-wide">{r.titulo}</span>
-            <span class="cagp-badge cagp-badge-red text-[10px] shrink-0 font-mono font-bold">{r.art}</span>
+            <span class="font-heading text-xs font-bold uppercase text-foreground tracking-wide">{r.titulo}</span>
+            <span class="cagp-badge cagp-badge-red text-xs shrink-0 font-mono font-bold">{r.art}</span>
           </div>
-          <p class="font-body text-xs text-gray-700 leading-relaxed m-0 font-medium">{r.desc}</p>
+          <p class="font-sans text-xs text-foreground/85 leading-relaxed m-0 font-medium">{r.desc}</p>
         </div>
       ))}
     </div>

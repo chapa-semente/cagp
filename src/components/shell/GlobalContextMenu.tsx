@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { route } from '@/lib/paths';
+import { CagpIcon } from '@/components/ui/CagpIcon';
 
 export interface ContextMenuEntity {
   type: 'course' | 'cert' | 'proposal' | 'news' | 'tool' | 'doc-template' | 'shell';
@@ -195,155 +196,184 @@ export const GlobalContextMenu: React.FC = () => {
       ref={menuRef}
       role="menu"
       aria-label="Menu de Contexto do SuperApp"
-      className="fixed z-[9999] min-w-[240px] max-w-[280px] rounded-xl border-3 border-foreground bg-popover p-1.5 text-popover-foreground shadow-[5px_5px_0px_#16181d] select-none animate-in fade-in-0 zoom-in-95 duration-100"
+      className="fixed z-[9999] min-w-[240px] max-w-[280px] rounded-xl border-3 border-foreground bg-popover p-1.5 text-popover-foreground shadow-lg select-none animate-in fade-in-0 zoom-in-95 duration-100"
       style={{ left: `${position.x}px`, top: `${position.y}px` }}
     >
       {/* Context-Specific Items */}
       {activeEntity.type === 'course' && (
         <div className="pb-1 mb-1 border-b-2 border-border/60">
-          <div className="px-2.5 py-1 text-[10px] font-heading font-black uppercase tracking-wider text-primary truncate">
+          <div className="px-2.5 py-1 text-xs font-heading font-black uppercase tracking-wide text-primary truncate">
             Disciplina: {activeEntity.data?.code || activeEntity.data?.id || 'UFMG'}
           </div>
           <button
             type="button"
-            className="w-full flex items-center gap-2 px-2.5 py-2 text-xs font-heading font-bold uppercase rounded-lg hover:bg-primary hover:text-white transition-all text-left"
+            className="w-full flex items-center gap-2 px-2.5 py-2 text-xs font-heading font-bold uppercase tracking-wide rounded-lg hover:bg-primary hover:text-white transition-all text-left cursor-pointer"
             onClick={() => handleAction(() => {
               window.dispatchEvent(new CustomEvent('cagp:course-toggle-cursada', { detail: activeEntity.data }));
             })}
           >
-            <span>✓</span> Alternar Cursada no Vault
+            <CagpIcon name="check" className="w-3.5 h-3.5 shrink-0" />
+            <span>Alternar Cursada no Vault</span>
           </button>
           <button
             type="button"
-            className="w-full flex items-center gap-2 px-2.5 py-2 text-xs font-heading font-bold uppercase rounded-lg hover:bg-accent hover:text-accent-foreground transition-all text-left"
+            className="w-full flex items-center gap-2 px-2.5 py-2 text-xs font-heading font-bold uppercase tracking-wide rounded-lg hover:bg-accent hover:text-accent-foreground transition-all text-left cursor-pointer"
             onClick={() => handleAction(() => {
               window.dispatchEvent(new CustomEvent('cagp:course-view-detail', { detail: activeEntity.data }));
             })}
           >
-            <span>📖</span> Ver Ementa Completa
+            <CagpIcon name="thesis" className="w-3.5 h-3.5 shrink-0" />
+            <span>Ver Ementa Completa</span>
           </button>
         </div>
       )}
 
       {activeEntity.type === 'cert' && (
         <div className="pb-1 mb-1 border-b-2 border-border/60">
-          <div className="px-2.5 py-1 text-[10px] font-heading font-black uppercase tracking-wider text-accent truncate">
+          <div className="px-2.5 py-1 text-xs font-heading font-black uppercase tracking-wide text-accent truncate">
             Certificado ACG (600h)
           </div>
           <button
             type="button"
-            className="w-full flex items-center gap-2 px-2.5 py-2 text-xs font-heading font-bold uppercase rounded-lg hover:bg-accent hover:text-white transition-all text-left"
+            className="w-full flex items-center gap-2 px-2.5 py-2 text-xs font-heading font-bold uppercase tracking-wide rounded-lg hover:bg-accent hover:text-white transition-all text-left cursor-pointer"
             onClick={() => handleAction(() => {
               window.location.href = route('/acg#guardiao-120-dias');
             })}
           >
-            <span>⏱️</span> Verificar Prazo de 120 Dias
+            <CagpIcon name="clock" className="w-3.5 h-3.5 shrink-0" />
+            <span>Verificar Prazo de 120 Dias</span>
           </button>
         </div>
       )}
 
       {activeEntity.type === 'proposal' && (
         <div className="pb-1 mb-1 border-b-2 border-border/60">
-          <div className="px-2.5 py-1 text-[10px] font-heading font-black uppercase tracking-wider text-primary truncate">
+          <div className="px-2.5 py-1 text-xs font-heading font-black uppercase tracking-wide text-primary truncate">
             Chapa Semente • Proposta
           </div>
           <button
             type="button"
-            className="w-full flex items-center gap-2 px-2.5 py-2 text-xs font-heading font-bold uppercase rounded-lg hover:bg-primary hover:text-white transition-all text-left"
+            className="w-full flex items-center gap-2 px-2.5 py-2 text-xs font-heading font-bold uppercase tracking-wide rounded-lg hover:bg-primary hover:text-white transition-all text-left cursor-pointer"
             onClick={() => handleAction(() => {
               const text = encodeURIComponent(`Confira esta proposta da Chapa Semente para o CAGP: ${activeEntity.data?.title || window.location.href}`);
               window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
             })}
           >
-            <span>💬</span> Compartilhar no WhatsApp
+            <CagpIcon name="users" className="w-3.5 h-3.5 shrink-0" />
+            <span>Compartilhar no WhatsApp</span>
           </button>
         </div>
       )}
 
       {activeEntity.type === 'news' && (
         <div className="pb-1 mb-1 border-b-2 border-border/60">
-          <div className="px-2.5 py-1 text-[10px] font-heading font-black uppercase tracking-wider text-primary truncate">
+          <div className="px-2.5 py-1 text-xs font-heading font-black uppercase tracking-wide text-primary truncate">
             Comunicado Discente
           </div>
           <button
             type="button"
-            className="w-full flex items-center gap-2 px-2.5 py-2 text-xs font-heading font-bold uppercase rounded-lg hover:bg-primary hover:text-white transition-all text-left"
+            className="w-full flex items-center gap-2 px-2.5 py-2 text-xs font-heading font-bold uppercase tracking-wide rounded-lg hover:bg-primary hover:text-white transition-all text-left cursor-pointer"
             onClick={() => handleAction(copyCurrentUrl)}
           >
-            <span>🔗</span> Copiar Link do Comunicado
+            <CagpIcon name="file-text" className="w-3.5 h-3.5 shrink-0" />
+            <span>Copiar Link do Comunicado</span>
           </button>
         </div>
       )}
 
       {/* General SuperApp Actions (Always available) */}
       <div className="space-y-0.5">
-        <div className="px-2.5 py-1 text-[10px] font-heading font-bold uppercase tracking-wider text-muted-foreground">
+        <div className="px-2.5 py-1 text-xs font-heading font-bold uppercase tracking-wide text-muted-foreground">
           Navegação Rápida
         </div>
         <a
           href={route('/')}
-          className="w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-heading font-bold uppercase rounded-lg hover:bg-muted transition-all text-inherit no-underline"
+          className="w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-heading font-bold uppercase tracking-wide rounded-lg hover:bg-muted transition-all text-inherit no-underline"
           onClick={() => handleAction(() => {})}
         >
-          <span className="flex items-center gap-2"><span>🏠</span> Início & Campus</span>
-          <span className="font-mono text-[10px] text-muted-foreground">g h</span>
+          <span className="flex items-center gap-2">
+            <CagpIcon name="hoje" className="w-3.5 h-3.5 text-primary shrink-0" />
+            <span>Início &amp; Campus</span>
+          </span>
+          <span className="font-mono text-xs font-bold text-muted-foreground tabular-nums">g h</span>
         </a>
         <a
           href={route('/acg')}
-          className="w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-heading font-bold uppercase rounded-lg hover:bg-muted transition-all text-inherit no-underline"
+          className="w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-heading font-bold uppercase tracking-wide rounded-lg hover:bg-muted transition-all text-inherit no-underline"
           onClick={() => handleAction(() => {})}
         >
-          <span className="flex items-center gap-2"><span>📊</span> Calculadora ACG</span>
-          <span className="font-mono text-[10px] text-muted-foreground">g a</span>
+          <span className="flex items-center gap-2">
+            <CagpIcon name="calculator" className="w-3.5 h-3.5 text-secondary shrink-0" />
+            <span>Calculadora ACG</span>
+          </span>
+          <span className="font-mono text-xs font-bold text-muted-foreground tabular-nums">g a</span>
         </a>
         <a
           href={route('/percurso')}
-          className="w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-heading font-bold uppercase rounded-lg hover:bg-muted transition-all text-inherit no-underline"
+          className="w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-heading font-bold uppercase tracking-wide rounded-lg hover:bg-muted transition-all text-inherit no-underline"
           onClick={() => handleAction(() => {})}
         >
-          <span className="flex items-center gap-2"><span>🎓</span> Simulador Percurso</span>
-          <span className="font-mono text-[10px] text-muted-foreground">g p</span>
+          <span className="flex items-center gap-2">
+            <CagpIcon name="curriculo" className="w-3.5 h-3.5 text-primary shrink-0" />
+            <span>Simulador Percurso</span>
+          </span>
+          <span className="font-mono text-xs font-bold text-muted-foreground tabular-nums">g p</span>
         </a>
         <a
           href={route('/chapa-semente')}
-          className="w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-heading font-bold uppercase rounded-lg hover:bg-muted transition-all text-inherit no-underline"
+          className="w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-heading font-bold uppercase tracking-wide rounded-lg hover:bg-muted transition-all text-inherit no-underline"
           onClick={() => handleAction(() => {})}
         >
-          <span className="flex items-center gap-2"><span>🌱</span> Chapa Semente</span>
-          <span className="font-mono text-[10px] text-primary">2026</span>
+          <span className="flex items-center gap-2">
+            <CagpIcon name="sparkle" className="w-3.5 h-3.5 text-accent shrink-0" />
+            <span>Chapa Semente</span>
+          </span>
+          <span className="font-mono text-xs font-bold text-primary tabular-nums">2026</span>
         </a>
 
         <div className="my-1 border-t-2 border-border/60"></div>
 
         <button
           type="button"
-          className="w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-heading font-bold uppercase rounded-lg hover:bg-muted transition-all text-left"
+          className="w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-heading font-bold uppercase tracking-wide rounded-lg hover:bg-muted transition-all text-left cursor-pointer"
           onClick={() => handleAction(openSearch)}
         >
-          <span className="flex items-center gap-2"><span>🔍</span> Buscar no App</span>
-          <span className="font-mono text-[10px] text-muted-foreground">⌘K</span>
+          <span className="flex items-center gap-2">
+            <CagpIcon name="search" className="w-3.5 h-3.5 text-primary shrink-0" />
+            <span>Buscar no App</span>
+          </span>
+          <span className="font-mono text-xs font-bold text-muted-foreground tabular-nums">⌘K</span>
         </button>
         <button
           type="button"
-          className="w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-heading font-bold uppercase rounded-lg hover:bg-muted transition-all text-left"
+          className="w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-heading font-bold uppercase tracking-wide rounded-lg hover:bg-muted transition-all text-left cursor-pointer"
           onClick={() => handleAction(openPassport)}
         >
-          <span className="flex items-center gap-2"><span>👤</span> Passaporte Discente</span>
-          <span className="font-mono text-[10px] text-muted-foreground">Vault</span>
+          <span className="flex items-center gap-2">
+            <CagpIcon name="passport" className="w-3.5 h-3.5 text-primary shrink-0" />
+            <span>Passaporte Discente</span>
+          </span>
+          <span className="font-mono text-xs font-bold text-muted-foreground">Vault</span>
         </button>
         <button
           type="button"
-          className="w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-heading font-bold uppercase rounded-lg hover:bg-muted transition-all text-left"
+          className="w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-heading font-bold uppercase rounded-lg hover:bg-muted transition-all text-left cursor-pointer"
           onClick={() => handleAction(toggleTheme)}
         >
-          <span className="flex items-center gap-2"><span>🌓</span> Alternar Tema</span>
+          <span className="flex items-center gap-2">
+            <CagpIcon name="moon" className="w-3.5 h-3.5 text-primary shrink-0" />
+            <span>Alternar Tema</span>
+          </span>
         </button>
         <button
           type="button"
-          className="w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-heading font-bold uppercase rounded-lg hover:bg-muted transition-all text-left"
+          className="w-full flex items-center justify-between px-2.5 py-1.5 text-xs font-heading font-bold uppercase rounded-lg hover:bg-muted transition-all text-left cursor-pointer"
           onClick={() => handleAction(copyCurrentUrl)}
         >
-          <span className="flex items-center gap-2"><span>📋</span> Copiar Link da Página</span>
+          <span className="flex items-center gap-2">
+            <CagpIcon name="file-text" className="w-3.5 h-3.5 text-primary shrink-0" />
+            <span>Copiar Link da Página</span>
+          </span>
         </button>
       </div>
     </div>

@@ -69,7 +69,7 @@ const bentoItems = [
         className="py-10 sm:py-14 px-4 sm:px-8"
       />
 
-      <!-- Selos Táteis + Gatilho do Tour Guiado das 9 Lideranças -->
+      <!-- Selos Táteis + Gatilho do Tour Guiado das Lideranças -->
       <div class="px-4 sm:px-8 pb-8 flex flex-col items-center gap-4 border-t-2 border-[#16181d]/15 pt-5 bg-white/80 backdrop-blur-xs">
         <div class="flex flex-wrap items-center justify-center gap-2">
           {badges.map((b) => (
@@ -215,15 +215,15 @@ const bentoItems = [
       </div>
     </section>
 
-    <!-- 2. NOMINATA DAS 9 LIDERANÇAS & COMPROMISSOS OFICIAIS (TOUR BOLDKIT) -->
-    <section aria-label="Nominata das 9 Lideranças da Chapa Semente" class="space-y-4">
+    <!-- 2. NOMINATA DAS 11 LIDERANÇAS & COMPROMISSOS OFICIAIS (TOUR BOLDKIT) -->
+    <section aria-label="Nominata das Lideranças da Chapa Semente" class="space-y-4">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b-2 border-border">
         <div>
-          <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-primary block">
+          <span class="font-mono text-xs font-bold uppercase tracking-widest text-primary block">
             Nominata Oficial • Gestão 2026
           </span>
           <h2 class="font-heading text-xl sm:text-2xl font-extrabold uppercase text-foreground m-0">
-            As 9 Lideranças da Chapa Semente
+            As {CHAPA_LEADERS.length} Lideranças da Chapa Semente
           </h2>
         </div>
         <ChapaSementeTour client:load />
@@ -233,8 +233,9 @@ const bentoItems = [
         {CHAPA_LEADERS.map((leader, idx) => (
           <article
             id={leader.targetId}
-            class="p-4 sm:p-5 rounded-2xl border-3 border-[#16181d] bg-white shadow-[6px_6px_0_0_#16181d] hover:shadow-[8px_8px_0_0_#16181d] transition-shadow flex flex-col justify-between gap-4 scroll-mt-24"
+            class="p-4 sm:p-5 rounded-2xl border-3 border-[#16181d] bg-white shadow-[6px_6px_0_0_#16181d] hover:shadow-[8px_8px_0_0_#16181d] transition-shadow flex flex-col justify-between gap-4 scroll-mt-24 relative"
           >
+            <div id={leader.id} class="cagp-anchor-target scroll-mt-24"></div>
             <div class="space-y-3.5">
               {/* Retrato Editorial Ampliado 4:5 com Zoom & Inclinação */}
               <LeaderAvatar
@@ -251,11 +252,11 @@ const bentoItems = [
 
               {/* Cargo e Meta */}
               <div class="flex items-center justify-between gap-2 pt-1">
-                <span class={`text-[10px] font-heading font-black uppercase px-2.5 py-0.5 rounded-md border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] ${leader.badgeBg}`}>
+                <span class={`text-xs font-heading font-black uppercase px-2.5 py-0.5 rounded-md border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] ${leader.badgeBg}`}>
                   {leader.role}
                 </span>
                 <span class="text-xs font-mono font-bold text-primary">
-                  Liderança {idx + 1}/9
+                  Liderança {idx + 1}/{CHAPA_LEADERS.length}
                 </span>
               </div>
 
@@ -266,7 +267,7 @@ const bentoItems = [
 
               {/* Dor Discente Resolvida */}
               <div class="p-3 rounded-xl bg-card border-2 border-[#16181d]/30 space-y-1">
-                <span class="font-mono text-[10px] font-extrabold uppercase text-secondary block">
+                <span class="font-mono text-xs font-extrabold uppercase text-secondary block">
                   Dor Discente Resolvida:
                 </span>
                 <p class="text-xs text-muted-foreground leading-snug m-0">
@@ -277,7 +278,7 @@ const bentoItems = [
 
             <div class="pt-3 border-t-2 border-[#16181d] space-y-2.5">
               <div class="text-xs font-sans text-foreground leading-snug">
-                <strong class="font-heading uppercase text-primary block text-[11px]">
+                <strong class="font-heading uppercase text-primary block text-xs">
                   Entrega Materializada no SuperApp:
                 </strong>
                 <span>{leader.solution}</span>

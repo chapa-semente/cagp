@@ -7,7 +7,7 @@ interface ChapaSementeTourProps {
 }
 
 export const ChapaSementeTour: React.FC<ChapaSementeTourProps> = ({
-  buttonText = 'Conheça a Chapa Semente • Tour das 9 Lideranças',
+  buttonText = 'Conheça a Chapa Semente • Tour das Lideranças',
   variant = 'hero',
   className = '',
 }) => {
@@ -19,12 +19,12 @@ export const ChapaSementeTour: React.FC<ChapaSementeTourProps> = ({
 
   const getButtonClasses = () => {
     if (variant === 'hero') {
-      return 'inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 bg-[#FF8811] text-white font-heading font-black text-xs sm:text-sm uppercase tracking-wider rounded-xl border-3 border-border shadow-[4px_4px_0px_#000] hover:bg-[#FF8811]/90 active:translate-y-[2px] active:shadow-none transition-all cursor-pointer min-h-[48px] select-none';
+      return 'inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 bg-accent text-foreground font-heading font-black text-xs sm:text-sm uppercase tracking-wider rounded-xl border-3 border-border shadow-md hover:bg-accent-hover active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed transition-all cursor-pointer min-h-[48px] select-none';
     }
     if (variant === 'compact') {
-      return 'inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-[#FF8811] text-white font-heading font-extrabold text-xs uppercase rounded-lg border-2 border-border shadow-[2px_2px_0px_#000] hover:bg-[#FF8811]/90 active:translate-y-[1px] transition-all cursor-pointer min-h-[44px] select-none';
+      return 'inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-accent text-foreground font-heading font-extrabold text-xs uppercase rounded-lg border-2 border-border shadow-sm hover:bg-accent-hover active:translate-y-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed transition-all cursor-pointer min-h-[44px] select-none';
     }
-    return 'inline-flex items-center justify-center gap-2 px-4 py-2 bg-primary text-white font-heading font-bold text-xs uppercase rounded-xl border-3 border-border shadow-[3px_3px_0px_#000] hover:bg-primary/90 active:translate-y-[1px] transition-all cursor-pointer min-h-[44px] select-none';
+    return 'inline-flex items-center justify-center gap-2 px-4 py-2 bg-primary text-white font-heading font-bold text-xs uppercase rounded-xl border-3 border-border shadow hover:bg-primary-hover active:translate-y-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed transition-all cursor-pointer min-h-[44px] select-none';
   };
 
   return (

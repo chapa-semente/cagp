@@ -19,7 +19,7 @@ interface LeaderAvatarProps {
 
 const SIZE_MAP = {
   sm: 'w-8 h-8 text-xs',
-  md: 'w-12 h-12 text-sm',
+  md: 'w-11 h-11 sm:w-12 sm:h-12 text-xs sm:text-sm',
   lg: 'w-16 h-16 text-base',
   xl: 'w-24 h-24 text-xl',
 };
@@ -77,30 +77,30 @@ export const LeaderAvatar: React.FC<LeaderAvatarProps> = ({
           >
             {/* Selo Superior Esquerdo + Sticker do Cargo */}
             <div className="w-full flex items-center justify-between gap-2 z-10">
-              <span className="px-2.5 py-1 rounded-lg bg-[#FF8811] text-[#16181d] border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-heading text-[10px] font-black uppercase tracking-wider -rotate-2">
+              <span className="px-2.5 py-1 rounded-lg bg-accent text-foreground border-2 border-border shadow-xs font-heading text-xs font-black uppercase tracking-wider -rotate-2">
                 {role || 'CHAPA SEMENTE 2026'}
               </span>
               {typeof index === 'number' && (
-                <span className="px-2 py-0.5 rounded-md bg-white text-[#16181d] border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-mono text-[10px] font-black">
-                  0{index + 1}/09
+                <span className="px-2 py-0.5 rounded-md bg-white text-foreground border-2 border-border shadow-xs font-mono text-xs font-black tabular-nums">
+                  {String(index + 1).padStart(2, '0')}/10
                 </span>
               )}
             </div>
 
             {/* Centro: Ilustração Vetorial Semente + Iniciais Gigantes em Bricolage Grotesque */}
             <div className="relative my-auto flex flex-col items-center justify-center z-10">
-              <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl bg-white border-3 border-[#16181d] shadow-[5px_5px_0_0_#16181d] flex items-center justify-center p-3 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3">
+              <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl bg-white border-3 border-border shadow-md flex items-center justify-center p-3 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3">
                 <img
                   src={asset('/logos/semente/simbolo_semente_fiel.svg')}
                   alt=""
                   aria-hidden="true"
                   className="w-full h-full object-contain opacity-20 absolute inset-0 p-2"
                 />
-                <span className="relative z-10 font-heading text-4xl sm:text-5xl font-black tracking-tighter text-[#5B2A86] drop-shadow-[2px_2px_0_#FF8811]">
+                <span className="relative z-10 font-heading text-4xl sm:text-5xl font-black tracking-tighter text-primary drop-shadow-[2px_2px_0_var(--color-accent)]">
                   {initials}
                 </span>
               </div>
-              <span className="mt-3 px-3 py-0.5 rounded-full bg-[#16181d] text-[#FFD6A5] border-2 border-white font-mono text-[10px] font-bold uppercase tracking-widest shadow-xs">
+              <span className="mt-3 px-3 py-0.5 rounded-full bg-foreground text-accent border-2 border-white font-mono text-xs font-bold uppercase tracking-widest shadow-xs">
                 REPRESENTAÇÃO DISCENTE
               </span>
             </div>
@@ -113,12 +113,12 @@ export const LeaderAvatar: React.FC<LeaderAvatarProps> = ({
         {/* Badges Flutuantes no Topo (quando há foto real) */}
         {hasRealPhoto && (
           <div className="absolute top-3 inset-x-3 flex items-center justify-between gap-2 z-20 pointer-events-none">
-            <span className="px-2.5 py-1 rounded-lg bg-[#FF8811] text-[#16181d] border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-heading text-[10px] font-black uppercase tracking-wider -rotate-1">
+            <span className="px-2.5 py-1 rounded-lg bg-accent text-foreground border-2 border-border shadow-xs font-heading text-xs font-black uppercase tracking-wider -rotate-1">
               {role || 'Chapa Semente'}
             </span>
             {typeof index === 'number' && (
-              <span className="px-2 py-0.5 rounded-md bg-white text-[#16181d] border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-mono text-[10px] font-black">
-                0{index + 1}/09
+              <span className="px-2 py-0.5 rounded-md bg-white text-foreground border-2 border-border shadow-xs font-mono text-xs font-black tabular-nums">
+                {String(index + 1).padStart(2, '0')}/10
               </span>
             )}
           </div>
@@ -126,12 +126,12 @@ export const LeaderAvatar: React.FC<LeaderAvatarProps> = ({
 
         {/* Sticker de Identidade na Base da Moldura */}
         <div className="absolute bottom-3 inset-x-3 z-20 flex items-end justify-between gap-2 pointer-events-none">
-          <div className="bg-white/95 text-[#16181d] border-2 border-[#16181d] rounded-xl px-3 py-1.5 shadow-[3px_3px_0_0_#16181d] min-w-0 flex-1">
+          <div className="bg-white/95 text-foreground border-2 border-border rounded-xl px-3 py-1.5 shadow-sm min-w-0 flex-1">
             <span className="font-heading text-sm sm:text-base font-black uppercase tracking-tight block truncate leading-tight">
               {name}
             </span>
             {tagline && (
-              <span className="font-mono text-[10px] font-bold text-[#5B2A86] block truncate">
+              <span className="font-mono text-xs font-bold text-primary block truncate">
                 {tagline}
               </span>
             )}
@@ -149,7 +149,7 @@ export const LeaderAvatar: React.FC<LeaderAvatarProps> = ({
         src={photoUrl}
         alt={`Foto de ${name}`}
         onError={() => setHasError(true)}
-        className={`${sizeClasses} rounded-full object-cover border-3 border-[#16181d] shadow-[2px_2px_0px_#16181d] shrink-0 bg-muted select-none ${className}`}
+        className={`${sizeClasses} rounded-full object-cover border-3 border-border shadow-xs shrink-0 bg-muted select-none ${className}`}
         loading="lazy"
       />
     );
@@ -158,7 +158,7 @@ export const LeaderAvatar: React.FC<LeaderAvatarProps> = ({
   // Fallback tátil Neobrutalista circular
   return (
     <div
-      className={`${sizeClasses} rounded-full flex items-center justify-center font-heading font-black tracking-tight border-3 border-[#16181d] shadow-[2px_2px_0px_#16181d] shrink-0 select-none ${deptColor} ${className}`}
+      className={`${sizeClasses} rounded-full flex items-center justify-center font-heading font-black tracking-tight border-3 border-border shadow-xs shrink-0 select-none ${deptColor} ${className}`}
       title={name}
       aria-label={`Avatar de ${name}`}
     >

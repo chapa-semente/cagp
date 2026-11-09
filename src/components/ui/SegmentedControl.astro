@@ -1,30 +1,45 @@
 ---
-// SegmentedControl.astro - Controle Segmentado por N (Contrato 5.1)
+// SegmentedControl.astro — Controle Segmentado Unificado por N (Impeccable Layout & Polish)
 import CagpIcon from './CagpIcon.astro';
 
-interface TabItem {
+export interface TabItem {
   id: string;
   shortLabel: string;
   fullLabel: string;
   hash: string;
 }
 
-interface Props {
+export interface Props {
   tabs: TabItem[];
   defaultTab?: string;
+  class?: string;
+  showViewAll?: boolean;
 }
 
-const { tabs, defaultTab = tabs[0]?.id } = Astro.props;
+const {
+  tabs,
+  defaultTab = tabs[0]?.id,
+  class: className = '',
+  showViewAll = true,
+} = Astro.props;
 ---
 
-<nav class="cagp-workspace-bar border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]" aria-label="Abas operacionais da página">
-  <div class="cagp-workspace-tabs scroll-mask-x flex-1 min-w-0 overflow-x-auto scrollbar-none snap-x snap-proximity" role="tablist" data-tab-count={tabs.length}>
+<nav
+  class={`cagp-workspace-bar border-3 border-border shadow-md select-none ${className}`.trim()}
+  aria-label="Abas operacionais da página"
+>
+  <div
+    class="cagp-workspace-tabs scroll-mask-x flex-1 min-w-0 overflow-x-auto scrollbar-none snap-x snap-proximity"
+    role="tablist"
+    aria-orientation="horizontal"
+    data-tab-count={tabs.length}
+  >
     {tabs.map((tab) => {
       const isSelected = tab.id === defaultTab;
       return (
         <button
           type="button"
-          class={`cagp-workspace-tab min-h-[44px] snap-start ${isSelected ? 'is-active' : ''}`}
+          class={`cagp-workspace-tab min-h-[44px] snap-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5 ${isSelected ? 'is-active' : ''}`}
           role="tab"
           id={`ws-tab-${tab.id}`}
           aria-controls={`ws-panel-${tab.id}`}
@@ -33,39 +48,63 @@ const { tabs, defaultTab = tabs[0]?.id } = Astro.props;
           data-ws-tab={tab.id}
           data-ws-hash={tab.hash}
         >
-          <span class="cagp-tab-label-full">{tab.fullLabel}</span>
-          <span class="cagp-tab-label-short" aria-hidden="true">{tab.shortLabel}</span>
+          <span class="cagp-tab-label-full truncate">{tab.fullLabel}</span>
+          <span class="cagp-tab-label-short truncate" aria-hidden="true">{tab.shortLabel}</span>
         </button>
       );
     })}
   </div>
-  <button
-    type="button"
-    class="cagp-workspace-viewall min-h-[44px] min-w-[44px] shrink-0"
-    aria-pressed="false"
-    aria-label="Ver todas as abas"
-    data-ws-tab="__all__"
-    data-ws-hash="#visao-completa"
-  >
-    <CagpIcon name="sidebar" class="w-4 h-4" />
-  </button>
+  {showViewAll && (
+    <button
+      type="button"
+      class="cagp-workspace-viewall min-h-[44px] min-w-[44px] shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5"
+      aria-pressed="false"
+      aria-label="Ver todas as abas (visão contínua)"
+      title="Exibir todas as abas (visão contínua)"
+      data-ws-tab="__all__"
+      data-ws-hash="#visao-completa"
+    >
+      <CagpIcon name="sidebar" class="w-4 h-4" />
+    </button>
+  )}
 </nav>
 
 <script>
-  function setupWorkspaceTabs() {
-    const bars = document.querySelectorAll('.cagp-workspace-bar');
-    bars.forEach((bar) => {
-      if ((bar as any).__cagp_ws_initialized) return;
-      (bar as any).__cagp_ws_initialized = true;
+  let activeCleanup: (() => void) | null = null;
 
+  function setupWorkspaceTabs() {
+    if (activeCleanup) {
+      activeCleanup();
+      activeCleanup = null;
+    }
+
+    const bars = document.querySelectorAll<HTMLElement>('.cagp-workspace-bar');
+    if (bars.length === 0) return;
+
+    const unbindCallbacks: Array<() => void> = [];
+
+    bars.forEach((bar) => {
       const tabs = bar.querySelectorAll<HTMLButtonElement>('.cagp-workspace-tab');
       const viewAllBtn = bar.querySelector<HTMLButtonElement>('.cagp-workspace-viewall');
       const panels = document.querySelectorAll<HTMLElement>('.cagp-workspace-view');
 
+      // Ensure all panels have WAI-ARIA tabpanel attributes
+      panels.forEach((p) => {
+        const panelId = p.getAttribute('data-ws-panel') || p.id.replace('ws-panel-', '');
+        p.setAttribute('role', 'tabpanel');
+        p.setAttribute('aria-labelledby', `ws-tab-${panelId}`);
+        if (!p.hasAttribute('tabindex')) {
+          p.setAttribute('tabindex', '0');
+        }
+      });
+
       function activate(tabId: string, updateHash = true) {
         if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
-          navigator.vibrate(12);
+          try {
+            navigator.vibrate(12);
+          } catch {}
         }
+
         if (tabId === '__all__') {
           tabs.forEach((t) => {
             t.classList.remove('is-active');
@@ -111,18 +150,23 @@ const { tabs, defaultTab = tabs[0]?.id } = Astro.props;
       }
 
       tabs.forEach((tab, index) => {
-        tab.addEventListener('click', () => {
+        const handleTabClick = () => {
           const id = tab.getAttribute('data-ws-tab');
           if (id) activate(id);
-        });
+        };
+        tab.addEventListener('click', handleTabClick);
 
-        // Keyboard navigation (ArrowLeft / ArrowRight) with roving tabindex
-        tab.addEventListener('keydown', (e) => {
+        // Keyboard navigation with roving tabindex (ArrowLeft, ArrowRight, Home, End)
+        const handleKeydown = (e: KeyboardEvent) => {
           let nextIndex = index;
           if (e.key === 'ArrowRight') {
             nextIndex = (index + 1) % tabs.length;
           } else if (e.key === 'ArrowLeft') {
             nextIndex = (index - 1 + tabs.length) % tabs.length;
+          } else if (e.key === 'Home') {
+            nextIndex = 0;
+          } else if (e.key === 'End') {
+            nextIndex = tabs.length - 1;
           } else {
             return;
           }
@@ -130,18 +174,22 @@ const { tabs, defaultTab = tabs[0]?.id } = Astro.props;
           tabs[nextIndex].focus();
           const nextId = tabs[nextIndex].getAttribute('data-ws-tab');
           if (nextId) activate(nextId);
-        });
+        };
+        tab.addEventListener('keydown', handleKeydown);
       });
 
-      viewAllBtn?.addEventListener('click', () => {
-        const isPressed = viewAllBtn.getAttribute('aria-pressed') === 'true';
-        if (isPressed) {
-          const firstTab = tabs[0]?.getAttribute('data-ws-tab');
-          if (firstTab) activate(firstTab);
-        } else {
-          activate('__all__');
-        }
-      });
+      if (viewAllBtn) {
+        const handleViewAllClick = () => {
+          const isPressed = viewAllBtn.getAttribute('aria-pressed') === 'true';
+          if (isPressed) {
+            const firstTab = tabs[0]?.getAttribute('data-ws-tab');
+            if (firstTab) activate(firstTab);
+          } else {
+            activate('__all__');
+          }
+        };
+        viewAllBtn.addEventListener('click', handleViewAllClick);
+      }
 
       // Delegated click listener to catch in-page anchor links referencing tabs or tab panels
       const handleGlobalAnchorClick = (e: MouseEvent) => {
@@ -150,14 +198,16 @@ const { tabs, defaultTab = tabs[0]?.id } = Astro.props;
         const href = anchor.getAttribute('href');
         if (!href) return;
 
-        // Check if link is same-page with a hash
         let hash = '';
         if (href.startsWith('#')) {
           hash = href;
         } else if (href.includes('#')) {
           try {
             const url = new URL(anchor.href, window.location.href);
-            if (url.origin === window.location.origin && url.pathname.replace(/\/$/, '') === window.location.pathname.replace(/\/$/, '')) {
+            if (
+              url.origin === window.location.origin &&
+              url.pathname.replace(/\/$/, '') === window.location.pathname.replace(/\/$/, '')
+            ) {
               hash = url.hash;
             }
           } catch {}
@@ -177,7 +227,7 @@ const { tabs, defaultTab = tabs[0]?.id } = Astro.props;
               if (targetEl) {
                 targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }
-            }, 50);
+            }, 60);
           }
           return;
         }
@@ -198,7 +248,7 @@ const { tabs, defaultTab = tabs[0]?.id } = Astro.props;
                   if (targetEl.tagName === 'DETAILS') {
                     (targetEl as HTMLDetailsElement).open = true;
                   }
-                }, 50);
+                }, 60);
               }
             }
           }
@@ -206,6 +256,9 @@ const { tabs, defaultTab = tabs[0]?.id } = Astro.props;
       };
 
       document.addEventListener('click', handleGlobalAnchorClick);
+      unbindCallbacks.push(() => {
+        document.removeEventListener('click', handleGlobalAnchorClick);
+      });
 
       // Match current window location hash on load
       const applyHash = () => {
@@ -249,8 +302,21 @@ const { tabs, defaultTab = tabs[0]?.id } = Astro.props;
 
       applyHash();
       window.addEventListener('hashchange', applyHash);
+      unbindCallbacks.push(() => {
+        window.removeEventListener('hashchange', applyHash);
+      });
     });
+
+    activeCleanup = () => {
+      unbindCallbacks.forEach((fn) => fn());
+    };
   }
 
   document.addEventListener('astro:page-load', setupWorkspaceTabs);
+  document.addEventListener('astro:before-swap', () => {
+    if (activeCleanup) {
+      activeCleanup();
+      activeCleanup = null;
+    }
+  });
 </script>

@@ -22,7 +22,7 @@ const { prev, next } = Astro.props;
       {prev ? (
         <a
           href={route(prev.href)}
-          class="p-5 rounded-xl bg-card border-3 border-border shadow-md hover:shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline text-foreground flex flex-col justify-between group"
+          class="p-5 rounded-xl bg-card border-3 border-border shadow-md hover:shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all no-underline text-foreground flex flex-col justify-between group"
         >
           <div>
             <span class="font-heading font-extrabold text-xs uppercase tracking-wider text-secondary block mb-1">
@@ -39,7 +39,7 @@ const { prev, next } = Astro.props;
       {next ? (
         <a
           href={route(next.href)}
-          class="p-5 rounded-xl bg-card border-3 border-border shadow-md hover:shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline text-foreground flex flex-col justify-between group text-left md:text-right"
+          class="p-5 rounded-xl bg-card border-3 border-border shadow-md hover:shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all no-underline text-foreground flex flex-col justify-between group text-left md:text-right"
         >
           <div>
             <span class="font-heading font-extrabold text-xs uppercase tracking-wider text-primary block mb-1">

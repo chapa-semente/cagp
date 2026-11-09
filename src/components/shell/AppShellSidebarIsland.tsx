@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'motion/react';
-import { AXIS_REGISTRY, getAxisByPath } from '@/lib/navigationRegistry';
-import { SHORTCUTS_CATALOG, DEFAULT_SHORTCUT_IDS } from '@/lib/shortcutsCatalog';
+import { AXIS_REGISTRY, getAxisByPath, getActiveItemId } from '@/lib/navigationRegistry';
 import { CagpIcon } from '@/components/ui/CagpIcon';
 import { resolveCagpIconName } from '@/lib/cagpIcons';
 import { asset, route } from '@/lib/paths';
@@ -76,7 +75,6 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
   const [tabletExpanded, setTabletExpanded] = useState(false);
   const [desktopCollapsed, setDesktopCollapsed] = useState(false);
   const [commandOpen, setCommandOpen] = useState(false);
-  const [shortcutIds, setShortcutIds] = useState<string[]>(DEFAULT_SHORTCUT_IDS);
   const [studentName, setStudentName] = useState('Estudante GP');
   const [studentPeriod, setStudentPeriod] = useState('Percurso N-20229');
 
@@ -85,18 +83,6 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
   const syncLocalState = useCallback(() => {
     if (typeof window === 'undefined') return;
     setCurrentPath(window.location.pathname);
-
-    try {
-      const savedShortcuts = localStorage.getItem('cagp_sidebar_shortcuts_v1');
-      if (savedShortcuts) {
-        const parsed = JSON.parse(savedShortcuts);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          setShortcutIds(parsed.slice(0, 6));
-        }
-      }
-    } catch {
-      // ignore storage errors
-    }
 
     try {
       const savedPassport = localStorage.getItem('cagp_passport_v1');
@@ -164,24 +150,20 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
 
     document.addEventListener('astro:page-load', handlePageLoad);
     window.addEventListener('cagp:open-drawer', handleOpenDrawer);
+    window.addEventListener('cagp:open-sidebar', handleOpenDrawer);
     window.addEventListener('cagp:open-spotlight', handleOpenSpotlight);
-    window.addEventListener('cagp:shortcuts-updated', syncLocalState);
     window.addEventListener('cagp:passport-updated', syncLocalState);
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
       document.removeEventListener('astro:page-load', handlePageLoad);
       window.removeEventListener('cagp:open-drawer', handleOpenDrawer);
+      window.removeEventListener('cagp:open-sidebar', handleOpenDrawer);
       window.removeEventListener('cagp:open-spotlight', handleOpenSpotlight);
-      window.removeEventListener('cagp:shortcuts-updated', syncLocalState);
       window.removeEventListener('cagp:passport-updated', syncLocalState);
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [syncLocalState]);
-
-  const activeShortcuts = SHORTCUTS_CATALOG.filter((item) =>
-    shortcutIds.includes(item.id)
-  );
 
   const triggerEvent = (eventName: string) => {
     setMobileDrawerOpen(false);
@@ -218,10 +200,10 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
             {!isCompact && (
               <div className="min-w-0 flex-1">
                 <span className="font-heading text-sm font-black uppercase tracking-tight text-foreground block leading-none">
-                  CHAPA SEM<span>E</span>NT<span className="text-accent">E</span>
+                  CHAPA SEM<span>E</span>NT<span className="text-[#C2410C]">E</span>
                 </span>
                 <div className="flex items-center gap-1 mt-1 truncate">
-                  <span className="text-[10px] font-mono text-primary font-bold truncate">
+                  <span className="text-xs font-mono text-primary font-bold truncate">
                     Proposta Materializada
                   </span>
                   <img
@@ -244,7 +226,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
                   setTabletExpanded(false);
                 }
               }}
-              className="hidden md:flex w-9 h-9 rounded-xl bg-background hover:bg-card border-3 border-border shadow-xs items-center justify-center cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none shrink-0"
+              className="hidden md:flex w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-background hover:bg-card border-3 border-border shadow-xs items-center justify-center cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none"
               title="Recolher barra lateral (Ctrl+B)"
             >
               <CagpIcon name={resolveCagpIconName('bi-chevron-left')} className="w-4 h-4" />
@@ -270,7 +252,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
             {!isCompact && <span>Buscar (⌘K)</span>}
           </span>
           {!isCompact && (
-            <kbd className="px-1.5 py-0.5 text-[10px] font-mono font-bold bg-white border-2 border-border rounded-md shadow-[1px_1px_0px_#16181d]">
+            <kbd className="px-1.5 py-0.5 text-xs font-mono font-bold bg-white border-2 border-border rounded-md shadow-xs">
               ⌘K
             </kbd>
           )}
@@ -293,17 +275,17 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
             </span>
             {!isCompact && (
               <div className="text-left min-w-0">
-                <span className="font-heading text-[11px] font-black uppercase tracking-tight block truncate">
+                <span className="font-heading text-xs font-black uppercase tracking-tight block truncate">
                   Proposta Materializada
                 </span>
-                <span className="text-[10px] font-mono font-bold text-[#FFD6A5] block truncate">
+                <span className="text-xs font-mono font-bold text-[#FFD6A5] block truncate">
                   Vote Semente • 25 e 26/11
                 </span>
               </div>
             )}
           </div>
           {!isCompact && (
-            <Badge variant="accent" className="font-mono text-[9px] px-1.5 py-0 uppercase shrink-0">
+            <Badge variant="accent" className="font-mono text-xs px-1.5 py-0 uppercase shrink-0">
               14 PROPOSTAS
             </Badge>
           )}
@@ -313,10 +295,10 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
         <div className="space-y-1.5" role="navigation" aria-label="5 Eixos do Curso">
           {!isCompact && (
             <div className="px-1 flex items-center justify-between">
-              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-muted-foreground">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-muted-foreground">
                 5 Eixos Canônicos
               </span>
-              <span className="text-[10px] font-mono font-bold text-primary">
+              <span className="text-xs font-mono font-bold text-primary">
                 N-20229
               </span>
             </div>
@@ -388,9 +370,8 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
                 {!isCompact && isAxisActive && (
                   <div className="pl-3 ml-3 border-l-3 border-border space-y-1 py-1">
                     {axis.items.map((subItem) => {
-                      const isSubActive =
-                        currentPath === subItem.href ||
-                        (subItem.href !== '/' && currentPath.startsWith(subItem.href));
+                      const activeItemId = getActiveItemId(axis, currentPath);
+                      const isSubActive = activeItemId === subItem.id;
                       return (
                         <motion.a
                           key={subItem.id}
@@ -407,15 +388,15 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
                               triggerEvent('cagp:open-passport');
                             }
                           }}
-                          className={`flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-colors no-underline ${
+                          className={`flex items-center justify-between px-2.5 py-2 min-h-[44px] rounded-lg text-xs transition-colors no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                             isSubActive
                               ? 'bg-card text-primary font-extrabold border-3 border-border shadow-xs'
-                              : 'text-[#3F3C38] hover:text-foreground hover:bg-background font-semibold'
+                              : 'text-foreground/80 hover:text-foreground hover:bg-background font-semibold'
                           }`}
                         >
                           <span className="truncate">{subItem.shortLabel || subItem.label}</span>
                           {subItem.badge && (
-                            <Badge variant="accent" className="font-mono text-[9px] px-1.5 py-0">
+                            <Badge variant="accent" className="font-mono text-xs px-1.5 py-0.5">
                               {subItem.badge}
                             </Badge>
                           )}
@@ -428,89 +409,29 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
             );
           })}
         </div>
-
-        {/* Custom Student Shortcuts */}
-        {!isCompact && (
-          <div className="pt-2 border-t-3 border-border space-y-2">
-            <div className="px-1 flex items-center justify-between">
-              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-muted-foreground">
-                Atalhos Rápidos
-              </span>
-              <button
-                type="button"
-                onClick={() => triggerEvent('cagp:open-shortcuts')}
-                className="text-[10px] font-heading font-extrabold uppercase text-primary hover:underline cursor-pointer"
-              >
-                Editar
-              </button>
-            </div>
-            <div className="grid grid-cols-2 gap-1.5">
-              {activeShortcuts.map((sc) => (
-                <motion.a
-                  key={sc.id}
-                  href={sc.href}
-                  whileHover={{ x: 2, y: -1 }}
-                  whileTap={{ x: 2, y: 2 }}
-                  transition={tactileSpring}
-                  onClick={(e) => {
-                    if (sc.isAction && sc.actionEvent) {
-                      e.preventDefault();
-                      triggerEvent(sc.actionEvent);
-                    }
-                  }}
-                  className="flex items-center gap-1.5 p-2 rounded-xl bg-background hover:bg-card border-3 border-border shadow-xs text-[11px] font-bold text-foreground no-underline transition-colors truncate"
-                >
-                  <CagpIcon
-                    name={resolveCagpIconName(sc.icon)}
-                    className="w-3.5 h-3.5 text-secondary shrink-0"
-                  />
-                  <span className="truncate">{sc.label}</span>
-                </motion.a>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Bottom Anchored Student Passport & Quick Tools */}
       <div className="p-3 border-t-3 border-border bg-card space-y-2.5 shrink-0">
         {!isCompact ? (
-          <div className="grid grid-cols-4 gap-1">
+          <div className="grid grid-cols-2 gap-2">
             <button
               type="button"
               onClick={() => triggerEvent('cagp:open-campus')}
-              className="flex flex-col items-center justify-center min-h-[44px] py-1.5 px-0.5 rounded-xl bg-white hover:bg-background border-3 border-border shadow-xs text-[10px] font-bold text-foreground cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+              className="flex items-center justify-center gap-2 min-h-[44px] py-2 px-3 rounded-xl bg-white hover:bg-background border-3 border-border shadow-xs text-xs font-heading font-extrabold uppercase tracking-tight text-foreground cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
               title="Horários do RU Setorial I/II e Circulares 3 e 4"
             >
-              <CagpIcon name={resolveCagpIconName('bi-clock-history')} className="w-3.5 h-3.5 text-secondary mb-0.5" />
+              <CagpIcon name={resolveCagpIconName('bi-clock-history')} className="w-4 h-4 text-secondary shrink-0" />
               <span>RU/Bus</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => triggerEvent('cagp:open-a11y')}
-              className="flex flex-col items-center justify-center min-h-[44px] py-1.5 px-0.5 rounded-xl bg-white hover:bg-background border-3 border-border shadow-xs text-[10px] font-bold text-foreground cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
-              title="Acessibilidade e Leitura"
-            >
-              <CagpIcon name={resolveCagpIconName('bi-universal-access')} className="w-3.5 h-3.5 text-primary mb-0.5" />
-              <span>A11y</span>
             </button>
             <a
               href={route('/configuracoes')}
-              className="flex flex-col items-center justify-center min-h-[44px] py-1.5 px-0.5 rounded-xl bg-white hover:bg-background border-3 border-border shadow-xs text-[10px] font-bold text-foreground no-underline cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
-              title="Configurações do Superapp"
+              className="flex items-center justify-center gap-2 min-h-[44px] py-2 px-3 rounded-xl bg-white hover:bg-background border-3 border-border shadow-xs text-xs font-heading font-extrabold uppercase tracking-tight text-foreground no-underline cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
+              title="Configurações & Acessibilidade do Superapp"
             >
-              <CagpIcon name="sliders" className="w-3.5 h-3.5 text-[#266264] mb-0.5" />
+              <CagpIcon name="sliders" className="w-4 h-4 text-[#266264] shrink-0" />
               <span>Ajustes</span>
             </a>
-            <button
-              type="button"
-              onClick={() => triggerEvent('cagp:start-tour')}
-              className="flex flex-col items-center justify-center min-h-[44px] py-1.5 px-0.5 rounded-xl bg-white hover:bg-background border-3 border-border shadow-xs text-[10px] font-bold text-foreground cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
-              title="Iniciar Tour Guiado do SuperApp"
-            >
-              <CagpIcon name="compass" className="w-3.5 h-3.5 text-accent mb-0.5" />
-              <span>Tour</span>
-            </button>
           </div>
         ) : (
           <button
@@ -522,7 +443,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
                 setTabletExpanded(true);
               }
             }}
-            className="w-full min-h-[44px] p-2 rounded-xl bg-white border-3 border-border shadow-xs flex items-center justify-center cursor-pointer active:translate-x-0.5 active:translate-y-0.5"
+            className="w-full min-h-[44px] p-2 rounded-xl bg-white border-3 border-border shadow-xs flex items-center justify-center cursor-pointer active:translate-x-0.5 active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none"
             title="Expandir Menu Lateral (Ctrl+B)"
           >
             <CagpIcon name="chevron-right" className="w-4 h-4" />
@@ -539,7 +460,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
           onClick={() => triggerEvent('cagp:open-passport')}
           className={`w-full rounded-xl bg-primary text-white border-3 border-border shadow-sm flex items-center ${
             isCompact ? 'justify-center p-2' : 'justify-between p-2.5'
-          } cursor-pointer transition-colors hover:bg-[#4a216f]`}
+          } cursor-pointer transition-colors hover:bg-[#4a216f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-primary disabled:opacity-50 disabled:pointer-events-none`}
           title="Abrir Passaporte e Carteirinha Discente"
         >
           <div className="flex items-center gap-2.5 min-w-0">
@@ -551,14 +472,14 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
                 <span className="font-heading text-xs font-extrabold uppercase block truncate">
                   {studentName}
                 </span>
-                <span className="text-[10px] font-mono text-white/85 block truncate">
+                <span className="text-xs font-mono text-white/90 block truncate">
                   {studentPeriod}
                 </span>
               </div>
             )}
           </div>
           {!isCompact && (
-            <Badge variant="accent" className="font-mono text-[9px] px-1.5 py-0.5 shrink-0">
+            <Badge variant="accent" className="font-mono text-xs px-1.5 py-0.5 shrink-0">
               Passaporte
             </Badge>
           )}
@@ -576,7 +497,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
         initial={false}
         animate={{ width: desktopCollapsed ? 88 : 264 }}
         transition={drawerSpring}
-        className="hidden xl:flex flex-col shrink-0 border-r-3 border-[#16181d] bg-white sticky top-0 h-[100dvh] z-30 overflow-x-hidden"
+        className="hidden xl:flex flex-col shrink-0 border-r-3 border-border bg-white sticky top-0 h-[100dvh] z-30 overflow-x-hidden"
       >
         {renderSidebarNavigationContent(desktopCollapsed, 'desktop')}
       </motion.aside>
@@ -584,7 +505,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
       {/* 2. Tablet Compact Rail (768px - 1279px) */}
       <aside
         aria-label="Navegação Lateral Compacta Tablet"
-        className="hidden md:flex xl:hidden flex-col w-[88px] shrink-0 border-r-3 border-[#16181d] bg-white sticky top-0 h-[100dvh] z-30 transition-all duration-200"
+        className="hidden md:flex xl:hidden flex-col w-[88px] shrink-0 border-r-3 border-border bg-white sticky top-0 h-[100dvh] z-30 transition-all duration-200"
       >
         {renderSidebarNavigationContent(true, 'tablet-rail')}
       </aside>
@@ -593,7 +514,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
       {tabletExpanded && (
         <div className="fixed inset-0 z-[1100] hidden md:flex xl:hidden">
           <div
-            className="fixed inset-0 bg-black/65 bg-[radial-gradient(#16181d_1px,transparent_1px)] [background-size:12px_12px] transition-opacity duration-200 animate-in fade-in"
+            className="fixed inset-0 bg-black/65 bg-[radial-gradient(var(--color-border,#16181d)_1px,transparent_1px)] [background-size:12px_12px] transition-opacity duration-200 animate-in fade-in"
             onClick={() => setTabletExpanded(false)}
             aria-hidden="true"
           />
@@ -601,7 +522,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
             initial={{ x: -280 }}
             animate={{ x: 0 }}
             transition={drawerSpring}
-            className="relative z-10 w-[280px] h-full border-r-3 border-[#16181d] bg-white shadow-[8px_0px_0px_#16181d]"
+            className="relative z-10 w-[280px] h-full border-r-3 border-border bg-white shadow-[8px_0px_0px_var(--color-border,#16181d)]"
           >
             {renderSidebarNavigationContent(false, 'tablet-drawer')}
           </motion.aside>
@@ -610,11 +531,11 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
 
       {/* 3. Mobile Neobrutalist Vaul Drawer (< 768px) */}
       <Drawer open={mobileDrawerOpen} onOpenChange={setMobileDrawerOpen}>
-        <DrawerContent className="z-[1100] max-h-[88dvh] bg-white border-t-3 border-[#16181d]">
+        <DrawerContent className="z-[1100] max-h-[88dvh] bg-white border-t-3 border-border">
           <DrawerHeader className="border-b-3 border-border bg-card pb-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-white p-1 border-3 border-border shadow-[1px_1px_0px_#16181d] flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 rounded-lg bg-white p-1 border-3 border-border shadow-xs flex items-center justify-center shrink-0">
                   <img
                     src={asset('/logos/semente/simbolo_semente_fiel.svg')}
                     alt="Chapa Semente"
@@ -623,7 +544,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
                 </div>
                 <div className="text-left">
                   <DrawerTitle className="font-heading text-sm font-black uppercase text-foreground">
-                    CHAPA SEM<span>E</span>NT<span className="text-accent">E</span>
+                    CHAPA SEM<span>E</span>NT<span className="text-[#C2410C]">E</span>
                   </DrawerTitle>
                   <DrawerDescription className="text-xs font-semibold text-muted-foreground">
                     Proposta Materializada • CAGP UFMG
@@ -671,7 +592,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
                 <span className="font-heading font-extrabold text-xs uppercase text-foreground">
                   Status do Campus Agora • RU II &amp; Circulares
                 </span>
-                <span className="text-[11px] text-muted-foreground truncate">
+                <span className="text-xs text-muted-foreground truncate">
                   Plantão noturno, horários de janta no RU e linhas de ônibus interno
                 </span>
               </div>
@@ -690,7 +611,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
                 <span className="font-heading font-extrabold text-xs uppercase text-foreground">
                   Passaporte Discente • Perfil &amp; Cofre
                 </span>
-                <span className="text-[11px] text-muted-foreground truncate">
+                <span className="text-xs text-muted-foreground truncate">
                   Seu progresso de curso, personalização do avatar e backup do cofre
                 </span>
               </div>
@@ -698,10 +619,10 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
             </CommandItem>
 
             <CommandItem
-              value="Acessibilidade Alto Contraste Fonte OpenDyslexic Tamanho de Texto Modo Escuro"
+              value="Acessibilidade Alto Contraste Fonte OpenDyslexic Tamanho de Texto Modo Escuro Configuracoes"
               onSelect={() => {
                 setCommandOpen(false);
-                triggerEvent('cagp:open-a11y');
+                navigateTo(route('/configuracoes'));
               }}
             >
               <CagpIcon name={resolveCagpIconName('bi-universal-access')} className="w-4 h-4 text-accent mr-2" />
@@ -709,30 +630,11 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
                 <span className="font-heading font-extrabold text-xs uppercase text-foreground">
                   Painel de Acessibilidade &amp; Preferências
                 </span>
-                <span className="text-[11px] text-muted-foreground truncate">
+                <span className="text-xs text-muted-foreground truncate">
                   Ajustes de alto contraste, fonte para dislexia e tamanho de texto
                 </span>
               </div>
               <CommandShortcut>A11y</CommandShortcut>
-            </CommandItem>
-
-            <CommandItem
-              value="Iniciar Tour Guiado do SuperApp Tutorial Ajuda Guia Onboarding Primeiros Passos Walkthrough"
-              onSelect={() => {
-                setCommandOpen(false);
-                triggerEvent('cagp:start-tour');
-              }}
-            >
-              <CagpIcon name="compass" className="w-4 h-4 text-accent mr-2" />
-              <div className="flex flex-col flex-1 min-w-0">
-                <span className="font-heading font-extrabold text-xs uppercase text-foreground">
-                  Iniciar Tour Guiado do SuperApp
-                </span>
-                <span className="text-[11px] text-muted-foreground truncate">
-                  Tour interativo passo a passo pelas ferramentas discentes
-                </span>
-              </div>
-              <CommandShortcut>Tour</CommandShortcut>
             </CommandItem>
           </CommandGroup>
 
@@ -751,7 +653,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
                 <span className="font-heading font-extrabold text-xs uppercase text-foreground">
                   Chapa Semente • Carta-Programa Oficial
                 </span>
-                <span className="text-[11px] text-muted-foreground truncate">
+                <span className="text-xs text-muted-foreground truncate">
                   Conheça os 4 eixos, compromisso público e propostas de gestão
                 </span>
               </div>
@@ -769,7 +671,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
                 <span className="font-heading font-extrabold text-xs uppercase text-foreground">
                   Edital de Eleições CAGP 2026 (Normas &amp; Datas)
                 </span>
-                <span className="text-[11px] text-muted-foreground truncate">
+                <span className="text-xs text-muted-foreground truncate">
                   Votação em 25 e 26/11 no CAGP, regras e download do edital
                 </span>
               </div>
@@ -806,7 +708,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
                     <span className="font-heading font-extrabold text-xs uppercase text-foreground">
                       {item.label}
                     </span>
-                    <span className="text-[11px] text-muted-foreground truncate">
+                    <span className="text-xs text-muted-foreground truncate">
                       {item.description}
                     </span>
                   </div>
@@ -837,7 +739,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
                   <span className="font-heading font-extrabold text-xs text-foreground">
                     {portal.label}
                   </span>
-                  <span className="text-[11px] text-muted-foreground truncate">
+                  <span className="text-xs text-muted-foreground truncate">
                     {portal.desc}
                   </span>
                 </div>

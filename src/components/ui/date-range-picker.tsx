@@ -40,28 +40,30 @@ export interface DateRangePickerProps
 
 const getDefaultPresets = (): DateRangePickerPreset[] => {
   const today = new Date()
-  const lastMonth = subMonths(today, 1)
+  const sixMonthsAgo = subMonths(today, 6)
+  const twelveMonthsAgo = subMonths(today, 12)
+  const startOfYear = new Date(today.getFullYear(), 0, 1)
 
   return [
     {
-      label: 'Today',
-      value: { from: today, to: today },
+      label: 'Ano Letivo Atual',
+      value: { from: startOfYear, to: today },
     },
     {
-      label: 'Last 7 days',
-      value: { from: subDays(today, 6), to: today },
+      label: 'Exercício Integral (12 meses)',
+      value: { from: twelveMonthsAgo, to: today },
     },
     {
-      label: 'Last 30 days',
-      value: { from: subDays(today, 29), to: today },
+      label: 'Último Semestre (6 meses)',
+      value: { from: sixMonthsAgo, to: today },
     },
     {
-      label: 'This month',
+      label: 'Mês Vigente',
       value: { from: startOfMonth(today), to: today },
     },
     {
-      label: 'Last month',
-      value: { from: startOfMonth(lastMonth), to: endOfMonth(lastMonth) },
+      label: 'Últimos 30 dias',
+      value: { from: subDays(today, 29), to: today },
     },
   ]
 }
@@ -85,7 +87,7 @@ const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePickerProps
       minDate,
       maxDate,
       disabled = false,
-      placeholder = 'Pick a date range',
+      placeholder = 'Selecione o intervalo de datas...',
       align = 'start',
       className,
       ...props
@@ -130,8 +132,8 @@ const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePickerProps
 
     const formatDateRange = (range: DateRange) => {
       if (!range.from) return placeholder
-      if (!range.to) return format(range.from, 'LLL dd, y')
-      return `${format(range.from, 'LLL dd, y')} - ${format(range.to, 'LLL dd, y')}`
+      if (!range.to) return format(range.from, 'dd/MM/yyyy')
+      return `${format(range.from, 'dd/MM/yyyy')} a ${format(range.to, 'dd/MM/yyyy')}`
     }
 
     // Use single month on mobile
@@ -192,8 +194,8 @@ const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePickerProps
                   ? 'border-b-3 border-foreground'
                   : 'min-w-[160px] border-r-3 border-foreground'
               )}>
-                <p className="mb-3 text-[11px] font-black uppercase tracking-widest text-muted-foreground">
-                  Presets
+                <p className="mb-3 text-xs font-black uppercase tracking-widest text-muted-foreground">
+                  Períodos Rápidos
                 </p>
                 <div className={cn(
                   isMobile
@@ -208,7 +210,7 @@ const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePickerProps
                         type="button"
                         onClick={() => handlePresetClick(preset)}
                         className={cn(
-                          'text-left text-sm font-bold border-3 border-foreground bg-background transition duration-150',
+                          'text-left text-xs font-bold border-3 border-foreground bg-background transition duration-150',
                           isMobile
                             ? 'px-2 py-1 text-xs shadow-sm'
                             : 'w-full px-3 py-2 shadow',
@@ -216,7 +218,7 @@ const DateRangePicker = React.forwardRef<HTMLButtonElement, DateRangePickerProps
                           isMobile
                             ? 'hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none focus-visible:translate-x-[2px] focus-visible:translate-y-[2px] focus-visible:shadow-none'
                             : 'hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none focus-visible:translate-x-[3px] focus-visible:translate-y-[3px] focus-visible:shadow-none',
-                          'focus-visible:outline-none',
+                          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1',
                           selected && 'bg-accent text-accent-foreground shadow-none ' + (isMobile ? 'translate-x-[2px] translate-y-[2px]' : 'translate-x-[3px] translate-y-[3px]')
                         )}
                       >

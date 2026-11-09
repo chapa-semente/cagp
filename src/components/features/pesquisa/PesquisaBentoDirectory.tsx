@@ -222,12 +222,9 @@ export const PesquisaBentoDirectory: React.FC = () => {
       <div className="p-5 bg-white border-3 border-[#16181d] rounded-2xl shadow-[6px_6px_0_0_#16181d] space-y-4">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-3 border-[#16181d] pb-4">
           <div>
-            <span className="font-mono text-[10px] font-black uppercase text-secondary block">
-              DIRETÓRIO BENTO INTERATIVO • DCP / FAFICH / UFMG (CONCEITO 7 CAPES)
-            </span>
-            <h3 className="font-head text-lg sm:text-xl font-black uppercase text-[#16181d] m-0">
+            <h2 className="font-head text-lg sm:text-2xl font-black uppercase text-[#16181d] m-0 tracking-tight">
               Explore os 11 Laboratórios &amp; Núcleos de Pesquisa
-            </h3>
+            </h2>
             <p className="text-xs text-gray-800 font-body font-medium mt-0.5 m-0">
               Filtre por eixo temático ou busque por professor, sigla ou área de interesse para Iniciação Científica (até 90h AAC) e Extensão:
             </p>
@@ -245,7 +242,7 @@ export const PesquisaBentoDirectory: React.FC = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Buscar sigla, docente, SUS, legislativo..."
-                className="w-full min-h-[44px] pl-9 pr-3 py-2 rounded-xl border-3 border-[#16181d] bg-[#FFFDF9] font-mono text-xs font-bold text-[#16181d] shadow-[2px_2px_0_0_#16181d] focus:outline-none focus:ring-2 focus:ring-[#5B2A86]"
+                className="w-full min-h-[44px] pl-9 pr-3 py-2 rounded-xl border-3 border-[#16181d] bg-[#FFFDF9] font-mono text-xs font-bold text-[#16181d] shadow-[2px_2px_0_0_#16181d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5B2A86] focus-visible:ring-offset-2 transition-all"
               />
             </div>
           </div>
@@ -265,7 +262,7 @@ export const PesquisaBentoDirectory: React.FC = () => {
                 whileTap={{ x: 2, y: 2 }}
                 transition={tactileSpring}
                 onClick={() => setActiveEixo(f.id)}
-                className={`min-h-[44px] px-4 py-2 rounded-xl font-mono text-xs font-black uppercase border-3 border-[#16181d] cursor-pointer transition-colors ${
+                className={`min-h-[44px] px-4 py-2 rounded-xl font-mono text-xs font-black uppercase border-3 border-[#16181d] cursor-pointer transition-colors active:translate-x-0.5 active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
                   isSelected
                     ? 'bg-[#5B2A86] text-white shadow-[4px_4px_0_0_#16181d]'
                     : 'bg-white text-[#16181d] hover:bg-[#f4f0ea] shadow-[2px_2px_0_0_#16181d]'
@@ -279,9 +276,11 @@ export const PesquisaBentoDirectory: React.FC = () => {
             <button
               type="button"
               onClick={() => setSearchQuery('')}
-              className="min-h-[44px] px-3.5 py-2 rounded-xl bg-[#FEE2E2] text-[#991B1B] font-mono text-xs font-black uppercase border-2 border-[#16181d] cursor-pointer"
+              aria-label="Limpar campo de busca"
+              className="min-h-[44px] px-3.5 py-2 rounded-xl bg-[#FEE2E2] hover:bg-[#FECACA] active:translate-x-0.5 active:translate-y-0.5 text-[#991B1B] font-mono text-xs font-black uppercase border-2 border-[#16181d] cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive focus-visible:ring-offset-2 inline-flex items-center gap-1.5"
             >
-              Limpar Busca ✕
+              <span>Limpar Busca</span>
+              <i className="bi bi-x-circle-fill text-sm" aria-hidden="true" />
             </button>
           )}
         </div>
@@ -301,7 +300,7 @@ export const PesquisaBentoDirectory: React.FC = () => {
               setSearchQuery('');
               setActiveEixo('todos');
             }}
-            className="min-h-[44px] px-4 py-2 rounded-xl bg-[#5B2A86] text-white font-head text-xs font-black uppercase border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] cursor-pointer"
+            className="min-h-[44px] px-4 py-2 rounded-xl bg-[#5B2A86] hover:bg-[#4A216E] active:translate-x-0.5 active:translate-y-0.5 text-white font-head text-xs font-black uppercase border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             Mostrar Todos os 11 Núcleos
           </button>
@@ -312,7 +311,7 @@ export const PesquisaBentoDirectory: React.FC = () => {
       <div className="p-5 sm:p-6 bg-[#FFFDF9] border-3 border-[#16181d] rounded-2xl shadow-[6px_6px_0_0_#16181d] flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div className="space-y-1.5 max-w-3xl">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="px-2.5 py-0.5 rounded-md bg-[#5B2A86] text-white font-mono text-[10px] font-black uppercase border-2 border-[#16181d]">
+            <span className="px-2.5 py-0.5 rounded-md bg-[#5B2A86] text-white font-mono text-xs font-black uppercase border-2 border-[#16181d]">
               PROPOSTAS 9 E 12 • PESQUISA, EXTENSÃO &amp; RADAR DE BOLSAS
             </span>
             <span className="font-mono text-xs font-bold text-secondary">Chapa Semente 2026</span>
@@ -328,13 +327,13 @@ export const PesquisaBentoDirectory: React.FC = () => {
         <div className="flex flex-wrap gap-2.5 shrink-0">
           <a
             href={route('/noticias')}
-            className="min-h-[44px] px-4 py-2.5 bg-white hover:bg-[#f4f0ea] text-[#16181d] rounded-xl font-head text-xs uppercase font-black tracking-wider inline-flex items-center justify-center gap-1.5 no-underline border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d]"
+            className="min-h-[44px] px-4 py-2.5 bg-white hover:bg-[#f4f0ea] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none text-[#16181d] rounded-xl font-head text-xs uppercase font-black tracking-wider inline-flex items-center justify-center gap-1.5 no-underline border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             <span>Radar de Editais &amp; Bolsas</span>
           </a>
           <a
             href={route('/chapa-semente#propostas')}
-            className="min-h-[44px] px-5 py-2.5 bg-[#FF8811] hover:bg-[#e67300] text-[#16181d] rounded-xl font-head text-xs uppercase font-black tracking-wider inline-flex items-center justify-center gap-1.5 no-underline border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]"
+            className="min-h-[44px] px-5 py-2.5 bg-[#FF8811] hover:bg-[#e67300] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none text-[#16181d] rounded-xl font-head text-xs uppercase font-black tracking-wider inline-flex items-center justify-center gap-1.5 no-underline border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             <i className="bi bi-check2-circle text-base" aria-hidden="true" />
             <span>Votar Chapa Semente →</span>

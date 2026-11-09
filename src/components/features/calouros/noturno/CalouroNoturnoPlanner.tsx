@@ -172,7 +172,7 @@ export const CalouroNoturnoPlanner: React.FC = () => {
                     <TimelineTitle className="font-heading text-sm font-extrabold uppercase text-foreground m-0">
                       {item.title}
                     </TimelineTitle>
-                    <Badge variant={item.isHighlight ? 'accent' : 'outline'} className="text-[10px] font-mono">
+                    <Badge variant={item.isHighlight ? 'accent' : 'outline'} className="text-xs font-mono">
                       {item.badge}
                     </Badge>
                   </div>

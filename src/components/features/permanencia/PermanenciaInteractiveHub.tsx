@@ -157,7 +157,7 @@ export const PermanenciaInteractiveHub: React.FC = () => {
                 whileTap={{ x: 2, y: 2 }}
                 transition={tactileSpring}
                 onClick={() => setSelectedLevel(idx)}
-                className={`p-4 rounded-xl border-3 border-[#16181d] text-left transition-colors min-h-[140px] cursor-pointer flex flex-col justify-between ${
+                className={`p-4 rounded-xl border-3 border-[#16181d] text-left transition-colors min-h-[140px] cursor-pointer flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
                   isSelected
                     ? 'bg-[#FFFDF9] shadow-[6px_6px_0px_#16181d] ring-3 ring-[#5B2A86]'
                     : 'bg-white hover:bg-[#f4f0ea] shadow-[4px_4px_0px_#16181d]'
@@ -168,7 +168,7 @@ export const PermanenciaInteractiveHub: React.FC = () => {
                     <span className="font-head font-black text-lg text-[#16181d] uppercase">
                       {f.level}
                     </span>
-                    <span className={`text-[10px] font-mono font-black uppercase px-2.5 py-1 rounded-md border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] ${f.accentBg} ${f.accentText}`}>
+                    <span className={`text-xs font-mono font-black uppercase px-2.5 py-1 rounded-md border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] ${f.accentBg} ${f.accentText}`}>
                       {f.badge}
                     </span>
                   </div>
@@ -176,7 +176,7 @@ export const PermanenciaInteractiveHub: React.FC = () => {
                     {f.ruDiscount}
                   </p>
                 </div>
-                <div className="text-[10px] font-mono font-bold text-[#5B2A86] mt-3 pt-2 border-t-2 border-[#16181d]/20 flex items-center justify-between">
+                <div className="text-xs font-mono font-bold text-[#5B2A86] mt-3 pt-2 border-t-2 border-[#16181d]/20 flex items-center justify-between">
                   <span>{isSelected ? '✓ Nível Selecionado' : 'Ver garantias'}</span>
                   <span>→</span>
                 </div>
@@ -186,7 +186,7 @@ export const PermanenciaInteractiveHub: React.FC = () => {
         </div>
       </div>
 
-      {/* 2. Quadro BoldKit de Garantias: Alimentação, Moradia, Transporte e Bolsas */}
+      {/* 2. Quadro de Garantias: Alimentação, Moradia, Transporte e Bolsas */}
       <AnimatePresence mode="wait">
         <motion.div
           key={currentMeta.level}
@@ -194,13 +194,10 @@ export const PermanenciaInteractiveHub: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -8 }}
           transition={tactileSpring}
-          className="p-5 sm:p-6 rounded-2xl bg-white border-3 border-[#16181d] shadow-[6px_6px_0px_#16181d] space-y-4"
+          className="p-5 sm:p-6 rounded-2xl bg-white border-3 border-[#16181d] shadow-[5px_5px_0_0_#16181d] space-y-4"
         >
           <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b-3 border-[#16181d]">
             <div>
-              <span className="font-mono text-[10px] font-black uppercase text-secondary block">
-                {currentMeta.tag}
-              </span>
               <h3 className="font-head font-black text-lg sm:text-xl uppercase text-[#16181d] m-0">
                 Quadro de Direitos &amp; Benefícios — {currentMeta.level}
               </h3>
@@ -211,8 +208,8 @@ export const PermanenciaInteractiveHub: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-xs text-[#16181d]">
-            <div className="p-4 rounded-xl bg-[#FFFDF9] border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] space-y-1.5">
-              <span className="px-2 py-0.5 rounded bg-[#FF8811] text-[#16181d] font-mono text-[10px] font-black uppercase border border-[#16181d] inline-block">
+            <div className="p-4 rounded-xl bg-[#FFFDF9] border-2 border-[#16181d] space-y-1.5">
+              <span className="px-2 py-0.5 rounded bg-[#FF8811] text-[#16181d] font-mono text-xs font-black uppercase border border-[#16181d] inline-block">
                 1. ALIMENTAÇÃO (RU)
               </span>
               <strong className="block text-[#16181d] font-head font-black uppercase text-sm">
@@ -223,8 +220,8 @@ export const PermanenciaInteractiveHub: React.FC = () => {
               </p>
             </div>
 
-            <div className="p-4 rounded-xl bg-[#FFFDF9] border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] space-y-1.5">
-              <span className="px-2 py-0.5 rounded bg-[#5B2A86] text-white font-mono text-[10px] font-black uppercase border border-[#16181d] inline-block">
+            <div className="p-4 rounded-xl bg-[#FFFDF9] border-2 border-[#16181d] space-y-1.5">
+              <span className="px-2 py-0.5 rounded bg-[#5B2A86] text-white font-mono text-xs font-black uppercase border border-[#16181d] inline-block">
                 2. MORADIA ESTUDANTIL
               </span>
               <strong className="block text-[#16181d] font-head font-black uppercase text-sm">
@@ -235,8 +232,8 @@ export const PermanenciaInteractiveHub: React.FC = () => {
               </p>
             </div>
 
-            <div className="p-4 rounded-xl bg-[#FFFDF9] border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] space-y-1.5">
-              <span className="px-2 py-0.5 rounded bg-[#15803D] text-white font-mono text-[10px] font-black uppercase border border-[#16181d] inline-block">
+            <div className="p-4 rounded-xl bg-[#FFFDF9] border-2 border-[#16181d] space-y-1.5">
+              <span className="px-2 py-0.5 rounded bg-[#15803D] text-white font-mono text-xs font-black uppercase border border-[#16181d] inline-block">
                 3. BOLSAS &amp; MANUTENÇÃO
               </span>
               <strong className="block text-[#16181d] font-head font-black uppercase text-sm">
@@ -247,8 +244,8 @@ export const PermanenciaInteractiveHub: React.FC = () => {
               </p>
             </div>
 
-            <div className="p-4 rounded-xl bg-[#FFFDF9] border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] space-y-1.5">
-              <span className="px-2 py-0.5 rounded bg-[#9E2424] text-white font-mono text-[10px] font-black uppercase border border-[#16181d] inline-block">
+            <div className="p-4 rounded-xl bg-[#FFFDF9] border-2 border-[#16181d] space-y-1.5">
+              <span className="px-2 py-0.5 rounded bg-[#9E2424] text-white font-mono text-xs font-black uppercase border border-[#16181d] inline-block">
                 4. TRANSPORTE &amp; SAÚDE
               </span>
               <strong className="block text-[#16181d] font-head font-black uppercase text-sm">
@@ -263,12 +260,9 @@ export const PermanenciaInteractiveHub: React.FC = () => {
       </AnimatePresence>
 
       {/* 3. Simulador Interativo Animado de Retorno da Assistência Estudantil */}
-      <div className="p-5 sm:p-6 rounded-2xl bg-[#DCFCE7] text-[#16181d] border-3 border-[#16181d] shadow-[6px_6px_0px_#16181d] space-y-5">
+      <div className="p-5 sm:p-6 rounded-2xl bg-[#DCFCE7] text-[#16181d] border-3 border-[#16181d] shadow-[5px_5px_0_0_#16181d] space-y-5">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b-3 border-[#16181d] pb-3">
           <div>
-            <span className="font-mono text-[10px] font-black uppercase text-[#15803D] block">
-              CALCULADORA INTERATIVA DE PERMANÊNCIA • FUMP/UFMG
-            </span>
             <h3 className="font-head font-black text-lg sm:text-xl uppercase tracking-tight text-[#16181d] m-0">
               Simulador de Impacto Mensal no Orçamento do Estudante
             </h3>
@@ -283,7 +277,7 @@ export const PermanenciaInteractiveHub: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
           <div className="lg:col-span-7 space-y-4">
-            <div className="p-4 bg-white rounded-xl border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] space-y-2">
+            <div className="p-4 bg-white rounded-xl border-2 border-[#16181d] space-y-2">
               <div className="flex justify-between items-center">
                 <label htmlFor="ru-meals-slider" className="text-xs font-head font-black uppercase tracking-wider text-[#16181d]">
                   Refeições no RU por Mês (Almoço / Jantar):
@@ -302,7 +296,7 @@ export const PermanenciaInteractiveHub: React.FC = () => {
                 onChange={(e) => setMealsPerMonth(Number(e.target.value))}
                 className="w-full h-3 accent-[#5B2A86] cursor-pointer"
               />
-              <div className="flex justify-between text-[10px] font-mono font-bold text-gray-700">
+              <div className="flex justify-between text-xs font-mono font-bold text-gray-700">
                 <span>10 ref (2x/sem)</span>
                 <span>22 ref (Jantar diário)</span>
                 <span>44 ref (Almoço + Jantar)</span>
@@ -314,10 +308,10 @@ export const PermanenciaInteractiveHub: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setHasTransport(!hasTransport)}
-                className={`min-h-[48px] p-3.5 rounded-xl border-3 border-[#16181d] text-left flex items-center gap-3 cursor-pointer transition-all ${
+                className={`min-h-[48px] p-3.5 rounded-xl border-3 border-[#16181d] text-left flex items-center gap-3 cursor-pointer transition-all active:translate-x-0.5 active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ${
                   hasTransport
                     ? 'bg-white shadow-[3px_3px_0_0_#16181d]'
-                    : 'bg-white/60 opacity-80'
+                    : 'bg-white/60 hover:bg-white opacity-80'
                 }`}
               >
                 <span className={`w-7 h-7 rounded-lg border-2 border-[#16181d] flex items-center justify-center font-mono text-xs font-black shrink-0 ${
@@ -333,10 +327,10 @@ export const PermanenciaInteractiveHub: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setIncludeHousingAid(!includeHousingAid)}
-                className={`min-h-[48px] p-3.5 rounded-xl border-3 border-[#16181d] text-left flex items-center gap-3 cursor-pointer transition-all ${
+                className={`min-h-[48px] p-3.5 rounded-xl border-3 border-[#16181d] text-left flex items-center gap-3 cursor-pointer transition-all active:translate-x-0.5 active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ${
                   includeHousingAid
                     ? 'bg-white shadow-[3px_3px_0_0_#16181d]'
-                    : 'bg-white/60 opacity-80'
+                    : 'bg-white/60 hover:bg-white opacity-80'
                 }`}
               >
                 <span className={`w-7 h-7 rounded-lg border-2 border-[#16181d] flex items-center justify-center font-mono text-xs font-black shrink-0 ${
@@ -354,7 +348,7 @@ export const PermanenciaInteractiveHub: React.FC = () => {
           {/* Resultado Animado do Simulador */}
           <div className="lg:col-span-5 p-5 bg-white rounded-xl border-3 border-[#16181d] shadow-[5px_5px_0_0_#16181d] space-y-4">
             <div>
-              <span className="text-[11px] font-mono font-black uppercase tracking-wider text-gray-600 block">
+              <span className="text-xs font-mono font-black uppercase tracking-wider text-gray-600 block">
                 Benefício Econômico Estimado ({currentMeta.level})
               </span>
               <motion.div
@@ -366,7 +360,7 @@ export const PermanenciaInteractiveHub: React.FC = () => {
               >
                 R$ {totalMonthlyImpact.toFixed(2).replace('.', ',')} <span className="text-sm font-mono text-[#16181d]">/ mês</span>
               </motion.div>
-              <span className="text-[11px] font-mono font-bold text-gray-700 block">
+              <span className="text-xs font-mono font-bold text-gray-700 block">
                 Equivalente a R$ {(totalMonthlyImpact * 12).toFixed(0)} por ano de proteção estudantil
               </span>
             </div>
@@ -391,7 +385,7 @@ export const PermanenciaInteractiveHub: React.FC = () => {
                 href="https://www.fump.ufmg.br/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="min-h-[44px] flex-1 px-4 py-2.5 bg-[#15803D] hover:bg-[#166534] text-white font-head font-black text-xs uppercase rounded-xl border-3 border-[#16181d] shadow-[3px_3px_0px_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer inline-flex items-center justify-center gap-2 no-underline"
+                className="min-h-[44px] flex-1 px-4 py-2.5 bg-[#15803D] hover:bg-[#166534] text-white font-head font-black text-xs uppercase rounded-xl border-3 border-[#16181d] shadow-[3px_3px_0px_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer inline-flex items-center justify-center gap-2 no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
                 <span>Portal SINAE / FUMP</span>
                 <i className="bi bi-box-arrow-up-right" aria-hidden="true"></i>
@@ -401,13 +395,10 @@ export const PermanenciaInteractiveHub: React.FC = () => {
         </div>
       </div>
 
-      {/* 4. Passo a Passo Interativo Animado para Cadastro na FUMP + Molduras Fotográficas Ampliadas */}
-      <div className="p-5 sm:p-6 rounded-2xl bg-white border-3 border-[#16181d] shadow-[6px_6px_0px_#16181d] space-y-6">
+      {/* 4. Passo a Passo Interativo para Cadastro na FUMP */}
+      <div className="p-5 sm:p-6 rounded-2xl bg-white border-3 border-[#16181d] shadow-[5px_5px_0_0_#16181d] space-y-6">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b-3 border-[#16181d] pb-3">
           <div>
-            <span className="font-mono text-[10px] font-black uppercase text-[#5B2A86] block">
-              PASSO A PASSO INTERATIVO • ROTEIRO MASTIGADO PELA CHAPA SEMENTE
-            </span>
             <h3 className="font-head font-black text-lg sm:text-xl uppercase text-[#16181d] m-0">
               Como Solicitar seu Nível FUMP sem Perder Prazos (4 Etapas)
             </h3>
@@ -430,8 +421,17 @@ export const PermanenciaInteractiveHub: React.FC = () => {
               <motion.div
                 key={st.step}
                 variants={staggerItem}
+                role="checkbox"
+                aria-checked={isChecked}
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === ' ' || e.key === 'Enter') {
+                    e.preventDefault();
+                    toggleStep(st.step);
+                  }
+                }}
                 onClick={() => toggleStep(st.step)}
-                className={`p-4 sm:p-5 rounded-xl border-3 border-[#16181d] cursor-pointer transition-all flex flex-col justify-between gap-3 ${
+                className={`p-4 sm:p-5 rounded-xl border-3 border-[#16181d] cursor-pointer transition-all flex flex-col justify-between gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5 ${
                   isChecked
                     ? 'bg-[#F0FDF4] shadow-[4px_4px_0_0_#15803D]'
                     : 'bg-[#FFFDF9] hover:bg-white shadow-[4px_4px_0_0_#16181d]'
@@ -439,13 +439,13 @@ export const PermanenciaInteractiveHub: React.FC = () => {
               >
                 <div className="space-y-2">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="px-2.5 py-0.5 rounded bg-[#16181d] text-white font-mono text-[10px] font-black uppercase">
+                    <span className="px-2.5 py-0.5 rounded bg-[#16181d] text-white font-mono text-xs font-black uppercase">
                       {st.code}
                     </span>
                     <motion.span
                       animate={isChecked ? { scale: [1, 1.2, 1], rotate: -2 } : { scale: 1, rotate: 0 }}
                       transition={bounceSpring}
-                      className={`px-2.5 py-0.5 rounded-md font-mono text-[10px] font-black uppercase border-2 border-[#16181d] ${
+                      className={`px-2.5 py-0.5 rounded-md font-mono text-xs font-black uppercase border-2 border-[#16181d] ${
                         isChecked ? 'bg-[#15803D] text-white' : 'bg-white text-[#16181d]'
                       }`}
                     >
@@ -460,8 +460,9 @@ export const PermanenciaInteractiveHub: React.FC = () => {
                   </p>
                 </div>
 
-                <div className="p-2.5 rounded-lg bg-white border-2 border-[#16181d] text-[11px] font-mono font-bold text-[#5B2A86]">
-                  💡 {st.tip}
+                <div className="p-2.5 rounded-lg bg-[#FAF5FF] border border-[#5B2A86]/30 text-xs font-mono font-bold text-[#5B2A86] flex items-center gap-2">
+                  <i className="bi bi-lightbulb-fill text-sm text-[#FF8811] shrink-0" aria-hidden="true" />
+                  <span>{st.tip}</span>
                 </div>
               </motion.div>
             );
@@ -479,7 +480,7 @@ export const PermanenciaInteractiveHub: React.FC = () => {
                 loading="lazy"
               />
             </div>
-            <span className="font-mono text-[11px] font-bold text-[#16181d] block">
+            <span className="font-mono text-xs font-bold text-[#16181d] block">
               [CARTILHA VISUAL 01] Campanha Institucional de Permanência Estudantil FUMP/UFMG.
             </span>
           </div>
@@ -493,7 +494,7 @@ export const PermanenciaInteractiveHub: React.FC = () => {
                 loading="lazy"
               />
             </div>
-            <span className="font-mono text-[11px] font-bold text-[#16181d] block">
+            <span className="font-mono text-xs font-bold text-[#16181d] block">
               [CARTILHA VISUAL 02] Atendimento médico, odontológico e psicossocial gratuito (DAST &amp; DASE/PRAE).
             </span>
           </div>
@@ -518,14 +519,14 @@ export const PermanenciaInteractiveHub: React.FC = () => {
         <div className="flex flex-col sm:flex-row gap-3 shrink-0">
           <a
             href={route('/ouvidoria')}
-            className="min-h-[48px] px-5 py-3 bg-[#FF8811] hover:bg-[#e67300] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none text-[#16181d] rounded-xl font-head text-xs sm:text-sm uppercase font-black tracking-wider inline-flex items-center justify-center gap-2 transition-all no-underline border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]"
+            className="min-h-[48px] px-5 py-3 bg-[#FF8811] hover:bg-[#e67300] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#5B2A86] text-[#16181d] rounded-xl font-head text-xs sm:text-sm uppercase font-black tracking-wider inline-flex items-center justify-center gap-2 transition-all no-underline border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]"
           >
             <i className="bi bi-chat-heart-fill text-base" aria-hidden="true"></i>
             <span>Pedir Acolhimento Direto ao CA →</span>
           </a>
           <a
             href={route('/chapa-semente')}
-            className="min-h-[48px] px-5 py-3 bg-white hover:bg-[#f4f0ea] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none text-[#16181d] rounded-xl font-head text-xs sm:text-sm uppercase font-black tracking-wider inline-flex items-center justify-center gap-2 transition-all no-underline border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]"
+            className="min-h-[48px] px-5 py-3 bg-white hover:bg-[#f4f0ea] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#5B2A86] text-[#16181d] rounded-xl font-head text-xs sm:text-sm uppercase font-black tracking-wider inline-flex items-center justify-center gap-2 transition-all no-underline border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]"
           >
             <i className="bi bi-check2-circle text-base text-[#5B2A86]" aria-hidden="true"></i>
             <span>Votar Chapa Semente (25 e 26/11)</span>

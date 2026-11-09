@@ -9,7 +9,7 @@ import { Progress } from "@/components/ui/progress"
 import { TrendingUp, TrendingDown, Minus } from "lucide-react"
 
 const statCardVariants = cva(
-  "relative overflow-hidden border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]",
+  "relative overflow-hidden border-3 border-border shadow-md",
   {
     variants: {
       variant: {
@@ -99,37 +99,40 @@ const StatCard = React.forwardRef<HTMLDivElement, StatCardProps>(
 
           <CardContent className="stat-content p-5">
             <div className="flex items-start justify-between gap-3">
-              <div className="min-w-0">
-                <p className="font-heading text-xs font-extrabold uppercase tracking-wider text-muted-foreground mb-1">
+              <div className="min-w-0 flex-1">
+                <p className="font-heading text-xs font-extrabold uppercase tracking-wide text-muted-foreground mb-1">
                   {title}
                 </p>
-                <p className="font-heading text-2xl sm:text-3xl font-black tracking-tight text-foreground tabular-nums">
+                <p
+                  className="font-heading text-xl sm:text-2xl lg:text-3xl tabular-nums truncate min-w-0 flex-1 font-black tracking-tight text-foreground"
+                  title={typeof value === 'string' || typeof value === 'number' ? String(value) : undefined}
+                >
                   {value}
                 </p>
                 {subtitle && (
-                  <p className="font-sans text-xs font-semibold text-muted-foreground mt-1">
+                  <p className="font-sans text-xs font-semibold text-muted-foreground mt-1 truncate">
                     {subtitle}
                   </p>
                 )}
                 {change && (
                   <div className={cn("flex items-center gap-1 mt-2", trendColor)}>
                     <TrendIcon className="h-4 w-4 shrink-0" />
-                    <span className="font-mono text-xs font-bold">{change}</span>
+                    <span className="font-mono text-xs font-bold tabular-nums">{change}</span>
                     {comparison && (
-                      <span className="text-xs text-muted-foreground">{comparison}</span>
+                      <span className="text-xs text-muted-foreground truncate">{comparison}</span>
                     )}
                   </div>
                 )}
               </div>
               {icon && (
-                <div className="stat-icon w-11 h-11 rounded-xl border-3 border-[#16181d] flex items-center justify-center shadow-[2px_2px_0_0_#16181d] shrink-0">
+                <div className="stat-icon w-11 h-11 rounded-xl border-3 border-border flex items-center justify-center shadow-xs shrink-0">
                   {icon}
                 </div>
               )}
             </div>
 
             {progress && (
-              <div className="mt-4 pt-3.5 border-t-2 border-[#16181d]/20">
+              <div className="mt-4 pt-3.5 border-t-2 border-border/20">
                 <div className="flex items-center justify-between text-xs mb-1.5 font-sans">
                   <span className="font-bold text-muted-foreground">
                     {progress.label || "Progresso"}
@@ -138,11 +141,11 @@ const StatCard = React.forwardRef<HTMLDivElement, StatCardProps>(
                     {progress.value}%
                   </span>
                 </div>
-                <Progress value={progress.value} className="h-3 border-3 border-[#16181d] rounded-lg" />
+                <Progress value={progress.value} className="h-3 border-3 border-border rounded-lg" />
               </div>
             )}
 
-            {footer && <div className="mt-3 pt-3 border-t-2 border-[#16181d]/20">{footer}</div>}
+            {footer && <div className="mt-3 pt-3 border-t-2 border-border/20">{footer}</div>}
           </CardContent>
         </Card>
       </motion.div>

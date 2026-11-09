@@ -91,8 +91,8 @@ const carreirasComparativas = [
     </div>
   </div>
 
-  <!-- Cartões Comparativos de Carreira Pública -->
-  <div class="cagp-tool-box p-5 sm:p-6 bg-white border-3 border-[#16181d] rounded-xl shadow-[6px_6px_0_0_#16181d] space-y-5">
+  <!-- Cartões Comparativos de Carreira Pública (Estrutura Desinchada sem Cards Aninhados) -->
+  <section class="space-y-4" aria-label="Cartões Comparativos de Carreira Pública">
     <div class="flex items-center justify-between gap-2.5 border-b-3 border-[#16181d] pb-3 flex-wrap">
       <div class="flex items-center gap-2.5">
         <i class="bi bi-briefcase-fill text-secondary text-xl" aria-hidden="true"></i>
@@ -112,13 +112,13 @@ const carreirasComparativas = [
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs">
       {carreirasComparativas.map((c) => (
-        <div class="cagp-card p-5 bg-[#FFFDF9] border-3 border-[#16181d] rounded-xl flex flex-col justify-between shadow-[5px_5px_0_0_#16181d] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[7px_7px_0_0_#16181d] transition-all space-y-4">
+        <article class="p-5 bg-white border-3 border-[#16181d] rounded-xl flex flex-col justify-between shadow-[4px_4px_0_0_#16181d] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0_0_#16181d] transition-all space-y-4">
           <div class="space-y-3">
             <div class="flex items-center justify-between gap-2 flex-wrap">
-              <span class={`px-2.5 py-1 rounded-md font-mono text-[10px] font-black uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] ${c.badgeColor}`}>
+              <span class={`px-2.5 py-1 rounded-md font-mono text-xs font-black uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] ${c.badgeColor}`}>
                 {c.esfera}
               </span>
-              <span class="font-mono text-[10px] font-bold text-gray-700 bg-white px-2 py-0.5 rounded border border-[#16181d]">
+              <span class="font-mono text-xs font-bold text-gray-700 bg-white px-2 py-0.5 rounded border border-[#16181d]">
                 Bacharelado GP UFMG
               </span>
             </div>
@@ -127,19 +127,19 @@ const carreirasComparativas = [
               <h4 class="font-head font-black uppercase text-sm sm:text-base text-[#16181d] m-0 leading-snug">
                 {c.cargo}
               </h4>
-              <p class="font-mono text-[11px] font-bold text-gray-700 mt-0.5 m-0">
+              <p class="font-mono text-xs font-bold text-gray-700 mt-0.5 m-0">
                 {c.orgao}
               </p>
             </div>
 
-            <div class="grid grid-cols-2 gap-3 p-3 rounded-xl bg-white border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+            <div class="grid grid-cols-2 gap-3 p-3 rounded-lg bg-[#FFFDF9] divide-x-2 divide-[#16181d]/15">
               <div>
-                <span class="font-mono text-[10px] font-bold uppercase text-gray-600 block">Remuneração Inicial</span>
-                <span class="font-head text-sm font-black text-[#15803D]">{c.inicial}</span>
+                <span class="font-mono text-xs font-bold uppercase text-gray-600 block">Remuneração Inicial</span>
+                <span class="font-head text-sm sm:text-base font-black text-[#15803D]">{c.inicial}</span>
               </div>
-              <div class="border-l-2 border-[#16181d] pl-3">
-                <span class="font-mono text-[10px] font-bold uppercase text-gray-600 block">Topo da Carreira</span>
-                <span class="font-head text-sm font-black text-[#5B2A86]">{c.topo}</span>
+              <div class="pl-3">
+                <span class="font-mono text-xs font-bold uppercase text-gray-600 block">Topo da Carreira</span>
+                <span class="font-head text-sm sm:text-base font-black text-[#5B2A86]">{c.topo}</span>
               </div>
             </div>
 
@@ -150,18 +150,18 @@ const carreirasComparativas = [
             </ul>
           </div>
 
-          <div class="pt-3 border-t-2 border-[#16181d] font-mono text-[11px] text-gray-800">
+          <div class="pt-3 border-t-2 border-[#16181d] font-mono text-xs text-gray-800">
             <strong>Via de Acesso:</strong> {c.requisito}
           </div>
-        </div>
+        </article>
       ))}
     </div>
 
-    <div class="pt-2 flex flex-wrap items-center justify-between gap-3">
+    <div class="pt-3 flex flex-wrap items-center justify-between gap-3">
       <a
         href={asset('/documentos/depoimentos-de-egressos.pdf')}
         download
-        class="min-h-[44px] px-4 py-2.5 bg-secondary hover:bg-[#6D1723] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl text-xs font-head uppercase font-black tracking-wider inline-flex items-center gap-2 transition-all no-underline border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]"
+        class="min-h-[44px] px-4 py-2.5 bg-secondary hover:bg-[#6D1723] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 text-white rounded-xl text-xs font-head uppercase font-black tracking-wider inline-flex items-center gap-2 transition-all no-underline border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]"
       >
         <i class="bi bi-file-earmark-pdf text-base" aria-hidden="true"></i>
         <span>Baixar Relatório Oficial de Egressos (PDF)</span>
@@ -169,11 +169,11 @@ const carreirasComparativas = [
 
       <a
         href={route('/chapa-semente#propostas')}
-        class="min-h-[44px] px-4 py-2.5 bg-[#FF8811] hover:bg-[#e67300] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-[#16181d] rounded-xl text-xs font-head uppercase font-black tracking-wider inline-flex items-center gap-2 transition-all no-underline border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]"
+        class="min-h-[44px] px-4 py-2.5 bg-[#FF8811] hover:bg-[#e67300] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 text-[#16181d] rounded-xl text-xs font-head uppercase font-black tracking-wider inline-flex items-center gap-2 transition-all no-underline border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]"
       >
         <i class="bi bi-check2-circle text-base" aria-hidden="true"></i>
         <span>Propostas 9, 10 e 11 (Carreira &amp; Empresa Jr) • Votar Semente →</span>
       </a>
     </div>
-  </div>
+  </section>
 </div>

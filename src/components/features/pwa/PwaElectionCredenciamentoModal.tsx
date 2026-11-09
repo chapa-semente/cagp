@@ -456,8 +456,8 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
 
                     {/* Ilustração Vetorial da Barra Inferior do Safari */}
                     <div className="p-3 bg-white border-3 border-border rounded-xl shadow flex items-center justify-between px-6 sm:px-12 relative overflow-hidden">
-                      {/* Seta Bouncing Apontando para o Compartilhar */}
-                      <div className="absolute -top-1 left-1/2 -translate-x-1/2 flex flex-col items-center animate-bounce z-10 pointer-events-none">
+                      {/* Seta Indicadora Apontando para o Compartilhar */}
+                      <div className="absolute -top-1 left-1/2 -translate-x-1/2 flex flex-col items-center z-10 pointer-events-none">
                         <span className="font-mono text-[9px] font-black uppercase bg-accent text-foreground px-2 py-0.5 rounded border border-border shadow-xs">
                           TOQUE AQUI
                         </span>
@@ -473,7 +473,6 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
 
                       {/* Botão de Compartilhar em Destaque Absoluto */}
                       <div className="relative my-2">
-                        <div className="absolute -inset-2 rounded-xl bg-accent/30 animate-ping" />
                         <div className="w-12 h-12 rounded-xl bg-accent text-foreground border-3 border-border flex items-center justify-center font-black text-xl shadow-sm relative z-10 scale-105">
                           <i className="bi bi-box-arrow-up" aria-hidden="true" />
                         </div>

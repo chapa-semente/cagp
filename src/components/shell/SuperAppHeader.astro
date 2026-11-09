@@ -12,7 +12,7 @@ const activeAxis = getAxisByPath(Astro.url.pathname) || AXIS_REGISTRY[0];
   id="cagp-super-app-header"
   class={`${
     isHomeActive ? 'hidden' : 'block md:hidden'
-  } sticky top-6 z-[1030] w-full bg-white border-b-3 border-[#16181d] select-none transition-colors shadow-[0_3px_0_0_#16181d]`}
+  } sticky top-0 z-[1030] w-full bg-white border-b-3 border-border select-none transition-colors shadow-xs`}
   style="padding-top: env(safe-area-inset-top, 0px);"
 >
   <div class="px-3 py-2 flex items-center justify-between gap-2">
@@ -21,7 +21,7 @@ const activeAxis = getAxisByPath(Astro.url.pathname) || AXIS_REGISTRY[0];
       <button
         type="button"
         id="cagp-mobile-menu-btn"
-        class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white hover:bg-muted border-3 border-[#16181d] shadow-xs text-foreground hover:text-primary flex items-center justify-center shrink-0 transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+        class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white hover:bg-muted border-3 border-border shadow-xs text-foreground hover:text-primary flex items-center justify-center shrink-0 transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed"
         title="Abrir Menu Geral"
         aria-label="Abrir gaveta de navegação"
       >
@@ -30,7 +30,7 @@ const activeAxis = getAxisByPath(Astro.url.pathname) || AXIS_REGISTRY[0];
 
       <a
         href={activeAxis.rootHref}
-        class="inline-flex items-center gap-1.5 min-h-[44px] text-xs font-bold text-primary no-underline min-w-0 truncate py-1"
+        class="inline-flex items-center gap-1.5 min-h-[44px] text-xs font-bold text-primary no-underline min-w-0 truncate py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg"
       >
         <span class="shrink-0" set:html={getCagpIconSvg(resolveCagpIconName(activeAxis.id), 'w-4 h-4')} />
         <span class="font-heading text-sm font-extrabold uppercase tracking-tight text-foreground truncate">
@@ -44,7 +44,7 @@ const activeAxis = getAxisByPath(Astro.url.pathname) || AXIS_REGISTRY[0];
       <button
         type="button"
         id="cagp-btn-spotlight"
-        class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white hover:bg-muted border-3 border-[#16181d] shadow-xs text-foreground flex items-center justify-center transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+        class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white hover:bg-muted border-3 border-border shadow-xs text-foreground flex items-center justify-center transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed"
         title="Buscar (⌘K)"
         aria-label="Buscar (⌘K)"
       >
@@ -54,24 +54,24 @@ const activeAxis = getAxisByPath(Astro.url.pathname) || AXIS_REGISTRY[0];
       <button
         type="button"
         id="cagp-btn-campus"
-        class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white hover:bg-muted border-3 border-[#16181d] shadow-xs text-foreground flex items-center justify-center relative transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+        class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white hover:bg-muted border-3 border-border shadow-xs text-foreground flex items-center justify-center relative transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed"
         title="Plantão Noturno • RU II & Circular"
         aria-label="Abrir status do Campus Agora"
       >
         <span set:html={getCagpIconSvg('bell', 'w-4 h-4')} />
-        <span class="w-2.5 h-2.5 rounded-full bg-success border border-black absolute top-1.5 right-1.5 animate-pulse"></span>
+        <span class="w-2.5 h-2.5 rounded-full bg-success border border-border absolute top-1.5 right-1.5"></span>
       </button>
 
       <button
         type="button"
         id="cagp-btn-passport"
-        class="min-h-[44px] min-w-[44px] pl-1.5 pr-3 py-1 rounded-xl bg-primary hover:bg-primary-hover text-primary-foreground border-3 border-[#16181d] shadow-xs text-xs font-heading font-bold flex items-center gap-1.5 transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+        class="min-h-[44px] min-w-[44px] pl-1.5 pr-3 py-1 rounded-xl bg-primary hover:bg-primary-hover text-primary-foreground border-3 border-border shadow-xs text-xs font-heading font-bold flex items-center gap-1.5 transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed"
         title="Abrir Passaporte Discente"
         aria-label="Abrir Passaporte Discente"
       >
         <span
           id="cagp-header-avatar-slot"
-          class="w-7 h-7 rounded-lg bg-white/20 border border-white/40 flex items-center justify-center text-[11px] font-heading font-extrabold overflow-hidden"
+          class="w-7 h-7 rounded-lg bg-white text-primary border border-border flex items-center justify-center text-xs font-heading font-extrabold overflow-hidden"
         >
           GP
         </span>
@@ -102,7 +102,7 @@ const activeAxis = getAxisByPath(Astro.url.pathname) || AXIS_REGISTRY[0];
         if (typeof (window as any).__cagp_open_drawer === 'function') {
           (window as any).__cagp_open_drawer();
         } else {
-          dispatch('cagp:open-sidebar');
+          dispatch('cagp:open-drawer');
         }
       };
     }

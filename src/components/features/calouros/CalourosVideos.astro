@@ -62,7 +62,7 @@ const videos = [
     {videos.map((v) => (
       <article class="cagp-card cagp-video-card overflow-hidden flex flex-col justify-between border-3 border-border rounded-xl shadow hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-md transition-all">
         <div
-          class="cagp-video-thumb-wrap video-trigger cursor-pointer relative"
+          class="cagp-video-thumb-wrap video-trigger cursor-pointer relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           data-video-id={v.id}
           data-video-title={v.title}
           role="button"
@@ -90,7 +90,7 @@ const videos = [
               {v.desc}
             </p>
           </div>
-          <span class="text-[11px] font-mono font-bold text-gray-500 mt-2.5 block">
+          <span class="text-xs font-mono font-bold text-gray-600 mt-2.5 block">
             {v.source}
           </span>
         </div>

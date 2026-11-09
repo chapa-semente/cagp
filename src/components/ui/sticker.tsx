@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const stickerVariants = cva(
-  "relative inline-flex items-center justify-center gap-1.5 rounded-xl border-3 border-[#16181d] font-heading font-extrabold uppercase tracking-wide transition-all duration-150 select-none hover:scale-105 hover:-rotate-2",
+  "relative inline-flex items-center justify-center gap-1.5 rounded-xl border-3 border-border font-heading font-extrabold uppercase tracking-wide transition-all duration-150 select-none hover:scale-105 hover:-rotate-2",
   {
     variants: {
       variant: {
@@ -34,9 +34,9 @@ const stickerVariants = cva(
       },
       shadow: {
         none: "",
-        default: "shadow-[4px_4px_0_0_#16181d]",
+        default: "shadow-md",
         colored: "shadow-[4px_4px_0px_var(--primary)]",
-        double: "shadow-[3px_3px_0px_var(--primary),6px_6px_0px_#16181d]",
+        double: "shadow-md",
       },
     },
     defaultVariants: {
@@ -103,7 +103,7 @@ const stampVariants = cva(
         outline: "bg-card text-foreground",
       },
       size: {
-        sm: "h-16 w-16 text-[11px]",
+        sm: "h-16 w-16 text-xs",
         default: "h-24 w-24 text-xs",
         lg: "h-32 w-32 text-sm",
         xl: "h-40 w-40 text-base",

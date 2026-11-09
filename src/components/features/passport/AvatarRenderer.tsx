@@ -80,7 +80,7 @@ export const AvatarRenderer: React.FC<AvatarRendererProps> = ({
       <button
         type="button"
         onClick={onClick}
-        className="relative group p-0 bg-transparent border-0 cursor-pointer shrink-0 select-none"
+        className="relative group p-0 bg-transparent border-0 cursor-pointer shrink-0 select-none min-w-[44px] min-h-[44px] inline-flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-full"
         aria-label="Editar foto de perfil ou avatar"
         title={title || 'Clique para personalizar seu avatar'}
       >

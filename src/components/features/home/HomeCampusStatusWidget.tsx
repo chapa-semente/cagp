@@ -85,26 +85,19 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2.5">
           <span className="relative flex h-3.5 w-3.5 shrink-0" aria-hidden="true">
-            {(campusAnyOpen || campusAnyWarn) && (
-              <span
-                className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
-                  campusAnyOpen ? 'bg-success' : 'bg-warning'
-                }`}
-              />
-            )}
             <span
-              className={`relative inline-flex rounded-full h-3.5 w-3.5 border-2 border-[#16181d] ${
+              className={`inline-flex rounded-full h-3.5 w-3.5 border-2 border-border ${
                 campusAnyOpen
-                  ? 'bg-success animate-pulse'
+                  ? 'bg-success'
                   : campusAnyWarn
-                  ? 'bg-warning animate-pulse'
+                  ? 'bg-warning'
                   : 'bg-[#57534E]'
               }`}
             />
           </span>
           <h2
             id="heading-campus-now"
-            className="font-heading text-base sm:text-lg font-extrabold uppercase text-foreground m-0"
+            className="font-heading text-base sm:text-lg font-extrabold uppercase tracking-wide text-foreground m-0"
           >
             Plantão Noturno • Campus Agora
           </h2>
@@ -112,7 +105,7 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({
         <button
           type="button"
           onClick={openCampus}
-          className="min-h-[44px] px-3.5 py-1.5 rounded-xl text-xs font-heading font-bold text-secondary hover:bg-muted border-3 border-transparent hover:border-[#16181d] bg-transparent cursor-pointer inline-flex items-center gap-1 transition-all"
+          className="min-h-[44px] px-3.5 py-1.5 rounded-xl text-xs font-heading font-bold text-secondary hover:bg-muted border-3 border-transparent hover:border-border bg-transparent cursor-pointer inline-flex items-center gap-1 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed"
         >
           <span>Horários e linhas completas</span>
           <CagpIcon name="chevron-right" className="w-4 h-4" />
@@ -121,14 +114,14 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {/* Card 1: Bandejão RU II Setorial */}
-        <div className="bg-white p-4 sm:p-5 rounded-xl border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] flex flex-col justify-between">
+        <div className="bg-white p-4 sm:p-5 rounded-xl border-3 border-border shadow-md flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between gap-2 mb-3">
-              <span className="w-10 h-10 rounded-xl bg-secondary text-white flex items-center justify-center shrink-0 border-3 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+              <span className="w-10 h-10 rounded-xl bg-secondary text-white flex items-center justify-center shrink-0 border-2 border-border">
                 <CagpIcon name="utensils" className="w-5 h-5" />
               </span>
               <span
-                className={`inline-flex items-center gap-1.5 text-xs font-mono font-bold px-2.5 py-1 rounded-lg border-3 border-[#16181d] shadow-[2px_2px_0_0_#16181d] tabular-nums ${
+                className={`inline-flex items-center gap-1.5 text-xs font-mono font-bold px-2.5 py-1 rounded-lg border-2 border-border tabular-nums ${
                   status.ruTone === 'open'
                     ? 'bg-success/20 text-[#166534]'
                     : status.ruTone === 'warn'
@@ -137,11 +130,11 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({
                 }`}
               >
                 <span
-                  className={`w-2 h-2 rounded-full border border-[#16181d] ${
+                  className={`w-2 h-2 rounded-full border border-border ${
                     status.ruTone === 'open'
-                      ? 'bg-success animate-pulse'
+                      ? 'bg-success'
                       : status.ruTone === 'warn'
-                      ? 'bg-warning animate-pulse'
+                      ? 'bg-warning'
                       : 'bg-[#57534E]'
                   }`}
                   aria-hidden="true"
@@ -150,27 +143,27 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({
               </span>
             </div>
             <div className="flex items-baseline justify-between gap-2">
-              <h3 className="text-sm font-heading font-extrabold text-foreground m-0">Bandejão RU II Setorial</h3>
-              <span className="font-mono text-xs font-bold text-foreground bg-[#EFE9E0] px-2 py-0.5 rounded border-2 border-[#16181d] tabular-nums">
+              <h3 className="text-sm font-heading font-extrabold tracking-tight text-foreground m-0">Bandejão RU II Setorial</h3>
+              <span className="font-mono text-xs font-bold text-foreground bg-[#EFE9E0] px-2 py-0.5 rounded border border-border tabular-nums">
                 R$ 5,60
               </span>
             </div>
-            <p className="text-xs font-mono text-muted-foreground mt-1.5 mb-0 leading-relaxed font-medium tabular-nums">
+            <p className="text-xs font-mono text-muted-foreground mt-1.5 mb-0 leading-relaxed font-medium tabular-nums max-w-prose">
               {notifs.ru1815
                 ? 'Lembrete 18h15 ativo no cofre • Catraca fecha às 19h30'
                 : status.ruSub}
             </p>
           </div>
 
-          <div className="mt-4 pt-3 border-t-3 border-[#16181d]/15 flex items-center justify-between gap-2">
+          <div className="mt-4 pt-3 border-t-2 border-border/15 flex items-center justify-between gap-2">
             <button
               type="button"
               onClick={() => toggleNotif('ru1815')}
               aria-pressed={notifs.ru1815}
-              className={`min-h-[44px] px-3.5 py-2 rounded-xl font-heading text-xs font-bold border-3 border-[#16181d] cursor-pointer inline-flex items-center gap-1.5 transition-all w-full justify-center active:translate-x-0.5 active:translate-y-0.5 active:shadow-none tabular-nums ${
+              className={`min-h-[44px] px-3.5 py-2 rounded-xl font-heading text-xs font-bold border-2 border-border cursor-pointer inline-flex items-center gap-1.5 transition-all w-full justify-center active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed tabular-nums shadow-sm ${
                 notifs.ru1815
-                  ? 'bg-secondary text-white shadow-[3px_3px_0_0_#16181d]'
-                  : 'bg-white text-foreground shadow-[3px_3px_0_0_#16181d] hover:bg-muted'
+                  ? 'bg-secondary text-white'
+                  : 'bg-white text-foreground hover:bg-muted'
               }`}
             >
               <CagpIcon name="bell" className="w-3.5 h-3.5" />
@@ -180,14 +173,14 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({
         </div>
 
         {/* Card 2: Circular Interno */}
-        <div className="bg-white p-4 sm:p-5 rounded-xl border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] flex flex-col justify-between">
+        <div className="bg-white p-4 sm:p-5 rounded-xl border-3 border-border shadow-md flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between gap-2 mb-3">
-              <span className="w-10 h-10 rounded-xl bg-info text-white flex items-center justify-center shrink-0 border-3 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+              <span className="w-10 h-10 rounded-xl bg-info text-white flex items-center justify-center shrink-0 border-2 border-border">
                 <CagpIcon name="bus" className="w-5 h-5" />
               </span>
               <span
-                className={`inline-flex items-center gap-1.5 text-xs font-mono font-bold px-2.5 py-1 rounded-lg border-3 border-[#16181d] shadow-[2px_2px_0_0_#16181d] tabular-nums ${
+                className={`inline-flex items-center gap-1.5 text-xs font-mono font-bold px-2.5 py-1 rounded-lg border-2 border-border tabular-nums ${
                   status.busTone === 'open'
                     ? 'bg-success/20 text-[#166534]'
                     : status.busTone === 'warn'
@@ -196,11 +189,11 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({
                 }`}
               >
                 <span
-                  className={`w-2 h-2 rounded-full border border-[#16181d] ${
+                  className={`w-2 h-2 rounded-full border border-border ${
                     status.busTone === 'open'
-                      ? 'bg-success animate-pulse'
+                      ? 'bg-success'
                       : status.busTone === 'warn'
-                      ? 'bg-warning animate-pulse'
+                      ? 'bg-warning'
                       : 'bg-[#57534E]'
                   }`}
                   aria-hidden="true"
@@ -208,23 +201,23 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({
                 <span>{status.busBadge}</span>
               </span>
             </div>
-            <h3 className="text-sm font-heading font-extrabold text-foreground m-0">Circular Interno • FAFICH</h3>
-            <p className="text-xs font-mono text-muted-foreground mt-1.5 mb-0 leading-relaxed font-medium tabular-nums">
+            <h3 className="text-sm font-heading font-extrabold tracking-tight text-foreground m-0">Circular Interno • FAFICH</h3>
+            <p className="text-xs font-mono text-muted-foreground mt-1.5 mb-0 leading-relaxed font-medium tabular-nums max-w-prose">
               {notifs.circular2230
                 ? 'Lembrete 22h30 ativo no cofre • Última saída às 22h45'
                 : status.busSub}
             </p>
           </div>
 
-          <div className="mt-4 pt-3 border-t-3 border-[#16181d]/15">
+          <div className="mt-4 pt-3 border-t-2 border-border/15">
             <button
               type="button"
               onClick={() => toggleNotif('circular2230')}
               aria-pressed={notifs.circular2230}
-              className={`min-h-[44px] px-3.5 py-2 rounded-xl font-heading text-xs font-bold border-3 border-[#16181d] cursor-pointer inline-flex items-center gap-1.5 transition-all w-full justify-center active:translate-x-0.5 active:translate-y-0.5 active:shadow-none tabular-nums ${
+              className={`min-h-[44px] px-3.5 py-2 rounded-xl font-heading text-xs font-bold border-2 border-border cursor-pointer inline-flex items-center gap-1.5 transition-all w-full justify-center active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed tabular-nums shadow-sm ${
                 notifs.circular2230
-                  ? 'bg-secondary text-white shadow-[3px_3px_0_0_#16181d]'
-                  : 'bg-white text-foreground shadow-[3px_3px_0_0_#16181d] hover:bg-muted'
+                  ? 'bg-secondary text-white'
+                  : 'bg-white text-foreground hover:bg-muted'
               }`}
             >
               <CagpIcon name="bell" className="w-3.5 h-3.5" />
@@ -234,28 +227,28 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({
         </div>
 
         {/* Card 3: Secretaria do Colegiado & FAFICH */}
-        <div className="bg-white p-4 sm:p-5 rounded-xl border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] flex flex-col justify-between sm:col-span-2 lg:col-span-1">
+        <div className="bg-white p-4 sm:p-5 rounded-xl border-3 border-border shadow-md flex flex-col justify-between sm:col-span-2 lg:col-span-1">
           <div>
             <div className="flex items-center justify-between gap-2 mb-3">
-              <span className="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center shrink-0 border-3 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+              <span className="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center shrink-0 border-2 border-border">
                 <CagpIcon name="building" className="w-5 h-5" />
               </span>
-              <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold bg-[#EFE9E0] text-foreground px-2.5 py-1 rounded-lg border-3 border-[#16181d] shadow-[2px_2px_0_0_#16181d] tabular-nums">
-                <span className="w-2 h-2 rounded-full bg-success border border-[#16181d] animate-pulse" aria-hidden="true" />
+              <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold bg-[#EFE9E0] text-foreground px-2.5 py-1 rounded-lg border-2 border-border tabular-nums">
+                <span className="w-2 h-2 rounded-full bg-success border border-border" aria-hidden="true" />
                 <span>Sala F-2039 • 2º Andar</span>
               </span>
             </div>
-            <h3 className="text-sm font-heading font-extrabold text-foreground m-0">Colegiado DCP &amp; FAFICH</h3>
-            <p className="text-xs font-mono text-muted-foreground mt-1.5 mb-0 leading-relaxed font-medium tabular-nums">
+            <h3 className="text-sm font-heading font-extrabold tracking-tight text-foreground m-0">Colegiado DCP &amp; FAFICH</h3>
+            <p className="text-xs font-mono text-muted-foreground mt-1.5 mb-0 leading-relaxed font-medium tabular-nums max-w-prose">
               Secretaria: Norma Guedes (08h–20h) • Biblioteca e CEAG abertos no turno noturno até 22h.
             </p>
           </div>
 
-          <div className="mt-4 pt-3 border-t-3 border-[#16181d]/15 flex items-center justify-between gap-2 text-xs">
-            <span className="font-mono text-muted-foreground text-[11px] font-bold truncate tabular-nums">FAFICH • 2º Andar</span>
+          <div className="mt-4 pt-3 border-t-2 border-border/15 flex items-center justify-between gap-2 text-xs">
+            <span className="font-mono text-muted-foreground text-xs font-bold truncate tabular-nums">FAFICH • 2º Andar</span>
             <a
               href={route('/curso') + '#colegiado'}
-              className="min-h-[44px] px-3.5 py-1.5 rounded-xl font-heading font-bold text-secondary hover:bg-muted border-3 border-transparent hover:border-[#16181d] no-underline shrink-0 inline-flex items-center gap-1 transition-all"
+              className="min-h-[44px] px-3.5 py-1.5 rounded-xl font-heading font-bold text-secondary hover:bg-muted border-2 border-transparent hover:border-border no-underline shrink-0 inline-flex items-center gap-1 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
               <span>Contatos</span>
               <span aria-hidden="true">&rarr;</span>

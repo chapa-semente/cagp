@@ -65,7 +65,7 @@ const docsPrae = [
         href="https://www.fump.ufmg.br/"
         target="_blank"
         rel="noopener noreferrer"
-        class="min-h-[44px] px-4 py-2 bg-success hover:bg-[#166534] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl text-xs font-head uppercase font-bold tracking-wider flex items-center justify-center gap-1.5 transition-all no-underline shadow border-3 border-border"
+        class="min-h-[44px] px-4 py-2 bg-success hover:bg-[#166534] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-success focus-visible:ring-offset-2 text-white rounded-xl text-xs font-head uppercase font-bold tracking-wider flex items-center justify-center gap-1.5 transition-all no-underline shadow border-3 border-border"
       >
         <i class="bi bi-box-arrow-up-right" aria-hidden="true" />
         <span>Área do Aluno FUMP</span>
@@ -94,7 +94,7 @@ const docsPrae = [
               {n.nivel}
             </h4>
             <span class="text-xs text-gray-700 font-medium font-body">— {n.status}</span>
-            <span class={`px-2 py-0.5 rounded-md text-[10px] font-head uppercase font-bold border border-border shadow-xs ${
+            <span class={`px-2 py-0.5 rounded-md text-xs font-head uppercase font-bold border border-border shadow-xs ${
               n.highlight ? 'bg-success text-white' : 'bg-white text-gray-800'
             }`}>
               {n.badge}
@@ -120,19 +120,19 @@ const docsPrae = [
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-body">
       <div class="p-3.5 bg-white border-3 border-border rounded-xl space-y-1.5 shadow-sm">
-        <span class="cagp-badge cagp-badge-gold text-[10px] font-mono font-bold">06h40 – 08h15</span>
+        <span class="cagp-badge cagp-badge-gold text-xs font-mono font-bold">06h40 – 08h15</span>
         <strong class="font-head uppercase text-xs block text-foreground mt-1 tracking-wide">Café da Manhã</strong>
         <p class="text-xs text-gray-700 m-0 font-medium">Servido exclusivamente no <strong>RU Setorial I</strong>. Destinado aos discentes nos Níveis I, II e III.</p>
       </div>
 
       <div class="p-3.5 bg-white border-3 border-border rounded-xl space-y-1.5 shadow-sm">
-        <span class="cagp-badge cagp-badge-green text-[10px] font-mono font-bold">11h00 – 14h00</span>
+        <span class="cagp-badge cagp-badge-green text-xs font-mono font-bold">11h00 – 14h00</span>
         <strong class="font-head uppercase text-xs block text-foreground mt-1 tracking-wide">Almoço Regular</strong>
         <p class="text-xs text-gray-700 m-0 font-medium">Servido normalmente tanto no <strong>RU Setorial I</strong> quanto no <strong>RU Setorial II</strong> para toda a comunidade.</p>
       </div>
 
       <div class="p-3.5 bg-[#FDF8F8] border-2 border-secondary rounded-xl space-y-1.5 shadow-[2px_2px_0_0_#8B1E2D]">
-        <span class="cagp-badge cagp-badge-red text-[10px] font-mono font-bold">17h10 – 19h30</span>
+        <span class="cagp-badge cagp-badge-red text-xs font-mono font-bold">17h10 – 19h30</span>
         <strong class="font-head uppercase text-xs block text-secondary mt-1 tracking-wide">Jantar Noturno</strong>
         <p class="text-xs text-gray-800 m-0 font-medium">Servido exclusivamente no <strong>RU Setorial II</strong> (próximo ao ICB). Atende todos os estudantes matriculados.</p>
       </div>
@@ -245,7 +245,7 @@ const docsPrae = [
             <a
               href={asset(`/documentos/${d.file}`)}
               download
-              class="cagp-btn-primary text-xs py-2 px-3 no-underline flex items-center justify-center gap-1.5 w-full font-head font-bold uppercase tracking-wider"
+              class="cagp-btn-primary min-h-[44px] text-xs py-2 px-3 no-underline flex items-center justify-center gap-1.5 w-full font-head font-bold uppercase tracking-wider focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5"
               title={`Baixar ${d.titulo}`}
             >
               <i class="bi bi-download" aria-hidden="true" />

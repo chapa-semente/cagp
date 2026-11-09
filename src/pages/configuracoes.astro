@@ -3,7 +3,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
 import { SettingsInteractive } from '../components/features/settings/SettingsInteractive';
-import { SettingsPage } from '../components/boldkit/blocks/settings-page';
 import { asset } from '@/lib/paths';
 
 const badges = [
@@ -17,12 +16,14 @@ const badges = [
 <BaseLayout
   title="Configurações, Carteirinha & Acessibilidade Discente"
   description="Central de configurações do Super App CAGP: passaporte discente, nome social, sistemas digitais (minhaUFMG, SIGA, Office 365), tipografia, contraste e backup do cofre."
+  mode="operate"
 >
   <PageHeader
     eyebrow="Ajustes, Identidade Digital & Sistema"
     title="Configurações, Carteirinha & Identidade UFMG"
     subtitle="Personalize sua experiência de uso, emita seu Passaporte Discente, acesse os manuais de identidade digital da UFMG (minhaUFMG, SIGA, Office 365, Nome Social) e gerencie o cofre local."
     badges={badges}
+    mode="operate"
   />
 
   <div class="max-w-4xl mx-auto py-4 space-y-6">
@@ -96,10 +97,5 @@ const badges = [
     </div>
 
     <SettingsInteractive client:load />
-
-    <!-- Painel de Preferências e Aparência BoldKit -->
-    <section aria-label="Painel Avançado de Aparência e Segurança" class="mt-8">
-      <SettingsPage client:load defaultTab="appearance" className="border-3 border-border rounded-2xl bg-card shadow-md" />
-    </section>
   </div>
 </BaseLayout>

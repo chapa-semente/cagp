@@ -44,7 +44,7 @@ interface Props {
   axisId?: AxisId;
   activeId?: string;
   showAxisNav?: boolean;
-  mode?: 'persuade' | 'operate' | 'read';
+  mode?: 'persuade' | 'operate' | 'read' | 'experience';
   condensed?: boolean;
 }
 
@@ -61,7 +61,7 @@ const {
   condensed = false,
 } = Astro.props;
 
-const isPersuadeMode = mode === 'persuade';
+const isPersuadeMode = mode === 'persuade' || mode === 'experience';
 const isOperateOrCondensed = mode === 'operate' || condensed;
 
 const mapToBadgeVariant = (v?: string): any => {
@@ -181,6 +181,9 @@ const computedBreadcrumbs = breadcrumbs && breadcrumbs.length > 0
             {subtitle}
           </p>
         )}
+
+        <!-- Slot contextual/destilado para ações, links de campanha ou extensões -->
+        <slot />
       </div>
     </div>
   )}

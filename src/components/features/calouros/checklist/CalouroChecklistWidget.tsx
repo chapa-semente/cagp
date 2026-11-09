@@ -41,11 +41,11 @@ export const CalouroChecklistWidget: React.FC = () => {
               <h3 className="font-head font-black text-sm uppercase text-[#16181d] leading-tight m-0 tracking-wide">
                 Checklist 30 Dias
               </h3>
-              <span className="text-[11px] text-gray-700 font-mono font-bold">10 Passos • Cofre Local</span>
+              <span className="text-xs text-gray-700 font-mono font-bold">10 Passos • Cofre Local</span>
             </div>
           </div>
           {completedCount >= TOTAL_ITEMS ? (
-            <span className="cagp-stamp-badge is-homologado text-[10px] py-0.5 px-2.5 shadow-sm">
+            <span className="cagp-stamp-badge is-homologado text-xs py-0.5 px-2.5 shadow-sm">
               <span className="inline-flex items-center gap-1 font-head font-bold uppercase tracking-wider">
                 <CagpIcon name="stamp" className="w-3 h-3 inline" />
                 <span>HOMOLOGADO</span>
@@ -53,7 +53,7 @@ export const CalouroChecklistWidget: React.FC = () => {
             </span>
           ) : (
             <span
-              className={`px-2.5 py-0.5 rounded-md font-mono text-[10px] font-black uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] ${
+              className={`px-2.5 py-0.5 rounded-md font-mono text-xs font-black uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] ${
                 completedCount > 0
                   ? 'bg-[#5B2A86] text-white'
                   : 'bg-[#FFFDF9] text-[#16181d]'
@@ -87,7 +87,7 @@ export const CalouroChecklistWidget: React.FC = () => {
 
       <a
         href="#checklist"
-        className="min-h-[44px] px-4 py-2.5 bg-[#5B2A86] hover:bg-[#461e69] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-black tracking-wider flex items-center justify-center gap-2 transition-all no-underline shadow-[4px_4px_0_0_#16181d] border-3 border-[#16181d]"
+        className="min-h-[44px] px-4 py-2.5 bg-[#5B2A86] hover:bg-[#461e69] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 text-white rounded-xl font-head text-xs uppercase font-black tracking-wider flex items-center justify-center gap-2 transition-all no-underline shadow-[4px_4px_0_0_#16181d] border-3 border-[#16181d]"
       >
         <span>Carimbar Checklist 30d</span>
         <CagpIcon name="chevron-right" className="w-4 h-4" />

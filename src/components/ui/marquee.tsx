@@ -108,7 +108,7 @@ const MarqueeSeparator = React.forwardRef<HTMLSpanElement, MarqueeSeparatorProps
     return (
       <span
         ref={ref}
-        className={cn("font-heading text-base font-black text-accent", className)}
+        className={cn("font-heading text-base font-black text-secondary", className)}
         {...props}
       >
         {children}

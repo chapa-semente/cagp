@@ -55,7 +55,7 @@ const activeItemId = axis
               href={item.href}
               data-axis-id={item.id}
               data-axis-href={item.href}
-              class={`cagp-axis-pill min-h-[44px] px-3.5 py-1.5 rounded-xl flex items-center gap-1.5 text-xs font-heading font-extrabold uppercase tracking-tight transition-all duration-150 no-underline shrink-0 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none ${
+              class={`cagp-axis-pill min-h-[44px] px-3.5 py-1.5 rounded-xl flex items-center gap-1.5 text-xs font-heading font-extrabold uppercase tracking-tight transition-all duration-150 no-underline shrink-0 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
                 isActive
                   ? 'is-active bg-primary text-white font-extrabold border-3 border-border shadow-xs -translate-y-0.5'
                   : 'bg-white text-foreground font-bold border-3 border-border shadow-xs hover:bg-muted hover:-translate-y-0.5 hover:shadow-sm'
@@ -137,7 +137,7 @@ const activeItemId = axis
             const isMatch = p === matchedPill;
             p.classList.toggle('is-active', isMatch);
             p.classList.toggle('bg-primary', isMatch);
-            p.classList.toggle('text-[#FFFFFF]', isMatch);
+            p.classList.toggle('text-white', isMatch);
             p.classList.toggle('font-extrabold', isMatch);
             p.classList.toggle('border-3', isMatch);
             p.classList.toggle('border-border', isMatch);

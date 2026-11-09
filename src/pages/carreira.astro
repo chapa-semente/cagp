@@ -1,153 +1,249 @@
 ---
-// src/pages/carreira.astro — Hub Unificado de Carreira, Vagas, Empresa Júnior & Banco de Talentos (Super App CAGP UFMG)
+// src/pages/carreira.astro — Hub Central de Carreira, Vagas, Empresa Júnior & Banco de Talentos (Super App CAGP UFMG)
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/ui/PageHeader.astro';
-import SegmentedControl from '@/components/ui/SegmentedControl.astro';
-import FactCheckBanner from '@/components/ui/FactCheckBanner.astro';
 import JourneyNav from '@/components/ui/JourneyNav.astro';
-import EstagioCentralOverview from '@/components/features/estagio/EstagioCentralOverview.astro';
-import { Art41SimulatorCore } from '@/components/features/estagio/art41/Art41SimulatorCore';
-import EstagioObrigatorioCore from '@/components/features/estagio/obrigatorio/EstagioObrigatorioCore.astro';
-import EstagioTceCore from '@/components/features/estagio/tce/EstagioTceCore.astro';
-import { EstagioDocumentDrawerAndGuide } from '@/components/features/estagio/EstagioDocumentDrawerAndGuide';
-import TccCentralOverview from '@/components/features/tcc/TccCentralOverview.astro';
-import { CarreiraTalentosTab } from '@/components/features/carreira/CarreiraTalentosTab';
+import CagpIcon from '@/components/ui/CagpIcon.astro';
+import { CarreiraVagasFeed } from '@/components/features/carreira/CarreiraVagasFeed';
+import { CarreiraEmpresaJuniorCard } from '@/components/features/carreira/CarreiraEmpresaJuniorCard';
+import { CarreiraTalentosPreview } from '@/components/features/carreira/CarreiraTalentosPreview';
 import { route } from '@/lib/paths';
-
-const tabs = [
-  { id: 'v0', shortLabel: 'Vagas & Talentos', fullLabel: '1. Vagas, Empresa Júnior & Banco de Talentos', hash: '#talentos' },
-  { id: 'v1', shortLabel: 'Aproveitamento Servidor', fullLabel: '2. Estágio 300h & Aproveitamento Servidor (Art. 41)', hash: '#art41' },
-  { id: 'v2', shortLabel: 'Não Obrigatório & TCE', fullLabel: '3. Estágio Não Obrigatório (1º–10ºP) & TCE', hash: '#nao-obrigatorio' },
-  { id: 'v3', shortLabel: 'TCC & Colação', fullLabel: '4. TCC Art. 19 (180h) & Reta Final', hash: '#tcc' },
-];
 
 const badges = [
   { label: 'Propostas 9, 11 e 12 Chapa Semente', variant: 'purple' as const, icon: 'bi-briefcase-fill' },
-  { label: 'Aproveitamento Servidor (Art. 41)', variant: 'green' as const, icon: 'bi-file-earmark-check-fill' },
-  { label: 'Empresa Júnior GP & OSCs', variant: 'orange' as const, icon: 'bi-stars' },
-  { label: 'TCC Art. 19 (180h)', variant: 'red' as const, icon: 'bi-mortarboard-fill' },
+  { label: 'Radar Ativo de Vagas', variant: 'orange' as const, icon: 'bi-megaphone-fill' },
+  { label: 'Empresa Júnior GP & OSCs', variant: 'green' as const, icon: 'bi-stars' },
+  { label: 'Banco de Talentos (Cofre)', variant: 'red' as const, icon: 'bi-person-vcard' },
+];
+
+const atalhosCarreira = [
+  {
+    id: 'vagas',
+    label: 'Radar de Vagas',
+    sublabel: 'Editais & Trainees Públicos',
+    href: route('/carreira/vagas'),
+    icon: 'carreira',
+    color: 'bg-emerald-600 text-white',
+  },
+  {
+    id: 'talentos',
+    label: 'Banco de Talentos',
+    sublabel: 'Cofre Local de Competências',
+    href: route('/carreira/talentos'),
+    icon: 'stars',
+    color: 'bg-primary text-white',
+  },
+  {
+    id: 'estagio',
+    label: 'Estágio 300h & Art. 41',
+    sublabel: 'Dispensa Servidor & TCE',
+    href: route('/estagio'),
+    icon: 'briefcase',
+    color: 'bg-secondary text-white',
+  },
+  {
+    id: 'reta-final',
+    label: 'TCC & Reta Final',
+    sublabel: 'Modalidades & Colação',
+    href: route('/estagio-tcc'),
+    icon: 'thesis',
+    color: 'bg-amber-600 text-white',
+  },
 ];
 ---
 
 <BaseLayout
-  title="Carreira, Vagas & Banco de Talentos • CAGP FAFICH/UFMG"
-  description="Hub unificado de carreira discente conectado às Propostas 9, 11 e 12 da Chapa Semente: parcerias com órgãos públicos/OSCs, Empresa Júnior de Gestão Pública, divulgação ativa de vagas e Banco de Talentos."
+  title="Hub de Carreira, Vagas & Banco de Talentos • CAGP FAFICH/UFMG"
+  description="Hub unificado de carreira discente conectado às Propostas 9, 11 e 12 da Chapa Semente: radar de vagas públicas, Empresa Júnior de Gestão Pública, Aproveitamento Servidor (Art. 41) e Banco de Talentos."
   mode="operate"
 >
-  <div id="cagp-carreira-header" class="space-y-6 max-w-6xl mx-auto">
+  <div id="cagp-carreira-hub" class="space-y-8 max-w-6xl mx-auto font-sans">
     <PageHeader
       axisId="carreira"
       mode="operate"
       condensed={true}
-      eyebrow="Eixo 4 · Inserção Profissional, Estágio & Carreira"
+      showAxisNav={false}
       title="Carreira, Vagas & Banco de Talentos"
       subtitle="Conectado às Propostas 9, 11 e 12 da Chapa Semente: oportunidades em órgãos públicos e OSCs, apoio à Empresa Júnior de Gestão Pública, Aproveitamento Servidor (Art. 41) e Banco de Talentos."
       badges={badges}
-    />
+    >
+      {/* Faixa Destilada da Chapa Semente (Operate + Persuade) com Divulgação Progressiva */}
+      <details class="group mt-3 pt-3 border-t-2 border-border/70 text-xs">
+        <summary class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 cursor-pointer list-none select-none hover:bg-muted/40 -mx-1.5 px-2 py-1.5 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary [&::-webkit-details-marker]:hidden">
+          <div class="flex items-center gap-2.5 min-w-0">
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-primary text-white font-heading font-black text-xs uppercase tracking-wide shrink-0 shadow-2xs">
+              🌱 Semente
+            </span>
+            <p class="text-xs text-foreground font-medium m-0 truncate">
+              <span class="font-heading font-bold text-primary uppercase">Propostas 9, 11 e 12:</span>
+              <span class="text-foreground/90"> Estágio sem travas (<strong class="font-bold text-foreground">Lara Soares</strong>) e parcerias com OSCs e Empresa Jr (<strong class="font-bold text-foreground">Lívia Martins</strong>).</span>
+            </p>
+          </div>
+          <div class="flex items-center gap-2 shrink-0 self-end sm:self-center">
+            <span class="font-heading font-extrabold text-xs uppercase text-primary inline-flex items-center gap-1 group-open:hidden">
+              <span>Ler Declarações</span>
+              <span aria-hidden="true">↓</span>
+            </span>
+            <span class="font-heading font-extrabold text-xs uppercase text-primary inline-flex items-center gap-1 hidden group-open:inline-flex">
+              <span>Recolher</span>
+              <span aria-hidden="true">↑</span>
+            </span>
+            <a
+              href={route('/chapa-semente')}
+              onclick="event.stopPropagation()"
+              class="min-h-[32px] px-2.5 py-1 rounded-md bg-primary hover:bg-[#4A216E] text-white font-heading font-black text-xs uppercase tracking-wider no-underline inline-flex items-center gap-1 border border-border shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 transition-all"
+            >
+              <span>Chapa Semente</span>
+              <i class="bi bi-arrow-right text-xs" aria-hidden="true"></i>
+            </a>
+          </div>
+        </summary>
 
-    {/* Citação Oficial Lara Soares & Lívia Martins com Atalho para o Hub Reta Final */}
-    <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0_0_#16181d] flex gap-3.5">
-        <div class="w-11 h-11 rounded-xl bg-primary text-white border-2 border-[#16181d] flex items-center justify-center shrink-0 text-xl font-bold shadow-[2px_2px_0_0_#16181d]">
-          <i class="bi bi-file-earmark-check" aria-hidden="true"></i>
+        <div class="pt-3 pb-1 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs leading-relaxed border-t border-border/60 mt-2">
+          <div class="p-3 rounded-lg bg-background/80 border border-border/80 space-y-1">
+            <div class="flex items-center justify-between gap-2">
+              <span class="font-heading font-black text-primary uppercase text-xs">
+                Lara Soares • Diretoria Jurídica
+              </span>
+              <a
+                href={route('/chapa-semente') + '#lara'}
+                class="text-xs font-mono font-bold text-muted-foreground hover:text-primary underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
+              >
+                Perfil Completo →
+              </a>
+            </div>
+            <p class="text-xs text-foreground font-medium italic leading-relaxed m-0">
+              "Poucas coisas causam tanto estresse quanto conseguir uma vaga e ver o contrato travado por desconhecimento das regras. A Diretoria Jurídica estruturou no site um guia com modelos de TCE e instruções para você não bater cabeça em secretaria."
+            </p>
+          </div>
+
+          <div class="p-3 rounded-lg bg-background/80 border border-border/80 space-y-1">
+            <div class="flex items-center justify-between gap-2">
+              <span class="font-heading font-black text-[#134E4A] uppercase text-xs">
+                Lívia Martins • Assessoria da Presidência
+              </span>
+              <a
+                href={route('/chapa-semente') + '#livia'}
+                class="text-xs font-mono font-bold text-muted-foreground hover:text-[#134E4A] underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
+              >
+                Perfil Completo →
+              </a>
+            </div>
+            <p class="text-xs text-foreground font-medium italic leading-relaxed m-0">
+              "A gente merece um curso descomplicado: manual prático e currículo a um clique. Com as Propostas 9, 11 e 12, conectamos os alunos diretamente aos melhores editais, órgãos públicos, OSCs e à nossa futura Empresa Júnior."
+            </p>
+          </div>
         </div>
-        <div class="space-y-1">
-          <p class="text-xs text-foreground font-medium italic leading-relaxed m-0">
-            "Poucas coisas causam tanto estresse quanto conseguir uma vaga e ver o contrato travado por desconhecimento das regras. A Diretoria Jurídica estruturou no site um guia com modelos de TCE e instruções para você não bater cabeça em secretaria."
-          </p>
-          <span class="block text-[11px] font-heading font-black text-primary uppercase">
-            — Lara Soares, Diretora Jurídica da Chapa Semente
-          </span>
-        </div>
+      </details>
+    </PageHeader>
+
+    {/* 1. ATALHOS RÁPIDOS DO HUB DE CARREIRA (Grid 4 Módulos) */}
+    <section aria-label="Atalhos Rápidos de Carreira e Inserção Profissional" class="space-y-2.5">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-primary border border-border" />
+        <h2 class="text-xs sm:text-sm font-heading font-black uppercase text-foreground m-0 tracking-wide">
+          Módulos de Carreira &amp; Inserção Profissional
+        </h2>
       </div>
 
-      <div class="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0_0_#16181d] flex gap-3.5">
-        <div class="w-11 h-11 rounded-xl bg-[#134E4A] text-white border-2 border-[#16181d] flex items-center justify-center shrink-0 text-xl font-bold shadow-[2px_2px_0_0_#16181d]">
-          <i class="bi bi-stars" aria-hidden="true"></i>
-        </div>
-        <div class="space-y-1">
-          <p class="text-xs text-foreground font-medium italic leading-relaxed m-0">
-            "A gente merece um curso descomplicado: manual prático e currículo a um clique. Com as Propostas 9, 11 e 12, conectamos os alunos diretamente aos melhores editais, órgãos públicos, OSCs e à nossa futura Empresa Júnior."
-          </p>
-          <span class="block text-[11px] font-heading font-black text-[#134E4A] uppercase">
-            — Lívia Martins, Assessora da Presidência da Chapa Semente
-          </span>
-        </div>
+      <div class="rounded-2xl border-3 border-border bg-card shadow-md overflow-hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-border">
+        {atalhosCarreira.map((a) => (
+          <a
+            href={a.href}
+            class="p-4 bg-card hover:bg-muted/70 flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[96px]"
+          >
+            <div class="flex items-center justify-between">
+              <span class={`w-9 h-9 rounded-lg ${a.color} flex items-center justify-center text-xs border-2 border-border shadow-xs`}>
+                <CagpIcon name={a.icon as any} class="w-4 h-4" />
+              </span>
+              <CagpIcon name="arrow-up-right" class="w-4 h-4 text-muted-foreground/60 group-hover:text-primary transition-colors" />
+            </div>
+            <div>
+              <span class="font-heading font-black text-sm text-foreground group-hover:text-primary tracking-tight transition-colors block truncate">
+                {a.label}
+              </span>
+              <span class="text-xs font-medium text-muted-foreground block truncate">
+                {a.sublabel}
+              </span>
+            </div>
+          </a>
+        ))}
       </div>
     </section>
 
-    <SegmentedControl tabs={tabs} defaultTab="v0" />
+    {/* 2. RADAR DE VAGAS EM DESTAQUE (Feed Sintético) */}
+    <CarreiraVagasFeed client:load />
 
-    {/* Aba 0: Vagas, Propostas 9/11/12 & Banco de Talentos */}
-    <section id="ws-panel-v0" class="cagp-workspace-view space-y-6" data-ws-panel="v0">
-      <div id="talentos" class="cagp-anchor-target scroll-mt-24"></div>
-      <CarreiraTalentosTab client:load />
-    </section>
+    {/* 3. EMPRESA JÚNIOR DE GESTÃO PÚBLICA (Proposta 11) */}
+    <CarreiraEmpresaJuniorCard client:load />
 
-    {/* Aba 1: Estágio Obrigatório 300h & Aproveitamento Servidor (Art. 41) */}
-    <section id="ws-panel-v1" class="cagp-workspace-view space-y-6" data-ws-panel="v1" hidden>
-      <div id="cagp-carreira-art41" class="cagp-anchor-target scroll-mt-24"></div>
-      <div id="art41" class="cagp-anchor-target scroll-mt-24"></div>
+    {/* 4. PREVIEW DO BANCO DE TALENTOS DISCENTE (Cofre Local) */}
+    <CarreiraTalentosPreview client:load />
 
-      <FactCheckBanner
-        claim="Servidor público em exercício, celetista no setor público ou comissionado tem dispensa do Estágio Supervisionado (300h)?"
-        verdict="homologado"
-        stampText="APROVEITAMENTO SERVIDOR"
-        normativeSource="Art. 41 do Regulamento Versão N-20229 & Parecer CNE/CES 01/2006"
-        explanation="VERDADEIRO, MEDIANTE PROTOCOLO FORMAL. O discente com vínculo formal ativo na administração pública direta ou indireta pode obter o Aproveitamento Servidor (dispensa total das 300h de DCP 135 e DCP 136). Para isso, deve apresentar declaração da chefia e relatório de atividades correlatas à Gestão Pública."
-        officialRuleExcerpt={`Regulamento do Curso — Art. 41:
-O discente que comprovar exercício profissional ou estágio não-obrigatório correlato à área de Gestão Pública na administração direta ou indireta, por período mínimo regulamentar, poderá requerer a dispensa das disciplinas de Estágio Supervisionado A e B, mediante parecer fundamentado da comissão avaliadora designada pelo Colegiado.`}
-      />
-
-      <Art41SimulatorCore client:load />
-      <EstagioObrigatorioCore />
-    </section>
-
-    {/* Aba 2: Estágio Não Obrigatório */}
-    <section id="ws-panel-v2" class="cagp-workspace-view space-y-6" data-ws-panel="v2" hidden>
-      <div id="nao-obrigatorio" class="cagp-anchor-target scroll-mt-24"></div>
-
-      <div class="p-5 sm:p-6 rounded-xl bg-white border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] space-y-3">
-        <div class="flex flex-wrap items-center gap-2">
-          <span class="px-2.5 py-1 rounded-md bg-[#FF8811] text-[#16181d] font-heading font-black text-xs uppercase border-2 border-[#16181d]">
-            Disponível do 1º ao 10º Período
-          </span>
-          <span class="text-xs font-mono font-bold text-muted-foreground">Lei Federal 11.788/2008</span>
-        </div>
-        <h3 class="text-lg sm:text-xl font-heading font-black text-foreground uppercase tracking-tight m-0">
-          Direitos do Estagiário &amp; Formalização do Termo de Compromisso (TCE)
-        </h3>
-        <p class="text-xs sm:text-sm text-foreground/85 leading-relaxed font-medium m-0">
-          O estágio não obrigatório é facultativo e pode ser realizado desde o primeiro período de Gestão Pública. A jornada máxima legal é de <strong>6 horas diárias e 30 horas semanais</strong>, compatível com o horário das aulas no turno noturno. É obrigatória a concessão de bolsa ou outra forma de contraprestação, além de auxílio-transporte e seguro de acidentes pessoais.
-        </p>
+    {/* 5. REGULAÇÃO & RETA FINAL: GUIAS INSTITUCIONAIS DEDICADOS */}
+    <section aria-labelledby="heading-guias-regimentais" class="space-y-4">
+      <div className="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-secondary border border-border" />
+        <h2 id="heading-guias-regimentais" class="text-xs sm:text-sm font-heading font-black uppercase text-foreground m-0 tracking-wide">
+          Guias Regimentais &amp; Reta Final
+        </h2>
       </div>
 
-      <EstagioDocumentDrawerAndGuide client:visible />
-      <EstagioTceCore />
-      <EstagioCentralOverview />
-    </section>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {/* Card 1: Estágio Supervisionado 300h & Art. 41 */}
+        <div class="p-5 sm:p-6 rounded-xl border-3 border-border bg-white shadow-md flex flex-col justify-between gap-4">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="px-2.5 py-0.5 rounded-md bg-secondary text-white font-mono text-xs font-bold uppercase border border-border">
+                Capítulo VII • 300 Horas
+              </span>
+              <span class="font-mono text-xs font-bold text-muted-foreground">Lei 11.788/2008</span>
+            </div>
+            <h3 class="font-heading text-base sm:text-lg font-black uppercase text-foreground m-0">
+              Estágio Curricular (300h) &amp; Aproveitamento Servidor (Art. 41)
+            </h3>
+            <p class="text-xs text-foreground/80 leading-relaxed m-0 font-medium">
+              Consulte as regras de integralização em DCP 135 (180h) e DCP 136 (120h), utilize o simulador de Aproveitamento Servidor pelo Art. 41 e baixe as 7 minutas oficiais de TCE.
+            </p>
+          </div>
 
-    {/* Aba 3: TCC & Colação de Grau */}
-    <section id="ws-panel-v3" class="cagp-workspace-view space-y-6" data-ws-panel="v3" hidden>
-      <div id="tcc" class="cagp-anchor-target scroll-mt-24"></div>
-      <div class="p-4 rounded-xl border-3 border-[#16181d] bg-[#f4f0ea] shadow-[4px_4px_0_0_#16181d] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div>
-          <span class="font-mono text-[10px] font-bold uppercase text-primary block">
-            PAINEL DO FORMANDO • RETA FINAL
-          </span>
-          <h4 class="font-heading text-sm font-black uppercase text-foreground m-0">
-            Quer acompanhar seu checklist completo de Estágio (300h) + TCC (180h) + Colação?
-          </h4>
+          <a
+            href={route('/estagio')}
+            class="min-h-[44px] px-4 py-2.5 rounded-xl border-2 border-border bg-secondary hover:bg-[#851E1E] text-white font-heading text-xs font-black uppercase no-underline inline-flex items-center justify-center gap-2 shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 transition-all"
+          >
+            <i class="bi bi-file-earmark-check-fill" aria-hidden="true" />
+            <span>Acessar Portal de Estágio Supervisionado</span>
+            <span aria-hidden="true">&rarr;</span>
+          </a>
         </div>
-        <a
-          href={route('/estagio-tcc')}
-          class="min-h-[44px] px-4 py-2 rounded-xl border-3 border-[#16181d] bg-primary text-white font-heading text-xs font-black uppercase no-underline inline-flex items-center justify-center gap-1.5 shrink-0 shadow-[3px_3px_0_0_#16181d]"
-        >
-          <span>Abrir Hub Estágio &amp; TCC</span>
-          <i class="bi bi-arrow-right" aria-hidden="true"></i>
-        </a>
+
+        {/* Card 2: TCC & Colação de Grau */}
+        <div class="p-5 sm:p-6 rounded-xl border-3 border-border bg-white shadow-md flex flex-col justify-between gap-4">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="px-2.5 py-0.5 rounded-md bg-foreground text-background text-white font-mono text-xs font-bold uppercase border border-border">
+                Art. 19 • 180 Horas
+              </span>
+              <span class="font-mono text-xs font-bold text-muted-foreground">9º e 10º Períodos</span>
+            </div>
+            <h3 class="font-heading text-base sm:text-lg font-black uppercase text-foreground m-0">
+              Trabalho de Conclusão de Curso (180h) &amp; Reta Final
+            </h3>
+            <p class="text-xs text-foreground/80 leading-relaxed m-0 font-medium">
+              Compare as 4 modalidades regimentais (Monografia vs Artigo Científico), confira o rito de banca examinadora em DCP 089/137 e acompanhe o checklist animado de colação de grau.
+            </p>
+          </div>
+
+          <a
+            href={route('/estagio-tcc')}
+            class="min-h-[44px] px-4 py-2.5 rounded-xl border-2 border-border bg-foreground hover:bg-foreground/90 text-background text-white font-heading text-xs font-black uppercase no-underline inline-flex items-center justify-center gap-2 shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
+          >
+            <i class="bi bi-mortarboard-fill" aria-hidden="true" />
+            <span>Abrir Hub Integrador Reta Final (Formando)</span>
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
       </div>
-      <TccCentralOverview />
     </section>
 
     <JourneyNav

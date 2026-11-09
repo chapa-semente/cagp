@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { getVaultItem, setVaultItem } from '@/lib/storage/studentVault';
-import { MultiStepForm } from '@/components/ui/multi-step-form';
 import { bounceSpring, tactileSpring } from '@/lib/motion';
 import { toast } from 'sonner';
 
@@ -155,16 +154,8 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
         </span>
       </div>
 
-      {/* Formulário Multi-Etapas Animado (MultiStepForm + AnimatePresence) */}
-      <MultiStepForm
-        steps={OUVIDORIA_STEPS}
-        value={activeStep}
-        onValueChange={(step) => {
-          setLastStamped(null);
-          setActiveStep(step);
-        }}
-        className="space-y-5"
-      >
+      {/* Formulário Multi-Etapas Animado */}
+      <div className="space-y-5">
         <div className="p-4 rounded-xl bg-white border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
             {OUVIDORIA_STEPS.map((st, idx) => {
@@ -472,7 +463,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
             )}
           </AnimatePresence>
         </form>
-      </MultiStepForm>
+      </div>
 
       {/* Histórico Local de Manifestações */}
       <div className="space-y-4">
