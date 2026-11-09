@@ -127,10 +127,10 @@ export const SuperAppWelcomeModal: React.FC = () => {
                   <CagpIcon name="hoje" className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-mono font-bold uppercase text-primary block">
+                  <span className="text-xs font-mono font-bold uppercase text-primary block">
                     Proposta Materializada • Chapa Semente
                   </span>
-                  <h2 className="font-heading text-sm font-black uppercase text-foreground leading-tight m-0">
+                  <h2 className="font-heading text-sm font-black text-foreground leading-tight m-0">
                     Qual é o seu momento no curso?
                   </h2>
                 </div>
@@ -164,7 +164,7 @@ export const SuperAppWelcomeModal: React.FC = () => {
                       <span className="text-xs font-heading font-black uppercase">{meta.label}</span>
                       <CagpIcon name={icon} className={`w-4 h-4 shrink-0 ${isSelected ? 'text-accent' : 'text-primary'}`} />
                     </div>
-                    <span className={`text-[10px] font-mono font-bold mt-1 block ${isSelected ? 'text-white/90' : 'text-muted-foreground'}`}>
+                    <span className={`text-xs font-mono font-bold mt-1 block ${isSelected ? 'text-white' : 'text-muted-foreground'}`}>
                       {meta.badge}
                     </span>
                   </button>
@@ -181,7 +181,7 @@ export const SuperAppWelcomeModal: React.FC = () => {
                 }}
                 className="font-heading font-black uppercase text-primary hover:underline cursor-pointer bg-transparent border-0 p-0 flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed"
               >
-                ✦ Iniciar Tour Guiado
+                Iniciar Tour Guiado
               </button>
               <button
                 type="button"
@@ -217,10 +217,10 @@ export const SuperAppWelcomeModal: React.FC = () => {
               {/* Faixa Superior Semente */}
               <div className="bg-primary text-white px-5 py-3.5 border-b-3 border-border flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
-                  <span className="px-2.5 py-0.5 rounded bg-accent text-foreground font-mono font-bold text-[10px] uppercase border-2 border-border shadow-xs">
+                  <span className="px-2.5 py-0.5 rounded bg-accent text-foreground font-mono font-bold text-xs uppercase border-2 border-border shadow-xs">
                     Proposta 3 • Eixo 1
                   </span>
-                  <span className="font-mono text-[11px] font-bold uppercase text-white/90">
+                  <span className="font-mono text-xs font-bold uppercase text-white">
                     A Proposta da Chapa Semente Materializada para Você
                   </span>
                 </div>
@@ -238,7 +238,7 @@ export const SuperAppWelcomeModal: React.FC = () => {
                 <div>
                   <h2
                     id="onboarding-role-title"
-                    className="font-heading text-xl sm:text-2xl font-black uppercase text-foreground leading-tight m-0"
+                    className="font-heading text-xl sm:text-2xl font-black text-foreground leading-tight m-0"
                   >
                     Escolha seu Perfil de Jornada na FAFICH
                   </h2>
@@ -267,7 +267,7 @@ export const SuperAppWelcomeModal: React.FC = () => {
                         onClick={() => setSelectedRole(role)}
                         className={`w-full p-3.5 rounded-xl border-3 border-border text-left transition-colors cursor-pointer flex items-start gap-3.5 relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed ${
                           isSelected
-                            ? 'bg-[#FFFDF9] shadow-[6px_6px_0_0_var(--color-primary)]'
+                            ? 'bg-[#ffffff] shadow-[6px_6px_0_0_var(--color-primary)]'
                             : 'bg-white hover:bg-muted shadow-md'
                         }`}
                       >
@@ -287,11 +287,11 @@ export const SuperAppWelcomeModal: React.FC = () => {
                             </span>
                             <div className="flex items-center gap-1.5">
                               {isSelected && (
-                                <span className="px-2 py-0.5 rounded bg-accent text-foreground font-mono font-bold text-[10px] uppercase border border-border">
-                                  ✓ SELECIONADO
+                                <span className="px-2 py-0.5 rounded bg-accent text-foreground font-mono font-bold text-xs uppercase border border-border">
+                                  SELECIONADO
                                 </span>
                               )}
-                              <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-muted border border-border text-foreground">
+                              <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-muted border border-border text-foreground">
                                 {meta.badge}
                               </span>
                             </div>
@@ -314,7 +314,7 @@ export const SuperAppWelcomeModal: React.FC = () => {
                     }}
                     className="min-h-[44px] px-4 py-2 rounded-xl border-3 border-border bg-card hover:bg-accent text-foreground text-xs font-heading uppercase font-black shadow active:translate-x-[2px] active:translate-y-[2px] active:shadow-none cursor-pointer transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed"
                   >
-                    ✦ Iniciar Tour Guiado (4 Paradas)
+                    Iniciar Tour Guiado (4 Paradas)
                   </button>
                   <button
                     type="button"

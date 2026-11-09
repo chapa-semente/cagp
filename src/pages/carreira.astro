@@ -2,6 +2,7 @@
 // src/pages/carreira.astro — Hub Central de Carreira, Vagas, Empresa Júnior & Banco de Talentos (Super App CAGP UFMG)
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/ui/PageHeader.astro';
+import SementeSignature from '../components/ui/SementeSignature.astro';
 import JourneyNav from '@/components/ui/JourneyNav.astro';
 import CagpIcon from '@/components/ui/CagpIcon.astro';
 import { CarreiraVagasFeed } from '@/components/features/carreira/CarreiraVagasFeed';
@@ -66,82 +67,13 @@ const atalhosCarreira = [
       title="Carreira, Vagas & Banco de Talentos"
       subtitle="Conectado às Propostas 9, 11 e 12 da Chapa Semente: oportunidades em órgãos públicos e OSCs, apoio à Empresa Júnior de Gestão Pública, Aproveitamento Servidor (Art. 41) e Banco de Talentos."
       badges={badges}
-    >
-      {/* Faixa Destilada da Chapa Semente (Operate + Persuade) com Divulgação Progressiva */}
-      <details class="group mt-3 pt-3 border-t-2 border-border/70 text-xs">
-        <summary class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 cursor-pointer list-none select-none hover:bg-muted/40 -mx-1.5 px-2 py-1.5 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary [&::-webkit-details-marker]:hidden">
-          <div class="flex items-center gap-2.5 min-w-0">
-            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-primary text-white font-heading font-black text-xs uppercase tracking-wide shrink-0 shadow-2xs">
-              🌱 Semente
-            </span>
-            <p class="text-xs text-foreground font-medium m-0 truncate">
-              <span class="font-heading font-bold text-primary uppercase">Propostas 9, 11 e 12:</span>
-              <span class="text-foreground/90"> Estágio sem travas (<strong class="font-bold text-foreground">Lara Soares</strong>) e parcerias com OSCs e Empresa Jr (<strong class="font-bold text-foreground">Lívia Martins</strong>).</span>
-            </p>
-          </div>
-          <div class="flex items-center gap-2 shrink-0 self-end sm:self-center">
-            <span class="font-heading font-extrabold text-xs uppercase text-primary inline-flex items-center gap-1 group-open:hidden">
-              <span>Ler Declarações</span>
-              <span aria-hidden="true">↓</span>
-            </span>
-            <span class="font-heading font-extrabold text-xs uppercase text-primary inline-flex items-center gap-1 hidden group-open:inline-flex">
-              <span>Recolher</span>
-              <span aria-hidden="true">↑</span>
-            </span>
-            <a
-              href={route('/chapa-semente')}
-              onclick="event.stopPropagation()"
-              class="min-h-[32px] px-2.5 py-1 rounded-md bg-primary hover:bg-[#4A216E] text-white font-heading font-black text-xs uppercase tracking-wider no-underline inline-flex items-center gap-1 border border-border shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 transition-all"
-            >
-              <span>Chapa Semente</span>
-              <i class="bi bi-arrow-right text-xs" aria-hidden="true"></i>
-            </a>
-          </div>
-        </summary>
-
-        <div class="pt-3 pb-1 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs leading-relaxed border-t border-border/60 mt-2">
-          <div class="p-3 rounded-lg bg-background/80 border border-border/80 space-y-1">
-            <div class="flex items-center justify-between gap-2">
-              <span class="font-heading font-black text-primary uppercase text-xs">
-                Lara Soares • Diretoria Jurídica
-              </span>
-              <a
-                href={route('/chapa-semente') + '#lara'}
-                class="text-xs font-mono font-bold text-muted-foreground hover:text-primary underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
-              >
-                Perfil Completo →
-              </a>
-            </div>
-            <p class="text-xs text-foreground font-medium italic leading-relaxed m-0">
-              "Poucas coisas causam tanto estresse quanto conseguir uma vaga e ver o contrato travado por desconhecimento das regras. A Diretoria Jurídica estruturou no site um guia com modelos de TCE e instruções para você não bater cabeça em secretaria."
-            </p>
-          </div>
-
-          <div class="p-3 rounded-lg bg-background/80 border border-border/80 space-y-1">
-            <div class="flex items-center justify-between gap-2">
-              <span class="font-heading font-black text-[#134E4A] uppercase text-xs">
-                Lívia Martins • Assessoria da Presidência
-              </span>
-              <a
-                href={route('/chapa-semente') + '#livia'}
-                class="text-xs font-mono font-bold text-muted-foreground hover:text-[#134E4A] underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
-              >
-                Perfil Completo →
-              </a>
-            </div>
-            <p class="text-xs text-foreground font-medium italic leading-relaxed m-0">
-              "A gente merece um curso descomplicado: manual prático e currículo a um clique. Com as Propostas 9, 11 e 12, conectamos os alunos diretamente aos melhores editais, órgãos públicos, OSCs e à nossa futura Empresa Júnior."
-            </p>
-          </div>
-        </div>
-      </details>
-    </PageHeader>
+    />
 
     {/* 1. ATALHOS RÁPIDOS DO HUB DE CARREIRA (Grid 4 Módulos) */}
     <section aria-label="Atalhos Rápidos de Carreira e Inserção Profissional" class="space-y-2.5">
       <div class="flex items-center gap-2">
         <span class="w-2.5 h-2.5 rounded-full bg-primary border border-border" />
-        <h2 class="text-xs sm:text-sm font-heading font-black uppercase text-foreground m-0 tracking-wide">
+        <h2 class="text-xs sm:text-sm font-heading font-black text-foreground m-0">
           Módulos de Carreira &amp; Inserção Profissional
         </h2>
       </div>
@@ -150,7 +82,7 @@ const atalhosCarreira = [
         {atalhosCarreira.map((a) => (
           <a
             href={a.href}
-            class="p-4 bg-card hover:bg-muted/70 flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[96px]"
+            class="p-4 bg-card hover:bg-muted flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[96px]"
           >
             <div class="flex items-center justify-between">
               <span class={`w-9 h-9 rounded-lg ${a.color} flex items-center justify-center text-xs border-2 border-border shadow-xs`}>
@@ -184,7 +116,7 @@ const atalhosCarreira = [
     <section aria-labelledby="heading-guias-regimentais" class="space-y-4">
       <div className="flex items-center gap-2">
         <span class="w-2.5 h-2.5 rounded-full bg-secondary border border-border" />
-        <h2 id="heading-guias-regimentais" class="text-xs sm:text-sm font-heading font-black uppercase text-foreground m-0 tracking-wide">
+        <h2 id="heading-guias-regimentais" class="text-xs sm:text-sm font-heading font-black text-foreground m-0">
           Guias Regimentais &amp; Reta Final
         </h2>
       </div>
@@ -199,10 +131,10 @@ const atalhosCarreira = [
               </span>
               <span class="font-mono text-xs font-bold text-muted-foreground">Lei 11.788/2008</span>
             </div>
-            <h3 class="font-heading text-base sm:text-lg font-black uppercase text-foreground m-0">
+            <h3 class="font-heading text-base sm:text-lg font-black text-foreground m-0">
               Estágio Curricular (300h) &amp; Aproveitamento Servidor (Art. 41)
             </h3>
-            <p class="text-xs text-foreground/80 leading-relaxed m-0 font-medium">
+            <p class="text-xs text-content-secondary leading-relaxed m-0 font-medium">
               Consulte as regras de integralização em DCP 135 (180h) e DCP 136 (120h), utilize o simulador de Aproveitamento Servidor pelo Art. 41 e baixe as 7 minutas oficiais de TCE.
             </p>
           </div>
@@ -213,7 +145,7 @@ const atalhosCarreira = [
           >
             <i class="bi bi-file-earmark-check-fill" aria-hidden="true" />
             <span>Acessar Portal de Estágio Supervisionado</span>
-            <span aria-hidden="true">&rarr;</span>
+            <i class="bi bi-arrow-right" aria-hidden="true"></i>
           </a>
         </div>
 
@@ -226,10 +158,10 @@ const atalhosCarreira = [
               </span>
               <span class="font-mono text-xs font-bold text-muted-foreground">9º e 10º Períodos</span>
             </div>
-            <h3 class="font-heading text-base sm:text-lg font-black uppercase text-foreground m-0">
+            <h3 class="font-heading text-base sm:text-lg font-black text-foreground m-0">
               Trabalho de Conclusão de Curso (180h) &amp; Reta Final
             </h3>
-            <p class="text-xs text-foreground/80 leading-relaxed m-0 font-medium">
+            <p class="text-xs text-content-secondary leading-relaxed m-0 font-medium">
               Compare as 4 modalidades regimentais (Monografia vs Artigo Científico), confira o rito de banca examinadora em DCP 089/137 e acompanhe o checklist animado de colação de grau.
             </p>
           </div>
@@ -240,11 +172,17 @@ const atalhosCarreira = [
           >
             <i class="bi bi-mortarboard-fill" aria-hidden="true" />
             <span>Abrir Hub Integrador Reta Final (Formando)</span>
-            <span aria-hidden="true">&rarr;</span>
+            <i class="bi bi-arrow-right" aria-hidden="true"></i>
           </a>
         </div>
       </div>
     </section>
+
+    <SementeSignature
+      proposal="Propostas 9, 11 e 12"
+      text="Estágio sem travas, parcerias com OSCs e Empresa Júnior e um banco de talentos que fica no seu navegador: a carreira do curso num lugar só."
+      leaderId="livia"
+    />
 
     <JourneyNav
       prev={{

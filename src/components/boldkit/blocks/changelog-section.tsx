@@ -38,13 +38,10 @@ export function ChangelogSection({
     <section className={cn('py-14 sm:py-16 px-4 md:px-8 lg:px-16', className)}>
       <motion.div
         variants={staggerContainer(0.06)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.15 }}
         className="max-w-3xl mx-auto"
       >
         <motion.div variants={staggerItem} className="mb-10 sm:mb-12 space-y-3">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight">{title}</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black">{title}</h2>
           {subtitle && <p className="text-muted-foreground">{subtitle}</p>}
         </motion.div>
         <ol className="relative border-l-3 border-[#16181d] pl-8 space-y-8">

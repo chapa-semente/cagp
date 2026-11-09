@@ -3,6 +3,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
 import SegmentedControl from '../components/ui/SegmentedControl.astro';
+import SementeSignature from '../components/ui/SementeSignature.astro';
 import JourneyNav from '../components/ui/JourneyNav.astro';
 import FactCheckBanner from '../components/ui/FactCheckBanner.astro';
 import EstagioCentralOverview from '../components/features/estagio/EstagioCentralOverview.astro';
@@ -14,9 +15,9 @@ import { route } from '@/lib/paths';
 
 const tabs = [
   { id: 'v0', shortLabel: 'Estágio Geral', fullLabel: 'Visão Geral & Modelos', hash: '#visao-geral' },
-  { id: 'v1', shortLabel: 'Aproveitamento Servidor', fullLabel: '1. Aproveitamento Servidor (Art. 41)', hash: '#art41' },
-  { id: 'v2', shortLabel: 'Estágio 300h', fullLabel: '2. Estágio Obrigatório (300h)', hash: '#obrigatorio' },
-  { id: 'v3', shortLabel: 'Tutorial TCE', fullLabel: '3. Tutorial TCE & Minutas', hash: '#tutorial' },
+  { id: 'v1', shortLabel: 'Aproveitamento Servidor', fullLabel: 'Aproveitamento Servidor (Art. 41)', hash: '#art41' },
+  { id: 'v2', shortLabel: 'Estágio 300h', fullLabel: 'Estágio Obrigatório (300h)', hash: '#obrigatorio' },
+  { id: 'v3', shortLabel: 'Tutorial TCE', fullLabel: 'Tutorial TCE & Minutas', hash: '#tutorial' },
 ];
 
 const badges = [
@@ -33,27 +34,6 @@ const badges = [
   mode="operate"
 >
   <div class="space-y-6 max-w-6xl mx-auto font-sans">
-    <!-- Barra Superior Fixa / Breadcrumb (Mobile-First com Retorno Rápido) -->
-    <div
-      id="cagp-estagio-back-bar"
-      class="sticky top-0 z-30 -mx-3 sm:-mx-6 mb-2 bg-background/95 backdrop-blur-sm border-b-3 border-border px-3 sm:px-6 py-2.5 flex items-center justify-between gap-3 shadow-xs select-none"
-    >
-      <div class="flex items-center gap-2">
-        <a
-          href={route('/carreira')}
-          class="min-h-[44px] px-3.5 py-1.5 rounded-xl bg-card hover:bg-muted border-2 border-border text-xs font-heading font-extrabold uppercase text-foreground no-underline inline-flex items-center gap-2 shadow-xs active:translate-x-0.5 active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 transition-all"
-        >
-          <span aria-hidden="true">&larr;</span>
-          <span>Voltar ao Hub de Carreira</span>
-        </a>
-      </div>
-      <div class="flex items-center gap-2 text-xs font-mono font-bold text-muted-foreground uppercase">
-        <span class="hidden sm:inline">Eixo 4 • Carreira</span>
-        <span class="hidden sm:inline">•</span>
-        <span class="text-primary">Estágio &amp; Art. 41</span>
-      </div>
-    </div>
-
     <PageHeader
       axisId="carreira"
       mode="operate"
@@ -62,77 +42,7 @@ const badges = [
       title="Estágio Supervisionado (300h) & Art. 41"
       subtitle="Simulador interativo de Aproveitamento Servidor (Art. 41), regras do Estágio Obrigatório A e B (DCP 135/136) e tutorial visual do Termo de Compromisso (TCE)."
       badges={badges}
-    >
-      {/* Faixa Destilada da Chapa Semente (Operate + Persuade) com Divulgação Progressiva */}
-      <details class="group mt-3 pt-3 border-t-2 border-border/70 text-xs">
-        <summary class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 cursor-pointer list-none select-none hover:bg-muted/40 -mx-1.5 px-2 py-1.5 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary [&::-webkit-details-marker]:hidden">
-          <div class="flex items-center gap-2.5 min-w-0">
-            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-primary text-white font-heading font-black text-xs uppercase tracking-wide shrink-0 shadow-2xs">
-              🌱 Semente
-            </span>
-            <p class="text-xs text-foreground font-medium m-0 truncate">
-              <span class="font-heading font-bold text-primary uppercase">Propostas 3 e 12 em Ação:</span>
-              <span class="text-foreground/90"> Desburocratização de Estágio, minutas oficiais de TCE e Aproveitamento Servidor em 1 clique.</span>
-            </p>
-          </div>
-          <div class="flex items-center gap-2 shrink-0 self-end sm:self-center">
-            <span class="font-heading font-extrabold text-xs uppercase text-primary inline-flex items-center gap-1 group-open:hidden">
-              <span>Ler Declaração</span>
-              <span aria-hidden="true">↓</span>
-            </span>
-            <span class="font-heading font-extrabold text-xs uppercase text-primary inline-flex items-center gap-1 hidden group-open:inline-flex">
-              <span>Recolher</span>
-              <span aria-hidden="true">↑</span>
-            </span>
-            <a
-              href={route('/chapa-semente')}
-              onclick="event.stopPropagation()"
-              class="min-h-[32px] px-2.5 py-1 rounded-md bg-primary hover:bg-[#4A216E] text-white font-heading font-black text-xs uppercase tracking-wider no-underline inline-flex items-center gap-1 border border-border shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 transition-all"
-            >
-              <span>Apoiar Chapa</span>
-              <i class="bi bi-arrow-right text-xs" aria-hidden="true"></i>
-            </a>
-          </div>
-        </summary>
-
-        <div class="pt-3 pb-1 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs leading-relaxed border-t border-border/60 mt-2">
-          <div class="p-3 rounded-lg bg-background/80 border border-border/80 space-y-1">
-            <div class="flex items-center justify-between gap-2">
-              <span class="font-heading font-black text-primary uppercase text-xs">
-                Lara Soares • Diretoria Jurídica
-              </span>
-              <a
-                href={route('/chapa-semente') + '#lara'}
-                class="text-xs font-mono font-bold text-muted-foreground hover:text-primary underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
-              >
-                Perfil Completo →
-              </a>
-            </div>
-            <p class="text-xs text-foreground font-medium italic leading-relaxed m-0">
-              "Poucas coisas causam tanto estresse quanto conseguir uma vaga e ver o contrato travado por burocracia. A Diretoria Jurídica disponibilizou as 7 minutas de TCE e o simulador do Art. 41 para você ter segurança imediata."
-            </p>
-          </div>
-
-          <div class="p-3 rounded-lg bg-background/80 border border-border/80 space-y-1 flex flex-col justify-between">
-            <div>
-              <span class="font-heading font-black text-[#134E4A] uppercase text-xs block">
-                Checklist Formando • Reta Final
-              </span>
-              <p class="text-xs text-foreground/80 mt-1 m-0">
-                Se você está no 7º ao 10º período, acompanhe em paralelo o rito de TCC e a lista de prováveis formandos.
-              </p>
-            </div>
-            <a
-              href={route('/estagio-tcc')}
-              class="text-xs font-heading font-black text-primary hover:underline uppercase inline-flex items-center gap-1 mt-2"
-            >
-              <span>Abrir Hub Reta Final</span>
-              <span aria-hidden="true">&rarr;</span>
-            </a>
-          </div>
-        </div>
-      </details>
-    </PageHeader>
+    />
 
     <SegmentedControl tabs={tabs} defaultTab="v0" />
 
@@ -169,6 +79,12 @@ O discente que comprovar exercício profissional ou estágio não-obrigatório c
     <div id="tutorial" class="cagp-anchor-target scroll-mt-24"></div>
     <EstagioTceCore />
   </section>
+
+  <SementeSignature
+    proposal="Propostas 3 e 12"
+    text="As 7 minutas de TCE e o simulador do Art. 41 estão aqui para o seu contrato não travar na burocracia."
+    leaderId="lara"
+  />
 
   <!-- Journey Navigation Trail -->
   <JourneyNav

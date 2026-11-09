@@ -1,0 +1,122 @@
+---
+// SementeSignature.astro — Assinatura Semente: a prova da chapa entra DEPOIS que o estudante foi atendido.
+// DESIGN.md › Components › Assinatura Semente. Volume Ficha: tinta roxa chapada, contorno 3px, sem sombra.
+import { asset, route } from '@/lib/paths';
+import { CHAPA_LEADERS } from '@/lib/chapaSementeData';
+
+interface Props {
+  /** Rótulo curto da proposta, ex.: "Proposta 3" (sem "em ação": o componente completa). */
+  proposal: string;
+  /** Uma frase sobre o que a chapa fez nesta página. */
+  text: string;
+  /** id do integrante em chapaSementeData.ts (opcional). */
+  leaderId?: string;
+  /** Âncora em /chapa-semente (opcional, padrão: id do integrante). */
+  href?: string;
+}
+
+const { proposal, text, leaderId, href } = Astro.props;
+const leader = leaderId ? CHAPA_LEADERS.find((l) => l.id === leaderId) : undefined;
+const target = href ?? route('/chapa-semente') + (leader ? `#${leader.id}` : '');
+---
+
+<aside class="cagp-signature" aria-label="Assinatura da Chapa Semente">
+  <img
+    src={asset('/logos/semente/semente-simbolo.webp')}
+    alt=""
+    width="40"
+    height="40"
+    class="cagp-signature-mark"
+    loading="lazy"
+  />
+  <div class="cagp-signature-body">
+    <p class="cagp-signature-label">{proposal} · em ação</p>
+    <p class="cagp-signature-text">{text}</p>
+    {leader && (
+      <p class="cagp-signature-who">{leader.name} · {leader.role}</p>
+    )}
+  </div>
+  <a href={target} class="cagp-signature-link">
+    Conhecer a proposta
+    <i class="bi bi-arrow-right" aria-hidden="true"></i>
+  </a>
+</aside>
+
+<style>
+  .cagp-signature {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.75rem 1rem;
+    align-items: start;
+    margin-top: 3rem;
+    padding: 1rem;
+    background: var(--color-primary-tint, #EFE7F6);
+    color: var(--color-foreground);
+    border: 3px solid var(--color-border);
+    border-radius: 12px;
+  }
+  .cagp-signature-mark {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+  }
+  .cagp-signature-body {
+    min-width: 0;
+  }
+  .cagp-signature-label {
+    margin: 0 0 0.25rem;
+    font: 700 0.75rem/1.2 var(--font-mono, "Space Mono", monospace);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+  .cagp-signature-text {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 68ch;
+  }
+  .cagp-signature-who {
+    margin: 0.5rem 0 0;
+    font-size: 0.875rem;
+    color: var(--color-content-secondary, #4a4e58);
+  }
+  .cagp-signature-link {
+    grid-column: 1 / -1;
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    padding: 0.5rem 1rem;
+    background: var(--color-card);
+    color: var(--color-foreground);
+    border: 3px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: 2px 2px 0 0 var(--color-border);
+    font: 700 0.875rem/1 var(--font-heading, "Poppins", sans-serif);
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform var(--duration-press, 150ms) var(--ease-snap, cubic-bezier(0.16, 1, 0.3, 1)), box-shadow var(--duration-press, 150ms) var(--ease-snap, cubic-bezier(0.16, 1, 0.3, 1)), background-color var(--duration-press, 150ms);
+  }
+  .cagp-signature-link:hover {
+    background: var(--color-muted);
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 0 var(--color-border);
+  }
+  .cagp-signature-link:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+  }
+  @media (min-width: 768px) {
+    .cagp-signature {
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      padding: 1.25rem;
+    }
+    .cagp-signature-link {
+      grid-column: auto;
+    }
+  }
+</style>

@@ -75,7 +75,7 @@ export const EstagioDocumentDrawerAndGuide: React.FC = () => {
                 <Badge variant="default">RESOLUÇÃO GP Nº 01/2019 &amp; CEPE 02/2009</Badge>
                 <Badge variant="secondary">300 HORAS OBRIGATÓRIAS (DCP 135 + DCP 136)</Badge>
               </div>
-              <CardTitle className="text-lg sm:text-xl font-heading font-black uppercase text-foreground m-0">
+              <CardTitle className="text-lg sm:text-xl font-heading font-black text-foreground m-0">
                 Modelos Oficiais, Formulários Google &amp; Aproveitamento Servidor
               </CardTitle>
               <CardDescription className="text-xs font-medium text-muted-foreground mt-1 max-w-3xl leading-relaxed">
@@ -119,7 +119,7 @@ export const EstagioDocumentDrawerAndGuide: React.FC = () => {
                         className="py-4 first:pt-1 last:pb-1 flex flex-col md:flex-row md:items-center justify-between gap-3"
                       >
                         <div className="min-w-0 pr-2">
-                          <h4 className="font-heading text-xs sm:text-sm font-black uppercase text-foreground m-0 mb-1">
+                          <h4 className="font-heading text-xs sm:text-sm font-black text-foreground m-0 mb-1">
                             {m.titulo}
                           </h4>
                           <p className="text-xs text-muted-foreground m-0 leading-relaxed">{m.desc}</p>
@@ -161,22 +161,22 @@ export const EstagioDocumentDrawerAndGuide: React.FC = () => {
         <CardContent className="p-5 sm:p-6 space-y-6">
           {/* 3 Modalidades — Layout Aplanado Sem Cards Aninhados */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 rounded-xl border-2 border-border/80 bg-background/50 space-y-2">
+            <div className="p-4 rounded-xl border-2 border-border bg-background space-y-2">
               <Badge variant="default">OBRIGATÓRIO • 7º E 8º PERÍODOS</Badge>
-              <h4 className="font-heading text-sm font-black uppercase text-foreground m-0">
+              <h4 className="font-heading text-sm font-black text-foreground m-0">
                 DCP 135 (180h) + DCP 136 (120h)
               </h4>
-              <p className="text-xs text-foreground/85 leading-relaxed m-0 font-medium">
+              <p className="text-xs text-content-secondary leading-relaxed m-0 font-medium">
                 Total de <strong>300 horas</strong> dedicadas à prática profissional em órgãos governamentais, autarquias, fundações, terceiro setor ou estatais. Exige matrícula no SIGA e homologação prévia do Termo e Plano.
               </p>
             </div>
 
-            <div className="p-4 rounded-xl border-2 border-border/80 bg-background/50 space-y-2">
+            <div className="p-4 rounded-xl border-2 border-border bg-background space-y-2">
               <Badge variant="secondary">NÃO-OBRIGATÓRIO • 1º AO 10º P</Badge>
-              <h4 className="font-heading text-sm font-black uppercase text-foreground m-0">
+              <h4 className="font-heading text-sm font-black text-foreground m-0">
                 Até 30h Semanais (6h Diárias)
               </h4>
-              <p className="text-xs text-foreground/85 leading-relaxed m-0 font-medium">
+              <p className="text-xs text-content-secondary leading-relaxed m-0 font-medium">
                 Compatível com o turno noturno (19h–22h30), exige seguro contra acidentes pessoais custeado pela concedente e pode render até <strong>60h (4 créditos)</strong> como Vivência Profissional Complementar (DCP 208).
               </p>
             </div>
@@ -185,10 +185,10 @@ export const EstagioDocumentDrawerAndGuide: React.FC = () => {
               <span className="inline-flex items-center px-2.5 py-0.5 rounded-md border border-border bg-[#134E4A] text-white font-mono text-xs font-bold uppercase">
                 TRILHA ESPECIAL • ART. 41
               </span>
-              <h4 className="font-heading text-sm font-black uppercase text-foreground m-0">
+              <h4 className="font-heading text-sm font-black text-foreground m-0">
                 Aproveitamento Servidor (Art. 41)
               </h4>
-              <p className="text-xs text-foreground/85 leading-relaxed m-0 font-medium">
+              <p className="text-xs text-content-secondary leading-relaxed m-0 font-medium">
                 Servidores efetivos, comissionados ou empregados públicos em funções correlatas à Gestão Pública podem solicitar dispensa no início do semestre via Google Forms e entregar o Relatório no Moodle ao final.
               </p>
             </div>
@@ -197,10 +197,10 @@ export const EstagioDocumentDrawerAndGuide: React.FC = () => {
           {/* Links Diretos para os 2 Formulários Google Forms Oficiais — Banner Integrado Sem Sombra Concorrente */}
           <div className="p-4 rounded-xl border-2 border-border bg-foreground text-background text-white flex flex-wrap items-center justify-between gap-4 shadow-sm">
             <div className="space-y-0.5">
-              <h4 className="font-heading text-sm font-black uppercase text-white m-0">
+              <h4 className="font-heading text-sm font-black text-white m-0">
                 Formulários Google Forms da Seção de Estágio do Colegiado
               </h4>
-              <p className="text-xs text-white/80 m-0">
+              <p className="text-xs text-white m-0">
                 Protocolo eletrônico oficial homologado pelo Colegiado de Gestão Pública da UFMG.
               </p>
             </div>

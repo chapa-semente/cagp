@@ -64,7 +64,7 @@ export function DotMatrixStudio({ className }: { className?: string }) {
     const width = COLS * (dotSize + gap);
     const height = ROWS * (dotSize + gap);
     let svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">`;
-    svgContent += `<rect width="100%" height="100%" fill="#000000"/>`;
+    svgContent += `<rect width="100%" height="100%" fill="#16181d"/>`;
     currentGrid.forEach((row, r) => {
       row.forEach((filled, c) => {
         const x = c * (dotSize + gap) + gap;

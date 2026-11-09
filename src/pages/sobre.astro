@@ -36,21 +36,21 @@ const testimonialsData = [
 
 const contactCards = [
   {
-    icon: '🏛️',
+    icon: 'bi-building',
     title: 'Sede do CAGP (Sala F-4000)',
     description: 'Espaço de convivência discente e plantão da diretoria executiva.',
     contact: 'FAFICH 4º Andar • 18h às 22h',
     action: { label: 'Conhecer Sede', href: '#visao-geral' },
   },
   {
-    icon: '✉️',
+    icon: 'bi-envelope',
     title: 'E-mail Oficial do CAGP',
     description: 'Comunicação institucional, solicitações de ofício e ouvidoria.',
     contact: 'cagp@fafich.ufmg.br',
     action: { label: 'Enviar E-mail', href: 'mailto:cagp@fafich.ufmg.br' },
   },
   {
-    icon: '🎓',
+    icon: 'bi-mortarboard',
     title: 'Secretaria do Curso (F-2039)',
     description: 'Atendimento do Colegiado de Gestão Pública com Wander e Ubirajara.',
     contact: '(31) 3409-3826 • gestaopublica@ufmg.br',
@@ -59,18 +59,18 @@ const contactCards = [
 ];
 
 const partnerLogos = [
-  { name: 'FAFICH UFMG', logo: '🏛️ FAFICH' },
-  { name: 'DCP UFMG', logo: '🎓 DCP CAPES 7' },
-  { name: 'FACE UFMG', logo: '📊 FACE' },
-  { name: 'Cedeplar IGC', logo: '🗺️ CEDEPLAR' },
-  { name: 'PROEX UFMG', logo: '🤝 PROEX' },
+  { name: 'FAFICH UFMG', logo: 'FAFICH' },
+  { name: 'DCP UFMG', logo: 'DCP CAPES 7' },
+  { name: 'FACE UFMG', logo: 'FACE' },
+  { name: 'Cedeplar IGC', logo: 'CEDEPLAR' },
+  { name: 'PROEX UFMG', logo: 'PROEX' },
 ];
 
 const tabs = [
   { id: 'v0', shortLabel: 'Geral', fullLabel: 'Visão Geral do CAGP', hash: '#visao-geral' },
-  { id: 'v1', shortLabel: 'História', fullLabel: '1. Princípios & História', hash: '#principios' },
-  { id: 'v2', shortLabel: 'Estatuto', fullLabel: '2. Governança & Estatuto', hash: '#governanca' },
-  { id: 'v3', shortLabel: 'Diretorias', fullLabel: '3. Diretorias & Transparência', hash: '#diretorias' },
+  { id: 'v1', shortLabel: 'História', fullLabel: 'Princípios & História', hash: '#principios' },
+  { id: 'v2', shortLabel: 'Estatuto', fullLabel: 'Governança & Estatuto', hash: '#governanca' },
+  { id: 'v3', shortLabel: 'Diretorias', fullLabel: 'Diretorias & Transparência', hash: '#diretorias' },
 ];
 
 const badges = [
@@ -87,7 +87,6 @@ const badges = [
   mode="persuade"
 >
   <PageHeader
-    eyebrow="Eixo 5 · O Centro Acadêmico (CAGP)"
     title="O Centro Acadêmico de Gestão Pública"
     subtitle="Entidade legítima de representação discente da FAFICH/UFMG, fundada na defesa da universidade pública, plural e com compromisso republicano."
     badges={badges}

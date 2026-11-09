@@ -53,7 +53,7 @@ export function ContactSplit({
           {/* Info side */}
           <div className="space-y-8">
             <div className="space-y-4">
-              <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-black">
                 {title}
               </h2>
               <p className="text-lg text-muted-foreground font-medium">
@@ -196,11 +196,11 @@ export function ContactCentered({
   }
 
   return (
-    <section className={cn('py-16 px-4 md:px-8 lg:px-16 bg-muted/30', className)}>
+    <section className={cn('py-16 px-4 md:px-8 lg:px-16 bg-background', className)}>
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-8 space-y-4">
           <MessageSquare className="h-12 w-12 mx-auto text-primary" />
-          <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight">
+          <h2 className="text-3xl md:text-4xl font-black">
             {title}
           </h2>
           <p className="text-muted-foreground font-medium">
@@ -299,16 +299,16 @@ export function ContactWithCards({
   className,
 }: ContactWithCardsProps) {
   const cardColors = [
-    'bg-primary/10',
-    'bg-secondary/10',
-    'bg-accent/10',
+    'bg-primary-tint',
+    'bg-secondary-tint',
+    'bg-accent-tint',
   ]
 
   return (
     <section className={cn('py-16 px-4 md:px-8 lg:px-16', className)}>
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-12 space-y-4">
-          <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight">
+          <h2 className="text-3xl md:text-4xl font-black">
             {title}
           </h2>
           <p className="text-lg text-muted-foreground font-medium">
@@ -327,9 +327,11 @@ export function ContactWithCards({
             >
               <CardContent className="p-6 text-center space-y-4">
                 <div className="w-14 h-14 mx-auto flex items-center justify-center border-3 border-foreground bg-card shadow">
-                  {method.icon}
+                  {typeof method.icon === 'string' && method.icon.startsWith('bi-')
+                    ? <i className={`bi ${method.icon} text-xl`} aria-hidden="true" />
+                    : method.icon}
                 </div>
-                <h3 className="font-black uppercase text-lg">{method.title}</h3>
+                <h3 className="font-black text-lg">{method.title}</h3>
                 <p className="text-sm text-muted-foreground">{method.description}</p>
                 <Button variant="outline" asChild>
                   <a href={safeHref(method.action.href)}>{method.action.label}</a>
@@ -376,7 +378,7 @@ export function ContactWithMap({
   return (
     <section className={cn('py-16 px-4 md:px-8 lg:px-16', className)}>
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight text-center mb-12">
+        <h2 className="text-3xl md:text-4xl font-black text-center mb-12">
           {title}
         </h2>
 

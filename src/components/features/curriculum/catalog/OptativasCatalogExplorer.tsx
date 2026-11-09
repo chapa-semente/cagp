@@ -122,7 +122,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
               {row.original.name}
             </strong>
             {row.original.modulo && (
-              <span className="text-[10px] text-muted-foreground font-head uppercase font-bold tracking-wider">
+              <span className="text-xs text-muted-foreground font-head uppercase font-bold tracking-wider">
                 {row.original.modulo}
               </span>
             )}
@@ -146,7 +146,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
           return (
             <div className="flex items-center gap-1.5">
               <Rating value={Math.round(score * 2) / 2} readOnly size="sm" />
-              <span className="font-mono text-[11px] font-bold text-muted-foreground">{score.toFixed(1)}</span>
+              <span className="font-mono text-xs font-bold text-muted-foreground">{score.toFixed(1)}</span>
             </div>
           );
         },
@@ -160,7 +160,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
           const allocatedCourse = allocatedMap[item.code];
           return isAllocated ? (
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] py-0.5 px-2 rounded-md bg-teal-700 text-white font-mono font-bold border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+              <span className="text-xs py-0.5 px-2 rounded-md bg-teal-700 text-white font-mono font-bold border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
                 {allocatedCourse.period}ºP
               </span>
               <button
@@ -221,14 +221,14 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-1">
-              <span className="text-[11px] font-head uppercase font-extrabold tracking-wider text-[#5B2A85]">
+              <span className="text-xs font-head uppercase font-extrabold tracking-wider text-[#5B2A85]">
                 Catálogo Curricular Homologado • PPC N-20229
               </span>
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#F2CD5C] border-2 border-[#16181d] text-[10px] font-head font-black uppercase text-[#16181d] shadow-[2px_2px_0_0_#16181d]">
-                ✦ Curadoria Chapa Semente
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#F2CD5C] border-2 border-[#16181d] text-xs font-head font-black uppercase text-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+                Curadoria Chapa Semente
               </span>
             </div>
-            <h3 className="font-head text-base sm:text-lg font-black uppercase text-foreground m-0">
+            <h3 className="font-head text-base sm:text-lg font-black text-foreground m-0">
               Catálogo de Optativas & Formação Livre ({optativas.length} Disciplinas Homologadas)
             </h3>
           </div>
@@ -275,7 +275,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
 
         {/* Pílulas de Departamentos (DCP, FACE, FAFICH, FAE, Direito, DEM) com .scroll-mask-x */}
         <div className="space-y-1.5">
-          <span className="text-[10px] font-mono font-bold uppercase text-muted-foreground block">
+          <span className="text-xs font-mono font-bold uppercase text-muted-foreground block">
             Filtrar por Departamento / Unidade UFMG:
           </span>
           <div className="flex items-center gap-2 overflow-x-auto py-1 scroll-mask-x scrollbar-none">
@@ -301,7 +301,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
 
         {/* Pílulas de Módulos Temáticos com .scroll-mask-x */}
         <div className="space-y-1.5">
-          <span className="text-[10px] font-mono font-bold uppercase text-muted-foreground block">
+          <span className="text-xs font-mono font-bold uppercase text-muted-foreground block">
             Filtrar por Eixo / Módulo Temático do PPC:
           </span>
           <div className="flex items-center gap-2 overflow-x-auto py-1 scroll-mask-x scrollbar-none">
@@ -387,7 +387,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                         {item.code}
                       </span>
                       <div className="flex items-center gap-1.5">
-                        <span className="text-[11px] font-mono font-extrabold text-foreground px-2 py-0.5 rounded bg-muted border border-[#16181d]">
+                        <span className="text-xs font-mono font-extrabold text-foreground px-2 py-0.5 rounded bg-muted border border-[#16181d]">
                           {item.ch}h ({Math.round(item.ch / 15)} cr)
                         </span>
                         {isAllocated && (
@@ -395,35 +395,35 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                             initial={{ scale: 1.5, rotate: -6 }}
                             animate={{ scale: 1, rotate: 0 }}
                             transition={bounceSpring}
-                            className="text-[10px] py-0.5 px-2 rounded-md bg-teal-700 text-white font-mono font-bold border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] inline-flex items-center gap-1"
+                            className="text-xs py-0.5 px-2 rounded-md bg-teal-700 text-white font-mono font-bold border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] inline-flex items-center gap-1"
                           >
-                            <i className="bi bi-diagram-3-fill text-[10px]" aria-hidden="true" />
+                            <i className="bi bi-diagram-3-fill text-xs" aria-hidden="true" />
                             <span>NO GRAFO • {allocatedCourse.period}ºP</span>
                           </motion.span>
                         )}
                       </div>
                     </div>
 
-                    <h4 className="font-head text-sm font-black uppercase text-foreground leading-snug mb-1.5 m-0">
+                    <h4 className="font-head text-sm font-black text-foreground leading-snug mb-1.5 m-0">
                       {item.name}
                     </h4>
 
                     <div className="flex items-center justify-between gap-2 mb-2">
                       {item.modulo ? (
-                        <span className="inline-block text-[10px] text-secondary font-head uppercase font-extrabold tracking-wider">
+                        <span className="inline-block text-xs text-secondary font-head uppercase font-extrabold tracking-wider">
                           {item.modulo}
                         </span>
                       ) : <span />}
                       <div className="flex items-center gap-1.5 ml-auto">
                         <Rating value={Math.round(score * 2) / 2} readOnly size="sm" />
-                        <span className="font-mono text-[10px] font-bold text-muted-foreground">{score.toFixed(1)}</span>
+                        <span className="font-mono text-xs font-bold text-muted-foreground">{score.toFixed(1)}</span>
                       </div>
                     </div>
 
                     {/* Ementa Expansível */}
                     {item.ementa && (
-                      <div className="mt-1 pt-2 border-t-2 border-border/20">
-                        <span className="text-[10px] font-head uppercase font-bold text-secondary block mb-0.5">
+                      <div className="mt-1 pt-2 border-t-2 border-border">
+                        <span className="text-xs font-head uppercase font-bold text-secondary block mb-0.5">
                           Ementa Oficial:
                         </span>
                         <p
@@ -437,7 +437,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                           <button
                             type="button"
                             onClick={() => setExpandedCode(isExpanded ? null : item.code)}
-                            className="min-h-[36px] text-[11px] font-head font-extrabold text-[#5B2A85] hover:underline mt-1 bg-transparent border-none p-0 cursor-pointer"
+                            className="min-h-[36px] text-xs font-head font-extrabold text-[#5B2A85] hover:underline mt-1 bg-transparent border-none p-0 cursor-pointer"
                           >
                             {isExpanded ? 'Ver menos ▲' : 'Ler ementa completa ▼'}
                           </button>
@@ -447,10 +447,10 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                   </div>
 
                   {/* Ações de Alocação no Grafo */}
-                  <div className="pt-3 mt-3 border-t-2 border-border/20">
+                  <div className="pt-3 mt-3 border-t-2 border-border">
                     {isSelectingPeriod ? (
                       <div className="space-y-2">
-                        <span className="text-[11px] font-head uppercase font-extrabold text-foreground block">
+                        <span className="text-xs font-head uppercase font-extrabold text-foreground block">
                           Selecione o período letivo:
                         </span>
                         <div className="grid grid-cols-4 gap-1.5">

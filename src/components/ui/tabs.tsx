@@ -25,7 +25,7 @@ function TabsList({
     <TabsPrimitive.List
       data-slot="tabs-list"
       className={cn(
-        "scroll-mask-x inline-flex max-w-full min-h-12 items-center justify-start sm:justify-center overflow-x-auto scrollbar-none rounded-xl border-3 border-border bg-muted/80 p-1.5 text-foreground shadow-md gap-1.5",
+        "scroll-mask-x inline-flex max-w-full min-h-12 items-center justify-start sm:justify-center overflow-x-auto scrollbar-none rounded-xl border-3 border-border bg-muted p-1.5 text-foreground shadow-md gap-1.5",
         className
       )}
       {...props}
@@ -41,7 +41,7 @@ function TabsTrigger({
     <TabsPrimitive.Trigger
       data-slot="tabs-trigger"
       className={cn(
-        "inline-flex min-h-[44px] items-center justify-center whitespace-nowrap rounded-lg border-2 border-transparent px-4 py-2 gap-1.5 font-heading text-xs sm:text-sm font-extrabold uppercase tracking-wide cursor-pointer transition-all duration-200 hover:bg-card/90 active:translate-x-[2px] active:translate-y-[2px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-border data-[state=active]:shadow-xs",
+        "inline-flex min-h-[44px] items-center justify-center whitespace-nowrap rounded-lg border-2 border-transparent px-4 py-2 gap-1.5 font-heading text-xs sm:text-sm font-extrabold uppercase tracking-wide cursor-pointer transition-all duration-200 hover:bg-card active:translate-x-[2px] active:translate-y-[2px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-border data-[state=active]:shadow-xs",
         className
       )}
       {...props}

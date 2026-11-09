@@ -73,7 +73,7 @@ export const CustomCourseModal: React.FC<Props> = ({
 
     // Toast feedback
     (window as any).cagpToast?.(
-      `✓ ${newCourse.code} adicionada ao ${newCourse.period}º período do Grafo!`,
+      ` ${newCourse.code} adicionada ao ${newCourse.period}º período do Grafo!`,
       'bi-check2-circle'
     );
 
@@ -267,7 +267,7 @@ export const CustomCourseModal: React.FC<Props> = ({
             </button>
             <button
               type="submit"
-              className="min-h-[44px] px-5 py-2 bg-secondary text-white hover:bg-foreground text-background rounded-lg font-['Oswald'] text-xs uppercase font-bold tracking-wider shadow-[2px_2px_0px_#0A0A0A] transition-all"
+              className="min-h-[44px] px-5 py-2 bg-secondary text-white hover:bg-foreground text-background rounded-lg font-['Oswald'] text-xs uppercase font-bold tracking-wider shadow-[2px_2px_0px_#16181d] transition-all"
             >
               Confirmar & Inserir no Grafo
             </button>

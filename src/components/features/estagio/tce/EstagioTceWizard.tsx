@@ -87,8 +87,8 @@ const WizardInner: React.FC = () => {
 
   return (
     <Card className="border-3 border-border shadow-md">
-      <CardHeader className="p-4 sm:p-5 border-b-2 border-border bg-muted/20">
-        <CardTitle className="text-base sm:text-lg font-heading font-black uppercase text-foreground">
+      <CardHeader className="p-4 sm:p-5 border-b-2 border-border bg-background">
+        <CardTitle className="text-base sm:text-lg font-heading font-black text-foreground">
           Assistente Interativo de Homologação de TCE
         </CardTitle>
         <p className="text-xs text-muted-foreground font-body mt-0.5 m-0">
@@ -267,8 +267,8 @@ const WizardInner: React.FC = () => {
 
         {/* Step 4: Finalização & Resumo */}
         {activeStep === 3 && (
-          <div className="p-4 bg-muted/30 border-2 border-border rounded-xl space-y-3">
-            <h4 className="font-heading font-extrabold uppercase text-sm text-foreground m-0">
+          <div className="p-4 bg-background border-2 border-border rounded-xl space-y-3">
+            <h4 className="font-heading font-extrabold text-sm text-foreground m-0">
               Resumo da Pré-Homologação
             </h4>
             <ul className="text-xs space-y-1.5 font-body text-muted-foreground m-0 p-0 list-none">
@@ -305,7 +305,7 @@ const WizardInner: React.FC = () => {
               onClick={submit}
               disabled={values.possuiSeguro === 'nao'}
             >
-              Homologar Pré-Requisitos ✓
+              Homologar Pré-Requisitos
             </Button>
           ) : (
             <Button

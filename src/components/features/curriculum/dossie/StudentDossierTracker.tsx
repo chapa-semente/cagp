@@ -59,10 +59,10 @@ export const StudentDossierTracker: React.FC = () => {
     <div className="cagp-student-dossier p-6 bg-white border-[3px] border-border rounded-xl space-y-5 shadow-md select-none text-foreground">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-2 border-border pb-3">
         <div>
-          <span className="text-[11px] font-head uppercase font-bold tracking-wider text-secondary">
+          <span className="text-xs font-head uppercase font-bold tracking-wider text-secondary">
             Dossiê de Integralização Discente
           </span>
-          <h3 className="font-head text-base sm:text-lg font-black uppercase text-foreground m-0">
+          <h3 className="font-head text-base sm:text-lg font-black text-foreground m-0">
             Termômetro das 3.000 Horas da Graduação
           </h3>
           <p className="font-body text-xs text-muted-foreground mt-0.5 m-0">
@@ -71,14 +71,14 @@ export const StudentDossierTracker: React.FC = () => {
         </div>
         <div className="flex items-center gap-3">
           <div className="text-right">
-            <span className="text-[10px] font-mono text-muted-foreground uppercase font-bold block">Integralizado</span>
+            <span className="text-xs font-mono text-muted-foreground uppercase font-bold block">Integralizado</span>
             <span className="text-base sm:text-lg font-mono font-bold text-secondary">
               {totalCompleted}h / {degreeTotal}h
             </span>
           </div>
           {totalCompleted >= degreeTotal ? (
             <span className="cagp-stamp-badge is-homologado text-xs py-1.5 px-3 border-3 border-border shadow-sm">
-              ★ APTO À COLAÇÃO
+              APTO À COLAÇÃO
             </span>
           ) : (
             <span className="px-3 py-1.5 rounded-lg bg-foreground text-background text-white font-mono text-xs font-bold border border-border shadow-xs shrink-0">
@@ -96,7 +96,7 @@ export const StudentDossierTracker: React.FC = () => {
             style={{ width: `${Math.min(100, totalPct)}%` }}
           />
         </div>
-        <div className="flex justify-between text-[11px] text-muted-foreground font-mono font-bold">
+        <div className="flex justify-between text-xs text-muted-foreground font-mono font-bold">
           <span>0h</span>
           <span>{totalCompleted}h cumpridas ({Math.round(totalCompleted / 15)} créditos)</span>
           <span>3.000h</span>
@@ -107,10 +107,10 @@ export const StudentDossierTracker: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 pt-2">
         <div className="p-3.5 bg-white border-3 border-border rounded-xl space-y-2 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-head uppercase font-bold text-foreground">
+            <span className="text-xs font-head uppercase font-bold text-foreground">
               1. Obrigatórias
             </span>
-            <span className="text-[10px] font-mono font-bold text-foreground">
+            <span className="text-xs font-mono font-bold text-foreground">
               {mandatoryDone}/1.860h
             </span>
           </div>
@@ -120,17 +120,17 @@ export const StudentDossierTracker: React.FC = () => {
               style={{ width: `${Math.min(100, (mandatoryDone / mandatoryTotal) * 100)}%` }}
             />
           </div>
-          <span className="text-[10px] text-muted-foreground block truncate font-body">
+          <span className="text-xs text-muted-foreground block truncate font-body">
             27 matérias do núcleo
           </span>
         </div>
 
         <div className="p-3.5 bg-white border-3 border-border rounded-xl space-y-2 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-head uppercase font-bold text-foreground">
+            <span className="text-xs font-head uppercase font-bold text-foreground">
               2. Optativas / Livre
             </span>
-            <span className="text-[10px] font-mono font-bold text-secondary">
+            <span className="text-xs font-mono font-bold text-secondary">
               {optativasCapped}/1.020h
             </span>
           </div>
@@ -140,23 +140,23 @@ export const StudentDossierTracker: React.FC = () => {
               style={{ width: `${Math.min(100, (optativasCapped / 1020) * 100)}%` }}
             />
           </div>
-          <span className="text-[10px] text-muted-foreground block truncate font-body">
+          <span className="text-xs text-muted-foreground block truncate font-body">
             {customCourses.length} alocada{customCourses.length === 1 ? '' : 's'} no grafo
           </span>
         </div>
 
         <div className="p-3.5 bg-white border-3 border-border rounded-xl space-y-2 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-head uppercase font-bold text-foreground">
+            <span className="text-xs font-head uppercase font-bold text-foreground">
               3. Extensão 300h
             </span>
             <div className="flex items-center gap-1">
-              <span className="text-[10px] font-mono font-bold text-[#266264]">
+              <span className="text-xs font-mono font-bold text-[#266264]">
                 {extDone}/300h
               </span>
               {extDone >= 300 && (
-                <span className="cagp-stamp-badge is-teto text-[10px] py-0.5 px-1.5 rounded-md border border-border">
-                  TETO ✓
+                <span className="cagp-stamp-badge is-teto text-xs py-0.5 px-1.5 rounded-md border border-border">
+                  TETO
                 </span>
               )}
             </div>
@@ -167,23 +167,23 @@ export const StudentDossierTracker: React.FC = () => {
               style={{ width: `${Math.min(100, (extDone / 300) * 100)}%` }}
             />
           </div>
-          <span className="text-[10px] text-muted-foreground block truncate font-body">
+          <span className="text-xs text-muted-foreground block truncate font-body">
             Resolução CEPE 10/19
           </span>
         </div>
 
         <div className="p-3.5 bg-white border-3 border-border rounded-xl space-y-2 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-head uppercase font-bold text-foreground">
+            <span className="text-xs font-head uppercase font-bold text-foreground">
               4. AAC (Art. 15)
             </span>
             <div className="flex items-center gap-1">
-              <span className="text-[10px] font-mono font-bold text-accent">
+              <span className="text-xs font-mono font-bold text-accent">
                 {aacDone}/300h
               </span>
               {aacDone >= 300 && (
-                <span className="cagp-stamp-badge is-teto text-[10px] py-0.5 px-1.5 rounded-md border border-border">
-                  TETO ✓
+                <span className="cagp-stamp-badge is-teto text-xs py-0.5 px-1.5 rounded-md border border-border">
+                  TETO
                 </span>
               )}
             </div>
@@ -194,7 +194,7 @@ export const StudentDossierTracker: React.FC = () => {
               style={{ width: `${Math.min(100, (aacDone / 300) * 100)}%` }}
             />
           </div>
-          <span className="text-[10px] text-muted-foreground block truncate font-body">
+          <span className="text-xs text-muted-foreground block truncate font-body">
             Abate horas de optativas
           </span>
         </div>

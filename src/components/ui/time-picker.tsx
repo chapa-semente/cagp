@@ -218,7 +218,7 @@ const TimePicker = React.forwardRef<HTMLButtonElement, TimePickerProps>(
           >
             {/* Hours column */}
             <div className="flex-1 min-w-[60px] border-r-3 border-foreground">
-              <div className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wide text-muted-foreground border-b-3 border-foreground bg-muted/30">
+              <div className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wide text-muted-foreground border-b-3 border-foreground bg-background">
                 Hour
               </div>
               <ScrollArea className="h-[200px]">
@@ -254,7 +254,7 @@ const TimePicker = React.forwardRef<HTMLButtonElement, TimePickerProps>(
               'flex-1 min-w-[60px]',
               (showSeconds || format === '12h') && 'border-r-3 border-foreground'
             )}>
-              <div className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wide text-muted-foreground border-b-3 border-foreground bg-muted/30">
+              <div className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wide text-muted-foreground border-b-3 border-foreground bg-background">
                 Min
               </div>
               <ScrollArea className="h-[200px]">
@@ -291,7 +291,7 @@ const TimePicker = React.forwardRef<HTMLButtonElement, TimePickerProps>(
                 'flex-1 min-w-[60px]',
                 format === '12h' && 'border-r-3 border-foreground'
               )}>
-                <div className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wide text-muted-foreground border-b-3 border-foreground bg-muted/30">
+                <div className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wide text-muted-foreground border-b-3 border-foreground bg-background">
                   Sec
                 </div>
                 <ScrollArea className="h-[200px]">
@@ -322,7 +322,7 @@ const TimePicker = React.forwardRef<HTMLButtonElement, TimePickerProps>(
             {/* AM/PM column */}
             {format === '12h' && (
               <div className="flex-1 min-w-[50px]">
-                <div className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wide text-muted-foreground border-b-3 border-foreground bg-muted/30">
+                <div className="px-2 py-2 text-center text-xs font-bold uppercase tracking-wide text-muted-foreground border-b-3 border-foreground bg-background">
                   <span className="hidden sm:inline">Period</span>
                   <span className="sm:hidden">AP</span>
                 </div>

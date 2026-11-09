@@ -1,5 +1,7 @@
 ---
-// PageHeader.astro - Cabeçalho Canônico Neobrutalista (rL9Ap + Tri-Layer CAGP/Semente/UFMG)
+// PageHeader.astro — Cabeça de página (DESIGN.md › Components › Cabeça de página).
+// Título + 1 linha + até 3 badges (1 no celular). Sem eyebrow, faixa tricolor ou decoração.
+// `eyebrow` é aceito por compatibilidade e ignorado: o eixo já aparece no cabeçalho do app e no breadcrumb.
 import AxisNavBar from '../shell/AxisNavBar.astro';
 import type { AxisId } from '@/lib/navigationRegistry';
 import CagpIcon from './CagpIcon.astro';
@@ -80,6 +82,8 @@ const mapToBadgeVariant = (v?: string): any => {
   }
 };
 
+const visibleBadges = badges.slice(0, 3);
+
 const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '/index.html';
 const shouldRenderAxisNav = showAxisNav && !isHome;
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
@@ -93,99 +97,67 @@ const computedBreadcrumbs = breadcrumbs && breadcrumbs.length > 0
     : []);
 ---
 
-<header class={cn(isPersuadeMode ? 'mb-2 sm:mb-3' : isOperateOrCondensed ? 'mb-3 sm:mb-4' : 'mb-4 sm:mb-6', 'select-none')}>
+<header class={cn(isPersuadeMode ? 'mb-2 sm:mb-3' : 'mb-4 sm:mb-6')}>
   {shouldRenderAxisNav && (
-    <AxisNavBar axisId={axisId} activeId={activeId} />
+    <div class="hidden md:block">
+      <AxisNavBar axisId={axisId} activeId={activeId} />
+    </div>
   )}
 
   {!isPersuadeMode && (
     <div class={cn(
-      'relative overflow-hidden rounded-xl border-3 border-[#16181d] bg-card shadow-[6px_6px_0_0_#16181d]',
-      isOperateOrCondensed ? 'p-3.5 sm:p-4' : 'p-5 sm:p-6'
+      'rounded-xl border-3 border-border bg-card shadow-[4px_4px_0_0_#16181d]',
+      isOperateOrCondensed ? 'p-4 sm:p-5' : 'p-5 sm:p-6'
     )}>
-      <!-- Barra Tri-Camada Institucional Superior (Rubro CAGP + Roxo Semente + Laranja Germinar) -->
-      <div class="absolute top-0 left-0 right-0 h-2 flex border-b-2 border-[#16181d]" aria-hidden="true">
-        <div class="flex-1 bg-secondary"></div>
-        <div class="flex-1 bg-primary"></div>
-        <div class="w-1/4 bg-accent"></div>
-      </div>
+      {computedBreadcrumbs.length > 0 && (
+        <div class="mb-3 hidden md:block">
+          <Breadcrumb>
+            <BreadcrumbList>
+              {computedBreadcrumbs.map((crumb, idx) => {
+                const isLast = idx === computedBreadcrumbs.length - 1;
+                return (
+                  <BreadcrumbItem>
+                    {isLast || !crumb.href ? (
+                      <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
+                    ) : (
+                      <BreadcrumbLink href={crumb.href}>{crumb.label}</BreadcrumbLink>
+                    )}
+                    {!isLast && <BreadcrumbSeparator />}
+                  </BreadcrumbItem>
+                );
+              })}
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+      )}
 
-      <!-- Decoração Geométrica Neobrutalista no Canto Direito -->
-      <div
-        class="pointer-events-none absolute -right-6 -bottom-6 w-28 h-28 rounded-full border-3 border-border/15 bg-accent/15 hidden sm:block"
-        aria-hidden="true"
-      ></div>
-      <div
-        class="pointer-events-none absolute right-10 -top-4 w-12 h-12 rotate-12 border-3 border-border/15 bg-primary/10 hidden md:block"
-        aria-hidden="true"
-      ></div>
+      <h1 class={cn(
+        'font-heading font-bold uppercase text-foreground m-0 leading-[1.05]',
+        isOperateOrCondensed ? 'text-2xl sm:text-3xl' : 'text-[1.75rem] sm:text-4xl'
+      )}>
+        {title}
+      </h1>
 
-      <div class="relative z-10 pt-1">
-        {computedBreadcrumbs.length > 0 && !isOperateOrCondensed && (
-          <div class="mb-2">
-            <Breadcrumb>
-              <BreadcrumbList>
-                {computedBreadcrumbs.map((crumb, idx) => {
-                  const isLast = idx === computedBreadcrumbs.length - 1;
-                  return (
-                    <BreadcrumbItem>
-                      {isLast || !crumb.href ? (
-                        <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
-                      ) : (
-                        <BreadcrumbLink href={crumb.href}>{crumb.label}</BreadcrumbLink>
-                      )}
-                      {!isLast && <BreadcrumbSeparator />}
-                    </BreadcrumbItem>
-                  );
-                })}
-              </BreadcrumbList>
-            </Breadcrumb>
-          </div>
-        )}
+      {subtitle && (
+        <p class="mt-2 mb-0 max-w-[68ch] text-base leading-relaxed text-content-secondary line-clamp-2 sm:line-clamp-none">
+          {subtitle}
+        </p>
+      )}
 
-        <!-- Eyebrow & Badges Row -->
-        {(eyebrow || badges.length > 0) && (
-          <div class={cn('flex flex-wrap items-center gap-2', isOperateOrCondensed ? 'mb-2' : 'mb-3')}>
-            {eyebrow && (
-              <span class="inline-flex items-center gap-1.5 rounded-lg border-3 border-border bg-primary text-white px-2.5 py-0.5 font-heading text-xs font-extrabold uppercase tracking-wider shadow-xs">
-                <span>✦</span>
-                <span>{eyebrow}</span>
-              </span>
-            )}
-            {badges.map((b, idx) => (
-              <span class={cn(
-                badgeVariants({ variant: mapToBadgeVariant(b.variant) }),
-                isOperateOrCondensed
-                  ? (idx >= 1 ? 'hidden sm:inline-flex' : 'inline-flex')
-                  : (idx >= 3 ? 'hidden sm:inline-flex' : 'inline-flex'),
-                'items-center gap-1.5'
-              )}>
+      {visibleBadges.length > 0 && (
+        <ul class="mt-3 mb-0 p-0 list-none flex flex-wrap items-center gap-2" aria-label="Base normativa">
+          {visibleBadges.map((b, idx) => (
+            <li class={cn(idx >= 1 ? 'hidden sm:inline-flex' : 'inline-flex')}>
+              <span class={cn(badgeVariants({ variant: mapToBadgeVariant(b.variant) }), 'items-center gap-1.5')}>
                 {b.icon && <CagpIcon name={resolveCagpIconName(b.icon)} class="w-3.5 h-3.5 shrink-0" />}
                 <span>{b.label}</span>
               </span>
-            ))}
-          </div>
-        )}
+            </li>
+          ))}
+        </ul>
+      )}
 
-        <!-- Page Title & Subtitle -->
-        <h1 class={cn(
-          'font-heading font-extrabold uppercase tracking-tight text-foreground leading-tight m-0',
-          isOperateOrCondensed ? 'text-xl sm:text-3xl' : 'text-2xl sm:text-4xl'
-        )}>
-          {title}
-        </h1>
-        {subtitle && (
-          <p class={cn(
-            'text-xs sm:text-sm font-sans text-muted-foreground font-medium max-w-4xl leading-relaxed m-0',
-            isOperateOrCondensed ? 'mt-1.5 line-clamp-2 sm:line-clamp-none' : 'mt-2'
-          )}>
-            {subtitle}
-          </p>
-        )}
-
-        <!-- Slot contextual/destilado para ações, links de campanha ou extensões -->
-        <slot />
-      </div>
+      <slot />
     </div>
   )}
 </header>

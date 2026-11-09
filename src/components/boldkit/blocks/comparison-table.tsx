@@ -50,13 +50,10 @@ export function ComparisonTable({
     <section className={cn('py-14 sm:py-16 px-4 md:px-8 lg:px-16', className)}>
       <motion.div
         variants={staggerContainer(0.06)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.15 }}
         className="max-w-5xl mx-auto"
       >
         <motion.div variants={staggerItem} className="text-center mb-10 sm:mb-12 space-y-3">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight">{title}</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black">{title}</h2>
           {subtitle && <p className="text-muted-foreground max-w-xl mx-auto">{subtitle}</p>}
         </motion.div>
         <motion.div
@@ -85,7 +82,7 @@ export function ComparisonTable({
             </thead>
             <tbody>
               {rows.map((row) => (
-                <tr key={row.feature} className="border-b-2 border-[#16181d]/25 last:border-b-0 hover:bg-accent/10 transition-colors">
+                <tr key={row.feature} className="border-b-2 border-[#16181d]/25 last:border-b-0 hover:bg-accent-tint transition-colors">
                   <th scope="row" className="p-4 text-left text-sm font-bold">
                     {row.feature}
                   </th>
@@ -94,7 +91,7 @@ export function ComparisonTable({
                       key={i}
                       className={cn(
                         'p-4 text-center',
-                        i === highlightColumn && 'bg-primary/10 font-bold'
+                        i === highlightColumn && 'bg-primary-tint font-bold'
                       )}
                     >
                       <Cell value={value} />

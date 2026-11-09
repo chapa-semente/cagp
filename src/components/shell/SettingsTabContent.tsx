@@ -62,7 +62,7 @@ export const SettingsTabContent: React.FC = () => {
   return (
     <div className="space-y-4 text-foreground">
       {feedback && (
-        <div className={`p-2.5 rounded-lg border text-xs font-semibold flex items-center gap-2 ${feedback.isSuccess ? 'bg-success/10 text-success border-success' : 'bg-destructive/10 text-destructive border-destructive'}`}>
+        <div className={`p-2.5 rounded-lg border text-xs font-semibold flex items-center gap-2 ${feedback.isSuccess ? 'bg-success-tint text-success border-success' : 'bg-destructive-tint text-destructive border-destructive'}`}>
           <i className={`bi ${feedback.isSuccess ? 'bi-check-circle-fill' : 'bi-exclamation-triangle-fill'}`} />
           <span>{feedback.text}</span>
         </div>

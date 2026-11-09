@@ -41,7 +41,7 @@ export const SitemapTreeViewExplorer: React.FC = () => {
               <Badge variant="secondary" className="mb-1.5 w-fit">
                 BOLDKIT TREEVIEW • ARQUITETURA DE INFORMAÇÃO (5 EIXOS • 26 ROTAS)
               </Badge>
-              <CardTitle className="text-xl uppercase">
+              <CardTitle className="text-xl">
                 Árvore Hierárquica Interativa dos 5 Eixos e 26 Rotas
               </CardTitle>
               <CardDescription className="text-xs font-medium text-muted-foreground">
@@ -54,7 +54,7 @@ export const SitemapTreeViewExplorer: React.FC = () => {
               className="min-h-[44px] px-4 py-2 rounded-xl bg-[#16181d] text-white font-mono text-xs font-black uppercase border-2 border-[#16181d] shadow-[3px_3px_0_0_#FE8812] hover:bg-[#5B2A85] transition-colors cursor-pointer inline-flex items-center gap-2"
             >
               <span>Buscar Rota</span>
-              <kbd className="px-1.5 py-0.5 rounded bg-white text-[#16181d] text-[10px]">⌘K</kbd>
+              <kbd className="px-1.5 py-0.5 rounded bg-white text-[#16181d] text-xs">⌘K</kbd>
             </button>
           </div>
         </CardHeader>

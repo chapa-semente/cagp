@@ -145,13 +145,13 @@ export const CalourosOnboardingGuide: React.FC = () => {
     <section className="space-y-6 my-4" aria-label="Tour Interativo de Primeiros Passos na UFMG">
       {/* Trilha Interativa dos 5 Primeiros Passos do Ingressante */}
       <Card className="bg-white border-3 border-[#16181d] shadow-[6px_6px_0_0_#16181d]">
-        <CardHeader className="border-b-3 border-[#16181d] bg-[#FFFDF9]">
+        <CardHeader className="border-b-3 border-[#16181d] bg-[#ffffff]">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <Badge variant="secondary" className="mb-1.5">
                 ONBOARDING INTERATIVO • GUIA VIVER UFMG &amp; RECEPÇÃO GP
               </Badge>
-              <CardTitle className="text-xl uppercase">
+              <CardTitle className="text-xl">
                 Trilha dos 5 Primeiros Passos do Ingressante
               </CardTitle>
               <CardDescription className="text-xs font-medium text-[#57534E]">
@@ -162,7 +162,7 @@ export const CalourosOnboardingGuide: React.FC = () => {
               <span className="font-mono text-xs font-black uppercase text-[#16181d] block">
                 {completed.length} de {ONBOARDING_STEPS.length} Etapas ({progressPct}%)
               </span>
-              <div className="w-full bg-[#f4f0ea] border-3 border-[#16181d] rounded-full h-4 overflow-hidden p-0.5 shadow-[2px_2px_0_0_#16181d]">
+              <div className="w-full bg-[#f4f5f7] border-3 border-[#16181d] rounded-full h-4 overflow-hidden p-0.5 shadow-[2px_2px_0_0_#16181d]">
                 <motion.div
                   initial={false}
                   animate={{ width: `${progressPct}%` }}
@@ -222,7 +222,7 @@ export const CalourosOnboardingGuide: React.FC = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8, scale: 0.99 }}
               transition={tactileSpring}
-              className="p-5 rounded-xl border-3 border-[#16181d] bg-[#FFFDF9] shadow-[6px_6px_0px_#16181d] space-y-4"
+              className="p-5 rounded-xl border-3 border-[#16181d] bg-[#ffffff] shadow-[6px_6px_0px_#16181d] space-y-4"
             >
               <div className="flex flex-wrap items-center justify-between gap-4 border-b-3 border-[#16181d] pb-4">
                 <div className="flex items-center gap-3.5">
@@ -236,7 +236,7 @@ export const CalourosOnboardingGuide: React.FC = () => {
                     >
                       {current.tag}
                     </span>
-                    <h3 className="font-heading text-lg sm:text-xl font-black uppercase text-[#16181d]">
+                    <h3 className="font-heading text-lg sm:text-xl font-black text-[#16181d]">
                       {current.title}
                     </h3>
                     <p className="text-xs text-[#57534E] font-medium">{current.summary}</p>
@@ -313,7 +313,7 @@ export const CalourosOnboardingGuide: React.FC = () => {
           />
 
           {/* Filtro Rápido com TagInput */}
-          <div className="p-4 bg-[#FFFDF9] border-3 border-[#16181d] rounded-xl space-y-2 shadow-[3px_3px_0_0_#16181d]">
+          <div className="p-4 bg-[#ffffff] border-3 border-[#16181d] rounded-xl space-y-2 shadow-[3px_3px_0_0_#16181d]">
             <span className="text-xs font-head uppercase font-bold text-[#16181d] block">
               Tópicos de Interesse do Ingressante (TagInput):
             </span>
@@ -333,7 +333,7 @@ export const CalourosOnboardingGuide: React.FC = () => {
                 <span className="text-xs font-mono font-bold uppercase text-secondary block">
                   Questionário Interativo
                 </span>
-                <h4 className="font-head text-base uppercase font-extrabold text-foreground m-0">
+                <h4 className="font-head text-base font-extrabold text-foreground m-0">
                   Quiz Diagnóstico: Perfil Discente do Ingressante
                 </h4>
                 <p className="text-xs text-muted-foreground m-0 font-sans">
@@ -351,7 +351,7 @@ export const CalourosOnboardingGuide: React.FC = () => {
             </div>
 
             {showQuiz && (
-              <div className="pt-3 border-t-2 border-border/20">
+              <div className="pt-3 border-t-2 border-border">
                 {quizResult ? (
                   <div className="p-4 bg-[#DCFCE7] border-3 border-[#16181d] rounded-xl text-xs font-sans text-[#16181d] space-y-2 shadow-[3px_3px_0_0_#16181d]">
                     <strong className="font-head uppercase block text-[#15803D]">

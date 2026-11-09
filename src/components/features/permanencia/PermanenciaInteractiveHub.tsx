@@ -141,7 +141,7 @@ export const PermanenciaNiveis: React.FC = () => {
       />
 
       <section className={cardClass} aria-live="polite" aria-labelledby="niveis-quadro-titulo">
-        <h3 id="niveis-quadro-titulo" className="font-heading font-extrabold uppercase tracking-tight text-base sm:text-lg leading-tight m-0 px-4 pt-4 pb-3 border-b-3 border-border">
+        <h3 id="niveis-quadro-titulo" className="font-heading font-extrabold text-base sm:text-lg leading-tight m-0 px-4 pt-4 pb-3 border-b-3 border-border">
           {meta.level}: o que você recebe
         </h3>
         <dl className="m-0 divide-y-2 divide-border/15">
@@ -306,7 +306,7 @@ export const PermanenciaPedido: React.FC = () => {
     <div className="space-y-6">
       <section className={`${cardClass} overflow-hidden`} aria-labelledby="pedido-titulo">
         <div className="flex flex-wrap items-center justify-between gap-2 px-4 pt-4 pb-3 border-b-3 border-border">
-          <h3 id="pedido-titulo" className="font-heading font-extrabold uppercase tracking-tight text-base sm:text-lg leading-tight m-0">
+          <h3 id="pedido-titulo" className="font-heading font-extrabold text-base sm:text-lg leading-tight m-0">
             Como pedir seu nível na FUMP
           </h3>
           <span className="font-mono text-sm font-bold tabular-nums" aria-live="polite">
@@ -359,7 +359,7 @@ export const PermanenciaPedido: React.FC = () => {
       </section>
 
       <section className="rounded-xl border-3 border-border bg-secondary text-secondary-foreground shadow-lg p-4 sm:p-5 space-y-3" aria-labelledby="pedido-ajuda-titulo">
-        <h3 id="pedido-ajuda-titulo" className="font-heading font-extrabold uppercase tracking-tight text-lg sm:text-xl leading-tight m-0">
+        <h3 id="pedido-ajuda-titulo" className="font-heading font-extrabold text-lg sm:text-xl leading-tight m-0">
           Travou no cadastro?
         </h3>
         <p className="text-base leading-relaxed m-0 max-w-2xl text-pretty">

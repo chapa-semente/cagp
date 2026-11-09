@@ -52,10 +52,10 @@ export const OverviewCalcWidget: React.FC = () => {
               <i className="bi bi-calculator text-white" aria-hidden="true" />
             </span>
             <div>
-              <h3 className="font-head font-bold text-sm uppercase text-foreground leading-tight m-0 tracking-wide">
+              <h3 className="font-head font-bold text-sm text-foreground leading-tight m-0">
                 Calculadora 600h
               </h3>
-              <span className="text-[11px] text-gray-700 font-mono font-medium">Extensão Obrigatória & AAC</span>
+              <span className="text-xs text-gray-700 font-mono font-medium">Extensão Obrigatória & AAC</span>
             </div>
           </div>
           <span className="px-2 py-0.5 rounded-md font-head text-xs font-bold bg-secondary text-white border border-border shadow-xs">

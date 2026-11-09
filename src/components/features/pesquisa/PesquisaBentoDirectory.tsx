@@ -222,7 +222,7 @@ export const PesquisaBentoDirectory: React.FC = () => {
       <div className="p-5 bg-white border-3 border-[#16181d] rounded-2xl shadow-[6px_6px_0_0_#16181d] space-y-4">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-3 border-[#16181d] pb-4">
           <div>
-            <h2 className="font-head text-lg sm:text-2xl font-black uppercase text-[#16181d] m-0 tracking-tight">
+            <h2 className="font-head text-lg sm:text-2xl font-black text-[#16181d] m-0">
               Explore os 11 Laboratórios &amp; Núcleos de Pesquisa
             </h2>
             <p className="text-xs text-gray-800 font-body font-medium mt-0.5 m-0">
@@ -265,7 +265,7 @@ export const PesquisaBentoDirectory: React.FC = () => {
                 className={`min-h-[44px] px-4 py-2 rounded-xl font-mono text-xs font-black uppercase border-3 border-[#16181d] cursor-pointer transition-colors active:translate-x-0.5 active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
                   isSelected
                     ? 'bg-[#5B2A85] text-white shadow-[4px_4px_0_0_#16181d]'
-                    : 'bg-white text-[#16181d] hover:bg-[#f4f0ea] shadow-[2px_2px_0_0_#16181d]'
+                    : 'bg-white text-[#16181d] hover:bg-[#f4f5f7] shadow-[2px_2px_0_0_#16181d]'
                 }`}
               >
                 {f.label}
@@ -308,7 +308,7 @@ export const PesquisaBentoDirectory: React.FC = () => {
       )}
 
       {/* Destaque Eleitoral Chapa Semente: Propostas 9 e 12 (Divulgação Ativa de Bolsas de IC & Eventos com Núcleos) */}
-      <div className="p-5 sm:p-6 bg-[#FFFDF9] border-3 border-[#16181d] rounded-2xl shadow-[6px_6px_0_0_#16181d] flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      <div className="p-5 sm:p-6 bg-[#ffffff] border-3 border-[#16181d] rounded-2xl shadow-[6px_6px_0_0_#16181d] flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div className="space-y-1.5 max-w-3xl">
           <div className="flex flex-wrap items-center gap-2">
             <span className="px-2.5 py-0.5 rounded-md bg-[#5B2A85] text-white font-mono text-xs font-black uppercase border-2 border-[#16181d]">
@@ -316,7 +316,7 @@ export const PesquisaBentoDirectory: React.FC = () => {
             </span>
             <span className="font-mono text-xs font-bold text-secondary">Chapa Semente 2026</span>
           </div>
-          <h4 className="font-head text-base sm:text-lg font-black uppercase text-[#16181d] m-0">
+          <h4 className="font-head text-base sm:text-lg font-black text-[#16181d] m-0">
             Divulgação Ativa de Editais PIBIC/PROEX e Integração do Turno Noturno aos Laboratórios
           </h4>
           <p className="text-xs text-gray-800 leading-relaxed font-body font-medium m-0">
@@ -327,7 +327,7 @@ export const PesquisaBentoDirectory: React.FC = () => {
         <div className="flex flex-wrap gap-2.5 shrink-0">
           <a
             href={route('/noticias')}
-            className="min-h-[44px] px-4 py-2.5 bg-white hover:bg-[#f4f0ea] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none text-[#16181d] rounded-xl font-head text-xs uppercase font-black tracking-wider inline-flex items-center justify-center gap-1.5 no-underline border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            className="min-h-[44px] px-4 py-2.5 bg-white hover:bg-[#f4f5f7] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none text-[#16181d] rounded-xl font-head text-xs uppercase font-black tracking-wider inline-flex items-center justify-center gap-1.5 no-underline border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             <span>Radar de Editais &amp; Bolsas</span>
           </a>

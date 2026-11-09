@@ -201,7 +201,7 @@ const TimelineTitle = React.forwardRef<
     <h3
       ref={ref}
       className={cn(
-        'text-base font-bold uppercase tracking-wide',
+        'text-base font-bold leading-snug',
         className
       )}
       {...props}

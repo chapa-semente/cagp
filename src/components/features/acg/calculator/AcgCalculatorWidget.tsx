@@ -52,18 +52,18 @@ export const AcgCalculatorWidget: React.FC = () => {
       <div>
         <div className="flex items-center justify-between gap-2 mb-3.5">
           <div className="flex items-center gap-2.5">
-            <span className="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center text-lg border border-secondary shadow-xs">
+            <span className="w-10 h-10 rounded-xl bg-secondary-tint text-secondary flex items-center justify-center text-lg border border-secondary shadow-xs">
               <i className="bi bi-calculator-fill" aria-hidden="true" />
             </span>
             <div>
-              <h3 className="font-head font-bold text-sm uppercase text-foreground leading-tight m-0">
+              <h3 className="font-head font-bold text-sm text-foreground leading-tight m-0">
                 Calculadora 600h
               </h3>
-              <span className="text-[11px] text-muted-foreground font-mono">Extensão 300h + AAC 300h</span>
+              <span className="text-xs text-muted-foreground font-mono">Extensão 300h + AAC 300h</span>
             </div>
           </div>
           <span
-            className={`px-2.5 py-1 rounded-md font-head text-[11px] font-bold border border-border shadow-xs ${
+            className={`px-2.5 py-1 rounded-md font-head text-xs font-bold border border-border shadow-xs ${
               total >= 600
                 ? 'bg-teal-700 text-white'
                 : total > 0
@@ -82,7 +82,7 @@ export const AcgCalculatorWidget: React.FC = () => {
         {/* Barras Lineares de Progresso com Mola */}
         <div className="space-y-3 mb-4">
           <div>
-            <div className="flex justify-between items-center text-[11px] font-bold mb-1">
+            <div className="flex justify-between items-center text-xs font-bold mb-1">
               <span className="text-secondary uppercase font-head">Extensão Obrigatória</span>
               <span className="font-mono text-foreground">{extTotal}/300h ({Math.round(extTotal / 15)} cr)</span>
             </div>
@@ -97,7 +97,7 @@ export const AcgCalculatorWidget: React.FC = () => {
           </div>
 
           <div>
-            <div className="flex justify-between items-center text-[11px] font-bold mb-1">
+            <div className="flex justify-between items-center text-xs font-bold mb-1">
               <span className="text-[#266264] uppercase font-head">Atividades Complementares (AAC)</span>
               <span className="font-mono text-foreground">{aacTotal}/300h ({Math.round(aacTotal / 15)} cr)</span>
             </div>

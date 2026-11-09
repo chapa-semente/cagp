@@ -527,7 +527,7 @@ const Questionnaire = React.forwardRef<HTMLFormElement, QuestionnaireProps>(
               Question {index + 1} of {total}
             </p>
             {current.optional && (
-              <span className="border-2 border-foreground bg-muted px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-widest">
+              <span className="border-2 border-foreground bg-muted px-1.5 py-0.5 text-xs font-bold uppercase tracking-widest">
                 Optional
               </span>
             )}

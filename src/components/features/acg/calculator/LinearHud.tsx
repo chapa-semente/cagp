@@ -61,7 +61,7 @@ export const LinearHud: React.FC = () => {
             • {totalPct}%
           </span>
           {total >= 600 ? (
-            <span className="cagp-stamp-badge is-deferido text-[11px] py-1 px-2.5 inline-flex items-center gap-1.5 border border-border shadow-xs">
+            <span className="cagp-stamp-badge is-deferido text-xs py-1 px-2.5 inline-flex items-center gap-1.5 border border-border shadow-xs">
               <CagpIcon name="stamp" className="w-3.5 h-3.5 text-white" />
               <span className="font-bold text-white">INTEGRALIZAÇÃO APTA</span>
             </span>
@@ -74,7 +74,7 @@ export const LinearHud: React.FC = () => {
 
         <div className="flex items-center gap-2 text-xs font-mono">
           {capExt >= 300 ? (
-            <span className="cagp-stamp-badge is-teto text-[11px] py-1 px-2.5 inline-flex items-center gap-1 border border-border">
+            <span className="cagp-stamp-badge is-teto text-xs py-1 px-2.5 inline-flex items-center gap-1 border border-border">
               <CagpIcon name="check" className="w-3 h-3 text-white" />
               <span>Ext: 300h Teto</span>
             </span>
@@ -85,7 +85,7 @@ export const LinearHud: React.FC = () => {
           )}
 
           {capAac >= 300 ? (
-            <span className="cagp-stamp-badge is-teto text-[11px] py-1 px-2.5 inline-flex items-center gap-1 border border-border">
+            <span className="cagp-stamp-badge is-teto text-xs py-1 px-2.5 inline-flex items-center gap-1 border border-border">
               <CagpIcon name="check" className="w-3 h-3 text-white" />
               <span>AAC: 300h Teto</span>
             </span>
@@ -98,9 +98,9 @@ export const LinearHud: React.FC = () => {
       </div>
 
       {/* Dual Tracks: Extensão e AAC lado a lado com Física de Mola */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-2.5 border-t-2 border-border/20">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-2.5 border-t-2 border-border">
         <div>
-          <div className="flex justify-between items-center text-[11px] font-bold mb-1">
+          <div className="flex justify-between items-center text-xs font-bold mb-1">
             <span className="font-head uppercase text-foreground">1. Extensão Obrigatória (300h)</span>
             <span className="font-mono text-foreground tabular-nums">{capExt}/300h ({extCr} cr)</span>
           </div>
@@ -119,7 +119,7 @@ export const LinearHud: React.FC = () => {
         </div>
 
         <div>
-          <div className="flex justify-between items-center text-[11px] font-bold mb-1">
+          <div className="flex justify-between items-center text-xs font-bold mb-1">
             <span className="font-head uppercase text-foreground">2. Atividades Complementares • AAC (300h)</span>
             <span className="font-mono text-foreground tabular-nums">{capAac}/300h ({aacCr} cr)</span>
           </div>
@@ -139,11 +139,11 @@ export const LinearHud: React.FC = () => {
       </div>
 
       {/* Selo de Autoria Chapa Semente */}
-      <div className="mt-3 pt-2.5 border-t-2 border-border/15 flex flex-wrap items-center justify-between gap-2">
-        <span className="cagp-stamp-badge is-semente text-[10px] py-0.5 px-2.5">
-          ✦ Ferramenta Criada pela Chapa Semente
+      <div className="mt-3 pt-2.5 border-t-2 border-border flex flex-wrap items-center justify-between gap-2">
+        <span className="cagp-stamp-badge is-semente text-xs py-0.5 px-2.5">
+          Ferramenta Criada pela Chapa Semente
         </span>
-        <span className="text-[11px] font-mono font-bold text-muted-foreground">
+        <span className="text-xs font-mono font-bold text-muted-foreground">
           Cálculo local salvo automaticamente (15h = 1 cr)
         </span>
       </div>

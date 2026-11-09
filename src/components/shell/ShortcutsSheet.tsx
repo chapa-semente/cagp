@@ -88,8 +88,8 @@ export const ShortcutsSheet: React.FC<ShortcutsSheetProps> = ({ isOpen, onClose 
             <span
               className={`font-mono text-xs font-bold px-2.5 py-0.5 rounded-full border ${
                 isValidCount
-                  ? 'bg-success/10 text-success border-success/30'
-                  : 'bg-destructive/10 text-destructive border-destructive/30'
+                  ? 'bg-success-tint text-success border-success/30'
+                  : 'bg-destructive-tint text-destructive border-destructive/30'
               }`}
             >
               {selectedIds.length} de 5 selecionados
@@ -109,7 +109,7 @@ export const ShortcutsSheet: React.FC<ShortcutsSheetProps> = ({ isOpen, onClose 
               onClick={() => setFilterCategory(cat)}
               className={`px-2.5 py-1 rounded-[4px] text-xs font-['Oswald'] uppercase font-semibold transition-all border shrink-0 cursor-pointer ${
                 filterCategory === cat
-                  ? 'bg-secondary text-white border-secondary shadow-[1px_1px_0_#0A0A0A]'
+                  ? 'bg-secondary text-white border-secondary shadow-[1px_1px_0_#16181d]'
                   : 'bg-white text-gray-700 border-muted hover:bg-background'
               }`}
               role="tab"
@@ -132,8 +132,8 @@ export const ShortcutsSheet: React.FC<ShortcutsSheetProps> = ({ isOpen, onClose 
                 onClick={() => handleToggle(item.id)}
                 className={`p-2.5 rounded-[6px] border-2 transition-all flex items-center justify-between gap-3 cursor-pointer select-none ${
                   isSelected
-                    ? 'border-border bg-white shadow-[2px_2px_0_#0A0A0A]'
-                    : 'border-muted bg-background/60 hover:bg-white hover:border-gray-400 opacity-80'
+                    ? 'border-border bg-white shadow-[2px_2px_0_#16181d]'
+                    : 'border-muted bg-background hover:bg-white hover:border-gray-400 opacity-80'
                 }`}
                 role="checkbox"
                 aria-checked={isSelected}
@@ -147,7 +147,7 @@ export const ShortcutsSheet: React.FC<ShortcutsSheetProps> = ({ isOpen, onClose 
               >
                 <div className="flex items-center gap-3 min-w-0">
                   <div
-                    className="w-10 h-10 rounded-[6px] flex items-center justify-center shrink-0 border border-border/20"
+                    className="w-10 h-10 rounded-[6px] flex items-center justify-center shrink-0 border border-border"
                     style={{ backgroundColor: `${item.color}15`, color: item.color }}
                   >
                     <i className={`bi ${item.icon} text-lg`} aria-hidden="true"></i>
@@ -157,11 +157,11 @@ export const ShortcutsSheet: React.FC<ShortcutsSheetProps> = ({ isOpen, onClose 
                       <span className="font-['Oswald'] text-xs font-bold uppercase text-foreground truncate">
                         {item.fullLabel}
                       </span>
-                      <span className="text-[10px] font-mono uppercase bg-gray-200 text-gray-700 px-1.5 py-0.2 rounded">
+                      <span className="text-xs font-mono uppercase bg-gray-200 text-gray-700 px-1.5 py-0.2 rounded">
                         {item.category}
                       </span>
                     </div>
-                    <p className="text-[11px] text-gray-500 m-0 truncate leading-snug">
+                    <p className="text-xs text-gray-500 m-0 truncate leading-snug">
                       {item.description}
                     </p>
                   </div>

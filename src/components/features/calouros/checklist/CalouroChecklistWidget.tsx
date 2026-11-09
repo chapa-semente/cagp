@@ -38,7 +38,7 @@ export const CalouroChecklistWidget: React.FC = () => {
               <CagpIcon name="checklist" className="w-5 h-5 text-white" />
             </span>
             <div>
-              <h3 className="font-head font-black text-sm uppercase text-[#16181d] leading-tight m-0 tracking-wide">
+              <h3 className="font-head font-black text-sm text-[#16181d] leading-tight m-0">
                 Checklist 30 Dias
               </h3>
               <span className="text-xs text-gray-700 font-mono font-bold">10 passos · salvo neste aparelho</span>
@@ -56,7 +56,7 @@ export const CalouroChecklistWidget: React.FC = () => {
               className={`px-2.5 py-0.5 rounded-md font-mono text-xs font-black uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] ${
                 completedCount > 0
                   ? 'bg-[#5B2A85] text-white'
-                  : 'bg-[#FFFDF9] text-[#16181d]'
+                  : 'bg-[#ffffff] text-[#16181d]'
               }`}
             >
               {completedCount}/{TOTAL_ITEMS} Feitos
@@ -74,7 +74,7 @@ export const CalouroChecklistWidget: React.FC = () => {
             <span>Progresso</span>
             <span className="text-[#5B2A85]">{pct}%</span>
           </div>
-          <div className="w-full bg-[#f4f0ea] border-3 border-[#16181d] rounded-full h-3.5 overflow-hidden p-0.5 shadow-[2px_2px_0_0_#16181d]">
+          <div className="w-full bg-[#f4f5f7] border-3 border-[#16181d] rounded-full h-3.5 overflow-hidden p-0.5 shadow-[2px_2px_0_0_#16181d]">
             <motion.div
               initial={false}
               animate={{ width: `${Math.min(100, pct)}%` }}

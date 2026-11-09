@@ -235,7 +235,7 @@ export const CartaPropostaInteractive: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* 1. COMPROMISSO INSTITUCIONAL DESTAQUE (PROPOSTA 3 MATERIALIZADA) COM FOTOGRAFIA AMPLIADA */}
-      <Card className="border-3 border-[#16181d] bg-[#FFFDF9] shadow-[8px_8px_0_0_#FE8812] p-5 sm:p-6 relative overflow-hidden">
+      <Card className="border-3 border-[#16181d] bg-[#ffffff] shadow-[8px_8px_0_0_#FE8812] p-5 sm:p-6 relative overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
           <div className="lg:col-span-8 space-y-3">
             <div className="flex flex-wrap items-center gap-2">
@@ -243,11 +243,11 @@ export const CartaPropostaInteractive: React.FC = () => {
                 <Sparkles className="w-3.5 h-3.5" />
                 CARIMBO DOURADO • PROPOSTA 3 JÁ MATERIALIZADA
               </span>
-              <Badge variant="secondary" className="bg-[#5B2A85] text-white font-mono text-[10px] uppercase border-2 border-[#16181d]">
+              <Badge variant="secondary" className="bg-[#5B2A85] text-white font-mono text-xs uppercase border-2 border-[#16181d]">
                 Votação: 25 e 26 de Novembro
               </Badge>
             </div>
-            <h2 className="font-heading text-xl sm:text-2xl font-black uppercase text-[#16181d] m-0">
+            <h2 className="font-heading text-xl sm:text-2xl font-black text-[#16181d] m-0">
               Este SuperApp <span className="font-accent font-normal normal-case tracking-normal text-primary text-[1.15em]">já é</span> a Proposta 3 Entregue para Toda a Comunidade
             </h2>
             <p className="text-xs sm:text-sm font-sans text-[#16181d]/90 leading-relaxed max-w-3xl m-0">
@@ -260,7 +260,7 @@ export const CartaPropostaInteractive: React.FC = () => {
                 className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#FE8812] hover:bg-[#e67300] text-[#16181d] border-3 border-[#16181d] font-heading font-black text-xs uppercase tracking-wide max-w-full text-left shadow-[4px_4px_0_0_#16181d] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none cursor-pointer transition-all"
               >
                 <CheckCircle2 className="w-4 h-4 shrink-0" />
-                <span>{votePledged ? 'Compromisso Confirmado (25 e 26/11) ✓' : 'Firmar Compromisso de Voto (25 e 26/11)'}</span>
+                <span>{votePledged ? 'Compromisso Confirmado (25 e 26/11)' : 'Firmar Compromisso de Voto (25 e 26/11)'}</span>
               </button>
               <button
                 type="button"
@@ -281,7 +281,7 @@ export const CartaPropostaInteractive: React.FC = () => {
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
-              <span className="absolute bottom-3 left-3 px-2.5 py-1 rounded-lg bg-[#FE8812] text-[#16181d] font-mono text-[10px] font-black uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+              <span className="absolute bottom-3 left-3 px-2.5 py-1 rounded-lg bg-[#FE8812] text-[#16181d] font-mono text-xs font-black uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
                 14 Propostas Auditáveis
               </span>
             </div>
@@ -383,7 +383,7 @@ export const CartaPropostaInteractive: React.FC = () => {
                         <CardHeader className="p-4 pb-2 space-y-2">
                           {isProposta3 && (
                             <div className="flex items-center justify-between gap-2 pb-1">
-                              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#FE8812] text-[#16181d] border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-mono text-[10px] font-black uppercase -rotate-1">
+                              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#FE8812] text-[#16181d] border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-mono text-xs font-black uppercase -rotate-1">
                                 <Sparkles className="w-3 h-3" />
                                 ESTE SUPERAPP JÁ MATERIALIZADO • ENTREGUE!
                               </span>
@@ -397,22 +397,22 @@ export const CartaPropostaInteractive: React.FC = () => {
                               >
                                 {item.id}
                               </span>
-                              <Badge variant="outline" className="border-2 border-[#16181d] text-[10px] font-bold">
+                              <Badge variant="outline" className="border-2 border-[#16181d] text-xs font-bold">
                                 {item.eixoName}
                               </Badge>
                             </div>
-                            <span className="font-mono text-[10px] font-bold text-muted-foreground uppercase">
+                            <span className="font-mono text-xs font-bold text-muted-foreground uppercase">
                               {item.eixoBadge}
                             </span>
                           </div>
-                          <CardTitle className="font-heading text-base font-black uppercase text-foreground leading-snug">
+                          <CardTitle className="font-heading text-base font-black text-foreground leading-snug">
                             {item.title}
                           </CardTitle>
                         </CardHeader>
 
                         <CardContent className="p-4 pt-1 space-y-3 flex-1 flex flex-col justify-between">
                           <div>
-                            <p className="text-xs font-sans text-foreground/85 leading-relaxed m-0">
+                            <p className="text-xs font-sans text-content-secondary leading-relaxed m-0">
                               {item.summary}
                             </p>
 
@@ -433,7 +433,7 @@ export const CartaPropostaInteractive: React.FC = () => {
                                         <button
                                           type="button"
                                           onClick={handlePledgeVote}
-                                          className="min-h-[40px] px-3 py-1.5 rounded-lg bg-[#FE8812] text-[#16181d] border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-heading font-black text-[11px] uppercase cursor-pointer"
+                                          className="min-h-[40px] px-3 py-1.5 rounded-lg bg-[#FE8812] text-[#16181d] border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-heading font-black text-xs uppercase cursor-pointer"
                                         >
                                           Votar Chapa Semente em 25 e 26/11 →
                                         </button>
@@ -450,7 +450,7 @@ export const CartaPropostaInteractive: React.FC = () => {
                               {item.tags.map((tag) => (
                                 <span
                                   key={tag}
-                                  className="px-2 py-0.5 rounded-md bg-[#FFFDF9] border border-border text-[10px] font-mono font-semibold text-foreground"
+                                  className="px-2 py-0.5 rounded-md bg-[#ffffff] border border-border text-xs font-mono font-semibold text-foreground"
                                 >
                                   #{tag}
                                 </span>
@@ -461,11 +461,11 @@ export const CartaPropostaInteractive: React.FC = () => {
                               <button
                                 type="button"
                                 onClick={() => setExpandedId(isExpanded ? null : item.id)}
-                                className="min-h-[36px] text-[11px] font-heading font-extrabold uppercase text-primary hover:underline cursor-pointer bg-transparent border-none p-0"
+                                className="min-h-[36px] text-xs font-heading font-extrabold uppercase text-primary hover:underline cursor-pointer bg-transparent border-none p-0"
                               >
                                 {isExpanded ? '▲ Recolher detalhes' : '▼ Ver texto integral'}
                               </button>
-                              <span className="text-[10px] font-mono text-muted-foreground">
+                              <span className="text-xs font-mono text-muted-foreground">
                                 Proposta {item.id}/14
                               </span>
                             </div>
@@ -510,10 +510,10 @@ export const CartaPropostaInteractive: React.FC = () => {
       <div className="p-6 bg-card border-3 border-border rounded-xl shadow-md space-y-3">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1">
-            <span className="text-[11px] font-head uppercase font-bold text-accent tracking-wider block">
+            <span className="text-xs font-head uppercase font-bold text-accent tracking-wider block">
               Participação Estudantil Direta
             </span>
-            <h3 className="font-head text-base font-black uppercase text-foreground m-0">
+            <h3 className="font-head text-base font-black text-foreground m-0">
               Credenciamento Eleitoral &amp; Token de Assembleia
             </h3>
             <p className="text-xs text-muted-foreground m-0 font-sans max-w-xl">
@@ -531,7 +531,7 @@ export const CartaPropostaInteractive: React.FC = () => {
             </InputOTP>
             {otpCode.length === 4 && (
               <span className="text-xs font-mono font-bold px-2.5 py-1.5 bg-teal-700 text-white rounded-lg border-2 border-border shadow-xs">
-                Válido ✓
+                Válido
               </span>
             )}
           </div>

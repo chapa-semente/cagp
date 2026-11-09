@@ -169,7 +169,7 @@ export const GlobalTourHost: React.FC = () => {
       description: stop.quote ? `"${stop.quote}"` : stop.subtitle,
       placement: stop.placement,
       content: (
-        <div className="space-y-2 mt-2 pt-2 border-t-2 border-border/40 text-xs text-foreground">
+        <div className="space-y-2 mt-2 pt-2 border-t-2 border-border text-xs text-foreground">
           <div className="flex items-center gap-2.5">
             {stop.leader ? (
               <LeaderAvatar
@@ -186,30 +186,30 @@ export const GlobalTourHost: React.FC = () => {
             )}
             <div className="min-w-0">
               <span
-                className={`text-[9px] font-heading font-black uppercase px-1.5 py-0.5 rounded border ${stop.badgeBg}`}
+                className={`text-xs font-heading font-black uppercase px-1.5 py-0.5 rounded border ${stop.badgeBg}`}
               >
                 {stop.badge}
               </span>
-              <p className="text-[10px] font-mono text-muted-foreground mt-0.5 font-bold truncate">
+              <p className="text-xs font-mono text-muted-foreground mt-0.5 font-bold truncate">
                 {stop.subtitle}
               </p>
             </div>
           </div>
 
-          <div className="p-2 rounded-lg bg-muted/60 border border-border/40 space-y-0.5">
-            <div className="text-[9px] font-heading font-bold uppercase text-primary">
+          <div className="p-2 rounded-lg bg-muted border border-border space-y-0.5">
+            <div className="text-xs font-heading font-bold uppercase text-primary">
               Desafio &amp; Demanda Discente:
             </div>
-            <p className="text-[10px] text-muted-foreground leading-snug m-0 font-medium line-clamp-2 sm:line-clamp-none">
+            <p className="text-xs text-muted-foreground leading-snug m-0 font-medium line-clamp-2 sm:line-clamp-none">
               {stop.painPoint}
             </p>
           </div>
 
-          <div className="p-2 rounded-lg bg-primary/5 border border-primary/20 space-y-0.5">
-            <div className="text-[9px] font-heading font-bold uppercase text-foreground">
+          <div className="p-2 rounded-lg bg-primary-tint border border-primary/20 space-y-0.5">
+            <div className="text-xs font-heading font-bold uppercase text-foreground">
               Solução no SuperApp:
             </div>
-            <p className="text-[10px] text-foreground leading-snug m-0 font-medium line-clamp-2 sm:line-clamp-none">
+            <p className="text-xs text-foreground leading-snug m-0 font-medium line-clamp-2 sm:line-clamp-none">
               {stop.solution}
             </p>
           </div>
@@ -226,10 +226,10 @@ export const GlobalTourHost: React.FC = () => {
                   autoPlay: true,
                 });
               }}
-              className="inline-flex items-center justify-center gap-1.5 w-full py-2 px-3 bg-primary text-white text-[11px] font-heading font-black uppercase rounded-lg border-2 border-border shadow-[2px_2px_0px_#000] hover:bg-primary/95 active:translate-y-[1px] active:shadow-none transition-all no-underline min-h-[38px] sm:min-h-[44px]"
+              className="inline-flex items-center justify-center gap-1.5 w-full py-2 px-3 bg-primary text-white text-xs font-heading font-black uppercase rounded-lg border-2 border-border shadow-[2px_2px_0px_#000] hover:bg-primary-hover active:translate-y-[1px] active:shadow-none transition-all no-underline min-h-[38px] sm:min-h-[44px]"
             >
               <span>{stop.toolLabel}</span>
-              <i className="bi bi-arrow-right text-[10px]"></i>
+              <i className="bi bi-arrow-right text-xs"></i>
             </a>
           </div>
         </div>

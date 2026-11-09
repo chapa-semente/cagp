@@ -130,12 +130,16 @@ function getAxisShader(pathname: string): ShaderKey {
 export const GlobalCanvasBackdrop: React.FC = () => {
   const [currentPath, setCurrentPath] = useState<string>('/')
   const [selectedShader, setSelectedShader] = useState<ShaderKey>('auto')
+  const [visitorMode, setVisitorMode] = useState<string>('operate')
+  const [reducedMotion, setReducedMotion] = useState<boolean>(false)
 
   useEffect(() => {
     if (typeof window === 'undefined') return
 
     const updateState = () => {
       setCurrentPath(window.location.pathname)
+      setVisitorMode(document.documentElement.dataset.visitorMode || 'operate')
+      setReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
       try {
         const stored = getVaultItem('cagp_a11y_prefs_v2')
         if (stored?.shader) {
@@ -164,6 +168,11 @@ export const GlobalCanvasBackdrop: React.FC = () => {
   }, [])
 
   const activeShader = selectedShader === 'auto' ? getAxisShader(currentPath) : selectedShader
+
+  // DESIGN.md › Volumes: canvas é decoração do volume Cartaz. Em Ficha/Papel o fundo é papel parado,
+  // salvo escolha explícita do estudante nas configurações. Reduced motion desliga sempre.
+  const isCartaz = visitorMode === 'persuade' || visitorMode === 'experience'
+  if (reducedMotion || (selectedShader === 'auto' && !isCartaz)) return null
 
   const renderShader = () => {
     switch (activeShader) {

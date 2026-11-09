@@ -28,12 +28,12 @@ const frentes = [
       <CalouroChecklistWidget client:visible />
 
       <section class="rounded-xl border-3 border-border bg-card shadow-lg" aria-labelledby="calouro-salas-titulo">
-        <h3 id="calouro-salas-titulo" class="font-heading font-extrabold uppercase tracking-tight text-base leading-tight m-0 px-4 pt-4 pb-2">
+        <h3 id="calouro-salas-titulo" class="font-heading font-extrabold text-base leading-tight m-0 px-4 pt-4 pb-2">
           Onde fica cada coisa na FAFICH
         </h3>
         <dl class="m-0 px-4 pb-1">
           {salas.map((s) => (
-            <div class="flex items-baseline justify-between gap-3 py-2.5 border-t-2 border-border/15">
+            <div class="flex items-baseline justify-between gap-3 py-2.5 border-t-2 border-border">
               <dt class="font-heading font-bold text-base">{s.nome}</dt>
               <dd class="m-0 font-mono text-sm font-bold text-right">{s.onde}</dd>
             </div>
@@ -61,7 +61,7 @@ const frentes = [
         />
       </figure>
       <div class="lg:col-span-7 p-4 sm:p-5 space-y-3">
-        <h3 id="calouro-proposta-titulo" class="font-heading font-extrabold uppercase tracking-tight text-lg sm:text-xl leading-tight m-0">
+        <h3 id="calouro-proposta-titulo" class="font-heading font-extrabold text-lg sm:text-xl leading-tight m-0">
           Proposta 7 da Chapa Semente: recepção permanente de calouros
         </h3>
         <p class="text-base leading-relaxed m-0 max-w-[65ch] text-pretty">
@@ -69,7 +69,7 @@ const frentes = [
         </p>
         <dl class="m-0 grid grid-cols-1 sm:grid-cols-3 gap-x-5">
           {frentes.map((f) => (
-            <div class="py-2.5 border-t-2 border-border/15">
+            <div class="py-2.5 border-t-2 border-border">
               <dt class="font-heading font-bold text-sm">{f.titulo}</dt>
               <dd class="m-0 mt-0.5 text-sm text-muted-foreground leading-snug">{f.texto}</dd>
             </div>

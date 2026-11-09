@@ -11,8 +11,8 @@ import { FAQAccordion, type FAQItem } from '../components/boldkit/blocks/faq-sec
 import { asset } from '@/lib/paths';
 
 const tabs = [
-  { id: 'v1', shortLabel: 'Perguntas', fullLabel: '1. Perguntas Frequentes', hash: '#faq' },
-  { id: 'v2', shortLabel: 'Acessibilidade', fullLabel: '2. Acessibilidade & NAI', hash: '#acessibilidade' },
+  { id: 'v1', shortLabel: 'Perguntas', fullLabel: 'Perguntas Frequentes', hash: '#faq' },
+  { id: 'v2', shortLabel: 'Acessibilidade', fullLabel: 'Acessibilidade & NAI', hash: '#acessibilidade' },
 ];
 
 const badges = [
@@ -212,7 +212,6 @@ const quickFaqItems: FAQItem[] = faqs.slice(0, 5).map((f) => ({
   mode="read"
 >
   <PageHeader
-    eyebrow="Eixo 4 · Dúvidas Regimentais & Suporte"
     title="Perguntas Frequentes & Acessibilidade"
     subtitle="Respostas regimentais sobre trancamento, pré-requisitos, dispensa de estágio (Art. 41), EaD, turno noturno e recursos de inclusão NAI/UFMG."
     badges={badges}
@@ -239,17 +238,17 @@ const quickFaqItems: FAQItem[] = faqs.slice(0, 5).map((f) => ({
     <div class="p-6 sm:p-7 rounded-2xl border-3 border-[#16181d] bg-[#5B2A85] text-white shadow-[8px_8px_0_0_#FE8812] flex flex-col lg:flex-row lg:items-center justify-between gap-5">
       <div class="space-y-2 max-w-2xl">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="px-2.5 py-1 rounded-md bg-[#FE8812] text-[#16181d] font-mono text-[10px] font-black uppercase border-2 border-[#16181d]">
-            ★ DESCOMPLICAR A UFMG É COMPROMISSO DA SEMENTE
+          <span class="px-2.5 py-1 rounded-md bg-[#FE8812] text-[#16181d] font-mono text-xs font-black uppercase border-2 border-[#16181d]">
+            DESCOMPLICAR A UFMG É COMPROMISSO DA SEMENTE
           </span>
-          <span class="font-mono text-[11px] font-bold text-[#FFD6A5]">
+          <span class="font-mono text-xs font-bold text-[#FFD6A5]">
             ELEIÇÕES: 25 E 26 DE NOVEMBRO DE 2026
           </span>
         </div>
-        <h3 class="font-heading text-xl sm:text-2xl font-black uppercase text-white m-0 tracking-tight">
+        <h3 class="font-heading text-xl sm:text-2xl font-black text-white m-0">
           Gostou de ter as regras do curso claras e a um clique?
         </h3>
-        <p class="text-xs sm:text-sm text-white/90 leading-relaxed m-0 font-medium">
+        <p class="text-xs sm:text-sm text-white leading-relaxed m-0 font-medium">
           Esta Central de Dúvidas e o Manual &ldquo;Como se Formar&rdquo; fazem parte das <strong>14 Propostas da Chapa Semente</strong> para um Centro Acadêmico presente, transparente e útil para quem estuda e trabalha à noite na FAFICH.
         </p>
       </div>
@@ -259,11 +258,11 @@ const quickFaqItems: FAQItem[] = faqs.slice(0, 5).map((f) => ({
           class="min-h-[48px] px-5 py-3 rounded-xl bg-[#FE8812] text-[#16181d] font-heading font-black text-xs uppercase tracking-wider border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all inline-flex items-center gap-2 no-underline"
         >
           <span>Conhecer as 14 Propostas da Semente</span>
-          <span aria-hidden="true">→</span>
+          <i class="bi bi-arrow-right" aria-hidden="true"></i>
         </a>
         <a
           href="/documentos"
-          class="min-h-[48px] px-4 py-3 rounded-xl bg-white text-[#16181d] font-heading font-black text-xs uppercase tracking-wider border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] hover:bg-[#f4f0ea] transition-all inline-flex items-center gap-2 no-underline"
+          class="min-h-[48px] px-4 py-3 rounded-xl bg-white text-[#16181d] font-heading font-black text-xs uppercase tracking-wider border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] hover:bg-[#f4f5f7] transition-all inline-flex items-center gap-2 no-underline"
         >
           <span>Abrir Acervo de PDFs</span>
         </a>
@@ -286,11 +285,11 @@ const quickFaqItems: FAQItem[] = faqs.slice(0, 5).map((f) => ({
           <div class="w-8 h-8 rounded-lg bg-[#134E4A] text-white flex items-center justify-center border-3 border-border shadow-xs">
             <i class="bi bi-universal-access text-base" aria-hidden="true"></i>
           </div>
-          <h3 class="font-heading font-extrabold text-sm uppercase text-foreground tracking-tight m-0">
+          <h3 class="font-heading font-extrabold text-sm text-foreground m-0">
             Núcleo de Acessibilidade e Inclusão (NAI/UFMG) &amp; Saúde Mental (DASE)
           </h3>
         </div>
-        <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-[11px] font-mono font-bold bg-emerald-100 text-emerald-800 border-3 border-border shadow-xs">
+        <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-emerald-100 text-emerald-800 border-3 border-border shadow-xs">
           Apoio Pedagógico &amp; Escuta
         </span>
       </div>
@@ -299,7 +298,7 @@ const quickFaqItems: FAQItem[] = faqs.slice(0, 5).map((f) => ({
         O NAI assessora estudantes com deficiência física, visual, auditiva, transtorno do espectro autista e altas habilidades, garantindo mediação pedagógica, adaptação de provas e intérpretes de Libras.
       </p>
 
-      <div class="p-4 bg-muted/40 rounded-xl border-3 border-border shadow-xs space-y-2">
+      <div class="p-4 bg-background rounded-xl border-3 border-border shadow-xs space-y-2">
         <p class="m-0"><strong>Contato NAI Oficial:</strong> <span class="font-mono text-secondary font-bold">acessibilidade@ufmg.br</span> • Tel: <span class="font-mono font-bold">(31) 3409-4674</span> • Site: <span class="font-mono">ufmg.br/nai</span></p>
         <p class="m-0"><strong>Saúde Mental e Escuta (DASE/PRAE):</strong> <span class="font-mono text-primary font-bold">dase@prae.ufmg.br</span> (Espaço de Escuta e Acolhimento na PRAE)</p>
         <p class="m-0"><strong>Urgência e Vigilância no Campus:</strong> Ramal <span class="font-mono font-bold">(31) 3409-4444</span> / SAMU <span class="font-mono font-bold">192</span> • Ouvidoria UFMG: <span class="font-mono">ufmg.br/ouvidoria</span></p>

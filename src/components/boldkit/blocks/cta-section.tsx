@@ -32,9 +32,6 @@ export function CTASimple({
     <section className={cn('py-14 sm:py-16 px-4 md:px-8 lg:px-16', className)}>
       <motion.div
         variants={staggerContainer(0.07)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
         className="max-w-4xl mx-auto rounded-2xl border-3 border-[#16181d] bg-card p-6 sm:p-10 text-center space-y-6 shadow-[8px_8px_0_0_#16181d]"
       >
         {badge && (
@@ -122,9 +119,6 @@ export function CTAWithBackground({
     <section className={cn('py-14 sm:py-16 px-4 md:px-8 lg:px-16', className)}>
       <motion.div
         variants={staggerContainer(0.07)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
         className={cn(
           'max-w-5xl mx-auto rounded-2xl border-3 border-[#16181d] p-8 md:p-12 shadow-[8px_8px_0_0_#16181d]',
           bgColors[backgroundColor]
@@ -133,7 +127,7 @@ export function CTAWithBackground({
         <div className="text-center space-y-6">
           <Sparkles className="h-12 w-12 mx-auto" />
 
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black">
             {title}
           </h2>
 
@@ -147,7 +141,7 @@ export function CTAWithBackground({
             <Button
               size="lg"
               variant={backgroundColor === 'muted' ? 'default' : 'outline'}
-              className={backgroundColor !== 'muted' ? 'bg-background text-foreground hover:bg-background/90' : ''}
+              className={backgroundColor !== 'muted' ? 'bg-background text-foreground hover:bg-background' : ''}
               asChild
             >
               <a href={safeHref(primaryAction.href)}>{primaryAction.label}<Zap className="ml-2 h-4 w-4" /></a>
@@ -156,7 +150,7 @@ export function CTAWithBackground({
             <Button
               size="lg"
               variant={backgroundColor === 'muted' ? 'default' : 'outline'}
-              className={backgroundColor !== 'muted' ? 'bg-background text-foreground hover:bg-background/90' : ''}
+              className={backgroundColor !== 'muted' ? 'bg-background text-foreground hover:bg-background' : ''}
               onClick={primaryAction.onClick}
             >
               {primaryAction.label}
@@ -198,11 +192,11 @@ export function CTANewsletter({
   }
 
   return (
-    <section className={cn('py-16 px-4 md:px-8 lg:px-16 bg-muted/30', className)}>
+    <section className={cn('py-16 px-4 md:px-8 lg:px-16 bg-background', className)}>
       <div className="max-w-2xl mx-auto text-center space-y-6">
         <Mail className="h-12 w-12 mx-auto text-primary" />
 
-        <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">
+        <h2 className="text-2xl md:text-3xl font-black">
           {title}
         </h2>
 
@@ -269,7 +263,7 @@ export function CTASplit({
           )}
         >
           <div className="p-8 md:p-12 flex flex-col justify-center space-y-6">
-            <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">
+            <h2 className="text-2xl md:text-3xl font-black">
               {title}
             </h2>
 
@@ -361,14 +355,14 @@ export function CTABanner({
           {text}
         </p>
         {action.href ? (
-          <Button size="sm" variant="outline" className="bg-background text-foreground hover:bg-background/90 shrink-0" asChild>
+          <Button size="sm" variant="outline" className="bg-background text-foreground hover:bg-background shrink-0" asChild>
             <a href={safeHref(action.href)}>{action.label}<ArrowRight className="ml-1 h-3 w-3" /></a>
           </Button>
         ) : (
           <Button
             size="sm"
             variant="outline"
-            className="bg-background text-foreground hover:bg-background/90 shrink-0"
+            className="bg-background text-foreground hover:bg-background shrink-0"
             onClick={action.onClick}
           >
             {action.label}

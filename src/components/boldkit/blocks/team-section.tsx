@@ -75,7 +75,7 @@ export function TeamGrid({
               </p>
             )}
             {title && (
-              <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-black">
                 {title}
               </h2>
             )}
@@ -99,7 +99,7 @@ export function TeamGrid({
                   whileTap={photoCardTap}
                   transition={photoZoomSpring}
                   style={{ border: '3px solid #16181d', boxShadow: '8px 8px 0px #16181d' }}
-                  className="relative aspect-[4/5] w-full min-h-[320px] mx-auto border-3 border-[#16181d] rounded-xl shadow-[8px_8px_0_0_#16181d] overflow-hidden bg-[#f4f0ea]"
+                  className="relative aspect-[4/5] w-full min-h-[320px] mx-auto border-3 border-[#16181d] rounded-xl shadow-[8px_8px_0_0_#16181d] overflow-hidden bg-[#f4f5f7]"
                 >
                   {member.avatar ? (
                     <img
@@ -115,13 +115,13 @@ export function TeamGrid({
                       </span>
                     </div>
                   )}
-                  <span className="absolute top-3 left-3 z-10 px-2.5 py-1 rounded-lg bg-[#FE8812] text-[#16181d] border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-heading text-[10px] font-black uppercase tracking-wider -rotate-2">
+                  <span className="absolute top-3 left-3 z-10 px-2.5 py-1 rounded-lg bg-[#FE8812] text-[#16181d] border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-heading text-xs font-black uppercase tracking-wider -rotate-2">
                     {member.role}
                   </span>
                 </motion.div>
 
                 <div className="pt-1">
-                  <h3 className="font-black uppercase text-lg text-[#16181d]">{member.name}</h3>
+                  <h3 className="font-black text-lg text-[#16181d]">{member.name}</h3>
                   <p className="text-sm text-muted-foreground font-bold font-mono uppercase">
                     {member.role}
                   </p>
@@ -171,10 +171,10 @@ export function TeamList({
   className,
 }: TeamListProps) {
   return (
-    <section className={cn('py-16 px-4 md:px-8 lg:px-16 bg-muted/30', className)}>
+    <section className={cn('py-16 px-4 md:px-8 lg:px-16 bg-background', className)}>
       <div className="max-w-4xl mx-auto">
         {title && (
-          <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-black text-center mb-12">
             {title}
           </h2>
         )}
@@ -193,7 +193,7 @@ export function TeamList({
               </Avatar>
 
               <div className="flex-1">
-                <h3 className="font-black uppercase">{member.name}</h3>
+                <h3 className="font-black">{member.name}</h3>
                 <p className="text-sm text-muted-foreground">{member.role}</p>
               </div>
 
@@ -242,7 +242,7 @@ export function TeamLargePhotos({
               </p>
             )}
             {title && (
-              <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-black">
                 {title}
               </h2>
             )}
@@ -257,7 +257,7 @@ export function TeamLargePhotos({
                 whileTap={photoCardTap}
                 transition={photoZoomSpring}
                 style={{ border: '3px solid #16181d', boxShadow: '8px 8px 0px #16181d' }}
-                className="relative aspect-[4/5] min-h-[320px] border-3 border-[#16181d] rounded-xl shadow-[8px_8px_0_0_#16181d] overflow-hidden mb-4 bg-[#f4f0ea]"
+                className="relative aspect-[4/5] min-h-[320px] border-3 border-[#16181d] rounded-xl shadow-[8px_8px_0_0_#16181d] overflow-hidden mb-4 bg-[#f4f5f7]"
               >
                 {member.avatar ? (
                   <img
@@ -273,7 +273,7 @@ export function TeamLargePhotos({
                     </span>
                   </div>
                 )}
-                <span className="absolute top-3 left-3 z-10 px-2.5 py-1 rounded-lg bg-[#FE8812] text-[#16181d] border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-heading text-[10px] font-black uppercase tracking-wider -rotate-2">
+                <span className="absolute top-3 left-3 z-10 px-2.5 py-1 rounded-lg bg-[#FE8812] text-[#16181d] border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-heading text-xs font-black uppercase tracking-wider -rotate-2">
                   {member.role}
                 </span>
 
@@ -294,7 +294,7 @@ export function TeamLargePhotos({
                 )}
               </motion.div>
 
-              <h3 className="font-black uppercase text-xl text-[#16181d]">{member.name}</h3>
+              <h3 className="font-black text-xl text-[#16181d]">{member.name}</h3>
               <p className="text-muted-foreground font-bold font-mono text-sm uppercase">{member.role}</p>
               {member.bio && (
                 <p className="text-sm text-muted-foreground mt-2">{member.bio}</p>
@@ -329,7 +329,7 @@ export function TeamCompact({
         {(title || description) && (
           <div className="space-y-4">
             {title && (
-              <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">
+              <h2 className="text-2xl md:text-3xl font-black">
                 {title}
               </h2>
             )}

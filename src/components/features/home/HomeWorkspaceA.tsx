@@ -177,32 +177,32 @@ export const HomeWorkspaceA: React.FC = () => {
           <Badge variant="accent" className="mr-1 bg-accent text-foreground font-bold border-2 border-border">PROPOSTA MATERIALIZADA</Badge>
           <span>Este SuperApp já é entrega real da Chapa Semente para a Gestão Pública UFMG</span>
         </MarqueeItem>
-        <MarqueeSeparator>✦</MarqueeSeparator>
+        <MarqueeSeparator></MarqueeSeparator>
         <MarqueeItem className="text-xs sm:text-sm">
           <Badge variant="accent" className="mr-1 bg-accent text-foreground font-bold border-2 border-border">ELEIÇÕES 25 E 26/NOV</Badge>
           <span>Votação direta na sala do CAGP (17h às 22h30) • Vote Chapa Semente</span>
         </MarqueeItem>
-        <MarqueeSeparator>✦</MarqueeSeparator>
+        <MarqueeSeparator></MarqueeSeparator>
         <MarqueeItem className="text-xs sm:text-sm">
           <Badge variant="secondary" className="mr-1 bg-primary text-white border-2 border-border">CHAPA SEMENTE</Badge>
           <span>Potencial que se transforma em ação • 14 Propostas Estruturadas</span>
         </MarqueeItem>
-        <MarqueeSeparator>✦</MarqueeSeparator>
+        <MarqueeSeparator></MarqueeSeparator>
         <MarqueeItem className="text-xs sm:text-sm">
           <Badge variant="default" className="mr-1 border-2 border-border">1.045 CURSOS ENAP</Badge>
           <span>Catálogo filtrável com 1 clique p/ abater suas 600h de Extensão &amp; AAC</span>
         </MarqueeItem>
-        <MarqueeSeparator>✦</MarqueeSeparator>
+        <MarqueeSeparator></MarqueeSeparator>
         <MarqueeItem className="text-xs sm:text-sm">
           <Badge variant="accent" className="mr-1 border-2 border-border">REGRA 120 DIAS</Badge>
           <span>Protocole seus certificados AAC até 120 dias após o evento</span>
         </MarqueeItem>
-        <MarqueeSeparator>✦</MarqueeSeparator>
+        <MarqueeSeparator></MarqueeSeparator>
         <MarqueeItem className="text-xs sm:text-sm">
           <Badge variant="teal" className="mr-1 border-2 border-border">ART. 41 ESTÁGIO</Badge>
           <span>Servidor ou empregado público tem direito a integralização de estágio</span>
         </MarqueeItem>
-        <MarqueeSeparator>✦</MarqueeSeparator>
+        <MarqueeSeparator></MarqueeSeparator>
       </Marquee>
 
       {/* 2. HERO BANNER NEOBRUTALISTA TRI-CAMADA + BOLDKIT TOPOGRAPHY CANVAS */}
@@ -256,7 +256,7 @@ export const HomeWorkspaceA: React.FC = () => {
                   className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-primary border-3 border-border shadow-xs text-xs font-heading font-black uppercase tracking-wide whitespace-nowrap no-underline hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary transition-all"
                 >
                   <span>CHAPA SEMENTE</span>
-                  <span className="text-secondary hidden min-[400px]:inline">✦ PROPOSTAS</span>
+                  <span className="text-secondary hidden min-[400px]:inline">PROPOSTAS</span>
                 </a>
 
                 <Sticker variant="default" size="sm" rotation="slight" className="font-accent font-normal normal-case tracking-normal text-base leading-none pt-1.5">
@@ -325,7 +325,7 @@ export const HomeWorkspaceA: React.FC = () => {
                     ? 'Gestão Pública • FAFICH / UFMG'
                     : `Olá, ${firstName}!`}
                 </h1>
-                <p className="text-xs sm:text-sm font-sans text-white/95 font-medium m-0 mt-1.5 leading-snug max-w-2xl">
+                <p className="text-xs sm:text-sm font-sans text-white font-medium m-0 mt-1.5 leading-snug max-w-2xl">
                   {roleMeta.tagline}
                 </p>
               </div>
@@ -370,7 +370,7 @@ export const HomeWorkspaceA: React.FC = () => {
             aria-label="Seletor de Perfil Discente"
             className="flex items-center gap-2 overflow-x-auto scroll-mask-x no-scrollbar py-1 max-w-full"
           >
-            <span className="text-xs font-mono font-bold text-white/95 mr-1 shrink-0 uppercase">
+            <span className="text-xs font-mono font-bold text-white mr-1 shrink-0 uppercase">
               Perfil Discente:
             </span>
             {(['calouro', 'veterano', 'formando', 'ingressar'] as UserRole[]).map((r) => {
@@ -437,7 +437,7 @@ export const HomeWorkspaceA: React.FC = () => {
               <strong className="font-heading font-extrabold uppercase text-white block leading-tight tracking-wide">
                 {CHAPA_LEADERS.length} Lideranças Comprometidas
               </strong>
-              <span className="font-sans text-xs text-white/80 font-medium max-w-prose block">
+              <span className="font-sans text-xs text-white font-medium max-w-prose block">
                 Proposta da Chapa Semente materializada para a Gestão Pública UFMG
               </span>
             </div>
@@ -450,7 +450,7 @@ export const HomeWorkspaceA: React.FC = () => {
               className="min-h-[44px] px-4 py-2 rounded-xl bg-accent hover:bg-accent-hover text-foreground border-3 border-border shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] font-heading text-xs font-black uppercase tracking-wide no-underline inline-flex items-center gap-1.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
             >
               <span>14 Propostas</span>
-              <span aria-hidden="true">&rarr;</span>
+              <i className="bi bi-arrow-right" aria-hidden="true" />
             </a>
           </div>
         </div>
@@ -463,7 +463,7 @@ export const HomeWorkspaceA: React.FC = () => {
       >
         <div className="flex items-center gap-2">
           <span className="w-2.5 h-2.5 rounded-full bg-primary border border-border" />
-          <h2 className="text-xs sm:text-sm font-heading font-black uppercase text-foreground m-0 tracking-wide">
+          <h2 className="text-xs sm:text-sm font-heading font-black text-foreground m-0">
             Ferramentas &amp; Soluções dos 5 Eixos
           </h2>
         </div>
@@ -472,7 +472,7 @@ export const HomeWorkspaceA: React.FC = () => {
           <a
             id="cagp-shortcut-carreira"
             href={route('/carreira')}
-            className="p-3.5 bg-card hover:bg-muted/70 flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[92px]"
+            className="p-3.5 bg-card hover:bg-muted flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[92px]"
           >
             <div className="flex items-center justify-between">
               <span className="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-xs border-2 border-border shadow-xs">
@@ -493,7 +493,7 @@ export const HomeWorkspaceA: React.FC = () => {
           <a
             id="cagp-shortcut-ouvidoria"
             href={route('/ouvidoria')}
-            className="p-3.5 bg-card hover:bg-muted/70 flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[92px]"
+            className="p-3.5 bg-card hover:bg-muted flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[92px]"
           >
             <div className="flex items-center justify-between">
               <span className="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center text-xs border-2 border-border shadow-xs">
@@ -514,7 +514,7 @@ export const HomeWorkspaceA: React.FC = () => {
           <a
             id="cagp-shortcut-pesquisa"
             href={route('/pesquisa')}
-            className="p-3.5 bg-card hover:bg-muted/70 flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[92px]"
+            className="p-3.5 bg-card hover:bg-muted flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[92px]"
           >
             <div className="flex items-center justify-between">
               <span className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center text-xs border-2 border-border shadow-xs">
@@ -535,7 +535,7 @@ export const HomeWorkspaceA: React.FC = () => {
           <a
             id="cagp-shortcut-transparencia"
             href={route('/transparencia')}
-            className="p-3.5 bg-card hover:bg-muted/70 flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[92px]"
+            className="p-3.5 bg-card hover:bg-muted flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[92px]"
           >
             <div className="flex items-center justify-between">
               <span className="w-8 h-8 rounded-lg bg-emerald-700 text-white flex items-center justify-center text-xs border-2 border-border shadow-xs">
@@ -556,7 +556,7 @@ export const HomeWorkspaceA: React.FC = () => {
           <a
             id="cagp-shortcut-cursos"
             href={route('/cursos')}
-            className="p-3.5 bg-card hover:bg-muted/70 flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[92px]"
+            className="p-3.5 bg-card hover:bg-muted flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[92px]"
           >
             <div className="flex items-center justify-between">
               <span className="w-8 h-8 rounded-lg bg-cyan-700 text-white flex items-center justify-center text-xs border-2 border-border shadow-xs">
@@ -577,7 +577,7 @@ export const HomeWorkspaceA: React.FC = () => {
           <a
             id="cagp-shortcut-estagio"
             href={route('/estagio') + '#art41'}
-            className="p-3.5 bg-card hover:bg-muted/70 flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[92px]"
+            className="p-3.5 bg-card hover:bg-muted flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[92px]"
           >
             <div className="flex items-center justify-between">
               <span className="w-8 h-8 rounded-lg bg-indigo-700 text-white flex items-center justify-center text-xs border-2 border-border shadow-xs">
@@ -598,7 +598,7 @@ export const HomeWorkspaceA: React.FC = () => {
           <a
             id="cagp-shortcut-permanencia"
             href={route('/permanencia')}
-            className="p-3.5 bg-card hover:bg-muted/70 flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[92px]"
+            className="p-3.5 bg-card hover:bg-muted flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[92px]"
           >
             <div className="flex items-center justify-between">
               <span className="w-8 h-8 rounded-lg bg-orange-600 text-white flex items-center justify-center text-xs border-2 border-border shadow-xs">
@@ -737,7 +737,7 @@ export const HomeWorkspaceA: React.FC = () => {
                         title="Editar foto e Passaporte"
                       />
                       <div className="min-w-0">
-                        <h2 className="text-base font-heading font-extrabold text-foreground m-0 truncate uppercase tracking-wide">
+                        <h2 className="text-base font-heading font-extrabold text-foreground m-0 truncate">
                           {profile.name}
                         </h2>
                         <p className="text-xs text-muted-foreground font-semibold m-0 mt-0.5 tabular-nums">
@@ -784,7 +784,7 @@ export const HomeWorkspaceA: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="pt-3 border-t-2 border-border/20 flex items-center justify-between gap-2 text-xs">
+                  <div className="pt-3 border-t-2 border-border flex items-center justify-between gap-2 text-xs">
                     <div className="flex items-center gap-2 text-foreground">
                       <ShieldShape size={18} color="#15803D" />
                       <span className="font-bold">Percurso {profile.pathway || '01-01'}</span>
@@ -821,17 +821,17 @@ export const HomeWorkspaceA: React.FC = () => {
             <Card className="overflow-hidden">
               <CardHeader className="border-b bg-secondary text-secondary-foreground">
                 <div className="flex items-center justify-between gap-2">
-                  <CardTitle className="text-base font-heading font-extrabold tracking-tight">
+                  <CardTitle className="text-base font-heading font-extrabold">
                     Raio-X • Gestão Pública UFMG
                   </CardTitle>
                   <Badge variant="accent">PPC 2020</Badge>
                 </div>
-                <p className="text-xs text-white/90 font-medium m-0 leading-relaxed max-w-prose">
+                <p className="text-xs text-white font-medium m-0 leading-relaxed max-w-prose">
                   Curso sediado na FAFICH (Campus Pampulha) e vinculado ao Departamento de Ciência Política (DCP).
                 </p>
               </CardHeader>
 
-              <dl className="grid grid-cols-2 border-b-3 border-border bg-muted/40 divide-x-2 divide-y-2 divide-border text-xs m-0 tabular-nums">
+              <dl className="grid grid-cols-2 border-b-3 border-border bg-background divide-x-2 divide-y-2 divide-border text-xs m-0 tabular-nums">
                 <div className="p-3.5">
                   <dt className="font-mono text-muted-foreground font-bold uppercase">Turno</dt>
                   <dd className="font-bold text-foreground m-0 mt-0.5">Noturno (19h–22h30)</dd>

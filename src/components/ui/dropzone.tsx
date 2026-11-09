@@ -26,8 +26,8 @@ const dropzoneVariants = cva(
   {
     variants: {
       state: {
-        idle: 'bg-background hover:bg-muted/30 shadow-md hover:shadow-lg hover:translate-x-[-2px] hover:translate-y-[-2px]',
-        dragging: 'border-solid border-primary bg-primary/10 scale-[1.02] shadow-[8px_8px_0px_var(--primary)]',
+        idle: 'bg-background hover:bg-background shadow-md hover:shadow-lg hover:translate-x-[-2px] hover:translate-y-[-2px]',
+        dragging: 'border-solid border-primary bg-primary-tint scale-[1.02] shadow-[8px_8px_0px_var(--primary)]',
         disabled: 'opacity-50 cursor-not-allowed shadow-none',
       },
       variant: {
@@ -368,7 +368,7 @@ function FileListItem({ file, progress, error, uploading, onRemove }: FileListIt
     <div
       className={cn(
         'flex items-center gap-3 p-3 border-3 border-foreground bg-background shadow',
-        error && 'border-destructive bg-destructive/10 shadow-[3px_3px_0px_var(--destructive)]'
+        error && 'border-destructive bg-destructive-tint shadow-[3px_3px_0px_var(--destructive)]'
       )}
     >
       <div className="flex items-center justify-center w-10 h-10 bg-muted border-3 border-foreground">

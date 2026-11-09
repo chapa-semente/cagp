@@ -49,7 +49,7 @@ export const HomeAcademicTools: React.FC<Props> = ({ art41Checklist, toggleArt41
             <div>
               <h2
                 id="heading-art41-preview"
-                className="font-heading text-base sm:text-lg font-extrabold uppercase tracking-wide text-foreground m-0"
+                className="font-heading text-base sm:text-lg font-extrabold text-foreground m-0"
               >
                 Dispensa de Estágio • Art. 41
               </h2>
@@ -64,7 +64,7 @@ export const HomeAcademicTools: React.FC<Props> = ({ art41Checklist, toggleArt41
             className="min-h-[44px] px-3.5 py-1.5 rounded-xl text-xs font-heading font-bold text-secondary hover:bg-muted border-2 border-transparent hover:border-border no-underline inline-flex items-center gap-1 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             <span>Simulador completo</span>
-            <span aria-hidden="true">&rarr;</span>
+            <i className="bi bi-arrow-right" aria-hidden="true" />
           </a>
         </div>
 
@@ -80,8 +80,8 @@ export const HomeAcademicTools: React.FC<Props> = ({ art41Checklist, toggleArt41
                 whileTap={{ scale: 0.99 }}
                 className={`w-full p-4 text-left cursor-pointer flex items-center justify-between gap-3 min-h-[48px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset ${
                   checked
-                    ? 'bg-success/15 text-foreground'
-                    : 'bg-white hover:bg-muted/70 text-foreground'
+                    ? 'bg-success-tint text-foreground'
+                    : 'bg-white hover:bg-muted text-foreground'
                 }`}
               >
                 <div className="flex items-center gap-3 min-w-0">
@@ -119,7 +119,7 @@ export const HomeAcademicTools: React.FC<Props> = ({ art41Checklist, toggleArt41
         <div className="px-5 py-3.5 border-b-2 border-border bg-white flex items-center justify-between">
           <h3
             id="heading-sistemas-ufmg"
-            className="font-heading text-xs sm:text-sm font-extrabold uppercase tracking-wide text-foreground m-0"
+            className="font-heading text-xs sm:text-sm font-extrabold text-foreground m-0"
           >
             Sistemas Oficiais UFMG
           </h3>

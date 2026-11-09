@@ -32,7 +32,7 @@
   height: 100%;
   width: 0%;
   background: var(--accent, #FE8812);
-  border-bottom: 1px solid #0A0A0A;
+  border-bottom: 1px solid #16181d;
   transition: width 0.22s var(--ease-out-natural);
 }
 
@@ -131,59 +131,69 @@ html[data-nav-dir="drill-out"]::view-transition-new(root) {
   animation: cagpLinkFlow 0.8s linear infinite;
 }
 
-/* 6. Carimbo Mecânico Burocrático / Selo de Homologação (cagpStampImpact) */
+/* 6. Carimbo (momento autoral do sistema — DESIGN.md › Carimbos)
+   O carimbo desce desfocado e grande, ACELERA até o papel (--ease-stamp) e no impacto
+   a tinta "pega": o contorno/sombra aparecem de uma vez, como pressão sobre papel.
+   Só roda quando um estado muda (resultado de simulador, etapa concluída), nunca no carregamento. */
 @keyframes cagpStampImpact {
   0% {
     opacity: 0;
-    transform: scale(1.18) rotate(-4deg);
+    transform: translateY(-10px) scale(1.35) rotate(-6deg);
+    filter: blur(2px);
+    box-shadow: 0 0 0 0 #16181d;
   }
-  65% {
+  72% {
     opacity: 1;
-    transform: scale(0.97) rotate(-1deg);
+    transform: translateY(0) scale(0.98) rotate(var(--stamp-rotate, -1.5deg));
+    filter: blur(0);
+    box-shadow: 0 0 0 0 #16181d;
   }
   100% {
     opacity: 1;
-    transform: scale(1) rotate(-1.25deg);
+    transform: translateY(0) scale(1) rotate(var(--stamp-rotate, -1.5deg));
+    filter: blur(0);
+    box-shadow: 2px 2px 0 0 #16181d;
   }
 }
+/* O papel sob o carimbo cede 1px no impacto. */
+@keyframes cagpStampPaperJolt {
+  0%, 68% { transform: translateY(0); }
+  78% { transform: translateY(1px); }
+  100% { transform: translateY(0); }
+}
 .cagp-stamp-impact {
-  animation: cagpStampImpact 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: cagpStampImpact var(--duration-stamp, 240ms) var(--ease-stamp, cubic-bezier(0.7, 0, 0.84, 0)) both;
+}
+.cagp-stamp-host-jolt {
+  animation: cagpStampPaperJolt 320ms linear both;
 }
 
-/* 7. Desbloqueio e Homologação de Marco / Selo (cagpSealUnlock) */
+/* 7. Desbloqueio de marco: a ficha sobe da sombra (sem escala). */
 @keyframes cagpSealUnlock {
   0% {
     opacity: 0;
-    transform: translateY(8px) scale(0.96);
-    box-shadow: 1px 1px 0 #0A0A0A;
-  }
-  70% {
-    opacity: 1;
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 4px 4px 0 #0A0A0A;
+    transform: translate(4px, 4px);
+    box-shadow: 0 0 0 0 #16181d;
   }
   100% {
     opacity: 1;
-    transform: translateY(0) scale(1);
-    box-shadow: 3px 3px 0 #0A0A0A;
+    transform: translate(0, 0);
+    box-shadow: 4px 4px 0 0 #16181d;
   }
 }
 .cagp-seal-unlock {
-  animation: cagpSealUnlock 0.32s var(--ease-out-natural) both;
+  animation: cagpSealUnlock 0.22s var(--ease-out-natural) both;
 }
 
-/* 8. Feedback Tátil ao Toque (Apple HIG physical tap spring) */
+/* 8. Press-Into-Shadow (substitui o "spring" com escala): afunda na sombra. */
 .cagp-touch-spring {
-  transition: transform 0.12s var(--ease-out-natural), background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
-  will-change: transform;
+  transition: transform 0.15s var(--ease-out-natural), background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
-.cagp-touch-spring:active {
-  transform: scale(0.97) translateY(0.5px);
-  transition-duration: 0.05s;
-}
+.cagp-touch-spring:active,
 .is-tapped {
-  transform: scale(0.97) translateY(0.5px);
-  transition: transform 0.05s var(--cagp-m3-spatial-fast);
+  transform: translate(2px, 2px);
+  box-shadow: none;
+  transition-duration: 0.05s;
 }
 
 /* 9. Pulso de Conclusão / Meta 100% */
@@ -206,43 +216,23 @@ html[data-nav-dir="drill-out"]::view-transition-new(root) {
   animation: cagpCopyPulse 0.25s var(--ease-out-natural);
 }
 
-/* 11. Entrada do Emblema Oficial (Prensa dos Candangos) */
+/* 11. Entrada do Emblema Oficial: ficha que sobe da sombra. */
 @keyframes cagpEmblemStamp {
-  0% {
-    opacity: 0;
-    transform: translateY(-8px);
-    box-shadow: 1px 1px 0 #0A0A0A;
-  }
-  70% {
-    opacity: 1;
-    transform: translateY(0);
-    box-shadow: 4px 4px 0 #0A0A0A;
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-    box-shadow: 3px 3px 0 #0A0A0A;
-  }
+  0% { opacity: 0; transform: translate(3px, 3px); box-shadow: 0 0 0 0 #16181d; }
+  100% { opacity: 1; transform: translate(0, 0); box-shadow: 3px 3px 0 0 #16181d; }
 }
 .cagp-emblem-stamp {
-  animation: cagpEmblemStamp 0.35s var(--ease-out-natural) both;
+  animation: cagpEmblemStamp 0.24s var(--ease-out-natural) both;
 }
 
-/* 12. Shimmer Sweep Neo-Brutalista para Skeletons */
-@keyframes cagpBriteSweep {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+/* 12. Skeleton: névoa chapada, pulso lento de opacidade (sem shimmer colorido). */
+@keyframes cagpSkeletonPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
 }
 .cagp-shimmer {
-  background: linear-gradient(
-    110deg,
-    #F4F1EA 25%,
-    #FFE082 48%,
-    #EAE5DC 68%,
-    #F4F1EA 90%
-  ) !important;
-  background-size: 220% 100% !important;
-  animation: cagpBriteSweep 1.35s linear infinite !important;
+  background: #e5e7ec !important;
+  animation: cagpSkeletonPulse 1.4s ease-in-out infinite !important;
 }
 
 /* 13. Dropdowns e Indicadores Pulsantes */

@@ -33,10 +33,10 @@ export const OverviewStageWidget: React.FC = () => {
               <i className="bi bi-briefcase text-white" aria-hidden="true" />
             </span>
             <div>
-              <h3 className="font-head font-bold text-sm uppercase text-foreground leading-tight m-0 tracking-wide">
+              <h3 className="font-head font-bold text-sm text-foreground leading-tight m-0">
                 Estágio & Art. 41
               </h3>
-              <span className="text-[11px] text-gray-700 font-mono font-medium">DCP 135 e DCP 136 (300h)</span>
+              <span className="text-xs text-gray-700 font-mono font-medium">DCP 135 e DCP 136 (300h)</span>
             </div>
           </div>
           <span className="px-2 py-0.5 rounded-md font-head text-xs font-bold bg-success text-white border border-border shadow-xs">
@@ -64,7 +64,7 @@ export const OverviewStageWidget: React.FC = () => {
           </div>
 
           {checkedCount >= totalRequired ? (
-            <div className="p-2.5 bg-success/20 border-3 border-border rounded-lg text-xs text-success font-bold flex items-center gap-2 shadow-xs">
+            <div className="p-2.5 bg-success-tint border-3 border-border rounded-lg text-xs text-success font-bold flex items-center gap-2 shadow-xs">
               <i className="bi bi-check-circle-fill text-base" aria-hidden="true" />
               <span className="font-head uppercase tracking-wide">Perfil Elegível para Dispensa Total</span>
             </div>

@@ -12,9 +12,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { cn } from '@/lib/utils'
 
 const featureColors = [
-  'bg-primary/10',
-  'bg-secondary/10',
-  'bg-accent/10',
+  'bg-primary-tint',
+  'bg-secondary-tint',
+  'bg-accent-tint',
   'bg-green-500/10',
   'bg-yellow-500/10',
   'bg-blue-500/10',
@@ -72,7 +72,7 @@ export function FeatureGridWithIcons({
               </p>
             )}
             {title && (
-              <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-black">
                 {title}
               </h2>
             )}
@@ -86,9 +86,6 @@ export function FeatureGridWithIcons({
 
         <motion.div
           variants={staggerContainer(0.06)}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.15 }}
           className={cn('grid gap-6', gridCols[columns])}
         >
           {features.map((feature, index) => (
@@ -113,7 +110,7 @@ export function FeatureGridWithIcons({
                   >
                     {feature.icon}
                   </div>
-                  <CardTitle className="uppercase">{feature.title}</CardTitle>
+                  <CardTitle className="">{feature.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <CardDescription className="text-base">
@@ -162,7 +159,7 @@ export function FeatureGridWithImages({
               </p>
             )}
             {title && (
-              <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-black">
                 {title}
               </h2>
             )}
@@ -171,9 +168,6 @@ export function FeatureGridWithImages({
 
         <motion.div
           variants={staggerContainer(0.06)}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.15 }}
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {features.map((feature) => (
@@ -189,7 +183,7 @@ export function FeatureGridWithImages({
                   className="w-full h-56 object-cover"
                 />
               </motion.div>
-              <h3 className="text-xl font-black uppercase mb-2">{feature.title}</h3>
+              <h3 className="text-xl font-black mb-2">{feature.title}</h3>
               <p className="text-muted-foreground font-medium">{feature.description}</p>
             </motion.div>
           ))}
@@ -241,7 +235,7 @@ export function FeatureGridAlternating({
                 >
                   {feature.icon}
                 </div>
-                <h3 className="text-2xl md:text-3xl font-black uppercase">
+                <h3 className="text-2xl md:text-3xl font-black">
                   {feature.title}
                 </h3>
                 <p className="text-lg text-muted-foreground font-medium">
@@ -307,7 +301,7 @@ export function FeatureBentoGrid({
               </p>
             )}
             {title && (
-              <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-black">
                 {title}
               </h2>
             )}
@@ -340,7 +334,7 @@ export function FeatureBentoGrid({
                   >
                     {feature.icon}
                   </div>
-                  <CardTitle className="uppercase text-lg">{feature.title}</CardTitle>
+                  <CardTitle className="text-lg">{feature.title}</CardTitle>
                   <CardDescription className="text-base line-clamp-3">
                     {feature.description}
                   </CardDescription>

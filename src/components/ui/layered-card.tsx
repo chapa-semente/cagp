@@ -141,7 +141,7 @@ const LayeredCardTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <h3
     ref={ref}
-    className={cn('text-xl font-bold uppercase tracking-wide', className)}
+    className={cn('text-xl font-bold ', className)}
     {...props}
   />
 ))

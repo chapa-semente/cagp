@@ -24,10 +24,10 @@ mandatoryList.forEach((d) => {
 <div class="cagp-mandatory-timeline space-y-6 select-none text-foreground">
   <div class="p-5 bg-white border-[3px] border-border rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-md">
     <div>
-      <span class="text-[11px] font-head uppercase font-bold tracking-wider text-secondary">
+      <span class="text-xs font-head uppercase font-bold tracking-wider text-secondary">
         Núcleo Específico Obrigatório
       </span>
-      <h3 class="font-head text-base sm:text-lg font-black uppercase text-foreground m-0">
+      <h3 class="font-head text-base sm:text-lg font-black text-foreground m-0">
         As 27 Disciplinas Obrigatórias (1.860h)
       </h3>
       <p class="font-body text-xs text-muted-foreground mt-0.5 m-0">
@@ -57,7 +57,7 @@ mandatoryList.forEach((d) => {
             <span class="w-8 h-8 rounded-lg bg-secondary text-white flex items-center justify-center font-head text-sm font-black border-3 border-border shadow-sm">
               {period}º
             </span>
-            <h4 class="font-head text-base font-bold uppercase text-foreground m-0">
+            <h4 class="font-head text-base font-bold text-foreground m-0">
               {period}º Período Letivo
             </h4>
           </div>
@@ -74,7 +74,7 @@ mandatoryList.forEach((d) => {
                   <span class="font-mono text-xs font-bold text-secondary px-2 py-0.5 rounded-md bg-white border border-border shadow-xs">
                     {c.data.codigo}
                   </span>
-                  <span class="text-[11px] font-mono text-muted-foreground font-bold">
+                  <span class="text-xs font-mono text-muted-foreground font-bold">
                     {c.data.ch}h ({Math.round(c.data.ch / 15)} cr)
                   </span>
                 </div>
@@ -85,22 +85,22 @@ mandatoryList.forEach((d) => {
 
                 {c.data.preRequisitos && c.data.preRequisitos.length > 0 && (
                   <div class="mb-2.5 p-2 bg-red-50 border border-secondary rounded-lg">
-                    <span class="text-[10px] font-head uppercase font-bold text-secondary block">
+                    <span class="text-xs font-head uppercase font-bold text-secondary block">
                       Trava SIGA (Pré-requisito):
                     </span>
-                    <span class="text-[11px] font-mono font-semibold text-foreground">
+                    <span class="text-xs font-mono font-semibold text-foreground">
                       {c.data.preRequisitos.join(', ')}
                     </span>
                   </div>
                 )}
 
                 <!-- Ementa Oficial Completa e Expansível -->
-                <div class="mt-2.5 pt-2 border-t-2 border-border/20">
+                <div class="mt-2.5 pt-2 border-t-2 border-border">
                   <details class="cagp-ementa-details group">
-                    <summary class="text-[11px] font-head uppercase font-bold text-secondary hover:text-foreground cursor-pointer flex items-center justify-between select-none min-h-[36px] py-1 px-1">
+                    <summary class="text-xs font-head uppercase font-bold text-secondary hover:text-foreground cursor-pointer flex items-center justify-between select-none min-h-[36px] py-1 px-1">
                       <span>Ementa Oficial (PPC / DCP)</span>
-                      <span class="text-[10px] font-mono text-muted-foreground group-open:hidden">Ler completa ▼</span>
-                      <span class="text-[10px] font-mono text-muted-foreground hidden group-open:inline">Recolher ▲</span>
+                      <span class="text-xs font-mono text-muted-foreground group-open:hidden">Ler completa ▼</span>
+                      <span class="text-xs font-mono text-muted-foreground hidden group-open:inline">Recolher ▲</span>
                     </summary>
                     <p class="font-body text-xs text-muted-foreground leading-relaxed mt-2 mb-0 select-text bg-white p-2.5 border border-border rounded-lg">
                       {c.data.ementa}
@@ -109,7 +109,7 @@ mandatoryList.forEach((d) => {
                 </div>
               </div>
 
-              <div class="pt-2.5 mt-3 border-t-2 border-border/20 flex items-center justify-between text-[11px] font-mono text-muted-foreground">
+              <div class="pt-2.5 mt-3 border-t-2 border-border flex items-center justify-between text-xs font-mono text-muted-foreground">
                 <span class="font-bold">{c.data.modulo || 'DCP'}</span>
                 <span class="font-bold text-[#266264] uppercase px-1.5 py-0.5 bg-teal-700/10 border border-[#266264] rounded">Obrigatória</span>
               </div>

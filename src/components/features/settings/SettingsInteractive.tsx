@@ -117,13 +117,13 @@ export const SettingsInteractive: React.FC = () => {
       {/* 4. REGIMENTOS, ATOS & TRANSPARÊNCIA */}
       <section className="bg-white border-[3px] border-border rounded-xl p-5 sm:p-6 shadow-md space-y-4">
         <div className="border-b-2 border-border pb-3">
-          <h2 className="font-head text-base sm:text-lg font-extrabold uppercase text-foreground m-0 tracking-tight">
+          <h2 className="font-head text-base sm:text-lg font-extrabold text-foreground m-0">
             4. Regimentos, Atos &amp; Transparência
           </h2>
           <p className="text-xs text-foreground m-0 font-medium">Documentos mestres que regem a vida acadêmica discente</p>
         </div>
 
-        <div className="border-3 border-border rounded-xl overflow-hidden divide-y-2 divide-[#0A0A0A] shadow-sm">
+        <div className="border-3 border-border rounded-xl overflow-hidden divide-y-2 divide-[#16181d] shadow-sm">
           <a
             href={asset('/documentos/regimento-interno-cagp-ufmg.pdf')}
             download

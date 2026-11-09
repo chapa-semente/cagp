@@ -95,7 +95,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
     setVaultItem('cagp_minha_grade_v1', { savedCourses: updated });
 
     (window as any).cagpToast?.(
-      isDone ? `${code} desmarcada da sua grade.` : `✓ ${code} marcada como integralizada (${ch}h)!`,
+      isDone ? `${code} desmarcada da sua grade.` : ` ${code} marcada como integralizada (${ch}h)!`,
       isDone ? 'bi-dash-circle' : 'bi-check2-circle'
     );
   };
@@ -214,10 +214,10 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
         <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
           <div>
             <div className="flex items-center gap-2">
-              <span className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center font-bold text-sm border-3 border-border">
+              <span className="w-8 h-8 rounded-lg bg-primary-tint text-primary flex items-center justify-center font-bold text-sm border-3 border-border">
                 <CagpIcon name="curriculo" className="w-4 h-4" />
               </span>
-              <h3 className="font-heading text-base sm:text-lg uppercase font-black text-foreground m-0">
+              <h3 className="font-heading text-base sm:text-lg font-black text-foreground m-0">
                 Grafo Curricular Dinâmico & 10 Períodos
               </h3>
             </div>
@@ -227,8 +227,8 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            <span className="cagp-stamp-badge is-semente text-[10px] py-0.5 px-2 hidden xl:inline-flex">
-              ✦ Ferramenta Criada pela Chapa Semente
+            <span className="cagp-stamp-badge is-semente text-xs py-0.5 px-2 hidden xl:inline-flex">
+              Ferramenta Criada pela Chapa Semente
             </span>
             {/* Alternador de Modo: Colunas 10P vs Mapa SVG vs Lista Móvel (44x44pt Touch Targets) */}
             <div
@@ -343,9 +343,9 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
         <div className="scroll-mask-x flex items-center gap-1.5 pb-1 sm:pb-0 max-w-full">
           {[
             { id: 'all', label: 'Todas (27)' },
-            { id: 'locked', label: '🔒 Com Trava SIGA' },
+            { id: 'locked', label: 'Com Trava SIGA' },
             { id: 'pending', label: 'Pendentes' },
-            { id: 'done', label: 'Concluídas ✓' },
+            { id: 'done', label: 'Concluídas' },
           ].map((flt) => (
             <button
               key={flt.id}
@@ -426,7 +426,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.98 }}
             transition={bounceSpring}
-            className="p-3.5 bg-[#FAF5FF] border-3 border-[#16181d] rounded-xl shadow-[4px_4px_0_0_#5B2A85] flex flex-wrap items-center justify-between gap-3 text-xs"
+            className="p-3.5 bg-[#EFE7F6] border-3 border-[#16181d] rounded-xl shadow-[4px_4px_0_0_#5B2A85] flex flex-wrap items-center justify-between gap-3 text-xs"
           >
             <div className="flex flex-wrap items-center gap-2">
               <span className="px-2.5 py-1 rounded-lg bg-[#5B2A85] text-white font-mono font-bold border-2 border-[#16181d]">
@@ -438,12 +438,12 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                 </span>
               ) : (
                 <span className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-white text-muted-foreground font-mono border border-border">
-                  ✓ Sem trava prévia
+                  Sem trava prévia
                 </span>
               )}
               {activeUnlockCodes.size > 0 && (
                 <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#DCFCE7] text-[#15803D] font-mono font-bold border-2 border-[#15803D]">
-                  Libera ➡ {Array.from(activeUnlockCodes).join(', ')}
+                  Libera → {Array.from(activeUnlockCodes).join(', ')}
                 </span>
               )}
             </div>
@@ -452,7 +452,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
               onClick={() => setFocusedCode(null)}
               className="min-h-[44px] px-3 py-1 rounded-lg bg-white hover:bg-muted border-2 border-[#16181d] font-heading font-extrabold uppercase text-xs cursor-pointer"
             >
-              Limpar Destaque ✕
+              Limpar destaque
             </button>
           </motion.div>
         )}
@@ -498,7 +498,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                         <span className="font-heading text-sm font-black uppercase text-foreground">
                           {p}º Período
                         </span>
-                        <span className="text-[10px] font-mono text-muted-foreground font-bold">
+                        <span className="text-xs font-mono text-muted-foreground font-bold">
                           {periodMandatory.length + periodCustom.length} matérias
                         </span>
                       </div>
@@ -531,13 +531,13 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                                   transition={tactileSpring}
                                   className={`p-2.5 rounded-lg border-2 transition-colors text-xs cursor-pointer ${
                                     isCurrentFocus
-                                      ? 'bg-[#FAF5FF] border-[#5B2A85] shadow-[4px_4px_0_0_#5B2A85]'
+                                      ? 'bg-[#EFE7F6] border-[#5B2A85] shadow-[4px_4px_0_0_#5B2A85]'
                                       : isPrereqChain
                                       ? 'bg-[#FFF5F5] border-[#9E2424] shadow-[4px_4px_0_0_#9E2424]'
                                       : isUnlockChain
                                       ? 'bg-[#F0FDF4] border-[#15803D] shadow-[4px_4px_0_0_#15803D]'
                                       : isCompleted
-                                      ? 'bg-success/20 border-success'
+                                      ? 'bg-success-tint border-success'
                                       : 'bg-white border-border hover:shadow-xs'
                                   }`}
                                   onClick={() => handleSelectDiscipline(disc)}
@@ -548,24 +548,24 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                                         {disc.code}
                                       </span>
                                       {isCompleted && (
-                                        <span className="text-[10px] font-bold uppercase py-0.5 px-1.5 rounded text-success bg-success/20 border border-success">
-                                          FEITO ✓
+                                        <span className="text-xs font-bold uppercase py-0.5 px-1.5 rounded text-success bg-success-tint border border-success">
+                                          FEITO
                                         </span>
                                       )}
                                       {isPrereqChain && (
-                                        <span className="text-[9px] font-mono font-black uppercase py-0.5 px-1.5 rounded bg-[#9E2424] text-white">
+                                        <span className="text-xs font-mono font-black uppercase py-0.5 px-1.5 rounded bg-[#9E2424] text-white">
                                           ⬅ PRÉ-REQ
                                         </span>
                                       )}
                                       {isUnlockChain && (
-                                        <span className="text-[9px] font-mono font-black uppercase py-0.5 px-1.5 rounded bg-[#15803D] text-white">
-                                          LIBERA ➡
+                                        <span className="text-xs font-mono font-black uppercase py-0.5 px-1.5 rounded bg-[#15803D] text-white">
+                                          LIBERA →
                                         </span>
                                       )}
                                     </div>
                                     <div className="flex items-center gap-1">
                                       {isFormalLock && (
-                                        <span className="text-[10px] text-destructive" title="Trava Formal no SIGA">
+                                        <span className="text-xs text-destructive" title="Trava Formal no SIGA">
                                           <CagpIcon name="lock" className="w-3.5 h-3.5 text-destructive" />
                                         </span>
                                       )}
@@ -592,7 +592,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                                     {disc.name}
                                   </p>
 
-                                  <div className="flex items-center justify-between text-[10px] text-muted-foreground font-mono">
+                                  <div className="flex items-center justify-between text-xs text-muted-foreground font-mono">
                                     <span>{disc.dept} • {disc.ch}h</span>
                                     {disc.formalReqs.length > 0 && (
                                       <span className="text-destructive font-bold">
@@ -632,13 +632,13 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                                 <div
                                   className={`p-2.5 rounded-lg border-2 border-dashed transition-all text-xs cursor-pointer ${
                                     isCompleted
-                                      ? 'bg-success/20 border-success'
+                                      ? 'bg-success-tint border-success'
                                       : 'bg-[#FFFBEB] border-warning'
                                   }`}
                                   onClick={() => handleSelectCustomCourse(cust)}
                                 >
                                   <div className="flex items-start justify-between gap-1 mb-1">
-                                    <span className="px-1.5 py-0.5 rounded text-[10px] font-heading uppercase font-extrabold bg-warning text-white">
+                                    <span className="px-1.5 py-0.5 rounded text-xs font-heading uppercase font-extrabold bg-warning text-white">
                                       {cust.category === 'formacao_livre' ? 'LIVRE' : 'OPTATIVA'}
                                     </span>
                                     <div className="flex items-center">
@@ -667,19 +667,19 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                                         className="min-w-[44px] min-h-[44px] -my-2 -mr-1 flex items-center justify-center text-muted-foreground hover:text-destructive text-sm cursor-pointer"
                                         title="Remover do Grafo"
                                       >
-                                        ✕
+                                        <i className="bi bi-x-lg" aria-hidden="true" />
                                       </button>
                                     </div>
                                   </div>
 
-                                  <span className="font-mono font-bold text-warning text-[11px] block">
+                                  <span className="font-mono font-bold text-warning text-xs block">
                                     {cust.code}
                                   </span>
                                   <p className="font-heading font-extrabold text-xs text-foreground leading-tight m-0 mb-1">
                                     {cust.name}
                                   </p>
 
-                                  <div className="flex items-center justify-between text-[10px] text-muted-foreground font-mono">
+                                  <div className="flex items-center justify-between text-xs text-muted-foreground font-mono">
                                     <span>{cust.dept}</span>
                                     <span className="font-bold text-warning">{cust.ch}h</span>
                                   </div>
@@ -762,10 +762,10 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
               </div>
               <div className="flex items-center gap-1.5">
                 <span className="w-3 h-3 rounded-full bg-success inline-block" />
-                <span className="text-success font-bold">Integralizada ✓</span>
+                <span className="text-success font-bold">Integralizada</span>
               </div>
             </div>
-            <span className="text-muted-foreground font-mono text-[11px]">
+            <span className="text-muted-foreground font-mono text-xs">
               Toque em um nó para destacar a cadeia e abrir o Drawer
             </span>
           </div>
@@ -805,16 +805,16 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                           onClick={() => setSelectedNode(null)}
                           className="min-h-[44px] px-3 text-xs"
                         >
-                          ✕ Fechar
+                          Fechar
                         </Button>
                       </div>
-                      <h4 className="font-heading font-black text-sm uppercase text-foreground m-0">
+                      <h4 className="font-heading font-black text-sm text-foreground m-0">
                         {selectedNode.name}
                       </h4>
                       <p className="text-xs text-muted-foreground leading-relaxed m-0">
                         {selectedNode.desc || 'Disciplina integrante da estrutura curricular formal de Gestão Pública UFMG.'}
                       </p>
-                      <div className="p-2.5 bg-muted/40 rounded-lg border border-border text-xs font-mono space-y-1">
+                      <div className="p-2.5 bg-background rounded-lg border border-border text-xs font-mono space-y-1">
                         <div><strong>Departamento:</strong> {selectedNode.dept}</div>
                         <div><strong>Carga Horária:</strong> {selectedNode.ch}h ({Math.round(selectedNode.ch / 15)} cr)</div>
                         <div><strong>Período Sugerido:</strong> {selectedNode.period}º Período</div>
@@ -861,7 +861,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                       <div
                         key={disc.code}
                         className={`p-3 rounded-lg border-2 flex items-center justify-between gap-2 ${
-                          isCompleted ? 'bg-success/20 border-success' : 'bg-white border-border'
+                          isCompleted ? 'bg-success-tint border-success' : 'bg-white border-border'
                         }`}
                         onClick={() => handleSelectDiscipline(disc)}
                       >
@@ -869,8 +869,8 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                           <div className="flex items-center gap-1.5">
                             <span className="font-mono font-black text-xs text-primary">{disc.code}</span>
                             {isCompleted && (
-                              <span className="text-[9px] font-bold uppercase px-1 py-0.5 rounded bg-success/20 text-success border border-success">
-                                FEITO ✓
+                              <span className="text-xs font-bold uppercase px-1 py-0.5 rounded bg-success-tint text-success border border-success">
+                                FEITO
                               </span>
                             )}
                           </div>

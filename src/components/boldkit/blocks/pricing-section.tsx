@@ -38,7 +38,7 @@ export function PricingSection({
     <section className={cn('py-16 px-4 md:px-8 lg:px-16', className)}>
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12 space-y-3">
-          <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight">{title}</h2>
+          <h2 className="text-4xl md:text-5xl font-black">{title}</h2>
           {subtitle && <p className="text-muted-foreground max-w-xl mx-auto">{subtitle}</p>}
         </div>
         <div className="grid gap-6 md:grid-cols-3">
@@ -53,7 +53,7 @@ export function PricingSection({
               )}
             >
               <div className="flex items-center justify-between">
-                <h3 className="text-xl font-black uppercase tracking-wide">{tier.name}</h3>
+                <h3 className="text-xl font-black">{tier.name}</h3>
                 {tier.featured && <Badge variant="accent">Popular</Badge>}
               </div>
               {tier.description && (
@@ -129,7 +129,7 @@ export function CheckoutSummary({
         className
       )}
     >
-      <h3 className="text-lg font-black uppercase tracking-wide">Order summary</h3>
+      <h3 className="text-lg font-black">Order summary</h3>
       <p className="mt-1 text-sm font-bold text-muted-foreground">{planName}</p>
       <div className="mt-4 space-y-2 border-t-2 border-foreground pt-4">
         {lineItems.map((item) => (

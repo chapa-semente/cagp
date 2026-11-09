@@ -33,7 +33,7 @@ export const Art41Widget: React.FC = () => {
               <i className="bi bi-briefcase-fill" aria-hidden="true" />
             </span>
             <div>
-              <h3 className="font-head font-bold text-sm uppercase text-foreground leading-tight m-0">
+              <h3 className="font-head font-bold text-sm text-foreground leading-tight m-0">
                 Aproveitamento Servidor
               </h3>
               <span className="text-xs text-muted-foreground font-mono">Dispensa Art. 41 • Setor Público</span>

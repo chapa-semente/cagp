@@ -2,8 +2,8 @@
 
 /* Modo Alto Contraste AAA para a Sidebar Unificada */
 html[data-a11y-contrast="high"] #cagp-app-sidebar {
-  background: #0A0A0A !important;
-  border-right-color: #E8A317 !important;
+  background: #16181d !important;
+  border-right-color: #FE8812 !important;
   box-shadow: none !important;
 }
 

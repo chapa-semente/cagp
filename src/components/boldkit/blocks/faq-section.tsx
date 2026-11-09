@@ -39,9 +39,6 @@ export function FAQAccordion({
     <section className={cn('py-14 sm:py-16 px-4 md:px-8 lg:px-16', className)}>
       <motion.div
         variants={staggerContainer(0.06)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.15 }}
         className="max-w-3xl mx-auto"
       >
         {(title || subtitle || description) && (
@@ -52,7 +49,7 @@ export function FAQAccordion({
               </p>
             )}
             {title && (
-              <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-black">
                 {title}
               </h2>
             )}
@@ -71,7 +68,7 @@ export function FAQAccordion({
                 value={`item-${index}`}
                 className="border-3 border-[#16181d] bg-card shadow-[4px_4px_0_0_#16181d] data-[state=open]:shadow-[6px_6px_0_0_#16181d] data-[state=open]:translate-x-[-2px] data-[state=open]:translate-y-[-2px] transition"
               >
-                <AccordionTrigger className="px-6 py-4 font-bold uppercase tracking-wide hover:no-underline">
+                <AccordionTrigger className="px-6 py-4 font-bold hover:no-underline">
                   {item.question}
                 </AccordionTrigger>
                 <AccordionContent className="px-6 pb-4 text-muted-foreground">
@@ -105,10 +102,10 @@ export function FAQTwoColumns({
   const rightColumn = items.slice(midpoint)
 
   return (
-    <section className={cn('py-16 px-4 md:px-8 lg:px-16 bg-muted/30', className)}>
+    <section className={cn('py-16 px-4 md:px-8 lg:px-16 bg-background', className)}>
       <div className="max-w-6xl mx-auto">
         {title && (
-          <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-black text-center mb-12">
             {title}
           </h2>
         )}
@@ -157,7 +154,7 @@ export function FAQWithCategories({
     <section className={cn('py-16 px-4 md:px-8 lg:px-16', className)}>
       <div className="max-w-4xl mx-auto">
         {title && (
-          <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-black text-center mb-12">
             {title}
           </h2>
         )}
@@ -181,7 +178,7 @@ export function FAQWithCategories({
               value={`item-${index}`}
               className="border-3 border-foreground bg-card shadow-md"
             >
-              <AccordionTrigger className="px-6 py-4 font-bold uppercase tracking-wide hover:no-underline">
+              <AccordionTrigger className="px-6 py-4 font-bold hover:no-underline">
                 {item.question}
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-4 text-muted-foreground">
@@ -219,7 +216,7 @@ export function FAQWithContact({
     <section className={cn('py-16 px-4 md:px-8 lg:px-16', className)}>
       <div className="max-w-4xl mx-auto">
         {title && (
-          <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-black text-center mb-12">
             {title}
           </h2>
         )}
@@ -231,7 +228,7 @@ export function FAQWithContact({
               value={`item-${index}`}
               className="border-3 border-foreground bg-card shadow-md"
             >
-              <AccordionTrigger className="px-6 py-4 font-bold uppercase tracking-wide hover:no-underline">
+              <AccordionTrigger className="px-6 py-4 font-bold hover:no-underline">
                 {item.question}
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-4 text-muted-foreground">
@@ -241,9 +238,9 @@ export function FAQWithContact({
           ))}
         </Accordion>
 
-        <div className="border-3 border-foreground bg-primary/10 p-8 shadow-lg text-center space-y-4">
+        <div className="border-3 border-foreground bg-primary-tint p-8 shadow-lg text-center space-y-4">
           <HelpCircle className="h-12 w-12 mx-auto text-primary" />
-          <h3 className="text-xl font-black uppercase">{contactTitle}</h3>
+          <h3 className="text-xl font-black">{contactTitle}</h3>
           <p className="text-muted-foreground font-medium max-w-md mx-auto">
             {contactDescription}
           </p>
@@ -274,10 +271,10 @@ export function FAQSimpleList({
   className,
 }: FAQSimpleListProps) {
   return (
-    <section className={cn('py-16 px-4 md:px-8 lg:px-16 bg-muted/30', className)}>
+    <section className={cn('py-16 px-4 md:px-8 lg:px-16 bg-background', className)}>
       <div className="max-w-3xl mx-auto">
         {title && (
-          <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-black text-center mb-12">
             {title}
           </h2>
         )}

@@ -3,6 +3,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
 import SegmentedControl from '../components/ui/SegmentedControl.astro';
+import SementeSignature from '../components/ui/SementeSignature.astro';
 import JourneyNav from '../components/ui/JourneyNav.astro';
 import FactCheckBanner from '../components/ui/FactCheckBanner.astro';
 import AcgCentralOverview from '../components/features/acg/AcgCentralOverview.astro';
@@ -13,9 +14,9 @@ import { route } from '../lib/paths';
 
 const tabs = [
   { id: 'v0', shortLabel: 'Geral', fullLabel: 'Visão Geral das 600h', hash: '#visao-geral' },
-  { id: 'v1', shortLabel: 'Simular Horas', fullLabel: '1. Simular Horas (300h + 300h)', hash: '#calculadora' },
-  { id: 'v2', shortLabel: 'Alerta 120 Dias', fullLabel: '2. Alerta 120 Dias (Art. 15)', hash: '#guardiao-120-dias' },
-  { id: 'v3', shortLabel: 'Protocolo', fullLabel: '3. Protocolo Colegiado N-20229', hash: '#protocolo-colegiado' },
+  { id: 'v1', shortLabel: 'Simular Horas', fullLabel: 'Simular Horas (300h + 300h)', hash: '#calculadora' },
+  { id: 'v2', shortLabel: 'Alerta 120 Dias', fullLabel: 'Alerta 120 Dias (Art. 15)', hash: '#guardiao-120-dias' },
+  { id: 'v3', shortLabel: 'Protocolo', fullLabel: 'Protocolo Colegiado N-20229', hash: '#protocolo-colegiado' },
 ];
 
 const badges = [
@@ -34,32 +35,12 @@ const badges = [
   <PageHeader
     mode="operate"
     condensed={true}
-    axisId="percurso"
+    axisId="curriculo"
     activeId="acg"
-    eyebrow="Eixo 3 · Proposta 3 Chapa Semente Materializada"
     title="Horas & 600h"
     subtitle="Simule 300h de Extensão e 300h de AAC com trava automática de tetos, ative o Alerta 120 Dias corridos (Art. 15) e baixe o requerimento oficial do Colegiado."
     badges={badges}
   />
-
-  <!-- Faixa Tátil de Conversão Eleitoral Chapa Semente -->
-  <div class="mb-4 p-3.5 sm:p-4 rounded-xl border-3 border-[#16181d] bg-[#FAF5FF] shadow-[4px_4px_0_0_#16181d] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-    <div class="flex flex-col items-start gap-2 lg:flex-row lg:items-center lg:gap-3 min-w-0">
-      <span class="cagp-stamp-badge is-semente shrink-0 text-[11px] py-1 px-2.5">
-        ✦ FERRAMENTA CRIADA PELA CHAPA SEMENTE
-      </span>
-      <p class="font-sans text-xs text-[#16181d] font-medium m-0 leading-snug">
-        Chega de planilhas perdidas ou reprovação de certificado por perder prazo. Entregamos esta calculadora <strong>antes da eleição</strong> para proteger sua colação de grau.
-      </p>
-    </div>
-    <a
-      href={route('/chapa-semente')}
-      class="min-h-[44px] px-4 py-2 rounded-xl bg-[#FE8812] hover:bg-[#E07406] text-[#16181d] font-heading text-xs font-extrabold uppercase tracking-wider border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all inline-flex items-center justify-center gap-1.5 no-underline shrink-0"
-    >
-      <span>Votar Semente 25–26/11</span>
-      <i class="bi bi-arrow-right-circle-fill" aria-hidden="true"></i>
-    </a>
-  </div>
 
   <SegmentedControl tabs={tabs} defaultTab="v0" />
 
@@ -96,6 +77,11 @@ Art. 15, § 4º — O discente terá o prazo máximo de 120 (cento e vinte) dias
     <div id="protocolo-colegiado" class="cagp-anchor-target scroll-mt-24"></div>
     <AcgTramitacaoCore />
   </section>
+
+  <SementeSignature
+    proposal="Proposta 3"
+    text="Chega de planilha perdida ou certificado recusado por prazo: a Chapa Semente entregou esta calculadora antes da eleição para proteger a sua colação de grau."
+  />
 
   <!-- Journey Navigation Trail -->
   <JourneyNav

@@ -66,3 +66,7 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+        with:
+          # Padrão é 600000 (10 min). O GitHub às vezes fica preso em
+          # "syncing_files"; damos mais margem antes de abortar.
+          timeout: 1800000

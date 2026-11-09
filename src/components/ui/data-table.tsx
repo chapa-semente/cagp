@@ -386,7 +386,7 @@ function DataTable<TData, TValue>({
         {/* Table */}
         <div className="scroll-mask-x overflow-x-auto rounded-xl border-3 border-[#16181d] bg-card shadow-[6px_6px_0_0_#16181d]">
           <Table>
-            <TableHeader className="border-b-3 border-[#16181d] bg-muted/80">
+            <TableHeader className="border-b-3 border-[#16181d] bg-muted">
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id} className="border-b-2 border-[#16181d]">
                   {headerGroup.headers.map((header) => {
@@ -421,7 +421,7 @@ function DataTable<TData, TValue>({
                   <TableRow
                     key={row.id}
                     data-state={row.getIsSelected() && 'selected'}
-                    className="border-b-2 border-[#16181d]/20 hover:bg-accent/15 transition-colors"
+                    className="border-b-2 border-[#16181d]/20 hover:bg-accent-tint transition-colors"
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>

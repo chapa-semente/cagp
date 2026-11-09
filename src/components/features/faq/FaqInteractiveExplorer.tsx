@@ -128,7 +128,7 @@ export const FaqInteractiveExplorer: React.FC<Props> = ({ faqs }) => {
                     {f.a}
                   </p>
                   {f.links && f.links.length > 0 && (
-                    <div className="pt-3 border-t-2 border-border/20 flex flex-wrap gap-2.5">
+                    <div className="pt-3 border-t-2 border-border flex flex-wrap gap-2.5">
                       {f.links.map((link) => (
                         <Button
                           key={link.url}

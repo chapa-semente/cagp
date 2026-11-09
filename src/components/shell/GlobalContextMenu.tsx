@@ -201,7 +201,7 @@ export const GlobalContextMenu: React.FC = () => {
     >
       {/* Context-Specific Items */}
       {activeEntity.type === 'course' && (
-        <div className="pb-1 mb-1 border-b-2 border-border/60">
+        <div className="pb-1 mb-1 border-b-2 border-border">
           <div className="px-2.5 py-1 text-xs font-heading font-black uppercase tracking-wide text-primary truncate">
             Disciplina: {activeEntity.data?.code || activeEntity.data?.id || 'UFMG'}
           </div>
@@ -229,7 +229,7 @@ export const GlobalContextMenu: React.FC = () => {
       )}
 
       {activeEntity.type === 'cert' && (
-        <div className="pb-1 mb-1 border-b-2 border-border/60">
+        <div className="pb-1 mb-1 border-b-2 border-border">
           <div className="px-2.5 py-1 text-xs font-heading font-black uppercase tracking-wide text-accent truncate">
             Certificado ACG (600h)
           </div>
@@ -247,7 +247,7 @@ export const GlobalContextMenu: React.FC = () => {
       )}
 
       {activeEntity.type === 'proposal' && (
-        <div className="pb-1 mb-1 border-b-2 border-border/60">
+        <div className="pb-1 mb-1 border-b-2 border-border">
           <div className="px-2.5 py-1 text-xs font-heading font-black uppercase tracking-wide text-primary truncate">
             Chapa Semente • Proposta
           </div>
@@ -266,7 +266,7 @@ export const GlobalContextMenu: React.FC = () => {
       )}
 
       {activeEntity.type === 'news' && (
-        <div className="pb-1 mb-1 border-b-2 border-border/60">
+        <div className="pb-1 mb-1 border-b-2 border-border">
           <div className="px-2.5 py-1 text-xs font-heading font-black uppercase tracking-wide text-primary truncate">
             Comunicado Discente
           </div>
@@ -331,7 +331,7 @@ export const GlobalContextMenu: React.FC = () => {
           <span className="font-mono text-xs font-bold text-primary tabular-nums">2026</span>
         </a>
 
-        <div className="my-1 border-t-2 border-border/60"></div>
+        <div className="my-1 border-t-2 border-border"></div>
 
         <button
           type="button"

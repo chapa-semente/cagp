@@ -2,6 +2,7 @@
 // src/pages/cursos.astro — Tela 11: Cursos Livres & Formação (Proposta 10 da Chapa Semente • Eixo 3)
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
+import SementeSignature from '../components/ui/SementeSignature.astro';
 import JourneyNav from '../components/ui/JourneyNav.astro';
 import { CursosCatalogHub } from '../components/features/cursos/CursosCatalogHub';
 import { route } from '@/lib/paths';
@@ -16,9 +17,8 @@ import { route } from '@/lib/paths';
     <PageHeader
       title="Cursos Livres & Formação (ENAP / EV.G / UFMG)"
       subtitle="Proposta 10 da Chapa Semente: integralize suas 300h de Extensão e 300h de AAC com oficinas gratuitas do CAGP, UFMG e certificados oficiais da Escola Virtual de Governo em 1 clique."
-      badge={{ text: 'Proposta 10 • Chapa Semente', variant: 'primary' }}
-      breadcrumbs={[{ label: 'Eixo 3: Vida Acadêmica', href: route('/percurso') }, { label: 'Cursos Livres & ENAP' }]}
-      axisId="percurso"
+      breadcrumbs={[{ label: 'Trajetória 600h', href: route('/percurso') }, { label: 'Cursos Livres & ENAP' }]}
+      axisId="curriculo"
       activeId="cursos"
       mode="operate"
       condensed={true}
@@ -26,85 +26,20 @@ import { route } from '@/lib/paths';
   </div>
 
   <div class="space-y-6">
-    {/* Banner Eleitoral Direto: Proposta 10 da Chapa Semente (Cursos Livres) */}
-    <section
-      aria-label="Proposta 10 da Chapa Semente — Cursos Livres"
-      class="p-4 sm:p-5 rounded-xl border-3 border-[#16181d] bg-[#F2CD5C] text-[#16181d] shadow-[5px_5px_0_0_#16181d] flex flex-col lg:flex-row lg:items-center justify-between gap-4"
-    >
-      <div class="space-y-1.5 max-w-3xl">
-        <div class="flex flex-wrap items-center gap-2">
-          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#5B2A85] text-white font-heading text-[11px] font-black uppercase tracking-wider border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
-            ✦ PROPOSTA 10 DA CHAPA SEMENTE • CURSOS LIVRES & EXTENSÃO
-          </span>
-          <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-white text-[#16181d] font-mono text-[11px] font-bold border-2 border-[#16181d]">
-            VÁLIDO PARA ACG (300h EXT + 300h AAC)
-          </span>
-        </div>
-        <h2 class="font-heading text-base sm:text-lg font-black uppercase tracking-tight text-[#16181d] m-0">
-          Formação Crítica, Técnica e Gratuita Direto no Portal do CAGP
-        </h2>
-        <p class="text-xs sm:text-sm font-sans font-medium text-[#16181d]/90 m-0 leading-relaxed">
-          A <strong>Proposta 10 da Chapa Semente</strong> transforma o site do Centro Acadêmico em plataforma permanente de <strong>Cursos Livres de Ciência Política, Orçamento e Dados (UFMG/DCP)</strong> somada à curadoria de <strong>1.045+ cursos gratuitos da ENAP/EV.G</strong> com simulação instantânea na Calculadora 600h.
-        </p>
-      </div>
-
-      <div class="flex flex-wrap items-center gap-2.5 shrink-0">
-        <a
-          href={route('/acg')}
-          class="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-3.5 py-2 rounded-xl bg-white text-[#16181d] font-heading text-xs font-black uppercase tracking-wider border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] hover:bg-[#FAF6F0] transition-all no-underline"
-        >
-          <i class="bi bi-calculator-fill text-[#5B2A85]" aria-hidden="true"></i>
-          <span>Abrir Calculadora 600h</span>
-        </a>
-        <a
-          href={route('/chapa-semente')}
-          class="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 py-2 rounded-xl bg-[#16181d] text-[#F2CD5C] font-heading text-xs font-black uppercase tracking-wider border-3 border-[#16181d] shadow-[3px_3px_0_0_#5B2A85] hover:bg-[#5B2A85] hover:text-white transition-all no-underline"
-        >
-          <span>Conhecer Proposta 10 & Votar</span>
-          <i class="bi bi-arrow-right" aria-hidden="true"></i>
-        </a>
-      </div>
-    </section>
-
-    {/* Citações Oficiais: Ítalo de Morais & Mariana Presti */}
-    <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="p-4 rounded-xl border-3 border-[#16181d] bg-card shadow-[4px_4px_0px_#16181d] flex gap-3">
-        <div class="w-11 h-11 rounded-xl bg-[#EDE9FE] text-[#5B2A85] border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] flex items-center justify-center shrink-0 text-xl font-bold">
-          <i class="bi bi-award" aria-hidden="true"></i>
-        </div>
-        <div class="space-y-1">
-          <p class="text-xs text-foreground font-medium italic leading-relaxed m-0">
-            "Autonomia e articulação começam na capacidade de resolver os problemas do curso sem gastar rios de dinheiro. O site é a tribuna dos nossos cursos livres de ciência política e o pilar da nossa independência técnica."
-          </p>
-          <span class="block text-[11px] font-heading font-black text-primary uppercase">
-            — Ítalo de Morais, Diretor de Articulação e Assuntos Políticos (Chapa Semente)
-          </span>
-        </div>
-      </div>
-
-      <div class="p-4 rounded-xl border-3 border-[#16181d] bg-card shadow-[4px_4px_0px_#16181d] flex gap-3">
-        <div class="w-11 h-11 rounded-xl bg-[#FEF08A] text-[#16181d] border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] flex items-center justify-center shrink-0 text-xl font-bold">
-          <i class="bi bi-journal-bookmark" aria-hidden="true"></i>
-        </div>
-        <div class="space-y-1">
-          <p class="text-xs text-foreground font-medium italic leading-relaxed m-0">
-            "Planilhas abandonadas no Drive não formam pesquisadores. Oportunidade que você não vê é oportunidade perdida: seu currículo e suas horas de formação começam abertas e visíveis em tempo real no site."
-          </p>
-          <span class="block text-[11px] font-heading font-black text-primary uppercase">
-            — Mariana Presti, Diretora Acadêmica (Chapa Semente)
-          </span>
-        </div>
-      </div>
-    </section>
-
     {/* Hub Interativo de Cursos */}
     <section aria-label="Catálogo Interativo de Cursos">
       <CursosCatalogHub client:load />
     </section>
 
+    <SementeSignature
+      proposal="Proposta 10"
+      text="Cursos livres de ciência política, orçamento e dados no portal do CAGP, somados aos cursos gratuitos da ENAP que contam para as suas 600h."
+      leaderId="italo"
+    />
+
     <JourneyNav
-      prev={{ label: 'Catálogo de Optativas (PPC)', href: route('/optativas'), meta: 'Busca Roxo Semente e Filtros por Departamento' }}
-      next={{ label: 'Horas & 600h (Calculadora + Guardião 120d)', href: route('/acg'), meta: 'Simular Horas e Alerta de Prazo Art. 15' }}
+      prev={{ title: 'Catálogo de optativas', href: '/optativas', desc: 'Busca e filtro por departamento no PPC.' }}
+      next={{ title: 'Horas & 600h', href: '/acg', desc: 'Simule as horas e o prazo de 120 dias do Art. 15.' }}
     />
   </div>
 </BaseLayout>

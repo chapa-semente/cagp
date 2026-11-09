@@ -71,6 +71,17 @@ export const PwaCredenciamentoPill: React.FC = () => {
     return () => window.removeEventListener('cagp:vault-updated', syncState);
   }, []);
 
+  // One Float Rule (DESIGN.md › Layout): enquanto a pílula está visível, o "voltar ao topo" some no celular.
+  useEffect(() => {
+    const root = document.documentElement;
+    const visible = mounted && !isDismissed && !tucked;
+    if (visible) root.dataset.floatPill = '1';
+    else delete root.dataset.floatPill;
+    return () => {
+      delete root.dataset.floatPill;
+    };
+  }, [mounted, isDismissed, tucked]);
+
   const handleOpenCredenciamento = () => {
     window.dispatchEvent(new CustomEvent('cagp:open-credenciamento'));
   };

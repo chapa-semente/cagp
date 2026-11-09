@@ -34,9 +34,9 @@ const spanClass: Record<NonNullable<BentoItem['span']>, string> = {
 }
 
 const accentClass: Record<NonNullable<BentoItem['accent']>, string> = {
-  primary: 'bg-[#FAF5FF]',
+  primary: 'bg-[#EFE7F6]',
   secondary: 'bg-[#FDF8F8]',
-  accent: 'bg-[#FFFDF9]',
+  accent: 'bg-[#ffffff]',
   card: 'bg-white',
 }
 
@@ -47,16 +47,13 @@ export function BentoGrid({ title, subtitle, items, className }: BentoGridProps)
         {(title || subtitle) && (
           <div className="text-center mb-8 sm:mb-10 space-y-2.5">
             {title && (
-              <h2 className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-[#16181d]">{title}</h2>
+              <h2 className="text-2xl sm:text-4xl font-black text-[#16181d]">{title}</h2>
             )}
             {subtitle && <p className="text-muted-foreground max-w-2xl mx-auto text-xs sm:text-sm">{subtitle}</p>}
           </div>
         )}
         <motion.div
           variants={staggerContainer(0.06)}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.1 }}
           className="grid grid-cols-1 md:grid-cols-3 auto-rows-[minmax(160px,auto)] gap-5"
         >
           {items.map((item) => (
@@ -88,7 +85,7 @@ export function BentoGrid({ title, subtitle, items, className }: BentoGridProps)
                 </div>
 
                 <div>
-                  <h3 className="text-base sm:text-lg font-head font-black uppercase tracking-wide text-[#16181d] leading-snug m-0">
+                  <h3 className="text-base sm:text-lg font-head font-black text-[#16181d] leading-snug m-0">
                     {item.title}
                   </h3>
                   {item.meta && (
@@ -135,7 +132,7 @@ export function BentoGrid({ title, subtitle, items, className }: BentoGridProps)
                       {item.secondaryHref && (
                         <a
                           href={item.secondaryHref}
-                          className="min-h-[48px] min-w-[48px] px-3 py-2 rounded-xl bg-[#FFFDF9] hover:bg-[#FE8812] text-[#16181d] font-mono text-xs font-black uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] inline-flex items-center justify-center gap-1 no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5"
+                          className="min-h-[48px] min-w-[48px] px-3 py-2 rounded-xl bg-[#ffffff] hover:bg-[#FE8812] text-[#16181d] font-mono text-xs font-black uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] inline-flex items-center justify-center gap-1 no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5"
                         >
                           <span>{item.secondaryLabel || '90h AAC'}</span>
                         </a>

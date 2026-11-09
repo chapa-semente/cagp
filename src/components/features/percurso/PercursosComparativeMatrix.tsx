@@ -135,7 +135,7 @@ export const PercursosComparativeMatrix: React.FC = () => {
                 <Badge variant="default">VERSÃO CURRICULAR N-20229 (3.000 HORAS)</Badge>
                 <Badge variant="secondary">3 PERCURSOS OFICIAIS DO PPC</Badge>
               </div>
-              <CardTitle className="text-xl uppercase">
+              <CardTitle className="text-xl">
                 Matriz Comparativa dos 3 Percursos Curriculares (Geral, FCA e Pós)
               </CardTitle>
               <CardDescription className="text-xs font-medium text-muted-foreground">
@@ -143,7 +143,7 @@ export const PercursosComparativeMatrix: React.FC = () => {
               </CardDescription>
             </div>
             <div className="w-full sm:w-64">
-              <span className="text-[11px] font-mono font-bold uppercase text-muted-foreground block mb-1">
+              <span className="text-xs font-mono font-bold uppercase text-muted-foreground block mb-1">
                 Destacar Percurso:
               </span>
               <NativeSelect
@@ -167,7 +167,7 @@ export const PercursosComparativeMatrix: React.FC = () => {
             <div className="p-4 rounded-xl border-3 border-border bg-white shadow flex flex-col justify-between space-y-3">
               <div className="space-y-1.5">
                 <Badge variant="default">1. NÚCLEO GERAL (INGRESSO PADRÃO)</Badge>
-                <h4 className="font-heading text-sm font-black uppercase text-foreground">
+                <h4 className="font-heading text-sm font-black text-foreground">
                   Você entra aqui (e pode permanecer)
                 </h4>
                 <p className="text-xs text-[#3F3C38] leading-relaxed">
@@ -184,7 +184,7 @@ export const PercursosComparativeMatrix: React.FC = () => {
             <div className="p-4 rounded-xl border-3 border-border bg-white shadow flex flex-col justify-between space-y-3">
               <div className="space-y-1.5">
                 <Badge variant="secondary">2. NÚCLEO COMPLEMENTAR (FCA)</Badge>
-                <h4 className="font-heading text-sm font-black uppercase text-foreground">
+                <h4 className="font-heading text-sm font-black text-foreground">
                   Migração a partir do 5º Período
                 </h4>
                 <p className="text-xs text-[#3F3C38] leading-relaxed">
@@ -201,7 +201,7 @@ export const PercursosComparativeMatrix: React.FC = () => {
             <div className="p-4 rounded-xl border-3 border-border bg-white shadow flex flex-col justify-between space-y-3">
               <div className="space-y-1.5">
                 <Badge variant="teal">3. NÚCLEO AVANÇADO (PÓS-GRADUAÇÃO)</Badge>
-                <h4 className="font-heading text-sm font-black uppercase text-foreground">
+                <h4 className="font-heading text-sm font-black text-foreground">
                   Migração a partir do 7º Período
                 </h4>
                 <p className="text-xs text-[#3F3C38] leading-relaxed">
@@ -222,7 +222,7 @@ export const PercursosComparativeMatrix: React.FC = () => {
               <span className="font-heading text-xs uppercase font-extrabold text-foreground">
                 Perfil Geométrico de Distribuição de Carga Horária
               </span>
-              <span className="text-[10px] font-mono font-bold px-2 py-0.5 bg-card border border-border rounded shadow-xs text-muted-foreground">
+              <span className="text-xs font-mono font-bold px-2 py-0.5 bg-card border border-border rounded shadow-xs text-muted-foreground">
                 Radar Recharts Multi-Eixo
               </span>
             </div>

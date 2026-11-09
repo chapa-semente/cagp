@@ -20,27 +20,6 @@ const badges = [
   mode="read"
 >
   <div class="space-y-6 max-w-6xl mx-auto">
-    <!-- Barra Superior Fixa / Breadcrumb (Mobile-First com Retorno Rápido) -->
-    <div
-      id="cagp-vagas-back-bar"
-      class="sticky top-0 z-30 -mx-3 sm:-mx-6 mb-2 bg-background/95 backdrop-blur-sm border-b-3 border-border px-3 sm:px-6 py-2.5 flex items-center justify-between gap-3 shadow-xs select-none"
-    >
-      <div class="flex items-center gap-2">
-        <a
-          href={route('/carreira')}
-          class="min-h-[44px] px-3.5 py-1.5 rounded-xl bg-card hover:bg-muted border-2 border-border text-xs font-heading font-extrabold uppercase text-foreground no-underline inline-flex items-center gap-2 shadow-xs active:translate-x-0.5 active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 transition-all"
-        >
-          <span aria-hidden="true">&larr;</span>
-          <span>Voltar ao Hub de Carreira</span>
-        </a>
-      </div>
-      <div class="flex items-center gap-2 text-xs font-mono font-bold text-muted-foreground uppercase">
-        <span class="hidden sm:inline">Eixo 4 • Carreira</span>
-        <span class="hidden sm:inline">•</span>
-        <span class="text-primary">Radar de Vagas</span>
-      </div>
-    </div>
-
     <PageHeader
       axisId="carreira"
       mode="read"

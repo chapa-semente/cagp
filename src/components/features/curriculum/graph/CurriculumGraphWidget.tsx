@@ -29,13 +29,13 @@ export const CurriculumGraphWidget: React.FC = () => {
               <i className="bi bi-diagram-3-fill" aria-hidden="true" />
             </span>
             <div>
-              <h3 className="font-head font-bold text-sm uppercase text-foreground leading-tight m-0">
+              <h3 className="font-head font-bold text-sm text-foreground leading-tight m-0">
                 Grafo Dinâmico 10P
               </h3>
-              <span className="text-[11px] text-muted-foreground font-mono">10 Semestres Noturno</span>
+              <span className="text-xs text-muted-foreground font-mono">10 Semestres Noturno</span>
             </div>
           </div>
-          <span className="px-2.5 py-1 rounded-md font-head text-[11px] font-bold bg-teal-700 text-white border border-border shadow-xs">
+          <span className="px-2.5 py-1 rounded-md font-head text-xs font-bold bg-teal-700 text-white border border-border shadow-xs">
             {customList.length} optativa{customList.length === 1 ? '' : 's'}
           </span>
         </div>

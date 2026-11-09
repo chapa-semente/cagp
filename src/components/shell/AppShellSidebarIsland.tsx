@@ -278,8 +278,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
         >
           <div className="flex items-center gap-2 min-w-0">
             <span className="w-6 h-6 rounded-lg bg-accent text-foreground flex items-center justify-center font-heading font-black text-xs shrink-0 border-2 border-border">
-              ★
-            </span>
+                          </span>
             {!isCompact && (
               <div className="text-left min-w-0">
                 <span className="font-heading text-xs font-black uppercase tracking-tight block truncate">
@@ -328,7 +327,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
                         } rounded-xl border-3 transition-colors no-underline ${
                           isAxisActive
                             ? 'text-white border-border shadow-md font-extrabold'
-                            : 'bg-white hover:bg-background text-foreground border-border/20 hover:border-border hover:shadow-xs font-bold'
+                            : 'bg-white hover:bg-background text-foreground border-border hover:border-border hover:shadow-xs font-bold'
                         }`}
                       >
                         {isAxisActive && (
@@ -398,7 +397,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
                           className={`flex items-center justify-between px-2.5 py-2 min-h-[44px] rounded-lg text-xs transition-colors no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                             isSubActive
                               ? 'bg-card text-primary font-extrabold border-3 border-border shadow-xs'
-                              : 'text-foreground/80 hover:text-foreground hover:bg-background font-semibold'
+                              : 'text-content-secondary hover:text-foreground hover:bg-background font-semibold'
                           }`}
                         >
                           <span className="truncate">{subItem.shortLabel || subItem.label}</span>
@@ -479,7 +478,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
                 <span className="font-heading text-xs font-extrabold uppercase block truncate">
                   {studentName}
                 </span>
-                <span className="text-xs font-mono text-white/90 block truncate">
+                <span className="text-xs font-mono text-white block truncate">
                   {studentPeriod}
                 </span>
               </div>

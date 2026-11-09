@@ -168,7 +168,7 @@ export const DocumentosInteractiveSearch: React.FC = () => {
               <Badge variant="default" className="mb-1.5">
                 BUSCA FACETADA EM TEMPO REAL • PDF + LEITURA WEB
               </Badge>
-              <CardTitle className="text-xl uppercase">
+              <CardTitle className="text-xl">
                 Explorador Rápido de Documentos Canônicos
               </CardTitle>
               <CardDescription className="text-xs font-medium text-muted-foreground">
@@ -200,14 +200,14 @@ export const DocumentosInteractiveSearch: React.FC = () => {
           </div>
 
           {/* Barra de Menus Neobrutalista Canônica & DatePicker */}
-          <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t-2 border-border/20">
+          <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t-2 border-border">
             <Menubar className="rounded-lg">
               <MenubarMenu>
                 <MenubarTrigger>Filtrar Acervo</MenubarTrigger>
                 <MenubarContent className="border-3 border-border bg-card shadow-md">
                   {CATEGORIES.map((cat) => (
                     <MenubarItem key={cat} onClick={() => setSelectedCat(cat)} className="cursor-pointer">
-                      {cat} {selectedCat === cat && '✓'}
+                      {cat} {selectedCat === cat && <i className="bi bi-check-lg" aria-hidden="true" />}
                     </MenubarItem>
                   ))}
                   <MenubarSeparator />
@@ -256,13 +256,13 @@ export const DocumentosInteractiveSearch: React.FC = () => {
                       className="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0_0_#16181d] hover:shadow-[6px_6px_0_0_#16181d] hover:translate-x-[-1px] hover:translate-y-[-1px] flex flex-col justify-between gap-3 transition-all cursor-context-menu"
                     >
                       <div className="space-y-1.5">
-                        <Badge variant="secondary" className="text-[10px]">
+                        <Badge variant="secondary" className="text-xs">
                           {doc.category}
                         </Badge>
-                        <h4 className="font-heading text-xs font-black uppercase text-foreground leading-snug">
+                        <h4 className="font-heading text-xs font-black text-foreground leading-snug">
                           {doc.title}
                         </h4>
-                        <p className="text-[11px] text-muted-foreground leading-relaxed">{doc.desc}</p>
+                        <p className="text-xs text-muted-foreground leading-relaxed">{doc.desc}</p>
                       </div>
 
                       <div className="flex flex-wrap items-center gap-2 pt-2 border-t-2 border-[#16181d]/20">
@@ -270,14 +270,14 @@ export const DocumentosInteractiveSearch: React.FC = () => {
                           href={asset(doc.pdf)}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-3 py-1.5 min-h-[40px] inline-flex items-center rounded-lg border-3 border-[#16181d] bg-secondary hover:bg-secondary-hover text-secondary-foreground text-[10px] font-mono font-bold no-underline shadow-[2px_2px_0_0_#16181d] transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+                          className="px-3 py-1.5 min-h-[40px] inline-flex items-center rounded-lg border-3 border-[#16181d] bg-secondary hover:bg-secondary-hover text-secondary-foreground text-xs font-mono font-bold no-underline shadow-[2px_2px_0_0_#16181d] transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
                         >
                           Baixar / Abrir PDF ↗
                         </a>
                         {doc.slug && (
                           <a
                             href={route(`/documentos/${doc.slug}`)}
-                            className="px-3 py-1.5 min-h-[40px] inline-flex items-center rounded-lg border-3 border-[#16181d] bg-white hover:bg-background text-foreground text-[10px] font-mono font-bold no-underline shadow-[2px_2px_0_0_#16181d] transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+                            className="px-3 py-1.5 min-h-[40px] inline-flex items-center rounded-lg border-3 border-[#16181d] bg-white hover:bg-background text-foreground text-xs font-mono font-bold no-underline shadow-[2px_2px_0_0_#16181d] transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
                           >
                             Leitor Normativo →
                           </a>

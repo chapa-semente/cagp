@@ -37,18 +37,18 @@ export const AcgGuardianWidget: React.FC = () => {
       <div>
         <div className="flex items-center justify-between gap-2 mb-3.5">
           <div className="flex items-center gap-2.5">
-            <span className="w-10 h-10 rounded-xl bg-accent/10 text-accent flex items-center justify-center text-lg border border-accent shadow-xs">
+            <span className="w-10 h-10 rounded-xl bg-accent-tint text-accent flex items-center justify-center text-lg border border-accent shadow-xs">
               <i className="bi bi-shield-exclamation" aria-hidden="true" />
             </span>
             <div>
-              <h3 className="font-head font-bold text-sm uppercase text-foreground leading-tight m-0">
+              <h3 className="font-head font-bold text-sm text-foreground leading-tight m-0">
                 Alerta 120 Dias
               </h3>
-              <span className="text-[11px] text-muted-foreground font-mono">Art. 15, § 4º do Regulamento</span>
+              <span className="text-xs text-muted-foreground font-mono">Art. 15, § 4º do Regulamento</span>
             </div>
           </div>
           <span
-            className={`px-2.5 py-1 rounded-md font-head text-[11px] font-bold border border-border shadow-xs ${
+            className={`px-2.5 py-1 rounded-md font-head text-xs font-bold border border-border shadow-xs ${
               !nearest
                 ? 'bg-white text-foreground'
                 : nearest.diffDays < 0
@@ -69,13 +69,13 @@ export const AcgGuardianWidget: React.FC = () => {
         {certs.length > 0 && nearest ? (
           <div className="p-3.5 bg-white border border-border rounded-xl mb-4 shadow-xs">
             <div className="flex items-center justify-between gap-2 mb-1.5">
-              <span className="text-[10px] font-head uppercase font-bold text-muted-foreground">
+              <span className="text-xs font-head uppercase font-bold text-muted-foreground">
                 Próximo a Vencer ({certs.length} cadastrado{certs.length > 1 ? 's' : ''}):
               </span>
               <span className="text-xs font-mono font-bold text-foreground">{nearest.hours}h</span>
             </div>
             <div className="text-xs font-bold font-head uppercase text-foreground truncate">{nearest.title}</div>
-            <div className="text-[11px] font-mono flex items-center justify-between mt-1.5">
+            <div className="text-xs font-mono flex items-center justify-between mt-1.5">
               <span className="text-muted-foreground">{nearest.mod}</span>
               <span
                 className={`font-bold ${

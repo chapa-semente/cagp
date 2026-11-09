@@ -20,7 +20,7 @@ export const CarreiraVagasFeed: React.FC = () => {
           <div>
             <h2
               id="heading-vagas-feed"
-              className="font-heading text-base sm:text-lg font-black uppercase tracking-tight text-foreground m-0"
+              className="font-heading text-base sm:text-lg font-black text-foreground m-0"
             >
               Radar de Vagas &amp; Editais Ativos (Proposta 12)
             </h2>
@@ -35,7 +35,7 @@ export const CarreiraVagasFeed: React.FC = () => {
           className="min-h-[44px] px-3.5 py-1.5 rounded-xl text-xs font-heading font-extrabold uppercase tracking-wide bg-white hover:bg-muted text-foreground hover:text-primary border-3 border-border shadow-xs no-underline inline-flex items-center gap-1.5 transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 tabular-nums"
         >
           <span>Mural Completo de Vagas ({CURATED_VACANCIES.length})</span>
-          <span aria-hidden="true">&rarr;</span>
+          <i className="bi bi-arrow-right" aria-hidden="true" />
         </a>
       </div>
 
@@ -45,11 +45,11 @@ export const CarreiraVagasFeed: React.FC = () => {
             key={v.id}
             whileHover={{ x: -2, y: -2 }}
             transition={tactileSpring}
-            className="p-4 rounded-xl border-2 border-border/80 bg-white shadow-xs hover:shadow-sm flex flex-col justify-between gap-3 transition-all"
+            className="p-4 rounded-xl border-2 border-border bg-white shadow-xs hover:shadow-sm flex flex-col justify-between gap-3 transition-all"
           >
             <div>
               <div className="flex items-center justify-between gap-2 mb-2">
-                <span className="text-xs font-mono font-black uppercase px-2 py-0.5 rounded bg-[#f4f0ea] border-2 border-border text-foreground">
+                <span className="text-xs font-mono font-black uppercase px-2 py-0.5 rounded bg-[#f4f5f7] border-2 border-border text-foreground">
                   {v.tag}
                 </span>
                 <span className="text-xs font-heading font-black uppercase px-2 py-0.5 rounded bg-[#134E4A] text-white border-2 border-border">
@@ -59,11 +59,11 @@ export const CarreiraVagasFeed: React.FC = () => {
               <h3 className="font-heading font-black text-sm text-foreground leading-tight m-0">
                 {v.agency}
               </h3>
-              <p className="text-xs font-medium text-foreground/80 mt-1 mb-0">
+              <p className="text-xs font-medium text-content-secondary mt-1 mb-0">
                 {v.role}
               </p>
 
-              <div className="mt-3 p-2.5 rounded-lg bg-[#f4f0ea] border border-border/80 space-y-1 text-xs font-mono text-foreground tabular-nums">
+              <div className="mt-3 p-2.5 rounded-lg bg-[#f4f5f7] border border-border space-y-1 text-xs font-mono text-foreground tabular-nums">
                 <div className="flex items-center justify-between">
                   <span>Jornada:</span>
                   <strong>{v.hours}</strong>
@@ -79,15 +79,15 @@ export const CarreiraVagasFeed: React.FC = () => {
               </div>
             </div>
 
-            <div className="space-y-2 pt-1 border-t border-border/40">
+            <div className="space-y-2 pt-1 border-t border-border">
               <span className="block font-mono text-xs font-bold text-primary uppercase">
-                ✦ {v.proposalLink}
+                {v.proposalLink}
               </span>
               <a
                 href={v.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-1.5 w-full py-2 px-3 bg-primary text-white text-xs font-heading font-black uppercase rounded-xl border-2 border-border shadow-xs hover:bg-primary/90 active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all cursor-pointer min-h-[44px] no-underline"
+                className="inline-flex items-center justify-center gap-1.5 w-full py-2 px-3 bg-primary text-white text-xs font-heading font-black uppercase rounded-xl border-2 border-border shadow-xs hover:bg-primary-hover active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all cursor-pointer min-h-[44px] no-underline"
               >
                 <span>Acessar Portal do Órgão</span>
                 <i className="bi bi-box-arrow-up-right text-xs" aria-hidden="true" />

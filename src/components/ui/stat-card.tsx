@@ -132,7 +132,7 @@ const StatCard = React.forwardRef<HTMLDivElement, StatCardProps>(
             </div>
 
             {progress && (
-              <div className="mt-4 pt-3.5 border-t-2 border-border/20">
+              <div className="mt-4 pt-3.5 border-t-2 border-border">
                 <div className="flex items-center justify-between text-xs mb-1.5 font-sans">
                   <span className="font-bold text-muted-foreground">
                     {progress.label || "Progresso"}
@@ -145,7 +145,7 @@ const StatCard = React.forwardRef<HTMLDivElement, StatCardProps>(
               </div>
             )}
 
-            {footer && <div className="mt-3 pt-3 border-t-2 border-border/20">{footer}</div>}
+            {footer && <div className="mt-3 pt-3 border-t-2 border-border">{footer}</div>}
           </CardContent>
         </Card>
       </motion.div>

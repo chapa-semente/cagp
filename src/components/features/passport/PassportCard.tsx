@@ -79,7 +79,7 @@ export const PassportCard: React.FC<PassportCardProps> = ({
         {/* Dados de Identidade */}
         <div className="flex-1 min-w-[180px]">
           <div className="flex items-center gap-1.5 flex-wrap">
-            <h3 className="font-head text-lg sm:text-xl font-extrabold uppercase text-foreground leading-tight m-0">
+            <h3 className="font-head text-lg sm:text-xl font-extrabold text-foreground leading-tight m-0">
               {profile.name}
             </h3>
             {profile.pronouns && (
@@ -90,11 +90,11 @@ export const PassportCard: React.FC<PassportCardProps> = ({
           </div>
 
           <div className="flex flex-wrap items-center gap-1.5 mt-2">
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-head font-extrabold uppercase bg-secondary text-white border border-border shadow-xs">{profile.period}</span>
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-foreground text-background text-white border border-border shadow-xs">Ingresso {profile.semester || '2026/1'}</span>
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-head font-bold uppercase bg-primary text-white border border-border shadow-xs">{profile.pathway || '01-01'} • Geral</span>
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-head font-extrabold uppercase bg-secondary text-white border border-border shadow-xs">{profile.period}</span>
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono font-bold bg-foreground text-background text-white border border-border shadow-xs">Ingresso {profile.semester || '2026/1'}</span>
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-head font-bold uppercase bg-primary text-white border border-border shadow-xs">{profile.pathway || '01-01'} • Geral</span>
             {isSementeEleitor && (
-              <span className="cagp-stamp-badge is-semente text-[10px] py-0.5 px-2 flex items-center gap-1">
+              <span className="cagp-stamp-badge is-semente text-xs py-0.5 px-2 flex items-center gap-1">
                 <img
                   src={asset('/logos/semente/semente-simbolo-branco.webp')}
                   alt=""
@@ -120,13 +120,13 @@ export const PassportCard: React.FC<PassportCardProps> = ({
       {/* Áreas de Interesse no Passaporte (Banco de Talentos) */}
       {profile.interests && profile.interests.length > 0 && (
         <div className="px-4 py-2.5 bg-white border-t-2 border-border flex flex-wrap items-center gap-1.5">
-          <span className="text-[11px] font-head uppercase font-extrabold text-foreground mr-1">
+          <span className="text-xs font-head uppercase font-extrabold text-foreground mr-1">
             Interesses:
           </span>
           {profile.interests.map((key) => (
             <span
               key={key}
-              className="text-[10px] font-head font-bold uppercase bg-white border border-border text-foreground px-2 py-0.5 rounded shadow-[1px_1px_0px_#0A0A0A]"
+              className="text-xs font-head font-bold uppercase bg-white border border-border text-foreground px-2 py-0.5 rounded shadow-[1px_1px_0px_#16181d]"
             >
               {TALENT_LABELS[key] || key}
             </span>
@@ -138,10 +138,10 @@ export const PassportCard: React.FC<PassportCardProps> = ({
       <div className="cagp-passport-progress-grid">
         <div>
           <div className="flex justify-between items-center text-xs mb-1">
-            <span className="font-head font-extrabold uppercase text-[11px] text-foreground">
+            <span className="font-head font-extrabold uppercase text-xs text-foreground">
               27 Obrigatórias
             </span>
-            <span className="font-mono font-bold text-[11px] text-info">
+            <span className="font-mono font-bold text-xs text-info">
               {obrigCount}/27 ({obrigPct}%)
             </span>
           </div>
@@ -155,10 +155,10 @@ export const PassportCard: React.FC<PassportCardProps> = ({
 
         <div>
           <div className="flex justify-between items-center text-xs mb-1">
-            <span className="font-head font-extrabold uppercase text-[11px] text-foreground">
+            <span className="font-head font-extrabold uppercase text-xs text-foreground">
               600h Extensão & AAC
             </span>
-            <span className="font-mono font-bold text-[11px] text-success">
+            <span className="font-mono font-bold text-xs text-success">
               {extHours}h/600h ({extPct}%)
             </span>
           </div>
@@ -172,26 +172,26 @@ export const PassportCard: React.FC<PassportCardProps> = ({
       </div>
 
       {/* Carimbos de Conquistas Desbloqueadas (cagp-stamp) */}
-      <div className="px-4 py-2.5 bg-[#f4f0ea] border-t-2 border-[#16181d] flex flex-wrap items-center gap-2">
-        <span className="text-[10px] font-mono uppercase font-bold text-[#16181d] mr-1">
+      <div className="px-4 py-2.5 bg-[#f4f5f7] border-t-2 border-[#16181d] flex flex-wrap items-center gap-2">
+        <span className="text-xs font-mono uppercase font-bold text-[#16181d] mr-1">
           Carimbos Oficiais:
         </span>
         <motion.span
           initial={{ scale: 1.35, rotate: -8, opacity: 0 }}
           animate={{ scale: 1, rotate: -2, opacity: 1 }}
           transition={bounceSpring}
-          className="px-2 py-0.5 rounded bg-[#5B2A85] text-white font-mono text-[10px] font-bold uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]"
+          className="px-2 py-0.5 rounded bg-[#5B2A85] text-white font-mono text-xs font-bold uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]"
         >
-          ✦ {isSementeEleitor ? 'Eleitor Semente 2026' : 'Passaporte Semente Ativo'}
+          {isSementeEleitor ? 'Eleitor Semente 2026' : 'Passaporte Semente Ativo'}
         </motion.span>
         {obrigCount > 0 && (
           <motion.span
             initial={{ scale: 1.35, rotate: 6, opacity: 0 }}
             animate={{ scale: 1, rotate: 1.5, opacity: 1 }}
             transition={bounceSpring}
-            className="px-2 py-0.5 rounded bg-[#266264] text-white font-mono text-[10px] font-bold uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]"
+            className="px-2 py-0.5 rounded bg-[#266264] text-white font-mono text-xs font-bold uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]"
           >
-            ✓ {obrigCount} Disciplinas Registradas
+            {obrigCount} Disciplinas Registradas
           </motion.span>
         )}
         {extHours > 0 && (
@@ -199,9 +199,9 @@ export const PassportCard: React.FC<PassportCardProps> = ({
             initial={{ scale: 1.35, rotate: -5, opacity: 0 }}
             animate={{ scale: 1, rotate: -1, opacity: 1 }}
             transition={bounceSpring}
-            className="px-2 py-0.5 rounded bg-[#FE8812] text-[#16181d] font-mono text-[10px] font-bold uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]"
+            className="px-2 py-0.5 rounded bg-[#FE8812] text-[#16181d] font-mono text-xs font-bold uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]"
           >
-            ★ {extHours}h ACG/Extensão
+            {extHours}h ACG/Extensão
           </motion.span>
         )}
       </div>

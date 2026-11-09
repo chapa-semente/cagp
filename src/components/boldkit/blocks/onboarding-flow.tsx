@@ -130,11 +130,11 @@ export function OnboardingWizard({
           <Card className="border-3 border-[#16181d] shadow-[6px_6px_0_0_#16181d]">
             <CardHeader className="text-center">
               {steps[currentStep].icon && (
-                <div className="w-16 h-16 mx-auto flex items-center justify-center border-3 border-[#16181d] bg-primary/10 shadow-[4px_4px_0_0_#16181d] mb-4">
+                <div className="w-16 h-16 mx-auto flex items-center justify-center border-3 border-[#16181d] bg-primary-tint shadow-[4px_4px_0_0_#16181d] mb-4">
                   {steps[currentStep].icon}
                 </div>
               )}
-              <CardTitle className="text-2xl font-black uppercase">
+              <CardTitle className="text-2xl font-black">
                 {steps[currentStep].title}
               </CardTitle>
               {steps[currentStep].description && (
@@ -218,7 +218,7 @@ export function WelcomeScreen({
               {features.map((feature) => (
                 <div
                   key={feature.title}
-                  className="border-3 border-foreground p-4 bg-muted/30 space-y-2"
+                  className="border-3 border-foreground p-4 bg-background space-y-2"
                 >
                   <div className="w-10 h-10 flex items-center justify-center border-2 border-foreground bg-card">
                     {feature.icon}
@@ -337,10 +337,10 @@ export function ProfileSetup({
   return (
     <Card className={cn('w-full max-w-lg mx-auto', className)}>
       <CardHeader className="text-center">
-        <div className="w-14 h-14 mx-auto flex items-center justify-center border-3 border-foreground bg-primary/10 shadow-md mb-2">
+        <div className="w-14 h-14 mx-auto flex items-center justify-center border-3 border-foreground bg-primary-tint shadow-md mb-2">
           <User className="h-7 w-7" />
         </div>
-        <CardTitle className="text-2xl font-black uppercase">
+        <CardTitle className="text-2xl font-black">
           Set Up Your Profile
         </CardTitle>
         <CardDescription>Tell us a bit about yourself</CardDescription>
@@ -352,7 +352,7 @@ export function ProfileSetup({
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="relative w-24 h-24 border-3 border-dashed border-foreground bg-muted flex items-center justify-center hover:bg-muted/80 transition-colors"
+              className="relative w-24 h-24 border-3 border-dashed border-foreground bg-muted flex items-center justify-center hover:bg-muted transition-colors"
             >
               {avatarPreview ? (
                 <img
@@ -503,10 +503,10 @@ export function WorkspaceSetup({
   return (
     <Card className={cn('w-full max-w-lg mx-auto', className)}>
       <CardHeader className="text-center">
-        <div className="w-14 h-14 mx-auto flex items-center justify-center border-3 border-foreground bg-secondary/10 shadow-md mb-2">
+        <div className="w-14 h-14 mx-auto flex items-center justify-center border-3 border-foreground bg-secondary-tint shadow-md mb-2">
           <Building className="h-7 w-7" />
         </div>
-        <CardTitle className="text-2xl font-black uppercase">
+        <CardTitle className="text-2xl font-black">
           Create Your Workspace
         </CardTitle>
         <CardDescription>Set up your team workspace and invite members</CardDescription>
@@ -559,7 +559,7 @@ export function WorkspaceSetup({
                 {members.map((email) => (
                   <div
                     key={email}
-                    className="flex items-center justify-between border-2 border-foreground p-2 bg-muted/30"
+                    className="flex items-center justify-between border-2 border-foreground p-2 bg-background"
                   >
                     <span className="text-sm">{email}</span>
                     <button
@@ -628,10 +628,10 @@ export function GoalSelection({
   return (
     <Card className={cn('w-full max-w-2xl mx-auto', className)}>
       <CardHeader className="text-center">
-        <div className="w-14 h-14 mx-auto flex items-center justify-center border-3 border-foreground bg-accent/10 shadow-md mb-2">
+        <div className="w-14 h-14 mx-auto flex items-center justify-center border-3 border-foreground bg-accent-tint shadow-md mb-2">
           <Target className="h-7 w-7" />
         </div>
-        <CardTitle className="text-2xl font-black uppercase">
+        <CardTitle className="text-2xl font-black">
           What are your goals?
         </CardTitle>
         <CardDescription>
@@ -648,7 +648,7 @@ export function GoalSelection({
               className={cn(
                 'flex items-start gap-4 p-4 border-3 border-foreground text-left transition',
                 selected.includes(goal.id)
-                  ? 'bg-primary/10 shadow-md translate-x-[-2px] translate-y-[-2px]'
+                  ? 'bg-primary-tint shadow-md translate-x-[-2px] translate-y-[-2px]'
                   : 'bg-card hover:bg-muted'
               )}
             >
@@ -717,7 +717,7 @@ export function CompletionScreen({
             {features.map((feature) => (
               <div
                 key={feature.title}
-                className="flex items-start gap-3 border-2 border-foreground p-3 bg-muted/30"
+                className="flex items-start gap-3 border-2 border-foreground p-3 bg-background"
               >
                 <div className="w-6 h-6 flex items-center justify-center bg-success text-success-foreground border-2 border-foreground shrink-0">
                   <Check className="h-4 w-4" />

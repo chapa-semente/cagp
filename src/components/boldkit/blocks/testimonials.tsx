@@ -40,7 +40,7 @@ export function TestimonialsGrid({
   }
 
   return (
-    <section className={cn('py-14 sm:py-16 px-4 md:px-8 lg:px-16 bg-muted/30', className)}>
+    <section className={cn('py-14 sm:py-16 px-4 md:px-8 lg:px-16 bg-background', className)}>
       <div className="max-w-7xl mx-auto">
         {(title || subtitle) && (
           <div className="text-center mb-10 sm:mb-12 space-y-4">
@@ -50,7 +50,7 @@ export function TestimonialsGrid({
               </p>
             )}
             {title && (
-              <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-black">
                 {title}
               </h2>
             )}
@@ -59,9 +59,6 @@ export function TestimonialsGrid({
 
         <motion.div
           variants={staggerContainer(0.06)}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.15 }}
           className={cn('grid gap-6', gridCols[columns])}
         >
           {testimonials.map((testimonial) => (
@@ -186,7 +183,7 @@ export function TestimonialsMasonry({
     <section className={cn('py-16 px-4 md:px-8 lg:px-16', className)}>
       <div className="max-w-7xl mx-auto">
         {title && (
-          <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-black text-center mb-12">
             {title}
           </h2>
         )}
@@ -267,12 +264,12 @@ export function TestimonialsWithAvatars({
   const activeTestimonial = testimonials[activeIndex] ?? testimonials[0]
 
   return (
-    <section className={cn('py-16 px-4 md:px-8 lg:px-16 bg-muted/30', className)}>
+    <section className={cn('py-16 px-4 md:px-8 lg:px-16 bg-background', className)}>
       <div className="max-w-4xl mx-auto text-center space-y-8">
         {(title || description) && (
           <div className="space-y-4">
             {title && (
-              <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-black">
                 {title}
               </h2>
             )}

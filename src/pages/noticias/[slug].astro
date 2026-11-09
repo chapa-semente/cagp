@@ -131,7 +131,7 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
         href={route('/noticias')}
         class="min-h-[44px] px-3.5 py-2 rounded-xl bg-card hover:bg-muted border-3 border-border text-xs font-heading font-extrabold uppercase text-foreground no-underline shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all inline-flex items-center gap-1.5 self-start sm:self-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
       >
-        <span aria-hidden="true">&larr;</span>
+        <i class="bi bi-arrow-left" aria-hidden="true"></i>
         <span>Voltar ao Mural</span>
       </a>
     </div>
@@ -179,8 +179,8 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
               <rect width="640" height="400" fill="#266264" />
               <circle cx="510" cy="280" r="155" fill="#15803D" fill-opacity="0.6" />
               <path d="M56 300L190 185L300 230L450 110L575 140" stroke="#FE8812" stroke-width="6" fill="none" stroke-linecap="round" />
-              <circle cx="190" cy="185" r="10" fill="#FFFDF9" stroke="#16181d" stroke-width="3" />
-              <circle cx="300" cy="230" r="10" fill="#FFFDF9" stroke="#16181d" stroke-width="3" />
+              <circle cx="190" cy="185" r="10" fill="#ffffff" stroke="#16181d" stroke-width="3" />
+              <circle cx="300" cy="230" r="10" fill="#ffffff" stroke="#16181d" stroke-width="3" />
               <circle cx="450" cy="110" r="12" fill="#FE8812" stroke="#16181d" stroke-width="3" />
             </svg>
           )}
@@ -189,7 +189,7 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
               <rect width="640" height="400" fill="#15803D" />
               <circle cx="130" cy="85" r="130" fill="#166534" />
               <circle cx="490" cy="190" r="76" stroke="#16181d" stroke-width="4" fill="#FEF08A" />
-              <path d="M320 315C360 230 440 230 480 315" stroke="#FFFDF9" stroke-width="5" fill="none" />
+              <path d="M320 315C360 230 440 230 480 315" stroke="#ffffff" stroke-width="5" fill="none" />
               <path d="M420 315C460 230 540 230 580 315" stroke="#FE8812" stroke-width="5" fill="none" />
             </svg>
           )}
@@ -197,9 +197,9 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
             <svg viewBox="0 0 640 400" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" aria-hidden="true">
               <rect width="640" height="400" fill="#5B2A85" />
               <circle cx="180" cy="200" r="58" stroke="#16181d" stroke-width="4" fill="#FE8812" />
-              <circle cx="340" cy="135" r="46" stroke="#16181d" stroke-width="4" fill="#FFFDF9" />
+              <circle cx="340" cy="135" r="46" stroke="#16181d" stroke-width="4" fill="#ffffff" />
               <circle cx="480" cy="235" r="54" stroke="#16181d" stroke-width="4" fill="#266264" />
-              <path d="M232 180L300 150M382 158L438 205" stroke="#FFFDF9" stroke-width="4" stroke-opacity="0.85" />
+              <path d="M232 180L300 150M382 158L438 205" stroke="#ffffff" stroke-width="4" stroke-opacity="0.85" />
             </svg>
           )}
 
@@ -216,7 +216,7 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
         <!-- Coluna Central de Leitura Confortável (max-w-prose / 65–75ch) -->
         <div class="mx-auto w-full max-w-prose space-y-6 py-2">
           <!-- Metadados & Carimbo Neobrutalista -->
-          <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b-2 border-border/25">
+          <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b-2 border-border">
             <div class="text-xs font-mono font-bold text-muted-foreground space-x-2 tabular-nums">
               <span>{article.dateLabel}</span>
               <span>•</span>
@@ -225,7 +225,7 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
               <span>{article.readingTime}</span>
             </div>
 
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-success/15 text-success font-mono text-xs font-bold uppercase rounded-lg border-2 border-border shadow-xs">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-success-tint text-success font-mono text-xs font-bold uppercase rounded-lg border-2 border-border shadow-xs">
               <span set:html={stampSvg} />
               <span>PUBLICAÇÃO CAGP</span>
             </span>
@@ -261,7 +261,7 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
           >
             <h2
               id="heading-article-highlights"
-              class="font-heading text-base font-black uppercase text-foreground m-0 tracking-tight"
+              class="font-heading text-base font-black text-foreground m-0"
             >
               Pontos-Chave &amp; Encaminhamentos
             </h2>
@@ -276,11 +276,11 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
           <section
             id="cagp-article-semente-support-card"
             aria-label="Compartilhar e Apoiar a Chapa Semente"
-            class="p-5 sm:p-6 rounded-2xl bg-accent/10 border-3 border-border shadow-md space-y-4 relative overflow-hidden"
+            class="p-5 sm:p-6 rounded-2xl bg-accent-tint border-3 border-border shadow-md space-y-4 relative overflow-hidden"
           >
             <div class="flex flex-wrap items-center justify-between gap-2">
               <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-primary text-white font-mono text-xs font-bold uppercase border-2 border-border shadow-xs">
-                ✦ Proposta Materializada • Chapa Semente
+                Proposta Materializada • Chapa Semente
               </span>
               <span class="px-2.5 py-1 rounded-lg bg-accent text-foreground font-heading text-xs font-black uppercase border-2 border-border shadow-xs -rotate-1">
                 Eleições 25 e 26/Nov
@@ -288,10 +288,10 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
             </div>
 
             <div class="space-y-1.5">
-              <h3 class="font-heading text-lg sm:text-xl font-black uppercase text-foreground m-0 leading-snug">
+              <h3 class="font-heading text-lg sm:text-xl font-black text-foreground m-0 leading-snug">
                 Achou este conteúdo útil? Ele faz parte do SuperApp construído pela Chapa Semente!
               </h3>
-              <p class="text-xs sm:text-sm text-foreground/90 font-medium m-0 leading-relaxed max-w-prose">
+              <p class="text-xs sm:text-sm text-content-secondary font-medium m-0 leading-relaxed max-w-prose">
                 Compartilhe esta publicação no grupo da sua turma e conheça as 14 propostas da Chapa Semente para transformar a Gestão Pública na FAFICH/UFMG.
               </p>
             </div>
@@ -317,7 +317,7 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
           </section>
 
           <!-- Botões de Ação da Notícia -->
-          <footer class="pt-4 border-t-2 border-border/25 flex flex-wrap items-center justify-between gap-3">
+          <footer class="pt-4 border-t-2 border-border flex flex-wrap items-center justify-between gap-3">
             <a
               href={route('/noticias')}
               class="min-h-[44px] px-4 py-2.5 rounded-xl bg-card hover:bg-muted border-3 border-border text-xs font-heading font-extrabold uppercase text-foreground no-underline shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all inline-flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
@@ -328,7 +328,7 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
             {article.ctaHref && (
               <a
                 href={article.ctaHref}
-                class="min-h-[44px] px-5 py-2.5 rounded-xl bg-secondary hover:bg-secondary/90 text-white text-xs font-heading font-black uppercase tracking-wider no-underline inline-flex items-center gap-2 border-3 border-border shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                class="min-h-[44px] px-5 py-2.5 rounded-xl bg-secondary hover:bg-secondary-hover text-white text-xs font-heading font-black uppercase tracking-wider no-underline inline-flex items-center gap-2 border-3 border-border shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
                 <span>{article.ctaLabel}</span>
                 <span set:html={arrowRightSvg} />
@@ -342,7 +342,7 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
       <aside class="xl:col-span-4 space-y-5 xl:sticky xl:top-14">
         <!-- Links e Serviços Relacionados -->
         <div class="bg-card rounded-2xl border-3 border-border p-5 shadow-sm space-y-3.5">
-          <h2 class="font-heading text-base font-black uppercase text-foreground m-0 tracking-tight">
+          <h2 class="font-heading text-base font-black text-foreground m-0">
             Referências &amp; Serviços Relacionados
           </h2>
           <p class="text-xs text-muted-foreground m-0 font-medium">
@@ -373,8 +373,8 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
 
         <!-- Outras Notícias do Mural do CAGP -->
         <div class="bg-card rounded-2xl border-3 border-border p-5 shadow-sm space-y-3.5">
-          <div class="flex items-center justify-between border-b-2 border-border/25 pb-2">
-            <h2 class="font-heading text-base font-black uppercase text-foreground m-0 tracking-tight">
+          <div class="flex items-center justify-between border-b-2 border-border pb-2">
+            <h2 class="font-heading text-base font-black text-foreground m-0">
               Outras Notícias
             </h2>
             <a

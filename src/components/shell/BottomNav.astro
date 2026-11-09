@@ -15,7 +15,7 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
 >
   <div
     id="cagp-bottom-nav-container"
-    class="max-w-lg mx-auto px-2 py-1.5 grid grid-cols-5 gap-1 items-center"
+    class="max-w-lg mx-auto px-0.5 py-1.5 grid grid-cols-5 items-center"
   >
     {AXIS_REGISTRY.map((axis) => {
       const isCurrent = activeAxis.id === axis.id;
@@ -26,21 +26,21 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
           href={axis.rootHref}
           data-bottom-axis={axis.id}
           aria-current={isCurrent ? 'page' : undefined}
-          class={`cagp-bottom-axis-item flex flex-col items-center justify-center gap-1 min-h-[48px] min-w-[44px] py-1 px-1 rounded-xl no-underline transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] active:translate-y-0.5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset ${
+          class={`cagp-bottom-axis-item flex flex-col items-center justify-center gap-1 min-h-[52px] min-w-0 py-1 px-0 rounded-xl no-underline transition-colors duration-150 active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset ${
             isCurrent
-              ? 'is-active text-primary font-extrabold'
-              : 'text-foreground hover:text-primary font-semibold'
+              ? 'is-active text-primary'
+              : 'text-foreground hover:text-primary'
           }`}
         >
           <span
             class={`cagp-bottom-axis-pill w-11 h-7 rounded-lg flex items-center justify-center transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] ${
               isCurrent
-                ? 'bg-primary text-white border-3 border-border shadow-xs -translate-y-0.5 scale-105'
-                : 'bg-transparent text-foreground border-3 border-transparent'
+                ? 'bg-primary text-white border-2 border-border shadow-[2px_2px_0_0_#16181d]'
+                : 'bg-transparent text-foreground border-2 border-transparent'
             }`}
             set:html={iconSvg}
           />
-          <span class="text-xs font-heading font-extrabold uppercase tracking-tight leading-none truncate max-w-full" aria-hidden="true">
+          <span class="text-xs font-heading font-bold uppercase tracking-[-0.01em] leading-none whitespace-nowrap" aria-hidden="true">
             {axis.mobileLabel}
           </span>
           <span class="sr-only">{axis.name}</span>
@@ -98,17 +98,14 @@ const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
       const pill = link.querySelector('.cagp-bottom-axis-pill');
       link.classList.toggle('is-active', isCurrent);
       link.classList.toggle('text-primary', isCurrent);
-      link.classList.toggle('font-extrabold', isCurrent);
       link.classList.toggle('text-foreground', !isCurrent);
       if (pill) {
         pill.classList.toggle('bg-primary', isCurrent);
         pill.classList.toggle('text-white', isCurrent);
-        pill.classList.toggle('border-3', true);
+        pill.classList.toggle('border-2', true);
         pill.classList.toggle('border-border', isCurrent);
         pill.classList.toggle('border-transparent', !isCurrent);
-        pill.classList.toggle('shadow-xs', isCurrent);
-        pill.classList.toggle('-translate-y-0.5', isCurrent);
-        pill.classList.toggle('scale-105', isCurrent);
+        pill.classList.toggle('shadow-[2px_2px_0_0_#16181d]', isCurrent);
         pill.classList.toggle('bg-transparent', !isCurrent);
         pill.classList.toggle('text-foreground', !isCurrent);
       }

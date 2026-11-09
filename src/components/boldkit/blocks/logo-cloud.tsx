@@ -45,7 +45,7 @@ export function LogoCloudGrid({
               </p>
             )}
             {title && (
-              <h2 className="text-xl md:text-2xl font-black uppercase tracking-tight">
+              <h2 className="text-xl md:text-2xl font-black">
                 {title}
               </h2>
             )}
@@ -133,7 +133,7 @@ export function LogoCloudCards({
   className,
 }: LogoCloudCardsProps) {
   return (
-    <section className={cn('py-16 px-4 md:px-8 lg:px-16 bg-muted/30', className)}>
+    <section className={cn('py-16 px-4 md:px-8 lg:px-16 bg-background', className)}>
       <div className="max-w-6xl mx-auto">
         {(title || subtitle) && (
           <div className="text-center mb-10 space-y-2">
@@ -143,7 +143,7 @@ export function LogoCloudCards({
               </p>
             )}
             {title && (
-              <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">
+              <h2 className="text-2xl md:text-3xl font-black">
                 {title}
               </h2>
             )}
@@ -211,7 +211,7 @@ export function LogoCloudWithStats({
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
             {title && (
-              <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">
+              <h2 className="text-2xl md:text-3xl font-black">
                 {title}
               </h2>
             )}

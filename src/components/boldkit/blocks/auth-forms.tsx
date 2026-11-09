@@ -63,7 +63,7 @@ export function LoginForm({
         <CardHeader className="space-y-4 text-center">
           {logo && <div className="mx-auto">{logo}</div>}
           <div>
-            <CardTitle className="text-2xl font-black uppercase">{title}</CardTitle>
+            <CardTitle className="text-2xl font-black">{title}</CardTitle>
             <CardDescription className="mt-2">{description}</CardDescription>
           </div>
         </CardHeader>
@@ -244,7 +244,7 @@ export function SignUpForm({
         <CardHeader className="space-y-4 text-center">
           {logo && <div className="mx-auto">{logo}</div>}
           <div>
-            <CardTitle className="text-2xl font-black uppercase">{title}</CardTitle>
+            <CardTitle className="text-2xl font-black">{title}</CardTitle>
             <CardDescription className="mt-2">{description}</CardDescription>
           </div>
         </CardHeader>
@@ -430,11 +430,11 @@ export function ForgotPasswordForm({
       <div className={cn('w-full max-w-md mx-auto', className)}>
         <Card>
           <CardContent className="pt-6 text-center space-y-4">
-            <div className="w-16 h-16 mx-auto flex items-center justify-center border-3 border-foreground bg-success/20 shadow-md">
+            <div className="w-16 h-16 mx-auto flex items-center justify-center border-3 border-foreground bg-success-tint shadow-md">
               <Mail className="h-8 w-8 text-success" />
             </div>
             <div>
-              <h3 className="text-xl font-black uppercase">Check your email</h3>
+              <h3 className="text-xl font-black">Check your email</h3>
               <p className="text-sm text-muted-foreground mt-2">
                 We sent a password reset link to{' '}
                 <span className="font-bold text-foreground">{email}</span>
@@ -465,7 +465,7 @@ export function ForgotPasswordForm({
         <CardHeader className="space-y-4 text-center">
           {logo && <div className="mx-auto">{logo}</div>}
           <div>
-            <CardTitle className="text-2xl font-black uppercase">{title}</CardTitle>
+            <CardTitle className="text-2xl font-black">{title}</CardTitle>
             <CardDescription className="mt-2">{description}</CardDescription>
           </div>
         </CardHeader>
@@ -591,7 +591,7 @@ export function OTPVerificationForm({
         <CardHeader className="space-y-4 text-center">
           {logo && <div className="mx-auto">{logo}</div>}
           <div>
-            <CardTitle className="text-2xl font-black uppercase">{title}</CardTitle>
+            <CardTitle className="text-2xl font-black">{title}</CardTitle>
             <CardDescription className="mt-2">
               {description ||
                 `We sent a ${length}-digit code to ${email || 'your email'}. Enter it below.`}

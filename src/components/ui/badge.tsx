@@ -5,21 +5,21 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const badgeVariants = cva(
-  "inline-flex items-center justify-center gap-1.5 rounded-lg border-3 border-border px-2.5 py-0.5 font-heading text-xs font-extrabold uppercase tracking-wide whitespace-nowrap shadow-[2px_2px_0_0_#16181d] transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 [&_svg]:size-3.5 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-1.5 rounded-md border-2 border-border px-2 py-[3px] font-mono text-xs font-bold uppercase tracking-[0.05em] tabular-nums max-w-full text-left whitespace-normal break-words shadow-[2px_2px_0_0_#16181d] focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary [&_svg]:size-3.5 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
         default: "bg-primary text-primary-foreground",
-        semente: "bg-[#5B2A85] text-white",
+        semente: "bg-primary text-primary-foreground",
         secondary: "bg-secondary text-secondary-foreground",
         accent: "bg-accent text-accent-foreground",
         destructive: "bg-destructive text-destructive-foreground",
-        success: "bg-success/20 text-[#166534]",
-        warning: "bg-[#FEF3C7] text-[#854D0E]",
-        info: "bg-[#E0F2FE] text-info",
-        teal: "bg-teal-700 text-white",
+        success: "bg-success-tint text-success",
+        warning: "bg-warning-tint text-warning",
+        info: "bg-info-tint text-info",
+        teal: "bg-secondary text-secondary-foreground",
         ufmg: "bg-[#C4161C] text-white",
-        dark: "bg-[#16181d] text-white",
+        dark: "bg-foreground text-white",
         outline: "bg-card text-foreground",
       },
     },

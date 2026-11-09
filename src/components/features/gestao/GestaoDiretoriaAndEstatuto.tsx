@@ -99,7 +99,7 @@ export const GestaoDiretoriaAndEstatuto: React.FC = () => {
                   <Badge variant="secondary">CHAPA SEMENTE • GESTÃO ELEITA</Badge>
                   <Badge variant="default">REGIMENTO INTERNO DE 14/10/2024</Badge>
                 </div>
-                <CardTitle className="text-xl uppercase">
+                <CardTitle className="text-xl">
                   As 7 Diretorias Regimentais do CAGP (Art. 24º a 34º)
                 </CardTitle>
                 <CardDescription className="text-xs font-medium text-muted-foreground">
@@ -136,16 +136,16 @@ export const GestaoDiretoriaAndEstatuto: React.FC = () => {
                     >
                       {dir.sigla}
                     </span>
-                    <span className="font-mono text-[10px] font-bold text-muted-foreground">
+                    <span className="font-mono text-xs font-bold text-muted-foreground">
                       {dir.artigo}
                     </span>
                   </div>
-                  <h4 className="font-heading text-sm font-black uppercase text-foreground">
+                  <h4 className="font-heading text-sm font-black text-foreground">
                     {dir.nome}
                   </h4>
                   <p className="text-xs text-[#3F3C38] leading-relaxed">{dir.atribuicoes}</p>
                 </div>
-                <div className="pt-2 border-t-2 border-border/20 text-[11px] font-mono font-bold text-primary">
+                <div className="pt-2 border-t-2 border-border text-xs font-mono font-bold text-primary">
                   {dir.composicao}
                 </div>
               </div>
@@ -156,7 +156,7 @@ export const GestaoDiretoriaAndEstatuto: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div className="p-4 rounded-xl border-3 border-border bg-card shadow space-y-2">
               <Badge variant="ufmg">LINHA SUCESSÓRIA &amp; TRANSPARÊNCIA (ART. 15º E 26º)</Badge>
-              <h4 className="font-heading text-sm font-black uppercase text-foreground">
+              <h4 className="font-heading text-sm font-black text-foreground">
                 Sucessão Presidencial e Direito de Fiscalização
               </h4>
               <p className="text-xs text-[#3F3C38] leading-relaxed">
@@ -166,7 +166,7 @@ export const GestaoDiretoriaAndEstatuto: React.FC = () => {
 
             <div className="p-4 rounded-xl border-3 border-border bg-card shadow space-y-2">
               <Badge variant="teal">HISTÓRICO • REFORMULAÇÃO ESTATUTÁRIA DE 14/10/2024</Badge>
-              <h4 className="font-heading text-sm font-black uppercase text-foreground">
+              <h4 className="font-heading text-sm font-black text-foreground">
                 Comissão de Reformulação do Regimento Interno
               </h4>
               <p className="text-xs text-muted-foreground">
@@ -176,7 +176,7 @@ export const GestaoDiretoriaAndEstatuto: React.FC = () => {
                 {COMISSAO_REFORMULACAO_2024.map((nome) => (
                   <span
                     key={nome}
-                    className="px-2 py-0.5 rounded-md border-3 border-border bg-white text-[10px] font-heading font-extrabold text-foreground"
+                    className="px-2 py-0.5 rounded-md border-3 border-border bg-white text-xs font-heading font-extrabold text-foreground"
                   >
                     {nome}
                   </span>

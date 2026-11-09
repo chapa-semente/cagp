@@ -3,18 +3,18 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const cardVariants = cva(
-  "group/card flex flex-col gap-(--card-spacing) overflow-hidden rounded-xl border-3 border-[#16181d] bg-card py-(--card-spacing) text-sm text-card-foreground shadow-[6px_6px_0_0_#16181d] bk-interactive [--card-spacing:--spacing(5)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3.5)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
+  "group/card flex flex-col gap-(--card-spacing) overflow-hidden rounded-xl border-3 border-[#16181d] bg-card py-(--card-spacing) text-sm text-card-foreground shadow-[4px_4px_0_0_#16181d] [--card-spacing:--spacing(4)] md:[--card-spacing:--spacing(5)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3.5)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
   {
     variants: {
       variant: {
         default: "bg-card text-card-foreground",
-        primary: "bg-primary text-primary-foreground",
+        primary: "bg-primary text-primary-foreground shadow-[6px_6px_0_0_#16181d]",
         secondary: "bg-secondary text-secondary-foreground",
-        accent: "bg-accent text-accent-foreground",
-        subtle: "bg-muted/60 text-foreground",
+        accent: "bg-accent text-accent-foreground shadow-[6px_6px_0_0_#16181d]",
+        subtle: "bg-muted text-foreground",
       },
       interactive: {
-        true: "cursor-pointer transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0_0_#16181d] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none",
+        true: "cursor-pointer transition-[transform,box-shadow] duration-150 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-x-px hover:-translate-y-px hover:shadow-[6px_6px_0_0_#16181d] active:translate-x-1 active:translate-y-1 active:shadow-none",
         false: "",
       },
     },
@@ -64,8 +64,7 @@ const CardTitle = React.forwardRef<HTMLHeadingElement, React.ComponentProps<"h3"
     <h3
       ref={ref}
       data-slot="card-title"
-      className={cn(
-        "font-heading text-lg leading-snug font-extrabold uppercase tracking-tight group-data-[size=sm]/card:text-base",
+      className={cn("font-heading text-lg leading-snug font-bold text-balance group-data-[size=sm]/card:text-base",
         className
       )}
       {...props}
@@ -119,7 +118,7 @@ const CardFooter = React.forwardRef<HTMLDivElement, React.ComponentProps<"div">>
       ref={ref}
       data-slot="card-footer"
       className={cn(
-        "flex items-center rounded-b-xl border-t-3 border-border bg-muted/50 p-(--card-spacing)",
+        "flex items-center rounded-b-xl border-t-3 border-border bg-background p-(--card-spacing)",
         className
       )}
       {...props}

@@ -16,7 +16,7 @@ export const SettingsAlertsSection: React.FC<Props> = ({ notifs, updateNotifs })
             <i className="bi bi-bell-fill text-base" aria-hidden="true" />
           </div>
           <div>
-            <h2 className="font-head text-base sm:text-lg font-extrabold uppercase text-foreground m-0 tracking-tight">
+            <h2 className="font-head text-base sm:text-lg font-extrabold text-foreground m-0">
               2. Alertas do Campus &amp; Horários Noturnos
             </h2>
             <p className="text-xs text-foreground m-0 font-medium">Sincronização com o cotidiano discente da FAFICH</p>

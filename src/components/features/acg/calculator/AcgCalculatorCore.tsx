@@ -141,7 +141,7 @@ export const AcgCalculatorCore: React.FC = () => {
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3 pb-2 border-b-2 border-border">
           <div>
             <div className="flex items-center gap-2 flex-wrap">
-              <h2 className="font-head text-lg uppercase font-black text-foreground m-0">
+              <h2 className="font-head text-lg font-black text-foreground m-0">
                 {title}
               </h2>
               <span className={`px-2.5 py-1 rounded-md text-xs font-head font-bold text-white border border-border shadow-xs ${colorClass}`}>
@@ -152,7 +152,7 @@ export const AcgCalculatorCore: React.FC = () => {
                   initial={{ scale: 1.4, rotate: -10, opacity: 0 }}
                   animate={{ scale: 1, rotate: -2, opacity: 1 }}
                   transition={bounceSpring}
-                  className="cagp-stamp-badge is-deferido text-[10px] py-0.5 px-2 border border-border"
+                  className="cagp-stamp-badge is-deferido text-xs py-0.5 px-2 border border-border"
                 >
                   <i className="bi bi-award-fill" aria-hidden="true" />
                   <span>300h ATINGIDAS</span>
@@ -209,7 +209,7 @@ export const AcgCalculatorCore: React.FC = () => {
                 <i className={`bi ${item.icon}`} aria-hidden="true" />
               </span>
               <div>
-                <span className="text-[10px] font-mono font-bold uppercase text-muted-foreground">
+                <span className="text-xs font-mono font-bold uppercase text-muted-foreground">
                   {item.code}
                 </span>
                 <h3 className="font-head text-sm font-bold text-foreground leading-tight m-0">
@@ -225,7 +225,7 @@ export const AcgCalculatorCore: React.FC = () => {
                   animate={{ scale: 1, rotate: 1.5, opacity: 1 }}
                   exit={{ scale: 0.8, opacity: 0 }}
                   transition={bounceSpring}
-                  className="cagp-stamp-badge is-teto text-[10px] py-0.5 px-1.5 shrink-0 border border-border shadow-xs"
+                  className="cagp-stamp-badge is-teto text-xs py-0.5 px-1.5 shrink-0 border border-border shadow-xs"
                 >
                   <i className="bi bi-patch-check-fill" aria-hidden="true" />
                   <span>TETO {item.max}h</span>
@@ -235,7 +235,7 @@ export const AcgCalculatorCore: React.FC = () => {
                   key="limit"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="text-[11px] font-mono font-bold text-muted-foreground shrink-0"
+                  className="text-xs font-mono font-bold text-muted-foreground shrink-0"
                 >
                   Teto: {item.max}h
                 </motion.span>
@@ -260,7 +260,7 @@ export const AcgCalculatorCore: React.FC = () => {
 
         {/* Controles Táteis Apple HIG */}
         <div>
-          <div className="flex items-center justify-between gap-2 pt-2.5 border-t-2 border-border/20">
+          <div className="flex items-center justify-between gap-2 pt-2.5 border-t-2 border-border">
             <div className="flex items-center gap-1.5">
               <button
                 type="button"
@@ -276,7 +276,7 @@ export const AcgCalculatorCore: React.FC = () => {
                 <span className="font-mono text-xs font-black text-foreground leading-none">
                   {val}h
                 </span>
-                <span className="text-[10px] text-muted-foreground font-mono">
+                <span className="text-xs text-muted-foreground font-mono">
                   /{item.max}h
                 </span>
               </div>
@@ -323,7 +323,7 @@ export const AcgCalculatorCore: React.FC = () => {
               >
                 <span>Regras</span>
                 <i
-                  className={`bi bi-chevron-${isDrawerOpen ? 'up' : 'down'} text-[10px]`}
+                  className={`bi bi-chevron-${isDrawerOpen ? 'up' : 'down'} text-xs`}
                   aria-hidden="true"
                 />
               </button>
@@ -331,8 +331,8 @@ export const AcgCalculatorCore: React.FC = () => {
           </div>
 
           {/* Ajuste Fino via Slider Neobrutalista */}
-          <div className="mt-3 pt-2.5 border-t-2 border-border/15">
-            <div className="flex items-center justify-between text-[11px] font-mono text-muted-foreground mb-1.5 font-bold">
+          <div className="mt-3 pt-2.5 border-t-2 border-border">
+            <div className="flex items-center justify-between text-xs font-mono text-muted-foreground mb-1.5 font-bold">
               <span>Ajuste Rápido (Slider)</span>
               <span className="text-foreground">{val}h / {item.max}h</span>
             </div>
@@ -424,8 +424,8 @@ export const AcgCalculatorCore: React.FC = () => {
                 Velocímetro Guardião 600h
               </span>
               <div className="flex items-center gap-1.5">
-                <span className="cagp-stamp-badge is-semente text-[10px] py-0.5 px-2">
-                  ✦ Ferramenta Criada pela Chapa Semente
+                <span className="cagp-stamp-badge is-semente text-xs py-0.5 px-2">
+                  Ferramenta Criada pela Chapa Semente
                 </span>
                 <Sticker variant="default" size="sm" rotation="slight">
                   PPC 2020

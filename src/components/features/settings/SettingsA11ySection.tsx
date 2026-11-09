@@ -15,7 +15,7 @@ export const SettingsA11ySection: React.FC<Props> = ({ a11y, updateA11y }) => {
             <i className="bi bi-universal-access text-base" aria-hidden="true" />
           </div>
           <div>
-            <h2 className="font-head text-base sm:text-lg font-extrabold uppercase text-foreground m-0 tracking-tight">
+            <h2 className="font-head text-base sm:text-lg font-extrabold text-foreground m-0">
               1. Acessibilidade &amp; Aparência Universal
             </h2>
             <p className="text-xs text-foreground m-0 font-medium">Ajustes instantâneos de tema, legibilidade e conforto visual</p>
@@ -26,7 +26,7 @@ export const SettingsA11ySection: React.FC<Props> = ({ a11y, updateA11y }) => {
         </span>
       </div>
 
-      <div className="divide-y-2 divide-[#0A0A0A]">
+      <div className="divide-y-2 divide-[#16181d]">
         {/* Tamanho da Fonte */}
         <div className="py-3.5 flex flex-wrap items-center justify-between gap-3">
           <div>
@@ -73,7 +73,7 @@ export const SettingsA11ySection: React.FC<Props> = ({ a11y, updateA11y }) => {
         <div className="py-3.5 flex items-center justify-between gap-3">
           <div>
             <strong className="block text-xs font-head font-extrabold uppercase text-foreground">Alto Contraste AAA (Preto &amp; Amarelo)</strong>
-            <span className="text-xs text-foreground font-medium">Fundo nanquim (#000000) e textos amarelos de alto contraste</span>
+            <span className="text-xs text-foreground font-medium">Fundo nanquim (#16181d) e textos amarelos de alto contraste</span>
           </div>
           <label className="min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer">
             <input

@@ -89,7 +89,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
             lançamentos contábeis são demonstrativos (<code className="font-mono bg-white px-1 py-0.5 rounded border border-border">simulated: true</code>).
           </p>
         </div>
-        <span className="font-mono text-[10px] font-bold uppercase bg-white px-2.5 py-1 rounded-lg border-3 border-border shadow-sm text-[#78350F] shrink-0 self-start sm:self-center">
+        <span className="font-mono text-xs font-bold uppercase bg-white px-2.5 py-1 rounded-lg border-3 border-border shadow-sm text-[#78350F] shrink-0 self-start sm:self-center">
           {SIMULATION_BADGE_TEXT}
         </span>
       </div>
@@ -102,16 +102,16 @@ export const CagpTransparenciaPortal: React.FC = () => {
         <div className="flex flex-wrap items-start justify-between gap-3 pb-3 border-b-2 border-border">
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-1">
-              <span className="px-2 py-0.5 rounded bg-[#5B2A85] text-white font-mono text-[10px] font-black uppercase">
+              <span className="px-2 py-0.5 rounded bg-[#5B2A85] text-white font-mono text-xs font-black uppercase">
                 PROPOSTA 1 • EIXO 1 SEMENTE
               </span>
-              <span className="font-mono text-[10px] font-bold uppercase text-secondary">
+              <span className="font-mono text-xs font-bold uppercase text-secondary">
                 ART. 30, V DO ESTATUTO CAGP
               </span>
             </div>
             <h2
               id="heading-balancete-kpis"
-              className="font-head text-lg sm:text-xl font-extrabold uppercase text-foreground m-0 tracking-tight"
+              className="font-head text-lg sm:text-xl font-extrabold text-foreground m-0"
             >
               Livro-Caixa Aberto • Balancete Financeiro Consolidado
             </h2>
@@ -120,7 +120,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
             </p>
           </div>
 
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#E8F5E9] text-success font-mono text-[11px] font-bold uppercase rounded-lg border-3 border-border shadow-sm">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#E8F5E9] text-success font-mono text-xs font-bold uppercase rounded-lg border-3 border-border shadow-sm">
             <CagpIcon name="stamp" className="w-3.5 h-3.5" />
             <span>CONSELHO FISCAL • ART. 36</span>
           </span>
@@ -179,14 +179,14 @@ export const CagpTransparenciaPortal: React.FC = () => {
               centerContent={
                 <div className="text-center">
                   <div className="text-lg font-heading font-black">100%</div>
-                  <div className="text-[11px] font-mono text-muted-foreground">Auditado</div>
+                  <div className="text-xs font-mono text-muted-foreground">Auditado</div>
                 </div>
               }
               className="mx-auto max-h-[210px]"
             />
             <div className="flex flex-wrap justify-center gap-1.5 pt-1">
               {BUDGET_ALLOCATION_DATA.map((item) => (
-                <Badge key={item.name} variant="outline" className="text-[10px]">
+                <Badge key={item.name} variant="outline" className="text-xs">
                   <span
                     className="w-2.5 h-2.5 rounded-sm border border-border inline-block"
                     style={{ backgroundColor: item.fill }}
@@ -209,14 +209,14 @@ export const CagpTransparenciaPortal: React.FC = () => {
             <ChartContainer config={RREO_CHART_CONFIG} className="min-h-[200px] w-full">
               <BarChart data={RREO_BAR_DATA} margin={{ top: 8, right: 8, left: -16, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                <XAxis dataKey="mes" tickLine={false} axisLine={false} className="text-[10px] font-mono font-bold" />
-                <YAxis tickLine={false} axisLine={false} className="text-[10px] font-mono" />
+                <XAxis dataKey="mes" tickLine={false} axisLine={false} className="text-xs font-mono font-bold" />
+                <YAxis tickLine={false} axisLine={false} className="text-xs font-mono" />
                 <ChartTooltip content={<ChartTooltipContent />} />
                 <Bar dataKey="receitas" fill="#15803D" radius={[4, 4, 0, 0]} stroke="#16181d" strokeWidth={2} />
                 <Bar dataKey="despesas" fill="#9E2424" radius={[4, 4, 0, 0]} stroke="#16181d" strokeWidth={2} />
               </BarChart>
             </ChartContainer>
-            <p className="text-[11px] font-mono text-muted-foreground text-center m-0 font-bold">
+            <p className="text-xs font-mono text-muted-foreground text-center m-0 font-bold">
               Comparativo mensal auditado pelo Conselho Fiscal (R$)
             </p>
           </div>
@@ -262,7 +262,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
           <div>
             <h2
               id="heading-lancamentos"
-              className="font-head text-lg font-extrabold uppercase text-foreground m-0 tracking-tight"
+              className="font-head text-lg font-extrabold text-foreground m-0"
             >
               Livro-Razão de Receitas e Despesas (Demonstrativo)
             </h2>
@@ -311,7 +311,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
           </div>
         </div>
 
-        <div className="divide-y-2 divide-[#0A0A0A]">
+        <div className="divide-y-2 divide-[#16181d]">
           <AnimatePresence mode="popLayout">
             {filteredEntries.map((entry) => (
               <motion.div
@@ -325,19 +325,19 @@ export const CagpTransparenciaPortal: React.FC = () => {
               >
                 <div className="space-y-1 min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="font-mono text-[10px] font-bold bg-foreground text-background text-white px-2 py-0.5 rounded border border-border">
+                    <span className="font-mono text-xs font-bold bg-foreground text-background text-white px-2 py-0.5 rounded border border-border">
                       {entry.code}
                     </span>
-                    <span className="font-mono text-[11px] text-foreground font-bold">{entry.date}</span>
-                    <span className="text-[10px] font-head font-bold uppercase bg-white border border-border text-foreground px-2 py-0.5 rounded-lg shadow-xs">
+                    <span className="font-mono text-xs text-foreground font-bold">{entry.date}</span>
+                    <span className="text-xs font-head font-bold uppercase bg-white border border-border text-foreground px-2 py-0.5 rounded-lg shadow-xs">
                       {entry.category}
                     </span>
-                    <span className="text-[10px] font-mono font-bold text-success bg-[#E8F5E9] border border-border px-2 py-0.5 rounded-lg">
+                    <span className="text-xs font-mono font-bold text-success bg-[#E8F5E9] border border-border px-2 py-0.5 rounded-lg">
                       {entry.status}
                     </span>
                   </div>
                   <p className="font-head font-bold text-sm text-foreground m-0">{entry.description}</p>
-                  <span className="text-[11px] font-mono text-foreground block">
+                  <span className="text-xs font-mono text-foreground block">
                     Comprovante: <span className="font-bold">{entry.documentRef}</span>
                   </span>
                 </div>
@@ -362,7 +362,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
             <span className="font-heading text-xs font-black uppercase text-foreground">
               Comprovantes &amp; Balancetes Homologados (Invoice Ledger)
             </span>
-            <span className="font-mono text-[10px] font-bold text-muted-foreground">
+            <span className="font-mono text-xs font-bold text-muted-foreground">
               Auditados pelo Conselho Fiscal (Art. 36)
             </span>
           </div>
@@ -405,7 +405,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
           <div>
             <h2
               id="heading-rreo"
-              className="font-head text-base sm:text-lg font-extrabold uppercase text-foreground m-0 tracking-tight"
+              className="font-head text-base sm:text-lg font-extrabold text-foreground m-0"
             >
               Execução Orçamentária Mensal (RREO • Art. 30, V)
             </h2>
@@ -417,7 +417,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
           <div className="overflow-x-auto border-3 border-border rounded-xl">
             <table className="w-full text-left border-collapse text-xs">
               <thead>
-                <tr className="border-b-2 border-border bg-muted/60 text-[10px] font-mono font-bold uppercase text-foreground">
+                <tr className="border-b-2 border-border bg-muted text-xs font-mono font-bold uppercase text-foreground">
                   <th className="py-2.5 px-3">Competência</th>
                   <th className="py-2.5 px-2 text-right">Entradas</th>
                   <th className="py-2.5 px-2 text-right">Saídas</th>
@@ -425,9 +425,9 @@ export const CagpTransparenciaPortal: React.FC = () => {
                   <th className="py-2.5 px-3 text-right">Situação</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#0A0A0A] tabular-nums font-body">
+              <tbody className="divide-y divide-[#16181d] tabular-nums font-body">
                 {SIMULATED_TRANSPARENCY.rreoMonthly.map((row) => (
-                  <tr key={row.id} className="hover:bg-muted/40 transition-colors">
+                  <tr key={row.id} className="hover:bg-background transition-colors">
                     <td className="py-2.5 px-3 font-head font-bold text-foreground">{row.month}</td>
                     <td className="py-2.5 px-2 text-right font-mono text-success font-bold">
                       {row.inflow}
@@ -439,7 +439,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
                       {row.endingBalance}
                     </td>
                     <td className="py-2.5 px-3 text-right">
-                      <span className="text-[10px] font-mono font-bold bg-white border border-border px-2 py-0.5 rounded-lg text-foreground shadow-xs">
+                      <span className="text-xs font-mono font-bold bg-white border border-border px-2 py-0.5 rounded-lg text-foreground shadow-xs">
                         {row.status}
                       </span>
                     </td>
@@ -458,7 +458,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
           <div>
             <h2
               id="heading-atas-pareceres"
-              className="font-head text-base sm:text-lg font-extrabold uppercase text-foreground m-0 tracking-tight"
+              className="font-head text-base sm:text-lg font-extrabold text-foreground m-0"
             >
               Atas, Pareceres &amp; Patrimônio
             </h2>
@@ -473,7 +473,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
                 key={rec.id}
                 className="p-3.5 rounded-xl bg-white border-3 border-border shadow-sm flex-col items-start gap-1.5"
               >
-                <ItemHeader className="text-[10px] font-mono font-bold text-foreground">
+                <ItemHeader className="text-xs font-mono font-bold text-foreground">
                   <span className="text-secondary">{rec.code}</span>
                   <span>
                     {rec.date} • {rec.organ}
@@ -483,7 +483,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
                   <ItemTitle className="text-xs font-head font-bold uppercase text-foreground m-0">
                     {rec.title}
                   </ItemTitle>
-                  <ItemDescription className="text-[11px] text-foreground m-0 leading-relaxed font-medium">
+                  <ItemDescription className="text-xs text-foreground m-0 leading-relaxed font-medium">
                     {rec.summary}
                   </ItemDescription>
                 </ItemContent>
@@ -502,7 +502,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
           <div>
             <h2
               id="heading-estatuto-transparencia"
-              className="font-head text-base sm:text-lg font-extrabold uppercase text-foreground m-0 tracking-tight"
+              className="font-head text-base sm:text-lg font-extrabold text-foreground m-0"
             >
               Garantias Estatutárias de Transparência (Regimento de 14/10/2024 — Dados Oficiais)
             </h2>
@@ -523,10 +523,10 @@ export const CagpTransparenciaPortal: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="p-4 rounded-xl bg-white border-3 border-border shadow-sm space-y-2">
-            <span className="text-[11px] font-mono font-bold text-secondary block">
+            <span className="text-xs font-mono font-bold text-secondary block">
               Art. 8º, Parágrafo Único
             </span>
-            <h3 className="text-xs font-head font-extrabold uppercase text-foreground m-0">
+            <h3 className="text-xs font-head font-extrabold text-foreground m-0">
               Vedação de Distribuição de Lucros
             </h3>
             <p className="text-xs text-foreground m-0 leading-relaxed font-medium">
@@ -536,8 +536,8 @@ export const CagpTransparenciaPortal: React.FC = () => {
           </div>
 
           <div className="p-4 rounded-xl bg-white border-3 border-border shadow-sm space-y-2">
-            <span className="text-[11px] font-mono font-bold text-secondary block">Art. 15, Inciso V</span>
-            <h3 className="text-xs font-head font-extrabold uppercase text-foreground m-0">
+            <span className="text-xs font-mono font-bold text-secondary block">Art. 15, Inciso V</span>
+            <h3 className="text-xs font-head font-extrabold text-foreground m-0">
               Prazo de 3 Dias Úteis para Informações
             </h3>
             <p className="text-xs text-foreground m-0 leading-relaxed font-medium">
@@ -547,10 +547,10 @@ export const CagpTransparenciaPortal: React.FC = () => {
           </div>
 
           <div className="p-4 rounded-xl bg-white border-3 border-border shadow-sm space-y-2">
-            <span className="text-[11px] font-mono font-bold text-secondary block">
+            <span className="text-xs font-mono font-bold text-secondary block">
               Arts. 30 e 36 do Estatuto
             </span>
-            <h3 className="text-xs font-head font-extrabold uppercase text-foreground m-0">
+            <h3 className="text-xs font-head font-extrabold text-foreground m-0">
               Dupla Checagem &amp; Conselho Fiscal
             </h3>
             <p className="text-xs text-foreground m-0 leading-relaxed font-medium">
@@ -569,7 +569,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
             className="font-head font-bold uppercase text-secondary hover:underline no-underline inline-flex items-center gap-1.5"
           >
             <span>Solicitar por e-mail (cagp@fafich.ufmg.br)</span>
-            <span aria-hidden="true">&rarr;</span>
+            <i className="bi bi-arrow-right" aria-hidden="true" />
           </a>
         </div>
       </section>

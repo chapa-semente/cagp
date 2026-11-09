@@ -98,7 +98,7 @@ export function FooterMultiColumn({
           {/* Link columns */}
           {columns.map((column, index) => (
             <div key={`col-${index}`} className="space-y-4">
-              <h4 className="font-black uppercase text-sm tracking-wide">
+              <h4 className="font-black text-sm">
                 {column.title}
               </h4>
               <ul className="space-y-2">
@@ -158,13 +158,13 @@ export function FooterWithNewsletter({
   }
 
   return (
-    <footer className={cn('py-16 px-4 md:px-8 lg:px-16 border-t-3 border-foreground bg-muted/30', className)}>
+    <footer className={cn('py-16 px-4 md:px-8 lg:px-16 border-t-3 border-foreground bg-background', className)}>
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 mb-12">
           {/* Newsletter section */}
           <div className="space-y-4">
             {logo && <div className="font-black text-2xl uppercase">{logo}</div>}
-            <h4 className="font-black uppercase text-lg">{newsletterTitle}</h4>
+            <h4 className="font-black text-lg">{newsletterTitle}</h4>
             <p className="text-muted-foreground font-medium">
               {newsletterDescription}
             </p>
@@ -186,7 +186,7 @@ export function FooterWithNewsletter({
           <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
             {columns.map((column, index) => (
               <div key={`col-${index}`} className="space-y-4">
-                <h4 className="font-black uppercase text-sm tracking-wide">
+                <h4 className="font-black text-sm">
                   {column.title}
                 </h4>
                 <ul className="space-y-2">
@@ -338,12 +338,12 @@ export function FooterWithCTA({
       {/* CTA Banner */}
       <div className="py-12 px-4 md:px-8 lg:px-16 bg-primary text-primary-foreground">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <h3 className="text-2xl font-black uppercase">{ctaTitle}</h3>
+          <h3 className="text-2xl font-black">{ctaTitle}</h3>
           {ctaAction && (
             <Button
               size="lg"
               variant="outline"
-              className="bg-background text-foreground hover:bg-background/90"
+              className="bg-background text-foreground hover:bg-background"
               onClick={ctaAction.onClick}
             >
               {ctaAction.label}
@@ -373,7 +373,7 @@ export function FooterWithCTA({
 
             {columns.map((column, index) => (
               <div key={`col-${index}`} className="space-y-3">
-                <h4 className="font-black uppercase text-xs tracking-wide">
+                <h4 className="font-black text-xs">
                   {column.title}
                 </h4>
                 <ul className="space-y-2">

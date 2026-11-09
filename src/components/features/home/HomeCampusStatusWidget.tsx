@@ -97,7 +97,7 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({
           </span>
           <h2
             id="heading-campus-now"
-            className="font-heading text-base sm:text-lg font-extrabold uppercase tracking-wide text-foreground m-0"
+            className="font-heading text-base sm:text-lg font-extrabold text-foreground m-0"
           >
             Plantão Noturno • Campus Agora
           </h2>
@@ -123,7 +123,7 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({
               <span
                 className={`inline-flex items-center gap-1.5 text-xs font-mono font-bold px-2.5 py-1 rounded-lg border-2 border-border tabular-nums ${
                   status.ruTone === 'open'
-                    ? 'bg-success/20 text-[#166534]'
+                    ? 'bg-success-tint text-[#166534]'
                     : status.ruTone === 'warn'
                     ? 'bg-[#FEF08A] text-[#854D0E]'
                     : 'bg-background text-muted-foreground'
@@ -143,8 +143,8 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({
               </span>
             </div>
             <div className="flex items-baseline justify-between gap-2">
-              <h3 className="text-sm font-heading font-extrabold tracking-tight text-foreground m-0">Bandejão RU II Setorial</h3>
-              <span className="font-mono text-xs font-bold text-foreground bg-[#EFE9E0] px-2 py-0.5 rounded border border-border tabular-nums">
+              <h3 className="text-sm font-heading font-extrabold text-foreground m-0">Bandejão RU II Setorial</h3>
+              <span className="font-mono text-xs font-bold text-foreground bg-[#e5e7ec] px-2 py-0.5 rounded border border-border tabular-nums">
                 R$ 5,60
               </span>
             </div>
@@ -155,7 +155,7 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({
             </p>
           </div>
 
-          <div className="mt-4 pt-3 border-t-2 border-border/15 flex items-center justify-between gap-2">
+          <div className="mt-4 pt-3 border-t-2 border-border flex items-center justify-between gap-2">
             <button
               type="button"
               onClick={() => toggleNotif('ru1815')}
@@ -182,7 +182,7 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({
               <span
                 className={`inline-flex items-center gap-1.5 text-xs font-mono font-bold px-2.5 py-1 rounded-lg border-2 border-border tabular-nums ${
                   status.busTone === 'open'
-                    ? 'bg-success/20 text-[#166534]'
+                    ? 'bg-success-tint text-[#166534]'
                     : status.busTone === 'warn'
                     ? 'bg-[#FEF08A] text-[#854D0E]'
                     : 'bg-background text-muted-foreground'
@@ -201,7 +201,7 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({
                 <span>{status.busBadge}</span>
               </span>
             </div>
-            <h3 className="text-sm font-heading font-extrabold tracking-tight text-foreground m-0">Circular Interno • FAFICH</h3>
+            <h3 className="text-sm font-heading font-extrabold text-foreground m-0">Circular Interno • FAFICH</h3>
             <p className="text-xs font-mono text-muted-foreground mt-1.5 mb-0 leading-relaxed font-medium tabular-nums max-w-prose">
               {notifs.circular2230
                 ? 'Lembrete 22h30 ativo no cofre • Última saída às 22h45'
@@ -209,7 +209,7 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({
             </p>
           </div>
 
-          <div className="mt-4 pt-3 border-t-2 border-border/15">
+          <div className="mt-4 pt-3 border-t-2 border-border">
             <button
               type="button"
               onClick={() => toggleNotif('circular2230')}
@@ -233,25 +233,25 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({
               <span className="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center shrink-0 border-2 border-border">
                 <CagpIcon name="building" className="w-5 h-5" />
               </span>
-              <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold bg-[#EFE9E0] text-foreground px-2.5 py-1 rounded-lg border-2 border-border tabular-nums">
+              <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold bg-[#e5e7ec] text-foreground px-2.5 py-1 rounded-lg border-2 border-border tabular-nums">
                 <span className="w-2 h-2 rounded-full bg-success border border-border" aria-hidden="true" />
                 <span>Sala F-2039 • 2º Andar</span>
               </span>
             </div>
-            <h3 className="text-sm font-heading font-extrabold tracking-tight text-foreground m-0">Colegiado DCP &amp; FAFICH</h3>
+            <h3 className="text-sm font-heading font-extrabold text-foreground m-0">Colegiado DCP &amp; FAFICH</h3>
             <p className="text-xs font-mono text-muted-foreground mt-1.5 mb-0 leading-relaxed font-medium tabular-nums max-w-prose">
               Secretaria: Norma Guedes (08h–20h) • Biblioteca e CEAG abertos no turno noturno até 22h.
             </p>
           </div>
 
-          <div className="mt-4 pt-3 border-t-2 border-border/15 flex items-center justify-between gap-2 text-xs">
+          <div className="mt-4 pt-3 border-t-2 border-border flex items-center justify-between gap-2 text-xs">
             <span className="font-mono text-muted-foreground text-xs font-bold truncate tabular-nums">FAFICH • 2º Andar</span>
             <a
               href={route('/curso') + '#colegiado'}
               className="min-h-[44px] px-3.5 py-1.5 rounded-xl font-heading font-bold text-secondary hover:bg-muted border-2 border-transparent hover:border-border no-underline shrink-0 inline-flex items-center gap-1 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
               <span>Contatos</span>
-              <span aria-hidden="true">&rarr;</span>
+              <i className="bi bi-arrow-right" aria-hidden="true" />
             </a>
           </div>
         </div>

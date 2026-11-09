@@ -118,14 +118,14 @@ export const AcgGuardianCore: React.FC = () => {
           </span>
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-1">
-              <span className="cagp-stamp-badge is-semente text-[10px] py-0.5 px-2">
-                ✦ Ferramenta Criada pela Chapa Semente
+              <span className="cagp-stamp-badge is-semente text-xs py-0.5 px-2">
+                Ferramenta Criada pela Chapa Semente
               </span>
-              <span className="px-2 py-0.5 rounded-md bg-secondary text-white font-mono text-[10px] font-bold border border-[#16181d]">
+              <span className="px-2 py-0.5 rounded-md bg-secondary text-white font-mono text-xs font-bold border border-[#16181d]">
                 ART. 15, § 4º • N-20229
               </span>
             </div>
-            <h3 className="font-head text-base sm:text-lg uppercase font-black text-foreground leading-tight m-0">
+            <h3 className="font-head text-base sm:text-lg font-black text-foreground leading-tight m-0">
               Alerta 120 Dias • Guardião do Prazo Fatal Corrido
             </h3>
             <p className="font-body text-xs text-muted-foreground mt-1 leading-relaxed m-0">
@@ -148,13 +148,13 @@ export const AcgGuardianCore: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Formulário de Cadastro de Certificado */}
         <div className="lg:col-span-5 cagp-card p-5 bg-white border-3 border-border rounded-xl h-fit shadow">
-          <h4 className="font-head text-sm uppercase font-bold text-foreground mb-3 pb-2 border-b-2 border-border/20 flex items-center gap-2">
+          <h4 className="font-head text-sm font-bold text-foreground mb-3 pb-2 border-b-2 border-border flex items-center gap-2">
             <i className="bi bi-plus-circle text-secondary" aria-hidden="true" />
             <span>Cadastrar no Alerta 120 Dias</span>
           </h4>
 
           {statusMessage && (
-            <div className="p-3 mb-3 bg-success/20 border-2 border-[#266264] rounded-xl text-xs text-[#266264] font-bold shadow-sm">
+            <div className="p-3 mb-3 bg-success-tint border-2 border-[#266264] rounded-xl text-xs text-[#266264] font-bold shadow-sm">
               {statusMessage}
             </div>
           )}
@@ -176,7 +176,7 @@ export const AcgGuardianCore: React.FC = () => {
                 'image/*': ['.png', '.jpg', '.jpeg'],
               }}
               maxFiles={1}
-              className="rounded-xl bg-card border-3 border-dashed border-border shadow-sm p-4 text-center cursor-pointer hover:bg-muted/30"
+              className="rounded-xl bg-card border-3 border-dashed border-border shadow-sm p-4 text-center cursor-pointer hover:bg-background"
             >
               {({ isDragging }) => (
                 <div className="space-y-1">
@@ -184,7 +184,7 @@ export const AcgGuardianCore: React.FC = () => {
                   <span className="text-xs font-head font-bold uppercase text-foreground block">
                     {isDragging ? 'Solte o arquivo aqui' : 'Arrastar Certificado (PDF ou Foto)'}
                   </span>
-                  <span className="text-[10px] text-muted-foreground font-sans block">
+                  <span className="text-xs text-muted-foreground font-sans block">
                     Preenche o título automaticamente
                   </span>
                 </div>
@@ -278,7 +278,7 @@ export const AcgGuardianCore: React.FC = () => {
         {/* Listagem de Certificados Monitorados */}
         <div className="lg:col-span-7 space-y-3.5">
           <div className="flex items-center justify-between pb-2.5 border-b-2 border-border flex-wrap gap-2">
-            <h4 className="font-head text-base uppercase font-bold text-foreground m-0 flex items-center gap-2">
+            <h4 className="font-head text-base font-bold text-foreground m-0 flex items-center gap-2">
               <CagpIcon name="clock" className="w-4 h-4 text-accent" />
               <span>Certificados no Alerta 120 Dias ({certs.length})</span>
             </h4>
@@ -328,7 +328,7 @@ export const AcgGuardianCore: React.FC = () => {
                     >
                       <div className="min-w-0">
                         <div className="flex items-center gap-2 mb-1 flex-wrap">
-                          <span className="px-2 py-0.5 rounded-md bg-foreground text-background text-white font-mono text-[10px] font-bold border border-border">
+                          <span className="px-2 py-0.5 rounded-md bg-foreground text-background text-white font-mono text-xs font-bold border border-border">
                             {c.mod}
                           </span>
                           <span className="font-mono text-xs font-bold text-secondary">{c.hours} horas</span>
@@ -336,7 +336,7 @@ export const AcgGuardianCore: React.FC = () => {
                         <h5 className="font-head text-sm font-bold text-foreground truncate m-0">
                           {c.title}
                         </h5>
-                        <span className="text-[11px] text-muted-foreground font-mono">
+                        <span className="text-xs text-muted-foreground font-mono">
                           Emitido em: {new Date(c.date).toLocaleDateString('pt-BR')} • Prazo Art. 15: 120 dias corridos
                         </span>
                       </div>
@@ -348,7 +348,7 @@ export const AcgGuardianCore: React.FC = () => {
                               initial={{ scale: 2.2, rotate: -14, opacity: 0 }}
                               animate={{ scale: 1, rotate: -2.5, opacity: 1 }}
                               transition={bounceSpring}
-                              className="cagp-stamp-badge is-indeferido text-[11px] font-mono font-black tracking-wider text-white border-3 border-[#16181d] bg-secondary rounded-lg inline-flex items-center gap-1.5 py-1.5 px-3 shadow-[3px_3px_0_0_#16181d]"
+                              className="cagp-stamp-badge is-indeferido text-xs font-mono font-black tracking-wider text-white border-3 border-[#16181d] bg-secondary rounded-lg inline-flex items-center gap-1.5 py-1.5 px-3 shadow-[3px_3px_0_0_#16181d]"
                             >
                               <i className="bi bi-x-octagon-fill" aria-hidden="true" />
                               <span>PRESCRITO • FORA DOS 120D ({daysLeft}D)</span>
@@ -358,13 +358,13 @@ export const AcgGuardianCore: React.FC = () => {
                               initial={{ scale: 2.2, rotate: 12, opacity: 0 }}
                               animate={{ scale: 1, rotate: 2, opacity: 1 }}
                               transition={bounceSpring}
-                              className="cagp-stamp-badge text-[11px] font-mono font-black tracking-wider text-white border-3 border-[#16181d] bg-secondary rounded-lg inline-flex items-center gap-1.5 py-1.5 px-3 shadow-[3px_3px_0_0_#16181d]"
+                              className="cagp-stamp-badge text-xs font-mono font-black tracking-wider text-white border-3 border-[#16181d] bg-secondary rounded-lg inline-flex items-center gap-1.5 py-1.5 px-3 shadow-[3px_3px_0_0_#16181d]"
                             >
                               <i className="bi bi-alarm-fill" aria-hidden="true" />
                               <span>PRAZO FATAL • RESTAM {daysLeft}D</span>
                             </motion.span>
                           ) : (
-                            <span className="cagp-stamp-badge is-feito text-[10px] font-mono font-bold tracking-wider text-white border-2 border-[#16181d] bg-teal-700 rounded-md inline-flex items-center gap-1 py-1 px-2.5 shadow-xs">
+                            <span className="cagp-stamp-badge is-feito text-xs font-mono font-bold tracking-wider text-white border-2 border-[#16181d] bg-teal-700 rounded-md inline-flex items-center gap-1 py-1 px-2.5 shadow-xs">
                               <i className="bi bi-check-circle-fill" aria-hidden="true" />
                               <span>NO PRAZO ({daysLeft}D RESTANTES)</span>
                             </span>

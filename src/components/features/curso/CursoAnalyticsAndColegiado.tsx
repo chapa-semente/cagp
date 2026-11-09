@@ -97,7 +97,7 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
                   <Badge variant="default" className="mb-2">
                     PESQUISA OFICIAL DE EGRESSOS • N = 89 DE 349 GRADUADOS
                   </Badge>
-                  <CardTitle className="text-xl uppercase">
+                  <CardTitle className="text-xl">
                     Setor de Ocupação de Egressos de Gestão Pública UFMG
                   </CardTitle>
                   <CardDescription className="text-xs font-medium text-muted-foreground mt-1">
@@ -108,7 +108,7 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
             </CardHeader>
             <CardContent className="pt-6 space-y-6">
               {/* Barra de Distribuição Proporcional Responsiva Mobile-First */}
-              <div className="p-4 sm:p-5 rounded-xl border-2 border-border bg-[#FFFDF9] space-y-3">
+              <div className="p-4 sm:p-5 rounded-xl border-2 border-border bg-[#ffffff] space-y-3">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className="font-head text-xs font-black uppercase text-foreground tracking-wide">
                     Distribuição Proporcional por Setor (% do Total de Egressos)
@@ -177,12 +177,12 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
               {/* Painel Duplo: Funil de Integralização & Faixas Salariais em Barras Responsivas */}
               <div className="border-t-3 border-border pt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* 1. Funil de Integralização */}
-                <div className="p-5 rounded-xl border-2 border-border bg-[#FFFDF9] space-y-4">
+                <div className="p-5 rounded-xl border-2 border-border bg-[#ffffff] space-y-4">
                   <div>
                     <span className="font-mono text-xs font-black uppercase text-[#5B2A85] block">
                       Taxas de Retenção &amp; Sucesso Discente
                     </span>
-                    <h4 className="font-head text-base font-black uppercase text-foreground m-0">
+                    <h4 className="font-head text-base font-black text-foreground m-0">
                       Funil de Integralização (SiSU &rarr; Formatura)
                     </h4>
                   </div>
@@ -212,12 +212,12 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
                 </div>
 
                 {/* 2. Faixas Salariais dos Egressos */}
-                <div className="p-5 rounded-xl border-2 border-border bg-[#FFFDF9] space-y-4">
+                <div className="p-5 rounded-xl border-2 border-border bg-[#ffffff] space-y-4">
                   <div>
                     <span className="font-mono text-xs font-black uppercase text-secondary block">
                       Remuneração Média na Carreira Pública
                     </span>
-                    <h4 className="font-head text-base font-black uppercase text-foreground m-0">
+                    <h4 className="font-head text-base font-black text-foreground m-0">
                       Faixas Salariais dos Egressos Diplomados
                     </h4>
                   </div>
@@ -258,15 +258,15 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
                   </span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-                  <div className="p-3 rounded-lg bg-[#FAF5FF] border border-[#5B2A85]/30">
+                  <div className="p-3 rounded-lg bg-[#EFE7F6] border border-[#5B2A85]/30">
                     <strong className="block font-head font-black uppercase text-[#5B2A85]">1º Horário (Aulas 1 e 2)</strong>
                     <span className="text-muted-foreground font-body font-medium">19h00 às 20h35 (100 minutos de exposição teórica e metodológica).</span>
                   </div>
-                  <div className="p-3 rounded-lg bg-[#FAF5FF] border border-[#5B2A85]/30">
+                  <div className="p-3 rounded-lg bg-[#EFE7F6] border border-[#5B2A85]/30">
                     <strong className="block font-head font-black uppercase text-[#5B2A85]">Intervalo Discente</strong>
                     <span className="text-muted-foreground font-body font-medium">20h35 às 20h50 (Acesso ao DA FAFICH, Cantina e Café da Filosofia).</span>
                   </div>
-                  <div className="p-3 rounded-lg bg-[#FAF5FF] border border-[#5B2A85]/30">
+                  <div className="p-3 rounded-lg bg-[#EFE7F6] border border-[#5B2A85]/30">
                     <strong className="block font-head font-black uppercase text-[#5B2A85]">2º Horário (Aulas 3 e 4)</strong>
                     <span className="text-muted-foreground font-body font-medium">20h50 às 22h25 (Seminários, laboratórios computacionais e debates).</span>
                   </div>
@@ -283,7 +283,7 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
               <Badge variant="secondary" className="mb-2 w-fit">
                 ESTUDO CIENTOMÉTRICO • CLEMENTE ET AL. (2022) • REV. SOCIOLOGIA E POLÍTICA
               </Badge>
-              <CardTitle className="text-xl uppercase">
+              <CardTitle className="text-xl">
                 O Que se Ensina: Posicionamento da UFMG no Campo de Públicas
               </CardTitle>
               <CardDescription className="text-xs font-medium text-muted-foreground mt-1">
@@ -294,17 +294,17 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="p-4 rounded-xl border-3 border-border bg-primary text-white shadow-[4px_4px_0px_#16181d] space-y-2">
                   <Badge variant="accent">CLUSTER DA UFMG • 4 CURSOS</Badge>
-                  <h4 className="font-heading text-base font-black uppercase">
+                  <h4 className="font-heading text-base font-black">
                     Cluster Gestão de Políticas Públicas
                   </h4>
-                  <p className="text-xs text-white/90 leading-relaxed font-body font-medium">
+                  <p className="text-xs text-white leading-relaxed font-body font-medium">
                     A UFMG integra o núcleo conectado de <strong>Gestão de Políticas Públicas</strong> ao lado de <strong>USP, UFABC e UFRN</strong>, com forte ênfase em análise institucional, avaliação de políticas, ciência política e métodos quantitativos/qualitativos.
                   </p>
                 </div>
 
                 <div className="p-4 rounded-xl border-3 border-border bg-white shadow-[4px_4px_0px_#16181d] space-y-2">
                   <Badge variant="default">CLUSTER ADMINISTRATIVO • 7 CURSOS</Badge>
-                  <h4 className="font-heading text-base font-black uppercase text-foreground">
+                  <h4 className="font-heading text-base font-black text-foreground">
                     Administração Pública e Organizacional
                   </h4>
                   <p className="text-xs text-[#3F3C38] leading-relaxed font-body font-medium">
@@ -314,7 +314,7 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
 
                 <div className="p-4 rounded-xl border-3 border-border bg-white shadow-[4px_4px_0px_#16181d] space-y-2">
                   <Badge variant="teal">CURSOS SINGULARES • 3 CURSOS</Badge>
-                  <h4 className="font-heading text-base font-black uppercase text-foreground">
+                  <h4 className="font-heading text-base font-black text-foreground">
                     Perfis Regionais e Específicos
                   </h4>
                   <p className="text-xs text-[#3F3C38] leading-relaxed font-body font-medium">
@@ -324,12 +324,12 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
               </div>
 
               {/* Distribuição de Carga Horária por Departamento da UFMG */}
-              <div className="p-5 rounded-xl border-2 border-border bg-[#FFFDF9] space-y-4">
+              <div className="p-5 rounded-xl border-2 border-border bg-[#ffffff] space-y-4">
                 <div>
                   <span className="font-mono text-xs font-black uppercase text-primary block">
                     Grade Multidisciplinar Integrada (PPC 2020)
                   </span>
-                  <h4 className="font-head text-base font-black uppercase text-foreground m-0">
+                  <h4 className="font-head text-base font-black text-foreground m-0">
                     Distribuição da Carga Horária Total (3.000h) por Departamento
                   </h4>
                 </div>
@@ -365,7 +365,7 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
               <Badge variant="ufmg" className="mb-2 w-fit">
                 GOVERNANÇA &amp; ATENDIMENTO • SALA 2039 FAFICH
               </Badge>
-              <CardTitle className="text-xl uppercase">
+              <CardTitle className="text-xl">
                 Secretaria do Colegiado &amp; Protocolo CEAG
               </CardTitle>
               <CardDescription className="text-xs font-medium text-muted-foreground mt-1">
@@ -374,11 +374,11 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
             </CardHeader>
             <CardContent className="pt-6 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-5 rounded-xl border-3 border-border bg-[#FFFDF9] shadow-[3px_3px_0_0_#16181d] space-y-2">
+                <div className="p-5 rounded-xl border-3 border-border bg-[#ffffff] shadow-[3px_3px_0_0_#16181d] space-y-2">
                   <span className="font-mono text-xs font-bold uppercase text-secondary block">
                     Secretaria Didática Presencial
                   </span>
-                  <h4 className="font-heading text-base font-black uppercase text-foreground m-0">
+                  <h4 className="font-heading text-base font-black text-foreground m-0">
                     Sala 2039 — FAFICH (2º Andar)
                   </h4>
                   <p className="text-xs text-muted-foreground leading-relaxed m-0 font-body font-medium">
@@ -391,11 +391,11 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
                   </p>
                 </div>
 
-                <div className="p-5 rounded-xl border-3 border-border bg-[#FFFDF9] shadow-[3px_3px_0_0_#16181d] space-y-2">
+                <div className="p-5 rounded-xl border-3 border-border bg-[#ffffff] shadow-[3px_3px_0_0_#16181d] space-y-2">
                   <span className="font-mono text-xs font-bold uppercase text-primary block">
                     Protocolo Noturno Geral
                   </span>
-                  <h4 className="font-heading text-base font-black uppercase text-foreground m-0">
+                  <h4 className="font-heading text-base font-black text-foreground m-0">
                     CEAG — Centro de Apoio à Graduação
                   </h4>
                   <p className="text-xs text-muted-foreground leading-relaxed m-0 font-body font-medium">
@@ -409,7 +409,7 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
               </div>
 
               {/* Botão de Acesso ao Diretório Completo na Aba Colegiado */}
-              <div className="p-4 rounded-xl bg-muted/40 border-2 border-border flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="p-4 rounded-xl bg-background border-2 border-border flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
                   <h5 className="font-heading text-sm font-black uppercase text-foreground m-0">
                     Diretório Completo do Colegiado, NDE &amp; Resoluções Oficiais

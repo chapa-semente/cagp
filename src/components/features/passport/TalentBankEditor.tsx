@@ -87,7 +87,7 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
         </div>
 
         <div>
-          <span className="text-[11px] font-head uppercase font-bold text-foreground block mb-1.5">
+          <span className="text-xs font-head uppercase font-bold text-foreground block mb-1.5">
             Ou escolha um avatar temático discente:
           </span>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -100,7 +100,7 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
                   onClick={() => onChange({ ...profile, avatarPreset: p.id, photoDataUrl: undefined })}
                   className={`p-2 rounded-xl border-2 text-left flex items-center gap-2 transition-all cursor-pointer select-none ${
                     isSelected
-                      ? 'border-border bg-white shadow-[3px_3px_0px_#0A0A0A] -translate-x-[1px] -translate-y-[1px]'
+                      ? 'border-border bg-white shadow-[3px_3px_0px_#16181d] -translate-x-[1px] -translate-y-[1px]'
                       : 'border-border bg-white hover:bg-muted'
                   }`}
                 >
@@ -134,7 +134,7 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
           <div>
-            <label className="block text-[11px] font-bold uppercase text-gray-600 mb-1" htmlFor="prof-name">Nome Completo ou Social</label>
+            <label className="block text-xs font-bold uppercase text-gray-600 mb-1" htmlFor="prof-name">Nome Completo ou Social</label>
             <input
               id="prof-name"
               type="text"
@@ -144,7 +144,7 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
             />
           </div>
           <div>
-            <label className="block text-[11px] font-bold uppercase text-gray-600 mb-1" htmlFor="prof-pronouns">Pronomes (opcional)</label>
+            <label className="block text-xs font-bold uppercase text-gray-600 mb-1" htmlFor="prof-pronouns">Pronomes (opcional)</label>
             <input
               id="prof-pronouns"
               type="text"
@@ -155,7 +155,7 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
             />
           </div>
           <div>
-            <label className="block text-[11px] font-bold uppercase text-gray-600 mb-1" htmlFor="prof-period">Período Atual</label>
+            <label className="block text-xs font-bold uppercase text-gray-600 mb-1" htmlFor="prof-period">Período Atual</label>
             <select
               id="prof-period"
               value={profile.period}
@@ -169,7 +169,7 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
             </select>
           </div>
           <div>
-            <label className="block text-[11px] font-bold uppercase text-gray-600 mb-1" htmlFor="prof-pathway">Percurso Formativo</label>
+            <label className="block text-xs font-bold uppercase text-gray-600 mb-1" htmlFor="prof-pathway">Percurso Formativo</label>
             <select
               id="prof-pathway"
               value={profile.pathway || '01-01'}
@@ -214,7 +214,7 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
           <span className="font-head font-extrabold text-xs uppercase text-foreground">
             4. Áreas de Atuação &amp; Banco de Talentos
           </span>
-          <span className="text-[11px] font-mono font-bold text-foreground">
+          <span className="text-xs font-mono font-bold text-foreground">
             {(profile.interests || []).length} selecionadas
           </span>
         </div>

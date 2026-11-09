@@ -29,7 +29,7 @@ const emptyStateVariants = cva(
     variants: {
       variant: {
         default: '',
-        filled: 'bg-muted/30 border-3 border-dashed border-foreground p-8',
+        filled: 'bg-background border-3 border-dashed border-foreground p-8',
         card: 'bg-card border-3 border-foreground shadow-md p-8',
       },
       size: {
@@ -183,7 +183,7 @@ const EmptyStateTitle = React.forwardRef<HTMLHeadingElement, EmptyStateTitleProp
     return (
       <h3
         ref={ref}
-        className={cn('font-black text-lg uppercase tracking-wide', className)}
+        className={cn('font-black text-lg ', className)}
         {...props}
       >
         {children}

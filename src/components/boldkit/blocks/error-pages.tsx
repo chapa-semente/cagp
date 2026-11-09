@@ -102,13 +102,13 @@ export function NotFoundPage({
               className="w-24 h-24 flex flex-col items-center justify-center border-3 border-[#16181d] bg-secondary text-white rounded-2xl shadow-[6px_6px_0_0_#16181d]"
             >
               <FileQuestion className="h-10 w-10 text-white" />
-              <span className="font-mono text-[10px] font-black uppercase mt-1">EXTRVIADO</span>
+              <span className="font-mono text-xs font-black uppercase mt-1">EXTRVIADO</span>
             </motion.div>
           </div>
         </div>
 
         <div className="space-y-3">
-          <h2 className="text-2xl md:text-3xl font-black uppercase text-[#16181d] tracking-tight m-0">
+          <h2 className="text-2xl md:text-3xl font-black text-[#16181d] m-0">
             Rota Não Localizada no Arquivo da FAFICH
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground font-medium max-w-lg mx-auto m-0 leading-relaxed">
@@ -218,7 +218,7 @@ export function ServerErrorPage({
         </div>
 
         <div className="space-y-4">
-          <h2 className="text-2xl md:text-3xl font-black uppercase">Server Error</h2>
+          <h2 className="text-2xl md:text-3xl font-black">Server Error</h2>
           <p className="text-muted-foreground">{description}</p>
           {errorId && (
             <p className="text-xs text-muted-foreground font-mono bg-muted p-2 border-2 border-foreground">
@@ -306,7 +306,7 @@ export function MaintenancePage({
 
         {features && features.length > 0 && (
           <div className="border-3 border-foreground p-6 bg-card text-left space-y-3">
-            <h3 className="font-bold uppercase text-sm">What we're working on:</h3>
+            <h3 className="font-bold text-sm">What we're working on:</h3>
             <ul className="space-y-2">
               {features.map((feature, index) => (
                 <li key={`feature-${index}`} className="flex items-start gap-2 text-sm">
@@ -368,8 +368,8 @@ export function OfflinePage({
         </div>
 
         <div className="space-y-4">
-          <div className="border-3 border-foreground p-4 bg-muted/30 text-left">
-            <h3 className="font-bold uppercase text-sm mb-2">Things to try:</h3>
+          <div className="border-3 border-foreground p-4 bg-background text-left">
+            <h3 className="font-bold text-sm mb-2">Things to try:</h3>
             <ul className="space-y-1 text-sm text-muted-foreground">
               <li>• Check your Wi-Fi connection</li>
               <li>• Restart your router</li>
@@ -428,7 +428,7 @@ export function ForbiddenPage({
         </div>
 
         <div className="space-y-4">
-          <h2 className="text-2xl md:text-3xl font-black uppercase">Access Denied</h2>
+          <h2 className="text-2xl md:text-3xl font-black">Access Denied</h2>
           <p className="text-muted-foreground">{description}</p>
         </div>
 
@@ -555,7 +555,7 @@ export function ComingSoonPage({
         )}
 
         {submitted && (
-          <div className="border-3 border-success bg-success/10 p-4">
+          <div className="border-3 border-success bg-success-tint p-4">
             <p className="font-bold text-success">
               Thanks! We'll notify you when we launch.
             </p>
@@ -597,7 +597,7 @@ export function GenericErrorPage({
       )}
     >
       <div className="text-center space-y-8 max-w-md">
-        <div className="w-24 h-24 mx-auto flex items-center justify-center border-3 border-foreground bg-destructive/10 shadow-lg">
+        <div className="w-24 h-24 mx-auto flex items-center justify-center border-3 border-foreground bg-destructive-tint shadow-lg">
           {icon || <AlertTriangle className="h-12 w-12 text-destructive" />}
         </div>
 

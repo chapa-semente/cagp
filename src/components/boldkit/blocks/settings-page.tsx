@@ -83,7 +83,7 @@ export function ProfileSettings({
   return (
     <Card className={className}>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 font-black uppercase">
+        <CardTitle className="flex items-center gap-2 font-black">
           <User className="h-5 w-5" />
           Profile Settings
         </CardTitle>
@@ -279,7 +279,7 @@ export function NotificationSettings({
   return (
     <Card className={className}>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 font-black uppercase">
+        <CardTitle className="flex items-center gap-2 font-black">
           <Bell className="h-5 w-5" />
           Notifications
         </CardTitle>
@@ -355,7 +355,7 @@ export function SecuritySettings({
   return (
     <Card className={className}>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 font-black uppercase">
+        <CardTitle className="flex items-center gap-2 font-black">
           <Shield className="h-5 w-5" />
           Security
         </CardTitle>
@@ -363,7 +363,7 @@ export function SecuritySettings({
       </CardHeader>
       <CardContent className="space-y-6">
         {/* Password */}
-        <div className="flex items-center justify-between border-3 border-foreground p-4 bg-muted/30">
+        <div className="flex items-center justify-between border-3 border-foreground p-4 bg-background">
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 flex items-center justify-center border-2 border-foreground bg-card">
               <Key className="h-5 w-5" />
@@ -381,7 +381,7 @@ export function SecuritySettings({
         </div>
 
         {/* Two-Factor Authentication */}
-        <div className="flex items-center justify-between border-3 border-foreground p-4 bg-muted/30">
+        <div className="flex items-center justify-between border-3 border-foreground p-4 bg-background">
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 flex items-center justify-center border-2 border-foreground bg-card">
               <Shield className="h-5 w-5" />
@@ -406,7 +406,7 @@ export function SecuritySettings({
           <>
             <Separator />
             <div>
-              <h4 className="font-bold uppercase text-sm mb-4">Active Sessions</h4>
+              <h4 className="font-bold text-sm mb-4">Active Sessions</h4>
               <div className="space-y-3">
                 {sessions.map((session) => (
                   <div
@@ -417,7 +417,7 @@ export function SecuritySettings({
                       <p className="font-medium flex items-center gap-2">
                         {session.device}
                         {session.current && (
-                          <span className="text-xs bg-success/20 text-success px-2 py-0.5 font-bold uppercase">
+                          <span className="text-xs bg-success-tint text-success px-2 py-0.5 font-bold uppercase">
                             Current
                           </span>
                         )}
@@ -500,7 +500,7 @@ export function AppearanceSettings({
   return (
     <Card className={className}>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 font-black uppercase">
+        <CardTitle className="flex items-center gap-2 font-black">
           <Palette className="h-5 w-5" />
           Aparência Editorial &amp; Acessibilidade
         </CardTitle>
@@ -588,7 +588,7 @@ export function DangerZone({
   return (
     <Card className={cn('border-destructive', className)}>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 font-black uppercase text-destructive">
+        <CardTitle className="flex items-center gap-2 font-black text-destructive">
           <AlertTriangle className="h-5 w-5" />
           Danger Zone
         </CardTitle>
@@ -619,7 +619,7 @@ export function DangerZone({
           </Button>
         </div>
 
-        <div className="flex items-center justify-between border-2 border-destructive/50 p-4 bg-destructive/5">
+        <div className="flex items-center justify-between border-2 border-destructive/50 p-4 bg-destructive-tint">
           <div>
             <p className="font-bold text-destructive">Delete Account</p>
             <p className="text-sm text-muted-foreground">
@@ -684,14 +684,14 @@ export function SettingsPage({ defaultTab = 'profile', className }: SettingsPage
     <div className={cn('max-w-4xl mx-auto py-8 px-4', className)}>
       <div className="mb-8 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-black">
             Preferências de Interface &amp; Modo Editorial
           </h2>
           <p className="text-muted-foreground mt-1 text-xs sm:text-sm font-medium">
             Modo Claro Editorial Semente exclusivo (sem Dark Mode), com suporte a Alto Contraste AAA, fonte OpenDyslexic e escala tipográfica.
           </p>
         </div>
-        <span className="px-3 py-1.5 rounded-xl bg-[#FEF3C7] text-[#16181d] border-2 border-[#16181d] font-mono text-[11px] font-black uppercase shadow-[2px_2px_0_0_#16181d]">
+        <span className="px-3 py-1.5 rounded-xl bg-[#FEF3C7] text-[#16181d] border-2 border-[#16181d] font-mono text-xs font-black uppercase shadow-[2px_2px_0_0_#16181d]">
           ☀️ MODO CLARO EDITORIAL EXCLUSIVO
         </span>
       </div>
@@ -756,7 +756,7 @@ export function SettingsPage({ defaultTab = 'profile', className }: SettingsPage
         <TabsContent value="billing">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 font-black uppercase">
+              <CardTitle className="flex items-center gap-2 font-black">
                 <CreditCard className="h-5 w-5" />
                 Billing
               </CardTitle>

@@ -78,7 +78,7 @@ export const NeobrutalistMotionCard = React.forwardRef<HTMLDivElement, Neobrutal
         {(badge || title) && (
           <div className="flex items-center justify-between gap-2">
             {title && (
-              <h3 className="font-heading text-lg font-bold tracking-tight text-foreground">
+              <h3 className="font-heading text-lg font-bold text-foreground">
                 {title}
               </h3>
             )}

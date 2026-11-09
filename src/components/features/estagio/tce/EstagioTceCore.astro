@@ -110,7 +110,7 @@ const normasEstagio = [
   {/* Cabeçalho Limpo — Sem Eyebrow Redundante */}
   <div class="p-5 sm:p-6 bg-white border-3 border-border rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-md">
     <div>
-      <h3 class="font-heading text-base sm:text-xl font-black uppercase text-foreground m-0">
+      <h3 class="font-heading text-base sm:text-xl font-black text-foreground m-0">
         Preenchimento do Termo de Compromisso de Estágio (TCE)
       </h3>
       <p class="font-sans text-xs sm:text-sm text-muted-foreground mt-1 max-w-3xl leading-relaxed m-0 font-medium">
@@ -131,7 +131,7 @@ const normasEstagio = [
   {/* Protocolos Online: Google Forms Oficiais */}
   <div id="protocolos-estagio" class="space-y-3">
     <div class="flex items-center justify-between gap-2">
-      <h4 class="font-heading text-sm font-black uppercase text-foreground m-0 flex items-center gap-2">
+      <h4 class="font-heading text-sm font-black text-foreground m-0 flex items-center gap-2">
         <i class="bi bi-send-check text-[#134E4A]" aria-hidden="true" />
         <span>Protocolos Eletrônicos do Colegiado (Google Forms)</span>
       </h4>
@@ -149,7 +149,7 @@ const normasEstagio = [
             <h5 class="font-heading font-black text-sm uppercase text-foreground m-0 mb-1">{f.titulo}</h5>
             <p class="font-sans text-xs text-muted-foreground leading-relaxed m-0 font-medium">{f.desc}</p>
           </div>
-          <div class="mt-4 pt-3 border-t-2 border-border/20">
+          <div class="mt-4 pt-3 border-t-2 border-border">
             <a
               href={f.link}
               target="_blank"
@@ -168,7 +168,7 @@ const normasEstagio = [
   {/* Tutorial com Imagem Anotada e Pins */}
   <div class="space-y-3 pt-2">
     <div class="flex items-center justify-between gap-2">
-      <h4 class="font-heading text-sm font-black uppercase text-foreground m-0 flex items-center gap-2">
+      <h4 class="font-heading text-sm font-black text-foreground m-0 flex items-center gap-2">
         <i class="bi bi-compass text-secondary" aria-hidden="true" />
         <span>Roteiro Visual de Preenchimento das 4 Cláusulas</span>
       </h4>
@@ -193,7 +193,7 @@ const normasEstagio = [
 
       <div class="space-y-3">
         {etapasTCE.map((et) => (
-          <div class="p-4 bg-white border-2 border-border/80 rounded-xl flex items-start gap-3.5 shadow-xs">
+          <div class="p-4 bg-white border-2 border-border rounded-xl flex items-start gap-3.5 shadow-xs">
             <span class="w-8 h-8 rounded-lg bg-secondary text-white flex items-center justify-center font-heading text-sm font-black shrink-0 border border-border shadow-xs">
               {et.num}
             </span>
@@ -218,13 +218,13 @@ const normasEstagio = [
   <div id="modelos-estagio" class="p-5 sm:p-6 bg-white border-3 border-border rounded-xl space-y-4 shadow-md">
     <div class="flex items-center justify-between border-b-2 border-border pb-3 flex-wrap gap-2">
       <div>
-        <h4 class="font-heading text-base uppercase font-black text-foreground m-0 flex items-center gap-2">
+        <h4 class="font-heading text-base font-black text-foreground m-0 flex items-center gap-2">
           <i class="bi bi-folder-symlink text-secondary" aria-hidden="true" />
           <span>Matriz de Modelos Oficiais de Estágio (PDF, DOCX e Google Docs)</span>
         </h4>
         <p class="font-sans text-xs text-muted-foreground mt-0.5 m-0 font-medium">Preenchimento direto em computador ou edição na nuvem pelo Google Drive:</p>
       </div>
-      <span class="text-xs text-foreground font-mono font-bold px-2.5 py-1 bg-[#f4f0ea] border border-border rounded-md shadow-xs">7 Modelos Homologados</span>
+      <span class="text-xs text-foreground font-mono font-bold px-2.5 py-1 bg-[#f4f5f7] border border-border rounded-md shadow-xs">7 Modelos Homologados</span>
     </div>
 
     <div class="divide-y divide-border">
@@ -277,7 +277,7 @@ const normasEstagio = [
   {/* Resoluções Normativas e Manual da FAFICH — Grid Aplanado */}
   <div class="p-5 sm:p-6 bg-white border-3 border-border rounded-xl space-y-4 shadow-md">
     <div class="flex items-center justify-between border-b-2 border-border pb-3">
-      <h4 class="font-heading text-base font-black uppercase text-foreground m-0 flex items-center gap-2">
+      <h4 class="font-heading text-base font-black text-foreground m-0 flex items-center gap-2">
         <i class="bi bi-shield-check text-[#134E4A]" aria-hidden="true" />
         <span>Atos Normativos e Manual de Estágio FAFICH</span>
       </h4>
@@ -286,7 +286,7 @@ const normasEstagio = [
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
       {normasEstagio.map((n) => (
-        <div class="p-4 bg-muted/20 border-2 border-border rounded-xl flex flex-col justify-between">
+        <div class="p-4 bg-background border-2 border-border rounded-xl flex flex-col justify-between">
           <div>
             <h5 class="font-heading font-bold text-xs uppercase text-foreground m-0 mb-1">{n.titulo}</h5>
             <p class="font-sans text-xs text-muted-foreground leading-relaxed m-0 font-medium">{n.desc}</p>

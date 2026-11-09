@@ -142,7 +142,7 @@ export function Invoice({
             </div>
 
             <div className="text-left md:text-right space-y-2">
-              <h2 className="text-4xl font-black uppercase tracking-tight">Invoice</h2>
+              <h2 className="text-4xl font-black">Invoice</h2>
               <div className="space-y-1 text-sm">
                 <p>
                   <span className="font-bold uppercase text-muted-foreground">Invoice #:</span>{' '}
@@ -173,7 +173,7 @@ export function Invoice({
           </div>
 
           {/* Bill To */}
-          <div className="mb-8 p-4 border-3 border-foreground bg-muted/30">
+          <div className="mb-8 p-4 border-3 border-foreground bg-background">
             <p className="font-bold uppercase text-xs text-muted-foreground mb-2">Bill To</p>
             <AddressBlock address={data.to} />
           </div>
@@ -235,7 +235,7 @@ export function Invoice({
 
           {/* Payment Info */}
           {data.paymentInfo && (
-            <div className="mb-8 p-4 border-3 border-foreground bg-primary/5">
+            <div className="mb-8 p-4 border-3 border-foreground bg-primary-tint">
               <p className="font-bold uppercase text-xs text-muted-foreground mb-3">
                 Payment Information
               </p>
@@ -342,7 +342,7 @@ export function Receipt({
           {/* Header */}
           <div className="text-center space-y-2">
             {logo && <div className="flex justify-center mb-4">{logo}</div>}
-            <h2 className="font-black uppercase text-xl">{data.merchant.name}</h2>
+            <h2 className="font-black text-xl">{data.merchant.name}</h2>
             {data.merchant.address && (
               <p className="text-sm text-muted-foreground">{data.merchant.address}</p>
             )}
@@ -455,9 +455,9 @@ export function InvoiceSummary({
   className,
 }: InvoiceSummaryProps) {
   const statusConfig = {
-    paid: { bg: 'bg-success/10', border: 'border-success', text: 'text-success' },
-    pending: { bg: 'bg-warning/10', border: 'border-warning', text: 'text-warning' },
-    overdue: { bg: 'bg-destructive/10', border: 'border-destructive', text: 'text-destructive' },
+    paid: { bg: 'bg-success-tint', border: 'border-success', text: 'text-success' },
+    pending: { bg: 'bg-warning-tint', border: 'border-warning', text: 'text-warning' },
+    overdue: { bg: 'bg-destructive-tint', border: 'border-destructive', text: 'text-destructive' },
   }
 
   const statusStyle = statusConfig[status]
@@ -550,7 +550,7 @@ export function InvoiceList({
   return (
     <div className={cn('border-3 border-foreground bg-card', className)}>
       {/* Header */}
-      <div className="grid grid-cols-12 gap-2 p-4 border-b-3 border-foreground bg-muted/50 font-bold uppercase text-xs">
+      <div className="grid grid-cols-12 gap-2 p-4 border-b-3 border-foreground bg-background font-bold uppercase text-xs">
         <div className="col-span-2">Invoice</div>
         <div className="col-span-3">Client</div>
         <div className="col-span-2">Date</div>
@@ -563,7 +563,7 @@ export function InvoiceList({
       {invoices.map((invoice) => (
         <div
           key={invoice.id}
-          className="grid grid-cols-12 gap-2 p-4 border-b border-foreground/20 hover:bg-muted/30 transition-colors items-center"
+          className="grid grid-cols-12 gap-2 p-4 border-b border-foreground/20 hover:bg-background transition-colors items-center"
         >
           <div className="col-span-2 font-bold truncate">{invoice.invoiceNumber}</div>
           <div className="col-span-3 text-muted-foreground truncate">{invoice.clientName}</div>

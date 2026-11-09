@@ -55,7 +55,7 @@ const viasIngresso = [
   <div class="p-5 sm:p-6 bg-white border-3 border-[#16181d] rounded-2xl shadow-[6px_6px_0_0_#16181d] space-y-4">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-3 border-[#16181d] pb-3">
       <div>
-        <h2 class="font-head text-lg sm:text-2xl font-black uppercase text-[#16181d] m-0 tracking-tight">
+        <h2 class="font-head text-lg sm:text-2xl font-black text-[#16181d] m-0">
           Formas de Ingresso no Bacharelado
         </h2>
         <p class="text-xs sm:text-sm text-gray-800 mt-1 m-0 font-body font-medium">
@@ -69,7 +69,7 @@ const viasIngresso = [
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-body">
       {viasIngresso.map((via) => (
-        <article class="p-5 bg-[#FFFDF9] border-3 border-[#16181d] rounded-xl flex flex-col justify-between shadow-[4px_4px_0_0_#16181d] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0_0_#16181d] transition-all space-y-3">
+        <article class="p-5 bg-[#ffffff] border-3 border-[#16181d] rounded-xl flex flex-col justify-between shadow-[4px_4px_0_0_#16181d] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0_0_#16181d] transition-all space-y-3">
           <div class="space-y-2.5">
             <div class="flex items-center justify-between gap-2 flex-wrap">
               <span class={`px-2.5 py-0.5 rounded-md font-mono text-xs font-black uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] ${via.badgeColor}`}>
@@ -84,7 +84,7 @@ const viasIngresso = [
               <div class="w-9 h-9 rounded-lg bg-[#16181d] text-white flex items-center justify-center shrink-0 border-2 border-[#16181d]">
                 <i class={`bi ${via.icon} text-sm`} aria-hidden="true" />
               </div>
-              <h3 class="font-head font-black uppercase text-sm sm:text-base text-[#16181d] m-0 leading-tight">
+              <h3 class="font-head font-black text-sm sm:text-base text-[#16181d] m-0 leading-tight">
                 {via.numero}. {via.nome}
               </h3>
             </div>
@@ -98,7 +98,7 @@ const viasIngresso = [
             <a
               href={via.docUrl}
               download
-              class="min-h-[44px] py-2 px-3 rounded-lg border-2 border-[#16181d] bg-white hover:bg-[#f4f0ea] active:translate-x-0.5 active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all text-xs font-head font-bold uppercase tracking-wider text-[#16181d] inline-flex items-center gap-1.5 no-underline shadow-[2px_2px_0_0_#16181d]"
+              class="min-h-[44px] py-2 px-3 rounded-lg border-2 border-[#16181d] bg-white hover:bg-[#f4f5f7] active:translate-x-0.5 active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all text-xs font-head font-bold uppercase tracking-wider text-[#16181d] inline-flex items-center gap-1.5 no-underline shadow-[2px_2px_0_0_#16181d]"
             >
               <i class="bi bi-file-earmark-pdf" aria-hidden="true" />
               <span>{via.docLabel} &rarr;</span>

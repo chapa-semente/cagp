@@ -284,7 +284,7 @@ export const CarreiraTalentosTab: React.FC = () => {
                 Eixos 3 &amp; 4 • Inserção Profissional
               </span>
             </div>
-            <h3 className="font-heading text-base sm:text-xl font-black uppercase text-foreground m-0">
+            <h3 className="font-heading text-base sm:text-xl font-black text-foreground m-0">
               Compromissos de Carreira da Chapa Semente (Propostas 9, 11 e 12)
             </h3>
             <p className="font-sans text-xs text-muted-foreground mt-0.5 m-0">
@@ -306,7 +306,7 @@ export const CarreiraTalentosTab: React.FC = () => {
               key={prop.num}
               whileHover={{ x: -2, y: -2 }}
               transition={tactileSpring}
-              className="p-4 rounded-xl border-2 border-border/80 bg-[#f4f0ea] flex flex-col justify-between gap-3"
+              className="p-4 rounded-xl border-2 border-border bg-[#f4f5f7] flex flex-col justify-between gap-3"
             >
               <div className="space-y-2">
                 <div className="flex items-center justify-between gap-2">
@@ -317,11 +317,11 @@ export const CarreiraTalentosTab: React.FC = () => {
                     {prop.badge}
                   </span>
                 </div>
-                <h4 className="font-heading text-sm font-black uppercase text-foreground m-0 leading-snug flex items-center gap-2">
+                <h4 className="font-heading text-sm font-black text-foreground m-0 leading-snug flex items-center gap-2">
                   <i className={`bi ${prop.icon} text-primary`} aria-hidden="true" />
                   <span>{prop.title}</span>
                 </h4>
-                <p className="font-sans text-xs text-foreground/85 leading-relaxed m-0">
+                <p className="font-sans text-xs text-content-secondary leading-relaxed m-0">
                   {prop.desc}
                 </p>
               </div>
@@ -338,10 +338,10 @@ export const CarreiraTalentosTab: React.FC = () => {
             <span className="font-mono text-xs font-black uppercase text-[#134E4A] block">
               PROPOSTA 11 EM MOBILIZAÇÃO • EMPRESA JÚNIOR DE GESTÃO PÚBLICA UFMG
             </span>
-            <h4 className="font-heading text-sm font-black uppercase text-foreground m-0">
+            <h4 className="font-heading text-sm font-black text-foreground m-0">
               Quer participar da fundação ou diretoria da Empresa Júnior de Gestão Pública?
             </h4>
-            <p className="font-sans text-xs text-foreground/80 m-0">
+            <p className="font-sans text-xs text-content-secondary m-0">
               Marque seu interesse no seu perfil do Banco de Talentos para integrar o Grupo de Trabalho de criação da EJ com apoio do CAGP.
             </p>
           </div>
@@ -365,7 +365,7 @@ export const CarreiraTalentosTab: React.FC = () => {
             />
             <span>
               {profile.interestedInEmpresaJunior
-                ? 'Inscrito no GT Empresa Júnior ✓'
+                ? 'Inscrito no GT Empresa Júnior'
                 : 'Quero Apoiar a Empresa Júnior'}
             </span>
           </motion.button>
@@ -376,7 +376,7 @@ export const CarreiraTalentosTab: React.FC = () => {
       <div className="space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h3 className="text-base sm:text-lg font-heading font-black uppercase tracking-tight text-foreground flex items-center gap-2 m-0">
+            <h3 className="text-base sm:text-lg font-heading font-black text-foreground flex items-center gap-2 m-0">
               <i className="bi bi-briefcase-fill text-primary" aria-hidden="true"></i>
               <span>Radar de Editais de Estágio, Órgãos Públicos &amp; OSCs (Propostas 9 e 12)</span>
             </h3>
@@ -421,7 +421,7 @@ export const CarreiraTalentosTab: React.FC = () => {
               >
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-2">
-                    <span className="text-xs font-mono font-black uppercase px-2 py-0.5 rounded bg-[#f4f0ea] border-2 border-[#16181d] text-foreground">
+                    <span className="text-xs font-mono font-black uppercase px-2 py-0.5 rounded bg-[#f4f5f7] border-2 border-[#16181d] text-foreground">
                       {v.tag}
                     </span>
                     <span className="text-xs font-heading font-black uppercase px-2 py-0.5 rounded bg-[#134E4A] text-white border-2 border-[#16181d]">
@@ -431,10 +431,10 @@ export const CarreiraTalentosTab: React.FC = () => {
                   <h4 className="font-heading font-black text-sm text-foreground leading-tight m-0">
                     {v.agency}
                   </h4>
-                  <p className="text-xs font-medium text-foreground/80 mt-1 mb-0">
+                  <p className="text-xs font-medium text-content-secondary mt-1 mb-0">
                     {v.role}
                   </p>
-                  <div className="mt-3 p-2.5 rounded-lg bg-[#f4f0ea] border border-border/80 space-y-1 text-xs font-mono text-foreground tabular-nums">
+                  <div className="mt-3 p-2.5 rounded-lg bg-[#f4f5f7] border border-border space-y-1 text-xs font-mono text-foreground tabular-nums">
                     <div className="flex items-center justify-between">
                       <span>Jornada:</span>
                       <strong>{v.hours}</strong>
@@ -452,13 +452,13 @@ export const CarreiraTalentosTab: React.FC = () => {
 
                 <div className="space-y-2">
                   <span className="block font-mono text-xs font-bold text-primary uppercase">
-                    ✦ {v.proposalLink}
+                    {v.proposalLink}
                   </span>
                   <a
                     href={v.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-1.5 w-full py-2.5 px-3 bg-primary text-white text-xs font-heading font-black uppercase rounded-xl border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] hover:bg-primary/90 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all cursor-pointer min-h-[44px] no-underline"
+                    className="inline-flex items-center justify-center gap-1.5 w-full py-2.5 px-3 bg-primary text-white text-xs font-heading font-black uppercase rounded-xl border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] hover:bg-primary-hover active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all cursor-pointer min-h-[44px] no-underline"
                   >
                     <span>Acessar Portal do Órgão</span>
                     <i className="bi bi-box-arrow-up-right text-xs" aria-hidden="true"></i>
@@ -475,7 +475,7 @@ export const CarreiraTalentosTab: React.FC = () => {
         <div className="lg:col-span-8 p-5 sm:p-6 rounded-xl bg-white border-3 border-[#16181d] shadow-[6px_6px_0_0_#16181d] space-y-6">
           <div className="border-b-3 border-[#16181d] pb-4 flex flex-wrap items-center justify-between gap-2">
             <div>
-              <h3 className="text-base sm:text-lg font-heading font-black text-foreground uppercase tracking-tight flex items-center gap-2 m-0">
+              <h3 className="text-base sm:text-lg font-heading font-black text-foreground flex items-center gap-2 m-0">
                 <i className="bi bi-person-vcard text-primary text-xl" aria-hidden="true"></i>
                 <span>Cadastrar Currículo no Banco de Talentos GP (Cofre Local)</span>
               </h3>
@@ -483,7 +483,7 @@ export const CarreiraTalentosTab: React.FC = () => {
                 Monte seu perfil de competências em Gestão Pública para exportar junto ao Passaporte Estudantil.
               </p>
             </div>
-            <span className="px-2.5 py-1 rounded-md bg-[#f4f0ea] border-2 border-[#16181d] font-mono text-xs font-bold">
+            <span className="px-2.5 py-1 rounded-md bg-[#f4f5f7] border-2 border-[#16181d] font-mono text-xs font-bold">
               100% Privado no Navegador
             </span>
           </div>
@@ -514,7 +514,7 @@ export const CarreiraTalentosTab: React.FC = () => {
                     }`}
                   >
                     <div className="text-xs font-heading font-extrabold uppercase">{st.label}</div>
-                    <div className={`text-xs mt-0.5 ${isSelected ? 'text-white/90' : 'text-muted-foreground'}`}>
+                    <div className={`text-xs mt-0.5 ${isSelected ? 'text-white' : 'text-muted-foreground'}`}>
                       {st.desc}
                     </div>
                   </motion.button>
@@ -629,10 +629,10 @@ export const CarreiraTalentosTab: React.FC = () => {
                       className={`min-h-[44px] px-3 py-1.5 rounded-lg border-2 border-[#16181d] font-mono text-xs font-bold cursor-pointer transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 active:translate-x-0.5 active:translate-y-0.5 ${
                         hasSkill
                           ? 'bg-[#134E4A] text-white'
-                          : 'bg-[#f4f0ea] text-foreground hover:bg-muted'
+                          : 'bg-[#f4f5f7] text-foreground hover:bg-muted'
                       }`}
                     >
-                      {hasSkill ? `✓ ${sug}` : `+ ${sug}`}
+                      {hasSkill ? ` ${sug}` : `+ ${sug}`}
                     </button>
                   );
                 })}
@@ -659,7 +659,7 @@ export const CarreiraTalentosTab: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => removeSkill(sk)}
-                        className="w-7 h-7 rounded bg-secondary hover:bg-secondary/90 text-white inline-flex items-center justify-center cursor-pointer font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                        className="w-7 h-7 rounded bg-secondary hover:bg-secondary-hover text-white inline-flex items-center justify-center cursor-pointer font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                         aria-label={`Remover ${sk}`}
                       >
                         ×
@@ -673,7 +673,7 @@ export const CarreiraTalentosTab: React.FC = () => {
             <div className="flex flex-wrap items-center justify-end gap-3 pt-2">
               <button
                 type="submit"
-                className="min-h-[44px] px-5 py-2.5 bg-primary text-white font-heading font-black text-xs uppercase tracking-wider rounded-xl border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] hover:bg-primary/95 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all cursor-pointer"
+                className="min-h-[44px] px-5 py-2.5 bg-primary text-white font-heading font-black text-xs uppercase tracking-wider rounded-xl border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] hover:bg-primary-hover active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all cursor-pointer"
               >
                 Cadastrar Currículo no Cofre
               </button>
@@ -685,14 +685,14 @@ export const CarreiraTalentosTab: React.FC = () => {
         <motion.div
           whileHover={{ y: -3 }}
           transition={tactileSpring}
-          className="lg:col-span-4 p-5 rounded-xl border-3 border-[#16181d] bg-[#f4f0ea] shadow-[6px_6px_0_0_#16181d] space-y-4 sticky top-24"
+          className="lg:col-span-4 p-5 rounded-xl border-3 border-[#16181d] bg-[#f4f5f7] shadow-[6px_6px_0_0_#16181d] space-y-4 sticky top-24"
         >
           <div className="flex items-center justify-between border-b-3 border-[#16181d] pb-3">
             <div>
               <span className="font-mono text-xs font-black uppercase text-primary block">
                 CARTÃO DE TALENTO DISCENTE GP
               </span>
-              <h4 className="font-heading text-sm font-black uppercase text-foreground m-0">
+              <h4 className="font-heading text-sm font-black text-foreground m-0">
                 Resumo para Processos Seletivos
               </h4>
             </div>
@@ -701,7 +701,7 @@ export const CarreiraTalentosTab: React.FC = () => {
             </span>
           </div>
 
-          <div className="p-4 rounded-xl border-2 border-border/80 bg-white divide-y divide-border/60 text-xs">
+          <div className="p-4 rounded-xl border-2 border-border bg-white divide-y divide-border/60 text-xs">
             <div className="pb-2.5 flex items-center justify-between">
               <span className="font-mono text-xs text-muted-foreground">Disponibilidade:</span>
               <span className="font-mono font-black text-[#134E4A] tabular-nums">{profile.weeklyHoursAvailable}h / semana</span>
@@ -717,7 +717,7 @@ export const CarreiraTalentosTab: React.FC = () => {
             {profile.interestedInEmpresaJunior && (
               <div className="pt-2.5">
                 <div className="px-2.5 py-1.5 rounded-lg bg-[#134E4A] text-white font-mono text-xs font-bold uppercase text-center border border-[#16181d]">
-                  ★ Membro Apoiador Empresa Júnior GP
+                  Membro Apoiador Empresa Júnior GP
                 </div>
               </div>
             )}

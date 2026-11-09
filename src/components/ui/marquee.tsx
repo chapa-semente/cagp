@@ -104,7 +104,7 @@ export interface MarqueeSeparatorProps extends React.HTMLAttributes<HTMLSpanElem
 }
 
 const MarqueeSeparator = React.forwardRef<HTMLSpanElement, MarqueeSeparatorProps>(
-  ({ className, children = "✦", ...props }, ref) => {
+  ({ className, children = "", ...props }, ref) => {
     return (
       <span
         ref={ref}

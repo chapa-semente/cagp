@@ -18,7 +18,7 @@ export const CarreiraVagasMural: React.FC = () => {
       <div className="p-4 sm:p-5 rounded-xl border-3 border-border bg-white shadow-md space-y-3">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h2 className="text-base sm:text-lg font-heading font-black uppercase tracking-tight text-foreground m-0 flex items-center gap-2">
+            <h2 className="text-base sm:text-lg font-heading font-black text-foreground m-0 flex items-center gap-2">
               <i className="bi bi-funnel-fill text-primary" aria-hidden="true" />
               <span>Filtro por Esfera Governamental &amp; Setor</span>
             </h2>
@@ -46,12 +46,12 @@ export const CarreiraVagasMural: React.FC = () => {
         </div>
 
         {/* Tarja Informativa Proposta 12 */}
-        <div className="pt-3 border-t border-border/60 flex flex-wrap items-center justify-between gap-2 text-xs">
+        <div className="pt-3 border-t border-border flex flex-wrap items-center justify-between gap-2 text-xs">
           <span className="font-mono text-xs font-bold text-muted-foreground">
             Total de Vagas Listadas: <strong className="text-foreground tabular-nums">{filteredVacancies.length}</strong>
           </span>
-          <span className="px-2.5 py-1 rounded bg-[#f4f0ea] border border-border font-mono text-xs font-bold text-primary uppercase">
-            🌱 Proposta 12 • Radar Permanente Chapa Semente
+          <span className="px-2.5 py-1 rounded bg-[#f4f5f7] border border-border font-mono text-xs font-bold text-primary uppercase">
+            Proposta 12 • Radar Permanente Chapa Semente
           </span>
         </div>
       </div>
@@ -68,11 +68,11 @@ export const CarreiraVagasMural: React.FC = () => {
               exit={{ opacity: 0, scale: 0.95 }}
               whileHover={{ x: -2, y: -2 }}
               transition={tactileSpring}
-              className="p-5 rounded-xl border-2 border-border/80 bg-white shadow-xs hover:shadow-sm flex flex-col justify-between gap-4 transition-all"
+              className="p-5 rounded-xl border-2 border-border bg-white shadow-xs hover:shadow-sm flex flex-col justify-between gap-4 transition-all"
             >
               <div>
                 <div className="flex items-center justify-between gap-2 mb-2">
-                  <span className="text-xs font-mono font-black uppercase px-2.5 py-0.5 rounded bg-[#f4f0ea] border-2 border-border text-foreground">
+                  <span className="text-xs font-mono font-black uppercase px-2.5 py-0.5 rounded bg-[#f4f5f7] border-2 border-border text-foreground">
                     {v.tag}
                   </span>
                   <span className="text-xs font-heading font-black uppercase px-2.5 py-0.5 rounded bg-[#134E4A] text-white border-2 border-border">
@@ -82,11 +82,11 @@ export const CarreiraVagasMural: React.FC = () => {
                 <h3 className="font-heading font-black text-sm sm:text-base text-foreground leading-tight m-0">
                   {v.agency}
                 </h3>
-                <p className="text-xs font-medium text-foreground/80 mt-1.5 mb-0 leading-relaxed">
+                <p className="text-xs font-medium text-content-secondary mt-1.5 mb-0 leading-relaxed">
                   {v.role}
                 </p>
 
-                <div className="mt-4 p-3 rounded-xl bg-[#f4f0ea] border border-border/80 space-y-1.5 text-xs font-mono text-foreground tabular-nums">
+                <div className="mt-4 p-3 rounded-xl bg-[#f4f5f7] border border-border space-y-1.5 text-xs font-mono text-foreground tabular-nums">
                   <div className="flex items-center justify-between">
                     <span className="text-muted-foreground">Jornada:</span>
                     <strong>{v.hours}</strong>
@@ -102,15 +102,15 @@ export const CarreiraVagasMural: React.FC = () => {
                 </div>
               </div>
 
-              <div className="space-y-2 pt-2 border-t border-border/60">
+              <div className="space-y-2 pt-2 border-t border-border">
                 <span className="block font-mono text-xs font-bold text-primary uppercase">
-                  ✦ {v.proposalLink}
+                  {v.proposalLink}
                 </span>
                 <a
                   href={v.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-primary text-white text-xs font-heading font-black uppercase rounded-xl border-2 border-border shadow-xs hover:bg-primary/90 active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all cursor-pointer min-h-[44px] no-underline"
+                  className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-primary text-white text-xs font-heading font-black uppercase rounded-xl border-2 border-border shadow-xs hover:bg-primary-hover active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all cursor-pointer min-h-[44px] no-underline"
                 >
                   <span>Acessar Portal do Órgão</span>
                   <i className="bi bi-box-arrow-up-right text-xs" aria-hidden="true" />

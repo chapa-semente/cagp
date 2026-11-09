@@ -73,12 +73,12 @@ const maisNoite = [
     <NoturnoHoje showSecretaria showGuideLink={false} headingLevel="h3" />
 
     <section class="rounded-xl border-3 border-border bg-card shadow-lg p-4 sm:p-5" aria-labelledby="mais-noite-titulo">
-      <h3 id="mais-noite-titulo" class="font-heading font-extrabold uppercase tracking-tight text-base sm:text-lg leading-tight m-0">
+      <h3 id="mais-noite-titulo" class="font-heading font-extrabold text-base sm:text-lg leading-tight m-0">
         Mais para quem estuda à noite
       </h3>
       <dl class="m-0 mt-3 grid grid-cols-1 md:grid-cols-3 gap-x-6">
         {maisNoite.map((m) => (
-          <div class="py-3 border-t-2 border-border/15">
+          <div class="py-3 border-t-2 border-border">
             <dt class="font-heading font-bold text-base leading-snug">{m.titulo}</dt>
             <dd class="m-0 mt-0.5 text-sm text-muted-foreground leading-relaxed text-pretty">{m.texto}</dd>
           </div>

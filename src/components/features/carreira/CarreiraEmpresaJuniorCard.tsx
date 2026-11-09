@@ -46,11 +46,11 @@ export const CarreiraEmpresaJuniorCard: React.FC = () => {
         </div>
         <h2
           id="heading-empresa-junior"
-          className="font-heading text-base sm:text-lg font-black uppercase text-foreground m-0 leading-snug"
+          className="font-heading text-base sm:text-lg font-black text-foreground m-0 leading-snug"
         >
           Quer participar da fundação ou diretoria da Empresa Júnior de GP?
         </h2>
-        <p className="font-sans text-xs text-foreground/85 m-0 leading-relaxed font-medium">
+        <p className="font-sans text-xs text-content-secondary m-0 leading-relaxed font-medium">
           A Chapa Semente atuará junto ao Colegiado para viabilizar apoio jurídico e institucional à criação da primeira Empresa Júnior de Gestão Pública da UFMG — consultoria real para órgãos públicos e OSCs desde o 1º período.
         </p>
       </div>
@@ -72,7 +72,7 @@ export const CarreiraEmpresaJuniorCard: React.FC = () => {
           aria-hidden="true"
         />
         <span>
-          {interested ? 'Inscrito no GT Empresa Júnior ✓' : 'Quero Apoiar a Empresa Júnior'}
+          {interested ? 'Inscrito no GT Empresa Júnior' : 'Quero Apoiar a Empresa Júnior'}
         </span>
       </motion.button>
     </section>

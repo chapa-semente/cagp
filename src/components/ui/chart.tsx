@@ -131,10 +131,10 @@ const chartContainerVariants = cva(
         default: 'border-3 border-[#16181d] bg-background p-4 shadow-[6px_6px_0_0_#16181d]',
         elevated: 'border-3 border-[#16181d] bg-background p-4 shadow-[6px_6px_0_0_#16181d] hover:shadow-[8px_8px_0_0_#16181d] hover:translate-x-[-2px] hover:translate-y-[-2px] transition',
         flat: 'border-3 border-[#16181d] bg-background p-4',
-        filled: 'border-3 border-[#16181d] bg-muted/30 p-4 shadow-[6px_6px_0_0_#16181d]',
+        filled: 'border-3 border-[#16181d] bg-background p-4 shadow-[6px_6px_0_0_#16181d]',
         minimal: 'bg-background p-4',
-        accent: 'border-3 border-[#16181d] bg-accent/10 p-4 shadow-[4px_4px_0px_var(--accent)]',
-        primary: 'border-3 border-[#16181d] bg-primary/10 p-4 shadow-[4px_4px_0px_var(--primary)]',
+        accent: 'border-3 border-[#16181d] bg-accent-tint p-4 shadow-[4px_4px_0px_var(--accent)]',
+        primary: 'border-3 border-[#16181d] bg-primary-tint p-4 shadow-[4px_4px_0px_var(--primary)]',
       },
     },
     defaultVariants: {
@@ -509,7 +509,7 @@ const ChartEmpty = React.forwardRef<HTMLDivElement, ChartEmptyProps>(
         role="status"
         aria-live="polite"
         className={cn(
-          'flex min-h-[120px] w-full items-center justify-center border-3 border-dashed border-foreground/40 bg-muted/20 p-6 text-xs font-bold uppercase tracking-wide text-muted-foreground',
+          'flex min-h-[120px] w-full items-center justify-center border-3 border-dashed border-foreground/40 bg-background p-6 text-xs font-bold uppercase tracking-wide text-muted-foreground',
           className
         )}
         {...props}

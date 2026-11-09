@@ -30,10 +30,10 @@ export const OverviewGuardianWidget: React.FC = () => {
               <i className="bi bi-shield-check text-white" aria-hidden="true" />
             </span>
             <div>
-              <h3 className="font-head font-bold text-sm uppercase text-foreground leading-tight m-0 tracking-wide">
+              <h3 className="font-head font-bold text-sm text-foreground leading-tight m-0">
                 Guardião 120 Dias
               </h3>
-              <span className="text-[11px] text-gray-700 font-mono font-medium">Art. 15, § 4º Regulamento N-20229</span>
+              <span className="text-xs text-gray-700 font-mono font-medium">Art. 15, § 4º Regulamento N-20229</span>
             </div>
           </div>
           <span className="px-2 py-0.5 rounded-md font-head text-xs font-bold bg-warning text-white border border-border shadow-xs">
@@ -44,7 +44,7 @@ export const OverviewGuardianWidget: React.FC = () => {
         {/* Status dos Certificados */}
         <div className="mb-4">
           <div className="bg-[#FEF3C7] border-3 border-border rounded-lg p-3 mb-3 text-xs text-foreground leading-relaxed shadow-xs">
-            <div className="font-bold flex items-center gap-1.5 text-warning mb-1 font-head uppercase tracking-wider text-[11px]">
+            <div className="font-bold flex items-center gap-1.5 text-warning mb-1 font-head uppercase tracking-wider text-xs">
               <i className="bi bi-alarm-fill" aria-hidden="true" />
               <span>Prazo Fatal Regimental:</span>
             </div>

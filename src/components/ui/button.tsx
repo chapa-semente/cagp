@@ -6,8 +6,8 @@ import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
   cn(
-    "group/button font-heading font-extrabold uppercase tracking-wide inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl whitespace-nowrap select-none bk-interactive transition-all duration-150",
-    "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-60",
+    "group/button font-heading font-bold uppercase tracking-[0.025em] inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl max-w-full whitespace-normal text-center leading-tight sm:whitespace-nowrap select-none transition-[transform,box-shadow,background-color] duration-150 ease-[cubic-bezier(0.16,1,0.3,1)]",
+    "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none",
     "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-invalid:border-destructive",
     "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
   ),
@@ -15,15 +15,15 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "border-3 border-border bg-primary text-primary-foreground shadow-md hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-primary-hover hover:shadow-sm active:translate-x-[3px] active:translate-y-[3px] active:shadow-none",
+          "border-3 border-border bg-primary text-primary-foreground shadow-md hover:-translate-x-px hover:-translate-y-px hover:bg-primary-hover hover:shadow-lg active:translate-x-1 active:translate-y-1 active:shadow-none",
         secondary:
-          "border-3 border-border bg-secondary text-secondary-foreground shadow-md hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-secondary-hover hover:shadow-sm active:translate-x-[3px] active:translate-y-[3px] active:shadow-none",
+          "border-3 border-border bg-secondary text-secondary-foreground shadow-md hover:-translate-x-px hover:-translate-y-px hover:bg-secondary-hover hover:shadow-lg active:translate-x-1 active:translate-y-1 active:shadow-none",
         accent:
-          "border-3 border-border bg-accent text-accent-foreground shadow-md hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-accent-hover hover:shadow-sm active:translate-x-[3px] active:translate-y-[3px] active:shadow-none",
+          "border-3 border-border bg-accent text-accent-foreground shadow-md hover:-translate-x-px hover:-translate-y-px hover:bg-accent-hover hover:shadow-lg active:translate-x-1 active:translate-y-1 active:shadow-none",
         destructive:
-          "border-3 border-border bg-destructive text-destructive-foreground shadow-md hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-destructive/90 hover:shadow-sm active:translate-x-[3px] active:translate-y-[3px] active:shadow-none",
+          "border-3 border-border bg-destructive text-destructive-foreground shadow-md hover:-translate-x-px hover:-translate-y-px hover:bg-destructive hover:shadow-lg active:translate-x-1 active:translate-y-1 active:shadow-none",
         outline:
-          "border-3 border-border bg-card text-foreground shadow-md hover:translate-x-[2px] hover:translate-y-[2px] hover:bg-muted hover:shadow-sm active:translate-x-[3px] active:translate-y-[3px] active:shadow-none",
+          "border-3 border-border bg-card text-foreground shadow-md hover:-translate-x-px hover:-translate-y-px hover:bg-muted hover:shadow-lg active:translate-x-1 active:translate-y-1 active:shadow-none",
         ghost:
           "border-3 border-transparent bg-transparent text-foreground shadow-none hover:bg-muted hover:border-border active:translate-x-[2px] active:translate-y-[2px]",
         link:

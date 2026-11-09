@@ -149,7 +149,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
             </p>
           </div>
         </div>
-        <span className="px-3 py-1 rounded-lg bg-white border-2 border-[#16181d] font-mono text-[10px] font-black uppercase text-[#15803D] shrink-0 self-start sm:self-center">
+        <span className="px-3 py-1 rounded-lg bg-white border-2 border-[#16181d] font-mono text-xs font-black uppercase text-[#15803D] shrink-0 self-start sm:self-center">
           CRIPTOGRAFIA LOCAL ATIVA
         </span>
       </div>
@@ -174,17 +174,17 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                       ? 'bg-[#5B2A85] text-white border-[#16181d] shadow-[3px_3px_0_0_#FE8812]'
                       : isDone
                       ? 'bg-[#DCFCE7] text-[#16181d] border-[#16181d]'
-                      : 'bg-[#f4f0ea] text-[#16181d] border-[#16181d]/60 hover:bg-white'
+                      : 'bg-[#f4f5f7] text-[#16181d] border-[#16181d]/60 hover:bg-white'
                   }`}
                 >
                   <span className="w-7 h-7 rounded-lg border-2 border-[#16181d] bg-white text-[#16181d] font-mono font-black text-xs flex items-center justify-center shrink-0">
-                    {isDone ? '✓' : idx + 1}
+                    {isDone ? <i className="bi bi-check-lg" aria-hidden="true" /> : idx + 1}
                   </span>
                   <div className="min-w-0">
                     <span className="font-heading font-black text-xs uppercase block truncate">
                       {st.title}
                     </span>
-                    <span className={`text-[11px] block truncate ${isCurrent ? 'text-white/85' : 'text-muted-foreground'}`}>
+                    <span className={`text-xs block truncate ${isCurrent ? 'text-white' : 'text-muted-foreground'}`}>
                       {st.description}
                     </span>
                   </div>
@@ -210,7 +210,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
               >
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b-2 border-[#16181d]">
                   <div>
-                    <h3 className="text-base sm:text-lg font-heading font-black text-foreground uppercase tracking-tight m-0">
+                    <h3 className="text-base sm:text-lg font-heading font-black text-foreground m-0">
                       Etapa 1: Selecione o Eixo da Demanda &amp; Modo de Sigilo
                     </h3>
                     <p className="text-xs text-muted-foreground m-0 mt-0.5">
@@ -226,7 +226,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                       className="w-4 h-4 text-primary rounded border-border focus:ring-primary cursor-pointer"
                     />
                     <label htmlFor="sigilo-toggle" className="text-xs font-heading font-black uppercase text-[#16181d] cursor-pointer select-none">
-                      {isAnonymous ? '🔒 Modo Sigiloso (Anônimo)' : '👤 Modo Identificado'}
+                      {isAnonymous ? 'Modo Sigiloso (Anônimo)' : 'Modo Identificado'}
                     </label>
                   </div>
                 </div>
@@ -242,13 +242,13 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                         className={`text-left p-4 rounded-xl border-3 transition-all min-h-[48px] flex flex-col justify-between cursor-pointer ${
                           isSelected
                             ? 'border-[#16181d] bg-white shadow-[5px_5px_0px_#16181d] -translate-y-0.5 ring-2 ring-primary'
-                            : 'border-[#16181d]/60 bg-muted/40 hover:bg-white opacity-95'
+                            : 'border-[#16181d]/60 bg-background hover:bg-white opacity-95'
                         }`}
                       >
                         <div>
                           <div className="flex items-center justify-between gap-2 mb-2">
                             <span
-                              className={`inline-flex items-center gap-1.5 px-2 py-0.5 text-[10px] font-heading font-black uppercase rounded-md border ${cat.color}`}
+                              className={`inline-flex items-center gap-1.5 px-2 py-0.5 text-xs font-heading font-black uppercase rounded-md border ${cat.color}`}
                             >
                               <i className={`bi ${cat.icon}`}></i>
                               {cat.badge}
@@ -276,7 +276,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                     className="min-h-[48px] px-6 py-3 rounded-xl bg-[#5B2A85] text-white font-heading font-black text-xs uppercase tracking-wider border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all cursor-pointer inline-flex items-center gap-2"
                   >
                     <span>Avançar para o Relato</span>
-                    <span aria-hidden="true">→</span>
+                    <i className="bi bi-arrow-right" aria-hidden="true" />
                   </button>
                 </div>
               </motion.div>
@@ -292,11 +292,11 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                 className="space-y-4"
               >
                 <div className="flex items-center justify-between flex-wrap gap-2 pb-3 border-b-2 border-[#16181d]">
-                  <h3 className="text-base sm:text-lg font-heading font-black text-foreground uppercase tracking-tight m-0">
+                  <h3 className="text-base sm:text-lg font-heading font-black text-foreground m-0">
                     Etapa 2: Detalhar Manifestação ({getCategoryMeta(selectedCategory).title})
                   </h3>
-                  <span className="font-mono text-xs font-bold px-2.5 py-1 rounded bg-[#f4f0ea] border-2 border-[#16181d]">
-                    {isAnonymous ? '🔒 Anônimo no Cofre' : '👤 Identificado'}
+                  <span className="font-mono text-xs font-bold px-2.5 py-1 rounded bg-[#f4f5f7] border-2 border-[#16181d]">
+                    {isAnonymous ? 'Anônimo no Cofre' : 'Identificado'}
                   </span>
                 </div>
 
@@ -366,7 +366,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                     className="min-h-[48px] px-6 py-3 rounded-xl bg-[#5B2A85] text-white font-heading font-black text-xs uppercase tracking-wider border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] cursor-pointer inline-flex items-center gap-2"
                   >
                     <span>Revisar &amp; Carimbar Protocolo</span>
-                    <span aria-hidden="true">→</span>
+                    <i className="bi bi-arrow-right" aria-hidden="true" />
                   </button>
                 </div>
               </motion.div>
@@ -387,7 +387,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                       <i className="bi bi-patch-check-fill" aria-hidden="true" />
                       <span>PROTOCOLADO NO COFRE • FALA COM O CA</span>
                     </div>
-                    <h4 className="font-heading text-xl sm:text-2xl font-black uppercase text-[#16181d] m-0">
+                    <h4 className="font-heading text-xl sm:text-2xl font-black text-[#16181d] m-0">
                       Recibo de Protocolo: {lastStamped.protocol}
                     </h4>
                     <p className="text-xs sm:text-sm text-[#16181d]/85 max-w-lg mx-auto m-0 font-medium">
@@ -408,12 +408,12 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    <div className="p-4 rounded-xl bg-[#FFFDF9] border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] space-y-2">
+                    <div className="p-4 rounded-xl bg-[#ffffff] border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] space-y-2">
                       <div className="flex items-center justify-between flex-wrap gap-2">
                         <span className="font-mono text-xs font-black uppercase text-[#5B2A85]">
                           Resumo para Protocolo • {getCategoryMeta(selectedCategory).title}
                         </span>
-                        <span className="font-mono text-[11px] font-bold px-2 py-0.5 rounded bg-[#FEF3C7] border border-[#16181d]">
+                        <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-[#FEF3C7] border border-[#16181d]">
                           {isAnonymous ? 'Sigilo Anônimo Ativo' : 'Identificado'}
                         </span>
                       </div>
@@ -468,7 +468,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
       {/* Histórico Local de Manifestações */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-base font-heading font-black uppercase tracking-tight text-foreground flex items-center gap-2">
+          <h3 className="text-base font-heading font-black text-foreground flex items-center gap-2">
             <i className="bi bi-clock-history text-primary"></i>
             Minhas Manifestações Registradas ({manifestacoes.length})
           </h3>
@@ -490,7 +490,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
         </div>
 
         {manifestacoes.length === 0 ? (
-          <div className="p-8 text-center rounded-2xl border-3 border-dashed border-border/60 bg-muted/20">
+          <div className="p-8 text-center rounded-2xl border-3 border-dashed border-border bg-background">
             <i className="bi bi-chat-square-quote text-3xl text-muted-foreground/60 mb-2 block"></i>
             <p className="text-sm font-heading font-extrabold text-foreground">
               Nenhuma manifestação protocolada neste navegador
@@ -513,11 +513,11 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                       <span className="font-mono text-xs font-black px-2 py-0.5 rounded bg-muted border border-border text-foreground">
                         {item.protocol}
                       </span>
-                      <span className={`text-[10px] font-heading font-black uppercase px-2 py-0.5 rounded border ${meta.color}`}>
+                      <span className={`text-xs font-heading font-black uppercase px-2 py-0.5 rounded border ${meta.color}`}>
                         {meta.title}
                       </span>
                       {item.isAnonymous && (
-                        <span className="text-[10px] font-mono font-bold text-muted-foreground">
+                        <span className="text-xs font-mono font-bold text-muted-foreground">
                           • Sigiloso
                         </span>
                       )}
@@ -536,11 +536,11 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                   </div>
 
                   <div className="flex sm:flex-col items-center sm:items-end justify-between gap-1 text-right shrink-0">
-                    <span className="text-[11px] font-mono text-muted-foreground">
+                    <span className="text-xs font-mono text-muted-foreground">
                       {item.createdAt}
                     </span>
-                    <span className="inline-flex items-center gap-1 text-[11px] font-heading font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">
-                      <i className="bi bi-check-circle-fill text-[10px]"></i>
+                    <span className="inline-flex items-center gap-1 text-xs font-heading font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">
+                      <i className="bi bi-check-circle-fill text-xs"></i>
                       {item.status === 'registrada' ? 'Registrada no Cofre' : item.status}
                     </span>
                   </div>

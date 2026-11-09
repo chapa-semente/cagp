@@ -118,8 +118,8 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
           <div
             className={`p-2.5 rounded text-xs font-semibold border flex items-center gap-2 ${
               toastMsg.type === 'success'
-                ? 'bg-success/10 text-success border-success'
-                : 'bg-destructive/10 text-destructive border-destructive'
+                ? 'bg-success-tint text-success border-success'
+                : 'bg-destructive-tint text-destructive border-destructive'
             }`}
           >
             <i className={`bi ${toastMsg.type === 'success' ? 'bi-check-circle-fill' : 'bi-exclamation-triangle-fill'}`} />
@@ -136,7 +136,7 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
                 <strong className="font-heading font-black text-xs uppercase text-foreground">
                   Momento no Curso (Perfil da Home)
                 </strong>
-                <span className="text-[10px] font-mono text-secondary font-bold">
+                <span className="text-xs font-mono text-secondary font-bold">
                   {USER_ROLE_META[userRole].badge}
                 </span>
               </div>
@@ -186,7 +186,7 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
                   <i className="bi bi-gear-fill text-secondary mr-1" aria-hidden="true" />
                   Configurações do Super App
                 </strong>
-                <span className="text-[11px] text-gray-600 font-medium">
+                <span className="text-xs text-gray-600 font-medium">
                   Acessibilidade, alarmes do RU/Circular e portabilidade.
                 </span>
               </div>
@@ -207,7 +207,7 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
               <span className="font-heading font-black text-xs uppercase text-foreground block">
                 Cofre Discente Offline (Meu CAGP Sync)
               </span>
-              <p className="text-[11px] text-gray-700 font-medium">
+              <p className="text-xs text-gray-700 font-medium">
                 Seus dados acadêmicos ficam protegidos localmente. Exporte seu token Base64 seguro para trocar de aparelho:
               </p>
               <div className="flex gap-2">

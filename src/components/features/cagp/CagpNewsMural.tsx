@@ -53,8 +53,8 @@ function renderNewsArtwork(motif: SimulatedNewsItem['motif']) {
           fill="none"
           strokeLinecap="round"
         />
-        <circle cx="95" cy="62" r="4.5" fill="#FFFDF9" />
-        <circle cx="150" cy="80" r="4.5" fill="#FFFDF9" />
+        <circle cx="95" cy="62" r="4.5" fill="#ffffff" />
+        <circle cx="150" cy="80" r="4.5" fill="#ffffff" />
         <circle cx="225" cy="38" r="5" fill="#E8A317" />
       </svg>
     );
@@ -67,7 +67,7 @@ function renderNewsArtwork(motif: SimulatedNewsItem['motif']) {
         <circle cx="255" cy="68" r="34" stroke="#FEF3C7" strokeWidth="2.5" fill="none" />
         <path
           d="M180 108C195 78 230 78 245 108"
-          stroke="#FFFDF9"
+          stroke="#ffffff"
           strokeWidth="2.5"
           fill="none"
         />
@@ -84,11 +84,11 @@ function renderNewsArtwork(motif: SimulatedNewsItem['motif']) {
     <svg viewBox="0 0 320 140" className="w-full h-full object-cover" aria-hidden="true">
       <rect width="320" height="140" fill="#3B1D24" />
       <circle cx="90" cy="68" r="24" stroke="#E8A317" strokeWidth="2" fill="none" />
-      <circle cx="170" cy="44" r="18" stroke="#FFFDF9" strokeWidth="2" fill="none" />
+      <circle cx="170" cy="44" r="18" stroke="#ffffff" strokeWidth="2" fill="none" />
       <circle cx="240" cy="84" r="22" stroke="#E8A317" strokeWidth="2" fill="none" />
       <path
         d="M112 60L154 48M186 52L222 74"
-        stroke="#FFFDF9"
+        stroke="#ffffff"
         strokeWidth="1.75"
         strokeOpacity="0.6"
       />
@@ -125,9 +125,9 @@ export const CagpNewsMural: React.FC<CagpNewsMuralProps> = ({ items = SIMULATED_
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <a
           href={route('/')}
-          className="min-h-[44px] px-3.5 py-2 rounded-xl text-xs font-heading font-extrabold uppercase text-foreground hover:text-primary hover:bg-muted/70 no-underline transition-colors inline-flex items-center gap-1.5 border-2 border-transparent hover:border-border self-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          className="min-h-[44px] px-3.5 py-2 rounded-xl text-xs font-heading font-extrabold uppercase text-foreground hover:text-primary hover:bg-muted no-underline transition-colors inline-flex items-center gap-1.5 border-2 border-transparent hover:border-border self-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
-          <span aria-hidden="true">&larr;</span>
+          <i className="bi bi-arrow-left" aria-hidden="true" />
           <span>Voltar ao Hoje &amp; Campus</span>
         </a>
 
@@ -158,7 +158,7 @@ export const CagpNewsMural: React.FC<CagpNewsMuralProps> = ({ items = SIMULATED_
               <span className="absolute top-3 left-3 px-3 py-1 rounded-lg bg-secondary text-white font-heading font-extrabold text-xs uppercase border-2 border-border shadow-xs tracking-wide">
                 Destaque Principal • {leadStory.tag}
               </span>
-              <span className="absolute bottom-3 right-3 px-2.5 py-1 rounded-md bg-foreground/90 text-white font-mono text-xs font-bold tabular-nums border border-white/30 backdrop-blur-xs">
+              <span className="absolute bottom-3 right-3 px-2.5 py-1 rounded-md bg-foreground/90 text-white font-mono text-xs font-bold tabular-nums border border-white/30">
                 {leadStory.readingTime}
               </span>
             </div>
@@ -171,7 +171,7 @@ export const CagpNewsMural: React.FC<CagpNewsMuralProps> = ({ items = SIMULATED_
                   <span>{leadStory.author}</span>
                 </div>
 
-                <h2 className="font-heading font-black uppercase text-xl sm:text-2xl text-foreground group-hover:text-primary transition-colors leading-tight tracking-tight m-0">
+                <h2 className="font-heading font-black text-xl sm:text-2xl text-foreground group-hover:text-primary transition-colors leading-tight m-0">
                   {leadStory.title}
                 </h2>
 
@@ -180,7 +180,7 @@ export const CagpNewsMural: React.FC<CagpNewsMuralProps> = ({ items = SIMULATED_
                 </p>
               </div>
 
-              <div className="pt-3 border-t-2 border-border/20 flex flex-wrap items-center justify-between gap-3">
+              <div className="pt-3 border-t-2 border-border flex flex-wrap items-center justify-between gap-3">
                 <span className="text-xs font-mono font-bold text-secondary tabular-nums">
                   {leadStory.meta}
                 </span>
@@ -190,7 +190,7 @@ export const CagpNewsMural: React.FC<CagpNewsMuralProps> = ({ items = SIMULATED_
                   className="min-h-[44px] px-4 py-2 rounded-xl bg-primary hover:bg-primary-hover text-white font-heading text-xs font-black uppercase tracking-wide no-underline inline-flex items-center gap-2 transition-all shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 >
                   <span>Ler Matéria Completa</span>
-                  <span aria-hidden="true">&rarr;</span>
+                  <i className="bi bi-arrow-right" aria-hidden="true" />
                 </a>
               </div>
             </div>
@@ -275,7 +275,7 @@ export const CagpNewsMural: React.FC<CagpNewsMuralProps> = ({ items = SIMULATED_
                 setCategory('todas');
                 setSearchQuery('');
               }}
-              className="min-h-[44px] px-4 py-2 rounded-xl bg-secondary hover:bg-secondary/90 text-white text-xs font-heading font-extrabold uppercase cursor-pointer border-3 border-border shadow-xs active:translate-x-0.5 active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              className="min-h-[44px] px-4 py-2 rounded-xl bg-secondary hover:bg-secondary-hover text-white text-xs font-heading font-extrabold uppercase cursor-pointer border-3 border-border shadow-xs active:translate-x-0.5 active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
               Limpar filtros
             </button>
@@ -333,7 +333,7 @@ export const CagpNewsMural: React.FC<CagpNewsMuralProps> = ({ items = SIMULATED_
                           <span>{item.readingTime}</span>
                         </div>
 
-                        <h3 className="font-heading font-black uppercase text-sm sm:text-base text-foreground group-hover:text-primary transition-colors leading-snug m-0">
+                        <h3 className="font-heading font-black text-sm sm:text-base text-foreground group-hover:text-primary transition-colors leading-snug m-0">
                           {item.title}
                         </h3>
 
@@ -343,13 +343,13 @@ export const CagpNewsMural: React.FC<CagpNewsMuralProps> = ({ items = SIMULATED_
                       </div>
                     </div>
 
-                    <div className="px-1 pt-3 mt-3 border-t-2 border-border/20 flex items-center justify-between text-xs">
+                    <div className="px-1 pt-3 mt-3 border-t-2 border-border flex items-center justify-between text-xs">
                       <span className="text-muted-foreground font-mono font-bold text-xs truncate tabular-nums">
                         {item.meta}
                       </span>
                       <span className="font-heading font-black uppercase text-secondary shrink-0 ml-2 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                         <span>Ler na íntegra</span>
-                        <span aria-hidden="true">&rarr;</span>
+                        <i className="bi bi-arrow-right" aria-hidden="true" />
                       </span>
                     </div>
                   </a>

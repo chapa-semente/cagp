@@ -96,7 +96,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
 
       {/* Sheet / Form Sheet Modal Container Neobrutalista */}
       <div
-        className={`relative z-[1090] w-full max-w-2xl md:max-w-xl mx-auto bg-white rounded-t-2xl md:rounded-2xl border-[3px] border-border shadow-[0_-6px_0_0_#0A0A0A] md:shadow-lg flex flex-col transition-all duration-200 animate-in slide-in-from-bottom md:zoom-in-95 ease-out ${heightClass}`}
+        className={`relative z-[1090] w-full max-w-2xl md:max-w-xl mx-auto bg-white rounded-t-2xl md:rounded-2xl border-[3px] border-border shadow-[0_-6px_0_0_#16181d] md:shadow-lg flex flex-col transition-all duration-200 animate-in slide-in-from-bottom md:zoom-in-95 ease-out ${heightClass}`}
         style={{
           transform: `translateY(${dragY}px)`,
           paddingBottom: 'calc(1rem + env(safe-area-inset-bottom, 0px))',
@@ -116,7 +116,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
 
         {/* Sheet Topbar */}
         <div className="flex items-center justify-between px-4 pt-2 md:pt-4 pb-3 border-b-[3px] border-border shrink-0">
-          <h2 id={`${id}-title`} className="font-heading text-lg md:text-xl font-extrabold text-foreground uppercase tracking-tight">
+          <h2 id={`${id}-title`} className="font-heading text-lg md:text-xl font-extrabold text-foreground">
             {title}
           </h2>
           <div className="flex items-center gap-2">
@@ -135,7 +135,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
               className="w-9 h-9 flex items-center justify-center rounded-xl bg-white hover:bg-muted border-[2px] border-border shadow-xs text-foreground hover:text-secondary font-bold text-sm transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
               aria-label="Fechar gaveta"
             >
-              ✕
+              <i className="bi bi-x-lg" aria-hidden="true" />
             </button>
           </div>
         </div>

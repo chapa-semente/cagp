@@ -43,7 +43,7 @@ export const SobreCollageBanner: React.FC = () => {
                 <Badge variant="secondary">Post-Modern Academic Collage</Badge>
                 <Badge variant="accent">Neobrutalism rL9Ap</Badge>
               </div>
-              <h2 className="font-heading text-xl sm:text-2xl font-extrabold uppercase tracking-tight text-foreground m-0 mt-1">
+              <h2 className="font-heading text-xl sm:text-2xl font-extrabold text-foreground m-0 mt-1">
                 Semiótica &amp; Memória Visual: Candangos • Semente • UFMG
               </h2>
             </div>
@@ -101,7 +101,7 @@ export const SobreCollageBanner: React.FC = () => {
                   <Badge variant="outline" className="font-mono">Unidade X = 49px</Badge>
                   <Badge variant="default" className="font-mono">Rubro #9E2424</Badge>
                 </div>
-                <h3 className="font-heading text-lg sm:text-xl font-extrabold uppercase text-foreground m-0">
+                <h3 className="font-heading text-lg sm:text-xl font-extrabold text-foreground m-0">
                   &ldquo;Dois Guerreiros&rdquo; (Os Candangos) — Praça dos Três Poderes
                 </h3>
                 <p className="font-sans text-xs sm:text-sm text-foreground leading-relaxed m-0">
@@ -139,7 +139,7 @@ export const SobreCollageBanner: React.FC = () => {
                   <Badge variant="accent" className="font-mono">Laranja #FE8812</Badge>
                   <Badge variant="teal" className="font-mono">Petróleo #266264</Badge>
                 </div>
-                <h3 className="font-heading text-lg sm:text-xl font-extrabold uppercase text-foreground m-0">
+                <h3 className="font-heading text-lg sm:text-xl font-extrabold text-foreground m-0">
                   Colagem Acadêmica Pós-Moderna — Potencial que Germina em Ação
                 </h3>
                 <p className="font-sans text-xs sm:text-sm text-foreground leading-relaxed m-0">
@@ -174,7 +174,7 @@ export const SobreCollageBanner: React.FC = () => {
                   <Badge variant="dark" className="font-mono">Contraste 21:1 AAA</Badge>
                   <Badge variant="outline" className="font-mono">Didone + Cursiva</Badge>
                 </div>
-                <h3 className="font-heading text-lg sm:text-xl font-extrabold uppercase text-foreground m-0">
+                <h3 className="font-heading text-lg sm:text-xl font-extrabold text-foreground m-0">
                   Tensão Tipográfica: Solidez Romana vs. Gesto Humanista das Minas Gerais
                 </h3>
                 <p className="font-sans text-xs sm:text-sm text-foreground leading-relaxed m-0">
@@ -185,7 +185,7 @@ export const SobreCollageBanner: React.FC = () => {
           )}
 
           {/* Rodapé Artístico com ASCII Shape (BoldKit) + Stamp */}
-          <div className="pt-4 border-t-2 border-border/20 flex flex-wrap items-center justify-between gap-4">
+          <div className="pt-4 border-t-2 border-border flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <div className="hidden sm:flex items-center justify-center rounded-xl border-3 border-border bg-foreground text-background text-accent p-1.5 overflow-hidden">
                 <AsciiGeodesicDome size="sm" animated={false} />

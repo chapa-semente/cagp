@@ -65,7 +65,7 @@ export function DashboardLayout({
       {/* Main */}
       <div className="flex-1 p-6 space-y-6">
         <header className="flex items-center justify-between">
-          <h2 className="text-2xl font-black uppercase tracking-tight">{title}</h2>
+          <h2 className="text-2xl font-black">{title}</h2>
           <div className="h-9 w-9 border-3 border-foreground bg-accent shadow-sm" />
         </header>
 

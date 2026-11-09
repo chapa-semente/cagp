@@ -37,9 +37,6 @@ export function StatsGrid({
     <section className={cn('py-14 sm:py-16 px-4 md:px-8 lg:px-16', className)}>
       <motion.div
         variants={staggerContainer(0.06)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.15 }}
         className={cn('max-w-6xl mx-auto grid gap-6', gridCols[columns])}
       >
         {stats.map((stat) => (
@@ -79,14 +76,14 @@ export function StatsCards({
   className,
 }: StatsCardsProps) {
   const cardColors = [
-    'bg-primary/10',
-    'bg-secondary/10',
-    'bg-accent/10',
+    'bg-primary-tint',
+    'bg-secondary-tint',
+    'bg-accent-tint',
     'bg-green-500/10',
   ]
 
   return (
-    <section className={cn('py-14 sm:py-16 px-4 md:px-8 lg:px-16 bg-muted/30', className)}>
+    <section className={cn('py-14 sm:py-16 px-4 md:px-8 lg:px-16 bg-background', className)}>
       <div className="max-w-6xl mx-auto">
         {(title || subtitle) && (
           <div className="text-center mb-10 sm:mb-12 space-y-2">
@@ -96,7 +93,7 @@ export function StatsCards({
               </p>
             )}
             {title && (
-              <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-black">
                 {title}
               </h2>
             )}
@@ -105,9 +102,6 @@ export function StatsCards({
 
         <motion.div
           variants={staggerContainer(0.06)}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.15 }}
           className="grid grid-cols-2 md:grid-cols-4 gap-4"
         >
           {stats.map((stat, index) => (
@@ -185,7 +179,7 @@ export function StatsSplit({
         )}
       >
         <div className="space-y-6">
-          <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tight">
+          <h2 className="text-3xl md:text-4xl font-black">
             {title}
           </h2>
           <p className="text-lg text-muted-foreground font-medium">
@@ -226,7 +220,7 @@ export function StatsInline({
   return (
     <section
       className={cn(
-        'py-8 px-4 md:px-8 lg:px-16 border-y-3 border-foreground bg-muted/30',
+        'py-8 px-4 md:px-8 lg:px-16 border-y-3 border-foreground bg-background',
         className
       )}
     >

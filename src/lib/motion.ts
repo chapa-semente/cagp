@@ -52,14 +52,14 @@ export const cardHoverVariants = {
     transition: tactileSpring,
   },
   hover: {
-    x: -2,
-    y: -2,
+    x: -1,
+    y: -1,
     boxShadow: "6px 6px 0px var(--border, #16181d)",
     transition: tactileSpring,
   },
   tap: {
-    x: 2,
-    y: 2,
+    x: 4,
+    y: 4,
     boxShadow: "0px 0px 0px var(--border, #16181d)",
     transition: tactileSpring,
   },
@@ -67,8 +67,8 @@ export const cardHoverVariants = {
 
 export const buttonTapVariants = {
   rest: { x: 0, y: 0 },
-  hover: { x: 2, y: 2, transition: tactileSpring },
-  tap: { x: 3, y: 3, transition: tactileSpring },
+  hover: { x: -1, y: -1, transition: tactileSpring },
+  tap: { x: 4, y: 4, transition: tactileSpring },
 };
 
 export const staggerContainer = (staggerDelay = 0.05) => ({

@@ -87,17 +87,17 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
               </span>
               <div>
                 <span className="font-heading font-extrabold text-sm uppercase text-foreground">RU II Setorial</span>
-                <span className="text-[10px] font-mono bg-success/20 text-success font-bold px-2 py-0.5 rounded border border-border/30 ml-2">
+                <span className="text-xs font-mono bg-success-tint text-success font-bold px-2 py-0.5 rounded border border-border ml-2">
                   Almoço 11h–14h · Jantar 17h30–19h30
                 </span>
               </div>
             </div>
-            <span className="font-mono text-xs font-bold text-foreground bg-[#EFE9E0] px-2 py-1 rounded border border-border tabular-nums">R$ 5,60</span>
+            <span className="font-mono text-xs font-bold text-foreground bg-[#e5e7ec] px-2 py-1 rounded border border-border tabular-nums">R$ 5,60</span>
           </div>
           <p className="text-xs text-muted-foreground m-0 leading-snug font-medium">
             Catracas fecham <strong>impreterivelmente às 19h30</strong>. Chegue antes das 18h30 para evitar fila extensa.
           </p>
-          <div className="flex items-center gap-2 pt-1 border-t border-border/20">
+          <div className="flex items-center gap-2 pt-1 border-t border-border">
             <button
               type="button"
               onClick={() => togglePref('ru1815')}
@@ -131,7 +131,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
               </span>
               <div>
                 <span className="font-heading font-extrabold text-sm uppercase text-foreground">Circular Noturno FAFICH</span>
-                <span className="text-[10px] font-mono bg-[#E0F2FE] text-[#0369A1] font-bold px-2 py-0.5 rounded border border-border/30 ml-2">
+                <span className="text-xs font-mono bg-[#E0F2FE] text-[#0369A1] font-bold px-2 py-0.5 rounded border border-border ml-2">
                   17h00 às 22h45
                 </span>
               </div>
@@ -141,7 +141,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
           <p className="text-xs text-muted-foreground m-0 leading-snug font-medium">
             Últimas viagens saindo da Praça de Serviços e FAFICH: <strong>22h15, 22h35 e 22h45</strong>.
           </p>
-          <div className="flex items-center gap-2 pt-1 border-t border-border/20">
+          <div className="flex items-center gap-2 pt-1 border-t border-border">
             <button
               type="button"
               onClick={() => togglePref('circular2230')}
@@ -175,7 +175,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
               </span>
               <div>
                 <span className="font-heading font-extrabold text-sm uppercase text-foreground">Guardião de 120 Dias AAC</span>
-                <span className="text-[10px] font-mono bg-[#FEF08A] text-[#854D0E] font-bold px-2 py-0.5 rounded border border-border/30 ml-2">
+                <span className="text-xs font-mono bg-[#FEF08A] text-[#854D0E] font-bold px-2 py-0.5 rounded border border-border ml-2">
                   Art. 15, § 4º
                 </span>
               </div>

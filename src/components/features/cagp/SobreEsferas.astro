@@ -36,7 +36,7 @@ const esferas = [
           <div class="w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center border-3 border-border shadow-sm">
             <i class="bi bi-diagram-3-fill text-base" aria-hidden="true"></i>
           </div>
-          <h3 class="font-head text-base sm:text-lg font-extrabold uppercase text-foreground m-0 tracking-tight">
+          <h3 class="font-head text-base sm:text-lg font-extrabold text-foreground m-0">
             As 4 Esferas de Representação Política
           </h3>
         </div>
@@ -52,14 +52,14 @@ const esferas = [
         <div class="p-4 bg-white border-3 border-border rounded-xl shadow-sm flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between gap-2 mb-2 pb-2 border-b border-border">
-              <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-secondary text-white border border-border">
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono font-bold bg-secondary text-white border border-border">
                 {e.nivel}
               </span>
               <div class="w-8 h-8 rounded-lg bg-white border-3 border-border flex items-center justify-center text-secondary shrink-0 shadow-xs">
                 <i class={`bi ${e.icon} text-sm`} aria-hidden="true" />
               </div>
             </div>
-            <h4 class="font-head font-extrabold uppercase text-xs text-foreground mb-1.5">{e.orgao}</h4>
+            <h4 class="font-head font-extrabold text-xs text-foreground mb-1.5">{e.orgao}</h4>
             <p class="text-xs text-foreground leading-relaxed font-medium m-0">{e.desc}</p>
           </div>
         </div>

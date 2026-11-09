@@ -205,10 +205,10 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
               <span className="font-heading text-xs font-bold bg-white text-primary px-2 py-0.5 rounded-full border border-border shadow-xs">
                 Chapa Semente
               </span>
-              <span className="hidden sm:inline-flex font-mono text-[10px] font-bold uppercase bg-teal-700 text-white px-2 py-0.5 rounded border border-border">
+              <span className="hidden sm:inline-flex font-mono text-xs font-bold uppercase bg-teal-700 text-white px-2 py-0.5 rounded border border-border">
                 POTENCIAL EM AÇÃO
               </span>
-              <span className="hidden md:inline-flex font-mono text-[10px] font-bold uppercase bg-secondary text-white px-2 py-0.5 rounded border border-border">
+              <span className="hidden md:inline-flex font-mono text-xs font-bold uppercase bg-secondary text-white px-2 py-0.5 rounded border border-border">
                 FAFICH • UFMG
               </span>
             </div>
@@ -230,7 +230,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
             title="Fechar painel de ativação"
             aria-label="Fechar painel de ativação"
           >
-            ✕
+            <i className="bi bi-x-lg" aria-hidden="true" />
           </button>
         </div>
       </header>
@@ -238,19 +238,19 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
       {/* 3. MARQUEE DINÂMICO CONTÍNUO */}
       <div className="bg-foreground text-background text-[#FFD6A5] border-b-3 border-border shrink-0 overflow-hidden">
         <Marquee speed="normal" bordered={false} className="py-1">
-          <span className="mx-4 font-mono text-[11px] font-bold uppercase tracking-widest flex items-center gap-2">
+          <span className="mx-4 font-mono text-xs font-bold uppercase tracking-widest flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-accent" />
             ELEIÇÕES CAGP 2026: 25 E 26 DE NOVEMBRO
           </span>
-          <span className="mx-4 font-mono text-[11px] font-bold uppercase tracking-widest flex items-center gap-2">
+          <span className="mx-4 font-mono text-xs font-bold uppercase tracking-widest flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-teal-700" />
             URNA NO 1º ANDAR DA FAFICH (17H ÀS 22H30)
           </span>
-          <span className="mx-4 font-mono text-[11px] font-bold uppercase tracking-widest flex items-center gap-2">
+          <span className="mx-4 font-mono text-xs font-bold uppercase tracking-widest flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-secondary" />
             DEBATE DAS CHAPAS: 24/NOVEMBRO ÀS 18H
           </span>
-          <span className="mx-4 font-mono text-[11px] font-bold uppercase tracking-widest flex items-center gap-2">
+          <span className="mx-4 font-mono text-xs font-bold uppercase tracking-widest flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#FFD6A5]" />
             SUPER APP DISCENTE 100% CÓDIGO ABERTO
           </span>
@@ -280,14 +280,14 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                 }`}
               >
                 <div className="flex items-center gap-1.5">
-                  <span className={`w-4 h-4 rounded-full border border-current flex items-center justify-center font-mono text-[9px] font-bold ${isActive ? 'bg-accent text-foreground' : ''}`}>
+                  <span className={`w-4 h-4 rounded-full border border-current flex items-center justify-center font-mono text-xs font-bold ${isActive ? 'bg-accent text-foreground' : ''}`}>
                     {isCompleted ? <i className="bi bi-check-lg" aria-hidden="true" /> : step}
                   </span>
-                  <span className="font-heading text-[10px] sm:text-xs font-black uppercase tracking-wide truncate">
+                  <span className="font-heading text-xs sm:text-xs font-black uppercase tracking-wide truncate">
                     {title}
                   </span>
                 </div>
-                <span className={`font-mono text-[8px] sm:text-[9px] font-bold uppercase tracking-wider mt-0.5 ${isActive ? 'text-[#FFD6A5]' : isCompleted ? 'text-[#DCFCE7]' : 'text-[#A8A29E]'}`}>
+                <span className={`font-mono text-xs sm:text-xs font-bold uppercase tracking-wider mt-0.5 ${isActive ? 'text-[#FFD6A5]' : isCompleted ? 'text-[#DCFCE7]' : 'text-[#A8A29E]'}`}>
                   {isCompleted ? 'CONCLUÍDO' : isActive ? stamp : 'AGUARDANDO'}
                 </span>
               </div>
@@ -310,10 +310,10 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
 
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-2">
                   <div className="space-y-1">
-                    <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-primary block">
+                    <span className="font-mono text-xs font-bold uppercase tracking-widest text-primary block">
                       Acolhimento Discente Oficial • Bacharelado em Gestão Pública
                     </span>
-                    <h2 className="font-heading text-lg sm:text-2xl font-black uppercase text-foreground m-0 leading-tight">
+                    <h2 className="font-heading text-lg sm:text-2xl font-black text-foreground m-0 leading-tight">
                       Homologação Obrigatória de Acesso Offline
                     </h2>
                   </div>
@@ -335,14 +335,14 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                     <div className="w-8 h-8 rounded-lg bg-primary text-white border-3 border-border flex items-center justify-center font-bold mb-2">
                       <i className="bi bi-shield-check text-base" aria-hidden="true" />
                     </div>
-                    <h3 className="font-heading text-xs font-black uppercase text-foreground m-0">
+                    <h3 className="font-heading text-xs font-black text-foreground m-0">
                       Soberania Discente
                     </h3>
-                    <p className="text-[11px] text-muted-foreground mt-1 m-0">
+                    <p className="text-xs text-muted-foreground mt-1 m-0">
                       Zero-Server: seus dados acadêmicos salvos unicamente no seu aparelho com privacidade irrestrita.
                     </p>
                   </div>
-                  <span className="font-mono text-[9px] font-bold text-primary uppercase mt-3 block">
+                  <span className="font-mono text-xs font-bold text-primary uppercase mt-3 block">
                     SELO DE PRIVACIDADE
                   </span>
                 </div>
@@ -352,14 +352,14 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                     <div className="w-8 h-8 rounded-lg bg-accent text-foreground border-3 border-border flex items-center justify-center font-bold mb-2">
                       <i className="bi bi-wifi-off text-base" aria-hidden="true" />
                     </div>
-                    <h3 className="font-heading text-xs font-black uppercase text-foreground m-0">
+                    <h3 className="font-heading text-xs font-black text-foreground m-0">
                       100% Anti-Lie-Fi
                     </h3>
-                    <p className="text-[11px] text-muted-foreground mt-1 m-0">
+                    <p className="text-xs text-muted-foreground mt-1 m-0">
                       Cache estático resiliente construído para nunca travar durante aulas e assembleias.
                     </p>
                   </div>
-                  <span className="font-mono text-[9px] font-bold text-accent uppercase mt-3 block">
+                  <span className="font-mono text-xs font-bold text-accent uppercase mt-3 block">
                     OFFLINE VERIFICADO
                   </span>
                 </div>
@@ -369,21 +369,21 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                     <div className="w-8 h-8 rounded-lg bg-teal-700 text-white border-3 border-border flex items-center justify-center font-bold mb-2">
                       <i className="bi bi-code-slash text-base" aria-hidden="true" />
                     </div>
-                    <h3 className="font-heading text-xs font-black uppercase text-foreground m-0">
+                    <h3 className="font-heading text-xs font-black text-foreground m-0">
                       Código Aberto
                     </h3>
-                    <p className="text-[11px] text-muted-foreground mt-1 m-0">
+                    <p className="text-xs text-muted-foreground mt-1 m-0">
                       Compromisso 3 do Eixo 1: a plataforma será entregue integralmente aos estudantes.
                     </p>
                   </div>
-                  <span className="font-mono text-[9px] font-bold text-[#266264] uppercase mt-3 block">
+                  <span className="font-mono text-xs font-bold text-[#266264] uppercase mt-3 block">
                     CHAPA SEMENTE
                   </span>
                 </div>
               </div>
 
               {/* Banner de Compromisso Eleitoral */}
-              <div className="p-4 rounded-xl border-3 border-border bg-[#FAF5FF] flex items-center gap-3.5 shadow-md">
+              <div className="p-4 rounded-xl border-3 border-border bg-[#EFE7F6] flex items-center gap-3.5 shadow-md">
                 <div className="w-12 h-12 rounded-xl bg-primary border-3 border-border p-1.5 shrink-0 flex items-center justify-center shadow-sm">
                   <img
                     src={asset('/logos/semente/semente-simbolo-branco.webp')}
@@ -393,7 +393,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <h4 className="font-heading text-xs sm:text-sm font-black uppercase text-foreground m-0">
+                  <h4 className="font-heading text-xs sm:text-sm font-black text-foreground m-0">
                     Eleições CAGP 2026 • Chapa Semente
                   </h4>
                   <p className="text-xs text-muted-foreground mt-0.5 m-0 leading-relaxed">
@@ -410,24 +410,24 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
           {currentStep === 2 && (
             <div className="space-y-5 animate-in fade-in duration-200">
               <div className="text-center space-y-1">
-                <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-primary block">
+                <span className="font-mono text-xs font-bold uppercase tracking-widest text-primary block">
                   Etapa Técnica Obrigatória · Protocolo PWA
                 </span>
-                <h2 className="font-heading text-lg sm:text-2xl font-black uppercase text-foreground m-0">
+                <h2 className="font-heading text-lg sm:text-2xl font-black text-foreground m-0">
                   Sincronização &amp; Fixação do Aplicativo
                 </h2>
               </div>
 
               {/* CENÁRIO STANDALONE: JÁ INSTALADO */}
               {isStandaloneApp ? (
-                <div className="p-6 rounded-2xl border-4 border-border bg-success/20 text-center space-y-3 shadow-lg">
+                <div className="p-6 rounded-2xl border-4 border-border bg-success-tint text-center space-y-3 shadow-lg">
                   <div className="w-16 h-16 rounded-2xl bg-success text-white border-3 border-border mx-auto flex items-center justify-center shadow">
                     <i className="bi bi-check2-all text-3xl" aria-hidden="true" />
                   </div>
                   <div className="cagp-stamp-badge is-deferido mx-auto -rotate-1 text-xs">
                     DISPOSITIVO HOMOLOGADO EM MODO DEDICADO
                   </div>
-                  <h3 className="font-heading text-base sm:text-lg font-black uppercase text-[#14532D] m-0">
+                  <h3 className="font-heading text-base sm:text-lg font-black text-[#14532D] m-0">
                     Aplicativo Já Instalado na Tela de Início
                   </h3>
                   <p className="text-xs text-[#166534] max-w-md mx-auto m-0 leading-relaxed">
@@ -443,14 +443,14 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                   <div className="p-4 sm:p-5 rounded-2xl border-4 border-border bg-[#F8FAFC] shadow-lg space-y-4">
                     <div className="flex items-center justify-between border-b-2 border-border pb-2">
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-[10px] font-black uppercase bg-info text-white px-2 py-0.5 rounded border border-border">
+                        <span className="font-mono text-xs font-black uppercase bg-info text-white px-2 py-0.5 rounded border border-border">
                           Apple iOS / Safari
                         </span>
                         <span className="font-heading text-xs font-black uppercase text-foreground">
                           Barra de Ferramentas Inferior
                         </span>
                       </div>
-                      <span className="cagp-stamp-badge is-homologado text-[10px]">
+                      <span className="cagp-stamp-badge is-homologado text-xs">
                         PASSO 1 DE 3
                       </span>
                     </div>
@@ -459,7 +459,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                     <div className="p-3 bg-white border-3 border-border rounded-xl shadow flex items-center justify-between px-6 sm:px-12 relative overflow-hidden">
                       {/* Seta Indicadora Apontando para o Compartilhar */}
                       <div className="absolute -top-1 left-1/2 -translate-x-1/2 flex flex-col items-center z-10 pointer-events-none">
-                        <span className="font-mono text-[9px] font-black uppercase bg-accent text-foreground px-2 py-0.5 rounded border border-border shadow-xs">
+                        <span className="font-mono text-xs font-black uppercase bg-accent text-foreground px-2 py-0.5 rounded border border-border shadow-xs">
                           TOQUE AQUI
                         </span>
                         <i className="bi bi-arrow-down-short text-xl text-accent -mt-1" aria-hidden="true" />
@@ -490,7 +490,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                     {/* Lista Sequencial de Instruções */}
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
                       <div className="p-2.5 rounded-lg bg-white border-3 border-border shadow-sm">
-                        <span className="font-mono text-[9px] font-black uppercase text-info block">
+                        <span className="font-mono text-xs font-black uppercase text-info block">
                           Passo 1
                         </span>
                         <p className="text-xs font-bold text-foreground m-0 mt-0.5">
@@ -499,7 +499,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                       </div>
 
                       <div className="p-2.5 rounded-lg bg-white border-3 border-border shadow-sm">
-                        <span className="font-mono text-[9px] font-black uppercase text-info block">
+                        <span className="font-mono text-xs font-black uppercase text-info block">
                           Passo 2
                         </span>
                         <p className="text-xs font-bold text-foreground m-0 mt-0.5">
@@ -508,7 +508,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                       </div>
 
                       <div className="p-2.5 rounded-lg bg-white border-3 border-border shadow-sm">
-                        <span className="font-mono text-[9px] font-black uppercase text-info block">
+                        <span className="font-mono text-xs font-black uppercase text-info block">
                           Passo 3
                         </span>
                         <p className="text-xs font-bold text-foreground m-0 mt-0.5">
@@ -530,14 +530,14 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                   <div className="p-5 sm:p-6 rounded-2xl border-4 border-border bg-white shadow-lg space-y-4">
                     <div className="flex items-center justify-between border-b-2 border-border pb-2">
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-[10px] font-black uppercase bg-success text-white px-2 py-0.5 rounded border border-border">
+                        <span className="font-mono text-xs font-black uppercase bg-success text-white px-2 py-0.5 rounded border border-border">
                           Android OS / Chromium
                         </span>
                         <span className="font-heading text-xs font-black uppercase text-foreground">
                           Instalação Direta em 1 Toque
                         </span>
                       </div>
-                      <span className="cagp-stamp-badge is-deferido text-[10px]">
+                      <span className="cagp-stamp-badge is-deferido text-xs">
                         PRONTO PARA INSTALAR
                       </span>
                     </div>
@@ -570,10 +570,10 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                 <div className="space-y-4">
                   <div className="p-5 sm:p-6 rounded-2xl border-4 border-border bg-white shadow-lg space-y-4">
                     <div className="flex items-center justify-between border-b-2 border-border pb-2">
-                      <span className="font-mono text-[10px] font-black uppercase bg-primary text-white px-2 py-0.5 rounded border border-border">
+                      <span className="font-mono text-xs font-black uppercase bg-primary text-white px-2 py-0.5 rounded border border-border">
                         Estação Desktop / Computador
                       </span>
-                      <span className="cagp-stamp-badge is-homologado text-[10px]">
+                      <span className="cagp-stamp-badge is-homologado text-xs">
                         ACESSO MULTI-DISPOSITIVO
                       </span>
                     </div>
@@ -593,13 +593,13 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                           className="w-32 h-32 object-contain border border-border rounded-lg bg-white"
                           loading="lazy"
                         />
-                        <span className="font-mono text-[9px] font-black uppercase text-foreground mt-2 block">
+                        <span className="font-mono text-xs font-black uppercase text-foreground mt-2 block">
                           APONTE A CÂMERA DO CELULAR
                         </span>
                       </div>
 
                       <div className="text-left space-y-2.5 max-w-xs">
-                        <h4 className="font-heading text-xs font-black uppercase text-foreground m-0">
+                        <h4 className="font-heading text-xs font-black text-foreground m-0">
                           Instale no seu Aparelho Principal
                         </h4>
                         <p className="text-xs text-muted-foreground m-0 leading-relaxed">
@@ -628,10 +628,10 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
           {currentStep === 3 && (
             <div className="space-y-5 animate-in fade-in duration-200">
               <div className="text-center space-y-1">
-                <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-primary block">
+                <span className="font-mono text-xs font-bold uppercase tracking-widest text-primary block">
                   Etapa 3 · Mobilização Cívica Discente
                 </span>
-                <h2 className="font-heading text-lg sm:text-2xl font-black uppercase text-foreground m-0">
+                <h2 className="font-heading text-lg sm:text-2xl font-black text-foreground m-0">
                   Radar Eleitoral &amp; Alertas Oficiais
                 </h2>
               </div>
@@ -640,39 +640,39 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
               <div className="p-4 sm:p-5 rounded-2xl border-4 border-border bg-[#FFFBEB] shadow-lg space-y-3">
                 <div className="flex items-center justify-between border-b-2 border-warning pb-2">
                   <div className="flex items-center gap-2">
-                    <span className="font-mono text-[10px] font-black uppercase bg-warning text-white px-2 py-0.5 rounded">
+                    <span className="font-mono text-xs font-black uppercase bg-warning text-white px-2 py-0.5 rounded">
                       JUNTA ELEITORAL CAGP
                     </span>
                     <span className="font-heading text-xs font-black uppercase text-[#92400E]">
                       Calendário de Votação
                     </span>
                   </div>
-                  <span className="cagp-stamp-badge is-homologado text-[10px]">
+                  <span className="cagp-stamp-badge is-homologado text-xs">
                     CONVOCAÇÃO OFICIAL
                   </span>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="p-3 rounded-xl bg-white border-3 border-border shadow-sm">
-                    <span className="font-mono text-[10px] font-bold uppercase text-secondary block">
+                    <span className="font-mono text-xs font-bold uppercase text-secondary block">
                       24/11/2026 • 18h00
                     </span>
                     <strong className="font-heading text-xs uppercase font-black text-foreground block mt-0.5">
                       Debate das Chapas Concorrentes
                     </strong>
-                    <span className="text-[11px] text-muted-foreground block mt-1">
+                    <span className="text-xs text-muted-foreground block mt-1">
                       Confronto de propostas e prestação de contas na FAFICH.
                     </span>
                   </div>
 
                   <div className="p-3 rounded-xl bg-white border-3 border-border shadow-sm">
-                    <span className="font-mono text-[10px] font-bold uppercase text-success block">
+                    <span className="font-mono text-xs font-bold uppercase text-success block">
                       25 e 26/11/2026 • 17h às 22h30
                     </span>
                     <strong className="font-heading text-xs uppercase font-black text-foreground block mt-0.5">
                       Votação Presencial no 1º Andar
                     </strong>
-                    <span className="text-[11px] text-muted-foreground block mt-1">
+                    <span className="text-xs text-muted-foreground block mt-1">
                       Corredor do CAGP. Obrigatório documento oficial com foto.
                     </span>
                   </div>
@@ -682,15 +682,15 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
               {/* Bloco 1: Permissão de Notificações Web */}
               <div className="p-4 sm:p-5 rounded-2xl border-4 border-border bg-white shadow-lg space-y-3">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-heading text-xs sm:text-sm font-black uppercase text-foreground m-0">
+                  <h3 className="font-heading text-xs sm:text-sm font-black text-foreground m-0">
                     1. Alertas Oficiais no Aparelho
                   </h3>
                   {notifState === 'granted' ? (
-                    <span className="cagp-stamp-badge is-deferido text-[10px]">
+                    <span className="cagp-stamp-badge is-deferido text-xs">
                       AUTORIZADO
                     </span>
                   ) : (
-                    <span className="font-mono text-[10px] font-bold uppercase bg-[#FEF3C7] text-[#92400E] px-2 py-0.5 rounded border border-border">
+                    <span className="font-mono text-xs font-bold uppercase bg-[#FEF3C7] text-[#92400E] px-2 py-0.5 rounded border border-border">
                       PENDENTE
                     </span>
                   )}
@@ -706,7 +706,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                   disabled={notifState === 'granted'}
                   className={`w-full py-3.5 px-4 rounded-xl border-3 border-border font-heading font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2.5 cursor-pointer transition-all ${
                     notifState === 'granted'
-                      ? 'bg-success/20 text-success border-success cursor-default'
+                      ? 'bg-success-tint text-success border-success cursor-default'
                       : 'bg-primary hover:bg-[#48206C] text-white shadow-md active:translate-x-0.5 active:translate-y-0.5'
                   }`}
                 >
@@ -718,11 +718,11 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
               {/* Bloco 2: Lembrete na Agenda .ics */}
               <div className="p-4 sm:p-5 rounded-2xl border-4 border-border bg-white shadow-lg space-y-3">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-heading text-xs sm:text-sm font-black uppercase text-foreground m-0">
+                  <h3 className="font-heading text-xs sm:text-sm font-black text-foreground m-0">
                     2. Compromisso na Agenda (.ics)
                   </h3>
                   {calendarSaved && (
-                    <span className="cagp-stamp-badge is-deferido text-[10px]">
+                    <span className="cagp-stamp-badge is-deferido text-xs">
                       SALVO NA AGENDA
                     </span>
                   )}
@@ -750,10 +750,10 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
           {currentStep === 4 && (
             <div className="space-y-5 animate-in fade-in duration-200">
               <div className="text-center space-y-1">
-                <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-primary block">
+                <span className="font-mono text-xs font-bold uppercase tracking-widest text-primary block">
                   Etapa Final · Compromisso Eleitoral
                 </span>
-                <h2 className="font-heading text-lg sm:text-2xl font-black uppercase text-foreground m-0">
+                <h2 className="font-heading text-lg sm:text-2xl font-black text-foreground m-0">
                   Passaporte do Eleitor Homologado
                 </h2>
               </div>
@@ -783,7 +783,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                         }`}
                       >
                         <div className="flex items-center justify-between">
-                          <span className="font-mono text-[10px] font-black uppercase tracking-wider">
+                          <span className="font-mono text-xs font-black uppercase tracking-wider">
                             {dia}
                           </span>
                           {isSelected && <i className="bi bi-check-circle-fill text-xs text-[#FFD6A5]" aria-hidden="true" />}
@@ -791,7 +791,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                         <span className="font-heading text-sm font-black uppercase block mt-1">
                           TURNO {turno}
                         </span>
-                        <span className={`font-mono text-[10px] block mt-0.5 ${isSelected ? 'text-[#FFD6A5]' : 'text-[#78716C]'}`}>
+                        <span className={`font-mono text-xs block mt-0.5 ${isSelected ? 'text-[#FFD6A5]' : 'text-[#78716C]'}`}>
                           {horas}
                         </span>
                       </button>
@@ -813,22 +813,22 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                     <span className="cagp-big-stamp-title tracking-wider">CHAPA SEMENTE 2026</span>
                   </div>
                   <span className="cagp-big-stamp-sub">ELEITOR HOMOLOGADO • FAFICH/UFMG</span>
-                  <span className="font-mono text-[10px] font-extrabold uppercase tracking-widest text-primary mt-2 block border-t border-primary/30 pt-1">
+                  <span className="font-mono text-xs font-extrabold uppercase tracking-widest text-primary mt-2 block border-t border-primary/30 pt-1">
                     POTENCIAL QUE SE TRANSFORMA EM AÇÃO
                   </span>
                 </div>
               </div>
 
               {/* Convocação Viral no WhatsApp (Zero Emojis, Ícone Oficial) */}
-              <div className="p-4 sm:p-5 rounded-2xl border-4 border-border bg-success/20 shadow-lg space-y-3">
+              <div className="p-4 sm:p-5 rounded-2xl border-4 border-border bg-success-tint shadow-lg space-y-3">
                 <div className="flex items-center justify-between border-b-2 border-success pb-2">
                   <div className="flex items-center gap-2">
                     <i className="bi bi-whatsapp text-success text-lg" aria-hidden="true" />
-                    <h3 className="font-heading text-xs sm:text-sm font-black uppercase text-[#14532D] m-0">
+                    <h3 className="font-heading text-xs sm:text-sm font-black text-[#14532D] m-0">
                       Mobilização da Turma de Gestão Pública
                     </h3>
                   </div>
-                  <span className="font-mono text-[10px] font-bold uppercase bg-success text-white px-2 py-0.5 rounded">
+                  <span className="font-mono text-xs font-bold uppercase bg-success text-white px-2 py-0.5 rounded">
                     CONVITE COLETIVO
                   </span>
                 </div>
@@ -864,7 +864,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
             </button>
           )}
 
-          <span className="hidden sm:inline-block font-mono text-[10px] font-bold text-[#78716C] px-1">
+          <span className="hidden sm:inline-block font-mono text-xs font-bold text-[#78716C] px-1">
             CREDENCIAMENTO OBRIGATÓRIO EM ANDAMENTO
           </span>
         </div>

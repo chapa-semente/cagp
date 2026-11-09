@@ -212,7 +212,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
                 Estágio 300h + TCC 180h + Colação
               </span>
             </div>
-            <h2 className="font-heading text-lg sm:text-2xl font-black uppercase text-foreground m-0">
+            <h2 className="font-heading text-lg sm:text-2xl font-black text-foreground m-0">
               Checklist Reta Final &amp; Painel Integrado de Colação de Grau
             </h2>
             <p className="font-sans text-xs sm:text-sm text-muted-foreground m-0 max-w-3xl leading-relaxed">
@@ -253,14 +253,14 @@ export const FormandoRetaFinalHub: React.FC = () => {
                   {estagioDone}/3 Marcos
                 </span>
               </div>
-              <h3 className="font-heading text-sm font-black uppercase text-foreground m-0">
+              <h3 className="font-heading text-sm font-black text-foreground m-0">
                 DCP 135 + DCP 136 ou Art. 41
               </h3>
               <p className="font-sans text-xs text-muted-foreground mt-1 m-0">
                 Aproveitamento Servidor: <strong>{art41Count}/5 requisitos</strong> marcados no simulador.
               </p>
             </div>
-            <div className="flex items-center justify-between gap-2 pt-2 border-t-2 border-border/20">
+            <div className="flex items-center justify-between gap-2 pt-2 border-t-2 border-border">
               <a
                 href={route('/estagio')}
                 className="min-h-[44px] px-3 py-2 rounded-lg border-2 border-border bg-white hover:bg-muted text-foreground font-heading text-xs font-bold uppercase no-underline inline-flex items-center gap-1.5 shadow-2xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 transition-all"
@@ -288,14 +288,14 @@ export const FormandoRetaFinalHub: React.FC = () => {
                   {tccDone}/4 Marcos
                 </span>
               </div>
-              <h3 className="font-heading text-sm font-black uppercase text-foreground m-0">
+              <h3 className="font-heading text-sm font-black text-foreground m-0">
                 Projeto (DCP 089) &amp; Defesa (DCP 137)
               </h3>
               <p className="font-sans text-xs text-muted-foreground mt-1 m-0">
                 Termo de Aceite + escolha entre Monografia, Artigo, Intervenção ou IC.
               </p>
             </div>
-            <div className="flex items-center justify-between gap-2 pt-2 border-t-2 border-border/20">
+            <div className="flex items-center justify-between gap-2 pt-2 border-t-2 border-border">
               <a
                 href={route('/tcc')}
                 className="min-h-[44px] px-3 py-2 rounded-lg border-2 border-border bg-white hover:bg-muted text-foreground font-heading text-xs font-bold uppercase no-underline inline-flex items-center gap-1.5 shadow-2xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 transition-all"
@@ -323,14 +323,14 @@ export const FormandoRetaFinalHub: React.FC = () => {
                   {colacaoDone}/3 Marcos
                 </span>
               </div>
-              <h3 className="font-heading text-sm font-black uppercase text-foreground m-0">
+              <h3 className="font-heading text-sm font-black text-foreground m-0">
                 600h, Nada Consta &amp; Diploma
               </h3>
               <p className="font-sans text-xs text-muted-foreground mt-1 m-0">
                 Protocolo final das 600h, regularidade no ENADE e Banco de Talentos GP.
               </p>
             </div>
-            <div className="flex items-center justify-between gap-2 pt-2 border-t-2 border-border/20">
+            <div className="flex items-center justify-between gap-2 pt-2 border-t-2 border-border">
               <a
                 href={route('/carreira/talentos')}
                 className="min-h-[44px] px-3 py-2 rounded-lg border-2 border-border bg-white hover:bg-muted text-foreground font-heading text-xs font-bold uppercase no-underline inline-flex items-center gap-1.5 shadow-2xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 transition-all"
@@ -366,7 +366,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
                   : 'bg-[#FE8812] text-[#16181d]'
               }`}
             >
-              {isGradReady ? '🎓 100% PRONTO P/ FORMATURA' : `${progressPct}% INTEGRALIZADO`}
+              {isGradReady ? '100% PRONTO P/ FORMATURA' : `${progressPct}% INTEGRALIZADO`}
             </motion.span>
           </div>
           <div className="w-full h-4 bg-muted rounded-lg border-2 border-border overflow-hidden p-0.5">
@@ -386,7 +386,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
               className="p-3.5 rounded-lg bg-emerald-50 border-2 border-emerald-600 text-emerald-950 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
             >
               <div className="flex items-center gap-2.5">
-                <span className="text-xl">🎓</span>
+                <i className="bi bi-mortarboard-fill text-xl" aria-hidden="true" />
                 <p className="text-xs font-sans font-bold m-0 leading-tight">
                   <strong>Parabéns! Todos os 10 requisitos de Estágio, TCC e Colação estão homologados.</strong>
                   <span className="block font-medium text-emerald-800 text-xs mt-0.5">
@@ -410,7 +410,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
       <div className="p-5 sm:p-6 rounded-xl border-3 border-border bg-white shadow-md space-y-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-3 border-border pb-4">
           <div>
-            <h3 className="font-heading text-base sm:text-lg font-black uppercase text-foreground m-0">
+            <h3 className="font-heading text-base sm:text-lg font-black text-foreground m-0">
               Checklist Completo de Formatura (10 Marcos Regimentais)
             </h3>
             <p className="font-sans text-xs text-muted-foreground m-0 mt-0.5">
@@ -480,8 +480,8 @@ export const FormandoRetaFinalHub: React.FC = () => {
                         </span>
                       </div>
                       <h4
-                        className={`font-heading text-sm font-black uppercase m-0 leading-snug ${
-                          isDone ? 'line-through text-foreground/75' : 'text-foreground'
+                        className={`font-heading text-sm font-black m-0 leading-snug ${
+                          isDone ? 'line-through text-content-secondary' : 'text-foreground'
                         }`}
                       >
                         {step.title}
@@ -500,7 +500,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
                         transition={bounceSpring}
                         className="px-2.5 py-1.5 rounded-lg border-2 border-border bg-[#134E4A] text-white font-mono text-xs font-black uppercase shadow-2xs"
                       >
-                        ★ HOMOLOGADO
+                        HOMOLOGADO
                       </motion.span>
                     )}
                     {step.actionHref && (
@@ -530,10 +530,10 @@ export const FormandoRetaFinalHub: React.FC = () => {
           <span className="px-2.5 py-0.5 rounded bg-[#FE8812] text-[#16181d] border-2 border-border font-mono text-xs font-black uppercase shadow-2xs">
             PROPOSTA DA CHAPA SEMENTE MATERIALIZADA • 25 E 26/11
           </span>
-          <h4 className="font-heading text-base sm:text-lg font-black uppercase text-foreground m-0 pt-1">
+          <h4 className="font-heading text-base sm:text-lg font-black text-foreground m-0 pt-1">
             Formar sem burocracia é direito de todo estudante do noturno
           </h4>
-          <p className="font-sans text-xs text-foreground/85 leading-relaxed m-0 font-medium">
+          <p className="font-sans text-xs text-content-secondary leading-relaxed m-0 font-medium">
             A <strong>Chapa Semente</strong> construiu este Hub Integrador antes mesmo da eleição para que nenhum formando perca prazos de TCE, Aproveitamento Servidor (Art. 41) ou depósito de TCC. Vote na chapa que já trabalha por você!
           </p>
         </div>

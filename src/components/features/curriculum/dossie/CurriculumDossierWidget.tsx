@@ -30,17 +30,17 @@ export const CurriculumDossierWidget: React.FC = () => {
       <div>
         <div className="flex items-center justify-between gap-2 mb-3.5">
           <div className="flex items-center gap-2.5">
-            <span className="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center text-lg border border-secondary shadow-xs">
+            <span className="w-10 h-10 rounded-xl bg-secondary-tint text-secondary flex items-center justify-center text-lg border border-secondary shadow-xs">
               <i className="bi bi-mortarboard-fill" aria-hidden="true" />
             </span>
             <div>
-              <h3 className="font-head font-bold text-sm uppercase text-foreground leading-tight m-0">
+              <h3 className="font-head font-bold text-sm text-foreground leading-tight m-0">
                 Dossiê Discente
               </h3>
-              <span className="text-[11px] text-muted-foreground font-mono">Meta de 3.000h</span>
+              <span className="text-xs text-muted-foreground font-mono">Meta de 3.000h</span>
             </div>
           </div>
-          <span className="px-2.5 py-1 rounded-md font-head text-[11px] font-bold bg-secondary text-white border border-border shadow-xs">
+          <span className="px-2.5 py-1 rounded-md font-head text-xs font-bold bg-secondary text-white border border-border shadow-xs">
             PPC 2020
           </span>
         </div>

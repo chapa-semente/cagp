@@ -33,7 +33,7 @@ export const OverviewCalouroWidget: React.FC = () => {
               <i className="bi bi-backpack text-white" aria-hidden="true" />
             </span>
             <div>
-              <h3 className="font-head font-bold text-sm uppercase text-foreground leading-tight m-0 tracking-wide">
+              <h3 className="font-head font-bold text-sm text-foreground leading-tight m-0">
                 Guia do Calouro
               </h3>
               <span className="text-xs text-gray-700 font-mono font-medium">Primeiros 30 Dias na FAFICH</span>

@@ -55,7 +55,7 @@ const steps: { num: string; title: string; desc: string; badge: string; iconName
       <div class="p-1.5 rounded-lg bg-secondary text-white shrink-0 border border-border">
         <CagpIcon name="alert-triangle" class="w-4 h-4" />
       </div>
-      <h3 class="font-head font-black text-sm uppercase text-secondary tracking-wide m-0">
+      <h3 class="font-head font-black text-sm text-secondary m-0">
         Fique Atento ao Prazo Regimental Decadencial de 120 Dias Corridos!
       </h3>
     </div>
@@ -71,10 +71,10 @@ const steps: { num: string; title: string; desc: string; badge: string; iconName
   <div class="p-6 bg-white border-[3px] border-border rounded-xl space-y-5 shadow-md">
     <div class="border-b-2 border-border pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div>
-        <span class="text-[11px] font-head uppercase font-bold tracking-wider text-secondary">
+        <span class="text-xs font-head uppercase font-bold tracking-wider text-secondary">
           Guia Visual Passo a Passo
         </span>
-        <h3 class="font-head text-base sm:text-lg font-black uppercase text-foreground m-0">
+        <h3 class="font-head text-base sm:text-lg font-black text-foreground m-0">
           Como Preencher o Requerimento de AAC (Versão N-20229)
         </h3>
         <p class="font-body text-xs text-muted-foreground mt-0.5 m-0">
@@ -124,8 +124,8 @@ const steps: { num: string; title: string; desc: string; badge: string; iconName
             </span>
             <div class="min-w-0">
               <div class="flex items-center gap-2 mb-1">
-                <span class="px-2 py-0.5 rounded-md bg-secondary text-white font-mono text-[10px] font-bold border border-border">{st.badge}</span>
-                <h4 class="font-head text-xs font-bold uppercase text-foreground leading-tight m-0 truncate">
+                <span class="px-2 py-0.5 rounded-md bg-secondary text-white font-mono text-xs font-bold border border-border">{st.badge}</span>
+                <h4 class="font-head text-xs font-bold text-foreground leading-tight m-0 truncate">
                   {st.title}
                 </h4>
               </div>
@@ -145,10 +145,10 @@ const steps: { num: string; title: string; desc: string; badge: string; iconName
     <div class="p-6 bg-white border-[3px] border-border rounded-xl space-y-4 shadow-md">
       <div class="flex items-center justify-between border-b-2 border-border pb-3 flex-wrap gap-2">
         <div>
-          <span class="text-[10px] font-mono text-secondary font-bold uppercase block">Resolução CEPE 10/2019</span>
+          <span class="text-xs font-mono text-secondary font-bold uppercase block">Resolução CEPE 10/2019</span>
           <div class="flex items-center gap-2 mt-0.5">
             <CagpIcon name="curriculo" class="w-4 h-4 text-secondary" />
-            <h4 class="font-head font-bold text-sm uppercase text-foreground m-0">1. Extensão Obrigatória (300h)</h4>
+            <h4 class="font-head font-bold text-sm text-foreground m-0">1. Extensão Obrigatória (300h)</h4>
           </div>
         </div>
         <span class="px-2.5 py-1 rounded-md bg-secondary text-white font-mono text-xs font-bold border border-border shadow-xs">10% do Curso</span>
@@ -178,10 +178,10 @@ const steps: { num: string; title: string; desc: string; badge: string; iconName
     <div class="p-6 bg-white border-[3px] border-border rounded-xl space-y-4 shadow-md">
       <div class="flex items-center justify-between border-b-2 border-border pb-3 flex-wrap gap-2">
         <div>
-          <span class="text-[10px] font-mono text-muted-foreground font-bold uppercase block">Regulamento Art. 15</span>
+          <span class="text-xs font-mono text-muted-foreground font-bold uppercase block">Regulamento Art. 15</span>
           <div class="flex items-center gap-2 mt-0.5">
             <CagpIcon name="curso" class="w-4 h-4 text-[#266264]" />
-            <h4 class="font-head font-bold text-sm uppercase text-foreground m-0">2. Horas AAC (Até 300h)</h4>
+            <h4 class="font-head font-bold text-sm text-foreground m-0">2. Horas AAC (Até 300h)</h4>
           </div>
         </div>
         <span class="px-2.5 py-1 rounded-md bg-teal-700 text-white font-mono text-xs font-bold border border-border shadow-xs">15h = 1 Crédito</span>
@@ -210,7 +210,7 @@ const steps: { num: string; title: string; desc: string; badge: string; iconName
                   </div>
                 </td>
                 <td class="p-3 text-center font-mono font-bold">{m.teto}</td>
-                <td class="p-3 text-muted-foreground text-[11px]">{m.comp}</td>
+                <td class="p-3 text-muted-foreground text-xs">{m.comp}</td>
               </tr>
             ))}
           </tbody>
@@ -221,7 +221,7 @@ const steps: { num: string; title: string; desc: string; badge: string; iconName
 
   <!-- Perguntas Práticas dos Veteranos -->
   <div class="p-6 bg-white border-[3px] border-border rounded-xl space-y-4 shadow-md">
-    <h4 class="font-head text-base uppercase font-bold text-foreground flex items-center gap-2 m-0">
+    <h4 class="font-head text-base font-bold text-foreground flex items-center gap-2 m-0">
       <CagpIcon name="shield" class="w-4 h-4 text-secondary" />
       <span>Dúvidas Práticas e Recomendações dos Veteranos:</span>
     </h4>
@@ -242,12 +242,12 @@ const steps: { num: string; title: string; desc: string; badge: string; iconName
   </div>
 
   <!-- Compromisso Chapa Semente: Defesa no Colegiado -->
-  <div class="p-5 bg-[#FAF5FF] border-3 border-[#16181d] rounded-xl shadow-[4px_4px_0_0_#16181d] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+  <div class="p-5 bg-[#EFE7F6] border-3 border-[#16181d] rounded-xl shadow-[4px_4px_0_0_#16181d] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
     <div>
-      <span class="cagp-stamp-badge is-semente text-[10px] py-0.5 px-2 mb-1.5 inline-flex">
-        ✦ COMPROMISSO ACADÊMICO CHAPA SEMENTE
+      <span class="cagp-stamp-badge is-semente text-xs py-0.5 px-2 mb-1.5 inline-flex">
+        COMPROMISSO ACADÊMICO CHAPA SEMENTE
       </span>
-      <h4 class="font-head text-sm uppercase font-black text-foreground m-0">
+      <h4 class="font-head text-sm font-black text-foreground m-0">
         Fim da Burocracia Solitária nas 600 Horas
       </h4>
       <p class="font-body text-xs text-muted-foreground mt-1 m-0 max-w-2xl">

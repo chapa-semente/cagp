@@ -83,17 +83,17 @@ export const CourseDetailDrawer: React.FC<CourseDetailDrawerProps> = ({
               </Badge>
               {node.isFormalLock && (
                 <Badge variant="destructive" className="text-xs font-bold">
-                  🔒 Trava SIGA
+                  Trava SIGA
                 </Badge>
               )}
               {node.isCustom && (
                 <Badge variant="accent" className="text-xs">
-                  ✦ Formação Livre
+                  Formação Livre
                 </Badge>
               )}
             </div>
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#F2CD5C] border-2 border-[#16181d] text-[10px] font-heading font-black uppercase text-[#16181d] shadow-[2px_2px_0_0_#16181d]">
-              ✦ Mapa Chapa Semente
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#F2CD5C] border-2 border-[#16181d] text-xs font-heading font-black uppercase text-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+              Mapa Chapa Semente
             </span>
           </div>
           <DrawerTitle className="font-heading text-lg sm:text-xl font-extrabold uppercase leading-snug tracking-tight text-foreground">
@@ -115,7 +115,7 @@ export const CourseDetailDrawer: React.FC<CourseDetailDrawerProps> = ({
         >
           {/* Ementa */}
           <div>
-            <h4 className="font-heading text-xs font-extrabold uppercase tracking-wider text-muted-foreground mb-1">
+            <h4 className="font-heading text-xs font-extrabold text-muted-foreground mb-1">
               Ementa Oficial & Conteúdo Programático
             </h4>
             <p className="text-foreground leading-relaxed bg-white p-3.5 rounded-xl border-3 border-border text-xs sm:text-sm shadow-[3px_3px_0_0_#16181d]">
@@ -131,7 +131,7 @@ export const CourseDetailDrawer: React.FC<CourseDetailDrawerProps> = ({
               transition={bounceSpring}
               className="p-3 rounded-xl border-3 border-border bg-white space-y-1 shadow-[3px_3px_0_0_#16181d]"
             >
-              <span className="text-[11px] font-heading font-extrabold uppercase text-secondary block">
+              <span className="text-xs font-heading font-extrabold uppercase text-secondary block">
                 ⬅ Pré-Requisitos Formais (SIGA)
               </span>
               {node.formalReqs && node.formalReqs.length > 0 ? (
@@ -156,8 +156,8 @@ export const CourseDetailDrawer: React.FC<CourseDetailDrawerProps> = ({
               transition={bounceSpring}
               className="p-3 rounded-xl border-3 border-border bg-white space-y-1 shadow-[3px_3px_0_0_#16181d]"
             >
-              <span className="text-[11px] font-heading font-extrabold uppercase text-primary block">
-                Libera no Fluxo Curricular ➡
+              <span className="text-xs font-heading font-extrabold uppercase text-primary block">
+                Libera no Fluxo Curricular →
               </span>
               {node.formalUnlocks && node.formalUnlocks.length > 0 ? (
                 <div className="flex flex-wrap gap-1.5 pt-1">
@@ -186,7 +186,7 @@ export const CourseDetailDrawer: React.FC<CourseDetailDrawerProps> = ({
             className="flex-1 min-h-[46px] font-heading font-extrabold uppercase text-xs sm:text-sm"
           >
             {isCompleted ? <CheckCircle2 className="w-4 h-4 mr-2" /> : <PlusCircle className="w-4 h-4 mr-2" />}
-            <span>{isCompleted ? 'Concluída ✓ (Clique para Desmarcar)' : 'Marcar como Concluída (+)'}</span>
+            <span>{isCompleted ? 'Concluída (Clique para Desmarcar)' : 'Marcar como Concluída (+)'}</span>
           </Button>
 
           {node.isCustom && onDeleteCustom && (

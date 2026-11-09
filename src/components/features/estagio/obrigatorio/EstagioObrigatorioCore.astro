@@ -15,7 +15,7 @@ const stats = [
   {/* Cabeçalho */}
   <div class="p-6 bg-white border-3 border-border rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-md">
     <div>
-      <h3 class="font-heading text-base sm:text-xl font-black uppercase text-foreground m-0">
+      <h3 class="font-heading text-base sm:text-xl font-black text-foreground m-0">
         Estágio Supervisionado A e B (300h)
       </h3>
       <p class="font-sans text-xs text-muted-foreground mt-1 max-w-3xl leading-relaxed m-0 font-medium">
@@ -30,10 +30,10 @@ const stats = [
   {/* Cards de Carga Horária */}
   <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
     {stats.map((s) => (
-      <div class="cagp-card p-5 bg-white border-2 border-border/80 rounded-xl flex flex-col justify-between shadow-xs hover:shadow-sm hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all">
+      <div class="cagp-card p-5 bg-white border-2 border-border rounded-xl flex flex-col justify-between shadow-xs hover:shadow-sm hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all">
         <div>
           <div class="flex items-center gap-2 mb-2">
-            <span class="w-8 h-8 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center text-sm border border-secondary/40 shadow-2xs">
+            <span class="w-8 h-8 rounded-lg bg-secondary-tint text-secondary flex items-center justify-center text-sm border border-secondary/40 shadow-2xs">
               <i class={`bi ${s.icon}`} aria-hidden="true" />
             </span>
             <span class="font-heading text-xs font-bold uppercase text-foreground">{s.label}</span>
@@ -48,8 +48,8 @@ const stats = [
   {/* Duas Colunas: Estágio Obrigatório vs Não-Obrigatório */}
   <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
     <div class="cagp-tool-box p-6 bg-white border-3 border-border rounded-xl space-y-4 shadow-md">
-      <div class="flex items-center justify-between border-b-2 border-border/80 pb-3">
-        <h4 class="font-heading font-bold text-sm uppercase text-foreground m-0 flex items-center gap-2">
+      <div class="flex items-center justify-between border-b-2 border-border pb-3">
+        <h4 class="font-heading font-bold text-sm text-foreground m-0 flex items-center gap-2">
           <i class="bi bi-mortarboard-fill text-secondary" aria-hidden="true" />
           <span>Estágio Obrigatório (300h)</span>
         </h4>
@@ -72,8 +72,8 @@ const stats = [
     </div>
 
     <div class="cagp-tool-box p-6 bg-white border-3 border-border rounded-xl space-y-4 shadow-md">
-      <div class="flex items-center justify-between border-b-2 border-border/80 pb-3">
-        <h4 class="font-heading font-bold text-sm uppercase text-foreground m-0 flex items-center gap-2">
+      <div class="flex items-center justify-between border-b-2 border-border pb-3">
+        <h4 class="font-heading font-bold text-sm text-foreground m-0 flex items-center gap-2">
           <i class="bi bi-briefcase text-[#134E4A]" aria-hidden="true" />
           <span>Estágio Não-Obrigatório (AAC)</span>
         </h4>

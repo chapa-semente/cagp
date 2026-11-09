@@ -77,8 +77,8 @@ const Sticker = React.forwardRef<HTMLDivElement, StickerProps>(
         ref={ref}
         className={cn(
           stickerVariants({ variant, size, rotation, shadow }),
-          dashed && "before:absolute before:inset-[-6px] before:rounded-xl before:border-2 before:border-dashed before:border-border/50",
-          tape && "after:absolute after:left-1/2 after:top-[-8px] after:-translate-x-1/2 after:rotate-[-2deg] after:w-[50px] after:h-[16px] after:bg-accent/90 after:border-2 after:border-border",
+          dashed && "before:absolute before:inset-[-6px] before:rounded-xl before:border-2 before:border-dashed before:border-border",
+          tape && "after:absolute after:left-1/2 after:top-[-8px] after:-translate-x-1/2 after:rotate-[-2deg] after:w-[50px] after:h-[16px] after:bg-accent-hover after:border-2 after:border-border",
           interactive && "cursor-pointer hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-xs active:translate-x-[4px] active:translate-y-[4px] active:shadow-none",
           className
         )}
@@ -157,7 +157,7 @@ const stickyNoteVariants = cva(
         yellow: "bg-accent text-accent-foreground",
         pink: "bg-primary text-primary-foreground",
         blue: "bg-[#E0F2FE] text-info",
-        green: "bg-success/20 text-success",
+        green: "bg-success-tint text-success",
         purple: "bg-secondary text-secondary-foreground",
       },
       size: {

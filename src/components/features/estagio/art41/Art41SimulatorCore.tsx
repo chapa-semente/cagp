@@ -121,7 +121,7 @@ export const Art41SimulatorCore: React.FC = () => {
               Regulamento N-20229 • Art. 41
             </span>
           </div>
-          <h3 className="font-heading text-base sm:text-lg font-black uppercase text-foreground m-0">
+          <h3 className="font-heading text-base sm:text-lg font-black text-foreground m-0">
             Simulador de Aproveitamento Servidor (Dispensa Art. 41)
           </h3>
           <p className="font-sans text-xs text-muted-foreground mt-0.5 m-0 max-w-prose">
@@ -185,7 +185,7 @@ export const Art41SimulatorCore: React.FC = () => {
                     </span>
                   )}
                 </div>
-                <span className={`font-sans text-xs leading-tight ${isSelected ? 'text-white/90' : 'text-muted-foreground'}`}>
+                <span className={`font-sans text-xs leading-tight ${isSelected ? 'text-white' : 'text-muted-foreground'}`}>
                   {m.desc}
                 </span>
               </motion.button>
@@ -194,7 +194,7 @@ export const Art41SimulatorCore: React.FC = () => {
         </motion.div>
 
         {/* Seletor de Período de Exercício (DateRangePicker) — Contêiner Aplanado Sem Sombra Concorrente */}
-        <div className="p-4 bg-muted/20 border-2 border-border/80 rounded-xl space-y-2">
+        <div className="p-4 bg-background border-2 border-border rounded-xl space-y-2">
           <label className="block text-xs font-heading font-bold uppercase text-foreground">
             Período de Exercício no Órgão (Início e Término na Declaração Funcional):
           </label>
@@ -251,7 +251,7 @@ export const Art41SimulatorCore: React.FC = () => {
             <span>Progresso de Elegibilidade Art. 41</span>
             <span className="text-[#134E4A] tabular-nums">{progressPercent}% concluído</span>
           </div>
-          <div className="w-full h-3.5 bg-[#f4f0ea] rounded-lg border-2 border-border overflow-hidden p-0.5">
+          <div className="w-full h-3.5 bg-[#f4f5f7] rounded-lg border-2 border-border overflow-hidden p-0.5">
             <motion.div
               className="h-full rounded bg-[#134E4A]"
               initial={{ width: 0 }}
@@ -295,7 +295,7 @@ export const Art41SimulatorCore: React.FC = () => {
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: -24, scale: 0.98 }}
                 transition={tactileSpring}
-                className="p-5 rounded-xl border-2 border-border/80 bg-[#f4f0ea] space-y-4"
+                className="p-5 rounded-xl border-2 border-border bg-[#f4f5f7] space-y-4"
               >
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className="px-2.5 py-1 rounded-md bg-white border-2 border-border font-mono text-xs font-bold uppercase text-foreground">
@@ -308,13 +308,13 @@ export const Art41SimulatorCore: React.FC = () => {
                       transition={bounceSpring}
                       className="px-2.5 py-1 rounded-md bg-[#134E4A] text-white font-mono text-xs font-bold uppercase border border-border shadow-xs"
                     >
-                      ✓ REQUISITO ATENDIDO
+                      REQUISITO ATENDIDO
                     </motion.span>
                   )}
                 </div>
 
                 <div className="space-y-1.5">
-                  <h4 className="font-heading text-base sm:text-lg font-black uppercase text-foreground m-0">
+                  <h4 className="font-heading text-base sm:text-lg font-black text-foreground m-0">
                     {currentQuestion.shortTitle}
                   </h4>
                   <p className="font-sans text-sm text-foreground font-medium leading-relaxed m-0 max-w-prose">
@@ -456,12 +456,12 @@ export const Art41SimulatorCore: React.FC = () => {
                   Modalidade: {EMPLOYMENT_MODES.find((m) => m.id === selectedMode)?.label}
                 </span>
               </div>
-              <h4 className="font-heading text-base sm:text-lg font-black uppercase text-foreground m-0 mb-1">
+              <h4 className="font-heading text-base sm:text-lg font-black text-foreground m-0 mb-1">
                 {isFullyEligible
                   ? 'Você Cumpre Todos os Requisitos do Aproveitamento Servidor (Art. 41)!'
                   : `Faltam ${ART41_CRITERIA.length - checkedCount} Critério(s) para o Aproveitamento Servidor (Art. 41)`}
               </h4>
-              <p className="font-sans text-xs text-foreground/85 leading-relaxed m-0 max-w-prose">
+              <p className="font-sans text-xs text-content-secondary leading-relaxed m-0 max-w-prose">
                 {isFullyEligible
                   ? 'Você pode requerer a dispensa integral das 300h de estágio supervisionado (DCP 135 — 180h e DCP 136 — 120h). Baixe abaixo os modelos oficiais de Requerimento e Relatório de Atividades e protocole via Google Forms do Colegiado.'
                   : 'Marque os 5 critérios acima conforme reunir sua documentação funcional. Você já pode baixar os modelos oficiais de Requerimento e Relatório do Art. 41 abaixo para providenciar o atesto da sua chefia imediata.'}
@@ -469,25 +469,17 @@ export const Art41SimulatorCore: React.FC = () => {
             </div>
           </div>
 
-          {/* Carimbo Verde Petróleo (#134E4A) */}
-          <motion.div
+          {/* Carimbo de resultado: momento autoral (DESIGN.md › Carimbos). O key remonta e o impacto toca a cada mudança de estado. */}
+          <div
             key={isFullyEligible ? 'stamp-eligible' : 'stamp-pending'}
-            initial={{ scale: 0.8, rotate: -6, opacity: 0 }}
-            animate={{ scale: 1, rotate: -2, opacity: 1 }}
-            transition={bounceSpring}
-            className={`px-4 py-3 rounded-xl shrink-0 self-start sm:self-center border-3 border-border shadow-sm text-center ${
-              isFullyEligible
-                ? 'bg-[#134E4A] text-white'
-                : 'bg-white text-[#134E4A]'
-            }`}
+            role="status"
+            className={`cagp-big-stamp shrink-0 self-start sm:self-center text-center ${isFullyEligible ? '' : 'is-pendente'}`}
           >
-            <span className="block font-heading text-xs sm:text-sm font-black uppercase tracking-wider">
-              {isFullyEligible ? '★ DISPENSA DEFERÍVEL (300h)' : '★ TRILHA ART. 41 SERVIDOR'}
+            <span className="cagp-big-stamp-title">
+              {isFullyEligible ? 'Dispensa deferível · 300h' : 'Requisitos pendentes'}
             </span>
-            <span className="block font-mono text-xs font-bold uppercase opacity-90 mt-0.5">
-              APROVEITAMENTO SERVIDOR • N-20229
-            </span>
-          </motion.div>
+            <span className="cagp-big-stamp-sub">Aproveitamento servidor · Art. 41</span>
+          </div>
         </div>
 
         {/* Download Direto dos Modelos de Requerimento e Relatório Art. 41 — Painéis Aplanados Sem Cards Aninhados */}
@@ -503,7 +495,7 @@ export const Art41SimulatorCore: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div className="p-3.5 rounded-xl border-2 border-border/80 bg-white flex flex-col justify-between gap-2.5">
+            <div className="p-3.5 rounded-xl border-2 border-border bg-white flex flex-col justify-between gap-2.5">
               <div>
                 <span className="font-mono text-xs font-bold uppercase text-[#134E4A] block">
                   FASE 1 • INÍCIO DO SEMESTRE
@@ -532,7 +524,7 @@ export const Art41SimulatorCore: React.FC = () => {
               </div>
             </div>
 
-            <div className="p-3.5 rounded-xl border-2 border-border/80 bg-white flex flex-col justify-between gap-2.5">
+            <div className="p-3.5 rounded-xl border-2 border-border bg-white flex flex-col justify-between gap-2.5">
               <div>
                 <span className="font-mono text-xs font-bold uppercase text-primary block">
                   FASE 2 • FINAL DO SEMESTRE (MOODLE)
@@ -561,7 +553,7 @@ export const Art41SimulatorCore: React.FC = () => {
               </div>
             </div>
 
-            <div className="p-3.5 rounded-xl border-2 border-border/80 bg-white flex flex-col justify-between gap-2.5">
+            <div className="p-3.5 rounded-xl border-2 border-border bg-white flex flex-col justify-between gap-2.5">
               <div>
                 <span className="font-mono text-xs font-bold uppercase text-secondary block">
                   PROTOCOLO ELETRÔNICO COLEGIADO

@@ -115,7 +115,7 @@ export const CursosCatalogHub: React.FC = () => {
       setVaultItem('cagp_aac_120d_certs_v1', [...currentAac, newCert]);
 
       toast.success(
-        `🎉 +${course.hours}h ACG simuladas! "${course.title}" foi enviado para a Calculadora 600h e Alerta 120 Dias.`,
+        `+${course.hours}h ACG simuladas! "${course.title}" foi enviado para a Calculadora 600h e Alerta 120 Dias.`,
         { duration: 4500 }
       );
     } catch (e) {
@@ -156,14 +156,14 @@ export const CursosCatalogHub: React.FC = () => {
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-1">
-              <span className="text-[11px] font-heading font-black uppercase text-[#5B2A85] tracking-wider">
+              <span className="text-xs font-heading font-black uppercase text-[#5B2A85] tracking-wider">
                 Proposta 10 da Chapa Semente • Formação Livre UFMG
               </span>
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#F2CD5C] border-2 border-[#16181d] text-[10px] font-heading font-black uppercase text-[#16181d] shadow-[2px_2px_0_0_#16181d]">
-                ✦ Ferramenta Criada pela Chapa Semente
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#F2CD5C] border-2 border-[#16181d] text-xs font-heading font-black uppercase text-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+                Ferramenta Criada pela Chapa Semente
               </span>
             </div>
-            <h3 className="text-lg font-heading font-black uppercase tracking-tight text-foreground flex items-center gap-2 m-0">
+            <h3 className="text-lg font-heading font-black text-foreground flex items-center gap-2 m-0">
               <i className="bi bi-mortarboard-fill text-primary" aria-hidden="true"></i>
               Cursos Livres & Oficinas do CAGP / UFMG (2026)
             </h3>
@@ -185,16 +185,16 @@ export const CursosCatalogHub: React.FC = () => {
               >
                 <div>
                   <div className="flex flex-wrap items-center justify-between gap-2 mb-2.5">
-                    <span className={`text-[10px] font-heading font-black uppercase px-2.5 py-0.5 rounded-md border-2 ${cur.color} shadow-[2px_2px_0_0_#16181d]`}>
+                    <span className={`text-xs font-heading font-black uppercase px-2.5 py-0.5 rounded-md border-2 ${cur.color} shadow-[2px_2px_0_0_#16181d]`}>
                       {cur.tag}
                     </span>
-                    <span className="inline-flex items-center gap-1 text-[11px] font-mono font-black px-2 py-0.5 rounded-md bg-[#16181d] text-[#F2CD5C] border-2 border-[#16181d]">
+                    <span className="inline-flex items-center gap-1 text-xs font-mono font-black px-2 py-0.5 rounded-md bg-[#16181d] text-[#F2CD5C] border-2 border-[#16181d]">
                       <i className="bi bi-patch-check-fill" aria-hidden="true"></i>
                       <span>VÁLIDO ACG • {cur.hours}H</span>
                     </span>
                   </div>
 
-                  <h4 className="font-heading font-black text-sm text-foreground leading-snug uppercase m-0">
+                  <h4 className="font-heading font-black text-sm text-foreground leading-snug m-0">
                     {cur.title}
                   </h4>
 
@@ -202,15 +202,15 @@ export const CursosCatalogHub: React.FC = () => {
                     {cur.desc}
                   </p>
 
-                  <div className="mt-3 p-2.5 rounded-lg bg-[#FAF6F0] border-2 border-[#16181d] text-[11px] font-mono text-foreground space-y-1">
-                    <div><strong>📍 Modalidade:</strong> {cur.modality}</div>
-                    <div><strong>👤 Ministrantes:</strong> {cur.speaker}</div>
+                  <div className="mt-3 p-2.5 rounded-lg bg-[#FAF6F0] border-2 border-[#16181d] text-xs font-mono text-foreground space-y-1">
+                    <div><strong>Modalidade:</strong> {cur.modality}</div>
+                    <div><strong>Ministrantes:</strong> {cur.speaker}</div>
                     <div className="text-[#5B2A85] font-bold"><strong>⚖️ Enquadramento:</strong> {cur.acgGroup}</div>
                   </div>
                 </div>
 
-                <div className="pt-3 border-t-2 border-border/30 space-y-2">
-                  <div className="flex items-center justify-between text-[11px]">
+                <div className="pt-3 border-t-2 border-border space-y-2">
+                  <div className="flex items-center justify-between text-xs">
                     <span className="font-heading font-black text-[#5B2A85] uppercase">
                       {cur.status}
                     </span>
@@ -238,7 +238,7 @@ export const CursosCatalogHub: React.FC = () => {
                     {isSimulated ? (
                       <>
                         <i className="bi bi-check-circle-fill" aria-hidden="true"></i>
-                        <span>Inscrito / Simulado nas 600h ✓</span>
+                        <span>Inscrito / Simulado nas 600h</span>
                       </>
                     ) : (
                       <>
@@ -258,10 +258,10 @@ export const CursosCatalogHub: React.FC = () => {
       <div className="p-4 sm:p-6 rounded-xl bg-card border-3 border-[#16181d] shadow-[5px_5px_0px_#16181d] space-y-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b-3 border-[#16181d]">
           <div>
-            <span className="text-[11px] font-heading font-black uppercase text-[#5B2A85] tracking-wider">
+            <span className="text-xs font-heading font-black uppercase text-[#5B2A85] tracking-wider">
               Escola Virtual de Governo (EV.G / ENAP) • Curadoria Proposta 10
             </span>
-            <h3 className="text-lg sm:text-xl font-heading font-black uppercase tracking-tight text-foreground flex items-center gap-2 m-0">
+            <h3 className="text-lg sm:text-xl font-heading font-black text-foreground flex items-center gap-2 m-0">
               <i className="bi bi-collection-fill text-primary" aria-hidden="true"></i>
               Catálogo de Cursos Gratuitos ENAP / EV.G (1.045+ Cursos)
             </h3>
@@ -320,7 +320,7 @@ export const CursosCatalogHub: React.FC = () => {
 
         {/* Eixos Rápidos com .scroll-mask-x e 44x44pt */}
         <div className="flex items-center gap-2 overflow-x-auto py-1 scroll-mask-x scrollbar-none text-xs">
-          <span className="font-heading font-black uppercase text-[10px] text-muted-foreground mr-1 shrink-0">
+          <span className="font-heading font-black uppercase text-xs text-muted-foreground mr-1 shrink-0">
             Filtrar Eixo:
           </span>
           {[
@@ -353,7 +353,7 @@ export const CursosCatalogHub: React.FC = () => {
               Exibindo {Math.min(visibleCount, filteredCourses.length)} de {filteredCourses.length} cursos gratuitos encontrados
             </span>
             <span className="text-[#5B2A85]">
-              ✦ Clique em "Simular / Inscrever" para somar na Calculadora 600h
+              Clique em "Simular / Inscrever" para somar na Calculadora 600h
             </span>
           </div>
 
@@ -377,10 +377,10 @@ export const CursosCatalogHub: React.FC = () => {
                   >
                     <div>
                       <div className="flex items-center justify-between gap-2 mb-2">
-                        <span className="text-[10px] font-heading font-extrabold uppercase px-2 py-0.5 rounded-md bg-[#FAF6F0] border-2 border-[#16181d] text-foreground truncate max-w-[165px]">
+                        <span className="text-xs font-heading font-extrabold uppercase px-2 py-0.5 rounded-md bg-[#FAF6F0] border-2 border-[#16181d] text-foreground truncate max-w-[165px]">
                           {c.axis}
                         </span>
-                        <span className="inline-flex items-center gap-1 text-[11px] font-mono font-black text-[#16181d] px-2 py-0.5 bg-[#F2CD5C] rounded-md border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] shrink-0">
+                        <span className="inline-flex items-center gap-1 text-xs font-mono font-black text-[#16181d] px-2 py-0.5 bg-[#F2CD5C] rounded-md border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] shrink-0">
                           <i className="bi bi-patch-check-fill text-[#5B2A85]" aria-hidden="true"></i>
                           <span>ACG • {c.hours}h</span>
                         </span>
@@ -394,13 +394,13 @@ export const CursosCatalogHub: React.FC = () => {
                         {c.summary}
                       </p>
 
-                      <div className="flex items-center justify-between text-[10px] font-mono font-bold text-muted-foreground mt-2.5 pt-2 border-t border-border/30">
+                      <div className="flex items-center justify-between text-xs font-mono font-bold text-muted-foreground mt-2.5 pt-2 border-t border-border">
                         <span>Certificador: {c.certifier}</span>
                         <span className="text-[#15803D]">Válido AAC/Ext</span>
                       </div>
                     </div>
 
-                    <div className="space-y-2 pt-2 border-t-2 border-border/40">
+                    <div className="space-y-2 pt-2 border-t-2 border-border">
                       <button
                         type="button"
                         onClick={() => handleAddCourseTo600h(c)}
@@ -413,7 +413,7 @@ export const CursosCatalogHub: React.FC = () => {
                         {isSaved ? (
                           <>
                             <i className="bi bi-check-circle-fill text-[#15803D]" aria-hidden="true"></i>
-                            <span>Simulado nas 600h ✓</span>
+                            <span>Simulado nas 600h</span>
                           </>
                         ) : (
                           <>
@@ -427,10 +427,10 @@ export const CursosCatalogHub: React.FC = () => {
                         href={c.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-1.5 w-full min-h-[40px] rounded-lg border-2 border-[#16181d] bg-[#FAF6F0] hover:bg-[#F2CD5C] text-[11px] font-heading font-extrabold uppercase text-[#16181d] transition-colors no-underline"
+                        className="inline-flex items-center justify-center gap-1.5 w-full min-h-[40px] rounded-lg border-2 border-[#16181d] bg-[#FAF6F0] hover:bg-[#F2CD5C] text-xs font-heading font-extrabold uppercase text-[#16181d] transition-colors no-underline"
                       >
                         <span>Inscrição Gratuita no Portal EV.G</span>
-                        <i className="bi bi-box-arrow-up-right text-[10px]" aria-hidden="true"></i>
+                        <i className="bi bi-box-arrow-up-right text-xs" aria-hidden="true"></i>
                       </a>
                     </div>
                   </motion.div>

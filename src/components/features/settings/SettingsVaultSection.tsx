@@ -26,7 +26,7 @@ export const SettingsVaultSection: React.FC<Props> = ({
             <i className="bi bi-safe2-fill text-base" aria-hidden="true" />
           </div>
           <div>
-            <h2 className="font-head text-base sm:text-lg font-extrabold uppercase text-foreground m-0 tracking-tight">
+            <h2 className="font-head text-base sm:text-lg font-extrabold text-foreground m-0">
               3. Meu CAGP Sync &amp; Cofre Discente
             </h2>
             <p className="text-xs text-foreground m-0 font-medium">Armazenamento estritamente local com verificação CRC32</p>

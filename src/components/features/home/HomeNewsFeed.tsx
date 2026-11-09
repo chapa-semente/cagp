@@ -19,11 +19,11 @@ export function renderNewsMotifSvg(motif: SimulatedNewsItem['motif']) {
       <svg viewBox="0 0 320 120" className="w-full h-full object-cover" aria-hidden="true">
         <rect width="320" height="120" fill="#9E2424" />
         <circle cx="270" cy="25" r="55" fill="#8B1E2D" />
-        <path d="M24 96H296" stroke="#0A0A0A" strokeWidth="4" />
-        <rect x="32" y="34" width="14" height="62" rx="2" fill="#FFFFFF" fillOpacity="0.4" stroke="#0A0A0A" strokeWidth="2" />
-        <rect x="58" y="24" width="14" height="72" rx="2" fill="#FFFFFF" fillOpacity="0.6" stroke="#0A0A0A" strokeWidth="2" />
-        <rect x="84" y="42" width="14" height="54" rx="2" fill="#FFFFFF" fillOpacity="0.4" stroke="#0A0A0A" strokeWidth="2" />
-        <circle cx="248" cy="64" r="24" stroke="#0A0A0A" strokeWidth="3" fill="#FE8812" />
+        <path d="M24 96H296" stroke="#16181d" strokeWidth="4" />
+        <rect x="32" y="34" width="14" height="62" rx="2" fill="#FFFFFF" fillOpacity="0.4" stroke="#16181d" strokeWidth="2" />
+        <rect x="58" y="24" width="14" height="72" rx="2" fill="#FFFFFF" fillOpacity="0.6" stroke="#16181d" strokeWidth="2" />
+        <rect x="84" y="42" width="14" height="54" rx="2" fill="#FFFFFF" fillOpacity="0.4" stroke="#16181d" strokeWidth="2" />
+        <circle cx="248" cy="64" r="24" stroke="#16181d" strokeWidth="3" fill="#FE8812" />
       </svg>
     );
   }
@@ -32,10 +32,10 @@ export function renderNewsMotifSvg(motif: SimulatedNewsItem['motif']) {
       <svg viewBox="0 0 320 120" className="w-full h-full object-cover" aria-hidden="true">
         <rect width="320" height="120" fill="#1E3F66" />
         <circle cx="265" cy="95" r="65" fill="#005A9C" fillOpacity="0.55" />
-        <path d="M30 88L95 54L150 70L225 32L285 44" stroke="#0A0A0A" strokeWidth="4" fill="none" strokeLinecap="round" />
-        <circle cx="95" cy="54" r="6" fill="#FFFDF9" stroke="#0A0A0A" strokeWidth="2" />
-        <circle cx="150" cy="70" r="6" fill="#FFFDF9" stroke="#0A0A0A" strokeWidth="2" />
-        <circle cx="225" cy="32" r="7" fill="#FE8812" stroke="#0A0A0A" strokeWidth="2" />
+        <path d="M30 88L95 54L150 70L225 32L285 44" stroke="#16181d" strokeWidth="4" fill="none" strokeLinecap="round" />
+        <circle cx="95" cy="54" r="6" fill="#ffffff" stroke="#16181d" strokeWidth="2" />
+        <circle cx="150" cy="70" r="6" fill="#ffffff" stroke="#16181d" strokeWidth="2" />
+        <circle cx="225" cy="32" r="7" fill="#FE8812" stroke="#16181d" strokeWidth="2" />
       </svg>
     );
   }
@@ -44,8 +44,8 @@ export function renderNewsMotifSvg(motif: SimulatedNewsItem['motif']) {
       <svg viewBox="0 0 320 120" className="w-full h-full object-cover" aria-hidden="true">
         <rect width="320" height="120" fill="#15803D" />
         <circle cx="60" cy="20" r="50" fill="#166534" />
-        <circle cx="255" cy="60" r="32" stroke="#0A0A0A" strokeWidth="3" fill="#FEF08A" />
-        <path d="M180 95C195 68 230 68 245 95" stroke="#FFFDF9" strokeWidth="3.5" fill="none" />
+        <circle cx="255" cy="60" r="32" stroke="#16181d" strokeWidth="3" fill="#FEF08A" />
+        <path d="M180 95C195 68 230 68 245 95" stroke="#ffffff" strokeWidth="3.5" fill="none" />
         <path d="M225 95C240 68 275 68 290 95" stroke="#FE8812" strokeWidth="3.5" fill="none" />
       </svg>
     );
@@ -53,9 +53,9 @@ export function renderNewsMotifSvg(motif: SimulatedNewsItem['motif']) {
   return (
     <svg viewBox="0 0 320 120" className="w-full h-full object-cover" aria-hidden="true">
       <rect width="320" height="120" fill="#5B2A85" />
-      <circle cx="90" cy="60" r="24" stroke="#0A0A0A" strokeWidth="3" fill="#FE8812" />
-      <circle cx="170" cy="38" r="18" stroke="#0A0A0A" strokeWidth="3" fill="#FFFFFF" />
-      <circle cx="240" cy="74" r="22" stroke="#0A0A0A" strokeWidth="3" fill="#266264" />
+      <circle cx="90" cy="60" r="24" stroke="#16181d" strokeWidth="3" fill="#FE8812" />
+      <circle cx="170" cy="38" r="18" stroke="#16181d" strokeWidth="3" fill="#FFFFFF" />
+      <circle cx="240" cy="74" r="22" stroke="#16181d" strokeWidth="3" fill="#266264" />
     </svg>
   );
 }
@@ -74,7 +74,7 @@ export const HomeNewsFeed: React.FC = () => {
           <span className="w-3 h-3 rounded-full bg-secondary border border-border shrink-0" aria-hidden="true" />
           <h2
             id="heading-news-mural"
-            className="font-heading text-base sm:text-lg font-extrabold uppercase tracking-wide text-foreground m-0"
+            className="font-heading text-base sm:text-lg font-extrabold text-foreground m-0"
           >
             Mural de Notícias, Eventos & Carreiras
           </h2>
@@ -85,7 +85,7 @@ export const HomeNewsFeed: React.FC = () => {
           className="min-h-[44px] px-3.5 py-1.5 rounded-xl text-xs font-heading font-bold uppercase tracking-wide bg-white hover:bg-muted text-foreground hover:text-secondary border-3 border-border shadow-xs no-underline inline-flex items-center gap-1.5 transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 tabular-nums"
         >
           <span>Mural completo ({SIMULATED_NEWS.length})</span>
-          <span aria-hidden="true">&rarr;</span>
+          <i className="bi bi-arrow-right" aria-hidden="true" />
         </a>
       </div>
 
@@ -145,7 +145,7 @@ export const HomeNewsFeed: React.FC = () => {
                     </span>
                   </motion.div>
                   <div className="px-1 pb-2">
-                    <h3 className="font-heading font-extrabold text-sm tracking-tight text-foreground group-hover:text-secondary transition-colors leading-snug m-0">
+                    <h3 className="font-heading font-extrabold text-sm text-foreground group-hover:text-secondary transition-colors leading-snug m-0">
                       {item.title}
                     </h3>
                     <p className="text-xs text-muted-foreground font-medium mt-2 mb-0 line-clamp-2 leading-relaxed max-w-prose">
@@ -154,13 +154,13 @@ export const HomeNewsFeed: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="px-1 pt-2.5 mt-2 border-t-2 border-border/20 flex items-center justify-between text-xs">
+                <div className="px-1 pt-2.5 mt-2 border-t-2 border-border flex items-center justify-between text-xs">
                   <span className="text-muted-foreground font-mono text-xs font-bold truncate tabular-nums">
                     {item.meta}
                   </span>
                   <span className="font-heading font-extrabold uppercase tracking-wide text-secondary shrink-0 ml-2 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                     <span>Ler</span>
-                    <span aria-hidden="true">&rarr;</span>
+                    <i className="bi bi-arrow-right" aria-hidden="true" />
                   </span>
                 </div>
               </a>

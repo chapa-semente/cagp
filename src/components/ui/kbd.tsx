@@ -13,7 +13,7 @@ const kbdVariants = cva(
         ghost: 'bg-transparent border-transparent text-muted-foreground',
       },
       size: {
-        sm: 'min-w-5 h-5 px-1 text-[10px]',
+        sm: 'min-w-5 h-5 px-1 text-xs',
         md: 'min-w-6 h-6 px-1.5 text-xs',
         lg: 'min-w-8 h-8 px-2 text-sm',
       },

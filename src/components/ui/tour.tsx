@@ -195,7 +195,7 @@ function TourOverlay({ targetRect, spotlightPadding }: TourOverlayProps) {
         transition={tactileSpring}
         className="fixed z-[9998] pointer-events-none rounded-xl border-3 border-accent ring-3 ring-border shadow-md"
       >
-        <div className="absolute -top-4 left-2 px-2 py-0.5 rounded-md bg-accent text-foreground font-mono font-bold text-[10px] uppercase tracking-wider shadow-xs flex items-center gap-1.5 border-2 border-border">
+        <div className="absolute -top-4 left-2 px-2 py-0.5 rounded-md bg-accent text-foreground font-mono font-bold text-xs uppercase tracking-wider shadow-xs flex items-center gap-1.5 border-2 border-border">
           <span className="w-1.5 h-1.5 rounded-full bg-foreground shrink-0" aria-hidden="true" />
           <span>DESTAQUE SEMENTE</span>
         </div>
@@ -353,10 +353,10 @@ function TourPopover({
           {/* Faixa Superior Editorial Semente */}
           <div className="bg-primary text-white px-3.5 py-2 border-b-3 border-border flex items-center justify-between gap-2 shrink-0">
             <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded bg-accent text-foreground font-mono font-bold text-[10px] uppercase tracking-wider border-2 border-border shadow-xs">
+              <span className="px-2 py-0.5 rounded bg-accent text-foreground font-mono font-bold text-xs uppercase tracking-wider border-2 border-border shadow-xs">
                 PASSO {stepNumStr}/{totalNumStr}
               </span>
-              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-white/90 hidden xs:inline">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-white hidden xs:inline">
                 Parada {currentStep + 1} de {totalSteps}
               </span>
             </div>
@@ -367,7 +367,7 @@ function TourPopover({
                   type="button"
                   onClick={togglePlay}
                   title={isPlaying ? 'Pausar avanço automático' : 'Retomar avanço automático'}
-                  className="border-2 border-border bg-card text-foreground px-2 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider shadow-xs hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-1 focus-visible:ring-offset-primary disabled:opacity-50 disabled:pointer-events-none transition cursor-pointer"
+                  className="border-2 border-border bg-card text-foreground px-2 py-0.5 rounded-md text-xs font-mono font-bold uppercase tracking-wider shadow-xs hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-1 focus-visible:ring-offset-primary disabled:opacity-50 disabled:pointer-events-none transition cursor-pointer"
                 >
                   {isPlaying ? '⏸ Pausar' : '▶ Auto'}
                 </button>
@@ -401,7 +401,7 @@ function TourPopover({
           <div className="p-3.5 sm:p-4 space-y-2 flex-1 overflow-y-auto no-scrollbar">
             <h3
               id={titleId}
-              className="text-sm sm:text-base font-heading font-black uppercase tracking-tight text-foreground leading-snug m-0"
+              className="text-sm sm:text-base font-heading font-black text-foreground leading-snug m-0"
             >
               {step.title}
             </h3>
@@ -415,7 +415,7 @@ function TourPopover({
           </div>
 
           {/* Indicadores de Passo & Navegação Tátil (min-h-[44px]) */}
-          <div className="px-3.5 sm:px-4 py-2.5 bg-muted/40 border-t-3 border-border flex items-center justify-between gap-2 shrink-0">
+          <div className="px-3.5 sm:px-4 py-2.5 bg-background border-t-3 border-border flex items-center justify-between gap-2 shrink-0">
             <div>
               {showSkipButton && !isLast ? (
                 <Button
@@ -427,8 +427,8 @@ function TourPopover({
                   Pular Tour
                 </Button>
               ) : (
-                <span className="font-mono text-[10px] font-bold uppercase text-primary px-1">
-                  ✦ Chapa Semente
+                <span className="font-mono text-xs font-bold uppercase text-primary px-1">
+                  Chapa Semente
                 </span>
               )}
             </div>
@@ -448,7 +448,7 @@ function TourPopover({
                 onClick={nextStep}
                 className="text-xs px-4 min-h-[44px] border-3 border-border bg-accent hover:bg-[#E07406] text-foreground font-heading font-black uppercase shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-50 disabled:pointer-events-none"
               >
-                {isLast ? 'Concluir Tour ✓' : 'Próximo →'}
+                {isLast ? 'Concluir tour' : 'Próximo →'}
               </Button>
             </div>
           </div>

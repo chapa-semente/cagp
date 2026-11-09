@@ -114,10 +114,10 @@ export const FaqChatAssistant: React.FC<Props> = ({ faqs }) => {
 
   return (
     <Card className="border-3 border-border shadow-md">
-      <CardHeader className="p-4 sm:p-5 border-b-2 border-border bg-muted/20">
+      <CardHeader className="p-4 sm:p-5 border-b-2 border-border bg-background">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
-            <CardTitle className="text-base sm:text-lg font-heading font-black uppercase text-foreground">
+            <CardTitle className="text-base sm:text-lg font-heading font-black text-foreground">
               Plantão de Dúvidas Interativo
             </CardTitle>
             <p className="text-xs text-muted-foreground mt-0.5 m-0">
@@ -158,7 +158,7 @@ export const FaqChatAssistant: React.FC<Props> = ({ faqs }) => {
 
       <CardContent className="p-4 sm:p-6 space-y-4">
         {/* Scroller de Mensagens */}
-        <MessageScroller className="h-80 border-2 border-border rounded-xl p-3 sm:p-4 bg-muted/10 relative">
+        <MessageScroller className="h-80 border-2 border-border rounded-xl p-3 sm:p-4 bg-background relative">
           <MessageScrollerContent className="space-y-4">
             <Marker variant="separator" className="mb-4">
               <span>Atendimento CAGP • Hoje</span>
@@ -175,12 +175,12 @@ export const FaqChatAssistant: React.FC<Props> = ({ faqs }) => {
                   {m.avatarText}
                 </MessageAvatar>
                 <MessageContent>
-                  <MessageHeader className="text-[11px] font-mono font-bold text-muted-foreground flex items-center gap-2">
+                  <MessageHeader className="text-xs font-mono font-bold text-muted-foreground flex items-center gap-2">
                     <span>{m.author}</span>
                     <span>•</span>
                     <span>{m.time}</span>
                     {m.badge && (
-                      <span className="px-1.5 py-0.2 rounded bg-primary text-white text-[10px] uppercase font-head font-bold">
+                      <span className="px-1.5 py-0.2 rounded bg-primary text-white text-xs uppercase font-head font-bold">
                         {m.badge}
                       </span>
                     )}
@@ -203,7 +203,7 @@ export const FaqChatAssistant: React.FC<Props> = ({ faqs }) => {
 
         {/* Dicas Rápidas de Perguntas em Pílulas */}
         <div>
-          <span className="text-[11px] font-heading font-black uppercase text-muted-foreground block mb-2">
+          <span className="text-xs font-heading font-black uppercase text-muted-foreground block mb-2">
             Perguntas Frequentes Rápidas:
           </span>
           <div className="flex flex-wrap gap-2">

@@ -84,9 +84,9 @@ const gestaoMembers: TeamMember[] = [
 
 const tabs = [
   { id: 'v0', shortLabel: 'Eleições 2026', fullLabel: 'Processo Eleitoral 2026', hash: '#eleicoes' },
-  { id: 'v1', shortLabel: 'Organograma', fullLabel: '1. Organograma da Gestão', hash: '#organograma' },
-  { id: 'v2', shortLabel: '9 Diretorias', fullLabel: '2. As 9 Pastas & Diretorias', hash: '#equipe' },
-  { id: 'v3', shortLabel: 'Contas', fullLabel: '3. Prestação de Contas', hash: '#contas' },
+  { id: 'v1', shortLabel: 'Organograma', fullLabel: 'Organograma da Gestão', hash: '#organograma' },
+  { id: 'v2', shortLabel: '9 Diretorias', fullLabel: 'As 9 Pastas & Diretorias', hash: '#equipe' },
+  { id: 'v3', shortLabel: 'Contas', fullLabel: 'Prestação de Contas', hash: '#contas' },
 ];
 
 const badges = [
@@ -103,7 +103,6 @@ const badges = [
   mode="read"
 >
   <PageHeader
-    eyebrow="Eixo 5 · Processo Eleitoral & Governança"
     title="Processo Eleitoral & Diretorias do CAGP"
     subtitle="O CAGP encontra-se em processo eleitoral para a gestão 2026. Conheça o cronograma oficial da Junta Eleitoral, as regras do edital, as propostas da Chapa Semente e a estrutura regimental das 7 diretorias executivas."
     badges={badges}
@@ -120,10 +119,10 @@ const badges = [
     <div class="p-5 sm:p-6 rounded-xl border-3 border-border bg-card shadow-md space-y-4">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b-2 border-border">
         <div>
-          <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-primary block">
+          <span class="font-mono text-xs font-bold uppercase tracking-widest text-primary block">
             Junta Eleitoral CAGP 2026 • Edital de Convocação
           </span>
-          <h2 class="font-heading text-lg sm:text-xl font-black uppercase text-foreground m-0">
+          <h2 class="font-heading text-lg sm:text-xl font-black text-foreground m-0">
             Cronograma Oficial das Eleições 2026
           </h2>
         </div>
@@ -141,34 +140,34 @@ const badges = [
       <!-- Grid dos 6 Prazos do Edital com Quebra Fluida -->
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 pt-1">
         <div class="p-3 rounded-lg border-3 border-border bg-white shadow-xs">
-          <span class="font-mono text-[10px] font-bold text-muted-foreground block">04/11/2026</span>
+          <span class="font-mono text-xs font-bold text-muted-foreground block">04/11/2026</span>
           <span class="font-heading font-black text-xs uppercase text-foreground block mt-0.5">Edital Publicado</span>
-          <span class="text-[11px] font-sans text-muted-foreground block mt-1">Convocação oficial</span>
+          <span class="text-xs font-sans text-muted-foreground block mt-1">Convocação oficial</span>
         </div>
         <div class="p-3 rounded-lg border-3 border-border bg-white shadow-xs">
-          <span class="font-mono text-[10px] font-bold text-muted-foreground block">04 a 10/11</span>
+          <span class="font-mono text-xs font-bold text-muted-foreground block">04 a 10/11</span>
           <span class="font-heading font-black text-xs uppercase text-foreground block mt-0.5">Inscrições</span>
-          <span class="text-[11px] font-sans text-muted-foreground block mt-1">Até 23h59 via e-mail</span>
+          <span class="text-xs font-sans text-muted-foreground block mt-1">Até 23h59 via e-mail</span>
         </div>
         <div class="p-3 rounded-lg border-3 border-border bg-white shadow-xs">
-          <span class="font-mono text-[10px] font-bold text-muted-foreground block">11/11/2026</span>
+          <span class="font-mono text-xs font-bold text-muted-foreground block">11/11/2026</span>
           <span class="font-heading font-black text-xs uppercase text-foreground block mt-0.5">Homologação</span>
-          <span class="text-[11px] font-sans text-muted-foreground block mt-1">Divulgação de chapas</span>
+          <span class="text-xs font-sans text-muted-foreground block mt-1">Divulgação de chapas</span>
         </div>
         <div class="p-3 rounded-lg border-2 border-accent bg-card">
-          <span class="font-mono text-[10px] font-bold text-accent block">11 a 24/11</span>
+          <span class="font-mono text-xs font-bold text-accent block">11 a 24/11</span>
           <span class="font-heading font-black text-xs uppercase text-foreground block mt-0.5">Campanha</span>
-          <span class="text-[11px] font-sans text-muted-foreground block mt-1">Debate e diálogo aberto</span>
+          <span class="text-xs font-sans text-muted-foreground block mt-1">Debate e diálogo aberto</span>
         </div>
         <div class="p-3 rounded-lg border-2 border-primary bg-card">
-          <span class="font-mono text-[10px] font-bold text-primary block">24/11 às 18h</span>
+          <span class="font-mono text-xs font-bold text-primary block">24/11 às 18h</span>
           <span class="font-heading font-black text-xs uppercase text-foreground block mt-0.5">Debate Oficial</span>
-          <span class="text-[11px] font-sans text-muted-foreground block mt-1">Local a definir</span>
+          <span class="text-xs font-sans text-muted-foreground block mt-1">Local a definir</span>
         </div>
         <div class="p-3 rounded-lg border-3 border-border bg-primary text-white shadow-xs">
-          <span class="font-mono text-[10px] font-bold text-[#FFD6A5] block">25 e 26/11</span>
+          <span class="font-mono text-xs font-bold text-[#FFD6A5] block">25 e 26/11</span>
           <span class="font-heading font-black text-xs uppercase text-white block mt-0.5">Votação no CAGP</span>
-          <span class="text-[11px] font-sans text-white/90 block mt-1">17h às 22h30 • Presencial</span>
+          <span class="text-xs font-sans text-white block mt-1">17h às 22h30 • Presencial</span>
         </div>
       </div>
 
@@ -210,11 +209,11 @@ const badges = [
             <span class="font-heading text-lg font-bold text-foreground">
               Chapa Semente
             </span>
-            <span class="px-2 py-0.5 rounded-full bg-accent text-foreground font-mono text-[10px] font-black uppercase">
+            <span class="px-2 py-0.5 rounded-full bg-accent text-foreground font-mono text-xs font-black uppercase">
               Candidata Inscrita
             </span>
           </div>
-          <p class="text-xs font-sans text-foreground/90 leading-relaxed max-w-xl m-0">
+          <p class="text-xs font-sans text-content-secondary leading-relaxed max-w-xl m-0">
             A Chapa Semente apresenta sua <strong>Carta-Programa com 14 propostas</strong> divididas em 4 eixos (Transparência, Cultura, Desenvolvimento de Carreiras e Comunicação), além do compromisso público de manutenção e entrega deste Superapp à comunidade acadêmica.
           </p>
         </div>

@@ -12,9 +12,9 @@ import { asset, route } from '@/lib/paths';
 
 const tabs = [
   { id: 'v0', shortLabel: 'Geral', fullLabel: 'Visão Geral do TCC', hash: '#visao-geral' },
-  { id: 'v1', shortLabel: 'Modalidades', fullLabel: '1. Modalidades & Comparativo (Art. 19)', hash: '#modalidades' },
-  { id: 'v2', shortLabel: 'Cronograma', fullLabel: '2. Linha do Tempo 9º/10ºP & Bancas', hash: '#cronograma' },
-  { id: 'v3', shortLabel: 'Termo Aceite', fullLabel: '3. Termo de Aceite & Modelos', hash: '#termo-aceite' },
+  { id: 'v1', shortLabel: 'Modalidades', fullLabel: 'Modalidades & Comparativo (Art. 19)', hash: '#modalidades' },
+  { id: 'v2', shortLabel: 'Cronograma', fullLabel: 'Linha do Tempo 9º/10ºP & Bancas', hash: '#cronograma' },
+  { id: 'v3', shortLabel: 'Termo Aceite', fullLabel: 'Termo de Aceite & Modelos', hash: '#termo-aceite' },
 ];
 
 const badges = [
@@ -31,27 +31,6 @@ const badges = [
   mode="read"
 >
   <div class="space-y-6 max-w-6xl mx-auto font-sans">
-    <!-- Barra Superior Fixa / Breadcrumb (Mobile-First com Retorno Rápido) -->
-    <div
-      id="cagp-tcc-back-bar"
-      class="sticky top-0 z-30 -mx-3 sm:-mx-6 mb-2 bg-background/95 backdrop-blur-sm border-b-3 border-border px-3 sm:px-6 py-2.5 flex items-center justify-between gap-3 shadow-xs select-none"
-    >
-      <div class="flex items-center gap-2">
-        <a
-          href={route('/carreira')}
-          class="min-h-[44px] px-3.5 py-1.5 rounded-xl bg-card hover:bg-muted border-2 border-border text-xs font-heading font-extrabold uppercase text-foreground no-underline inline-flex items-center gap-2 shadow-xs active:translate-x-0.5 active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 transition-all"
-        >
-          <span aria-hidden="true">&larr;</span>
-          <span>Voltar ao Hub de Carreira</span>
-        </a>
-      </div>
-      <div class="flex items-center gap-2 text-xs font-mono font-bold text-muted-foreground uppercase">
-        <span class="hidden sm:inline">Eixo 4 • Carreira</span>
-        <span class="hidden sm:inline">•</span>
-        <span class="text-primary">TCC (180h)</span>
-      </div>
-    </div>
-
     <PageHeader
       axisId="carreira"
       mode="read"
@@ -60,69 +39,7 @@ const badges = [
       title="Trabalho de Conclusão de Curso (180h)"
       subtitle="Tabela comparativa (Monografia vs Artigo Científico • Art. 19), linha do tempo de defesa em DCP 089 (60h) e DCP 137 (120h) e download do Termo de Aceite."
       badges={badges}
-    >
-      {/* Faixa Destilada da Chapa Semente (Read + Persuade) com Divulgação Progressiva */}
-      <details class="group mt-3 pt-3 border-t-2 border-border/70 text-xs">
-        <summary class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 cursor-pointer list-none select-none hover:bg-muted/40 -mx-1.5 px-2 py-1.5 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary [&::-webkit-details-marker]:hidden">
-          <div class="flex items-center gap-2.5 min-w-0">
-            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-primary text-white font-heading font-black text-xs uppercase tracking-wide shrink-0 shadow-2xs">
-              🌱 Semente
-            </span>
-            <p class="text-xs text-foreground font-medium m-0 truncate">
-              <span class="font-heading font-bold text-primary uppercase">Apoio ao Formando:</span>
-              <span class="text-foreground/90"> Compare Monografia vs Artigo Científico e acompanhe todas as suas pendências de colação no Hub Reta Final.</span>
-            </p>
-          </div>
-          <div class="flex items-center gap-2 shrink-0 self-end sm:self-center">
-            <span class="font-heading font-extrabold text-xs uppercase text-primary inline-flex items-center gap-1 group-open:hidden">
-              <span>Ver Detalhes</span>
-              <span aria-hidden="true">↓</span>
-            </span>
-            <span class="font-heading font-extrabold text-xs uppercase text-primary inline-flex items-center gap-1 hidden group-open:inline-flex">
-              <span>Recolher</span>
-              <span aria-hidden="true">↑</span>
-            </span>
-            <a
-              href={route('/estagio-tcc')}
-              onclick="event.stopPropagation()"
-              class="min-h-[32px] px-2.5 py-1 rounded-md bg-secondary hover:bg-[#851E1E] text-white font-heading font-black text-xs uppercase tracking-wider no-underline inline-flex items-center gap-1 border border-border shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-1 transition-all"
-            >
-              <span>Checklist Formando</span>
-              <i class="bi bi-arrow-right text-xs" aria-hidden="true"></i>
-            </a>
-          </div>
-        </summary>
-
-        <div class="pt-3 pb-1 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs leading-relaxed border-t border-border/60 mt-2">
-          <div class="p-3 rounded-lg bg-background/80 border border-border/80 space-y-1">
-            <span class="font-heading font-black text-secondary uppercase text-xs block">
-              DCP 089 (60h) &amp; DCP 137 (120h)
-            </span>
-            <p class="text-xs text-foreground font-medium italic leading-relaxed m-0">
-              "No 9º período você elabora o Projeto de Pesquisa e protocola o Termo de Aceite. No 10º período redige a monografia ou artigo e realiza a defesa perante a banca examinadora."
-            </p>
-          </div>
-
-          <div class="p-3 rounded-lg bg-background/80 border border-border/80 space-y-1 flex flex-col justify-between">
-            <div>
-              <span class="font-heading font-black text-primary uppercase text-xs block">
-                Artigo Científico vs Monografia
-              </span>
-              <p class="text-xs text-foreground/80 mt-1 m-0">
-                O Artigo (15 a 30 laudas) é o formato ideal para quem busca publicação acadêmica rápida ou já participa de grupos de pesquisa do DCP.
-              </p>
-            </div>
-            <a
-              href="#modalidades"
-              class="text-xs font-heading font-black text-primary hover:underline uppercase inline-flex items-center gap-1 mt-2"
-            >
-              <span>Ver Tabela Comparativa (Aba 1)</span>
-              <span aria-hidden="true">&rarr;</span>
-            </a>
-          </div>
-        </div>
-      </details>
-    </PageHeader>
+    />
 
     <SegmentedControl tabs={tabs} defaultTab="v0" />
 
@@ -135,7 +52,7 @@ const badges = [
             <span class="font-mono text-xs font-extrabold uppercase text-secondary block">
               OBRIGATÓRIO • DCP 089 (9º P) &amp; DCP 137 (10º P)
             </span>
-            <h3 class="font-heading text-sm font-black uppercase text-foreground m-0 mt-0.5">
+            <h3 class="font-heading text-sm font-black text-foreground m-0 mt-0.5">
               Termo de Aceite de Orientador(a) de TCC
             </h3>
             <p class="text-xs text-muted-foreground mt-0.5 m-0 font-medium">
@@ -157,7 +74,7 @@ const badges = [
             <span class="font-mono text-xs font-extrabold uppercase text-primary block">
               PREMIAÇÃO • RESOLUÇÃO CONGREGAÇÃO Nº 02/2018
             </span>
-            <h3 class="font-heading text-sm font-black uppercase text-foreground m-0 mt-0.5">
+            <h3 class="font-heading text-sm font-black text-foreground m-0 mt-0.5">
               Concurso Anual de Melhores TCCs da FAFICH
             </h3>
             <p class="text-xs text-muted-foreground mt-0.5 m-0 font-medium">

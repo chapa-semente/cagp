@@ -55,7 +55,7 @@ export const HomeCalouroGuide: React.FC<Props> = ({ checklist, toggleStep }) => 
         <div>
           <h2
             id="heading-role-calouro"
-            className="font-heading text-base sm:text-lg font-extrabold uppercase tracking-wide text-foreground m-0"
+            className="font-heading text-base sm:text-lg font-extrabold text-foreground m-0"
           >
             Primeiros 30 Dias na FAFICH • Dossiê de Ingresso
           </h2>
@@ -69,7 +69,7 @@ export const HomeCalouroGuide: React.FC<Props> = ({ checklist, toggleStep }) => 
           key={`calouro-stamp-${doneCount}`}
           className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-lg border-2 border-border font-heading font-extrabold text-xs uppercase tracking-wide shadow-sm ${
             allDone
-              ? 'bg-success/20 text-success'
+              ? 'bg-success-tint text-success'
               : doneCount > 0
               ? 'bg-[#FEF08A] text-[#854D0E]'
               : 'bg-white text-foreground'
@@ -90,7 +90,7 @@ export const HomeCalouroGuide: React.FC<Props> = ({ checklist, toggleStep }) => 
           <span className="font-bold text-foreground">Progresso de ambientação noturna</span>
           <span className="font-mono font-bold text-secondary">{pct}%</span>
         </div>
-        <div className="h-3 w-full bg-[#EFE9E0] rounded-md border-3 border-border overflow-hidden">
+        <div className="h-3 w-full bg-[#e5e7ec] rounded-md border-3 border-border overflow-hidden">
           <div
             className={`h-full transition-[width,background-color] duration-300 ${
               allDone ? 'bg-success' : 'bg-secondary'
@@ -115,7 +115,7 @@ export const HomeCalouroGuide: React.FC<Props> = ({ checklist, toggleStep }) => 
               transition={{ type: 'spring', stiffness: 400, damping: 30 }}
               className={`p-3.5 rounded-xl border-3 border-border shadow text-left cursor-pointer flex flex-col justify-between min-h-[96px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed ${
                 checked
-                  ? 'bg-success/20 text-foreground'
+                  ? 'bg-success-tint text-foreground'
                   : 'bg-white hover:bg-muted text-foreground'
               }`}
             >
@@ -166,10 +166,10 @@ export const HomeCalouroGuide: React.FC<Props> = ({ checklist, toggleStep }) => 
           </div>
           <a
             href={route('/percurso')}
-            className="min-h-[44px] px-4 py-2 rounded-xl bg-secondary hover:bg-secondary/90 text-white text-xs font-heading font-extrabold uppercase tracking-wide border-2 border-border shadow-sm inline-flex items-center gap-1.5 no-underline transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            className="min-h-[44px] px-4 py-2 rounded-xl bg-secondary hover:bg-secondary-hover text-white text-xs font-heading font-extrabold uppercase tracking-wide border-2 border-border shadow-sm inline-flex items-center gap-1.5 no-underline transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             <span>Explorar Matriz Curricular</span>
-            <span aria-hidden="true">&rarr;</span>
+            <i className="bi bi-arrow-right" aria-hidden="true" />
           </a>
         </div>
       )}
