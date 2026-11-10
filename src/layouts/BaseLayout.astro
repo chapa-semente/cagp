@@ -305,12 +305,34 @@ const routeMeta = getRouteMeta();
                 console.warn('[PWA] Service Worker registration failed:', err);
               });
             });
-            navigator.serviceWorker.addEventListener('controllerchange', () => {
+            // Atualização do SW: recarrega para pegar a versão nova, mas nunca no primeiro registro
+            // (não havia versão velha) nem com o tour da chapa aberto (a recarga cortava o tour).
+            const hadController = Boolean(navigator.serviceWorker.controller);
+            let reloadPending = false;
+            const reloadIfIdle = () => {
+              if (!reloadPending) return;
+              if (document.documentElement.classList.contains('cagp-semente-tour-open')) return;
+              reloadPending = false;
               window.location.reload();
+            };
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+              if (!hadController) return;
+              reloadPending = true;
+              reloadIfIdle();
             });
+            // Se o tour estava aberto, a recarga acontece na próxima troca de página depois dele.
+            document.addEventListener('astro:page-load', reloadIfIdle);
           }
         }
       })();
+    </script>
+    <script>
+      // Física de expansão (gaveta de Regras da calculadora ACG) em todo <details> do site,
+      // e colunas independentes nas grades com data-masonry (só a coluna do cartão aberto desce).
+      import '@/lib/expandDetails';
+      import { initMasonryGrids } from '@/lib/masonry';
+      initMasonryGrids();
+      document.addEventListener('astro:page-load', () => initMasonryGrids());
     </script>
   </body>
 </html>

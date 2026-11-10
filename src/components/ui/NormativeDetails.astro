@@ -30,69 +30,11 @@ const { id, title, badge, icon, open = false } = Astro.props;
 </details>
 
 <style>
+  /* Abrir/fechar segue a física global de <details> (src/lib/expandDetails.ts). */
   .details-icon {
-    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform var(--duration-expand, 320ms) var(--ease-snap, cubic-bezier(0.16, 1, 0.3, 1));
   }
-  details[open] summary .details-icon {
+  details[open]:not([data-expand-state="closing"]) summary .details-icon {
     transform: rotate(90deg);
   }
-  details > div {
-    overflow: hidden;
-  }
 </style>
-
-<script>
-  function setupDetailsAccordions() {
-    document.querySelectorAll<HTMLDetailsElement>('details.cagp-normative-details').forEach((details) => {
-      const summary = details.querySelector('summary');
-      const content = details.querySelector(':scope > div') as HTMLElement | null;
-      if (!summary || !content) return;
-
-      if ((details as any).__cagp_animated) return;
-      (details as any).__cagp_animated = true;
-
-      summary.addEventListener('click', (e) => {
-        e.preventDefault();
-
-        if (details.open) {
-          const startHeight = content.offsetHeight;
-          content.style.maxHeight = `${startHeight}px`;
-          content.style.opacity = '1';
-          content.style.transition = 'max-height 0.22s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.16s ease';
-
-          requestAnimationFrame(() => {
-            content.style.maxHeight = '0px';
-            content.style.opacity = '0';
-          });
-
-          setTimeout(() => {
-            details.open = false;
-            content.style.maxHeight = '';
-            content.style.opacity = '';
-            content.style.transition = '';
-          }, 220);
-        } else {
-          details.open = true;
-          const targetHeight = content.scrollHeight;
-          content.style.maxHeight = '0px';
-          content.style.opacity = '0';
-          content.style.transition = 'max-height 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease';
-
-          requestAnimationFrame(() => {
-            content.style.maxHeight = `${targetHeight}px`;
-            content.style.opacity = '1';
-          });
-
-          setTimeout(() => {
-            content.style.maxHeight = '';
-            content.style.opacity = '';
-            content.style.transition = '';
-          }, 260);
-        }
-      });
-    });
-  }
-
-  setupDetailsAccordions();
-  document.addEventListener('astro:page-load', setupDetailsAccordions);
-</script>

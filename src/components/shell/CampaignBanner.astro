@@ -89,9 +89,13 @@ import { asset } from '@/lib/paths';
         </div>
 
         <!-- Texto Oficial com Destaque WCAG AAA -->
-        <p id="cagp-banner-text" class="text-xs sm:text-xs font-sans text-white leading-relaxed m-0 line-clamp-1 max-w-[82ch] transition-all">
-          Este SuperApp já é uma <strong class="text-[#FEF3C7] font-extrabold underline decoration-[#FE8812] underline-offset-4">proposta da Chapa Semente materializada</strong> antes da urna para o <strong>CAGP FAFICH/UFMG</strong>. Conheça nossas <strong>14 propostas</strong> e vote nos dias <strong>25 e 26 de novembro</strong>!
-        </p>
+        <div id="cagp-banner-text" class="cagp-expand cagp-expand--peek text-sm leading-normal max-w-[82ch]" style="--expand-peek: 1lh;">
+          <div class="cagp-expand-inner">
+            <p class="font-sans text-white m-0">
+              Este SuperApp já é uma <strong class="text-[#FEF3C7] font-extrabold underline decoration-[#FE8812] underline-offset-4">proposta da Chapa Semente materializada</strong> antes da urna para o <strong>CAGP FAFICH/UFMG</strong>. Conheça nossas <strong>14 propostas</strong> e vote nos dias <strong>25 e 26 de novembro</strong>!
+            </p>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -115,7 +119,7 @@ import { asset } from '@/lib/paths';
         title="Expandir compromisso ou recolher faixa"
       >
         <span id="cagp-banner-toggle-label">Compromisso</span>
-        <i id="cagp-banner-toggle-icon" class="bi bi-chevron-down text-xs" aria-hidden="true"></i>
+        <i id="cagp-banner-toggle-icon" class="bi bi-chevron-down text-xs cagp-expand-chevron" aria-hidden="true"></i>
       </button>
     </div>
   </div>
@@ -168,17 +172,14 @@ import { asset } from '@/lib/paths';
       }
     };
 
-    toggleBtn.onclick = () => {
-      isTextExpanded = !isTextExpanded;
-      toggleBtn.setAttribute('aria-expanded', String(isTextExpanded));
-      if (isTextExpanded) {
-        bannerText.classList.remove('line-clamp-1');
-        toggleIcon.className = 'bi bi-chevron-up text-xs';
-      } else {
-        bannerText.classList.add('line-clamp-1');
-        toggleIcon.className = 'bi bi-chevron-down text-xs';
-      }
+    // Mesma física da gaveta de Regras da calculadora ACG (.cagp-expand--peek em global.css).
+    const setTextExpanded = (expanded: boolean) => {
+      isTextExpanded = expanded;
+      toggleBtn.setAttribute('aria-expanded', String(expanded));
+      bannerText.classList.toggle('is-open', expanded);
     };
+
+    toggleBtn.onclick = () => setTextExpanded(!isTextExpanded);
 
     if (restoreBtn) {
       restoreBtn.onclick = () => {
@@ -187,9 +188,7 @@ import { asset } from '@/lib/paths';
           localStorage.removeItem('cagp_banner_minimized');
         } catch {}
         applyCollapsedState(false);
-        isTextExpanded = true;
-        bannerText.classList.remove('line-clamp-1');
-        toggleIcon.className = 'bi bi-chevron-up text-xs';
+        setTextExpanded(true);
       };
     }
 

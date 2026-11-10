@@ -391,7 +391,7 @@ export const HomeWorkspaceA: React.FC = () => {
           </Badge>
         </div>
 
-        {/* Faixa Integrada: Compromisso das 11 Lideranças da Chapa Semente & Tour */}
+        {/* Faixa Integrada: Compromisso das Lideranças da Chapa Semente & Tour */}
         <div className="relative z-10 pt-4 border-t-2 border-white/20 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-3">
             <div className="flex -space-x-2 sm:-space-x-2.5 overflow-x-auto no-scrollbar py-1.5 pl-1 items-center max-w-full">

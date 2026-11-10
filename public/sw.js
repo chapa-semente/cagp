@@ -1,5 +1,5 @@
 // CAGP UFMG — Service Worker Oficial (PWA Offline & Anti-Lie-Fi)
-const CACHE_NAME = 'cagp-pwa-v7';
+const CACHE_NAME = 'cagp-pwa-v8';
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
@@ -35,6 +35,18 @@ async function cleanResponse(res) {
     statusText: res.statusText,
     headers: res.headers,
   });
+}
+
+// Páginas HTML: a navegação comum (mode 'navigate') E o fetch() que o ClientRouter do Astro faz
+// para trocar de página sem recarregar. Esse fetch não é 'navigate'; antes ele caía no cache-first
+// dos assets e o app instalado recebia HTML de uma versão antiga (tour quebrado na troca de página).
+function isPageRequest(req, url) {
+  if (req.mode === 'navigate') return true;
+  if (url.origin !== self.location.origin) return false;
+  const accept = req.headers.get('accept') || '';
+  if (accept.includes('text/html')) return true;
+  const last = url.pathname.split('/').pop() || '';
+  return last === '' || last.endsWith('.html') || !last.includes('.');
 }
 
 self.addEventListener('install', (event) => {
@@ -75,8 +87,8 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Navegação: Network-first com anti-Lie-Fi timeout de 2.5s
-  if (req.mode === 'navigate') {
+  // Páginas (navegação e ClientRouter): Network-first com anti-Lie-Fi timeout de 2.5s
+  if (isPageRequest(req, url)) {
     event.respondWith(
       (async () => {
         try {

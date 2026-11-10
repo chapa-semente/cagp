@@ -16,6 +16,7 @@ export type TourLeaderId =
   | 'nilo'
   | 'joao'
   | 'vitoria'
+  | 'klaus'
   | 'italo'
   | 'lara'
   | 'paloma'
@@ -38,6 +39,8 @@ export interface TourStop {
   /** O que a ferramenta faz de verdade, hoje. */
   proof: string;
   simulated?: boolean;
+  /** Enquadramento da foto recortada do tour (CSS object-position). Padrão: 'center 30%'. */
+  photoPosition?: string;
 }
 
 export const TOUR_STOPS: Record<TourLeaderId, TourStop> = {
@@ -108,8 +111,20 @@ export const TOUR_STOPS: Record<TourLeaderId, TourStop> = {
     tool: 'Níveis da FUMP',
     proof: 'O que cada nível garante, quem pode pedir e um simulador para ver onde você se encaixa.',
   },
+  klaus: {
+    leaderId: 'klaus',
+    photoPosition: 'center 30%',
+    route: route('/transparencia'),
+    target: '[data-tour="klaus"]',
+    hook: 'Sabe para onde vai o dinheiro do centro acadêmico?',
+    answer: 'Klaus quer o caixa do CAGP aberto, lançamento por lançamento, para qualquer estudante conferir.',
+    tool: 'Portal da Transparência',
+    proof: 'É o modelo do livro-caixa que vamos publicar. Os lançamentos de agora são exemplos.',
+    simulated: true,
+  },
   italo: {
     leaderId: 'italo',
+    photoPosition: 'center 30%',
     route: route('/cursos'),
     target: '[data-tour="italo"]',
     hook: 'Faltam horas complementares e não sobra tempo nem dinheiro para curso?',
@@ -129,6 +144,7 @@ export const TOUR_STOPS: Record<TourLeaderId, TourStop> = {
   },
   paloma: {
     leaderId: 'paloma',
+    photoPosition: 'center 30%',
     route: route('/'),
     target: '#cagp-widget-campus',
     hook: 'Saiu da aula às 22h e o Circular já tinha passado?',
@@ -158,10 +174,10 @@ export const TOUR_PROFILES: { role: UserRole; label: string; hint: string; icon:
 
 /** Quem cuida da dor do perfil aparece primeiro. Mariana e Nilo ficam juntos (mesma página). */
 export const TOUR_ORDER: Record<UserRole, TourLeaderId[]> = {
-  calouro: ['alice', 'larissa', 'paloma', 'vitoria', 'gabriel', 'mariana', 'nilo', 'italo', 'lara', 'livia', 'joao'],
-  veterano: ['italo', 'lara', 'vitoria', 'gabriel', 'mariana', 'nilo', 'paloma', 'larissa', 'livia', 'alice', 'joao'],
-  formando: ['livia', 'lara', 'gabriel', 'italo', 'larissa', 'vitoria', 'mariana', 'nilo', 'paloma', 'alice', 'joao'],
-  ingressar: ['gabriel', 'alice', 'paloma', 'vitoria', 'mariana', 'nilo', 'italo', 'lara', 'livia', 'larissa', 'joao'],
+  calouro: ['alice', 'larissa', 'paloma', 'vitoria', 'klaus', 'gabriel', 'mariana', 'nilo', 'italo', 'lara', 'livia', 'joao'],
+  veterano: ['italo', 'lara', 'vitoria', 'klaus', 'gabriel', 'mariana', 'nilo', 'paloma', 'larissa', 'livia', 'alice', 'joao'],
+  formando: ['livia', 'lara', 'gabriel', 'italo', 'larissa', 'vitoria', 'klaus', 'mariana', 'nilo', 'paloma', 'alice', 'joao'],
+  ingressar: ['gabriel', 'alice', 'paloma', 'vitoria', 'klaus', 'mariana', 'nilo', 'italo', 'lara', 'livia', 'larissa', 'joao'],
 };
 
 export interface TourPerson {
@@ -170,6 +186,8 @@ export interface TourPerson {
   firstName: string;
   photo: string;
   thumb: string;
+  /** object-position da foto do tour. */
+  position: string;
 }
 
 export function getTourPerson(id: TourLeaderId): TourPerson {
@@ -181,10 +199,12 @@ export function getTourPerson(id: TourLeaderId): TourPerson {
     firstName: leader.name.split(' ')[0],
     photo: asset(`/images/chapa/tour/${id}.webp`),
     thumb: asset(`/images/chapa/tour/${id}-thumb.webp`),
+    // Fotos refeitas para o tour já vêm enquadradas; as demais herdam o ajuste do site.
+    position: TOUR_STOPS[id].photoPosition ?? leader.photoPosition ?? 'center 30%',
   };
 }
 
-/** Os 11, na ordem da chapa (mosaico de abertura e fechamento). */
+/** Todos, na ordem da chapa (mosaico de abertura e fechamento). */
 export const TOUR_PEOPLE_IN_CHAPA_ORDER: TourPerson[] = CHAPA_LEADERS.map((l) =>
   getTourPerson(l.id as TourLeaderId)
 );
@@ -230,7 +250,7 @@ export function getTourShareUrl(): string {
     '*Eleição do CAGP: 25 e 26 de novembro, das 17h às 22h30, na sala do CAGP (FAFICH)*',
     '',
     'A Chapa Semente já pôs no ar um site com os guias do curso: documentos, estágio, 600h, FUMP, calouros.',
-    'Dá uma olhada e conhece as 11 pessoas da chapa:',
+    `Dá uma olhada e conhece as ${CHAPA_LEADERS.length} pessoas da chapa:`,
     siteUrl,
   ].join('\n');
   return `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;

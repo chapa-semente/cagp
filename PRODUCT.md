@@ -16,7 +16,7 @@ Outros públicos confirmados, atendidos pelo mesmo site:
 - **Eleitor indeciso:** estudante avaliando a Chapa Semente antes da eleição do CAGP em **25–26/11/2026**.
 - **Formando:** TCC, fechamento das 600h, colação de grau.
 
-O site atende o estudante e, até a eleição de 25–26/11/2026, também precisa converter voto: a Chapa Semente tem aba própria na navegação e o herói da home apresenta os integrantes de forma pessoal. A utilidade continua sendo a prova, e a campanha não bloqueia trâmites, com **uma exceção decidida em 10/11/2026**: na primeira visita, o tour da Chapa Semente (`src/components/features/semente/SementeTour.tsx`) abre antes de qualquer conteúdo, inclusive para quem chega por link de documento, não tem botão de pular e só fecha no fim. Ele apresenta os 11 integrantes, cada um com spotlight na ferramenta real que defendeu, adapta a ordem ao momento de curso do visitante e, ao terminar, devolve a pessoa à página por onde entrou. Aparece uma vez por aparelho (`localStorage`).
+O site atende o estudante e, até a eleição de 25–26/11/2026, também precisa converter voto: a Chapa Semente tem aba própria na navegação e o herói da home apresenta os integrantes de forma pessoal. A utilidade continua sendo a prova, e a campanha não bloqueia trâmites, com **uma exceção decidida em 10/11/2026**: na primeira visita, o tour da Chapa Semente (`src/components/features/semente/SementeTour.tsx`) abre antes de qualquer conteúdo, inclusive para quem chega por link de documento, não tem botão de pular e só fecha no fim. Ele apresenta os 12 integrantes, cada um com spotlight na ferramenta real que defendeu, adapta a ordem ao momento de curso do visitante e, ao terminar, devolve a pessoa à página por onde entrou. Aparece uma vez por aparelho (`localStorage`).
 
 ## Product Purpose
 
@@ -45,7 +45,7 @@ O argumento da chapa é que a proposta já existe: um site no ar, feito pelo pr�
 - **Contato:** o CAGP ainda não tem e-mail público. Contatos do site usam `chapa.semente.gp@gmail.com`, sempre identificado como e-mail da Chapa. A ouvidoria não envia demandas (só salva e copia o texto) até existir um canal oficial.
 - Conteúdo mantido em Markdown/JSON (`src/content/`, `conteudo/`) para que pessoas que não programam possam manter.
 - **Real × simulado** (deve continuar explícito na tela):
-  - *Real:* guias e tutoriais (ACG, estágio, FUMP, calouro), documentos oficiais e normas, disciplinas e optativas, cursos da ENAP (derivados de `_referencias/catalogo_enap.csv`), história do curso, informações de colegiado e secretarias, núcleos de pesquisa e os 11 integrantes da chapa.
+  - *Real:* guias e tutoriais (ACG, estágio, FUMP, calouro), documentos oficiais e normas, disciplinas e optativas, cursos da ENAP (derivados de `_referencias/catalogo_enap.csv`), história do curso, informações de colegiado e secretarias, núcleos de pesquisa e os 12 integrantes da chapa.
   - *Simulado:* mural de notícias, vagas e editais, banco de talentos e os lançamentos contábeis do Portal da Transparência. Esses trechos levam o `SIMULATION_NOTICE` (`src/lib/simulatedData.ts`).
 - Em aberto: o papel do site após a eleição e a origem dos dados reais de transparência.
 
@@ -63,11 +63,11 @@ O argumento da chapa é que a proposta já existe: um site no ar, feito pelo pr�
 ## Evidence on Hand
 
 - Briefing com dores, soluções e textos de campanha de cada diretoria: `_referencias/briefing_do_site.md`.
-- Os 11 integrantes da chapa, com cargos, falas e fotos: `src/lib/chapaSementeData.ts`.
+- Os 12 integrantes da chapa, com cargos, falas e fotos (Klaus, vice-diretor financeiro, entrou em 10/11/2026 ainda sem sobrenome nem fala própria): `src/lib/chapaSementeData.ts`.
 - Documentos oficiais do curso (PPC, regulamento, ementário, percursos, estágio, assistência, colegiado/NDE, regimento do CAGP): `_referencias/documentos-oficiais/` e PDFs em `documentos/`.
 - Catálogo ENAP: `_referencias/catalogo_enap.csv` → `src/data/curatedEnapCourses.json`.
 - Imagens de contexto (mapas do campus, FUMP, UFMG): `_referencias/imagens-contexto/`.
-- **Não fabricar:** depoimentos, apoios, números financeiros reais, vagas reais, métricas de uso ou adesão, nem integrantes além dos 11. Conteúdo simulado continua rotulado como tal.
+- **Não fabricar:** depoimentos, apoios, números financeiros reais, vagas reais, métricas de uso ou adesão, nem integrantes além dos 12. Conteúdo simulado continua rotulado como tal.
 
 ## Product Principles
 

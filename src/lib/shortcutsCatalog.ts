@@ -204,7 +204,7 @@ export const SHORTCUTS_CATALOG: ShortcutItem[] = [
     id: 'tour',
     label: 'Tour',
     fullLabel: 'Tour da Chapa Semente',
-    description: 'As 11 pessoas da chapa e a ferramenta que cada uma pôs no ar.',
+    description: 'As 12 pessoas da chapa e a ferramenta que cada uma pôs no ar.',
     href: '#tour',
     icon: 'bi-compass',
     color: '#FE8812',

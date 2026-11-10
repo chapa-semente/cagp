@@ -28,13 +28,13 @@ const AccordionTrigger = React.forwardRef<
     <AccordionPrimitive.Trigger
       ref={ref}
       className={cn(
-        "flex flex-1 min-h-[48px] items-center justify-between gap-3 bg-card py-3.5 px-4 font-heading text-base font-bold text-left text-balance text-foreground transition-colors duration-150 hover:bg-muted cursor-pointer [&[data-state=open]]:bg-primary-tint [&[data-state=open]>svg]:rotate-180",
+        "flex flex-1 min-h-[48px] items-center justify-between gap-3 bg-card py-3.5 px-4 font-heading text-base font-bold text-left text-balance text-foreground transition-colors duration-150 hover:bg-muted cursor-pointer [&[data-state=open]]:bg-primary-tint",
         className
       )}
       {...props}
     >
       {children}
-      <ChevronDown className="h-5 w-5 shrink-0 stroke-[3] transition-transform duration-200" />
+      <ChevronDown className="cagp-expand-chevron h-5 w-5 shrink-0 stroke-[3]" aria-hidden="true" />
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
 ))
@@ -46,7 +46,7 @@ const AccordionContent = React.forwardRef<
 >(({ className, children, ...props }, ref) => (
   <AccordionPrimitive.Content
     ref={ref}
-    className="overflow-hidden font-sans text-sm border-t-3 border-[#1F1F1F] bg-card text-foreground transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
+    className="cagp-accordion-content font-sans text-sm border-t-3 border-[#1F1F1F] bg-card text-foreground"
     {...props}
   >
     <div className={cn("p-4 sm:p-5 leading-relaxed", className)}>{children}</div>

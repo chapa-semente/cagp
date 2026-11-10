@@ -1,4 +1,4 @@
-// Garante que o tour obrigatório cobre os 11 integrantes e que cada spotlight tem alvo na página certa.
+// Garante que o tour obrigatório cobre todos os integrantes e que cada spotlight tem alvo na página certa.
 // Os alvos são lidos do código-fonte (o site é estático): se alguém renomear ou mover a ferramenta,
 // este teste quebra antes do spotlight cair num recorte vazio.
 import { readFileSync } from 'node:fs';
@@ -19,6 +19,7 @@ const TARGET_SOURCES: Record<TourLeaderId, string> = {
   nilo: 'src/pages/pesquisa.astro',
   joao: 'src/pages/noticias/index.astro',
   vitoria: 'src/pages/permanencia.astro',
+  klaus: 'src/pages/transparencia.astro',
   italo: 'src/pages/cursos.astro',
   lara: 'src/pages/estagio.astro',
   paloma: 'src/components/features/home/HomeCampusStatusWidget.tsx',
@@ -26,14 +27,14 @@ const TARGET_SOURCES: Record<TourLeaderId, string> = {
 };
 
 describe('tour da Chapa Semente', () => {
-  it('tem uma parada para cada um dos 11 integrantes', () => {
+  it('tem uma parada para cada integrante da chapa', () => {
     const ids = CHAPA_LEADERS.map((l) => l.id).sort();
     expect(Object.keys(TOUR_STOPS).sort()).toEqual(ids);
   });
 
-  it('toda ordem por perfil passa pelas 11 pessoas, sem repetir', () => {
+  it('toda ordem por perfil passa por todas as pessoas, sem repetir', () => {
     for (const order of Object.values(TOUR_ORDER)) {
-      expect(new Set(order).size).toBe(11);
+      expect(new Set(order).size).toBe(CHAPA_LEADERS.length);
       expect([...order].sort()).toEqual(CHAPA_LEADERS.map((l) => l.id).sort());
     }
   });
@@ -61,5 +62,13 @@ describe('tour da Chapa Semente', () => {
       const words = `${stop.hook} ${stop.answer}`.split(/\s+/).length;
       expect(words, stop.leaderId).toBeLessThanOrEqual(32);
     }
+  });
+});
+
+describe('service worker', () => {
+  it('trata o fetch de página do ClientRouter como página (rede primeiro), não como asset', () => {
+    const sw = read('public/sw.js');
+    expect(sw).toMatch(/function isPageRequest/);
+    expect(sw).toMatch(/if \(isPageRequest\(req, url\)\)/);
   });
 });

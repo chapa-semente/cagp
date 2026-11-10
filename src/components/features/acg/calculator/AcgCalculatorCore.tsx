@@ -323,7 +323,7 @@ export const AcgCalculatorCore: React.FC = () => {
               >
                 <span>Regras</span>
                 <i
-                  className={`bi bi-chevron-${isDrawerOpen ? 'up' : 'down'} text-xs`}
+                  className={`bi bi-chevron-down text-xs cagp-expand-chevron ${isDrawerOpen ? 'is-open' : ''}`}
                   aria-hidden="true"
                 />
               </button>

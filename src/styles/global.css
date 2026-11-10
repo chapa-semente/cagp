@@ -105,6 +105,10 @@
   --duration-press: 150ms;
   --duration-view: 220ms;
   --duration-stamp: 240ms;
+  /* Expansão de texto ("ver mais", gavetas, <details>): física da gaveta de Regras da calculadora ACG */
+  --duration-expand: 320ms;
+  --duration-expand-fade: 240ms;
+  --duration-expand-rise: 280ms;
 
   --color-ufmg-siga: #9E2424;
   --color-ufmg-minha: #005A9C;
@@ -991,10 +995,11 @@ html[data-a11y-dyslexia="true"] * {
   margin-top: 0;
   pointer-events: none;
   transition:
-    grid-template-rows 0.32s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1),
-    margin-top 0.32s cubic-bezier(0.16, 1, 0.3, 1),
-    visibility 0.32s ease;
+    grid-template-rows var(--duration-expand) var(--ease-snap),
+    opacity var(--duration-expand-fade) var(--ease-snap),
+    margin-top var(--duration-expand) var(--ease-snap),
+    margin-bottom var(--duration-expand) var(--ease-snap),
+    visibility var(--duration-expand) ease;
 }
 
 .cagp-calc-drawer > .cagp-calc-drawer-inner {
@@ -1024,7 +1029,7 @@ html[data-a11y-dyslexia="true"] * {
   border: 2px solid #1F1F1F;
   padding: 0.85rem 1rem;
   box-shadow: 2px 2px 0 #1F1F1F;
-  animation: cagpDrawerCardFade 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: cagpDrawerCardFade var(--duration-expand-rise) var(--ease-snap) forwards;
 }
 
 @keyframes cagpDrawerCardFade {
@@ -1183,4 +1188,126 @@ html.cagp-semente-tour-open body {
 }
 ::view-transition-old(semente-tour) {
   display: none;
+}
+
+
+/* ==========================================================================
+   Física de expansão do site inteiro
+   Origem: gaveta de Regras da calculadora ACG. Toda expansão de texto usa a
+   mesma física: a altura interpola 0fr → 1fr com --ease-snap, o conteúdo
+   chega 4px de cima enquanto ganha opacidade, e o chevron gira junto.
+   É "individual": cada item tem estado próprio e cresce sozinho; os vizinhos
+   da grade não esticam (grades com items-start), só o que está abaixo desce.
+   - React: <ExpandRegion> / <ExpandChevron> em src/components/ui/expand.tsx
+   - <details>: src/lib/expandDetails.ts anima qualquer <details> do site
+   - Accordion (Radix): .cagp-accordion-content
+   ========================================================================== */
+.cagp-expand {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    grid-template-rows var(--duration-expand) var(--ease-snap),
+    opacity var(--duration-expand-fade) var(--ease-snap),
+    visibility var(--duration-expand) ease;
+}
+
+.cagp-expand > .cagp-expand-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.cagp-expand.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+}
+
+.cagp-expand.is-open:not(.cagp-expand--peek) > .cagp-expand-inner > * {
+  animation: cagpDrawerCardFade var(--duration-expand-rise) var(--ease-snap) both;
+}
+
+/* Prévia: N linhas visíveis fechado; a última some num degradê de máscara
+   que escorrega para fora do bloco ao abrir (mask-size interpola junto). */
+.cagp-expand--peek {
+  grid-template-rows: minmax(var(--expand-peek, 2lh), 0fr);
+  opacity: 1;
+  visibility: visible;
+}
+
+.cagp-expand--peek.is-open {
+  grid-template-rows: minmax(var(--expand-peek, 2lh), 1fr);
+}
+
+.cagp-expand--peek > .cagp-expand-inner {
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 1lh), transparent);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 1lh), transparent);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  transition:
+    -webkit-mask-size var(--duration-expand) var(--ease-snap),
+    mask-size var(--duration-expand) var(--ease-snap);
+}
+
+.cagp-expand--peek.is-open > .cagp-expand-inner {
+  -webkit-mask-size: 100% calc(100% + 2lh);
+  mask-size: 100% calc(100% + 2lh);
+}
+
+/* Chevron: gira no mesmo tempo da gaveta. Em <details>, o giro de volta
+   começa no clique (data-expand-state="closing"), não quando o open some. */
+.cagp-expand-chevron {
+  display: inline-block;
+  flex-shrink: 0;
+  transition: transform var(--duration-expand) var(--ease-snap);
+}
+
+.cagp-expand-chevron.is-open,
+[aria-expanded="true"] > .cagp-expand-chevron,
+details[open]:not([data-expand-state="closing"]) > summary .cagp-expand-chevron {
+  transform: rotate(180deg);
+}
+
+/* Accordion (Radix): mesma curva, mesma duração, mesma chegada do conteúdo. */
+.cagp-accordion-content {
+  overflow: hidden;
+}
+
+.cagp-accordion-content[data-state="open"] {
+  animation: cagpAccordionDown var(--duration-expand) var(--ease-snap);
+}
+
+.cagp-accordion-content[data-state="closed"] {
+  animation: cagpAccordionUp var(--duration-expand) var(--ease-snap);
+}
+
+.cagp-accordion-content[data-state="open"] > * {
+  animation: cagpDrawerCardFade var(--duration-expand-rise) var(--ease-snap) both;
+}
+
+@keyframes cagpAccordionDown {
+  from { height: 0; opacity: 0; }
+  75% { opacity: 1; }
+  to { height: var(--radix-accordion-content-height); opacity: 1; }
+}
+
+@keyframes cagpAccordionUp {
+  from { height: var(--radix-accordion-content-height); opacity: 1; }
+  75% { opacity: 0; }
+  to { height: 0; opacity: 0; }
+}
+
+/* Colunas independentes (src/lib/masonry.ts): trilhos de 1px, cada item ocupa a própria
+   altura + o gap original. Expandir um cartão só desce a coluna dele. */
+.is-masonry {
+  grid-auto-rows: 1px;
+  grid-auto-flow: row dense;
+  row-gap: 0 !important;
+}
+
+.is-masonry > * {
+  align-self: start;
 }

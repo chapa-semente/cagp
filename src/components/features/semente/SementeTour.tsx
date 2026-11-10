@@ -1,12 +1,12 @@
 // src/components/features/semente/SementeTour.tsx — Tour obrigatório da Chapa Semente.
 //
 // Primeira visita: abre antes de qualquer conteúdo, sem "pular", e só fecha no fim (decisão de 10/11/2026).
-// Fluxo: abertura (os 11 rostos) → pergunta de perfil → para cada integrante, uma tela de história
+// Fluxo: abertura (todos os rostos) → pergunta de perfil → para cada integrante, uma tela de história
 // (foto + dor do estudante) que se recolhe num cartão enquanto o spotlight recorta a ferramenta real
 // → fechamento com a votação. Ao terminar, devolve a pessoa à página por onde ela entrou.
 //
 // Montado uma vez no BaseLayout com `transition:persist`: o ClientRouter troca as páginas por baixo
-// sem desmontar o tour, então os 11 spotlights atravessam rotas sem recarregar.
+// sem desmontar o tour, então os spotlights atravessam rotas sem recarregar.
 //
 // Movimento (DESIGN.md › Movimento): o bloco de cor que vira cartão é o gesto autoral, feito com
 // clip-path; fotos "germinam" de baixo para cima; o fim é o carimbo. Tudo cai para 0 com reduced motion.
@@ -48,7 +48,7 @@ type Screen =
   | { kind: 'spot'; person: TourPerson; n: number; next?: TourPerson }
   | { kind: 'final' };
 
-const TOTAL_PEOPLE = 11;
+const TOTAL_PEOPLE = TOUR_PEOPLE_IN_CHAPA_ORDER.length;
 
 function buildScreens(profile?: UserRole): Screen[] {
   const screens: Screen[] = [{ kind: 'intro' }, { kind: 'perfil' }];
@@ -69,6 +69,16 @@ function screenColor(s: Screen | undefined): string {
   if (!s) return PURPLE;
   if (s.kind === 'story' || s.kind === 'spot') return s.n % 2 === 0 ? PURPLE : TEAL;
   return PURPLE;
+}
+
+/** Permanent Marker em destaque: laranja sobre roxo (4,1:1), branco sobre petróleo (laranja daria 2,9:1). */
+function markerTone(n: number): string {
+  return n % 2 === 0 ? 'text-accent' : 'text-white';
+}
+
+/** Separa o nome que abre a frase ("Ítalo reuniu…") para escrevê-lo à mão. */
+function splitLeadingName(answer: string, name: string): [string, string] {
+  return answer.startsWith(name) ? [name, answer.slice(name.length)] : ['', answer];
 }
 
 const normalizePath = (p: string) => p.replace(/\/$/, '') || '/';
@@ -96,7 +106,7 @@ function insetFor(rect: Rect, vw: number, vh: number, radius = 16): string {
 // Peças visuais
 // ---------------------------------------------------------------------------
 
-/** 11 segmentos: feitos em branco, atual em laranja (a folha), por vir só contornados. */
+/** Um segmento por pessoa: feitos em branco, atual em laranja (a folha), por vir só contornados. */
 const PeopleProgress: React.FC<{ current: number; compact?: boolean }> = ({ current, compact }) => (
   <ol
     className={`flex items-center gap-1 m-0 p-0 list-none ${compact ? 'h-1.5' : 'h-2'}`}
@@ -134,7 +144,7 @@ const GrowPhoto: React.FC<{
     initial={{ clipPath: 'inset(100% 0% 0% 0%)' }}
     animate={{ clipPath: 'inset(0% 0% 0% 0%)' }}
     transition={{ duration: 0.6, delay, ease: easeOutExpo }}
-    style={{ objectPosition: person.leader.photoPosition ?? 'center 30%' }}
+    style={{ objectPosition: person.position }}
     className={`block w-full h-full object-cover select-none ${className}`}
   />
 );
@@ -590,23 +600,16 @@ const screenPad =
 const IntroScreen: React.FC<{ headingRef: HeadingRef; onStart: () => void }> = ({ headingRef, onStart }) => (
   <div className={screenPad}>
     <div className="mx-auto flex min-h-full max-w-[1120px] flex-col justify-center gap-6 py-4 md:grid md:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] md:items-center md:gap-14">
-      {/* Mosaico: os 11 rostos + o símbolo */}
-      <ul className="m-0 grid list-none grid-cols-4 gap-2 p-0 md:order-2 md:gap-3" aria-label="As 11 pessoas da Chapa Semente">
+      {/* Mosaico: todos os rostos da chapa */}
+      <ul
+        className="m-0 grid list-none grid-cols-4 gap-2 p-0 md:order-2 md:gap-3"
+        aria-label={`As ${TOTAL_PEOPLE} pessoas da Chapa Semente`}
+      >
         {TOUR_PEOPLE_IN_CHAPA_ORDER.map((p, i) => (
           <li key={p.leader.id} className="aspect-square overflow-hidden rounded-[12px] border-2 border-foreground bg-[#8A857B]">
             <GrowPhoto person={p} sizes="thumb" delay={0.08 + i * 0.045} alt={`${p.leader.name}, ${p.leader.role}`} />
           </li>
         ))}
-        <li className="flex aspect-square items-center justify-center rounded-[12px] border-2 border-foreground bg-white p-3" aria-hidden="true">
-          <motion.img
-            src={asset('/logos/semente/semente-simbolo.webp')}
-            alt=""
-            className="h-full w-full object-contain"
-            initial={{ clipPath: 'inset(100% 0% 0% 0%)' }}
-            animate={{ clipPath: 'inset(0% 0% 0% 0%)' }}
-            transition={{ duration: 0.6, delay: 0.6, ease: easeOutExpo }}
-          />
-        </li>
       </ul>
 
       <div className="space-y-5 md:order-1">
@@ -623,10 +626,11 @@ const IntroScreen: React.FC<{ headingRef: HeadingRef; onStart: () => void }> = (
           tabIndex={-1}
           className="m-0 font-heading text-[clamp(1.85rem,6.2vw,3.5rem)] font-bold leading-[1.06] tracking-[-0.02em] text-white [text-wrap:balance] focus:outline-none"
         >
-          Antes de tudo, conheça quem fez este site.
+          Antes de tudo, conheça{' '}
+          <span className="whitespace-nowrap font-accent font-normal text-accent tracking-normal">quem fez</span> este site.
         </h1>
         <p className="m-0 max-w-[46ch] text-base leading-relaxed text-white sm:text-lg">
-          Somos a Chapa Semente, candidata ao Centro Acadêmico de Gestão Pública. São 11 pessoas, e cada uma vai te
+          Somos a Chapa Semente, candidata ao Centro Acadêmico de Gestão Pública. São {TOTAL_PEOPLE} pessoas, e cada uma vai te
           mostrar uma ferramenta que já funciona aqui.
         </p>
         <p className="m-0 font-accent text-xl text-accent sm:text-3xl" aria-hidden="true">
@@ -753,7 +757,17 @@ const StoryScreen: React.FC<{
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.28, ease: easeOutExpo }}
             >
-              {stop.answer}
+              {(() => {
+                const [name, rest] = splitLeadingName(stop.answer, person.firstName === 'João' ? 'João Pedro' : person.firstName);
+                return name ? (
+                  <>
+                    <span className={`font-accent text-[1.6em] leading-none ${markerTone(n)}`}>{name}</span>
+                    {rest}
+                  </>
+                ) : (
+                  stop.answer
+                );
+              })()}
             </motion.p>
             <div className="flex items-center gap-3 pt-1">
               <BackButton onClick={onBack} />
@@ -792,7 +806,7 @@ const SpotCard: React.FC<{
             src={person.thumb}
             alt=""
             className="h-full w-full object-cover"
-            style={{ objectPosition: leader.photoPosition ?? 'center 30%' }}
+            style={{ objectPosition: person.position }}
           />
         </span>
         <span className="min-w-0">
@@ -809,7 +823,11 @@ const SpotCard: React.FC<{
         >
           {stop.tool}
         </h2>
-        {stop.simulated && <span className="cagp-stamp-badge is-simulado">Simulado</span>}
+        {stop.simulated ? (
+          <span className="cagp-stamp-badge is-simulado">Simulado</span>
+        ) : (
+          <span className={`font-accent text-xl leading-none ${markerTone(n)}`}>já funciona</span>
+        )}
       </div>
       <p className="m-0 mt-1.5 text-base leading-snug">
         {missing ? `${stop.proof} Abra pela aba Guias se ela não aparecer aqui.` : stop.proof}
@@ -880,7 +898,7 @@ const FinalScreen: React.FC<{
     <div className={screenPad}>
       <div className="mx-auto flex min-h-full max-w-[1120px] flex-col justify-center gap-6 py-4 md:grid md:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] md:items-center md:gap-14">
         <div className="space-y-5">
-          <ul className="m-0 flex list-none flex-wrap gap-1.5 p-0" aria-label="As 11 pessoas da Chapa Semente">
+          <ul className="m-0 flex list-none flex-wrap gap-1.5 p-0" aria-label={`As ${TOTAL_PEOPLE} pessoas da Chapa Semente`}>
             {TOUR_PEOPLE_IN_CHAPA_ORDER.map((p, i) => (
               <li key={p.leader.id} className="h-10 w-10 overflow-hidden rounded-[10px] border-2 border-foreground bg-[#8A857B] sm:h-12 sm:w-12">
                 <GrowPhoto person={p} sizes="thumb" delay={0.05 + i * 0.035} alt={p.leader.name} />
@@ -893,7 +911,17 @@ const FinalScreen: React.FC<{
             tabIndex={-1}
             className="m-0 font-heading text-[clamp(1.85rem,6vw,3.5rem)] font-bold leading-[1.06] tracking-[-0.02em] [text-wrap:balance] focus:outline-none"
           >
-            {canVote ? '25 e 26 de novembro: vote Semente.' : 'Você ainda não vota, mas quem vota te escuta.'}
+            {canVote ? (
+              <>
+                25 e 26 de novembro:{' '}
+                <span className="whitespace-nowrap font-accent font-normal text-accent tracking-normal">vote Semente.</span>
+              </>
+            ) : (
+              <>
+                Você ainda não vota, mas{' '}
+                <span className="font-accent font-normal text-accent tracking-normal">quem vota te escuta.</span>
+              </>
+            )}
           </h2>
           <dl className="m-0 grid gap-3 text-base">
             <div className="flex gap-3">

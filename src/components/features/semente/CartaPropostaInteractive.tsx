@@ -13,7 +13,8 @@ import {
   ContextMenuSeparator,
   ContextMenuTrigger,
 } from '@/components/ui/context-menu';
-import { Copy, Link2, ChevronDown } from 'lucide-react';
+import { Copy, Link2 } from 'lucide-react';
+import { ExpandRegion, ExpandChevron, useExpandSet, useMasonryColumns } from '@/components/ui/expand';
 import { CagpIcon } from '@/components/ui/CagpIcon';
 
 export interface PropostaItem {
@@ -197,7 +198,8 @@ const EIXO_FILTERS: { id: number | 'all'; label: string; count: number }[] = [
 export const CartaPropostaInteractive: React.FC = () => {
   const [selectedEixo, setSelectedEixo] = useState<number | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [expandedId, setExpandedId] = useState<number | null>(null);
+  const textosIntegrais = useExpandSet<number>();
+  const propostasGridRef = useMasonryColumns<HTMLDivElement>();
   const filteredPropostas = useMemo(() => {
     return CARTA_PROPOSTAS_DATA.filter((item) => {
       const matchEixo = selectedEixo === 'all' || item.eixoId === selectedEixo;
@@ -250,15 +252,15 @@ export const CartaPropostaInteractive: React.FC = () => {
       </div>
 
       {/* 3. GRID DE PROPOSTAS COM ANIMATEPRESENCE (TRANSIÇÃO ELÁSTICA SEM REDUÇÃO DE MOVIMENTO) */}
-      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <motion.div ref={propostasGridRef} className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
         <AnimatePresence mode="popLayout">
           {filteredPropostas.map((item) => {
-            const isExpanded = expandedId === item.id;
+            const isExpanded = textosIntegrais.isOpen(item.id);
             const isProposta3 = item.id === 3;
             return (
               <motion.div
                 key={item.id}
-                layout
+                layout="position"
                 initial={{ opacity: 0, scale: 0.94, y: 12 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.92, y: -8 }}
@@ -267,9 +269,9 @@ export const CartaPropostaInteractive: React.FC = () => {
               >
                 <ContextMenu>
                   <ContextMenuTrigger asChild>
-                    <div className="h-full">
+                    <div>
                       <NeobrutalistMotionCard
-                        className={`h-full border-3 border-[#1F1F1F] transition-all flex flex-col justify-between cursor-context-menu overflow-hidden ${
+                        className={`border-3 border-[#1F1F1F] transition-all flex flex-col justify-between cursor-context-menu overflow-hidden ${
                           isProposta3
                             ? 'bg-[#FFFDF5] shadow-[6px_6px_0_0_#FE8812] ring-2 ring-[#FE8812]'
                             : 'bg-card shadow-[3px_3px_0_0_#1F1F1F] hover:shadow-[6px_6px_0_0_#1F1F1F]'
@@ -307,34 +309,30 @@ export const CartaPropostaInteractive: React.FC = () => {
                               {item.summary}
                             </p>
 
-                            <AnimatePresence initial={false}>
-                              {isExpanded && (
-                                <motion.div
-                                  initial={{ opacity: 0, height: 0 }}
-                                  animate={{ opacity: 1, height: 'auto' }}
-                                  exit={{ opacity: 0, height: 0 }}
-                                  transition={tactileSpring}
-                                  className="overflow-hidden"
-                                >
-                                  <div className="mt-3 p-3 rounded-lg bg-[#E9E5DA] text-sm font-sans text-foreground leading-relaxed space-y-2">
-                                    <strong>Texto integral da carta-programa:</strong>
-                                    <p className="mt-1 m-0">{item.fullText}</p>
-                                  </div>
-                                </motion.div>
-                              )}
-                            </AnimatePresence>
+                            <ExpandRegion
+                              id={`proposta-${item.id}-integral`}
+                              open={isExpanded}
+                              role="region"
+                              aria-label={`Texto integral da proposta ${item.id}`}
+                            >
+                              <div className="mt-3 p-3 rounded-lg bg-[#E9E5DA] text-sm font-sans text-foreground leading-relaxed space-y-2">
+                                <strong>Texto integral da carta-programa:</strong>
+                                <p className="mt-1 m-0">{item.fullText}</p>
+                              </div>
+                            </ExpandRegion>
                           </div>
 
                           <div className="pt-1 border-t-2 border-[#1F1F1F]/15">
                             <div className="flex items-center justify-between pt-1">
                               <button
                                 type="button"
-                                onClick={() => setExpandedId(isExpanded ? null : item.id)}
+                                onClick={() => textosIntegrais.toggle(item.id)}
                                 aria-expanded={isExpanded}
+                                aria-controls={`proposta-${item.id}-integral`}
                                 className="min-h-[44px] inline-flex items-center gap-1.5 text-sm font-bold text-primary underline underline-offset-[0.22em] cursor-pointer bg-transparent border-none p-0"
                               >
                                 {isExpanded ? 'Recolher' : 'Ler o texto integral'}
-                                <ChevronDown className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`} aria-hidden="true" />
+                                <ExpandChevron open={isExpanded} />
                               </button>
                               <span className="text-xs font-bold tabular-nums text-muted-foreground">
                                 Proposta {item.id}/14
@@ -347,7 +345,7 @@ export const CartaPropostaInteractive: React.FC = () => {
                   </ContextMenuTrigger>
 
                   <ContextMenuContent>
-                    <ContextMenuItem onClick={() => setExpandedId(isExpanded ? null : item.id)}>
+                    <ContextMenuItem onClick={() => textosIntegrais.toggle(item.id)}>
                       <CagpIcon name="file-text" className="w-4 h-4 mr-2" />
                       {isExpanded ? 'Recolher Detalhes' : 'Ver Texto Integral'}
                     </ContextMenuItem>

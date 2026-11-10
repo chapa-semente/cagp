@@ -1,4 +1,4 @@
-// src/lib/chapaSementeData.ts — Os 11 integrantes da Chapa Semente
+// src/lib/chapaSementeData.ts — Os 12 integrantes da Chapa Semente
 // Baseado estritamente em _referencias/documentos-oficiais/briefing_do_site.md
 
 import { asset, route } from '@/lib/paths';
@@ -8,7 +8,8 @@ export interface LeaderInfo {
   name: string;
   role: string;
   tagline: string;
-  quote: string;
+  /** Fala do próprio integrante. Ausente quando ainda não temos a fala dele. */
+  quote?: string;
   painPoint: string;
   solution: string;
   photoFilename?: string;
@@ -158,6 +159,24 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
     targetId: 'cagp-shortcut-transparencia',
   },
   {
+    id: 'klaus',
+    name: 'Klaus',
+    role: 'Vice-Diretor Financeiro',
+    tagline: 'Caixa Aberto & Prestação de Contas',
+    painPoint:
+      'Saldo parado e movimentações que ninguém consegue acompanhar deixam o estudante sem saber o que o centro acadêmico faz com o dinheiro da turma.',
+    solution:
+      'Modelo do Portal da Transparência (hoje com lançamentos de exemplo): o livro-caixa do CAGP aberto lançamento a lançamento, para qualquer estudante conferir.',
+    photoFilename: 'Klaus.jpg',
+    photoPosition: 'center 30%',
+    initials: 'K',
+    deptColor: 'bg-emerald-700 text-white border-emerald-900',
+    badgeBg: 'bg-emerald-100 text-emerald-900 border-emerald-300',
+    toolLabel: 'Ver o Portal da Transparência',
+    toolHref: route('/transparencia'),
+    targetId: 'cagp-member-klaus',
+  },
+  {
     id: 'italo',
     name: 'Ítalo de Morais',
     role: 'Diretor de Articulação e Assuntos Políticos',
@@ -168,8 +187,8 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
       'O isolamento institucional do CA, a falta de formação crítica ampla e o desperdício de recursos contratando terceiros para serviços básicos.',
     solution:
       'Solução de hospedagem técnica em cooperação discente, divulgação aberta de cursos livres de ciência política e defesa da independência do CA.',
-    photoFilename: 'Italo.png',
-    photoPosition: 'center 85%',
+    photoFilename: 'Italo.jpeg',
+    photoPosition: 'center 45%',
     initials: 'IM',
     deptColor: 'bg-cyan-700 text-white border-cyan-900',
     badgeBg: 'bg-cyan-100 text-cyan-900 border-cyan-300',
@@ -207,7 +226,8 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
       'Atividades de convivência marcadas em horários incompatíveis com o turno da noite e falta de acolhimento nos espaços da universidade.',
     solution:
       'Calendário cultural planejado para o período noturno, integração permanente e defesa das linhas do Circular 22:30.',
-    photoFilename: 'Paloma.png',
+    photoFilename: 'Paloma.jpeg',
+    photoPosition: 'center 28%',
     initials: 'PC',
     deptColor: 'bg-orange-700 text-white border-orange-900',
     badgeBg: 'bg-orange-100 text-orange-900 border-orange-300',
@@ -250,9 +270,10 @@ const AVAILABLE_LEADER_PHOTOS = new Set([
   'Nilo Neto.png',
   'João Pedro Fragoso.jpg',
   'Vitoria.png',
-  'Italo.png',
+  'Italo.jpeg',
   'Lara.png',
-  'Paloma.png',
+  'Paloma.jpeg',
+  'Klaus.jpg',
   'Alice.png',
 ]);
 

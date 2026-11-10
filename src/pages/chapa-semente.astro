@@ -1,6 +1,6 @@
 ---
 // src/pages/chapa-semente.astro — Campanha da Chapa Semente (volume Cartaz, arquétipo Campanha)
-// Ordem: prova ao vivo (o site já é a Proposta 3) → o que já funciona → 14 propostas → 11 integrantes → quando e onde votar.
+// Ordem: prova ao vivo (o site já é a Proposta 3) → o que já funciona → 14 propostas → 12 integrantes → quando e onde votar.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import JourneyNav from '../components/ui/JourneyNav.astro';
 import { CartaPropostaInteractive } from '../components/features/semente/CartaPropostaInteractive';
@@ -26,7 +26,7 @@ const jaFunciona = [
   mode="persuade"
   hideFloatingPill
   title="Chapa Semente — Eleições CAGP 2026"
-  description="Chapa Semente na eleição do Centro Acadêmico de Gestão Pública da UFMG: o site que você está usando já é a nossa Proposta 3. Veja as 14 propostas, os 11 integrantes e quando votar (25 e 26/11)."
+  description="Chapa Semente na eleição do Centro Acadêmico de Gestão Pública da UFMG: o site que você está usando já é a nossa Proposta 3. Veja as 14 propostas, os 12 integrantes e quando votar (25 e 26/11)."
 >
   <div class="cs-page">
     <!-- 1. TOPO: a prova é a ferramenta funcionando -->
@@ -127,7 +127,7 @@ const jaFunciona = [
       <CartaPropostaInteractive client:visible />
     </section>
 
-    <!-- 4. OS 11 INTEGRANTES -->
+    <!-- 4. OS INTEGRANTES -->
     <section id="integrantes" aria-labelledby="cs-integrantes-title" class="scroll-mt-24 space-y-5">
       <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div class="space-y-2 max-w-[68ch]">
@@ -139,7 +139,7 @@ const jaFunciona = [
         <ChapaSementeTour client:idle variant="compact" buttonText="Rever o tour da chapa" />
       </div>
 
-      <ul class="cs-team" role="list">
+      <ul class="cs-team" role="list" data-masonry>
         {CHAPA_LEADERS.map((leader, idx) => {
           const photo = getLeaderPhotoUrl(leader.photoFilename);
           const firstName = leader.name.split(' ')[0];
@@ -167,7 +167,9 @@ const jaFunciona = [
               <details class="cs-details">
                 <summary>Ler a fala de {firstName}</summary>
                 <div class="space-y-3 pt-3">
-                  <blockquote class="m-0 text-sm text-foreground leading-relaxed">“{leader.quote}”</blockquote>
+                  {leader.quote && (
+                    <blockquote class="m-0 text-sm text-foreground leading-relaxed">“{leader.quote}”</blockquote>
+                  )}
                   <p class="m-0 text-sm text-muted-foreground leading-snug">
                     <strong class="text-foreground">O problema:</strong> {leader.painPoint}
                   </p>
@@ -670,6 +672,7 @@ const jaFunciona = [
   /* 4. Integrantes */
   .cs-team {
     display: grid;
+    align-items: start; /* cada integrante cresce sozinho ao abrir a fala */
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.25rem 0.875rem;
     margin: 0;
@@ -762,9 +765,9 @@ const jaFunciona = [
     border-right: 2px solid currentColor;
     border-bottom: 2px solid currentColor;
     transform: rotate(45deg) translateY(-2px);
-    transition: transform 150ms var(--ease-snap, ease-out);
+    transition: transform var(--duration-expand, 320ms) var(--ease-snap, ease-out);
   }
-  .cs-details[open] summary::after { transform: rotate(-135deg) translateY(-2px); }
+  .cs-details[open]:not([data-expand-state="closing"]) summary::after { transform: rotate(-135deg) translateY(-2px); }
   .cs-member-link {
     display: inline-flex;
     align-items: center;

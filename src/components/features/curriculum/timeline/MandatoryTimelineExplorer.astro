@@ -66,7 +66,7 @@ mandatoryList.forEach((d) => {
           </span>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 items-start" data-masonry>
           {courses.map((c) => (
             <div class="cagp-card p-4 bg-white border-2 border-border rounded-xl flex flex-col justify-between shadow hover:shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] transition-all">
               <div>
@@ -97,10 +97,12 @@ mandatoryList.forEach((d) => {
                 <!-- Ementa Oficial Completa e Expansível -->
                 <div class="mt-2.5 pt-2 border-t-2 border-border">
                   <details class="cagp-ementa-details group">
-                    <summary class="text-xs font-head uppercase font-bold text-secondary hover:text-foreground cursor-pointer flex items-center justify-between select-none min-h-[36px] py-1 px-1">
+                    <summary class="text-xs font-head uppercase font-bold text-secondary hover:text-foreground cursor-pointer flex items-center justify-between select-none min-h-[44px] py-1 px-1 list-none [&::-webkit-details-marker]:hidden">
                       <span>Ementa Oficial (PPC / DCP)</span>
-                      <span class="text-xs font-mono text-muted-foreground group-open:hidden">Ler completa ▼</span>
-                      <span class="text-xs font-mono text-muted-foreground hidden group-open:inline">Recolher ▲</span>
+                      <span class="inline-flex items-center gap-1 text-xs font-mono text-muted-foreground">
+                        Ler completa
+                        <i class="bi bi-chevron-down text-xs cagp-expand-chevron" aria-hidden="true"></i>
+                      </span>
                     </summary>
                     <p class="font-body text-xs text-muted-foreground leading-relaxed mt-2 mb-0 select-text bg-white p-2.5 border border-border rounded-lg">
                       {c.data.ementa}

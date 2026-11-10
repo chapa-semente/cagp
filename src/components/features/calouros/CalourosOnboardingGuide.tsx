@@ -378,7 +378,7 @@ export const CalourosOnboardingGuide: React.FC = () => {
           </div>
 
           {/* Accordion Rápido de Perguntas de Calouros */}
-          <Accordion type="single" collapsible className="w-full">
+          <Accordion type="multiple" className="w-full">
             <AccordionItem value="item-sei">
               <AccordionTrigger>
                 Preciso instalar o aplicativo do SEI no meu celular?

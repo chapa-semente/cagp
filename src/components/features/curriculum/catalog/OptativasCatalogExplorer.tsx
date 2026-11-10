@@ -16,6 +16,7 @@ import { InputGroup, InputGroupInput, InputGroupAddon } from '@/components/ui/in
 import { Rating } from '@/components/ui/rating';
 import { Empty, EmptyHeader, EmptyMedia, EmptyTitle, EmptyDescription } from '@/components/ui/empty';
 import { tactileSpring, bounceSpring } from '@/lib/motion';
+import { ExpandRegion, ExpandChevron, useExpandSet, useMasonryColumns } from '@/components/ui/expand';
 
 export interface OptativaItem {
   code: string;
@@ -55,7 +56,8 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedDept, setSelectedDept] = useState<string>('todos');
   const [selectedModulo, setSelectedModulo] = useState<string>('todos');
-  const [expandedCode, setExpandedCode] = useState<string | null>(null);
+  const ementas = useExpandSet<string>();
+  const cardsGridRef = useMasonryColumns<HTMLDivElement>();
   const [allocatedMap, setAllocatedMap] = useState<Record<string, CustomCourse>>({});
   const [allocatingCode, setAllocatingCode] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<'cards' | 'table'>('cards');
@@ -359,19 +361,22 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
           />
         </div>
       ) : (
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <motion.div ref={cardsGridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-start">
           <AnimatePresence mode="popLayout">
             {filtered.map((item) => {
               const isAllocated = !!allocatedMap[item.code];
               const allocatedCourse = allocatedMap[item.code];
-              const isExpanded = expandedCode === item.code;
+              // Há códigos repetidos no PPC ("DCP xxx"): a ementa abre pelo par código + nome.
+              const ementaKey = `${item.code}-${item.name}`;
+              const ementaId = `ementa-${ementaKey.normalize('NFD').replace(/[^a-zA-Z0-9]+/g, '-').toLowerCase()}`;
+              const isExpanded = ementas.isOpen(ementaKey);
               const isSelectingPeriod = allocatingCode === item.code;
               const score = 4.0 + ((item.code.charCodeAt(2) || 7) % 10) * 0.1;
 
               return (
                 <motion.div
-                  layout
-                  key={item.code}
+                  layout="position"
+                  key={ementaKey}
                   initial={{ opacity: 0, scale: 0.94, y: 12 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.92, y: -8 }}
@@ -426,21 +431,31 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                         <span className="text-xs font-head uppercase font-bold text-secondary block mb-0.5">
                           Ementa Oficial:
                         </span>
-                        <p
-                          className={`font-body text-xs text-muted-foreground leading-relaxed m-0 select-text ${
-                            isExpanded ? 'bg-[#FAF6F0] p-2.5 border-2 border-[#1F1F1F] rounded-lg mt-1 shadow-[2px_2px_0_0_#1F1F1F]' : 'line-clamp-2'
-                          }`}
-                        >
-                          {item.ementa}
-                        </p>
-                        {item.ementa.length > 90 && (
-                          <button
-                            type="button"
-                            onClick={() => setExpandedCode(isExpanded ? null : item.code)}
-                            className="min-h-[36px] text-xs font-head font-extrabold text-[#5B2A85] hover:underline mt-1 bg-transparent border-none p-0 cursor-pointer"
-                          >
-                            {isExpanded ? 'Ver menos ▲' : 'Ler ementa completa ▼'}
-                          </button>
+                        {item.ementa.length > 90 ? (
+                          <>
+                            <ExpandRegion
+                              id={ementaId}
+                              open={isExpanded}
+                              peekLines={2}
+                              className="font-body text-sm leading-relaxed text-muted-foreground"
+                            >
+                              <p className="m-0 select-text">{item.ementa}</p>
+                            </ExpandRegion>
+                            <button
+                              type="button"
+                              onClick={() => ementas.toggle(ementaKey)}
+                              aria-expanded={isExpanded}
+                              aria-controls={ementaId}
+                              className="min-h-[44px] inline-flex items-center gap-1 text-xs font-head font-extrabold text-[#5B2A85] hover:underline underline-offset-[0.22em] bg-transparent border-none p-0 cursor-pointer"
+                            >
+                              <span>{isExpanded ? 'Recolher ementa' : 'Ler ementa completa'}</span>
+                              <ExpandChevron open={isExpanded} />
+                            </button>
+                          </>
+                        ) : (
+                          <p className="font-body text-sm text-muted-foreground leading-relaxed m-0 select-text">
+                            {item.ementa}
+                          </p>
                         )}
                       </div>
                     )}
