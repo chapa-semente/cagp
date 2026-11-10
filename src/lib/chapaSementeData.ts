@@ -12,6 +12,8 @@ export interface LeaderInfo {
   painPoint: string;
   solution: string;
   photoFilename?: string;
+  /** Ponto focal do retrato (CSS object-position). Padrão: 'center 30%'. */
+  photoPosition?: string;
   initials: string;
   deptColor: string;
   badgeBg: string;
@@ -24,10 +26,10 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
   {
     id: 'gabriel',
     name: 'Gabriel Sathler',
-    role: 'Presidência',
-    tagline: 'Criador e Programador do SuperApp',
+    role: 'Presidente',
+    tagline: 'Criador e Programador do Super App',
     quote:
-      'Centro Acadêmico não pode ser terra arrasada a cada troca de mandato. O SuperApp é a garantia de que as informações do curso pertencem a todos os estudantes, independentemente do resultado das urnas.',
+      'Centro Acadêmico não pode ser terra arrasada a cada troca de mandato. O Super App é a garantia de que as informações do curso pertencem a todos os estudantes, independentemente do resultado das urnas.',
     painPoint:
       'A cada eleição o centro acadêmico perde histórico, arquivos e contatos, deixando os estudantes reféns do improviso da gestão vigente.',
     solution:
@@ -41,28 +43,9 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
     targetId: 'cagp-home-banner-semente',
   },
   {
-    id: 'livia',
-    name: 'Lívia Martins',
-    role: 'Assessoria da Presidência',
-    tagline: 'Idealizadora do Manual "Como se Formar" & Diretora de Arte',
-    quote:
-      'É "old" que o curso tem potencial, mas é evidente também que o estudante se perde diante de portais confusos. Chega de poluição visual: manual prático e currículo a um clique.',
-    painPoint:
-      'Sobrecarga cognitiva e formato inacessível do portal da universidade, somados ao isolamento profissional de quem não sabe como validar estágios ou se formar.',
-    solution:
-      'Manual prático descomplicado, estilo neobrutalista moderno e banco de currículos integrado para inserção profissional discente.',
-    photoFilename: 'Livia Martins.jpeg',
-    initials: 'LM',
-    deptColor: 'bg-emerald-600 text-white border-emerald-800',
-    badgeBg: 'bg-emerald-100 text-emerald-900 border-emerald-300',
-    toolLabel: 'Acessar Hub de Carreira',
-    toolHref: route('/carreira'),
-    targetId: 'cagp-shortcut-carreira',
-  },
-  {
     id: 'larissa',
     name: 'Larissa Prado',
-    role: 'Vice-Presidência',
+    role: 'Vice-Presidente',
     tagline: 'Acolhimento Discente & Ouvidoria Permanente',
     quote:
       'Chegar a uma universidade imensa sem saber para onde correr gera angústia real. O Centro Acadêmico não pode funcionar como uma panelinha que só conversa entre si. A gestão existe para servir a todas as salas.',
@@ -79,9 +62,29 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
     targetId: 'cagp-shortcut-ouvidoria',
   },
   {
+    id: 'livia',
+    name: 'Lívia Martins',
+    role: 'Assessora da Presidência',
+    tagline: 'Idealizadora do Manual "Como se Formar" & Diretora de Arte',
+    quote:
+      'É "old" que o curso tem potencial, mas é evidente também que o estudante se perde diante de portais confusos. Chega de poluição visual: manual prático e currículo a um clique.',
+    painPoint:
+      'Sobrecarga cognitiva e formato inacessível do portal da universidade, somados ao isolamento profissional de quem não sabe como validar estágios ou se formar.',
+    solution:
+      'Manual prático descomplicado, estilo neobrutalista moderno e banco de currículos integrado para inserção profissional discente.',
+    photoFilename: 'Livia Martins.jpeg',
+    photoPosition: 'center 22%',
+    initials: 'LM',
+    deptColor: 'bg-emerald-600 text-white border-emerald-800',
+    badgeBg: 'bg-emerald-100 text-emerald-900 border-emerald-300',
+    toolLabel: 'Acessar Hub de Carreira',
+    toolHref: route('/carreira'),
+    targetId: 'cagp-shortcut-carreira',
+  },
+  {
     id: 'mariana',
     name: 'Mariana Presti',
-    role: 'Diretoria Acadêmica',
+    role: 'Diretora Acadêmica',
     tagline: 'Pesquisa Aberta & 11 Núcleos do DCP',
     quote:
       'Planilhas abandonadas no Drive não formam pesquisadores. Oportunidade que você não vê é oportunidade perdida: seu currículo e suas bolsas começam abertas no site.',
@@ -100,7 +103,7 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
   {
     id: 'nilo',
     name: 'Nilo Neto',
-    role: 'Vice-Diretoria Acadêmica',
+    role: 'Vice-Diretor Acadêmico',
     tagline: 'Iniciação Científica & Fortalecimento Acadêmico',
     quote:
       'A formação acadêmica em Gestão Pública se consolida na ponte entre a teoria de sala de aula e a prática da pesquisa. Nosso papel é aproximar o estudante de todas as portas que a universidade oferece.',
@@ -119,7 +122,7 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
   {
     id: 'joao',
     name: 'João Pedro Fragoso',
-    role: 'Comunicação e Marketing',
+    role: 'Diretor de Marketing e Comunicação',
     tagline: 'Seriedade Institucional & Escuta de Ementas',
     quote:
       'Comunicação de Centro Acadêmico é muito mais do que postar convite de festa no Instagram. Gestão Pública pede profundidade, seriedade e diálogo. Sua voz vira pauta.',
@@ -138,7 +141,7 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
   {
     id: 'vitoria',
     name: 'Vitória Moraes',
-    role: 'Diretoria Financeira',
+    role: 'Diretora Financeira',
     tagline: 'Transparência Centavo a Centavo & Tutoriais FUMP',
     quote:
       'O estudante trabalhador e o fumpista sustentam a universidade no dia a dia e precisam de retorno concreto. Não aceitamos caixas opacos ou saldo parado sem uso.',
@@ -157,7 +160,7 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
   {
     id: 'italo',
     name: 'Ítalo de Morais',
-    role: 'Articulação e Assuntos Políticos',
+    role: 'Diretor de Articulação e Assuntos Políticos',
     tagline: 'Autonomia Política, Eficiência & Cursos Livres',
     quote:
       'Autonomia e articulação começam na capacidade de resolver os problemas do curso sem gastar rios de dinheiro com terceiros. Debate e formação ao alcance de todos.',
@@ -166,6 +169,7 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
     solution:
       'Solução de hospedagem técnica em cooperação discente, divulgação aberta de cursos livres de ciência política e defesa da independência do CA.',
     photoFilename: 'Italo.png',
+    photoPosition: 'center 85%',
     initials: 'IM',
     deptColor: 'bg-cyan-700 text-white border-cyan-900',
     badgeBg: 'bg-cyan-100 text-cyan-900 border-cyan-300',
@@ -176,7 +180,7 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
   {
     id: 'lara',
     name: 'Lara Soares',
-    role: 'Diretoria Jurídica',
+    role: 'Diretora Jurídica',
     tagline: 'Estágio sem Travas & Segurança Burocrática',
     quote:
       'Poucas coisas causam tanto estresse na graduação quanto conseguir uma vaga de estágio e ver o contrato parado sem saber a quem recorrer. O caminho formal está esquematizado.',
@@ -195,7 +199,7 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
   {
     id: 'paloma',
     name: 'Paloma Correia',
-    role: 'Diretoria de Cultura',
+    role: 'Diretora de Cultura',
     tagline: 'Voz do Turno Noturno & Integração na FAFICH',
     quote:
       'Gestão Pública é um curso noturno, feito por quem trabalha o dia inteiro e não pode comparecer a eventos às duas da tarde. Nossa cultura universitária respeita o tempo do aluno trabalhador.',
@@ -214,7 +218,7 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
   {
     id: 'alice',
     name: 'Alice Maurício',
-    role: 'Vice-Diretoria de Cultura',
+    role: 'Vice-Diretora de Cultura',
     tagline: 'Acolhimento de Calouros & Tutoriais Ingressantes',
     quote:
       'Como caloura, sei o quanto é desafiador chegar à UFMG sem saber por onde começar. Os tutoriais e o acolhimento do CAGP precisam falar a língua de quem acabou de ingressar.',
@@ -231,6 +235,12 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
     targetId: 'cagp-shortcut-permanencia',
   },
 ];
+
+function leaderById(id: string): LeaderInfo {
+  const found = CHAPA_LEADERS.find((l) => l.id === id);
+  if (!found) throw new Error(`Integrante desconhecido: ${id}`);
+  return found;
+}
 
 const AVAILABLE_LEADER_PHOTOS = new Set([
   'Gabriel Sathler.jpg',
@@ -292,7 +302,7 @@ export function clearTourSession(): void {
 
 // ---------------------------------------------------------------------------
 // 12 PARADAS ESTRUTURADAS DO TOUR MULTI-PÁGINAS DA CHAPA SEMENTE
-// Articulando as 9 lideranças e as ferramentas do SuperApp nas rotas reais
+// Articulando as 9 lideranças e as ferramentas do Super App nas rotas reais
 // ---------------------------------------------------------------------------
 
 export interface ChapaTourStop {
@@ -317,16 +327,16 @@ export const CHAPA_TOUR_12_STOPS: ChapaTourStop[] = [
   {
     id: 'stop-gabriel',
     stepNumber: 1,
-    title: '1. Gabriel Sathler — Presidência',
-    subtitle: 'Criador e Programador do SuperApp CAGP',
+    title: '1. Gabriel Sathler — Presidente',
+    subtitle: 'Criador e Programador do Super App CAGP',
     pageRoute: route('/'),
     target: '#cagp-home-banner-semente, main',
     placement: 'bottom',
-    leader: CHAPA_LEADERS[0],
-    badge: 'Presidência • SuperApp',
+    leader: leaderById('gabriel'),
+    badge: 'Presidência • Super App',
     badgeBg: 'bg-purple-100 text-purple-900 border-purple-300',
     quote:
-      'Centro Acadêmico não pode ser terra arrasada a cada troca de mandato. O SuperApp é a garantia de que as informações do curso pertencem a todos os estudantes, independentemente do resultado das urnas.',
+      'Centro Acadêmico não pode ser terra arrasada a cada troca de mandato. O Super App é a garantia de que as informações do curso pertencem a todos os estudantes, independentemente do resultado das urnas.',
     painPoint:
       'A cada eleição o centro acadêmico perde histórico, arquivos e contatos, deixando os estudantes reféns do improviso da gestão vigente.',
     solution:
@@ -369,34 +379,14 @@ export const CHAPA_TOUR_12_STOPS: ChapaTourStop[] = [
     toolHref: '#passaporte',
   },
   {
-    id: 'stop-livia',
-    stepNumber: 4,
-    title: '4. Lívia Martins — Assessoria da Presidência',
-    subtitle: 'Idealizadora do Manual "Como se Formar" & Diretora de Arte',
-    pageRoute: route('/carreira'),
-    target: '#cagp-carreira-header, #ws-panel-v0, main',
-    placement: 'bottom',
-    leader: CHAPA_LEADERS[1],
-    badge: 'Carreira & Formação',
-    badgeBg: 'bg-emerald-100 text-emerald-900 border-emerald-300',
-    quote:
-      'É "old" que o curso tem potencial, mas é evidente também que o estudante se perde diante de portais confusos. Chega de poluição visual: manual prático e currículo a um clique.',
-    painPoint:
-      'Sobrecarga cognitiva e formato inacessível do portal da universidade, somados ao isolamento profissional de quem não sabe como validar estágios ou se formar.',
-    solution:
-      'Manual prático descomplicado, estilo neobrutalista moderno e banco de currículos integrado para inserção profissional discente.',
-    toolLabel: 'Acessar Hub de Carreira & Estágio',
-    toolHref: route('/carreira'),
-  },
-  {
     id: 'stop-larissa',
-    stepNumber: 5,
-    title: '5. Larissa Prado — Vice-Presidência',
+    stepNumber: 4,
+    title: '4. Larissa Prado — Vice-Presidente',
     subtitle: 'Acolhimento Discente & Ouvidoria Permanente',
     pageRoute: route('/ouvidoria'),
     target: '#cagp-ouvidoria-header, main',
     placement: 'bottom',
-    leader: CHAPA_LEADERS[2],
+    leader: leaderById('larissa'),
     badge: 'Acolhimento & Ouvidoria',
     badgeBg: 'bg-amber-100 text-amber-900 border-amber-300',
     quote:
@@ -409,14 +399,34 @@ export const CHAPA_TOUR_12_STOPS: ChapaTourStop[] = [
     toolHref: route('/ouvidoria'),
   },
   {
+    id: 'stop-livia',
+    stepNumber: 5,
+    title: '5. Lívia Martins — Assessora da Presidência',
+    subtitle: 'Idealizadora do Manual "Como se Formar" & Diretora de Arte',
+    pageRoute: route('/carreira'),
+    target: '#cagp-carreira-header, #ws-panel-v0, main',
+    placement: 'bottom',
+    leader: leaderById('livia'),
+    badge: 'Carreira & Formação',
+    badgeBg: 'bg-emerald-100 text-emerald-900 border-emerald-300',
+    quote:
+      'É "old" que o curso tem potencial, mas é evidente também que o estudante se perde diante de portais confusos. Chega de poluição visual: manual prático e currículo a um clique.',
+    painPoint:
+      'Sobrecarga cognitiva e formato inacessível do portal da universidade, somados ao isolamento profissional de quem não sabe como validar estágios ou se formar.',
+    solution:
+      'Manual prático descomplicado, estilo neobrutalista moderno e banco de currículos integrado para inserção profissional discente.',
+    toolLabel: 'Acessar Hub de Carreira & Estágio',
+    toolHref: route('/carreira'),
+  },
+  {
     id: 'stop-mariana',
     stepNumber: 6,
-    title: '6. Mariana Presti — Diretoria Acadêmica',
+    title: '6. Mariana Presti — Diretora Acadêmica',
     subtitle: 'Pesquisa Aberta & 11 Núcleos do DCP',
     pageRoute: route('/pesquisa'),
     target: '#cagp-pesquisa-header, #ws-panel-v1, #nucleos, main',
     placement: 'bottom',
-    leader: CHAPA_LEADERS[3],
+    leader: leaderById('mariana'),
     badge: 'Pesquisa & Iniciação Científica',
     badgeBg: 'bg-blue-100 text-blue-900 border-blue-300',
     quote:
@@ -431,12 +441,12 @@ export const CHAPA_TOUR_12_STOPS: ChapaTourStop[] = [
   {
     id: 'stop-joao',
     stepNumber: 7,
-    title: '7. João Pedro Fragoso — Comunicação e Marketing',
+    title: '7. João Pedro Fragoso — Diretor de Marketing e Comunicação',
     subtitle: 'Seriedade Institucional & Escuta de Ementas',
     pageRoute: route('/noticias'),
     target: '#cagp-noticias-header, #cagp-home-news-feed, main',
     placement: 'top',
-    leader: CHAPA_LEADERS[4],
+    leader: leaderById('joao'),
     badge: 'Comunicação & Notícias',
     badgeBg: 'bg-rose-100 text-rose-900 border-rose-300',
     quote:
@@ -451,12 +461,12 @@ export const CHAPA_TOUR_12_STOPS: ChapaTourStop[] = [
   {
     id: 'stop-vitoria',
     stepNumber: 8,
-    title: '8. Vitória Moraes — Diretoria Financeira',
+    title: '8. Vitória Moraes — Diretora Financeira',
     subtitle: 'Transparência Centavo a Centavo & Tutoriais FUMP',
     pageRoute: route('/transparencia'),
     target: '#cagp-transparencia-header, main',
     placement: 'bottom',
-    leader: CHAPA_LEADERS[5],
+    leader: leaderById('vitoria'),
     badge: 'Transparência & Caixa Aberto',
     badgeBg: 'bg-emerald-100 text-emerald-900 border-emerald-300',
     quote:
@@ -471,12 +481,12 @@ export const CHAPA_TOUR_12_STOPS: ChapaTourStop[] = [
   {
     id: 'stop-italo',
     stepNumber: 9,
-    title: '9. Ítalo de Morais — Articulação e Assuntos Políticos',
+    title: '9. Ítalo de Morais — Diretor de Articulação e Assuntos Políticos',
     subtitle: 'Autonomia Política, Eficiência & Cursos Livres',
     pageRoute: route('/cursos'),
     target: '#cagp-cursos-header, main',
     placement: 'bottom',
-    leader: CHAPA_LEADERS[6],
+    leader: leaderById('italo'),
     badge: 'Formação & Cursos Livres',
     badgeBg: 'bg-cyan-100 text-cyan-900 border-cyan-300',
     quote:
@@ -491,12 +501,12 @@ export const CHAPA_TOUR_12_STOPS: ChapaTourStop[] = [
   {
     id: 'stop-lara',
     stepNumber: 10,
-    title: '10. Lara Soares — Diretoria Jurídica',
+    title: '10. Lara Soares — Diretora Jurídica',
     subtitle: 'Estágio sem Travas & Segurança Burocrática',
     pageRoute: route('/estagio'),
     target: '#art41, #ws-panel-v1, main',
     placement: 'bottom',
-    leader: CHAPA_LEADERS[7],
+    leader: leaderById('lara'),
     badge: 'Segurança Jurídica & Estágio',
     badgeBg: 'bg-indigo-100 text-indigo-900 border-indigo-300',
     quote:
@@ -516,7 +526,7 @@ export const CHAPA_TOUR_12_STOPS: ChapaTourStop[] = [
     pageRoute: route('/permanencia'),
     target: '#cagp-permanencia-header, main',
     placement: 'bottom',
-    leader: CHAPA_LEADERS[8],
+    leader: leaderById('paloma'),
     badge: 'Permanência & FUMP',
     badgeBg: 'bg-orange-100 text-orange-900 border-orange-300',
     quote:

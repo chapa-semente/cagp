@@ -1,123 +1,114 @@
 ---
-// src/components/shell/BottomNav.astro — Barra Inferior Mobile (< 768px) Neobrutalista Integral
+// src/components/shell/BottomNav.astro — Barra inferior do celular (< 768px), Modelo B por tarefa.
+// Abas e aba ativa vêm do registro (navigationRegistry.ts); não há mapa paralelo aqui.
 import { AXIS_REGISTRY, getAxisByPath } from '@/lib/navigationRegistry';
 import { getCagpIconSvg, resolveCagpIconName } from '@/lib/cagpIcons';
+import { asset } from '@/lib/paths';
 
-const currentPath = Astro.url.pathname;
-const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
+const activeAxis = getAxisByPath(Astro.url.pathname);
+
+const ICONS: Record<string, string> = {
+  hoje: 'hoje',
+  guias: 'thesis',
+  curso: 'curriculo',
+  mais: 'menu',
+};
 ---
 
 <nav
   id="cagp-bottom-nav"
-  class="md:hidden fixed inset-x-0 bottom-0 z-[1040] bg-white border-t-3 border-border shadow-[0_-3px_0_0_var(--color-border,#1F1F1F)] select-none"
+  class="md:hidden fixed inset-x-0 bottom-0 z-[1040] bg-white border-t-3 border-border select-none"
   style="padding-bottom: env(safe-area-inset-bottom, 0px);"
-  aria-label="Navegação Principal Mobile (5 Eixos)"
+  aria-label="Navegação principal"
 >
-  <div
-    id="cagp-bottom-nav-container"
-    class="max-w-lg mx-auto px-0.5 py-1.5 grid grid-cols-5 items-center"
-  >
+  <div class="max-w-lg mx-auto px-0.5 py-1.5 grid grid-cols-5 items-center">
     {AXIS_REGISTRY.map((axis) => {
-      const isCurrent = activeAxis.id === axis.id;
-      const iconSvg = getCagpIconSvg(resolveCagpIconName(axis.id), 'w-5 h-5');
+      const isCurrent = activeAxis?.id === axis.id;
+      const isChapa = axis.id === 'chapa';
+      const isMais = axis.id === 'mais';
+      const iconSvg = isChapa ? '' : getCagpIconSvg(resolveCagpIconName(ICONS[axis.id] ?? axis.icon), 'w-5 h-5');
 
       return (
         <a
           href={axis.rootHref}
           data-bottom-axis={axis.id}
+          data-opens-sheet={isMais ? 'mais' : undefined}
+          aria-haspopup={isMais ? 'dialog' : undefined}
           aria-current={isCurrent ? 'page' : undefined}
-          class={`cagp-bottom-axis-item flex flex-col items-center justify-center gap-1 min-h-[52px] min-w-0 py-1 px-0 rounded-xl no-underline transition-colors duration-150 active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset ${
-            isCurrent
-              ? 'is-active text-primary'
-              : 'text-foreground hover:text-primary'
+          class={`cagp-bottom-axis-item flex flex-col items-center justify-center gap-1 min-h-[52px] min-w-0 py-1 px-0 rounded-xl no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset ${
+            isCurrent ? 'is-active text-primary' : 'text-foreground'
           }`}
         >
-          <span
-            class={`cagp-bottom-axis-pill w-11 h-7 rounded-lg flex items-center justify-center transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-              isCurrent
-                ? 'bg-primary text-white border-2 border-border shadow-[2px_2px_0_0_#1F1F1F]'
-                : 'bg-transparent text-foreground border-2 border-transparent'
-            }`}
-            set:html={iconSvg}
-          />
-          <span class="text-xs font-heading font-bold uppercase tracking-[-0.01em] leading-none whitespace-nowrap" aria-hidden="true">
+          <span class="cagp-bottom-axis-pill w-11 h-7 rounded-lg flex items-center justify-center border-2">
+            {isChapa ? (
+              <img
+                src={asset('/logos/semente/semente-simbolo.webp')}
+                alt=""
+                width={466}
+                height={603}
+                class="h-5 w-auto"
+                aria-hidden="true"
+              />
+            ) : (
+              <span class="flex" aria-hidden="true" set:html={iconSvg} />
+            )}
+          </span>
+          <span class="text-xs font-heading font-bold uppercase tracking-[0.01em] leading-tight text-center max-w-full">
             {axis.mobileLabel}
           </span>
-          <span class="sr-only">{axis.name}</span>
         </a>
       );
     })}
   </div>
 </nav>
 
+<style>
+  /* Pílula: transparente em repouso; ativa = roxo + contorno grafite + sombra Chip (DESIGN.md › Navigation). */
+  .cagp-bottom-axis-pill {
+    background: transparent;
+    border-color: transparent;
+    color: var(--color-foreground);
+    transition: background-color 150ms var(--ease-snap, ease), border-color 150ms;
+  }
+  .cagp-bottom-axis-item.is-active .cagp-bottom-axis-pill {
+    background: var(--color-primary);
+    border-color: var(--color-border);
+    color: #fff;
+    box-shadow: 2px 2px 0 0 var(--color-border);
+  }
+  /* O símbolo da Semente é asset policromático: na aba ativa ganha um fundo branco
+     para manter a zona de proteção e não sumir sobre o roxo. */
+  .cagp-bottom-axis-item[data-bottom-axis='chapa'].is-active .cagp-bottom-axis-pill {
+    background: #fff;
+  }
+  .cagp-bottom-axis-item:active .cagp-bottom-axis-pill {
+    transform: translateY(1px);
+  }
+</style>
+
 <script>
+  import { getAxisByPath } from '@/lib/navigationRegistry';
+
   function syncMobileBottomNav() {
     const nav = document.getElementById('cagp-bottom-nav');
     if (!nav) return;
-
-    const baseUrl = (document.documentElement.dataset.baseUrl || '/').replace(/\/$/, '');
-    let cleanPath = window.location.pathname;
-    if (baseUrl && cleanPath.startsWith(baseUrl)) {
-      cleanPath = cleanPath.slice(baseUrl.length) || '/';
-    }
-    cleanPath = cleanPath.replace(/\/index\.html$/, '') || '/';
-
-    let activeId = 'hoje';
-    if (cleanPath.startsWith('/curso') || cleanPath.startsWith('/calouros') || cleanPath.startsWith('/permanencia') || cleanPath.startsWith('/pesquisa')) {
-      activeId = 'curso';
-    } else if (
-      cleanPath.startsWith('/percurso') ||
-      cleanPath.startsWith('/optativas') ||
-      cleanPath.startsWith('/acg') ||
-      cleanPath.startsWith('/cursos')
-    ) {
-      activeId = 'curriculo';
-    } else if (
-      cleanPath.startsWith('/carreira') ||
-      cleanPath.startsWith('/estagio') ||
-      cleanPath.startsWith('/tcc') ||
-      cleanPath.startsWith('/estagio-tcc')
-    ) {
-      activeId = 'carreira';
-    } else if (
-      cleanPath.startsWith('/transparencia') ||
-      cleanPath.startsWith('/ouvidoria') ||
-      cleanPath.startsWith('/chapa-semente') ||
-      cleanPath.startsWith('/documentos') ||
-      cleanPath.startsWith('/sobre') ||
-      cleanPath.startsWith('/gestao') ||
-      cleanPath.startsWith('/faq') ||
-      cleanPath.startsWith('/mapa-do-site')
-    ) {
-      activeId = 'cagp';
-    }
+    const activeId = getAxisByPath(window.location.pathname)?.id;
 
     nav.querySelectorAll<HTMLAnchorElement>('[data-bottom-axis]').forEach((link) => {
-      const id = link.getAttribute('data-bottom-axis');
-      const isCurrent = id === activeId;
-      const pill = link.querySelector('.cagp-bottom-axis-pill');
+      const isCurrent = link.dataset.bottomAxis === activeId;
       link.classList.toggle('is-active', isCurrent);
       link.classList.toggle('text-primary', isCurrent);
       link.classList.toggle('text-foreground', !isCurrent);
-      if (pill) {
-        pill.classList.toggle('bg-primary', isCurrent);
-        pill.classList.toggle('text-white', isCurrent);
-        pill.classList.toggle('border-2', true);
-        pill.classList.toggle('border-border', isCurrent);
-        pill.classList.toggle('border-transparent', !isCurrent);
-        pill.classList.toggle('shadow-[2px_2px_0_0_#1F1F1F]', isCurrent);
-        pill.classList.toggle('bg-transparent', !isCurrent);
-        pill.classList.toggle('text-foreground', !isCurrent);
-      }
       if (isCurrent) link.setAttribute('aria-current', 'page');
       else link.removeAttribute('aria-current');
 
-      if (!(link as any).__haptic_bound) {
-        (link as any).__haptic_bound = true;
-        link.addEventListener('click', () => {
-          if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
-            navigator.vibrate(15);
-          }
+      // "Mais" abre o painel por cima da página; o href /mais fica como fallback sem JS.
+      if (link.dataset.opensSheet === 'mais' && !(link as any).__mais_bound) {
+        (link as any).__mais_bound = true;
+        link.addEventListener('click', (e) => {
+          if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+          e.preventDefault();
+          window.dispatchEvent(new CustomEvent('cagp:open-mais'));
         });
       }
     });

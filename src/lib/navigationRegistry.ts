@@ -1,7 +1,14 @@
-// src/lib/navigationRegistry.ts — Registro Central de Navegação, Eixos e Micro-Apps (Super App CAGP UFMG)
+// src/lib/navigationRegistry.ts — Registro central de navegação (Modelo B, por tarefa)
+//
+// Fonte única da navegação: barra inferior, cabeçalho do celular, trilho do desktop,
+// busca (⌘K), hubs (/guias, /meu-curso, /mais), JourneyNav e transições de página
+// leem daqui. Não duplique esta lista em outro arquivo.
+//
+// Regra: cada rota pertence a UMA aba (é ela que acende na barra). Atalhos para
+// rotas de outras abas podem existir nos hubs, mas não mudam o dono da rota.
 import { route } from './paths';
 
-export type AxisId = 'hoje' | 'curso' | 'curriculo' | 'carreira' | 'cagp' | 'acervo';
+export type AxisId = 'hoje' | 'guias' | 'chapa' | 'curso' | 'mais';
 export type FeatureType = 'hub' | 'overview' | 'page' | 'tool' | 'guide' | 'catalog';
 
 export interface NavigationItem {
@@ -10,35 +17,37 @@ export interface NavigationItem {
   shortLabel: string;
   href: string;
   icon: string;
+  /** Uma linha dizendo o que a página resolve (aparece nos hubs e no JourneyNav). */
   description: string;
   type: FeatureType;
+  /** Grupo dentro do hub da aba (ver `groups` do eixo). */
+  group?: string;
   isOverview?: boolean;
   badge?: string;
+  /** Termos que o estudante usa na busca e que não estão no título. */
+  keywords?: string;
   match: string[];
 }
 
-export interface AxisOverviewHighlight {
+export interface AxisGroup {
   id: string;
   title: string;
-  desc: string;
-  icon: string;
-  href: string;
-  actionLabel: string;
-  statKey?: string;
 }
 
 export interface AxisConfig {
   id: AxisId;
   number: number;
   name: string;
-  /** Rótulo curto da barra inferior no celular (cabe em ~60px com Poppins Bold 12px) */
+  /** Rótulo da barra inferior no celular (cabe em ~70px com Poppins Bold 12px). */
   mobileLabel: string;
   tagline: string;
   icon: string;
+  /** Mantido por compatibilidade; eixos não pintam interface (DESIGN.md › Rubro Is a Seal). */
   color: string;
   rootHref: string;
+  /** Grupos do hub, na ordem em que aparecem. */
+  groups?: AxisGroup[];
   items: NavigationItem[];
-  overviewHighlights: AxisOverviewHighlight[];
 }
 
 export const AXIS_REGISTRY: AxisConfig[] = [
@@ -47,434 +56,403 @@ export const AXIS_REGISTRY: AxisConfig[] = [
     number: 1,
     name: 'Hoje',
     mobileLabel: 'Hoje',
-    tagline: 'Rotina do Campus, RU & Bússola Discente',
+    tagline: 'O que está acontecendo agora no campus e no curso',
     icon: 'bi-compass',
-    color: '#8B1E2D',
+    color: '#5B2A85',
     rootHref: route('/'),
     items: [
       {
-        id: 'hoje-overview',
-        label: 'Visão Geral',
-        shortLabel: 'Hoje',
+        id: 'hoje-inicio',
+        label: 'Início',
+        shortLabel: 'Início',
         href: route('/'),
         icon: 'bi-compass',
-        description: 'Bússola discente, avisos em tempo real e status do campus.',
+        description: 'RU e circular agora, próximos prazos e atalhos para o seu perfil.',
         type: 'overview',
         isOverview: true,
-        match: ['^/$', '^/index\\.html$'],
+        keywords: 'home início ru restaurante circular ônibus prazos',
+        match: ['^/$'],
       },
       {
         id: 'hoje-noticias',
-        label: 'Mural de Notícias',
-        shortLabel: 'Notícias',
+        label: 'Mural de notícias',
+        shortLabel: 'Mural',
         href: route('/noticias'),
         icon: 'bi-newspaper',
-        description: 'Mural completo de notícias, assembleias, editais de estágio e eventos.',
-        type: 'page',
+        description: 'Exemplo de mural com assembleias, editais e eventos (conteúdo simulado).',
+        type: 'catalog',
+        keywords: 'notícias avisos assembleia eventos editais',
         match: ['^/noticias'],
       },
     ],
-    overviewHighlights: [
+  },
+  {
+    id: 'guias',
+    number: 2,
+    name: 'Guias',
+    mobileLabel: 'Guias',
+    tagline: 'Passo a passo dos trâmites e os documentos de cada um',
+    icon: 'thesis',
+    color: '#5B2A85',
+    rootHref: route('/guias'),
+    groups: [
+      { id: 'documentos', title: 'Documentos' },
+      { id: 'comecando', title: 'Começando' },
+      { id: 'durante', title: 'Durante o curso' },
+      { id: 'terminando', title: 'Terminando' },
+      { id: 'duvidas', title: 'Dúvidas' },
+    ],
+    items: [
       {
-        id: 'hl-noticias',
-        title: 'Mural de Notícias',
-        desc: 'Assembleias, estágios, eventos da atlética e avisos acadêmicos na íntegra.',
-        icon: 'bi-newspaper',
-        href: route('/noticias'),
-        actionLabel: 'Ver Notícias',
+        id: 'guias-hub',
+        label: 'Todos os guias',
+        shortLabel: 'Guias',
+        href: route('/guias'),
+        icon: 'thesis',
+        description: 'Todos os trâmites do curso e os documentos mais pedidos.',
+        type: 'hub',
+        isOverview: true,
+        match: ['^/guias'],
       },
       {
-        id: 'hl-passaporte',
-        title: 'Passaporte Discente',
-        desc: 'Seu progresso acadêmico salvo 100% no cofre local seguro.',
-        icon: 'bi-person-badge',
-        href: route('/') + '#passaporte',
-        actionLabel: 'Abrir Passaporte',
+        id: 'guias-documentos',
+        label: 'Documentos e requerimentos',
+        shortLabel: 'Documentos',
+        href: route('/documentos'),
+        icon: 'bi-folder2-open',
+        description: 'Formulários, requerimentos e normas oficiais para baixar e enviar.',
+        type: 'catalog',
+        group: 'documentos',
+        keywords: 'formulário requerimento tce termo de compromisso plano de atividades colação aproveitamento trancamento resolução norma pdf',
+        match: ['^/documentos'],
       },
       {
-        id: 'hl-campus',
-        title: 'Campus no Agora',
-        desc: 'Cardápios e horários do RU II Setorial e Circular Noturno da UFMG.',
-        icon: 'bi-clock-history',
-        href: route('/') + '#campus',
-        actionLabel: 'Ver Horários',
+        id: 'guias-calouros',
+        label: 'Guia do calouro',
+        shortLabel: 'Calouro',
+        href: route('/calouros'),
+        icon: 'bi-backpack',
+        description: 'Checklist dos primeiros 30 dias, mapa do campus e salas da FAFICH.',
+        type: 'guide',
+        group: 'comecando',
+        keywords: 'calouro ingressante mapa campus salas fafich primeiros dias carteirinha matrícula',
+        match: ['^/calouros'],
+      },
+      {
+        id: 'guias-curso',
+        label: 'Quem atende e onde fica',
+        shortLabel: 'O curso',
+        href: route('/curso'),
+        icon: 'bi-mortarboard',
+        description: 'Secretaria, Colegiado e horários de atendimento do curso.',
+        type: 'guide',
+        group: 'comecando',
+        keywords: 'secretaria colegiado coordenação atendimento horário contato história egressos',
+        match: ['^/curso/?$'],
+      },
+      {
+        id: 'guias-permanencia',
+        label: 'FUMP e vida no noturno',
+        shortLabel: 'FUMP',
+        href: route('/permanencia'),
+        icon: 'heart',
+        description: 'Níveis da FUMP, auxílios, RU à noite e circular até 22h45.',
+        type: 'guide',
+        group: 'durante',
+        keywords: 'fump auxílio bolsa permanência assistência estudantil moradia alimentação noturno',
+        match: ['^/permanencia'],
+      },
+      {
+        id: 'guias-optativas',
+        label: 'Optativas e formação livre',
+        shortLabel: 'Optativas',
+        href: route('/optativas'),
+        icon: 'kanban',
+        description: 'Disciplinas optativas e de formação livre recomendadas para o curso.',
+        type: 'catalog',
+        group: 'durante',
+        keywords: 'optativa disciplina formação livre matrícula eletiva',
+        match: ['^/optativas'],
+      },
+      {
+        id: 'guias-estagio',
+        label: 'Estágio',
+        shortLabel: 'Estágio',
+        href: route('/estagio'),
+        icon: 'briefcase',
+        description: 'Estágio obrigatório e não obrigatório, TCE e dispensa por trabalho (Art. 41).',
+        type: 'guide',
+        group: 'durante',
+        keywords: 'estágio tce termo de compromisso art 41 dispensa servidor 300h dcp 135 136',
+        match: ['^/estagio/?$'],
+      },
+      {
+        id: 'guias-pesquisa',
+        label: 'Pesquisa e extensão',
+        shortLabel: 'Pesquisa',
+        href: route('/pesquisa'),
+        icon: 'bi-journal-bookmark',
+        description: 'Os núcleos do DCP e como entrar em iniciação científica e extensão.',
+        type: 'page',
+        group: 'durante',
+        keywords: 'pesquisa iniciação científica pibic extensão núcleo dcp bolsa',
+        match: ['^/pesquisa'],
+      },
+      {
+        id: 'guias-tcc',
+        label: 'TCC',
+        shortLabel: 'TCC',
+        href: route('/tcc'),
+        icon: 'bi-journal-check',
+        description: 'Modalidades de TCC, termo de aceite do orientador e linha do tempo da defesa.',
+        type: 'guide',
+        group: 'terminando',
+        keywords: 'tcc monografia artigo orientador termo de aceite defesa',
+        match: ['^/tcc'],
+      },
+      {
+        id: 'guias-faq',
+        label: 'Dúvidas frequentes',
+        shortLabel: 'Dúvidas',
+        href: route('/faq'),
+        icon: 'info',
+        description: 'Respostas curtas sobre procedimentos acadêmicos e acessibilidade (NAI).',
+        type: 'guide',
+        group: 'duvidas',
+        keywords: 'faq perguntas dúvidas nai acessibilidade',
+        match: ['^/faq'],
+      },
+    ],
+  },
+  {
+    id: 'chapa',
+    number: 3,
+    name: 'Chapa Semente',
+    mobileLabel: 'Chapa',
+    tagline: 'Quem somos, o que propomos e como votar em 25 e 26/11',
+    icon: 'bi-flower1',
+    color: '#5B2A85',
+    rootHref: route('/chapa-semente'),
+    items: [
+      {
+        id: 'chapa-semente',
+        label: 'Integrantes e propostas',
+        shortLabel: 'Propostas',
+        href: route('/chapa-semente'),
+        icon: 'sparkle',
+        description: 'Os 11 integrantes da Chapa Semente e as propostas para o CAGP.',
+        type: 'overview',
+        isOverview: true,
+        keywords: 'chapa semente votar eleição propostas integrantes candidatos',
+        match: ['^/chapa-semente'],
+      },
+      {
+        id: 'chapa-eleicao',
+        label: 'Eleição e como votar',
+        shortLabel: 'Como votar',
+        href: route('/gestao'),
+        icon: 'bi-people',
+        description: 'Cronograma do edital, local e horário da votação e as diretorias.',
+        type: 'page',
+        keywords: 'eleição votar urna edital junta eleitoral debate diretorias',
+        match: ['^/gestao'],
       },
     ],
   },
   {
     id: 'curso',
-    number: 2,
-    name: 'Acolhimento',
-    mobileLabel: 'Acolhida',
-    tagline: 'Vida Universitária, Permanência FUMP & Pesquisa DCP',
-    icon: 'bi-mortarboard',
-    color: '#005A9C',
-    rootHref: route('/curso'),
-    items: [
-      {
-        id: 'curso-overview',
-        label: 'O Curso de Gestão Pública',
-        shortLabel: 'Curso',
-        href: route('/curso'),
-        icon: 'bi-mortarboard',
-        description: 'Onde fica, quem atende e horários de hoje; história, egressos e Colegiado.',
-        type: 'overview',
-        isOverview: true,
-        match: ['^/curso$', '^/curso/$', '^/curso/index\\.html$'],
-      },
-      {
-        id: 'curso-calouros',
-        label: 'Guia do Calouro',
-        shortLabel: 'Calouros',
-        href: route('/calouros'),
-        icon: 'bi-backpack',
-        description: 'Checklist dos primeiros 30 dias, salas da FAFICH e horários da noite.',
-        type: 'guide',
-        match: ['^/calouros'],
-      },
-      {
-        id: 'curso-permanencia',
-        label: 'Permanência & Noturno',
-        shortLabel: 'Permanência',
-        href: route('/permanencia'),
-        icon: 'bi-shield-heart',
-        description: 'Guia da FUMP (Níveis I, II e III) e Guia do Estudante Noturno da FAFICH.',
-        type: 'guide',
-        match: ['^/permanencia'],
-      },
-      {
-        id: 'curso-pesquisa',
-        label: 'Pesquisa & Extensão',
-        shortLabel: 'Pesquisa',
-        href: route('/pesquisa'),
-        icon: 'bi-journal-bookmark',
-        description: 'Os 11 núcleos do DCP e como entrar em iniciação científica e extensão.',
-        type: 'page',
-        match: ['^/pesquisa'],
-      },
-    ],
-    overviewHighlights: [
-      {
-        id: 'hl-calouro',
-        title: 'Checklist do Calouro',
-        desc: 'Tarefas essenciais dos primeiros 30 dias na UFMG.',
-        icon: 'bi-backpack',
-        href: route('/calouros'),
-        actionLabel: 'Abrir Guia do Calouro',
-        statKey: 'cagp_calouro_checklist_v1',
-      },
-      {
-        id: 'hl-permanencia',
-        title: 'Permanência & Noturno',
-        desc: 'Níveis da FUMP, auxílios, jantar no RU e circular até 22h45.',
-        icon: 'bi-shield-heart',
-        href: route('/permanencia'),
-        actionLabel: 'Ver Permanência',
-      },
-      {
-        id: 'hl-pesquisa',
-        title: 'Pesquisa & Extensão',
-        desc: 'Bolsas PIBIC e iniciação científica no Departamento de Ciência Política.',
-        icon: 'bi-journal-bookmark',
-        href: route('/pesquisa'),
-        actionLabel: 'Ver Oportunidades',
-      },
-    ],
-  },
-  {
-    id: 'curriculo',
-    number: 3,
-    name: 'Trajetória 600h',
-    mobileLabel: '600h',
-    tagline: 'Grade 10P, Grafo Vivo, Calculadora 600h & Cursos ENAP',
+    number: 4,
+    name: 'Meu curso',
+    mobileLabel: 'Meu curso',
+    tagline: 'Sua grade, suas horas e a reta final',
     icon: 'bi-diagram-3',
-    color: '#166534',
-    rootHref: route('/percurso'),
+    color: '#266264',
+    rootHref: route('/meu-curso'),
     items: [
       {
-        id: 'curriculo-overview',
-        label: 'Grafo Vivo 10P',
-        shortLabel: 'Grafo 10P',
-        href: route('/percurso'),
+        id: 'curso-hub',
+        label: 'Meu curso',
+        shortLabel: 'Meu curso',
+        href: route('/meu-curso'),
         icon: 'bi-diagram-3',
-        description: 'Central Curricular com Grafo Vivo dos 10 períodos e 27 obrigatórias.',
-        type: 'overview',
+        description: 'Grade, horas complementares e checklist da formatura num lugar só.',
+        type: 'hub',
         isOverview: true,
-        match: ['^/percurso'],
+        match: ['^/meu-curso'],
       },
       {
-        id: 'curriculo-optativas',
-        label: 'Catálogo de Optativas',
-        shortLabel: 'Optativas',
-        href: route('/optativas'),
-        icon: 'bi-collection',
-        description: 'Disciplinas optativas e Formação Livre recomendadas para Gestão Pública.',
-        type: 'catalog',
-        match: ['^/optativas'],
-      },
-      {
-        id: 'curriculo-acg',
-        label: 'Horas 600h & ACG',
-        shortLabel: 'Calc 600h',
+        id: 'curso-acg',
+        label: 'Horas 600h (ACG)',
+        shortLabel: 'Horas 600h',
         href: route('/acg'),
         icon: 'bi-calculator',
-        description: 'Calculadora de 300h de Extensão e 300h de AAC com Guardião 120 dias.',
+        description: 'Calcule suas 300h de extensão e 300h de AAC e veja o que falta.',
         type: 'tool',
+        keywords: 'acg aac extensão horas complementares 600h calculadora atividade integralizadora',
         match: ['^/acg'],
       },
       {
-        id: 'curriculo-cursos',
-        label: 'Cursos Livres & ENAP',
-        shortLabel: 'Cursos Livres',
+        id: 'curso-grade',
+        label: 'Grade e percurso',
+        shortLabel: 'Grade',
+        href: route('/percurso'),
+        icon: 'bi-diagram-3',
+        description: 'As disciplinas dos 10 períodos e os pré-requisitos de cada uma.',
+        type: 'tool',
+        keywords: 'grade curricular percurso período pré-requisito obrigatória grafo matriz',
+        match: ['^/percurso'],
+      },
+      {
+        id: 'curso-cursos',
+        label: 'Cursos que contam horas',
+        shortLabel: 'Cursos ENAP',
         href: route('/cursos'),
         icon: 'bi-mortarboard-fill',
-        description: 'Cursos Livres do CAGP e catálogo curado ENAP/EV.G que contam para Extensão/AAC.',
+        description: 'Cursos gratuitos da ENAP e do CAGP que contam para extensão e AAC.',
         type: 'catalog',
+        keywords: 'enap evg curso livre gratuito certificado horas',
         match: ['^/cursos'],
       },
-    ],
-    overviewHighlights: [
       {
-        id: 'hl-grafo',
-        title: 'Grafo Dinâmico 10P',
-        desc: 'Simule sua matrícula com travas formais do SIGA e adicione matérias optativas.',
-        icon: 'bi-diagram-3',
-        href: route('/percurso') + '#grafo',
-        actionLabel: 'Abrir Grafo',
-      },
-      {
-        id: 'hl-calc',
-        title: 'Calculadora 600h',
-        desc: 'Simule sua integralização de Extensão (300h) e AAC (300h).',
-        icon: 'bi-calculator',
-        href: route('/acg') + '#calculadora',
-        actionLabel: 'Calcular Horas',
-        statKey: 'cagp_calc_ext_aac_v1',
-      },
-      {
-        id: 'hl-cursos',
-        title: 'Cursos ENAP & EV.G',
-        desc: '1.464 cursos gratuitos com adição em 1 clique na Calculadora 600h.',
-        icon: 'bi-mortarboard-fill',
-        href: route('/cursos'),
-        actionLabel: 'Ver Cursos',
+        id: 'curso-formatura',
+        label: 'Formatura e colação',
+        shortLabel: 'Formatura',
+        href: route('/formatura'),
+        icon: 'bi-check2-square',
+        description: 'Checklist da reta final: estágio, TCC e inscrição na colação de grau.',
+        type: 'tool',
+        keywords: 'formatura colação de grau formando diploma reta final',
+        match: ['^/formatura', '^/estagio-tcc'],
       },
     ],
   },
   {
-    id: 'carreira',
-    number: 4,
-    name: 'Carreira',
-    mobileLabel: 'Carreira',
-    tagline: 'Estágio Não Obrigatório, Obrigatório 300h, Art. 41 & TCC',
-    icon: 'bi-briefcase',
-    color: '#92400E',
-    rootHref: route('/carreira'),
+    id: 'mais',
+    number: 5,
+    name: 'Mais',
+    mobileLabel: 'Mais',
+    tagline: 'Carreira, CAGP, ouvidoria e ajustes',
+    icon: 'menu',
+    color: '#1F1F1F',
+    rootHref: route('/mais'),
+    groups: [
+      { id: 'carreira', title: 'Carreira' },
+      { id: 'cagp', title: 'O CAGP' },
+      { id: 'app', title: 'Este site' },
+    ],
     items: [
       {
-        id: 'carreira-hub',
-        label: 'Hub de Carreira & Inserção',
-        shortLabel: 'Hub Carreira',
-        href: route('/carreira'),
-        icon: 'bi-briefcase',
-        description: 'Cockpit unificado com atalhos de vagas, Empresa Júnior, Banco de Talentos e guias.',
+        id: 'mais-hub',
+        label: 'Mais',
+        shortLabel: 'Mais',
+        href: route('/mais'),
+        icon: 'menu',
+        description: 'Carreira, CAGP, ouvidoria e ajustes.',
         type: 'hub',
         isOverview: true,
-        match: ['^/carreira/?$', '^/carreira/index\\.html$'],
+        match: ['^/mais'],
       },
       {
-        id: 'carreira-vagas',
-        label: 'Radar de Vagas & Editais',
-        shortLabel: 'Radar de Vagas',
-        href: route('/carreira/vagas'),
-        icon: 'bi-megaphone',
-        description: 'Mural de estágios, trainees e oportunidades públicas em BH e Minas Gerais.',
-        type: 'catalog',
-        match: ['^/carreira/vagas/?$', '^/carreira/vagas/index\\.html$'],
-      },
-      {
-        id: 'carreira-talentos',
-        label: 'Banco de Talentos GP',
-        shortLabel: 'Banco de Talentos',
-        href: route('/carreira/talentos'),
-        icon: 'bi-stars',
-        description: 'Cofre local de competências técnicas discentes e exportação para currículo.',
-        type: 'tool',
-        match: ['^/carreira/talentos/?$', '^/carreira/talentos/index\\.html$'],
-      },
-      {
-        id: 'carreira-estagio-obrigatorio',
-        label: 'Estágio 300h & Aproveitamento Servidor',
-        shortLabel: 'Estágio & Art. 41',
-        href: route('/estagio'),
-        icon: 'bi-person-check',
-        description: 'Simulador de Aproveitamento Servidor (Art. 41) e fluxo das 300h de DCP 135/136.',
-        type: 'tool',
-        match: ['^/estagio/?$', '^/estagio/index\\.html$'],
-      },
-      {
-        id: 'carreira-tcc',
-        label: 'TCC & Monografia (180h)',
-        shortLabel: 'TCC (180h)',
-        href: route('/tcc'),
-        icon: 'bi-journal-check',
-        description: 'Tabela comparativa Monografia vs Artigo (Art. 19), termo de aceite e linha do tempo de defesa.',
-        type: 'guide',
-        match: ['^/tcc/?$', '^/tcc/index\\.html$'],
-      },
-      {
-        id: 'carreira-reta-final',
-        label: 'Hub Reta Final (Formando)',
-        shortLabel: 'Reta Final Formando',
-        href: route('/estagio-tcc'),
-        icon: 'bi-check2-square',
-        description: 'Painel unificado para Formandos: checklist de Estágio 300h, TCC 180h e Colação de Grau.',
-        type: 'tool',
-        match: ['^/estagio-tcc/?$', '^/estagio-tcc/index\\.html$'],
-      },
-    ],
-    overviewHighlights: [
-      {
-        id: 'hl-art41',
-        title: 'Dispensa Art. 41 (Servidores)',
-        desc: 'Verifique se seu trabalho na gestão pública dispensa Estágio A e B.',
+        id: 'mais-carreira',
+        label: 'Carreira',
+        shortLabel: 'Carreira',
+        href: route('/carreira'),
         icon: 'bi-briefcase',
-        href: route('/estagio') + '#art41',
-        actionLabel: 'Simular Art. 41',
-        statKey: 'cagp_art41_checklist_v1',
+        description: 'Atalhos de carreira, Empresa Júnior e exemplos de vagas (simuladas).',
+        type: 'hub',
+        group: 'carreira',
+        keywords: 'carreira emprego trainee concurso empresa júnior',
+        match: ['^/carreira/?$'],
       },
       {
-        id: 'hl-tce',
-        title: 'Estágio Não Obrigatório',
-        desc: 'Do 1º ao 10º período: modelos de TCE, jornada de 30h e cartilha jurídica.',
-        icon: 'bi-file-earmark-check',
-        href: route('/estagio') + '#tutorial',
-        actionLabel: 'Ver Direitos',
+        id: 'mais-vagas',
+        label: 'Vagas e editais',
+        shortLabel: 'Vagas',
+        href: route('/carreira/vagas'),
+        icon: 'newspaper',
+        description: 'Exemplo de mural de estágios e oportunidades (conteúdo simulado).',
+        type: 'catalog',
+        group: 'carreira',
+        keywords: 'vaga estágio trainee edital oportunidade',
+        match: ['^/carreira/vagas'],
       },
       {
-        id: 'hl-tcc',
-        title: 'Modalidades de TCC (Art. 19)',
-        desc: 'Monografia, artigo científico, plano de intervenção ou estudo de caso.',
-        icon: 'bi-journal-check',
-        href: route('/tcc') + '#modalidades',
-        actionLabel: 'Ver Modalidades',
-      },
-    ],
-  },
-  {
-    id: 'cagp',
-    number: 5,
-    name: 'O CAGP',
-    mobileLabel: 'CAGP',
-    tagline: 'Transparência Centavo a Centavo, Ouvidoria & Chapa Semente',
-    icon: 'bi-shield-check',
-    color: '#5B2A85',
-    rootHref: route('/transparencia'),
-    items: [
-      {
-        id: 'cagp-transparencia',
-        label: 'Portal da Transparência',
-        shortLabel: 'Transparência',
-        href: route('/transparencia'),
-        icon: 'bi-cash-coin',
-        description: 'Balancete financeiro, execução orçamentária RREO centavo a centavo e garantias estatutárias.',
-        type: 'page',
-        isOverview: true,
-        match: ['^/transparencia'],
+        id: 'mais-talentos',
+        label: 'Banco de talentos',
+        shortLabel: 'Talentos',
+        href: route('/carreira/talentos'),
+        icon: 'sparkle',
+        description: 'Organize suas competências e exporte para o currículo (salvo no celular).',
+        type: 'tool',
+        group: 'carreira',
+        keywords: 'currículo competências talentos portfólio',
+        match: ['^/carreira/talentos'],
       },
       {
-        id: 'cagp-ouvidoria',
-        label: 'Ouvidoria & Reclame Aqui',
+        id: 'mais-ouvidoria',
+        label: 'Fala com o CA',
         shortLabel: 'Ouvidoria',
         href: route('/ouvidoria'),
-        icon: 'bi-megaphone',
-        description: 'Canal contínuo de escuta discente e denúncia formal de ementas defasadas ao Colegiado.',
+        icon: 'users',
+        description: 'Escreva uma demanda sobre ementas, infraestrutura ou o Colegiado.',
         type: 'tool',
+        group: 'cagp',
+        keywords: 'ouvidoria reclamação denúncia demanda ementa infraestrutura',
         match: ['^/ouvidoria'],
       },
       {
-        id: 'cagp-chapa-semente',
-        label: 'Chapa Semente • Propostas',
-        shortLabel: 'Semente',
-        href: route('/chapa-semente'),
-        icon: 'bi-flower1',
-        description: 'Carta-Programa da Chapa Semente: 9 diretorias, Tour interativo e compromisso público.',
+        id: 'mais-transparencia',
+        label: 'Portal da Transparência',
+        shortLabel: 'Transparência',
+        href: route('/transparencia'),
+        icon: 'shield',
+        description: 'O que o Regimento exige sobre as contas e o livro-caixa proposto.',
         type: 'page',
-        badge: 'Campanha',
-        match: ['^/chapa-semente'],
+        group: 'cagp',
+        keywords: 'contas finanças balancete rreo prestação de contas dinheiro',
+        match: ['^/transparencia'],
       },
       {
-        id: 'cagp-documentos',
-        label: 'Documentos & Atos Normativos',
-        shortLabel: 'Documentos',
-        href: route('/documentos'),
-        icon: 'bi-folder2-open',
-        description: 'Atos normativos, resoluções, regulamento N-20229 e formulários oficiais para download.',
-        type: 'page',
-        match: ['^/documentos'],
-      },
-      {
-        id: 'cagp-sobre',
-        label: 'Sobre o CAGP & Estatuto',
+        id: 'mais-sobre',
+        label: 'Sobre o CAGP',
         shortLabel: 'Sobre',
         href: route('/sobre'),
         icon: 'bi-bank',
-        description: 'História do centro acadêmico, monumento Os Candangos e princípios republicanos.',
+        description: 'História, Regimento Interno e como o Centro Acadêmico funciona.',
         type: 'page',
+        group: 'cagp',
+        keywords: 'centro acadêmico cagp história regimento estatuto candangos',
         match: ['^/sobre'],
       },
       {
-        id: 'cagp-gestao',
-        label: 'Processo Eleitoral & Diretorias',
-        shortLabel: 'Diretorias',
-        href: route('/gestao'),
-        icon: 'bi-people',
-        description: 'Edital de eleições 2026, cronograma da Junta Eleitoral e estrutura de diretorias.',
+        id: 'mais-ajustes',
+        label: 'Ajustes e acessibilidade',
+        shortLabel: 'Ajustes',
+        href: route('/configuracoes'),
+        icon: 'bi-sliders',
+        description: 'Tamanho da letra, alto contraste, perfil e dados salvos no celular.',
         type: 'page',
-        match: ['^/gestao'],
+        group: 'app',
+        keywords: 'configurações acessibilidade fonte contraste perfil nome social dados',
+        match: ['^/configuracoes'],
       },
       {
-        id: 'cagp-faq',
-        label: 'Dúvidas & FAQ',
-        shortLabel: 'FAQ',
-        href: route('/faq'),
-        icon: 'bi-question-circle',
-        description: 'Respostas oficiais sobre procedimentos acadêmicos e acessibilidade NAI.',
-        type: 'guide',
-        match: ['^/faq', '^/mapa-do-site'],
-      },
-    ],
-    overviewHighlights: [
-      {
-        id: 'hl-transparencia',
-        title: 'Caixa Centavo a Centavo',
-        desc: 'Extrato financeiro com gráficos em tempo real geridos pela Diretoria Financeira.',
-        icon: 'bi-cash-coin',
-        href: route('/transparencia'),
-        actionLabel: 'Ver Contas',
-      },
-      {
-        id: 'hl-ouvidoria',
-        title: 'Ouvidoria & Escuta Ativa',
-        desc: 'Canal seguro para denúncias de ementas defasadas e infraestrutura.',
-        icon: 'bi-megaphone',
-        href: route('/ouvidoria'),
-        actionLabel: 'Abrir Ouvidoria',
-      },
-      {
-        id: 'hl-semente',
-        title: 'Chapa Semente — Lideranças & Tour',
-        desc: 'Conheça o Tour interativo com as propostas e soluções para os estudantes.',
-        icon: 'bi-flower1',
-        href: route('/chapa-semente'),
-        actionLabel: 'Ver Propostas',
+        id: 'mais-mapa',
+        label: 'Mapa do site',
+        shortLabel: 'Mapa do site',
+        href: route('/mapa-do-site'),
+        icon: 'map-pin',
+        description: 'Todas as páginas do site numa lista só.',
+        type: 'page',
+        group: 'app',
+        match: ['^/mapa-do-site'],
       },
     ],
   },
 ];
 
 /**
- * Normaliza pathname removendo o base path do GitHub Pages para conferência de rotas.
+ * Normaliza pathname removendo o base path do GitHub Pages e a barra final.
  */
 export function normalizePathname(pathname: string): string {
   const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
@@ -484,97 +462,65 @@ export function normalizePathname(pathname: string): string {
   }
   clean = clean.replace(/\/index\.html$/, '');
   if (!clean.startsWith('/')) clean = `/${clean}`;
+  if (clean.length > 1) clean = clean.replace(/\/$/, '');
   return clean || '/';
 }
 
-/**
- * Retorna o eixo correspondente a um ID canônico.
- */
 export function getAxisById(id: AxisId): AxisConfig | undefined {
   return AXIS_REGISTRY.find((axis) => axis.id === id);
 }
 
-/**
- * Retorna o eixo correspondente a uma URL/pathname do site.
- */
-export function getAxisByPath(pathname: string): AxisConfig | undefined {
+/** Item do registro dono de uma rota, com o eixo correspondente. */
+export function getItemByPath(pathname: string): { axis: AxisConfig; item: NavigationItem } | undefined {
   const clean = normalizePathname(pathname);
-
-  // Eixo 1: Home
-  if (clean === '/' || clean === '/index.html') {
-    return AXIS_REGISTRY[0];
-  }
-
-  // Tenta encontrar por regex de correspondência nos itens
   for (const axis of AXIS_REGISTRY) {
     for (const item of axis.items) {
-      if (item.match && item.match.length > 0) {
-        for (const pattern of item.match) {
-          if (new RegExp(pattern).test(clean)) {
-            return axis;
-          }
-        }
+      if (item.match.some((pattern) => new RegExp(pattern).test(clean))) {
+        return { axis, item };
       }
     }
   }
-
-  // Fallback baseado no primeiro segmento da URL
-  if (clean.startsWith('/noticias')) return AXIS_REGISTRY[0];
-  if (clean.startsWith('/curso') || clean.startsWith('/calouros') || clean.startsWith('/permanencia') || clean.startsWith('/pesquisa')) {
-    return AXIS_REGISTRY[1];
-  }
-  if (clean.startsWith('/percurso') || clean.startsWith('/optativas') || clean.startsWith('/acg') || clean.startsWith('/cursos')) {
-    return AXIS_REGISTRY[2];
-  }
-  if (clean.startsWith('/carreira') || clean.startsWith('/estagio') || clean.startsWith('/tcc') || clean.startsWith('/estagio-tcc')) {
-    return AXIS_REGISTRY[3];
-  }
-  if (
-    clean.startsWith('/transparencia') ||
-    clean.startsWith('/ouvidoria') ||
-    clean.startsWith('/chapa-semente') ||
-    clean.startsWith('/documentos') ||
-    clean.startsWith('/sobre') ||
-    clean.startsWith('/gestao') ||
-    clean.startsWith('/faq') ||
-    clean.startsWith('/mapa-do-site')
-  ) {
-    return AXIS_REGISTRY[4];
-  }
-
   return undefined;
 }
 
-/**
- * Retorna o ID do item ativo dentro de um eixo para o pathname fornecido.
- */
-export function getActiveItemId(axis: AxisConfig, pathname: string, hash: string = ''): string {
-  const clean = normalizePathname(pathname);
+/** Aba dona de uma rota. Rotas fora do registro (ex.: 404) devolvem undefined. */
+export function getAxisByPath(pathname: string): AxisConfig | undefined {
+  return getItemByPath(pathname)?.axis;
+}
 
-  // Se houver hash específico que coincida com algum item
-  if (hash) {
-    const hashItem = axis.items.find((item) => item.href.includes(hash));
-    if (hashItem) return hashItem.id;
-  }
-
-  // Confere primeiro por correspondência exata de rota
-  for (const item of axis.items) {
-    if (item.match && item.match.length > 0) {
-      for (const pattern of item.match) {
-        if (new RegExp(pattern).test(clean)) {
-          return item.id;
-        }
-      }
-    }
-  }
-
-  // Fallback: primeiro item do eixo (Visão Geral)
+export function getActiveItemId(axis: AxisConfig, pathname: string): string {
+  const found = getItemByPath(pathname);
+  if (found && found.axis.id === axis.id) return found.item.id;
   return axis.items[0]?.id || '';
 }
 
+/** Páginas da mesma aba, na ordem do registro, sem o hub. Usado pelo JourneyNav. */
+export function getSiblingPages(pathname: string): { prev?: NavigationItem; next?: NavigationItem } {
+  const found = getItemByPath(pathname);
+  if (!found) return {};
+  const pages = found.axis.items.filter((i) => i.type !== 'hub');
+  const idx = pages.findIndex((i) => i.id === found.item.id);
+  if (idx === -1) return {};
+  return { prev: pages[idx - 1], next: pages[idx + 1] };
+}
+
 /**
- * Retorna todos os 5 Eixos.
+ * Metadados de transição (grupo = posição da aba; profundidade 0 = raiz da aba).
+ * Derivado do registro para o BaseLayout não manter um mapa paralelo.
  */
+export function getRouteMeta(): Record<string, { group: number; depth: number }> {
+  const meta: Record<string, { group: number; depth: number }> = {};
+  for (const axis of AXIS_REGISTRY) {
+    const root = normalizePathname(axis.rootHref);
+    for (const item of axis.items) {
+      const path = normalizePathname(item.href.split('#')[0]);
+      if (meta[path]) continue;
+      meta[path] = { group: axis.number, depth: path === root ? 0 : 1 };
+    }
+  }
+  return meta;
+}
+
 export function getAllAxes(): AxisConfig[] {
   return AXIS_REGISTRY;
 }

@@ -25,12 +25,15 @@ interface CommandDialogProps extends DialogPrimitive.DialogProps {
   title?: string
   /** Accessible description for the dialog (visually hidden). */
   description?: string
+  /** Custom filter passed to cmdk (default: fuzzy). */
+  filter?: React.ComponentPropsWithoutRef<typeof CommandPrimitive>['filter']
 }
 
 const CommandDialog = ({
   children,
   title = 'Command Menu',
   description = 'Search for a command to run.',
+  filter,
   ...props
 }: CommandDialogProps) => {
   return (
@@ -42,7 +45,7 @@ const CommandDialog = ({
         >
           <DialogPrimitive.Title className="sr-only">{title}</DialogPrimitive.Title>
           <DialogPrimitive.Description className="sr-only">{description}</DialogPrimitive.Description>
-          <Command className="[&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-bold [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wide [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12">
+          <Command filter={filter} className="[&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-bold [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wide [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12">
             {children}
           </Command>
         </DialogPrimitive.Content>

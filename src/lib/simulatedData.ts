@@ -274,7 +274,7 @@ export interface SimulatedTransparencyEntry {
   amount: string;
   amountValue: number;
   documentRef: string;
-  status: 'Homologado em Ata' | 'Auditado pelo Conselho';
+  status: 'Homologado em Ata' | 'Aprovado em Assembleia';
 }
 
 export interface SimulatedRreoMonth {
@@ -318,7 +318,7 @@ export const SIMULATED_TRANSPARENCY = {
       amount: '+ R$ 720,00',
       amountValue: 720,
       documentRef: 'Termo de Posse #01/2026',
-      status: 'Auditado pelo Conselho' as const,
+      status: 'Aprovado em Assembleia' as const,
     },
     {
       id: 'tr-2',
@@ -370,7 +370,7 @@ export const SIMULATED_TRANSPARENCY = {
       amount: '- R$ 180,00',
       amountValue: 180,
       documentRef: 'NF Simulada #0058',
-      status: 'Auditado pelo Conselho' as const,
+      status: 'Aprovado em Assembleia' as const,
     },
     {
       id: 'tr-6',
@@ -437,11 +437,11 @@ export const SIMULATED_TRANSPARENCY = {
     {
       id: 'ata-02',
       simulated: true as const,
-      code: 'PARECER-CF-2026/01',
+      code: 'RELAT-DIFI-2026/01',
       date: 'Out/2026',
-      title: 'Parecer Demonstrativo do Conselho Fiscal sobre o 1º Bimestre',
-      organ: 'Conselho Fiscal e Consultivo (Art. 36)',
-      summary: 'Conferência de comprovantes e homologação do balancete semestral sem ressalvas.',
+      title: 'Relatório Demonstrativo da Diretoria Financeira sobre o 1º Bimestre',
+      organ: 'Diretoria Financeira (Art. 30, XI)',
+      summary: 'Conferência dos comprovantes do bimestre, para apresentação à Assembleia Geral.',
     },
     {
       id: 'ata-03',

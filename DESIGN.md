@@ -287,7 +287,7 @@ A paleta oficial do manual, em blocos chapados: três campos de cor da Semente s
 
 **The Orange Is The Leaf Rule.** Laranja Vibrante é destaque: linha, caixa, número grande, palavra isolada, forma orgânica. Nunca frase, parágrafo ou texto pequeno; texto pequeno alaranjado usa `orange-text`.
 
-**The Rubro Is a Seal Rule.** Rubro só no selo do CAGP. Eixos de navegação não têm cor própria: o eixo ativo veste roxo (os `color` de `navigationRegistry.ts` não pintam interface).
+**The Rubro Is a Seal Rule.** Rubro só no selo do CAGP. Abas de navegação não têm cor própria: a aba ativa veste roxo (os `color` de `navigationRegistry.ts` não pintam interface).
 
 **The One Loud Color Rule.** Cada tela tem no máximo um campo chapado grande de cor quente ou roxa. Roxo e petróleo podem dividir uma composição em blocos nítidos (o *color blocking* do manual), mas laranja nunca é campo de fundo grande.
 
@@ -345,15 +345,21 @@ Uma página Ficha pode conter blocos Papel e no máximo **um** momento Cartaz (o
 - A raiz aceita 93.75 / 100 / 112.5 / 125% pelo painel de acessibilidade; tudo em rem.
 
 ### Shell
-- **Celular (<768px):** cabeçalho compacto de 56px (menu, eixo atual com voltar, busca, perfil) + barra inferior fixa de 64px com os 5 eixos.
-- **Desktop (≥768px):** trilho lateral de ícones com os eixos, cabeçalho com busca (⌘K) e perfil; barra inferior some.
+- **Celular (<768px):** cabeçalho compacto de 56px (voltar, título, busca, perfil) + barra inferior fixa de 64px com as 5 abas. Sem menu ☰: o que não cabe na barra vive na aba Mais.
+- **Desktop (≥768px):** trilho lateral com as mesmas 5 abas (≥1280px: ícone + nome, com as páginas da aba ativa abaixo; tablet: ícone + rótulo curto), cabeçalho com busca (⌘K) e perfil; barra inferior some.
 - **Faixa de campanha:** roxo chapado com texto branco e marquee no topo; aparece aberta no volume Cartaz e colapsada desde o início em Ficha e Papel.
-- **Eixos:** Hoje, Acolhimento, Trajetória 600h, Carreira, O CAGP (`navigationRegistry.ts`).
+- **Abas (Modelo B, por tarefa):** Hoje · Guias · Chapa · Meu curso · Mais, definidas só em `src/lib/navigationRegistry.ts`. Barra, cabeçalho, trilho, busca, hubs, JourneyNav e transições leem do registro; nenhum componente mantém mapa de rotas próprio.
+  - **Hoje** (`/`): o que acontece agora; herói da Chapa, RU e circular, prazos, mural.
+  - **Guias** (`/guias`): todo trâmite com passo a passo, agrupado por momento (Começando, Durante o curso, Terminando) e os **Documentos mais pedidos** no topo, prontos para abrir e mandar no WhatsApp (`src/data/documentosMaisPedidos.json`).
+  - **Chapa** (`/chapa-semente`, `/gestao`): integrantes, propostas e como votar. Fica na barra enquanto o site promove a chapa.
+  - **Meu curso** (`/meu-curso`): ferramentas com estado salvo no aparelho (horas 600h, grade, cursos que contam horas, formatura).
+  - **Mais** (painel por cima da página; `/mais` no desktop e sem JS): Carreira, O CAGP (ouvidoria, transparência, sobre) e Este site (ajustes, mapa).
+- **Dono da rota:** cada rota pertence a uma única aba, e é ela que acende. Hubs podem ter atalhos para rotas de outras abas sem mudar o dono.
 
 ### Arquétipos de página
 Toda página nova escolhe um destes; não se inventa estrutura por página.
 
-1. **Hub de eixo** (`/curso`, `/percurso`, `/carreira`, `/transparencia`; Ficha). Cabeça de página → "Resolva agora" (3–6 fichas-ação: verbo + resultado) → lista completa do eixo como itens → Assinatura Semente.
+1. **Hub de aba** (`/guias`, `/meu-curso`, `/mais`; Ficha). Cabeça de página condensada → bloco de ação principal da aba (em Guias, os Documentos mais pedidos) → grupos de no máximo 5 linhas (`HubItemList`: ícone, título, uma linha do que resolve). Sem cards soltos em grade.
 2. **Guia de trâmite** (`/estagio`, `/acg`, `/tcc`, `/permanencia`, `/documentos`; Ficha + Papel). Cabeça de página → abas (máx. 4) → em cada aba: resumo de 3 linhas ("o que é · quem pode · prazo") → passo a passo numerado com formulário e contato no próprio passo → base normativa (Papel, recolhível) → Assinatura Semente → JourneyNav.
 3. **Ferramenta** (calculadora 600h, simulador Art. 41, Passaporte; Ficha). Entrada em cima/à esquerda, resultado embaixo/à direita; o resultado ganha o único momento Cartaz da página (carimbo + numeral). Estado salvo localmente é dito na tela.
 4. **Catálogo** (`/optativas`, `/cursos`, `/documentos`, `/noticias`; Ficha). Busca + filtros em chips, contagem tabular, lista de itens; detalhe em Drawer no celular e Sheet no desktop. Conteúdo simulado leva o sticker SIMULADO no item e o `SIMULATION_NOTICE` no topo.
@@ -460,11 +466,12 @@ Táteis e sóbrios; afundam na própria sombra como um carimbo.
 - **Error:** contorno `destructive`, mensagem abaixo com ícone, dizendo como corrigir. **Disabled:** 50%.
 
 ### Navigation
-- **Barra inferior (celular):** 5 eixos, ícone em pílula 44×28, rótulo `mobileLabel` em Poppins 700 12px caixa alta (Hoje · Acolhida · 600h · Carreira · CAGP) inteiro em 75px; nome completo para leitor de tela. Branca, contorno superior grafite 3px. Ativo: pílula roxa com ícone branco.
-- **Cabeçalho (celular):** 56px, branco; o rótulo do eixo é o botão de voltar ao hub. Perfil como botão-avatar de 44px.
-- **Trilho lateral (desktop):** botões-ícone 44px com contorno; ativo em roxo; tooltip com o nome do eixo.
+- **Barra inferior (celular):** 5 abas, ícone em pílula 44×28, rótulo `mobileLabel` em Poppins 700 12px caixa alta (Hoje · Guias · Chapa · Meu curso · Mais); se a escala de fonte aumentar, o rótulo quebra em duas linhas em vez de vazar. Branca, contorno superior grafite 3px. Ativo: pílula roxa com ícone branco. A aba Chapa usa o **símbolo oficial da Semente** (asset policromático, sobre branco quando ativa) no lugar de ícone, para ter presença sem gastar o laranja da tela. A aba Mais abre um Drawer com a lista agrupada (`aria-haspopup="dialog"`).
+- **Cabeçalho (celular):** 56px, branco: `[‹] título · [Buscar] [Perfil]`. Na raiz da aba não há seta e o título é o nome da aba; dentro dela, o título é o `shortLabel` da página e a seta volta pelo histórico quando a página anterior é do próprio site (senão, leva ao hub da aba). Perfil como botão-avatar de 44px. Nada de sino nem menu.
+- **Trilho lateral (desktop):** as 5 abas com ícone e nome; a aba ativa em roxo lista suas páginas abaixo. No tablet, ícone + rótulo curto (nunca número sem rótulo).
+- **Breadcrumb (≥768px):** Início › Aba › Página, derivado do registro.
 - **Abas** (`SegmentedControl`): barra em areia funda, sticky, contorno 2px; aba ativa em petróleo com texto branco, contorno 2px e sombra Chip; Button em caixa alta. Rótulo curto e sem numeração. No celular, uma linha rolável com snap.
-- **JourneyNav:** duas fichas (anterior / próximo) no fim do guia, com título e uma linha; direção em Label.
+- **JourneyNav:** duas fichas (anterior / próximo) no fim da página, com título e uma linha; direção em Label. A ordem é a do registro, **dentro da mesma aba** (nunca uma corrente global que termina em campanha).
 
 ### Cabeça de página (signature)
 O único cabeçalho de página. Ficha branca, contorno 2px, sombra 3px (no Cartaz, faixa roxa de ponta a ponta com título branco).

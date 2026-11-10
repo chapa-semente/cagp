@@ -1,0 +1,91 @@
+---
+// /meu-curso — Hub da aba Meu curso (Modelo B): grade, horas e reta final.
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+import HubItemList from '@/components/shell/HubItemList.astro';
+import { getAxisById } from '@/lib/navigationRegistry';
+
+const axis = getAxisById('curso')!;
+const items = axis.items.filter((i) => i.type !== 'hub');
+---
+
+<BaseLayout
+  title="Meu curso"
+  description="Sua grade, a calculadora das 600h de atividades complementares e o checklist da formatura, salvos no seu celular."
+  mode="operate"
+>
+  <PageHeader
+    title="Meu curso"
+    subtitle="Sua grade, suas horas e a reta final. O que você preencher fica salvo só neste celular."
+    mode="operate"
+    condensed={true}
+  />
+
+  <div class="space-y-8">
+    <HubItemList items={items} />
+
+    <section aria-labelledby="meu-curso-passaporte" class="cagp-passport-cta">
+      <div class="min-w-0 space-y-1">
+        <h2 id="meu-curso-passaporte" class="font-heading text-lg font-bold m-0">Passaporte e perfil</h2>
+        <p class="m-0 text-sm text-muted-foreground">Seu período, seu nome no site e as etapas que você já concluiu.</p>
+      </div>
+      <button type="button" id="meu-curso-open-passport" class="cagp-passport-btn">Abrir Passaporte</button>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .cagp-passport-cta {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.25rem;
+    border: 2px solid var(--color-border);
+    border-radius: 12px;
+    background: var(--color-primary-tint, #efe7f6);
+  }
+  .cagp-passport-btn {
+    align-self: flex-start;
+    min-height: 44px;
+    padding: 0.625rem 1.25rem;
+    border: 3px solid var(--color-border);
+    border-radius: 12px;
+    background: var(--color-primary);
+    color: #fff;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    box-shadow: 3px 3px 0 0 var(--color-border);
+    cursor: pointer;
+    transition: transform 150ms var(--ease-snap, ease), box-shadow 150ms var(--ease-snap, ease);
+  }
+  .cagp-passport-btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: none;
+  }
+  .cagp-passport-btn:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  @media (min-width: 640px) {
+    .cagp-passport-cta {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .cagp-passport-btn {
+      align-self: center;
+    }
+  }
+</style>
+
+<script>
+  function setupPassportCta() {
+    const btn = document.getElementById('meu-curso-open-passport');
+    if (btn) btn.onclick = () => window.dispatchEvent(new CustomEvent('cagp:open-passport'));
+  }
+  setupPassportCta();
+  document.addEventListener('astro:page-load', setupPassportCta);
+</script>

@@ -133,7 +133,7 @@ export function sendWelcomeNotification(): void {
   try {
     const title = '[SEMENTE] Radar Discente Ativado';
     const options: NotificationOptions = {
-      body: 'Seu acesso offline esta sincronizado. Voce recebera os avisos oficiais do Debate (24/11) e das Eleicoes no 1o andar da FAFICH (25 e 26/11).',
+      body: 'Pronto: o site funciona sem sinal. A Chapa Semente vai te lembrar do debate (24/11) e da votacao na sala do CAGP (25 e 26/11, 17h as 22h30).',
       icon: '/imagens/pwa/pwa-192x192.png',
       badge: '/imagens/pwa/badge-96x96.png',
       tag: 'cagp-election-welcome',
@@ -163,8 +163,8 @@ export function downloadElectionCalendarReminder(type: 'voting' | 'debate' | 'al
     const debateStart = new Date(2026, 10, 24, 18, 0, 0); // 24/11/2026 18:00
     downloadIcs({
       title: 'Debate das Chapas CAGP 2026 — Chapa Semente',
-      description: 'Debate oficial das chapas concorrentes ao Centro Acadêmico de Gestão Pública (FAFICH/UFMG). Venha conhecer as 14 propostas da Chapa Semente!',
-      location: 'FAFICH / UFMG - Auditório ou Pátio 1º Andar',
+      description: 'Debate entre as chapas ao Centro Acadêmico de Gestão Pública (FAFICH/UFMG), às 18h, organizado pela Junta Eleitoral. Venha conhecer as propostas da Chapa Semente!',
+      location: 'FAFICH / UFMG - local a ser definido pela Junta Eleitoral',
       filename: 'debate-chapas-cagp-2026',
       startDate: debateStart,
       durationMinutes: 120,
@@ -175,8 +175,8 @@ export function downloadElectionCalendarReminder(type: 'voting' | 'debate' | 'al
   // Voting Event (Padrão)
   downloadIcs({
     title: 'ELEICOES CAGP UFMG 2026 — Votar na Chapa Semente',
-    description: 'Votação oficial para a Diretoria do Centro Acadêmico de Gestão Pública (FAFICH/UFMG). Voto secreto no 1º andar da FAFICH. Documento com foto obrigatório! Vote Chapa Semente!',
-    location: '1º Andar da FAFICH (Corredor do CAGP) - Campus Pampulha UFMG',
+    description: 'Eleição da Diretoria do Centro Acadêmico de Gestão Pública (FAFICH/UFMG), das 17h às 22h30. Voto secreto e direto na sala do CAGP. Vote Chapa Semente!',
+    location: 'Sala do CAGP - FAFICH/UFMG, Campus Pampulha',
     filename: 'eleicoes-cagp-votar-semente',
     startDate: votingStart,
     durationMinutes: 330, // 17h às 22h30
@@ -197,15 +197,15 @@ export function getWhatsAppShareData(customName?: string): { url: string; text: 
 
 Colegas de Gestão Pública, aqui é o(a) ${studentName}.
 
-Acabei de homologar o acesso ao Super App da Gestão Pública (FAFICH/UFMG) no meu celular.
+Instalei no celular o Super App da Gestão Pública (FAFICH/UFMG), feito pela Chapa Semente.
 
 [+] Calculadora de Horas ACG 600h
 [+] Catálogo e percurso das 95 matérias
 [+] 100% offline para os subsolos e salas da FAFICH
 
-Nos dias 25 e 26 de novembro acontecem as Eleições do CAGP no 1º andar da FAFICH (17h às 22h30). Meu voto já está confirmado na Chapa Semente — Potencial que se Transforma em Ação!
+Nos dias 25 e 26 de novembro acontecem as Eleições do CAGP, na sala do CAGP na FAFICH (17h às 22h30). Eu vou votar na Chapa Semente — Potencial que se Transforma em Ação!
 
-Credencie seu aparelho e fortaleça a representação discente:
+Abra no celular e conheça a proposta:
 ${baseUrl}`;
 
   const encoded = encodeURIComponent(text);

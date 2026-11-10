@@ -390,5 +390,6 @@ export function resolveCagpIconName(raw: string): CagpIconName {
     'check-circle': 'check',
     'check-circle-fill': 'check',
   };
-  return map[key] || 'hoje';
+  // Nomes que já são ícones CAGP (ex.: 'thesis', 'menu') passam direto.
+  return map[key] || (key in ICON_PATHS ? (key as CagpIconName) : 'hoje');
 }

@@ -2,8 +2,8 @@
 // PageHeader.astro — Cabeça de página (DESIGN.md › Components › Cabeça de página).
 // Título + 1 linha + até 3 badges (1 no celular). Sem eyebrow, faixa tricolor ou decoração.
 // `eyebrow` é aceito por compatibilidade e ignorado: o eixo já aparece no cabeçalho do app e no breadcrumb.
-import AxisNavBar from '../shell/AxisNavBar.astro';
 import type { AxisId } from '@/lib/navigationRegistry';
+import { getItemByPath } from '@/lib/navigationRegistry';
 import CagpIcon from './CagpIcon.astro';
 import { resolveCagpIconName } from '@/lib/cagpIcons';
 import { badgeVariants } from './badge';
@@ -58,7 +58,7 @@ const {
   breadcrumbs,
   axisId,
   activeId,
-  showAxisNav = true,
+  showAxisNav: _showAxisNav = false,
   mode,
   condensed = false,
 } = Astro.props;
@@ -85,24 +85,24 @@ const mapToBadgeVariant = (v?: string): any => {
 const visibleBadges = badges.slice(0, 3);
 
 const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '/index.html';
-const shouldRenderAxisNav = showAxisNav && !isHome;
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 const computedBreadcrumbs = breadcrumbs && breadcrumbs.length > 0
   ? breadcrumbs
   : (!isHome && currentPath !== '/'
     ? [
         { label: 'Início', href: '/' },
+        ...(() => {
+          // Início › Aba › Página (a aba vem do registro; hubs não repetem o próprio nome)
+          const owner = getItemByPath(Astro.url.pathname);
+          if (!owner || owner.axis.id === 'hoje' || owner.item.isOverview) return [];
+          return [{ label: owner.axis.name, href: owner.axis.rootHref }];
+        })(),
         { label: title },
       ]
     : []);
 ---
 
 <header class={cn(isPersuadeMode ? 'mb-2 sm:mb-3' : 'mb-4 sm:mb-6')}>
-  {shouldRenderAxisNav && (
-    <div class="hidden md:block">
-      <AxisNavBar axisId={axisId} activeId={activeId} />
-    </div>
-  )}
 
   {!isPersuadeMode && (
     <div class={cn(

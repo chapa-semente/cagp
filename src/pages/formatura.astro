@@ -1,5 +1,5 @@
 ---
-// src/pages/estagio-tcc.astro — Hub Integrador Estágio & TCC (Painel Visual Unificado para a Persona Formando)
+// src/pages/formatura.astro — Checklist da reta final (estágio, TCC e colação). Antiga /estagio-tcc (redirecionada no astro.config).
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
 import JourneyNav from '../components/ui/JourneyNav.astro';
@@ -15,18 +15,18 @@ const badges = [
 ---
 
 <BaseLayout
-  title="Hub Integrador Estágio & TCC (Checklist Reta Final) • CAGP FAFICH/UFMG"
+  title="Formatura e colação de grau"
   description="Painel visual unificado para a persona Formando em Gestão Pública na UFMG: checklist animado de colação de grau, Estágio 300h, Aproveitamento Servidor (Art. 41) e TCC (180h)."
   mode="operate"
 >
   <div class="space-y-6 max-w-6xl mx-auto font-sans">
     <PageHeader
-      axisId="carreira"
+      axisId="curso"
       mode="operate"
       condensed={true}
       showAxisNav={false}
-      title="Hub Integrador Estágio & TCC"
-      subtitle="Painel unificado para a persona Formando: acompanhe os 10 marcos obrigatórios de Estágio (300h / Art. 41), TCC (180h) e Colação de Grau salvos no seu navegador."
+      title="Formatura e colação"
+      subtitle="O que falta para se formar: estágio, TCC e inscrição na colação de grau. Seu progresso fica salvo neste celular."
       badges={badges}
     />
 

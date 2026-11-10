@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { getLeaderPhotoUrl } from '@/lib/chapaSementeData';
+import { CHAPA_LEADERS, getLeaderPhotoUrl } from '@/lib/chapaSementeData';
 import { asset } from '@/lib/paths';
-import { photoCardHover, photoCardTap, photoZoomSpring } from '@/lib/motion';
+import { photoCardTap, photoZoomSpring } from '@/lib/motion';
+
+/** Hover contido: sem rotação nem escala que invadam o conteúdo abaixo do retrato. */
+const portraitHover = { y: -2, transition: photoZoomSpring };
 
 interface LeaderAvatarProps {
   name: string;
   photoFilename?: string;
+  /** object-position do retrato, para manter o rosto no recorte. */
+  photoPosition?: string;
   initials: string;
   deptColor: string;
   size?: 'sm' | 'md' | 'lg' | 'xl';
@@ -14,6 +19,8 @@ interface LeaderAvatarProps {
   role?: string;
   tagline?: string;
   index?: number;
+  /** Total exibido no contador (padrão: tamanho real da nominata). */
+  total?: number;
   className?: string;
 }
 
@@ -27,6 +34,7 @@ const SIZE_MAP = {
 export const LeaderAvatar: React.FC<LeaderAvatarProps> = ({
   name,
   photoFilename,
+  photoPosition = 'center 30%',
   initials,
   deptColor,
   size = 'md',
@@ -34,8 +42,13 @@ export const LeaderAvatar: React.FC<LeaderAvatarProps> = ({
   role,
   tagline,
   index,
+  total = CHAPA_LEADERS.length,
   className = '',
 }) => {
+  const counter =
+    typeof index === 'number'
+      ? `${String(index + 1).padStart(2, '0')}/${String(total).padStart(2, '0')}`
+      : null;
   const [hasError, setHasError] = useState(false);
   const photoUrl = getLeaderPhotoUrl(photoFilename);
 
@@ -44,11 +57,10 @@ export const LeaderAvatar: React.FC<LeaderAvatarProps> = ({
 
     return (
       <motion.div
-        whileHover={photoCardHover}
+        whileHover={portraitHover}
         whileTap={photoCardTap}
         transition={photoZoomSpring}
-        style={{ border: '3px solid #1F1F1F', boxShadow: '8px 8px 0px #1F1F1F' }}
-        className={`group relative w-full aspect-[4/5] min-h-[320px] rounded-xl overflow-hidden border-3 border-[#1F1F1F] shadow-[8px_8px_0_0_#1F1F1F] bg-card select-none ${className}`}
+        className={`group relative w-full aspect-[4/3] md:aspect-square rounded-xl overflow-hidden border-3 border-[#1F1F1F] shadow-[4px_4px_0_0_#1F1F1F] bg-card select-none ${className}`}
       >
         {hasRealPhoto ? (
           <>
@@ -56,15 +68,11 @@ export const LeaderAvatar: React.FC<LeaderAvatarProps> = ({
               src={photoUrl!}
               alt={`Retrato oficial de ${name} — ${role || 'Liderança Chapa Semente'}`}
               onError={() => setHasError(true)}
-              className="w-full h-full object-cover object-top transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
+              style={{ objectPosition: photoPosition }}
+              className="w-full h-full object-cover transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
               loading="lazy"
             />
-            {/* Vinheta editorial sutil na base para contraste de badges */}
-            <div
-              className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#1F1F1F]/90 via-[#1F1F1F]/40 to-transparent"
-              aria-hidden="true"
-            />
-          </>
+                      </>
         ) : (
           /* Pôster Ilustrado Neobrutalista aspect-[4/5] para lideranças sem foto em arquivo */
           <div
@@ -80,9 +88,9 @@ export const LeaderAvatar: React.FC<LeaderAvatarProps> = ({
               <span className="px-2.5 py-1 rounded-lg bg-accent text-foreground border-2 border-border shadow-xs font-heading text-xs font-black uppercase tracking-wider -rotate-2">
                 {role || 'CHAPA SEMENTE 2026'}
               </span>
-              {typeof index === 'number' && (
+              {counter && (
                 <span className="px-2 py-0.5 rounded-md bg-white text-foreground border-2 border-border shadow-xs font-mono text-xs font-black tabular-nums">
-                  {String(index + 1).padStart(2, '0')}/10
+                  {counter}
                 </span>
               )}
             </div>
@@ -110,33 +118,13 @@ export const LeaderAvatar: React.FC<LeaderAvatarProps> = ({
           </div>
         )}
 
-        {/* Badges Flutuantes no Topo (quando há foto real) */}
-        {hasRealPhoto && (
-          <div className="absolute top-3 inset-x-3 flex items-center justify-between gap-2 z-20 pointer-events-none">
-            <span className="px-2.5 py-1 rounded-lg bg-accent text-foreground border-2 border-border shadow-xs font-heading text-xs font-black uppercase tracking-wider -rotate-1">
-              {role || 'Chapa Semente'}
-            </span>
-            {typeof index === 'number' && (
-              <span className="px-2 py-0.5 rounded-md bg-white text-foreground border-2 border-border shadow-xs font-mono text-xs font-black tabular-nums">
-                {String(index + 1).padStart(2, '0')}/10
-              </span>
-            )}
-          </div>
+        {/* Contador da nominata (o cargo aparece logo abaixo do retrato, fora da foto) */}
+        {hasRealPhoto && counter && (
+          <span className="absolute top-2.5 right-2.5 z-20 pointer-events-none px-2 py-0.5 rounded-md bg-white text-foreground border-2 border-border shadow-xs font-mono text-xs font-black tabular-nums">
+            {counter}
+          </span>
         )}
 
-        {/* Sticker de Identidade na Base da Moldura */}
-        <div className="absolute bottom-3 inset-x-3 z-20 flex items-end justify-between gap-2 pointer-events-none">
-          <div className="bg-white/95 text-foreground border-2 border-border rounded-xl px-3 py-1.5 shadow-sm min-w-0 flex-1">
-            <span className="font-heading text-sm sm:text-base font-black uppercase tracking-tight block truncate leading-tight">
-              {name}
-            </span>
-            {tagline && (
-              <span className="font-mono text-xs font-bold text-primary block truncate">
-                {tagline}
-              </span>
-            )}
-          </div>
-        </div>
       </motion.div>
     );
   }

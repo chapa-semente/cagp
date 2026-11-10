@@ -1,0 +1,28 @@
+---
+// /mais — Lista da aba Mais. No celular a aba abre um painel por cima da página;
+// esta página é o destino no desktop e quando o JavaScript não carrega.
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+import HubItemList from '@/components/shell/HubItemList.astro';
+import { getAxisById } from '@/lib/navigationRegistry';
+
+const axis = getAxisById('mais')!;
+---
+
+<BaseLayout
+  title="Mais"
+  description="Carreira, Centro Acadêmico, ouvidoria, transparência e ajustes do site."
+  mode="operate"
+>
+  <PageHeader title="Mais" subtitle="Carreira, CAGP, ouvidoria e ajustes." mode="operate" condensed={true} />
+
+  <div class="space-y-10">
+    {(axis.groups ?? []).map((group) => (
+      <HubItemList
+        heading={group.title}
+        headingId={`mais-${group.id}`}
+        items={axis.items.filter((i) => i.group === group.id)}
+      />
+    ))}
+  </div>
+</BaseLayout>

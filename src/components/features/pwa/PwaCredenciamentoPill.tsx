@@ -108,7 +108,7 @@ export const PwaCredenciamentoPill: React.FC = () => {
     <AnimatePresence>
       <motion.aside
         key="cagp-semente-floating-pill"
-        aria-label="Status do Credenciamento Discente e Eleições"
+        aria-label="App da Chapa Semente e eleições do CAGP"
         initial={{ opacity: 0, y: 16, scale: 0.96 }}
         animate={tucked ? { opacity: 0, y: 24, scale: 0.96 } : { opacity: 1, y: 0, scale: 1 }}
         aria-hidden={tucked || undefined}
@@ -128,7 +128,7 @@ export const PwaCredenciamentoPill: React.FC = () => {
             whileTap={{ scale: 0.97 }}
             transition={tactileSpring}
             className="flex items-center gap-2 h-11 px-1.5 pl-2.5 bg-white border-3 border-border rounded-full shadow-[4px_4px_0_0_var(--color-border,#1F1F1F)] hover:shadow-[6px_6px_0_0_var(--color-border,#1F1F1F)] transition-all cursor-pointer group"
-            title="Ver passaporte eleitoral ou mobilizar turma"
+            title="Ver lembrete da votação ou convidar a turma"
           >
             <div className="w-6 h-6 rounded-full bg-primary border-2 border-border flex items-center justify-center p-0.5 shrink-0">
               <img

@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'motion/react';
-import { AXIS_REGISTRY, getAxisByPath, getActiveItemId } from '@/lib/navigationRegistry';
+import { AXIS_REGISTRY, getAxisByPath, getActiveItemId, getAxisById } from '@/lib/navigationRegistry';
+import { navigate } from 'astro:transitions/client';
+import maisPedidos from '@/data/documentosMaisPedidos.json';
 import { CagpIcon } from '@/components/ui/CagpIcon';
 import { resolveCagpIconName } from '@/lib/cagpIcons';
 import { asset, route } from '@/lib/paths';
@@ -66,6 +68,27 @@ const EXTERNAL_PORTALS = [
     logo: asset('/logos/ufmg/aplicacoes/principal-ufmg.jpg'),
   },
 ];
+
+// Ícones das abas (o eixo Chapa usa o símbolo oficial da Semente, não um ícone).
+// Busca por palavras inteiras, sem acento: "tce" acha o TCE, não qualquer item com t-c-e espalhados.
+const normalizeSearch = (text: string) =>
+  text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+function wordFilter(value: string, search: string, keywords?: string[]): number {
+  const haystack = normalizeSearch(`${value} ${(keywords ?? []).join(' ')}`);
+  const terms = normalizeSearch(search).split(/\s+/).filter(Boolean);
+  if (terms.length === 0) return 1;
+  if (!terms.every((t) => haystack.includes(t))) return 0;
+  // Peso maior quando o termo aparece no começo (título) do valor.
+  return terms.reduce((score, t) => score + (haystack.indexOf(t) < 40 ? 1 : 0.5), 0) / terms.length;
+}
+
+const SIDEBAR_ICONS: Record<string, string> = {
+  hoje: 'hoje',
+  guias: 'thesis',
+  curso: 'curriculo',
+  mais: 'menu',
+};
 
 export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
   initialPath = '/',
@@ -151,6 +174,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
     document.addEventListener('astro:page-load', handlePageLoad);
     window.addEventListener('cagp:open-drawer', handleOpenDrawer);
     window.addEventListener('cagp:open-sidebar', handleOpenDrawer);
+    window.addEventListener('cagp:open-mais', handleOpenDrawer);
     window.addEventListener('cagp:open-spotlight', handleOpenSpotlight);
     window.addEventListener('cagp:passport-updated', syncLocalState);
     window.addEventListener('keydown', handleKeyDown);
@@ -159,6 +183,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
       document.removeEventListener('astro:page-load', handlePageLoad);
       window.removeEventListener('cagp:open-drawer', handleOpenDrawer);
       window.removeEventListener('cagp:open-sidebar', handleOpenDrawer);
+      window.removeEventListener('cagp:open-mais', handleOpenDrawer);
       window.removeEventListener('cagp:open-spotlight', handleOpenSpotlight);
       window.removeEventListener('cagp:passport-updated', syncLocalState);
       window.removeEventListener('keydown', handleKeyDown);
@@ -176,7 +201,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
     setMobileDrawerOpen(false);
     setTabletExpanded(false);
     setCommandOpen(false);
-    window.location.href = href;
+    navigate(href);
   };
 
   const renderSidebarNavigationContent = (isCompact = false, layoutScope = 'desktop') => (
@@ -210,8 +235,8 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
                   className="h-9 w-auto max-w-full block"
                 />
                 <div className="flex items-center gap-1 mt-1.5 truncate">
-                  <span className="text-xs font-mono text-primary font-bold truncate">
-                    Proposta Materializada
+                  <span className="text-xs font-heading text-primary font-bold truncate">
+                    Gestão Pública · UFMG
                   </span>
                   <img
                     src={asset('/logos/cagp/10_simbolo_transparente_positivo.svg')}
@@ -265,50 +290,8 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
           )}
         </motion.button>
 
-        {/* Destaque Eleitoral Fixo da Chapa Semente */}
-        <motion.a
-          href={route('/chapa-semente')}
-          whileHover={{ x: 4 }}
-          whileTap={{ x: 2, y: 2 }}
-          transition={tactileSpring}
-          className={`w-full rounded-xl bg-primary text-white border-3 border-border shadow-md flex items-center ${
-            isCompact ? 'justify-center p-2.5' : 'justify-between px-3 py-2.5'
-          } transition-colors no-underline hover:bg-[#4A216E]`}
-          title="Proposta Materializada — Vote Semente 25 e 26/11"
-        >
-          <div className="flex items-center gap-2 min-w-0">
-            <span className="w-6 h-6 rounded-lg bg-accent text-foreground flex items-center justify-center font-heading font-black text-xs shrink-0 border-2 border-border">
-                          </span>
-            {!isCompact && (
-              <div className="text-left min-w-0">
-                <span className="font-heading text-xs font-black uppercase tracking-tight block truncate">
-                  Proposta Materializada
-                </span>
-                <span className="text-xs font-mono font-bold text-[#FFD6A5] block truncate">
-                  Vote Semente • 25 e 26/11
-                </span>
-              </div>
-            )}
-          </div>
-          {!isCompact && (
-            <Badge variant="accent" className="font-mono text-xs px-1.5 py-0 uppercase shrink-0">
-              14 PROPOSTAS
-            </Badge>
-          )}
-        </motion.a>
-
         {/* 5 Canonical Axes */}
-        <div className="space-y-1.5" role="navigation" aria-label="5 Eixos do Curso">
-          {!isCompact && (
-            <div className="px-1 flex items-center justify-between">
-              <span className="text-xs font-mono font-bold uppercase tracking-wider text-muted-foreground">
-                5 Eixos Canônicos
-              </span>
-              <span className="text-xs font-mono font-bold text-primary">
-                N-20229
-              </span>
-            </div>
-          )}
+        <div className="space-y-1.5" role="navigation" aria-label="Navegação principal">
 
           {AXIS_REGISTRY.map((axis) => {
             const isAxisActive = activeAxis.id === axis.id;
@@ -323,7 +306,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
                         whileTap={{ x: 2, y: 2 }}
                         transition={tactileSpring}
                         className={`relative overflow-hidden flex items-center min-h-[44px] ${
-                          isCompact ? 'justify-center p-2.5' : 'justify-between px-3 py-2.5'
+                          isCompact ? 'justify-center px-1 py-2' : 'justify-between px-3 py-2.5'
                         } rounded-xl border-3 transition-colors no-underline ${
                           isAxisActive
                             ? 'text-white border-border shadow-md font-extrabold'
@@ -338,35 +321,33 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
                             aria-hidden="true"
                           />
                         )}
-                        <div className="relative z-10 flex items-center gap-2.5 min-w-0">
+                        <div className={`relative z-10 flex min-w-0 ${isCompact ? 'flex-col items-center gap-1' : 'items-center gap-2.5'}`}>
                           <span
-                            className={`w-6 h-6 rounded-lg flex items-center justify-center text-xs font-mono font-black border-2 shrink-0 ${
-                              isAxisActive
-                                ? 'bg-white text-primary border-border'
-                                : 'bg-background text-foreground border-border'
+                            className={`w-7 h-7 rounded-lg flex items-center justify-center border-2 shrink-0 ${
+                              isAxisActive ? 'bg-white text-primary border-border' : 'bg-background text-foreground border-border'
                             }`}
                           >
-                            {axis.number}
+                            {axis.id === 'chapa' ? (
+                              <img
+                                src={asset('/logos/semente/semente-simbolo.webp')}
+                                alt=""
+                                width={466}
+                                height={603}
+                                className="h-5 w-auto"
+                              />
+                            ) : (
+                              <CagpIcon name={resolveCagpIconName(SIDEBAR_ICONS[axis.id] ?? axis.icon)} className="w-4 h-4" />
+                            )}
                           </span>
-                          {!isCompact && (
-                            <span className="font-heading text-xs uppercase tracking-tight truncate">
-                              {axis.name}
-                            </span>
-                          )}
+                          <span className={`font-heading uppercase ${isCompact ? 'text-[0.75rem] font-bold tracking-[0.01em] leading-tight text-center whitespace-normal' : 'text-xs tracking-[0.02em] truncate'}`}>
+                            {isCompact ? axis.mobileLabel : axis.name}
+                          </span>
                         </div>
-                        {!isCompact && (
-                          <CagpIcon
-                            name={resolveCagpIconName(axis.icon)}
-                            className={`relative z-10 w-4 h-4 shrink-0 ${
-                              isAxisActive ? 'text-accent' : 'text-muted-foreground'
-                            }`}
-                          />
-                        )}
                       </motion.a>
                     </TooltipTrigger>
                     {isCompact && (
                       <TooltipContent side="right" className="font-heading font-bold">
-                        {axis.number}. {axis.name} — {axis.tagline}
+                        {axis.name} — {axis.tagline}
                       </TooltipContent>
                     )}
                   </Tooltip>
@@ -494,6 +475,61 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
     </div>
   );
 
+  const renderMaisSheetContent = () => {
+    const mais = getAxisById('mais');
+    if (!mais) return null;
+    const groups = mais.groups ?? [];
+    return (
+      <>
+        <button
+          type="button"
+          onClick={() => triggerEvent('cagp:open-campus')}
+          className="w-full min-h-[48px] px-4 py-3 rounded-xl bg-secondary-tint border-2 border-border text-left flex items-center gap-3 cursor-pointer"
+        >
+          <CagpIcon name="clock" className="w-5 h-5 text-secondary shrink-0" />
+          <span className="flex flex-col min-w-0">
+            <span className="font-heading text-sm font-bold">RU e circular agora</span>
+            <span className="text-sm text-muted-foreground">Horários de hoje à noite no campus</span>
+          </span>
+        </button>
+
+        {groups.map((group) => {
+          const items = mais.items.filter((item) => item.group === group.id);
+          if (items.length === 0) return null;
+          return (
+            <section key={group.id} aria-labelledby={`mais-${group.id}`} className="space-y-2">
+              <h3 id={`mais-${group.id}`} className="font-heading text-xs font-bold uppercase tracking-[0.04em] text-muted-foreground m-0">
+                {group.title}
+              </h3>
+              <ul className="m-0 p-0 list-none border-2 border-border rounded-xl divide-y-2 divide-border bg-white overflow-hidden">
+                {items.map((item) => {
+                  const isActive = getActiveItemId(mais, currentPath) === item.id;
+                  return (
+                    <li key={item.id}>
+                      <a
+                        href={item.href}
+                        onClick={() => setMobileDrawerOpen(false)}
+                        aria-current={isActive ? 'page' : undefined}
+                        className={`min-h-[56px] px-4 py-3 flex items-center gap-3 no-underline text-foreground ${isActive ? 'bg-primary-tint' : 'hover:bg-background'}`}
+                      >
+                        <CagpIcon name={resolveCagpIconName(item.icon)} className="w-5 h-5 text-primary shrink-0" />
+                        <span className="flex flex-col min-w-0 flex-1">
+                          <span className="font-heading text-sm font-bold">{item.label}</span>
+                          <span className="text-sm text-muted-foreground leading-snug">{item.description}</span>
+                        </span>
+                        <CagpIcon name="chevron-right" className="w-4 h-4 shrink-0 text-muted-foreground" />
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+          );
+        })}
+      </>
+    );
+  };
+
   return (
     <>
       {/* 1. Desktop Permanent Sidebar (>= 1280px) com mola drawerSpring */}
@@ -535,39 +571,23 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
         </div>
       )}
 
-      {/* 3. Mobile Neobrutalist Vaul Drawer (< 768px) */}
+      {/* 3. Painel "Mais" do celular (< 768px): abre pela aba Mais da barra inferior */}
       <Drawer open={mobileDrawerOpen} onOpenChange={setMobileDrawerOpen}>
         <DrawerContent className="z-[1100] max-h-[88dvh] bg-white border-t-3 border-border">
           <DrawerHeader className="border-b-3 border-border bg-card pb-3">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <div className="text-left">
-                  <DrawerTitle className="m-0">
-                    <img
-                      src={asset('/logos/semente/semente-horizontal.webp')}
-                      alt="Chapa Gestão Pública Semente"
-                      width={768}
-                      height={229}
-                      className="h-8 w-auto block"
-                    />
-                  </DrawerTitle>
-                  <DrawerDescription className="text-xs font-semibold text-muted-foreground">
-                    Proposta Materializada • CAGP UFMG
-                  </DrawerDescription>
-                </div>
+            <div className="flex items-center justify-between gap-3">
+              <div className="text-left">
+                <DrawerTitle className="m-0 font-heading text-lg font-bold">Mais</DrawerTitle>
+                <DrawerDescription className="text-sm text-muted-foreground">
+                  Carreira, CAGP, ouvidoria e ajustes.
+                </DrawerDescription>
               </div>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setMobileDrawerOpen(false)}
-              >
+              <Button variant="outline" size="sm" onClick={() => setMobileDrawerOpen(false)}>
                 Fechar
               </Button>
             </div>
           </DrawerHeader>
-          <div className="overflow-y-auto max-h-[72dvh]">
-            {renderSidebarNavigationContent(false, 'mobile-drawer')}
-          </div>
+          <div className="overflow-y-auto max-h-[72dvh] p-4 space-y-5">{renderMaisSheetContent()}</div>
         </DrawerContent>
       </Drawer>
 
@@ -575,8 +595,9 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
       <CommandDialog
         open={commandOpen}
         onOpenChange={setCommandOpen}
-        title="Busca Global CAGP Superapp"
-        description="Navegue pelas 20 páginas, ferramentas de cálculo, documentos oficiais e portais da UFMG."
+        title="Buscar no site"
+        filter={wordFilter}
+        description="Busque páginas, guias, documentos e portais da UFMG."
       >
         <CommandInput placeholder="Digite uma página, código DCP, estágio, FUMP, RU ou documento..." />
         <CommandList>
@@ -624,7 +645,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
             </CommandItem>
 
             <CommandItem
-              value="Acessibilidade Alto Contraste Fonte OpenDyslexic Tamanho de Texto Modo Escuro Configuracoes"
+              value="Acessibilidade Alto Contraste Fonte OpenDyslexic Tamanho de Texto Configuracoes Ajustes"
               onSelect={() => {
                 setCommandOpen(false);
                 navigateTo(route('/configuracoes'));
@@ -689,12 +710,12 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
           {AXIS_REGISTRY.map((axis) => (
             <CommandGroup
               key={axis.id}
-              heading={`Eixo ${axis.number}: ${axis.name} — ${axis.tagline}`}
+              heading={axis.name}
             >
               {axis.items.map((item) => (
                 <CommandItem
                   key={item.id}
-                  value={`${axis.name} ${item.label} ${item.description}`}
+                  value={`${axis.name} ${item.label} ${item.description} ${item.keywords ?? ''}`}
                   onSelect={() => {
                     if (item.href.includes('#campus')) {
                       triggerEvent('cagp:open-campus');
@@ -722,6 +743,30 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
               ))}
             </CommandGroup>
           ))}
+
+          <CommandSeparator />
+
+          <CommandGroup heading="Documentos mais pedidos">
+            {maisPedidos.grupos.flatMap((grupo) =>
+              grupo.documentos.map((doc) => (
+                <CommandItem
+                  key={doc.id}
+                  value={`documento ${doc.nome} ${doc.descricao} ${grupo.titulo}`}
+                  onSelect={() => {
+                    setCommandOpen(false);
+                    window.open(asset(doc.arquivo), '_blank', 'noopener,noreferrer');
+                  }}
+                >
+                  <CagpIcon name="file-text" className="w-4 h-4 text-primary mr-2" />
+                  <div className="flex flex-col flex-1 min-w-0">
+                    <span className="font-heading font-bold text-xs text-foreground">{doc.nome}</span>
+                    <span className="text-xs text-muted-foreground truncate">{doc.descricao}</span>
+                  </div>
+                  <CommandShortcut>PDF</CommandShortcut>
+                </CommandItem>
+              ))
+            )}
+          </CommandGroup>
 
           <CommandSeparator />
 

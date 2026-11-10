@@ -16,7 +16,7 @@ Outros públicos confirmados, atendidos pelo mesmo site:
 - **Eleitor indeciso:** estudante avaliando a Chapa Semente antes da eleição do CAGP em **25–26/11/2026**.
 - **Formando:** TCC, fechamento das 600h, colação de grau.
 
-O site atende primeiro o estudante; é essa utilidade que conquista votos. O discurso de campanha não vem na frente.
+O site atende o estudante e, até a eleição de 25–26/11/2026, também precisa converter voto: a Chapa Semente tem aba própria na navegação e o herói da home apresenta os integrantes de forma pessoal. A utilidade continua sendo a prova, e a campanha nunca bloqueia um trâmite.
 
 ## Product Purpose
 
@@ -41,7 +41,8 @@ O argumento da chapa é que a proposta já existe: um site no ar, feito pelo pr�
 
 - **Stack:** Astro 7 (saída estática) + ilhas React 19, Tailwind 4, MDX/content collections. Deploy no GitHub Pages / Netlify. PWA (service worker, manifest).
 - **Sem backend.** Tudo é estático. A ouvidoria e os pedidos de informação saem por `mailto:`/link externo; dados pessoais (cofre, preferências) ficam no navegador.
-- Navegação por **eixos** (`src/lib/navigationRegistry.ts`): Hoje, Acolhimento, Trajetória 600h, Carreira, O CAGP.
+- Navegação por **tarefa** (`src/lib/navigationRegistry.ts`, fonte única): Hoje, Guias, Chapa, Meu curso, Mais.
+- **Contato:** o CAGP ainda não tem e-mail público. Contatos do site usam `chapa.semente.gp@gmail.com`, sempre identificado como e-mail da Chapa. A ouvidoria não envia demandas (só salva e copia o texto) até existir um canal oficial.
 - Conteúdo mantido em Markdown/JSON (`src/content/`, `conteudo/`) para que pessoas que não programam possam manter.
 - **Real × simulado** (deve continuar explícito na tela):
   - *Real:* guias e tutoriais (ACG, estágio, FUMP, calouro), documentos oficiais e normas, disciplinas e optativas, cursos da ENAP (derivados de `_referencias/catalogo_enap.csv`), história do curso, informações de colegiado e secretarias, núcleos de pesquisa e os 11 integrantes da chapa.

@@ -1,452 +1,841 @@
 ---
-// src/pages/chapa-semente.astro — Apresentação da Chapa Semente & Carta-Programa Oficial
+// src/pages/chapa-semente.astro — Campanha da Chapa Semente (volume Cartaz, arquétipo Campanha)
+// Ordem: prova ao vivo (o site já é a Proposta 3) → o que já funciona → 14 propostas → 11 integrantes → quando e onde votar.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import JourneyNav from '../components/ui/JourneyNav.astro';
 import { CartaPropostaInteractive } from '../components/features/semente/CartaPropostaInteractive';
 import { ChapaSementeTour } from '../components/features/semente/ChapaSementeTour';
-import { ParticleWeb } from '../components/boldkit/canvas-effects/ParticleWeb';
-import { BentoGrid } from '../components/boldkit/blocks/bento-grid';
-import { HeroCentered } from '../components/boldkit/blocks/hero-section';
-import { CHAPA_LEADERS } from '@/lib/chapaSementeData';
-import { LeaderAvatar } from '../components/features/semente/LeaderAvatar';
+import { CHAPA_LEADERS, getLeaderPhotoUrl } from '@/lib/chapaSementeData';
 import { asset, route } from '@/lib/paths';
 
-const badges = [
-  { label: 'Eleições: 25 e 26/11 no CAGP', variant: 'red' as const, icon: 'bi-calendar-check' },
-  { label: '14 Propostas Estruturadas', variant: 'dark' as const, icon: 'bi-check2-circle' },
-  { label: 'Gestão Apartidária e Combativa', variant: 'blue' as const, icon: 'bi-shield-check' },
-  { label: 'Compromisso com o Código Aberto', variant: 'gold' as const, icon: 'bi-laptop' },
-];
+const EDITAL_PDF = asset('/documentos/edital-eleicoes-cagp-2026.pdf');
+const TOTAL = String(CHAPA_LEADERS.length).padStart(2, '0');
 
-const bentoItems = [
-  {
-    title: 'Acolhimento & Permanência Noturna',
-    description: 'Jantar no RU Setorial I, reforço de circulares após 22h30 e permanência material para discentes trabalhadores.',
-    span: 'large' as const,
-    accent: 'primary' as const,
-  },
-  {
-    title: 'Transparência Ativa & RREO',
-    description: 'Prestação de contas mensal pública, balancetes abertos no SuperApp e livros de atas 100% digitalizados.',
-    span: 'tall' as const,
-    accent: 'secondary' as const,
-  },
-  {
-    title: 'Fortalecimento do Campo de Públicas',
-    description: 'Diálogo permanente com a FENEP, ampliação de convênios de estágio governamental e valorização profissional.',
-    span: 'wide' as const,
-    accent: 'accent' as const,
-  },
-  {
-    title: 'Tecnologia Aberta & Inovação CAGP',
-    description: 'SuperApp discente de código aberto sob licença MIT, cofre local com privacidade e calculadora de 600h.',
-    span: 'normal' as const,
-    accent: 'card' as const,
-  },
+/** Funções reais do site (nada simulado entra aqui). */
+const jaFunciona = [
+  { title: 'Calcular as suas 600h', desc: 'Extensão e atividades complementares, com o que ainda falta.', href: route('/acg') + '#calculadora' },
+  { title: 'Fazer o estágio sem travar', desc: 'Passo a passo, modelos de termo e para quem enviar.', href: route('/estagio') },
+  { title: 'Pedir auxílio da FUMP', desc: 'O que cada nível garante e como pedir sem perder prazo.', href: route('/permanencia') },
+  { title: 'Chegar como calouro', desc: 'Os primeiros 30 dias e onde fica cada sala da FAFICH.', href: route('/calouros') },
+  { title: 'Achar formulários e normas', desc: 'PPC, regulamento e modelos de requerimento num só lugar.', href: route('/documentos') },
+  { title: 'Escolher optativas', desc: 'Catálogo de optativas e formação livre do curso.', href: route('/optativas') },
 ];
 ---
 
 <BaseLayout
   mode="persuade"
-  title="Chapa Semente — Carta-Programa & Eleições CAGP 2026"
-  description="Carta-Programa oficial da Chapa Semente na eleição para o Centro Acadêmico de Gestão Pública da UFMG: 4 eixos, 14 propostas e cronograma do edital."
+  hideFloatingPill
+  title="Chapa Semente — Eleições CAGP 2026"
+  description="Chapa Semente na eleição do Centro Acadêmico de Gestão Pública da UFMG: o site que você está usando já é a nossa Proposta 3. Veja as 14 propostas, os 11 integrantes e quando votar (25 e 26/11)."
 >
-  <!-- PALCO PRINCIPAL (PRIMEIRO VIEWPORT): HeroCentered + Canvas Shader 60fps Protagonista -->
-  <div class="relative overflow-hidden my-3 rounded-2xl border-2 border-[#1F1F1F] bg-card shadow-[8px_8px_0_0_#1F1F1F]">
-    <div class="absolute inset-0 opacity-20 pointer-events-none" aria-hidden="true">
-      <ParticleWeb client:load count={55} particleColor="#5B2A85" lineColor="#FE8812" maxDistance={115} speed={1.0} />
-    </div>
+  <div class="cs-page">
+    <!-- 1. TOPO: a prova é a ferramenta funcionando -->
+    <section aria-labelledby="cs-hero-title" class="cs-hero">
+      <div class="cs-hero-copy">
+        <img
+          src={asset('/logos/semente/semente-horizontal-branco.webp')}
+          alt="Chapa Gestão Pública Semente"
+          width="768"
+          height="229"
+          class="h-10 sm:h-12 w-auto"
+        />
+        <h1 id="cs-hero-title" class="cs-display">Você já está usando a nossa proposta.</h1>
+        <p class="cs-hero-lede">
+          A Proposta 3 da nossa carta-programa é um site para o curso. É este aqui: já está no ar e fica com
+          os estudantes mesmo se a gente perder a eleição.
+        </p>
+        <p class="cs-accent" aria-hidden="true">Toda mudança começa pequena</p>
+        <div class="flex flex-wrap items-center gap-x-5 gap-y-3">
+          <a href="#propostas" class="cs-btn cs-btn-accent">Ver as 14 propostas</a>
+          <a href="#votar" class="cs-vote-link">Votação 25 e 26/11, 17h às 22h30 <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+        </div>
+      </div>
 
-    <div class="relative z-10">
-      <HeroCentered
-        client:load
-        badge="Eleições CAGP 2026 • Votação 25 e 26 de Novembro (17h às 22h30)"
-        title="Chapa Semente"
-        titleHighlight="Potencial em Ação"
-        description="Este SuperApp é a nossa Proposta 3 já materializada e entregue à comunidade de Gestão Pública antes mesmo das urnas. Representação combativa, apartidária, transparente e focada no estudante noturno da FAFICH/UFMG."
-        primaryAction={{ label: "Explorar 14 Propostas Oficiais", href: "#propostas" }}
-        secondaryAction={{ label: "Baixar Edital Oficial (PDF)", href: asset('/documentos/edital-eleicoes-cagp-2026.pdf') }}
-        className="py-10 sm:py-14 px-4 sm:px-8"
-      />
-
-      <!-- Selos Táteis + Gatilho do Tour Guiado das Lideranças -->
-      <div class="px-4 sm:px-8 pb-8 flex flex-col items-center gap-4 border-t-2 border-[#1F1F1F]/15 pt-5 bg-white/80">
-        <div class="flex flex-wrap items-center justify-center gap-2">
-          {badges.map((b) => (
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg border-2 border-[#1F1F1F] bg-white shadow-[2px_2px_0_0_#1F1F1F] font-mono text-xs font-extrabold uppercase text-[#1F1F1F]">
-              <i class={`bi ${b.icon} text-primary`} aria-hidden="true"></i>
-              <span>{b.label}</span>
+      <!-- Ferramenta real, ao vivo: a prova vem antes do discurso -->
+      <form class="cs-calc" data-cs-calc aria-labelledby="cs-calc-title" onsubmit="return false">
+        <h2 id="cs-calc-title" class="cs-calc-title">Teste agora: quanto falta das suas 600h?</h2>
+        <div class="grid grid-cols-2 gap-3">
+          <label class="cs-field" data-cs-field="ext">
+            <span>Extensão</span>
+            <span class="cs-input-wrap">
+              <input type="number" inputmode="numeric" min="0" max="300" step="1" placeholder="0" name="ext" aria-describedby="cs-calc-help" />
+              <span class="cagp-stamp-badge is-visto cs-visto" data-cs-visto hidden>Visto</span>
             </span>
-          ))}
+            <span class="cs-track" aria-hidden="true"><span class="cs-track-fill" data-cs-fill></span></span>
+          </label>
+          <label class="cs-field" data-cs-field="aac">
+            <span>Complementares</span>
+            <span class="cs-input-wrap">
+              <input type="number" inputmode="numeric" min="0" max="300" step="1" placeholder="0" name="aac" aria-describedby="cs-calc-help" />
+              <span class="cagp-stamp-badge is-visto cs-visto" data-cs-visto hidden>Visto</span>
+            </span>
+            <span class="cs-track" aria-hidden="true"><span class="cs-track-fill" data-cs-fill></span></span>
+          </label>
         </div>
-        <ChapaSementeTour client:load />
-      </div>
-    </div>
-  </div>
+        <p id="cs-calc-help" class="text-sm text-muted-foreground m-0">
+          O curso exige 300h de extensão e 300h de atividades complementares. Nada sai do seu celular.
+        </p>
+        <div class="cs-calc-result" data-cs-result>
+          <div class="cs-calc-readout" aria-live="polite">
+            <span class="cs-numeral" data-cs-left>600h</span>
+            <span class="text-sm text-foreground" data-cs-msg>faltam para fechar as 600h</span>
+          </div>
+          <svg class="cs-sprout" viewBox="0 0 64 96" aria-hidden="true" focusable="false">
+            <path class="cs-soil" d="M4 92h56" />
+            <g class="cs-leaf" data-cs-leaf>
+              <path d="M14 90C6 70 9 46 26 28 37 17 49 10 60 5c-3 19-7 41-19 60C33 79 24 88 14 90Z" />
+            </g>
+          </svg>
+          <div class="cs-done" data-cs-done hidden>
+            <span class="cagp-big-stamp is-semente">
+              <span class="cagp-big-stamp-title">600h completas</span>
+              <span class="cagp-big-stamp-sub">Agora é pedir a integralização</span>
+            </span>
+          </div>
+        </div>
+        <a href={route('/acg') + '#calculadora'} class="cs-link">Lançar atividade por atividade na calculadora completa <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+      </form>
+    </section>
 
-  <div class="space-y-8 my-6">
-    <!-- 1. BANNER DO CRONOGRAMA ELEITORAL (EDITAL DE CONVOCAÇÃO 2026) COM PARTICLEWEB SHADER -->
-    <section
-      aria-label="Cronograma Oficial das Eleições"
-      class="relative overflow-hidden p-5 sm:p-6 rounded-xl border-2 border-border bg-card shadow-md space-y-4"
-      data-context-type="proposal"
-      data-context-data='{"id": "cronograma-eleitoral", "title": "Cronograma Oficial das Eleições CAGP 2026"}'
-    >
-      <!-- Shader WebGL 60fps de Proximidade e Rede (ParticleWeb) -->
-      <div class="absolute inset-0 opacity-15 pointer-events-none" aria-hidden="true">
-        <ParticleWeb client:load count={45} particleColor="#5B2A85" lineColor="#FE8812" maxDistance={100} speed={0.9} />
+    <!-- 2. O QUE JÁ FUNCIONA (faixa petróleo) -->
+    <section aria-labelledby="cs-funciona-title" class="cs-band">
+      <h2 id="cs-funciona-title" class="cs-headline cs-on-color">O que já funciona no site</h2>
+      <p class="cs-band-lede">Isto não é promessa: está no ar hoje e você pode usar agora.</p>
+      <ul class="cs-tools" role="list">
+        {jaFunciona.map((t) => (
+          <li>
+            <a href={t.href} class="cs-tool">
+              <span class="min-w-0">
+                <span class="cs-tool-title">{t.title}</span>
+                <span class="cs-tool-desc">{t.desc}</span>
+              </span>
+              <i class="bi bi-arrow-right text-lg shrink-0" aria-hidden="true"></i>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- 3. AS 14 PROPOSTAS -->
+    <section id="propostas" aria-labelledby="cs-propostas-title" class="scroll-mt-24 space-y-5">
+      <div class="space-y-2 max-w-[68ch]">
+        <h2 id="cs-propostas-title" class="cs-headline">As 14 propostas</h2>
+        <p class="text-base text-muted-foreground m-0">
+          O texto integral da carta-programa, em 4 eixos. Abra uma proposta para ler a íntegra.
+        </p>
+      </div>
+      <CartaPropostaInteractive client:visible />
+    </section>
+
+    <!-- 4. OS 11 INTEGRANTES -->
+    <section id="integrantes" aria-labelledby="cs-integrantes-title" class="scroll-mt-24 space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div class="space-y-2 max-w-[68ch]">
+          <h2 id="cs-integrantes-title" class="cs-headline">Os {CHAPA_LEADERS.length} integrantes</h2>
+          <p class="text-base text-muted-foreground m-0">
+            Cada pessoa responde por uma área do centro acadêmico e por uma parte do site.
+          </p>
+        </div>
+        <ChapaSementeTour client:idle variant="compact" buttonText="Fazer o tour pelo site" />
       </div>
 
-      <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b-2 border-border">
+      <ul class="cs-team" role="list">
+        {CHAPA_LEADERS.map((leader, idx) => {
+          const photo = getLeaderPhotoUrl(leader.photoFilename);
+          const firstName = leader.name.split(' ')[0];
+          return (
+            <li id={leader.targetId} class="cs-member scroll-mt-24">
+              <span id={leader.id} class="cagp-anchor-target" aria-hidden="true"></span>
+              <div class="cs-member-photo">
+                {photo ? (
+                  <img
+                    src={photo}
+                    alt={`${leader.name}, ${leader.role}`}
+                    loading="lazy"
+                    decoding="async"
+                    style={leader.photoPosition ? `object-position:${leader.photoPosition}` : undefined}
+                  />
+                ) : (
+                  <span class="cs-member-initials" aria-hidden="true">{leader.initials}</span>
+                )}
+                <span class="cs-counter" aria-hidden="true">{String(idx + 1).padStart(2, '0')}/{TOTAL}</span>
+              </div>
+              <div class="space-y-0.5">
+                <h3 class="cs-member-name">{leader.name}</h3>
+                <p class="cs-member-role">{leader.role}</p>
+              </div>
+              <details class="cs-details">
+                <summary>Ler a fala de {firstName}</summary>
+                <div class="space-y-3 pt-3">
+                  <blockquote class="m-0 text-sm text-foreground leading-relaxed">“{leader.quote}”</blockquote>
+                  <p class="m-0 text-sm text-muted-foreground leading-snug">
+                    <strong class="text-foreground">O problema:</strong> {leader.painPoint}
+                  </p>
+                  <p class="m-0 text-sm text-muted-foreground leading-snug">
+                    <strong class="text-foreground">Já funciona:</strong> {leader.solution}
+                  </p>
+                </div>
+              </details>
+              <a href={leader.toolHref} class="cs-member-link">
+                <span>{leader.toolLabel}</span>
+                <i class="bi bi-arrow-right" aria-hidden="true"></i>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+
+    <!-- 5. QUANDO E ONDE VOTAR (fechamento com a ação) -->
+    <section id="votar" aria-labelledby="cs-votar-title" class="cs-vote scroll-mt-24">
+      <h2 id="cs-votar-title" class="cs-headline cs-on-color">Quando e onde votar</h2>
+      <dl class="cs-vote-list">
         <div>
-          <span class="font-mono text-xs font-bold uppercase tracking-widest text-primary block">
-            Junta Eleitoral CAGP 2026 • Edital de Convocação
-          </span>
-          <h2 class="font-heading text-lg sm:text-xl font-extrabold text-foreground m-0">
-            Regras do Jogo &amp; Calendário de Votação
-          </h2>
+          <dt>Votação</dt>
+          <dd><strong>25 e 26 de novembro</strong>, das 17h às 22h30, no CAGP. Voto secreto.</dd>
         </div>
-
-        <a
-          href={asset('/documentos/edital-eleicoes-cagp-2026.pdf')}
-          download="edital-eleicoes-cagp-2026.pdf"
-          class="px-4 py-2 min-h-[44px] inline-flex items-center gap-2 rounded-xl bg-primary hover:bg-primary-hover text-primary-foreground border-3 border-border font-heading font-extrabold text-xs uppercase tracking-wider no-underline shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all"
-        >
-          <span>Baixar Edital Oficial (PDF)</span>
-          <span>↓</span>
+        <div>
+          <dt>Quem vota</dt>
+          <dd>Todo estudante com matrícula ativa em Gestão Pública, levando documento oficial com foto.</dd>
+        </div>
+        <div>
+          <dt>Debate</dt>
+          <dd>24 de novembro, às 18h. Local a definir.</dd>
+        </div>
+        <div>
+          <dt>Mandato</dt>
+          <dd>A chapa eleita dirige o CAGP por 1 ano (Regimento, art. 48).</dd>
+        </div>
+      </dl>
+      <p class="cs-vote-note">
+        Nos dias de votação é proibido fazer campanha no 1º andar da FAFICH (edital, art. 17).
+      </p>
+      <div class="flex flex-wrap items-center gap-3">
+        <button type="button" class="cs-btn cs-btn-accent" data-cs-ics>
+          <i class="bi bi-calendar-plus" aria-hidden="true" data-cs-ics-icon></i>
+          <span data-cs-ics-label>Lembrar na agenda</span>
+        </button>
+        <a href={EDITAL_PDF} download="edital-eleicoes-cagp-2026.pdf" class="cs-btn cs-btn-ghost-light">
+          Ler o edital (PDF)
         </a>
       </div>
-
-      <!-- Timeline dos 6 Passos Oficiais com Quebra Fluida -->
-      <div class="relative z-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 pt-2">
-        <div class="p-3 rounded-lg border-2 border-border bg-card shadow-xs">
-          <span class="font-mono text-xs font-bold text-muted-foreground block">04/11/2026</span>
-          <span class="font-heading font-extrabold text-xs uppercase text-foreground block mt-0.5">Edital Publicado</span>
-          <span class="text-xs font-sans text-muted-foreground block mt-1">Convocação oficial</span>
-        </div>
-        <div class="p-3 rounded-lg border-2 border-border bg-card shadow-xs">
-          <span class="font-mono text-xs font-bold text-muted-foreground block">04 a 10/11</span>
-          <span class="font-heading font-extrabold text-xs uppercase text-foreground block mt-0.5">Inscrição de Chapas</span>
-          <span class="text-xs font-sans text-muted-foreground block mt-1">Até 23h59 por e-mail</span>
-        </div>
-        <div class="p-3 rounded-lg border-2 border-border bg-card shadow-xs">
-          <span class="font-mono text-xs font-bold text-muted-foreground block">11/11/2026</span>
-          <span class="font-heading font-extrabold text-xs uppercase text-foreground block mt-0.5">Homologação</span>
-          <span class="text-xs font-sans text-muted-foreground block mt-1">Divulgação das chapas</span>
-        </div>
-        <div class="p-3 rounded-lg border-2 border-accent bg-card shadow-xs">
-          <span class="font-mono text-xs font-bold text-accent block">11 a 24/11</span>
-          <span class="font-heading font-extrabold text-xs uppercase text-foreground block mt-0.5">Campanha Eleitoral</span>
-          <span class="text-xs font-sans text-muted-foreground block mt-1">Debate e diálogo aberto</span>
-        </div>
-        <div class="p-3 rounded-lg border-2 border-primary bg-card shadow-xs">
-          <span class="font-mono text-xs font-bold text-primary block">24/11 às 18h</span>
-          <span class="font-heading font-extrabold text-xs uppercase text-foreground block mt-0.5">Debate das Chapas</span>
-          <span class="text-xs font-sans text-muted-foreground block mt-1">Local a definir</span>
-        </div>
-        <div class="p-3 rounded-lg border-2 border-border bg-primary text-primary-foreground shadow-xs">
-          <span class="font-mono text-xs font-bold text-[#FFD6A5] block">25 e 26/11</span>
-          <span class="font-heading font-extrabold text-xs uppercase text-white block mt-0.5">Votação no CAGP</span>
-          <span class="text-xs font-sans text-white block mt-1">17h às 22h30 • Voto secreto</span>
-        </div>
-      </div>
-
-      <div class="relative z-10 p-3 rounded-lg bg-amber-50 border-2 border-amber-600 text-xs font-sans text-foreground">
-        <strong>Atenção às normas do Art. 17 do Edital:</strong> É expressamente proibida propaganda ou boca de urna no 1º andar da FAFICH nos dias 25 e 26 de novembro. Podem votar todos os estudantes com matrícula ativa no Curso de Gestão Pública da UFMG portando documento oficial com foto.
-      </div>
-    </section>
-
-    <!-- 2. IDENTIDADE VISUAL & SÍMBOLO DA SEMENTE -->
-    <section aria-label="Identidade Visual da Chapa Semente" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center p-6 rounded-xl border-2 border-border bg-card shadow-md">
-      <div class="lg:col-span-4 flex flex-col items-center justify-center p-6 rounded-xl border-2 border-border bg-primary text-white shadow-sm relative overflow-hidden">
-        <img
-          src={asset('/logos/semente/semente-vertical-branco.webp')}
-          alt="Chapa Gestão Pública Semente"
-          width="527"
-          height="507"
-          loading="lazy"
-          class="w-40 sm:w-44 h-auto"
-        />
-        <span class="font-accent text-xl text-[#FFD6A5] mt-4 block leading-none">
-          Potencial em ação
-        </span>
-      </div>
-
-      <div class="lg:col-span-8 space-y-3">
-        <div class="flex flex-wrap items-center gap-2">
-          <span class="px-2.5 py-0.5 rounded-full bg-primary text-white text-xs font-mono font-bold">
-            Roxo #5B2A85 (Protagonismo)
-          </span>
-          <span class="px-2.5 py-0.5 rounded-full bg-accent text-black text-xs font-mono font-bold">
-            Laranja #FE8812 (Novas Ideias)
-          </span>
-          <span class="px-2.5 py-0.5 rounded-full bg-secondary text-white text-xs font-mono font-bold">
-            Verde Petróleo #266264 (Transparência)
-          </span>
-        </div>
-
-        <h3 class="font-heading text-xl sm:text-2xl font-extrabold text-foreground m-0">
-          Por que Chapa Semente?
-        </h3>
-        <p class="text-xs sm:text-sm font-sans text-muted-foreground leading-relaxed m-0">
-          A semente não é estática; ela é o potencial latente que germina em ação concreta. Combinamos o rigor analítico e técnico da formação em políticas públicas com a vivência universitária viva da FAFICH. Construímos uma plataforma de representação que não aparelha o espaço e que coloca o estudante no centro das decisões orçamentárias, acadêmicas e culturais.
-        </p>
-
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2">
-          <div class="p-2.5 rounded-lg border-3 border-border bg-card text-center shadow-xs">
-            <span class="font-heading font-extrabold text-sm uppercase text-primary block">Apartidária</span>
-            <span class="text-xs font-sans text-muted-foreground block">Foco na GP</span>
-          </div>
-          <div class="p-2.5 rounded-lg border-3 border-border bg-card text-center shadow-xs">
-            <span class="font-heading font-extrabold text-sm uppercase text-accent block">Transparente</span>
-            <span class="text-xs font-sans text-muted-foreground block">Boletins 3M</span>
-          </div>
-          <div class="p-2.5 rounded-lg border-3 border-border bg-card text-center shadow-xs">
-            <span class="font-heading font-extrabold text-sm uppercase text-[#134E4A] block">Participativa</span>
-            <span class="text-xs font-sans text-muted-foreground block">Reuniões Abertas</span>
-          </div>
-          <div class="p-2.5 rounded-lg border-3 border-border bg-card text-center shadow-xs">
-            <span class="font-heading font-extrabold text-sm uppercase text-secondary block">Concreta</span>
-            <span class="text-xs font-sans text-muted-foreground block">Reserva Possível</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 2. NOMINATA DAS 11 LIDERANÇAS & COMPROMISSOS OFICIAIS (TOUR BOLDKIT) -->
-    <section aria-label="Nominata das Lideranças da Chapa Semente" class="space-y-4">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b-2 border-border">
-        <div>
-          <span class="font-mono text-xs font-bold uppercase tracking-widest text-primary block">
-            Nominata Oficial • Gestão 2026
-          </span>
-          <h2 class="font-heading text-xl sm:text-2xl font-extrabold text-foreground m-0">
-            As {CHAPA_LEADERS.length} Lideranças da Chapa Semente
-          </h2>
-        </div>
-        <ChapaSementeTour client:load />
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {CHAPA_LEADERS.map((leader, idx) => (
-          <article
-            id={leader.targetId}
-            class="p-4 sm:p-5 rounded-2xl border-2 border-[#1F1F1F] bg-white shadow-[6px_6px_0_0_#1F1F1F] hover:shadow-[8px_8px_0_0_#1F1F1F] transition-shadow flex flex-col justify-between gap-4 scroll-mt-24 relative"
-          >
-            <div id={leader.id} class="cagp-anchor-target scroll-mt-24"></div>
-            <div class="space-y-3.5">
-              {/* Retrato Editorial Ampliado 4:5 com Zoom & Inclinação */}
-              <LeaderAvatar
-                client:load
-                variant="portrait"
-                name={leader.name}
-                photoFilename={leader.photoFilename}
-                initials={leader.initials}
-                deptColor={leader.deptColor}
-                role={leader.role}
-                tagline={leader.tagline}
-                index={idx}
-              />
-
-              {/* Cargo e Meta */}
-              <div class="flex items-center justify-between gap-2 pt-1">
-                <span class={`text-xs font-heading font-black uppercase px-2.5 py-0.5 rounded-md border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] ${leader.badgeBg}`}>
-                  {leader.role}
-                </span>
-                <span class="text-xs font-mono font-bold text-primary">
-                  Liderança {idx + 1}/{CHAPA_LEADERS.length}
-                </span>
-              </div>
-
-              {/* Citação em Destaque */}
-              <blockquote class="p-3 rounded-xl bg-background border-2 border-[#1F1F1F] text-xs font-sans text-foreground italic leading-relaxed m-0">
-                "{leader.quote}"
-              </blockquote>
-
-              {/* Dor Discente Resolvida */}
-              <div class="p-3 rounded-xl bg-card border-2 border-[#1F1F1F]/30 space-y-1">
-                <span class="font-mono text-xs font-extrabold uppercase text-secondary block">
-                  Dor Discente Resolvida:
-                </span>
-                <p class="text-xs text-muted-foreground leading-snug m-0">
-                  {leader.painPoint}
-                </p>
-              </div>
-            </div>
-
-            <div class="pt-3 border-t-2 border-[#1F1F1F] space-y-2.5">
-              <div class="text-xs font-sans text-foreground leading-snug">
-                <strong class="font-heading uppercase text-primary block text-xs">
-                  Entrega Materializada no SuperApp:
-                </strong>
-                <span>{leader.solution}</span>
-              </div>
-              <a
-                href={leader.toolHref}
-                class="w-full min-h-[44px] px-4 py-2.5 rounded-xl bg-primary hover:bg-[#4A216E] text-white border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none inline-flex items-center justify-between gap-2 text-xs font-heading font-black uppercase tracking-wider no-underline transition-all"
-              >
-                <span>{leader.toolLabel}</span>
-                <i class="bi bi-arrow-right text-sm" aria-hidden="true"></i>
-              </a>
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
-
-    <!-- 2.5. GALERIA VISUAL E ARTES OFICIAIS DA CAMPANHA SEMENTE -->
-    <section aria-label="Galeria Visual da Campanha Chapa Semente" class="p-5 sm:p-6 rounded-2xl border-2 border-[#1F1F1F] bg-card shadow-[6px_6px_0_0_#1F1F1F] space-y-5">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b-2 border-[#1F1F1F]">
-        <div>
-          <span class="font-mono text-xs font-bold uppercase tracking-widest text-primary block">
-            Identidade &amp; Mobilização Presencial na FAFICH
-          </span>
-          <h2 class="font-heading text-xl sm:text-2xl font-extrabold text-foreground m-0">
-            Galeria Oficial da Campanha Semente
-          </h2>
-        </div>
-        <span class="px-3 py-1 rounded-lg bg-accent text-foreground border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] font-mono text-xs font-extrabold uppercase self-start sm:self-center">
-          Urnas: 25 e 26/11
-        </span>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <figure class="m-0 flex flex-col gap-2.5">
-          <div class="cagp-photo-frame relative aspect-[4/5] min-h-[320px] rounded-xl overflow-hidden border-3 border-[#1F1F1F] shadow-[8px_8px_0_0_#1F1F1F] bg-white">
-            <img
-              src={asset('/imagens/semente/post_02_quem_somos_nos.jpg')}
-              alt="Arte oficial da Chapa Semente: Quem Somos Nós e o manifesto de renovação do CAGP"
-              class="w-full h-full object-cover"
-              loading="lazy"
-            />
-            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-primary text-white border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] font-mono text-xs font-extrabold uppercase">
-              MANIFESTO SEMENTE
-            </span>
-          </div>
-          <figcaption class="font-mono text-xs font-bold text-foreground px-1">
-            01. Quem Somos Nós — Potencial que germina em ação concreta na FAFICH.
-          </figcaption>
-        </figure>
-
-        <figure class="m-0 flex flex-col gap-2.5">
-          <div class="cagp-photo-frame relative aspect-[4/5] min-h-[320px] rounded-xl overflow-hidden border-3 border-[#1F1F1F] shadow-[8px_8px_0_0_#1F1F1F] bg-white">
-            <img
-              src={asset('/imagens/semente/post_01_propostas_david.jpg')}
-              alt="Arte oficial de propostas da Chapa Semente para o Centro Acadêmico de Gestão Pública"
-              class="w-full h-full object-cover"
-              loading="lazy"
-            />
-            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-accent text-foreground border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] font-mono text-xs font-extrabold uppercase">
-              COMPROMISSO PÚBLICO
-            </span>
-          </div>
-          <figcaption class="font-mono text-xs font-bold text-foreground px-1">
-            02. Propostas Estruturadas — Transparência ativa, escaninhos e recepção noturna.
-          </figcaption>
-        </figure>
-
-        <figure class="m-0 flex flex-col gap-2.5">
-          <div class="cagp-photo-frame relative aspect-[4/5] min-h-[320px] rounded-xl overflow-hidden border-3 border-[#1F1F1F] shadow-[8px_8px_0_0_#1F1F1F] bg-white">
-            <img
-              src={asset('/imagens/semente/foto_campus_universitario.jpg')}
-              alt="Fotografia do Campus Pampulha e vivência universitária na FAFICH/UFMG"
-              class="w-full h-full object-cover"
-              loading="lazy"
-            />
-            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-teal-700 text-white border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] font-mono text-xs font-extrabold uppercase">
-              CAMPUS PAMPULHA
-            </span>
-          </div>
-          <figcaption class="font-mono text-xs font-bold text-foreground px-1">
-            03. Vivência na FAFICH/UFMG — Defesa intransigente do turno noturno e da permanência.
-          </figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- Bento Grid dos 4 Eixos da Chapa Semente -->
-    <BentoGrid
-      client:load
-      title="Eixos Estratégicos de Gestão"
-      subtitle="Os 4 pilares fundamentais da plataforma de gestão da Chapa Semente para o biênio 2026."
-      items={bentoItems}
-      className="py-6 px-0"
-    />
-
-    <!-- 3. EXPLORADOR INTERATIVO DAS 14 PROPOSTAS (4 EIXOS) -->
-    <section id="propostas" aria-label="Carta-Programa da Chapa Semente">
-      <div class="mb-4">
-        <span class="font-mono text-xs font-bold uppercase tracking-widest text-primary block">
-          Carta-Programa Completa
-        </span>
-        <h2 class="font-heading text-2xl font-extrabold text-foreground m-0">
-          14 Propostas para Transformar o CAGP
-        </h2>
-        <p class="text-xs sm:text-sm font-sans text-muted-foreground mt-1 max-w-2xl m-0">
-          Filtre por eixo temático ou pesquise propostas específicas para conhecer nossos compromissos concretos de gestão.
-        </p>
-      </div>
-
-      <CartaPropostaInteractive client:load />
-    </section>
-
-    <!-- 4. ACERVO EM ANEXO & DOCUMENTOS ORIGINAIS -->
-    <section aria-label="Anexos Oficiais e Downloads" class="p-6 rounded-xl border-2 border-border bg-card shadow-md space-y-4">
-      <h3 class="font-heading text-lg font-extrabold text-foreground m-0">
-        Documentos Oficiais em Anexo para Consulta
-      </h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="p-4 rounded-xl border-2 border-border bg-card flex items-center justify-between gap-3 shadow-xs">
-          <div class="min-w-0">
-            <span class="font-mono text-xs font-bold uppercase text-primary block">PDF Oficial</span>
-            <span class="font-heading font-bold text-sm uppercase text-foreground block truncate">
-              Edital de Convocação de Eleições CAGP 2026
-            </span>
-            <span class="text-xs font-sans text-muted-foreground block truncate">
-              Junta Eleitoral • Cronograma, normas e requisitos de chapa
-            </span>
-          </div>
-          <a
-            href={asset('/documentos/edital-eleicoes-cagp-2026.pdf')}
-            download="edital-eleicoes-cagp-2026.pdf"
-            class="px-3 py-1.5 rounded-lg bg-primary text-primary-foreground border-3 border-border font-heading font-extrabold text-xs uppercase no-underline shrink-0 shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] transition-all"
-          >
-            Baixar PDF
-          </a>
-        </div>
-
-        <div class="p-4 rounded-xl border-2 border-border bg-card flex items-center justify-between gap-3 shadow-xs">
-          <div class="min-w-0">
-            <span class="font-mono text-xs font-bold uppercase text-accent block">Documento de Campanha</span>
-            <span class="font-heading font-bold text-sm uppercase text-foreground block truncate">
-              Carta Proposta Completa — Chapa Semente
-            </span>
-            <span class="text-xs font-sans text-muted-foreground block truncate">
-              Carta-programa integral elaborada coletivamente pelos membros
-            </span>
-          </div>
-          <a
-            href={route('/documentos')}
-            class="px-3 py-1.5 rounded-lg bg-accent text-accent-foreground border-3 border-border font-heading font-extrabold text-xs uppercase no-underline shrink-0 shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] transition-all"
-          >
-            Ver Acervo
-          </a>
-        </div>
-      </div>
+      <p class="cs-ics-note" data-cs-ics-note aria-live="polite"></p>
     </section>
   </div>
 
-  <!-- Journey Navigation Trail -->
   <JourneyNav
     prev={{
-      title: 'Bússola Discente & Rotina do Campus',
+      title: 'Hoje no campus',
       href: '/',
-      desc: 'Retorne à página inicial do Super App discente com avisos em tempo real.',
+      desc: 'Volte à página inicial do Super App.',
     }}
     next={{
-      title: 'História & Regimento do CAGP',
+      title: 'História e regimento do CAGP',
       href: '/sobre',
-      desc: 'Conheça o estatuto e os marcos históricos dos Candangos de 1959.',
+      desc: 'O estatuto e os marcos do centro acadêmico.',
     }}
   />
 </BaseLayout>
+
+<script>
+  import { downloadPresetIcs } from '@/lib/calendar/icsGenerator';
+
+  const clamp = (v: string) => Math.min(300, Math.max(0, Math.floor(Number(v) || 0)));
+
+  /** Remonta a animação de impacto do carimbo (DESIGN.md › Movimento). */
+  const restamp = (el: HTMLElement) => {
+    el.hidden = false;
+    el.style.animation = 'none';
+    void el.offsetWidth;
+    el.style.animation = '';
+  };
+
+  document.querySelectorAll<HTMLFormElement>('[data-cs-calc]').forEach((form) => {
+    const left = form.querySelector<HTMLElement>('[data-cs-left]');
+    const msg = form.querySelector<HTMLElement>('[data-cs-msg]');
+    const leaf = form.querySelector<SVGGElement>('[data-cs-leaf]');
+    const result = form.querySelector<HTMLElement>('[data-cs-result]');
+    const done = form.querySelector<HTMLElement>('[data-cs-done]');
+    const doneStamp = done?.querySelector<HTMLElement>('.cagp-big-stamp');
+    const halves = new Map<string, boolean>();
+    let wasDone = false;
+
+    const field = (name: string) => {
+      const wrap = form.querySelector<HTMLElement>(`[data-cs-field="${name}"]`);
+      const hours = clamp((form.elements.namedItem(name) as HTMLInputElement).value);
+      wrap?.querySelector<HTMLElement>('[data-cs-fill]')?.style.setProperty('--p', String(hours / 300));
+      const visto = wrap?.querySelector<HTMLElement>('[data-cs-visto]');
+      const full = hours >= 300;
+      if (visto) {
+        if (full && !halves.get(name)) restamp(visto);
+        if (!full) visto.hidden = true;
+      }
+      halves.set(name, full);
+      return hours;
+    };
+
+    const update = () => {
+      const ext = field('ext');
+      const aac = field('aac');
+      const total = ext + aac;
+      const falta = 600 - total;
+      // A folha brota a partir de um broto mínimo e cresce com as horas.
+      leaf?.style.setProperty('--grow', String(0.28 + 0.72 * (total / 600)));
+      if (!left || !msg) return;
+
+      const isDone = falta <= 0;
+      result?.classList.toggle('is-done', isDone);
+      if (done && doneStamp) {
+        if (isDone && !wasDone) {
+          done.hidden = false;
+          restamp(doneStamp);
+        }
+        if (!isDone) done.hidden = true;
+      }
+      wasDone = isDone;
+
+      if (isDone) {
+        left.textContent = '600h';
+        msg.textContent = 'completas. Agora é pedir a integralização.';
+        return;
+      }
+      left.textContent = `${falta}h`;
+      const parts: string[] = [];
+      if (ext < 300) parts.push(`${300 - ext}h de extensão`);
+      if (aac < 300) parts.push(`${300 - aac}h de complementares`);
+      msg.textContent = total === 0 ? 'faltam para fechar as 600h' : `faltam: ${parts.join(' e ')}`;
+    };
+    form.addEventListener('input', update);
+    update();
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('[data-cs-ics]').forEach((btn) =>
+    btn.addEventListener('click', () => {
+      downloadPresetIcs('eleicoes-cagp-2026');
+      const label = btn.querySelector<HTMLElement>('[data-cs-ics-label]');
+      const icon = btn.querySelector<HTMLElement>('[data-cs-ics-icon]');
+      const note = btn.closest('section')?.querySelector<HTMLElement>('[data-cs-ics-note]');
+      if (label) label.textContent = 'Lembrete baixado';
+      if (icon) icon.className = 'bi bi-calendar-check';
+      btn.classList.add('is-saved');
+      if (note) note.textContent = 'Abra o arquivo .ics para salvar os dias 25 e 26/11 na sua agenda.';
+    }),
+  );
+</script>
+
+<style>
+  .cs-page {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin-block: 0.75rem 3rem;
+  }
+  @media (min-width: 1024px) {
+    .cs-page { gap: 4.5rem; }
+  }
+
+  /* Tipografia (Poppins 400/700 apenas) */
+  .cs-display {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(1.75rem, 1.4rem + 1.6vw, 2.25rem);
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    color: #fff;
+  }
+  .cs-headline {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+    line-height: 1.2;
+    text-wrap: balance;
+    color: var(--color-foreground);
+  }
+  .cs-headline.cs-on-color { color: #fff; }
+  .cs-label {
+    margin: 0;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+  }
+  .cs-vote-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    min-height: 44px;
+    font-weight: 700;
+    font-size: 1rem;
+    font-variant-numeric: tabular-nums;
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 0.22em;
+  }
+  .cs-vote-link:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+  .cs-accent {
+    margin: 0;
+    font-family: var(--font-accent);
+    font-size: 1.25rem;
+    line-height: 1.1;
+    color: #fff;
+  }
+
+  /* 1. Topo (Cartaz roxo) */
+  .cs-hero {
+    display: grid;
+    gap: 1.5rem;
+    padding: 1.5rem 1.25rem;
+    border: 3px solid #1f1f1f;
+    border-radius: 16px;
+    background: var(--color-primary);
+    box-shadow: 6px 6px 0 0 #1f1f1f;
+  }
+  @media (min-width: 1024px) {
+    .cs-hero {
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      align-items: center;
+      gap: 2.5rem;
+      padding: 2.5rem;
+    }
+  }
+  .cs-hero-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .cs-hero-lede {
+    margin: 0;
+    max-width: 52ch;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #fff;
+    text-wrap: pretty;
+  }
+
+  /* Calculadora ao vivo (ficha branca dentro do Cartaz) */
+  .cs-calc {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+    padding: 1.25rem;
+    border: 3px solid #1f1f1f;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 3px 3px 0 0 #1f1f1f;
+  }
+  .cs-calc-title {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    color: var(--color-foreground);
+  }
+  .cs-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-foreground);
+  }
+  .cs-field input {
+    min-height: 48px;
+    width: 100%;
+    padding: 0 0.75rem;
+    border: 3px solid #1f1f1f;
+    border-radius: 12px;
+    background: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    box-shadow: 2px 2px 0 0 #1f1f1f;
+  }
+  .cs-field input:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    box-shadow: 3px 3px 0 0 #1f1f1f;
+  }
+  .cs-calc-result {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.625rem;
+    padding: 0.875rem 1rem;
+    border-radius: 12px;
+    background: #f4f2ec;
+  }
+  .cs-numeral {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 2.5rem;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-primary);
+  }
+  .cs-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    min-height: 44px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 0.22em;
+  }
+
+  .cs-input-wrap { position: relative; display: block; }
+  .cs-input-wrap input { padding-right: 4.25rem; }
+  .cs-visto[hidden] { display: none; }
+  .cs-visto {
+    position: absolute;
+    top: 50%;
+    right: 0.5rem;
+    margin-top: -0.8rem;
+    pointer-events: none;
+    animation: cagpStampImpact var(--duration-stamp, 240ms) var(--ease-stamp, cubic-bezier(0.7, 0, 0.84, 0)) both;
+  }
+  .cs-track {
+    display: block;
+    height: 8px;
+    overflow: hidden;
+    border: 2px solid #1f1f1f;
+    border-radius: 999px;
+    background: #e9e5da;
+  }
+  .cs-track-fill {
+    display: block;
+    height: 100%;
+    background: var(--color-secondary);
+    transform-origin: left center;
+    transform: scaleX(var(--p, 0));
+    transition: transform 300ms var(--ease-snap, ease-out);
+  }
+
+  /* Resultado: a folha do símbolo brota com as horas */
+  .cs-calc-result {
+    position: relative;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+    min-height: 7rem;
+  }
+  .cs-calc-readout {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-width: 0;
+  }
+  .cs-sprout {
+    flex: none;
+    width: 3.5rem;
+    height: 5.25rem;
+    overflow: visible;
+  }
+  .cs-soil {
+    stroke: #1f1f1f;
+    stroke-width: 3;
+    stroke-linecap: round;
+  }
+  .cs-leaf {
+    fill: var(--color-accent);
+    transform-box: fill-box;
+    transform-origin: 0% 100%;
+    transform: scale(var(--grow, 0.28));
+    transition: transform 420ms var(--ease-snap, ease-out);
+    animation: cs-germinar 560ms var(--ease-snap, ease-out) 200ms backwards;
+  }
+  .cs-leaf path { stroke: #1f1f1f; stroke-width: 2.5; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  @keyframes cs-germinar {
+    from { clip-path: inset(100% 0 0 0); transform: scale(0.05); }
+    to { clip-path: inset(0 0 0 0); transform: scale(var(--grow, 0.28)); }
+  }
+  .cs-done {
+    position: absolute;
+    inset: 0 4.75rem 0 0;
+    display: grid;
+    place-items: center;
+    padding: 0.5rem;
+  }
+  .cs-calc-result.is-done { background: #efe7f6; transition: background-color 220ms var(--ease-snap, ease-out); }
+  .cs-done[hidden] { display: none; }
+  .cs-calc-result.is-done .cs-calc-readout { visibility: hidden; }
+
+  .cs-ics-note {
+    margin: 0;
+    min-height: 1.25rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #fff;
+  }
+  .cs-btn.is-saved { background: #fff; }
+
+  /* Botões */
+  .cs-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 48px;
+    padding: 0.75rem 1.25rem;
+    border: 3px solid #1f1f1f;
+    border-radius: 12px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 0 #1f1f1f;
+    transition: transform 150ms var(--ease-snap, ease-out), box-shadow 150ms var(--ease-snap, ease-out);
+  }
+  .cs-btn:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 0 #1f1f1f; }
+  .cs-btn:active { transform: translate(3px, 3px); box-shadow: none; }
+  .cs-btn:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+  .cs-btn-accent { background: var(--color-accent); color: #1f1f1f; }
+  .cs-btn-ghost-light { background: #fff; color: #1f1f1f; }
+
+  /* 2. Faixa petróleo */
+  .cs-band {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.75rem 1.25rem;
+    border-radius: 16px;
+    background: var(--color-secondary);
+  }
+  @media (min-width: 1024px) {
+    .cs-band { padding: 2.5rem; }
+  }
+  .cs-band-lede {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #fff;
+  }
+  .cs-tools {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0.5rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  @media (min-width: 640px) {
+    .cs-tools { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 1280px) {
+    .cs-tools { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  .cs-tool {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    height: 100%;
+    min-height: 56px;
+    padding: 0.875rem 1rem;
+    border: 2px solid #1f1f1f;
+    border-radius: 12px;
+    background: #fff;
+    color: #1f1f1f;
+    text-decoration: none;
+    box-shadow: 3px 3px 0 0 #1f1f1f;
+    transition: transform 150ms var(--ease-snap, ease-out), box-shadow 150ms var(--ease-snap, ease-out);
+  }
+  .cs-tool:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 0 #1f1f1f; }
+  .cs-tool:active { transform: translate(3px, 3px); box-shadow: none; }
+  .cs-tool:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+  .cs-tool-title {
+    display: block;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+  .cs-tool-desc {
+    display: block;
+    margin-top: 0.125rem;
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: var(--color-muted-foreground);
+  }
+
+  /* 4. Integrantes */
+  .cs-team {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem 0.875rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  @media (min-width: 768px) {
+    .cs-team { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+  }
+  @media (min-width: 1280px) {
+    .cs-team { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+  .cs-member {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    min-width: 0;
+  }
+  .cs-member .cagp-anchor-target { position: absolute; top: 0; left: 0; }
+  .cs-member-photo {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border: 2px solid #1f1f1f;
+    border-radius: 12px;
+    background: #e9e5da;
+  }
+  .cs-member-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+  }
+  .cs-member-initials {
+    display: grid;
+    place-items: center;
+    height: 100%;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: var(--color-primary);
+  }
+  .cs-counter {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.125rem 0.375rem;
+    border: 2px solid #1f1f1f;
+    border-radius: 8px;
+    background: #fff;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    font-variant-numeric: tabular-nums;
+    color: #1f1f1f;
+  }
+  .cs-member-name {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.25;
+    color: var(--color-foreground);
+  }
+  .cs-member-role {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.35;
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+  .cs-details summary {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-foreground);
+    text-decoration: underline;
+    text-underline-offset: 0.22em;
+    cursor: pointer;
+    list-style: none;
+  }
+  .cs-details summary::-webkit-details-marker { display: none; }
+  .cs-details summary::after {
+    content: '';
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-left: 0.5rem;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg) translateY(-2px);
+    transition: transform 150ms var(--ease-snap, ease-out);
+  }
+  .cs-details[open] summary::after { transform: rotate(-135deg) translateY(-2px); }
+  .cs-member-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    min-height: 44px;
+    margin-top: auto;
+    padding: 0.5rem 0.75rem;
+    border: 2px solid #1f1f1f;
+    border-radius: 12px;
+    background: #fff;
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: #1f1f1f;
+    text-decoration: none;
+    box-shadow: 2px 2px 0 0 #1f1f1f;
+    transition: transform 150ms var(--ease-snap, ease-out), box-shadow 150ms var(--ease-snap, ease-out);
+  }
+  .cs-member-link:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 0 #1f1f1f; }
+  .cs-member-link:active { transform: translate(2px, 2px); box-shadow: none; }
+
+  /* 5. Votar (Cartaz roxo de fechamento) */
+  .cs-vote {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.75rem 1.25rem;
+    border: 3px solid #1f1f1f;
+    border-radius: 16px;
+    background: var(--color-primary);
+    box-shadow: 6px 6px 0 0 #1f1f1f;
+  }
+  @media (min-width: 1024px) {
+    .cs-vote { padding: 2.5rem; }
+  }
+  .cs-vote-list {
+    display: grid;
+    gap: 1rem;
+    margin: 0;
+  }
+  @media (min-width: 768px) {
+    .cs-vote-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem 2rem; }
+  }
+  .cs-vote-list dt {
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .cs-vote-list dd {
+    margin: 0.25rem 0 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #fff;
+  }
+  .cs-vote-note {
+    margin: 0;
+    padding-top: 1rem;
+    border-top: 2px solid #fff;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #fff;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cs-btn, .cs-tool, .cs-member-link, .cs-details summary::after, .cs-track-fill { transition: none; }
+    /* A folha muda de tamanho sem crescer na tela; o carimbo só aparece. */
+    .cs-leaf { animation: none; transition: none; }
+    .cs-visto, .cs-done .cagp-big-stamp { animation: cs-fade 1ms both; }
+    @keyframes cs-fade { from { opacity: 0; } to { opacity: 1; } }
+  }
+</style>

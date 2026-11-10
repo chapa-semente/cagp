@@ -1,0 +1,97 @@
+{
+  "_comentario": "Documentos mais pedidos no grupo de WhatsApp 'Conexão Gestão Pública'. Para adicionar um documento, copie um item e troque nome, descrição e arquivo. Os arquivos ficam em public/documentos/.",
+  "grupos": [
+    {
+      "id": "estagio",
+      "titulo": "Estágio",
+      "guia": "/estagio",
+      "documentos": [
+        {
+          "id": "tce-com-convenio",
+          "nome": "Termo de compromisso de estágio (TCE), com convênio",
+          "descricao": "Para estágio em instituição que tem convênio com a UFMG.",
+          "arquivo": "/documentos/estagio-modelo-termo-de-compromisso-com-convenio.pdf",
+          "editavel": "/documentos/estagio-modelo-termo-de-compromisso-com-convenio.docx"
+        },
+        {
+          "id": "tce-sem-vinculo",
+          "nome": "Termo de compromisso de estágio (TCE), sem vínculo",
+          "descricao": "Para estágio sem vínculo empregatício com a instituição.",
+          "arquivo": "/documentos/estagio-modelo-termo-de-compromisso-sem-vinculo.pdf",
+          "editavel": "/documentos/estagio-modelo-termo-de-compromisso-sem-vinculo.docx"
+        },
+        {
+          "id": "plano-de-atividades",
+          "nome": "Plano de atividades de estágio",
+          "descricao": "O que você vai fazer no estágio; vai junto com o TCE.",
+          "arquivo": "/documentos/estagio-modelo-plano-de-atividades.pdf",
+          "editavel": "/documentos/estagio-modelo-plano-de-atividades.docx"
+        },
+        {
+          "id": "relatorio-semestral",
+          "nome": "Relatório semestral de estágio",
+          "descricao": "Entregue a cada semestre de estágio.",
+          "arquivo": "/documentos/estagio-modelo-relatorio-semestral.pdf",
+          "editavel": "/documentos/estagio-modelo-relatorio-semestral.docx"
+        },
+        {
+          "id": "relatorio-final",
+          "nome": "Relatório final de estágio",
+          "descricao": "Entregue ao terminar o estágio.",
+          "arquivo": "/documentos/estagio-modelo-relatorio-final.pdf",
+          "editavel": "/documentos/estagio-modelo-relatorio-final.docx"
+        }
+      ]
+    },
+    {
+      "id": "aproveitamento-acg",
+      "titulo": "Aproveitamento e horas (ACG)",
+      "guia": "/acg",
+      "documentos": [
+        {
+          "id": "aproveitamento-colegiado",
+          "nome": "Requerimento de aproveitamento de estudos",
+          "descricao": "Para pedir ao Colegiado que uma disciplina já cursada seja aproveitada.",
+          "arquivo": "/documentos/requerimento-aproveitamento-de-estudos-colegiado.pdf"
+        },
+        {
+          "id": "atividade-integralizadora-20229",
+          "nome": "Requerimento de atividade integralizadora (currículo 20229)",
+          "descricao": "Para registrar horas de extensão e AAC no currículo atual.",
+          "arquivo": "/documentos/requerimento-atividade-integralizadora-credito-v20229.pdf"
+        },
+        {
+          "id": "atividade-integralizadora-20152",
+          "nome": "Requerimento de atividade integralizadora (currículo 20152)",
+          "descricao": "Mesmo pedido, para quem está no currículo anterior.",
+          "arquivo": "/documentos/requerimento-atividade-integralizadora-credito-v20152.pdf"
+        }
+      ]
+    },
+    {
+      "id": "formatura-tcc",
+      "titulo": "Formatura e TCC",
+      "guia": "/formatura",
+      "documentos": [
+        {
+          "id": "termo-aceite-orientador",
+          "nome": "Termo de aceite do orientador de TCC",
+          "descricao": "Assinado pelo orientador no início do TCC.",
+          "arquivo": "/documentos/termo-aceite-orientador-tcc.pdf"
+        },
+        {
+          "id": "colacao-colegiado",
+          "nome": "Inscrição na colação de grau (Colegiado)",
+          "descricao": "Pedido de colação entregue ao Colegiado do curso.",
+          "arquivo": "/documentos/requerimento-inscricao-colacao-de-grau-colegiado.pdf"
+        },
+        {
+          "id": "colacao-drca",
+          "nome": "Inscrição na colação de grau (DRCA)",
+          "descricao": "Pedido de colação entregue ao DRCA.",
+          "arquivo": "/documentos/requerimento-inscricao-colacao-de-grau-drca.pdf"
+        }
+      ]
+    }
+  ]
+}

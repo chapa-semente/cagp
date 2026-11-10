@@ -52,10 +52,55 @@ const CATEGORIES = [
 ];
 
 const OUVIDORIA_STEPS = [
-  { id: 'eixo', title: '1. Eixo & Sigilo', description: 'Escolha o canal e privacidade' },
+  { id: 'eixo', title: '1. Assunto', description: 'Escolha o tipo de demanda' },
   { id: 'relato', title: '2. Relato & Fatos', description: 'Descreva a demanda ou denúncia' },
-  { id: 'protocolo', title: '3. Revisão & Carimbo', description: 'Confirme e protocole no cofre' },
+  { id: 'protocolo', title: '3. Revisão', description: 'Confira e salve o rascunho' },
 ];
+
+// O site não tem servidor e o CAGP ainda não tem um e-mail público para receber demandas.
+// Por enquanto a manifestação fica salva no aparelho e o estudante pode copiar o texto.
+function buildOuvidoriaText(m: Manifestacao): string {
+  const categoria = CATEGORIES.find((c) => c.id === m.category)?.title ?? m.category;
+  const linhas = [`[Fala com o CA] ${m.subject}`, `Categoria: ${categoria}`];
+  if (m.targetDept) linhas.push(`Disciplina ou setor: ${m.targetDept}`);
+  linhas.push('', m.message, '', `Referência: ${m.protocol}`);
+  return linhas.join('\n');
+}
+
+// Fallback para navegadores que bloqueiam a Clipboard API (WebViews, HTTP sem TLS).
+function copyWithTextarea(text: string): boolean {
+  const el = document.createElement('textarea');
+  el.value = text;
+  el.setAttribute('readonly', '');
+  el.style.position = 'fixed';
+  el.style.opacity = '0';
+  document.body.appendChild(el);
+  el.select();
+  let ok = false;
+  try {
+    ok = document.execCommand('copy');
+  } catch {
+    ok = false;
+  }
+  document.body.removeChild(el);
+  return ok;
+}
+
+async function copyOuvidoriaText(m: Manifestacao) {
+  const text = buildOuvidoriaText(m);
+  try {
+    await navigator.clipboard.writeText(text);
+    toast.success('Texto copiado.');
+    return;
+  } catch {
+    // segue para o fallback
+  }
+  if (copyWithTextarea(text)) {
+    toast.success('Texto copiado.');
+  } else {
+    toast.error('Este navegador bloqueou a cópia. Abra o site no navegador do celular e tente de novo.');
+  }
+}
 
 export const OuvidoriaInteractiveCenter: React.FC = () => {
   const [manifestacoes, setManifestacoes] = useState<Manifestacao[]>([]);
@@ -122,7 +167,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
       setTargetDept('');
       setMessage('');
       setActiveStep(2);
-      toast.success(`Protocolo Fala com o CA carimbado: ${protocol}`, {
+      toast.success(`Rascunho ${protocol} salvo neste celular.`, {
         duration: 5000,
       });
     }, 350);
@@ -142,15 +187,15 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
           </div>
           <div>
             <span className="font-heading font-black text-xs sm:text-sm uppercase text-[#1F1F1F] block">
-              Fala com o CA (Proposta 14 Semente) • Sigilo Local Garantido
+              Fala com o CA (Proposta 14 Semente) • Como funciona
             </span>
             <p className="text-xs text-[#1F1F1F]/85 m-0 font-medium">
-              Nenhum dado sai do seu aparelho sem sua ação expressa. Suas manifestações ficam protegidas no Cofre Discente (<code className="font-mono font-bold">studentVault.ts</code>).
+              O CAGP ainda não tem um canal oficial para receber demandas. Você escreve aqui, o rascunho fica salvo só neste celular e você pode copiar o texto para levar à gestão.
             </p>
           </div>
         </div>
         <span className="px-3 py-1 rounded-lg bg-white border-2 border-[#1F1F1F] font-mono text-xs font-black uppercase text-[#166534] shrink-0 self-start sm:self-center">
-          CRIPTOGRAFIA LOCAL ATIVA
+          SALVO SÓ NESTE CELULAR
         </span>
       </div>
 
@@ -211,7 +256,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b-2 border-[#1F1F1F]">
                   <div>
                     <h3 className="text-base sm:text-lg font-heading font-black text-foreground m-0">
-                      Etapa 1: Selecione o Eixo da Demanda &amp; Modo de Sigilo
+                      Etapa 1: Escolha o tipo de demanda
                     </h3>
                     <p className="text-xs text-muted-foreground m-0 mt-0.5">
                       Escolha uma das 4 frentes de atuação do Fala com o CA.
@@ -226,7 +271,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                       className="w-4 h-4 text-primary rounded border-border focus:ring-primary cursor-pointer"
                     />
                     <label htmlFor="sigilo-toggle" className="text-xs font-heading font-black uppercase text-[#1F1F1F] cursor-pointer select-none">
-                      {isAnonymous ? 'Modo Sigiloso (Anônimo)' : 'Modo Identificado'}
+                      {isAnonymous ? 'Não assinar o texto' : 'Assinar o texto'}
                     </label>
                   </div>
                 </div>
@@ -385,15 +430,26 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                   <div className="p-6 rounded-2xl bg-[#ECFDF5] border-2 border-[#1F1F1F] shadow-[6px_6px_0_0_#1F1F1F] space-y-4 text-center">
                     <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl bg-[#166534] text-white font-mono text-xs font-black uppercase border-2 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] -rotate-1">
                       <i className="bi bi-patch-check-fill" aria-hidden="true" />
-                      <span>PROTOCOLADO NO COFRE • FALA COM O CA</span>
+                      <span>RASCUNHO SALVO • AINDA NÃO ENVIADO</span>
                     </div>
                     <h4 className="font-heading text-xl sm:text-2xl font-black text-[#1F1F1F] m-0">
-                      Recibo de Protocolo: {lastStamped.protocol}
+                      Rascunho salvo neste celular
                     </h4>
                     <p className="text-xs sm:text-sm text-[#1F1F1F]/85 max-w-lg mx-auto m-0 font-medium">
-                      Sua manifestação (&ldquo;{lastStamped.subject}&rdquo;) foi carimbada e salva com segurança no seu Cofre Local em {lastStamped.createdAt}.
+                      Sua manifestação (&ldquo;{lastStamped.subject}&rdquo;, referência {lastStamped.protocol}) está salva só neste celular. O CAGP ainda não tem um canal oficial para receber demandas, então ninguém recebeu este texto.
                     </p>
-                    <div className="pt-2 flex justify-center gap-3">
+                    <p className="text-xs text-[#1F1F1F]/85 max-w-lg mx-auto m-0">
+                      Copie o texto para levá-lo à gestão do CAGP pessoalmente ou guardá-lo até o canal abrir.
+                    </p>
+                    <div className="pt-2 flex flex-wrap justify-center gap-3">
+                      <button
+                        type="button"
+                        onClick={() => copyOuvidoriaText(lastStamped)}
+                        className="min-h-[48px] px-5 py-3 rounded-xl bg-primary text-white font-heading font-bold text-sm uppercase tracking-[0.03em] border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] inline-flex items-center gap-2 cursor-pointer active:translate-x-[3px] active:translate-y-[3px] active:shadow-none"
+                      >
+                        <i className="bi bi-clipboard" aria-hidden="true" />
+                        Copiar texto
+                      </button>
                       <button
                         type="button"
                         onClick={() => {
@@ -411,10 +467,10 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                     <div className="p-4 rounded-xl bg-[#ffffff] border-2 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] space-y-2">
                       <div className="flex items-center justify-between flex-wrap gap-2">
                         <span className="font-mono text-xs font-black uppercase text-[#5B2A85]">
-                          Resumo para Protocolo • {getCategoryMeta(selectedCategory).title}
+                          Confira antes de enviar • {getCategoryMeta(selectedCategory).title}
                         </span>
                         <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-[#FEF3C7] border border-[#1F1F1F]">
-                          {isAnonymous ? 'Sigilo Anônimo Ativo' : 'Identificado'}
+                          {isAnonymous ? 'Texto sem assinatura' : 'Texto assinado'}
                         </span>
                       </div>
                       <p className="font-heading font-black text-sm text-[#1F1F1F] m-0">
@@ -447,12 +503,12 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                         {isSubmitting ? (
                           <>
                             <i className="bi bi-arrow-repeat animate-spin"></i>
-                            Carimbando Protocolo...
+                            Salvando rascunho...
                           </>
                         ) : (
                           <>
                             <i className="bi bi-patch-check-fill"></i>
-                            Carimbar &amp; Protocolar no Cofre
+                            Salvar rascunho
                           </>
                         )}
                       </button>
@@ -470,21 +526,21 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
         <div className="flex items-center justify-between">
           <h3 className="text-base font-heading font-black text-foreground flex items-center gap-2">
             <i className="bi bi-clock-history text-primary"></i>
-            Minhas Manifestações Registradas ({manifestacoes.length})
+            Meus rascunhos neste celular ({manifestacoes.length})
           </h3>
           {manifestacoes.length > 0 && (
             <button
               type="button"
               onClick={() => {
-                if (confirm('Deseja limpar o histórico local de manifestações?')) {
+                if (confirm('Apagar todos os rascunhos salvos neste celular? Isso não pode ser desfeito.')) {
                   setManifestacoes([]);
                   setVaultItem('cagp_ouvidoria_manifestacoes_v1', []);
-                  toast.info('Histórico de manifestações limpo.');
+                  toast.info('Rascunhos apagados.');
                 }
               }}
               className="text-xs text-muted-foreground hover:text-destructive font-bold underline cursor-pointer"
             >
-              Limpar Histórico
+              Apagar rascunhos
             </button>
           )}
         </div>
@@ -493,10 +549,10 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
           <div className="p-8 text-center rounded-2xl border-2 border-dashed border-border bg-background">
             <i className="bi bi-chat-square-quote text-3xl text-muted-foreground/60 mb-2 block"></i>
             <p className="text-sm font-heading font-extrabold text-foreground">
-              Nenhuma manifestação protocolada neste navegador
+              Nenhum rascunho salvo neste celular
             </p>
             <p className="text-xs text-muted-foreground mt-1 max-w-md mx-auto">
-              Utilize o formulário acima para registrar denúncias de ementas, falhas estruturais ou sugestões à gestão discente.
+              Escreva sua demanda no formulário acima. Ela fica salva só neste celular e você pode copiar o texto.
             </p>
           </div>
         ) : (
@@ -518,7 +574,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                       </span>
                       {item.isAnonymous && (
                         <span className="text-xs font-mono font-bold text-muted-foreground">
-                          • Sigiloso
+                          • Sem assinatura
                         </span>
                       )}
                     </div>
@@ -539,10 +595,14 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                     <span className="text-xs font-mono text-muted-foreground">
                       {item.createdAt}
                     </span>
-                    <span className="inline-flex items-center gap-1 text-xs font-heading font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">
-                      <i className="bi bi-check-circle-fill text-xs"></i>
-                      {item.status === 'registrada' ? 'Registrada no Cofre' : item.status}
-                    </span>
+                    <button
+                      type="button"
+                      onClick={() => copyOuvidoriaText(item)}
+                      className="min-h-[44px] inline-flex items-center gap-1.5 text-sm font-bold text-primary underline underline-offset-[0.22em] cursor-pointer bg-transparent border-0 p-0"
+                    >
+                      <i className="bi bi-clipboard" aria-hidden="true" />
+                      Copiar texto
+                    </button>
                   </div>
                 </div>
               );

@@ -1,0 +1,177 @@
+---
+// DocumentosMaisPedidos.astro — Os documentos que mais aparecem pedidos no grupo de WhatsApp,
+// prontos para abrir ou mandar. Dados em src/data/documentosMaisPedidos.json (manutenção sem código).
+import data from '@/data/documentosMaisPedidos.json';
+import { asset, route } from '@/lib/paths';
+---
+
+<section aria-labelledby="mais-pedidos-titulo" class="space-y-4">
+  <div class="flex flex-wrap items-end justify-between gap-x-4 gap-y-1">
+    <h2 id="mais-pedidos-titulo" class="font-heading text-xl font-bold text-foreground m-0">
+      Documentos mais pedidos
+    </h2>
+    <a href={route('/documentos')} class="text-sm font-bold text-primary underline underline-offset-[0.22em]">
+      Ver todos os documentos
+    </a>
+  </div>
+  <p class="m-0 text-base text-muted-foreground max-w-[68ch]">
+    Alguém pediu no grupo? Toque em <strong class="text-foreground">Enviar</strong> e mande o link direto.
+  </p>
+
+  <div class="space-y-5">
+    {data.grupos.map((grupo) => (
+      <div class="cagp-doc-group">
+        <div class="cagp-doc-group-head">
+          <h3 class="font-heading text-lg font-bold m-0">{grupo.titulo}</h3>
+          <a href={route(grupo.guia)} class="text-sm font-bold text-primary underline underline-offset-[0.22em] whitespace-nowrap">
+            Ver o guia
+          </a>
+        </div>
+        <ul class="m-0 p-0 list-none">
+          {grupo.documentos.map((doc) => (
+            <li class="cagp-doc-row" id={`doc-${doc.id}`}>
+              <div class="min-w-0 flex-1 space-y-0.5">
+                <p class="m-0 font-heading text-base font-bold text-foreground">{doc.nome}</p>
+                <p class="m-0 text-sm leading-snug text-muted-foreground">{doc.descricao}</p>
+              </div>
+              <div class="cagp-doc-actions">
+                <a
+                  href={asset(doc.arquivo)}
+                  target="_blank"
+                  rel="noopener"
+                  class="cagp-doc-btn"
+                  aria-label={`Abrir ${doc.nome} (PDF)`}
+                >
+                  <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
+                  PDF
+                </a>
+                {'editavel' in doc && doc.editavel && (
+                  <a
+                    href={asset(doc.editavel as string)}
+                    download
+                    class="cagp-doc-btn"
+                    aria-label={`Baixar ${doc.nome} para editar (Word)`}
+                  >
+                    <i class="bi bi-file-earmark-word" aria-hidden="true"></i>
+                    Word
+                  </a>
+                )}
+                <button
+                  type="button"
+                  class="cagp-doc-btn is-share"
+                  data-share-path={asset(doc.arquivo)}
+                  data-share-title={doc.nome}
+                  aria-label={`Enviar o link de ${doc.nome}`}
+                >
+                  <i class="bi bi-whatsapp" aria-hidden="true"></i>
+                  Enviar
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .cagp-doc-group {
+    background: var(--color-card, #fff);
+    border: 2px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: 3px 3px 0 0 var(--color-border);
+    overflow: hidden;
+  }
+  .cagp-doc-group-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.875rem 1rem;
+    background: var(--color-muted);
+    border-bottom: 2px solid var(--color-border);
+  }
+  .cagp-doc-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+  .cagp-doc-row + .cagp-doc-row {
+    border-top: 2px solid var(--color-border);
+  }
+  .cagp-doc-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .cagp-doc-btn {
+    min-height: 44px;
+    padding: 0.5rem 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border: 2px solid var(--color-border);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--color-foreground);
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    text-decoration: none;
+    box-shadow: 2px 2px 0 0 var(--color-border);
+    cursor: pointer;
+    transition: transform 150ms var(--ease-snap, ease), box-shadow 150ms var(--ease-snap, ease);
+  }
+  .cagp-doc-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 0 var(--color-border);
+  }
+  .cagp-doc-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+  }
+  .cagp-doc-btn:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  .cagp-doc-btn.is-share {
+    background: var(--color-primary);
+    color: #fff;
+  }
+  @media (min-width: 640px) {
+    .cagp-doc-row {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+</style>
+
+<script>
+  // Compartilhar: menu nativo do celular quando existe; senão abre o WhatsApp com o link.
+  function setupDocShare() {
+    document.querySelectorAll<HTMLButtonElement>('[data-share-path]').forEach((btn) => {
+      if ((btn as any).__share_bound) return;
+      (btn as any).__share_bound = true;
+      btn.addEventListener('click', async () => {
+        const url = new URL(btn.dataset.sharePath || '', window.location.origin).href;
+        const title = btn.dataset.shareTitle || 'Documento';
+        if (navigator.share) {
+          try {
+            await navigator.share({ title, text: title, url });
+            return;
+          } catch (err) {
+            if ((err as DOMException)?.name === 'AbortError') return;
+          }
+        }
+        const text = encodeURIComponent(`${title}: ${url}`);
+        window.open(`https://wa.me/?text=${text}`, '_blank', 'noopener,noreferrer');
+      });
+    });
+  }
+  setupDocShare();
+  document.addEventListener('astro:page-load', setupDocShare);
+</script>

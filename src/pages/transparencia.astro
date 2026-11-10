@@ -1,203 +1,116 @@
 ---
-// src/pages/transparencia.astro — Eixo 5: O CAGP · Portal da Transparência & Prestação de Contas
+// src/pages/transparencia.astro — Eixo 5: O CAGP · Portal da Transparência
+// O que é real (Regimento Interno) vem primeiro; a demonstração com valores fictícios vem depois,
+// marcada como simulação (PRODUCT.md › Real × simulado).
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/ui/PageHeader.astro';
 import { CagpTransparenciaPortal } from '../components/features/cagp/CagpTransparenciaPortal';
-import { VoronoiPulse } from '../components/boldkit/canvas-effects/VoronoiPulse';
-import { StatsGrid, type StatItem } from '../components/boldkit/blocks/stats-section';
-import { ChangelogSection, type ChangelogEntry } from '../components/boldkit/blocks/changelog-section';
-import { InvoiceSummary } from '../components/boldkit/blocks/invoice';
-import { DashboardLayout } from '../components/boldkit/blocks/dashboard-layout';
+import { route, asset } from '@/lib/paths';
 
-const dashboardNav = [
-  { label: 'Visão Geral RREO', active: true },
-  { label: 'Receitas & Doações' },
-  { label: 'Despesas & Eventos' },
-  { label: 'Fundo Emergencial' },
-];
-
-const dashboardStats = [
-  { label: 'Saldo em Caixa', value: 'R$ 3.420,00', trend: '+12% trimestral' },
-  { label: 'Receita Total 2026', value: 'R$ 14.850,00', trend: 'Executada' },
-  { label: 'Despesas Auditadas', value: 'R$ 11.430,00', trend: '100% comprovadas' },
-  { label: 'Fundo de Reserva', value: 'R$ 1.500,00', trend: 'Preservado' },
-];
-
-const transparencyStats: StatItem[] = [
+// Dispositivos conferidos em _referencias/documentos-oficiais/regimento-interno-cagp-ufmg.md
+const regras = [
   {
-    value: 'R$ 14.850',
-    label: 'Orçamento Executado',
-    description: '100% aplicado em atividades discentes e manutenção da sede',
-    trend: 'up',
-    trendValue: '+18%',
+    ref: 'ART. 30, XI',
+    titulo: 'Relatório mensal das contas',
+    texto: 'A Diretoria Financeira elabora todo mês o Relatório Resumido de Execução Orçamentária e o publica nos canais do CAGP.',
   },
   {
-    value: '100%',
-    label: 'Atas Publicadas',
-    description: 'Assembleias gerais e deliberações de diretoria digitalizadas',
-    trend: 'neutral',
+    ref: 'ART. 30, XII',
+    titulo: 'Prestação de contas do mandato',
+    texto: 'Ao fim de cada mandato, a Diretoria Financeira prepara a prestação de contas anual e a deixa disponível a todos.',
   },
   {
-    value: 'R$ 0,00',
-    label: 'Taxas Cobradas',
-    description: 'Representação pública, gratuita e sem mensalidades discentes',
-    trend: 'neutral',
+    ref: 'ART. 36, I',
+    titulo: 'Quem aprova as contas',
+    texto: 'A Assembleia Geral ordinária, uma vez por ano, apresenta e aprova a prestação de contas da gestão que sai.',
   },
   {
-    value: '35 Atos',
-    label: 'Prestações Aprovadas',
-    description: 'Balancetes submetidos e aprovados pelo Conselho Fiscal e AG',
-    trend: 'up',
-    trendValue: 'Unânime',
-  },
-];
-
-const auditLedger: ChangelogEntry[] = [
-  {
-    version: 'Balancete 2026.2',
-    date: '04/11/2026',
-    tag: 'feature',
-    title: 'Edital Eleitoral & Fechamento Contábil do 3º Trimestre',
-    items: [
-      'Publicação da prestação de contas parcial com R$ 3.420 em caixa de reserva',
-      'Homologação dos relatórios da Junta Eleitoral e registro de candidaturas',
-      'Disponibilização pública de notas fiscais digitalizadas na sede F-4000',
-    ],
-  },
-  {
-    version: 'RREO 2026.1',
-    date: '15/08/2026',
-    tag: 'improvement',
-    title: 'Assembleia Geral Ordinária de Aprovação de Contas',
-    items: [
-      'Aprovação por unanimidade das contas referentes à Semana Acadêmica',
-      'Demonstrativo de receitas de produtos oficiais e rifas solidárias',
-      'Aporte de R$ 1.150 no fundo de permanência noturna',
-    ],
-  },
-  {
-    version: 'Estatuto 2024',
-    date: '14/10/2024',
-    tag: 'breaking',
-    title: 'Promulgação do Novo Regimento Interno do CAGP',
-    items: [
-      'Criação formal das 7 Diretorias Executivas e Conselho de Representantes',
-      'Obrigatoriedade estatutária da emissão mensal do RREO (Art. 30, V)',
-      'Instituição do Portal da Transparência de livre acesso a qualquer estudante',
-    ],
+    ref: 'ART. 15, V',
+    titulo: 'Seu direito de conferir',
+    texto: 'Qualquer estudante representado pode examinar as contas e os documentos da gestão. Com requerimento formal, a gestão tem até 3 dias letivos para entregar.',
   },
 ];
 ---
 
 <BaseLayout
-  title="Livro-Caixa Aberto • Portal da Transparência — O CAGP"
-  description="Livro-Caixa Aberto (Proposta 1 do Eixo 1 da Chapa Semente materializada), Portal da Transparência, balancete demonstrativo, execução orçamentária RREO e atas do CAGP UFMG."
+  title="Portal da Transparência — O CAGP"
+  description="O que o Regimento Interno do CAGP exige sobre prestação de contas e uma demonstração, com valores fictícios, do livro-caixa aberto proposto pela Chapa Semente."
   activePage="sobre"
   activeGroup="cagp"
   mode="operate"
 >
-  <div class="py-2 space-y-6" data-context-type="doc-template">
-    <header id="cagp-transparencia-header" class="relative overflow-hidden rounded-2xl border-2 border-[#1F1F1F] bg-card p-6 sm:p-8 shadow-[8px_8px_0_0_#1F1F1F]">
-      <!-- WebGL 60fps Voronoi/Hexagon Pulse Shader -->
-      <div class="absolute inset-0 opacity-20 pointer-events-none" aria-hidden="true">
-        <VoronoiPulse client:load cellCount={24} speed={0.8} />
+  <PageHeader
+    title="Portal da Transparência"
+    subtitle="O que o Regimento do CAGP já exige sobre as contas e como a Chapa Semente propõe publicá-las."
+    axisId="mais"
+    activeId="cagp-transparencia"
+    mode="operate"
+    condensed={true}
+  />
+
+  <div class="space-y-6 pb-2">
+    <!-- Aviso de simulação na primeira dobra -->
+    <div
+      role="note"
+      class="p-4 rounded-xl bg-warning-tint border-2 border-border flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-foreground"
+    >
+      <div class="space-y-1">
+        <strong class="font-heading font-bold text-warning block text-sm">
+          Os valores desta página são fictícios
+        </strong>
+        <p class="m-0 text-sm leading-relaxed max-w-[68ch]">
+          Nenhum saldo, lançamento ou comprovante abaixo é do CAGP: eles mostram o formato do livro-caixa aberto que a Chapa Semente propõe. As regras do Regimento citadas logo a seguir são reais.
+        </p>
       </div>
+      <span class="font-heading text-xs font-bold uppercase tracking-[0.04em] bg-white px-2.5 py-1 rounded-md border-2 border-border shrink-0 self-start sm:self-center">
+        Simulação
+      </span>
+    </div>
 
-      <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-5">
-        <div class="space-y-2.5 max-w-3xl">
-          <div class="flex flex-wrap items-center gap-2">
-            <span class="px-2.5 py-1 rounded-md bg-secondary text-white font-mono text-xs font-black uppercase tracking-widest border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]">
-              EIXO 5 • FISCALIZAÇÃO &amp; CONTROLE SOCIAL
-            </span>
-            <span class="px-2.5 py-1 rounded-md bg-[#FE8812] text-[#1F1F1F] font-mono text-xs font-black uppercase tracking-widest border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]">
-              PROPOSTA 1 (EIXO 1 SEMENTE) JÁ MATERIALIZADA
-            </span>
-          </div>
-          <h1 class="font-heading text-2xl sm:text-4xl font-black uppercase text-foreground tracking-tight m-0 leading-tight">
-            Livro-Caixa Aberto • Portal da Transparência CAGP
-          </h1>
-          <p class="text-xs sm:text-sm font-sans text-muted-foreground m-0 max-w-[70ch] font-medium leading-relaxed">
-            Prestação de contas trimestral e RREO centavo a centavo (Art. 30, V do Estatuto de 14/10/2024). A Chapa Semente materializa antes mesmo da posse o compromisso de transparência radical nas finanças estudantis.
-          </p>
-        </div>
-
-        <div class="flex flex-wrap items-center gap-2.5 shrink-0">
-          <a
-            href="/chapa-semente#propostas"
-            class="min-h-[44px] px-4 py-2.5 rounded-xl bg-[#5B2A85] text-white font-heading font-black text-xs uppercase tracking-wider border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all inline-flex items-center gap-2 no-underline"
-          >
-            <span>Conhecer Proposta 1 (Semente)</span>
-            <i class="bi bi-arrow-right" aria-hidden="true"></i>
-          </a>
-        </div>
-      </div>
-    </header>
-
-    <StatsGrid
-      client:visible
-      stats={transparencyStats}
-      columns={4}
-      className="py-2 px-0"
-    />
-
-    <DashboardLayout
-      client:visible
-      title="Cockpit Orçamentário CAGP"
-      nav={dashboardNav}
-      stats={dashboardStats}
-      className="my-6 rounded-2xl overflow-hidden"
-    />
-
-    <CagpTransparenciaPortal client:load />
-
-    <!-- Demonstrativos Fiscais em Destaque (Invoices Auditadas) -->
-    <section aria-label="Demonstrativos de Prestação de Contas" class="space-y-3">
-      <div class="border-b-2 border-border pb-2">
-        <span class="font-mono text-xs font-bold uppercase text-primary tracking-widest block">
-          Documentos Contábeis • Livro Caixa
-        </span>
-        <h2 class="font-heading text-lg font-black text-foreground m-0">
-          Últimos Balancetes &amp; Recibos Auditados
+    <!-- O que é real: o Regimento Interno de 14/10/2024 (volume Papel) -->
+    <section aria-labelledby="heading-regras-reais" class="space-y-4">
+      <div class="border-b-2 border-border pb-2 flex flex-wrap items-end justify-between gap-3">
+        <h2 id="heading-regras-reais" class="font-heading text-xl font-bold text-foreground m-0">
+          O que o Regimento já exige
         </h2>
+        <a
+          href={asset('/documentos/regimento-interno-cagp-ufmg.pdf')}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-sm font-bold text-primary underline underline-offset-[0.22em]"
+        >
+          Abrir o Regimento Interno (PDF)
+        </a>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <InvoiceSummary
-          client:visible
-          invoiceNumber="RREO-2026-05"
-          clientName="Assembleia Geral Discente"
-          issueDate="01/10/2026"
-          dueDate="31/10/2026"
-          amount={2450.00}
-          status="paid"
-        />
-        <InvoiceSummary
-          client:visible
-          invoiceNumber="SEMANA-ACAD-26"
-          clientName="FAFICH / Comitê Acadêmico"
-          issueDate="15/09/2026"
-          dueDate="20/09/2026"
-          amount={3820.00}
-          status="paid"
-        />
-        <InvoiceSummary
-          client:visible
-          invoiceNumber="RECEP-CAL-26.2"
-          clientName="DIPRE / Acolhimento FAFICH"
-          issueDate="01/08/2026"
-          dueDate="15/08/2026"
-          amount={1150.00}
-          status="paid"
-        />
-      </div>
+      <dl class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5 m-0">
+        {regras.map((r) => (
+          <div class="space-y-1">
+            <dt class="space-y-1">
+              <span class="font-heading text-xs font-bold uppercase tracking-[0.04em] tabular-nums text-secondary block">{r.ref}</span>
+              <span class="font-heading text-lg font-bold text-foreground block">{r.titulo}</span>
+            </dt>
+            <dd class="m-0 text-base leading-relaxed text-muted-foreground max-w-[68ch]">{r.texto}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <p class="m-0 text-sm text-foreground max-w-[68ch]">
+        Quer conferir as contas da gestão atual? Faça um requerimento formal à gestão do CAGP citando o Art. 15, V. O CAGP ainda não tem um e-mail público para isso.
+      </p>
     </section>
 
-    <!-- Linha do Tempo Histórica e Estatutária -->
-    <ChangelogSection
-      client:visible
-      title="Livro de Atas & Auditorias"
-      subtitle="Histórico cronológico de deliberações e marcos estatutários do Centro Acadêmico."
-      entries={auditLedger}
-      className="py-4 px-0"
-    />
+    <!-- Demonstração (simulada) -->
+    <section aria-labelledby="heading-demonstracao" class="space-y-4">
+      <div class="border-b-2 border-border pb-2 flex flex-wrap items-end justify-between gap-3">
+        <h2 id="heading-demonstracao" class="font-heading text-xl font-bold text-foreground m-0">
+          Como ficaria o livro-caixa aberto
+        </h2>
+        <a href={route('/chapa-semente')} class="text-sm font-bold text-primary underline underline-offset-[0.22em]">
+          Ver a proposta da Chapa Semente
+        </a>
+      </div>
+      <CagpTransparenciaPortal client:visible />
+    </section>
   </div>
 </BaseLayout>

@@ -52,5 +52,9 @@ export default defineConfig({
       ],
     },
   },
+  // Rotas renomeadas no Modelo B de navegação.
+  redirects: {
+    '/estagio-tcc': '/formatura',
+  },
   integrations: [react(), mdx()],
 });

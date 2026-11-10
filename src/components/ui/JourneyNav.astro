@@ -1,7 +1,9 @@
 ---
 // JourneyNav.astro — Trilha de continuidade no fim do guia (anterior / próximo).
 // DESIGN.md › Navigation › JourneyNav: duas fichas, título em caixa de frase, uma linha.
+// A ordem vem do registro (páginas da mesma aba). `prev`/`next` só valem para rotas fora dele.
 import { route } from '@/lib/paths';
+import { getItemByPath, getSiblingPages } from '@/lib/navigationRegistry';
 
 interface Step {
   title: string;
@@ -14,13 +16,21 @@ interface Props {
   next?: Step;
 }
 
-const { prev, next } = Astro.props;
+const owner = getItemByPath(Astro.url.pathname);
+const siblings = owner ? getSiblingPages(Astro.url.pathname) : undefined;
+// Os hrefs do registro já trazem o base path; route() abaixo não deve aplicá-lo de novo.
+const toStep = (item?: { label: string; href: string; description: string }): Step | undefined =>
+  item ? { title: item.label, href: item.href, desc: item.description } : undefined;
+
+const prev = owner ? toStep(siblings?.prev) : Astro.props.prev;
+const next = owner ? toStep(siblings?.next) : Astro.props.next;
+const resolveHref = (href: string) => (owner ? href : route(href));
 ---
 
 {(prev || next) && (
   <nav class="cagp-journey" aria-label="Continue a jornada">
     {prev ? (
-      <a href={route(prev.href)} class="cagp-journey-card">
+      <a href={resolveHref(prev.href)} class="cagp-journey-card">
         <span class="cagp-journey-dir">
           <i class="bi bi-arrow-left" aria-hidden="true"></i>
           Anterior
@@ -31,7 +41,7 @@ const { prev, next } = Astro.props;
     ) : <span class="cagp-journey-gap" aria-hidden="true"></span>}
 
     {next ? (
-      <a href={route(next.href)} class="cagp-journey-card is-next">
+      <a href={resolveHref(next.href)} class="cagp-journey-card is-next">
         <span class="cagp-journey-dir">
           Próximo
           <i class="bi bi-arrow-right" aria-hidden="true"></i>

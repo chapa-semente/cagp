@@ -7,7 +7,7 @@ import { AXIS_REGISTRY } from '@/lib/navigationRegistry';
 const SITEMAP_TREE: TreeNode[] = [
   ...AXIS_REGISTRY.map((axis) => ({
     id: `axis-${axis.id}`,
-    label: `Eixo ${axis.number}: ${axis.name} — ${axis.tagline}`,
+    label: `${axis.name} — ${axis.tagline}`,
     children: axis.items.map((item) => ({
       id: item.id,
       label: `${item.label} (${item.href}) — ${item.description}`,

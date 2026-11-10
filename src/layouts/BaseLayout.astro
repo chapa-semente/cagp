@@ -16,6 +16,7 @@ import { PwaCredenciamentoPill } from '@/components/features/pwa/PwaCredenciamen
 import { GlobalTourHost } from '@/components/features/semente/GlobalTourHost';
 import { GlobalCanvasBackdrop } from '../components/shell/GlobalCanvasBackdrop';
 import { asset } from '@/lib/paths';
+import { getRouteMeta } from '@/lib/navigationRegistry';
 import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/700.css';
 import '@fontsource/permanent-marker/400.css';
@@ -30,13 +31,17 @@ interface Props {
   mode?: 'persuade' | 'operate' | 'read' | 'experience';
   activePage?: string;
   activeGroup?: string;
+  /** Esconde a pílula flutuante "Ativar app" (páginas de campanha já têm sua própria ação). */
+  hideFloatingPill?: boolean;
 }
 
 const {
   title,
   description = 'Portal Institucional & Super App Discente — Centro Acadêmico de Gestão Pública (CAGP FAFICH/UFMG)',
   mode = 'operate',
+  hideFloatingPill = false,
 } = Astro.props;
+const routeMeta = getRouteMeta();
 ---
 
 <!doctype html>
@@ -167,33 +172,16 @@ const {
 
     <!-- Indução Obrigatória PWA & Ativação Eleitoral Chapa Semente -->
     <PwaElectionCredenciamentoModal client:load />
-    <PwaCredenciamentoPill client:load />
+    {!hideFloatingPill && <PwaCredenciamentoPill client:load />}
 
     <!-- Tour Global Persistente Multi-Páginas da Chapa Semente -->
     <GlobalTourHost client:load />
 
     <!-- Directional Navigation & Progress Bar Controller -->
-    <script is:inline>
+    <script is:inline define:vars={{ ROUTE_META_FROM_REGISTRY: routeMeta }}>
       (function() {
-        const ROUTE_META = {
-          '/': { group: 1, depth: 0 },
-          '/noticias': { group: 1, depth: 1 },
-          '/curso': { group: 2, depth: 0 },
-          '/calouros': { group: 2, depth: 1 },
-          '/pesquisa': { group: 2, depth: 1 },
-          '/percurso': { group: 3, depth: 0 },
-          '/optativas': { group: 3, depth: 1 },
-          '/acg': { group: 3, depth: 1 },
-          '/estagio': { group: 3, depth: 1 },
-          '/tcc': { group: 3, depth: 1 },
-          '/estagio-tcc': { group: 3, depth: 1 },
-          '/documentos': { group: 4, depth: 0 },
-          '/faq': { group: 4, depth: 1 },
-          '/mapa-do-site': { group: 4, depth: 1 },
-          '/sobre': { group: 5, depth: 0 },
-          '/transparencia': { group: 5, depth: 1 },
-          '/gestao': { group: 5, depth: 1 }
-        };
+        // Grupo = posição da aba na barra; profundidade 0 = raiz da aba (navigationRegistry.ts › getRouteMeta).
+        const ROUTE_META = ROUTE_META_FROM_REGISTRY;
 
         const baseUrl = document.documentElement.dataset.baseUrl || '/';
         const cleanBase = baseUrl.replace(/\/$/, '');

@@ -14,7 +14,7 @@ const diretorias = [
     curso: 'Gestão Pública • Noturno • FAFICH/UFMG',
     bio: 'Representação institucional, coordenação executiva perante a Reitoria e Colegiado, assinatura de convênios e protocolo de ofícios regimentais.',
     artigo: 'Art. 28 do Regimento Interno',
-    email: 'cagp@fafich.ufmg.br',
+    email: 'chapa.semente.gp@gmail.com',
   },
   {
     sigla: 'DIJUR',
@@ -25,7 +25,7 @@ const diretorias = [
     curso: 'Gestão Pública • Noturno • FAFICH/UFMG',
     bio: 'Consultoria jurídica interna, emissão de pareceres de conformidade, guarda física e digital do Livro de Atas e garantia de transparência passiva discente.',
     artigo: 'Art. 29 do Regimento Interno',
-    email: 'cagp@fafich.ufmg.br',
+    email: 'chapa.semente.gp@gmail.com',
   },
   {
     sigla: 'DIFI',
@@ -36,7 +36,7 @@ const diretorias = [
     curso: 'Gestão Pública • Noturno • FAFICH/UFMG',
     bio: 'Gestão da conta bancária institucional e CNPJ, emissão compulsória mensal do RREO, controle do livro-caixa e confecção de produtos oficiais do curso.',
     artigo: 'Art. 30 do Regimento Interno',
-    email: 'cagp@fafich.ufmg.br',
+    email: 'chapa.semente.gp@gmail.com',
   },
   {
     sigla: 'DIAC',
@@ -47,7 +47,7 @@ const diretorias = [
     curso: 'Gestão Pública • Noturno • FAFICH/UFMG',
     bio: 'Orientação personalizada sobre percursos curriculares, cálculo de horas complementares (AAC/ACG), monitoramento de trancamentos e diálogo com o Colegiado.',
     artigo: 'Art. 31 do Regimento Interno',
-    email: 'cagp@fafich.ufmg.br',
+    email: 'chapa.semente.gp@gmail.com',
   },
   {
     sigla: 'DIAP',
@@ -58,7 +58,7 @@ const diretorias = [
     curso: 'Gestão Pública • Noturno • FAFICH/UFMG',
     bio: 'Representação do CAGP no Conselho de Centros Acadêmicos (CEB), relação com DA FAFICH e DCE UFMG, e integração com entidades do Campo de Públicas.',
     artigo: 'Art. 32 do Regimento Interno',
-    email: 'cagp@fafich.ufmg.br',
+    email: 'chapa.semente.gp@gmail.com',
   },
   {
     sigla: 'DICULT',
@@ -69,7 +69,7 @@ const diretorias = [
     curso: 'Gestão Pública • Noturno • FAFICH/UFMG',
     bio: 'Planejamento e execução da recepção de calouros e Calouradas do curso, cineclubes temáticos, debates extracurriculares e articulação esportiva.',
     artigo: 'Art. 33 do Regimento Interno',
-    email: 'cagp@fafich.ufmg.br',
+    email: 'chapa.semente.gp@gmail.com',
   },
   {
     sigla: 'DIMAC',
@@ -80,7 +80,7 @@ const diretorias = [
     curso: 'Gestão Pública • Noturno • FAFICH/UFMG',
     bio: 'Gestão das mídias sociais (@cagp.ufmg), produção visual, manutenção e atualização contínua do Super App e informes de prazos de matrícula via painel.',
     artigo: 'Art. 34 do Regimento Interno',
-    email: 'cagp@fafich.ufmg.br',
+    email: 'chapa.semente.gp@gmail.com',
   },
 ];
 ---
@@ -161,11 +161,12 @@ const diretorias = [
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {CHAPA_SEMENTE_LEADERS.map((leader, idx) => (
         <div class="p-4 bg-white border-2 border-[#1F1F1F] rounded-2xl shadow-[8px_8px_0_0_#1F1F1F] flex flex-col justify-between gap-4">
-          <div class="space-y-3">
+          <div class="flex flex-col gap-4">
             <LeaderAvatar
               client:visible
               name={leader.name}
               photoFilename={leader.photoFilename}
+              photoPosition={leader.photoPosition}
               initials={leader.initials}
               deptColor={leader.deptColor}
               role={leader.role}
@@ -191,7 +192,7 @@ const diretorias = [
 
           <div class="pt-3 border-t-2 border-[#1F1F1F] flex flex-wrap items-center justify-between gap-2">
             <a
-              href={`mailto:cagp@fafich.ufmg.br?subject=${encodeURIComponent(`Contato Diretoria: ${leader.role} (${leader.name})`)}`}
+              href={`mailto:chapa.semente.gp@gmail.com?subject=${encodeURIComponent(`Contato Diretoria: ${leader.role} (${leader.name})`)}`}
               class="min-h-[44px] px-3 py-2 rounded-xl bg-[#1F1F1F] text-white font-head font-black uppercase text-xs border-2 border-[#1F1F1F] shadow-[3px_3px_0_0_#FE8812] hover:bg-[#5B2A85] transition-colors inline-flex items-center gap-1.5 no-underline"
             >
               <i class="bi bi-envelope-fill" aria-hidden="true"></i>
@@ -225,7 +226,7 @@ const diretorias = [
     </p>
     <div class="pt-2">
       <a
-        href="mailto:cagp@fafich.ufmg.br?subject=Interesse%20em%20Assessoria%20CAGP"
+        href="mailto:chapa.semente.gp@gmail.com?subject=Interesse%20em%20assessoria%20(Chapa%20Semente)"
         class="min-h-[44px] px-4 py-2 bg-secondary hover:bg-secondary text-white font-head font-bold uppercase text-xs tracking-wider border-2 border-white rounded-xl shadow-[3px_3px_0_0_#FFFFFF] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none inline-flex items-center gap-2 transition-all no-underline"
       >
         <i class="bi bi-envelope-plus" aria-hidden="true"></i> Enviar Mensagem de Interesse para Assessoria &rarr;

@@ -1,0 +1,41 @@
+---
+// /guias — Hub da aba Guias (Modelo B). Documentos mais pedidos primeiro; depois os guias por momento do curso.
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+import HubItemList from '@/components/shell/HubItemList.astro';
+import DocumentosMaisPedidos from '@/components/features/guias/DocumentosMaisPedidos.astro';
+import { getAxisById } from '@/lib/navigationRegistry';
+
+const axis = getAxisById('guias')!;
+const groups = (axis.groups ?? []).filter((g) => g.id !== 'documentos');
+const docsItem = axis.items.find((i) => i.group === 'documentos');
+---
+
+<BaseLayout
+  title="Guias"
+  description="Passo a passo dos trâmites do curso de Gestão Pública da UFMG e os documentos mais pedidos, prontos para baixar e enviar."
+  mode="operate"
+>
+  <PageHeader
+    title="Guias"
+    subtitle="O passo a passo de cada trâmite e os documentos que você precisa."
+    mode="operate"
+    condensed={true}
+  />
+
+  <div class="space-y-10 sm:space-y-12">
+    <DocumentosMaisPedidos />
+
+    {groups.map((group) => (
+      <HubItemList
+        heading={group.title}
+        headingId={`guias-${group.id}`}
+        items={axis.items.filter((i) => i.group === group.id)}
+      />
+    ))}
+
+    {docsItem && (
+      <HubItemList heading="Todos os documentos" headingId="guias-acervo" items={[docsItem]} />
+    )}
+  </div>
+</BaseLayout>

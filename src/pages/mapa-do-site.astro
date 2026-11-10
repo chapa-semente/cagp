@@ -1,5 +1,5 @@
 ---
-// mapa-do-site.astro — Arquitetura de Informação e TreeView Interativo dos 5 Eixos Canônicos e 26 Rotas
+// mapa-do-site.astro — Todas as páginas, agrupadas pelas abas do registro de navegação
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
 import { SitemapTreeViewExplorer } from '../components/features/sitemap/SitemapTreeViewExplorer';
@@ -22,46 +22,34 @@ const NORMATIVE_READER_ROUTES = [
   { label: 'Leitor: Recepção de Ingressantes', href: route('/documentos/transcricao-recepcao-ingressantes-2024-2') },
 ];
 
-const badges = [
-  { label: '5 Eixos Canônicos', variant: 'red' as const, icon: 'bi-diagram-3-fill' },
-  { label: '26 Rotas Estáticas & Micro-Apps', variant: 'dark' as const, icon: 'bi-compass-fill' },
-  { label: 'Command Palette (⌘K)', variant: 'blue' as const, icon: 'bi-search' },
-];
 ---
 
 <BaseLayout
-  title="Mapa do Site & Arquitetura de Informação (26 Rotas)"
-  description="Navegação panorâmica e árvore hierárquica interativa dos 5 Eixos Canônicos e 26 rotas do Superapp CAGP UFMG."
+  title="Mapa do site"
+  description="Todas as páginas do site do CAGP e da Chapa Semente, organizadas pelas abas Hoje, Guias, Chapa, Meu curso e Mais."
   mode="operate"
 >
   <PageHeader
-    title="Mapa do Site & Árvore das 26 Rotas"
-    subtitle="Explore todas as 26 páginas, calculadoras, leitores normativos e ferramentas da Chapa Semente organizados nos 5 Eixos Canônicos do curso."
-    badges={badges}
+    title="Mapa do site"
+    subtitle="Todas as páginas, organizadas pelas abas da barra de navegação."
     mode="operate"
+    condensed={true}
   />
 
-  <!-- Barra de Busca Instantânea ⌘K -->
-  <div class="my-4 p-4 sm:p-5 rounded-2xl border-2 border-[#1F1F1F] bg-[#ffffff] shadow-[6px_6px_0_0_#1F1F1F] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+  <div class="my-4 p-4 sm:p-5 rounded-xl border-2 border-border bg-card flex flex-col sm:flex-row sm:items-center justify-between gap-4">
     <div class="space-y-1">
-      <span class="font-mono text-xs font-black uppercase tracking-widest text-[#5B2A85] block">
-        ATALHO DE TECLADO GLOBAL • COMMAND PALETTE
-      </span>
-      <h2 class="font-heading text-base sm:text-lg font-black text-[#1F1F1F] m-0">
-        Navegação Instantânea por Qualquer uma das 26 Rotas
-      </h2>
-      <p class="text-xs text-muted-foreground m-0 font-medium">
-        Pressione <kbd class="px-1.5 py-0.5 rounded bg-white border-2 border-[#1F1F1F] font-mono font-bold text-xs">⌘K</kbd> ou <kbd class="px-1.5 py-0.5 rounded bg-white border-2 border-[#1F1F1F] font-mono font-bold text-xs">Ctrl+K</kbd> a qualquer momento para saltar direto para uma ferramenta, proposta ou PDF.
+      <h2 class="font-heading text-lg font-bold text-foreground m-0">Procurando uma página?</h2>
+      <p class="text-sm text-muted-foreground m-0">
+        Busque pelo nome, por um trâmite ou por um documento<span class="hidden md:inline"> (atalho <kbd class="px-1.5 py-0.5 rounded bg-white border-2 border-border font-bold text-xs">Ctrl+K</kbd>)</span>.
       </p>
     </div>
     <button
       type="button"
       onclick="window.dispatchEvent(new CustomEvent('cagp:open-spotlight'))"
-      class="min-h-[48px] px-5 py-3 rounded-xl bg-[#5B2A85] text-white font-heading font-black text-xs uppercase tracking-wider border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all cursor-pointer inline-flex items-center gap-2.5 shrink-0"
+      class="min-h-[48px] px-5 py-3 rounded-xl bg-primary text-white font-heading font-bold text-sm uppercase tracking-[0.03em] border-3 border-border shadow-[3px_3px_0_0_#1F1F1F] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none cursor-pointer inline-flex items-center gap-2.5 shrink-0"
     >
       <i class="bi bi-search" aria-hidden="true"></i>
-      <span>Acionar Busca Rápida</span>
-      <kbd class="px-2 py-0.5 rounded bg-[#1F1F1F] text-[#FE8812] font-mono text-xs font-black border border-white/30">⌘K</kbd>
+      <span>Buscar no site</span>
     </button>
   </div>
 
@@ -71,11 +59,11 @@ const badges = [
     {AXIS_REGISTRY.map((axis) => (
       <div class="p-5 rounded-2xl border-2 border-[#1F1F1F] bg-card shadow-[6px_6px_0_0_#1F1F1F] hover:shadow-[8px_8px_0_0_#1F1F1F] hover:-translate-y-0.5 transition-all space-y-3 text-foreground">
         <div class="flex items-center justify-between border-b-2 border-[#1F1F1F] pb-2">
-          <span class="font-mono text-xs font-black uppercase text-secondary">
-            EIXO {axis.number}
+          <span class="font-heading text-xs font-bold uppercase tracking-[0.04em] text-secondary">
+            Aba {axis.mobileLabel}
           </span>
-          <span class="font-mono text-xs font-bold px-2 py-0.5 rounded bg-[#F4F2EC] border border-[#1F1F1F]">
-            {axis.items.length} Rotas Principais
+          <span class="font-heading text-xs font-bold tabular-nums px-2 py-0.5 rounded-md bg-background border-2 border-border">
+            {axis.items.length} páginas
           </span>
         </div>
         <h3 class="font-heading text-base font-extrabold text-foreground m-0">

@@ -161,7 +161,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
     window.dispatchEvent(new CustomEvent('cagp:vault-updated'));
     if ((window as unknown as { cagpToast?: (msg: string, icon?: string) => void }).cagpToast) {
       (window as unknown as { cagpToast: (msg: string, icon?: string) => void }).cagpToast(
-        'Credenciamento Oficial Concluído! Passaporte Chapa Semente 2026 Ativado.',
+        'Pronto! O app da Chapa Semente está no seu celular.',
         'bi-check2-circle'
       );
     }
@@ -213,7 +213,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
               </span>
             </div>
             <h1 id="credenciamento-main-heading" className="font-heading text-xs sm:text-sm font-black uppercase text-white tracking-wide truncate m-0 mt-0.5">
-              Consola de Credenciamento Discente &amp; Eleições 2026
+              Instalar o app da Chapa Semente · opcional
             </h1>
           </div>
         </div>
@@ -227,8 +227,8 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
             type="button"
             onClick={() => setIsOpen(false)}
             className="w-9 h-9 rounded-lg bg-white text-foreground border-3 border-border shadow-xs flex items-center justify-center font-heading font-black text-xs cursor-pointer active:translate-x-0.5 active:translate-y-0.5"
-            title="Fechar painel de ativação"
-            aria-label="Fechar painel de ativação"
+            title="Fechar e voltar ao site"
+            aria-label="Fechar e voltar ao site"
           >
             <i className="bi bi-x-lg" aria-hidden="true" />
           </button>
@@ -244,7 +244,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
           </span>
           <span className="mx-4 font-mono text-xs font-bold uppercase tracking-widest flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-teal-700" />
-            URNA NO 1º ANDAR DA FAFICH (17H ÀS 22H30)
+            VOTAÇÃO NA SALA DO CAGP (17H ÀS 22H30)
           </span>
           <span className="mx-4 font-mono text-xs font-bold uppercase tracking-widest flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-secondary" />
@@ -264,7 +264,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
             { step: 1, title: 'ACESSO OFFLINE', stamp: 'INICIADO' },
             { step: 2, title: 'INSTALAÇÃO', stamp: 'DISPOSITIVO' },
             { step: 3, title: 'RADAR DA URNA', stamp: 'ALERTAS' },
-            { step: 4, title: 'PASSAPORTE', stamp: 'VOTO HOMOLOGADO' },
+            { step: 4, title: 'LEMBRETE', stamp: 'SEU TURNO' },
           ].map(({ step, title, stamp }) => {
             const isActive = currentStep === step;
             const isCompleted = currentStep > step;
@@ -310,21 +310,18 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
 
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-2">
                   <div className="space-y-1">
-                    <span className="font-mono text-xs font-bold uppercase tracking-widest text-primary block">
-                      Acolhimento Discente Oficial • Bacharelado em Gestão Pública
-                    </span>
                     <h2 className="font-heading text-lg sm:text-2xl font-black text-foreground m-0 leading-tight">
-                      Homologação Obrigatória de Acesso Offline
+                      Tenha o site no celular, mesmo sem sinal
                     </h2>
                   </div>
 
                   <div className="cagp-stamp-badge is-homologado shrink-0 -rotate-2">
-                    EDITAL CAGP 2026
+                    OPCIONAL
                   </div>
                 </div>
 
                 <p className="text-xs sm:text-sm text-[#44403C] mt-3 leading-relaxed">
-                  Para que a <strong>Calculadora de 600h ACG/Extensão</strong>, a <strong>Matriz Curricular dos 10 Períodos</strong> e o <strong>Catálogo das 95 Disciplinas</strong> funcionem com total estabilidade nos subsolos, corredores e salas da FAFICH sem sinal de internet, é necessário sincronizar a estrutura do Super App localmente no seu dispositivo.
+                  Instalando, a <strong>calculadora de 600h</strong>, a <strong>grade dos 10 períodos</strong> e o <strong>catálogo de disciplinas</strong> abrem mesmo nos corredores da FAFICH sem sinal. Não é exigência de ninguém: o site também funciona direto no navegador, e você pode fechar esta tela a qualquer momento.
                 </p>
               </div>
 
@@ -411,7 +408,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
             <div className="space-y-5 animate-in fade-in duration-200">
               <div className="text-center space-y-1">
                 <span className="font-mono text-xs font-bold uppercase tracking-widest text-primary block">
-                  Etapa Técnica Obrigatória · Protocolo PWA
+                  Etapa 2 · Instalação (opcional)
                 </span>
                 <h2 className="font-heading text-lg sm:text-2xl font-black text-foreground m-0">
                   Sincronização &amp; Fixação do Aplicativo
@@ -425,7 +422,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                     <i className="bi bi-check2-all text-3xl" aria-hidden="true" />
                   </div>
                   <div className="cagp-stamp-badge is-deferido mx-auto -rotate-1 text-xs">
-                    DISPOSITIVO HOMOLOGADO EM MODO DEDICADO
+                    JÁ INSTALADO
                   </div>
                   <h3 className="font-heading text-base sm:text-lg font-black text-[#14532D] m-0">
                     Aplicativo Já Instalado na Tela de Início
@@ -519,7 +516,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                   </div>
 
                   <div className="p-3 rounded-xl bg-[#FEF3C7] border-2 border-warning text-xs font-sans text-[#92400E]">
-                    <strong>Nota Técnica Normativa:</strong> A Apple exige a fixação do WebApp na tela de início para liberar as permissões da Web Push Notification API e o armazenamento offline seguro.
+                    <strong>Por que no iPhone é diferente:</strong> a Apple exige a fixação do WebApp na tela de início para liberar as permissões da Web Push Notification API e o armazenamento offline seguro.
                   </div>
                 </div>
               ) : deviceType === 'android' ? (
@@ -603,7 +600,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                           Instale no seu Aparelho Principal
                         </h4>
                         <p className="text-xs text-muted-foreground m-0 leading-relaxed">
-                          As eleições presenciais acontecem na FAFICH nos dias 25 e 26/11. Ter o app no smartphone garante que você não esqueça o documento com foto nem o horário da urna.
+                          A votação é presencial, na sala do CAGP, em 25 e 26/11, das 17h às 22h30. Com o app no celular, o horário fica à mão.
                         </p>
 
                         <button
@@ -629,10 +626,10 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
             <div className="space-y-5 animate-in fade-in duration-200">
               <div className="text-center space-y-1">
                 <span className="font-mono text-xs font-bold uppercase tracking-widest text-primary block">
-                  Etapa 3 · Mobilização Cívica Discente
+                  Etapa 3 · Lembretes
                 </span>
                 <h2 className="font-heading text-lg sm:text-2xl font-black text-foreground m-0">
-                  Radar Eleitoral &amp; Alertas Oficiais
+                  Datas da eleição e lembretes
                 </h2>
               </div>
 
@@ -641,14 +638,14 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                 <div className="flex items-center justify-between border-b-2 border-warning pb-2">
                   <div className="flex items-center gap-2">
                     <span className="font-mono text-xs font-black uppercase bg-warning text-white px-2 py-0.5 rounded">
-                      JUNTA ELEITORAL CAGP
+                      EDITAL DE 04/11/2026
                     </span>
                     <span className="font-heading text-xs font-black uppercase text-[#92400E]">
                       Calendário de Votação
                     </span>
                   </div>
                   <span className="cagp-stamp-badge is-homologado text-xs">
-                    CONVOCAÇÃO OFICIAL
+                    ARTS. 14 E 20
                   </span>
                 </div>
 
@@ -661,7 +658,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                       Debate das Chapas Concorrentes
                     </strong>
                     <span className="text-xs text-muted-foreground block mt-1">
-                      Confronto de propostas e prestação de contas na FAFICH.
+                      Local a ser definido pela Junta Eleitoral (Art. 14).
                     </span>
                   </div>
 
@@ -670,10 +667,10 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                       25 e 26/11/2026 • 17h às 22h30
                     </span>
                     <strong className="font-heading text-xs uppercase font-black text-foreground block mt-0.5">
-                      Votação Presencial no 1º Andar
+                      Votação presencial na sala do CAGP
                     </strong>
                     <span className="text-xs text-muted-foreground block mt-1">
-                      Corredor do CAGP. Obrigatório documento oficial com foto.
+                      Voto secreto e direto (Art. 20). Vota quem está matriculado em Gestão Pública.
                     </span>
                   </div>
                 </div>
@@ -683,7 +680,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
               <div className="p-4 sm:p-5 rounded-2xl border-4 border-border bg-white shadow-lg space-y-3">
                 <div className="flex items-center justify-between">
                   <h3 className="font-heading text-xs sm:text-sm font-black text-foreground m-0">
-                    1. Alertas Oficiais no Aparelho
+                    1. Avisos no celular
                   </h3>
                   {notifState === 'granted' ? (
                     <span className="cagp-stamp-badge is-deferido text-xs">
@@ -697,7 +694,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                 </div>
 
                 <p className="text-xs text-muted-foreground m-0 leading-relaxed">
-                  Autorize notificações para receber a convocação de abertura das urnas e o lembrete de comparecimento sem intermediários.
+                  Se quiser, autorize notificações para a Chapa Semente te lembrar do debate e da votação. Dá para desligar depois nas configurações do navegador.
                 </p>
 
                 <button
@@ -729,7 +726,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                 </div>
 
                 <p className="text-xs text-muted-foreground m-0 leading-relaxed">
-                  Baixe o compromisso oficial com alarme automático de 15 minutos para Google Agenda, Apple Calendar ou Outlook.
+                  Baixe um lembrete com alarme de 15 minutos para Google Agenda, Apple Calendar ou Outlook.
                 </p>
 
                 <button
@@ -751,17 +748,17 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
             <div className="space-y-5 animate-in fade-in duration-200">
               <div className="text-center space-y-1">
                 <span className="font-mono text-xs font-bold uppercase tracking-widest text-primary block">
-                  Etapa Final · Compromisso Eleitoral
+                  Etapa 4 · Seu lembrete
                 </span>
                 <h2 className="font-heading text-lg sm:text-2xl font-black text-foreground m-0">
-                  Passaporte do Eleitor Homologado
+                  Quando você pretende votar?
                 </h2>
               </div>
 
               {/* Seletor de Turno de Voto */}
               <div className="p-4 sm:p-5 rounded-2xl border-4 border-border bg-white shadow-lg space-y-3">
                 <label className="font-heading text-xs font-black uppercase text-foreground block">
-                  Selecione o Turno em que Comparecerá à Urna no 1º Andar da FAFICH:
+                  Escolha o turno do lembrete. A votação é na sala do CAGP:
                 </label>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
@@ -865,7 +862,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
           )}
 
           <span className="hidden sm:inline-block font-mono text-xs font-bold text-[#78716C] px-1">
-            CREDENCIAMENTO OBRIGATÓRIO EM ANDAMENTO
+            TUDO AQUI É OPCIONAL
           </span>
         </div>
 
@@ -885,7 +882,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
             className="py-3 px-6 rounded-xl bg-secondary hover:bg-[#721824] text-white border-3 border-border font-heading font-black text-xs sm:text-sm uppercase tracking-wider shadow-md transition-transform active:translate-x-0.5 active:translate-y-0.5 cursor-pointer flex items-center gap-2"
           >
             <i className="bi bi-check2-circle text-base" aria-hidden="true" />
-            <span>HOMOLOGAR CREDENCIAMENTO &amp; ENTRAR NO APP</span>
+            <span>CONCLUIR E VOLTAR AO SITE</span>
           </button>
         )}
       </footer>

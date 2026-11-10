@@ -9,30 +9,7 @@ import CagpHistoriaCore from '../components/features/cagp/historia/CagpHistoriaC
 import CagpEstatutoCore from '../components/features/cagp/estatuto/CagpEstatutoCore.astro';
 import CagpGestaoDiretoria from '../components/features/cagp/gestao/CagpGestaoDiretoria.astro';
 import { SobreCollageBanner } from '../components/features/cagp/SobreCollageBanner';
-import { TestimonialsGrid } from '../components/boldkit/blocks/testimonials';
 import { ContactWithCards } from '../components/boldkit/blocks/contact-section';
-import { LogoCloudGrid } from '../components/boldkit/blocks/logo-cloud';
-
-const testimonialsData = [
-  {
-    quote: 'A formação interdisciplinar entre Ciência Política, Economia e Direito na UFMG me deu toda a base analítica para atuar na formulação de políticas no setor público.',
-    author: 'Beatriz Vasconcelos',
-    role: 'Egressa GP • Especialista em Políticas Públicas e Gestão Governamental (EPPGG)',
-    rating: 5,
-  },
-  {
-    quote: 'O CAGP foi onde vivenciei negociação, liderança e gestão pública na prática diária da FAFICH. Uma verdadeira escola de cidadania republicana.',
-    author: 'Lucas Meireles',
-    role: 'Discente 8º Período • Bolsista de Iniciação Científica DCP/UFMG',
-    rating: 5,
-  },
-  {
-    quote: 'Conciliar trabalho durante o dia e o turno noturno na UFMG é desafiador. A luta do Centro Acadêmico pelo RU e circulares noturnos é vital para nossa permanência.',
-    author: 'Mariana Duarte',
-    role: 'Discente 4º Período • Estagiária na Secretaria de Estado de Planejamento',
-    rating: 5,
-  },
-];
 
 const contactCards = [
   {
@@ -44,10 +21,10 @@ const contactCards = [
   },
   {
     icon: 'bi-envelope',
-    title: 'E-mail Oficial do CAGP',
-    description: 'Comunicação institucional, solicitações de ofício e ouvidoria.',
-    contact: 'cagp@fafich.ufmg.br',
-    action: { label: 'Enviar E-mail', href: 'mailto:cagp@fafich.ufmg.br' },
+    title: 'E-mail da Chapa Semente',
+    description: 'O CAGP ainda não tem e-mail público. Dúvidas e sugestões sobre este site vão para a Chapa Semente.',
+    contact: 'chapa.semente.gp@gmail.com',
+    action: { label: 'Enviar E-mail', href: 'mailto:chapa.semente.gp@gmail.com' },
   },
   {
     icon: 'bi-mortarboard',
@@ -56,14 +33,6 @@ const contactCards = [
     contact: '(31) 3409-3826 • gestaopublica@ufmg.br',
     action: { label: 'Ver Contatos', href: '/curso#colegiado' },
   },
-];
-
-const partnerLogos = [
-  { name: 'FAFICH UFMG', logo: 'FAFICH' },
-  { name: 'DCP UFMG', logo: 'DCP CAPES 7' },
-  { name: 'FACE UFMG', logo: 'FACE' },
-  { name: 'Cedeplar IGC', logo: 'CEDEPLAR' },
-  { name: 'PROEX UFMG', logo: 'PROEX' },
 ];
 
 const tabs = [
@@ -102,29 +71,11 @@ const badges = [
     <div id="visao-geral" class="cagp-anchor-target scroll-mt-24"></div>
     <CagpCentralOverview />
 
-    <TestimonialsGrid
-      client:visible
-      title="Vozes da Gestão Pública UFMG"
-      subtitle="Egressos & Discentes"
-      testimonials={testimonialsData}
-      columns={3}
-      className="py-4 px-0 bg-transparent"
-    />
-
     <ContactWithCards
       client:visible
       title="Canais de Atendimento & Representação"
       description="Entre em contato com as diretorias do CAGP ou com a secretaria do Colegiado na FAFICH."
       contactMethods={contactCards}
-      className="py-4 px-0"
-    />
-
-    <LogoCloudGrid
-      client:visible
-      title="Unidades Acadêmicas & Laboratórios Integrados"
-      subtitle="Rede Interdisciplinar"
-      logos={partnerLogos}
-      columns={5}
       className="py-4 px-0"
     />
   </section>

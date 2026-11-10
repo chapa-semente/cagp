@@ -26,7 +26,6 @@ import {
   ItemDescription,
   ItemHeader,
 } from '@/components/ui/item';
-import { route } from '@/lib/paths';
 import { tactileSpring } from '@/lib/motion';
 
 const BUDGET_ALLOCATION_DATA = [
@@ -73,22 +72,20 @@ export const CagpTransparenciaPortal: React.FC = () => {
 
   return (
     <div className="space-y-6 pb-8 font-body">
-      {/* Aviso Obrigatório de Simulação */}
+      {/* Aviso de simulação: repetido aqui porque o bloco abaixo é inteiro fictício */}
       <div
         role="note"
-        className="p-4 rounded-xl bg-[#FEF3C7] border-2 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-foreground"
+        className="p-4 rounded-xl bg-warning-tint border-2 border-border flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-foreground"
       >
         <div className="space-y-1">
-          <strong className="font-head uppercase font-extrabold text-[#78350F] block text-xs">
-            Livro-Caixa Aberto (Proposta 1 Materializada) — Prestação de Contas Demonstrativa
+          <strong className="font-heading font-bold text-warning block text-sm">
+            Daqui para baixo, tudo é exemplo
           </strong>
-          <p className="m-0 text-foreground font-medium leading-relaxed">
-            {SIMULATION_NOTICE} As regras estatutárias abaixo (Regimento Interno aprovado em{' '}
-            {SIMULATED_TRANSPARENCY.statuteDate}) são 100% oficiais; os valores monetários e
-            lançamentos contábeis são demonstrativos (<code className="font-mono bg-white px-1 py-0.5 rounded border border-border">simulated: true</code>).
+          <p className="m-0 text-sm leading-relaxed">
+            Saldos, gráficos, lançamentos, comprovantes e atas abaixo são fictícios. {SIMULATION_NOTICE}
           </p>
         </div>
-        <span className="font-mono text-xs font-bold uppercase bg-white px-2.5 py-1 rounded-lg border-3 border-border shadow-sm text-[#78350F] shrink-0 self-start sm:self-center">
+        <span className="font-heading text-xs font-bold uppercase tracking-[0.04em] tabular-nums bg-white px-2.5 py-1 rounded-md border-2 border-border text-foreground shrink-0 self-start sm:self-center">
           {SIMULATION_BADGE_TEXT}
         </span>
       </div>
@@ -104,8 +101,8 @@ export const CagpTransparenciaPortal: React.FC = () => {
               <span className="px-2 py-0.5 rounded bg-[#5B2A85] text-white font-mono text-xs font-black uppercase">
                 PROPOSTA 1 • EIXO 1 SEMENTE
               </span>
-              <span className="font-mono text-xs font-bold uppercase text-secondary">
-                ART. 30, V DO ESTATUTO CAGP
+              <span className="font-heading text-xs font-bold uppercase tracking-[0.04em] text-secondary">
+                Formato do Art. 30, XI e XII
               </span>
             </div>
             <h2
@@ -115,13 +112,12 @@ export const CagpTransparenciaPortal: React.FC = () => {
               Livro-Caixa Aberto • Balancete Financeiro Consolidado
             </h2>
             <p className="text-xs font-mono text-foreground mt-1 m-0 font-bold">
-              {SIMULATED_TRANSPARENCY.referencePeriod} • Diretoria de Finanças e Patrimônio (Art. 30)
+              {SIMULATED_TRANSPARENCY.referencePeriod} • Diretoria Financeira (Art. 30)
             </p>
           </div>
 
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#E8F5E9] text-success font-mono text-xs font-bold uppercase rounded-lg border-3 border-border shadow-sm">
-            <CagpIcon name="stamp" className="w-3.5 h-3.5" />
-            <span>CONSELHO FISCAL • ART. 36</span>
+          <span className="inline-flex items-center px-2 py-1 bg-warning-tint text-foreground font-heading text-xs font-bold uppercase tracking-[0.04em] rounded-md border-2 border-border">
+            Simulado
           </span>
         </div>
 
@@ -129,7 +125,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
           <StatCard
             title="Saldo Disponível (Simulado)"
             value={SIMULATED_TRANSPARENCY.balance}
-            subtitle="Conta-caixa auditada semestralmente"
+            subtitle="Valor fictício de exemplo"
             colorScheme="primary"
             icon={<CagpIcon name="shield" className="w-5 h-5" />}
           />
@@ -175,7 +171,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
               centerContent={
                 <div className="text-center">
                   <div className="text-lg font-heading font-black">100%</div>
-                  <div className="text-xs font-mono text-muted-foreground">Auditado</div>
+                  <div className="text-xs font-heading font-bold uppercase text-muted-foreground">Exemplo</div>
                 </div>
               }
               className="mx-auto max-h-[210px]"
@@ -211,7 +207,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
               </BarChart>
             </ChartContainer>
             <p className="text-xs font-mono text-muted-foreground text-center m-0 font-bold">
-              Comparativo mensal auditado pelo Conselho Fiscal (R$)
+              Comparativo mensal fictício (R$)
             </p>
           </div>
 
@@ -229,7 +225,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
                 max={100}
                 size="md"
                 variant="semicircle"
-                label="Comprovantes Homologados (Art. 36)"
+                label="Comprovantes arquivados (exemplo)"
                 valueFormatter={(v) => `${v}%`}
                 zones={[
                   { from: 0, to: 50, color: '#A85300', label: 'Atenção' },
@@ -239,7 +235,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
               />
             </div>
             <p className="text-xs font-sans text-muted-foreground text-center m-0">
-              Todos os recibos e notas fiscais permanecem arquivados na pasta digital aberta à Assembleia Geral.
+              Na proposta, recibos e notas ficam numa pasta digital que qualquer estudante pode consultar (Art. 15, V).
             </p>
           </div>
         </div>
@@ -352,16 +348,16 @@ export const CagpTransparenciaPortal: React.FC = () => {
         <div className="pt-4 border-t-2 border-border space-y-3">
           <div className="flex items-center justify-between flex-wrap gap-2">
             <span className="font-heading text-xs font-black uppercase text-foreground">
-              Comprovantes &amp; Balancetes Homologados (Invoice Ledger)
+              Comprovantes e balancetes
             </span>
-            <span className="font-mono text-xs font-bold text-muted-foreground">
-              Auditados pelo Conselho Fiscal (Art. 36)
+            <span className="font-heading text-xs font-bold uppercase tracking-[0.04em] bg-warning-tint px-2 py-0.5 rounded-md border-2 border-border text-foreground">
+              Simulado
             </span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <InvoiceSummary
               invoiceNumber="BAL-2026-Q3"
-              clientName="Conselho Fiscal CAGP"
+              clientName="Assembleia Geral (exemplo)"
               issueDate="01/10/2026"
               dueDate="15/10/2026"
               amount={3420.0}
@@ -387,7 +383,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
         </div>
       </section>
 
-      {/* Bloco 3: RREO Mensal (Art. 30, V) + Atas e Pareceres (Art. 29, VII) */}
+      {/* Bloco 3: RREO Mensal (Art. 30, XI) + Atas e Pareceres (Art. 29, VII) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* RREO Mensal */}
         <section
@@ -399,7 +395,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
               id="heading-rreo"
               className="font-head text-base sm:text-lg font-extrabold text-foreground m-0"
             >
-              Execução Orçamentária Mensal (RREO • Art. 30, V)
+              Execução Orçamentária Mensal (RREO • Art. 30, XI)
             </h2>
             <p className="text-xs text-foreground mt-1 m-0 font-medium">
               Acompanhamento mensal de entradas, saídas e saldo acumulado (dados simulados).
@@ -455,7 +451,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
               Atas, Pareceres &amp; Patrimônio
             </h2>
             <p className="text-xs text-foreground mt-1 m-0 font-medium">
-              Registros demonstrativos de controle social (Arts. 29, VII e 30, VII).
+              Registros fictícios, no formato de arquivo de atas do Art. 29, VII.
             </p>
           </div>
 
@@ -485,86 +481,6 @@ export const CagpTransparenciaPortal: React.FC = () => {
         </section>
       </div>
 
-      {/* Bloco 4: Base Normativa Real do Estatuto */}
-      <section
-        aria-labelledby="heading-estatuto-transparencia"
-        className="bg-white rounded-xl border-[3px] border-border p-5 sm:p-6 shadow-md space-y-4"
-      >
-        <div className="flex flex-wrap items-start justify-between gap-3 pb-3 border-b-2 border-border">
-          <div>
-            <h2
-              id="heading-estatuto-transparencia"
-              className="font-head text-base sm:text-lg font-extrabold text-foreground m-0"
-            >
-              Garantias Estatutárias de Transparência (Regimento de 14/10/2024 — Dados Oficiais)
-            </h2>
-            <p className="text-xs text-foreground mt-1 m-0 font-medium">
-              Dispositivos vigentes do Estatuto do Centro Acadêmico de Gestão Pública da UFMG.
-            </p>
-          </div>
-          <a
-            href={route('/documentos/estatuto-cagp-2024.pdf')}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-3.5 py-2 rounded-xl bg-secondary hover:bg-secondary text-white text-xs font-head font-extrabold uppercase tracking-wider no-underline inline-flex items-center gap-1.5 border-3 border-border shadow hover:shadow-md active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
-          >
-            <CagpIcon name="thesis" className="w-4 h-4" />
-            <span>Baixar Estatuto Oficial (PDF)</span>
-          </a>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="p-4 rounded-xl bg-white border-2 border-border shadow-sm space-y-2">
-            <span className="text-xs font-mono font-bold text-secondary block">
-              Art. 8º, Parágrafo Único
-            </span>
-            <h3 className="text-xs font-head font-extrabold text-foreground m-0">
-              Vedação de Distribuição de Lucros
-            </h3>
-            <p className="text-xs text-foreground m-0 leading-relaxed font-medium">
-              O CAGP não distribui lucros, bonificações ou vantagens a dirigentes ou membros; toda
-              receita é integralmente aplicada nas finalidades estudantis e acadêmicas.
-            </p>
-          </div>
-
-          <div className="p-4 rounded-xl bg-white border-2 border-border shadow-sm space-y-2">
-            <span className="text-xs font-mono font-bold text-secondary block">Art. 15, Inciso V</span>
-            <h3 className="text-xs font-head font-extrabold text-foreground m-0">
-              Prazo de 3 Dias Úteis para Informações
-            </h3>
-            <p className="text-xs text-foreground m-0 leading-relaxed font-medium">
-              Qualquer estudante de Gestão Pública tem direito de solicitar esclarecimentos, atas e
-              documentos financeiros, devendo a Diretoria responder em até <strong>3 dias úteis</strong>.
-            </p>
-          </div>
-
-          <div className="p-4 rounded-xl bg-white border-2 border-border shadow-sm space-y-2">
-            <span className="text-xs font-mono font-bold text-secondary block">
-              Arts. 30 e 36 do Estatuto
-            </span>
-            <h3 className="text-xs font-head font-extrabold text-foreground m-0">
-              Dupla Checagem &amp; Conselho Fiscal
-            </h3>
-            <p className="text-xs text-foreground m-0 leading-relaxed font-medium">
-              A Diretoria de Finanças e Patrimônio elabora os balancetes e o inventário semestral,
-              submetidos à auditoria independente do Conselho Fiscal e Consultivo.
-            </p>
-          </div>
-        </div>
-
-        <div className="pt-3 border-t-2 border-border flex flex-wrap items-center justify-between gap-3 text-xs">
-          <span className="text-foreground font-medium">
-            Deseja protocolar um pedido de acesso a atas ou documentos contábeis nos termos do Art. 15, V?
-          </span>
-          <a
-            href="mailto:cagp@fafich.ufmg.br?subject=Pedido%20de%20Informa%C3%A7%C3%A3o%20-%20Art.%2015%20V%20do%20Estatuto%20CAGP"
-            className="font-head font-bold uppercase text-secondary hover:underline no-underline inline-flex items-center gap-1.5"
-          >
-            <span>Solicitar por e-mail (cagp@fafich.ufmg.br)</span>
-            <i className="bi bi-arrow-right" aria-hidden="true" />
-          </a>
-        </div>
-      </section>
     </div>
   );
 };
