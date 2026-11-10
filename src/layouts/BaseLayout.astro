@@ -11,9 +11,8 @@ import BottomNav from '../components/shell/BottomNav.astro';
 import { GlobalSheets } from '../components/shell/GlobalSheets';
 import { GlobalContextMenu } from '../components/shell/GlobalContextMenu';
 import { SuperAppWelcomeModal } from '../components/shell/SuperAppWelcomeModal';
-import { PwaElectionCredenciamentoModal } from '@/components/features/pwa/PwaElectionCredenciamentoModal';
 import { PwaCredenciamentoPill } from '@/components/features/pwa/PwaCredenciamentoPill';
-import { GlobalTourHost } from '@/components/features/semente/GlobalTourHost';
+import { SementeTour } from '@/components/features/semente/SementeTour';
 import { GlobalCanvasBackdrop } from '../components/shell/GlobalCanvasBackdrop';
 import { asset } from '@/lib/paths';
 import { getRouteMeta } from '@/lib/navigationRegistry';
@@ -65,6 +64,26 @@ const routeMeta = getRouteMeta();
 
     <title>{title} — Chapa Semente • CAGP UFMG</title>
     <ClientRouter />
+
+    <!-- Tour obrigatório: cobre a página em roxo até a ilha do tour montar (sem piscar o conteúdo).
+         Se o JS não carregar em 6s, a cobertura sai sozinha e o site segue utilizável. -->
+    <script is:inline>
+      (function () {
+        try {
+          var raw = localStorage.getItem('cagp_semente_tour_v2');
+          var st = raw ? JSON.parse(raw) : null;
+          if ((st && st.status === 'done') || window.__cagpTourMounted) return;
+          var root = document.documentElement;
+          var base = root.getAttribute('data-base-url') || '/';
+          if (base.slice(-1) !== '/') base += '/';
+          root.setAttribute('data-semente-tour', 'pending');
+          root.style.setProperty('--semente-cover-logo', 'url("' + base + 'logos/semente/semente-simbolo-branco.webp")');
+          setTimeout(function () {
+            if (!window.__cagpTourMounted) root.removeAttribute('data-semente-tour');
+          }, 6000);
+        } catch (e) {}
+      })();
+    </script>
 
     <!-- Anti-FOUC Acessibilidade & Drawer Global -->
     <script is:inline>
@@ -170,12 +189,11 @@ const routeMeta = getRouteMeta();
     <!-- Welcome Onboarding & Role Picker -->
     <SuperAppWelcomeModal client:load />
 
-    <!-- Indução Obrigatória PWA & Ativação Eleitoral Chapa Semente -->
-    <PwaElectionCredenciamentoModal client:load />
+    <!-- Pílula "Sou Semente" (só para quem terminou o tour declarando voto) -->
     {!hideFloatingPill && <PwaCredenciamentoPill client:load />}
 
-    <!-- Tour Global Persistente Multi-Páginas da Chapa Semente -->
-    <GlobalTourHost client:load />
+    <!-- Tour obrigatório da Chapa Semente (primeira visita). Persiste entre páginas do ClientRouter. -->
+    <SementeTour client:load transition:persist="semente-tour" />
 
     <!-- Directional Navigation & Progress Bar Controller -->
     <script is:inline define:vars={{ ROUTE_META_FROM_REGISTRY: routeMeta }}>

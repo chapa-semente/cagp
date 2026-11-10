@@ -8,35 +8,7 @@ import {
   type UserRole,
 } from '@/lib/storage/studentVault';
 import { CagpIcon, type CagpIconName } from '@/components/ui/CagpIcon';
-import { Tour, type TourStep } from '@/components/ui/tour';
 import { bounceSpring, staggerContainer, staggerItem, tactileSpring } from '@/lib/motion';
-
-const TOUR_STEPS: TourStep[] = [
-  {
-    target: '#main-content',
-    title: 'A Proposta da Chapa Semente Materializada para Você!',
-    description: 'Bem-vindo ao SuperApp do CAGP (Proposta 3 do Eixo 1): plataforma estudantil completa entregue antes mesmo da urna para transformar o cotidiano de Gestão Pública na FAFICH/UFMG.',
-    placement: 'center',
-  },
-  {
-    target: '#cagp-home-menu-btn, #cagp-mobile-menu-btn, #cagp-desktop-sidebar',
-    title: 'Menu & 7 Eixos de Ferramentas Reais',
-    description: 'Acesse matriz curricular, calculadora das 600h (ACG/Extensão), gerador de requerimentos, guia de estágio, FUMP e prestação de contas.',
-    placement: 'right',
-  },
-  {
-    target: '#cagp-home-spotlight-btn, #cagp-btn-spotlight, #cagp-home-spotlight-mobile-btn, #cagp-sidebar-search-btn',
-    title: 'Busca Universal Instantânea (⌘K / Ctrl+K)',
-    description: 'Encontre qualquer disciplina, resolução, sala da FAFICH ou proposta da Chapa Semente em milissegundos.',
-    placement: 'bottom',
-  },
-  {
-    target: '#cagp-home-passport-btn, #cagp-btn-passport, #cagp-sidebar-passport-btn',
-    title: 'Passaporte Discente & Cofre Offline',
-    description: 'Acompanhe seu progresso rumo ao diploma, desbloqueie carimbos oficiais e guarde seus dados 100% no seu aparelho.',
-    placement: 'bottom',
-  },
-];
 
 const ROLE_OPTIONS: { role: UserRole; icon: CagpIconName }[] = [
   { role: 'calouro', icon: 'checklist' },
@@ -48,7 +20,6 @@ const ROLE_OPTIONS: { role: UserRole; icon: CagpIconName }[] = [
 export const SuperAppWelcomeModal: React.FC = () => {
   const [showTip, setShowTip] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isTourOpen, setIsTourOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState<UserRole>('calouro');
 
   useEffect(() => {
@@ -71,28 +42,11 @@ export const SuperAppWelcomeModal: React.FC = () => {
       setShowTip(false);
       setIsModalOpen(true);
     };
-    const handleStartTour = () => {
-      setShowTip(false);
-      setIsModalOpen(false);
-      setIsTourOpen(true);
-    };
     window.addEventListener('cagp:open-role-picker', handleOpenPicker);
-    window.addEventListener('cagp:start-tour', handleStartTour);
     return () => {
       window.removeEventListener('cagp:open-role-picker', handleOpenPicker);
-      window.removeEventListener('cagp:start-tour', handleStartTour);
     };
   }, []);
-
-  const handleTourComplete = () => {
-    setIsTourOpen(false);
-    setIsModalOpen(true);
-  };
-
-  const handleTourSkip = () => {
-    setIsTourOpen(false);
-    setShowTip(true);
-  };
 
   const handleConfirmRole = (roleToSave: UserRole) => {
     setSelectedRole(roleToSave);
@@ -177,11 +131,11 @@ export const SuperAppWelcomeModal: React.FC = () => {
                 type="button"
                 onClick={() => {
                   setShowTip(false);
-                  setIsTourOpen(true);
+                  window.dispatchEvent(new CustomEvent('cagp:start-semente-tour'));
                 }}
                 className="font-heading font-black uppercase text-primary hover:underline cursor-pointer bg-transparent border-0 p-0 flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed"
               >
-                Iniciar Tour Guiado
+                Rever o tour da chapa
               </button>
               <button
                 type="button"
@@ -310,11 +264,11 @@ export const SuperAppWelcomeModal: React.FC = () => {
                     type="button"
                     onClick={() => {
                       handleConfirmRole(selectedRole);
-                      setIsTourOpen(true);
+                      window.dispatchEvent(new CustomEvent('cagp:start-semente-tour'));
                     }}
                     className="min-h-[44px] px-4 py-2 rounded-xl border-3 border-border bg-card hover:bg-accent text-foreground text-xs font-heading uppercase font-black shadow active:translate-x-[2px] active:translate-y-[2px] active:shadow-none cursor-pointer transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed"
                   >
-                    Iniciar Tour Guiado (4 Paradas)
+                    Rever o tour da chapa
                   </button>
                   <button
                     type="button"
@@ -331,16 +285,6 @@ export const SuperAppWelcomeModal: React.FC = () => {
         )}
       </AnimatePresence>
 
-      {/* Tour Guiado do SuperApp */}
-      <Tour
-        steps={TOUR_STEPS}
-        open={isTourOpen}
-        onOpenChange={setIsTourOpen}
-        onComplete={handleTourComplete}
-        onSkip={handleTourSkip}
-        showSkipButton={true}
-        showProgress={true}
-      />
     </>
   );
 };

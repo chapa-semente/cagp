@@ -7,7 +7,7 @@ interface ChapaSementeTourProps {
 }
 
 export const ChapaSementeTour: React.FC<ChapaSementeTourProps> = ({
-  buttonText = 'Fazer o tour com a Chapa Semente',
+  buttonText = 'Rever o tour da chapa',
   variant = 'hero',
   className = '',
 }) => {
@@ -33,7 +33,7 @@ export const ChapaSementeTour: React.FC<ChapaSementeTourProps> = ({
         type="button"
         onClick={handleStart}
         className={getButtonClasses()}
-        aria-label="Abrir tour interativo da Chapa Semente"
+        
       >
         <i className="bi bi-compass-fill text-base sm:text-lg" aria-hidden="true"></i>
         <span>{buttonText}</span>

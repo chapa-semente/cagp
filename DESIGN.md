@@ -245,7 +245,7 @@ As referências estruturais seguem sendo o **Neobrutalism.com** (disciplina: uma
 - Caixa alta só no grito (título de página, botão, badge, rótulo), sempre com tracking ampliado.
 - Laranja como destaque raro; texto sobre roxo e petróleo sempre branco.
 - Fotografia real em cor original, com a base dissolvida em pixels de dithering translúcidos; duotone roxo só em capas de Cartaz.
-- Campanha como assinatura no fim do trâmite, nunca como pedágio antes dele.
+- Campanha como assinatura no fim do trâmite, nunca como pedágio antes dele. Única exceção: o tour obrigatório da primeira visita (ver Components › Tour da Chapa).
 
 ## Colors
 
@@ -374,7 +374,7 @@ Toda página nova escolhe um destes; não se inventa estrutura por página.
 
 **The Chrome Budget Rule.** Acima do conteúdo, só três camadas: cabeçalho do app, cabeça de página, abas. Barra de "voltar" separada, faixa tricolor, badges em série e faixa de campanha não entram nessa pilha.
 
-**The Signature at the End Rule.** A campanha entra depois que o estudante foi atendido: Assinatura Semente no fim do guia, antes do JourneyNav.
+**The Signature at the End Rule.** A campanha entra depois que o estudante foi atendido: Assinatura Semente no fim do guia, antes do JourneyNav. Exceção única e decidida (10/11/2026): o tour obrigatório da primeira visita.
 
 **The One Float Rule.** Acima da barra inferior cabe no máximo um elemento flutuante por vez.
 
@@ -432,7 +432,7 @@ Mapa de origem: cada primitivo está vendorizado em `src/components/ui/`. A colu
 | Empty, Skeleton | neobrutalism.com | todos | skeleton em `areia-funda`, sem shimmer |
 | Marquee | BoldKit | Cartaz | só a faixa de campanha; 1 por página |
 | Charts | BoldKit | Ficha | petróleo e roxo como séries principais, laranja como destaque de um ponto, areia funda como grade; nunca rubro |
-| Tour, Questionnaire | BoldKit / neobrutalism.com | Cartaz | tour da chapa e escolha de perfil |
+| Tour, Questionnaire | BoldKit / neobrutalism.com | Cartaz | tour da chapa (`SementeTour.tsx`, não o popover genérico de `ui/tour.tsx`) e escolha de perfil |
 | Kbd, Command | BoldKit | Ficha | só desktop (busca ⌘K) |
 
 Fora do sistema: Shapes BoldKit (burst, star, shield), Sticker decorativo, Math Curve *, ASCII Shapes, Rating, Pricing, Testimonials e Logo Cloud com apoios (não há dados reais), e os efeitos de canvas que não dialogam com a geometria orgânica da marca.
@@ -495,6 +495,14 @@ A "pessoa" do símbolo entra na tela como gente real, **em cor original**, com u
 - **Recorte:** retângulo de 12px ou máscara orgânica (folha, semente, semicírculo). Avatares dos integrantes: quadrado de 12px com contorno 2px.
 - **Proibido:** filtros de cor (sépia, saturação forçada), vinheta, degradê suave sobre a foto, banco de imagem genérico.
 
+### Tour da Chapa (signature)
+O tour obrigatório da primeira visita (`src/components/features/semente/SementeTour.tsx`, roteiro em `src/lib/sementeTour.ts`). Volume Cartaz do começo ao fim.
+- **Fluxo:** abertura com os 11 rostos e o lema → "Em que momento do curso você está?" (4 opções, reordena as pessoas) → para cada integrante, uma tela de história e um spotlight na ferramenta real → fechamento com a votação. Sem "pular" na primeira visita; ao rever (botões "Rever o tour da chapa"), há fechar.
+- **Tela de história:** bloco chapado de ponta a ponta, roxo e petróleo alternando por pessoa; foto grande com contorno 3px e faixa de dithering; nome e cargo em etiqueta grafite na faixa; a dor do estudante como pergunta (Display) e uma frase de quem resolveu. No máximo ~30 palavras. Segmentos de progresso: feitos em branco, atual em laranja, por vir só contornados.
+- **Spotlight:** o bloco de cor se recolhe (`clip-path`) no cartão Cartaz (contorno 3px, sombra 6px) ancorado embaixo; a página fica sob grafite com um recorte da ferramenta contornado em laranja 3px. Um alvo por parada, com `data-tour="<id>"` na página; `tests/sementeTour.test.ts` confere todos.
+- **Fechamento:** quando, onde e o que levar; agenda, tela inicial e convite no WhatsApp como ações de apoio; "Vou votar na Semente" desce o carimbo SEMENTE PLANTADA. Item simulado (mural) leva o sticker SIMULADO.
+- **Técnica:** montado com `transition:persist` no BaseLayout, troca de página pelo ClientRouter por trás do bloco de cor (sem recarregar); página de trás `inert`; foco no título de cada tela; setas avançam e voltam; fotos em `public/images/chapa/tour/*.webp`.
+
 ### Logos (signature)
 - **Escolha do asset por fundo** (`public/logos/semente/`): areia e branco → policromático (`semente-horizontal`, `semente-vertical`, `semente-simbolo`); roxo e petróleo → negativo (`-branco`); fotografia → badge (`semente-horizontal-badge-laranja` ou `-petroleo`); impressão P&B, carimbo e documento → `-preto`.
 - **Proibido:** distorcer, rotacionar, deitar ou inverter; recolorir fora da paleta ou com filtro CSS; sombra, glow, chanfro ou 3D; encostar na borda; redigitar o wordmark.
@@ -507,6 +515,7 @@ Ficha em `semente-purple-tint`, contorno grafite 2px, sem sombra, no fim de cada
 O movimento explica estado; não decora seção. Tokens em `src/styles/global.css` (`--ease-snap`, `--ease-stamp`, `--duration-press` 150ms, `--duration-view` 220ms, `--duration-stamp` 240ms), espelhando o L1 do BoldKit.
 
 - **Momento autoral: o carimbo.** Quando um estado muda (resultado do simulador do Art. 41, checklist concluído, credenciamento homologado), o carimbo desce grande e desfocado, acelera até o papel (`--ease-stamp`, 240ms) e só no impacto a tinta "pega": a sombra de 2px aparece de uma vez. A rotação final vem de `--stamp-rotate`. Classes `.cagp-big-stamp` e `.cagp-stamp-impact`; o `key` do React remonta o carimbo a cada mudança. Carimbo em repouso é estático.
+- **Tour da Chapa:** o bloco de cor que se recolhe no cartão do spotlight (clip-path, ~600ms, `--ease-snap`) é o gesto do tour; as fotos germinam de baixo para cima; o fim é o carimbo. Movimento só em mudança de tela.
 - **Germinar (Cartaz):** a única entrada autoral fora do carimbo é a forma orgânica que "brota" no herói da home e da /chapa-semente: a folha laranja cresce a partir da base com `clip-path`/`scale` ancorado embaixo, uma vez, ~500ms com `--ease-out-natural`. Não se repete em outras seções.
 - **Feedback:** press-into-shadow em 150ms; hover ergue 1px e a sombra cresce 2px. Sem `scale` no toque.
 - **Continuidade:** troca de aba e entrada de sheet/drawer em 220ms, deslocamento curto (12px) + opacidade.

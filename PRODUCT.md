@@ -16,7 +16,7 @@ Outros públicos confirmados, atendidos pelo mesmo site:
 - **Eleitor indeciso:** estudante avaliando a Chapa Semente antes da eleição do CAGP em **25–26/11/2026**.
 - **Formando:** TCC, fechamento das 600h, colação de grau.
 
-O site atende o estudante e, até a eleição de 25–26/11/2026, também precisa converter voto: a Chapa Semente tem aba própria na navegação e o herói da home apresenta os integrantes de forma pessoal. A utilidade continua sendo a prova, e a campanha nunca bloqueia um trâmite.
+O site atende o estudante e, até a eleição de 25–26/11/2026, também precisa converter voto: a Chapa Semente tem aba própria na navegação e o herói da home apresenta os integrantes de forma pessoal. A utilidade continua sendo a prova, e a campanha não bloqueia trâmites, com **uma exceção decidida em 10/11/2026**: na primeira visita, o tour da Chapa Semente (`src/components/features/semente/SementeTour.tsx`) abre antes de qualquer conteúdo, inclusive para quem chega por link de documento, não tem botão de pular e só fecha no fim. Ele apresenta os 11 integrantes, cada um com spotlight na ferramenta real que defendeu, adapta a ordem ao momento de curso do visitante e, ao terminar, devolve a pessoa à página por onde entrou. Aparece uma vez por aparelho (`localStorage`).
 
 ## Product Purpose
 

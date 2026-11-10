@@ -39,13 +39,13 @@ const badges = [
 
   <SegmentedControl tabs={tabs} defaultTab="v0" />
 
-  <section id="ws-panel-v0" class="cagp-workspace-view" data-ws-panel="v0">
+  <section id="ws-panel-v0" class="cagp-workspace-view" data-ws-panel="v0" data-tour="mariana">
     <div id="nucleos" class="cagp-anchor-target"></div>
     <h2 class="sr-only">Os 11 núcleos de pesquisa</h2>
     <PesquisaNucleos />
   </section>
 
-  <section id="ws-panel-v1" class="cagp-workspace-view space-y-8" data-ws-panel="v1" hidden>
+  <section id="ws-panel-v1" class="cagp-workspace-view space-y-8" data-ws-panel="v1" data-tour="nilo" hidden>
     <div id="como-entrar" class="cagp-anchor-target"></div>
     <h2 class="sr-only">Como entrar em pesquisa e extensão</h2>
     <PesquisaStatsBanner client:visible />

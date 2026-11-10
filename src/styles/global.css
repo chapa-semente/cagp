@@ -1157,3 +1157,30 @@ img[src*="dast-novo-bh"],
   mix-blend-mode: multiply;
   pointer-events: none;
 }
+
+/* Tour obrigatório da Chapa Semente (SementeTour.tsx).
+   1. Cobertura roxa até a ilha montar: o conteúdo não pisca antes do tour na primeira visita.
+      Fica abaixo do próprio tour (z 1200) e acima do resto do shell.
+   2. Página de trás travada enquanto o tour está aberto. */
+html[data-semente-tour='pending'] body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 1150;
+  background: #5b2a85 var(--semente-cover-logo, none) center / 72px no-repeat;
+}
+
+html.cagp-semente-tour-open,
+html.cagp-semente-tour-open body {
+  overflow: hidden;
+}
+
+/* O tour fica parado enquanto o ClientRouter troca a página por baixo (sem o fade da raiz). */
+::view-transition-group(semente-tour),
+::view-transition-old(semente-tour),
+::view-transition-new(semente-tour) {
+  animation: none;
+}
+::view-transition-old(semente-tour) {
+  display: none;
+}

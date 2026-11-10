@@ -16,7 +16,8 @@ import { motion, AnimatePresence } from 'motion/react';
 import { getVaultItem, type ElectionActivation } from '@/lib/storage/studentVault';
 import { getWhatsAppShareData } from '@/lib/pwa/pwaManager';
 import { tactileSpring } from '@/lib/motion';
-import { asset } from '@/lib/paths';
+import { asset, route } from '@/lib/paths';
+import { navigate } from 'astro:transitions/client';
 
 export const PwaCredenciamentoPill: React.FC = () => {
   const [mounted, setMounted] = useState(false);
@@ -25,6 +26,9 @@ export const PwaCredenciamentoPill: React.FC = () => {
   const [isDismissed, setIsDismissed] = useState(false);
   // Some enquanto o estudante rola para baixo lendo (no celular cobria o conteúdo) e volta ao rolar para cima.
   const [tucked, setTucked] = useState(false);
+  // Só aparece a partir da 2ª página vista na sessão: na chegada (geralmente a home)
+  // o estudante vê o herói da Chapa sem a pílula cobrindo o primeiro atalho.
+  const [eligible, setEligible] = useState(false);
 
   useEffect(() => {
     let lastY = window.scrollY;
@@ -62,9 +66,16 @@ export const PwaCredenciamentoPill: React.FC = () => {
     setMounted(true);
     syncState();
     if (typeof window !== 'undefined') {
-      const dismissed = sessionStorage.getItem('cagp_pill_dismissed_v1');
-      if (dismissed === 'true') {
-        setIsDismissed(true);
+      try {
+        const dismissed = sessionStorage.getItem('cagp_pill_dismissed_v1');
+        if (dismissed === 'true') {
+          setIsDismissed(true);
+        }
+        const views = Number(sessionStorage.getItem('cagp_page_views_v1') || '0') + 1;
+        sessionStorage.setItem('cagp_page_views_v1', String(views));
+        setEligible(views >= 2);
+      } catch {
+        // sessionStorage bloqueado: mantém a pílula escondida em vez de cobrir conteúdo
       }
     }
     window.addEventListener('cagp:vault-updated', syncState);
@@ -74,16 +85,18 @@ export const PwaCredenciamentoPill: React.FC = () => {
   // One Float Rule (DESIGN.md › Layout): enquanto a pílula está visível, o "voltar ao topo" some no celular.
   useEffect(() => {
     const root = document.documentElement;
-    const visible = mounted && !isDismissed && !tucked;
+    const supporter = Boolean(activation?.completed && activation?.sementeSupporter);
+    const visible = mounted && eligible && supporter && !isDismissed && !tucked;
     if (visible) root.dataset.floatPill = '1';
     else delete root.dataset.floatPill;
     return () => {
       delete root.dataset.floatPill;
     };
-  }, [mounted, isDismissed, tucked]);
+  }, [mounted, eligible, activation, isDismissed, tucked]);
 
+  // O credenciamento virou o fechamento do tour obrigatório; a pílula leva a "quando e onde votar".
   const handleOpenCredenciamento = () => {
-    window.dispatchEvent(new CustomEvent('cagp:open-credenciamento'));
+    navigate(`${route('/chapa-semente')}#votar`);
   };
 
   const handleShare = (e: React.MouseEvent) => {
@@ -100,9 +113,9 @@ export const PwaCredenciamentoPill: React.FC = () => {
     }
   };
 
-  if (isDismissed) return null;
-
-  const isCompleted = activation?.completed;
+  // Só quem terminou o tour declarando voto vê a pílula (One Float Rule: ninguém mais disputa o rodapé).
+  const isCompleted = Boolean(activation?.completed && activation?.sementeSupporter);
+  if (isDismissed || !eligible || !isCompleted) return null;
 
   const content = (
     <AnimatePresence>
@@ -163,45 +176,7 @@ export const PwaCredenciamentoPill: React.FC = () => {
               <i className="bi bi-x text-base" aria-hidden="true" />
             </button>
           </motion.div>
-        ) : (
-          /* Pílula Compacta "Ativar Meu App" — Indução PWA Discreta */
-          <motion.div
-            onClick={handleOpenCredenciamento}
-            whileHover={{ scale: 1.02, y: -2 }}
-            whileTap={{ scale: 0.97 }}
-            transition={tactileSpring}
-            className="flex items-center gap-2 h-11 px-1.5 pl-2.5 bg-white border-3 border-border rounded-full shadow-[4px_4px_0_0_var(--color-border,#1F1F1F)] hover:shadow-[6px_6px_0_0_var(--color-border,#1F1F1F)] transition-all cursor-pointer group"
-            title="Ativar atalho offline e urna 25 e 26/11"
-          >
-            <div className="w-6 h-6 rounded-full bg-accent text-foreground border-2 border-border flex items-center justify-center shrink-0">
-              <i className="bi bi-phone-vibrate-fill text-xs" aria-hidden="true" />
-            </div>
-
-            <div className="flex flex-col pr-0.5">
-              <span className="font-heading text-xs font-black uppercase text-foreground tracking-tight leading-none whitespace-nowrap">
-                <span className="hidden sm:inline">Ativar App • Urna 25 e 26/11</span>
-                <span className="sm:hidden">Ativar App</span>
-              </span>
-            </div>
-
-            <button
-              type="button"
-              className="px-3 min-h-[44px] rounded-full bg-primary hover:bg-primary-hover text-white font-heading font-black text-xs uppercase border-2 border-border shadow-xs cursor-pointer shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-            >
-              Ativar
-            </button>
-
-            <button
-              type="button"
-              onClick={handleDismiss}
-              className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center text-muted-foreground hover:bg-muted hover:text-foreground cursor-pointer text-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary shrink-0"
-              title="Fechar aviso"
-              aria-label="Fechar aviso"
-            >
-              <i className="bi bi-x text-base" aria-hidden="true" />
-            </button>
-          </motion.div>
-        )}
+        ) : null}
       </motion.aside>
     </AnimatePresence>
   );

@@ -52,9 +52,16 @@ const Marquee = React.forwardRef<HTMLDivElement, MarqueeProps>(
           )}
           style={{ animationDirection }}
         >
-          {Array.from({ length: repeat }).map((_, i) => (
-            <React.Fragment key={i}>{children}</React.Fragment>
-          ))}
+          {/* Só a 1ª cópia é lida pelo leitor de tela; as repetições existem só para o loop visual. */}
+          {Array.from({ length: repeat }).map((_, i) =>
+            i === 0 ? (
+              <React.Fragment key={i}>{children}</React.Fragment>
+            ) : (
+              <span key={i} className="contents" aria-hidden="true">
+                {children}
+              </span>
+            )
+          )}
         </div>
         <div
           className={cn(

@@ -429,7 +429,7 @@ export const HomeWorkspaceA: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-2.5 shrink-0">
-            <ChapaSementeTour buttonText="Tour das Lideranças" variant="hero" />
+            <ChapaSementeTour buttonText="Rever o tour da chapa" variant="hero" />
             <a
               href={route('/chapa-semente')}
               className="min-h-[44px] px-4 py-2 rounded-xl bg-accent hover:bg-accent-hover text-foreground border-3 border-border shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] font-heading text-xs font-black uppercase tracking-wide no-underline inline-flex items-center gap-1.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"

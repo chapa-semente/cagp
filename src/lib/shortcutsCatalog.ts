@@ -203,14 +203,14 @@ export const SHORTCUTS_CATALOG: ShortcutItem[] = [
   {
     id: 'tour',
     label: 'Tour',
-    fullLabel: 'Tour Guiado do SuperApp',
-    description: 'Tour interativo passo a passo pelas principais ferramentas discentes.',
+    fullLabel: 'Tour da Chapa Semente',
+    description: 'As 11 pessoas da chapa e a ferramenta que cada uma pôs no ar.',
     href: '#tour',
     icon: 'bi-compass',
     color: '#FE8812',
     category: 'Ferramentas',
     isAction: true,
-    actionEvent: 'cagp:start-tour',
+    actionEvent: 'cagp:start-semente-tour',
     match: [],
   },
 ];
