@@ -213,7 +213,7 @@ const HeatmapChart = React.forwardRef<HTMLDivElement, HeatmapChartProps>(
         {/* Tooltip */}
         {showTooltip && tooltip && (
           <div
-            className="fixed z-50 pointer-events-none border-3 border-foreground bg-background px-3 py-2 text-xs font-mono shadow-[4px_4px_0px_var(--foreground)]"
+            className="fixed z-50 pointer-events-none border-3 border-foreground bg-background px-3 py-2 text-xs font-mono shadow-md"
             style={{
               left: Math.min(
                 Math.max(tooltip.x, 100),

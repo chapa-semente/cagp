@@ -78,7 +78,7 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
             <button
               type="button"
               onClick={() => onChange({ ...profile, photoDataUrl: undefined })}
-              className="min-h-[44px] px-3.5 py-2 bg-white hover:bg-[#FFEBEE] text-destructive font-head font-bold uppercase text-xs rounded-xl border-2 border-destructive shadow-[2px_2px_0_0_#B91C1C] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer inline-flex items-center gap-1.5"
+              className="min-h-[44px] px-3.5 py-2 bg-white hover:bg-destructive-tint text-destructive font-head font-bold uppercase text-xs rounded-xl border-2 border-destructive shadow-[2px_2px_0_0_#B91C1C] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer inline-flex items-center gap-1.5"
             >
               <i className="bi bi-trash" aria-hidden="true" />
               <span>Remover Foto</span>
@@ -100,7 +100,7 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
                   onClick={() => onChange({ ...profile, avatarPreset: p.id, photoDataUrl: undefined })}
                   className={`p-2 rounded-xl border-2 text-left flex items-center gap-2 transition-all cursor-pointer select-none ${
                     isSelected
-                      ? 'border-border bg-white shadow-[3px_3px_0px_#1F1F1F] -translate-x-[1px] -translate-y-[1px]'
+                      ? 'border-border bg-white shadow-md -translate-x-[1px] -translate-y-[1px]'
                       : 'border-border bg-white hover:bg-muted'
                   }`}
                 >
@@ -247,7 +247,7 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
         className="min-h-[44px] w-full py-2.5 px-4 bg-secondary hover:bg-secondary text-white font-head font-extrabold uppercase tracking-wider text-xs rounded-xl border-3 border-border shadow hover:shadow-md active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer inline-flex items-center justify-center gap-2"
       >
         <i className="bi bi-check2-circle text-base" aria-hidden="true" />
-        <span>Salvar no Cofre Discente</span>
+        <span>Salvar perfil</span>
       </button>
     </div>
   );

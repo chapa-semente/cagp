@@ -133,7 +133,7 @@ export const CagpNewsMural: React.FC<CagpNewsMuralProps> = ({ items = SIMULATED_
 
         <div
           role="note"
-          className="px-3.5 py-2 rounded-xl bg-[#FEF3C7] border-2 border-border shadow-xs flex items-center justify-between gap-2 text-xs text-foreground"
+          className="px-3.5 py-2 rounded-xl bg-warning-tint border-2 border-border shadow-xs flex items-center justify-between gap-2 text-xs text-foreground"
         >
           <span className="font-medium text-xs">
             <strong>Demonstrativo:</strong> Editais e pautas simuladas para o ecossistema CAGP.

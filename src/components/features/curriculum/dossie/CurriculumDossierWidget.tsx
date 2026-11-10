@@ -56,14 +56,14 @@ export const CurriculumDossierWidget: React.FC = () => {
           </div>
           <div className="flex justify-between items-center text-muted-foreground p-2 bg-white border-3 border-border rounded-lg shadow-xs">
             <span className="font-medium">Extensão Curricular:</span>
-            <span className="font-mono font-bold text-[#266264]">{extTotal}h / 300h</span>
+            <span className="font-mono font-bold text-secondary">{extTotal}h / 300h</span>
           </div>
         </div>
       </div>
 
       <a
         href="#minha-grade"
-        className="min-h-[44px] px-4 py-2.5 bg-foreground text-background hover:bg-secondary active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-3 border-border shadow-sm"
+        className="min-h-[44px] px-4 py-2.5 bg-primary text-white hover:bg-primary-hover active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-3 border-border shadow-sm"
       >
         <span>Abrir Dossiê Completo</span>
         <i className="bi bi-arrow-right" aria-hidden="true" />

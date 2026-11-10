@@ -18,7 +18,7 @@ import {
   Sparkles,
   PartyPopper,
   Upload,
-} from 'lucide-react'
+} from '@/components/ui/icons'
 
 // ============================================================================
 // ONBOARDING VARIANT 1: Step Wizard
@@ -127,10 +127,10 @@ export function OnboardingWizard({
           exit={{ opacity: 0, y: -8, scale: 0.98 }}
           transition={bounceSpring}
         >
-          <Card className="border-3 border-[#1F1F1F] shadow-[6px_6px_0_0_#1F1F1F]">
+          <Card className="border-3 border-border shadow-xl">
             <CardHeader className="text-center">
               {steps[currentStep].icon && (
-                <div className="w-16 h-16 mx-auto flex items-center justify-center border-3 border-[#1F1F1F] bg-primary-tint shadow-[3px_3px_0_0_#1F1F1F] mb-4">
+                <div className="w-16 h-16 mx-auto flex items-center justify-center border-3 border-border bg-primary-tint shadow-md mb-4">
                   {steps[currentStep].icon}
                 </div>
               )}

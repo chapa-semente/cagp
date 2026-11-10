@@ -1,5 +1,5 @@
  
-import { Check } from 'lucide-react'
+import { Check } from '@/components/ui/icons'
 import { cn, safeHref } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'

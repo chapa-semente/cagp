@@ -124,17 +124,17 @@ function useChart() {
 }
 
 const chartContainerVariants = cva(
-  'flex aspect-video justify-center overflow-hidden rounded-xl text-xs [&_.recharts-cartesian-axis-tick_text]:fill-foreground [&_.recharts-cartesian-grid_line[stroke="#ccc"]]:stroke-muted-foreground/30 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-muted-foreground [&_.recharts-polar-grid_[stroke="#ccc"]]:stroke-[#1F1F1F] [&_.recharts-reference-line_[stroke="#ccc"]]:stroke-[#1F1F1F] [&_.recharts-dot[stroke="#fff"]]:stroke-transparent [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke="#fff"]]:stroke-[#1F1F1F] [&_.recharts-surface]:outline-hidden [&_.recharts-layer_path]:[fill-opacity:1] [&_.recharts-layer_path]:[stroke-width:3] [&_.recharts-layer_path]:[stroke:#1F1F1F]',
+  'flex aspect-video justify-center overflow-hidden rounded-xl text-xs [&_.recharts-cartesian-axis-tick_text]:fill-foreground [&_.recharts-cartesian-grid_line[stroke="#ccc"]]:stroke-muted-foreground/30 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-muted-foreground [&_.recharts-polar-grid_[stroke="#ccc"]]:stroke-foreground [&_.recharts-reference-line_[stroke="#ccc"]]:stroke-foreground [&_.recharts-dot[stroke="#fff"]]:stroke-transparent [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke="#fff"]]:stroke-foreground [&_.recharts-surface]:outline-hidden [&_.recharts-layer_path]:[fill-opacity:1] [&_.recharts-layer_path]:[stroke-width:3] [&_.recharts-layer_path]:[stroke:#1F1F1F]',
   {
     variants: {
       variant: {
-        default: 'border-3 border-[#1F1F1F] bg-background p-4 shadow-[6px_6px_0_0_#1F1F1F]',
-        elevated: 'border-3 border-[#1F1F1F] bg-background p-4 shadow-[6px_6px_0_0_#1F1F1F] hover:shadow-[8px_8px_0_0_#1F1F1F] hover:translate-x-[-2px] hover:translate-y-[-2px] transition',
-        flat: 'border-3 border-[#1F1F1F] bg-background p-4',
-        filled: 'border-3 border-[#1F1F1F] bg-background p-4 shadow-[6px_6px_0_0_#1F1F1F]',
+        default: 'border-3 border-border bg-background p-4 shadow-xl',
+        elevated: 'border-3 border-border bg-background p-4 shadow-xl hover:shadow-xl hover:translate-x-[-2px] hover:translate-y-[-2px] transition',
+        flat: 'border-3 border-border bg-background p-4',
+        filled: 'border-3 border-border bg-background p-4 shadow-xl',
         minimal: 'bg-background p-4',
-        accent: 'border-3 border-[#1F1F1F] bg-accent-tint p-4 shadow-[4px_4px_0px_var(--accent)]',
-        primary: 'border-3 border-[#1F1F1F] bg-primary-tint p-4 shadow-[4px_4px_0px_var(--primary)]',
+        accent: 'border-3 border-border bg-accent-tint p-4 shadow-[4px_4px_0px_var(--accent)]',
+        primary: 'border-3 border-border bg-primary-tint p-4 shadow-[4px_4px_0px_var(--primary)]',
       },
     },
     defaultVariants: {
@@ -319,7 +319,7 @@ function ChartTooltipContent({
   return (
     <div
       className={cn(
-        'grid min-w-[8rem] items-start gap-1.5 rounded-lg border-3 border-[#1F1F1F] bg-white px-2.5 py-1.5 text-xs shadow-[3px_3px_0_0_#1F1F1F]',
+        'grid min-w-[8rem] items-start gap-1.5 rounded-lg border-3 border-border bg-white px-2.5 py-1.5 text-xs shadow-md',
         className
       )}
     >

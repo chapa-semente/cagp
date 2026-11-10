@@ -9,14 +9,14 @@ import { route } from '@/lib/paths';
 ---
 
 <BaseLayout
-  title="Cursos Livres & Horas ENAP/EV.G • Proposta 10 Chapa Semente"
+  title="Cursos que contam horas"
   description="Proposta 10 da Chapa Semente: Catálogo de Cursos Livres do CAGP, UFMG e 1.045+ cursos gratuitos da ENAP/EV.G com simulação e inscrição em 1 clique na Calculadora de 600h de Extensão e AAC."
   mode="operate"
 >
   <div id="cagp-cursos-header">
     <PageHeader
-      title="Cursos Livres & Formação (ENAP / EV.G / UFMG)"
-      subtitle="Proposta 10 da Chapa Semente: integralize suas 300h de Extensão e 300h de AAC com oficinas gratuitas do CAGP, UFMG e certificados oficiais da Escola Virtual de Governo em 1 clique."
+      title="Cursos que contam horas"
+      subtitle="Cursos gratuitos com certificado (ENAP, EV.G e UFMG) pra fechar extensão e AAC sem gastar nada."
       breadcrumbs={[{ label: 'Trajetória 600h', href: route('/percurso') }, { label: 'Cursos Livres & ENAP' }]}
       axisId="curso"
       activeId="cursos"
@@ -27,7 +27,7 @@ import { route } from '@/lib/paths';
 
   <div class="space-y-6">
     {/* Hub Interativo de Cursos */}
-    <section aria-label="Catálogo Interativo de Cursos" data-tour="italo">
+    <section aria-label="Catálogo de cursos">
       <CursosCatalogHub client:load />
     </section>
 

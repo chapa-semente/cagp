@@ -71,12 +71,8 @@ export const EstagioDocumentDrawerAndGuide: React.FC = () => {
         <CardHeader className="border-b-2 border-border bg-card p-5 sm:p-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <div className="flex flex-wrap items-center gap-2 mb-2">
-                <Badge variant="default">RESOLUÇÃO GP Nº 01/2019 &amp; CEPE 02/2009</Badge>
-                <Badge variant="secondary">300 HORAS OBRIGATÓRIAS (DCP 135 + DCP 136)</Badge>
-              </div>
-              <CardTitle className="text-lg sm:text-xl font-heading font-black text-foreground m-0">
-                Modelos Oficiais, Formulários Google &amp; Aproveitamento Servidor
+              <CardTitle className="text-lg sm:text-xl font-heading font-bold text-foreground m-0">
+                Modelos e formulários do estágio
               </CardTitle>
               <CardDescription className="text-xs font-medium text-muted-foreground mt-1 max-w-3xl leading-relaxed">
                 Acesse todas as minutas editáveis (.DOCX, .PDF e Google Drive) e os formulários eletrônicos de protocolo do Colegiado.
@@ -89,7 +85,7 @@ export const EstagioDocumentDrawerAndGuide: React.FC = () => {
                 className="min-h-[44px] px-3.5 py-2 rounded-xl border-2 border-border bg-white hover:bg-muted text-foreground text-xs font-heading font-bold uppercase no-underline inline-flex items-center gap-1.5 shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
               >
                 <i className="bi bi-file-earmark-text" aria-hidden="true" />
-                <span>Ver Matriz na Página ↓</span>
+                <span>Ver Matriz na Página <i className="bi bi-arrow-down" aria-hidden="true"></i></span>
               </a>
 
               <Drawer>
@@ -129,7 +125,7 @@ export const EstagioDocumentDrawerAndGuide: React.FC = () => {
                             href={asset(m.pdf)}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="min-h-[44px] px-3 py-2 rounded-lg border-2 border-border bg-secondary hover:bg-[#851E1E] text-white text-xs font-mono font-bold no-underline inline-flex items-center justify-center shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
+                            className="min-h-[44px] px-3 py-2 rounded-lg border-2 border-border bg-secondary hover:bg-secondary-hover text-white text-xs font-mono font-bold no-underline inline-flex items-center justify-center shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
                           >
                             Termo (PDF)
                           </a>
@@ -144,9 +140,9 @@ export const EstagioDocumentDrawerAndGuide: React.FC = () => {
                             href={m.drive}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="min-h-[44px] px-3 py-2 rounded-lg border-2 border-border bg-primary hover:bg-[#4A216E] text-white text-xs font-mono font-bold no-underline inline-flex items-center justify-center shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
+                            className="min-h-[44px] px-3 py-2 rounded-lg border-2 border-border bg-primary hover:bg-primary-hover text-white text-xs font-mono font-bold no-underline inline-flex items-center justify-center shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
                           >
-                            Google Docs ↗
+                            Google Docs <i className="bi bi-box-arrow-up-right" aria-hidden="true"></i>
                           </a>
                         </div>
                       </div>
@@ -181,8 +177,8 @@ export const EstagioDocumentDrawerAndGuide: React.FC = () => {
               </p>
             </div>
 
-            <div className="p-4 rounded-xl border-2 border-[#134E4A]/30 bg-[#F0FDF4] space-y-2">
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-md border border-border bg-[#134E4A] text-white font-mono text-xs font-bold uppercase">
+            <div className="p-4 rounded-xl border-2 border-petroleo-deep/30 bg-success-tint space-y-2">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-md border border-border bg-petroleo-deep text-white font-mono text-xs font-bold uppercase">
                 TRILHA ESPECIAL • ART. 41
               </span>
               <h4 className="font-heading text-sm font-black text-foreground m-0">
@@ -195,7 +191,7 @@ export const EstagioDocumentDrawerAndGuide: React.FC = () => {
           </div>
 
           {/* Links Diretos para os 2 Formulários Google Forms Oficiais — Banner Integrado Sem Sombra Concorrente */}
-          <div className="p-4 rounded-xl border-2 border-border bg-foreground text-background text-white flex flex-wrap items-center justify-between gap-4 shadow-sm">
+          <div className="p-4 sm:p-5 rounded-xl border-2 border-border bg-primary text-white flex flex-wrap items-center justify-between gap-4">
             <div className="space-y-0.5">
               <h4 className="font-heading text-sm font-black text-white m-0">
                 Formulários Google Forms da Seção de Estágio do Colegiado
@@ -211,7 +207,7 @@ export const EstagioDocumentDrawerAndGuide: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Solicitação Inicial de Estágio ↗
+                  Solicitação Inicial de Estágio <i className="bi bi-box-arrow-up-right" aria-hidden="true"></i>
                 </a>
               </Button>
               <Button asChild variant="secondary" size="sm" className="min-h-[44px] font-heading font-bold uppercase text-xs border border-border active:translate-x-[1px] active:translate-y-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2">
@@ -220,7 +216,7 @@ export const EstagioDocumentDrawerAndGuide: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Protocolar Aproveitamento Servidor ↗
+                  Protocolar Aproveitamento Servidor <i className="bi bi-box-arrow-up-right" aria-hidden="true"></i>
                 </a>
               </Button>
             </div>

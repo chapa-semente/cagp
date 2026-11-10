@@ -93,12 +93,12 @@ export const CagpTransparenciaPortal: React.FC = () => {
       {/* Bloco 1: Indicadores Financeiros Consolidados + Carimbo Institucional */}
       <section
         aria-labelledby="heading-balancete-kpis"
-        className="bg-white rounded-xl border-[3px] border-[#1F1F1F] p-5 sm:p-6 shadow-[6px_6px_0_0_#1F1F1F] space-y-5"
+        className="bg-white rounded-xl border-[3px] border-border p-5 sm:p-6 shadow-xl space-y-5"
       >
         <div className="flex flex-wrap items-start justify-between gap-3 pb-3 border-b-2 border-border">
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-1">
-              <span className="px-2 py-0.5 rounded bg-[#5B2A85] text-white font-mono text-xs font-black uppercase">
+              <span className="px-2 py-0.5 rounded bg-primary text-white font-mono text-xs font-black uppercase">
                 PROPOSTA 1 • EIXO 1 SEMENTE
               </span>
               <span className="font-heading text-xs font-bold uppercase tracking-[0.04em] text-secondary">
@@ -157,7 +157,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
 
         {/* Painel Visual BoldKit Charts: DonutChart + BarChart Recharts + GaugeChart */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 pt-4 border-t-3 border-border">
-          <div className="p-4 sm:p-5 rounded-xl border-2 border-[#1F1F1F] bg-white shadow-[3px_3px_0_0_#1F1F1F] space-y-3">
+          <div className="p-4 sm:p-5 rounded-xl border-2 border-border bg-white shadow-md space-y-3">
             <div className="flex items-center justify-between gap-2">
               <span className="font-heading text-xs sm:text-sm font-extrabold uppercase text-foreground">
                 Alocação por Eixo (%)
@@ -189,7 +189,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
             </div>
           </div>
 
-          <div className="p-4 sm:p-5 rounded-xl border-2 border-[#1F1F1F] bg-white shadow-[3px_3px_0_0_#1F1F1F] flex flex-col justify-between space-y-3">
+          <div className="p-4 sm:p-5 rounded-xl border-2 border-border bg-white shadow-md flex flex-col justify-between space-y-3">
             <div className="flex items-center justify-between gap-2">
               <span className="font-heading text-xs sm:text-sm font-extrabold uppercase text-foreground">
                 Fluxo Mensal Entradas vs Saídas
@@ -211,7 +211,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
             </p>
           </div>
 
-          <div className="p-4 sm:p-5 rounded-xl border-2 border-[#1F1F1F] bg-white shadow-[3px_3px_0_0_#1F1F1F] flex flex-col justify-between space-y-3">
+          <div className="p-4 sm:p-5 rounded-xl border-2 border-border bg-white shadow-md flex flex-col justify-between space-y-3">
             <div className="flex items-center justify-between gap-2">
               <span className="font-heading text-xs sm:text-sm font-extrabold uppercase text-foreground">
                 Conformidade Fiscal
@@ -299,7 +299,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
           </div>
         </div>
 
-        <div className="divide-y-2 divide-[#1F1F1F]">
+        <div className="divide-y-2 divide-border">
           <AnimatePresence mode="popLayout">
             {filteredEntries.map((entry) => (
               <motion.div
@@ -320,7 +320,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
                     <span className="text-xs font-head font-bold uppercase bg-white border border-border text-foreground px-2 py-0.5 rounded-lg shadow-xs">
                       {entry.category}
                     </span>
-                    <span className="text-xs font-mono font-bold text-success bg-[#E8F5E9] border border-border px-2 py-0.5 rounded-lg">
+                    <span className="text-xs font-mono font-bold text-success bg-success-tint border border-border px-2 py-0.5 rounded-lg">
                       {entry.status}
                     </span>
                   </div>
@@ -413,7 +413,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
                   <th className="py-2.5 px-3 text-right">Situação</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#1F1F1F] tabular-nums font-body">
+              <tbody className="divide-y divide-border tabular-nums font-body">
                 {SIMULATED_TRANSPARENCY.rreoMonthly.map((row) => (
                   <tr key={row.id} className="hover:bg-background transition-colors">
                     <td className="py-2.5 px-3 font-head font-bold text-foreground">{row.month}</td>

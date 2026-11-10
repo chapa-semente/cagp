@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
-import { Play, Pause, RotateCcw, Download, Plus, Trash2 } from 'lucide-react';
+import { Play, Pause, RotateCcw, Download, Plus, Trash2 } from '@/components/ui/icons';
 
 const ROWS = 8;
 const COLS = 20;

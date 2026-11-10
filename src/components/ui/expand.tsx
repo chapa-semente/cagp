@@ -6,7 +6,7 @@
 //   - useMasonryColumns(): colunas independentes; expandir um cartão só desce a coluna dele.
 // A CSS vive em src/styles/global.css (.cagp-expand*). <details> é animado por src/lib/expandDetails.ts.
 import * as React from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown } from '@/components/ui/icons';
 import { cn } from '@/lib/utils';
 import { attachMasonry } from '@/lib/masonry';
 

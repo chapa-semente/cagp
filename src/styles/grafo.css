@@ -40,7 +40,7 @@
 /* Conexões Vetoriais (Links) */
 .grafo-link {
   fill: none;
-  stroke: #9CA3AF;
+  stroke: #5E5A52;
   stroke-width: 2px;
   opacity: 0.65;
   transition: all 0.2s ease;
@@ -123,14 +123,14 @@
 .grafo-node.is-selected rect.node-card {
   stroke: var(--primary, #5B2A85);
   stroke-width: 3px;
-  fill: #F3EAFE;
+  fill: #EFE7F6;
   filter: drop-shadow(4px 4px 0px #1F1F1F);
 }
 
 .grafo-node.is-prereq rect.node-card {
   stroke: #FE8812;
   stroke-width: 2.5px;
-  fill: #FFF7ED;
+  fill: #FFEEDB;
   filter: drop-shadow(3px 3px 0px #FE8812);
 }
 
@@ -148,7 +148,7 @@
 .grafo-node.is-completed rect.node-card {
   stroke: #266264 !important;
   stroke-width: 2.5px !important;
-  fill: #F0FDF4 !important;
+  fill: #DCFCE7 !important;
 }
 
 /* Tipografia dentro do nó */

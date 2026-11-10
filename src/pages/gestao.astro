@@ -83,10 +83,10 @@ const gestaoMembers: TeamMember[] = [
 ];
 
 const tabs = [
-  { id: 'v0', shortLabel: 'Eleições 2026', fullLabel: 'Processo Eleitoral 2026', hash: '#eleicoes' },
-  { id: 'v1', shortLabel: 'Organograma', fullLabel: 'Organograma da Gestão', hash: '#organograma' },
-  { id: 'v2', shortLabel: '9 Diretorias', fullLabel: 'As 9 Pastas & Diretorias', hash: '#equipe' },
-  { id: 'v3', shortLabel: 'Contas', fullLabel: 'Prestação de Contas', hash: '#contas' },
+  { id: 'v0', shortLabel: 'Eleição', fullLabel: 'Eleição 2026', hash: '#eleicoes' },
+  { id: 'v1', shortLabel: 'Quem é quem', fullLabel: 'Quem é quem', hash: '#organograma' },
+  { id: 'v2', shortLabel: 'Diretorias', fullLabel: 'As 9 diretorias', hash: '#equipe' },
+  { id: 'v3', shortLabel: 'Contas', fullLabel: 'Prestação de contas', hash: '#contas' },
 ];
 
 const badges = [
@@ -98,13 +98,13 @@ const badges = [
 ---
 
 <BaseLayout
-  title="Processo Eleitoral & Diretorias"
+  title="Eleição e como votar"
   description="Processo eleitoral 2026, edital de convocação da Junta Eleitoral, candidatura da Chapa Semente e organograma regimental do CAGP FAFICH/UFMG."
   mode="read"
 >
   <PageHeader
-    title="Processo Eleitoral & Diretorias do CAGP"
-    subtitle="O CAGP encontra-se em processo eleitoral para a gestão 2026. Conheça o cronograma oficial da Junta Eleitoral, as regras do edital, as propostas da Chapa Semente e a estrutura regimental das 7 diretorias executivas."
+    title="Eleição e como votar"
+    subtitle="25 e 26/11, das 17h às 22h30, na sala do CAGP. Aqui estão o edital, o calendário e como o CA funciona."
     badges={badges}
     mode="read"
   />
@@ -119,12 +119,10 @@ const badges = [
     <div class="p-5 sm:p-6 rounded-xl border-2 border-border bg-card shadow-md space-y-4">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b-2 border-border">
         <div>
-          <span class="font-mono text-xs font-bold uppercase tracking-widest text-primary block">
-            Junta Eleitoral CAGP 2026 • Edital de Convocação
-          </span>
           <h2 class="font-heading text-lg sm:text-xl font-black text-foreground m-0">
             Cronograma Oficial das Eleições 2026
           </h2>
+          <p class="m-0 mt-1 text-xs font-heading font-bold uppercase tracking-[0.04em] text-muted-foreground tabular-nums">Junta Eleitoral CAGP 2026 • Edital de Convocação</p>
         </div>
 
         <a
@@ -133,7 +131,7 @@ const badges = [
           class="px-4 py-2 min-h-[44px] inline-flex items-center gap-2 rounded-xl bg-primary hover:bg-primary-hover text-white border-3 border-border font-heading font-extrabold text-xs uppercase tracking-wider no-underline shadow-xs transition-all shrink-0 active:translate-x-0.5 active:translate-y-0.5"
         >
           <span>Baixar Edital Oficial (PDF)</span>
-          <span>↓</span>
+          <i class="bi bi-arrow-down" aria-hidden="true"></i>
         </a>
       </div>
 
@@ -165,7 +163,7 @@ const badges = [
           <span class="text-xs font-sans text-muted-foreground block mt-1">Local a definir</span>
         </div>
         <div class="p-3 rounded-lg border-2 border-border bg-primary text-white shadow-xs">
-          <span class="font-mono text-xs font-bold text-[#FFD6A5] block">25 e 26/11</span>
+          <span class="font-mono text-xs font-bold text-accent-tint block">25 e 26/11</span>
           <span class="font-heading font-black text-xs uppercase text-white block mt-0.5">Votação no CAGP</span>
           <span class="text-xs font-sans text-white block mt-1">17h às 22h30 • Presencial</span>
         </div>
@@ -183,7 +181,7 @@ const badges = [
           </p>
         </div>
 
-        <div class="p-4 rounded-xl border-2 border-border bg-[#FFFBEB] space-y-2">
+        <div class="p-4 rounded-xl border-2 border-border bg-warning-tint space-y-2">
           <span class="font-heading font-black text-xs uppercase text-warning block">
             Regras de Votação &amp; Boca de Urna (Art. 17 e 20)
           </span>
@@ -195,7 +193,7 @@ const badges = [
     </div>
 
     <!-- Card Destaque: Candidatura da Chapa Semente -->
-    <div class="p-6 rounded-xl border-2 border-border bg-card shadow-[3px_3px_0_0_#1F1F1F] flex flex-col md:flex-row items-center justify-between gap-5">
+    <div class="p-6 rounded-xl border-2 border-border bg-card shadow-md flex flex-col md:flex-row items-center justify-between gap-5">
       <div class="flex items-center gap-4">
         <div class="w-16 h-16 rounded-2xl bg-white p-2 border-2 border-border shadow-sm flex items-center justify-center shrink-0">
           <img
@@ -221,10 +219,10 @@ const badges = [
 
       <a
         href={route('/chapa-semente')}
-        class="px-5 py-3 min-h-[44px] inline-flex items-center gap-2 rounded-xl bg-primary hover:bg-[#4A216E] text-white border-3 border-border font-heading font-black text-xs uppercase tracking-wider no-underline shadow transition-all shrink-0 active:translate-x-0.5 active:translate-y-0.5"
+        class="px-5 py-3 min-h-[44px] inline-flex items-center gap-2 rounded-xl bg-primary hover:bg-primary-hover text-white border-3 border-border font-heading font-black text-xs uppercase tracking-wider no-underline shadow transition-all shrink-0 active:translate-x-0.5 active:translate-y-0.5"
       >
         <span>Ver Carta-Programa Completa</span>
-        <span class="text-accent">→</span>
+        <i class="bi bi-arrow-right text-accent" aria-hidden="true"></i>
       </a>
     </div>
   </section>

@@ -39,11 +39,11 @@ const optativasData = allDisciplinas
   .sort((a, b) => a.code.localeCompare(b.code));
 
 const tabs = [
-  { id: 'v0', shortLabel: 'Geral', fullLabel: 'Visão Geral Curricular', hash: '#visao-geral' },
-  { id: 'v1', shortLabel: 'Grafo', fullLabel: 'Grafo Dinâmico 10P', hash: '#grafo' },
-  { id: 'v2', shortLabel: 'Optativas', fullLabel: 'Catálogo 68 Optativas', hash: '#optativas' },
-  { id: 'v3', shortLabel: 'Obrigatórias', fullLabel: 'As 27 Obrigatórias', hash: '#obrigatorias' },
-  { id: 'v4', shortLabel: 'Dossiê', fullLabel: 'Dossiê de Horas 3.000h', hash: '#minha-grade' },
+  { id: 'v0', shortLabel: 'Visão geral', fullLabel: 'Visão geral da grade', hash: '#visao-geral' },
+  { id: 'v1', shortLabel: 'Mapa', fullLabel: 'Mapa dos 10 períodos', hash: '#grafo' },
+  { id: 'v2', shortLabel: 'Optativas', fullLabel: 'As 68 optativas', hash: '#optativas' },
+  { id: 'v3', shortLabel: 'Obrigatórias', fullLabel: 'As 27 obrigatórias', hash: '#obrigatorias' },
+  { id: 'v4', shortLabel: '3.000h', fullLabel: 'Conta das 3.000h', hash: '#minha-grade' },
 ];
 
 const badges = [
@@ -56,7 +56,7 @@ const badges = [
 ---
 
 <BaseLayout
-  title="Central Curricular & Grafo Dinâmico 10P"
+  title="Grade e percurso"
   description="Central Curricular unificada de Gestão Pública UFMG: grafo reativo dos 10 semestres, 27 obrigatórias, 68 optativas e adição de disciplinas livres."
   mode="operate"
 >
@@ -66,8 +66,8 @@ const badges = [
       condensed={true}
       axisId="curso"
       activeId="percurso"
-      title="Trajetória Curricular, Grafo Vivo & Optativas"
-      subtitle="Navegue pelas 27 disciplinas obrigatórias com travas do SIGA, adicione matérias optativas e de formação livre no Grafo interativo e acompanhe o percentual de integralização no dossiê."
+      title="Grade e percurso"
+      subtitle="As 27 obrigatórias, os pré-requisitos do SIGA e quanto do curso você já integralizou."
       badges={badges}
     />
   </div>

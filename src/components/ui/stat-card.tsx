@@ -6,7 +6,7 @@ import { cardHoverVariants, tactileSpring } from "@/lib/motion"
 import { cn } from "@/lib/utils"
 import { Card, CardContent } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
-import { TrendingUp, TrendingDown, Minus } from "lucide-react"
+import { TrendingUp, TrendingDown, Minus } from "@/components/ui/icons"
 
 const statCardVariants = cva(
   "relative overflow-hidden border-3 border-border shadow-md",

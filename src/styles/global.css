@@ -48,7 +48,7 @@
   --color-ring: var(--ring, #5B2A85);
 
   /* CAGP & Brand Aliases */
-  --color-cagp-burgundy: var(--cagp-brand-primary, #8B1E2D);
+  --color-cagp-burgundy: var(--cagp-brand-primary, #5B2A85);
   --color-cagp-red: var(--cagp-brand-hover, #9E2424);
   --color-cagp-black: var(--cagp-content-primary, #1F1F1F);
   --color-cagp-cream: var(--cagp-surface-base, #F4F2EC);
@@ -79,6 +79,10 @@
   --color-brand-hover: #4A216E;
   --color-brand-accent: #FE8812;
 
+  /* Estado ativo único (aba, chip, filtro, navegação, seleção): sempre roxo Semente com texto branco. */
+  --color-active: #5B2A85;
+  --color-active-foreground: #FFFFFF;
+
   /* Tintas chapadas (substituem bg-primary/10, bg-secondary/10 etc.: zero transparência sobre cor) */
   --color-primary-tint: #EFE7F6;
   --color-secondary-tint: #E3F0EF;
@@ -99,12 +103,21 @@
   --font-weight-extrabold: 700;
   --font-weight-black: 700;
 
-  /* Motion (BoldKit L1, adaptado): press/hover, carimbo, troca de vista */
+  /* Motion — DESIGN.md › Movimento. Três molas (geradas como oscilador amortecido em linear())
+     e um ease de saída. Toda animação do site usa um destes; nada de cubic-bezier solto. */
   --ease-snap: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-stamp: cubic-bezier(0.7, 0, 0.84, 0);
-  --duration-press: 150ms;
-  --duration-view: 220ms;
-  --duration-stamp: 240ms;
+  /* Firme (ζ 0.88): press, troca de vista, abas. Quase sem sobra. */
+  --ease-spring-snappy: linear(0, 0.019, 0.066, 0.132, 0.209, 0.29, 0.372, 0.451, 0.525, 0.594, 0.656, 0.711, 0.76, 0.802, 0.839, 0.87, 0.896, 0.918, 0.936, 0.951, 0.963, 0.973, 0.981, 0.987, 0.992, 0.995, 0.998, 1, 1.001, 1.002, 1.003, 1.003, 1.003, 1.003, 1.003, 1.003, 1);
+  /* Mola (ζ 0.72): sheets, indicador da aba, fichas que entram, reveal. Passa 4% e volta. */
+  --ease-spring: linear(0, 0.028, 0.098, 0.195, 0.304, 0.417, 0.526, 0.627, 0.717, 0.795, 0.86, 0.912, 0.953, 0.985, 1.007, 1.022, 1.032, 1.037, 1.038, 1.037, 1.035, 1.031, 1.027, 1.023, 1.018, 1.015, 1.011, 1.008, 1.006, 1.003, 1.002, 1.001, 1, 0.999, 0.999, 0.999, 1);
+  /* Ginga (ζ 0.55): só celebração — carimbo, germinar, conquista. Passa 12% e assenta. */
+  --ease-spring-bouncy: linear(0, 0.048, 0.166, 0.323, 0.494, 0.658, 0.803, 0.922, 1.011, 1.073, 1.109, 1.125, 1.124, 1.113, 1.095, 1.074, 1.053, 1.033, 1.016, 1.003, 0.994, 0.988, 0.985, 0.984, 0.985, 0.987, 0.989, 0.992, 0.995, 0.997, 0.999, 1, 1.001, 1.002, 1.002, 1.002, 1);
+  --duration-press: 160ms;
+  --duration-view: 380ms;
+  --duration-spring: 520ms;
+  --duration-stamp: 560ms;
+  --duration-reveal: 640ms;
   /* Expansão de texto ("ver mais", gavetas, <details>): física da gaveta de Regras da calculadora ACG */
   --duration-expand: 320ms;
   --duration-expand-fade: 240ms;
@@ -127,30 +140,35 @@
   --font-accent: 'Permanent Marker', 'Poppins', cursive;
 
   /* Sombras Neobrutalistas Duras (rL9Ap) */
-  --shadow-xs: 1px 1px 0 0 var(--shadow-color, #1F1F1F);
+  /* Vocabulário fechado (DESIGN.md › Elevation): 2 chip · 3 ficha · 5 hover · 6 cartaz. */
+  --shadow-xs: 2px 2px 0 0 var(--shadow-color, #1F1F1F);
   --shadow-sm: 2px 2px 0 0 var(--shadow-color, #1F1F1F);
   --shadow: 3px 3px 0 0 var(--shadow-color, #1F1F1F);
   --shadow-md: 3px 3px 0 0 var(--shadow-color, #1F1F1F);
   --shadow-lg: 5px 5px 0 0 var(--shadow-color, #1F1F1F);
-  --shadow-xl: 10px 10px 0 1px var(--shadow-color, #1F1F1F);
-  --shadow-2xl: 16px 16px 0 1px var(--shadow-color, #1F1F1F);
+  --shadow-xl: 6px 6px 0 0 var(--shadow-color, #1F1F1F);
+  --shadow-2xl: 6px 6px 0 0 var(--shadow-color, #1F1F1F);
+  --shadow-chip: 2px 2px 0 0 var(--shadow-color, #1F1F1F);
+  --shadow-ficha: 3px 3px 0 0 var(--shadow-color, #1F1F1F);
+  --shadow-lift: 5px 5px 0 0 var(--shadow-color, #1F1F1F);
+  --shadow-cartaz: 6px 6px 0 0 var(--shadow-color, #1F1F1F);
 
   --shadow-cagp-hard: 3px 3px 0 #1F1F1F;
   --shadow-cagp-hard-lg: 6px 6px 0 #1F1F1F;
-  --shadow-chunky-xs: 1px 1px 0 #1F1F1F;
+  --shadow-chunky-xs: 2px 2px 0 #1F1F1F;
   --shadow-chunky-sm: 2px 2px 0 #1F1F1F;
   --shadow-chunky: 3px 3px 0 #1F1F1F;
   --shadow-chunky-md: 3px 3px 0 #1F1F1F;
   --shadow-chunky-lg: 6px 6px 0 #1F1F1F;
-  --shadow-chunky-xl: 10px 10px 0 1px #1F1F1F;
+  --shadow-chunky-xl: 6px 6px 0 #1F1F1F;
 
-  --radius-xs: 4px;
+  --radius-xs: 6px;
   --radius-sm: 6px;
   --radius-md: 8px;
   --radius-lg: 12px;
   --radius-xl: 12px; /* 0.75rem */
   --radius-2xl: 16px;
-  --radius-3xl: 20px;
+  --radius-3xl: 16px;
 }
 
 :root,
@@ -167,7 +185,7 @@ html.dark {
   --cagp-content-secondary: #4A4740;
   --cagp-content-muted: #5E5A52;
   --cagp-brand-primary: #9E2424;
-  --cagp-brand-hover: #8B1E2D;
+  --cagp-brand-hover: #5B2A85;
   --cagp-brand-accent: #FE8812;
 }
 
@@ -249,8 +267,8 @@ html {
 /* Balanço tipográfico de títulos (Apple HIG Editorial) */
 h1, h2, h3, h4, h5, h6,
 .font-display,
-[class*="font-['Oswald']"],
-[class*='font-["Oswald"]'] {
+[class*="font-heading"],
+[class*='font-heading'] {
   text-wrap: balance;
 }
 
@@ -272,7 +290,7 @@ p, .prose p {
 }
 
 .neo-shadow-chunky {
-  box-shadow: 4px 4px 0 0 #1F1F1F !important;
+  box-shadow: 3px 3px 0 0 #1F1F1F !important;
 }
 
 /* Preserva bordas sólidas e alto contraste estrito no modo AAA */
@@ -355,17 +373,8 @@ blockquote.text-xs {
   line-height: 1.5;
 }
 
-/* Reduced motion: sem deslocamento, sem loop; cor e estado continuam instantâneos. */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 1ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 1ms !important;
-    scroll-behavior: auto !important;
-  }
-}
+/* Movimento expressivo é parte da marca (DESIGN.md › Movimento): o site não desliga animações
+   por prefers-reduced-motion. Quem precisa de calma usa o painel de acessibilidade. */
 
 /* Segmented Control - Sub-views bar Neobrutalista Unificada (Impeccable Layout & Polish) */
 .cagp-workspace-bar {
@@ -387,6 +396,7 @@ blockquote.text-xs {
   transition: top 0.2s ease-out;
 }
 .cagp-workspace-tabs {
+  position: relative;
   display: flex;
   flex: 1;
   gap: 0.375rem;
@@ -410,7 +420,7 @@ blockquote.text-xs {
     flex: 0 0 auto !important;
     min-width: max-content;
     padding: 0.5rem 0.875rem;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     letter-spacing: 0.01em;
     scroll-snap-align: start;
   }
@@ -421,6 +431,9 @@ blockquote.text-xs {
 }
 @media (min-width: 768px) {
   .cagp-workspace-tabs {
+    -webkit-mask-image: none;
+    mask-image: none;
+    animation: none;
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: minmax(0, 1fr);
@@ -469,16 +482,58 @@ blockquote.text-xs {
   transform: translate(1px, 1px);
   box-shadow: none;
 }
+/* Aba ativa: roxo Semente (estado ativo único do site). Sem JS a própria aba pinta;
+   com JS um indicador desliza por baixo dela com a mola (iOS segmented, com sombra dura). */
 .cagp-workspace-tab.is-active {
-  background-color: var(--color-secondary, #266264);
-  color: #FFFFFF;
+  background-color: var(--color-active);
+  color: var(--color-active-foreground);
   border: 2px solid var(--color-border, #1F1F1F);
-  box-shadow: var(--shadow-sm, 2px 2px 0 0 var(--color-border, #1F1F1F));
-  transform: translateY(-1px);
+  box-shadow: var(--shadow-chip);
 }
 .cagp-workspace-tab.is-active:hover {
-  background-color: var(--color-secondary-hover, #1E4A4C);
-  color: #FFFFFF;
+  background-color: var(--color-primary-hover, #4A216E);
+  color: var(--color-active-foreground);
+}
+.cagp-workspace-tab {
+  position: relative;
+  z-index: 1;
+  transition:
+    color var(--duration-press) var(--ease-snap),
+    background-color var(--duration-press) var(--ease-snap),
+    border-color var(--duration-press) var(--ease-snap),
+    box-shadow var(--duration-press) var(--ease-snap),
+    transform var(--duration-press) var(--ease-spring-snappy);
+}
+.cagp-workspace-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 0;
+  height: 0;
+  border: 2px solid var(--color-border, #1F1F1F);
+  border-radius: 8px;
+  background-color: var(--color-active);
+  box-shadow: var(--shadow-chip);
+  pointer-events: none;
+  opacity: 0;
+}
+.cagp-workspace-tabs.has-indicator .cagp-workspace-indicator { opacity: 1; }
+.cagp-workspace-tabs.has-indicator.is-ready .cagp-workspace-indicator {
+  transition:
+    transform var(--duration-spring) var(--ease-spring),
+    width var(--duration-spring) var(--ease-spring),
+    height var(--duration-spring) var(--ease-spring);
+}
+.cagp-workspace-tabs.has-indicator .cagp-workspace-tab.is-active,
+.cagp-workspace-tabs.has-indicator .cagp-workspace-tab.is-active:hover {
+  background-color: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+/* O indicador esticado durante o toque: a aba "afunda" junto. */
+.cagp-workspace-tabs.has-indicator.is-pressing .cagp-workspace-indicator {
+  box-shadow: none;
 }
 
 /* Âncoras e painéis não ficam escondidos sob a barra de abas fixa. */
@@ -543,7 +598,7 @@ blockquote.text-xs {
 }
 .cagp-workspace-viewall.is-active,
 .cagp-workspace-viewall[aria-pressed="true"] {
-  background-color: var(--color-secondary, #266264);
+  background-color: var(--color-active);
   color: #FFFFFF;
   border-color: var(--color-border, #1F1F1F);
   box-shadow: var(--shadow-sm, 2px 2px 0 0 var(--color-border, #1F1F1F));
@@ -654,7 +709,7 @@ html[data-a11y-dyslexia="true"] * {
   border: 2px solid var(--color-cagp-black);
   box-shadow: 2px 2px 0px var(--color-cagp-black);
   font-family: var(--font-head);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 800;
   display: flex;
   align-items: center;
@@ -672,7 +727,7 @@ html[data-a11y-dyslexia="true"] * {
   position: absolute;
   border: 2px dashed var(--color-cagp-burgundy);
   background-color: rgba(139, 30, 45, 0.08);
-  border-radius: 4px;
+  border-radius: 6px;
   pointer-events: none;
   z-index: 4;
 }
@@ -858,7 +913,7 @@ html[data-a11y-dyslexia="true"] * {
   align-items: center;
   gap: 0.35rem;
   font-family: var(--font-head);
-  font-size: 0.82rem;
+  font-size: 0.875rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: -0.01em;
@@ -880,7 +935,7 @@ html[data-a11y-dyslexia="true"] * {
   height: 8px;
   background-color: #eae5dc;
   border: 1.5px solid #1F1F1F;
-  border-radius: 4px;
+  border-radius: 6px;
   overflow: hidden;
   margin-top: 0.35rem;
 }
@@ -937,7 +992,7 @@ html[data-a11y-dyslexia="true"] * {
   text-align: center;
   font-family: var(--font-mono);
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.02em;
 }
@@ -958,7 +1013,7 @@ html[data-a11y-dyslexia="true"] * {
   padding: 0.25rem 0.6rem;
   margin-top: 0.45rem;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 6px;
   box-shadow: 1.5px 1.5px 0 #1F1F1F;
   touch-action: manipulation;
   transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.15s ease, color 0.15s ease;
@@ -1058,16 +1113,16 @@ html[data-a11y-dyslexia="true"] * {
 
 .cagp-calc-drawer-section {
   padding: 0.65rem 0.75rem;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 .cagp-calc-drawer-section.is-accepted {
-  background-color: #f0fdf4;
+  background-color: #DCFCE7;
   border: 1.5px solid #166534;
 }
 
 .cagp-calc-drawer-section.is-rejected {
-  background-color: #fef2f2;
+  background-color: #FEE2E2;
   border: 1.5px solid #B91C1C;
 }
 
@@ -1081,9 +1136,9 @@ html[data-a11y-dyslexia="true"] * {
 .cagp-calc-drawer-section ul {
   margin: 0;
   padding-left: 1.15rem;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   line-height: 1.45;
-  color: #1f2937;
+  color: #1F1F1F;
   list-style-type: disc;
 }
 
@@ -1098,12 +1153,12 @@ html[data-a11y-dyslexia="true"] * {
 .cagp-calc-drawer-alert {
   margin-top: 0.6rem;
   padding: 0.45rem 0.65rem;
-  background-color: #fffbeb;
+  background-color: #FEF3C7;
   border: 1.5px solid #92400E;
   font-size: 0.78rem;
   line-height: 1.4;
-  color: #78350f;
-  border-radius: 4px;
+  color: #92400E;
+  border-radius: 6px;
 }
 
 /* Touch-and-hold tactile feedback for Context Menu (Apple HIG + Neobrutalism) */
@@ -1288,4 +1343,25 @@ details[open]:not([data-expand-state="closing"]) > summary .cagp-expand-chevron 
 
 .is-masonry > * {
   align-self: start;
+}
+
+/* The One Shadow Per Volume Rule (DESIGN.md › Elevation): ficha dentro de ficha não tem sombra.
+   Vale para blocos (div/article/section) com contorno dentro de outra ficha com sombra;
+   botões, links e campos continuam com a própria sombra de controle. */
+:is(div, section, article)[class*="border-"][class*="shadow"]
+  :is(div, article, section)[class*="border-"][class*="rounded-"][class*="shadow"]:not([class*="bg-primary"]):not([class*="bg-accent"]):not([role="dialog"]) {
+  box-shadow: none !important;
+}
+
+/* Placeholder legível (≥4.5:1): grafite apagado, nunca o cinza claro padrão do navegador. */
+::placeholder {
+  color: var(--color-muted-foreground);
+  opacity: 1;
+}
+
+/* One Float Rule: com a pílula "Sou Semente" na tela, o fim da página ganha folga para o último
+   conteúdo subir acima dela, e o "voltar ao topo" some no celular. */
+@media (max-width: 767px) {
+  html.cagp-has-float #main-content { padding-bottom: calc(6rem + 3.5rem); }
+  html.cagp-has-float #cagp-back-to-top { display: none; }
 }

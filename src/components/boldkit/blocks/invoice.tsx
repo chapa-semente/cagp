@@ -3,7 +3,7 @@ import * as React from 'react'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { cn } from '@/lib/utils'
-import { Download, Printer, Mail, Check, Clock, AlertCircle } from 'lucide-react'
+import { Download, Printer, Mail, Check, Clock, AlertCircle } from '@/components/ui/icons'
 
 // Typed here so the dev-only guards compile without @types/node (Vite's
 // default tsconfig has none). `declare` emits nothing: bundlers still

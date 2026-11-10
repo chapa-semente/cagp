@@ -9,18 +9,18 @@ const badges = [
   { label: 'Preferências Locais', variant: 'blue' as const, icon: 'bi-sliders' },
   { label: 'Acessibilidade WCAG AAA', variant: 'gold' as const, icon: 'bi-universal-access' },
   { label: 'Nome Social Res. 09/2015', variant: 'red' as const, icon: 'bi-person-badge-fill' },
-  { label: 'Cofre 100% no Aparelho', variant: 'green' as const, icon: 'bi-shield-check' },
+  { label: 'Tudo fica no seu celular', variant: 'green' as const, icon: 'bi-shield-check' },
 ];
 ---
 
 <BaseLayout
-  title="Configurações, Carteirinha & Acessibilidade Discente"
-  description="Central de configurações do Super App CAGP: passaporte discente, nome social, sistemas digitais (minhaUFMG, SIGA, Office 365), tipografia, contraste e backup do cofre."
+  title="Ajustes"
+  description="Ajustes do app da Chapa Semente: passaporte discente, nome social, sistemas digitais (minhaUFMG, SIGA, Office 365), tipografia, contraste e backup do cofre."
   mode="operate"
 >
   <PageHeader
-    title="Configurações, Carteirinha & Identidade UFMG"
-    subtitle="Personalize sua experiência de uso, emita seu Passaporte Discente, acesse os manuais de identidade digital da UFMG (minhaUFMG, SIGA, Office 365, Nome Social) e gerencie o cofre local."
+    title="Ajustes"
+    subtitle="Leitura mais confortável, seus dados neste celular e o caminho pra carteirinha, SIGA e e-mail da UFMG."
     badges={badges}
     mode="operate"
   />
@@ -30,12 +30,10 @@ const badges = [
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4" data-context-type="doc-template">
       <div class="p-4 rounded-xl border-2 border-border bg-card shadow-md flex flex-col justify-between space-y-3 text-foreground">
         <div>
-          <span class="font-mono text-xs font-extrabold uppercase text-secondary block">
-            RESOLUÇÃO PRAE Nº 09/2015
-          </span>
           <h3 class="font-heading text-sm font-extrabold text-foreground mt-0.5 m-0">
             Inclusão de Nome Social
           </h3>
+          <p class="m-0 mt-1 text-xs font-heading font-bold uppercase tracking-[0.04em] text-muted-foreground tabular-nums">RESOLUÇÃO PRAE Nº 09/2015</p>
           <p class="text-xs text-muted-foreground mt-1 leading-relaxed m-0">
             Garantia institucional do uso do Nome Social para pessoas travestis, transexuais e não binárias em diários de classe, carteirinha, e-mail @ufmg.br e diplomas.
           </p>
@@ -46,18 +44,16 @@ const badges = [
           rel="noopener noreferrer"
           class="px-3.5 py-2 rounded-xl border-3 border-border bg-secondary hover:bg-secondary-hover text-secondary-foreground font-heading text-xs font-extrabold uppercase text-center no-underline shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all"
         >
-          Baixar Requerimento (PDF) ↗
+          Baixar Requerimento (PDF) <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
         </a>
       </div>
 
       <div class="p-4 rounded-xl border-2 border-border bg-card shadow-md flex flex-col justify-between space-y-3 text-foreground">
         <div>
-          <span class="font-mono text-xs font-extrabold uppercase text-primary block">
-            DTI / UFMG • MICROSOFT 365 &amp; EDUROAM
-          </span>
           <h3 class="font-heading text-sm font-extrabold text-foreground mt-0.5 m-0">
             Conta Office 365 &amp; Wi-Fi
           </h3>
+          <p class="m-0 mt-1 text-xs font-heading font-bold uppercase tracking-[0.04em] text-muted-foreground tabular-nums">DTI / UFMG • MICROSOFT 365 &amp; EDUROAM</p>
           <p class="text-xs text-muted-foreground mt-1 leading-relaxed m-0">
             Seu login @ufmg.br dá direito ao pacote Microsoft 365 Educacional gratuito e à rede Wi-Fi global <strong>eduroam</strong> (WPA2-Enterprise / PEAP).
           </p>
@@ -68,18 +64,16 @@ const badges = [
           rel="noopener noreferrer"
           class="px-3.5 py-2 rounded-xl border-3 border-border bg-primary hover:bg-primary-hover text-primary-foreground font-heading text-xs font-extrabold uppercase text-center no-underline shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all"
         >
-          Tutorial Office 365 (PDF) ↗
+          Tutorial Office 365 (PDF) <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
         </a>
       </div>
 
       <div class="p-4 rounded-xl border-2 border-border bg-card shadow-md flex flex-col justify-between space-y-3 text-foreground">
         <div>
-          <span class="font-mono text-xs font-extrabold uppercase text-[#134E4A] block">
-            CARTEIRA UFMG &amp; APP SIGA MÓVEL
-          </span>
           <h3 class="font-heading text-sm font-extrabold text-foreground mt-0.5 m-0">
             Manual do Aplicativo Siga
           </h3>
+          <p class="m-0 mt-1 text-xs font-heading font-bold uppercase tracking-[0.04em] text-muted-foreground tabular-nums">CARTEIRA UFMG &amp; APP SIGA MÓVEL</p>
           <p class="text-xs text-muted-foreground mt-1 leading-relaxed m-0">
             Consulte notas, salas, horários e apresente sua carteirinha virtual nas catracas dos Restaurantes Universitários e na Biblioteca da FAFICH.
           </p>
@@ -88,9 +82,9 @@ const badges = [
           href={asset('/documentos/manual-aplicativo-siga-ufmg.pdf')}
           target="_blank"
           rel="noopener noreferrer"
-          class="px-3.5 py-2 rounded-xl border-3 border-border bg-[#134E4A] hover:bg-[#0E3A37] text-white font-heading text-xs font-extrabold uppercase text-center no-underline shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all"
+          class="px-3.5 py-2 rounded-xl border-3 border-border bg-petroleo-deep hover:bg-petroleo-deep text-white font-heading text-xs font-extrabold uppercase text-center no-underline shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all"
         >
-          Manual App Siga (PDF) ↗
+          Manual App Siga (PDF) <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
         </a>
       </div>
     </div>

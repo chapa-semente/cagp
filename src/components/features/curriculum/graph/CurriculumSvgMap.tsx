@@ -116,7 +116,7 @@ export const CurriculumSvgMap: React.FC<Props> = ({
     >
       <defs>
         <marker id="arrow-default" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M 0 1 L 9 5 L 0 9 z" fill="#9CA3AF" />
+          <path d="M 0 1 L 9 5 L 0 9 z" fill="#5E5A52" />
         </marker>
         <marker id="arrow-formal" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
           <path d="M 0 1 L 9 5 L 0 9 z" fill="#B91C1C" />
@@ -241,7 +241,7 @@ export const CurriculumSvgMap: React.FC<Props> = ({
                     y={y + 6}
                     width={30}
                     height={13}
-                    style={{ fill: DEPT_COLORS[d.dept] || '#8B1E2D' }}
+                    style={{ fill: DEPT_COLORS[d.dept] || '#5B2A85' }}
                   />
                   <text
                     className="node-badge-text"
@@ -273,15 +273,15 @@ export const CurriculumSvgMap: React.FC<Props> = ({
 
               {/* Indicador de Cursada no Canto */}
               {isCompleted && (
-                <text
-                  x={x + 92}
-                  y={y + 66}
-                  fill="#166534"
-                  fontSize="13"
-                  fontWeight="bold"
-                >
-                  ✓
-                </text>
+                <path
+                  d={`M ${x + 92} ${y + 61} l 3.5 3.5 l 7 -8`}
+                  fill="none"
+                  stroke="#166534"
+                  strokeWidth={2.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                />
               )}
             </g>
           );

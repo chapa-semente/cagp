@@ -43,7 +43,7 @@ export const OverviewGuardianWidget: React.FC = () => {
 
         {/* Status dos Certificados */}
         <div className="mb-4">
-          <div className="bg-[#FEF3C7] border-2 border-border rounded-lg p-3 mb-3 text-xs text-foreground leading-relaxed shadow-xs">
+          <div className="bg-warning-tint border-2 border-border rounded-lg p-3 mb-3 text-xs text-foreground leading-relaxed shadow-xs">
             <div className="font-bold flex items-center gap-1.5 text-warning mb-1 font-head uppercase tracking-wider text-xs">
               <i className="bi bi-alarm-fill" aria-hidden="true" />
               <span>Prazo Fatal Regimental:</span>
@@ -65,7 +65,7 @@ export const OverviewGuardianWidget: React.FC = () => {
             </div>
           ) : (
             <p className="text-xs text-gray-600 italic font-body font-medium">
-              Nenhum certificado cadastrado ainda no cofre local.
+              Nenhum certificado salvo ainda.
             </p>
           )}
         </div>
@@ -74,7 +74,7 @@ export const OverviewGuardianWidget: React.FC = () => {
       {/* Ação */}
       <a
         href={route('/acg') + '#guardiao-120-dias'}
-        className="min-h-[44px] px-3.5 py-2 bg-foreground text-background text-white hover:bg-warning active:translate-x-[2px] active:translate-y-[2px] active:shadow-none rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline mt-2 border-3 border-border shadow"
+        className="min-h-[44px] px-3.5 py-2 bg-primary text-white text-white hover:bg-warning active:translate-x-[2px] active:translate-y-[2px] active:shadow-none rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline mt-2 border-3 border-border shadow"
       >
         <span>Gerenciar Certificados & Prazos</span>
         <i className="bi bi-arrow-right" aria-hidden="true" />

@@ -26,7 +26,7 @@ export const SettingsA11ySection: React.FC<Props> = ({ a11y, updateA11y }) => {
         </span>
       </div>
 
-      <div className="divide-y-2 divide-[#1F1F1F]">
+      <div className="divide-y-2 divide-border">
         {/* Tamanho da Fonte */}
         <div className="py-3.5 flex flex-wrap items-center justify-between gap-3">
           <div>

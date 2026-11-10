@@ -81,7 +81,7 @@ export const ShortcutsSheet: React.FC<ShortcutsSheetProps> = ({ isOpen, onClose 
         {/* Banner Informativo com Contadores Apple HIG */}
         <div className="bg-background border border-muted p-3.5 rounded-2xl">
           <div className="flex items-center justify-between mb-1">
-            <span className="font-['Oswald'] text-xs font-bold uppercase text-secondary tracking-wide flex items-center gap-1.5">
+            <span className="font-heading text-xs font-bold uppercase text-secondary tracking-wide flex items-center gap-1.5">
               <CagpIcon name="sliders" className="w-4 h-4 text-secondary" />
               <span>Dock & Barra Inferior</span>
             </span>
@@ -107,7 +107,7 @@ export const ShortcutsSheet: React.FC<ShortcutsSheetProps> = ({ isOpen, onClose 
               key={cat}
               type="button"
               onClick={() => setFilterCategory(cat)}
-              className={`px-2.5 py-1 rounded-[4px] text-xs font-['Oswald'] uppercase font-semibold transition-all border shrink-0 cursor-pointer ${
+              className={`px-2.5 py-1 rounded-[4px] text-xs font-heading uppercase font-semibold transition-all border shrink-0 cursor-pointer ${
                 filterCategory === cat
                   ? 'bg-secondary text-white border-secondary shadow-[1px_1px_0_#1F1F1F]'
                   : 'bg-white text-gray-700 border-muted hover:bg-background'
@@ -132,7 +132,7 @@ export const ShortcutsSheet: React.FC<ShortcutsSheetProps> = ({ isOpen, onClose 
                 onClick={() => handleToggle(item.id)}
                 className={`p-2.5 rounded-[6px] border-2 transition-all flex items-center justify-between gap-3 cursor-pointer select-none ${
                   isSelected
-                    ? 'border-border bg-white shadow-[2px_2px_0_#1F1F1F]'
+                    ? 'border-border bg-white shadow-sm'
                     : 'border-muted bg-background hover:bg-white hover:border-gray-400 opacity-80'
                 }`}
                 role="checkbox"
@@ -154,7 +154,7 @@ export const ShortcutsSheet: React.FC<ShortcutsSheetProps> = ({ isOpen, onClose 
                   </div>
                   <div className="min-w-0">
                     <div className="flex items-center gap-1.5 flex-wrap">
-                      <span className="font-['Oswald'] text-xs font-bold uppercase text-foreground truncate">
+                      <span className="font-heading text-xs font-bold uppercase text-foreground truncate">
                         {item.fullLabel}
                       </span>
                       <span className="text-xs font-mono uppercase bg-gray-200 text-gray-700 px-1.5 py-0.2 rounded">

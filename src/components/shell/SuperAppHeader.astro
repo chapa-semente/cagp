@@ -4,6 +4,7 @@
 // é deste site; senão leva à raiz da aba. Na raiz da aba não há seta.
 import { AXIS_REGISTRY, getItemByPath, normalizePathname } from '@/lib/navigationRegistry';
 import { getCagpIconSvg } from '@/lib/cagpIcons';
+import { asset } from '@/lib/paths';
 
 const cleanPath = normalizePathname(Astro.url.pathname);
 const isHome = cleanPath === '/';
@@ -16,7 +17,7 @@ const title = owner && !isAxisRoot ? owner.item.shortLabel : axis.name;
 
 <header
   id="cagp-super-app-header"
-  class={`${isHome ? 'hidden' : 'block md:hidden'} sticky top-0 z-[1030] w-full bg-white border-b-3 border-border select-none`}
+  class={`block md:hidden sticky top-0 z-[1030] w-full bg-white border-b-3 border-border select-none`}
   style="padding-top: env(safe-area-inset-top, 0px);"
 >
   <div class="px-3 h-14 flex items-center justify-between gap-2">
@@ -32,7 +33,17 @@ const title = owner && !isAxisRoot ? owner.item.shortLabel : axis.name;
           <i class="bi bi-arrow-left text-lg" aria-hidden="true"></i>
         </a>
       )}
-      <span class={`font-heading text-base font-bold truncate ${isAxisRoot ? 'pl-1' : ''}`}>{title}</span>
+      {isHome && (
+        <img
+          src={asset('/logos/semente/semente-simbolo.webp')}
+          alt=""
+          width="466"
+          height="603"
+          class="h-8 w-auto ml-1 mr-1.5"
+          aria-hidden="true"
+        />
+      )}
+      <span class={`font-heading text-base font-bold truncate ${isAxisRoot && !isHome ? 'pl-1' : ''}`}>{title}</span>
     </div>
 
     <div class="flex items-center gap-1.5 shrink-0">
@@ -49,7 +60,7 @@ const title = owner && !isAxisRoot ? owner.item.shortLabel : axis.name;
         type="button"
         id="cagp-btn-passport"
         class="w-11 h-11 min-w-[44px] justify-center rounded-xl bg-primary hover:bg-primary-hover border-3 border-border flex items-center cursor-pointer active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-        aria-label="Abrir meu perfil e Passaporte"
+        aria-label="Abrir Seu perfil"
       >
         <span
           id="cagp-header-avatar-slot"

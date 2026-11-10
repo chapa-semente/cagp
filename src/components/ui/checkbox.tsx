@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Checkbox as CheckboxPrimitive } from 'radix-ui'
-import { Check, Minus } from 'lucide-react'
+import { Check, Minus } from '@/components/ui/icons'
 import { cn } from '@/lib/utils'
 
 export interface CheckboxProps

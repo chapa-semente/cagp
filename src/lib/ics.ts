@@ -61,7 +61,7 @@ export function downloadRu1815Ics(): void {
 
   downloadIcs(
     {
-      title: '🍽️ Jantar no RU II Setorial (FAFICH/UFMG)',
+      title: 'Jantar no RU II (FAFICH/UFMG): fecha 19h30',
       description: 'Lembrete diário: Chegar ao RU II Setorial antes do fechamento rigoroso das catracas às 19h30. Valor: R$ 5,60.',
       location: 'Restaurante Universitário Setorial II — Campus Pampulha UFMG',
       startDate: start,
@@ -79,7 +79,7 @@ export function downloadCircular2230Ics(): void {
 
   downloadIcs(
     {
-      title: '🚌 Último Circular Noturno FAFICH (UFMG)',
+      title: 'Último Circular da noite (FAFICH/UFMG)',
       description: 'Alerta para saída da sala de aula antes da última viagem do Circular Interno às 22h45 saindo da FAFICH/Praça de Serviços.',
       location: 'Ponto do Circular Noturno — FAFICH / Praça de Serviços UFMG',
       startDate: start,
@@ -102,7 +102,7 @@ export function downloadAac120dIcs(
 
   downloadIcs(
     {
-      title: `🚨 Prazo Fatal 120 Dias AAC: ${certTitle}`,
+      title: `Último dia pra protocolar AAC: ${certTitle}`,
       description: `Art. 15, § 4º do Regulamento do Curso N-20229: Prazo fatal de 120 dias corridos para protocolar o certificado no Colegiado (Sala F-2039) ou via e-mail coordgestaopublica@gmail.com.`,
       location: 'Secretaria do Colegiado Sala F-2039 (coordgestaopublica@gmail.com)',
       startDate: start,

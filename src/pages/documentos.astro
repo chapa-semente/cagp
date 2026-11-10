@@ -11,10 +11,10 @@ import DocumentosDrcaPrazos from '../components/features/documentos/drca/Documen
 import { DocumentosInteractiveSearch } from '../components/features/documentos/DocumentosInteractiveSearch';
 
 const tabs = [
-  { id: 'v0', shortLabel: 'Geral', fullLabel: 'Visão Geral do Acervo', hash: '#visao-geral' },
-  { id: 'v1', shortLabel: 'Atos', fullLabel: 'Atos Normativos', hash: '#atos' },
-  { id: 'v2', shortLabel: 'Formulários', fullLabel: 'Formulários & Requerimentos', hash: '#formularios' },
-  { id: 'v3', shortLabel: 'DRCA', fullLabel: 'Processos DRCA & Prazos', hash: '#drca' },
+  { id: 'v0', shortLabel: 'Mais pedidos', fullLabel: 'Os mais pedidos', hash: '#visao-geral' },
+  { id: 'v1', shortLabel: 'Normas', fullLabel: 'Normas do curso', hash: '#atos' },
+  { id: 'v2', shortLabel: 'Formulários', fullLabel: 'Formulários e requerimentos', hash: '#formularios' },
+  { id: 'v3', shortLabel: 'DRCA', fullLabel: 'DRCA e prazos', hash: '#drca' },
 ];
 
 const badges = [
@@ -26,13 +26,13 @@ const badges = [
 ---
 
 <BaseLayout
-  title="Acervo de Documentos Oficiais"
+  title="Documentos"
   description="Atos normativos, requerimentos acadêmicos, termos de estágio e processos do DRCA do curso de Gestão Pública UFMG."
   mode="read"
 >
   <PageHeader
-    title="Acervo de Documentos & Modelos"
-    subtitle="Cofre offline de atos normativos, matrizes curriculares e formulários oficiais da FAFICH/UFMG em PDF com integridade factual preservada."
+    title="Documentos"
+    subtitle="Normas, grades e formulários oficiais em PDF. Achou o que pediram no grupo? Manda o link."
     badges={badges}
     mode="read"
   />

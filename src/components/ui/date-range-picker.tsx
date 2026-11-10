@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import * as React from 'react'
 import { format, subDays, startOfMonth, endOfMonth, subMonths, isSameDay } from 'date-fns'
-import { CalendarIcon } from 'lucide-react'
+import { CalendarIcon } from '@/components/ui/icons'
 import type { DateRange } from 'react-day-picker'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'

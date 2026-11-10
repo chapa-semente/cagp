@@ -30,7 +30,7 @@ export const AVATAR_PRESET_CONFIG: Record<
  */
 export function renderAvatarHtml(profile?: StudentProfileData | null, size: 'sm' | 'md' | 'lg' = 'md'): string {
   if (!profile) {
-    return `<span class="w-full h-full flex items-center justify-center text-gray-500 bg-[#F7F5F0]"><i class="bi bi-person-fill text-lg" aria-hidden="true"></i></span>`;
+    return `<span class="w-full h-full flex items-center justify-center text-gray-500 bg-background"><i class="bi bi-person-fill text-lg" aria-hidden="true"></i></span>`;
   }
 
   // 1. Se houver foto carregada (DataURL)
@@ -58,7 +58,7 @@ export function renderAvatarHtml(profile?: StudentProfileData | null, size: 'sm'
 
   if (presetKey === 'monogram') {
     return `
-      <span class="w-full h-full flex items-center justify-center font-['Oswald'] font-bold text-xs uppercase" style="background-color: ${preset.bg}; color: ${preset.color};">
+      <span class="w-full h-full flex items-center justify-center font-heading font-bold text-xs uppercase" style="background-color: ${preset.bg}; color: ${preset.color};">
         ${initials}
       </span>
       ${prideBadge}
@@ -75,7 +75,7 @@ export function renderAvatarHtml(profile?: StudentProfileData | null, size: 'sm'
   }
 
   return `
-    <span class="w-full h-full flex items-center justify-center font-['Oswald'] font-bold text-xs" style="background-color: ${preset.bg}; color: ${preset.color};">
+    <span class="w-full h-full flex items-center justify-center font-heading font-bold text-xs" style="background-color: ${preset.bg}; color: ${preset.color};">
       ${initials}
     </span>
     ${prideBadge}

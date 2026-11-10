@@ -14,10 +14,10 @@ import { EstagioDocumentDrawerAndGuide } from '../components/features/estagio/Es
 import { route } from '@/lib/paths';
 
 const tabs = [
-  { id: 'v0', shortLabel: 'Estágio Geral', fullLabel: 'Visão Geral & Modelos', hash: '#visao-geral' },
-  { id: 'v1', shortLabel: 'Aproveitamento Servidor', fullLabel: 'Aproveitamento Servidor (Art. 41)', hash: '#art41' },
-  { id: 'v2', shortLabel: 'Estágio 300h', fullLabel: 'Estágio Obrigatório (300h)', hash: '#obrigatorio' },
-  { id: 'v3', shortLabel: 'Tutorial TCE', fullLabel: 'Tutorial TCE & Minutas', hash: '#tutorial' },
+  { id: 'v0', shortLabel: 'Visão geral', fullLabel: 'Visão geral e modelos', hash: '#visao-geral' },
+  { id: 'v1', shortLabel: 'Art. 41', fullLabel: 'Dispensa pelo Art. 41', hash: '#art41' },
+  { id: 'v2', shortLabel: '300h', fullLabel: 'Estágio de 300h', hash: '#obrigatorio' },
+  { id: 'v3', shortLabel: 'TCE', fullLabel: 'Como fazer o TCE', hash: '#tutorial' },
 ];
 
 const badges = [
@@ -29,7 +29,7 @@ const badges = [
 ---
 
 <BaseLayout
-  title="Estágio Supervisionado (300h) & Aproveitamento Servidor (Art. 41) • CAGP FAFICH/UFMG"
+  title="Estágio"
   description="Regras do estágio supervisionado de Gestão Pública da UFMG (300h: DCP 135 e DCP 136), simulador de Aproveitamento Servidor (Art. 41) e modelos oficiais de TCE."
   mode="operate"
 >
@@ -39,8 +39,8 @@ const badges = [
       mode="operate"
       condensed={true}
       showAxisNav={false}
-      title="Estágio Supervisionado (300h) & Art. 41"
-      subtitle="Simulador interativo de Aproveitamento Servidor (Art. 41), regras do Estágio Obrigatório A e B (DCP 135/136) e tutorial visual do Termo de Compromisso (TCE)."
+      title="Estágio"
+      subtitle="As 300h obrigatórias, o TCE passo a passo e a dispensa pelo Art. 41 pra quem já trabalha no serviço público."
       badges={badges}
     />
 
@@ -89,7 +89,7 @@ O discente que comprovar exercício profissional ou estágio não-obrigatório c
   <!-- Journey Navigation Trail -->
   <JourneyNav
     prev={{
-      title: 'Banco de Talentos GP (Cofre Local)',
+      title: 'Banco de talentos',
       href: '/carreira/talentos',
       desc: 'Mapeamento de competências práticas discentes e exportação para currículo.',
     }}

@@ -10,7 +10,7 @@ import {
   type TalentosProfile,
 } from '@/lib/carreiraData';
 import { tactileSpring } from '@/lib/motion';
-import { toast } from 'sonner';
+import { toast } from '@/lib/toast';
 
 export const CarreiraTalentosForm: React.FC = () => {
   const [profile, setProfile] = useState<TalentosProfile>({
@@ -81,7 +81,7 @@ export const CarreiraTalentosForm: React.FC = () => {
   const handleSaveUrls = (e: React.FormEvent) => {
     e.preventDefault();
     saveProfile(profile);
-    toast.success('Currículo e competências gravados com sucesso no cofre local!');
+    toast.success('Perfil profissional salvo neste celular.');
   };
 
   const copySummaryToClipboard = () => {
@@ -100,13 +100,13 @@ export const CarreiraTalentosForm: React.FC = () => {
           <div>
             <h2 className="text-base sm:text-lg font-heading font-black text-foreground flex items-center gap-2 m-0">
               <i className="bi bi-person-vcard text-primary text-xl" aria-hidden="true" />
-              <span>Cadastrar Currículo no Banco de Talentos GP (Cofre Local)</span>
+              <span>Montar meu perfil profissional</span>
             </h2>
             <p className="text-xs text-muted-foreground mt-0.5 m-0 font-medium">
               Monte seu perfil de competências em Gestão Pública para exportar junto ao Passaporte Estudantil.
             </p>
           </div>
-          <span className="px-2.5 py-1 rounded-md bg-[#F4F2EC] border-2 border-border font-mono text-xs font-bold">
+          <span className="px-2.5 py-1 rounded-md bg-background border-2 border-border font-mono text-xs font-bold">
             100% Privado no Navegador
           </span>
         </div>
@@ -161,7 +161,7 @@ export const CarreiraTalentosForm: React.FC = () => {
                   onClick={() => handleHoursChange(hrs)}
                   className={`min-h-[44px] px-3 py-2 rounded-xl border-2 border-border font-mono text-xs font-bold cursor-pointer transition-all tabular-nums focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5 ${
                     active
-                      ? 'bg-[#134E4A] text-white shadow-xs'
+                      ? 'bg-petroleo-deep text-white shadow-xs'
                       : 'bg-white text-foreground hover:bg-muted'
                   }`}
                 >
@@ -188,13 +188,13 @@ export const CarreiraTalentosForm: React.FC = () => {
                   onClick={() => toggleArea(area)}
                   className={`p-3 rounded-xl border-2 border-border text-left text-xs transition-all flex items-center justify-between gap-2 cursor-pointer min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5 ${
                     active
-                      ? 'bg-[#F0FDF4] text-[#134E4A] font-extrabold shadow-xs'
+                      ? 'bg-success-tint text-petroleo-deep font-extrabold shadow-xs'
                       : 'bg-white hover:bg-muted text-foreground font-medium'
                   }`}
                 >
                   <span>{area}</span>
                   {active ? (
-                    <i className="bi bi-check-circle-fill text-[#134E4A] text-sm shrink-0" aria-hidden="true" />
+                    <i className="bi bi-check-circle-fill text-petroleo-deep text-sm shrink-0" aria-hidden="true" />
                   ) : (
                     <i className="bi bi-plus-circle text-muted-foreground text-sm shrink-0" aria-hidden="true" />
                   )}
@@ -251,8 +251,8 @@ export const CarreiraTalentosForm: React.FC = () => {
                     onClick={() => (hasSkill ? removeSkill(sug) : addSkillString(sug))}
                     className={`min-h-[44px] px-3 py-1.5 rounded-lg border-2 border-border font-mono text-xs font-bold cursor-pointer transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 active:translate-x-0.5 active:translate-y-0.5 ${
                       hasSkill
-                        ? 'bg-[#134E4A] text-white'
-                        : 'bg-[#F4F2EC] text-foreground hover:bg-muted'
+                        ? 'bg-petroleo-deep text-white'
+                        : 'bg-background text-foreground hover:bg-muted'
                     }`}
                   >
                     {hasSkill ? ` ${sug}` : `+ ${sug}`}
@@ -298,7 +298,7 @@ export const CarreiraTalentosForm: React.FC = () => {
               type="submit"
               className="min-h-[44px] px-5 py-2.5 bg-primary text-white font-heading font-black text-xs uppercase tracking-wider rounded-xl border-3 border-border shadow-xs hover:bg-primary-hover active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all cursor-pointer"
             >
-              Cadastrar Currículo no Cofre
+              Salvar perfil profissional
             </button>
           </div>
         </form>
@@ -308,13 +308,10 @@ export const CarreiraTalentosForm: React.FC = () => {
       <motion.div
         whileHover={{ y: -3 }}
         transition={tactileSpring}
-        className="lg:col-span-4 p-5 rounded-xl border-2 border-border bg-[#F4F2EC] shadow-md space-y-4 sticky top-24"
+        className="lg:col-span-4 p-5 rounded-xl border-2 border-border bg-background shadow-md space-y-4 sticky top-24"
       >
         <div className="flex items-center justify-between border-b-2 border-border pb-3">
           <div>
-            <span className="font-mono text-xs font-black uppercase text-primary block">
-              CARTÃO DE TALENTO DISCENTE GP
-            </span>
             <h3 className="font-heading text-sm font-black text-foreground m-0">
               Resumo para Processos Seletivos
             </h3>
@@ -327,7 +324,7 @@ export const CarreiraTalentosForm: React.FC = () => {
         <div className="p-4 rounded-xl border-2 border-border bg-white divide-y divide-border/60 text-xs">
           <div className="pb-2.5 flex items-center justify-between">
             <span className="font-mono text-xs text-muted-foreground">Disponibilidade:</span>
-            <span className="font-mono font-black text-[#134E4A] tabular-nums">{profile.weeklyHoursAvailable}h / semana</span>
+            <span className="font-mono font-black text-petroleo-deep tabular-nums">{profile.weeklyHoursAvailable}h / semana</span>
           </div>
           <div className="py-2.5 flex items-center justify-between">
             <span className="font-mono text-xs text-muted-foreground">Áreas Foco:</span>
@@ -339,7 +336,7 @@ export const CarreiraTalentosForm: React.FC = () => {
           </div>
           {profile.interestedInEmpresaJunior && (
             <div className="pt-2.5">
-              <div className="px-2.5 py-1.5 rounded-lg bg-[#134E4A] text-white font-mono text-xs font-bold uppercase text-center border border-border">
+              <div className="px-2.5 py-1.5 rounded-lg bg-petroleo-deep text-white font-mono text-xs font-bold uppercase text-center border border-border">
                 Membro Apoiador Empresa Júnior GP
               </div>
             </div>
@@ -349,7 +346,7 @@ export const CarreiraTalentosForm: React.FC = () => {
         <button
           type="button"
           onClick={copySummaryToClipboard}
-          className="min-h-[44px] w-full px-4 py-2.5 rounded-xl border-3 border-border bg-[#FE8812] hover:bg-[#e67600] text-foreground font-heading text-xs font-black uppercase flex items-center justify-center gap-2 cursor-pointer shadow-xs active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
+          className="min-h-[44px] w-full px-4 py-2.5 rounded-xl border-3 border-border bg-accent hover:bg-accent-hover text-foreground font-heading text-xs font-black uppercase flex items-center justify-center gap-2 cursor-pointer shadow-xs active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
         >
           <i className="bi bi-clipboard-check-fill" aria-hidden="true" />
           <span>Copiar Resumo para Currículo</span>

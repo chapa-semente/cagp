@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { cn, safeHref } from '@/lib/utils'
-import { Eye, EyeOff, Mail, Lock, User, ArrowRight, createLucideIcon } from 'lucide-react'
+import { Eye, EyeOff, Mail, Lock, User, ArrowRight, createLucideIcon } from '@/components/ui/icons'
 
 // lucide-react 1.x dropped brand icons; these keep the paths 0.x shipped.
 const Github = createLucideIcon('github', [

@@ -114,7 +114,7 @@ export const Art41SimulatorCore: React.FC = () => {
       <div className="p-5 sm:p-6 bg-white border-2 border-border rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-md">
         <div>
           <div className="flex flex-wrap items-center gap-2 mb-1">
-            <span className="px-2.5 py-0.5 rounded-md bg-[#134E4A] text-white text-xs font-mono font-bold uppercase border border-border">
+            <span className="px-2.5 py-0.5 rounded-md bg-petroleo-deep text-white text-xs font-mono font-bold uppercase border border-border">
               Aproveitamento Servidor
             </span>
             <span className="text-xs font-heading uppercase font-bold tracking-wider text-secondary">
@@ -137,7 +137,7 @@ export const Art41SimulatorCore: React.FC = () => {
             transition={bounceSpring}
             className={`px-3.5 py-2 rounded-xl font-mono text-xs font-bold uppercase tracking-wider tabular-nums border-2 border-border shadow-xs ${
               isFullyEligible
-                ? 'bg-[#134E4A] text-white'
+                ? 'bg-petroleo-deep text-white'
                 : 'bg-white text-foreground'
             }`}
           >
@@ -167,7 +167,7 @@ export const Art41SimulatorCore: React.FC = () => {
                 aria-pressed={isSelected}
                 className={`p-4 rounded-xl border-2 border-border text-left flex flex-col justify-between transition-colors min-h-[88px] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
                   isSelected
-                    ? 'bg-[#134E4A] text-white shadow-sm'
+                    ? 'bg-petroleo-deep text-white shadow-sm'
                     : 'bg-white text-foreground hover:bg-muted shadow-xs'
                 }`}
               >
@@ -175,12 +175,12 @@ export const Art41SimulatorCore: React.FC = () => {
                   <div className="flex items-center gap-2">
                     <CagpIcon
                       name={m.iconName}
-                      className={`w-4 h-4 shrink-0 ${isSelected ? 'text-white' : 'text-[#134E4A]'}`}
+                      className={`w-4 h-4 shrink-0 ${isSelected ? 'text-white' : 'text-petroleo-deep'}`}
                     />
                     <span className="font-heading text-xs font-bold uppercase tracking-wide">{m.label}</span>
                   </div>
                   {isSelected && (
-                    <span className="px-1.5 py-0.5 rounded bg-white text-[#134E4A] font-mono text-xs font-black border border-border">
+                    <span className="px-1.5 py-0.5 rounded bg-white text-petroleo-deep font-mono text-xs font-black border border-border">
                       ATIVO
                     </span>
                   )}
@@ -215,7 +215,7 @@ export const Art41SimulatorCore: React.FC = () => {
               2. Verificação de Elegibilidade — Aproveitamento Servidor (Art. 41, §§ 1º a 3º):
             </span>
             <span className="text-xs text-muted-foreground font-mono font-bold">
-              Progresso salvo automaticamente no seu Cofre Discente local
+              Seu progresso fica salvo neste celular
             </span>
           </div>
 
@@ -249,11 +249,11 @@ export const Art41SimulatorCore: React.FC = () => {
         <div className="space-y-1.5">
           <div className="flex items-center justify-between text-xs font-mono font-bold">
             <span>Progresso de Elegibilidade Art. 41</span>
-            <span className="text-[#134E4A] tabular-nums">{progressPercent}% concluído</span>
+            <span className="text-petroleo-deep tabular-nums">{progressPercent}% concluído</span>
           </div>
-          <div className="w-full h-3.5 bg-[#F4F2EC] rounded-lg border-2 border-border overflow-hidden p-0.5">
+          <div className="w-full h-3.5 bg-background rounded-lg border-2 border-border overflow-hidden p-0.5">
             <motion.div
-              className="h-full rounded bg-[#134E4A]"
+              className="h-full rounded bg-petroleo-deep"
               initial={{ width: 0 }}
               animate={{ width: `${progressPercent}%` }}
               transition={tactileSpring}
@@ -277,7 +277,7 @@ export const Art41SimulatorCore: React.FC = () => {
                       isCurrent
                         ? 'bg-foreground text-background text-white shadow-xs'
                         : isDone
-                        ? 'bg-[#134E4A] text-white'
+                        ? 'bg-petroleo-deep text-white'
                         : 'bg-white text-foreground hover:bg-muted'
                     }`}
                   >
@@ -295,7 +295,7 @@ export const Art41SimulatorCore: React.FC = () => {
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: -24, scale: 0.98 }}
                 transition={tactileSpring}
-                className="p-5 rounded-xl border-2 border-border bg-[#F4F2EC] space-y-4"
+                className="p-5 rounded-xl border-2 border-border bg-background space-y-4"
               >
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className="px-2.5 py-1 rounded-md bg-white border-2 border-border font-mono text-xs font-bold uppercase text-foreground">
@@ -306,7 +306,7 @@ export const Art41SimulatorCore: React.FC = () => {
                       initial={{ scale: 0.7, rotate: -6 }}
                       animate={{ scale: 1, rotate: -2 }}
                       transition={bounceSpring}
-                      className="px-2.5 py-1 rounded-md bg-[#134E4A] text-white font-mono text-xs font-bold uppercase border border-border shadow-xs"
+                      className="px-2.5 py-1 rounded-md bg-petroleo-deep text-white font-mono text-xs font-bold uppercase border border-border shadow-xs"
                     >
                       REQUISITO ATENDIDO
                     </motion.span>
@@ -331,8 +331,8 @@ export const Art41SimulatorCore: React.FC = () => {
                     onClick={() => handleStepAnswer(currentQuestion.id, true)}
                     className={`min-h-[44px] px-4 py-2.5 rounded-xl border-2 border-border font-heading text-xs font-black uppercase tracking-wider cursor-pointer flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
                       checks[currentQuestion.id]
-                        ? 'bg-[#134E4A] text-white shadow-sm'
-                        : 'bg-white text-foreground hover:bg-[#134E4A] hover:text-white shadow-xs'
+                        ? 'bg-petroleo-deep text-white shadow-sm'
+                        : 'bg-white text-foreground hover:bg-petroleo-deep hover:text-white shadow-xs'
                     }`}
                   >
                     <CagpIcon name="check" className="w-4 h-4" />
@@ -380,7 +380,7 @@ export const Art41SimulatorCore: React.FC = () => {
                   whileTap={{ scale: 0.99 }}
                   className={`p-4 rounded-xl border-2 border-border flex items-start gap-3.5 cursor-pointer transition-colors shadow-xs ${
                     isChecked
-                      ? 'bg-[#F0FDF4]'
+                      ? 'bg-success-tint'
                       : 'bg-white hover:bg-muted'
                   }`}
                 >
@@ -407,7 +407,7 @@ export const Art41SimulatorCore: React.FC = () => {
                         animate={{ scale: 1, opacity: 1, rotate: -2 }}
                         exit={{ scale: 0.6, opacity: 0 }}
                         transition={bounceSpring}
-                        className="px-2.5 py-1 rounded-lg bg-[#134E4A] text-white text-xs shrink-0 border border-border shadow-xs"
+                        className="px-2.5 py-1 rounded-lg bg-petroleo-deep text-white text-xs shrink-0 border border-border shadow-xs"
                       >
                         <span className="inline-flex items-center gap-1 font-mono font-bold text-white">
                           <CagpIcon name="check" className="w-3.5 h-3.5 inline text-white" />
@@ -429,8 +429,8 @@ export const Art41SimulatorCore: React.FC = () => {
         transition={tactileSpring}
         className={`p-5 sm:p-6 rounded-xl border-2 border-border shadow-md space-y-5 ${
           isFullyEligible
-            ? 'bg-[#F0FDF4]'
-            : 'bg-[#FFFBEB]'
+            ? 'bg-success-tint'
+            : 'bg-warning-tint'
         }`}
       >
         <div className="flex flex-col lg:flex-row items-start justify-between gap-4">
@@ -438,8 +438,8 @@ export const Art41SimulatorCore: React.FC = () => {
             <span
               className={`w-12 h-12 rounded-xl flex items-center justify-center text-xl shrink-0 border-2 border-border shadow-xs ${
                 isFullyEligible
-                  ? 'bg-[#134E4A] text-white'
-                  : 'bg-[#FE8812] text-foreground'
+                  ? 'bg-petroleo-deep text-white'
+                  : 'bg-accent text-foreground'
               }`}
             >
               <CagpIcon
@@ -486,10 +486,10 @@ export const Art41SimulatorCore: React.FC = () => {
         <div className="pt-4 border-t-2 border-border space-y-3">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <span className="font-heading text-xs font-black uppercase text-foreground flex items-center gap-1.5">
-              <i className="bi bi-file-earmark-arrow-down-fill text-[#134E4A]" aria-hidden="true" />
+              <i className="bi bi-file-earmark-arrow-down-fill text-petroleo-deep" aria-hidden="true" />
               <span>Download Direto dos Modelos Oficiais — Aproveitamento Servidor (Art. 41):</span>
             </span>
-            <span className="font-mono text-xs font-bold text-[#134E4A]">
+            <span className="font-mono text-xs font-bold text-petroleo-deep">
               Arquivos Editáveis (.DOCX e .PDF)
             </span>
           </div>
@@ -497,7 +497,7 @@ export const Art41SimulatorCore: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             <div className="p-3.5 rounded-xl border-2 border-border bg-white flex flex-col justify-between gap-2.5">
               <div>
-                <span className="font-mono text-xs font-bold uppercase text-[#134E4A] block">
+                <span className="font-mono text-xs font-bold uppercase text-petroleo-deep block">
                   FASE 1 • INÍCIO DO SEMESTRE
                 </span>
                 <h5 className="font-heading text-xs font-black uppercase text-foreground m-0">
@@ -508,7 +508,7 @@ export const Art41SimulatorCore: React.FC = () => {
                 <a
                   href={asset('/documentos/estagio-requerimento-integralizacao-experiencia-profissional.docx')}
                   download
-                  className="min-h-[44px] flex-1 px-3 py-2 rounded-lg border-2 border-border bg-[#134E4A] hover:bg-[#0f3d39] text-white font-mono text-xs font-bold no-underline inline-flex items-center justify-center gap-1.5 shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
+                  className="min-h-[44px] flex-1 px-3 py-2 rounded-lg border-2 border-border bg-petroleo-deep hover:bg-petroleo-deep text-white font-mono text-xs font-bold no-underline inline-flex items-center justify-center gap-1.5 shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
                 >
                   <i className="bi bi-file-earmark-word" aria-hidden="true" />
                   <span>Baixar .DOCX</span>
@@ -537,7 +537,7 @@ export const Art41SimulatorCore: React.FC = () => {
                 <a
                   href={asset('/documentos/estagio-relatorio-atividades-experiencia-profissional.docx')}
                   download
-                  className="min-h-[44px] flex-1 px-3 py-2 rounded-lg border-2 border-border bg-primary hover:bg-[#49216C] text-white font-mono text-xs font-bold no-underline inline-flex items-center justify-center gap-1.5 shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
+                  className="min-h-[44px] flex-1 px-3 py-2 rounded-lg border-2 border-border bg-primary hover:bg-primary-hover text-white font-mono text-xs font-bold no-underline inline-flex items-center justify-center gap-1.5 shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
                 >
                   <i className="bi bi-file-earmark-word" aria-hidden="true" />
                   <span>Baixar .DOCX</span>
@@ -566,9 +566,9 @@ export const Art41SimulatorCore: React.FC = () => {
                 href="https://docs.google.com/forms/d/e/1FAIpQLSdIGMGFzJMsnyLTvkDTDVPQddU37S_OO1ABuQbMv5F3wElKLA/viewform"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="min-h-[44px] w-full px-3 py-2 rounded-lg border-2 border-border bg-[#FE8812] hover:bg-[#e67600] text-foreground font-heading text-xs font-black uppercase no-underline inline-flex items-center justify-center gap-1.5 shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
+                className="min-h-[44px] w-full px-3 py-2 rounded-lg border-2 border-border bg-accent hover:bg-accent-hover text-foreground font-heading text-xs font-black uppercase no-underline inline-flex items-center justify-center gap-1.5 shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
               >
-                <span>Protocolar Requerimento ↗</span>
+                <span>Protocolar Requerimento <i className="bi bi-box-arrow-up-right" aria-hidden="true"></i></span>
               </a>
             </div>
           </div>

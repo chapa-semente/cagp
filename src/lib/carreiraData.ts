@@ -55,7 +55,7 @@ export const SEMENTE_CAREER_PROPOSALS = [
     title: 'Apoio Amplo à Fundação da Empresa Júnior de GP',
     desc: 'Articulação institucional, assessoria jurídica do CA e apoio logístico para fundar e estruturar a Empresa Júnior de Gestão Pública da UFMG — projetos reais de consultoria pública desde o 1º período.',
     badge: 'Empresa Júnior GP',
-    color: 'bg-[#134E4A] text-white',
+    color: 'bg-petroleo-deep text-white',
     icon: 'bi-rocket-takeoff-fill',
   },
   {
@@ -64,7 +64,7 @@ export const SEMENTE_CAREER_PROPOSALS = [
     title: 'Divulgação Ágil de Vagas, Estágios, Bolsas e Concursos',
     desc: 'Radar permanente de editais de estágio, programas de trainee em gestão pública (Vetores, FJP), bolsas de extensão/IC e concursos com alertas diretos no SuperApp.',
     badge: 'Mural de Vagas Ativo',
-    color: 'bg-[#FE8812] text-[#1F1F1F]',
+    color: 'bg-accent text-foreground',
     icon: 'bi-megaphone-fill',
   },
 ];

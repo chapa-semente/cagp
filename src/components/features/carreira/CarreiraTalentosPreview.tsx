@@ -9,7 +9,7 @@ import {
 } from '@/lib/carreiraData';
 import { route } from '@/lib/paths';
 import { tactileSpring } from '@/lib/motion';
-import { toast } from 'sonner';
+import { toast } from '@/lib/toast';
 
 export const CarreiraTalentosPreview: React.FC = () => {
   const [profile, setProfile] = useState<TalentosProfile | null>(null);
@@ -47,7 +47,7 @@ export const CarreiraTalentosPreview: React.FC = () => {
           <div className="flex items-center gap-2 mb-1">
             <span className="w-2.5 h-2.5 rounded-full bg-primary border border-border shrink-0" aria-hidden="true" />
             <span className="font-mono text-xs font-bold text-primary uppercase">
-              Cofre Local Privado • Banco de Talentos GP
+              Só neste celular
             </span>
           </div>
           <h2
@@ -63,7 +63,7 @@ export const CarreiraTalentosPreview: React.FC = () => {
 
         <a
           href={route('/carreira/talentos')}
-          className="min-h-[44px] px-4 py-2 rounded-xl border-2 border-border bg-primary hover:bg-[#4A216E] text-white font-heading text-xs font-black uppercase no-underline inline-flex items-center justify-center gap-1.5 shrink-0 shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
+          className="min-h-[44px] px-4 py-2 rounded-xl border-2 border-border bg-primary hover:bg-primary-hover text-white font-heading text-xs font-black uppercase no-underline inline-flex items-center justify-center gap-1.5 shrink-0 shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
         >
           <span>{hasData ? 'Editar Perfil Completo' : 'Cadastrar Meu Perfil'}</span>
           <i className="bi bi-arrow-right" aria-hidden="true" />
@@ -73,23 +73,23 @@ export const CarreiraTalentosPreview: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
         <div className="md:col-span-8 space-y-3">
           <p className="text-xs sm:text-sm text-content-secondary leading-relaxed m-0 font-medium">
-            Seus dados ficam <strong>100% gravados no cofre local do seu navegador</strong> (sem envio a servidores terceiros). Você pode catalogar competências técnicas como <em>SEI!</em>, <em>Lei 14.133</em>, <em>MROSC</em>, vincular seu Lattes/LinkedIn e exportar seu resumo profissional com 1 clique.
+            Seus dados ficam <strong>salvos só neste celular</strong> (sem envio a servidores terceiros). Você pode catalogar competências técnicas como <em>SEI!</em>, <em>Lei 14.133</em>, <em>MROSC</em>, vincular seu Lattes/LinkedIn e exportar seu resumo profissional com 1 clique.
           </p>
 
           <div className="flex flex-wrap items-center gap-2 pt-1 text-xs font-mono font-bold">
-            <span className="px-2.5 py-1 rounded-md bg-[#F4F2EC] border border-border text-foreground">
+            <span className="px-2.5 py-1 rounded-md bg-background border border-border text-foreground">
               Status: {profile ? STATUS_LABELS[profile.stageStatus] : 'Buscando Estágio'}
             </span>
-            <span className="px-2.5 py-1 rounded-md bg-[#F4F2EC] border border-border text-foreground tabular-nums">
+            <span className="px-2.5 py-1 rounded-md bg-background border border-border text-foreground tabular-nums">
               Disponibilidade: {profile?.weeklyHoursAvailable ?? 30}h/sem
             </span>
-            <span className="px-2.5 py-1 rounded-md bg-[#F0FDF4] border border-[#134E4A]/40 text-[#134E4A] tabular-nums">
+            <span className="px-2.5 py-1 rounded-md bg-success-tint border border-petroleo-deep/40 text-petroleo-deep tabular-nums">
               Competências: {profile?.skills.length ?? 0}
             </span>
           </div>
         </div>
 
-        <div className="md:col-span-4 p-4 rounded-xl border-2 border-border bg-[#F4F2EC] space-y-3">
+        <div className="md:col-span-4 p-4 rounded-xl border-2 border-border bg-background space-y-3">
           <div className="flex items-center justify-between border-b border-border pb-2">
             <span className="font-mono text-xs font-black uppercase text-primary">
               Cartão Colecionável
@@ -106,7 +106,7 @@ export const CarreiraTalentosPreview: React.FC = () => {
             </div>
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground font-mono">Empresa Jr:</span>
-              <strong className="font-mono text-[#134E4A]">
+              <strong className="font-mono text-petroleo-deep">
                 {profile?.interestedInEmpresaJunior ? 'Membro Apoiador' : 'Não inscrito'}
               </strong>
             </div>
@@ -116,7 +116,7 @@ export const CarreiraTalentosPreview: React.FC = () => {
             <button
               type="button"
               onClick={copySummary}
-              className="min-h-[44px] w-full px-3 py-2 rounded-xl border-2 border-border bg-[#FE8812] hover:bg-[#e67600] text-foreground font-heading text-xs font-black uppercase flex items-center justify-center gap-1.5 cursor-pointer shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 transition-all"
+              className="min-h-[44px] w-full px-3 py-2 rounded-xl border-2 border-border bg-accent hover:bg-accent-hover text-foreground font-heading text-xs font-black uppercase flex items-center justify-center gap-1.5 cursor-pointer shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 transition-all"
             >
               <i className="bi bi-clipboard-check-fill" aria-hidden="true" />
               <span>Copiar Resumo</span>

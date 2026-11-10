@@ -18,7 +18,7 @@ const modalidades = [
     nome: 'Artigo Científico para Publicação',
     icon: 'bi-file-earmark-text-fill',
     badge: 'Perfil Periódico Qualis',
-    badgeColor: 'bg-[#134E4A] text-white',
+    badgeColor: 'bg-petroleo-deep text-white',
     foco: 'Teste objetivo de hipóteses no formato enxuto de periódicos científicos indexados (Qualis/CAPES).',
     estrutura: 'Artigo autoral inédito (18 a 30 páginas / 6.000 a 9.000 palavras) segundo normas de periódicos de Gestão Pública/Ciência Política.',
     sinergia: 'Excelente para pesquisadores dos 11 Núcleos do DCP e quem busca pontuação imediata de publicação em editais de mestrado.',
@@ -94,11 +94,8 @@ const comparativoRows = [
 
   {/* Tabela Comparativa Padronizada (Monografia vs Artigo Científico vs Intervenção) */}
   <div class="bg-white border-2 border-border rounded-xl shadow-md overflow-hidden">
-    <div class="p-4 sm:p-5 border-b-2 border-border bg-[#F4F2EC] flex flex-wrap items-center justify-between gap-2">
+    <div class="p-4 sm:p-5 border-b-2 border-border bg-background flex flex-wrap items-center justify-between gap-2">
       <div>
-        <span class="font-mono text-xs font-bold uppercase text-primary block">
-          MATRIZ COMPARATIVA DE DECISÃO DISCENTE
-        </span>
         <h4 class="font-heading text-sm sm:text-base font-black text-foreground m-0">
           Tabela Comparativa: Monografia Tradicional vs. Artigo Científico vs. Intervenção
         </h4>
@@ -121,9 +118,9 @@ const comparativoRows = [
                 <span>1. Monografia Tradicional</span>
               </div>
             </th>
-            <th class="p-3.5 font-heading text-xs font-black uppercase text-[#134E4A] border-r border-border w-[28%] bg-[#F0FDF4]">
+            <th class="p-3.5 font-heading text-xs font-black uppercase text-petroleo-deep border-r border-border w-[28%] bg-success-tint">
               <div class="flex items-center gap-1.5">
-                <i class="bi bi-file-earmark-text-fill text-[#134E4A]" aria-hidden="true"></i>
+                <i class="bi bi-file-earmark-text-fill text-petroleo-deep" aria-hidden="true"></i>
                 <span>2. Artigo Científico (Qualis)</span>
               </div>
             </th>
@@ -138,13 +135,13 @@ const comparativoRows = [
         <tbody class="divide-y divide-border text-xs font-sans">
           {comparativoRows.map((row) => (
             <tr class="hover:bg-background transition-colors">
-              <td class="p-3.5 font-heading font-extrabold uppercase text-foreground border-r border-border bg-[#F4F2EC]/60">
+              <td class="p-3.5 font-heading font-extrabold uppercase text-foreground border-r border-border bg-background/60">
                 {row.criterio}
               </td>
               <td class="p-3.5 text-foreground font-medium leading-relaxed border-r border-border">
                 {row.monografia}
               </td>
-              <td class="p-3.5 text-foreground font-medium leading-relaxed border-r border-border bg-[#F0FDF4]/60">
+              <td class="p-3.5 text-foreground font-medium leading-relaxed border-r border-border bg-success-tint/60">
                 {row.artigo}
               </td>
               <td class="p-3.5 text-foreground font-medium leading-relaxed">

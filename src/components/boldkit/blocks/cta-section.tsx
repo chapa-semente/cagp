@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { cn, safeHref } from '@/lib/utils'
-import { ArrowRight, Mail, Sparkles, Zap } from 'lucide-react'
+import { ArrowRight, Mail, Sparkles, Zap } from '@/components/ui/icons'
 
 // ============================================================================
 // CTA VARIANT 1: Simple Centered
@@ -32,12 +32,12 @@ export function CTASimple({
     <section className={cn('py-14 sm:py-16 px-4 md:px-8 lg:px-16', className)}>
       <motion.div
         variants={staggerContainer(0.07)}
-        className="max-w-4xl mx-auto rounded-2xl border-2 border-[#1F1F1F] bg-card p-6 sm:p-10 text-center space-y-6 shadow-[8px_8px_0_0_#1F1F1F]"
+        className="max-w-4xl mx-auto rounded-2xl border-2 border-border bg-card p-6 sm:p-10 text-center space-y-6 shadow-xl"
       >
         {badge && (
           <motion.div variants={staggerItem}>
             <Badge variant="semente" className="text-xs px-3 py-1">
-              <Sparkles className="h-3.5 w-3.5 mr-1.5 text-[#FE8812]" />
+              <Sparkles className="h-3.5 w-3.5 mr-1.5 text-accent" />
               {badge}
             </Badge>
           </motion.div>
@@ -120,7 +120,7 @@ export function CTAWithBackground({
       <motion.div
         variants={staggerContainer(0.07)}
         className={cn(
-          'max-w-5xl mx-auto rounded-2xl border-3 border-[#1F1F1F] p-8 md:p-12 shadow-[8px_8px_0_0_#1F1F1F]',
+          'max-w-5xl mx-auto rounded-2xl border-3 border-border p-8 md:p-12 shadow-xl',
           bgColors[backgroundColor]
         )}
       >

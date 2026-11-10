@@ -13,7 +13,7 @@ import {
   ContextMenuSeparator,
   ContextMenuTrigger,
 } from '@/components/ui/context-menu';
-import { Copy, Link2 } from 'lucide-react';
+import { Copy, Link2 } from '@/components/ui/icons';
 import { ExpandRegion, ExpandChevron, useExpandSet, useMasonryColumns } from '@/components/ui/expand';
 import { CagpIcon } from '@/components/ui/CagpIcon';
 
@@ -228,8 +228,8 @@ export const CartaPropostaInteractive: React.FC = () => {
                   type="button"
                   aria-pressed={active}
                   onClick={() => setSelectedEixo(f.id)}
-                  className={`min-h-[44px] px-3 rounded-lg border-2 border-[#1F1F1F] text-sm font-bold transition-all cursor-pointer ${
-                    active ? 'bg-primary text-white shadow-none translate-x-[2px] translate-y-[2px]' : 'bg-white text-foreground shadow-[2px_2px_0_0_#1F1F1F] hover:bg-[#E9E5DA]'
+                  className={`min-h-[44px] px-3 rounded-lg border-2 border-border text-sm font-bold transition-all cursor-pointer ${
+                    active ? 'bg-primary text-white shadow-none translate-x-[2px] translate-y-[2px]' : 'bg-white text-foreground shadow-sm hover:bg-muted'
                   }`}
                 >
                   {f.label} <span className="tabular-nums">({f.count})</span>
@@ -245,7 +245,7 @@ export const CartaPropostaInteractive: React.FC = () => {
               aria-label="Buscar nas 14 propostas"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="text-base min-h-[48px] border-3 border-[#1F1F1F]"
+              className="text-base min-h-[48px] border-3 border-border"
             />
           </div>
         </div>
@@ -271,16 +271,16 @@ export const CartaPropostaInteractive: React.FC = () => {
                   <ContextMenuTrigger asChild>
                     <div>
                       <NeobrutalistMotionCard
-                        className={`border-3 border-[#1F1F1F] transition-all flex flex-col justify-between cursor-context-menu overflow-hidden ${
+                        className={`border-3 border-border transition-all flex flex-col justify-between cursor-context-menu overflow-hidden ${
                           isProposta3
-                            ? 'bg-[#FFFDF5] shadow-[6px_6px_0_0_#FE8812] ring-2 ring-[#FE8812]'
-                            : 'bg-card shadow-[3px_3px_0_0_#1F1F1F] hover:shadow-[6px_6px_0_0_#1F1F1F]'
+                            ? 'bg-background shadow-[6px_6px_0_0_#FE8812] ring-2 ring-accent'
+                            : 'bg-card shadow-md hover:shadow-xl'
                         }`}
                       >
                         <CardHeader className="p-4 pb-2 space-y-2">
                           {isProposta3 && (
                             <div className="flex items-center justify-between gap-2 pb-1">
-                              <span className="inline-flex items-center px-2.5 py-1 rounded-md bg-[#FE8812] text-[#1F1F1F] border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] text-xs font-bold uppercase tracking-[0.04em] -rotate-1">
+                              <span className="inline-flex items-center px-2.5 py-1 rounded-md bg-accent text-foreground border-2 border-border shadow-sm text-xs font-bold uppercase tracking-[0.04em] -rotate-1">
                                 Já entregue: é este site
                               </span>
                             </div>
@@ -288,12 +288,12 @@ export const CartaPropostaInteractive: React.FC = () => {
                           <div className="flex items-center justify-between gap-2">
                             <div className="flex items-center gap-2">
                               <span
-                                className="w-8 h-8 rounded-lg flex items-center justify-center font-heading font-bold text-sm tabular-nums border-2 border-[#1F1F1F]"
+                                className="w-8 h-8 rounded-lg flex items-center justify-center font-heading font-bold text-sm tabular-nums border-2 border-border"
                                 style={{ backgroundColor: item.eixoColor, color: item.eixoColor === '#FE8812' ? '#1F1F1F' : '#FFFFFF' }}
                               >
                                 {item.id}
                               </span>
-                              <Badge variant="outline" className="border-2 border-[#1F1F1F] text-xs font-bold bg-white">
+                              <Badge variant="outline" className="border-2 border-border text-xs font-bold bg-white">
                                 {item.eixoName}
                               </Badge>
                             </div>
@@ -315,14 +315,14 @@ export const CartaPropostaInteractive: React.FC = () => {
                               role="region"
                               aria-label={`Texto integral da proposta ${item.id}`}
                             >
-                              <div className="mt-3 p-3 rounded-lg bg-[#E9E5DA] text-sm font-sans text-foreground leading-relaxed space-y-2">
+                              <div className="mt-3 p-3 rounded-lg bg-muted text-sm font-sans text-foreground leading-relaxed space-y-2">
                                 <strong>Texto integral da carta-programa:</strong>
                                 <p className="mt-1 m-0">{item.fullText}</p>
                               </div>
                             </ExpandRegion>
                           </div>
 
-                          <div className="pt-1 border-t-2 border-[#1F1F1F]/15">
+                          <div className="pt-1 border-t-2 border-border/15">
                             <div className="flex items-center justify-between pt-1">
                               <button
                                 type="button"
@@ -376,8 +376,8 @@ export const CartaPropostaInteractive: React.FC = () => {
       </motion.div>
 
       {filteredPropostas.length === 0 && (
-        <div className="p-8 text-center rounded-xl border-2 border-[#1F1F1F] bg-white">
-          <p className="font-heading text-base font-bold uppercase text-[#1F1F1F]">
+        <div className="p-8 text-center rounded-xl border-2 border-border bg-white">
+          <p className="font-heading text-base font-bold uppercase text-foreground">
             Nenhuma proposta encontrada para o filtro selecionado.
           </p>
           <Button

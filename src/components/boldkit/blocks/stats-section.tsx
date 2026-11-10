@@ -3,7 +3,7 @@ import * as React from 'react'
 import { motion } from 'motion/react'
 import { staggerContainer, staggerItem, tactileSpring } from '@/lib/motion'
 import { cn } from '@/lib/utils'
-import { TrendingUp, TrendingDown, Minus } from 'lucide-react'
+import { TrendingUp, TrendingDown, Minus } from '@/components/ui/icons'
 
 export interface StatItem {
   value: string
@@ -43,7 +43,7 @@ export function StatsGrid({
           <motion.div
             key={`stat-${stat.label}`}
             variants={staggerItem}
-            className="text-center space-y-2 rounded-xl border-2 border-[#1F1F1F] bg-card p-5 shadow-[3px_3px_0_0_#1F1F1F]"
+            className="text-center space-y-2 rounded-xl border-2 border-border bg-card p-5 shadow-md"
           >
             <div className="font-mono text-3xl sm:text-4xl md:text-5xl font-black">{stat.value}</div>
             <div className="text-xs sm:text-sm text-muted-foreground font-bold uppercase tracking-wide">
@@ -111,7 +111,7 @@ export function StatsCards({
               whileHover={{ x: -3, y: -3 }}
               transition={tactileSpring}
               className={cn(
-                'rounded-xl border-3 border-[#1F1F1F] p-5 sm:p-6 shadow-[3px_3px_0_0_#1F1F1F] hover:shadow-[6px_6px_0_0_#1F1F1F] transition',
+                'rounded-xl border-3 border-border p-5 sm:p-6 shadow-md hover:shadow-xl transition',
                 cardColors[index % 4]
               )}
             >

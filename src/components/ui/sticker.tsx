@@ -14,7 +14,7 @@ const stickerVariants = cva(
         destructive: "bg-destructive text-destructive-foreground",
         outline: "bg-card text-foreground",
         teal: "bg-teal-700 text-white",
-        ufmg: "bg-[#C4161C] text-white",
+        ufmg: "bg-ufmg-red text-white",
         neon: "bg-[#ff2d78] text-white",
       },
       size: {
@@ -156,7 +156,7 @@ const stickyNoteVariants = cva(
       variant: {
         yellow: "bg-accent text-accent-foreground",
         pink: "bg-primary text-primary-foreground",
-        blue: "bg-[#E0F2FE] text-info",
+        blue: "bg-info-tint text-info",
         green: "bg-success-tint text-success",
         purple: "bg-secondary text-secondary-foreground",
       },

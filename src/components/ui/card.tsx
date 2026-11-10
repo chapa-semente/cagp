@@ -3,18 +3,18 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const cardVariants = cva(
-  "group/card flex flex-col gap-(--card-spacing) overflow-hidden rounded-xl border-2 border-[#1F1F1F] bg-card py-(--card-spacing) text-sm text-card-foreground shadow-[3px_3px_0_0_#1F1F1F] [--card-spacing:--spacing(4)] md:[--card-spacing:--spacing(5)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3.5)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
+  "group/card flex flex-col gap-(--card-spacing) overflow-hidden rounded-xl border-2 border-border bg-card py-(--card-spacing) text-sm text-card-foreground shadow-md [--card-spacing:--spacing(4)] md:[--card-spacing:--spacing(5)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3.5)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
   {
     variants: {
       variant: {
         default: "bg-card text-card-foreground",
-        primary: "bg-primary text-primary-foreground border-3 rounded-2xl shadow-[6px_6px_0_0_#1F1F1F]",
+        primary: "bg-primary text-primary-foreground border-3 rounded-2xl shadow-xl",
         secondary: "bg-secondary text-secondary-foreground",
-        accent: "bg-accent text-accent-foreground border-3 rounded-2xl shadow-[6px_6px_0_0_#1F1F1F]",
+        accent: "bg-accent text-accent-foreground border-3 rounded-2xl shadow-xl",
         subtle: "bg-muted text-foreground",
       },
       interactive: {
-        true: "cursor-pointer transition-[transform,box-shadow] duration-150 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-x-px hover:-translate-y-px hover:shadow-[5px_5px_0_0_#1F1F1F] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none",
+        true: "cursor-pointer transition-[transform,box-shadow] duration-(--duration-press) ease-(--ease-spring-snappy) hover:-translate-x-px hover:-translate-y-px hover:shadow-lg active:translate-x-[3px] active:translate-y-[3px] active:shadow-none",
         false: "",
       },
     },

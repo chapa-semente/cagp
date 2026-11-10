@@ -90,7 +90,7 @@ export const StudentDossierTracker: React.FC = () => {
 
       {/* Barra Principal Geral */}
       <div className="space-y-1.5">
-        <div className="w-full bg-[#F3ECE0] border-3 border-border rounded-full h-4 overflow-hidden shadow-xs">
+        <div className="w-full bg-surface-hover border-3 border-border rounded-full h-4 overflow-hidden shadow-xs">
           <div
             className="bg-secondary h-full transition-all duration-500"
             style={{ width: `${Math.min(100, totalPct)}%` }}
@@ -151,7 +151,7 @@ export const StudentDossierTracker: React.FC = () => {
               3. Extensão 300h
             </span>
             <div className="flex items-center gap-1">
-              <span className="text-xs font-mono font-bold text-[#266264]">
+              <span className="text-xs font-mono font-bold text-secondary">
                 {extDone}/300h
               </span>
               {extDone >= 300 && (

@@ -86,7 +86,7 @@ export const AcgCalculatorWidget: React.FC = () => {
               <span className="text-secondary uppercase font-head">Extensão Obrigatória</span>
               <span className="font-mono text-foreground">{extTotal}/300h ({Math.round(extTotal / 15)} cr)</span>
             </div>
-            <div className="w-full bg-[#F3ECE0] border-3 border-border rounded-full h-3 overflow-hidden shadow-xs">
+            <div className="w-full bg-surface-hover border-3 border-border rounded-full h-3 overflow-hidden shadow-xs">
               <motion.div
                 initial={false}
                 animate={{ width: `${Math.min(100, (extTotal / 300) * 100)}%` }}
@@ -98,10 +98,10 @@ export const AcgCalculatorWidget: React.FC = () => {
 
           <div>
             <div className="flex justify-between items-center text-xs font-bold mb-1">
-              <span className="text-[#266264] uppercase font-head">Atividades Complementares (AAC)</span>
+              <span className="text-secondary uppercase font-head">Atividades Complementares (AAC)</span>
               <span className="font-mono text-foreground">{aacTotal}/300h ({Math.round(aacTotal / 15)} cr)</span>
             </div>
-            <div className="w-full bg-[#F3ECE0] border-3 border-border rounded-full h-3 overflow-hidden shadow-xs">
+            <div className="w-full bg-surface-hover border-3 border-border rounded-full h-3 overflow-hidden shadow-xs">
               <motion.div
                 initial={false}
                 animate={{ width: `${Math.min(100, (aacTotal / 300) * 100)}%` }}
@@ -115,7 +115,7 @@ export const AcgCalculatorWidget: React.FC = () => {
 
       <a
         href={route('/acg') + '#calculadora'}
-        className="min-h-[44px] px-4 py-2.5 bg-foreground text-background hover:bg-secondary active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-3 border-border shadow-sm"
+        className="min-h-[44px] px-4 py-2.5 bg-primary text-white hover:bg-primary-hover active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-3 border-border shadow-sm"
       >
         <span>Simular Horas</span>
         <i className="bi bi-arrow-right" aria-hidden="true" />

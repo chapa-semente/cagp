@@ -50,7 +50,7 @@ const steps: { num: string; title: string; desc: string; badge: string; iconName
 
 <div class="cagp-tramitacao-core space-y-6 select-none text-foreground">
   <!-- Alerta do Prazo Fatal de 120 Dias (Art. 15, § 4º) -->
-  <div class="p-5 rounded-xl bg-red-50 border-[3px] border-secondary shadow-[3px_3px_0_0_#1F1F1F] space-y-3">
+  <div class="p-5 rounded-xl bg-red-50 border-[3px] border-secondary shadow-md space-y-3">
     <div class="flex items-center gap-2.5">
       <div class="p-1.5 rounded-lg bg-secondary text-white shrink-0 border border-border">
         <CagpIcon name="alert-triangle" class="w-4 h-4" />
@@ -85,7 +85,7 @@ const steps: { num: string; title: string; desc: string; badge: string; iconName
       <a
         href={asset('/documentos/requerimento-atividade-integralizadora-credito-v20229.pdf')}
         download
-        class="min-h-[44px] px-4 py-2.5 bg-secondary hover:bg-[#851E1E] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl text-xs font-head uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline shrink-0 border-3 border-border shadow-sm"
+        class="min-h-[44px] px-4 py-2.5 bg-secondary hover:bg-secondary-hover active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl text-xs font-head uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline shrink-0 border-3 border-border shadow-sm"
       >
         <CagpIcon name="download" class="w-4 h-4" />
         <span>Baixar Requerimento Oficial (PDF)</span>
@@ -180,7 +180,7 @@ const steps: { num: string; title: string; desc: string; badge: string; iconName
         <div>
           <span class="text-xs font-mono text-muted-foreground font-bold uppercase block">Regulamento Art. 15</span>
           <div class="flex items-center gap-2 mt-0.5">
-            <CagpIcon name="curso" class="w-4 h-4 text-[#266264]" />
+            <CagpIcon name="curso" class="w-4 h-4 text-secondary" />
             <h4 class="font-head font-bold text-sm text-foreground m-0">2. Horas AAC (Até 300h)</h4>
           </div>
         </div>
@@ -242,7 +242,7 @@ const steps: { num: string; title: string; desc: string; badge: string; iconName
   </div>
 
   <!-- Compromisso Chapa Semente: Defesa no Colegiado -->
-  <div class="p-5 bg-[#EFE7F6] border-2 border-[#1F1F1F] rounded-xl shadow-[3px_3px_0_0_#1F1F1F] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+  <div class="p-5 bg-primary-tint border-2 border-border rounded-xl shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-4">
     <div>
       <span class="cagp-stamp-badge is-semente text-xs py-0.5 px-2 mb-1.5 inline-flex">
         COMPROMISSO ACADÊMICO CHAPA SEMENTE
@@ -256,7 +256,7 @@ const steps: { num: string; title: string; desc: string; badge: string; iconName
     </div>
     <a
       href={route('/chapa-semente')}
-      class="min-h-[44px] px-4 py-2.5 bg-[#5B2A85] hover:bg-[#4A216E] text-white rounded-xl font-head text-xs uppercase font-black tracking-wider border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all inline-flex items-center justify-center gap-2 no-underline shrink-0"
+      class="min-h-[44px] px-4 py-2.5 bg-primary hover:bg-primary-hover text-white rounded-xl font-head text-xs uppercase font-black tracking-wider border-3 border-border shadow-md active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all inline-flex items-center justify-center gap-2 no-underline shrink-0"
     >
       <span>Conhecer Propostas Semente</span>
       <i class="bi bi-arrow-right" aria-hidden="true"></i>

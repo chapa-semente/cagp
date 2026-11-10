@@ -9,7 +9,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import { cn } from '@/lib/utils'
-import { HelpCircle, MessageCircle } from 'lucide-react'
+import { HelpCircle, MessageCircle } from '@/components/ui/icons'
 import { Button } from '@/components/ui/button'
 
 export interface FAQItem {
@@ -66,7 +66,7 @@ export function FAQAccordion({
             <motion.div key={item.question} variants={staggerItem}>
               <AccordionItem
                 value={`item-${index}`}
-                className="border-3 border-[#1F1F1F] bg-card shadow-[3px_3px_0_0_#1F1F1F] data-[state=open]:shadow-[6px_6px_0_0_#1F1F1F] data-[state=open]:translate-x-[-2px] data-[state=open]:translate-y-[-2px] transition"
+                className="border-3 border-border bg-card shadow-md data-[state=open]:shadow-xl data-[state=open]:translate-x-[-2px] data-[state=open]:translate-y-[-2px] transition"
               >
                 <AccordionTrigger className="px-6 py-4 font-bold hover:no-underline">
                   {item.question}

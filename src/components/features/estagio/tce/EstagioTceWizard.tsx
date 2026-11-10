@@ -16,7 +16,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { toast } from 'sonner';
+import { toast } from '@/lib/toast';
 
 interface TceWizardValues {
   concedenteNome: string;
@@ -294,7 +294,7 @@ const WizardInner: React.FC = () => {
             onClick={back}
             disabled={isFirstStep}
           >
-            ← Voltar
+            <i className="bi bi-arrow-left" aria-hidden="true"></i> Voltar
           </Button>
 
           {isLastStep ? (
@@ -315,7 +315,7 @@ const WizardInner: React.FC = () => {
               onClick={next}
               disabled={!canGoNext}
             >
-              Avançar →
+              Avançar <i className="bi bi-arrow-right" aria-hidden="true"></i>
             </Button>
           )}
         </div>

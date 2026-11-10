@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { getVaultItem, setVaultItem } from '@/lib/storage/studentVault';
 import { tactileSpring } from '@/lib/motion';
-import { toast } from 'sonner';
+import { toast } from '@/lib/toast';
 
 export const CarreiraEmpresaJuniorCard: React.FC = () => {
   const [interested, setInterested] = useState<boolean>(false);
@@ -35,12 +35,12 @@ export const CarreiraEmpresaJuniorCard: React.FC = () => {
     <section
       id="cagp-carreira-ej-card"
       aria-labelledby="heading-empresa-junior"
-      className="p-5 sm:p-6 rounded-xl border-2 border-border bg-[#F0FDF4] shadow-[3px_3px_0_0_#1F1F1F] flex flex-col sm:flex-row sm:items-center justify-between gap-5 font-sans select-none"
+      className="p-5 sm:p-6 rounded-xl border-2 border-border bg-success-tint shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-5 font-sans select-none"
     >
       <div className="space-y-1.5 max-w-2xl">
         <div className="flex items-center gap-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-[#134E4A] border border-border shrink-0" aria-hidden="true" />
-          <span className="font-mono text-xs font-black uppercase text-[#134E4A]">
+          <span className="w-2.5 h-2.5 rounded-full bg-petroleo-deep border border-border shrink-0" aria-hidden="true" />
+          <span className="font-mono text-xs font-black uppercase text-petroleo-deep">
             Proposta 11 em Mobilização • Empresa Júnior de Gestão Pública UFMG
           </span>
         </div>
@@ -61,9 +61,9 @@ export const CarreiraEmpresaJuniorCard: React.FC = () => {
         transition={tactileSpring}
         type="button"
         onClick={toggleInterest}
-        className={`min-h-[44px] px-4 py-2.5 rounded-xl border-3 border-border font-heading text-xs font-black uppercase shrink-0 cursor-pointer flex items-center justify-center gap-2 shadow-[3px_3px_0_0_#1F1F1F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all ${
+        className={`min-h-[44px] px-4 py-2.5 rounded-xl border-3 border-border font-heading text-xs font-black uppercase shrink-0 cursor-pointer flex items-center justify-center gap-2 shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all ${
           interested
-            ? 'bg-[#134E4A] text-white'
+            ? 'bg-petroleo-deep text-white'
             : 'bg-white text-foreground hover:bg-muted'
         }`}
       >

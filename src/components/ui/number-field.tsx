@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Minus, Plus } from 'lucide-react'
+import { Minus, Plus } from '@/components/ui/icons'
 import { cn } from '@/lib/utils'
 
 // ── Number helpers ───────────────────────────────────────────────────────────

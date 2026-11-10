@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import * as React from 'react'
-import { ChevronRight, Folder, File, Check } from 'lucide-react'
+import { ChevronRight, Folder, File, Check } from '@/components/ui/icons'
 import { cn } from '@/lib/utils'
 import {
   Collapsible,

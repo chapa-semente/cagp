@@ -1,4 +1,5 @@
 ---
+import MarkerWord from '@/components/ui/MarkerWord.astro';
 // src/pages/chapa-semente.astro — Campanha da Chapa Semente (volume Cartaz, arquétipo Campanha)
 // Ordem: prova ao vivo (o site já é a Proposta 3) → o que já funciona → 14 propostas → 12 integrantes → quando e onde votar.
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -7,6 +8,14 @@ import { CartaPropostaInteractive } from '../components/features/semente/CartaPr
 import { ChapaSementeTour } from '../components/features/semente/ChapaSementeTour';
 import { CHAPA_LEADERS, getLeaderPhotoUrl } from '@/lib/chapaSementeData';
 import { asset, route } from '@/lib/paths';
+import { Marquee, MarqueeItem, MarqueeSeparator } from '../components/ui/marquee';
+
+const MARQUEE = [
+  'Vote Semente · 25 e 26/11 · 17h às 22h30',
+  '12 pessoas, 14 propostas, 1 site no ar',
+  'Toda mudança começa pequena',
+  'Leve documento com foto',
+];
 
 const EDITAL_PDF = asset('/documentos/edital-eleicoes-cagp-2026.pdf');
 const TOTAL = String(CHAPA_LEADERS.length).padStart(2, '0');
@@ -25,7 +34,7 @@ const jaFunciona = [
 <BaseLayout
   mode="persuade"
   hideFloatingPill
-  title="Chapa Semente — Eleições CAGP 2026"
+  title="Chapa Semente"
   description="Chapa Semente na eleição do Centro Acadêmico de Gestão Pública da UFMG: o site que você está usando já é a nossa Proposta 3. Veja as 14 propostas, os 12 integrantes e quando votar (25 e 26/11)."
 >
   <div class="cs-page">
@@ -39,12 +48,12 @@ const jaFunciona = [
           height="229"
           class="h-10 sm:h-12 w-auto"
         />
-        <h1 id="cs-hero-title" class="cs-display">Você já está usando a nossa proposta.</h1>
+        <h1 id="cs-hero-title" class="cs-display">Você já está usando a nossa <MarkerWord onColor class="cs-marker">proposta</MarkerWord>.</h1>
         <p class="cs-hero-lede">
           A Proposta 3 da nossa carta-programa é um site para o curso. É este aqui: já está no ar e fica com
           os estudantes mesmo se a gente perder a eleição.
         </p>
-        <p class="cs-accent" aria-hidden="true">Toda mudança começa pequena</p>
+        <p class="cs-accent">Toda mudança começa pequena.</p>
         <div class="flex flex-wrap items-center gap-x-5 gap-y-3">
           <a href="#propostas" class="cs-btn cs-btn-accent">Ver as 14 propostas</a>
           <a href="#votar" class="cs-vote-link">Votação 25 e 26/11, 17h às 22h30 <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
@@ -96,6 +105,18 @@ const jaFunciona = [
         <a href={route('/acg') + '#calculadora'} class="cs-link">Lançar atividade por atividade na calculadora completa <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
       </form>
     </section>
+
+    <!-- Marquee da campanha (DESIGN.md › Marquee: 1 por página, só em Cartaz). CSS puro, sem hidratar. -->
+    <div class="rounded-xl border-3 border-border bg-foreground text-white overflow-hidden" aria-hidden="true">
+      <Marquee speed="slow" pauseOnHover className="bg-foreground text-white border-0 shadow-none py-2.5">
+        {MARQUEE.map((t) => (
+          <>
+            <MarqueeItem className="text-sm font-heading font-bold uppercase tracking-[0.04em] text-white">{t}</MarqueeItem>
+            <MarqueeSeparator><span class="inline-block w-2 h-2 rounded-full bg-accent align-middle"></span></MarqueeSeparator>
+          </>
+        ))}
+      </Marquee>
+    </div>
 
     <!-- 2. O QUE JÁ FUNCIONA (faixa petróleo) -->
     <section aria-labelledby="cs-funciona-title" class="cs-band">
@@ -217,8 +238,8 @@ const jaFunciona = [
           <i class="bi bi-calendar-plus" aria-hidden="true" data-cs-ics-icon></i>
           <span data-cs-ics-label>Lembrar na agenda</span>
         </button>
-        <a href={EDITAL_PDF} download="edital-eleicoes-cagp-2026.pdf" class="cs-btn cs-btn-ghost-light">
-          Ler o edital (PDF)
+        <a href={route('/gestao')} class="cs-btn cs-btn-ghost-light">
+          Tudo sobre a eleição
         </a>
       </div>
       <p class="cs-ics-note" data-cs-ics-note aria-live="polite"></p>
@@ -381,11 +402,14 @@ const jaFunciona = [
   .cs-vote-link:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
   .cs-accent {
     margin: 0;
-    font-family: var(--font-accent);
-    font-size: 1.25rem;
-    line-height: 1.1;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     color: #fff;
   }
+  .cs-display :global(.cs-marker) { font-size: 1.12em; text-transform: none; }
 
   /* 1. Topo (Cartaz roxo) */
   .cs-hero {
@@ -834,11 +858,4 @@ const jaFunciona = [
     color: #fff;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .cs-btn, .cs-tool, .cs-member-link, .cs-details summary::after, .cs-track-fill { transition: none; }
-    /* A folha muda de tamanho sem crescer na tela; o carimbo só aparece. */
-    .cs-leaf { animation: none; transition: none; }
-    .cs-visto, .cs-done .cagp-big-stamp { animation: cs-fade 1ms both; }
-    @keyframes cs-fade { from { opacity: 0; } to { opacity: 1; } }
-  }
 </style>

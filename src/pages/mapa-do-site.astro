@@ -7,7 +7,7 @@ import { AXIS_REGISTRY } from '@/lib/navigationRegistry';
 import { route } from '@/lib/paths';
 
 const UTILITY_ROUTES = [
-  { label: 'Configurações, Acessibilidade & Cofre', href: route('/configuracoes') },
+  { label: 'Ajustes', href: route('/configuracoes') },
   { label: 'Mapa do Site Interativo', href: route('/mapa-do-site') },
 ];
 
@@ -46,7 +46,7 @@ const NORMATIVE_READER_ROUTES = [
     <button
       type="button"
       onclick="window.dispatchEvent(new CustomEvent('cagp:open-spotlight'))"
-      class="min-h-[48px] px-5 py-3 rounded-xl bg-primary text-white font-heading font-bold text-sm uppercase tracking-[0.03em] border-3 border-border shadow-[3px_3px_0_0_#1F1F1F] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none cursor-pointer inline-flex items-center gap-2.5 shrink-0"
+      class="min-h-[48px] px-5 py-3 rounded-xl bg-primary text-white font-heading font-bold text-sm uppercase tracking-[0.03em] border-3 border-border shadow-md active:translate-x-[3px] active:translate-y-[3px] active:shadow-none cursor-pointer inline-flex items-center gap-2.5 shrink-0"
     >
       <i class="bi bi-search" aria-hidden="true"></i>
       <span>Buscar no site</span>
@@ -57,8 +57,8 @@ const NORMATIVE_READER_ROUTES = [
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-6" data-context-type="shell">
     {AXIS_REGISTRY.map((axis) => (
-      <div class="p-5 rounded-2xl border-2 border-[#1F1F1F] bg-card shadow-[6px_6px_0_0_#1F1F1F] hover:shadow-[8px_8px_0_0_#1F1F1F] hover:-translate-y-0.5 transition-all space-y-3 text-foreground">
-        <div class="flex items-center justify-between border-b-2 border-[#1F1F1F] pb-2">
+      <div class="p-5 rounded-2xl border-2 border-border bg-card shadow-xl hover:shadow-xl hover:-translate-y-0.5 transition-all space-y-3 text-foreground">
+        <div class="flex items-center justify-between border-b-2 border-border pb-2">
           <span class="font-heading text-xs font-bold uppercase tracking-[0.04em] text-secondary">
             Aba {axis.mobileLabel}
           </span>
@@ -75,10 +75,10 @@ const NORMATIVE_READER_ROUTES = [
             <li>
               <a
                 href={item.href}
-                class="flex items-center justify-between p-2.5 min-h-[44px] rounded-xl border-3 border-[#1F1F1F] bg-white hover:bg-[#FFFBEB] text-xs font-bold text-foreground no-underline shadow-[3px_3px_0_0_#1F1F1F] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[5px_5px_0_0_#1F1F1F] transition-all"
+                class="flex items-center justify-between p-2.5 min-h-[44px] rounded-xl border-3 border-border bg-white hover:bg-warning-tint text-xs font-bold text-foreground no-underline shadow-md hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-lg transition-all"
               >
                 <span>{item.label}</span>
-                <span class="font-mono text-xs font-black text-secondary">→</span>
+                <i class="bi bi-arrow-right text-sm text-secondary" aria-hidden="true"></i>
               </a>
             </li>
           ))}
@@ -87,17 +87,17 @@ const NORMATIVE_READER_ROUTES = [
     ))}
 
     <!-- Card 6: As 8 Rotas do Leitor Normativo (/documentos/[slug]) + Rotas Utilitárias = 26 Rotas -->
-    <div class="p-5 rounded-2xl border-2 border-[#1F1F1F] bg-[#ffffff] shadow-[6px_6px_0_0_#5B2A85] hover:shadow-[8px_8px_0_0_#5B2A85] hover:-translate-y-0.5 transition-all space-y-3 text-foreground">
-      <div class="flex items-center justify-between border-b-2 border-[#1F1F1F] pb-2">
-        <span class="font-mono text-xs font-black uppercase text-[#5B2A85]">
+    <div class="p-5 rounded-2xl border-2 border-border bg-white shadow-[6px_6px_0_0_#5B2A85] hover:shadow-[8px_8px_0_0_#5B2A85] hover:-translate-y-0.5 transition-all space-y-3 text-foreground">
+      <div class="flex items-center justify-between border-b-2 border-border pb-2">
+        <span class="font-mono text-xs font-black uppercase text-primary">
           LEITOR NORMATIVO &amp; UTILITÁRIOS
         </span>
-        <span class="font-mono text-xs font-bold px-2 py-0.5 rounded bg-[#5B2A85] text-white border border-[#1F1F1F]">
+        <span class="font-mono text-xs font-bold px-2 py-0.5 rounded bg-primary text-white border border-border">
           10 Rotas Complementares
         </span>
       </div>
       <h3 class="font-heading text-base font-extrabold text-foreground m-0">
-        Transcrições Web &amp; Cofre Local
+        Documentos para ler no site
       </h3>
       <p class="text-xs text-muted-foreground font-medium m-0">
         8 leitores normativos (<code class="font-mono">/documentos/[slug]</code>) + Configurações e Mapa do Site, totalizando as 26 rotas estáticas.
@@ -107,10 +107,10 @@ const NORMATIVE_READER_ROUTES = [
           <li>
             <a
               href={docRoute.href}
-              class="flex items-center justify-between p-2 min-h-[40px] rounded-xl border-2 border-[#1F1F1F] bg-white hover:bg-[#F4F2EC] text-xs font-bold text-foreground no-underline shadow-[2px_2px_0_0_#1F1F1F] transition-all"
+              class="flex items-center justify-between p-2 min-h-[40px] rounded-xl border-2 border-border bg-white hover:bg-background text-xs font-bold text-foreground no-underline shadow-sm transition-all"
             >
               <span class="truncate pr-2">{docRoute.label}</span>
-              <span class="font-mono text-xs font-black text-[#5B2A85] shrink-0">→</span>
+              <i class="bi bi-arrow-right text-sm text-primary shrink-0" aria-hidden="true"></i>
             </a>
           </li>
         ))}
@@ -118,10 +118,10 @@ const NORMATIVE_READER_ROUTES = [
           <li>
             <a
               href={u.href}
-              class="flex items-center justify-between p-2 min-h-[40px] rounded-xl border-2 border-[#1F1F1F] bg-[#FEF3C7] hover:bg-[#FDE68A] text-xs font-bold text-[#1F1F1F] no-underline shadow-[2px_2px_0_0_#1F1F1F] transition-all"
+              class="flex items-center justify-between p-2 min-h-[40px] rounded-xl border-2 border-border bg-warning-tint hover:bg-warning-tint text-xs font-bold text-foreground no-underline shadow-sm transition-all"
             >
               <span>Utilitário: {u.label}</span>
-              <span class="font-mono text-xs font-black text-[#1F1F1F] shrink-0">→</span>
+              <i class="bi bi-arrow-right text-sm text-foreground shrink-0" aria-hidden="true"></i>
             </a>
           </li>
         ))}

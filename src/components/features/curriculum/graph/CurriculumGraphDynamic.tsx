@@ -30,7 +30,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { MathCurveLoader } from '@/components/ui/math-curve-loader';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { List, Copy, Trash2, ZoomIn, ZoomOut, RotateCcw, ChevronLeft, ChevronRight } from 'lucide-react';
+import { List, Copy, Trash2, ZoomIn, ZoomOut, RotateCcw, ChevronLeft, ChevronRight } from '@/components/ui/icons';
 import { CagpIcon } from '@/components/ui/CagpIcon';
 
 interface Props {
@@ -353,7 +353,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
               onClick={() => setStatusFilter(flt.id as any)}
               className={`min-h-[44px] px-3 py-1.5 rounded-xl font-heading text-xs uppercase font-extrabold border-2 transition-all shrink-0 cursor-pointer ${
                 statusFilter === flt.id
-                  ? 'bg-[#5B2A85] text-white border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]'
+                  ? 'bg-primary text-white border-border shadow-sm'
                   : 'bg-white text-foreground border-border hover:bg-muted'
               }`}
             >
@@ -426,14 +426,14 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.98 }}
             transition={bounceSpring}
-            className="p-3.5 bg-[#EFE7F6] border-2 border-[#1F1F1F] rounded-xl shadow-[3px_3px_0_0_#1F1F1F] flex flex-wrap items-center justify-between gap-3 text-xs"
+            className="p-3.5 bg-primary-tint border-2 border-border rounded-xl shadow-md flex flex-wrap items-center justify-between gap-3 text-xs"
           >
             <div className="flex flex-wrap items-center gap-2">
-              <span className="px-2.5 py-1 rounded-lg bg-[#5B2A85] text-white font-mono font-bold border-2 border-[#1F1F1F]">
+              <span className="px-2.5 py-1 rounded-lg bg-primary text-white font-mono font-bold border-2 border-border">
                 FOCO: {activeChainData.code} ({activeChainData.name})
               </span>
               {activePrereqCodes.size > 0 ? (
-                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#FEE2E2] text-[#B91C1C] font-mono font-bold border-2 border-[#9E2424]">
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-destructive-tint text-destructive font-mono font-bold border-2 border-primary">
                   ⬅ Exige Pré-Req: {Array.from(activePrereqCodes).join(', ')}
                 </span>
               ) : (
@@ -442,7 +442,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                 </span>
               )}
               {activeUnlockCodes.size > 0 && (
-                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#DCFCE7] text-[#166534] font-mono font-bold border-2 border-[#166534]">
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-success-tint text-success font-mono font-bold border-2 border-success">
                   Libera → {Array.from(activeUnlockCodes).join(', ')}
                 </span>
               )}
@@ -450,7 +450,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
             <button
               type="button"
               onClick={() => setFocusedCode(null)}
-              className="min-h-[44px] px-3 py-1 rounded-lg bg-white hover:bg-muted border-2 border-[#1F1F1F] font-heading font-extrabold uppercase text-xs cursor-pointer"
+              className="min-h-[44px] px-3 py-1 rounded-lg bg-white hover:bg-muted border-2 border-border font-heading font-extrabold uppercase text-xs cursor-pointer"
             >
               Limpar destaque
             </button>
@@ -531,11 +531,11 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                                   transition={tactileSpring}
                                   className={`p-2.5 rounded-lg border-2 transition-colors text-xs cursor-pointer ${
                                     isCurrentFocus
-                                      ? 'bg-[#EFE7F6] border-[#5B2A85] shadow-[3px_3px_0_0_#1F1F1F]'
+                                      ? 'bg-primary-tint border-primary shadow-md'
                                       : isPrereqChain
-                                      ? 'bg-[#FFF5F5] border-[#9E2424] shadow-[3px_3px_0_0_#1F1F1F]'
+                                      ? 'bg-primary-tint border-primary shadow-md'
                                       : isUnlockChain
-                                      ? 'bg-[#F0FDF4] border-[#166534] shadow-[3px_3px_0_0_#1F1F1F]'
+                                      ? 'bg-success-tint border-success shadow-md'
                                       : isCompleted
                                       ? 'bg-success-tint border-success'
                                       : 'bg-white border-border hover:shadow-xs'
@@ -553,12 +553,12 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                                         </span>
                                       )}
                                       {isPrereqChain && (
-                                        <span className="text-xs font-mono font-black uppercase py-0.5 px-1.5 rounded bg-[#9E2424] text-white">
+                                        <span className="text-xs font-mono font-black uppercase py-0.5 px-1.5 rounded bg-primary text-white">
                                           ⬅ PRÉ-REQ
                                         </span>
                                       )}
                                       {isUnlockChain && (
-                                        <span className="text-xs font-mono font-black uppercase py-0.5 px-1.5 rounded bg-[#166534] text-white">
+                                        <span className="text-xs font-mono font-black uppercase py-0.5 px-1.5 rounded bg-success text-white">
                                           LIBERA →
                                         </span>
                                       )}
@@ -633,7 +633,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                                   className={`p-2.5 rounded-lg border-2 border-dashed transition-all text-xs cursor-pointer ${
                                     isCompleted
                                       ? 'bg-success-tint border-success'
-                                      : 'bg-[#FFFBEB] border-warning'
+                                      : 'bg-warning-tint border-warning'
                                   }`}
                                   onClick={() => handleSelectCustomCourse(cust)}
                                 >
@@ -728,7 +728,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
       {viewMode === 'svg' && (
         <div className="space-y-4 animate-in fade-in duration-150">
           {/* Filtro por Trilhas Temáticas */}
-          <div className="flex items-center gap-1.5 p-3 bg-card border-2 border-border rounded-xl shadow-[3px_3px_0_0_#1F1F1F] overflow-x-auto scroll-mask-x scrollbar-none">
+          <div className="flex items-center gap-1.5 p-3 bg-card border-2 border-border rounded-xl shadow-md overflow-x-auto scroll-mask-x scrollbar-none">
             <span className="text-xs font-heading uppercase font-black text-foreground mr-1 flex items-center gap-1.5 shrink-0">
               <CagpIcon name="filter" className="w-3.5 h-3.5 text-primary" />
               Filtrar Trilha:
@@ -740,7 +740,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                 onClick={() => setActiveTrack(key)}
                 className={`min-h-[44px] px-3 py-1.5 rounded-lg text-xs font-heading font-extrabold uppercase border-2 transition-all cursor-pointer shrink-0 ${
                   activeTrack === key
-                    ? 'bg-primary text-primary-foreground border-border shadow-[2px_2px_0_0_#1F1F1F]'
+                    ? 'bg-primary text-primary-foreground border-border shadow-sm'
                     : 'bg-white text-foreground border-border hover:bg-muted'
                 }`}
               >
@@ -776,7 +776,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
               animate={{ scale: zoomLevel }}
               transition={tactileSpring}
               style={{ transformOrigin: 'top left' }}
-              className="cagp-grafo-viewport border-2 border-border rounded-xl bg-card overflow-hidden min-w-[980px] shadow-[3px_3px_0_0_#1F1F1F]"
+              className="cagp-grafo-viewport border-2 border-border rounded-xl bg-card overflow-hidden min-w-[980px] shadow-md"
             >
               <ResizablePanelGroup direction="horizontal" className="min-h-[580px]">
                 <ResizablePanel defaultSize={selectedNode ? 72 : 100} minSize={50} className="overflow-x-auto">

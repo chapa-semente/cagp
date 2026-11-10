@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import * as React from 'react'
 import { Toast as ToastPrimitive } from 'radix-ui'
-import { CircleCheck, CircleX, Info, LoaderCircle, TriangleAlert, X } from 'lucide-react'
+import { CircleCheck, CircleX, Info, LoaderCircle, TriangleAlert, X } from '@/components/ui/icons'
 import { cn } from '@/lib/utils'
 
 /* -------------------------------------------------------------------------------------------------

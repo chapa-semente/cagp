@@ -1,5 +1,5 @@
 ---
-// src/components/ui/CagpIcon.astro - Componente Astro de Ícone Vetorial Autoral CAGP (Zero JS)
+// src/components/ui/CagpIcon.astro — Ícone do sistema único (Phosphor Bold + 4 ícones de aba próprios), zero JS.
 import { getCagpIconPaths, type CagpIconName } from '@/lib/cagpIcons';
 
 interface Props {
@@ -21,14 +21,10 @@ const pathsHtml = getCagpIconPaths(name);
 
 <svg
   xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 24 24"
+  viewBox="0 0 256 256"
   width={size}
   height={size}
-  fill="none"
-  stroke="currentColor"
-  stroke-width="1.75"
-  stroke-linecap="round"
-  stroke-linejoin="round"
+  fill="currentColor"
   class={className}
   aria-hidden={title ? undefined : 'true'}
   role={title ? 'img' : undefined}

@@ -20,7 +20,7 @@ import {
   MenubarSeparator,
 } from '@/components/ui/menubar';
 import { DatePicker } from '@/components/ui/date-picker';
-import { ArrowUpRight, Copy, FileText } from 'lucide-react';
+import { ArrowUpRight, Copy, FileText } from '@/components/ui/icons';
 import { asset, route } from '@/lib/paths';
 import { tactileSpring } from '@/lib/motion';
 
@@ -166,10 +166,10 @@ export const DocumentosInteractiveSearch: React.FC = () => {
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <Badge variant="default" className="mb-1.5">
-                BUSCA FACETADA EM TEMPO REAL • PDF + LEITURA WEB
+                PDF e leitura no site
               </Badge>
               <CardTitle className="text-xl">
-                Explorador Rápido de Documentos Canônicos
+                Buscar documento
               </CardTitle>
               <CardDescription className="text-xs font-medium text-muted-foreground">
                 A fonte oficial prevalecente é sempre o PDF publicado em documentos/.
@@ -253,7 +253,7 @@ export const DocumentosInteractiveSearch: React.FC = () => {
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.95 }}
                       transition={tactileSpring}
-                      className="p-4 rounded-xl border-2 border-[#1F1F1F] bg-white shadow-[3px_3px_0_0_#1F1F1F] hover:shadow-[6px_6px_0_0_#1F1F1F] hover:translate-x-[-1px] hover:translate-y-[-1px] flex flex-col justify-between gap-3 transition-all cursor-context-menu"
+                      className="p-4 rounded-xl border-2 border-border bg-white shadow-md hover:shadow-xl hover:translate-x-[-1px] hover:translate-y-[-1px] flex flex-col justify-between gap-3 transition-all cursor-context-menu"
                     >
                       <div className="space-y-1.5">
                         <Badge variant="secondary" className="text-xs">
@@ -265,21 +265,21 @@ export const DocumentosInteractiveSearch: React.FC = () => {
                         <p className="text-xs text-muted-foreground leading-relaxed">{doc.desc}</p>
                       </div>
 
-                      <div className="flex flex-wrap items-center gap-2 pt-2 border-t-2 border-[#1F1F1F]/20">
+                      <div className="flex flex-wrap items-center gap-2 pt-2 border-t-2 border-border/20">
                         <a
                           href={asset(doc.pdf)}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-3 py-1.5 min-h-[40px] inline-flex items-center rounded-lg border-3 border-[#1F1F1F] bg-secondary hover:bg-secondary-hover text-secondary-foreground text-xs font-mono font-bold no-underline shadow-[2px_2px_0_0_#1F1F1F] transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+                          className="px-3 py-1.5 min-h-[40px] inline-flex items-center rounded-lg border-3 border-border bg-secondary hover:bg-secondary-hover text-secondary-foreground text-xs font-mono font-bold no-underline shadow-sm transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
                         >
-                          Baixar / Abrir PDF ↗
+                          Baixar / Abrir PDF <i className="bi bi-box-arrow-up-right" aria-hidden="true"></i>
                         </a>
                         {doc.slug && (
                           <a
                             href={route(`/documentos/${doc.slug}`)}
-                            className="px-3 py-1.5 min-h-[40px] inline-flex items-center rounded-lg border-3 border-[#1F1F1F] bg-white hover:bg-background text-foreground text-xs font-mono font-bold no-underline shadow-[2px_2px_0_0_#1F1F1F] transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+                            className="px-3 py-1.5 min-h-[40px] inline-flex items-center rounded-lg border-3 border-border bg-white hover:bg-background text-foreground text-xs font-mono font-bold no-underline shadow-sm transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
                           >
-                            Leitor Normativo →
+                            Leitor Normativo <i className="bi bi-arrow-right" aria-hidden="true"></i>
                           </a>
                         )}
                       </div>
@@ -289,7 +289,7 @@ export const DocumentosInteractiveSearch: React.FC = () => {
                   <ContextMenuContent>
                     <ContextMenuItem onClick={() => window.open(asset(doc.pdf), '_blank')}>
                       <FileText className="w-4 h-4 mr-2" />
-                      Abrir PDF Oficial ↗
+                      Abrir PDF Oficial <i className="bi bi-box-arrow-up-right" aria-hidden="true"></i>
                     </ContextMenuItem>
                     {doc.slug && (
                       <ContextMenuItem onClick={() => { window.location.href = route(`/documentos/${doc.slug}`); }}>

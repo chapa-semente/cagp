@@ -10,7 +10,7 @@ const carreirasComparativas = [
     inicial: 'R$ 20.924,80',
     topo: 'R$ 29.832,94',
     requisito: 'Diploma de Nível Superior (Qualquer Área / Gestão Pública) via CNU',
-    badgeColor: 'bg-[#5B2A85] text-white',
+    badgeColor: 'bg-primary text-white',
     pontos: [
       'Formulação e avaliação de políticas públicas nacionais de grande escala',
       'Elaboração do Orçamento Federal (PPA, LDO e LOA) e governança pública',
@@ -38,7 +38,7 @@ const carreirasComparativas = [
     inicial: 'R$ 8.500 a R$ 16.400',
     topo: 'R$ 28.000+',
     requisito: 'Concursos Municipais de Gestão/Planejamento e Consultoria Parlamentar',
-    badgeColor: 'bg-[#134E4A] text-white',
+    badgeColor: 'bg-petroleo-deep text-white',
     pontos: [
       'Planejamento urbano, orçamento municipal, regulação e políticas locais',
       'Assessoria técnica parlamentar, redação legislativa e fiscalização orçamentária',
@@ -52,7 +52,7 @@ const carreirasComparativas = [
     inicial: 'R$ 6.500 a R$ 14.000',
     topo: 'R$ 22.000+',
     requisito: 'Seleções Técnicas por Competência, Editais Internacionais e Mercado',
-    badgeColor: 'bg-[#FE8812] text-[#1F1F1F]',
+    badgeColor: 'bg-accent text-foreground',
     pontos: [
       'Avaliação econométrica de impacto, ciência de dados públicos e indicadores ESG',
       'Estruturação de parcerias público-privadas e captação de recursos para municípios',
@@ -63,41 +63,37 @@ const carreirasComparativas = [
 ---
 
 <div class="space-y-6 text-foreground">
-  <!-- Estatísticas de Egressos Bento -->
-  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-    <div class="cagp-card p-5 bg-white border-2 border-[#1F1F1F] rounded-xl flex flex-col justify-between shadow-[6px_6px_0_0_#1F1F1F]">
-      <div class="flex items-center justify-between">
-        <span class="text-xs font-mono font-bold text-secondary uppercase">Inserção Pública</span>
-        <i class="bi bi-building-check text-secondary text-xl" aria-hidden="true"></i>
+  <!-- Pesquisa de Egressos 2023 (slides 7 e 49 da recepção dos ingressantes 2024/2). Números da fonte, sem arredondar pra cima. -->
+  <div class="space-y-2">
+    <dl class="grid grid-cols-1 sm:grid-cols-3 gap-4 m-0 cagp-reveal-stagger">
+      <div class="p-5 bg-white border-2 border-border rounded-xl shadow-md">
+        <dt class="text-sm font-heading font-bold text-foreground">No Poder Executivo</dt>
+        <dd class="m-0 mt-1 font-heading font-bold text-4xl text-secondary tabular-nums leading-none" data-count-to="65" data-count-suffix="%">65%</dd>
+        <dd class="m-0 mt-2 text-sm text-content-secondary">Estadual 37%, federal 15%, municipal 13%.</dd>
       </div>
-      <span class="font-head text-3xl sm:text-4xl font-black text-secondary my-1">65%</span>
-      <span class="text-xs text-gray-800 font-body font-medium">Atuando diretamente no Poder Executivo (Estadual 37%, Federal 15%, Municipal 13%)</span>
-    </div>
-    <div class="cagp-card p-5 bg-white border-2 border-[#1F1F1F] rounded-xl flex flex-col justify-between shadow-[6px_6px_0_0_#1F1F1F]">
-      <div class="flex items-center justify-between">
-        <span class="text-xs font-mono font-bold text-success uppercase">Faixa Salarial</span>
-        <i class="bi bi-cash-stack text-success text-xl" aria-hidden="true"></i>
+      <div class="p-5 bg-white border-2 border-border rounded-xl shadow-md">
+        <dt class="text-sm font-heading font-bold text-foreground">Ganham mais de R$ 5 mil</dt>
+        <dd class="m-0 mt-1 font-heading font-bold text-4xl text-secondary tabular-nums leading-none" data-count-to="55" data-count-suffix="%">55%</dd>
+        <dd class="m-0 mt-2 text-sm text-content-secondary">A maioria de quem respondeu.</dd>
       </div>
-      <span class="font-head text-3xl sm:text-4xl font-black text-success my-1">&gt; R$ 5.000</span>
-      <span class="text-xs text-gray-800 font-body font-medium">Mais de 55% dos egressos formados superam esta faixa salarial</span>
-    </div>
-    <div class="cagp-card p-5 bg-white border-2 border-[#1F1F1F] rounded-xl flex flex-col justify-between shadow-[6px_6px_0_0_#1F1F1F]">
-      <div class="flex items-center justify-between">
-        <span class="text-xs font-mono font-bold text-[#5B2A85] uppercase">Alta Renda</span>
-        <i class="bi bi-graph-up-arrow text-[#5B2A85] text-xl" aria-hidden="true"></i>
+      <div class="p-5 bg-white border-2 border-border rounded-xl shadow-md">
+        <dt class="text-sm font-heading font-bold text-foreground">Ganham mais de R$ 8 mil</dt>
+        <dd class="m-0 mt-1 font-heading font-bold text-4xl text-primary tabular-nums leading-none" data-count-to="21" data-count-suffix="%">21%</dd>
+        <dd class="m-0 mt-2 text-sm text-content-secondary">Acima de R$ 10 mil: 12%.</dd>
       </div>
-      <span class="font-head text-3xl sm:text-4xl font-black text-[#5B2A85] my-1">&gt; R$ 10.000</span>
-      <span class="text-xs text-gray-800 font-body font-medium">24% em carreiras de Estado de alta complexidade e direção</span>
-    </div>
+    </dl>
+    <p class="text-xs text-muted-foreground m-0">
+      Fonte: Pesquisa de Egressos 2023 do curso (89 respondentes sobre local de trabalho e 88 sobre renda, de 349 graduados), apresentada na recepção dos ingressantes 2024/2.
+    </p>
   </div>
 
   <!-- Cartões Comparativos de Carreira Pública (Estrutura Desinchada sem Cards Aninhados) -->
   <section class="space-y-4" aria-label="Cartões Comparativos de Carreira Pública">
-    <div class="flex items-center justify-between gap-2.5 border-b-3 border-[#1F1F1F] pb-3 flex-wrap">
+    <div class="flex items-center justify-between gap-2.5 border-b-3 border-border pb-3 flex-wrap">
       <div class="flex items-center gap-2.5">
         <i class="bi bi-briefcase-fill text-secondary text-xl" aria-hidden="true"></i>
         <div>
-          <h3 class="font-head text-base sm:text-xl font-black text-[#1F1F1F] m-0">
+          <h3 class="font-head text-base sm:text-xl font-black text-foreground m-0">
             Cartões Comparativos de Carreira Pública
           </h3>
           <p class="text-xs text-gray-700 m-0 font-body font-medium">
@@ -105,26 +101,26 @@ const carreirasComparativas = [
           </p>
         </div>
       </div>
-      <span class="px-3 py-1 rounded-lg bg-[#1F1F1F] text-white font-mono text-xs font-bold">
+      <span class="px-3 py-1 rounded-lg bg-foreground text-white font-mono text-xs font-bold">
         Pesquisa Oficial N=89
       </span>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs">
       {carreirasComparativas.map((c) => (
-        <article class="p-5 bg-white border-2 border-[#1F1F1F] rounded-xl flex flex-col justify-between shadow-[3px_3px_0_0_#1F1F1F] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0_0_#1F1F1F] transition-all space-y-4">
+        <article class="p-5 bg-white border-2 border-border rounded-xl flex flex-col justify-between shadow-md hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-xl transition-all space-y-4">
           <div class="space-y-3">
             <div class="flex items-center justify-between gap-2 flex-wrap">
-              <span class={`px-2.5 py-1 rounded-md font-mono text-xs font-black uppercase border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] ${c.badgeColor}`}>
+              <span class={`px-2.5 py-1 rounded-md font-mono text-xs font-black uppercase border-2 border-border shadow-sm ${c.badgeColor}`}>
                 {c.esfera}
               </span>
-              <span class="font-mono text-xs font-bold text-gray-700 bg-white px-2 py-0.5 rounded border border-[#1F1F1F]">
+              <span class="font-mono text-xs font-bold text-gray-700 bg-white px-2 py-0.5 rounded border border-border">
                 Bacharelado GP UFMG
               </span>
             </div>
 
             <div>
-              <h4 class="font-head font-black text-sm sm:text-base text-[#1F1F1F] m-0 leading-snug">
+              <h4 class="font-head font-black text-sm sm:text-base text-foreground m-0 leading-snug">
                 {c.cargo}
               </h4>
               <p class="font-mono text-xs font-bold text-gray-700 mt-0.5 m-0">
@@ -132,14 +128,14 @@ const carreirasComparativas = [
               </p>
             </div>
 
-            <div class="grid grid-cols-2 gap-3 p-3 rounded-lg bg-[#ffffff] divide-x-2 divide-[#1F1F1F]/15">
+            <div class="grid grid-cols-2 gap-3 p-3 rounded-lg bg-white divide-x-2 divide-border/15">
               <div>
                 <span class="font-mono text-xs font-bold uppercase text-gray-600 block">Remuneração Inicial</span>
-                <span class="font-head text-sm sm:text-base font-black text-[#166534]">{c.inicial}</span>
+                <span class="font-head text-sm sm:text-base font-black text-success">{c.inicial}</span>
               </div>
               <div class="pl-3">
                 <span class="font-mono text-xs font-bold uppercase text-gray-600 block">Topo da Carreira</span>
-                <span class="font-head text-sm sm:text-base font-black text-[#5B2A85]">{c.topo}</span>
+                <span class="font-head text-sm sm:text-base font-black text-primary">{c.topo}</span>
               </div>
             </div>
 
@@ -150,7 +146,7 @@ const carreirasComparativas = [
             </ul>
           </div>
 
-          <div class="pt-3 border-t-2 border-[#1F1F1F] font-mono text-xs text-gray-800">
+          <div class="pt-3 border-t-2 border-border font-mono text-xs text-gray-800">
             <strong>Via de Acesso:</strong> {c.requisito}
           </div>
         </article>
@@ -161,7 +157,7 @@ const carreirasComparativas = [
       <a
         href={asset('/documentos/depoimentos-de-egressos.pdf')}
         download
-        class="min-h-[44px] px-4 py-2.5 bg-secondary hover:bg-[#6D1723] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 text-white rounded-xl text-xs font-head uppercase font-black tracking-wider inline-flex items-center gap-2 transition-all no-underline border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F]"
+        class="min-h-[44px] px-4 py-2.5 bg-secondary hover:bg-secondary-hover active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 text-white rounded-xl text-xs font-head uppercase font-black tracking-wider inline-flex items-center gap-2 transition-all no-underline border-3 border-border shadow-md"
       >
         <i class="bi bi-file-earmark-pdf text-base" aria-hidden="true"></i>
         <span>Baixar Relatório Oficial de Egressos (PDF)</span>
@@ -169,10 +165,10 @@ const carreirasComparativas = [
 
       <a
         href={route('/chapa-semente#propostas')}
-        class="min-h-[44px] px-4 py-2.5 bg-[#FE8812] hover:bg-[#e67300] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 text-[#1F1F1F] rounded-xl text-xs font-head uppercase font-black tracking-wider inline-flex items-center gap-2 transition-all no-underline border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F]"
+        class="min-h-[44px] px-4 py-2.5 bg-accent hover:bg-accent-hover active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 text-foreground rounded-xl text-xs font-head uppercase font-black tracking-wider inline-flex items-center gap-2 transition-all no-underline border-3 border-border shadow-md"
       >
         <i class="bi bi-check2-circle text-base" aria-hidden="true"></i>
-        <span>Propostas 9, 10 e 11 (Carreira &amp; Empresa Jr) • Votar Semente →</span>
+        <span>Propostas 9, 10 e 11 (Carreira &amp; Empresa Jr) • Votar Semente <i class="bi bi-arrow-right" aria-hidden="true"></i></span>
       </a>
     </div>
   </section>

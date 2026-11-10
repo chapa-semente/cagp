@@ -15,7 +15,7 @@ export interface CanvasEffectOptions {
  * useCanvasEffect
  * High-performance Canvas animation hook for BoldKit Canvas Effects.
  * - Auto-pauses when off-screen via IntersectionObserver
- * - Runs unconditionally at 60fps (FORCE_EXPRESSIVE_MOTION)
+ * - Runs unconditionally at 60fps (movimento sempre ativo, DESIGN.md › Movimento)
  * - Auto-aborts event listeners via AbortSignal
  * - Handles High-DPI screens and resizing cleanly
  */

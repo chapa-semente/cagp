@@ -11,7 +11,7 @@ import { asset } from '@/lib/paths';
 
 export const PercursoNavigationMenu: React.FC = () => {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 p-3 bg-white border-2 border-border rounded-xl shadow-[3px_3px_0_0_#1F1F1F] mb-4">
+    <div className="flex flex-wrap items-center justify-between gap-3 p-3 bg-white border-2 border-border rounded-xl shadow-md mb-4">
       <div className="flex items-center gap-2">
         <span className="font-heading text-xs font-black uppercase text-foreground">
           Atalhos de Percurso:
@@ -38,7 +38,7 @@ export const PercursoNavigationMenu: React.FC = () => {
                 rel="noopener noreferrer"
                 className="text-xs font-mono font-bold text-primary hover:underline block pt-1 border-t border-border"
               >
-                Abrir Matriz Oficial (PDF) ↗
+                Abrir Matriz Oficial (PDF) <i className="bi bi-box-arrow-up-right" aria-hidden="true"></i>
               </NavigationMenuLink>
             </NavigationMenuContent>
           </NavigationMenuItem>
@@ -61,7 +61,7 @@ export const PercursoNavigationMenu: React.FC = () => {
                 rel="noopener noreferrer"
                 className="text-xs font-mono font-bold text-primary hover:underline block pt-1 border-t border-border"
               >
-                Regulamentação FCA (PDF) ↗
+                Regulamentação FCA (PDF) <i className="bi bi-box-arrow-up-right" aria-hidden="true"></i>
               </NavigationMenuLink>
             </NavigationMenuContent>
           </NavigationMenuItem>
@@ -84,7 +84,7 @@ export const PercursoNavigationMenu: React.FC = () => {
                 rel="noopener noreferrer"
                 className="text-xs font-mono font-bold text-primary hover:underline block pt-1 border-t border-border"
               >
-                Diretrizes de Pós no PPC (PDF) ↗
+                Diretrizes de Pós no PPC (PDF) <i className="bi bi-box-arrow-up-right" aria-hidden="true"></i>
               </NavigationMenuLink>
             </NavigationMenuContent>
           </NavigationMenuItem>

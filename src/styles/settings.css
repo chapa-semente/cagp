@@ -55,7 +55,7 @@
 
 .cagp-settings-info span {
   font-size: 0.75rem;
-  color: #6C757D;
+  color: #5E5A52;
   display: block;
   margin-top: 2px;
 }
@@ -96,12 +96,12 @@
 .cagp-grouped-item-desc {
   display: block;
   font-size: 0.75rem;
-  color: #6C757D;
+  color: #5E5A52;
   margin-top: 2px;
 }
 
 .cagp-grouped-chevron {
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: var(--primary, #5B2A85);
   margin-left: 12px;
   flex-shrink: 0;

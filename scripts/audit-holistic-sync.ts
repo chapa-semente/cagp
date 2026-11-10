@@ -43,10 +43,8 @@ const UI_COMPONENTS = [
   { id: 'tabs', family: '1. Navegação & Shell', file: 'src/components/ui/tabs.tsx', context: 'Seletor de abas em curso, tcc e gestão' },
   { id: 'scroll-area', family: '1. Navegação & Shell', file: 'src/components/ui/scroll-area.tsx', context: 'Rolagem customizada com trilho brutalista' },
   { id: 'stepper', family: '1. Navegação & Shell', file: 'src/components/ui/stepper.tsx', context: 'Indicador de etapas em wizards' },
-  { id: 'tour', family: '1. Navegação & Shell', file: 'src/components/ui/tour.tsx', context: 'Tour interativo da Chapa Semente e onboarding' },
   { id: 'tree-view', family: '1. Navegação & Shell', file: 'src/components/ui/tree-view.tsx', context: 'Mapa do site e hierarquia do estatuto' },
   { id: 'JourneyNav', family: '1. Navegação & Shell', file: 'src/components/ui/JourneyNav.astro', context: 'Barra de atalhos rápidos contextuais' },
-  { id: 'GlobalContextMenu', family: '1. Navegação & Shell', file: 'src/components/shell/GlobalContextMenu.tsx', context: 'Menu de contexto universal: right-click desktop e long-press 500ms com haptics no mobile' },
 
   // Família 2: Menus & Overlays
   { id: 'context-menu', family: '2. Menus & Overlays', file: 'src/components/ui/context-menu.tsx', context: 'Menu de clique direito e toque longo' },
@@ -91,7 +89,6 @@ const UI_COMPONENTS = [
   { id: 'alert', family: '4. Diálogos & Feedback', file: 'src/components/ui/alert.tsx', context: 'Avisos de prazos rigorosos do DRCA' },
   { id: 'drawer', family: '4. Diálogos & Feedback', file: 'src/components/ui/drawer.tsx', context: 'Drawer móvel de detalhes de matéria e filtros' },
   { id: 'sheet', family: '4. Diálogos & Feedback', file: 'src/components/ui/sheet.tsx', context: 'Painel lateral de configurações e passaporte' },
-  { id: 'sonner', family: '4. Diálogos & Feedback', file: 'src/components/ui/sonner.tsx', context: 'Notificações mecânicas em pilha' },
   { id: 'toast', family: '4. Diálogos & Feedback', file: 'src/components/ui/toast.tsx', context: 'Toasts acessíveis Radix' },
   { id: 'spinner', family: '4. Diálogos & Feedback', file: 'src/components/ui/spinner.tsx', context: 'Feedback visual de processamento' },
   { id: 'progress', family: '4. Diálogos & Feedback', file: 'src/components/ui/progress.tsx', context: 'Barra de integralização de créditos e 600h' },

@@ -7,11 +7,12 @@ import { asset } from '@/lib/paths';
 
 const activeAxis = getAxisByPath(Astro.url.pathname);
 
+// Ícones próprios das abas (geometria da Semente): src/lib/cagpIcons.ts › TAB_ICONS.
 const ICONS: Record<string, string> = {
   hoje: 'hoje',
-  guias: 'thesis',
-  curso: 'curriculo',
-  mais: 'menu',
+  guias: 'guias',
+  curso: 'curso',
+  mais: 'mais',
 };
 ---
 

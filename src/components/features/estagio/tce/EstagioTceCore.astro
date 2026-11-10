@@ -121,7 +121,7 @@ const normasEstagio = [
     <a
       href={asset('/documentos/estagio-modelo-termo-de-compromisso-com-convenio.pdf')}
       download
-      class="min-h-[44px] px-4 py-2.5 bg-secondary hover:bg-[#851E1E] text-white rounded-xl text-xs font-heading uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline shrink-0 border-2 border-border shadow-xs active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
+      class="min-h-[44px] px-4 py-2.5 bg-secondary hover:bg-secondary-hover text-white rounded-xl text-xs font-heading uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline shrink-0 border-2 border-border shadow-xs active:translate-x-[2px] active:translate-y-[2px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
     >
       <i class="bi bi-file-earmark-arrow-down-fill" aria-hidden="true" />
       <span>Termo de Estágio (PDF)</span>
@@ -132,7 +132,7 @@ const normasEstagio = [
   <div id="protocolos-estagio" class="space-y-3">
     <div class="flex items-center justify-between gap-2">
       <h4 class="font-heading text-sm font-black text-foreground m-0 flex items-center gap-2">
-        <i class="bi bi-send-check text-[#134E4A]" aria-hidden="true" />
+        <i class="bi bi-send-check text-petroleo-deep" aria-hidden="true" />
         <span>Protocolos Eletrônicos do Colegiado (Google Forms)</span>
       </h4>
       <span class="text-xs font-mono font-bold text-muted-foreground">Envio Oficial</span>
@@ -143,7 +143,7 @@ const normasEstagio = [
         <div class="p-5 bg-white border-2 border-border rounded-xl flex flex-col justify-between shadow-sm">
           <div>
             <div className="flex items-center justify-between gap-2 mb-2">
-              <span class="px-2.5 py-0.5 rounded-md bg-[#134E4A] text-white text-xs font-mono font-bold border border-border">{f.badge}</span>
+              <span class="px-2.5 py-0.5 rounded-md bg-petroleo-deep text-white text-xs font-mono font-bold border border-border">{f.badge}</span>
               <span class="text-xs text-muted-foreground font-mono font-bold">Google Forms Oficial</span>
             </div>
             <h5 class="font-heading font-black text-sm uppercase text-foreground m-0 mb-1">{f.titulo}</h5>
@@ -224,7 +224,7 @@ const normasEstagio = [
         </h4>
         <p class="font-sans text-xs text-muted-foreground mt-0.5 m-0 font-medium">Preenchimento direto em computador ou edição na nuvem pelo Google Drive:</p>
       </div>
-      <span class="text-xs text-foreground font-mono font-bold px-2.5 py-1 bg-[#F4F2EC] border border-border rounded-md shadow-xs">7 Modelos Homologados</span>
+      <span class="text-xs text-foreground font-mono font-bold px-2.5 py-1 bg-background border border-border rounded-md shadow-xs">7 Modelos Homologados</span>
     </div>
 
     <div class="divide-y divide-border">
@@ -253,7 +253,7 @@ const normasEstagio = [
             <a
               href={asset(`/documentos/${m.docx}`)}
               download
-              class="min-h-[44px] px-3.5 py-2 bg-primary hover:bg-[#49216C] text-white rounded-xl text-xs font-mono font-bold no-underline inline-flex items-center gap-1.5 border-2 border-border shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
+              class="min-h-[44px] px-3.5 py-2 bg-primary hover:bg-primary-hover text-white rounded-xl text-xs font-mono font-bold no-underline inline-flex items-center gap-1.5 border-2 border-border shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
               title="Baixar versão Word DOCX"
             >
               <i class="bi bi-file-earmark-word" aria-hidden="true" />
@@ -262,7 +262,7 @@ const normasEstagio = [
             <a
               href={asset(`/documentos/${m.pdf}`)}
               download
-              class="min-h-[44px] px-3.5 py-2 bg-secondary hover:bg-[#851E1E] text-white rounded-xl text-xs font-mono font-bold no-underline inline-flex items-center gap-1.5 border-2 border-border shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
+              class="min-h-[44px] px-3.5 py-2 bg-secondary hover:bg-secondary-hover text-white rounded-xl text-xs font-mono font-bold no-underline inline-flex items-center gap-1.5 border-2 border-border shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
               title="Baixar versão PDF"
             >
               <i class="bi bi-file-earmark-pdf" aria-hidden="true" />
@@ -278,7 +278,7 @@ const normasEstagio = [
   <div class="p-5 sm:p-6 bg-white border-2 border-border rounded-xl space-y-4 shadow-md">
     <div class="flex items-center justify-between border-b-2 border-border pb-3">
       <h4 class="font-heading text-base font-black text-foreground m-0 flex items-center gap-2">
-        <i class="bi bi-shield-check text-[#134E4A]" aria-hidden="true" />
+        <i class="bi bi-shield-check text-petroleo-deep" aria-hidden="true" />
         <span>Atos Normativos e Manual de Estágio FAFICH</span>
       </h4>
       <span class="text-xs text-muted-foreground font-mono font-bold">Downloads</span>

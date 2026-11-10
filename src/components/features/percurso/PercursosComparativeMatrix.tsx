@@ -170,13 +170,13 @@ export const PercursosComparativeMatrix: React.FC = () => {
                 <h4 className="font-heading text-sm font-black text-foreground">
                   Você entra aqui (e pode permanecer)
                 </h4>
-                <p className="text-xs text-[#3F3C38] leading-relaxed">
+                <p className="text-xs text-content-secondary leading-relaxed">
                   Percurso clássico com <strong>1.020h</strong> destinadas ao bloco de optativas, extensão (300h) e AAC, permitindo amplo aprofundamento nas disciplinas eletivas do DCP, FACE e FAFICH.
                 </p>
               </div>
               <Button asChild variant="outline" size="sm">
                 <a href={asset('/documentos/percurso-bacharelado-nucleo-geral.pdf')} target="_blank" rel="noopener noreferrer">
-                  Relatório Núcleo Geral (PDF) ↗
+                  Relatório Núcleo Geral (PDF) <i className="bi bi-box-arrow-up-right" aria-hidden="true"></i>
                 </a>
               </Button>
             </div>
@@ -187,13 +187,13 @@ export const PercursosComparativeMatrix: React.FC = () => {
                 <h4 className="font-heading text-sm font-black text-foreground">
                   Migração a partir do 5º Período
                 </h4>
-                <p className="text-xs text-[#3F3C38] leading-relaxed">
+                <p className="text-xs text-content-secondary leading-relaxed">
                   Permite integralizar <strong>300h (20 créditos)</strong> em outro curso de graduação da UFMG (Direito, Economia, Administração, Ciências Sociais) ou em Formação Transversal (Res. CEPE 19/2014).
                 </p>
               </div>
               <Button asChild variant="outline" size="sm">
                 <a href={asset('/documentos/percurso-bacharelado-nucleo-complementar.pdf')} target="_blank" rel="noopener noreferrer">
-                  Relatório FCA Complementar (PDF) ↗
+                  Relatório FCA Complementar (PDF) <i className="bi bi-box-arrow-up-right" aria-hidden="true"></i>
                 </a>
               </Button>
             </div>
@@ -204,13 +204,13 @@ export const PercursosComparativeMatrix: React.FC = () => {
                 <h4 className="font-heading text-sm font-black text-foreground">
                   Migração a partir do 7º Período
                 </h4>
-                <p className="text-xs text-[#3F3C38] leading-relaxed">
+                <p className="text-xs text-content-secondary leading-relaxed">
                   Voltado à carreira acadêmica e pesquisa: permite cursar de <strong>45h a 120h (3 a 8 créditos)</strong> diretamente em disciplinas de Mestrado e Doutorado da UFMG ainda durante a graduação.
                 </p>
               </div>
               <Button asChild variant="outline" size="sm">
                 <a href={asset('/documentos/percurso-bacharelado-nucleo-avancado.pdf')} target="_blank" rel="noopener noreferrer">
-                  Relatório Núcleo Avançado (PDF) ↗
+                  Relatório Núcleo Avançado (PDF) <i className="bi bi-box-arrow-up-right" aria-hidden="true"></i>
                 </a>
               </Button>
             </div>
@@ -274,7 +274,7 @@ export const PercursosComparativeMatrix: React.FC = () => {
                     <TableCell className="font-mono text-xs font-bold text-primary">
                       {row.fca}
                     </TableCell>
-                    <TableCell className="font-mono text-xs font-bold text-[#266264]">
+                    <TableCell className="font-mono text-xs font-bold text-secondary">
                       {row.avancado}
                     </TableCell>
                   </TableRow>

@@ -4,7 +4,7 @@ import { cn, safeHref } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import { Mail, ArrowRight, createLucideIcon } from 'lucide-react'
+import { Mail, ArrowRight, createLucideIcon } from '@/components/ui/icons'
 
 // lucide-react 1.x dropped brand icons; these keep the paths 0.x shipped.
 const Twitter = createLucideIcon('twitter', [

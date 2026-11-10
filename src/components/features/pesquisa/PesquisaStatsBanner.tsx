@@ -38,7 +38,7 @@ export const PesquisaStatsBanner: React.FC = () => {
         />
       </div>
 
-      <div className="p-4 rounded-xl border-2 border-border bg-white shadow-[3px_3px_0_0_#1F1F1F] flex flex-wrap items-center justify-between gap-4">
+      <div className="p-4 rounded-xl border-2 border-border bg-white shadow-md flex flex-wrap items-center justify-between gap-4">
         <div className="space-y-0.5">
           <span className="font-mono text-xs font-black uppercase text-secondary block">
             PRÓ-REITORIAS VINCULADAS • PESQUISA, EXTENSÃO E PÓS-GRADUAÇÃO (NÚCLEO AVANÇADO)

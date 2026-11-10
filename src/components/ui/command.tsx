@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Dialog as DialogPrimitive } from 'radix-ui'
 import { Command as CommandPrimitive } from 'cmdk'
-import { Search } from 'lucide-react'
+import { Search } from '@/components/ui/icons'
 import { cn } from '@/lib/utils'
 import { Dialog, DialogPortal, DialogOverlay } from '@/components/ui/dialog'
 

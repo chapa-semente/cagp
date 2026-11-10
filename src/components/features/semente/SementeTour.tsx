@@ -9,13 +9,14 @@
 // sem desmontar o tour, então os spotlights atravessam rotas sem recarregar.
 //
 // Movimento (DESIGN.md › Movimento): o bloco de cor que vira cartão é o gesto autoral, feito com
-// clip-path; fotos "germinam" de baixo para cima; o fim é o carimbo. Tudo cai para 0 com reduced motion.
+// clip-path; fotos "germinam" de baixo para cima; o fim é o carimbo. Movimento sempre ativo.
 
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { AnimatePresence, MotionConfig, motion, useReducedMotion } from 'motion/react';
+import { AnimatePresence, MotionConfig, motion } from 'motion/react';
 import { navigate } from 'astro:transitions/client';
 import { asset } from '@/lib/paths';
 import { easeOutExpo } from '@/lib/motion';
+import { MarkerWord } from '@/components/ui/marker-word';
 import { getVaultItem, setVaultItem, type UserRole } from '@/lib/storage/studentVault';
 import {
   canTriggerInstallPrompt,
@@ -69,11 +70,6 @@ function screenColor(s: Screen | undefined): string {
   if (!s) return PURPLE;
   if (s.kind === 'story' || s.kind === 'spot') return s.n % 2 === 0 ? PURPLE : TEAL;
   return PURPLE;
-}
-
-/** Permanent Marker em destaque: laranja sobre roxo (4,1:1), branco sobre petróleo (laranja daria 2,9:1). */
-function markerTone(n: number): string {
-  return n % 2 === 0 ? 'text-accent' : 'text-white';
 }
 
 /** Separa o nome que abre a frase ("Ítalo reuniu…") para escrevê-lo à mão. */
@@ -154,9 +150,9 @@ const btnBase =
   'transition-[transform,box-shadow,background-color] duration-150 ease-[cubic-bezier(0.16,1,0.3,1)] ' +
   'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-50 disabled:cursor-not-allowed';
 const btnAccent =
-  `${btnBase} uppercase tracking-[0.04em] bg-accent text-foreground shadow-[3px_3px_0_0_#1F1F1F] hover:-translate-x-px hover:-translate-y-px hover:shadow-[5px_5px_0_0_#1F1F1F] hover:bg-accent-hover active:translate-x-[3px] active:translate-y-[3px] active:shadow-none`;
+  `${btnBase} uppercase tracking-[0.04em] bg-accent text-foreground shadow-md hover:-translate-x-px hover:-translate-y-px hover:shadow-lg hover:bg-accent-hover active:translate-x-[3px] active:translate-y-[3px] active:shadow-none`;
 const btnOutlineLight =
-  `${btnBase} bg-white text-foreground shadow-[3px_3px_0_0_#1F1F1F] hover:-translate-x-px hover:-translate-y-px hover:shadow-[5px_5px_0_0_#1F1F1F] hover:bg-muted active:translate-x-[3px] active:translate-y-[3px] active:shadow-none`;
+  `${btnBase} bg-white text-foreground shadow-md hover:-translate-x-px hover:-translate-y-px hover:shadow-lg hover:bg-muted active:translate-x-[3px] active:translate-y-[3px] active:shadow-none`;
 
 const BackButton: React.FC<{ onClick: () => void; label?: string }> = ({ onClick, label = 'Voltar' }) => (
   <button type="button" onClick={onClick} className={`${btnOutlineLight} w-12 h-12 shrink-0 text-base`} aria-label={label}>
@@ -174,7 +170,6 @@ interface TourRuntime extends SementeTourState {
 }
 
 export const SementeTour: React.FC = () => {
-  const reduce = useReducedMotion();
   const [state, setState] = useState<TourRuntime | null>(null);
   const [vp, setVp] = useState({ w: 0, h: 0 });
   const [cardRect, setCardRect] = useState<Rect | null>(null);
@@ -260,8 +255,14 @@ export const SementeTour: React.FC = () => {
     };
     apply();
     document.addEventListener('astro:after-swap', apply);
+    // A troca de página roda por trás do bloco de cor: pula a view transition, que bloqueia toques
+    // enquanto anima (os "Próxima" tocados nessa janela eram perdidos).
+    const skip = (e: Event) => (e as Event & { viewTransition?: ViewTransition }).viewTransition?.skipTransition();
+    document.addEventListener('astro:before-swap', skip);
     return () => {
       document.removeEventListener('astro:after-swap', apply);
+      document.removeEventListener('astro:before-swap', skip);
+      document.body.style.removeProperty('padding-bottom');
       document.documentElement.classList.remove('cagp-semente-tour-open');
       document.querySelectorAll('[data-tour-inert]').forEach((el) => {
         el.removeAttribute('inert');
@@ -375,6 +376,10 @@ export const SementeTour: React.FC = () => {
     }
 
     const headerOffset = window.innerWidth >= 768 ? 88 : 72;
+    // Ferramenta no fim da página: sem sobra de rolagem, ela ficaria embaixo do cartão.
+    // Uma folga temporária no fim do body deixa o alvo subir até logo abaixo do cabeçalho.
+    const cardBox = cardEl?.getBoundingClientRect();
+    if (cardBox) document.body.style.paddingBottom = `${Math.ceil(window.innerHeight - cardBox.top + 24)}px`;
     // Espera a rolagem suave do SegmentedControl terminar antes de fixar a posição.
     await wait(60);
     window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - headerOffset, behavior: 'instant' });
@@ -441,16 +446,16 @@ export const SementeTour: React.FC = () => {
           window.scrollTo({ top: 0, behavior: 'instant' });
         }
       },
-      reduce ? 0 : 520
+      520
     );
-  }, [state?.returnTo, reduce]);
+  }, [state?.returnTo]);
 
   // Foco no título de cada tela + teclado (setas avançam e voltam; Esc não fecha na primeira visita).
   useEffect(() => {
     if (!open) return;
-    const t = window.setTimeout(() => headingRef.current?.focus({ preventScroll: true }), reduce ? 0 : 260);
+    const t = window.setTimeout(() => headingRef.current?.focus({ preventScroll: true }), 260);
     return () => window.clearTimeout(t);
-  }, [open, index, reduce]);
+  }, [open, index]);
 
   useEffect(() => {
     if (!open) return;
@@ -497,7 +502,7 @@ export const SementeTour: React.FC = () => {
           : '';
 
   return (
-    <MotionConfig reducedMotion="user" transition={reduce ? { duration: 0 } : undefined}>
+    <MotionConfig reducedMotion="never">
       <div
         ref={rootRef}
         id="cagp-semente-tour"
@@ -527,7 +532,7 @@ export const SementeTour: React.FC = () => {
               <motion.rect
                 initial={false}
                 animate={{ x: hole.left, y: hole.top, width: hole.width, height: hole.height }}
-                transition={reduce ? { duration: 0 } : { duration: 0.55, ease: easeOutExpo }}
+                transition={{ duration: 0.55, ease: easeOutExpo }}
                 rx={14}
                 fill="black"
               />
@@ -557,7 +562,7 @@ export const SementeTour: React.FC = () => {
           className="absolute inset-0"
           initial={false}
           animate={{ clipPath: panelClip, backgroundColor: panelColor }}
-          transition={reduce ? { duration: 0 } : { duration: 0.62, ease: easeOutExpo }}
+          transition={{ duration: 0.62, ease: easeOutExpo }}
         />
 
         {/* 3. Contorno e sombra do cartão (só depois de recolhido) */}
@@ -566,7 +571,7 @@ export const SementeTour: React.FC = () => {
             <motion.div
               key={`frame-${index}`}
               aria-hidden="true"
-              className="absolute pointer-events-none rounded-[16px] border-3 border-foreground shadow-[6px_6px_0_0_#1F1F1F]"
+              className="absolute pointer-events-none rounded-[16px] border-3 border-foreground shadow-xl"
               style={{ top: cardRect.top, left: cardRect.left, width: cardRect.width, height: cardRect.height }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -628,7 +633,7 @@ export const SementeTour: React.FC = () => {
           <button
             type="button"
             onClick={finish}
-            className="absolute top-[max(12px,env(safe-area-inset-top))] right-3 w-11 h-11 rounded-[12px] border-3 border-foreground bg-white text-foreground inline-flex items-center justify-center shadow-[2px_2px_0_0_#1F1F1F] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            className="absolute top-[max(12px,env(safe-area-inset-top))] right-3 w-11 h-11 rounded-[12px] border-3 border-foreground bg-white text-foreground inline-flex items-center justify-center shadow-sm cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             aria-label="Fechar o tour"
           >
             <i className="bi bi-x-lg" aria-hidden="true" />
@@ -657,7 +662,7 @@ const IntroScreen: React.FC<{ headingRef: HeadingRef; onStart: () => void }> = (
         aria-label={`As ${TOTAL_PEOPLE} pessoas da Chapa Semente`}
       >
         {TOUR_PEOPLE_IN_CHAPA_ORDER.map((p, i) => (
-          <li key={p.leader.id} className="aspect-square overflow-hidden rounded-[12px] border-2 border-foreground bg-[#8A857B]">
+          <li key={p.leader.id} className="aspect-square overflow-hidden rounded-[12px] border-2 border-foreground bg-muted-foreground">
             <GrowPhoto person={p} sizes="thumb" delay={0.08 + i * 0.045} alt={`${p.leader.name}, ${p.leader.role}`} />
           </li>
         ))}
@@ -678,14 +683,14 @@ const IntroScreen: React.FC<{ headingRef: HeadingRef; onStart: () => void }> = (
           className="m-0 font-heading text-[clamp(1.85rem,6.2vw,3.5rem)] font-bold leading-[1.06] tracking-[-0.02em] text-white [text-wrap:balance] focus:outline-none"
         >
           Antes de tudo, conheça{' '}
-          <span className="whitespace-nowrap font-accent font-normal text-accent tracking-normal">quem fez</span> este site.
+          <MarkerWord onColor className="text-[1.1em] tracking-normal">quem fez</MarkerWord> este site.
         </h1>
         <p className="m-0 max-w-[46ch] text-base leading-relaxed text-white sm:text-lg">
           Somos a Chapa Semente, candidata ao Centro Acadêmico de Gestão Pública. São {TOTAL_PEOPLE} pessoas, e cada uma vai te
           mostrar uma ferramenta que já funciona aqui.
         </p>
-        <p className="m-0 font-accent text-xl text-accent sm:text-3xl" aria-hidden="true">
-          Toda mudança começa pequena
+        <p className="m-0 font-heading text-base font-bold uppercase tracking-[0.04em] text-white" aria-hidden="true">
+          Toda mudança começa pequena.
         </p>
         <p className="m-0 text-sm font-bold uppercase tracking-[0.04em] text-white tabular-nums">
           Eleição 25 e 26/11 · cerca de 3 minutos · aparece uma vez só
@@ -777,7 +782,7 @@ const StoryScreen: React.FC<{
         </div>
 
         <div className="flex min-h-0 flex-1 flex-col gap-5 md:grid md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] md:items-center md:gap-14">
-          <figure className="relative m-0 min-h-[170px] flex-1 overflow-hidden rounded-[16px] border-3 border-foreground bg-[#8A857B] md:aspect-[4/5] md:max-h-[72dvh] md:flex-none">
+          <figure className="relative m-0 min-h-[170px] flex-1 overflow-hidden rounded-[16px] border-3 border-foreground bg-muted-foreground md:aspect-[4/5] md:max-h-[72dvh] md:flex-none">
             <GrowPhoto person={person} className="absolute inset-0" />
             <motion.figcaption
               className="absolute bottom-3 left-3 rounded-[8px] bg-foreground px-3 py-2 text-white"
@@ -812,7 +817,7 @@ const StoryScreen: React.FC<{
                 const [name, rest] = splitLeadingName(stop.answer, person.firstName === 'João' ? 'João Pedro' : person.firstName);
                 return name ? (
                   <>
-                    <span className={`font-accent text-[1.6em] leading-none ${markerTone(n)}`}>{name}</span>
+                    <strong className="font-heading font-bold text-white">{name}</strong>
                     {rest}
                   </>
                 ) : (
@@ -853,7 +858,7 @@ const SpotCard: React.FC<{
     >
       <PeopleProgress current={n} compact />
       <div className="mt-3 flex items-center gap-3">
-        <span className="h-12 w-12 shrink-0 overflow-hidden rounded-[12px] border-2 border-foreground bg-[#8A857B]">
+        <span className="h-12 w-12 shrink-0 overflow-hidden rounded-[12px] border-2 border-foreground bg-muted-foreground">
           <img
             src={person.thumb}
             alt=""
@@ -878,7 +883,7 @@ const SpotCard: React.FC<{
         {stop.simulated ? (
           <span className="cagp-stamp-badge is-simulado">Simulado</span>
         ) : (
-          <span className={`font-accent text-xl leading-none ${markerTone(n)}`}>já funciona</span>
+          <MarkerWord onColor className="text-xl">já funciona</MarkerWord>
         )}
       </div>
       <p className="m-0 mt-1.5 text-base leading-snug">
@@ -956,7 +961,7 @@ const FinalScreen: React.FC<{
         <div className="space-y-5">
           <ul className="m-0 flex list-none flex-wrap gap-1.5 p-0" aria-label={`As ${TOTAL_PEOPLE} pessoas da Chapa Semente`}>
             {TOUR_PEOPLE_IN_CHAPA_ORDER.map((p, i) => (
-              <li key={p.leader.id} className="h-10 w-10 overflow-hidden rounded-[10px] border-2 border-foreground bg-[#8A857B] sm:h-12 sm:w-12">
+              <li key={p.leader.id} className="h-10 w-10 overflow-hidden rounded-[10px] border-2 border-foreground bg-muted-foreground sm:h-12 sm:w-12">
                 <GrowPhoto person={p} sizes="thumb" delay={0.05 + i * 0.035} alt={p.leader.name} />
               </li>
             ))}
@@ -970,12 +975,12 @@ const FinalScreen: React.FC<{
             {canVote ? (
               <>
                 25 e 26 de novembro:{' '}
-                <span className="whitespace-nowrap font-accent font-normal text-accent tracking-normal">vote Semente.</span>
+                vote <MarkerWord onColor className="text-[1.1em] tracking-normal">Semente</MarkerWord>.
               </>
             ) : (
               <>
-                Você ainda não vota, mas{' '}
-                <span className="font-accent font-normal text-accent tracking-normal">quem vota te escuta.</span>
+                Você ainda não vota, mas quem vota te{' '}
+                <MarkerWord onColor className="text-[1.1em] tracking-normal">escuta</MarkerWord>.
               </>
             )}
           </h2>

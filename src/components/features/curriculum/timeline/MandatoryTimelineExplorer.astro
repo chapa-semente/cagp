@@ -38,7 +38,7 @@ mandatoryList.forEach((d) => {
       <a
         href={asset('/documentos/ementario-gestao-publica-ufmg.pdf')}
         download
-        class="px-3.5 py-2 rounded-xl bg-secondary hover:bg-[#851E1E] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white font-mono text-xs font-bold transition-all inline-flex items-center gap-2 no-underline border-3 border-border shadow-sm"
+        class="px-3.5 py-2 rounded-xl bg-secondary hover:bg-secondary-hover active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white font-mono text-xs font-bold transition-all inline-flex items-center gap-2 no-underline border-3 border-border shadow-sm"
       >
         <i class="bi bi-file-earmark-pdf" aria-hidden="true" />
         <span>Baixar Ementário Oficial (PDF)</span>
@@ -113,7 +113,7 @@ mandatoryList.forEach((d) => {
 
               <div class="pt-2.5 mt-3 border-t-2 border-border flex items-center justify-between text-xs font-mono text-muted-foreground">
                 <span class="font-bold">{c.data.modulo || 'DCP'}</span>
-                <span class="font-bold text-[#266264] uppercase px-1.5 py-0.5 bg-teal-700/10 border border-[#266264] rounded">Obrigatória</span>
+                <span class="font-bold text-secondary uppercase px-1.5 py-0.5 bg-teal-700/10 border border-secondary rounded">Obrigatória</span>
               </div>
             </div>
           ))}

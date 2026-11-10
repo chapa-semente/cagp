@@ -107,7 +107,7 @@ export const OverviewCalcWidget: React.FC = () => {
       {/* Ação */}
       <a
         href={route('/acg') + '#calculadora'}
-        className="min-h-[44px] px-3.5 py-2 bg-foreground text-background text-white hover:bg-secondary active:translate-x-[2px] active:translate-y-[2px] active:shadow-none rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline mt-2 border-3 border-border shadow"
+        className="min-h-[44px] px-3.5 py-2 bg-primary text-white text-white hover:bg-primary-hover active:translate-x-[2px] active:translate-y-[2px] active:shadow-none rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline mt-2 border-3 border-border shadow"
       >
         <span>Abrir Calculadora Completa</span>
         <i className="bi bi-arrow-right" aria-hidden="true" />

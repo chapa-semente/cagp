@@ -16,7 +16,7 @@ import {
   PillShape, SpeechBubble, CursorShape, EyeShape, GearShape,
   RhombusShape, EllipseShape
 } from '../shapes';
-import { Check, Copy } from 'lucide-react';
+import { Check, Copy } from '@/components/ui/icons';
 
 const SHAPES = [
   { id: 'triangle', name: 'Triangle', Component: TriangleShape, category: 'Geometric' },

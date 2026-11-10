@@ -97,7 +97,7 @@ export const CustomCourseModal: React.FC<Props> = ({
           <button
             type="button"
             onClick={() => setMode('catalog')}
-            className={`flex-1 py-2 px-2 rounded-md text-xs font-['Oswald'] uppercase font-bold transition-all min-h-[44px] flex items-center justify-center cursor-pointer ${
+            className={`flex-1 py-2 px-2 rounded-md text-xs font-heading uppercase font-bold transition-all min-h-[44px] flex items-center justify-center cursor-pointer ${
               mode === 'catalog'
                 ? 'bg-foreground text-background text-white shadow-xs'
                 : 'text-gray-600 hover:text-foreground'
@@ -111,7 +111,7 @@ export const CustomCourseModal: React.FC<Props> = ({
               setMode('custom');
               setCategory('formacao_livre');
             }}
-            className={`flex-1 py-2 px-2 rounded-md text-xs font-['Oswald'] uppercase font-bold transition-all min-h-[44px] flex items-center justify-center cursor-pointer ${
+            className={`flex-1 py-2 px-2 rounded-md text-xs font-heading uppercase font-bold transition-all min-h-[44px] flex items-center justify-center cursor-pointer ${
               mode === 'custom'
                 ? 'bg-secondary text-white shadow-xs'
                 : 'text-gray-600 hover:text-foreground'
@@ -145,7 +145,7 @@ export const CustomCourseModal: React.FC<Props> = ({
             </div>
           ) : (
             <div className="space-y-3">
-              <div className="p-2.5 bg-[#FEF3C7] border border-warning/30 rounded text-xs text-foreground leading-relaxed">
+              <div className="p-2.5 bg-warning-tint border border-warning/30 rounded text-xs text-foreground leading-relaxed">
                 <i className="bi bi-info-circle-fill text-warning mr-1" aria-hidden="true" />
                 Você pode adicionar qualquer disciplina cursada em outros departamentos da UFMG (FACE, Faculdade de Direito, ECI, ICEx, etc.) para compor as <strong>120h de Formação Livre</strong> ou eletivas.
               </div>
@@ -261,13 +261,13 @@ export const CustomCourseModal: React.FC<Props> = ({
             <button
               type="button"
               onClick={onClose}
-              className="min-h-[44px] px-4 py-2 bg-background hover:bg-[#EAE6DE] border border-muted rounded-lg text-xs font-['Oswald'] uppercase font-bold text-gray-700"
+              className="min-h-[44px] px-4 py-2 bg-background hover:bg-muted border border-muted rounded-lg text-xs font-heading uppercase font-bold text-gray-700"
             >
               Cancelar
             </button>
             <button
               type="submit"
-              className="min-h-[44px] px-5 py-2 bg-secondary text-white hover:bg-foreground text-background rounded-lg font-['Oswald'] text-xs uppercase font-bold tracking-wider shadow-[2px_2px_0px_#1F1F1F] transition-all"
+              className="min-h-[44px] px-5 py-2 bg-secondary text-white hover:bg-secondary-hover rounded-lg font-heading text-xs uppercase font-bold tracking-wider shadow-sm transition-all"
             >
               Confirmar & Inserir no Grafo
             </button>

@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import allCourses from '@/data/curatedEnapCourses.json';
 import { getVaultItem, setVaultItem } from '@/lib/storage/studentVault';
-import { toast } from 'sonner';
+import { toast } from '@/lib/toast';
 import { tactileSpring, bounceSpring } from '@/lib/motion';
 
 interface Course {
@@ -25,7 +25,7 @@ const CAGP_COURSES = [
     modality: 'Híbrido (FAFICH/UFMG + Gravação)',
     status: 'Proposta 10 • Inscrição Simulada Aberta',
     tag: 'UFMG / CAGP • Formação Política',
-    color: 'bg-[#FEF3C7] text-[#1F1F1F] border-[#1F1F1F]',
+    color: 'bg-warning-tint text-foreground border-border',
     desc: 'Elaboração de emendas, leitura de relatórios orçamentários do SIAFI/SIAFEM e análise das contas da UFMG e de Belo Horizonte.',
   },
   {
@@ -37,7 +37,7 @@ const CAGP_COURSES = [
     modality: 'Online com Tutorias Síncronas na FAFICH',
     status: 'Proposta 10 • Inscrição Simulada Aberta',
     tag: 'UFMG / DCP • Metodologia & Dados',
-    color: 'bg-[#DCFCE7] text-[#166534] border-[#1F1F1F]',
+    color: 'bg-success-tint text-success border-border',
     desc: 'Manipulação de microdados do Censo, PNAD e dados abertos do governo federal para formulação de diagnósticos sociais.',
   },
   {
@@ -49,7 +49,7 @@ const CAGP_COURSES = [
     modality: 'Presencial Auditório Baesse / FAFICH UFMG',
     status: 'Confirmado 2026/1 • Chapa Semente',
     tag: 'Carreira & Extensão UFMG',
-    color: 'bg-[#EFE7F6] text-[#5B2A85] border-[#1F1F1F]',
+    color: 'bg-primary-tint text-primary border-border',
     desc: 'Encontros com servidores de carreira da União e do Estado de Minas Gerais para debater concursos, desafios e autonomia técnica.',
   },
 ];
@@ -120,7 +120,7 @@ export const CursosCatalogHub: React.FC = () => {
       );
     } catch (e) {
       console.error('Erro ao salvar curso na calculadora', e);
-      toast.error('Erro ao salvar no cofre discente.');
+      toast.error('Não deu pra salvar neste celular. Libere espaço no navegador e tente de novo.');
     }
   };
 
@@ -156,10 +156,10 @@ export const CursosCatalogHub: React.FC = () => {
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-1">
-              <span className="text-xs font-heading font-black uppercase text-[#5B2A85] tracking-wider">
+              <span className="text-xs font-heading font-black uppercase text-primary tracking-wider">
                 Proposta 10 da Chapa Semente • Formação Livre UFMG
               </span>
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#FFEEDB] border-2 border-[#1F1F1F] text-xs font-heading font-black uppercase text-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-accent-tint border-2 border-border text-xs font-heading font-black uppercase text-foreground shadow-sm">
                 Ferramenta Criada pela Chapa Semente
               </span>
             </div>
@@ -168,7 +168,7 @@ export const CursosCatalogHub: React.FC = () => {
               Cursos Livres & Oficinas do CAGP / UFMG (2026)
             </h3>
           </div>
-          <span className="text-xs font-mono font-black px-2.5 py-1 rounded-lg bg-white border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] text-foreground">
+          <span className="text-xs font-mono font-black px-2.5 py-1 rounded-lg bg-white border-2 border-border shadow-sm text-foreground">
             Certificados Válidos para ACG / AAC
           </span>
         </div>
@@ -181,14 +181,14 @@ export const CursosCatalogHub: React.FC = () => {
                 key={cur.id}
                 whileHover={{ x: -2, y: -3 }}
                 transition={tactileSpring}
-                className="p-5 rounded-xl border-2 border-[#1F1F1F] bg-white shadow-[3px_3px_0_0_#1F1F1F] hover:shadow-[6px_6px_0px_#1F1F1F] flex flex-col justify-between gap-4 transition-shadow"
+                className="p-5 rounded-xl border-2 border-border bg-white shadow-md hover:shadow-xl flex flex-col justify-between gap-4 transition-shadow"
               >
                 <div>
                   <div className="flex flex-wrap items-center justify-between gap-2 mb-2.5">
-                    <span className={`text-xs font-heading font-black uppercase px-2.5 py-0.5 rounded-md border-2 ${cur.color} shadow-[2px_2px_0_0_#1F1F1F]`}>
+                    <span className={`text-xs font-heading font-black uppercase px-2.5 py-0.5 rounded-md border-2 ${cur.color} shadow-sm`}>
                       {cur.tag}
                     </span>
-                    <span className="inline-flex items-center gap-1 text-xs font-mono font-black px-2 py-0.5 rounded-md bg-[#1F1F1F] text-[#FFEEDB] border-2 border-[#1F1F1F]">
+                    <span className="inline-flex items-center gap-1 text-xs font-mono font-black px-2 py-0.5 rounded-md bg-foreground text-accent-tint border-2 border-border">
                       <i className="bi bi-patch-check-fill" aria-hidden="true"></i>
                       <span>VÁLIDO ACG • {cur.hours}H</span>
                     </span>
@@ -202,19 +202,19 @@ export const CursosCatalogHub: React.FC = () => {
                     {cur.desc}
                   </p>
 
-                  <div className="mt-3 p-2.5 rounded-lg bg-[#FAF6F0] border-2 border-[#1F1F1F] text-xs font-mono text-foreground space-y-1">
+                  <div className="mt-3 p-2.5 rounded-lg bg-background border-2 border-border text-xs font-mono text-foreground space-y-1">
                     <div><strong>Modalidade:</strong> {cur.modality}</div>
                     <div><strong>Ministrantes:</strong> {cur.speaker}</div>
-                    <div className="text-[#5B2A85] font-bold"><strong>⚖️ Enquadramento:</strong> {cur.acgGroup}</div>
+                    <div className="text-primary font-bold"><i className="bi bi-balance-scale mr-1" aria-hidden="true" /><strong>Enquadramento:</strong> {cur.acgGroup}</div>
                   </div>
                 </div>
 
                 <div className="pt-3 border-t-2 border-border space-y-2">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-heading font-black text-[#5B2A85] uppercase">
+                    <span className="font-heading font-black text-primary uppercase">
                       {cur.status}
                     </span>
-                    <span className="font-mono font-bold text-[#166534]">
+                    <span className="font-mono font-bold text-success">
                       100% Gratuito
                     </span>
                   </div>
@@ -229,10 +229,10 @@ export const CursosCatalogHub: React.FC = () => {
                         certifier: 'CAGP / DCP UFMG (Proposta 10)',
                       })
                     }
-                    className={`w-full min-h-[44px] py-2 px-3 rounded-xl text-xs font-heading font-black uppercase border-3 border-[#1F1F1F] transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                    className={`w-full min-h-[44px] py-2 px-3 rounded-xl text-xs font-heading font-black uppercase border-3 border-border transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                       isSimulated
-                        ? 'bg-[#DCFCE7] text-[#166534] shadow-[2px_2px_0_0_#1F1F1F]'
-                        : 'bg-[#5B2A85] text-white shadow-[3px_3px_0_0_#1F1F1F] hover:bg-[#48206B] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none'
+                        ? 'bg-success-tint text-success shadow-sm'
+                        : 'bg-primary text-white shadow-md hover:bg-primary-hover active:translate-x-[1px] active:translate-y-[1px] active:shadow-none'
                     }`}
                   >
                     {isSimulated ? (
@@ -242,7 +242,7 @@ export const CursosCatalogHub: React.FC = () => {
                       </>
                     ) : (
                       <>
-                        <i className="bi bi-lightning-charge-fill text-[#FFEEDB]" aria-hidden="true"></i>
+                        <i className="bi bi-lightning-charge-fill text-accent-tint" aria-hidden="true"></i>
                         <span>Inscrever / Simular +{cur.hours}h ACG</span>
                       </>
                     )}
@@ -254,16 +254,13 @@ export const CursosCatalogHub: React.FC = () => {
         </div>
       </div>
 
-      {/* Catálogo Curado ENAP / EV.G */}
-      <div className="p-4 sm:p-6 rounded-xl bg-card border-2 border-[#1F1F1F] shadow-[5px_5px_0px_#1F1F1F] space-y-5">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b-3 border-[#1F1F1F]">
+      {/* Catálogo Curado ENAP / EV.G — alvo do tour (parada do Ítalo) */}
+      <div data-tour="italo" className="p-4 sm:p-6 rounded-xl bg-card border-2 border-border shadow-lg space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b-3 border-border">
           <div>
-            <span className="text-xs font-heading font-black uppercase text-[#5B2A85] tracking-wider">
-              Escola Virtual de Governo (EV.G / ENAP) • Curadoria Proposta 10
-            </span>
             <h3 className="text-lg sm:text-xl font-heading font-black text-foreground flex items-center gap-2 m-0">
               <i className="bi bi-collection-fill text-primary" aria-hidden="true"></i>
-              Catálogo de Cursos Gratuitos ENAP / EV.G (1.045+ Cursos)
+              Cursos gratuitos da ENAP e da EV.G
             </h3>
             <p className="text-xs text-muted-foreground mt-1 m-0">
               Cursos autoinstrucionais gratuitos com certificado oficial do Governo Federal válidos para Extensão e Atividades Complementares (AAC).
@@ -275,9 +272,9 @@ export const CursosCatalogHub: React.FC = () => {
             initial={{ scale: 1.15 }}
             animate={{ scale: 1 }}
             transition={bounceSpring}
-            className="flex items-center gap-2 bg-[#DCFCE7] text-[#166534] border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] px-3.5 py-2 rounded-xl font-mono text-xs font-black shrink-0 self-start sm:self-auto"
+            className="flex items-center gap-2 bg-success-tint text-success border-3 border-border shadow-md px-3.5 py-2 rounded-xl font-mono text-xs font-black shrink-0 self-start sm:self-auto"
           >
-            <i className="bi bi-bookmark-check-fill text-[#166534]" aria-hidden="true"></i>
+            <i className="bi bi-bookmark-check-fill text-success" aria-hidden="true"></i>
             <span>{savedCourses.length} cursos simulados nas 600h</span>
           </motion.div>
         </div>
@@ -290,9 +287,9 @@ export const CursosCatalogHub: React.FC = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Buscar curso gratuito ENAP por título, ementa ou área (ex: Licitações, Dados, Orçamento)..."
-              className="w-full pl-10 pr-4 py-2.5 text-sm bg-white border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] rounded-xl focus:outline-none focus:ring-3 focus:ring-[#5B2A85] focus:border-[#5B2A85] min-h-[46px] font-sans"
+              className="w-full pl-10 pr-4 py-2.5 text-sm bg-white border-3 border-border shadow-md rounded-xl focus:outline-none focus:ring-3 focus:ring-primary focus:border-primary min-h-[46px] font-sans"
             />
-            <i className="bi bi-search absolute left-3.5 top-3.5 text-[#5B2A85] text-sm font-bold" aria-hidden="true"></i>
+            <i className="bi bi-search absolute left-3.5 top-3.5 text-primary text-sm font-bold" aria-hidden="true"></i>
           </div>
 
           <div className="lg:col-span-5 flex gap-1.5 overflow-x-auto pb-1 lg:pb-0 scroll-mask-x scrollbar-none">
@@ -306,10 +303,10 @@ export const CursosCatalogHub: React.FC = () => {
                 key={f.id}
                 type="button"
                 onClick={() => setSelectedHoursFilter(f.id as any)}
-                className={`px-3 py-2 rounded-xl text-xs font-heading font-black uppercase border-3 border-[#1F1F1F] transition-all shrink-0 cursor-pointer min-h-[44px] ${
+                className={`px-3 py-2 rounded-xl text-xs font-heading font-black uppercase border-3 border-border transition-all shrink-0 cursor-pointer min-h-[44px] ${
                   selectedHoursFilter === f.id
-                    ? 'bg-[#5B2A85] text-white shadow-[3px_3px_0px_#1F1F1F]'
-                    : 'bg-white hover:bg-[#FAF6F0] text-foreground shadow-[2px_2px_0px_#1F1F1F]'
+                    ? 'bg-primary text-white shadow-md'
+                    : 'bg-white hover:bg-background text-foreground shadow-sm'
                 }`}
               >
                 {f.label}
@@ -324,7 +321,7 @@ export const CursosCatalogHub: React.FC = () => {
             Filtrar Eixo:
           </span>
           {[
-            { id: 'all', label: 'Todos os Eixos' },
+            { id: 'all', label: 'Todas as áreas' },
             { id: 'licitações', label: 'Licitações & Contratos' },
             { id: 'dados', label: 'Governança & Dados' },
             { id: 'pessoas', label: 'Gestão de Pessoas' },
@@ -335,10 +332,10 @@ export const CursosCatalogHub: React.FC = () => {
               key={ax.id}
               type="button"
               onClick={() => setSelectedAxis(ax.id)}
-              className={`min-h-[44px] px-3 py-1.5 rounded-xl text-xs font-heading uppercase font-extrabold border-2 border-[#1F1F1F] cursor-pointer shrink-0 transition-all ${
+              className={`min-h-[44px] px-3 py-1.5 rounded-xl text-xs font-heading uppercase font-extrabold border-2 border-border cursor-pointer shrink-0 transition-all ${
                 selectedAxis === ax.id
-                  ? 'bg-[#1F1F1F] text-[#FFEEDB] shadow-[2px_2px_0_0_#5B2A85]'
-                  : 'bg-white hover:bg-[#FAF6F0] text-foreground shadow-[2px_2px_0_0_#1F1F1F]'
+                  ? 'bg-foreground text-accent-tint shadow-[2px_2px_0_0_#5B2A85]'
+                  : 'bg-white hover:bg-background text-foreground shadow-sm'
               }`}
             >
               {ax.label}
@@ -352,7 +349,7 @@ export const CursosCatalogHub: React.FC = () => {
             <span>
               Exibindo {Math.min(visibleCount, filteredCourses.length)} de {filteredCourses.length} cursos gratuitos encontrados
             </span>
-            <span className="text-[#5B2A85]">
+            <span className="text-primary">
               Clique em "Simular / Inscrever" para somar na Calculadora 600h
             </span>
           </div>
@@ -371,17 +368,17 @@ export const CursosCatalogHub: React.FC = () => {
                     exit={{ opacity: 0, scale: 0.92 }}
                     whileHover={{ x: -2, y: -3 }}
                     transition={tactileSpring}
-                    className={`p-4 rounded-xl border-2 border-[#1F1F1F] bg-white shadow-[3px_3px_0_0_#1F1F1F] hover:shadow-[6px_6px_0px_#1F1F1F] flex flex-col justify-between gap-3 transition-shadow ${
-                      isSaved ? 'ring-3 ring-[#166534] bg-[#F0FDF4]' : ''
+                    className={`p-4 rounded-xl border-2 border-border bg-white shadow-md hover:shadow-xl flex flex-col justify-between gap-3 transition-shadow ${
+                      isSaved ? 'ring-3 ring-success bg-success-tint' : ''
                     }`}
                   >
                     <div>
                       <div className="flex items-center justify-between gap-2 mb-2">
-                        <span className="text-xs font-heading font-extrabold uppercase px-2 py-0.5 rounded-md bg-[#FAF6F0] border-2 border-[#1F1F1F] text-foreground truncate max-w-[165px]">
+                        <span className="text-xs font-heading font-extrabold uppercase px-2 py-0.5 rounded-md bg-background border-2 border-border text-foreground truncate max-w-[165px]">
                           {c.axis}
                         </span>
-                        <span className="inline-flex items-center gap-1 text-xs font-mono font-black text-[#1F1F1F] px-2 py-0.5 bg-[#FFEEDB] rounded-md border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] shrink-0">
-                          <i className="bi bi-patch-check-fill text-[#5B2A85]" aria-hidden="true"></i>
+                        <span className="inline-flex items-center gap-1 text-xs font-mono font-black text-foreground px-2 py-0.5 bg-accent-tint rounded-md border-2 border-border shadow-sm shrink-0">
+                          <i className="bi bi-patch-check-fill text-primary" aria-hidden="true"></i>
                           <span>ACG • {c.hours}h</span>
                         </span>
                       </div>
@@ -396,7 +393,7 @@ export const CursosCatalogHub: React.FC = () => {
 
                       <div className="flex items-center justify-between text-xs font-mono font-bold text-muted-foreground mt-2.5 pt-2 border-t border-border">
                         <span>Certificador: {c.certifier}</span>
-                        <span className="text-[#166534]">Válido AAC/Ext</span>
+                        <span className="text-success">Válido AAC/Ext</span>
                       </div>
                     </div>
 
@@ -404,20 +401,20 @@ export const CursosCatalogHub: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => handleAddCourseTo600h(c)}
-                        className={`w-full py-2 px-3 text-xs font-heading font-black uppercase rounded-xl border-3 border-[#1F1F1F] transition-all flex items-center justify-center gap-1.5 cursor-pointer min-h-[44px] ${
+                        className={`w-full py-2 px-3 text-xs font-heading font-black uppercase rounded-xl border-3 border-border transition-all flex items-center justify-center gap-1.5 cursor-pointer min-h-[44px] ${
                           isSaved
-                            ? 'bg-[#DCFCE7] text-[#166534] shadow-[2px_2px_0px_#1F1F1F] font-bold'
-                            : 'bg-[#5B2A85] text-white shadow-[3px_3px_0px_#1F1F1F] hover:bg-[#48206B] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none'
+                            ? 'bg-success-tint text-success shadow-sm font-bold'
+                            : 'bg-primary text-white shadow-md hover:bg-primary-hover active:translate-x-[1px] active:translate-y-[1px] active:shadow-none'
                         }`}
                       >
                         {isSaved ? (
                           <>
-                            <i className="bi bi-check-circle-fill text-[#166534]" aria-hidden="true"></i>
+                            <i className="bi bi-check-circle-fill text-success" aria-hidden="true"></i>
                             <span>Simulado nas 600h</span>
                           </>
                         ) : (
                           <>
-                            <i className="bi bi-plus-circle-fill text-[#FFEEDB]" aria-hidden="true"></i>
+                            <i className="bi bi-plus-circle-fill text-accent-tint" aria-hidden="true"></i>
                             <span>Simular / Inscrever (+{c.hours}h ACG)</span>
                           </>
                         )}
@@ -427,7 +424,7 @@ export const CursosCatalogHub: React.FC = () => {
                         href={c.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-1.5 w-full min-h-[40px] rounded-lg border-2 border-[#1F1F1F] bg-[#FAF6F0] hover:bg-[#FFEEDB] text-xs font-heading font-extrabold uppercase text-[#1F1F1F] transition-colors no-underline"
+                        className="inline-flex items-center justify-center gap-1.5 w-full min-h-[40px] rounded-lg border-2 border-border bg-background hover:bg-accent-tint text-xs font-heading font-extrabold uppercase text-foreground transition-colors no-underline"
                       >
                         <span>Inscrição Gratuita no Portal EV.G</span>
                         <i className="bi bi-box-arrow-up-right text-xs" aria-hidden="true"></i>
@@ -444,7 +441,7 @@ export const CursosCatalogHub: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setVisibleCount((prev) => prev + 18)}
-                className="px-6 py-3 bg-[#FFEEDB] text-[#1F1F1F] font-heading font-black text-xs uppercase rounded-xl border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] hover:bg-[#5B2A85] hover:text-white active:translate-y-[1px] transition-all cursor-pointer min-h-[48px]"
+                className="px-6 py-3 bg-accent-tint text-foreground font-heading font-black text-xs uppercase rounded-xl border-3 border-border shadow-md hover:bg-primary hover:text-white active:translate-y-[1px] transition-all cursor-pointer min-h-[48px]"
               >
                 Carregar Mais Cursos Gratuitos (+18)
               </button>

@@ -34,6 +34,7 @@ const {
     aria-orientation="horizontal"
     data-tab-count={tabs.length}
   >
+    <span class="cagp-workspace-indicator" aria-hidden="true"></span>
     {tabs.map((tab) => {
       const isSelected = tab.id === defaultTab;
       return (
@@ -119,13 +120,43 @@ const {
       const barBottom = bar.getBoundingClientRect().bottom;
       const panelTop = panel.getBoundingClientRect().top;
       if (panelTop < barBottom) {
-        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        window.scrollTo({ top: window.scrollY + panelTop - barBottom - 8, behavior: reduce ? 'auto' : 'smooth' });
+        window.scrollTo({ top: window.scrollY + panelTop - barBottom - 8, behavior: 'smooth' });
       }
     };
 
     bars.forEach((bar) => {
       const tabs = bar.querySelectorAll<HTMLButtonElement>('.cagp-workspace-tab');
+      const tabList = bar.querySelector<HTMLElement>('.cagp-workspace-tabs');
+      const indicator = bar.querySelector<HTMLElement>('.cagp-workspace-indicator');
+
+      // Indicador deslizante: segue a aba ativa com a mola (--ease-spring). Na visão contínua some.
+      const placeIndicator = () => {
+        if (!tabList || !indicator) return;
+        const active = Array.from(tabs).find((t) => t.classList.contains('is-active'));
+        if (!active) {
+          tabList.classList.remove('has-indicator');
+          return;
+        }
+        indicator.style.transform = `translate(${active.offsetLeft}px, ${active.offsetTop}px)`;
+        indicator.style.width = `${active.offsetWidth}px`;
+        indicator.style.height = `${active.offsetHeight}px`;
+        tabList.classList.add('has-indicator');
+      };
+      placeIndicator();
+      requestAnimationFrame(() => tabList?.classList.add('is-ready'));
+      const resizeObserver = new ResizeObserver(() => placeIndicator());
+      if (tabList) resizeObserver.observe(tabList);
+      unbindCallbacks.push(() => resizeObserver.disconnect());
+      if (tabList) {
+        const press = () => tabList.classList.add('is-pressing');
+        const release = () => tabList.classList.remove('is-pressing');
+        tabList.addEventListener('pointerdown', press);
+        window.addEventListener('pointerup', release);
+        unbindCallbacks.push(() => {
+          tabList.removeEventListener('pointerdown', press);
+          window.removeEventListener('pointerup', release);
+        });
+      }
       const viewAllBtn = bar.querySelector<HTMLButtonElement>('.cagp-workspace-viewall');
       const panels = document.querySelectorAll<HTMLElement>('.cagp-workspace-view');
 
@@ -149,6 +180,7 @@ const {
           viewAllBtn?.setAttribute('aria-pressed', 'true');
           viewAllBtn?.classList.add('is-active');
           panels.forEach((p) => p.removeAttribute('hidden'));
+          placeIndicator();
           if (updateHash) history.replaceState(null, '', '#visao-completa');
           return;
         }
@@ -169,6 +201,8 @@ const {
             }
           }
         });
+
+        placeIndicator();
 
         panels.forEach((p) => {
           const panelId = p.getAttribute('data-ws-panel') || p.id.replace('ws-panel-', '');

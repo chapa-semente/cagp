@@ -147,25 +147,25 @@ export const CursoCandangosAndTimeline: React.FC = () => {
   return (
     <section className="space-y-8 my-6 text-foreground" aria-label="Memória dos Candangos de 1959, Linha do Tempo e Carreiras Públicas">
       {/* 1. Dossiê Editorial Ampliado: Os Candangos de 1959 & A Identidade da Gestão Pública na UFMG */}
-      <div className="p-5 sm:p-7 bg-white border-2 border-[#1F1F1F] rounded-2xl shadow-[8px_8px_0_0_#1F1F1F] space-y-6">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b-3 border-[#1F1F1F] pb-4">
+      <div className="p-5 sm:p-7 bg-white border-2 border-border rounded-2xl shadow-xl space-y-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b-3 border-border pb-4">
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-1.5">
-              <span className="px-2.5 py-0.5 rounded-md bg-[#9E2424] text-white font-mono text-xs font-black uppercase border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]">
+              <span className="px-2.5 py-0.5 rounded-md bg-[#9E2424] text-white font-mono text-xs font-black uppercase border-2 border-border shadow-sm">
                 MEMÓRIA HISTÓRICA • BRUNO GIORGI (1959)
               </span>
-              <span className="px-2.5 py-0.5 rounded-md bg-[#5B2A85] text-white font-mono text-xs font-black uppercase border-2 border-[#1F1F1F]">
+              <span className="px-2.5 py-0.5 rounded-md bg-primary text-white font-mono text-xs font-black uppercase border-2 border-border">
                 SÍMBOLO OFICIAL DO CAGP UFMG
               </span>
             </div>
-            <h2 className="font-head text-xl sm:text-2xl md:text-3xl font-black text-[#1F1F1F] m-0">
+            <h2 className="font-head text-xl sm:text-2xl md:text-3xl font-black text-foreground m-0">
               Os Candangos de 1959 &amp; A Construção Democrática do Estado
             </h2>
             <p className="text-xs sm:text-sm text-gray-800 mt-1 m-0 font-body font-medium max-w-4xl">
               Por que o monumento <em>Dois Guerreiros ("Os Candangos")</em>, inaugurado em 1959 na Praça dos Três Poderes, batiza a identidade visual do Bacharelado em Gestão Pública da FAFICH/UFMG?
             </p>
           </div>
-          <span className="px-3.5 py-2 rounded-xl bg-[#1F1F1F] text-white font-mono text-xs font-black uppercase shrink-0 border-2 border-[#1F1F1F] shadow-[3px_3px_0_0_#FE8812]">
+          <span className="px-3.5 py-2 rounded-xl bg-foreground text-white font-mono text-xs font-black uppercase shrink-0 border-2 border-border shadow-[3px_3px_0_0_#FE8812]">
             1959 → 2009 → 2026
           </span>
         </div>
@@ -176,7 +176,7 @@ export const CursoCandangosAndTimeline: React.FC = () => {
             <motion.div
               whileHover={photoCardHover}
               whileTap={photoCardTap}
-              className="cagp-photo-frame relative aspect-[16/10] min-h-[280px] sm:min-h-[360px] w-full rounded-xl border-3 border-[#1F1F1F] shadow-[8px_8px_0_0_#1F1F1F] overflow-hidden bg-[#F4F2EC]"
+              className="cagp-photo-frame relative aspect-[16/10] min-h-[280px] sm:min-h-[360px] w-full rounded-xl border-3 border-border shadow-xl overflow-hidden bg-background"
             >
               <img
                 src={asset('/imagens/os-candangos.jpg')}
@@ -184,10 +184,10 @@ export const CursoCandangosAndTimeline: React.FC = () => {
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
-              <span className="absolute top-3 left-3 px-3 py-1 rounded-md bg-[#9E2424] text-white font-mono font-black text-xs uppercase tracking-wider border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]">
+              <span className="absolute top-3 left-3 px-3 py-1 rounded-md bg-[#9E2424] text-white font-mono font-black text-xs uppercase tracking-wider border-2 border-border shadow-sm">
                 PRAÇA DOS TRÊS PODERES • 1959
               </span>
-              <div className="absolute bottom-4 left-4 right-4 text-white space-y-1 bg-[#1F1F1F] rounded-lg px-3 py-2.5">
+              <div className="absolute bottom-4 left-4 right-4 text-white space-y-1 bg-foreground rounded-lg px-3 py-2.5">
                 <h3 className="font-head font-black text-base sm:text-xl leading-tight m-0">
                   &ldquo;Dois Guerreiros&rdquo; (Os Candangos) — Escultura em Bronze de Bruno Giorgi
                 </h3>
@@ -197,13 +197,13 @@ export const CursoCandangosAndTimeline: React.FC = () => {
               </div>
             </motion.div>
 
-            <div className="p-4 rounded-xl border-2 border-[#1F1F1F] bg-[#ffffff] shadow-[3px_3px_0_0_#1F1F1F] flex items-center gap-4">
+            <div className="p-4 rounded-xl border-2 border-border bg-white shadow-md flex items-center gap-4">
               <img
                 src={asset('/logos/cagp/01_vertical_fundo_claro.svg')}
                 alt="Logotipo Oficial do CAGP estilizando Os Candangos"
-                className="w-16 h-16 object-contain rounded-lg border-2 border-[#1F1F1F] bg-white p-1.5 shrink-0"
+                className="w-16 h-16 object-contain rounded-lg border-2 border-border bg-white p-1.5 shrink-0"
               />
-              <p className="text-xs text-[#1F1F1F] font-body font-medium leading-relaxed m-0">
+              <p className="text-xs text-foreground font-body font-medium leading-relaxed m-0">
                 <strong>Da Escultura de 1959 ao Símbolo do CAGP (2009):</strong> O traço geométrico rubro (<code>#9E2424</code>) do Centro Acadêmico une os dois guerreiros pelo prumo republicano central, lembrando a cada estudante que gerir a coisa pública é servir ao povo trabalhador.
               </p>
             </div>
@@ -213,7 +213,7 @@ export const CursoCandangosAndTimeline: React.FC = () => {
             <motion.div
               whileHover={photoCardHover}
               whileTap={photoCardTap}
-              className="cagp-photo-frame relative aspect-[4/3] min-h-[280px] sm:min-h-[360px] w-full rounded-xl border-3 border-[#1F1F1F] shadow-[8px_8px_0_0_#1F1F1F] overflow-hidden bg-[#F4F2EC] flex-1"
+              className="cagp-photo-frame relative aspect-[4/3] min-h-[280px] sm:min-h-[360px] w-full rounded-xl border-3 border-border shadow-xl overflow-hidden bg-background flex-1"
             >
               <img
                 src={asset('/imagens/semente/foto_campus_universitario.jpg')}
@@ -221,10 +221,10 @@ export const CursoCandangosAndTimeline: React.FC = () => {
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
-              <span className="absolute top-3 left-3 px-3 py-1 rounded-md bg-[#5B2A85] text-white font-mono font-black text-xs uppercase tracking-wider border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]">
+              <span className="absolute top-3 left-3 px-3 py-1 rounded-md bg-primary text-white font-mono font-black text-xs uppercase tracking-wider border-2 border-border shadow-sm">
                 FAFICH / UFMG • REUNI 2009
               </span>
-              <div className="absolute bottom-4 left-4 right-4 text-white space-y-1 bg-[#1F1F1F] rounded-lg px-3 py-2.5">
+              <div className="absolute bottom-4 left-4 right-4 text-white space-y-1 bg-foreground rounded-lg px-3 py-2.5">
                 <h3 className="font-head font-black text-base sm:text-lg leading-tight m-0">
                   Território do Campo de Públicas na UFMG
                 </h3>
@@ -234,11 +234,11 @@ export const CursoCandangosAndTimeline: React.FC = () => {
               </div>
             </motion.div>
 
-            <div className="p-4 rounded-xl border-2 border-[#1F1F1F] bg-[#EFE7F6] shadow-[3px_3px_0_0_#1F1F1F] space-y-1.5">
-              <span className="font-mono text-xs font-black uppercase text-[#5B2A85] block">
+            <div className="p-4 rounded-xl border-2 border-border bg-primary-tint shadow-md space-y-1.5">
+              <span className="font-mono text-xs font-black uppercase text-primary block">
                 SEMIÓTICA TRÍPLICE • CANDANGOS + SEMENTE + UFMG
               </span>
-              <p className="text-xs text-[#1F1F1F] font-body font-medium leading-relaxed m-0">
+              <p className="text-xs text-foreground font-body font-medium leading-relaxed m-0">
                 A <strong>Chapa Semente</strong> honra o legado dos Candangos de 1959 com trabalho real: entregamos o portal e as calculadoras do curso funcionando antes mesmo das urnas.
               </p>
             </div>
@@ -247,13 +247,10 @@ export const CursoCandangosAndTimeline: React.FC = () => {
       </div>
 
       {/* 2. Linha do Tempo Histórica Animada (timeline.tsx + motion/react) */}
-      <div className="p-5 sm:p-7 bg-white border-2 border-[#1F1F1F] rounded-2xl shadow-[6px_6px_0_0_#1F1F1F] space-y-5">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b-3 border-[#1F1F1F] pb-3">
+      <div className="p-5 sm:p-7 bg-white border-2 border-border rounded-2xl shadow-xl space-y-5">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b-3 border-border pb-3">
           <div>
-            <span className="font-mono text-xs font-black uppercase text-secondary block">
-              LINHA DO TEMPO INTERATIVA • TIMELINE.TSX
-            </span>
-            <h3 className="font-head text-lg sm:text-2xl font-black text-[#1F1F1F] m-0">
+            <h3 className="font-head text-lg sm:text-2xl font-black text-foreground m-0">
               Trajetória Histórica: De 1959 à Gestão Pública na UFMG (2026)
             </h3>
           </div>
@@ -270,7 +267,7 @@ export const CursoCandangosAndTimeline: React.FC = () => {
               <motion.div key={milestone.year} variants={staggerItem}>
                 <TimelineItem status={milestone.status}>
                   <TimelineHeader className="flex-col items-center mr-2 sm:mr-4">
-                    <TimelineTime className="font-mono font-black text-xs sm:text-sm text-[#1F1F1F] bg-[#FEF3C7] px-2.5 py-1 rounded-md border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] mb-2">
+                    <TimelineTime className="font-mono font-black text-xs sm:text-sm text-foreground bg-warning-tint px-2.5 py-1 rounded-md border-2 border-border shadow-sm mb-2">
                       {milestone.year}
                     </TimelineTime>
                     <TimelineDot
@@ -278,8 +275,8 @@ export const CursoCandangosAndTimeline: React.FC = () => {
                       size="md"
                       className={
                         milestone.highlight
-                          ? 'bg-[#FE8812] text-[#1F1F1F] border-3 border-[#1F1F1F]'
-                          : 'bg-[#5B2A85] text-white border-3 border-[#1F1F1F]'
+                          ? 'bg-accent text-foreground border-3 border-border'
+                          : 'bg-primary text-white border-3 border-border'
                       }
                     >
                       <span className="font-mono text-xs font-black">{idx + 1}</span>
@@ -291,15 +288,15 @@ export const CursoCandangosAndTimeline: React.FC = () => {
 
                   <TimelineContent className="pb-6">
                     <TimelineCard
-                      className={`rounded-xl border-2 border-[#1F1F1F] p-4 sm:p-5 shadow-[3px_3px_0_0_#1F1F1F] ${
-                        milestone.highlight ? 'bg-[#FFF8F6] border-[#9E2424]' : 'bg-white'
+                      className={`rounded-xl border-2 border-border p-4 sm:p-5 shadow-md ${
+                        milestone.highlight ? 'bg-background border-[#9E2424]' : 'bg-white'
                       }`}
                     >
                       <div className="flex flex-wrap items-center justify-between gap-2 mb-1.5">
-                        <TimelineTitle className="font-head text-sm sm:text-base font-black text-[#1F1F1F] m-0">
+                        <TimelineTitle className="font-head text-sm sm:text-base font-black text-foreground m-0">
                           {milestone.title}
                         </TimelineTitle>
-                        <span className="px-2.5 py-0.5 rounded-md bg-[#1F1F1F] text-white font-mono text-xs font-bold uppercase">
+                        <span className="px-2.5 py-0.5 rounded-md bg-foreground text-white font-mono text-xs font-bold uppercase">
                           {milestone.tag}
                         </span>
                       </div>
@@ -316,9 +313,9 @@ export const CursoCandangosAndTimeline: React.FC = () => {
       </div>
 
       {/* Ponte Direta para Egressos & Central de Carreira */}
-      <div className="p-5 rounded-2xl bg-[#ffffff] border-2 border-[#1F1F1F] shadow-[5px_5px_0_0_#1F1F1F] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="p-5 rounded-2xl bg-white border-2 border-border shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-1">
-          <h3 className="font-head text-base sm:text-lg font-black text-[#1F1F1F] m-0">
+          <h3 className="font-head text-base sm:text-lg font-black text-foreground m-0">
             Carreiras Públicas, Salários &amp; Inserção no Mercado
           </h3>
           <p className="text-xs sm:text-sm text-gray-700 font-body font-medium m-0">
@@ -328,13 +325,13 @@ export const CursoCandangosAndTimeline: React.FC = () => {
         <div className="flex flex-wrap gap-2.5 shrink-0">
           <a
             href="#egressos"
-            className="min-h-[44px] px-4 py-2 bg-secondary hover:bg-secondary-hover text-white rounded-xl font-head text-xs uppercase font-black tracking-wider inline-flex items-center justify-center gap-1.5 no-underline border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5 transition-all"
+            className="min-h-[44px] px-4 py-2 bg-secondary hover:bg-secondary-hover text-white rounded-xl font-head text-xs uppercase font-black tracking-wider inline-flex items-center justify-center gap-1.5 no-underline border-3 border-border shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5 transition-all"
           >
-            <span>Ver Egressos &amp; Salários →</span>
+            <span>Ver Egressos &amp; Salários <i className="bi bi-arrow-right" aria-hidden="true"></i></span>
           </a>
           <a
             href={route('/carreira')}
-            className="min-h-[44px] px-4 py-2 bg-white hover:bg-[#F4F2EC] text-[#1F1F1F] rounded-xl font-head text-xs uppercase font-black tracking-wider inline-flex items-center justify-center gap-1.5 no-underline border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5 transition-all"
+            className="min-h-[44px] px-4 py-2 bg-white hover:bg-background text-foreground rounded-xl font-head text-xs uppercase font-black tracking-wider inline-flex items-center justify-center gap-1.5 no-underline border-3 border-border shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5 transition-all"
           >
             <span>Central de Carreira</span>
           </a>

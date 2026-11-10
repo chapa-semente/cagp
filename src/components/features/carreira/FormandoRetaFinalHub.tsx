@@ -9,7 +9,7 @@ import {
 } from '@/lib/storage/studentVault';
 import { asset, route } from '@/lib/paths';
 import { tactileSpring, bounceSpring, staggerContainer, staggerItem } from '@/lib/motion';
-import { toast } from 'sonner';
+import { toast } from '@/lib/toast';
 
 interface RetaFinalStep {
   id: string;
@@ -180,7 +180,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
     });
     setChecks(next);
     setVaultItem('cagp_reta_final_checklist_v1', next);
-    toast.success('Etapas marcadas como concluídas no cofre local!');
+    toast.success('Pronto: etapas marcadas como feitas.');
   };
 
   const completedTotal = RETA_FINAL_STEPS.filter((s) => checks[s.id]).length;
@@ -208,7 +208,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
               <span className="px-2.5 py-1 rounded-md border-2 border-border bg-primary text-white font-mono text-xs font-bold uppercase shadow-2xs">
                 Persona: Formando (8º ao 10º Período)
               </span>
-              <span className="px-2.5 py-1 rounded-md border-2 border-border bg-[#134E4A] text-white font-mono text-xs font-bold uppercase shadow-2xs">
+              <span className="px-2.5 py-1 rounded-md border-2 border-border bg-petroleo-deep text-white font-mono text-xs font-bold uppercase shadow-2xs">
                 Estágio 300h + TCC 180h + Colação
               </span>
             </div>
@@ -216,7 +216,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
               Checklist Reta Final &amp; Painel Integrado de Colação de Grau
             </h2>
             <p className="font-sans text-xs sm:text-sm text-muted-foreground m-0 max-w-3xl leading-relaxed">
-              Acompanhe em uma única tela suas obrigações de <strong>Estágio Supervisionado (300h / Art. 41)</strong>, <strong>TCC (180h / Art. 19)</strong> e <strong>Colação de Grau no DRCA</strong>, com salvamento automático no cofre local seguro.
+              Acompanhe em uma única tela suas obrigações de <strong>Estágio Supervisionado (300h / Art. 41)</strong>, <strong>TCC (180h / Art. 19)</strong> e <strong>Colação de Grau no DRCA</strong>. Fica tudo salvo neste celular.
             </p>
           </div>
 
@@ -228,12 +228,12 @@ export const FormandoRetaFinalHub: React.FC = () => {
                 transition={tactileSpring}
                 type="button"
                 onClick={activateFormandoPersona}
-                className="min-h-[44px] px-4 py-2.5 rounded-xl border-3 border-border bg-[#FE8812] hover:bg-[#e67600] text-[#1F1F1F] font-heading text-xs font-black uppercase shadow-sm cursor-pointer transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                className="min-h-[44px] px-4 py-2.5 rounded-xl border-3 border-border bg-accent hover:bg-accent-hover text-foreground font-heading text-xs font-black uppercase shadow-sm cursor-pointer transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
                 Ativar Modo Formando no App
               </motion.button>
             ) : (
-              <span className="min-h-[44px] px-3.5 py-2 rounded-xl border-3 border-border bg-[#F0FDF4] text-[#134E4A] font-mono text-xs font-bold inline-flex items-center gap-1.5 shadow-xs">
+              <span className="min-h-[44px] px-3.5 py-2 rounded-xl border-3 border-border bg-success-tint text-petroleo-deep font-mono text-xs font-bold inline-flex items-center gap-1.5 shadow-xs">
                 <i className="bi bi-check-circle-fill text-emerald-600" aria-hidden="true" />
                 <span>Perfil Formando Ativo</span>
               </span>
@@ -246,7 +246,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
           <div className="p-4 rounded-xl border-2 border-border bg-card shadow-sm flex flex-col justify-between gap-3">
             <div>
               <div className="flex items-center justify-between gap-2 mb-1">
-                <span className="font-mono text-xs font-bold uppercase text-[#134E4A]">
+                <span className="font-mono text-xs font-bold uppercase text-petroleo-deep">
                   PILAR 1 • ESTÁGIO 300h
                 </span>
                 <span className="px-2 py-0.5 rounded bg-white border-2 border-border font-mono text-xs font-bold">
@@ -271,7 +271,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
               <button
                 type="button"
                 onClick={() => markCategoryDone('estagio')}
-                className="min-h-[44px] px-2.5 py-1.5 rounded-lg border-2 border-border bg-[#134E4A] hover:bg-[#0f3d3a] text-white font-mono text-xs font-bold uppercase cursor-pointer shadow-2xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#134E4A] focus-visible:ring-offset-1 transition-all"
+                className="min-h-[44px] px-2.5 py-1.5 rounded-lg border-2 border-border bg-petroleo-deep hover:bg-petroleo-deep text-white font-mono text-xs font-bold uppercase cursor-pointer shadow-2xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-petroleo-deep focus-visible:ring-offset-1 transition-all"
               >
                 Concluir 3/3
               </button>
@@ -341,7 +341,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
               <button
                 type="button"
                 onClick={() => markCategoryDone('colacao')}
-                className="min-h-[44px] px-2.5 py-1.5 rounded-lg border-2 border-border bg-primary hover:bg-[#4A216E] text-white font-mono text-xs font-bold uppercase cursor-pointer shadow-2xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 transition-all"
+                className="min-h-[44px] px-2.5 py-1.5 rounded-lg border-2 border-border bg-primary hover:bg-primary-hover text-white font-mono text-xs font-bold uppercase cursor-pointer shadow-2xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 transition-all"
               >
                 Concluir 3/3
               </button>
@@ -362,8 +362,8 @@ export const FormandoRetaFinalHub: React.FC = () => {
               transition={bounceSpring}
               className={`px-3 py-1 rounded-lg border-2 border-border font-mono text-xs font-black shadow-2xs ${
                 isGradReady
-                  ? 'bg-[#134E4A] text-white'
-                  : 'bg-[#FE8812] text-[#1F1F1F]'
+                  ? 'bg-petroleo-deep text-white'
+                  : 'bg-accent text-foreground'
               }`}
             >
               {isGradReady ? '100% PRONTO P/ FORMATURA' : `${progressPct}% INTEGRALIZADO`}
@@ -371,7 +371,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
           </div>
           <div className="w-full h-4 bg-muted rounded-lg border-2 border-border overflow-hidden p-0.5">
             <motion.div
-              className={`h-full rounded transition-colors ${isGradReady ? 'bg-emerald-600' : 'bg-[#134E4A]'}`}
+              className={`h-full rounded transition-colors ${isGradReady ? 'bg-emerald-600' : 'bg-petroleo-deep'}`}
               initial={{ width: 0 }}
               animate={{ width: `${progressPct}%` }}
               transition={tactileSpring}
@@ -414,7 +414,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
               Checklist Completo de Formatura (10 Marcos Regimentais)
             </h3>
             <p className="font-sans text-xs text-muted-foreground m-0 mt-0.5">
-              Toque em cada requisito para carimbar sua conclusão no Cofre Local Discente.
+              Toque em cada requisito quando concluir: ele ganha o carimbo.
             </p>
           </div>
 
@@ -457,7 +457,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
                   exit={{ opacity: 0, scale: 0.96 }}
                   transition={tactileSpring}
                   className={`p-4 sm:p-5 rounded-xl border-2 border-border shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4 transition-colors ${
-                    isDone ? 'bg-[#F0FDF4]' : 'bg-white'
+                    isDone ? 'bg-success-tint' : 'bg-white'
                   }`}
                 >
                   <label className="flex items-start gap-3.5 cursor-pointer flex-1 min-w-0">
@@ -498,7 +498,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
                         initial={{ scale: 0.6, rotate: -8 }}
                         animate={{ scale: 1, rotate: -2 }}
                         transition={bounceSpring}
-                        className="px-2.5 py-1.5 rounded-lg border-2 border-border bg-[#134E4A] text-white font-mono text-xs font-black uppercase shadow-2xs"
+                        className="px-2.5 py-1.5 rounded-lg border-2 border-border bg-petroleo-deep text-white font-mono text-xs font-black uppercase shadow-2xs"
                       >
                         HOMOLOGADO
                       </motion.span>
@@ -527,14 +527,14 @@ export const FormandoRetaFinalHub: React.FC = () => {
       {/* Kit Rápido de Downloads para Formandos & Chamada Eleitoral Chapa Semente */}
       <div className="p-5 sm:p-6 rounded-xl border-2 border-border bg-card shadow-md flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
         <div className="space-y-1 max-w-2xl">
-          <span className="px-2.5 py-0.5 rounded bg-[#FE8812] text-[#1F1F1F] border-2 border-border font-mono text-xs font-black uppercase shadow-2xs">
+          <span className="px-2.5 py-0.5 rounded bg-accent text-foreground border-2 border-border font-mono text-xs font-black uppercase shadow-2xs">
             PROPOSTA DA CHAPA SEMENTE MATERIALIZADA • 25 E 26/11
           </span>
           <h4 className="font-heading text-base sm:text-lg font-black text-foreground m-0 pt-1">
             Formar sem burocracia é direito de todo estudante do noturno
           </h4>
           <p className="font-sans text-xs text-content-secondary leading-relaxed m-0 font-medium">
-            A <strong>Chapa Semente</strong> construiu este Hub Integrador antes mesmo da eleição para que nenhum formando perca prazos de TCE, Aproveitamento Servidor (Art. 41) ou depósito de TCC. Vote na chapa que já trabalha por você!
+            A <strong>Chapa Semente</strong> construiu esta tela antes mesmo da eleição para que nenhum formando perca prazos de TCE, Aproveitamento Servidor (Art. 41) ou depósito de TCC. Vote na chapa que já trabalha por você!
           </p>
         </div>
 
@@ -544,11 +544,11 @@ export const FormandoRetaFinalHub: React.FC = () => {
             className="min-h-[44px] flex-1 lg:flex-none px-4 py-2.5 rounded-xl border-3 border-border bg-white hover:bg-muted text-foreground font-heading text-xs font-black uppercase no-underline inline-flex items-center justify-center gap-2 shadow-sm active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
           >
             <i className="bi bi-briefcase-fill text-primary" aria-hidden="true" />
-            <span>Hub de Carreira</span>
+            <span>Carreira</span>
           </a>
           <a
             href={route('/chapa-semente')}
-            className="min-h-[44px] flex-1 lg:flex-none px-4 py-2.5 rounded-xl border-3 border-border bg-primary hover:bg-[#49216C] text-white font-heading text-xs font-black uppercase no-underline inline-flex items-center justify-center gap-2 shadow-sm active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
+            className="min-h-[44px] flex-1 lg:flex-none px-4 py-2.5 rounded-xl border-3 border-border bg-primary hover:bg-primary-hover text-white font-heading text-xs font-black uppercase no-underline inline-flex items-center justify-center gap-2 shadow-sm active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
           >
             <span>Conhecer as 14 Propostas</span>
             <i className="bi bi-arrow-right" aria-hidden="true" />

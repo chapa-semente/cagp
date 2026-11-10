@@ -1,5 +1,5 @@
 import * as React from "react"
-import { motion, useReducedMotion, type HTMLMotionProps, type Variants } from "motion/react"
+import { motion, type HTMLMotionProps, type Variants } from "motion/react"
 import { cn } from "@/lib/utils"
 
 export interface NeobrutalistMotionCardProps extends Omit<HTMLMotionProps<"div">, "children"> {
@@ -27,7 +27,6 @@ export const NeobrutalistMotionCard = React.forwardRef<HTMLDivElement, Neobrutal
     },
     ref
   ) => {
-    const shouldReduceMotion = useReducedMotion()
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
       onKeyDown?.(e)
@@ -65,8 +64,8 @@ export const NeobrutalistMotionCard = React.forwardRef<HTMLDivElement, Neobrutal
         onClick={onClick}
         onKeyDown={handleKeyDown}
         initial="initial"
-        whileHover={interactive && !shouldReduceMotion ? "hover" : undefined}
-        whileTap={interactive && !shouldReduceMotion ? "tap" : undefined}
+        whileHover={interactive ? "hover" : undefined}
+        whileTap={interactive ? "tap" : undefined}
         variants={motionVariants}
         className={cn(
           "relative flex flex-col gap-3 rounded-xl border-3 border-foreground bg-card p-5 text-card-foreground select-none",

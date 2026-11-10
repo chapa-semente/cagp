@@ -111,9 +111,9 @@ export const AcgGuardianCore: React.FC = () => {
   return (
     <div className="cagp-guardian-core select-none space-y-6">
       {/* Alerta Normativo do Art. 15, § 4º com Microcopy Canônico "Alerta 120 Dias" */}
-      <div className="p-5 bg-[#FFFBEB] border-[3px] border-[#1F1F1F] rounded-xl shadow-[6px_6px_0_0_#1F1F1F] flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="p-5 bg-warning-tint border-[3px] border-border rounded-xl shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-start gap-3.5">
-          <span className="w-11 h-11 rounded-xl bg-secondary text-white flex items-center justify-center shrink-0 mt-0.5 border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]">
+          <span className="w-11 h-11 rounded-xl bg-secondary text-white flex items-center justify-center shrink-0 mt-0.5 border-2 border-border shadow-sm">
             <CagpIcon name="shield" className="w-5 h-5" />
           </span>
           <div>
@@ -121,7 +121,7 @@ export const AcgGuardianCore: React.FC = () => {
               <span className="cagp-stamp-badge is-semente text-xs py-0.5 px-2">
                 Ferramenta Criada pela Chapa Semente
               </span>
-              <span className="px-2 py-0.5 rounded-md bg-secondary text-white font-mono text-xs font-bold border border-[#1F1F1F]">
+              <span className="px-2 py-0.5 rounded-md bg-secondary text-white font-mono text-xs font-bold border border-border">
                 ART. 15, § 4º • N-20229
               </span>
             </div>
@@ -137,7 +137,7 @@ export const AcgGuardianCore: React.FC = () => {
         <button
           type="button"
           onClick={handleSimulateUrgentCert}
-          className="min-h-[44px] px-4 py-2.5 rounded-xl bg-secondary hover:bg-[#851E1E] text-white font-head text-xs uppercase font-black tracking-wider border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all shrink-0 cursor-pointer flex items-center justify-center gap-2"
+          className="min-h-[44px] px-4 py-2.5 rounded-xl bg-secondary hover:bg-secondary-hover text-white font-head text-xs uppercase font-black tracking-wider border-3 border-border shadow-md active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all shrink-0 cursor-pointer flex items-center justify-center gap-2"
         >
           <i className="bi bi-PatchExclamationFill bi-exclamation-octagon-fill" aria-hidden="true" />
           <span>Simular Alerta 120 Dias</span>
@@ -154,7 +154,7 @@ export const AcgGuardianCore: React.FC = () => {
           </h4>
 
           {statusMessage && (
-            <div className="p-3 mb-3 bg-success-tint border-2 border-[#266264] rounded-xl text-xs text-[#266264] font-bold shadow-sm">
+            <div className="p-3 mb-3 bg-success-tint border-2 border-secondary rounded-xl text-xs text-secondary font-bold shadow-sm">
               {statusMessage}
             </div>
           )}
@@ -203,7 +203,7 @@ export const AcgGuardianCore: React.FC = () => {
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="Ex: I Seminário de Políticas Públicas UFMG"
-                  className="w-full bg-white border-3 border-border px-3.5 py-2.5 rounded-xl text-sm text-foreground placeholder-[#57534E] shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary transition-all"
+                  className="w-full bg-white border-3 border-border px-3.5 py-2.5 rounded-xl text-sm text-foreground placeholder-content-secondary shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary transition-all"
                 />
               </FormControl>
             </FormItem>
@@ -267,7 +267,7 @@ export const AcgGuardianCore: React.FC = () => {
 
             <button
               type="submit"
-              className="w-full min-h-[44px] px-4 py-2.5 bg-secondary text-white hover:bg-[#851E1E] rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 border-3 border-border shadow-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all mt-4 cursor-pointer"
+              className="w-full min-h-[44px] px-4 py-2.5 bg-secondary text-white hover:bg-secondary-hover rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 border-3 border-border shadow-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all mt-4 cursor-pointer"
             >
               <CagpIcon name="shield" className="w-4 h-4 text-white" />
               <span>Ativar Alerta 120 Dias</span>
@@ -297,7 +297,7 @@ export const AcgGuardianCore: React.FC = () => {
               <button
                 type="button"
                 onClick={handleSimulateUrgentCert}
-                className="min-h-[44px] px-4 py-2 rounded-xl bg-secondary text-white font-head text-xs uppercase font-black border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all inline-flex items-center gap-2 cursor-pointer"
+                className="min-h-[44px] px-4 py-2 rounded-xl bg-secondary text-white font-head text-xs uppercase font-black border-3 border-border shadow-md active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all inline-flex items-center gap-2 cursor-pointer"
               >
                 <i className="bi bi-lightning-charge-fill" aria-hidden="true" />
                 <span>Simular Certificado Crítico (Carimbo 120d)</span>
@@ -322,7 +322,7 @@ export const AcgGuardianCore: React.FC = () => {
                       transition={tactileSpring}
                       className={`p-4 bg-white border-2 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
                         isCriticalStamp
-                          ? 'border-secondary shadow-[5px_5px_0_0_#1F1F1F] bg-[#D7F6F6]'
+                          ? 'border-secondary shadow-lg bg-secondary-tint'
                           : 'border-border shadow'
                       }`}
                     >
@@ -348,7 +348,7 @@ export const AcgGuardianCore: React.FC = () => {
                               initial={{ scale: 2.2, rotate: -14, opacity: 0 }}
                               animate={{ scale: 1, rotate: -2.5, opacity: 1 }}
                               transition={bounceSpring}
-                              className="cagp-stamp-badge is-indeferido text-xs font-mono font-black tracking-wider text-white border-3 border-[#1F1F1F] bg-secondary rounded-lg inline-flex items-center gap-1.5 py-1.5 px-3 shadow-[3px_3px_0_0_#1F1F1F]"
+                              className="cagp-stamp-badge is-indeferido text-xs font-mono font-black tracking-wider text-white border-3 border-border bg-secondary rounded-lg inline-flex items-center gap-1.5 py-1.5 px-3 shadow-md"
                             >
                               <i className="bi bi-x-octagon-fill" aria-hidden="true" />
                               <span>PRESCRITO • FORA DOS 120D ({daysLeft}D)</span>
@@ -358,13 +358,13 @@ export const AcgGuardianCore: React.FC = () => {
                               initial={{ scale: 2.2, rotate: 12, opacity: 0 }}
                               animate={{ scale: 1, rotate: 2, opacity: 1 }}
                               transition={bounceSpring}
-                              className="cagp-stamp-badge text-xs font-mono font-black tracking-wider text-white border-3 border-[#1F1F1F] bg-secondary rounded-lg inline-flex items-center gap-1.5 py-1.5 px-3 shadow-[3px_3px_0_0_#1F1F1F]"
+                              className="cagp-stamp-badge text-xs font-mono font-black tracking-wider text-white border-3 border-border bg-secondary rounded-lg inline-flex items-center gap-1.5 py-1.5 px-3 shadow-md"
                             >
                               <i className="bi bi-alarm-fill" aria-hidden="true" />
                               <span>PRAZO FATAL • RESTAM {daysLeft}D</span>
                             </motion.span>
                           ) : (
-                            <span className="cagp-stamp-badge is-feito text-xs font-mono font-bold tracking-wider text-white border-2 border-[#1F1F1F] bg-teal-700 rounded-md inline-flex items-center gap-1 py-1 px-2.5 shadow-xs">
+                            <span className="cagp-stamp-badge is-feito text-xs font-mono font-bold tracking-wider text-white border-2 border-border bg-teal-700 rounded-md inline-flex items-center gap-1 py-1 px-2.5 shadow-xs">
                               <i className="bi bi-check-circle-fill" aria-hidden="true" />
                               <span>NO PRAZO ({daysLeft}D RESTANTES)</span>
                             </span>
@@ -374,7 +374,7 @@ export const AcgGuardianCore: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => downloadAac120dIcs(c.title, new Date(c.date))}
-                          className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white hover:bg-[#F3ECE0] border-3 border-border text-foreground flex items-center justify-center text-sm shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer"
+                          className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white hover:bg-surface-hover border-3 border-border text-foreground flex items-center justify-center text-sm shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer"
                           title="Baixar lembrete de calendário (.ics)"
                           aria-label="Baixar lembrete de calendário (.ics)"
                         >

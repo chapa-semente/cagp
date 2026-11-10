@@ -13,7 +13,7 @@ import {
   type VisibilityState,
   type Table as TanstackTable,
 } from '@tanstack/react-table'
-import { ArrowDown, ArrowUp, ArrowUpDown, ChevronDown, Search, Settings2 } from 'lucide-react'
+import { ArrowDown, ArrowUp, ArrowUpDown, ChevronDown, Search, Settings2 } from '@/components/ui/icons'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import {
@@ -118,12 +118,12 @@ function DataTableToolbar<TData>({
       <div className="flex flex-1 items-center space-x-2 min-w-[200px]">
         {column && (
           <div className="relative w-full sm:w-auto flex-1 max-w-md">
-            <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#5B2A85]" />
+            <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-primary" />
             <Input
               placeholder={filterPlaceholder}
               value={String(column.getFilterValue() ?? '')}
               onChange={(event) => column.setFilterValue(event.target.value)}
-              className="min-h-[44px] h-11 w-full pl-10 rounded-xl border-3 border-[#1F1F1F] bg-white font-sans shadow-[3px_3px_0_0_#1F1F1F] focus-visible:ring-3 focus-visible:ring-[#5B2A85] focus-visible:border-[#5B2A85]"
+              className="min-h-[44px] h-11 w-full pl-10 rounded-xl border-3 border-border bg-white font-sans shadow-md focus-visible:ring-3 focus-visible:ring-primary focus-visible:border-primary"
             />
           </div>
         )}
@@ -131,7 +131,7 @@ function DataTableToolbar<TData>({
       {showColumnVisibility && (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="sm" className="ml-auto min-h-[44px] h-11 rounded-xl border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] font-heading font-extrabold uppercase text-xs">
+            <Button variant="outline" size="sm" className="ml-auto min-h-[44px] h-11 rounded-xl border-3 border-border shadow-md font-heading font-extrabold uppercase text-xs">
               <Settings2 className="mr-2 h-4 w-4" />
               Colunas
               <ChevronDown className="ml-2 h-4 w-4" />
@@ -191,7 +191,7 @@ function DataTablePagination<TData>({
               table.setPageSize(Number(value))
             }}
           >
-            <SelectTrigger className="min-h-[44px] h-11 w-[88px] rounded-xl border-3 border-[#1F1F1F] bg-white font-mono font-bold">
+            <SelectTrigger className="min-h-[44px] h-11 w-[88px] rounded-xl border-3 border-border bg-white font-mono font-bold">
               <SelectValue placeholder={table.getState().pagination.pageSize} />
             </SelectTrigger>
             <SelectContent side="top">
@@ -219,7 +219,7 @@ function DataTablePagination<TData>({
                   if (table.getCanPreviousPage()) table.previousPage()
                 }}
                 className={cn(
-                  'min-h-[44px] px-3 rounded-xl border-3 border-[#1F1F1F] bg-white font-heading font-extrabold uppercase text-xs shadow-[2px_2px_0_0_#1F1F1F] cursor-pointer select-none',
+                  'min-h-[44px] px-3 rounded-xl border-3 border-border bg-white font-heading font-extrabold uppercase text-xs shadow-sm cursor-pointer select-none',
                   !table.getCanPreviousPage() && 'pointer-events-none opacity-45'
                 )}
               />
@@ -234,7 +234,7 @@ function DataTablePagination<TData>({
                   if (table.getCanNextPage()) table.nextPage()
                 }}
                 className={cn(
-                  'min-h-[44px] px-3 rounded-xl border-3 border-[#1F1F1F] bg-white font-heading font-extrabold uppercase text-xs shadow-[2px_2px_0_0_#1F1F1F] cursor-pointer select-none',
+                  'min-h-[44px] px-3 rounded-xl border-3 border-border bg-white font-heading font-extrabold uppercase text-xs shadow-sm cursor-pointer select-none',
                   !table.getCanNextPage() && 'pointer-events-none opacity-45'
                 )}
               />
@@ -384,11 +384,11 @@ function DataTable<TData, TValue>({
         )}
 
         {/* Table */}
-        <div className="scroll-mask-x overflow-x-auto rounded-xl border-2 border-[#1F1F1F] bg-card shadow-[6px_6px_0_0_#1F1F1F]">
+        <div className="scroll-mask-x overflow-x-auto rounded-xl border-2 border-border bg-card shadow-xl">
           <Table>
-            <TableHeader className="border-b-3 border-[#1F1F1F] bg-muted">
+            <TableHeader className="border-b-3 border-border bg-muted">
               {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id} className="border-b-2 border-[#1F1F1F]">
+                <TableRow key={headerGroup.id} className="border-b-2 border-border">
                   {headerGroup.headers.map((header) => {
                     return (
                       <TableHead key={header.id} className="font-heading font-extrabold uppercase tracking-wider text-foreground">
@@ -412,7 +412,7 @@ function DataTable<TData, TValue>({
                     className="h-24 text-center"
                   >
                     <div className="flex items-center justify-center">
-                      <div className="h-6 w-6 animate-spin border-3 border-[#1F1F1F] border-t-transparent" />
+                      <div className="h-6 w-6 animate-spin border-3 border-border border-t-transparent" />
                     </div>
                   </TableCell>
                 </TableRow>
@@ -421,7 +421,7 @@ function DataTable<TData, TValue>({
                   <TableRow
                     key={row.id}
                     data-state={row.getIsSelected() && 'selected'}
-                    className="border-b-2 border-[#1F1F1F]/20 hover:bg-accent-tint transition-colors"
+                    className="border-b-2 border-border/20 hover:bg-accent-tint transition-colors"
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>

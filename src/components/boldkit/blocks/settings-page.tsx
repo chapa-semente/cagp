@@ -24,7 +24,7 @@ import {
   Check,
   Sun,
   Monitor,
-} from 'lucide-react'
+} from '@/components/ui/icons'
 
 // ============================================================================
 // SETTINGS VARIANT 1: Profile Settings
@@ -691,7 +691,7 @@ export function SettingsPage({ defaultTab = 'profile', className }: SettingsPage
             Modo Claro Editorial Semente exclusivo (sem Dark Mode), com suporte a Alto Contraste AAA, fonte OpenDyslexic e escala tipográfica.
           </p>
         </div>
-        <span className="px-3 py-1.5 rounded-xl bg-[#FEF3C7] text-[#1F1F1F] border-2 border-[#1F1F1F] font-mono text-xs font-black uppercase shadow-[2px_2px_0_0_#1F1F1F]">
+        <span className="px-3 py-1.5 rounded-xl bg-warning-tint text-foreground border-2 border-border font-mono text-xs font-black uppercase shadow-sm">
           ☀️ MODO CLARO EDITORIAL EXCLUSIVO
         </span>
       </div>

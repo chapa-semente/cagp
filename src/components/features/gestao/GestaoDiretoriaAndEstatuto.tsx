@@ -114,7 +114,7 @@ export const GestaoDiretoriaAndEstatuto: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Baixar Regimento 2024 (PDF) ↗
+                Baixar Regimento 2024 (PDF) <i className="bi bi-box-arrow-up-right" aria-hidden="true"></i>
               </a>
             </Button>
           </div>
@@ -126,7 +126,7 @@ export const GestaoDiretoriaAndEstatuto: React.FC = () => {
             {SETE_DIRETORIAS.map((dir) => (
               <div
                 key={dir.sigla}
-                className="p-4 rounded-xl border-2 border-border bg-white shadow-[3px_3px_0_0_#1F1F1F] flex flex-col justify-between space-y-3"
+                className="p-4 rounded-xl border-2 border-border bg-white shadow-md flex flex-col justify-between space-y-3"
               >
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
@@ -143,7 +143,7 @@ export const GestaoDiretoriaAndEstatuto: React.FC = () => {
                   <h4 className="font-heading text-sm font-black text-foreground">
                     {dir.nome}
                   </h4>
-                  <p className="text-xs text-[#3F3C38] leading-relaxed">{dir.atribuicoes}</p>
+                  <p className="text-xs text-content-secondary leading-relaxed">{dir.atribuicoes}</p>
                 </div>
                 <div className="pt-2 border-t-2 border-border text-xs font-mono font-bold text-primary">
                   {dir.composicao}
@@ -159,7 +159,7 @@ export const GestaoDiretoriaAndEstatuto: React.FC = () => {
               <h4 className="font-heading text-sm font-black text-foreground">
                 Sucessão Presidencial e Direito de Fiscalização
               </h4>
-              <p className="text-xs text-[#3F3C38] leading-relaxed">
+              <p className="text-xs text-content-secondary leading-relaxed">
                 Pelo <strong>Art. 26º</strong>, na vacância da Presidência assumem sucessivamente: 1º Vice-Presidência (DIPRE) → 2º Diretoria Jurídica (DIJUR) → 3º Diretoria Financeira (DIFI). Pelo <strong>Art. 15º, V</strong>, todo estudante matriculado tem direito de examinar as contas mediante requerimento, com prazo máximo de <strong>3 dias letivos</strong> para exibição.
               </p>
             </div>

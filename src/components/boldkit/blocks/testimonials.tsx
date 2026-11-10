@@ -5,7 +5,7 @@ import { staggerContainer, staggerItem, tactileSpring } from '@/lib/motion'
 import { Card, CardContent } from '@/components/ui/card'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { cn } from '@/lib/utils'
-import { Quote, Star } from 'lucide-react'
+import { Quote, Star } from '@/components/ui/icons'
 
 export interface TestimonialItem {
   quote: string
@@ -68,7 +68,7 @@ export function TestimonialsGrid({
               whileHover={{ x: -3, y: -3 }}
               transition={tactileSpring}
             >
-              <Card className="h-full bg-card border-3 border-[#1F1F1F] shadow-[6px_6px_0_0_#1F1F1F] hover:shadow-[8px_8px_0_0_#1F1F1F] transition">
+              <Card className="h-full bg-card border-3 border-border shadow-xl hover:shadow-xl transition">
                 <CardContent className="p-6 space-y-4">
                   <Quote className="h-8 w-8 text-primary" />
 
@@ -92,8 +92,8 @@ export function TestimonialsGrid({
                     "{testimonial.quote}"
                   </p>
 
-                  <div className="flex items-center gap-3 pt-4 border-t-2 border-[#1F1F1F]">
-                    <Avatar className="h-12 w-12 border-2 border-[#1F1F1F]">
+                  <div className="flex items-center gap-3 pt-4 border-t-2 border-border">
+                    <Avatar className="h-12 w-12 border-2 border-border">
                       <AvatarImage src={testimonial.avatar} />
                       <AvatarFallback className="font-bold">
                         {testimonial.author.charAt(0)}

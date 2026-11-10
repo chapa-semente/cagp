@@ -3,15 +3,16 @@
 .cagp-passport-card {
   background-color: #FFFFFF;
   border: 3px solid #1F1F1F;
-  border-radius: 14px;
+  border-radius: 16px;
   box-shadow: 6px 6px 0px #1F1F1F;
   overflow: hidden;
 }
 
 .cagp-passport-topbar {
-  background-color: #1F1F1F;
+  /* Carteirinha da Semente: faixa roxa (não preta), linha laranja da folha embaixo. */
+  background-color: var(--color-primary);
   color: #FFFFFF;
-  border-bottom: 3px solid var(--accent, #FE8812);
+  border-bottom: 3px solid var(--color-accent);
   padding: 0.65rem 1rem;
   display: flex;
   flex-wrap: wrap;
@@ -22,11 +23,11 @@
 
 .cagp-passport-inst {
   font-family: var(--font-heading, 'Poppins', sans-serif);
-  font-size: 0.8rem;
-  font-weight: 800;
-  letter-spacing: -0.01em;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: #FE8812;
+  color: #FFFFFF;
   display: flex;
   align-items: center;
   gap: 0.45rem;
@@ -38,7 +39,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
-  border: 2.5px solid #1F1F1F;
+  border: 2px solid #1F1F1F;
   background-color: #F4F2EC;
   overflow: hidden;
   box-shadow: 3px 3px 0px #1F1F1F;
@@ -85,8 +86,8 @@
   width: 18px;
   height: 18px;
   border-radius: 9999px;
-  border: 1.5px solid #FFFFFF;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  border: 2px solid #FFFFFF;
+  box-shadow: none;
 }
 
 .cagp-pride-swatch {
@@ -124,7 +125,7 @@
   width: 100%;
   height: 8px;
   background-color: #FFFFFF;
-  border: 1.5px solid #1F1F1F;
+  border: 2px solid #1F1F1F;
   border-radius: 9999px;
   overflow: hidden;
 }
@@ -133,8 +134,8 @@
   height: 100%;
   transition: width 0.35s cubic-bezier(0.32, 0.72, 0, 1);
 }
-.cagp-passport-mini-fill.is-obrig { background-color: #005A9C; }
-.cagp-passport-mini-fill.is-acg { background-color: #166534; }
+.cagp-passport-mini-fill.is-obrig { background-color: var(--color-primary); }
+.cagp-passport-mini-fill.is-acg { background-color: var(--color-secondary); }
 
 /* Anel de Integralização Curricular */
 .cagp-metric-ring {
@@ -158,7 +159,7 @@
   align-items: center;
   justify-content: center;
   font-family: var(--font-heading, 'Poppins', sans-serif);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 700;
   color: #1F1F1F;
 }
@@ -200,9 +201,9 @@
   font-size: 0.72rem;
   font-weight: 600;
   border: 2px solid #1F1F1F;
-  border-radius: 4px;
+  border-radius: 6px;
   background-color: #FFFFFF;
-  color: #555555;
+  color: #4A4740;
   cursor: pointer;
   transition: all 0.12s ease;
 }

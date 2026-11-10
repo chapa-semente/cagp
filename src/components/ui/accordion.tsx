@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Accordion as AccordionPrimitive } from "radix-ui"
-import { ChevronDown } from "lucide-react"
+import { ChevronDown } from "@/components/ui/icons"
 import { cn } from "@/lib/utils"
 
 const Accordion = AccordionPrimitive.Root
@@ -12,7 +12,7 @@ const AccordionItem = React.forwardRef<
   <AccordionPrimitive.Item
     ref={ref}
     className={cn(
-      "rounded-xl border-3 border-[#1F1F1F] bg-card shadow-[3px_3px_0_0_#1F1F1F] data-[state=open]:shadow-[6px_6px_0_0_#1F1F1F] overflow-hidden mb-3 last:mb-0 transition-all duration-150",
+      "rounded-xl border-3 border-border bg-card shadow-md data-[state=open]:shadow-xl overflow-hidden mb-3 last:mb-0 transition-all duration-150",
       className
     )}
     {...props}
@@ -46,7 +46,7 @@ const AccordionContent = React.forwardRef<
 >(({ className, children, ...props }, ref) => (
   <AccordionPrimitive.Content
     ref={ref}
-    className="cagp-accordion-content font-sans text-sm border-t-3 border-[#1F1F1F] bg-card text-foreground"
+    className="cagp-accordion-content font-sans text-sm border-t-3 border-border bg-card text-foreground"
     {...props}
   >
     <div className={cn("p-4 sm:p-5 leading-relaxed", className)}>{children}</div>

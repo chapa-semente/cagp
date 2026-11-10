@@ -7,7 +7,7 @@ import { CarreiraTalentosForm } from '@/components/features/carreira/CarreiraTal
 import { route } from '@/lib/paths';
 
 const badges = [
-  { label: 'Cofre 100% Local no Navegador', variant: 'green' as const, icon: 'bi-shield-check' },
+  { label: 'Fica só no seu celular', variant: 'green' as const, icon: 'bi-shield-check' },
   { label: 'Sem Servidor Central (Privacidade Total)', variant: 'purple' as const, icon: 'bi-lock-fill' },
   { label: 'Exportação para Currículo & Lattes', variant: 'orange' as const, icon: 'bi-file-earmark-person-fill' },
   { label: 'Proposta 11 • Empresa Júnior GP', variant: 'dark' as const, icon: 'bi-rocket-takeoff-fill' },
@@ -15,7 +15,7 @@ const badges = [
 ---
 
 <BaseLayout
-  title="Banco de Talentos GP • CAGP FAFICH/UFMG"
+  title="Banco de talentos"
   description="Cadastre seu perfil de competências em Gestão Pública (SEI, Lei 14.133, PPA, MROSC) salvo com privacidade total no cofre local do seu navegador para processos seletivos."
   mode="operate"
 >
@@ -25,8 +25,8 @@ const badges = [
       mode="operate"
       condensed={true}
       showAxisNav={false}
-      title="Banco de Talentos GP"
-      subtitle="Mapeamento de competências práticas em Gestão Pública (SEI, Lei 14.133, Orçamento, MROSC), integração com currículo Lattes/LinkedIn e geração instantânea de resumo profissional."
+      title="Banco de talentos"
+      subtitle="Monte seu perfil profissional (SEI, Lei 14.133, orçamento, MROSC) e gere um resumo pro LinkedIn ou Lattes."
       badges={badges}
     />
 
@@ -34,7 +34,7 @@ const badges = [
 
     <JourneyNav
       prev={{
-        title: 'Hub de Carreira & Inserção Profissional',
+        title: 'Carreira e vagas',
         href: '/carreira',
         desc: 'Retorne ao painel central com visão geral de vagas, Empresa Júnior e Banco de Talentos.',
       }}

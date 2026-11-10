@@ -83,7 +83,7 @@ export const AcgGuardianWidget: React.FC = () => {
                     ? 'text-secondary'
                     : nearest.diffDays <= 30
                     ? 'text-accent'
-                    : 'text-[#266264]'
+                    : 'text-secondary'
                 }`}
               >
                 {nearest.diffDays < 0
@@ -103,7 +103,7 @@ export const AcgGuardianWidget: React.FC = () => {
 
       <a
         href="#guardiao-120-dias"
-        className="min-h-[44px] px-4 py-2.5 bg-foreground text-background hover:bg-accent hover:text-foreground active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-3 border-border shadow-sm"
+        className="min-h-[44px] px-4 py-2.5 bg-primary text-white hover:bg-primary-hover hover:text-white active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-3 border-border shadow-sm"
       >
         <span>Gerenciar Certificados</span>
         <i className="bi bi-arrow-right" aria-hidden="true" />

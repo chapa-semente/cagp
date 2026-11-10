@@ -3,7 +3,6 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import * as React from 'react';
 import { Art41SimulatorCore } from '@/components/features/estagio/art41/Art41SimulatorCore';
 import { FormandoRetaFinalHub } from '@/components/features/carreira/FormandoRetaFinalHub';
-import { CarreiraTalentosTab } from '@/components/features/carreira/CarreiraTalentosTab';
 import { getVaultItem, setVaultItem } from '@/lib/storage/studentVault';
 
 describe('Eixo 4 — Reta Final, Estágio (Art. 41), TCC & Carreira', () => {
@@ -47,18 +46,4 @@ describe('Eixo 4 — Reta Final, Estágio (Art. 41), TCC & Carreira', () => {
     expect(saved.rf_estagio_plano).toBe(true);
   });
 
-  it('conecta a aba de Carreira e Banco de Talentos às Propostas 9, 11 e 12 da Chapa Semente', () => {
-    render(<CarreiraTalentosTab />);
-
-    expect(screen.getAllByText(/Proposta 09/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/Proposta 11/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/Proposta 12/i).length).toBeGreaterThan(0);
-    expect(screen.getByText(/Apoio Amplo à Fundação da Empresa Júnior de GP/i)).toBeDefined();
-
-    const ejBtn = screen.getByRole('button', { name: /Quero Apoiar a Empresa Júnior/i });
-    fireEvent.click(ejBtn);
-
-    const savedProfile = getVaultItem('cagp_carreira_talentos_v1');
-    expect(savedProfile.interestedInEmpresaJunior).toBe(true);
-  });
 });

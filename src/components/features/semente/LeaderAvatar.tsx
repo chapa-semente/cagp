@@ -60,7 +60,7 @@ export const LeaderAvatar: React.FC<LeaderAvatarProps> = ({
         whileHover={portraitHover}
         whileTap={photoCardTap}
         transition={photoZoomSpring}
-        className={`group relative w-full aspect-[4/3] md:aspect-square rounded-xl overflow-hidden border-3 border-[#1F1F1F] shadow-[4px_4px_0_0_#1F1F1F] bg-card select-none ${className}`}
+        className={`group relative w-full aspect-[4/3] md:aspect-square rounded-xl overflow-hidden border-3 border-border shadow-md bg-card select-none ${className}`}
       >
         {hasRealPhoto ? (
           <>
@@ -77,11 +77,6 @@ export const LeaderAvatar: React.FC<LeaderAvatarProps> = ({
           /* Pôster Ilustrado Neobrutalista aspect-[4/5] para lideranças sem foto em arquivo */
           <div
             className={`relative w-full h-full flex flex-col items-center justify-between p-5 ${deptColor}`}
-            style={{
-              backgroundImage:
-                'radial-gradient(rgba(22, 24, 29, 0.22) 1.5px, transparent 1.5px)',
-              backgroundSize: '14px 14px',
-            }}
           >
             {/* Selo Superior Esquerdo + Sticker do Cargo */}
             <div className="w-full flex items-center justify-between gap-2 z-10">

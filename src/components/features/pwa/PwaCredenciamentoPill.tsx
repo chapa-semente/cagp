@@ -2,7 +2,7 @@
 // Pílula Flutuante Neobrutalista Compacta para Status de Credenciamento e Mobilização Chapa Semente
 // Rigorosamente ancorada no rodapé (bottom) e sobreposta à frente do conteúdo das páginas:
 // 1. Sobreposição Frontal (z-[1070]): Flutua à frente de todo o conteúdo das páginas, cards, rodapé e BottomNav.
-// 2. Elevação Neobrutalista Tátil: Borda border-3 border-border com sombra sólida shadow-[4px_4px_0_0_var(--color-border,#1F1F1F)], destacando-se nitidamente do plano de fundo.
+// 2. Elevação Neobrutalista Tátil: Borda border-3 border-border com sombra sólida shadow-md, destacando-se nitidamente do plano de fundo.
 // 3. Ancoragem Estrita ao Rodapé (top: auto !important):
 //    - Mobile (< 768px): bottom-[calc(4.75rem+env(safe-area-inset-bottom,0px))] left-3, compacto (h-11), alvos de toque 44x44pt.
 //    - Tablet (768px - 1279px): md:bottom-5 md:left-[108px] (respiro para sidebar de 92px).
@@ -115,7 +115,16 @@ export const PwaCredenciamentoPill: React.FC = () => {
 
   // Só quem terminou o tour declarando voto vê a pílula (One Float Rule: ninguém mais disputa o rodapé).
   const isCompleted = Boolean(activation?.completed && activation?.sementeSupporter);
-  if (isDismissed || !eligible || !isCompleted) return null;
+  const visible = !isDismissed && eligible && isCompleted;
+
+  // Com a pílula na tela, a página ganha folga no fim (o último botão sobe acima dela)
+  // e o "voltar ao topo" cede o lugar (One Float Rule).
+  useEffect(() => {
+    document.documentElement.classList.toggle('cagp-has-float', visible);
+    return () => document.documentElement.classList.remove('cagp-has-float');
+  }, [visible]);
+
+  if (!visible) return null;
 
   const content = (
     <AnimatePresence>
@@ -140,7 +149,7 @@ export const PwaCredenciamentoPill: React.FC = () => {
             whileHover={{ scale: 1.02, y: -2 }}
             whileTap={{ scale: 0.97 }}
             transition={tactileSpring}
-            className="flex items-center gap-2 h-11 px-1.5 pl-2.5 bg-white border-3 border-border rounded-full shadow-[4px_4px_0_0_var(--color-border,#1F1F1F)] hover:shadow-[6px_6px_0_0_var(--color-border,#1F1F1F)] transition-all cursor-pointer group"
+            className="flex items-center gap-2 h-11 px-1.5 pl-2.5 bg-white border-3 border-border rounded-full shadow-md hover:shadow-xl transition-all cursor-pointer group"
             title="Ver lembrete da votação ou convidar a turma"
           >
             <div className="w-6 h-6 rounded-full bg-primary border-2 border-border flex items-center justify-center p-0.5 shrink-0">

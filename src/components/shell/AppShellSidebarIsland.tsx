@@ -7,6 +7,7 @@ import { CagpIcon } from '@/components/ui/CagpIcon';
 import { resolveCagpIconName } from '@/lib/cagpIcons';
 import { asset, route } from '@/lib/paths';
 import { tactileSpring, drawerSpring } from '@/lib/motion';
+import { getVaultItem, USER_ROLE_META } from '@/lib/storage/studentVault';
 import {
   Drawer,
   DrawerContent,
@@ -85,9 +86,9 @@ function wordFilter(value: string, search: string, keywords?: string[]): number 
 
 const SIDEBAR_ICONS: Record<string, string> = {
   hoje: 'hoje',
-  guias: 'thesis',
-  curso: 'curriculo',
-  mais: 'menu',
+  guias: 'guias',
+  curso: 'curso',
+  mais: 'mais',
 };
 
 export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
@@ -98,8 +99,8 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
   const [tabletExpanded, setTabletExpanded] = useState(false);
   const [desktopCollapsed, setDesktopCollapsed] = useState(false);
   const [commandOpen, setCommandOpen] = useState(false);
-  const [studentName, setStudentName] = useState('Estudante GP');
-  const [studentPeriod, setStudentPeriod] = useState('Percurso N-20229');
+  const [studentName, setStudentName] = useState('Seu perfil');
+  const [studentPeriod, setStudentPeriod] = useState('Toque para escolher sua fase');
 
   const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
 
@@ -107,17 +108,13 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
     if (typeof window === 'undefined') return;
     setCurrentPath(window.location.pathname);
 
+    // Mesmo modelo de Seu perfil: nome do perfil salvo e a fase do curso (cagp_user_role_v1).
     try {
-      const savedPassport = localStorage.getItem('cagp_passport_v1');
-      if (savedPassport) {
-        const parsed = JSON.parse(savedPassport);
-        if (parsed?.name && parsed.name.trim()) {
-          setStudentName(parsed.name.trim());
-        }
-        if (parsed?.period) {
-          setStudentPeriod(`${parsed.period}º Período • N-20229`);
-        }
-      }
+      const profile = getVaultItem('cagp_student_profile_v1');
+      const name = profile?.name?.trim();
+      setStudentName(name && name !== 'Estudante de Gestão Pública' ? name : 'Seu perfil');
+      const meta = USER_ROLE_META[getVaultItem('cagp_user_role_v1')];
+      if (meta) setStudentPeriod(`${meta.shortLabel} · ${meta.badge}`);
     } catch {
       // ignore storage errors
     }
@@ -177,6 +174,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
     window.addEventListener('cagp:open-mais', handleOpenDrawer);
     window.addEventListener('cagp:open-spotlight', handleOpenSpotlight);
     window.addEventListener('cagp:passport-updated', syncLocalState);
+    window.addEventListener('cagp:vault-updated', syncLocalState);
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
@@ -186,6 +184,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
       window.removeEventListener('cagp:open-mais', handleOpenDrawer);
       window.removeEventListener('cagp:open-spotlight', handleOpenSpotlight);
       window.removeEventListener('cagp:passport-updated', syncLocalState);
+      window.removeEventListener('cagp:vault-updated', syncLocalState);
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [syncLocalState]);
@@ -416,7 +415,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
               className="flex items-center justify-center gap-2 min-h-[44px] py-2 px-3 rounded-xl bg-white hover:bg-background border-3 border-border shadow-xs text-xs font-heading font-extrabold uppercase tracking-tight text-foreground no-underline cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
               title="Configurações & Acessibilidade do Superapp"
             >
-              <CagpIcon name="sliders" className="w-4 h-4 text-[#266264] shrink-0" />
+              <CagpIcon name="sliders" className="w-4 h-4 text-secondary shrink-0" />
               <span>Ajustes</span>
             </a>
           </div>
@@ -447,8 +446,8 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
           onClick={() => triggerEvent('cagp:open-passport')}
           className={`w-full rounded-xl bg-primary text-white border-3 border-border shadow-sm flex items-center ${
             isCompact ? 'justify-center p-2' : 'justify-between p-2.5'
-          } cursor-pointer transition-colors hover:bg-[#4a216f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-primary disabled:opacity-50 disabled:pointer-events-none`}
-          title="Abrir Passaporte e Carteirinha Discente"
+          } cursor-pointer transition-colors hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-primary disabled:opacity-50 disabled:pointer-events-none`}
+          title="Abrir Seu perfil"
         >
           <div className="flex items-center gap-2.5 min-w-0">
             <div className="w-8 h-8 rounded-lg bg-accent text-foreground border-3 border-border flex items-center justify-center font-heading font-black text-xs shrink-0">
@@ -467,7 +466,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
           </div>
           {!isCompact && (
             <Badge variant="accent" className="font-mono text-xs px-1.5 py-0.5 shrink-0">
-              Passaporte
+              Perfil
             </Badge>
           )}
         </motion.button>
@@ -539,7 +538,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
         initial={false}
         animate={{ width: desktopCollapsed ? 88 : 264 }}
         transition={drawerSpring}
-        className="hidden xl:flex flex-col shrink-0 border-r-3 border-border bg-white sticky top-0 h-[100dvh] z-30 overflow-x-hidden"
+        className="cagp-sidebar-rail hidden xl:flex flex-col shrink-0 border-r-3 border-border bg-white sticky top-0 h-[100dvh] z-30 overflow-x-hidden"
       >
         {renderSidebarNavigationContent(desktopCollapsed, 'desktop')}
       </motion.aside>
@@ -547,7 +546,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
       {/* 2. Tablet Compact Rail (768px - 1279px) */}
       <aside
         aria-label="Navegação Lateral Compacta Tablet"
-        className="hidden md:flex xl:hidden flex-col w-[88px] shrink-0 border-r-3 border-border bg-white sticky top-0 h-[100dvh] z-30 transition-all duration-200"
+        className="cagp-sidebar-rail hidden md:flex xl:hidden flex-col w-[88px] shrink-0 border-r-3 border-border bg-white sticky top-0 h-[100dvh] z-30 transition-all duration-200"
       >
         {renderSidebarNavigationContent(true, 'tablet-rail')}
       </aside>
@@ -556,7 +555,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
       {tabletExpanded && (
         <div className="fixed inset-0 z-[1100] hidden md:flex xl:hidden">
           <div
-            className="fixed inset-0 bg-black/65 bg-[radial-gradient(var(--color-border,#1F1F1F)_1px,transparent_1px)] [background-size:12px_12px] transition-opacity duration-200 animate-in fade-in"
+            className="fixed inset-0 bg-foreground/70 transition-opacity duration-200 animate-in fade-in"
             onClick={() => setTabletExpanded(false)}
             aria-hidden="true"
           />
@@ -626,7 +625,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
             </CommandItem>
 
             <CommandItem
-              value="Passaporte Discente Perfil Estudante Cofre de Horas Conquistas Candangos"
+              value="Seu perfil Passaporte carteirinha fase do curso backup outro celular"
               onSelect={() => {
                 setCommandOpen(false);
                 triggerEvent('cagp:open-passport');
@@ -635,10 +634,10 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
               <CagpIcon name={resolveCagpIconName('bi-person-badge')} className="w-4 h-4 text-primary mr-2" />
               <div className="flex flex-col flex-1 min-w-0">
                 <span className="font-heading font-extrabold text-xs uppercase text-foreground">
-                  Passaporte Discente • Perfil &amp; Cofre
+                  Seu perfil
                 </span>
                 <span className="text-xs text-muted-foreground truncate">
-                  Seu progresso de curso, personalização do avatar e backup do cofre
+                  Fase do curso, carteirinha e levar pro outro celular
                 </span>
               </div>
               <CommandShortcut>Perfil</CommandShortcut>
@@ -793,7 +792,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
                     {portal.desc}
                   </span>
                 </div>
-                <CommandShortcut>↗</CommandShortcut>
+                <CommandShortcut><i className="bi bi-box-arrow-up-right" aria-hidden="true" /></CommandShortcut>
               </CommandItem>
             ))}
           </CommandGroup>

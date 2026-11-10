@@ -1,7 +1,7 @@
 import { Component, type ReactNode } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { AlertTriangle, RefreshCw, Home } from 'lucide-react'
+import { AlertTriangle, RefreshCw, Home } from '@/components/ui/icons'
 
 // Typed here so the dev-only guards compile without @types/node (Vite's
 // default tsconfig has none). `declare` emits nothing: bundlers still

@@ -13,7 +13,6 @@ import {
 } from '@/components/ui/data-table';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { InputGroup, InputGroupInput, InputGroupAddon } from '@/components/ui/input-group';
-import { Rating } from '@/components/ui/rating';
 import { Empty, EmptyHeader, EmptyMedia, EmptyTitle, EmptyDescription } from '@/components/ui/empty';
 import { tactileSpring, bounceSpring } from '@/lib/motion';
 import { ExpandRegion, ExpandChevron, useExpandSet, useMasonryColumns } from '@/components/ui/expand';
@@ -30,14 +29,15 @@ interface Props {
   optativas: OptativaItem[];
 }
 
+// Rótulo curto no chip; o nome completo do departamento vai no title.
 const DEPT_FILTERS = [
-  { id: 'todos', label: 'Todos Depts' },
-  { id: 'DCP', label: 'DCP (Ciência Política)' },
-  { id: 'FACE', label: 'FACE (ECN / CAD / CIC)' },
-  { id: 'FAFICH', label: 'FAFICH (SOA / HIS / FIL / COM)' },
-  { id: 'FAE', label: 'FAE (Educação)' },
-  { id: 'DIREITO', label: 'Direito (DIR / DIP)' },
-  { id: 'DEM', label: 'DEM / IGC / Outros' },
+  { id: 'todos', label: 'Todos', full: 'Todos os departamentos' },
+  { id: 'DCP', label: 'DCP', full: 'DCP (Ciência Política)' },
+  { id: 'FACE', label: 'FACE', full: 'FACE (ECN, CAD, CIC)' },
+  { id: 'FAFICH', label: 'FAFICH', full: 'FAFICH (SOA, HIS, FIL, COM)' },
+  { id: 'FAE', label: 'Educação', full: 'FAE (Educação)' },
+  { id: 'DIREITO', label: 'Direito', full: 'Direito (DIR, DIP)' },
+  { id: 'DEM', label: 'Outros', full: 'DEM, IGC e outros' },
 ] as const;
 
 function matchesDepartment(code: string, deptFilter: string): boolean {
@@ -136,22 +136,9 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
         header: ({ column }) => <DataTableColumnHeader column={column} title="Carga Horária" />,
         cell: ({ row }) => (
           <span className="font-mono text-xs text-foreground font-bold">
-            {row.original.ch}h ({Math.round(row.original.ch / 15)} cr)
+            {Number.isFinite(row.original.ch) ? `${row.original.ch}h (${Math.round(row.original.ch / 15)} cr)` : 'Carga a confirmar'}
           </span>
         ),
-      },
-      {
-        id: 'rating',
-        header: 'Avaliação Discente',
-        cell: ({ row }) => {
-          const score = 4.0 + ((row.original.code.charCodeAt(2) || 7) % 10) * 0.1;
-          return (
-            <div className="flex items-center gap-1.5">
-              <Rating value={Math.round(score * 2) / 2} readOnly size="sm" />
-              <span className="font-mono text-xs font-bold text-muted-foreground">{score.toFixed(1)}</span>
-            </div>
-          );
-        },
       },
       {
         id: 'actions',
@@ -162,7 +149,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
           const allocatedCourse = allocatedMap[item.code];
           return isAllocated ? (
             <div className="flex items-center gap-1.5">
-              <span className="text-xs py-0.5 px-2 rounded-md bg-teal-700 text-white font-mono font-bold border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]">
+              <span className="text-xs py-0.5 px-2 rounded-md bg-secondary text-white font-mono font-bold border-2 border-border shadow-sm">
                 {allocatedCourse.period}ºP
               </span>
               <button
@@ -180,7 +167,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                 setViewMode('cards');
                 setAllocatingCode(item.code);
               }}
-              className="min-h-[44px] px-3 rounded-lg border-2 border-[#1F1F1F] bg-[#FFEEDB] text-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] text-xs font-head font-black uppercase hover:bg-primary hover:text-white transition-all cursor-pointer"
+              className="min-h-[44px] px-3 rounded-lg border-2 border-border bg-accent-tint text-foreground shadow-sm text-xs font-head font-black uppercase hover:bg-primary hover:text-white transition-all cursor-pointer"
             >
               Alocar +
             </button>
@@ -219,24 +206,16 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
   return (
     <div className="cagp-optativas-catalog space-y-6 select-none text-foreground">
       {/* Barra de Busca e Filtros */}
-      <div className="p-4 sm:p-6 bg-white border-2 border-[#1F1F1F] rounded-xl space-y-4 shadow-[5px_5px_0_0_#1F1F1F]">
+      <div className="p-4 sm:p-6 bg-white border-2 border-border rounded-xl space-y-4 shadow-lg">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <div className="flex flex-wrap items-center gap-2 mb-1">
-              <span className="text-xs font-head uppercase font-extrabold tracking-wider text-[#5B2A85]">
-                Catálogo Curricular Homologado • PPC N-20229
-              </span>
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#FFEEDB] border-2 border-[#1F1F1F] text-xs font-head font-black uppercase text-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]">
-                Curadoria Chapa Semente
-              </span>
-            </div>
-            <h3 className="font-head text-base sm:text-lg font-black text-foreground m-0">
-              Catálogo de Optativas & Formação Livre ({optativas.length} Disciplinas Homologadas)
+            <h3 className="font-heading text-lg font-bold text-foreground m-0">
+              As {optativas.length} optativas do PPC
             </h3>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-xs text-foreground font-mono font-bold px-2.5 py-1.5 bg-[#FAF6F0] border-2 border-[#1F1F1F] rounded-lg shadow-[2px_2px_0_0_#1F1F1F] self-start sm:self-auto">
-              Mostrando {filtered.length} de {optativas.length}
+            <span className="text-sm text-content-secondary tabular-nums self-start sm:self-auto" aria-live="polite">
+              {filtered.length} de {optativas.length}
             </span>
             <ToggleGroup
               type="single"
@@ -246,7 +225,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
               }}
               size="sm"
               variant="outline"
-              className="bg-card rounded-xl p-1 border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]"
+              className="hidden md:flex bg-card rounded-xl p-1 border-2 border-border shadow-sm"
             >
               <ToggleGroupItem value="cards" aria-label="Visualização em Cards" className="min-h-[38px] px-3 font-head font-extrabold uppercase text-xs">
                 <i className="bi bi-grid mr-1.5" aria-hidden="true" />
@@ -261,8 +240,8 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
         </div>
 
         {/* Busca Instantânea com Foco Roxo Semente (#5B2A85) */}
-        <InputGroup className="rounded-xl overflow-hidden border-2 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] focus-within:ring-3 focus-within:ring-[#5B2A85] focus-within:border-[#5B2A85] transition-all">
-          <InputGroupAddon position="leading" className="bg-[#FAF6F0] text-[#5B2A85] font-bold border-r-2 border-[#1F1F1F]">
+        <InputGroup className="rounded-xl overflow-hidden border-2 border-border shadow-md focus-within:ring-3 focus-within:ring-primary focus-within:border-primary transition-all">
+          <InputGroupAddon position="leading" className="bg-background text-primary font-bold border-r-2 border-border">
             <i className="bi bi-search" aria-hidden="true" />
           </InputGroupAddon>
           <InputGroupInput
@@ -270,75 +249,46 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
             name="optativas-search"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Busca instantânea por código (ex: DCP 035, ECN, FAE), nome ou módulo..."
+            placeholder="Código ou nome (ex.: DCP 035)"
             className="min-h-[46px] bg-white font-body text-sm focus-visible:ring-0"
           />
         </InputGroup>
 
-        {/* Pílulas de Departamentos (DCP, FACE, FAFICH, FAE, Direito, DEM) com .scroll-mask-x */}
-        <div className="space-y-1.5">
-          <span className="text-xs font-mono font-bold uppercase text-muted-foreground block">
-            Filtrar por Departamento / Unidade UFMG:
-          </span>
-          <div className="flex items-center gap-2 overflow-x-auto py-1 scroll-mask-x scrollbar-none">
-            {DEPT_FILTERS.map((dept) => {
-              const active = selectedDept === dept.id;
-              return (
-                <button
-                  key={dept.id}
-                  type="button"
-                  onClick={() => setSelectedDept(dept.id)}
-                  className={`min-h-[44px] px-3.5 py-1.5 rounded-xl text-xs font-head uppercase tracking-tight shrink-0 transition-all cursor-pointer border-3 border-[#1F1F1F] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none ${
-                    active
-                      ? 'bg-[#5B2A85] text-white font-black shadow-[3px_3px_0_0_#1F1F1F]'
-                      : 'bg-white text-foreground hover:bg-[#FAF6F0] font-bold shadow-[2px_2px_0_0_#1F1F1F]'
-                  }`}
-                >
-                  {dept.label}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Pílulas de Módulos Temáticos com .scroll-mask-x */}
-        <div className="space-y-1.5">
-          <span className="text-xs font-mono font-bold uppercase text-muted-foreground block">
-            Filtrar por Eixo / Módulo Temático do PPC:
-          </span>
-          <div className="flex items-center gap-2 overflow-x-auto py-1 scroll-mask-x scrollbar-none">
-            <button
-              type="button"
-              onClick={() => setSelectedModulo('todos')}
-              className={`min-h-[44px] px-3.5 py-1.5 rounded-xl text-xs font-head uppercase tracking-tight shrink-0 transition-all cursor-pointer border-3 border-[#1F1F1F] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none ${
-                selectedModulo === 'todos'
-                  ? 'bg-[#1F1F1F] text-white font-black shadow-[3px_3px_0_0_#5B2A85]'
-                  : 'bg-white text-foreground hover:bg-[#F3ECE0] font-bold shadow-[2px_2px_0_0_#1F1F1F]'
-              }`}
-            >
-              Todos Módulos ({optativas.length})
-            </button>
-            {modulos.map((m) => (
+        {/* Filtros: departamento em chips (uma linha), módulo em seletor nativo (melhor no celular). */}
+        <div className="flex flex-col sm:flex-row sm:items-end gap-3">
+          <div role="group" aria-label="Departamento" className="flex-1 min-w-0 flex items-center gap-2 overflow-x-auto py-1 px-0.5 scroll-mask-x scrollbar-none">
+            {DEPT_FILTERS.map((dept) => (
               <button
-                key={m}
+                key={dept.id}
                 type="button"
-                onClick={() => setSelectedModulo(m)}
-                className={`min-h-[44px] px-3.5 py-1.5 rounded-xl text-xs font-head uppercase tracking-tight shrink-0 transition-all cursor-pointer border-3 border-[#1F1F1F] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none ${
-                  selectedModulo.toLowerCase() === m.toLowerCase()
-                    ? 'bg-secondary text-white font-black shadow-[3px_3px_0_0_#1F1F1F]'
-                    : 'bg-white text-foreground hover:bg-[#F3ECE0] font-bold shadow-[2px_2px_0_0_#1F1F1F]'
-                }`}
+                title={dept.full}
+                aria-pressed={selectedDept === dept.id}
+                onClick={() => setSelectedDept(dept.id)}
+                className="cagp-chip"
               >
-                {m}
+                {dept.label}
               </button>
             ))}
           </div>
+          <label className="block sm:w-64 shrink-0">
+            <span className="block text-sm font-bold text-foreground mb-1">Módulo</span>
+            <select
+              value={selectedModulo}
+              onChange={(e) => setSelectedModulo(e.target.value)}
+              className="w-full min-h-[44px] px-3 rounded-xl border-2 border-border bg-white text-base text-foreground shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            >
+              <option value="todos">Todos os módulos</option>
+              {modulos.map((m) => (
+                <option key={m} value={m}>{m}</option>
+              ))}
+            </select>
+          </label>
         </div>
       </div>
 
       {/* Renderização Condicional: Tabela Operacional vs Grid de Cards Animados */}
       {filtered.length === 0 ? (
-        <Empty className="py-12 bg-card border-3 border-[#1F1F1F] rounded-xl shadow-[3px_3px_0_0_#1F1F1F]">
+        <Empty className="py-12 bg-card border-3 border-border rounded-xl shadow-md">
           <EmptyMedia variant="icon">
             <i className="bi bi-search text-xl" aria-hidden="true" />
           </EmptyMedia>
@@ -350,7 +300,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
           </EmptyHeader>
         </Empty>
       ) : viewMode === 'table' ? (
-        <div className="bg-card border-2 border-[#1F1F1F] rounded-xl p-4 shadow-[5px_5px_0_0_#1F1F1F] overflow-hidden">
+        <div className="bg-card border-2 border-border rounded-xl p-4 shadow-lg overflow-hidden">
           <DataTable
             columns={columns}
             data={filtered}
@@ -371,7 +321,6 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
               const ementaId = `ementa-${ementaKey.normalize('NFD').replace(/[^a-zA-Z0-9]+/g, '-').toLowerCase()}`;
               const isExpanded = ementas.isOpen(ementaKey);
               const isSelectingPeriod = allocatingCode === item.code;
-              const score = 4.0 + ((item.code.charCodeAt(2) || 7) % 10) * 0.1;
 
               return (
                 <motion.div
@@ -382,25 +331,27 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                   exit={{ opacity: 0, scale: 0.92, y: -8 }}
                   whileHover={{ x: -2, y: -2 }}
                   transition={tactileSpring}
-                  className={`cagp-card p-4 bg-white border-2 border-[#1F1F1F] rounded-xl flex flex-col justify-between shadow-[3px_3px_0_0_#1F1F1F] hover:shadow-[6px_6px_0_0_#1F1F1F] transition-shadow ${
-                    isAllocated ? 'ring-3 ring-[#266264] bg-[#F0FDF4]' : ''
+                  className={`cagp-card p-4 bg-white border-2 border-border rounded-xl flex flex-col justify-between shadow-md hover:shadow-xl transition-shadow ${
+                    isAllocated ? 'ring-3 ring-secondary bg-success-tint' : ''
                   }`}
                 >
                   <div>
                     <div className="flex items-center justify-between gap-2 mb-2">
-                      <span className="font-mono text-xs font-black px-2.5 py-0.5 rounded-md bg-[#FAF6F0] border-2 border-[#1F1F1F] text-[#5B2A85] shadow-[2px_2px_0_0_#1F1F1F]">
+                      <span className="font-mono text-xs font-black px-2.5 py-0.5 rounded-md bg-background border-2 border-border text-primary shadow-sm">
                         {item.code}
                       </span>
                       <div className="flex items-center gap-1.5">
-                        <span className="text-xs font-mono font-extrabold text-foreground px-2 py-0.5 rounded bg-muted border border-[#1F1F1F]">
-                          {item.ch}h ({Math.round(item.ch / 15)} cr)
-                        </span>
+                        {Number.isFinite(item.ch) && (
+                          <span className="text-xs font-heading font-bold tabular-nums text-foreground px-2 py-0.5 rounded-md bg-muted">
+                            {item.ch}h · {Math.round(item.ch / 15)} créditos
+                          </span>
+                        )}
                         {isAllocated && (
                           <motion.span
                             initial={{ scale: 1.5, rotate: -6 }}
                             animate={{ scale: 1, rotate: 0 }}
                             transition={bounceSpring}
-                            className="text-xs py-0.5 px-2 rounded-md bg-teal-700 text-white font-mono font-bold border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] inline-flex items-center gap-1"
+                            className="text-xs py-0.5 px-2 rounded-md bg-secondary text-white font-mono font-bold border-2 border-border shadow-sm inline-flex items-center gap-1"
                           >
                             <i className="bi bi-diagram-3-fill text-xs" aria-hidden="true" />
                             <span>NO GRAFO • {allocatedCourse.period}ºP</span>
@@ -419,10 +370,6 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                           {item.modulo}
                         </span>
                       ) : <span />}
-                      <div className="flex items-center gap-1.5 ml-auto">
-                        <Rating value={Math.round(score * 2) / 2} readOnly size="sm" />
-                        <span className="font-mono text-xs font-bold text-muted-foreground">{score.toFixed(1)}</span>
-                      </div>
                     </div>
 
                     {/* Ementa Expansível */}
@@ -446,7 +393,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                               onClick={() => ementas.toggle(ementaKey)}
                               aria-expanded={isExpanded}
                               aria-controls={ementaId}
-                              className="min-h-[44px] inline-flex items-center gap-1 text-xs font-head font-extrabold text-[#5B2A85] hover:underline underline-offset-[0.22em] bg-transparent border-none p-0 cursor-pointer"
+                              className="min-h-[44px] inline-flex items-center gap-1 text-xs font-head font-extrabold text-primary hover:underline underline-offset-[0.22em] bg-transparent border-none p-0 cursor-pointer"
                             >
                               <span>{isExpanded ? 'Recolher ementa' : 'Ler ementa completa'}</span>
                               <ExpandChevron open={isExpanded} />
@@ -474,7 +421,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                               key={p}
                               type="button"
                               onClick={() => handleAllocate(item, p)}
-                              className="min-h-[44px] py-1 bg-white hover:bg-[#5B2A85] hover:text-white border-2 border-[#1F1F1F] rounded-lg text-xs font-mono font-black transition-all shadow-[2px_2px_0_0_#1F1F1F] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer"
+                              className="min-h-[44px] py-1 bg-white hover:bg-primary hover:text-white border-2 border-border rounded-lg text-xs font-mono font-black transition-all shadow-sm active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer"
                             >
                               {p}ºP
                             </button>
@@ -493,14 +440,14 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                         <button
                           type="button"
                           onClick={() => setAllocatingCode(item.code)}
-                          className="flex-1 min-h-[44px] px-3 py-1.5 bg-white hover:bg-[#F3ECE0] border-3 border-[#1F1F1F] rounded-xl text-xs font-head uppercase font-extrabold text-foreground transition-all shadow-[3px_3px_0_0_#1F1F1F] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer"
+                          className="flex-1 min-h-[44px] px-3 py-1.5 bg-white hover:bg-surface-hover border-3 border-border rounded-xl text-xs font-head uppercase font-extrabold text-foreground transition-all shadow-md active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer"
                         >
                           Mover ({allocatedCourse.period}ºP)
                         </button>
                         <button
                           type="button"
                           onClick={() => handleRemove(item.code)}
-                          className="min-h-[44px] min-w-[44px] px-3 py-1.5 bg-red-100 hover:bg-red-200 text-secondary border-3 border-[#1F1F1F] rounded-xl text-xs font-bold transition-all shadow-[3px_3px_0_0_#1F1F1F] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer flex items-center justify-center"
+                          className="min-h-[44px] min-w-[44px] px-3 py-1.5 bg-red-100 hover:bg-red-200 text-secondary border-3 border-border rounded-xl text-xs font-bold transition-all shadow-md active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer flex items-center justify-center"
                           title="Desvincular do Grafo"
                           aria-label="Desvincular do Grafo"
                         >
@@ -511,7 +458,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                       <button
                         type="button"
                         onClick={() => setAllocatingCode(item.code)}
-                        className="w-full min-h-[44px] px-3 py-2 bg-[#5B2A85] hover:bg-[#48206B] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl text-xs font-head uppercase font-extrabold tracking-wider flex items-center justify-center gap-1.5 transition-all border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] cursor-pointer"
+                        className="w-full min-h-[44px] px-3 py-2 bg-primary hover:bg-primary-hover active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl text-xs font-head uppercase font-extrabold tracking-wider flex items-center justify-center gap-1.5 transition-all border-3 border-border shadow-md cursor-pointer"
                       >
                         <i className="bi bi-plus-circle" aria-hidden="true" />
                         <span>Vincular ao Grafo</span>

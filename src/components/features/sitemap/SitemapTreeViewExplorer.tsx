@@ -25,7 +25,7 @@ const SITEMAP_TREE: TreeNode[] = [
       { id: 'doc-p3', label: 'Percurso 01-03 Avançado Pós (/documentos/percurso-bacharelado-nucleo-avancado)' },
       { id: 'doc-em', label: 'Ementário Oficial 95 Disciplinas (/documentos/ementario-gestao-publica-ufmg)' },
       { id: 'doc-rec', label: 'Recepção de Ingressantes (/documentos/transcricao-recepcao-ingressantes-2024-2)' },
-      { id: 'util-cfg', label: 'Configurações, Acessibilidade & Cofre Local (/configuracoes)' },
+      { id: 'util-cfg', label: 'Ajustes (/configuracoes)' },
       { id: 'util-map', label: 'Mapa do Site Interativo (/mapa-do-site)' },
     ],
   },
@@ -34,15 +34,15 @@ const SITEMAP_TREE: TreeNode[] = [
 export const SitemapTreeViewExplorer: React.FC = () => {
   return (
     <section className="my-6" aria-label="Árvore Interativa do Mapa do Site">
-      <Card className="bg-white border-3 border-[#1F1F1F] shadow-[6px_6px_0_0_#1F1F1F]">
-        <CardHeader className="border-b-3 border-[#1F1F1F] bg-card">
+      <Card className="bg-white border-3 border-border shadow-xl">
+        <CardHeader className="border-b-3 border-border bg-card">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
               <Badge variant="secondary" className="mb-1.5 w-fit">
                 BOLDKIT TREEVIEW • ARQUITETURA DE INFORMAÇÃO (5 EIXOS • 26 ROTAS)
               </Badge>
               <CardTitle className="text-xl">
-                Árvore Hierárquica Interativa dos 5 Eixos e 26 Rotas
+                Todas as páginas, por aba
               </CardTitle>
               <CardDescription className="text-xs font-medium text-muted-foreground">
                 Expanda ou recolha os nós da árvore (suporte total a navegação por setas do teclado ARIA Tree e atalho ⌘K).
@@ -51,10 +51,10 @@ export const SitemapTreeViewExplorer: React.FC = () => {
             <button
               type="button"
               onClick={() => window.dispatchEvent(new CustomEvent('cagp:open-spotlight'))}
-              className="min-h-[44px] px-4 py-2 rounded-xl bg-[#1F1F1F] text-white font-mono text-xs font-black uppercase border-2 border-[#1F1F1F] shadow-[3px_3px_0_0_#FE8812] hover:bg-[#5B2A85] transition-colors cursor-pointer inline-flex items-center gap-2"
+              className="min-h-[44px] px-4 py-2 rounded-xl bg-primary text-white font-mono text-xs font-black uppercase border-2 border-border shadow-[3px_3px_0_0_#FE8812] hover:bg-primary transition-colors cursor-pointer inline-flex items-center gap-2"
             >
               <span>Buscar Rota</span>
-              <kbd className="px-1.5 py-0.5 rounded bg-white text-[#1F1F1F] text-xs">⌘K</kbd>
+              <kbd className="px-1.5 py-0.5 rounded bg-white text-foreground text-xs">⌘K</kbd>
             </button>
           </div>
         </CardHeader>
@@ -62,7 +62,7 @@ export const SitemapTreeViewExplorer: React.FC = () => {
           <TreeView
             data={SITEMAP_TREE}
             defaultExpandedIds={SITEMAP_TREE.map((n) => n.id)}
-            className="rounded-xl border-2 border-[#1F1F1F] bg-white p-4 shadow-[3px_3px_0_0_#1F1F1F]"
+            className="rounded-xl border-2 border-border bg-white p-4 shadow-md"
           />
         </CardContent>
       </Card>

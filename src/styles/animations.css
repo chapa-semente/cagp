@@ -39,83 +39,124 @@
 /* 2. Transições Direcionais de View Transitions */
 @keyframes cagpVtOutForward {
   from { opacity: 1; transform: translateX(0); }
-  to { opacity: 0; transform: translateX(-18px); }
+  to { opacity: 0; transform: translateX(-28px); }
 }
 @keyframes cagpVtInForward {
-  from { opacity: 0; transform: translateX(18px); }
+  from { opacity: 0; transform: translateX(36px); }
   to { opacity: 1; transform: translateX(0); }
 }
 @keyframes cagpVtOutBackward {
   from { opacity: 1; transform: translateX(0); }
-  to { opacity: 0; transform: translateX(18px); }
+  to { opacity: 0; transform: translateX(28px); }
 }
 @keyframes cagpVtInBackward {
-  from { opacity: 0; transform: translateX(-18px); }
+  from { opacity: 0; transform: translateX(-36px); }
   to { opacity: 1; transform: translateX(0); }
 }
+/* Entrar numa página filha: a nova sobe da sombra (translate + clip), a antiga recua.
+   Sem escala nem desfoque: profundidade de papel, não de lente. */
 @keyframes cagpVtOutDrillIn {
-  from { opacity: 1; transform: scale(1); }
-  to { opacity: 0; transform: scale(1.02); }
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-12px); }
 }
 @keyframes cagpVtInDrillIn {
-  from { opacity: 0; transform: scale(0.98); }
-  to { opacity: 1; transform: scale(1); }
+  from { opacity: 0; transform: translateY(40px); clip-path: inset(0 0 12% 0 round 16px); }
+  to { opacity: 1; transform: translateY(0); clip-path: inset(0 0 0 0 round 0); }
 }
 @keyframes cagpVtOutDrillOut {
-  from { opacity: 1; transform: scale(1); }
-  to { opacity: 0; transform: scale(0.98); }
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(32px); }
 }
 @keyframes cagpVtInDrillOut {
-  from { opacity: 0; transform: scale(1.02); }
-  to { opacity: 1; transform: scale(1); }
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-html[data-nav-dir="forward"]::view-transition-old(root) {
-  animation: cagpVtOutForward 180ms var(--cagp-m3-effects-fast) both;
+html[data-nav-dir="forward"]::view-transition-old(cagp-main) {
+  animation: cagpVtOutForward 200ms var(--ease-snap) both;
 }
-html[data-nav-dir="forward"]::view-transition-new(root) {
-  animation: cagpVtInForward 220ms var(--ease-out-natural) both;
+html[data-nav-dir="forward"]::view-transition-new(cagp-main) {
+  animation: cagpVtInForward var(--duration-view) var(--ease-spring) both;
 }
-html[data-nav-dir="backward"]::view-transition-old(root) {
-  animation: cagpVtOutBackward 180ms var(--cagp-m3-effects-fast) both;
+html[data-nav-dir="backward"]::view-transition-old(cagp-main) {
+  animation: cagpVtOutBackward 200ms var(--ease-snap) both;
 }
-html[data-nav-dir="backward"]::view-transition-new(root) {
-  animation: cagpVtInBackward 220ms var(--ease-out-natural) both;
+html[data-nav-dir="backward"]::view-transition-new(cagp-main) {
+  animation: cagpVtInBackward var(--duration-view) var(--ease-spring) both;
 }
-html[data-nav-dir="drill-in"]::view-transition-old(root) {
-  animation: cagpVtOutDrillIn 180ms var(--cagp-m3-effects-fast) both;
+html[data-nav-dir="drill-in"]::view-transition-old(cagp-main) {
+  animation: cagpVtOutDrillIn 200ms var(--ease-snap) both;
 }
-html[data-nav-dir="drill-in"]::view-transition-new(root) {
-  animation: cagpVtInDrillIn 240ms var(--ease-out-natural) both;
+html[data-nav-dir="drill-in"]::view-transition-new(cagp-main) {
+  animation: cagpVtInDrillIn var(--duration-view) var(--ease-spring) both;
 }
-html[data-nav-dir="drill-out"]::view-transition-old(root) {
-  animation: cagpVtOutDrillOut 180ms var(--cagp-m3-effects-fast) both;
+html[data-nav-dir="drill-out"]::view-transition-old(cagp-main) {
+  animation: cagpVtOutDrillOut 200ms var(--ease-snap) both;
 }
-html[data-nav-dir="drill-out"]::view-transition-new(root) {
-  animation: cagpVtInDrillOut 240ms var(--ease-out-natural) both;
+html[data-nav-dir="drill-out"]::view-transition-new(cagp-main) {
+  animation: cagpVtInDrillOut var(--duration-view) var(--ease-spring) both;
 }
+
+/* 2b. Moldura parada, conteúdo em movimento (Apple: a barra fica, a página anda).
+   Só o <main> desliza na direção da navegação; cabeçalho, trilho e barra inferior trocam por
+   corte seco, e a pílula roxa da aba ativa viaja de uma aba à outra com a mola. */
+#main-content { view-transition-name: cagp-main; }
+#cagp-super-app-header { view-transition-name: cagp-app-header; }
+#cagp-bottom-nav { view-transition-name: cagp-bottom-nav; }
+#cagp-page-footer { view-transition-name: cagp-footer; }
+.cagp-sidebar-rail { view-transition-name: cagp-sidebar; }
+.cagp-bottom-axis-item.is-active .cagp-bottom-axis-pill { view-transition-name: cagp-nav-pill; }
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+::view-transition-old(cagp-app-header),
+::view-transition-new(cagp-app-header),
+::view-transition-old(cagp-bottom-nav),
+::view-transition-new(cagp-bottom-nav),
+::view-transition-old(cagp-sidebar),
+::view-transition-new(cagp-sidebar) {
+  animation: none;
+}
+::view-transition-group(cagp-app-header),
+::view-transition-group(cagp-bottom-nav),
+::view-transition-group(cagp-sidebar),
+::view-transition-group(cagp-footer) {
+  animation-duration: 0s;
+}
+::view-transition-group(cagp-nav-pill) {
+  animation-duration: var(--duration-spring);
+  animation-timing-function: var(--ease-spring);
+}
+::view-transition-old(cagp-nav-pill),
+::view-transition-new(cagp-nav-pill) {
+  animation-duration: 180ms;
+  height: 100%;
+}
+::view-transition-old(cagp-footer) { animation: none; opacity: 0; }
 
 /* 3. Transição de Sub-Views (Abas de Workspace) */
 @keyframes cagpWsEnterForward {
-  from { opacity: 0; transform: translateX(12px); }
-  to { opacity: 1; transform: translateX(0); }
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 @keyframes cagpWsEnterBackward {
   from { opacity: 0; transform: translateX(-12px); }
   to { opacity: 1; transform: translateX(0); }
 }
 .cagp-animate-ws-enter {
-  animation: cagpWsEnterForward 0.22s var(--ease-out-natural) both;
+  animation: cagpWsEnterForward var(--duration-spring) var(--ease-spring) both;
 }
 
 /* 4. Entrada Escalonada de Cards (Staggered Entrance) */
 @keyframes cagpStaggerReveal {
-  from { opacity: 0; transform: translateY(8px); }
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 .cagp-stagger-enter {
-  animation: cagpStaggerReveal 0.25s var(--ease-out-natural) both;
-  animation-delay: calc(var(--stagger-index, 0) * 35ms);
+  animation: cagpStaggerReveal var(--duration-spring) var(--ease-spring) both;
+  animation-delay: calc(var(--stagger-index, 0) * 45ms);
 }
 
 /* 5. Fluxo Direcional Animado do Grafo Curricular (cagpLinkFlow) */
@@ -132,40 +173,40 @@ html[data-nav-dir="drill-out"]::view-transition-new(root) {
 }
 
 /* 6. Carimbo (momento autoral do sistema — DESIGN.md › Carimbos)
-   O carimbo desce desfocado e grande, ACELERA até o papel (--ease-stamp) e no impacto
-   a tinta "pega": o contorno/sombra aparecem de uma vez, como pressão sobre papel.
+   O carimbo cai grande e inclinado, bate no papel com a mola de ginga (passa do ponto e assenta)
+   e só no impacto a tinta "pega": a sombra dura aparece de uma vez. Sem desfoque: blur é proibido.
    Só roda quando um estado muda (resultado de simulador, etapa concluída), nunca no carregamento. */
 @keyframes cagpStampImpact {
   0% {
     opacity: 0;
-    transform: translateY(-10px) scale(1.35) rotate(-6deg);
-    filter: blur(2px);
+    transform: translateY(-28px) scale(1.7) rotate(-9deg);
     box-shadow: 0 0 0 0 #1F1F1F;
   }
-  72% {
+  38% {
     opacity: 1;
-    transform: translateY(0) scale(0.98) rotate(var(--stamp-rotate, -1.5deg));
-    filter: blur(0);
+    transform: translateY(0) scale(0.94) rotate(var(--stamp-rotate, -1.5deg));
     box-shadow: 0 0 0 0 #1F1F1F;
+  }
+  39% {
+    box-shadow: 3px 3px 0 0 #1F1F1F;
   }
   100% {
     opacity: 1;
     transform: translateY(0) scale(1) rotate(var(--stamp-rotate, -1.5deg));
-    filter: blur(0);
     box-shadow: 2px 2px 0 0 #1F1F1F;
   }
 }
 /* O papel sob o carimbo cede 1px no impacto. */
 @keyframes cagpStampPaperJolt {
-  0%, 68% { transform: translateY(0); }
-  78% { transform: translateY(1px); }
+  0%, 34% { transform: translateY(0); }
+  44% { transform: translateY(3px); }
   100% { transform: translateY(0); }
 }
 .cagp-stamp-impact {
-  animation: cagpStampImpact var(--duration-stamp, 240ms) var(--ease-stamp, cubic-bezier(0.7, 0, 0.84, 0)) both;
+  animation: cagpStampImpact var(--duration-stamp) var(--ease-snap) both;
 }
 .cagp-stamp-host-jolt {
-  animation: cagpStampPaperJolt 320ms linear both;
+  animation: cagpStampPaperJolt var(--duration-stamp) var(--ease-spring-bouncy) both;
 }
 
 /* 7. Desbloqueio de marco: a ficha sobe da sombra (sem escala). */
@@ -178,16 +219,20 @@ html[data-nav-dir="drill-out"]::view-transition-new(root) {
   100% {
     opacity: 1;
     transform: translate(0, 0);
-    box-shadow: 4px 4px 0 0 #1F1F1F;
+    box-shadow: 3px 3px 0 0 #1F1F1F;
   }
 }
 .cagp-seal-unlock {
-  animation: cagpSealUnlock 0.22s var(--ease-out-natural) both;
+  animation: cagpSealUnlock var(--duration-spring) var(--ease-spring-bouncy) both;
 }
 
 /* 8. Press-Into-Shadow (substitui o "spring" com escala): afunda na sombra. */
 .cagp-touch-spring {
-  transition: transform 0.15s var(--ease-out-natural), background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    transform var(--duration-press) var(--ease-spring-snappy),
+    background-color var(--duration-press) var(--ease-snap),
+    border-color var(--duration-press) var(--ease-snap),
+    box-shadow var(--duration-press) var(--ease-snap);
 }
 .cagp-touch-spring:active,
 .is-tapped {
@@ -198,9 +243,9 @@ html[data-nav-dir="drill-out"]::view-transition-new(root) {
 
 /* 9. Pulso de Conclusão / Meta 100% */
 @keyframes cagpProgressPulse100 {
-  0% { transform: scaleY(1); filter: brightness(1); }
-  45% { transform: scaleY(1.22); filter: brightness(1.2); }
-  100% { transform: scaleY(1); filter: brightness(1); }
+  0% { transform: scaleY(1); }
+  45% { transform: scaleY(1.22); }
+  100% { transform: scaleY(1); }
 }
 .is-pulse-100 {
   animation: cagpProgressPulse100 0.52s var(--cagp-m3-spatial-fast);
@@ -222,7 +267,7 @@ html[data-nav-dir="drill-out"]::view-transition-new(root) {
   100% { opacity: 1; transform: translate(0, 0); box-shadow: 3px 3px 0 0 #1F1F1F; }
 }
 .cagp-emblem-stamp {
-  animation: cagpEmblemStamp 0.24s var(--ease-out-natural) both;
+  animation: cagpEmblemStamp var(--duration-spring) var(--ease-spring) both;
 }
 
 /* 12. Skeleton: névoa chapada, pulso lento de opacidade (sem shimmer colorido). */
@@ -287,11 +332,6 @@ html[data-nav-dir="drill-out"]::view-transition-new(root) {
   100% { transform: scale(1); }
 }
 
-/* Animações Expressivas Incondicionais Ativas em 100% das Sessões */
-
-
-
-
 /* 14. Germinar (DESIGN.md › Movimento): a folha brota da base uma única vez, só no herói do Cartaz.
    Estado final visível por padrão; sem JS, a forma já está lá. */
 @keyframes cagpGerminate {
@@ -306,5 +346,120 @@ html[data-nav-dir="drill-out"]::view-transition-new(root) {
 }
 .cagp-germinate {
   transform-origin: 0% 100%;
-  animation: cagpGerminate 520ms var(--ease-out-natural, cubic-bezier(0.16, 1, 0.3, 1)) 120ms both;
+  animation: cagpGerminate 900ms var(--ease-spring-bouncy) 160ms both;
+}
+
+/* 15. Rolagem (DESIGN.md › Movimento, "máximo"): reveal e parallax guiados pela própria rolagem
+   (CSS scroll-driven animations, zero JS). Onde o navegador não suporta, tudo já está visível e parado.
+   Use .cagp-reveal em blocos (fichas, grupos, faixas) — nunca em texto solto de leitura (volume Papel). */
+@supports (animation-timeline: view()) {
+  @keyframes cagpReveal {
+    from { opacity: 0; transform: translateY(48px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .cagp-reveal {
+    animation: cagpReveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 55%;
+  }
+  /* A sombra dura "pousa" junto: o bloco entra sem sombra e ganha a sombra ao assentar. */
+  @keyframes cagpRevealCard {
+    from { opacity: 0; transform: translate(6px, 40px); box-shadow: 0 0 0 0 var(--color-border); }
+    to { opacity: 1; transform: translate(0, 0); }
+  }
+  .cagp-reveal-card {
+    animation: cagpRevealCard linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 60%;
+  }
+  /* Filhos em cascata: cada item começa um pouco depois no mesmo trilho de rolagem. */
+  .cagp-reveal-stagger > * {
+    animation: cagpReveal linear both;
+    animation-timeline: view();
+    animation-range: entry calc(var(--i, 0) * 6%) entry calc(50% + var(--i, 0) * 6%);
+  }
+  .cagp-reveal-stagger > *:nth-child(2) { --i: 1; }
+  .cagp-reveal-stagger > *:nth-child(3) { --i: 2; }
+  .cagp-reveal-stagger > *:nth-child(4) { --i: 3; }
+  .cagp-reveal-stagger > *:nth-child(5) { --i: 4; }
+  .cagp-reveal-stagger > *:nth-child(n + 6) { --i: 5; }
+
+  /* Formas orgânicas (folha, semente, semicírculo) andam mais devagar que a página. */
+  @keyframes cagpParallax {
+    from { transform: translateY(var(--parallax-from, 60px)); }
+    to { transform: translateY(var(--parallax-to, -60px)); }
+  }
+  .cagp-parallax {
+    animation: cagpParallax linear both;
+    animation-timeline: view();
+    animation-range: cover;
+    will-change: transform;
+  }
+}
+
+/* 16. A caneta da chapa (MarkerWord): a palavra em Permanent Marker e o traço laranja que se desenha.
+   Por padrão o traço corre uma vez ao carregar. */
+.cagp-marker {
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-accent);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  line-height: 1;
+  color: var(--color-primary);
+  white-space: nowrap;
+  isolation: isolate;
+}
+.cagp-marker.is-on-color { color: #FFFFFF; }
+.cagp-marker__word { position: relative; z-index: 1; }
+.cagp-marker__stroke {
+  position: absolute;
+  z-index: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+.cagp-marker--underline .cagp-marker__stroke {
+  left: -4%;
+  right: -4%;
+  bottom: -0.2em;
+  width: 108%;
+  height: 0.34em;
+}
+.cagp-marker--circle .cagp-marker__stroke {
+  left: -14%;
+  top: -30%;
+  width: 128%;
+  height: 160%;
+}
+.cagp-marker__stroke path {
+  fill: none;
+  stroke: var(--color-accent);
+  /* Sem vector-effect: com non-scaling-stroke o Chrome mede o tracejado em px de tela e o traço some. */
+  stroke-width: 9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  animation: cagpMarkerDraw 720ms var(--ease-snap) 260ms both;
+}
+.cagp-marker--underline .cagp-marker__stroke path { stroke-width: 11; }
+@keyframes cagpMarkerDraw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+/* `scroll`: para palavras abaixo da dobra, o traço se desenha conforme a palavra entra na tela. */
+@supports (animation-timeline: view()) {
+  .cagp-marker.is-scroll .cagp-marker__stroke path {
+    animation: cagpMarkerDraw linear both;
+    animation-timeline: view();
+    animation-range: entry 40% cover 35%;
+  }
+}
+
+/* 17. Título que viaja (lib/viewTransitionNames.ts): a linha da lista vira o cabeçalho da página.
+   Mola firme no grupo; as duas imagens do texto trocam rápido no meio do caminho. */
+::view-transition-group(*.vt-title) {
+  animation-duration: var(--duration-spring);
+  animation-timing-function: var(--ease-spring);
 }

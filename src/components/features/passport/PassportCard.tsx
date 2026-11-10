@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { getVaultItem, type VaultData } from '@/lib/storage/studentVault';
+import { getVaultItem, USER_ROLE_META, type UserRole, type VaultData } from '@/lib/storage/studentVault';
 import { bounceSpring } from '@/lib/motion';
 import { AvatarRenderer } from './AvatarRenderer';
 import { asset } from '@/lib/paths';
@@ -9,8 +9,9 @@ interface PassportCardProps {
   profile: VaultData<'cagp_student_profile_v1'>;
   obrigCount: number;
   extHours: number;
+  /** Momento no curso: a única fonte de "em que fase você está" no site (cagp_user_role_v1). */
+  role: UserRole;
   onEditPhoto: () => void;
-  onOpenCampus: () => void;
 }
 
 const TALENT_LABELS: Record<string, string> = {
@@ -32,14 +33,15 @@ export const PassportCard: React.FC<PassportCardProps> = ({
   profile,
   obrigCount,
   extHours,
+  role,
   onEditPhoto,
-  onOpenCampus,
 }) => {
   const obrigPct = Math.min(100, Math.round((obrigCount / 27) * 100));
   const extPct = Math.min(100, Math.round((extHours / 600) * 100));
   const globalPct = Math.round((obrigPct + extPct) / 2);
 
-  const stampLabel = `${profile.period.toUpperCase()} • ATIVO`;
+  const roleMeta = USER_ROLE_META[role];
+  const stampLabel = `${roleMeta.shortLabel.toUpperCase()} • ATIVO`;
   const cred = typeof window !== 'undefined' ? getVaultItem('cagp_election_activation_v1') : null;
   const isSementeEleitor = cred?.completed && cred?.sementeSupporter;
   const initials = profile.name
@@ -59,7 +61,7 @@ export const PassportCard: React.FC<PassportCardProps> = ({
       {/* Topbar Institucional */}
       <div className="cagp-passport-topbar">
         <div className="cagp-passport-inst">
-          <i className="bi bi-bank2 text-[#A85300]" aria-hidden="true" />
+          <i className="bi bi-bank2 text-white" aria-hidden="true" />
           <span>FAFICH / UFMG • GESTÃO PÚBLICA</span>
         </div>
         <span className="cagp-passport-stamp">{stampLabel}</span>
@@ -90,7 +92,7 @@ export const PassportCard: React.FC<PassportCardProps> = ({
           </div>
 
           <div className="flex flex-wrap items-center gap-1.5 mt-2">
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-head font-extrabold uppercase bg-secondary text-white border border-border shadow-xs">{profile.period}</span>
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-head font-extrabold uppercase bg-primary text-white border border-border shadow-xs">{roleMeta.shortLabel} · {roleMeta.badge}</span>
             <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono font-bold bg-foreground text-background text-white border border-border shadow-xs">Ingresso {profile.semester || '2026/1'}</span>
             <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-head font-bold uppercase bg-primary text-white border border-border shadow-xs">{profile.pathway || '01-01'} • Geral</span>
             {isSementeEleitor && (
@@ -172,15 +174,15 @@ export const PassportCard: React.FC<PassportCardProps> = ({
       </div>
 
       {/* Carimbos de Conquistas Desbloqueadas (cagp-stamp) */}
-      <div className="px-4 py-2.5 bg-[#F4F2EC] border-t-2 border-[#1F1F1F] flex flex-wrap items-center gap-2">
-        <span className="text-xs font-mono uppercase font-bold text-[#1F1F1F] mr-1">
+      <div className="px-4 py-2.5 bg-background border-t-2 border-border flex flex-wrap items-center gap-2">
+        <span className="text-xs font-mono uppercase font-bold text-foreground mr-1">
           Carimbos Oficiais:
         </span>
         <motion.span
           initial={{ scale: 1.35, rotate: -8, opacity: 0 }}
           animate={{ scale: 1, rotate: -2, opacity: 1 }}
           transition={bounceSpring}
-          className="px-2 py-0.5 rounded bg-[#5B2A85] text-white font-mono text-xs font-bold uppercase border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]"
+          className="px-2 py-0.5 rounded bg-primary text-white font-mono text-xs font-bold uppercase border-2 border-border shadow-sm"
         >
           {isSementeEleitor ? 'Eleitor Semente 2026' : 'Passaporte Semente Ativo'}
         </motion.span>
@@ -189,7 +191,7 @@ export const PassportCard: React.FC<PassportCardProps> = ({
             initial={{ scale: 1.35, rotate: 6, opacity: 0 }}
             animate={{ scale: 1, rotate: 1.5, opacity: 1 }}
             transition={bounceSpring}
-            className="px-2 py-0.5 rounded bg-[#266264] text-white font-mono text-xs font-bold uppercase border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]"
+            className="px-2 py-0.5 rounded bg-secondary text-white font-mono text-xs font-bold uppercase border-2 border-border shadow-sm"
           >
             {obrigCount} Disciplinas Registradas
           </motion.span>
@@ -199,7 +201,7 @@ export const PassportCard: React.FC<PassportCardProps> = ({
             initial={{ scale: 1.35, rotate: -5, opacity: 0 }}
             animate={{ scale: 1, rotate: -1, opacity: 1 }}
             transition={bounceSpring}
-            className="px-2 py-0.5 rounded bg-[#FE8812] text-[#1F1F1F] font-mono text-xs font-bold uppercase border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]"
+            className="px-2 py-0.5 rounded bg-accent text-foreground font-mono text-xs font-bold uppercase border-2 border-border shadow-sm"
           >
             {extHours}h ACG/Extensão
           </motion.span>
@@ -207,22 +209,14 @@ export const PassportCard: React.FC<PassportCardProps> = ({
       </div>
 
       {/* Ações Rápidas */}
-      <div className="p-2.5 sm:p-3 bg-white border-t-2 border-[#1F1F1F] flex flex-wrap gap-2">
+      <div className="p-2.5 sm:p-3 bg-white border-t-2 border-border flex flex-wrap gap-2">
         <button
           type="button"
           onClick={onEditPhoto}
           className="min-h-[44px] cagp-btn-secondary text-xs py-1.5 px-3 flex-1 justify-center cursor-pointer active:translate-x-[3px] active:translate-y-[3px]"
         >
           <i className="bi bi-camera-fill" aria-hidden="true" />
-          <span>Trocar Foto / Avatar</span>
-        </button>
-        <button
-          type="button"
-          onClick={onOpenCampus}
-          className="min-h-[44px] cagp-btn-outline text-xs py-1.5 px-3 cursor-pointer active:translate-x-[3px] active:translate-y-[3px]"
-        >
-          <i className="bi bi-clock-history text-secondary" aria-hidden="true" />
-          <span>Campus Agora</span>
+          <span>Trocar foto</span>
         </button>
       </div>
     </motion.div>

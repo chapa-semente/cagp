@@ -68,19 +68,19 @@ const espacos = [
 
 <div class="cagp-calouro-espacos space-y-6 select-none text-foreground">
   {/* Cabeçalho Editorial */}
-  <div class="p-5 sm:p-6 bg-white border-2 border-[#1F1F1F] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-[6px_6px_0_0_#1F1F1F]">
+  <div class="p-5 sm:p-6 bg-white border-2 border-border rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xl">
     <div>
       <span class="text-xs font-head uppercase font-bold tracking-wider text-secondary">
         Mapeamento Fotográfico Ampliado &amp; Guia de Campo
       </span>
-      <h3 class="font-head text-lg sm:text-xl font-black text-[#1F1F1F] m-0">
+      <h3 class="font-head text-lg sm:text-xl font-black text-foreground m-0">
         Espaços Estratégicos na FAFICH: Sala F-4000, Colegiado F-2039, Auditório Sônia Viegas &amp; RU II
       </h3>
       <p class="text-xs text-gray-800 mt-1 m-0 font-body font-medium">
         Explore em fotografias ampliadas com efeito tátil os espaços essenciais para sua rotina noturna, estudo, protocolo e convivência estudantil.
       </p>
     </div>
-    <span class="px-3.5 py-2 rounded-xl bg-[#1F1F1F] text-white font-mono text-xs font-black uppercase shrink-0 border-2 border-[#1F1F1F] shadow-[3px_3px_0_0_#FE8812]">
+    <span class="px-3.5 py-2 rounded-xl bg-foreground text-white font-mono text-xs font-black uppercase shrink-0 border-2 border-border shadow-[3px_3px_0_0_#FE8812]">
       6 Espaços Essenciais
     </span>
   </div>
@@ -88,31 +88,31 @@ const espacos = [
   {/* Grid dos Espaços com Fotografias Significativamente Ampliadas (aspect-[4/3] min-h-[250px] sm:min-h-[280px], borda 3px, sombra 6px e photoCardHover) */}
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     {espacos.map((esp) => (
-      <article class="cagp-card p-5 bg-white border-2 border-[#1F1F1F] rounded-xl flex flex-col justify-between shadow-[6px_6px_0_0_#1F1F1F] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[8px_8px_0_0_#1F1F1F] transition-all group">
+      <article class="cagp-card p-5 bg-white border-2 border-border rounded-xl flex flex-col justify-between shadow-xl hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-xl transition-all group">
         <div>
           {/* Moldura Fotográfica Ampliada aspect-[4/3] min-h-[250px] sm:min-h-[280px] com .cagp-photo-frame (photoCardHover) */}
-          <div class="cagp-photo-frame relative aspect-[4/3] min-h-[250px] sm:min-h-[280px] w-full mb-4 rounded-xl border-3 border-[#1F1F1F] shadow-[6px_6px_0_0_#1F1F1F] overflow-hidden bg-[#F4F2EC]">
+          <div class="cagp-photo-frame relative aspect-[4/3] min-h-[250px] sm:min-h-[280px] w-full mb-4 rounded-xl border-3 border-border shadow-xl overflow-hidden bg-background">
             <img
               src={esp.image}
               alt={esp.nome}
               class="w-full h-full object-cover"
               loading="lazy"
             />
-            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-[#FE8812] text-[#1F1F1F] font-mono font-black text-xs uppercase tracking-wider border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]">
+            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-accent text-foreground font-mono font-black text-xs uppercase tracking-wider border-2 border-border shadow-sm">
               {esp.tag}
             </span>
             <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2 text-white">
-              <span class="font-mono font-bold text-xs uppercase bg-[#1F1F1F] px-2.5 py-1 rounded-md border-2 border-[#1F1F1F] truncate">
-                <i class="bi bi-geo-alt-fill text-[#FE8812] mr-1" aria-hidden="true" />
+              <span class="font-mono font-bold text-xs uppercase bg-foreground px-2.5 py-1 rounded-md border-2 border-border truncate">
+                <i class="bi bi-geo-alt-fill text-accent mr-1" aria-hidden="true" />
                 {esp.local}
               </span>
-              <span class="w-9 h-9 rounded-lg bg-secondary text-white flex items-center justify-center text-base border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] shrink-0">
+              <span class="w-9 h-9 rounded-lg bg-secondary text-white flex items-center justify-center text-base border-2 border-border shadow-sm shrink-0">
                 <i class={`bi ${esp.icon}`} aria-hidden="true" />
               </span>
             </div>
           </div>
 
-          <h4 class="font-head text-base sm:text-lg font-black text-[#1F1F1F] mb-2 m-0">
+          <h4 class="font-head text-base sm:text-lg font-black text-foreground mb-2 m-0">
             {esp.nome}
           </h4>
 
@@ -121,12 +121,12 @@ const espacos = [
           </p>
         </div>
 
-        <div class="pt-3 border-t-2 border-[#1F1F1F] flex items-center justify-between gap-2 text-xs text-[#1F1F1F] font-mono font-bold">
+        <div class="pt-3 border-t-2 border-border flex items-center justify-between gap-2 text-xs text-foreground font-mono font-bold">
           <span class="inline-flex items-center gap-1.5">
             <i class="bi bi-clock-fill text-secondary" aria-hidden="true" />
             <span>{esp.horario}</span>
           </span>
-          <span class="px-2 py-0.5 rounded bg-[#ffffff] border-2 border-[#1F1F1F] text-xs font-black uppercase text-[#5B2A85]">
+          <span class="px-2 py-0.5 rounded bg-white border-2 border-border text-xs font-black uppercase text-primary">
             {esp.destaqueSemente}
           </span>
         </div>
@@ -135,15 +135,15 @@ const espacos = [
   </div>
 
   {/* Banner de Compromisso da Chapa Semente: Sala F-4000 & Recepção de Calouros (Propostas 5, 6 e 7) */}
-  <div class="p-5 sm:p-6 bg-[#ffffff] border-2 border-[#1F1F1F] rounded-xl shadow-[6px_6px_0_0_#1F1F1F] flex flex-col md:flex-row md:items-center justify-between gap-4">
+  <div class="p-5 sm:p-6 bg-white border-2 border-border rounded-xl shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
     <div class="space-y-1.5 max-w-3xl">
       <div class="flex flex-wrap items-center gap-2">
-        <span class="px-2.5 py-0.5 rounded-md bg-[#5B2A85] text-white font-mono text-xs font-black uppercase border-2 border-[#1F1F1F]">
+        <span class="px-2.5 py-0.5 rounded-md bg-primary text-white font-mono text-xs font-black uppercase border-2 border-border">
           COMPROMISSO CHAPA SEMENTE • SALA F-4000 &amp; INTEGRAÇÃO
         </span>
         <span class="font-mono text-xs font-bold text-secondary">Propostas 5, 6 e 7</span>
       </div>
-      <h4 class="font-head text-base sm:text-lg font-black text-[#1F1F1F] m-0">
+      <h4 class="font-head text-base sm:text-lg font-black text-foreground m-0">
         Segurança, Escaninhos na Sala F-4000 e Recepção Estruturada no Auditório Sônia Viegas
       </h4>
       <p class="text-xs text-gray-800 leading-relaxed font-body font-medium m-0">
@@ -153,10 +153,10 @@ const espacos = [
 
     <a
       href={route('/chapa-semente#propostas')}
-      class="min-h-[44px] px-5 py-2.5 bg-[#FE8812] hover:bg-[#e67300] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 text-[#1F1F1F] rounded-xl font-head text-xs uppercase font-black tracking-wider inline-flex items-center justify-center gap-2 transition-all no-underline border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] shrink-0"
+      class="min-h-[44px] px-5 py-2.5 bg-accent hover:bg-accent-hover active:translate-x-[3px] active:translate-y-[3px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 text-foreground rounded-xl font-head text-xs uppercase font-black tracking-wider inline-flex items-center justify-center gap-2 transition-all no-underline border-3 border-border shadow-md shrink-0"
     >
       <i class="bi bi-megaphone-fill" aria-hidden="true"></i>
-      <span>Apoiar Propostas 5, 6 e 7 →</span>
+      <span>Apoiar Propostas 5, 6 e 7 <i class="bi bi-arrow-right" aria-hidden="true"></i></span>
     </a>
   </div>
 </div>

@@ -1,4 +1,5 @@
 ---
+import MarkerWord from '@/components/ui/MarkerWord.astro';
 // PageFooter.astro - Rodapé Institucional Neobrutalista (Chancelas UFMG + CAGP Candangos + Chapa Semente)
 import { FooterMultiColumn, type FooterColumn, type FooterSocialLink } from '@/components/boldkit/blocks/footer-section';
 import { asset, route } from '@/lib/paths';
@@ -43,7 +44,7 @@ const socialLinks: FooterSocialLink[] = [
 ];
 ---
 
-<footer class="relative z-10 w-full bg-card border-t-3 border-border shadow-[0_-4px_0_0_var(--shadow-color)] mt-12 py-8 px-4 sm:px-6 select-none text-xs text-foreground pb-24 sm:pb-10">
+<footer id="cagp-page-footer" class="relative z-10 w-full bg-card border-t-3 border-border shadow-[0_-4px_0_0_var(--shadow-color)] mt-12 py-8 px-4 sm:px-6 select-none text-xs text-foreground pb-24 sm:pb-10">
   <!-- Barra Cromática Tri-Camada Superior -->
   <div class="max-w-[1360px] mx-auto space-y-6">
     <!-- Régua de Chancelas Conjuntas (Chapa Semente como Realizadora + CAGP UFMG) -->
@@ -63,11 +64,8 @@ const socialLinks: FooterSocialLink[] = [
             loading="lazy"
             class="h-12 w-auto max-w-full"
           />
-          <span class="block font-accent text-lg leading-tight text-primary mt-2">
-            Toda mudança começa pequena.
-          </span>
-          <span class="block text-xs font-sans font-bold text-muted-foreground mt-1 truncate">
-            Potencial que se transforma em ação • Campanha 2026
+          <span class="block font-heading font-bold text-base leading-tight text-foreground mt-3">
+            Toda mudança começa <MarkerWord class="text-[1.2em]" scroll>pequena</MarkerWord>.
           </span>
         </div>
       </a>

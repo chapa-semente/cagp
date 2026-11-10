@@ -14,7 +14,7 @@ const badges = [
   { label: 'Propostas 9, 11 e 12 Chapa Semente', variant: 'purple' as const, icon: 'bi-briefcase-fill' },
   { label: 'Radar Ativo de Vagas', variant: 'orange' as const, icon: 'bi-megaphone-fill' },
   { label: 'Empresa Júnior GP & OSCs', variant: 'green' as const, icon: 'bi-stars' },
-  { label: 'Banco de Talentos (Cofre)', variant: 'red' as const, icon: 'bi-person-vcard' },
+  { label: 'Banco de talentos', variant: 'red' as const, icon: 'bi-person-vcard' },
 ];
 
 const atalhosCarreira = [
@@ -29,7 +29,7 @@ const atalhosCarreira = [
   {
     id: 'talentos',
     label: 'Banco de Talentos',
-    sublabel: 'Cofre Local de Competências',
+    sublabel: 'Seu perfil profissional',
     href: route('/carreira/talentos'),
     icon: 'stars',
     color: 'bg-primary text-white',
@@ -54,8 +54,8 @@ const atalhosCarreira = [
 ---
 
 <BaseLayout
-  title="Hub de Carreira, Vagas & Banco de Talentos • CAGP FAFICH/UFMG"
-  description="Hub unificado de carreira discente conectado às Propostas 9, 11 e 12 da Chapa Semente: radar de vagas públicas, Empresa Júnior de Gestão Pública, Aproveitamento Servidor (Art. 41) e Banco de Talentos."
+  title="Carreira e vagas"
+  description="Carreira de quem estuda Gestão Pública na UFMG conectado às Propostas 9, 11 e 12 da Chapa Semente: radar de vagas públicas, Empresa Júnior de Gestão Pública, Aproveitamento Servidor (Art. 41) e Banco de Talentos."
   mode="operate"
 >
   <div id="cagp-carreira-hub" class="space-y-8 max-w-6xl mx-auto font-sans">
@@ -64,8 +64,8 @@ const atalhosCarreira = [
       mode="operate"
       condensed={true}
       showAxisNav={false}
-      title="Carreira, Vagas & Banco de Talentos"
-      subtitle="Conectado às Propostas 9, 11 e 12 da Chapa Semente: oportunidades em órgãos públicos e OSCs, apoio à Empresa Júnior de Gestão Pública, Aproveitamento Servidor (Art. 41) e Banco de Talentos."
+      title="Carreira e vagas"
+      subtitle="Estágio, concurso, Empresa Júnior e seu perfil profissional: o que ajuda a sair do curso já trabalhando."
       badges={badges}
     />
 
@@ -141,7 +141,7 @@ const atalhosCarreira = [
 
           <a
             href={route('/estagio')}
-            class="min-h-[44px] px-4 py-2.5 rounded-xl border-2 border-border bg-secondary hover:bg-[#851E1E] text-white font-heading text-xs font-black uppercase no-underline inline-flex items-center justify-center gap-2 shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 transition-all"
+            class="min-h-[44px] px-4 py-2.5 rounded-xl border-2 border-border bg-secondary hover:bg-secondary-hover text-white font-heading text-xs font-black uppercase no-underline inline-flex items-center justify-center gap-2 shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 transition-all"
           >
             <i class="bi bi-file-earmark-check-fill" aria-hidden="true" />
             <span>Acessar Portal de Estágio Supervisionado</span>
@@ -168,10 +168,10 @@ const atalhosCarreira = [
 
           <a
             href={route('/formatura')}
-            class="min-h-[44px] px-4 py-2.5 rounded-xl border-2 border-border bg-foreground hover:bg-foreground/90 text-background text-white font-heading text-xs font-black uppercase no-underline inline-flex items-center justify-center gap-2 shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
+            class="min-h-[44px] px-4 py-2.5 rounded-xl border-2 border-border bg-primary hover:bg-primary-hover/90 text-white text-white font-heading text-xs font-black uppercase no-underline inline-flex items-center justify-center gap-2 shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
           >
             <i class="bi bi-mortarboard-fill" aria-hidden="true" />
-            <span>Abrir Hub Integrador Reta Final (Formando)</span>
+            <span>Abrir a reta final</span>
             <i class="bi bi-arrow-right" aria-hidden="true"></i>
           </a>
         </div>
@@ -186,9 +186,9 @@ const atalhosCarreira = [
 
     <JourneyNav
       prev={{
-        title: 'Hub Integrador Estágio & TCC (Formando)',
+        title: 'Reta final: estágio e TCC',
         href: '/formatura',
-        desc: 'Checklist animado de colação de grau com progresso salvo no cofre local.',
+        desc: 'Checklist animado de colação de grau com progresso salvo neste celular.',
       }}
       next={{
         title: 'Chapa Semente — Carta-Programa & 14 Propostas',

@@ -92,7 +92,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
                 </span>
               </div>
             </div>
-            <span className="font-mono text-xs font-bold text-foreground bg-[#E7E3D8] px-2 py-1 rounded border border-border tabular-nums">R$ 5,60</span>
+            <span className="font-mono text-xs font-bold text-foreground bg-muted px-2 py-1 rounded border border-border tabular-nums">R$ 5,60</span>
           </div>
           <p className="text-xs text-muted-foreground m-0 leading-snug font-medium">
             Catracas fecham <strong>impreterivelmente às 19h30</strong>. Chegue antes das 18h30 para evitar fila extensa.
@@ -131,7 +131,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
               </span>
               <div>
                 <span className="font-heading font-extrabold text-sm uppercase text-foreground">Circular Noturno FAFICH</span>
-                <span className="text-xs font-mono bg-[#E0F2FE] text-[#0369A1] font-bold px-2 py-0.5 rounded border border-border ml-2">
+                <span className="text-xs font-mono bg-info-tint text-info font-bold px-2 py-0.5 rounded border border-border ml-2">
                   17h00 às 22h45
                 </span>
               </div>
@@ -170,12 +170,12 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
         <div className="bg-white p-4 rounded-xl border-[2.5px] border-border shadow space-y-3">
           <div className="flex items-center justify-between flex-wrap gap-2">
             <div className="flex items-center gap-2.5">
-              <span className="w-9 h-9 rounded-xl bg-[#A85300] text-black flex items-center justify-center shrink-0 border-2 border-border shadow-xs">
+              <span className="w-9 h-9 rounded-xl bg-orange-text text-black flex items-center justify-center shrink-0 border-2 border-border shadow-xs">
                 <i className="bi bi-shield-exclamation text-base" aria-hidden="true" />
               </span>
               <div>
                 <span className="font-heading font-extrabold text-sm uppercase text-foreground">Guardião de 120 Dias AAC</span>
-                <span className="text-xs font-mono bg-[#FEF3C7] text-[#854D0E] font-bold px-2 py-0.5 rounded border border-border ml-2">
+                <span className="text-xs font-mono bg-warning-tint text-warning font-bold px-2 py-0.5 rounded border border-border ml-2">
                   Art. 15, § 4º
                 </span>
               </div>

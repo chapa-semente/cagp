@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Download, Image, FileText, Maximize } from 'lucide-react'
+import { Download, Image, FileText, Maximize } from '@/components/ui/icons'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import {

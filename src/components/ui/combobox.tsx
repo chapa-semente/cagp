@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ChevronsUpDown, X } from 'lucide-react'
+import { ChevronsUpDown, X } from '@/components/ui/icons'
 import { cn } from '@/lib/utils'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import {

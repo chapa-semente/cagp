@@ -4,7 +4,7 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 import { Progress } from '@/components/ui/progress'
 import { Spinner } from '@/components/ui/spinner'
-import { Upload, X, File, Image, FileText, FileCode, FileAudio, FileVideo } from 'lucide-react'
+import { Upload, X, File, Image, FileText, FileCode, FileAudio, FileVideo } from '@/components/ui/icons'
 
 // Types
 export interface FileRejection {
@@ -291,13 +291,13 @@ function DefaultDropzoneContent({
       <div
         className={cn(
           'flex items-center justify-center w-16 h-16 border-3 border-foreground bg-muted transition duration-200',
-          isDragging && 'bg-primary border-primary shadow-[4px_4px_0px_var(--foreground)] -translate-x-1 -translate-y-1'
+          isDragging && 'bg-primary border-primary shadow-md -translate-x-1 -translate-y-1'
         )}
       >
         <Upload
           className={cn(
             'h-8 w-8 transition duration-200',
-            isDragging ? 'text-primary-foreground animate-bounce' : 'text-foreground'
+            isDragging ? 'text-primary-foreground' : 'text-foreground'
           )}
         />
       </div>
@@ -399,7 +399,7 @@ function FileListItem({ file, progress, error, uploading, onRemove }: FileListIt
             e.stopPropagation()
             onRemove()
           }}
-          className="flex items-center justify-center w-8 h-8 border-3 border-foreground bg-background hover:bg-destructive hover:text-destructive-foreground hover:shadow-[2px_2px_0px_var(--foreground)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition"
+          className="flex items-center justify-center w-8 h-8 border-3 border-foreground bg-background hover:bg-destructive hover:text-destructive-foreground hover:shadow-sm hover:-translate-x-0.5 hover:-translate-y-0.5 transition"
         >
           <X className="h-4 w-4" />
         </button>

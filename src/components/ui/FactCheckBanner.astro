@@ -31,30 +31,30 @@ const verdictConfig: Record<string, {
   homologado: {
     badge: 'VERIFICADO • NORMA REGIMENTAL',
     stamp: stampText || 'HOMOLOGADO',
-    stampClass: 'text-[#166534] bg-[#D0E5D8]',
+    stampClass: 'text-success bg-[#D0E5D8]',
     iconName: 'check',
-    iconColor: 'text-[#166534]',
+    iconColor: 'text-success',
   },
   obrigatorio: {
     badge: 'TRAVA OFICIAL • PPC 2020',
     stamp: stampText || 'OBRIGATÓRIO',
-    stampClass: 'text-secondary bg-[#FEE2E2]',
+    stampClass: 'text-secondary bg-destructive-tint',
     iconName: 'shield',
     iconColor: 'text-secondary',
   },
   atencao: {
     badge: 'PRAZO PEREMPTÓRIO • ATENÇÃO',
     stamp: stampText || '120 DIAS',
-    stampClass: 'text-[#854D0E] bg-[#FEF3C7]',
+    stampClass: 'text-warning bg-warning-tint',
     iconName: 'alert-triangle',
-    iconColor: 'text-[#854D0E]',
+    iconColor: 'text-warning',
   },
   desmistificado: {
     badge: 'CHECAGEM ANTI-BOATO • FATO',
     stamp: stampText || 'FATO REAL',
-    stampClass: 'text-[#0369A1] bg-[#E0F2FE]',
+    stampClass: 'text-info bg-info-tint',
     iconName: 'stamp',
-    iconColor: 'text-[#0369A1]',
+    iconColor: 'text-info',
   },
 };
 

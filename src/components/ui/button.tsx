@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
   cn(
-    "group/button font-heading font-bold uppercase tracking-[0.025em] inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl max-w-full whitespace-normal text-center leading-tight sm:whitespace-nowrap select-none transition-[transform,box-shadow,background-color] duration-150 ease-[cubic-bezier(0.16,1,0.3,1)]",
+    "group/button font-heading font-bold uppercase tracking-[0.025em] inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl max-w-full whitespace-normal text-center leading-tight sm:whitespace-nowrap select-none transition-[transform,box-shadow,background-color,color] duration-(--duration-press) ease-(--ease-spring-snappy)",
     "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none",
     "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-invalid:border-destructive",
     "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
@@ -50,7 +50,7 @@ const buttonVariants = cva(
         bounce: "animate-[brutal-bounce_0.5s_ease-in-out_infinite]",
         shake: "hover:animate-[brutal-shake_0.4s_ease-in-out]",
         wiggle: "hover:animate-[brutal-wiggle_0.3s_ease-in-out]",
-        pop: "hover:animate-[brutal-pop_0.2s_ease-out] active:scale-95",
+        pop: "hover:animate-[brutal-wiggle_0.3s_ease-in-out]",
       },
     },
     defaultVariants: {

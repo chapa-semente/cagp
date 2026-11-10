@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Slot as SlotPrimitive } from 'radix-ui'
-import { ChevronRight, MoreHorizontal } from 'lucide-react'
+import { ChevronRight, MoreHorizontal } from '@/components/ui/icons'
 import { cn } from '@/lib/utils'
 
 const Breadcrumb = React.forwardRef<

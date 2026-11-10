@@ -145,13 +145,13 @@ const atosCurso = [
     {/* Coordenação Titular e Sub */}
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-body">
       <div class="cagp-card p-4 bg-white border-2 border-border rounded-xl shadow-sm">
-        <span class="text-xs font-head uppercase font-bold text-secondary tracking-wide block">Coordenadora do Colegiado</span>
         <h4 class="font-head text-base font-bold text-foreground mt-1 m-0">{coordenacao.coordenadora}</h4>
+        <p class="m-0 mt-1 text-xs font-heading font-bold uppercase tracking-[0.04em] text-muted-foreground tabular-nums">Coordenadora do Colegiado</p>
         <p class="text-xs text-gray-700 mt-1.5 m-0 font-medium">E-mail: <a href={`mailto:${coordenacao.emailCoord}`} class="font-mono text-secondary underline font-bold">{coordenacao.emailCoord}</a></p>
       </div>
       <div class="cagp-card p-4 bg-white border-2 border-border rounded-xl shadow-sm">
-        <span class="text-xs font-head uppercase font-bold text-gray-700 tracking-wide block">Subcoordenadora do Colegiado</span>
         <h4 class="font-head text-base font-bold text-foreground mt-1 m-0">{coordenacao.subcoordenadora}</h4>
+        <p class="m-0 mt-1 text-xs font-heading font-bold uppercase tracking-[0.04em] text-muted-foreground tabular-nums">Subcoordenadora do Colegiado</p>
         <p class="text-xs text-gray-700 mt-1.5 m-0 font-medium">E-mail: <a href={`mailto:${coordenacao.emailSub}`} class="font-mono text-secondary underline font-bold">{coordenacao.emailSub}</a></p>
       </div>
     </div>

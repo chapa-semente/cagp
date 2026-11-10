@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Download, File, FileAudio, FileCode, FileText, FileVideo, Image, X } from 'lucide-react'
+import { Download, File, FileAudio, FileCode, FileText, FileVideo, Image, X } from '@/components/ui/icons'
 import { cn } from '@/lib/utils'
 import { Progress } from '@/components/ui/progress'
 

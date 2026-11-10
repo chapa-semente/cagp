@@ -12,9 +12,6 @@ const RISE = 280;
 type Running = { height: Animation; content: Animation[]; opening: boolean };
 const running = new WeakMap<HTMLDetailsElement, Running>();
 
-const prefersReducedMotion = () =>
-  window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
-
 function bodyOf(details: HTMLDetailsElement) {
   return Array.from(details.children).filter(
     (el): el is HTMLElement => el instanceof HTMLElement && el.tagName !== 'SUMMARY'
@@ -97,8 +94,6 @@ function onClick(event: MouseEvent) {
   // Link ou botão dentro do summary segue com o próprio comportamento.
   const interactive = target!.closest('a, button, input, select, textarea, label');
   if (interactive && summary.contains(interactive)) return;
-
-  if (prefersReducedMotion()) return;
 
   event.preventDefault();
   toggle(details);

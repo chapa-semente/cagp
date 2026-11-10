@@ -1,73 +1,96 @@
 ---
+// 404.astro — Erro e vazio (DESIGN.md › Arquétipos 7): uma frase do que aconteceu, uma ação e as abas.
+// Volume Cartaz: o símbolo da Semente que ainda não brotou, a caneta numa palavra, um CTA só.
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { ErrorPageBlock } from '../components/boldkit/blocks/error-pages';
-import { SeedShape, LeafShape } from '../components/ui/semente-shapes';
-import { route } from '@/lib/paths';
+import MarkerWord from '../components/ui/MarkerWord.astro';
+import CagpIcon from '../components/ui/CagpIcon.astro';
+import { LeafShape, SemicircleShape } from '../components/ui/semente-shapes';
+import { AXIS_REGISTRY } from '@/lib/navigationRegistry';
+import { resolveCagpIconName } from '@/lib/cagpIcons';
+import { asset, route } from '@/lib/paths';
+
+const TAB_ICON: Record<string, string> = { hoje: 'hoje', guias: 'guias', curso: 'curso', mais: 'mais' };
 ---
 
 <BaseLayout
-  title="404 — Rota Não Localizada na FAFICH • CAGP UFMG"
-  description="A rota solicitada não foi localizada no Superapp do Centro Acadêmico de Gestão Pública (CAGP FAFICH/UFMG)."
+  title="Página não encontrada"
+  description="Essa página não existe no app da Chapa Semente. Volte pro início ou escolha uma aba."
   mode="persuade"
 >
-  <div class="relative overflow-hidden my-6 rounded-2xl border-2 border-[#1F1F1F] bg-card shadow-[6px_6px_0_0_#1F1F1F] p-6 sm:p-10 space-y-8" data-context-type="shell">
-    <!-- Formas orgânicas da marca: a semente que ainda não brotou (sem canvas genérico) -->
-    <SeedShape color="purple" className="pointer-events-none absolute -right-8 -bottom-10 w-40 sm:w-56 h-auto" />
-    <LeafShape color="orange" className="pointer-events-none absolute right-16 sm:right-28 -bottom-2 w-16 sm:w-20 h-auto" />
+  <div class="max-w-3xl mx-auto py-4 sm:py-8 space-y-8">
+    <section
+      aria-labelledby="erro-404-titulo"
+      class="relative overflow-hidden rounded-2xl border-3 border-border bg-primary text-white shadow-xl p-6 pb-8 sm:p-10"
+    >
+      <div class="cagp-parallax pointer-events-none absolute -right-10 -top-12 w-40 h-40 sm:w-56 sm:h-56" style="--parallax-from: 20px; --parallax-to: -40px;" aria-hidden="true">
+        <LeafShape color="orange" germinate className="w-full h-full" />
+      </div>
+      <SemicircleShape color="teal" className="pointer-events-none absolute -left-10 -bottom-1 w-48 sm:w-64 h-auto" />
 
-    <div class="relative z-10">
-      <ErrorPageBlock
-        client:load
-        title="404"
-        description="Parece que você entrou no corredor errado do 4º andar da FAFICH! Esta página ou processo não consta no arquivo oficial do CAGP."
-        showSearch={true}
-        homeHref={route('/')}
-        backHref={route('/chapa-semente')}
-        className="min-h-0 bg-transparent py-4"
-      />
-
-      <div class="border-t-3 border-border pt-6 mt-8">
-        <span class="font-mono text-xs font-black uppercase text-secondary block text-center mb-4">
-          Atalhos de Resgate Rápido pelos 5 Eixos Canônicos
-        </span>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+      <div class="relative z-10 space-y-5">
+        <img
+          src={asset('/logos/semente/semente-simbolo-branco.webp')}
+          alt=""
+          width="466"
+          height="603"
+          class="h-14 w-auto"
+          aria-hidden="true"
+        />
+        <p class="m-0 font-heading font-bold text-6xl sm:text-8xl leading-none tabular-nums text-white" aria-hidden="true" data-count-to="404">404</p>
+        <h1 id="erro-404-titulo" class="m-0 font-heading font-bold uppercase text-[1.75rem] sm:text-4xl leading-[1.05] tracking-[0.02em] max-w-[18ch] text-balance">
+          Essa página <MarkerWord onColor class="text-[1.15em] normal-case">sumiu</MarkerWord> igual seu RA no 1º dia.
+        </h1>
+        <p class="m-0 text-base sm:text-lg text-white max-w-[44ch]">
+          O link pode estar quebrado ou a página mudou de lugar. Volta pro início ou escolhe uma aba aqui embaixo.
+        </p>
+        <div class="flex flex-wrap items-center gap-3 pt-1">
           <a
             href={route('/')}
-            class="p-3.5 rounded-xl border-2 border-border bg-card hover:bg-muted shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline text-foreground"
+            class="min-h-[48px] px-5 rounded-xl bg-accent text-accent-foreground border-3 border-border shadow-md font-heading font-bold text-sm uppercase tracking-[0.03em] no-underline inline-flex items-center gap-2 transition-[transform,box-shadow,background-color] duration-(--duration-press) ease-(--ease-spring-snappy) hover:bg-accent-hover hover:-translate-x-px hover:-translate-y-px hover:shadow-lg active:translate-x-[3px] active:translate-y-[3px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
           >
-            <span class="font-mono text-xs font-bold text-secondary block">EIXO 1</span>
-            <span class="font-heading text-xs font-extrabold uppercase">Hoje &amp; Campus</span>
+            Voltar pro início
+            <i class="bi bi-arrow-right" aria-hidden="true"></i>
           </a>
-          <a
-            href={route('/calouros')}
-            class="p-3.5 rounded-xl border-2 border-border bg-card hover:bg-muted shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline text-foreground"
+          <button
+            type="button"
+            id="erro-404-buscar"
+            class="min-h-[44px] px-1 bg-transparent border-0 text-white font-heading font-bold text-sm underline underline-offset-[0.22em] decoration-2 decoration-accent hover:decoration-white cursor-pointer inline-flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
           >
-            <span class="font-mono text-xs font-bold text-primary block">EIXO 2</span>
-            <span class="font-heading text-xs font-extrabold uppercase">Manual Calouros</span>
-          </a>
-          <a
-            href={route('/percurso')}
-            class="p-3.5 rounded-xl border-2 border-border bg-card hover:bg-muted shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline text-foreground"
-          >
-            <span class="font-mono text-xs font-bold text-[#134E4A] block">EIXO 3</span>
-            <span class="font-heading text-xs font-extrabold uppercase">Grade &amp; 600h</span>
-          </a>
-          <a
-            href={route('/documentos')}
-            class="p-3.5 rounded-xl border-2 border-border bg-card hover:bg-muted shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline text-foreground"
-          >
-            <span class="font-mono text-xs font-bold text-accent block">EIXO 4</span>
-            <span class="font-heading text-xs font-extrabold uppercase">Acervo &amp; PDFs</span>
-          </a>
-          <a
-            href={route('/gestao')}
-            class="p-3.5 rounded-xl border-2 border-border bg-card hover:bg-muted shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline text-foreground"
-          >
-            <span class="font-mono text-xs font-bold text-secondary block">EIXO 5</span>
-            <span class="font-heading text-xs font-extrabold uppercase">CAGP &amp; Semente</span>
-          </a>
+            <i class="bi bi-search" aria-hidden="true"></i>
+            Buscar no site
+          </button>
         </div>
       </div>
-    </div>
+    </section>
+
+    <nav aria-labelledby="erro-404-abas" class="space-y-3">
+      <h2 id="erro-404-abas" class="m-0 font-heading font-bold text-lg text-foreground">Ou vai direto pra uma aba</h2>
+      <ul class="list-none m-0 p-0 bg-white border-2 border-border rounded-xl shadow-md overflow-hidden divide-y-2 divide-border cagp-reveal-stagger">
+        {AXIS_REGISTRY.map((axis) => (
+          <li>
+            <a
+              href={axis.rootHref}
+              class="group min-h-[60px] px-4 py-3 flex items-center gap-3 no-underline text-inherit bg-white hover:bg-primary-tint transition-colors duration-(--duration-press) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary"
+            >
+              <span class="w-10 h-10 rounded-xl bg-muted group-hover:bg-white flex items-center justify-center shrink-0" aria-hidden="true">
+                {axis.id === 'chapa' ? (
+                  <img src={asset('/logos/semente/semente-simbolo.webp')} alt="" width="466" height="603" class="h-6 w-auto" />
+                ) : (
+                  <CagpIcon name={resolveCagpIconName(TAB_ICON[axis.id] ?? axis.icon)} class="w-5 h-5 text-primary" />
+                )}
+              </span>
+              <span class="flex-1 font-heading font-bold text-base text-foreground">{axis.name}</span>
+              <CagpIcon name="chevron-right" class="w-4 h-4 text-muted-foreground" />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
   </div>
 </BaseLayout>
+
+<script>
+  document.getElementById('erro-404-buscar')?.addEventListener('click', () => {
+    window.dispatchEvent(new CustomEvent('cagp:open-spotlight'));
+  });
+</script>

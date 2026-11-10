@@ -6,11 +6,8 @@ import SuperAppHeader from '../components/shell/SuperAppHeader.astro';
 import PageFooter from '../components/shell/PageFooter.astro';
 import BackToTop from '../components/shell/BackToTop.astro';
 import DynamicToast from '../components/shell/DynamicToast.astro';
-import { Toaster } from '@/components/ui/sonner';
 import BottomNav from '../components/shell/BottomNav.astro';
 import { GlobalSheets } from '../components/shell/GlobalSheets';
-import { GlobalContextMenu } from '../components/shell/GlobalContextMenu';
-import { SuperAppWelcomeModal } from '../components/shell/SuperAppWelcomeModal';
 import { PwaCredenciamentoPill } from '@/components/features/pwa/PwaCredenciamentoPill';
 import { SementeTour } from '@/components/features/semente/SementeTour';
 import { GlobalCanvasBackdrop } from '../components/shell/GlobalCanvasBackdrop';
@@ -21,7 +18,7 @@ import '@fontsource/poppins/700.css';
 import '@fontsource/permanent-marker/400.css';
 import '@fontsource/opendyslexic/400.css';
 import '@fontsource/opendyslexic/700.css';
-import 'bootstrap-icons/font/bootstrap-icons.min.css';
+import '../styles/icons.css';
 import '../styles/global.css';
 
 interface Props {
@@ -144,9 +141,8 @@ const routeMeta = getRouteMeta();
     <!-- Canvas Interativo Temático por Eixo Neobrutalista BoldKit -->
     <GlobalCanvasBackdrop client:load />
 
-    <!-- Cápsula Tátil Flutuante (Dynamic Island Toast) & Sonner Toaster -->
+    <!-- Aviso flutuante único (lib/toast.ts e window.cagpToast desenham aqui) -->
     <DynamicToast />
-    <Toaster client:load />
 
     <!-- Barra Superior de Carregamento de Rota -->
     <div id="cagp-route-progress-bar" class="cagp-route-progress-bar" aria-hidden="true">
@@ -182,12 +178,6 @@ const routeMeta = getRouteMeta();
 
     <!-- Global React Sheets & Spotlight Command Palette -->
     <GlobalSheets client:load />
-
-    <!-- Global Context Menu (Desktop Right-Click & Mobile Long-Press) -->
-    <GlobalContextMenu client:load />
-
-    <!-- Welcome Onboarding & Role Picker -->
-    <SuperAppWelcomeModal client:load />
 
     <!-- Pílula "Sou Semente" (só para quem terminou o tour declarando voto) -->
     {!hideFloatingPill && <PwaCredenciamentoPill client:load />}
@@ -363,6 +353,12 @@ const routeMeta = getRouteMeta();
       import { initMasonryGrids } from '@/lib/masonry';
       initMasonryGrids();
       document.addEventListener('astro:page-load', () => initMasonryGrids());
+    </script>
+    <script>
+      import { setupCountUp } from '../scripts/countUp';
+      import { setupSharedTitle } from '../scripts/sharedTitle';
+      setupSharedTitle();
+      document.addEventListener('astro:page-load', () => setupCountUp());
     </script>
   </body>
 </html>

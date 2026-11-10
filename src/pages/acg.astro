@@ -13,10 +13,10 @@ import AcgTramitacaoCore from '../components/features/acg/tramitacao/AcgTramitac
 import { route } from '../lib/paths';
 
 const tabs = [
-  { id: 'v0', shortLabel: 'Geral', fullLabel: 'Visão Geral das 600h', hash: '#visao-geral' },
-  { id: 'v1', shortLabel: 'Simular Horas', fullLabel: 'Simular Horas (300h + 300h)', hash: '#calculadora' },
-  { id: 'v2', shortLabel: 'Alerta 120 Dias', fullLabel: 'Alerta 120 Dias (Art. 15)', hash: '#guardiao-120-dias' },
-  { id: 'v3', shortLabel: 'Protocolo', fullLabel: 'Protocolo Colegiado N-20229', hash: '#protocolo-colegiado' },
+  { id: 'v0', shortLabel: 'Visão geral', fullLabel: 'Como funcionam as 600h', hash: '#visao-geral' },
+  { id: 'v1', shortLabel: 'Simular', fullLabel: 'Simular minhas horas', hash: '#calculadora' },
+  { id: 'v2', shortLabel: '120 dias', fullLabel: 'Prazo de 120 dias', hash: '#guardiao-120-dias' },
+  { id: 'v3', shortLabel: 'Protocolar', fullLabel: 'Protocolar no Colegiado', hash: '#protocolo-colegiado' },
 ];
 
 const badges = [
@@ -28,7 +28,7 @@ const badges = [
 ---
 
 <BaseLayout
-  title="Horas & 600h • Simular Horas e Alerta 120 Dias"
+  title="Horas 600h"
   description="Simulador interativo de 300h de Extensão Obrigatória e 300h de AAC com Alerta 120 Dias corridos e protocolo do Colegiado N-20229 — Ferramenta criada pela Chapa Semente."
   mode="operate"
 >
@@ -37,8 +37,8 @@ const badges = [
     condensed={true}
     axisId="curso"
     activeId="acg"
-    title="Horas & 600h"
-    subtitle="Simule 300h de Extensão e 300h de AAC com trava automática de tetos, ative o Alerta 120 Dias corridos (Art. 15) e baixe o requerimento oficial do Colegiado."
+    title="Horas 600h"
+    subtitle="Some suas horas de extensão e AAC, veja quanto falta e protocole certificado antes de vencer o prazo de 120 dias."
     badges={badges}
   />
 

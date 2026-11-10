@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { cn, safeHref } from '@/lib/utils'
 import { photoCardHover, photoCardTap, photoZoomSpring } from '@/lib/motion'
-import { XIcon,   Mail, createLucideIcon } from 'lucide-react'
+import { XIcon,   Mail, createLucideIcon } from '@/components/ui/icons'
 
 // lucide-react 1.x dropped brand icons; these keep the paths 0.x shipped.
 const Linkedin = createLucideIcon('linkedin', [
@@ -91,7 +91,7 @@ export function TeamGrid({
           {members.map((member) => (
             <Card
               key={`team-${member.name}`}
-              className="group border-3 border-[#1F1F1F] bg-white shadow-[6px_6px_0_0_#1F1F1F] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[8px_8px_0_0_#1F1F1F] transition-all overflow-hidden"
+              className="group border-3 border-border bg-white shadow-xl hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-xl transition-all overflow-hidden"
             >
               <CardContent className="p-5 text-center space-y-4">
                 <motion.div
@@ -99,7 +99,7 @@ export function TeamGrid({
                   whileTap={photoCardTap}
                   transition={photoZoomSpring}
                   style={{ border: '3px solid #1F1F1F', boxShadow: '8px 8px 0px #1F1F1F' }}
-                  className="relative aspect-[4/5] w-full min-h-[320px] mx-auto border-3 border-[#1F1F1F] rounded-xl shadow-[8px_8px_0_0_#1F1F1F] overflow-hidden bg-[#F4F2EC]"
+                  className="relative aspect-[4/5] w-full min-h-[320px] mx-auto border-3 border-border rounded-xl shadow-xl overflow-hidden bg-background"
                 >
                   {member.avatar ? (
                     <img
@@ -109,19 +109,19 @@ export function TeamGrid({
                       loading="lazy"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-[#5B2A85] text-white">
+                    <div className="w-full h-full flex items-center justify-center bg-primary text-white">
                       <span className="font-heading font-black text-5xl tracking-tight">
                         {getInitials(member.name)}
                       </span>
                     </div>
                   )}
-                  <span className="absolute top-3 left-3 z-10 px-2.5 py-1 rounded-lg bg-[#FE8812] text-[#1F1F1F] border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] font-heading text-xs font-black uppercase tracking-wider -rotate-2">
+                  <span className="absolute top-3 left-3 z-10 px-2.5 py-1 rounded-lg bg-accent text-foreground border-2 border-border shadow-sm font-heading text-xs font-black uppercase tracking-wider -rotate-2">
                     {member.role}
                   </span>
                 </motion.div>
 
                 <div className="pt-1">
-                  <h3 className="font-black text-lg text-[#1F1F1F]">{member.name}</h3>
+                  <h3 className="font-black text-lg text-foreground">{member.name}</h3>
                   <p className="text-sm text-muted-foreground font-bold font-mono uppercase">
                     {member.role}
                   </p>
@@ -257,7 +257,7 @@ export function TeamLargePhotos({
                 whileTap={photoCardTap}
                 transition={photoZoomSpring}
                 style={{ border: '3px solid #1F1F1F', boxShadow: '8px 8px 0px #1F1F1F' }}
-                className="relative aspect-[4/5] min-h-[320px] border-3 border-[#1F1F1F] rounded-xl shadow-[8px_8px_0_0_#1F1F1F] overflow-hidden mb-4 bg-[#F4F2EC]"
+                className="relative aspect-[4/5] min-h-[320px] border-3 border-border rounded-xl shadow-xl overflow-hidden mb-4 bg-background"
               >
                 {member.avatar ? (
                   <img
@@ -267,13 +267,13 @@ export function TeamLargePhotos({
                     loading="lazy"
                   />
                 ) : (
-                  <div className="w-full h-full bg-[#5B2A85] text-white flex items-center justify-center">
+                  <div className="w-full h-full bg-primary text-white flex items-center justify-center">
                     <span className="text-6xl font-black">
                       {getInitials(member.name)}
                     </span>
                   </div>
                 )}
-                <span className="absolute top-3 left-3 z-10 px-2.5 py-1 rounded-lg bg-[#FE8812] text-[#1F1F1F] border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] font-heading text-xs font-black uppercase tracking-wider -rotate-2">
+                <span className="absolute top-3 left-3 z-10 px-2.5 py-1 rounded-lg bg-accent text-foreground border-2 border-border shadow-sm font-heading text-xs font-black uppercase tracking-wider -rotate-2">
                   {member.role}
                 </span>
 
@@ -294,7 +294,7 @@ export function TeamLargePhotos({
                 )}
               </motion.div>
 
-              <h3 className="font-black text-xl text-[#1F1F1F]">{member.name}</h3>
+              <h3 className="font-black text-xl text-foreground">{member.name}</h3>
               <p className="text-muted-foreground font-bold font-mono text-sm uppercase">{member.role}</p>
               {member.bio && (
                 <p className="text-sm text-muted-foreground mt-2">{member.bio}</p>

@@ -14,7 +14,7 @@
   padding: 0.35rem 0.75rem;
   font-family: var(--font-body, 'Poppins', sans-serif);
   font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: #111111;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -52,8 +52,8 @@
 }
 
 .cagp-island-dropdown-chevron {
-  font-size: 0.65rem;
-  color: #6B7280;
+  font-size: 0.75rem;
+  color: #5E5A52;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -114,7 +114,7 @@
 }
 
 .cagp-island-dropdown-item.is-active {
-  background: #F3EAFE;
+  background: #EFE7F6;
   border-color: var(--primary, #5B2A85);
 }
 

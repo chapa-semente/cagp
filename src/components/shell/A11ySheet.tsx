@@ -3,7 +3,7 @@ import { DirectionProvider } from '@/components/ui/direction';
 import { BottomSheet } from './BottomSheet';
 import { getVaultItem, setVaultItem, type VaultData, VaultDefaults, applyA11yPrefsToDOM } from '@/lib/storage/studentVault';
 import { A11yTabContent } from './A11yTabContent';
-import { SettingsTabContent } from './SettingsTabContent';
+import { SettingsDataSection } from '@/components/features/settings/SettingsDataSection';
 
 interface A11ySheetProps {
   isOpen: boolean;
@@ -47,43 +47,52 @@ export const A11ySheet: React.FC<A11ySheetProps> = ({ isOpen, onClose, initialTa
     applyA11yPrefsToDOM(updated);
   };
 
-  const title = activeTab === 'a11y' ? 'Acessibilidade Universal' : 'Configurações & Sincronização';
+  const title = 'Ajustes';
 
   return (
     <DirectionProvider dir="ltr">
       <BottomSheet id="cagp-a11y-sheet" isOpen={isOpen} onClose={onClose} title={title} initialDetent="medium">
         <div className="space-y-4">
-          {/* Segmented Control Unificado: Acessibilidade vs Configurações */}
-          <div className="grid grid-cols-2 gap-1.5 p-1 bg-muted rounded-xl border-2 border-border">
+          {/* Ajustes = Leitura (acessibilidade) + Seus dados (atalhos para os donos de cada dado). */}
+          <div role="tablist" aria-label="Ajustes" className="grid grid-cols-2 gap-1.5 p-1.5 bg-muted rounded-xl border-2 border-border">
             <button
               type="button"
               onClick={() => setActiveTab('a11y')}
-              className={`min-h-[44px] py-2 px-3 text-xs font-heading font-extrabold uppercase rounded-lg transition-all cursor-pointer flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 ${
+              role="tab"
+              aria-selected={activeTab === 'a11y'}
+              className={`min-h-[44px] py-2 px-3 text-xs font-heading font-bold uppercase tracking-[0.03em] rounded-lg border-2 cursor-pointer flex items-center justify-center gap-1.5 transition-[background-color,color,transform] duration-(--duration-press) ease-(--ease-spring-snappy) active:translate-x-px active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 ${
                 activeTab === 'a11y'
-                  ? 'bg-secondary text-white border-2 border-border shadow-xs'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-background'
+                  ? 'bg-active text-active-foreground border-border shadow-xs'
+                  : 'border-transparent text-foreground hover:bg-white'
               }`}
             >
-              <i className="bi bi-universal-access"></i> Acessibilidade
+              <i className="bi bi-universal-access" aria-hidden="true"></i> Leitura
             </button>
             <button
               type="button"
               onClick={() => setActiveTab('settings')}
-              className={`min-h-[44px] py-2 px-3 text-xs font-heading font-extrabold uppercase rounded-lg transition-all cursor-pointer flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 ${
+              role="tab"
+              aria-selected={activeTab === 'settings'}
+              className={`min-h-[44px] py-2 px-3 text-xs font-heading font-bold uppercase tracking-[0.03em] rounded-lg border-2 cursor-pointer flex items-center justify-center gap-1.5 transition-[background-color,color,transform] duration-(--duration-press) ease-(--ease-spring-snappy) active:translate-x-px active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 ${
                 activeTab === 'settings'
-                  ? 'bg-secondary text-white border-2 border-border shadow-xs'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-background'
+                  ? 'bg-active text-active-foreground border-border shadow-xs'
+                  : 'border-transparent text-foreground hover:bg-white'
               }`}
             >
-              <i className="bi bi-gear-fill"></i> Configurações
+              <i className="bi bi-gear-fill" aria-hidden="true"></i> Seus dados
             </button>
           </div>
 
-          {/* Tab 1: Acessibilidade */}
-          {activeTab === 'a11y' && <A11yTabContent prefs={prefs} update={update} />}
-
-          {/* Tab 2: Configurações & Dados */}
-          {activeTab === 'settings' && <SettingsTabContent />}
+          {activeTab === 'a11y' && (
+            <div className="cagp-animate-ws-enter">
+              <A11yTabContent prefs={prefs} update={update} />
+            </div>
+          )}
+          {activeTab === 'settings' && (
+            <div className="cagp-animate-ws-enter">
+              <SettingsDataSection compact />
+            </div>
+          )}
         </div>
       </BottomSheet>
     </DirectionProvider>

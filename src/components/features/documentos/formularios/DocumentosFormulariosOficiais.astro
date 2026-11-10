@@ -198,7 +198,7 @@ const formularios: FormularioItem[] = [
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     {formularios.map((doc) => (
-      <div class="cagp-card p-5 bg-white border-2 border-border hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[5px_5px_0_0_#1F1F1F] rounded-xl flex flex-col justify-between gap-3.5 transition-all shadow">
+      <div class="cagp-card p-5 bg-white border-2 border-border hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-lg rounded-xl flex flex-col justify-between gap-3.5 transition-all shadow">
         <div class="flex items-start gap-3 min-w-0">
           <div class="w-10 h-10 rounded-lg bg-success text-white border-3 border-border shadow-xs flex items-center justify-center shrink-0 mt-0.5">
             <i class="bi bi-file-earmark-check-fill text-lg text-white" aria-hidden="true" />
@@ -216,7 +216,7 @@ const formularios: FormularioItem[] = [
           <a
             href={asset(`/documentos/${doc.pdf}`)}
             download
-            class="min-h-[40px] px-3.5 py-1.5 bg-secondary hover:bg-[#6D1723] active:translate-x-[1px] active:translate-y-[1px] text-white rounded-xl text-xs font-head uppercase font-bold tracking-wider inline-flex items-center gap-1.5 transition-all no-underline border-3 border-border shadow-sm"
+            class="min-h-[40px] px-3.5 py-1.5 bg-secondary hover:bg-secondary-hover active:translate-x-[1px] active:translate-y-[1px] text-white rounded-xl text-xs font-head uppercase font-bold tracking-wider inline-flex items-center gap-1.5 transition-all no-underline border-3 border-border shadow-sm"
             title={`Baixar PDF: ${doc.title}`}
           >
             <i class="bi bi-file-earmark-pdf" aria-hidden="true" />
@@ -226,7 +226,7 @@ const formularios: FormularioItem[] = [
             <a
               href={asset(`/documentos/${doc.docx}`)}
               download
-              class="min-h-[40px] px-3.5 py-1.5 bg-info hover:bg-[#004080] active:translate-x-[1px] active:translate-y-[1px] text-white rounded-xl text-xs font-head uppercase font-bold tracking-wider inline-flex items-center gap-1.5 transition-all no-underline border-3 border-border shadow-sm"
+              class="min-h-[40px] px-3.5 py-1.5 bg-info hover:bg-primary-hover active:translate-x-[1px] active:translate-y-[1px] text-white rounded-xl text-xs font-head uppercase font-bold tracking-wider inline-flex items-center gap-1.5 transition-all no-underline border-3 border-border shadow-sm"
               title={`Baixar DOCX editável: ${doc.title}`}
             >
               <i class="bi bi-file-earmark-word" aria-hidden="true" />

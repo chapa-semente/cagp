@@ -20,7 +20,7 @@ const TARGET_SOURCES: Record<TourLeaderId, string> = {
   joao: 'src/pages/noticias/index.astro',
   vitoria: 'src/pages/permanencia.astro',
   klaus: 'src/pages/transparencia.astro',
-  italo: 'src/pages/cursos.astro',
+  italo: 'src/components/features/cursos/CursosCatalogHub.tsx',
   lara: 'src/pages/estagio.astro',
   paloma: 'src/components/features/home/HomeCampusStatusWidget.tsx',
   alice: 'src/pages/calouros.astro',

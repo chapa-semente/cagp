@@ -6,10 +6,12 @@ import {
   getVaultItem,
   setVaultItem,
   USER_ROLE_META,
+  suggestRoleFromPeriod,
   type UserRole,
   type VaultData,
 } from '@/lib/storage/studentVault';
 import { exportVaultBackup, importVaultBackup } from '@/lib/storage/backupVault';
+import { toast } from '@/lib/toast';
 
 interface PassportSheetProps {
   isOpen: boolean;
@@ -32,223 +34,177 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
   const [obrigCount, setObrigCount] = useState<number>(0);
   const [extHours, setExtHours] = useState<number>(0);
   const [backupInput, setBackupInput] = useState('');
-  const [toastMsg, setToastMsg] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
 
   useEffect(() => {
     if (isOpen) {
-      const p = getVaultItem('cagp_student_profile_v1');
-      setProfile(p);
+      setProfile(getVaultItem('cagp_student_profile_v1'));
       setUserRole(getVaultItem('cagp_user_role_v1'));
       const calcData = getVaultItem('cagp_calc_ext_aac_v1');
       const sum = Object.values(calcData).reduce((a, b) => a + (Number(b) || 0), 0);
       setExtHours(Math.min(600, sum));
       const grade = getVaultItem('cagp_minha_grade_v1');
       setObrigCount(grade.savedCourses ? grade.savedCourses.length : 0);
-      setToastMsg(null);
       setBackupInput('');
     }
   }, [isOpen]);
 
+  // Um modelo só: "momento no curso" (cagp_user_role_v1). Mudar o período no formulário reposiciona o momento.
+  const chooseRole = (r: UserRole, silent = false) => {
+    setUserRole(r);
+    setVaultItem('cagp_user_role_v1', r);
+    if (!silent) toast.success(`Pronto: o site agora fala com quem é ${USER_ROLE_META[r].shortLabel.toLowerCase()}.`);
+  };
+
+  const handleProfileChange = (updated: VaultData<'cagp_student_profile_v1'>) => {
+    if (updated.period !== profile.period) chooseRole(suggestRoleFromPeriod(updated.period), true);
+    setProfile(updated);
+  };
+
   const handleSaveProfile = () => {
     setVaultItem('cagp_student_profile_v1', profile);
-    setToastMsg({ text: 'Perfil discente salvo com sucesso no cofre local!', type: 'success' });
+    toast.success('Perfil salvo neste celular.');
     setActiveTab('passport');
   };
 
-  const handleExport = () => {
+  const handleExport = async () => {
     const token = exportVaultBackup();
-    navigator.clipboard.writeText(token);
-    setToastMsg({ text: 'Token de backup CAGP1 copiado com sucesso!', type: 'success' });
+    try {
+      await navigator.clipboard.writeText(token);
+      toast.success('Código copiado. Cole no outro celular, aqui mesmo em Seu perfil.');
+    } catch {
+      toast.error('O navegador bloqueou a cópia. Abra o site direto no navegador do celular e tente de novo.');
+    }
   };
 
   const handleImport = () => {
     if (!backupInput.trim()) {
-      setToastMsg({ text: 'Cole um token válido iniciado por CAGP1:', type: 'error' });
+      toast.error('Cole o código que começa com CAGP1: e toque em Trazer.');
       return;
     }
     const res = importVaultBackup(backupInput.trim());
     if (res.success) {
-      setToastMsg({ text: `Backup restaurado! (${res.restoredKeys} chaves sincronizadas)`, type: 'success' });
+      toast.success(`Tudo de volta: ${res.restoredKeys} itens restaurados.`);
       setProfile(getVaultItem('cagp_student_profile_v1'));
+      setUserRole(getVaultItem('cagp_user_role_v1'));
       setBackupInput('');
     } else {
-      setToastMsg({ text: res.error || 'Erro ao restaurar backup.', type: 'error' });
+      toast.error(res.error || 'Esse código não funcionou. Confira se copiou ele inteiro.');
     }
   };
+
+  const tabClass = (on: boolean) =>
+    `relative min-h-[44px] py-2 px-3 rounded-lg text-xs font-heading uppercase font-bold tracking-[0.03em] cursor-pointer flex items-center justify-center gap-1.5 border-2 transition-[background-color,color,box-shadow,transform] duration-(--duration-press) ease-(--ease-spring-snappy) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 active:translate-x-px active:translate-y-px ${
+      on ? 'bg-active text-active-foreground border-border shadow-xs' : 'border-transparent text-foreground hover:bg-white'
+    }`;
 
   return (
     <BottomSheet
       id="cagp-passport-sheet"
       isOpen={isOpen}
       onClose={onClose}
-      title="Passaporte & Perfil Discente"
+      title="Seu perfil"
       initialDetent="large"
     >
       <div className="space-y-4 text-foreground">
-        {/* Controle Segmentado Interno: [Passaporte] [Banco de Talentos] */}
-        <div className="grid grid-cols-2 gap-1.5 bg-white p-1 rounded-xl border-2 border-border shadow-xs">
-          <button
-            type="button"
-            onClick={() => setActiveTab('passport')}
-            className={`min-h-[44px] py-2 px-3 rounded-lg text-xs font-heading uppercase font-extrabold transition-all cursor-pointer flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 ${
-              activeTab === 'passport'
-                ? 'bg-primary text-primary-foreground border-3 border-border shadow-xs'
-                : 'text-muted-foreground hover:text-foreground'
-            }`}
-          >
+        <div role="tablist" aria-label="Seu perfil" className="grid grid-cols-2 gap-1.5 bg-muted p-1.5 rounded-xl border-2 border-border">
+          <button type="button" role="tab" aria-selected={activeTab === 'passport'} onClick={() => setActiveTab('passport')} className={tabClass(activeTab === 'passport')}>
             <i className="bi bi-person-vcard text-sm" aria-hidden="true" />
-            <span>Passaporte & Carteira</span>
+            <span>Carteirinha</span>
           </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab('talent')}
-            className={`min-h-[44px] py-2 px-3 rounded-lg text-xs font-heading uppercase font-extrabold transition-all cursor-pointer flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 ${
-              activeTab === 'talent'
-                ? 'bg-primary text-primary-foreground border-3 border-border shadow-xs'
-                : 'text-muted-foreground hover:text-foreground'
-            }`}
-          >
-            <i className="bi bi-briefcase text-sm" aria-hidden="true" />
-            <span>Perfil & Talentos</span>
+          <button type="button" role="tab" aria-selected={activeTab === 'talent'} onClick={() => setActiveTab('talent')} className={tabClass(activeTab === 'talent')}>
+            <i className="bi bi-pencil-square text-sm" aria-hidden="true" />
+            <span>Sobre você</span>
           </button>
         </div>
 
-        {/* Toast Notificação */}
-        {toastMsg && (
-          <div
-            className={`p-2.5 rounded text-xs font-semibold border flex items-center gap-2 ${
-              toastMsg.type === 'success'
-                ? 'bg-success-tint text-success border-success'
-                : 'bg-destructive-tint text-destructive border-destructive'
-            }`}
-          >
-            <i className={`bi ${toastMsg.type === 'success' ? 'bi-check-circle-fill' : 'bi-exclamation-triangle-fill'}`} />
-            <span>{toastMsg.text}</span>
-          </div>
-        )}
-
-        {/* Aba 1: Passaporte & Carteira */}
         {activeTab === 'passport' && (
-          <div>
-            {/* Seletor de Perfil / Momento no Curso */}
-            <div className="p-3.5 bg-white border-2 border-border rounded-xl mb-3 shadow-md">
-              <div className="flex items-center justify-between mb-2">
-                <strong className="font-heading font-black text-xs uppercase text-foreground">
-                  Momento no Curso (Perfil da Home)
-                </strong>
-                <span className="text-xs font-mono text-secondary font-bold">
-                  {USER_ROLE_META[userRole].badge}
-                </span>
-              </div>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          <div className="space-y-4 cagp-animate-ws-enter">
+            {/* Momento no curso: único lugar do site onde se escolhe. O tour pergunta uma vez e grava aqui. */}
+            <section aria-labelledby="perfil-momento" className="p-4 bg-white border-2 border-border rounded-xl shadow-md">
+              <h3 id="perfil-momento" className="font-heading font-bold text-base text-foreground m-0">
+                Em que momento do curso você está?
+              </h3>
+              <p className="text-sm text-content-secondary m-0 mt-1">
+                O site reorganiza atalhos e guias para essa fase.
+              </p>
+              <div className="grid grid-cols-2 gap-2 mt-3" role="radiogroup" aria-labelledby="perfil-momento">
                 {(['calouro', 'veterano', 'formando', 'ingressar'] as UserRole[]).map((r) => {
                   const active = userRole === r;
                   return (
                     <button
                       key={r}
                       type="button"
-                      onClick={() => {
-                        setUserRole(r);
-                        setVaultItem('cagp_user_role_v1', r);
-                        setToastMsg({
-                          text: `Perfil alterado para: ${USER_ROLE_META[r].label}`,
-                          type: 'success',
-                        });
-                      }}
-                      className={`min-h-[40px] py-2 px-2 rounded-lg text-xs font-heading font-black uppercase transition-all cursor-pointer border-2 border-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed ${
-                        active
-                          ? 'bg-secondary text-white shadow-sm'
-                          : 'bg-white text-foreground hover:bg-muted'
+                      role="radio"
+                      aria-checked={active}
+                      onClick={() => chooseRole(r)}
+                      className={`min-h-[52px] py-2 px-3 rounded-lg text-left cursor-pointer border-2 border-border transition-[background-color,color,box-shadow,transform] duration-(--duration-press) ease-(--ease-spring-snappy) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none ${
+                        active ? 'bg-active text-active-foreground shadow-sm' : 'bg-white text-foreground hover:bg-muted'
                       }`}
                     >
-                      {USER_ROLE_META[r].shortLabel}
+                      <span className="block font-heading font-bold text-xs uppercase tracking-[0.03em]">{USER_ROLE_META[r].shortLabel}</span>
+                      <span className={`block text-xs tabular-nums ${active ? 'text-white' : 'text-muted-foreground'}`}>{USER_ROLE_META[r].badge}</span>
                     </button>
                   );
                 })}
               </div>
-            </div>
+            </section>
 
             <PassportCard
               profile={profile}
+              role={userRole}
               obrigCount={obrigCount}
               extHours={extHours}
               onEditPhoto={() => setActiveTab('talent')}
-              onOpenCampus={() => {
-                onClose();
-                window.dispatchEvent(new CustomEvent('cagp:open-campus'));
-              }}
             />
 
-            {/* Atalho para Configurações do Super App (BUG-12 in-place fix) */}
-            <div className="p-3.5 bg-white border-2 border-border shadow-md rounded-xl flex items-center justify-between gap-2 mb-3">
+            {/* Backup: dono único. Ajustes só aponta para cá. */}
+            <section id="levar-pro-outro-celular" aria-labelledby="perfil-backup" className="bg-muted p-4 rounded-xl border-2 border-border space-y-3">
               <div>
-                <strong className="block font-heading font-black text-xs uppercase text-foreground">
-                  <i className="bi bi-gear-fill text-secondary mr-1" aria-hidden="true" />
-                  Configurações do Super App
-                </strong>
-                <span className="text-xs text-gray-600 font-medium">
-                  Acessibilidade, alarmes do RU/Circular e portabilidade.
-                </span>
+                <h3 id="perfil-backup" className="font-heading font-bold text-base text-foreground m-0">
+                  Levar pro outro celular
+                </h3>
+                <p className="text-sm text-content-secondary m-0 mt-1">
+                  Suas horas, grade e perfil ficam só neste aparelho. Copie o código aqui e cole no outro celular, neste mesmo lugar.
+                </p>
               </div>
               <button
                 type="button"
-                onClick={() => {
-                  onClose();
-                  window.dispatchEvent(new CustomEvent('cagp:open-settings'));
-                }}
-                className="cagp-btn-secondary text-xs py-1.5 px-3 cursor-pointer min-h-[40px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed"
+                onClick={handleExport}
+                className="min-h-[44px] cagp-btn-secondary text-xs py-1.5 px-3 w-full justify-center cursor-pointer"
               >
-                Abrir &rarr;
+                <i className="bi bi-clipboard-check" aria-hidden="true" />
+                <span>Copiar meu código</span>
               </button>
-            </div>
-
-            {/* Backup & Restauração Rápida */}
-            <div className="bg-muted p-3.5 rounded-xl border-2 border-border shadow-md space-y-2">
-              <span className="font-heading font-black text-xs uppercase text-foreground block">
-                Cofre Discente Offline (Meu CAGP Sync)
-              </span>
-              <p className="text-xs text-gray-700 font-medium">
-                Seus dados acadêmicos ficam protegidos localmente. Exporte seu token Base64 seguro para trocar de aparelho:
-              </p>
+              <label htmlFor="cagp-passport-backup-input" className="block text-sm font-bold text-foreground pt-1">
+                Chegou de outro celular? Cole o código:
+              </label>
               <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={handleExport}
-                  className="min-h-[44px] cagp-btn-secondary text-xs py-1.5 px-3 flex-1 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed"
-                >
-                  <i className="bi bi-clipboard-check" aria-hidden="true" />
-                  <span>Copiar Token CAGP1</span>
-                </button>
-              </div>
-              <div className="pt-1">
                 <input
                   type="text"
                   id="cagp-passport-backup-input"
                   name="passportBackupToken"
-                  placeholder="Cole o token CAGP1:... para restaurar"
+                  placeholder="CAGP1:…"
+                  autoComplete="off"
                   value={backupInput}
                   onChange={(e) => setBackupInput(e.target.value)}
-                  className="w-full bg-white border-2 border-border p-2.5 text-xs font-mono rounded-lg focus:border-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="min-w-0 flex-1 bg-white border-2 border-border px-3 min-h-[44px] text-base rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                 />
                 <button
                   type="button"
                   onClick={handleImport}
-                  className="min-h-[44px] cagp-btn-primary w-full mt-2 text-xs py-2 justify-center cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed"
+                  className="min-h-[44px] cagp-btn-primary text-xs py-2 px-4 justify-center cursor-pointer shrink-0"
                 >
-                  Restaurar do Token
+                  Trazer
                 </button>
               </div>
-            </div>
+            </section>
           </div>
         )}
 
-        {/* Aba 2: Perfil & Banco de Talentos */}
         {activeTab === 'talent' && (
-          <TalentBankEditor
-            profile={profile}
-            onChange={(updated) => setProfile(updated)}
-            onSave={handleSaveProfile}
-          />
+          <div className="cagp-animate-ws-enter">
+            <TalentBankEditor profile={profile} onChange={handleProfileChange} onSave={handleSaveProfile} />
+          </div>
         )}
       </div>
     </BottomSheet>

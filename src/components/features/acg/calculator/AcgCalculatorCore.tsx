@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { tactileSpring, bounceSpring } from '@/lib/motion';
 import { getVaultItem, setVaultItem, type VaultData } from '../../../../lib/storage/studentVault';
+import { MarkerWord } from '@/components/ui/marker-word';
 import { LinearHud } from '@/components/features/acg/calculator/LinearHud';
 import { EXTENSION_ITEMS, AAC_ITEMS, type AcgItemDef } from '@/components/features/acg/calculator/acgCatalog';
 import { GaugeChart } from '@/components/boldkit/charts/gauge-chart';
@@ -246,7 +247,7 @@ export const AcgCalculatorCore: React.FC = () => {
           <p className="font-body text-xs text-muted-foreground mb-2.5 leading-relaxed">{item.desc}</p>
 
           {/* Barra de Progresso do Item com Física de Mola */}
-          <div className="w-full h-2.5 bg-[#F3ECE0] border-2 border-border rounded-full overflow-hidden mb-2.5">
+          <div className="w-full h-2.5 bg-surface-hover border-2 border-border rounded-full overflow-hidden mb-2.5">
             <motion.div
               initial={false}
               animate={{ width: `${itemPct}%` }}
@@ -417,18 +418,13 @@ export const AcgCalculatorCore: React.FC = () => {
         <div className="lg:col-span-7">
           <LinearHud />
         </div>
-        <Card className="lg:col-span-5 flex flex-col justify-between border-3 border-[#1F1F1F] shadow-[6px_6px_0_0_#1F1F1F]">
+        <Card className="lg:col-span-5 flex flex-col justify-between border-3 border-border shadow-xl">
           <CardContent className="p-4 sm:p-5 flex flex-col items-center justify-between h-full gap-2">
             <div className="flex items-center justify-between w-full gap-2 flex-wrap">
-              <span className="font-heading text-xs font-extrabold uppercase text-foreground">
-                Velocímetro Guardião 600h
+              <span className="font-heading text-sm font-bold text-foreground">
+                Suas 600h
               </span>
-              <div className="flex items-center gap-1.5">
-                <span className="cagp-stamp-badge is-semente text-xs py-0.5 px-2">
-                  Ferramenta Criada pela Chapa Semente
-                </span>
-                <Badge variant="outline">PPC 2020</Badge>
-              </div>
+              <Badge variant="outline">PPC 2020</Badge>
             </div>
             <GaugeChart
               value={grandTotal}
@@ -444,6 +440,18 @@ export const AcgCalculatorCore: React.FC = () => {
                 { from: 450, to: 600, color: '#166534', label: 'Meta' },
               ]}
             />
+            {/* Pico da utilidade: a caneta da chapa comenta o resultado (uma palavra, DESIGN.md › Accent). */}
+            <p className="m-0 text-base font-heading font-bold text-foreground text-center" aria-live="polite">
+              {grandTotal >= 600 ? (
+                <><MarkerWord key="fechou" mark="circle" className="text-xl">Fechou</MarkerWord>! As 600h tão completas.</>
+              ) : grandTotal >= 450 ? (
+                <>Faltam {600 - grandTotal}h. Tá <MarkerWord key="quase" className="text-xl">quase</MarkerWord> lá.</>
+              ) : grandTotal > 0 ? (
+                <>Faltam <span className="tabular-nums">{600 - grandTotal}h</span>. Um certificado de cada vez.</>
+              ) : (
+                <>Some suas horas abaixo pra ver quanto falta.</>
+              )}
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -453,7 +461,7 @@ export const AcgCalculatorCore: React.FC = () => {
         <CardContent className="flex flex-wrap items-center justify-between gap-3 p-4">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-xs font-heading uppercase font-extrabold text-muted-foreground mr-1">
-              Ações Rápidas:
+              Atalhos:
             </span>
             <Button
               type="button"
@@ -463,7 +471,7 @@ export const AcgCalculatorCore: React.FC = () => {
               title="Preencher com exemplo de percurso balanceado de 360h"
             >
               <i className="bi bi-lightning-charge-fill mr-1.5" aria-hidden="true" />
-              Simular Horas (Exemplo 360h)
+              Preencher com um exemplo
             </Button>
             <Button
               type="button"
@@ -486,7 +494,7 @@ export const AcgCalculatorCore: React.FC = () => {
               <AlertDialogHeader>
                 <AlertDialogTitle>Zerar horas calculadas?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  Esta ação limpará todas as horas de Extensão e AAC registradas no simulador local. Seus dados no cofre discente serão redefinidos para zero.
+                  Isso apaga todas as horas de extensão e AAC que você somou aqui. Não dá pra desfazer.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>

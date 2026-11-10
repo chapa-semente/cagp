@@ -47,12 +47,13 @@ export interface AvatarPresetOption {
 }
 
 export const AVATAR_PRESETS: readonly AvatarPresetOption[] = [
-  { id: 'candangos', label: 'Candangos', bg: '#9E2424', icon: 'bi-bank', color: '#A85300' },
-  { id: 'monogram', label: 'Monograma', bg: '#1F1F1F', text: 'Iniciais', color: '#A85300' },
-  { id: 'fafich', label: 'FAFICH', bg: '#005A9C', icon: 'bi-building', color: '#A85300' },
-  { id: 'republica', label: 'República', bg: '#166534', icon: 'bi-house-heart-fill', color: '#FFFFFF' },
-  { id: 'formando', label: 'Formando', bg: '#8B1E2D', icon: 'bi-mortarboard-fill', color: '#A85300' },
-  { id: 'pesquisador', label: 'Pesquisador', bg: '#1F1F1F', icon: 'bi-person-badge-fill', color: '#FFFFFF' },
-  { id: 'estudante_f', label: 'Discente ♀', bg: '#2A6264', icon: 'bi-person-standing-dress', color: '#FFFFFF' },
-  { id: 'estudante_m', label: 'Discente ♂', bg: '#5B2E85', icon: 'bi-person-fill', color: '#FFFFFF' },
+  // Só cores da Semente (DESIGN.md › Colors). Rubro e azul ficam fora: são selo institucional e status.
+  { id: 'candangos', label: 'Candangos', bg: '#5B2A85', icon: 'bi-bank', color: '#FE8812' },
+  { id: 'monogram', label: 'Iniciais', bg: '#266264', text: 'Iniciais', color: '#FFFFFF' },
+  { id: 'fafich', label: 'FAFICH', bg: '#FE8812', icon: 'bi-building', color: '#1F1F1F' },
+  { id: 'republica', label: 'República', bg: '#EFE7F6', icon: 'bi-house-heart-fill', color: '#5B2A85' },
+  { id: 'formando', label: 'Formando', bg: '#5B2A85', icon: 'bi-mortarboard-fill', color: '#FFFFFF' },
+  { id: 'pesquisador', label: 'Pesquisa', bg: '#134E4A', icon: 'bi-person-badge-fill', color: '#FE8812' },
+  { id: 'estudante_f', label: 'Estudante 1', bg: '#FFEEDB', icon: 'bi-person-standing-dress', color: '#5B2A85' },
+  { id: 'estudante_m', label: 'Estudante 2', bg: '#E2EDEA', icon: 'bi-person-fill', color: '#134E4A' },
 ] as const;

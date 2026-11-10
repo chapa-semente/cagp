@@ -1,855 +1,303 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import {
-  getVaultItem,
-  setVaultItem,
-  USER_ROLE_META,
-  type UserRole,
-  type VaultData,
-} from '@/lib/storage/studentVault';
-import {
-  tactileSpring,
-  photoCardHover,
-  photoCardTap,
-  photoZoomSpring,
-} from '@/lib/motion';
-import { AvatarRenderer } from '@/components/features/passport/AvatarRenderer';
-import { TALENT_CATEGORIES } from '@/components/features/passport/talentConstants';
-import { CagpIcon } from '@/components/ui/CagpIcon';
-import { route } from '@/lib/paths';
-
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { StatCard } from '@/components/ui/stat-card';
-import { Progress } from '@/components/ui/progress';
+// HomeWorkspaceA.tsx — Home (aba Hoje): vitrine da Chapa Semente dentro do sistema, utilidade logo abaixo.
+// Ordem: faixa Cartaz (12 rostos, contagem, um CTA laranja) → Hoje à noite (RU e Circular) →
+// Resolver agora (atalhos da fase do curso) → seu progresso (só se houver dado) → mural (simulado).
+// A moldura é a do app (SuperAppHeader + barra): a home não desenha cabeçalho, ☰ nem sino próprios.
+import React, { useEffect, useState } from 'react';
+import { motion } from 'motion/react';
+import { getVaultItem, USER_ROLE_META, type UserRole } from '@/lib/storage/studentVault';
+import { CHAPA_LEADERS } from '@/lib/chapaSementeData';
+import { asset, route } from '@/lib/paths';
+import { tactileSpring, celebrateSpring } from '@/lib/motion';
+import { CagpIcon, type CagpIconName } from '@/components/ui/CagpIcon';
+import { MarkerWord } from '@/components/ui/marker-word';
 import { Marquee, MarqueeItem, MarqueeSeparator } from '@/components/ui/marquee';
-import { LayeredCard } from '@/components/ui/layered-card';
-import { LeafShape, SemicircleShape } from '@/components/ui/semente-shapes';
-
-import { HomeCampusStatusWidget,
+import { LeafShape, SemicircleShape, SeedShape } from '@/components/ui/semente-shapes';
+import { ChapaSementeTour } from '@/components/features/semente/ChapaSementeTour';
+import {
+  HomeCampusStatusWidget,
   computeCampusLiveStatus,
   NEUTRAL_CAMPUS_STATUS,
   type CampusLiveStatus,
 } from './HomeCampusStatusWidget';
 import { HomeNewsFeed } from './HomeNewsFeed';
-import { HomeCalouroGuide } from './HomeCalouroGuide';
-import { HomeAcademicTools } from './HomeAcademicTools';
-import { ChapaSementeTour } from '@/components/features/semente/ChapaSementeTour';
-import { LeaderAvatar } from '@/components/features/semente/LeaderAvatar';
-import { CHAPA_LEADERS } from '@/lib/chapaSementeData';
 
-const TALENT_LABEL_MAP: Record<string, string> = Object.fromEntries(
-  TALENT_CATEGORIES.map((c) => [c.key, c.label])
-);
+const ELECTION_DAY = new Date(2026, 10, 25); // 25/11/2026, 00h, horário local
 
-function getCandangoMilestoneLabel(globalPct: number, extHours: number): string {
-  if (globalPct >= 90 || extHours >= 600) return 'Candango Integralizado';
-  if (extHours >= 300 || globalPct >= 50) return 'Guardião das 600h';
-  if (globalPct >= 15) return 'Percurso em Dia';
-  return 'Ingressante FAFICH';
+type Shortcut = { id: string; href: string; icon: CagpIconName; title: string; line: string };
+
+/** Atalhos por fase do curso. Máx. 5 por grupo (DESIGN.md › Hub de aba). */
+const SHORTCUTS: Record<UserRole, Shortcut[]> = {
+  calouro: [
+    { id: 'cagp-shortcut-calouro', href: '/calouros', icon: 'checklist', title: 'Guia do calouro', line: 'Os primeiros 30 dias, passo a passo' },
+    { id: 'cagp-shortcut-permanencia', href: '/permanencia', icon: 'moon', title: 'FUMP e vida no noturno', line: 'Auxílio, RU e como se virar à noite' },
+    { id: 'cagp-shortcut-documentos', href: '/documentos', icon: 'file-text', title: 'Documentos', line: 'Os PDFs que todo mundo pede no grupo' },
+    { id: 'cagp-shortcut-curso', href: '/curso', icon: 'map-pin', title: 'Quem atende e onde fica', line: 'Colegiado, secretaria, salas' },
+    { id: 'cagp-shortcut-grade', href: '/percurso', icon: 'curriculo', title: 'Grade e percurso', line: 'As disciplinas dos 10 períodos' },
+  ],
+  veterano: [
+    { id: 'cagp-shortcut-cursos', href: '/acg', icon: 'calculator', title: 'Horas 600h', line: 'Quanto falta de extensão e AAC' },
+    { id: 'cagp-shortcut-estagio', href: '/estagio', icon: 'briefcase', title: 'Estágio', line: 'TCE, 300h e dispensa pelo Art. 41' },
+    { id: 'cagp-shortcut-optativas', href: '/optativas', icon: 'filter', title: 'Optativas', line: 'O que cursar e onde conta' },
+    { id: 'cagp-shortcut-enap', href: '/cursos', icon: 'graduation-cap', title: 'Cursos que contam horas', line: 'Gratuitos, com certificado' },
+    { id: 'cagp-shortcut-documentos', href: '/documentos', icon: 'file-text', title: 'Documentos', line: 'Os PDFs que todo mundo pede no grupo' },
+  ],
+  formando: [
+    { id: 'cagp-shortcut-formatura', href: '/formatura', icon: 'graduation-cap', title: 'Formatura e colação', line: 'Checklist da reta final' },
+    { id: 'cagp-shortcut-tcc', href: '/tcc', icon: 'thesis', title: 'TCC', line: 'Modalidades, prazos e banca' },
+    { id: 'cagp-shortcut-estagio', href: '/estagio', icon: 'briefcase', title: 'Estágio', line: 'Fechar as 300h ou pedir dispensa' },
+    { id: 'cagp-shortcut-cursos', href: '/acg', icon: 'calculator', title: 'Horas 600h', line: 'Fechar extensão e AAC a tempo' },
+    { id: 'cagp-shortcut-documentos', href: '/documentos', icon: 'file-text', title: 'Documentos', line: 'Requerimentos e modelos' },
+  ],
+  ingressar: [
+    { id: 'cagp-shortcut-curso', href: '/curso', icon: 'compass', title: 'Como é o curso', line: 'Noturno, 10 períodos, FAFICH' },
+    { id: 'cagp-shortcut-calouro', href: '/calouros', icon: 'checklist', title: 'Guia do calouro', line: 'O que acontece quando você entra' },
+    { id: 'cagp-shortcut-pesquisa', href: '/pesquisa', icon: 'sparkle', title: 'Pesquisa e extensão', line: 'Núcleos e bolsas do DCP' },
+    { id: 'cagp-shortcut-carreira', href: '/carreira', icon: 'carreira', title: 'Carreira', line: 'Onde quem se forma trabalha' },
+    { id: 'cagp-shortcut-transparencia', href: '/sobre', icon: 'cagp', title: 'O CAGP', line: 'Quem representa os estudantes' },
+  ],
+};
+
+/** Sempre à mão, para qualquer fase: o que a chapa propôs para o CA. */
+const CA_SHORTCUTS: Shortcut[] = [
+  { id: 'cagp-shortcut-ouvidoria', href: '/ouvidoria', icon: 'megaphone', title: 'Fala com o CA', line: 'Reclamação, ideia ou denúncia' },
+  { id: 'cagp-shortcut-transparencia', href: '/transparencia', icon: 'file-text', title: 'Transparência', line: 'Para onde vai o dinheiro do CA' },
+  { id: 'cagp-shortcut-carreira', href: '/carreira', icon: 'carreira', title: 'Carreira e vagas', line: 'Estágios, editais e talentos' },
+];
+
+function ShortcutGroup({ title, items, idPrefix }: { title: string; items: Shortcut[]; idPrefix: string }) {
+  // Um mesmo id não pode aparecer duas vezes na página: o segundo grupo usa o sufixo.
+  return (
+    <section aria-labelledby={`${idPrefix}-title`} className="space-y-3">
+      <h2 id={`${idPrefix}-title`} className="font-heading font-bold text-lg text-foreground m-0">
+        {title}
+      </h2>
+      <ul className="cagp-reveal-stagger list-none m-0 p-0 bg-white border-2 border-border rounded-xl shadow-md overflow-hidden divide-y-2 divide-border">
+        {items.map((s) => (
+          <li key={s.href}>
+            <a
+              href={route(s.href)}
+              className="group min-h-[64px] px-4 py-3 flex items-center gap-3 no-underline text-inherit bg-white hover:bg-primary-tint transition-colors duration-(--duration-press) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary"
+            >
+              <span className="w-10 h-10 rounded-xl bg-muted group-hover:bg-white flex items-center justify-center shrink-0 transition-colors duration-(--duration-press)" aria-hidden="true">
+                <CagpIcon name={s.icon} className="w-5 h-5 text-primary" />
+              </span>
+              <span className="flex-1 min-w-0">
+                <span className="block w-fit font-heading font-bold text-base text-foreground" data-vt-title data-vt-href={route(s.href)}>{s.title}</span>
+                <span className="block text-sm text-content-secondary">{s.line}</span>
+              </span>
+              <CagpIcon
+                name="chevron-right"
+                className="w-4 h-4 text-muted-foreground shrink-0 transition-transform duration-(--duration-press) ease-(--ease-spring-snappy) group-hover:translate-x-1"
+              />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
 }
 
 export const HomeWorkspaceA: React.FC = () => {
-  const [userRole, setUserRole] = useState<UserRole>('calouro');
-  const [roleTransitionTick, setRoleTransitionTick] = useState<number>(0);
-  const [profile, setProfile] = useState<VaultData<'cagp_student_profile_v1'>>({
-    name: 'Estudante de Gestão Pública',
-    period: '1º Período',
-    pronouns: '',
-    semester: '2026/1',
-    pathway: '01-01',
-    avatarPreset: 'candangos',
-    prideChoice: 'none',
-    interests: [],
-  });
-  const [obrigCount, setObrigCount] = useState<number>(0);
-  const [extHours, setExtHours] = useState<number>(0);
-  const [certs, setCerts] = useState<VaultData<'cagp_aac_120d_certs_v1'>>([]);
-  const [calouroChecklist, setCalouroChecklist] = useState<Record<string, boolean>>({});
-  const [art41Checklist, setArt41Checklist] = useState<Record<string, boolean>>({});
-  const [notifs, setNotifs] = useState<VaultData<'cagp_notifications_prefs_v1'>>({
-    ru1815: false,
-    circular2230: false,
-    aac120d: true,
-  });
-  const [isOnline, setIsOnline] = useState<boolean>(true);
-  // Horário real só depois de montar: no render, o build (UTC) e o navegador divergiam (#418).
-  const [campusStatus, setCampusStatus] = useState<CampusLiveStatus>(NEUTRAL_CAMPUS_STATUS);
-
-  const loadVaultState = () => {
-    if (typeof window === 'undefined') return;
-    setUserRole(getVaultItem('cagp_user_role_v1'));
-    setProfile(getVaultItem('cagp_student_profile_v1'));
-
-    const calcData = getVaultItem('cagp_calc_ext_aac_v1');
-    const sum = Object.values(calcData).reduce((a, b) => a + (Number(b) || 0), 0);
-    setExtHours(Math.min(600, sum));
-
-    const grade = getVaultItem('cagp_minha_grade_v1');
-    setObrigCount(grade.savedCourses ? grade.savedCourses.length : 0);
-
-    setCerts(getVaultItem('cagp_aac_120d_certs_v1'));
-    setCalouroChecklist(getVaultItem('cagp_calouro_checklist_v1'));
-    setArt41Checklist(getVaultItem('cagp_art41_checklist_v1'));
-    setNotifs(getVaultItem('cagp_notifications_prefs_v1'));
-  };
+  const [role, setRole] = useState<UserRole>('calouro');
+  const [daysLeft, setDaysLeft] = useState<number | null>(null);
+  const [campus, setCampus] = useState<CampusLiveStatus>(NEUTRAL_CAMPUS_STATUS);
+  const [progress, setProgress] = useState({ ext: 0, obrig: 0 });
 
   useEffect(() => {
-    loadVaultState();
-    setIsOnline(navigator.onLine);
-
-    const onVaultChange = () => loadVaultState();
-    const onOnline = () => setIsOnline(true);
-    const onOffline = () => setIsOnline(false);
-
-    window.addEventListener('cagp:vault-changed', onVaultChange);
-    window.addEventListener('online', onOnline);
-    window.addEventListener('offline', onOffline);
-
-    setCampusStatus(computeCampusLiveStatus(new Date()));
-    const timer = window.setInterval(() => {
-      setCampusStatus(computeCampusLiveStatus(new Date()));
-    }, 30000);
-
+    const load = () => {
+      setRole(getVaultItem('cagp_user_role_v1'));
+      const calc = getVaultItem('cagp_calc_ext_aac_v1');
+      const ext = Math.min(600, Object.values(calc).reduce((a, b) => a + (Number(b) || 0), 0));
+      const grade = getVaultItem('cagp_minha_grade_v1');
+      setProgress({ ext, obrig: grade.savedCourses ? grade.savedCourses.length : 0 });
+    };
+    load();
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    setDaysLeft(Math.round((ELECTION_DAY.getTime() - today.getTime()) / 86_400_000));
+    setCampus(computeCampusLiveStatus(new Date()));
+    const timer = window.setInterval(() => setCampus(computeCampusLiveStatus(new Date())), 30_000);
+    window.addEventListener('cagp:vault-updated', load);
     return () => {
-      window.removeEventListener('cagp:vault-changed', onVaultChange);
-      window.removeEventListener('online', onOnline);
-      window.removeEventListener('offline', onOffline);
       window.clearInterval(timer);
+      window.removeEventListener('cagp:vault-updated', load);
     };
   }, []);
 
-  const handleRoleSwitch = (nextRole: UserRole) => {
-    if (nextRole === userRole) return;
-    setUserRole(nextRole);
-    setVaultItem('cagp_user_role_v1', nextRole);
-    setRoleTransitionTick((t) => t + 1);
-  };
-
-  const toggleCalouroStep = (stepId: string) => {
-    const updated = { ...calouroChecklist, [stepId]: !calouroChecklist[stepId] };
-    setCalouroChecklist(updated);
-    setVaultItem('cagp_calouro_checklist_v1', updated);
-  };
-
-  const toggleArt41Step = (stepId: string) => {
-    const updated = { ...art41Checklist, [stepId]: !art41Checklist[stepId] };
-    setArt41Checklist(updated);
-    setVaultItem('cagp_art41_checklist_v1', updated);
-  };
-
-  const toggleNotif = (key: 'ru1815' | 'circular2230' | 'aac120d') => {
-    const updated = { ...notifs, [key]: !notifs[key] };
-    setNotifs(updated);
-    setVaultItem('cagp_notifications_prefs_v1', updated);
-  };
-
-  const openPassport = () => window.dispatchEvent(new CustomEvent('cagp:open-passport'));
   const openCampus = () => window.dispatchEvent(new CustomEvent('cagp:open-campus'));
-  const openSpotlight = () => window.dispatchEvent(new CustomEvent('cagp:open-spotlight'));
-  const openDrawer = () => {
-    if (typeof window !== 'undefined' && (window as any).__cagp_toggle_drawer) {
-      (window as any).__cagp_toggle_drawer();
-    } else {
-      window.dispatchEvent(new CustomEvent('cagp:toggle-drawer'));
-    }
-  };
+  const openProfile = () => window.dispatchEvent(new CustomEvent('cagp:open-passport'));
 
-  const obrigPct = Math.min(100, Math.round((obrigCount / 27) * 100));
-  const extPct = Math.min(100, Math.round((extHours / 600) * 100));
-  const globalPct = Math.round((obrigPct + extPct) / 2);
+  const countdown =
+    daysLeft === null
+      ? 'Eleição do CA: 25 e 26/11'
+      : daysLeft > 1
+        ? `Faltam ${daysLeft} dias pra eleição`
+        : daysLeft === 1
+          ? 'A eleição é amanhã'
+          : daysLeft >= -1
+            ? 'Hoje tem eleição no CA'
+            : 'A eleição de 2026 já passou';
 
-  const roleMeta = USER_ROLE_META[userRole];
-  const candangoMilestone = getCandangoMilestoneLabel(globalPct, extHours);
-
-  const firstName =
-    profile.name === 'Estudante de Gestão Pública'
-      ? 'Estudante'
-      : profile.name.split(' ')[0] || 'Estudante';
+  const hasProgress = progress.ext > 0 || progress.obrig > 0;
+  const extPct = Math.round((progress.ext / 600) * 100);
+  const obrigPct = Math.min(100, Math.round((progress.obrig / 27) * 100));
 
   return (
-    <div className="space-y-6 pb-8 font-sans">
-      {/* 1. MARQUEE NEOBRUTALISTA DE AVISOS EM TEMPO REAL (Rolagem Contínua Ativa 60fps) */}
-      <Marquee data-impeccable-ignore="marquee" speed="slow" pauseOnHover={true} className="bg-card border-3 border-border shadow-md">
-        <MarqueeItem className="text-xs sm:text-sm">
-          <Badge variant="accent" className="mr-1 bg-accent text-foreground font-bold border-2 border-border">PROPOSTA MATERIALIZADA</Badge>
-          <span>Este SuperApp já é entrega real da Chapa Semente para a Gestão Pública UFMG</span>
-        </MarqueeItem>
-        <MarqueeSeparator></MarqueeSeparator>
-        <MarqueeItem className="text-xs sm:text-sm">
-          <Badge variant="accent" className="mr-1 bg-accent text-foreground font-bold border-2 border-border">ELEIÇÕES 25 E 26/NOV</Badge>
-          <span>Votação direta na sala do CAGP (17h às 22h30) • Vote Chapa Semente</span>
-        </MarqueeItem>
-        <MarqueeSeparator></MarqueeSeparator>
-        <MarqueeItem className="text-xs sm:text-sm">
-          <Badge variant="secondary" className="mr-1 bg-primary text-white border-2 border-border">CHAPA SEMENTE</Badge>
-          <span>Potencial que se transforma em ação • 14 Propostas Estruturadas</span>
-        </MarqueeItem>
-        <MarqueeSeparator></MarqueeSeparator>
-        <MarqueeItem className="text-xs sm:text-sm">
-          <Badge variant="default" className="mr-1 border-2 border-border">1.045 CURSOS ENAP</Badge>
-          <span>Catálogo filtrável com 1 clique p/ abater suas 600h de Extensão &amp; AAC</span>
-        </MarqueeItem>
-        <MarqueeSeparator></MarqueeSeparator>
-        <MarqueeItem className="text-xs sm:text-sm">
-          <Badge variant="accent" className="mr-1 border-2 border-border">REGRA 120 DIAS</Badge>
-          <span>Protocole seus certificados AAC até 120 dias após o evento</span>
-        </MarqueeItem>
-        <MarqueeSeparator></MarqueeSeparator>
-        <MarqueeItem className="text-xs sm:text-sm">
-          <Badge variant="teal" className="mr-1 border-2 border-border">ART. 41 ESTÁGIO</Badge>
-          <span>Servidor ou empregado público tem direito a integralização de estágio</span>
-        </MarqueeItem>
-        <MarqueeSeparator></MarqueeSeparator>
-      </Marquee>
-
-      {/* 2. HERO BANNER NEOBRUTALISTA TRI-CAMADA + BOLDKIT TOPOGRAPHY CANVAS */}
+    <div className="space-y-8 sm:space-y-10 pb-8">
+      {/* 1. Faixa Cartaz — a vitrine da chapa (DESIGN.md › Campanha). Um CTA laranja só. */}
       <section
-        aria-label="Boas-vindas e Seletor de Perfil"
-        className="relative overflow-hidden bg-primary rounded-xl p-5 sm:p-7 text-white border-2 border-border shadow-lg space-y-5"
+        id="cagp-home-banner-semente"
+        aria-labelledby="home-chapa-title"
+        className="relative overflow-hidden rounded-2xl border-3 border-border bg-primary text-white shadow-xl"
       >
-        {/* Formas orgânicas da marca (manual §7.1): a folha laranja brota no canto, o semicírculo petróleo faz o color blocking. */}
-        <SemicircleShape
-          color="teal"
-          className="pointer-events-none absolute -left-10 -bottom-1 w-44 sm:w-56 h-auto"
-        />
-        <LeafShape
-          color="orange"
-          germinate
-          className="pointer-events-none absolute -right-6 -top-6 w-28 h-28 sm:w-40 sm:h-40"
-        />
+        <div className="cagp-parallax pointer-events-none absolute -right-8 -top-10 w-36 h-36 sm:w-52 sm:h-52" style={{ ['--parallax-from' as string]: '30px', ['--parallax-to' as string]: '-50px' }} aria-hidden="true">
+          <LeafShape color="orange" germinate className="w-full h-full" />
+        </div>
+        <div className="cagp-parallax pointer-events-none absolute -left-12 bottom-10 w-56 sm:w-72" style={{ ['--parallax-from' as string]: '-20px', ['--parallax-to' as string]: '40px' }} aria-hidden="true">
+          <SemicircleShape color="teal" className="w-full h-auto" />
+        </div>
+        <div className="cagp-parallax pointer-events-none absolute right-[18%] bottom-16 w-8 hidden sm:block" style={{ ['--parallax-from' as string]: '40px', ['--parallax-to' as string]: '-80px' }} aria-hidden="true">
+          <SeedShape color="white" className="w-full h-auto" />
+        </div>
 
-        <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-          <div className="space-y-3">
-            <div className="flex items-center justify-between gap-2">
-              <div className="flex flex-wrap items-center gap-2">
-                <Button
-                  type="button"
-                  id="cagp-home-menu-btn"
-                  variant="outline"
-                  size="icon"
-                  onClick={openDrawer}
-                  className="md:hidden bg-white/20 text-white hover:bg-white/30 border-3 border-border focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary disabled:opacity-50 disabled:pointer-events-none"
-                  title="Abrir Menu Geral"
-                  aria-label="Abrir gaveta de navegação"
-                >
-                  <CagpIcon name="menu" className="w-5 h-5" />
-                </Button>
+        <div className="relative z-10 p-5 pb-6 sm:p-8 sm:pb-8 space-y-5">
+          <span className="inline-flex items-center gap-2 px-2.5 py-1 rounded-lg bg-white text-primary border-2 border-border shadow-sm font-heading font-bold text-xs uppercase tracking-[0.04em] tabular-nums">
+            <i className="bi bi-calendar-check" aria-hidden="true" />
+            {countdown}
+          </span>
 
+          <h1 id="home-chapa-title" className="font-heading font-bold uppercase text-[1.75rem] leading-[1.05] tracking-[0.02em] sm:text-5xl m-0 max-w-[16ch] text-balance">
+            Você já tá usando a nossa <MarkerWord onColor className="text-[1.12em] normal-case">proposta</MarkerWord>.
+          </h1>
+
+          <p className="text-base sm:text-lg leading-relaxed m-0 max-w-[46ch] text-white">
+            Doze estudantes de GP montaram este app pra você resolver estágio, 600h e FUMP sem depender de quem &ldquo;sabe o caminho&rdquo;.
+            Dias 25 e 26/11, vote Semente.
+          </p>
+
+          <ul className="list-none m-0 p-0 flex flex-wrap gap-1.5 sm:gap-2 max-w-[34rem]" aria-label="Integrantes da Chapa Semente">
+            {CHAPA_LEADERS.map((leader, i) => (
+              <motion.li
+                key={leader.id}
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ ...tactileSpring, delay: 0.15 + i * 0.035 }}
+              >
                 <a
-                  href={route('/chapa-semente')}
-                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-primary border-3 border-border shadow-xs text-xs font-heading font-black uppercase tracking-wide whitespace-nowrap no-underline hover:bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary transition-all"
+                  href={route('/chapa-semente') + '#integrantes'}
+                  title={`${leader.name}, ${leader.role}`}
+                  className="block w-11 h-11 sm:w-12 sm:h-12 rounded-lg border-2 border-border overflow-hidden bg-white shadow-sm transition-[transform,box-shadow] duration-(--duration-press) ease-(--ease-spring-snappy) hover:-translate-x-px hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
                 >
-                  <span>CHAPA SEMENTE</span>
-                  <span className="text-secondary hidden min-[400px]:inline">PROPOSTAS</span>
+                  <img
+                    src={asset(`/images/chapa/tour/${leader.id}-thumb.webp`)}
+                    alt={`${leader.name}, ${leader.role}`}
+                    width={96}
+                    height={96}
+                    loading="eager"
+                    className="w-full h-full object-cover"
+                  />
                 </a>
+              </motion.li>
+            ))}
+          </ul>
 
-                <span className="font-accent font-normal normal-case tracking-normal text-xl leading-none text-accent">
-                  Turno Noturno
-                </span>
-
-                <Badge variant="secondary" className="hidden sm:inline-flex bg-secondary text-white">
-                  FAFICH / UFMG • PPC 2020
-                </Badge>
-
-                <Badge variant="ufmg" className="hidden md:inline-flex">
-                  Os Candangos • 1959
-                </Badge>
-
-                {!isOnline && (
-                  <Badge variant="warning">
-                    Modo Offline Ativo
-                  </Badge>
-                )}
-              </div>
-
-              {/* Ações Rápidas no Mobile */}
-              <div className="flex sm:hidden items-center gap-1.5 shrink-0">
-                <Button
-                  type="button"
-                  id="cagp-home-spotlight-mobile-btn"
-                  variant="outline"
-                  size="icon"
-                  onClick={openSpotlight}
-                  className="focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary disabled:opacity-50 disabled:pointer-events-none"
-                  title="Buscar no app (⌘K)"
-                  aria-label="Buscar edital, disciplina ou sala"
-                >
-                  <CagpIcon name="search" className="w-4 h-4 text-primary" />
-                </Button>
-
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="icon"
-                  onClick={openCampus}
-                  className="relative focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary disabled:opacity-50 disabled:pointer-events-none"
-                  title="Plantão Noturno • RU II & Circular"
-                  aria-label="Abrir status do Campus Agora"
-                >
-                  <CagpIcon name="bell" className="w-4 h-4" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-success border border-black absolute top-1.5 right-1.5" />
-                </Button>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3.5">
-              {userRole !== 'ingressar' && (
-                <div className="md:hidden shrink-0">
-                  <AvatarRenderer
-                    profile={profile}
-                    sizeClass="cagp-avatar-frame--sm"
-                    onClick={openPassport}
-                    title="Abrir Passaporte Discente"
-                  />
-                </div>
-              )}
-              <div className="min-w-0">
-                <h1 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight text-white m-0 leading-tight drop-shadow-[2px_2px_0_var(--color-border)]">
-                  {userRole === 'ingressar'
-                    ? 'Gestão Pública • FAFICH / UFMG'
-                    : `Olá, ${firstName}!`}
-                </h1>
-                <p className="text-xs sm:text-sm font-sans text-white font-medium m-0 mt-1.5 leading-snug max-w-2xl">
-                  {roleMeta.tagline}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="hidden sm:flex flex-wrap items-center gap-2.5 shrink-0">
-            <Button
-              type="button"
-              id="cagp-home-spotlight-btn"
-              variant="outline"
-              onClick={openSpotlight}
-              className="bg-card text-foreground font-heading text-xs px-4 py-2.5 gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none"
-              aria-label="Buscar edital, disciplina ou sala (⌘K)"
-            >
-              <span className="flex items-center gap-2">
-                <CagpIcon name="search" className="w-4 h-4 text-primary" />
-                <span>Buscar disciplina, norma, sala...</span>
-              </span>
-              <kbd className="text-xs font-mono font-bold bg-muted text-foreground px-1.5 py-0.5 rounded border-3 border-border">
-                ⌘K
-              </kbd>
-            </Button>
-
-            <Button
-              type="button"
-              id="cagp-home-passport-btn"
-              variant="accent"
-              onClick={openPassport}
-              className="xl:hidden text-xs px-4 py-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none"
-            >
-              <CagpIcon name="passport" className="w-4 h-4" />
-              <span>{userRole === 'ingressar' ? 'Perfil' : 'Passaporte'}</span>
-            </Button>
-          </div>
-        </div>
-
-        {/* Seletor Tátil Neobrutalista de Perfil Discente */}
-        <div className="relative z-10 pt-4 border-t-2 border-white/25 flex flex-wrap items-center justify-between gap-3">
-          <div
-            role="group"
-            aria-label="Seletor de Perfil Discente"
-            className="flex items-center gap-2 overflow-x-auto scroll-mask-x no-scrollbar py-1 max-w-full"
-          >
-            <span className="text-xs font-mono font-bold text-white mr-1 shrink-0 uppercase">
-              Perfil Discente:
-            </span>
-            {(['calouro', 'veterano', 'formando', 'ingressar'] as UserRole[]).map((r) => {
-              const active = userRole === r;
-              const meta = USER_ROLE_META[r];
-              return (
-                <button
-                  key={r}
-                  type="button"
-                  onClick={() => handleRoleSwitch(r)}
-                  aria-pressed={active}
-                  className={`relative min-h-[44px] px-4 py-1.5 rounded-xl text-xs font-heading font-extrabold uppercase transition-all cursor-pointer shrink-0 border-3 border-border inline-flex items-center gap-1.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed ${
-                    active
-                      ? 'bg-accent text-accent-foreground shadow -translate-y-0.5'
-                      : 'bg-black/30 hover:bg-black/45 text-white shadow-none'
-                  }`}
-                >
-                  {active && (
-                    <motion.span
-                      layoutId="activeRoleIndicator"
-                      className="absolute inset-0 rounded-[9px] bg-accent -z-10"
-                      transition={tactileSpring}
-                    />
-                  )}
-                  <span>{meta.label}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          <Badge variant="dark" className="hidden sm:inline-flex font-mono tabular-nums border-2 border-border">
-            {roleMeta.periodHint}
-          </Badge>
-        </div>
-
-        {/* Faixa Integrada: Compromisso das Lideranças da Chapa Semente & Tour */}
-        <div className="relative z-10 pt-4 border-t-2 border-white/20 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-          <div className="flex flex-wrap items-center gap-3">
-            <div className="flex -space-x-2 sm:-space-x-2.5 overflow-x-auto no-scrollbar py-1.5 pl-1 items-center max-w-full">
-              {CHAPA_LEADERS.map((leader) => (
-                <motion.a
-                  key={leader.id}
-                  href={route('/chapa-semente')}
-                  whileHover={photoCardHover}
-                  whileTap={photoCardTap}
-                  transition={photoZoomSpring}
-                  className="relative inline-flex items-center justify-center p-0.5 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary shrink-0 transition-transform hover:z-20"
-                  title={`${leader.name} — ${leader.role}`}
-                  aria-label={`${leader.name} — ${leader.role}`}
-                >
-                  <LeaderAvatar
-                    name={leader.name}
-                    photoFilename={leader.photoFilename}
-                    initials={leader.initials}
-                    deptColor={leader.deptColor}
-                    size="md"
-                    className="ring-2 ring-white border-2 border-border shadow-sm"
-                  />
-                </motion.a>
-              ))}
-            </div>
-
-            <div className="text-xs">
-              <strong className="font-heading font-extrabold uppercase text-white block leading-tight tracking-wide">
-                {CHAPA_LEADERS.length} Lideranças Comprometidas
-              </strong>
-              <span className="font-sans text-xs text-white font-medium max-w-prose block">
-                Proposta da Chapa Semente materializada para a Gestão Pública UFMG
-              </span>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2.5 shrink-0">
-            <ChapaSementeTour buttonText="Rever o tour da chapa" variant="hero" />
+          <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 pt-1">
             <a
-              href={route('/chapa-semente')}
-              className="min-h-[44px] px-4 py-2 rounded-xl bg-accent hover:bg-accent-hover text-foreground border-3 border-border shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] font-heading text-xs font-black uppercase tracking-wide no-underline inline-flex items-center gap-1.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
+              href={route('/gestao')}
+              className="min-h-[48px] px-4 sm:px-5 rounded-xl bg-accent text-accent-foreground border-3 border-border shadow-md font-heading font-bold text-sm uppercase tracking-[0.03em] no-underline inline-flex items-center gap-2 transition-[transform,box-shadow,background-color] duration-(--duration-press) ease-(--ease-spring-snappy) hover:bg-accent-hover hover:-translate-x-px hover:-translate-y-px hover:shadow-lg active:translate-x-[3px] active:translate-y-[3px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
             >
-              <span>14 Propostas</span>
+              Como votar
               <i className="bi bi-arrow-right" aria-hidden="true" />
             </a>
+            <a
+              href={route('/chapa-semente')}
+              className="min-h-[48px] px-4 sm:px-5 rounded-xl bg-white text-foreground border-3 border-border shadow-md font-heading font-bold text-sm uppercase tracking-[0.03em] no-underline inline-flex items-center gap-2 transition-[transform,box-shadow,background-color] duration-(--duration-press) ease-(--ease-spring-snappy) hover:bg-muted hover:-translate-x-px hover:-translate-y-px hover:shadow-lg active:translate-x-[3px] active:translate-y-[3px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
+            >
+              Propostas
+            </a>
+            <ChapaSementeTour buttonText="Rever o tour" variant="link" />
           </div>
         </div>
-      </section>
 
-      {/* 3. ATALHOS RÁPIDOS DA GESTÃO • OS 5 EIXOS E SOLUÇÕES CENTRAIS (Container Único / Zero Nested Cards) */}
-      <section
-        aria-label="Atalhos das Soluções e Ferramentas da Chapa Semente"
-        className="space-y-2.5"
-      >
-        <div className="flex items-center gap-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-primary border border-border" />
-          <h2 className="text-xs sm:text-sm font-heading font-black text-foreground m-0">
-            Ferramentas &amp; Soluções dos 5 Eixos
-          </h2>
-        </div>
-
-        <div className="rounded-2xl border-2 border-border bg-card shadow-md overflow-hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 divide-y sm:divide-y-0 sm:divide-x divide-border">
-          <a
-            id="cagp-shortcut-carreira"
-            href={route('/carreira')}
-            className="p-3.5 bg-card hover:bg-muted flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[92px]"
-          >
-            <div className="flex items-center justify-between">
-              <span className="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-xs border-2 border-border shadow-xs">
-                <CagpIcon name="carreira" className="w-4 h-4" />
-              </span>
-              <CagpIcon name="arrow-up-right" className="w-3.5 h-3.5 text-muted-foreground/60 group-hover:text-primary transition-colors" />
-            </div>
-            <div>
-              <span className="font-heading font-black text-xs text-foreground group-hover:text-primary tracking-tight transition-colors block truncate">
-                Hub Carreira
-              </span>
-              <span className="text-xs font-medium text-muted-foreground block truncate">
-                Como se Formar
-              </span>
-            </div>
-          </a>
-
-          <a
-            id="cagp-shortcut-ouvidoria"
-            href={route('/ouvidoria')}
-            className="p-3.5 bg-card hover:bg-muted flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[92px]"
-          >
-            <div className="flex items-center justify-between">
-              <span className="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center text-xs border-2 border-border shadow-xs">
-                <CagpIcon name="bell" className="w-4 h-4" />
-              </span>
-              <CagpIcon name="arrow-up-right" className="w-3.5 h-3.5 text-muted-foreground/60 group-hover:text-primary transition-colors" />
-            </div>
-            <div>
-              <span className="font-heading font-black text-xs text-foreground group-hover:text-primary tracking-tight transition-colors block truncate">
-                Ouvidoria GP
-              </span>
-              <span className="text-xs font-medium text-muted-foreground block truncate">
-                Escuta &amp; Ementas
-              </span>
-            </div>
-          </a>
-
-          <a
-            id="cagp-shortcut-pesquisa"
-            href={route('/pesquisa')}
-            className="p-3.5 bg-card hover:bg-muted flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[92px]"
-          >
-            <div className="flex items-center justify-between">
-              <span className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center text-xs border-2 border-border shadow-xs">
-                <CagpIcon name="curso" className="w-4 h-4" />
-              </span>
-              <CagpIcon name="arrow-up-right" className="w-3.5 h-3.5 text-muted-foreground/60 group-hover:text-primary transition-colors" />
-            </div>
-            <div>
-              <span className="font-heading font-black text-xs text-foreground group-hover:text-primary tracking-tight transition-colors block truncate">
-                Pesquisa DCP
-              </span>
-              <span className="text-xs font-medium text-muted-foreground block truncate">
-                11 Núcleos &amp; PIBIC
-              </span>
-            </div>
-          </a>
-
-          <a
-            id="cagp-shortcut-transparencia"
-            href={route('/transparencia')}
-            className="p-3.5 bg-card hover:bg-muted flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[92px]"
-          >
-            <div className="flex items-center justify-between">
-              <span className="w-8 h-8 rounded-lg bg-emerald-700 text-white flex items-center justify-center text-xs border-2 border-border shadow-xs">
-                <CagpIcon name="file-text" className="w-4 h-4" />
-              </span>
-              <CagpIcon name="arrow-up-right" className="w-3.5 h-3.5 text-muted-foreground/60 group-hover:text-primary transition-colors" />
-            </div>
-            <div>
-              <span className="font-heading font-black text-xs text-foreground group-hover:text-primary tracking-tight transition-colors block truncate">
-                Transparência
-              </span>
-              <span className="text-xs font-medium text-muted-foreground block truncate">
-                Caixa Centavo a Centavo
-              </span>
-            </div>
-          </a>
-
-          <a
-            id="cagp-shortcut-cursos"
-            href={route('/cursos')}
-            className="p-3.5 bg-card hover:bg-muted flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[92px]"
-          >
-            <div className="flex items-center justify-between">
-              <span className="w-8 h-8 rounded-lg bg-cyan-700 text-white flex items-center justify-center text-xs border-2 border-border shadow-xs">
-                <CagpIcon name="calculator" className="w-4 h-4" />
-              </span>
-              <CagpIcon name="arrow-up-right" className="w-3.5 h-3.5 text-muted-foreground/60 group-hover:text-primary transition-colors" />
-            </div>
-            <div>
-              <span className="font-heading font-black text-xs text-foreground group-hover:text-primary tracking-tight transition-colors block truncate">
-                Cursos &amp; ENAP
-              </span>
-              <span className="text-xs font-medium text-muted-foreground block truncate">
-                1.045 Cursos p/ 600h
-              </span>
-            </div>
-          </a>
-
-          <a
-            id="cagp-shortcut-estagio"
-            href={route('/estagio') + '#art41'}
-            className="p-3.5 bg-card hover:bg-muted flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[92px]"
-          >
-            <div className="flex items-center justify-between">
-              <span className="w-8 h-8 rounded-lg bg-indigo-700 text-white flex items-center justify-center text-xs border-2 border-border shadow-xs">
-                <CagpIcon name="shield" className="w-4 h-4" />
-              </span>
-              <CagpIcon name="arrow-up-right" className="w-3.5 h-3.5 text-muted-foreground/60 group-hover:text-primary transition-colors" />
-            </div>
-            <div>
-              <span className="font-heading font-black text-xs text-foreground group-hover:text-primary tracking-tight transition-colors block truncate">
-                Guia de Estágio
-              </span>
-              <span className="text-xs font-medium text-muted-foreground block truncate">
-                TCE &amp; Artigo 41
-              </span>
-            </div>
-          </a>
-
-          <a
-            id="cagp-shortcut-permanencia"
-            href={route('/permanencia')}
-            className="p-3.5 bg-card hover:bg-muted flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[92px]"
-          >
-            <div className="flex items-center justify-between">
-              <span className="w-8 h-8 rounded-lg bg-orange-600 text-white flex items-center justify-center text-xs border-2 border-border shadow-xs">
-                <CagpIcon name="moon" className="w-4 h-4" />
-              </span>
-              <CagpIcon name="arrow-up-right" className="w-3.5 h-3.5 text-muted-foreground/60 group-hover:text-primary transition-colors" />
-            </div>
-            <div>
-              <span className="font-heading font-black text-xs text-foreground group-hover:text-primary tracking-tight transition-colors block truncate">
-                Guia do Noturno
-              </span>
-              <span className="text-xs font-medium text-muted-foreground block truncate">
-                FUMP &amp; Permanência
-              </span>
-            </div>
-          </a>
+        {/* Marquee da campanha: a única faixa que rola sozinha (DESIGN.md › Marquee). */}
+        <div className="relative z-10 border-t-3 border-border bg-foreground text-white">
+          <Marquee data-impeccable-ignore="marquee" speed="slow" pauseOnHover className="bg-foreground text-white border-0 shadow-none py-2.5">
+            {[
+              'Vote Semente · 25 e 26/11 · 17h às 22h30 na sala do CAGP',
+              'Este app é proposta que já funciona',
+              'Toda mudança começa pequena',
+              'Leve documento com foto pra votar',
+            ].map((t) => (
+              <React.Fragment key={t}>
+                <MarqueeItem className="text-sm font-heading font-bold uppercase tracking-[0.04em] text-white">{t}</MarqueeItem>
+                <MarqueeSeparator><span className="inline-block w-2 h-2 rounded-full bg-accent align-middle" aria-hidden="true" /></MarqueeSeparator>
+              </React.Fragment>
+            ))}
+          </Marquee>
         </div>
       </section>
 
-      {/* 3. FAIXA DE INDICADORES BOLDKIT STATCARDS (KPIs DISCENTES) */}
-      {userRole !== 'ingressar' && (
-        <section
-          id="cagp-statcard-curriculo"
-          aria-label="Indicadores de Integralização PPC 2020"
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 min-w-0"
-        >
-          <StatCard
-            className="min-w-0"
-            title="Integralização Global"
-            value={`${globalPct}%`}
-            subtitle="3.000 Horas • PPC 2020"
-            colorScheme="primary"
-            icon={<CagpIcon name="curriculo" className="w-5 h-5" />}
-            progress={{ value: globalPct, label: 'Meta Curricular' }}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-start">
+        <div className="lg:col-span-7 space-y-8">
+          {/* 2. Resolver agora — atalhos da fase do curso, que é escolhida só em Seu perfil. */}
+          <div className="space-y-2">
+            <ShortcutGroup title="Resolver agora" items={SHORTCUTS[role]} idPrefix="home-resolver" />
+            <p className="text-sm text-content-secondary m-0">
+              Atalhos de quem é <strong className="text-foreground">{USER_ROLE_META[role].shortLabel.toLowerCase()}</strong>.{' '}
+              <button type="button" onClick={openProfile} className="text-primary font-bold underline underline-offset-[0.22em] cursor-pointer bg-transparent border-0 p-0 min-h-0">
+                Não é sua fase? Troca em Seu perfil
+              </button>
+            </p>
+          </div>
+
+          {/* Um destino por página: tira do CA o que já está em Resolver agora. */}
+          <ShortcutGroup
+            title="Com o CA"
+            items={CA_SHORTCUTS.filter((c) => !SHORTCUTS[role].some((s) => s.href === c.href))}
+            idPrefix="home-ca"
           />
-          <StatCard
-            className="min-w-0"
-            title="Matérias Obrigatórias"
-            value={`${obrigCount}/27`}
-            subtitle={`Percurso ${profile.pathway || '01-01'}`}
-            colorScheme="secondary"
-            icon={<CagpIcon name="curso" className="w-5 h-5" />}
-            progress={{ value: obrigPct, label: 'Grade Obrigatória' }}
-          />
-          <StatCard
-            className="min-w-0"
-            title="Extensão & AAC (600h)"
-            value={`${extHours}h`}
-            subtitle={`Faltam ${Math.max(0, 600 - extHours)}h p/ meta`}
-            colorScheme="accent"
-            icon={<CagpIcon name="calculator" className="w-5 h-5" />}
-            progress={{ value: extPct, label: 'Teto 600 Horas' }}
-          />
-          <StatCard
-            className="min-w-0"
-            title="Marco Candango"
-            value={candangoMilestone}
-            subtitle={`${certs.length} certificado(s) no cofre 120d`}
-            colorScheme="teal"
-            icon={<CagpIcon name="stamp" className="w-5 h-5" />}
-          />
-        </section>
-      )}
+        </div>
 
-      {/* 4. GRID PRINCIPAL 8 + 4 COLUNAS COM TRANSIÇÃO MOTION */}
-      <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
-        {/* Coluna Principal (8 colunas) com AnimatePresence e mola tactileSpring */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={`workspace-role-${userRole}-${roleTransitionTick}`}
-            initial={{ opacity: 0, y: 16, scale: 0.99 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -14, scale: 0.99 }}
-            transition={tactileSpring}
-            className="xl:col-span-8 space-y-8"
-          >
-            {userRole === 'ingressar' ? (
-              <>
-                <HomeNewsFeed />
-                <HomeCampusStatusWidget
-                  status={campusStatus}
-                  notifs={notifs}
-                  toggleNotif={toggleNotif}
-                  openCampus={openCampus}
-                />
-              </>
-            ) : userRole === 'calouro' ? (
-              <>
-                <HomeCampusStatusWidget
-                  status={campusStatus}
-                  notifs={notifs}
-                  toggleNotif={toggleNotif}
-                  openCampus={openCampus}
-                />
-                <HomeCalouroGuide
-                  checklist={calouroChecklist}
-                  toggleStep={toggleCalouroStep}
-                />
-                <HomeNewsFeed />
-              </>
-            ) : (
-              <>
-                <HomeCampusStatusWidget
-                  status={campusStatus}
-                  notifs={notifs}
-                  toggleNotif={toggleNotif}
-                  openCampus={openCampus}
-                />
-                <HomeAcademicTools
-                  art41Checklist={art41Checklist}
-                  toggleArt41Step={toggleArt41Step}
-                />
-                <HomeNewsFeed />
-              </>
-            )}
-          </motion.div>
-        </AnimatePresence>
+        <aside className="order-first lg:order-none lg:col-span-5 space-y-8 lg:sticky lg:top-24">
+          {/* 3. Hoje à noite — RU e Circular agora; horários completos e lembretes na folha Campus. */}
+          <HomeCampusStatusWidget status={campus} openCampus={openCampus} />
 
-        {/* Coluna Direita (4 colunas) Passaporte Neobrutalista com LayeredCard */}
-        <aside
-          aria-label="Passaporte Discente e Progresso PPC 2020"
-          className="xl:col-span-4 space-y-6 xl:sticky xl:top-6"
-          id="passaporte"
-        >
-          {userRole !== 'ingressar' ? (
-            <div className="hidden xl:block pb-2 pr-2">
-              <LayeredCard layers="single" offset="sm" layerColor="secondary" className="rounded-xl">
-                <div className="p-5 space-y-4">
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="flex items-center gap-3 min-w-0">
-                      <AvatarRenderer
-                        profile={profile}
-                        sizeClass="cagp-avatar-frame--md"
-                        showCameraBadge
-                        onClick={openPassport}
-                        title="Editar foto e Passaporte"
-                      />
-                      <div className="min-w-0">
-                        <h2 className="text-base font-heading font-extrabold text-foreground m-0 truncate">
-                          {profile.name}
-                        </h2>
-                        <p className="text-xs text-muted-foreground font-semibold m-0 mt-0.5 tabular-nums">
-                          {profile.period} • Ingresso {profile.semester || '2026/1'}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="w-12 h-12 rounded-xl bg-primary text-white border-2 border-border shadow-sm flex flex-col items-center justify-center shrink-0 tabular-nums">
-                      <span className="text-xs font-heading font-extrabold tabular-nums">{globalPct}%</span>
-                      <span className="text-xs font-mono font-bold tabular-nums">3.000h</span>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-wrap items-center justify-between gap-2 pt-1">
-                    <Badge variant="success">
-                      <CagpIcon name="stamp" className="w-3.5 h-3.5" />
-                      <span>{profile.period.toUpperCase()} • ATIVO</span>
-                    </Badge>
-                    <Badge variant="accent">{candangoMilestone}</Badge>
-                  </div>
-
-                  <div className="space-y-3 pt-1">
-                    <div>
-                      <div className="flex justify-between text-xs font-bold mb-1.5 tabular-nums">
-                        <span className="text-foreground">27 Disciplinas Obrigatórias</span>
-                        <span className="font-mono text-primary font-extrabold">
-                          {obrigCount} / 27 ({obrigPct}%)
-                        </span>
-                      </div>
-                      <Progress value={Math.max(4, obrigPct)} indicatorClassName="bg-primary" />
-                    </div>
-
-                    <div>
-                      <div className="flex justify-between text-xs font-bold mb-1.5 tabular-nums">
-                        <span className="text-foreground">Extensão &amp; AAC (600h)</span>
-                        <span className="font-mono text-[#9A3412] font-extrabold">
-                          {extHours}h / 600h ({extPct}%)
-                        </span>
-                      </div>
-                      <Progress value={Math.max(4, extPct)} indicatorClassName="bg-accent" />
-                    </div>
-                  </div>
-
-                  <div className="pt-3 border-t-2 border-border flex items-center justify-between gap-2 text-xs">
-                    <div className="flex items-center gap-2 text-foreground">
-                      <i className="bi bi-shield-check text-success" aria-hidden="true" />
-                      <span className="font-bold">Percurso {profile.pathway || '01-01'}</span>
-                      <span className="text-muted-foreground font-mono tabular-nums">
-                        • {certs.length} cert. 120d
-                      </span>
-                    </div>
-                    <Badge variant="success">Regular</Badge>
-                  </div>
-
-                  {profile.interests && profile.interests.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 pt-1">
-                      {profile.interests.map((key) => (
-                        <Badge key={key} variant="outline">
-                          {TALENT_LABEL_MAP[key] || key}
-                        </Badge>
-                      ))}
-                    </div>
-                  )}
-
-                  <Button
-                    type="button"
-                    variant="secondary"
-                    onClick={openPassport}
-                    className="w-full"
-                  >
-                    <CagpIcon name="sparkle" className="w-4 h-4 text-accent" />
-                    <span>Editar Passaporte &amp; Talentos</span>
-                  </Button>
-                </div>
-              </LayeredCard>
-            </div>
-          ) : (
-            <Card className="overflow-hidden">
-              <CardHeader className="border-b bg-secondary text-secondary-foreground">
-                <div className="flex items-center justify-between gap-2">
-                  <CardTitle className="text-base font-heading font-extrabold">
-                    Raio-X • Gestão Pública UFMG
-                  </CardTitle>
-                  <Badge variant="accent">PPC 2020</Badge>
-                </div>
-                <p className="text-xs text-white font-medium m-0 leading-relaxed max-w-prose">
-                  Curso sediado na FAFICH (Campus Pampulha) e vinculado ao Departamento de Ciência Política (DCP).
-                </p>
-              </CardHeader>
-
-              <dl className="grid grid-cols-2 border-b-3 border-border bg-background divide-x-2 divide-y-2 divide-border text-xs m-0 tabular-nums">
-                <div className="p-3.5">
-                  <dt className="font-mono text-muted-foreground font-bold uppercase">Turno</dt>
-                  <dd className="font-bold text-foreground m-0 mt-0.5">Noturno (19h–22h30)</dd>
-                </div>
-                <div className="p-3.5">
-                  <dt className="font-mono text-muted-foreground font-bold uppercase">Duração</dt>
-                  <dd className="font-bold text-foreground m-0 mt-0.5">10 Semestres</dd>
-                </div>
-                <div className="p-3.5">
-                  <dt className="font-mono text-muted-foreground font-bold uppercase">Extensão + AAC</dt>
-                  <dd className="font-bold text-foreground m-0 mt-0.5">600 Horas</dd>
-                </div>
-                <div className="p-3.5">
-                  <dt className="font-mono text-muted-foreground font-bold uppercase">Estágio + TCC</dt>
-                  <dd className="font-bold text-foreground m-0 mt-0.5">300h + 180h</dd>
-                </div>
-              </dl>
-
-              <CardContent className="p-4">
-                <Button asChild variant="default" className="w-full no-underline">
-                  <a
-                    href={route('/documentos/ementario-gestao-publica-ufmg.pdf')}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <CagpIcon name="thesis" className="w-4 h-4" />
-                    <span>Baixar Ementário Completo (PDF)</span>
-                  </a>
-                </Button>
-              </CardContent>
-            </Card>
+          {/* 4. Seu progresso — só aparece com dado salvo. Zero na tela só desanima. */}
+          {hasProgress && (
+            <section aria-labelledby="home-progresso" className="cagp-reveal-card bg-white border-2 border-border rounded-xl shadow-md p-4 sm:p-5 space-y-4">
+              <h2 id="home-progresso" className="font-heading font-bold text-lg text-foreground m-0">
+                Seu progresso
+              </h2>
+              {[
+                { label: 'Extensão e AAC', n: progress.ext, unit: 'h', of: 'de 600h', pct: extPct, href: '/acg', bar: 'bg-secondary' },
+                { label: 'Obrigatórias', n: progress.obrig, unit: '', of: 'de 27', pct: obrigPct, href: '/percurso', bar: 'bg-primary' },
+              ].map((p) => (
+                <a key={p.label} href={route(p.href)} className="block no-underline text-inherit group">
+                  <span className="flex items-baseline justify-between gap-2">
+                    <span className="font-heading font-bold text-sm text-foreground group-hover:text-primary">{p.label}</span>
+                    <span className="tabular-nums">
+                      <strong className="font-heading text-2xl text-foreground" data-count-to={p.n} data-count-suffix={p.unit}>{`${p.n}${p.unit}`}</strong>{' '}
+                      <span className="text-sm text-content-secondary">{p.of}</span>
+                    </span>
+                  </span>
+                  <span className="mt-2 block h-3 rounded-full bg-muted border-2 border-border overflow-hidden" aria-hidden="true">
+                    <motion.span
+                      className={`block h-full ${p.bar}`}
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${Math.max(3, p.pct)}%` }}
+                      viewport={{ once: true }}
+                      transition={celebrateSpring}
+                    />
+                  </span>
+                </a>
+              ))}
+            </section>
           )}
         </aside>
       </div>
+
+      {/* 5. Mural — conteúdo simulado, com o aviso dentro do próprio componente. */}
+      <HomeNewsFeed />
     </div>
   );
 };

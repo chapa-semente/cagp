@@ -5,6 +5,8 @@
 import type { AxisId } from '@/lib/navigationRegistry';
 import { getItemByPath } from '@/lib/navigationRegistry';
 import CagpIcon from './CagpIcon.astro';
+import MarkerWord from './MarkerWord.astro';
+import { vtTitleName } from '@/lib/viewTransitionNames';
 import { resolveCagpIconName } from '@/lib/cagpIcons';
 import { badgeVariants } from './badge';
 import { cn } from '@/lib/utils';
@@ -48,6 +50,9 @@ interface Props {
   showAxisNav?: boolean;
   mode?: 'persuade' | 'operate' | 'read' | 'experience';
   condensed?: boolean;
+  /** A caneta da chapa: uma palavra do título escrita à mão (Permanent Marker + traço que se desenha).
+   *  Escreva como deve aparecer (caixa de frase), ex.: title="Estágio sem drama" marker="drama". */
+  marker?: string;
 }
 
 const {
@@ -61,7 +66,14 @@ const {
   showAxisNav: _showAxisNav = false,
   mode,
   condensed = false,
+  marker,
 } = Astro.props;
+
+// Divide o título em [antes, palavra da caneta, depois]; sem correspondência, o título fica inteiro.
+const markerAt = marker ? title.toLocaleLowerCase('pt-BR').indexOf(marker.toLocaleLowerCase('pt-BR')) : -1;
+const titleParts = markerAt >= 0
+  ? [title.slice(0, markerAt), marker!, title.slice(markerAt + marker!.length)]
+  : null;
 
 const isPersuadeMode = mode === 'persuade' || mode === 'experience';
 const isOperateOrCondensed = mode === 'operate' || condensed;
@@ -106,7 +118,7 @@ const computedBreadcrumbs = breadcrumbs && breadcrumbs.length > 0
 
   {!isPersuadeMode && (
     <div class={cn(
-      'rounded-xl border-2 border-border bg-card shadow-[3px_3px_0_0_#1F1F1F]',
+      'rounded-xl border-2 border-border bg-card shadow-md',
       isOperateOrCondensed ? 'p-5 sm:p-6' : 'p-5 sm:p-8'
     )}>
       {computedBreadcrumbs.length > 0 && (
@@ -134,8 +146,10 @@ const computedBreadcrumbs = breadcrumbs && breadcrumbs.length > 0
       <h1 class={cn(
         'font-heading font-bold uppercase text-foreground m-0 leading-[1.05]',
         isOperateOrCondensed ? 'text-2xl sm:text-3xl' : 'text-[1.75rem] sm:text-4xl'
-      )}>
-        {title}
+      )} style={`view-transition-name: ${vtTitleName(Astro.url.pathname)}; view-transition-class: vt-title`}>
+        {titleParts ? (
+          <>{titleParts[0]}<MarkerWord class="text-[1.15em] align-baseline">{titleParts[1]}</MarkerWord>{titleParts[2]}</>
+        ) : title}
       </h1>
 
       {subtitle && (

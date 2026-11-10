@@ -8,10 +8,10 @@ html[data-a11y-contrast="high"] #cagp-app-sidebar {
 }
 
 html[data-a11y-contrast="high"] #cagp-app-sidebar .bg-white {
-  background-color: #171717 !important;
+  background-color: #1F1F1F !important;
   color: #FFFFFF !important;
 }
 
 html[data-a11y-contrast="high"] #cagp-app-sidebar [class*="border-"] {
-  border-color: #525252 !important;
+  border-color: #4A4740 !important;
 }

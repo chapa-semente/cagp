@@ -19,7 +19,7 @@ import {
   Clock,
   Lock,
   Sparkles,
-} from 'lucide-react'
+} from '@/components/ui/icons'
 
 // ============================================================================
 // ERROR PAGE VARIANT 1: 404 Not Found (Neobrutalista FAFICH + Chapa Semente)
@@ -77,11 +77,11 @@ export function NotFoundPage({
         <div className="flex flex-wrap items-center justify-center gap-2">
           <motion.span
             whileHover={photoCardHover}
-            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#FE8812] text-[#1F1F1F] font-mono text-xs font-black uppercase border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] -rotate-2 cursor-default"
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-accent text-foreground font-mono text-xs font-black uppercase border-3 border-border shadow-md -rotate-2 cursor-default"
           >
             <span>🏛️ SALA F-4000 • 4º ANDAR FAFICH</span>
           </motion.span>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#5B2A85] text-white font-mono text-xs font-black uppercase border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] rotate-1">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-primary text-white font-mono text-xs font-black uppercase border-3 border-border shadow-md rotate-1">
             <span>🌱 CHAPA SEMENTE 2026</span>
           </span>
         </div>
@@ -91,7 +91,7 @@ export function NotFoundPage({
           <motion.h1
             animate={{ rotate: [-1.5, 1.5, -1.5] }}
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-            className="font-accent font-normal text-[120px] sm:text-[165px] leading-none text-[#1F1F1F]/15 select-none m-0"
+            className="font-accent font-normal text-[120px] sm:text-[165px] leading-none text-foreground/15 select-none m-0"
           >
             {displayCode}
           </motion.h1>
@@ -99,7 +99,7 @@ export function NotFoundPage({
             <motion.div
               whileHover={{ scale: 1.08, rotate: -4 }}
               transition={bounceSpring}
-              className="w-24 h-24 flex flex-col items-center justify-center border-2 border-[#1F1F1F] bg-secondary text-white rounded-2xl shadow-[6px_6px_0_0_#1F1F1F]"
+              className="w-24 h-24 flex flex-col items-center justify-center border-2 border-border bg-secondary text-white rounded-2xl shadow-xl"
             >
               <FileQuestion className="h-10 w-10 text-white" />
               <span className="font-mono text-xs font-black uppercase mt-1">EXTRVIADO</span>
@@ -108,7 +108,7 @@ export function NotFoundPage({
         </div>
 
         <div className="space-y-3">
-          <h2 className="text-2xl md:text-3xl font-black text-[#1F1F1F] m-0">
+          <h2 className="text-2xl md:text-3xl font-black text-foreground m-0">
             Rota Não Localizada no Arquivo da FAFICH
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground font-medium max-w-lg mx-auto m-0 leading-relaxed">
@@ -130,7 +130,7 @@ export function NotFoundPage({
                     window.dispatchEvent(new CustomEvent('cagp:open-spotlight'))
                   }
                 }}
-                className="border-3 border-[#1F1F1F] min-h-[44px]"
+                className="border-3 border-border min-h-[44px]"
               />
               <Button
                 type="button"
@@ -140,7 +140,7 @@ export function NotFoundPage({
                     window.dispatchEvent(new CustomEvent('cagp:open-spotlight'))
                   }
                 }}
-                className="min-h-[44px] border-3 border-[#1F1F1F] bg-[#1F1F1F] text-white font-mono font-black"
+                className="min-h-[44px] border-3 border-border bg-foreground text-white font-mono font-black"
               >
                 <Search className="h-4 w-4 mr-1.5" />
                 <span>⌘K</span>
@@ -150,7 +150,7 @@ export function NotFoundPage({
         )}
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-2">
-          <Button asChild size="lg" className="min-h-[48px] border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F]">
+          <Button asChild size="lg" className="min-h-[48px] border-3 border-border shadow-md">
             <a href={safeHref(homeHref)}>
               <Home className="mr-2 h-4 w-4" />
               Voltar à Bússola Inicial (Home)
@@ -161,7 +161,7 @@ export function NotFoundPage({
               variant="outline"
               size="lg"
               asChild
-              className="min-h-[48px] bg-[#FE8812] hover:bg-[#ff9831] text-[#1F1F1F] font-black border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F]"
+              className="min-h-[48px] bg-accent hover:bg-accent text-foreground font-black border-3 border-border shadow-md"
             >
               <a href={safeHref(backHref)}>
                 <Sparkles className="mr-2 h-4 w-4" />

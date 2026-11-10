@@ -25,7 +25,7 @@ export const CurriculumGraphWidget: React.FC = () => {
       <div>
         <div className="flex items-center justify-between gap-2 mb-3.5">
           <div className="flex items-center gap-2.5">
-            <span className="w-10 h-10 rounded-xl bg-teal-700/10 text-[#266264] flex items-center justify-center text-lg border border-[#266264] shadow-xs">
+            <span className="w-10 h-10 rounded-xl bg-teal-700/10 text-secondary flex items-center justify-center text-lg border border-secondary shadow-xs">
               <i className="bi bi-diagram-3-fill" aria-hidden="true" />
             </span>
             <div>
@@ -52,7 +52,7 @@ export const CurriculumGraphWidget: React.FC = () => {
 
       <a
         href="#grafo"
-        className="min-h-[44px] px-4 py-2.5 bg-foreground text-background hover:bg-teal-700 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-3 border-border shadow-sm"
+        className="min-h-[44px] px-4 py-2.5 bg-primary text-white hover:bg-primary-hover active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-3 border-border shadow-sm"
       >
         <span>Explorar Grafo Vivo</span>
         <i className="bi bi-arrow-right" aria-hidden="true" />

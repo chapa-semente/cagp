@@ -2,105 +2,57 @@
 // src/pages/ouvidoria.astro — Canal Contínuo de Escuta Discente & Ouvidoria (Super App CAGP UFMG)
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { OuvidoriaInteractiveCenter } from '@/components/features/ouvidoria/OuvidoriaInteractiveCenter';
-import { route } from '@/lib/paths';
+import PageHeader from '@/components/ui/PageHeader.astro';
+import SementeSignature from '@/components/ui/SementeSignature.astro';
 ---
 
 <BaseLayout
-  title="Fala com o CA • Ouvidoria (proposta da Chapa Semente)"
+  title="Fala com o CA"
   description="Fala com o CA (Proposta 14 da Chapa Semente): escreva sua demanda sobre ementas, infraestrutura ou o Colegiado e guarde o texto até o canal oficial abrir."
   mode="operate"
 >
   <div class="space-y-8 max-w-5xl mx-auto">
-    {/* Breadcrumbs */}
-    <nav class="flex items-center gap-2 text-xs font-mono text-muted-foreground" aria-label="Navegação estrutural">
-      <a href={route('/')} class="hover:text-primary transition-colors">Hoje</a>
-      <span>/</span>
-      <a href={route('/transparencia')} class="hover:text-primary transition-colors">O CAGP</a>
-      <span>/</span>
-      <span class="text-foreground font-bold" aria-current="page">Fala com o CA (Ouvidoria)</span>
-    </nav>
-
-    {/* Hero Section */}
-    <header id="cagp-ouvidoria-header" class="p-6 sm:p-8 rounded-2xl bg-[#5B2A85] text-white border-2 border-[#1F1F1F] shadow-[8px_8px_0px_#1F1F1F] relative overflow-hidden">
-      <div class="relative z-10 space-y-3 max-w-2xl">
-        <div class="flex flex-wrap items-center gap-2">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 border-2 border-white/30 text-xs font-heading font-black uppercase tracking-wider">
-            <i class="bi bi-megaphone-fill text-[#FE8812]"></i>
-            <span>Canal de Escuta Permanente</span>
-          </div>
-          <span class="px-2.5 py-1 rounded-md bg-[#FE8812] text-[#1F1F1F] font-mono text-xs font-black uppercase border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]">
-            PROPOSTA 14 DA CHAPA SEMENTE
-          </span>
-        </div>
-        <h1 class="text-2xl sm:text-4xl font-heading font-black uppercase tracking-tight leading-tight">
-          Fala com o CA
-        </h1>
-        <p class="text-sm sm:text-base text-white font-medium leading-relaxed">
-          Centro Acadêmico não pode ser uma panelinha isolada. No <strong>Fala com o CA</strong> você denuncia disciplinas com bibliografias defasadas, reporta problemas estruturais na FAFICH e prepara pautas para o Colegiado. Você escreve aqui e o rascunho fica salvo só no seu celular. O CAGP ainda não tem um canal oficial para receber demandas: a Chapa Semente propõe criá-lo.
-        </p>
-      </div>
-
-      <div class="hidden md:block absolute -right-6 -bottom-8 opacity-20 pointer-events-none" aria-hidden="true">
-        <i class="bi bi-chat-heart text-[220px]"></i>
-      </div>
-    </header>
-
-    {/* Compromisso Oficial Larissa Prado & João Pedro Fragoso */}
-    <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="p-4 rounded-xl border-2 border-border bg-card shadow-[3px_3px_0px_#000] flex gap-3">
-        <div class="w-10 h-10 rounded-lg bg-[#FEF3C7] text-[#854D0E] border-2 border-[#CA8A04] flex items-center justify-center shrink-0 text-xl font-bold">
-          <i class="bi bi-quote"></i>
-        </div>
-        <div class="space-y-1">
-          <p class="text-xs text-foreground font-medium italic leading-relaxed">
-            "Chegar a uma universidade imensa sem saber para onde correr gera angústia real. A ouvidoria permanente serve para registrar críticas sobre a sala do CA, a infraestrutura ou o colegiado. A gestão existe para servir a todas as salas."
-          </p>
-          <span class="block text-xs font-heading font-black text-primary uppercase">
-            — Larissa Prado, Vice-Presidente da Chapa Semente
-          </span>
-        </div>
-      </div>
-
-      <div class="p-4 rounded-xl border-2 border-border bg-card shadow-[3px_3px_0px_#000] flex gap-3">
-        <div class="w-10 h-10 rounded-lg bg-[#DCFCE7] text-[#166534] border-2 border-[#16A34A] flex items-center justify-center shrink-0 text-xl font-bold">
-          <i class="bi bi-megaphone"></i>
-        </div>
-        <div class="space-y-1">
-          <p class="text-xs text-foreground font-medium italic leading-relaxed">
-            "Comunicação de CA pede seriedade e profundidade. O site é a nossa âncora: o espaço onde sua voz vira pauta e denúncias de ementas defasadas são encaminhadas institucionalmente ao colegiado."
-          </p>
-          <span class="block text-xs font-heading font-black text-primary uppercase">
-            — João Pedro Fragoso, Diretor de Comunicação e Marketing
-          </span>
-        </div>
-      </div>
-    </section>
+    <PageHeader
+      title="Fala com o CA"
+      marker="CA"
+      subtitle="Reclamação de ementa, sala sem estrutura, pauta pro Colegiado: escreve aqui. O rascunho fica só no seu celular até o CAGP ter um canal oficial."
+      badges={[{ label: 'Proposta 14 da Chapa', variant: 'accent' }]}
+      mode="operate"
+    />
 
     {/* Centro Interativo de Manifestações */}
     <section aria-label="Área de Protocolo e Histórico" data-tour="larissa">
       <OuvidoriaInteractiveCenter client:load />
     </section>
 
-    {/* Dúvidas Rápidas sobre Ouvidoria */}
-    <footer class="p-5 rounded-xl border-2 border-border bg-background space-y-3">
-      <h3 class="font-heading font-extrabold text-sm text-foreground flex items-center gap-2">
-        <i class="bi bi-info-circle-fill text-primary"></i>
-        O que a Chapa Semente propõe fazer com as demandas
-      </h3>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-muted-foreground leading-relaxed">
-        <div>
-          <strong class="text-foreground block mb-0.5">1. Triagem semanal</strong>
-          Se eleita, a Vice-Presidência abre o canal oficial e reúne as demandas toda semana, sem expor quem enviou.
-        </div>
-        <div>
-          <strong class="text-foreground block mb-0.5">2. Pauta no Colegiado</strong>
-          Ementas desatualizadas e cobranças irregulares vão para as reuniões do Colegiado.
-        </div>
-        <div>
-          <strong class="text-foreground block mb-0.5">3. Cobrança de Soluções</strong>
-          Problemas de infraestrutura são levados à Diretoria da FAFICH e à Chefia do DCP.
-        </div>
-      </div>
-    </footer>
+    <section aria-labelledby="ouvidoria-depois" class="space-y-4">
+      <h2 id="ouvidoria-depois" class="font-heading font-bold text-xl text-foreground m-0">
+        O que acontece com o que você escreve
+      </h2>
+      <ol class="list-none m-0 p-0 grid grid-cols-1 sm:grid-cols-3 gap-4 cagp-reveal-stagger">
+        <li class="p-4 rounded-xl border-2 border-border bg-white shadow-md">
+          <span class="font-heading font-bold text-3xl text-primary tabular-nums leading-none">1</span>
+          <strong class="block font-heading font-bold text-base text-foreground mt-2">Triagem toda semana</strong>
+          <span class="block text-sm text-content-secondary mt-1">A Vice-Presidência abre o canal oficial e junta as demandas, sem expor quem mandou.</span>
+        </li>
+        <li class="p-4 rounded-xl border-2 border-border bg-white shadow-md">
+          <span class="font-heading font-bold text-3xl text-primary tabular-nums leading-none">2</span>
+          <strong class="block font-heading font-bold text-base text-foreground mt-2">Vira pauta no Colegiado</strong>
+          <span class="block text-sm text-content-secondary mt-1">Ementa desatualizada e cobrança irregular vão pra reunião do Colegiado.</span>
+        </li>
+        <li class="p-4 rounded-xl border-2 border-border bg-white shadow-md">
+          <span class="font-heading font-bold text-3xl text-primary tabular-nums leading-none">3</span>
+          <strong class="block font-heading font-bold text-base text-foreground mt-2">A gente cobra solução</strong>
+          <span class="block text-sm text-content-secondary mt-1">Problema de estrutura vai pra Diretoria da FAFICH e pra Chefia do DCP.</span>
+        </li>
+      </ol>
+      <p class="text-sm text-muted-foreground m-0">É o que a Chapa Semente propõe fazer se for eleita.</p>
+    </section>
+
+    <SementeSignature
+      proposal="Proposta 14"
+      leaderId="larissa"
+      text="Fizemos este canal porque CA não pode ser panelinha: a gestão existe pra servir todas as turmas, não só quem conhece alguém da diretoria."
+    />
   </div>
 </BaseLayout>

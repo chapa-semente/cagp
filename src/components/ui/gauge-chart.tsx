@@ -153,23 +153,26 @@ const GaugeChart = React.forwardRef<HTMLDivElement, GaugeChartProps>(
     }
 
     // Create an SVG arc path segment between two percentages on the gauge track
+    // Coordenadas arredondadas: Math.cos/sin diferem na última casa entre Node (build) e navegador,
+    // e o React acusava hidratação divergente no medidor das 600h.
+    const r3 = (n: number) => Math.round(n * 1000) / 1000
     const createArcPath = (startPercent: number, endPercent: number, radius: number) => {
       const startAngle = percentToAngleRad(startPercent)
       const endAngle = percentToAngleRad(endPercent)
 
-      const startX = centerX + radius * Math.cos(startAngle)
-      const startY = centerY + radius * Math.sin(startAngle)
+      const startX = r3(centerX + radius * Math.cos(startAngle))
+      const startY = r3(centerY + radius * Math.sin(startAngle))
 
       // A full 360° arc is degenerate in SVG (start === end point); split into two half-arcs
       if (resolvedVariant === 'full' && Math.abs(endPercent - startPercent) >= 100) {
         const midAngle = startAngle + Math.PI
-        const midX = centerX + radius * Math.cos(midAngle)
-        const midY = centerY + radius * Math.sin(midAngle)
+        const midX = r3(centerX + radius * Math.cos(midAngle))
+        const midY = r3(centerY + radius * Math.sin(midAngle))
         return `M ${startX} ${startY} A ${radius} ${radius} 0 1 1 ${midX} ${midY} A ${radius} ${radius} 0 1 1 ${startX} ${startY}`
       }
 
-      const endX = centerX + radius * Math.cos(endAngle)
-      const endY = centerY + radius * Math.sin(endAngle)
+      const endX = r3(centerX + radius * Math.cos(endAngle))
+      const endY = r3(centerY + radius * Math.sin(endAngle))
 
       const sweepDelta = endPercent - startPercent
       const sweepAngle = (sweepDelta / 100) * arcConfig.sweepDeg
@@ -259,10 +262,10 @@ const GaugeChart = React.forwardRef<HTMLDivElement, GaugeChartProps>(
               const angle = percentToAngleRad(tick)
               const innerR = config.radius - config.strokeWidth / 2 - 6
               const outerR = config.radius + config.strokeWidth / 2 + 6
-              const x1 = centerX + innerR * Math.cos(angle)
-              const y1 = centerY + innerR * Math.sin(angle)
-              const x2 = centerX + outerR * Math.cos(angle)
-              const y2 = centerY + outerR * Math.sin(angle)
+              const x1 = r3(centerX + innerR * Math.cos(angle))
+              const y1 = r3(centerY + innerR * Math.sin(angle))
+              const x2 = r3(centerX + outerR * Math.cos(angle))
+              const y2 = r3(centerY + outerR * Math.sin(angle))
 
               return (
                 <line

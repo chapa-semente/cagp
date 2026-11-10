@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { MarkerWord } from '@/components/ui/marker-word';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -97,8 +98,8 @@ export const SobreCollageBanner: React.FC = () => {
                   loading="lazy"
                   className="w-40 sm:w-44 h-auto"
                 />
-                <span className="font-accent text-xl text-[#FFD6A5] mt-4 block leading-tight text-center">
-                  Toda mudança começa pequena.
+                <span className="font-heading font-bold text-base text-white mt-4 block leading-tight text-center">
+                  Toda mudança começa <MarkerWord onColor className="text-[1.2em]">pequena</MarkerWord>.
                 </span>
               </div>
 
@@ -125,10 +126,10 @@ export const SobreCollageBanner: React.FC = () => {
                   <span className="font-serif font-bold text-5xl text-black">U</span>
                   <span className="font-serif font-bold text-5xl text-black">F</span>
                   <span className="inline-flex flex-col items-center mx-1">
-                    <span className="font-serif italic font-black text-5xl text-[#C4161C] leading-none">
+                    <span className="font-serif italic font-black text-5xl text-ufmg-red leading-none">
                       M
                     </span>
-                    <span className="w-full h-1.5 bg-[#C4161C] block mt-0.5"></span>
+                    <span className="w-full h-1.5 bg-ufmg-red block mt-0.5"></span>
                   </span>
                   <span className="font-serif font-bold text-5xl text-black">G</span>
                 </div>

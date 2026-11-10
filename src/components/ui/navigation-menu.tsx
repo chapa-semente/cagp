@@ -2,7 +2,7 @@
 import * as React from 'react'
 import { NavigationMenu as NavigationMenuPrimitive } from 'radix-ui'
 import { cva } from 'class-variance-authority'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown } from '@/components/ui/icons'
 import { cn } from '@/lib/utils'
 
 // Note: this menu renders dropdown content directly under each item (no Radix

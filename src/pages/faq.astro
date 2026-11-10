@@ -1,18 +1,17 @@
 ---
 // faq.astro - A4 Guia: 2 sub-views (Perguntas · Acessibilidade)
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SementeSignature from '../components/ui/SementeSignature.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
 import SegmentedControl from '../components/ui/SegmentedControl.astro';
 import JourneyNav from '../components/ui/JourneyNav.astro';
 import { FaqInteractiveExplorer } from '../components/features/faq/FaqInteractiveExplorer';
-import { FaqChatAssistant } from '../components/features/faq/FaqChatAssistant';
 import { CTASection } from '../components/boldkit/blocks/cta-section';
-import { FAQAccordion, type FAQItem } from '../components/boldkit/blocks/faq-section';
 import { asset } from '@/lib/paths';
 
 const tabs = [
-  { id: 'v1', shortLabel: 'Perguntas', fullLabel: 'Perguntas Frequentes', hash: '#faq' },
-  { id: 'v2', shortLabel: 'Acessibilidade', fullLabel: 'Acessibilidade & NAI', hash: '#acessibilidade' },
+  { id: 'v1', shortLabel: 'Perguntas', fullLabel: 'Perguntas frequentes', hash: '#faq' },
+  { id: 'v2', shortLabel: 'Acessibilidade', fullLabel: 'Acessibilidade e NAI', hash: '#acessibilidade' },
 ];
 
 const badges = [
@@ -200,20 +199,16 @@ const faqs = [
     ],
   },
 ];
-const quickFaqItems: FAQItem[] = faqs.slice(0, 5).map((f) => ({
-  question: f.q,
-  answer: f.a,
-}));
 ---
 
 <BaseLayout
-  title="Dúvidas Frequentes & Acessibilidade"
+  title="Dúvidas frequentes"
   description="Perguntas frequentes regimentais e recursos de acessibilidade institucional do curso de Gestão Pública UFMG."
   mode="read"
 >
   <PageHeader
-    title="Perguntas Frequentes & Acessibilidade"
-    subtitle="Respostas regimentais sobre trancamento, pré-requisitos, dispensa de estágio (Art. 41), EaD, turno noturno e recursos de inclusão NAI/UFMG."
+    title="Dúvidas frequentes"
+    subtitle="Trancamento, pré-requisito, estágio, EaD, noturno e acessibilidade, respondidos com base no regulamento."
     badges={badges}
     mode="read"
   />
@@ -223,51 +218,12 @@ const quickFaqItems: FAQItem[] = faqs.slice(0, 5).map((f) => ({
   <!-- Sub-view 1: Perguntas Frequentes com Busca e Accordion BoldKit -->
   <section id="ws-panel-v1" class="cagp-workspace-view space-y-6" data-ws-panel="v1">
     <div id="faq" class="cagp-anchor-target scroll-mt-24"></div>
-    <FAQAccordion
-      client:visible
-      title="Dúvidas Rápidas em Destaque"
-      subtitle="Top 5 Regimentais"
-      description="Perguntas mais frequentes sobre o regulamento de graduação e funcionamento das aulas noturnas."
-      items={quickFaqItems}
-      className="py-2 px-0"
-    />
     <FaqInteractiveExplorer client:load faqs={faqs} />
-    <FaqChatAssistant client:load faqs={faqs} />
 
-    <!-- Card Final: Convite para Conhecer as 14 Propostas da Chapa Semente -->
-    <div class="p-6 sm:p-7 rounded-2xl border-2 border-[#1F1F1F] bg-[#5B2A85] text-white shadow-[8px_8px_0_0_#FE8812] flex flex-col lg:flex-row lg:items-center justify-between gap-5">
-      <div class="space-y-2 max-w-2xl">
-        <div class="flex flex-wrap items-center gap-2">
-          <span class="px-2.5 py-1 rounded-md bg-[#FE8812] text-[#1F1F1F] font-mono text-xs font-black uppercase border-2 border-[#1F1F1F]">
-            DESCOMPLICAR A UFMG É COMPROMISSO DA SEMENTE
-          </span>
-          <span class="font-mono text-xs font-bold text-[#FFD6A5]">
-            ELEIÇÕES: 25 E 26 DE NOVEMBRO DE 2026
-          </span>
-        </div>
-        <h3 class="font-heading text-xl sm:text-2xl font-black text-white m-0">
-          Gostou de ter as regras do curso claras e a um clique?
-        </h3>
-        <p class="text-xs sm:text-sm text-white leading-relaxed m-0 font-medium">
-          Esta Central de Dúvidas e o Manual &ldquo;Como se Formar&rdquo; fazem parte das <strong>14 Propostas da Chapa Semente</strong> para um Centro Acadêmico presente, transparente e útil para quem estuda e trabalha à noite na FAFICH.
-        </p>
-      </div>
-      <div class="flex flex-wrap items-center gap-3 shrink-0">
-        <a
-          href="/chapa-semente#propostas"
-          class="min-h-[48px] px-5 py-3 rounded-xl bg-[#FE8812] text-[#1F1F1F] font-heading font-black text-xs uppercase tracking-wider border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all inline-flex items-center gap-2 no-underline"
-        >
-          <span>Conhecer as 14 Propostas da Semente</span>
-          <i class="bi bi-arrow-right" aria-hidden="true"></i>
-        </a>
-        <a
-          href="/documentos"
-          class="min-h-[48px] px-4 py-3 rounded-xl bg-white text-[#1F1F1F] font-heading font-black text-xs uppercase tracking-wider border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] hover:bg-[#F4F2EC] transition-all inline-flex items-center gap-2 no-underline"
-        >
-          <span>Abrir Acervo de PDFs</span>
-        </a>
-      </div>
-    </div>
+    <SementeSignature
+      proposal="Proposta 3"
+      text="Juntamos as regras do curso numa página que dá pra achar em segundos, porque ninguém deveria depender de um veterano pra saber se pode trancar."
+    />
 
     <CTASection
       title="Ainda tem alguma dúvida específica sobre o curso?"
@@ -282,7 +238,7 @@ const quickFaqItems: FAQItem[] = faqs.slice(0, 5).map((f) => ({
     <div class="bg-card border-2 border-border rounded-xl p-5 shadow-md space-y-4 text-xs font-sans text-foreground leading-relaxed">
       <div class="flex items-center justify-between border-b-2 border-border pb-3 flex-wrap gap-2">
         <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-lg bg-[#134E4A] text-white flex items-center justify-center border-3 border-border shadow-xs">
+          <div class="w-8 h-8 rounded-lg bg-petroleo-deep text-white flex items-center justify-center border-3 border-border shadow-xs">
             <i class="bi bi-universal-access text-base" aria-hidden="true"></i>
           </div>
           <h3 class="font-heading font-extrabold text-sm text-foreground m-0">

@@ -104,7 +104,7 @@ export const LinearHud: React.FC = () => {
             <span className="font-head uppercase text-foreground">1. Extensão Obrigatória (300h)</span>
             <span className="font-mono text-foreground tabular-nums">{capExt}/300h ({extCr} cr)</span>
           </div>
-          <div className="w-full bg-[#F3ECE0] rounded-full h-3.5 overflow-hidden border-3 border-border shadow-xs">
+          <div className="w-full bg-surface-hover rounded-full h-3.5 overflow-hidden border-3 border-border shadow-xs">
             <motion.div
               initial={false}
               animate={{ width: `${extPct}%` }}
@@ -123,7 +123,7 @@ export const LinearHud: React.FC = () => {
             <span className="font-head uppercase text-foreground">2. Atividades Complementares • AAC (300h)</span>
             <span className="font-mono text-foreground tabular-nums">{capAac}/300h ({aacCr} cr)</span>
           </div>
-          <div className="w-full bg-[#F3ECE0] rounded-full h-3.5 overflow-hidden border-3 border-border shadow-xs">
+          <div className="w-full bg-surface-hover rounded-full h-3.5 overflow-hidden border-3 border-border shadow-xs">
             <motion.div
               initial={false}
               animate={{ width: `${aacPct}%` }}

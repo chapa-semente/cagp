@@ -6,7 +6,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent } from '@/components/ui/card'
 import { cn, safeHref } from '@/lib/utils'
-import { Mail, Phone, MapPin, Clock, Send, MessageSquare } from 'lucide-react'
+import { Mail, Phone, MapPin, Clock, Send, MessageSquare } from '@/components/ui/icons'
 
 export interface ContactInfo {
   email?: string

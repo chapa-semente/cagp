@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { cn } from '@/lib/utils'
-import { Clock } from 'lucide-react'
+import { Clock } from '@/components/ui/icons'
 import { Button } from '@/components/ui/button'
 import {
   Popover,

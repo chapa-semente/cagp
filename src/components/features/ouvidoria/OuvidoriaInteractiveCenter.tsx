@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { getVaultItem, setVaultItem } from '@/lib/storage/studentVault';
 import { bounceSpring, tactileSpring } from '@/lib/motion';
-import { toast } from 'sonner';
+import { toast } from '@/lib/toast';
 
 interface Manifestacao {
   id: string;
@@ -23,7 +23,7 @@ const CATEGORIES = [
     desc: 'Denuncie bibliografias desatualizadas ou conteúdos fora da realidade do setor público para o Colegiado.',
     icon: 'bi-journal-x',
     badge: 'Prioridade Pedagógica',
-    color: 'bg-[#FEF3C7] text-[#854D0E] border-[#CA8A04]',
+    color: 'bg-warning-tint text-warning border-warning',
   },
   {
     id: 'infra',
@@ -31,7 +31,7 @@ const CATEGORIES = [
     desc: 'Problemas em salas de aula, ar-condicionado, projetores, banheiros e espaços de convivência discente.',
     icon: 'bi-building-gear',
     badge: 'Espaço Físico',
-    color: 'bg-[#DCFCE7] text-[#166534] border-[#16A34A]',
+    color: 'bg-success-tint text-success border-success',
   },
   {
     id: 'colegiado',
@@ -39,7 +39,7 @@ const CATEGORIES = [
     desc: 'Dificuldades com prazos de requerimentos, aproveitamento de estudos ou atendimento da secretaria F-2039.',
     icon: 'bi-folder-symlink',
     badge: 'Secretaria & Gestão',
-    color: 'bg-[#E0E7FF] text-[#3730A3] border-[#4F46E5]',
+    color: 'bg-primary-tint text-primary border-primary',
   },
   {
     id: 'direitos',
@@ -47,7 +47,7 @@ const CATEGORIES = [
     desc: 'Garantias para estudantes trabalhadores, suporte à neurodivergência e denúncias de assédio ou descaso.',
     icon: 'bi-shield-check',
     badge: 'Permanência & Direitos',
-    color: 'bg-[#FEE2E2] text-[#991B1B] border-[#B91C1C]',
+    color: 'bg-destructive-tint text-destructive border-destructive',
   },
 ];
 
@@ -180,28 +180,28 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
   return (
     <div className="space-y-8">
       {/* Selo de Garantia Visual de Sigilo Local */}
-      <div className="p-4 rounded-xl bg-[#ECFDF5] border-2 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="p-4 rounded-xl bg-success-tint border-2 border-border shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-start sm:items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-[#166534] text-white border-2 border-[#1F1F1F] flex items-center justify-center shrink-0">
+          <div className="w-10 h-10 rounded-lg bg-success text-white border-2 border-border flex items-center justify-center shrink-0">
             <i className="bi bi-shield-lock-fill text-lg" aria-hidden="true" />
           </div>
           <div>
-            <span className="font-heading font-black text-xs sm:text-sm uppercase text-[#1F1F1F] block">
+            <span className="font-heading font-black text-xs sm:text-sm uppercase text-foreground block">
               Fala com o CA (Proposta 14 Semente) • Como funciona
             </span>
-            <p className="text-xs text-[#1F1F1F]/85 m-0 font-medium">
+            <p className="text-xs text-foreground/85 m-0 font-medium">
               O CAGP ainda não tem um canal oficial para receber demandas. Você escreve aqui, o rascunho fica salvo só neste celular e você pode copiar o texto para levar à gestão.
             </p>
           </div>
         </div>
-        <span className="px-3 py-1 rounded-lg bg-white border-2 border-[#1F1F1F] font-mono text-xs font-black uppercase text-[#166534] shrink-0 self-start sm:self-center">
+        <span className="px-3 py-1 rounded-lg bg-white border-2 border-border font-mono text-xs font-black uppercase text-success shrink-0 self-start sm:self-center">
           SALVO SÓ NESTE CELULAR
         </span>
       </div>
 
       {/* Formulário Multi-Etapas Animado */}
       <div className="space-y-5">
-        <div className="p-4 rounded-xl bg-white border-2 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F]">
+        <div className="p-4 rounded-xl bg-white border-2 border-border shadow-md">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
             {OUVIDORIA_STEPS.map((st, idx) => {
               const isCurrent = activeStep === idx;
@@ -216,13 +216,13 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                   }}
                   className={`min-h-[48px] p-3 rounded-xl border-3 text-left transition-all cursor-pointer flex items-center gap-3 ${
                     isCurrent
-                      ? 'bg-[#5B2A85] text-white border-[#1F1F1F] shadow-[3px_3px_0_0_#FE8812]'
+                      ? 'bg-primary text-white border-border shadow-[3px_3px_0_0_#FE8812]'
                       : isDone
-                      ? 'bg-[#DCFCE7] text-[#1F1F1F] border-[#1F1F1F]'
-                      : 'bg-[#F4F2EC] text-[#1F1F1F] border-[#1F1F1F]/60 hover:bg-white'
+                      ? 'bg-success-tint text-foreground border-border'
+                      : 'bg-background text-foreground border-border/60 hover:bg-white'
                   }`}
                 >
-                  <span className="w-7 h-7 rounded-lg border-2 border-[#1F1F1F] bg-white text-[#1F1F1F] font-mono font-black text-xs flex items-center justify-center shrink-0">
+                  <span className="w-7 h-7 rounded-lg border-2 border-border bg-white text-foreground font-mono font-black text-xs flex items-center justify-center shrink-0">
                     {isDone ? <i className="bi bi-check-lg" aria-hidden="true" /> : idx + 1}
                   </span>
                   <div className="min-w-0">
@@ -241,7 +241,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
 
         <form
           onSubmit={handleSubmit}
-          className="p-5 sm:p-7 rounded-2xl bg-card border-2 border-[#1F1F1F] shadow-[8px_8px_0px_#1F1F1F] space-y-5"
+          className="p-5 sm:p-7 rounded-2xl bg-card border-2 border-border shadow-xl space-y-5"
         >
           <AnimatePresence mode="wait">
             {activeStep === 0 && (
@@ -253,7 +253,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                 transition={tactileSpring}
                 className="space-y-5"
               >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b-2 border-[#1F1F1F]">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b-2 border-border">
                   <div>
                     <h3 className="text-base sm:text-lg font-heading font-black text-foreground m-0">
                       Etapa 1: Escolha o tipo de demanda
@@ -262,7 +262,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                       Escolha uma das 4 frentes de atuação do Fala com o CA.
                     </p>
                   </div>
-                  <div className="flex items-center gap-2 bg-[#FFFBEB] px-3.5 py-2 rounded-xl border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]">
+                  <div className="flex items-center gap-2 bg-warning-tint px-3.5 py-2 rounded-xl border-2 border-border shadow-sm">
                     <input
                       type="checkbox"
                       id="sigilo-toggle"
@@ -270,7 +270,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                       onChange={(e) => setIsAnonymous(e.target.checked)}
                       className="w-4 h-4 text-primary rounded border-border focus:ring-primary cursor-pointer"
                     />
-                    <label htmlFor="sigilo-toggle" className="text-xs font-heading font-black uppercase text-[#1F1F1F] cursor-pointer select-none">
+                    <label htmlFor="sigilo-toggle" className="text-xs font-heading font-black uppercase text-foreground cursor-pointer select-none">
                       {isAnonymous ? 'Não assinar o texto' : 'Assinar o texto'}
                     </label>
                   </div>
@@ -286,8 +286,8 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                         onClick={() => setSelectedCategory(cat.id)}
                         className={`text-left p-4 rounded-xl border-3 transition-all min-h-[48px] flex flex-col justify-between cursor-pointer ${
                           isSelected
-                            ? 'border-[#1F1F1F] bg-white shadow-[5px_5px_0px_#1F1F1F] -translate-y-0.5 ring-2 ring-primary'
-                            : 'border-[#1F1F1F]/60 bg-background hover:bg-white opacity-95'
+                            ? 'border-border bg-white shadow-lg -translate-y-0.5 ring-2 ring-primary'
+                            : 'border-border/60 bg-background hover:bg-white opacity-95'
                         }`}
                       >
                         <div>
@@ -318,7 +318,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setActiveStep(1)}
-                    className="min-h-[48px] px-6 py-3 rounded-xl bg-[#5B2A85] text-white font-heading font-black text-xs uppercase tracking-wider border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all cursor-pointer inline-flex items-center gap-2"
+                    className="min-h-[48px] px-6 py-3 rounded-xl bg-primary text-white font-heading font-black text-xs uppercase tracking-wider border-3 border-border shadow-md hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all cursor-pointer inline-flex items-center gap-2"
                   >
                     <span>Avançar para o Relato</span>
                     <i className="bi bi-arrow-right" aria-hidden="true" />
@@ -336,12 +336,12 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                 transition={tactileSpring}
                 className="space-y-4"
               >
-                <div className="flex items-center justify-between flex-wrap gap-2 pb-3 border-b-2 border-[#1F1F1F]">
+                <div className="flex items-center justify-between flex-wrap gap-2 pb-3 border-b-2 border-border">
                   <h3 className="text-base sm:text-lg font-heading font-black text-foreground m-0">
                     Etapa 2: Detalhar Manifestação ({getCategoryMeta(selectedCategory).title})
                   </h3>
-                  <span className="font-mono text-xs font-bold px-2.5 py-1 rounded bg-[#F4F2EC] border-2 border-[#1F1F1F]">
-                    {isAnonymous ? 'Anônimo no Cofre' : 'Identificado'}
+                  <span className="font-mono text-xs font-bold px-2.5 py-1 rounded bg-background border-2 border-border">
+                    {isAnonymous ? 'Anônimo' : 'Identificado'}
                   </span>
                 </div>
 
@@ -357,7 +357,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                       value={subject}
                       onChange={(e) => setSubject(e.target.value)}
                       placeholder="Ex: Bibliografia de DCP123 desatualizada desde 2012"
-                      className="w-full px-3.5 py-2.5 text-base sm:text-sm bg-background border-3 border-[#1F1F1F] rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all font-medium min-h-[44px]"
+                      className="w-full px-3.5 py-2.5 text-base sm:text-sm bg-background border-3 border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all font-medium min-h-[44px]"
                     />
                   </div>
 
@@ -371,7 +371,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                       value={targetDept}
                       onChange={(e) => setTargetDept(e.target.value)}
                       placeholder="Ex: DCP 123 / Sala 4010"
-                      className="w-full px-3.5 py-2.5 text-base sm:text-sm bg-background border-3 border-[#1F1F1F] rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all font-medium min-h-[44px]"
+                      className="w-full px-3.5 py-2.5 text-base sm:text-sm bg-background border-3 border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all font-medium min-h-[44px]"
                     />
                   </div>
                 </div>
@@ -387,7 +387,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Descreva a situação com clareza. Caso trate de ementa defasada, cite os autores cobrados ou o problema na grade. Caso seja infraestrutura, informe horários e localização precisa."
-                    className="w-full px-3.5 py-2.5 text-base sm:text-sm bg-background border-3 border-[#1F1F1F] rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all font-normal leading-relaxed resize-y min-h-[120px]"
+                    className="w-full px-3.5 py-2.5 text-base sm:text-sm bg-background border-3 border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all font-normal leading-relaxed resize-y min-h-[120px]"
                   />
                 </div>
 
@@ -395,9 +395,9 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setActiveStep(0)}
-                    className="min-h-[44px] px-4 py-2.5 rounded-xl bg-white text-[#1F1F1F] font-heading font-black text-xs uppercase border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] cursor-pointer"
+                    className="min-h-[44px] px-4 py-2.5 rounded-xl bg-white text-foreground font-heading font-black text-xs uppercase border-3 border-border shadow-md cursor-pointer"
                   >
-                    ← Voltar ao Eixo
+                    <i className="bi bi-arrow-left" aria-hidden="true"></i> Voltar ao Eixo
                   </button>
                   <button
                     type="button"
@@ -408,7 +408,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                       }
                       setActiveStep(2);
                     }}
-                    className="min-h-[48px] px-6 py-3 rounded-xl bg-[#5B2A85] text-white font-heading font-black text-xs uppercase tracking-wider border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] cursor-pointer inline-flex items-center gap-2"
+                    className="min-h-[48px] px-6 py-3 rounded-xl bg-primary text-white font-heading font-black text-xs uppercase tracking-wider border-3 border-border shadow-md cursor-pointer inline-flex items-center gap-2"
                   >
                     <span>Revisar &amp; Carimbar Protocolo</span>
                     <i className="bi bi-arrow-right" aria-hidden="true" />
@@ -427,25 +427,25 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                 className="space-y-5"
               >
                 {lastStamped ? (
-                  <div className="p-6 rounded-2xl bg-[#ECFDF5] border-2 border-[#1F1F1F] shadow-[6px_6px_0_0_#1F1F1F] space-y-4 text-center">
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl bg-[#166534] text-white font-mono text-xs font-black uppercase border-2 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] -rotate-1">
+                  <div className="p-6 rounded-2xl bg-success-tint border-2 border-border shadow-xl space-y-4 text-center">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl bg-success text-white font-mono text-xs font-black uppercase border-2 border-border shadow-md -rotate-1">
                       <i className="bi bi-patch-check-fill" aria-hidden="true" />
                       <span>RASCUNHO SALVO • AINDA NÃO ENVIADO</span>
                     </div>
-                    <h4 className="font-heading text-xl sm:text-2xl font-black text-[#1F1F1F] m-0">
+                    <h4 className="font-heading text-xl sm:text-2xl font-black text-foreground m-0">
                       Rascunho salvo neste celular
                     </h4>
-                    <p className="text-xs sm:text-sm text-[#1F1F1F]/85 max-w-lg mx-auto m-0 font-medium">
+                    <p className="text-xs sm:text-sm text-foreground/85 max-w-lg mx-auto m-0 font-medium">
                       Sua manifestação (&ldquo;{lastStamped.subject}&rdquo;, referência {lastStamped.protocol}) está salva só neste celular. O CAGP ainda não tem um canal oficial para receber demandas, então ninguém recebeu este texto.
                     </p>
-                    <p className="text-xs text-[#1F1F1F]/85 max-w-lg mx-auto m-0">
+                    <p className="text-xs text-foreground/85 max-w-lg mx-auto m-0">
                       Copie o texto para levá-lo à gestão do CAGP pessoalmente ou guardá-lo até o canal abrir.
                     </p>
                     <div className="pt-2 flex flex-wrap justify-center gap-3">
                       <button
                         type="button"
                         onClick={() => copyOuvidoriaText(lastStamped)}
-                        className="min-h-[48px] px-5 py-3 rounded-xl bg-primary text-white font-heading font-bold text-sm uppercase tracking-[0.03em] border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] inline-flex items-center gap-2 cursor-pointer active:translate-x-[3px] active:translate-y-[3px] active:shadow-none"
+                        className="min-h-[48px] px-5 py-3 rounded-xl bg-primary text-white font-heading font-bold text-sm uppercase tracking-[0.03em] border-3 border-border shadow-md inline-flex items-center gap-2 cursor-pointer active:translate-x-[3px] active:translate-y-[3px] active:shadow-none"
                       >
                         <i className="bi bi-clipboard" aria-hidden="true" />
                         Copiar texto
@@ -456,7 +456,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                           setLastStamped(null);
                           setActiveStep(0);
                         }}
-                        className="min-h-[44px] px-5 py-2.5 rounded-xl bg-[#1F1F1F] text-white font-heading font-black text-xs uppercase border-2 border-[#1F1F1F] shadow-[3px_3px_0_0_#FE8812] cursor-pointer"
+                        className="min-h-[44px] px-5 py-2.5 rounded-xl bg-primary text-white font-heading font-black text-xs uppercase border-2 border-border shadow-[3px_3px_0_0_#FE8812] cursor-pointer"
                       >
                         Registrar Nova Manifestação
                       </button>
@@ -464,16 +464,16 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    <div className="p-4 rounded-xl bg-[#ffffff] border-2 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] space-y-2">
+                    <div className="p-4 rounded-xl bg-white border-2 border-border shadow-md space-y-2">
                       <div className="flex items-center justify-between flex-wrap gap-2">
-                        <span className="font-mono text-xs font-black uppercase text-[#5B2A85]">
+                        <span className="font-mono text-xs font-black uppercase text-primary">
                           Confira antes de enviar • {getCategoryMeta(selectedCategory).title}
                         </span>
-                        <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-[#FEF3C7] border border-[#1F1F1F]">
+                        <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-warning-tint border border-border">
                           {isAnonymous ? 'Texto sem assinatura' : 'Texto assinado'}
                         </span>
                       </div>
-                      <p className="font-heading font-black text-sm text-[#1F1F1F] m-0">
+                      <p className="font-heading font-black text-sm text-foreground m-0">
                         {subject || '(Assunto não preenchido)'}
                       </p>
                       {targetDept && (
@@ -481,7 +481,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                           Alvo: {targetDept}
                         </p>
                       )}
-                      <p className="text-xs text-[#1F1F1F]/90 leading-relaxed m-0 pt-1 border-t border-[#1F1F1F]/20">
+                      <p className="text-xs text-foreground/90 leading-relaxed m-0 pt-1 border-t border-border/20">
                         {message || '(Relato ainda não preenchido — volte à Etapa 2 para detalhar)'}
                       </p>
                     </div>
@@ -490,15 +490,15 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => setActiveStep(1)}
-                        className="min-h-[44px] px-4 py-2.5 rounded-xl bg-white text-[#1F1F1F] font-heading font-black text-xs uppercase border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] cursor-pointer"
+                        className="min-h-[44px] px-4 py-2.5 rounded-xl bg-white text-foreground font-heading font-black text-xs uppercase border-3 border-border shadow-md cursor-pointer"
                       >
-                        ← Editar Relato
+                        <i className="bi bi-arrow-left" aria-hidden="true"></i> Editar Relato
                       </button>
 
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#FE8812] text-[#1F1F1F] font-heading font-black text-sm uppercase tracking-wider rounded-xl border-3 border-[#1F1F1F] shadow-[5px_5px_0px_#1F1F1F] hover:bg-[#ff9831] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer min-h-[48px] disabled:opacity-50"
+                        className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-accent text-foreground font-heading font-black text-sm uppercase tracking-wider rounded-xl border-3 border-border shadow-lg hover:bg-accent active:translate-y-[2px] active:shadow-none transition-all cursor-pointer min-h-[48px] disabled:opacity-50"
                       >
                         {isSubmitting ? (
                           <>
@@ -562,7 +562,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
               return (
                 <div
                   key={item.id}
-                  className="p-4 rounded-xl border-2 border-border bg-card shadow-[3px_3px_0px_#000] flex flex-col sm:flex-row sm:items-start justify-between gap-3"
+                  className="p-4 rounded-xl border-2 border-border bg-card shadow-md flex flex-col sm:flex-row sm:items-start justify-between gap-3"
                 >
                   <div className="space-y-1.5 flex-1 min-w-0">
                     <div className="flex flex-wrap items-center gap-2">
