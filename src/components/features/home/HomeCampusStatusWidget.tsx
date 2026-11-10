@@ -12,6 +12,21 @@ export interface CampusLiveStatus {
   busSub: string;
 }
 
+/**
+ * Estado sem horário, idêntico no build e no navegador. O HTML do GitHub Pages é gerado no build
+ * (GitHub Actions, em UTC); calcular "aberto agora" durante o render fazia o texto do servidor
+ * divergir do navegador (erro de hidratação #418, que fazia o React redesenhar a home inteira).
+ * A home começa com este estado e troca pelo horário real logo depois de montar.
+ */
+export const NEUTRAL_CAMPUS_STATUS: CampusLiveStatus = {
+  ruBadge: 'Jantar 17h30–19h30',
+  ruTone: 'warn',
+  ruSub: 'Catracas fecham impreterivelmente às 19h30',
+  busBadge: 'Saídas até 22h45',
+  busTone: 'open',
+  busSub: 'Noturno: 18h50 · 19h10 · 20h40 · 22h15 · 22h35 · 22h45',
+};
+
 export function computeCampusLiveStatus(now: Date): CampusLiveStatus {
   const day = now.getDay();
   const minutes = now.getHours() * 60 + now.getMinutes();

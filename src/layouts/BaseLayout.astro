@@ -299,12 +299,27 @@ const routeMeta = getRouteMeta();
               });
             }
           } else if (window.location.protocol === 'https:') {
-            window.addEventListener('load', () => {
+            // Registro do SW só depois do tour obrigatório: a instalação baixa o casco do app e
+            // não pode disputar a rede com as trocas de página do tour na primeira visita.
+            const registerSw = () => {
               const swPath = `${cleanBase}/sw.js`;
               navigator.serviceWorker.register(swPath).catch((err) => {
                 console.warn('[PWA] Service Worker registration failed:', err);
               });
-            });
+            };
+            const tourDone = () => {
+              try {
+                const raw = localStorage.getItem('cagp_semente_tour_v2');
+                return Boolean(raw && JSON.parse(raw).status === 'done');
+              } catch (e) {
+                return true;
+              }
+            };
+            if (tourDone() || navigator.serviceWorker.controller) {
+              window.addEventListener('load', registerSw);
+            } else {
+              window.addEventListener('cagp:semente-tour-done', () => setTimeout(registerSw, 1500), { once: true });
+            }
             // Atualização do SW: recarrega para pegar a versão nova, mas nunca no primeiro registro
             // (não havia versão velha) nem com o tour da chapa aberto (a recarga cortava o tour).
             const hadController = Boolean(navigator.serviceWorker.controller);

@@ -184,11 +184,10 @@ export const CursoCandangosAndTimeline: React.FC = () => {
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1F1F1F]/90 via-[#1F1F1F]/25 to-transparent pointer-events-none" />
               <span className="absolute top-3 left-3 px-3 py-1 rounded-md bg-[#9E2424] text-white font-mono font-black text-xs uppercase tracking-wider border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]">
                 PRAÇA DOS TRÊS PODERES • 1959
               </span>
-              <div className="absolute bottom-4 left-4 right-4 text-white space-y-1">
+              <div className="absolute bottom-4 left-4 right-4 text-white space-y-1 bg-[#1F1F1F] rounded-lg px-3 py-2.5">
                 <h3 className="font-head font-black text-base sm:text-xl leading-tight m-0">
                   &ldquo;Dois Guerreiros&rdquo; (Os Candangos) — Escultura em Bronze de Bruno Giorgi
                 </h3>
@@ -222,11 +221,10 @@ export const CursoCandangosAndTimeline: React.FC = () => {
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1F1F1F]/90 via-[#1F1F1F]/25 to-transparent pointer-events-none" />
               <span className="absolute top-3 left-3 px-3 py-1 rounded-md bg-[#5B2A85] text-white font-mono font-black text-xs uppercase tracking-wider border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]">
                 FAFICH / UFMG • REUNI 2009
               </span>
-              <div className="absolute bottom-4 left-4 right-4 text-white space-y-1">
+              <div className="absolute bottom-4 left-4 right-4 text-white space-y-1 bg-[#1F1F1F] rounded-lg px-3 py-2.5">
                 <h3 className="font-head font-black text-base sm:text-lg leading-tight m-0">
                   Território do Campo de Públicas na UFMG
                 </h3>

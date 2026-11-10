@@ -20,13 +20,12 @@ function getFilesRecursively(dir, baseDir = dir) {
     } else {
       const subPath = '/' + path.relative(baseDir, fullPath).replace(/\\/g, '/');
       const relPath = cleanBase + subPath;
-      results.push(relPath);
+      // Página: guarda só a forma com barra final (/cagp/estagio/), a URL que o site usa.
+      // Antes cada página entrava 3 vezes (/x/index.html, /x/ e /x).
       if (relPath.endsWith('/index.html')) {
-        const dirPath = relPath.slice(0, -'index.html'.length);
-        results.push(dirPath);
-        if (dirPath.length > 1) {
-          results.push(dirPath.slice(0, -1));
-        }
+        results.push(relPath.slice(0, -'index.html'.length));
+      } else {
+        results.push(relPath);
       }
     }
   }
@@ -35,8 +34,22 @@ function getFilesRecursively(dir, baseDir = dir) {
 
 const distDir = path.resolve('dist');
 if (fs.existsSync(distDir)) {
+  // Precache = só o "casco" do app (páginas, JS/CSS, ícones, logos da Semente e fotos do tour).
+  // PDFs, fotos e ilustrações entram no cache quando a pessoa abre (cache-first em tempo de execução).
+  // Antes o SW baixava os 657 arquivos do site (137 MB) na primeira visita, justamente durante o
+  // tour obrigatório: a rede do celular saturava e as trocas de página do tour travavam.
+  const SHELL = [
+    /\/$/, // páginas
+    /^\/_astro\/.+\.(js|css|woff2?)$/,
+    /^\/manifest\.webmanifest$/,
+    /^\/favicon/,
+    /^\/imagens\/pwa\//,
+    /^\/logos\/semente\//,
+    /^\/images\/chapa\/tour\//,
+  ];
   const allFiles = getFilesRecursively(distDir, distDir)
-    .filter(f => !f.endsWith('.map') && f !== '/sw.js');
+    .filter(f => !f.endsWith('.map') && f !== '/sw.js')
+    .filter(f => SHELL.some((re) => re.test(f.slice(cleanBase.length))));
   
   const swSrcPath = path.resolve('public/sw.js');
   const swDistPath = path.resolve('dist/sw.js');

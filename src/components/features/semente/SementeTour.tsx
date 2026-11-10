@@ -128,7 +128,7 @@ const PeopleProgress: React.FC<{ current: number; compact?: boolean }> = ({ curr
   </ol>
 );
 
-/** Foto que "germina": revela de baixo para cima com clip-path (a faixa de dithering vem do CSS global). */
+/** Foto que "germina": revela de baixo para cima com clip-path. */
 const GrowPhoto: React.FC<{
   person: TourPerson;
   className?: string;
@@ -180,6 +180,10 @@ export const SementeTour: React.FC = () => {
   const [cardRect, setCardRect] = useState<Rect | null>(null);
   const [holeRect, setHoleRect] = useState<Rect | null>(null);
   const [targetMissing, setTargetMissing] = useState(false);
+  /** A página da ferramenta ainda está chegando (rede lenta): o cartão diz isso em vez de parecer travado. */
+  const [waitingPage, setWaitingPage] = useState(false);
+  /** Rota com troca já em andamento: não dispara outra igual (reiniciaria o download na rede lenta). */
+  const pendingRoute = useRef<string | null>(null);
   const [closing, setClosing] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const [cardEl, setCardEl] = useState<HTMLDivElement | null>(null);
@@ -267,12 +271,38 @@ export const SementeTour: React.FC = () => {
   }, [open]);
 
   // ---- Rotas: a tela de história já leva a página certa para trás do bloco de cor ----------------
+  const ensureRoute = (rawRoute: string) => {
+    const route = normalizePath(rawRoute);
+    if (normalizePath(window.location.pathname) !== route && pendingRoute.current !== route) {
+      pendingRoute.current = route;
+      navigate(toPageUrl(rawRoute));
+    }
+  };
+
   useEffect(() => {
     if (!screen || (screen.kind !== 'story' && screen.kind !== 'spot')) return;
-    const route = screen.person.stop.route;
-    if (normalizePath(window.location.pathname) !== normalizePath(route)) {
-      navigate(toPageUrl(route));
-    }
+    ensureRoute(screen.person.stop.route);
+  }, [screen]);
+
+  useEffect(() => {
+    const clear = () => {
+      pendingRoute.current = null;
+    };
+    document.addEventListener('astro:page-load', clear);
+    return () => document.removeEventListener('astro:page-load', clear);
+  }, []);
+
+  // Enquanto a pessoa lê o cartão, a página da próxima já vem pela rede.
+  useEffect(() => {
+    if (screen?.kind !== 'spot' || !screen.next) return;
+    const nextRoute = screen.next.stop.route;
+    if (normalizePath(nextRoute) === normalizePath(window.location.pathname)) return;
+    // fetch de baixa prioridade: aquece o cache HTTP (GitHub Pages) e o do service worker.
+    const ctrl = new AbortController();
+    fetch(toPageUrl(nextRoute), { credentials: 'same-origin', signal: ctrl.signal, priority: 'low' } as RequestInit).catch(
+      () => {}
+    );
+    return () => ctrl.abort();
   }, [screen]);
 
   // ---- Medida do cartão do spotlight -----------------------------------------------------------
@@ -299,12 +329,30 @@ export const SementeTour: React.FC = () => {
     const { stop } = screen.person;
     setTargetMissing(false);
 
-    // Espera a rota certa (a troca começou na tela de história).
-    for (let i = 0; i < 60; i++) {
+    // Espera a rota certa (a troca começou na tela de história). Em rede lenta pode levar segundos:
+    // o cartão avisa "abrindo a página" e o spotlight só procura a ferramenta quando ela chegou.
+    if (normalizePath(window.location.pathname) !== normalizePath(stop.route)) {
+      setWaitingPage(true);
+      setHoleRect(null); // nada de recorte aceso sobre a página errada enquanto a certa chega
+    }
+    for (let i = 0; i < 300; i++) {
       if (normalizePath(window.location.pathname) === normalizePath(stop.route)) break;
+      // Outra troca terminou por cima desta (a pessoa voltou e avançou rápido): pede a página de novo.
+      if (i % 20 === 0) ensureRoute(stop.route);
+      if (i > 0 && normalizePath(window.location.pathname) !== normalizePath(stop.route)) {
+        setWaitingPage(true);
+        setHoleRect(null);
+      }
       await wait(100);
     }
     if (run !== locateRun.current) return;
+    setWaitingPage(false);
+    if (normalizePath(window.location.pathname) !== normalizePath(stop.route)) {
+      // Nunca chegou (offline): tenta de novo e deixa o cartão orientar a pessoa.
+      pendingRoute.current = null;
+      setTargetMissing(true);
+      return;
+    }
 
     if (stop.tab) {
       const tabBtn = document.querySelector<HTMLButtonElement>(`.cagp-workspace-tab[data-ws-tab="${stop.tab}"]`);
@@ -348,6 +396,7 @@ export const SementeTour: React.FC = () => {
       locateRun.current++;
       setHoleRect(null);
       setTargetMissing(false);
+      setWaitingPage(false);
       return;
     }
     void locate();
@@ -385,6 +434,7 @@ export const SementeTour: React.FC = () => {
       () => {
         setState((s) => (s ? { ...s, status: 'done', index: 0 } : s));
         setClosing(false);
+        window.dispatchEvent(new CustomEvent('cagp:semente-tour-done'));
         if (returnTo && normalizePath(returnTo.split(/[?#]/)[0]) !== normalizePath(window.location.pathname)) {
           navigate(returnTo);
         } else {
@@ -557,6 +607,7 @@ export const SementeTour: React.FC = () => {
                   n={screen.n}
                   next={screen.next}
                   missing={targetMissing}
+                  waiting={waitingPage}
                   onNext={() => go(1)}
                   onBack={() => go(-1)}
                 />
@@ -790,9 +841,10 @@ const SpotCard: React.FC<{
   n: number;
   next?: TourPerson;
   missing: boolean;
+  waiting: boolean;
   onNext: () => void;
   onBack: () => void;
-}> = ({ cardRef, headingRef, person, n, next, missing, onNext, onBack }) => {
+}> = ({ cardRef, headingRef, person, n, next, missing, waiting, onNext, onBack }) => {
   const { leader, stop } = person;
   return (
     <div
@@ -830,7 +882,11 @@ const SpotCard: React.FC<{
         )}
       </div>
       <p className="m-0 mt-1.5 text-base leading-snug">
-        {missing ? `${stop.proof} Abra pela aba Guias se ela não aparecer aqui.` : stop.proof}
+        {waiting
+          ? 'Abrindo a página da ferramenta…'
+          : missing
+            ? `${stop.proof} A página não abriu agora; você encontra a ferramenta depois pelo menu.`
+            : stop.proof}
       </p>
       <div className="mt-4 flex items-center gap-3">
         <BackButton onClick={onBack} />

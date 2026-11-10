@@ -19,6 +19,7 @@ colors:
   grafite-secundario: "#4A4740"
   grafite-apagado: "#5E5A52"
   cagp-rubro: "#9E2424"
+  ufmg-red: "#C4161C"
   success: "#166534"
   success-tint: "#DCFCE7"
   warning: "#92400E"
@@ -231,9 +232,9 @@ components:
 
 O site é o balcão que a UFMG nunca teve, montado pela identidade da Chapa Semente. Você chega com pressa, depois do trabalho, e sai com o passo, o formulário e o contato na mão; cada trâmite resolvido é uma semente que germina. O lema da chapa é a regra de composição: **toda mudança começa pequena**. Um passo por vez, um destaque por tela, uma ação clara.
 
-A linguagem é um **neobrutalismo sóbrio**: o manual pede "clareza visual e elegância sóbria", blocos chapados e respiro generoso; o neobrutalismo dá o gesto tátil do balcão (contorno grafite, sombra dura, o botão que afunda como um carimbo). O resultado é menos grito e mais papel bem impresso: contornos de 2px, sombras curtas, muito espaço em areia, cor em grandes blocos nítidos. O volume cresce só onde a campanha fala (o Cartaz), e mesmo ali a voz vem do *color blocking*, das formas orgânicas da folha e da semente e da fotografia real do campus com a base em dithering, nunca de enfeite.
+A linguagem é um **neobrutalismo sóbrio**: o manual pede "clareza visual e elegância sóbria", blocos chapados e respiro generoso; o neobrutalismo dá o gesto tátil do balcão (contorno grafite, sombra dura, o botão que afunda como um carimbo). O resultado é menos grito e mais papel bem impresso: contornos de 2px, sombras curtas, muito espaço em areia, cor em grandes blocos nítidos. O volume cresce só onde a campanha fala (o Cartaz), e mesmo ali a voz vem do *color blocking*, das formas orgânicas da folha e da semente e da fotografia real do campus, inteira e em cor, nunca de enfeite.
 
-O isotipo dá o significado de cada cor, e a interface o respeita. A **semente roxa** é o núcleo: o que sustenta (navegação, ação principal, autoridade). A **folha laranja** é o que brota: destaque, conquista, o número grande, a ideia nova. O **petróleo** é o equilíbrio frio dos dados. A **areia** é o solo e o papel. A **pessoa** do símbolo é o estudante, e entra na tela como fotografia real, em cor, com a base dissolvida em pixels como uma impressão. Os pilares IDEIA · PARTICIPAÇÃO · FUTURO não são decoração: viram laranja, gente e progresso.
+O isotipo dá o significado de cada cor, e a interface o respeita. A **semente roxa** é o núcleo: o que sustenta (navegação, ação principal, autoridade). A **folha laranja** é o que brota: destaque, conquista, o número grande, a ideia nova. O **petróleo** é o equilíbrio frio dos dados. A **areia** é o solo e o papel. A **pessoa** do símbolo é o estudante, e entra na tela como fotografia real, em cor original e inteira. Os pilares IDEIA · PARTICIPAÇÃO · FUTURO não são decoração: viram laranja, gente e progresso.
 
 As referências estruturais seguem sendo o **Neobrutalism.com** (disciplina: uma sombra por nível, o press exato, poucos tokens) e o **BoldKit** (carimbo, layered card, motion), vendorizados em `src/components/ui/` e `src/components/boldkit/`. Deles vem o comportamento, nunca a paleta nem os enfeites (neon, burst, estrela, escudo). A **Chapa Semente** é a base cromática; o **CAGP** é selo. Modo exclusivamente claro. Primeiro celular (375px), à noite, com sinal ruim e uma mão.
 
@@ -244,7 +245,7 @@ As referências estruturais seguem sendo o **Neobrutalism.com** (disciplina: uma
 - Poppins Regular e Bold em tudo, com algarismos tabulares para números de protocolo; Permanent Marker só na palavra que precisa de voz.
 - Caixa alta só no grito (título de página, botão, badge, rótulo), sempre com tracking ampliado.
 - Laranja como destaque raro; texto sobre roxo e petróleo sempre branco.
-- Fotografia real em cor original, com a base dissolvida em pixels de dithering translúcidos; duotone roxo só em capas de Cartaz.
+- Fotografia real em cor original, inteira e sem máscara ou textura por cima; duotone roxo só em capas de Cartaz.
 - Campanha como assinatura no fim do trâmite, nunca como pedágio antes dele. Única exceção: o tour obrigatório da primeira visita (ver Components › Tour da Chapa).
 
 ## Colors
@@ -274,12 +275,13 @@ A paleta oficial do manual, em blocos chapados: três campos de cor da Semente s
 
 ### Institutional seal
 - **Rubro CAGP** (`cagp-rubro`): somente o selo CAGP e contextos estritamente institucionais (atalho SIGA). Não é cor de eixo, botão, badge informativo, gráfico nem erro.
+- **Vermelho UFMG** (`ufmg-red`, `#C4161C`): a palavra "UFMG" e o traço sob "CAGP" no selo do CAGP no rodapé. Nunca verde/petróleo nesse selo, e nunca fora de marca institucional da UFMG.
 
 ### Status
 - `success`, `warning`, `destructive`, `info` com tintas `-tint`: cores funcionais, fora da paleta de marca e por isso nunca decorativas. Servem a alerta, validação, carimbos (DEFERIDO, PENDENTE, INDEFERIDO, HOMOLOGADO) e ao sticker SIMULADO. A cor forte vai no texto e no ícone (todas ≥5:1 sobre a própria tinta); a tinta vai no fundo; o contorno continua grafite.
 
 ### Named Rules
-**The Flat Poster Rule.** Toda área de cor é bloco chapado sólido. Zero degradês lineares, radiais ou mesh, zero transparência sobre cor (`bg-primary/10`), zero vidro. Translucidez só na fotografia: o dithering pixelado da base e o duotone roxo de capa (ver Components › Fotografia).
+**The Flat Poster Rule.** Toda área de cor é bloco chapado sólido. Zero degradês lineares, radiais ou mesh, zero transparência sobre cor (`bg-primary/10`), zero vidro. Translucidez só no duotone roxo de capa da fotografia (ver Components › Fotografia).
 
 **The Sand Not Gray Rule.** O claro do sistema é quente: areia, areia funda e branco. Cinzas frios (`#f4f5f7`, `#e5e7ec`, `#4a4e58`) e pretos azulados (`#16181d`) saem do código; viram `areia`, `areia-funda`, `grafite-secundario` e `grafite`.
 
@@ -287,7 +289,7 @@ A paleta oficial do manual, em blocos chapados: três campos de cor da Semente s
 
 **The Orange Is The Leaf Rule.** Laranja Vibrante é destaque: linha, caixa, número grande, palavra isolada, forma orgânica. Nunca frase, parágrafo ou texto pequeno; texto pequeno alaranjado usa `orange-text`.
 
-**The Rubro Is a Seal Rule.** Rubro só no selo do CAGP. Abas de navegação não têm cor própria: a aba ativa veste roxo (os `color` de `navigationRegistry.ts` não pintam interface).
+**The Rubro Is a Seal Rule.** Rubro e vermelho UFMG só no selo do CAGP. Abas de navegação não têm cor própria: a aba ativa veste roxo (os `color` de `navigationRegistry.ts` não pintam interface).
 
 **The One Loud Color Rule.** Cada tela tem no máximo um campo chapado grande de cor quente ou roxa. Roxo e petróleo podem dividir uma composição em blocos nítidos (o *color blocking* do manual), mas laranja nunca é campo de fundo grande.
 
@@ -329,7 +331,7 @@ Cada página declara um volume dominante (ligado ao `mode` do `BaseLayout`):
 
 | Volume | Modo | Onde | Contêiner | Expressão |
 |---|---|---|---|---|
-| **Cartaz** | Persuade / Experience | Home (herói), /chapa-semente, Carta-Proposta, 404 | Faixas de cor de ponta a ponta (roxo, petróleo) em divisões nítidas sobre areia; painéis-vitrine com contorno 3px e sombra 6px | Formas orgânicas (folha, semente, semicírculo), fotografia com faixa de dithering (duotone roxo na capa), numeral laranja, Permanent Marker |
+| **Cartaz** | Persuade / Experience | Home (herói), /chapa-semente, Carta-Proposta, 404 | Faixas de cor de ponta a ponta (roxo, petróleo) em divisões nítidas sobre areia; painéis-vitrine com contorno 3px e sombra 6px | Formas orgânicas (folha, semente, semicírculo), fotografia inteira em cor (duotone roxo na capa), numeral laranja, Permanent Marker |
 | **Ficha** | Operate | Guias de trâmite, ferramentas, hubs de eixo, catálogos | Fichas brancas, contorno 2px e sombra 3px, sobre areia | Nenhuma; só ícones funcionais e carimbos de estado |
 | **Papel** | Read | Normas, FAQ, história, textos longos dentro de guias | Sem caixa: texto direto na areia, coluna de 68ch | Nenhuma; separação por espaço e régua grafite 2px |
 
@@ -355,6 +357,7 @@ Uma página Ficha pode conter blocos Papel e no máximo **um** momento Cartaz (o
   - **Meu curso** (`/meu-curso`): ferramentas com estado salvo no aparelho (horas 600h, grade, cursos que contam horas, formatura).
   - **Mais** (painel por cima da página; `/mais` no desktop e sem JS): Carreira, O CAGP (ouvidoria, transparência, sobre) e Este site (ajustes, mapa).
 - **Dono da rota:** cada rota pertence a uma única aba, e é ela que acende. Hubs podem ter atalhos para rotas de outras abas sem mudar o dono.
+- **Rodapé:** duas chancelas lado a lado (Chapa Semente como realizadora, selo CAGP com "FAFICH" em grafite e "UFMG" em vermelho UFMG), ecossistema UFMG, atendimento e colunas de links. A linha de direitos é só `© 2026 Chapa Semente`: sem nome do CAGP como titular e sem menção a licença ou código aberto.
 
 ### Arquétipos de página
 Toda página nova escolhe um destes; não se inventa estrutura por página.
@@ -486,19 +489,18 @@ O coração do volume Ficha. Stepper vertical com o número do passo em Numeral 
 - **Passaporte Discente:** Layered Card com os carimbos das etapas conquistadas; único lugar onde carimbos se acumulam.
 
 ### Fotografia (signature)
-A "pessoa" do símbolo entra na tela como gente real, **em cor original**, com uma assinatura de impressão na base. Decisão do site que substitui a Regra 04 do manual (P&B obrigatório): a foto mantém a cor, e a marca aparece no acabamento.
-- **Faixa de dithering:** os ~20% inferiores de toda foto se dissolvem em pixels quadrados translúcidos, por pontilhado ordenado (Bayer 4×4): densos junto à foto, esparsos na borda, como uma cópia xerox que perde tinta. Os pixels "apagados" ficam a 35% e revelam a superfície cinza/areia por baixo; nada some por completo. Bordas nítidas, sem desfoque e sem degradê suave: é um degradê **pixelado**, não gradiente de cor.
-- **Implementação:** máscara CSS em `global.css` (camada sólida nos 80% superiores + tile SVG de dithering em `repeat-x` nos 20% inferiores, com `mask-size: auto 20%` para os quadrados continuarem quadrados em qualquer tamanho). Aplicada automaticamente às fotos de `/images/chapa/`, `/imagens/semente/foto_*`, Os Candangos e campus; para outra foto, use a classe `.cagp-photo`.
-- **Escopo:** todas as fotografias (integrantes, campus, Os Candangos, notícias). Ficam fora: prints de tutorial, logos, ícones e peças de campanha já finalizadas.
-- **Texto sobre foto:** legenda ou nome entram na faixa de dithering, em branco sobre fundo grafite sólido (etiqueta), nunca solto sobre a imagem.
-- **Duotone de capa:** só no Cartaz (capa do herói, banner de encerramento): camada roxa (`#5B2A85`) em `mix-blend-mode: multiply` via `.cagp-photo-duotone`, mantendo a faixa de dithering.
+A "pessoa" do símbolo entra na tela como gente real, **em cor original e inteira**. Decisão do site que substitui a Regra 04 do manual (P&B obrigatório): a foto mantém a cor, e a marca aparece na moldura (contorno grafite, raio, recorte), nunca sobre a imagem.
+- **Sem textura:** nenhuma foto recebe faixa de dithering, pontilhado, quadriculado, reticulado ou degradê na base. A imagem aparece inteira, com bordas nítidas, sobre a superfície da moldura. (A antiga faixa de dithering Bayer 4×4 nos 20% inferiores foi retirada em 10/11/2026.)
+- **Escopo:** vale para todas as fotografias (integrantes, campus, Os Candangos, notícias).
+- **Texto sobre foto:** legenda ou nome entram em etiqueta grafite sólida com texto branco, encostada na base da foto, nunca soltos sobre a imagem.
+- **Duotone de capa:** só no Cartaz (capa do herói, banner de encerramento): camada roxa (`#5B2A85`) em `mix-blend-mode: multiply` via `.cagp-photo-duotone`.
 - **Recorte:** retângulo de 12px ou máscara orgânica (folha, semente, semicírculo). Avatares dos integrantes: quadrado de 12px com contorno 2px.
 - **Proibido:** filtros de cor (sépia, saturação forçada), vinheta, degradê suave sobre a foto, banco de imagem genérico.
 
 ### Tour da Chapa (signature)
 O tour obrigatório da primeira visita (`src/components/features/semente/SementeTour.tsx`, roteiro em `src/lib/sementeTour.ts`). Volume Cartaz do começo ao fim.
 - **Fluxo:** abertura com os 11 rostos e o lema → "Em que momento do curso você está?" (4 opções, reordena as pessoas) → para cada integrante, uma tela de história e um spotlight na ferramenta real → fechamento com a votação. Sem "pular" na primeira visita; ao rever (botões "Rever o tour da chapa"), há fechar.
-- **Tela de história:** bloco chapado de ponta a ponta, roxo e petróleo alternando por pessoa; foto grande com contorno 3px e faixa de dithering; nome e cargo em etiqueta grafite na faixa; a dor do estudante como pergunta (Display) e uma frase de quem resolveu. No máximo ~30 palavras. Segmentos de progresso: feitos em branco, atual em laranja, por vir só contornados.
+- **Tela de história:** bloco chapado de ponta a ponta, roxo e petróleo alternando por pessoa; foto grande e inteira com contorno 3px; nome e cargo em etiqueta grafite na base da foto; a dor do estudante como pergunta (Display) e uma frase de quem resolveu. No máximo ~30 palavras. Segmentos de progresso: feitos em branco, atual em laranja, por vir só contornados.
 - **Spotlight:** o bloco de cor se recolhe (`clip-path`) no cartão Cartaz (contorno 3px, sombra 6px) ancorado embaixo; a página fica sob grafite com um recorte da ferramenta contornado em laranja 3px. Um alvo por parada, com `data-tour="<id>"` na página; `tests/sementeTour.test.ts` confere todos.
 - **Fechamento:** quando, onde e o que levar; agenda, tela inicial e convite no WhatsApp como ações de apoio; "Vou votar na Semente" desce o carimbo SEMENTE PLANTADA. Item simulado (mural) leva o sticker SIMULADO.
 - **Técnica:** montado com `transition:persist` no BaseLayout, troca de página pelo ClientRouter por trás do bloco de cor (sem recarregar); página de trás `inert`; foco no título de cada tela; setas avançam e voltam; fotos em `public/images/chapa/tour/*.webp`.
@@ -529,11 +531,11 @@ O movimento explica estado; não decora seção. Tokens em `src/styles/global.cs
 - **Do** usar Areia (`#F4F2EC`) como fundo de página e Grafite (`#1F1F1F`) como única tinta escura.
 - **Do** declarar o volume da página (Cartaz, Ficha ou Papel) e o arquétipo antes de compor.
 - **Do** contornar fichas com 2px de grafite e controles com 3px; sombra de 3px na Ficha e 6px só em painéis de Cartaz.
-- **Do** construir o Cartaz com blocos chapados de roxo e petróleo em divisões nítidas sobre areia, formas orgânicas e fotografia com dithering.
+- **Do** construir o Cartaz com blocos chapados de roxo e petróleo em divisões nítidas sobre areia, formas orgânicas e fotografia real em cor.
 - **Do** pôr texto branco sobre roxo e petróleo, e texto grafite sobre laranja.
 - **Do** usar Poppins com `tabular-nums` para códigos, horas, datas, prazos e valores.
 - **Do** dar tracking ampliado (0.02–0.04em) a todo texto em caixa alta.
-- **Do** manter a cor original das fotos e deixar a faixa de dithering (20% inferiores) fazer a assinatura; duotone roxo só em capa de Cartaz.
+- **Do** manter a cor original das fotos, inteiras, e deixar a moldura fazer a assinatura; duotone roxo só em capa de Cartaz.
 - **Do** escolher o asset de logo pelo fundo (policromático, negativo, badge, preto) e respeitar a zona de proteção.
 - **Do** levar o primeiro passo útil para dentro dos primeiros 480px da tela de 375×812.
 - **Do** pôr formulário, link e contato dentro do passo a que pertencem.
@@ -552,7 +554,7 @@ O movimento explica estado; não decora seção. Tokens em `src/styles/global.cs
 - **Don't** pôr eyebrow acima de título, nem numerar abas ou seções quando a ordem não é informação.
 - **Don't** usar emoji ou glifo como ícone.
 - **Don't** usar shapes BoldKit (burst, estrela, escudo), stickers decorativos ou rotação de conteúdo; a única decoração é a forma orgânica da marca.
-- **Don't** usar foto sem a faixa de dithering, nem trocar a faixa por degradê suave ou desfoque.
+- **Don't** aplicar faixa de dithering, pontilhado, quadriculado, degradê ou desfoque sobre a foto.
 - **Don't** aplicar sombra, glow, contorno, filtro ou rotação em logo, símbolo ou wordmark, nem redigitar SEMENTE ou CAGP.
 - **Don't** usar faixa colorida lateral (`border-left` > 1px) em ficha, alerta ou citação.
 - **Don't** animar seção na rolagem nem usar canvas fora do volume Cartaz.

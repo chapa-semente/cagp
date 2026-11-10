@@ -29,6 +29,7 @@ import { LeafShape, SemicircleShape } from '@/components/ui/semente-shapes';
 
 import { HomeCampusStatusWidget,
   computeCampusLiveStatus,
+  NEUTRAL_CAMPUS_STATUS,
   type CampusLiveStatus,
 } from './HomeCampusStatusWidget';
 import { HomeNewsFeed } from './HomeNewsFeed';
@@ -73,9 +74,8 @@ export const HomeWorkspaceA: React.FC = () => {
     aac120d: true,
   });
   const [isOnline, setIsOnline] = useState<boolean>(true);
-  const [campusStatus, setCampusStatus] = useState<CampusLiveStatus>(() =>
-    computeCampusLiveStatus(new Date())
-  );
+  // Horário real só depois de montar: no render, o build (UTC) e o navegador divergiam (#418).
+  const [campusStatus, setCampusStatus] = useState<CampusLiveStatus>(NEUTRAL_CAMPUS_STATUS);
 
   const loadVaultState = () => {
     if (typeof window === 'undefined') return;
@@ -107,6 +107,7 @@ export const HomeWorkspaceA: React.FC = () => {
     window.addEventListener('online', onOnline);
     window.addEventListener('offline', onOffline);
 
+    setCampusStatus(computeCampusLiveStatus(new Date()));
     const timer = window.setInterval(() => {
       setCampusStatus(computeCampusLiveStatus(new Date()));
     }, 30000);
