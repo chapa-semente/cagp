@@ -95,7 +95,7 @@ export const CarreiraTalentosForm: React.FC = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start font-sans select-none text-foreground">
       {/* Formulário Principal */}
-      <div className="lg:col-span-8 p-5 sm:p-6 rounded-xl bg-white border-3 border-border shadow-md space-y-6">
+      <div className="lg:col-span-8 p-5 sm:p-6 rounded-xl bg-white border-2 border-border shadow-md space-y-6">
         <div className="border-b-2 border-border pb-4 flex flex-wrap items-center justify-between gap-2">
           <div>
             <h2 className="text-base sm:text-lg font-heading font-black text-foreground flex items-center gap-2 m-0">
@@ -106,7 +106,7 @@ export const CarreiraTalentosForm: React.FC = () => {
               Monte seu perfil de competências em Gestão Pública para exportar junto ao Passaporte Estudantil.
             </p>
           </div>
-          <span className="px-2.5 py-1 rounded-md bg-[#f4f5f7] border-2 border-border font-mono text-xs font-bold">
+          <span className="px-2.5 py-1 rounded-md bg-[#F4F2EC] border-2 border-border font-mono text-xs font-bold">
             100% Privado no Navegador
           </span>
         </div>
@@ -252,7 +252,7 @@ export const CarreiraTalentosForm: React.FC = () => {
                     className={`min-h-[44px] px-3 py-1.5 rounded-lg border-2 border-border font-mono text-xs font-bold cursor-pointer transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 active:translate-x-0.5 active:translate-y-0.5 ${
                       hasSkill
                         ? 'bg-[#134E4A] text-white'
-                        : 'bg-[#f4f5f7] text-foreground hover:bg-muted'
+                        : 'bg-[#F4F2EC] text-foreground hover:bg-muted'
                     }`}
                   >
                     {hasSkill ? ` ${sug}` : `+ ${sug}`}
@@ -308,7 +308,7 @@ export const CarreiraTalentosForm: React.FC = () => {
       <motion.div
         whileHover={{ y: -3 }}
         transition={tactileSpring}
-        className="lg:col-span-4 p-5 rounded-xl border-3 border-border bg-[#f4f5f7] shadow-md space-y-4 sticky top-24"
+        className="lg:col-span-4 p-5 rounded-xl border-2 border-border bg-[#F4F2EC] shadow-md space-y-4 sticky top-24"
       >
         <div className="flex items-center justify-between border-b-2 border-border pb-3">
           <div>

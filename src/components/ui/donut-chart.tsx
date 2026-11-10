@@ -77,7 +77,7 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>(
             outerRadius={outerRadius}
             paddingAngle={paddingAngle}
             strokeWidth={3}
-            stroke="#16181d"
+            stroke="#1F1F1F"
             isAnimationActive={animated}
             animationDuration={400}
             label={
@@ -90,12 +90,12 @@ const DonutChart = React.forwardRef<HTMLDivElement, DonutChartProps>(
             labelLine={showLabels === 'outside'}
           >
             {data.map((entry, index) => {
-              const sementeColors = ['#5B2A85', '#FE8812', '#134E4A', '#9E2424', '#15803D', '#1E3F66']
+              const sementeColors = ['#5B2A85', '#FE8812', '#266264', '#A85300', '#4A216E', '#134E4A']
               return (
                 <Cell
                   key={`cell-${index}`}
                   fill={entry.fill || sementeColors[index % sementeColors.length]}
-                  stroke="#16181d"
+                  stroke="#1F1F1F"
                   strokeWidth={3}
                 />
               )

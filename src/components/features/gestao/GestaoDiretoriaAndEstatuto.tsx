@@ -63,7 +63,7 @@ const SETE_DIRETORIAS = [
     sigla: 'DIMAC',
     nome: 'VII. Diretoria de Marketing e Comunicação',
     artigo: 'Art. 24º, VII & Art. 34º',
-    cor: '#16181d',
+    cor: '#1F1F1F',
     composicao: 'Diretor(a) de Marketing e Comunicação, Vice-Diretor(a) e Assessores',
     atribuicoes:
       'Gerir a identidade visual oficial, canais digitais, imprensa discente, transparência ativa de editais e divulgação de assembleias.',
@@ -87,7 +87,7 @@ export const GestaoDiretoriaAndEstatuto: React.FC = () => {
         <CardHeader className="border-b-3 border-border bg-card">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-3.5">
-              <div className="w-14 h-14 rounded-xl bg-white border-3 border-border shadow p-1.5 flex items-center justify-center shrink-0">
+              <div className="w-14 h-14 rounded-xl bg-white border-2 border-border shadow p-1.5 flex items-center justify-center shrink-0">
                 <img
                   src={asset('/logos/semente/semente-simbolo.webp')}
                   alt="Chapa Semente"
@@ -126,7 +126,7 @@ export const GestaoDiretoriaAndEstatuto: React.FC = () => {
             {SETE_DIRETORIAS.map((dir) => (
               <div
                 key={dir.sigla}
-                className="p-4 rounded-xl border-3 border-border bg-white shadow-[4px_4px_0px_#16181d] flex flex-col justify-between space-y-3"
+                className="p-4 rounded-xl border-2 border-border bg-white shadow-[3px_3px_0_0_#1F1F1F] flex flex-col justify-between space-y-3"
               >
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
@@ -154,7 +154,7 @@ export const GestaoDiretoriaAndEstatuto: React.FC = () => {
 
           {/* Linha Sucessória e Comissão de Reformulação 2024 */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div className="p-4 rounded-xl border-3 border-border bg-card shadow space-y-2">
+            <div className="p-4 rounded-xl border-2 border-border bg-card shadow space-y-2">
               <Badge variant="ufmg">LINHA SUCESSÓRIA &amp; TRANSPARÊNCIA (ART. 15º E 26º)</Badge>
               <h4 className="font-heading text-sm font-black text-foreground">
                 Sucessão Presidencial e Direito de Fiscalização
@@ -164,7 +164,7 @@ export const GestaoDiretoriaAndEstatuto: React.FC = () => {
               </p>
             </div>
 
-            <div className="p-4 rounded-xl border-3 border-border bg-card shadow space-y-2">
+            <div className="p-4 rounded-xl border-2 border-border bg-card shadow space-y-2">
               <Badge variant="teal">HISTÓRICO • REFORMULAÇÃO ESTATUTÁRIA DE 14/10/2024</Badge>
               <h4 className="font-heading text-sm font-black text-foreground">
                 Comissão de Reformulação do Regimento Interno

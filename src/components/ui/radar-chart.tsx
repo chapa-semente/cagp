@@ -57,7 +57,7 @@ const RadarChartComponent = React.forwardRef<HTMLDivElement, RadarChartProps>(
     }
 
     const getRadarProps = (index: number, key: string) => {
-      const sementeColors = ['#5B2A85', '#FE8812', '#134E4A', '#9E2424', '#15803D', '#1E3F66']
+      const sementeColors = ['#5B2A85', '#FE8812', '#266264', '#A85300', '#4A216E', '#134E4A']
       const baseColor = config[key]?.color || sementeColors[index % sementeColors.length]
 
       switch (variant) {
@@ -72,14 +72,14 @@ const RadarChartComponent = React.forwardRef<HTMLDivElement, RadarChartProps>(
           return {
             fill: baseColor,
             fillOpacity: fillOpacity,
-            stroke: '#16181d',
+            stroke: '#1F1F1F',
             strokeWidth: 3,
           }
         default:
           return {
             fill: baseColor,
             fillOpacity: fillOpacity,
-            stroke: '#16181d',
+            stroke: '#1F1F1F',
             strokeWidth: 3,
           }
       }

@@ -173,7 +173,7 @@ export function Invoice({
           </div>
 
           {/* Bill To */}
-          <div className="mb-8 p-4 border-3 border-foreground bg-background">
+          <div className="mb-8 p-4 border-2 border-foreground bg-background">
             <p className="font-bold uppercase text-xs text-muted-foreground mb-2">Bill To</p>
             <AddressBlock address={data.to} />
           </div>
@@ -235,7 +235,7 @@ export function Invoice({
 
           {/* Payment Info */}
           {data.paymentInfo && (
-            <div className="mb-8 p-4 border-3 border-foreground bg-primary-tint">
+            <div className="mb-8 p-4 border-2 border-foreground bg-primary-tint">
               <p className="font-bold uppercase text-xs text-muted-foreground mb-3">
                 Payment Information
               </p>

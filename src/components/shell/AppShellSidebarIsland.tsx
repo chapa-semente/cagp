@@ -520,7 +520,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
       {tabletExpanded && (
         <div className="fixed inset-0 z-[1100] hidden md:flex xl:hidden">
           <div
-            className="fixed inset-0 bg-black/65 bg-[radial-gradient(var(--color-border,#16181d)_1px,transparent_1px)] [background-size:12px_12px] transition-opacity duration-200 animate-in fade-in"
+            className="fixed inset-0 bg-black/65 bg-[radial-gradient(var(--color-border,#1F1F1F)_1px,transparent_1px)] [background-size:12px_12px] transition-opacity duration-200 animate-in fade-in"
             onClick={() => setTabletExpanded(false)}
             aria-hidden="true"
           />
@@ -528,7 +528,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
             initial={{ x: -280 }}
             animate={{ x: 0 }}
             transition={drawerSpring}
-            className="relative z-10 w-[280px] h-full border-r-3 border-border bg-white shadow-[8px_0px_0px_var(--color-border,#16181d)]"
+            className="relative z-10 w-[280px] h-full border-r-3 border-border bg-white shadow-[8px_0px_0px_var(--color-border,#1F1F1F)]"
           >
             {renderSidebarNavigationContent(false, 'tablet-drawer')}
           </motion.aside>

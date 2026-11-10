@@ -8,7 +8,6 @@ import {
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Sticker } from '@/components/ui/sticker';
 import { Card, CardContent } from '@/components/ui/card';
 import { asset } from '@/lib/paths';
 
@@ -64,9 +63,7 @@ export const FaqInteractiveExplorer: React.FC<Props> = ({ faqs }) => {
         <CardContent className="p-4 sm:p-5 space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="flex items-center gap-2.5">
-              <Sticker variant="secondary" size="sm" rotation="slight">
-                GUIA REGIMENTAL
-              </Sticker>
+              <Badge variant="secondary">Guia regimental</Badge>
               <span className="font-heading text-sm font-extrabold uppercase text-foreground">
                 Pesquisa Rápida de Normas &amp; Requerimentos
               </span>

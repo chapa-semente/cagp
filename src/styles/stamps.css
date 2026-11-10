@@ -1,46 +1,46 @@
 /* stamps.css - Carimbos Burocráticos, Selos e Chancela Discente */
 
-/* Carimbo de estado (DESIGN.md › Carimbos): Space Mono 700, contorno 2px ink, tinta de status,
+/* Carimbo de estado (DESIGN.md › Carimbos): Poppins 700 tabular, contorno 2px grafite, tinta de status,
    rotação entre -2° e +2° via --stamp-rotate (a animação de impacto termina na mesma rotação). */
 .cagp-stamp-badge {
   --stamp-rotate: -1.25deg;
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  font-family: var(--font-mono, 'Space Mono', monospace);
+  font-family: var(--font-heading, 'Poppins', sans-serif);
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   padding: 0.25rem 0.625rem;
-  border: 2px solid #16181d;
-  box-shadow: 2px 2px 0 0 #16181d;
+  border: 2px solid #1F1F1F;
+  box-shadow: 2px 2px 0 0 #1F1F1F;
   transform: rotate(var(--stamp-rotate));
   border-radius: 8px;
   line-height: 1.2;
   background-color: #FFFFFF;
-  color: #16181d;
+  color: #1F1F1F;
   font-variant-numeric: tabular-nums;
 }
-.cagp-stamp-badge.is-deferido { --stamp-rotate: -1.5deg; color: #15803D; background-color: #DCFCE7; }
-.cagp-stamp-badge.is-indeferido { --stamp-rotate: 1.5deg; color: #DC2626; background-color: #FEE2E2; }
+.cagp-stamp-badge.is-deferido { --stamp-rotate: -1.5deg; color: #166534; background-color: #DCFCE7; }
+.cagp-stamp-badge.is-indeferido { --stamp-rotate: 1.5deg; color: #B91C1C; background-color: #FEE2E2; }
 .cagp-stamp-badge.is-homologado { --stamp-rotate: -1deg; color: #005A9C; background-color: #DBEAFE; }
-.cagp-stamp-badge.is-pendente { --stamp-rotate: 1deg; color: #B45309; background-color: #FEF3C7; }
-.cagp-stamp-badge.is-visto { --stamp-rotate: 0.8deg; color: #16181d; background-color: #e5e7ec; }
-.cagp-stamp-badge.is-simulado { --stamp-rotate: -1deg; color: #16181d; background-color: #FEF3C7; border-radius: 6px; }
+.cagp-stamp-badge.is-pendente { --stamp-rotate: 1deg; color: #92400E; background-color: #FEF3C7; }
+.cagp-stamp-badge.is-visto { --stamp-rotate: 0.8deg; color: #1F1F1F; background-color: #E7E3D8; }
+.cagp-stamp-badge.is-simulado { --stamp-rotate: -1deg; color: #1F1F1F; background-color: #FEF3C7; border-radius: 6px; }
 
 /* Carimbo do Passaporte Acadêmico */
 .cagp-passport-stamp {
-  font-family: var(--font-mono, 'Space Mono', monospace);
+  font-family: var(--font-heading, 'Poppins', sans-serif);
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   padding: 0.2rem 0.6rem;
   background-color: #FEF3C7;
-  color: #16181d;
-  border: 2px solid #16181d;
-  box-shadow: 2px 2px 0 #16181d;
+  color: #1F1F1F;
+  border: 2px solid #1F1F1F;
+  box-shadow: 2px 2px 0 #1F1F1F;
   border-radius: 6px;
   line-height: 1.3;
 }
@@ -53,14 +53,14 @@
   align-items: center;
   justify-content: center;
   padding: 0.75rem 1.25rem;
-  border: 3px dashed #15803D;
+  border: 3px dashed #166534;
   background-color: #DCFCE7;
-  color: #15803D;
-  font-family: var(--font-mono, 'Space Mono', monospace);
+  color: #166534;
+  font-family: var(--font-heading, 'Poppins', sans-serif);
   text-transform: uppercase;
   font-weight: 700;
   border-radius: 12px;
-  box-shadow: 2px 2px 0 0 #16181d;
+  box-shadow: 2px 2px 0 0 #1F1F1F;
   transform: rotate(var(--stamp-rotate));
   animation: cagpStampImpact var(--duration-stamp, 240ms) var(--ease-stamp, cubic-bezier(0.7, 0, 0.84, 0)) both;
 }
@@ -72,10 +72,10 @@
 }
 
 .cagp-big-stamp-sub {
-  font-family: var(--font-mono, 'Space Mono', monospace);
+  font-family: var(--font-heading, 'Poppins', sans-serif);
   font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   margin-top: 0.2rem;
   opacity: 0.9;
 }
@@ -95,7 +95,7 @@
 
 .cagp-big-stamp.is-pendente {
   --stamp-rotate: 2deg;
-  border-color: #B45309;
+  border-color: #92400E;
   background-color: #FEF3C7;
-  color: #B45309;
+  color: #92400E;
 }

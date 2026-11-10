@@ -95,8 +95,8 @@ const CHECKLIST_ITEMS: ChecklistItem[] = [
 const CONFETTI_PARTICLES = [
   { dx: -38, dy: -28, rot: -45, color: '#5B2A85' },
   { dx: -18, dy: -42, rot: 25, color: '#FE8812' },
-  { dx: 12, dy: -38, rot: -20, color: '#9E2424' },
-  { dx: 36, dy: -26, rot: 40, color: '#15803D' },
+  { dx: 12, dy: -38, rot: -20, color: '#A85300' },
+  { dx: 36, dy: -26, rot: 40, color: '#166534' },
   { dx: -32, dy: 18, rot: 35, color: '#FE8812' },
   { dx: 32, dy: 20, rot: -35, color: '#5B2A85' },
 ];
@@ -145,9 +145,9 @@ export const CalouroChecklistCore: React.FC = () => {
   return (
     <div className="cagp-calouro-checklist space-y-6 select-none text-foreground">
       {/* Painel de Progresso Animado com Persistência no studentVault */}
-      <div className="p-5 sm:p-6 bg-white border-3 border-[#16181d] rounded-xl flex flex-col lg:flex-row lg:items-center justify-between gap-4 shadow-[6px_6px_0_0_#16181d]">
+      <div className="p-5 sm:p-6 bg-white border-2 border-[#1F1F1F] rounded-xl flex flex-col lg:flex-row lg:items-center justify-between gap-4 shadow-[6px_6px_0_0_#1F1F1F]">
         <div>
-          <h3 className="font-head text-lg sm:text-xl font-black text-[#16181d] m-0">
+          <h3 className="font-head text-lg sm:text-xl font-black text-[#1F1F1F] m-0">
             Checklist dos primeiros 30 dias
           </h3>
           <p className="text-xs text-gray-700 mt-1 m-0 font-body font-medium">
@@ -157,7 +157,7 @@ export const CalouroChecklistCore: React.FC = () => {
 
         <div className="flex flex-col sm:flex-row sm:items-center gap-4 w-full lg:w-auto">
           <div className="space-y-1.5 flex-1 sm:w-64">
-            <div className="flex justify-between items-center text-xs font-mono text-[#16181d] font-black">
+            <div className="flex justify-between items-center text-xs font-mono text-[#1F1F1F] font-black">
               <span>PROGRESSO 30 DIAS</span>
               <motion.span
                 key={pct}
@@ -170,7 +170,7 @@ export const CalouroChecklistCore: React.FC = () => {
               </motion.span>
             </div>
             <div
-              className="w-full bg-[#f4f5f7] border-3 border-[#16181d] rounded-full h-4 overflow-hidden p-0.5 shadow-[2px_2px_0_0_#16181d]"
+              className="w-full bg-[#F4F2EC] border-3 border-[#1F1F1F] rounded-full h-4 overflow-hidden p-0.5 shadow-[2px_2px_0_0_#1F1F1F]"
               role="progressbar"
               aria-valuenow={pct}
               aria-valuemin={0}
@@ -193,7 +193,7 @@ export const CalouroChecklistCore: React.FC = () => {
                 animate={{ scale: 1, rotate: -2, opacity: 1 }}
                 exit={{ scale: 0.8, opacity: 0 }}
                 transition={bounceSpring}
-                className="cagp-stamp-badge is-homologado text-xs py-1.5 px-3 shadow-[3px_3px_0_0_#16181d] shrink-0 font-head uppercase font-black tracking-wider"
+                className="cagp-stamp-badge is-homologado text-xs py-1.5 px-3 shadow-[3px_3px_0_0_#1F1F1F] shrink-0 font-head uppercase font-black tracking-wider"
               >
                 <span className="inline-flex items-center gap-1">
                   <CagpIcon name="stamp" className="w-3.5 h-3.5 inline" />
@@ -223,10 +223,10 @@ export const CalouroChecklistCore: React.FC = () => {
             whileTap={{ x: 2, y: 2 }}
             transition={tactileSpring}
             onClick={() => setFilter(f.id)}
-            className={`shrink-0 min-h-[44px] px-3.5 py-2 rounded-xl text-sm font-head uppercase font-black tracking-wider transition-colors cursor-pointer border-3 border-[#16181d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
+            className={`shrink-0 min-h-[44px] px-3.5 py-2 rounded-xl text-sm font-head uppercase font-black tracking-wider transition-colors cursor-pointer border-3 border-[#1F1F1F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
               filter === f.id
-                ? 'bg-secondary text-white shadow-[4px_4px_0_0_#16181d]'
-                : 'bg-white text-[#16181d] hover:bg-[#f4f5f7] shadow-[2px_2px_0_0_#16181d]'
+                ? 'bg-secondary text-white shadow-[3px_3px_0_0_#1F1F1F]'
+                : 'bg-white text-[#1F1F1F] hover:bg-[#F4F2EC] shadow-[2px_2px_0_0_#1F1F1F]'
             }`}
           >
             {f.label}
@@ -239,7 +239,7 @@ export const CalouroChecklistCore: React.FC = () => {
         variants={staggerContainer(0.04)}
         initial="hidden"
         animate="show"
-        className="bg-white border-3 border-[#16181d] rounded-xl divide-y-3 divide-[#16181d] shadow-[6px_6px_0_0_#16181d] overflow-hidden"
+        className="bg-white border-2 border-[#1F1F1F] rounded-xl divide-y-3 divide-[#1F1F1F] shadow-[6px_6px_0_0_#1F1F1F] overflow-hidden"
       >
         {filteredItems.map((item) => {
           const isDone = !!checks[item.id];
@@ -265,10 +265,10 @@ export const CalouroChecklistCore: React.FC = () => {
                   whileTap={{ scale: 0.85 }}
                   animate={isDone ? { scale: [1, 1.22, 1], rotate: [0, -6, 0] } : { scale: 1, rotate: 0 }}
                   transition={bounceSpring}
-                  className={`w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border-3 border-[#16181d] flex items-center justify-center cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
+                  className={`w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border-3 border-[#1F1F1F] flex items-center justify-center cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
                     isDone
-                      ? 'bg-[#15803D] text-white shadow-[3px_3px_0_0_#16181d]'
-                      : 'bg-white text-[#16181d] hover:bg-[#f4f5f7] shadow-[3px_3px_0_0_#16181d]'
+                      ? 'bg-[#166534] text-white shadow-[3px_3px_0_0_#1F1F1F]'
+                      : 'bg-white text-[#1F1F1F] hover:bg-[#F4F2EC] shadow-[3px_3px_0_0_#1F1F1F]'
                   }`}
                 >
                   {isDone ? (
@@ -296,7 +296,7 @@ export const CalouroChecklistCore: React.FC = () => {
                           exit={{ opacity: 0 }}
                           transition={bounceSpring}
                           style={{ backgroundColor: p.color }}
-                          className="absolute w-3 h-3 rounded-sm border-2 border-[#16181d]"
+                          className="absolute w-3 h-3 rounded-sm border-2 border-[#1F1F1F]"
                         />
                       ))}
                     </div>
@@ -310,7 +310,7 @@ export const CalouroChecklistCore: React.FC = () => {
                     type="button"
                     onClick={() => toggleCheck(item.id)}
                     className={`text-left font-head text-sm sm:text-base font-black uppercase leading-tight m-0 tracking-wide cursor-pointer bg-transparent border-0 p-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 rounded ${
-                      isDone ? 'line-through text-gray-500' : 'text-[#16181d]'
+                      isDone ? 'line-through text-gray-500' : 'text-[#1F1F1F]'
                     }`}
                   >
                     {item.title}
@@ -325,7 +325,7 @@ export const CalouroChecklistCore: React.FC = () => {
                           animate={{ scale: 1, rotate: -2, opacity: 1 }}
                           exit={{ scale: 0.5, opacity: 0 }}
                           transition={bounceSpring}
-                          className="cagp-stamp-badge is-feito text-xs py-1 px-2.5 shadow-[2px_2px_0_0_#16181d]"
+                          className="cagp-stamp-badge is-feito text-xs py-1 px-2.5 shadow-[2px_2px_0_0_#1F1F1F]"
                         >
                           <span className="inline-flex items-center gap-1 font-head font-black uppercase tracking-wider">
                             <CagpIcon name="stamp" className="w-3 h-3 inline" />
@@ -334,8 +334,8 @@ export const CalouroChecklistCore: React.FC = () => {
                         </motion.span>
                       )}
                     </AnimatePresence>
-                    <span className={`w-8 h-8 rounded-lg border-2 border-[#16181d] flex items-center justify-center ${
-                      isDone ? 'bg-[#DCFCE7] text-[#15803D]' : 'bg-[#f4f5f7] text-[#16181d]'
+                    <span className={`w-8 h-8 rounded-lg border-2 border-[#1F1F1F] flex items-center justify-center ${
+                      isDone ? 'bg-[#DCFCE7] text-[#166534]' : 'bg-[#F4F2EC] text-[#1F1F1F]'
                     }`}>
                       <CagpIcon name={item.iconName} className="w-4 h-4" />
                     </span>
@@ -351,7 +351,7 @@ export const CalouroChecklistCore: React.FC = () => {
                     href={item.link.url}
                     target={item.link.ext ? '_blank' : undefined}
                     rel={item.link.ext ? 'noopener noreferrer' : undefined}
-                    className="min-h-[44px] px-3.5 py-2 rounded-xl border-2 border-[#16181d] bg-[#ffffff] hover:bg-[#FE8812] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 text-[#16181d] shadow-[2px_2px_0_0_#16181d] inline-flex items-center gap-1.5 text-xs font-head font-black uppercase tracking-wider no-underline transition-all"
+                    className="min-h-[44px] px-3.5 py-2 rounded-xl border-2 border-[#1F1F1F] bg-[#ffffff] hover:bg-[#FE8812] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 text-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] inline-flex items-center gap-1.5 text-xs font-head font-black uppercase tracking-wider no-underline transition-all"
                   >
                     <span>{item.link.label}</span>
                     <CagpIcon name="arrow-up-right" className="w-3.5 h-3.5" />
@@ -371,16 +371,16 @@ export const CalouroChecklistCore: React.FC = () => {
             animate={{ scale: 1, y: 0, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             transition={bounceSpring}
-            className="p-5 sm:p-6 rounded-xl bg-[#DCFCE7] border-3 border-[#16181d] shadow-[6px_6px_0_0_#16181d] flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left"
+            className="p-5 sm:p-6 rounded-xl bg-[#DCFCE7] border-2 border-[#1F1F1F] shadow-[6px_6px_0_0_#1F1F1F] flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left"
           >
             <div>
               <div className="flex flex-wrap items-center gap-2 justify-center sm:justify-start mb-1.5">
                 <span className="cagp-stamp-badge is-homologado shadow-sm">100% CONCLUÍDO</span>
-                <span className="font-head font-black text-base uppercase text-[#15803D] tracking-wide">
+                <span className="font-head font-black text-base uppercase text-[#166534] tracking-wide">
                   Todos os 30 Dias Ativados!
                 </span>
               </div>
-              <p className="text-xs text-[#16181d] font-body font-bold m-0">
+              <p className="text-xs text-[#1F1F1F] font-body font-bold m-0">
                 Parabéns! Você configurou todos os sistemas, acessos e rotinas da UFMG.
               </p>
             </div>

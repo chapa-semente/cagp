@@ -1,3 +1,4 @@
+import { Badge } from '@/components/ui/badge';
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { tactileSpring, bounceSpring } from '@/lib/motion';
@@ -6,7 +7,6 @@ import { LinearHud } from '@/components/features/acg/calculator/LinearHud';
 import { EXTENSION_ITEMS, AAC_ITEMS, type AcgItemDef } from '@/components/features/acg/calculator/acgCatalog';
 import { GaugeChart } from '@/components/boldkit/charts/gauge-chart';
 import { Button } from '@/components/ui/button';
-import { Sticker } from '@/components/ui/sticker';
 import { Card, CardContent } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';
 import {
@@ -200,7 +200,7 @@ export const AcgCalculatorCore: React.FC = () => {
         key={item.key}
         layout="position"
         transition={tactileSpring}
-        className="cagp-card p-4 bg-white border-3 border-border rounded-xl shadow flex flex-col h-fit transition-all duration-200"
+        className="cagp-card p-4 bg-white border-2 border-border rounded-xl shadow flex flex-col h-fit transition-all duration-200"
       >
         <div>
           <div className="flex items-start justify-between gap-2 mb-2">
@@ -402,7 +402,7 @@ export const AcgCalculatorCore: React.FC = () => {
   return (
     <div className="cagp-calculator-core select-none space-y-6">
       {/* Alerta Normativo Institucional Resolução Complementar 01/2023 */}
-      <Alert variant="info" className="rounded-xl border-3 border-border shadow-sm">
+      <Alert variant="info" className="rounded-xl border-2 border-border shadow-sm">
         <i className="bi bi-info-circle-fill text-info text-base" aria-hidden="true" />
         <div>
           <AlertTitle>Diretriz Curricular Resolução Complementar 01/2023</AlertTitle>
@@ -417,7 +417,7 @@ export const AcgCalculatorCore: React.FC = () => {
         <div className="lg:col-span-7">
           <LinearHud />
         </div>
-        <Card className="lg:col-span-5 flex flex-col justify-between border-3 border-[#16181d] shadow-[6px_6px_0_0_#16181d]">
+        <Card className="lg:col-span-5 flex flex-col justify-between border-3 border-[#1F1F1F] shadow-[6px_6px_0_0_#1F1F1F]">
           <CardContent className="p-4 sm:p-5 flex flex-col items-center justify-between h-full gap-2">
             <div className="flex items-center justify-between w-full gap-2 flex-wrap">
               <span className="font-heading text-xs font-extrabold uppercase text-foreground">
@@ -427,9 +427,7 @@ export const AcgCalculatorCore: React.FC = () => {
                 <span className="cagp-stamp-badge is-semente text-xs py-0.5 px-2">
                   Ferramenta Criada pela Chapa Semente
                 </span>
-                <Sticker variant="default" size="sm" rotation="slight">
-                  PPC 2020
-                </Sticker>
+                <Badge variant="outline">PPC 2020</Badge>
               </div>
             </div>
             <GaugeChart
@@ -441,9 +439,9 @@ export const AcgCalculatorCore: React.FC = () => {
               label={`Extensão (${Math.min(300, extTotal)}h) + AAC (${Math.min(300, aacTotal)}h)`}
               valueFormatter={(v) => `${v}h`}
               zones={[
-                { from: 0, to: 200, color: '#9E2424', label: 'Início' },
+                { from: 0, to: 200, color: '#A85300', label: 'Início' },
                 { from: 200, to: 450, color: '#FE8812', label: 'Avançando' },
-                { from: 450, to: 600, color: '#15803D', label: 'Meta' },
+                { from: 450, to: 600, color: '#166534', label: 'Meta' },
               ]}
             />
           </CardContent>

@@ -83,7 +83,7 @@ export const SettingsInteractive: React.FC = () => {
     <div className="space-y-6 font-body">
       {feedback && (
         <div
-          className={`p-4 rounded-xl border-3 border-border shadow text-xs font-head font-bold uppercase flex items-center gap-2.5 ${
+          className={`p-4 rounded-xl border-2 border-border shadow text-xs font-head font-bold uppercase flex items-center gap-2.5 ${
             feedback.type === 'success'
               ? 'bg-[#E8F5E9] text-success'
               : 'bg-[#FFEBEE] text-[#C4161C]'
@@ -123,7 +123,7 @@ export const SettingsInteractive: React.FC = () => {
           <p className="text-xs text-foreground m-0 font-medium">Documentos mestres que regem a vida acadêmica discente</p>
         </div>
 
-        <div className="border-3 border-border rounded-xl overflow-hidden divide-y-2 divide-[#16181d] shadow-sm">
+        <div className="border-2 border-border rounded-xl overflow-hidden divide-y-2 divide-[#1F1F1F] shadow-sm">
           <a
             href={asset('/documentos/regimento-interno-cagp-ufmg.pdf')}
             download

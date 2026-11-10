@@ -24,8 +24,8 @@ function renderNewsArtwork(motif: SimulatedNewsItem['motif']) {
     return (
       <svg viewBox="0 0 320 140" className="w-full h-full object-cover" aria-hidden="true">
         <rect width="320" height="140" fill="#8B1E2D" />
-        <circle cx="270" cy="30" r="60" fill="#9E2424" />
-        <path d="M24 112H296" stroke="#E8A317" strokeWidth="2" strokeOpacity="0.6" />
+        <circle cx="270" cy="30" r="60" fill="#A85300" />
+        <path d="M24 112H296" stroke="#A85300" strokeWidth="2" strokeOpacity="0.6" />
         <rect x="32" y="42" width="14" height="70" rx="2" fill="#FBF8F3" fillOpacity="0.18" />
         <rect x="58" y="32" width="14" height="80" rx="2" fill="#FBF8F3" fillOpacity="0.26" />
         <rect x="84" y="50" width="14" height="62" rx="2" fill="#FBF8F3" fillOpacity="0.18" />
@@ -33,7 +33,7 @@ function renderNewsArtwork(motif: SimulatedNewsItem['motif']) {
           cx="248"
           cy="72"
           r="26"
-          stroke="#E8A317"
+          stroke="#A85300"
           strokeWidth="2"
           fill="none"
           strokeDasharray="4 3"
@@ -48,21 +48,21 @@ function renderNewsArtwork(motif: SimulatedNewsItem['motif']) {
         <circle cx="265" cy="105" r="70" fill="#005A9C" fillOpacity="0.55" />
         <path
           d="M30 100L95 62L150 80L225 38L285 50"
-          stroke="#E8A317"
+          stroke="#A85300"
           strokeWidth="3"
           fill="none"
           strokeLinecap="round"
         />
         <circle cx="95" cy="62" r="4.5" fill="#ffffff" />
         <circle cx="150" cy="80" r="4.5" fill="#ffffff" />
-        <circle cx="225" cy="38" r="5" fill="#E8A317" />
+        <circle cx="225" cy="38" r="5" fill="#A85300" />
       </svg>
     );
   }
   if (motif === 'calourada') {
     return (
       <svg viewBox="0 0 320 140" className="w-full h-full object-cover" aria-hidden="true">
-        <rect width="320" height="140" fill="#15803D" />
+        <rect width="320" height="140" fill="#166534" />
         <circle cx="60" cy="24" r="55" fill="#166534" />
         <circle cx="255" cy="68" r="34" stroke="#FEF3C7" strokeWidth="2.5" fill="none" />
         <path
@@ -73,7 +73,7 @@ function renderNewsArtwork(motif: SimulatedNewsItem['motif']) {
         />
         <path
           d="M225 108C240 78 275 78 290 108"
-          stroke="#E8A317"
+          stroke="#A85300"
           strokeWidth="2.5"
           fill="none"
         />
@@ -83,9 +83,9 @@ function renderNewsArtwork(motif: SimulatedNewsItem['motif']) {
   return (
     <svg viewBox="0 0 320 140" className="w-full h-full object-cover" aria-hidden="true">
       <rect width="320" height="140" fill="#3B1D24" />
-      <circle cx="90" cy="68" r="24" stroke="#E8A317" strokeWidth="2" fill="none" />
+      <circle cx="90" cy="68" r="24" stroke="#A85300" strokeWidth="2" fill="none" />
       <circle cx="170" cy="44" r="18" stroke="#ffffff" strokeWidth="2" fill="none" />
-      <circle cx="240" cy="84" r="22" stroke="#E8A317" strokeWidth="2" fill="none" />
+      <circle cx="240" cy="84" r="22" stroke="#A85300" strokeWidth="2" fill="none" />
       <path
         d="M112 60L154 48M186 52L222 74"
         stroke="#ffffff"
@@ -133,7 +133,7 @@ export const CagpNewsMural: React.FC<CagpNewsMuralProps> = ({ items = SIMULATED_
 
         <div
           role="note"
-          className="px-3.5 py-2 rounded-xl bg-[#FEF08A] border-2 border-border shadow-xs flex items-center justify-between gap-2 text-xs text-foreground"
+          className="px-3.5 py-2 rounded-xl bg-[#FEF3C7] border-2 border-border shadow-xs flex items-center justify-between gap-2 text-xs text-foreground"
         >
           <span className="font-medium text-xs">
             <strong>Demonstrativo:</strong> Editais e pautas simuladas para o ecossistema CAGP.
@@ -199,7 +199,7 @@ export const CagpNewsMural: React.FC<CagpNewsMuralProps> = ({ items = SIMULATED_
       )}
 
       {/* Barra de Filtros com Pílulas Táteis & Campo de Busca */}
-      <div className="bg-card rounded-2xl border-3 border-border p-4 shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      <div className="bg-card rounded-2xl border-2 border-border p-4 shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div
           role="group"
           aria-label="Filtrar por categoria editorial"
@@ -264,7 +264,7 @@ export const CagpNewsMural: React.FC<CagpNewsMuralProps> = ({ items = SIMULATED_
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={tactileSpring}
-            className="bg-card rounded-2xl border-3 border-border shadow-sm p-8 text-center space-y-3"
+            className="bg-card rounded-2xl border-2 border-border shadow-sm p-8 text-center space-y-3"
           >
             <p className="text-sm font-heading font-extrabold uppercase text-foreground m-0">
               Nenhuma notícia encontrada para este filtro.

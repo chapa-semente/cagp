@@ -15,12 +15,12 @@ export const AVATAR_PRESET_CONFIG: Record<
   string,
   { bg: string; color: string; icon?: string; text?: string }
 > = {
-  candangos: { bg: '#9E2424', color: '#E8A317', icon: 'bi-bank' },
-  monogram: { bg: '#0A0A0A', color: '#E8A317', text: 'Iniciais' },
-  fafich: { bg: '#005A9C', color: '#E8A317', icon: 'bi-building' },
-  republica: { bg: '#15803D', color: '#FFFFFF', icon: 'bi-house-heart-fill' },
-  formando: { bg: '#8B1E2D', color: '#E8A317', icon: 'bi-mortarboard-fill' },
-  pesquisador: { bg: '#0A0A0A', color: '#FFFFFF', icon: 'bi-person-badge-fill' },
+  candangos: { bg: '#9E2424', color: '#A85300', icon: 'bi-bank' },
+  monogram: { bg: '#1F1F1F', color: '#A85300', text: 'Iniciais' },
+  fafich: { bg: '#005A9C', color: '#A85300', icon: 'bi-building' },
+  republica: { bg: '#166534', color: '#FFFFFF', icon: 'bi-house-heart-fill' },
+  formando: { bg: '#8B1E2D', color: '#A85300', icon: 'bi-mortarboard-fill' },
+  pesquisador: { bg: '#1F1F1F', color: '#FFFFFF', icon: 'bi-person-badge-fill' },
   estudante_f: { bg: '#2A6264', color: '#FFFFFF', icon: 'bi-person-standing-dress' },
   estudante_m: { bg: '#5B2E85', color: '#FFFFFF', icon: 'bi-person-fill' },
 };

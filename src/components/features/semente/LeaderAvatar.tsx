@@ -47,8 +47,8 @@ export const LeaderAvatar: React.FC<LeaderAvatarProps> = ({
         whileHover={photoCardHover}
         whileTap={photoCardTap}
         transition={photoZoomSpring}
-        style={{ border: '3px solid #16181d', boxShadow: '8px 8px 0px #16181d' }}
-        className={`group relative w-full aspect-[4/5] min-h-[320px] rounded-xl overflow-hidden border-3 border-[#16181d] shadow-[8px_8px_0_0_#16181d] bg-card select-none ${className}`}
+        style={{ border: '3px solid #1F1F1F', boxShadow: '8px 8px 0px #1F1F1F' }}
+        className={`group relative w-full aspect-[4/5] min-h-[320px] rounded-xl overflow-hidden border-3 border-[#1F1F1F] shadow-[8px_8px_0_0_#1F1F1F] bg-card select-none ${className}`}
       >
         {hasRealPhoto ? (
           <>
@@ -61,7 +61,7 @@ export const LeaderAvatar: React.FC<LeaderAvatarProps> = ({
             />
             {/* Vinheta editorial sutil na base para contraste de badges */}
             <div
-              className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#16181d]/90 via-[#16181d]/40 to-transparent"
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#1F1F1F]/90 via-[#1F1F1F]/40 to-transparent"
               aria-hidden="true"
             />
           </>
@@ -89,7 +89,7 @@ export const LeaderAvatar: React.FC<LeaderAvatarProps> = ({
 
             {/* Centro: Ilustração Vetorial Semente + Iniciais Gigantes em Poppins Bold */}
             <div className="relative my-auto flex flex-col items-center justify-center z-10">
-              <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl bg-white border-3 border-border shadow-md flex items-center justify-center p-3 transition-transform duration-300 group-hover:scale-110">
+              <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl bg-white border-2 border-border shadow-md flex items-center justify-center p-3 transition-transform duration-300 group-hover:scale-110">
                 <img
                   src={asset('/logos/semente/semente-simbolo.webp')}
                   alt=""

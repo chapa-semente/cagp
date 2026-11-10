@@ -30,15 +30,15 @@ export const CalouroChecklistWidget: React.FC = () => {
   const pct = Math.round((completedCount / TOTAL_ITEMS) * 100);
 
   return (
-    <div className="p-5 sm:p-6 bg-white border-3 border-[#16181d] rounded-xl flex flex-col justify-between h-full shadow-[6px_6px_0_0_#16181d] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[8px_8px_0_0_#16181d] transition-all select-none">
+    <div className="p-5 sm:p-6 bg-white border-2 border-[#1F1F1F] rounded-xl flex flex-col justify-between h-full shadow-[6px_6px_0_0_#1F1F1F] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[8px_8px_0_0_#1F1F1F] transition-all select-none">
       <div>
         <div className="flex items-center justify-between gap-2 mb-3">
           <div className="flex items-center gap-2.5">
-            <span className="w-10 h-10 rounded-lg bg-[#5B2A85] text-white flex items-center justify-center border-3 border-[#16181d] shadow-[2px_2px_0_0_#16181d] shrink-0">
+            <span className="w-10 h-10 rounded-lg bg-[#5B2A85] text-white flex items-center justify-center border-3 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] shrink-0">
               <CagpIcon name="checklist" className="w-5 h-5 text-white" />
             </span>
             <div>
-              <h3 className="font-head font-black text-sm text-[#16181d] leading-tight m-0">
+              <h3 className="font-head font-black text-sm text-[#1F1F1F] leading-tight m-0">
                 Checklist 30 Dias
               </h3>
               <span className="text-xs text-gray-700 font-mono font-bold">10 passos · salvo neste aparelho</span>
@@ -53,10 +53,10 @@ export const CalouroChecklistWidget: React.FC = () => {
             </span>
           ) : (
             <span
-              className={`px-2.5 py-0.5 rounded-md font-mono text-xs font-black uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] ${
+              className={`px-2.5 py-0.5 rounded-md font-mono text-xs font-black uppercase border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] ${
                 completedCount > 0
                   ? 'bg-[#5B2A85] text-white'
-                  : 'bg-[#ffffff] text-[#16181d]'
+                  : 'bg-[#ffffff] text-[#1F1F1F]'
               }`}
             >
               {completedCount}/{TOTAL_ITEMS} Feitos
@@ -70,11 +70,11 @@ export const CalouroChecklistWidget: React.FC = () => {
 
         {/* Barra de Progresso Animada */}
         <div className="space-y-1.5 mb-4">
-          <div className="flex justify-between text-xs text-[#16181d] font-mono font-black">
+          <div className="flex justify-between text-xs text-[#1F1F1F] font-mono font-black">
             <span>Progresso</span>
             <span className="text-[#5B2A85]">{pct}%</span>
           </div>
-          <div className="w-full bg-[#f4f5f7] border-3 border-[#16181d] rounded-full h-3.5 overflow-hidden p-0.5 shadow-[2px_2px_0_0_#16181d]">
+          <div className="w-full bg-[#F4F2EC] border-3 border-[#1F1F1F] rounded-full h-3.5 overflow-hidden p-0.5 shadow-[2px_2px_0_0_#1F1F1F]">
             <motion.div
               initial={false}
               animate={{ width: `${Math.min(100, pct)}%` }}
@@ -87,7 +87,7 @@ export const CalouroChecklistWidget: React.FC = () => {
 
       <a
         href="#checklist"
-        className="min-h-[44px] px-4 py-2.5 bg-[#5B2A85] hover:bg-[#461e69] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 text-white rounded-xl font-head text-xs uppercase font-black tracking-wider flex items-center justify-center gap-2 transition-all no-underline shadow-[4px_4px_0_0_#16181d] border-3 border-[#16181d]"
+        className="min-h-[44px] px-4 py-2.5 bg-[#5B2A85] hover:bg-[#461e69] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 text-white rounded-xl font-head text-xs uppercase font-black tracking-wider flex items-center justify-center gap-2 transition-all no-underline shadow-[3px_3px_0_0_#1F1F1F] border-3 border-[#1F1F1F]"
       >
         <span>Abrir o checklist</span>
         <CagpIcon name="chevron-right" className="w-4 h-4" />

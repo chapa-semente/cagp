@@ -34,8 +34,8 @@ const SITEMAP_TREE: TreeNode[] = [
 export const SitemapTreeViewExplorer: React.FC = () => {
   return (
     <section className="my-6" aria-label="Árvore Interativa do Mapa do Site">
-      <Card className="bg-white border-3 border-[#16181d] shadow-[6px_6px_0_0_#16181d]">
-        <CardHeader className="border-b-3 border-[#16181d] bg-card">
+      <Card className="bg-white border-3 border-[#1F1F1F] shadow-[6px_6px_0_0_#1F1F1F]">
+        <CardHeader className="border-b-3 border-[#1F1F1F] bg-card">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
               <Badge variant="secondary" className="mb-1.5 w-fit">
@@ -51,10 +51,10 @@ export const SitemapTreeViewExplorer: React.FC = () => {
             <button
               type="button"
               onClick={() => window.dispatchEvent(new CustomEvent('cagp:open-spotlight'))}
-              className="min-h-[44px] px-4 py-2 rounded-xl bg-[#16181d] text-white font-mono text-xs font-black uppercase border-2 border-[#16181d] shadow-[3px_3px_0_0_#FE8812] hover:bg-[#5B2A85] transition-colors cursor-pointer inline-flex items-center gap-2"
+              className="min-h-[44px] px-4 py-2 rounded-xl bg-[#1F1F1F] text-white font-mono text-xs font-black uppercase border-2 border-[#1F1F1F] shadow-[3px_3px_0_0_#FE8812] hover:bg-[#5B2A85] transition-colors cursor-pointer inline-flex items-center gap-2"
             >
               <span>Buscar Rota</span>
-              <kbd className="px-1.5 py-0.5 rounded bg-white text-[#16181d] text-xs">⌘K</kbd>
+              <kbd className="px-1.5 py-0.5 rounded bg-white text-[#1F1F1F] text-xs">⌘K</kbd>
             </button>
           </div>
         </CardHeader>
@@ -62,7 +62,7 @@ export const SitemapTreeViewExplorer: React.FC = () => {
           <TreeView
             data={SITEMAP_TREE}
             defaultExpandedIds={SITEMAP_TREE.map((n) => n.id)}
-            className="rounded-xl border-3 border-[#16181d] bg-white p-4 shadow-[4px_4px_0px_#16181d]"
+            className="rounded-xl border-2 border-[#1F1F1F] bg-white p-4 shadow-[3px_3px_0_0_#1F1F1F]"
           />
         </CardContent>
       </Card>

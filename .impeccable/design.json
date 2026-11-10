@@ -1,12 +1,12 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-09T20:40:05.539721+00:00",
+  "generatedAt": "2026-11-09T21:21:01.944929+00:00",
   "title": "Design System: Super App Discente — Chapa Semente • CAGP UFMG",
   "extensions": {
     "colorMeta": {
       "semente-purple": {
         "role": "primary",
-        "displayName": "Roxo Semente Profundo",
+        "displayName": "Roxo Profundo (a semente)",
         "tonalRamp": [
           "#21102F",
           "#341848",
@@ -20,7 +20,7 @@
       },
       "germinar-orange": {
         "role": "tertiary",
-        "displayName": "Laranja Germinar",
+        "displayName": "Laranja Vibrante (a folha)",
         "tonalRamp": [
           "#3D1F00",
           "#6B3700",
@@ -50,21 +50,31 @@
         "role": "seal",
         "displayName": "Rubro CAGP (selo)"
       },
-      "ink": {
+      "grafite": {
         "role": "neutral",
-        "displayName": "Tinta Grafite"
+        "displayName": "Preto Grafite",
+        "tonalRamp": [
+          "#0F0F0F",
+          "#1F1F1F",
+          "#33312D",
+          "#4A4740",
+          "#5E5A52",
+          "#8A857B",
+          "#C9C4B8",
+          "#E7E3D8"
+        ]
       },
-      "paper": {
+      "areia": {
         "role": "neutral",
-        "displayName": "Papel Frio"
+        "displayName": "Areia / Papel Natural"
       },
-      "card-white": {
+      "areia-funda": {
         "role": "neutral",
-        "displayName": "Branco Ficha"
+        "displayName": "Areia Funda"
       },
-      "muted-fog": {
+      "branco": {
         "role": "neutral",
-        "displayName": "Névoa"
+        "displayName": "Branco Puro"
       }
     },
     "typographyMeta": {
@@ -93,39 +103,33 @@
         "purpose": "Piso de texto corrido (14px)."
       },
       "label": {
-        "displayName": "Protocolo",
-        "purpose": "Space Mono para códigos, horas, datas, carimbos; único 12px."
+        "displayName": "Rótulo",
+        "purpose": "Poppins 700 12px caixa alta, tracking 0.04em, tabular: códigos, horas, datas, badges, carimbos."
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "Número de grande porte, tabular; lugar natural do laranja."
       },
       "accent": {
         "displayName": "Caneta da chapa",
-        "purpose": "Permanent Marker, um por tela, só volume Cartaz."
+        "purpose": "Permanent Marker (manual §5.3), uma vez por tela, só no Cartaz."
       }
     },
     "shadows": [
       {
-        "name": "hairline",
-        "value": "1px 1px 0 0 #16181d",
-        "purpose": "Ícone em pílula, microchip."
-      },
-      {
         "name": "chip",
-        "value": "2px 2px 0 0 #16181d",
-        "purpose": "Badge, carimbo, sticker, input em repouso."
+        "value": "2px 2px 0 0 #1F1F1F",
+        "purpose": "Badge, carimbo, input em repouso, pílula ativa."
       },
       {
         "name": "ficha",
-        "value": "4px 4px 0 0 #16181d",
-        "purpose": "Padrão do volume Ficha: botão, ficha, input em foco."
+        "value": "3px 3px 0 0 #1F1F1F",
+        "purpose": "Padrão sóbrio: botão, ficha, input em foco, sheet."
       },
       {
         "name": "cartaz",
-        "value": "6px 6px 0 0 #16181d",
-        "purpose": "Volume Cartaz e hover de ficha interativa."
-      },
-      {
-        "name": "palco",
-        "value": "10px 10px 0 1px #16181d",
-        "purpose": "Vitrine rara: passaporte, carta-proposta."
+        "value": "6px 6px 0 0 #1F1F1F",
+        "purpose": "Só painéis-vitrine do Cartaz; faixas de cor não têm sombra."
       }
     ],
     "motion": [
@@ -176,7 +180,7 @@
       "refersTo": "button-primary",
       "description": "Ação principal do bloco; afunda exatamente na sombra de 4px.",
       "html": "<button class=\"ds-btn-primary\">Baixar o TCE</button>",
-      "css": ".ds-btn-primary{font-family:'Poppins',sans-serif;font-weight:700;font-size:.875rem;letter-spacing:.025em;text-transform:uppercase;min-height:44px;padding:10px 20px;border:3px solid #16181d;border-radius:12px;box-shadow:4px 4px 0 0 #16181d;cursor:pointer;transition:transform .15s cubic-bezier(.16,1,.3,1),box-shadow .15s cubic-bezier(.16,1,.3,1),background-color .15s;background:#5B2A85;color:#fff;} .ds-btn-primary:hover{transform:translate(-1px,-1px);box-shadow:6px 6px 0 0 #16181d;background:#4A216E;} .ds-btn-primary:active{transform:translate(4px,4px);box-shadow:0 0 0 0 #16181d;} .ds-btn-primary:focus-visible{outline:2px solid #5B2A85;outline-offset:2px;}"
+      "css": ".ds-btn-primary{font-family:'Poppins',sans-serif;font-weight:700;font-size:.875rem;letter-spacing:.03em;text-transform:uppercase;min-height:44px;padding:12px 20px;border:3px solid #1F1F1F;border-radius:12px;box-shadow:3px 3px 0 0 #1F1F1F;cursor:pointer;transition:transform .15s cubic-bezier(.16,1,.3,1),box-shadow .15s cubic-bezier(.16,1,.3,1),background-color .15s;background:#5B2A85;color:#fff;} .ds-btn-primary:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 0 #1F1F1F;background:#4A216E;} .ds-btn-primary:active{transform:translate(3px,3px);box-shadow:0 0 0 0 #1F1F1F;} .ds-btn-primary:focus-visible{outline:2px solid #5B2A85;outline-offset:2px;}"
     },
     {
       "name": "Accent Button",
@@ -184,7 +188,7 @@
       "refersTo": "button-accent",
       "description": "O CTA de maior energia; no máximo um por tela, texto ink.",
       "html": "<button class=\"ds-btn-accent\">Abrir passaporte</button>",
-      "css": ".ds-btn-accent{font-family:'Poppins',sans-serif;font-weight:700;font-size:.875rem;letter-spacing:.025em;text-transform:uppercase;min-height:44px;padding:10px 20px;border:3px solid #16181d;border-radius:12px;box-shadow:4px 4px 0 0 #16181d;cursor:pointer;transition:transform .15s cubic-bezier(.16,1,.3,1),box-shadow .15s cubic-bezier(.16,1,.3,1),background-color .15s;background:#FE8812;color:#16181d;} .ds-btn-accent:hover{transform:translate(-1px,-1px);box-shadow:6px 6px 0 0 #16181d;background:#E07406;} .ds-btn-accent:active{transform:translate(4px,4px);box-shadow:0 0 0 0 #16181d;} .ds-btn-accent:focus-visible{outline:2px solid #5B2A85;outline-offset:2px;}"
+      "css": ".ds-btn-accent{font-family:'Poppins',sans-serif;font-weight:700;font-size:.875rem;letter-spacing:.03em;text-transform:uppercase;min-height:44px;padding:12px 20px;border:3px solid #1F1F1F;border-radius:12px;box-shadow:3px 3px 0 0 #1F1F1F;cursor:pointer;transition:transform .15s cubic-bezier(.16,1,.3,1),box-shadow .15s cubic-bezier(.16,1,.3,1),background-color .15s;background:#FE8812;color:#1F1F1F;} .ds-btn-accent:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 0 #1F1F1F;background:#E07406;} .ds-btn-accent:active{transform:translate(3px,3px);box-shadow:0 0 0 0 #1F1F1F;} .ds-btn-accent:focus-visible{outline:2px solid #5B2A85;outline-offset:2px;}"
     },
     {
       "name": "Outline Button",
@@ -192,7 +196,7 @@
       "refersTo": "button-outline",
       "description": "Ação de apoio; hover em névoa.",
       "html": "<button class=\"ds-btn-outline\">Conhecer a proposta</button>",
-      "css": ".ds-btn-outline{font-family:'Poppins',sans-serif;font-weight:700;font-size:.875rem;letter-spacing:.025em;text-transform:uppercase;min-height:44px;padding:10px 20px;border:3px solid #16181d;border-radius:12px;box-shadow:4px 4px 0 0 #16181d;cursor:pointer;transition:transform .15s cubic-bezier(.16,1,.3,1),box-shadow .15s cubic-bezier(.16,1,.3,1),background-color .15s;background:#fff;color:#16181d;} .ds-btn-outline:hover{transform:translate(-1px,-1px);box-shadow:6px 6px 0 0 #16181d;background:#e5e7ec;} .ds-btn-outline:active{transform:translate(4px,4px);box-shadow:0 0 0 0 #16181d;} .ds-btn-outline:focus-visible{outline:2px solid #5B2A85;outline-offset:2px;}"
+      "css": ".ds-btn-outline{font-family:'Poppins',sans-serif;font-weight:700;font-size:.875rem;letter-spacing:.03em;text-transform:uppercase;min-height:44px;padding:12px 20px;border:3px solid #1F1F1F;border-radius:12px;box-shadow:3px 3px 0 0 #1F1F1F;cursor:pointer;transition:transform .15s cubic-bezier(.16,1,.3,1),box-shadow .15s cubic-bezier(.16,1,.3,1),background-color .15s;background:#fff;color:#1F1F1F;} .ds-btn-outline:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 0 #1F1F1F;background:#E7E3D8;} .ds-btn-outline:active{transform:translate(3px,3px);box-shadow:0 0 0 0 #1F1F1F;} .ds-btn-outline:focus-visible{outline:2px solid #5B2A85;outline-offset:2px;}"
     },
     {
       "name": "Field",
@@ -200,7 +204,7 @@
       "refersTo": "input",
       "description": "Input com label visível, 48px, 16px no celular, foco roxo.",
       "html": "<label class=\"ds-field\"><span class=\"ds-field-label\">Matrícula ou nome da disciplina</span><input class=\"ds-input\" placeholder=\"Ex.: DCP 135\" /><span class=\"ds-field-help\">Busca em optativas, normas e formulários.</span></label>",
-      "css": ".ds-field{display:flex;flex-direction:column;gap:6px;font-family:'Poppins',sans-serif;max-width:360px;} .ds-field-label{font-weight:700;font-size:.875rem;color:#16181d;} .ds-field-help{font-size:.875rem;color:#4a4e58;} .ds-input{font:400 1rem 'Poppins',sans-serif;height:48px;padding:10px 14px;background:#fff;color:#16181d;border:3px solid #16181d;border-radius:12px;box-shadow:2px 2px 0 0 #16181d;transition:box-shadow .15s;} .ds-input:focus-visible{outline:2px solid #5B2A85;outline-offset:2px;box-shadow:4px 4px 0 0 #16181d;}"
+      "css": ".ds-field{display:flex;flex-direction:column;gap:6px;font-family:'Poppins',sans-serif;max-width:360px;} .ds-field-label{font-weight:700;font-size:.875rem;color:#1F1F1F;} .ds-field-help{font-size:.875rem;color:#4A4740;} .ds-input{font:400 1rem 'Poppins',sans-serif;height:48px;padding:10px 14px;background:#fff;color:#1F1F1F;border:3px solid #1F1F1F;border-radius:12px;box-shadow:2px 2px 0 0 #1F1F1F;transition:box-shadow .15s;} .ds-input:focus-visible{outline:2px solid #5B2A85;outline-offset:2px;box-shadow:4px 4px 0 0 #1F1F1F;}"
     },
     {
       "name": "Badge",
@@ -208,7 +212,7 @@
       "refersTo": "badge",
       "description": "Rótulo mono 12px em caixa alta, contorno 2px, sombra Chip.",
       "html": "<span class=\"ds-badge\">300h · DCP 135</span> <span class=\"ds-badge ds-badge-outline\">Lei 11.788</span>",
-      "css": ".ds-badge{display:inline-flex;align-items:center;gap:6px;font:700 .75rem 'Space Mono',monospace;letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border:2px solid #16181d;border-radius:8px;box-shadow:2px 2px 0 0 #16181d;background:#5B2A85;color:#fff;font-variant-numeric:tabular-nums;} .ds-badge-outline{background:#fff;color:#16181d;}"
+      "css": ".ds-badge{display:inline-flex;align-items:center;gap:6px;font:700 .75rem 'Poppins',sans-serif;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border:2px solid #1F1F1F;border-radius:8px;box-shadow:2px 2px 0 0 #1F1F1F;background:#5B2A85;color:#fff;font-variant-numeric:tabular-nums;} .ds-badge-outline{background:#fff;color:#1F1F1F;}"
     },
     {
       "name": "Ficha",
@@ -216,7 +220,7 @@
       "refersTo": "card-ficha",
       "description": "Contêiner padrão do volume Ficha: título em caixa de frase, sombra 4px, sobe no hover.",
       "html": "<a class=\"ds-ficha\" href=\"#\"><strong class=\"ds-ficha-title\">Pedir aproveitamento do Art. 41</strong><span class=\"ds-ficha-desc\">Para quem já trabalha no setor público: dispensa das 300h com requerimento e declaração da chefia.</span></a>",
-      "css": ".ds-ficha{display:flex;flex-direction:column;gap:6px;max-width:360px;padding:16px;background:#fff;color:#16181d;text-decoration:none;border:3px solid #16181d;border-radius:12px;box-shadow:4px 4px 0 0 #16181d;font-family:'Poppins',sans-serif;transition:transform .15s cubic-bezier(.16,1,.3,1),box-shadow .15s cubic-bezier(.16,1,.3,1);} .ds-ficha:hover{transform:translate(-1px,-1px);box-shadow:6px 6px 0 0 #16181d;} .ds-ficha:active{transform:translate(4px,4px);box-shadow:none;} .ds-ficha:focus-visible{outline:2px solid #5B2A85;outline-offset:2px;} .ds-ficha-eyebrow{font:700 .75rem 'Space Mono',monospace;letter-spacing:.05em;text-transform:uppercase;color:#5d626e;} .ds-ficha-title{font-size:1.125rem;line-height:1.3;} .ds-ficha-desc{font-size:.875rem;line-height:1.5;color:#4a4e58;}"
+      "css": ".ds-ficha{display:flex;flex-direction:column;gap:6px;max-width:360px;padding:20px;background:#fff;color:#1F1F1F;text-decoration:none;border:2px solid #1F1F1F;border-radius:12px;box-shadow:3px 3px 0 0 #1F1F1F;font-family:'Poppins',sans-serif;transition:transform .15s cubic-bezier(.16,1,.3,1),box-shadow .15s cubic-bezier(.16,1,.3,1);} .ds-ficha:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 0 #1F1F1F;} .ds-ficha:active{transform:translate(3px,3px);box-shadow:none;} .ds-ficha:focus-visible{outline:2px solid #5B2A85;outline-offset:2px;} .ds-ficha-eyebrow{font:700 .75rem 'Poppins',sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#5E5A52;} .ds-ficha-title{font-size:1.125rem;line-height:1.3;} .ds-ficha-desc{font-size:.875rem;line-height:1.5;color:#4A4740;}"
     },
     {
       "name": "Carimbo",
@@ -224,7 +228,7 @@
       "refersTo": "stamp-deferido",
       "description": "Carimbo de estado: mono caixa alta, tinta de status, rotação leve.",
       "html": "<span class=\"ds-stamp ds-stamp-ok\">Deferido</span> <span class=\"ds-stamp ds-stamp-wait\">Pendente</span> <span class=\"ds-stamp ds-stamp-no\">Indeferido</span>",
-      "css": ".ds-stamp{display:inline-block;font:700 .75rem 'Space Mono',monospace;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border:2px solid #16181d;border-radius:8px;box-shadow:2px 2px 0 0 #16181d;transform:rotate(-1.5deg);} .ds-stamp-ok{background:#DCFCE7;color:#15803D;} .ds-stamp-wait{background:#FEF3C7;color:#B45309;transform:rotate(1deg);} .ds-stamp-no{background:#FEE2E2;color:#DC2626;transform:rotate(1.5deg);}"
+      "css": ".ds-stamp{display:inline-block;font:700 .75rem 'Poppins',sans-serif;letter-spacing:.04em;text-transform:uppercase;padding:4px 10px;border:2px solid #1F1F1F;border-radius:8px;box-shadow:2px 2px 0 0 #1F1F1F;transform:rotate(-1.5deg);} .ds-stamp-ok{background:#DCFCE7;color:#166534;} .ds-stamp-wait{background:#FEF3C7;color:#92400E;transform:rotate(1deg);} .ds-stamp-no{background:#FEE2E2;color:#B91C1C;transform:rotate(1.5deg);}"
     },
     {
       "name": "Assinatura Semente",
@@ -232,7 +236,7 @@
       "refersTo": "semente-signature",
       "description": "Fecho de campanha no fim de cada guia: proposta, diretoria e link, sem pedágio.",
       "html": "<aside class=\"ds-sign\"><span class=\"ds-sign-label\">Proposta 3 · em ação</span><p class=\"ds-sign-text\">As 7 minutas de TCE e o simulador do Art. 41 foram organizados pela Diretoria Jurídica da Chapa Semente.</p><a class=\"ds-sign-link\" href=\"#\">Conhecer a proposta</a></aside>",
-      "css": ".ds-sign{max-width:520px;padding:16px;background:#EFE7F6;color:#16181d;border:3px solid #16181d;border-radius:12px;font-family:'Poppins',sans-serif;display:flex;flex-direction:column;gap:8px;} .ds-sign-label{font:700 .75rem 'Space Mono',monospace;letter-spacing:.05em;text-transform:uppercase;color:#5B2A85;} .ds-sign-text{margin:0;font-size:1rem;line-height:1.6;} .ds-sign-link{align-self:flex-start;font:700 .875rem 'Poppins',sans-serif;text-transform:uppercase;letter-spacing:.025em;color:#16181d;background:#fff;border:3px solid #16181d;border-radius:12px;padding:8px 16px;text-decoration:none;box-shadow:2px 2px 0 0 #16181d;} .ds-sign-link:hover{background:#e5e7ec;} .ds-sign-link:focus-visible{outline:2px solid #5B2A85;outline-offset:2px;}"
+      "css": ".ds-sign{max-width:520px;padding:16px;background:#EFE7F6;color:#1F1F1F;border:2px solid #1F1F1F;border-radius:12px;font-family:'Poppins',sans-serif;display:flex;flex-direction:column;gap:8px;} .ds-sign-label{font:700 .75rem 'Poppins',sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#5B2A85;} .ds-sign-text{margin:0;font-size:1rem;line-height:1.6;} .ds-sign-link{align-self:flex-start;font:700 .875rem 'Poppins',sans-serif;text-transform:uppercase;letter-spacing:.03em;color:#1F1F1F;background:#fff;border:3px solid #1F1F1F;border-radius:12px;padding:8px 16px;text-decoration:none;box-shadow:2px 2px 0 0 #1F1F1F;} .ds-sign-link:hover{background:#E7E3D8;} .ds-sign-link:focus-visible{outline:2px solid #5B2A85;outline-offset:2px;}"
     },
     {
       "name": "Bottom Nav",
@@ -240,75 +244,86 @@
       "refersTo": "bottom-nav",
       "description": "Barra inferior com 5 eixos; ativo em pílula roxa.",
       "html": "<nav class=\"ds-bnav\"><a class=\"ds-bnav-item is-active\" href=\"#\"><span class=\"ds-bnav-pill\">●</span>Hoje</a><a class=\"ds-bnav-item\" href=\"#\"><span class=\"ds-bnav-pill\">●</span>Acolhida</a><a class=\"ds-bnav-item\" href=\"#\"><span class=\"ds-bnav-pill\">●</span>600h</a><a class=\"ds-bnav-item\" href=\"#\"><span class=\"ds-bnav-pill\">●</span>Carreira</a><a class=\"ds-bnav-item\" href=\"#\"><span class=\"ds-bnav-pill\">●</span>CAGP</a></nav>",
-      "css": ".ds-bnav{display:grid;grid-template-columns:repeat(5,1fr);width:375px;height:64px;background:#fff;border-top:3px solid #16181d;font:700 .75rem 'Poppins',sans-serif;text-transform:uppercase;} .ds-bnav-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:#16181d;text-decoration:none;} .ds-bnav-pill{display:grid;place-items:center;width:44px;height:28px;border-radius:9999px;font-size:10px;} .ds-bnav-item.is-active .ds-bnav-pill{background:#5B2A85;color:#fff;border:2px solid #16181d;} .ds-bnav-item:focus-visible{outline:2px solid #5B2A85;outline-offset:-4px;}"
+      "css": ".ds-bnav{display:grid;grid-template-columns:repeat(5,1fr);width:375px;height:64px;background:#fff;border-top:3px solid #1F1F1F;font:700 .75rem 'Poppins',sans-serif;text-transform:uppercase;} .ds-bnav-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:#1F1F1F;text-decoration:none;} .ds-bnav-pill{display:grid;place-items:center;width:44px;height:28px;border-radius:9999px;font-size:10px;} .ds-bnav-item.is-active .ds-bnav-pill{background:#5B2A85;color:#fff;border:2px solid #1F1F1F;} .ds-bnav-item:focus-visible{outline:2px solid #5B2A85;outline-offset:-4px;}"
     }
   ],
   "narrative": {
-    "northStar": "Balcão Neoburocrata",
-    "overview": "**Creative North Star: \"Balcão Neoburocrata\"**\n\nO site é o balcão que a UFMG nunca teve: você chega com pressa, depois do trabalho, e sai com o passo, o formulário e o contato na mão. A linguagem continua neobrutalista (tinta preta, contorno grosso, sombra dura, cor chapada, carimbo), mas agora o brutalismo **é hierarquia, não volume constante**. Cartaz de campanha grita; ficha de protocolo organiza; papel de leitura se cala. Quando tudo grita, o estudante não acha o passo, e a campanha perde a prova.\n\nO sistema bebe de duas fontes. Do **Neobrutalism.com** vem a disciplina: uma única sombra por nível, o clique que afunda exatamente na sombra, poucos tokens, cor principal única por superfície. Do **BoldKit** vêm os gestos de assinatura (sticker, carimbo, layered card, marquee, shapes, motion \"snap\" e \"stamp\") reservados aos momentos que merecem voz: campanha, conquista, trâmite concluído. As duas bibliotecas estão em `_referencias/design-system/` e o código vendorizado em `src/components/ui/` e `src/components/boldkit/`. Usamos o comportamento e a estrutura delas, nunca as paletas (neon, clash, azul do neobrutalism.com).\n\nA hierarquia de marca segue fixa: a **Chapa Semente** é a base cromática; o **CAGP** é selo. O modo é exclusivamente claro. Primeiro celular (375px), à noite, com sinal ruim e uma mão.",
+    "northStar": "O Balcão que Germina",
+    "overview": "**Creative North Star: \"O Balcão que Germina\"**\n\nO site é o balcão que a UFMG nunca teve, montado pela identidade da Chapa Semente. Você chega com pressa, depois do trabalho, e sai com o passo, o formulário e o contato na mão; cada trâmite resolvido é uma semente que germina. O lema da chapa é a regra de composição: **toda mudança começa pequena**. Um passo por vez, um destaque por tela, uma ação clara.\n\nA linguagem é um **neobrutalismo sóbrio**: o manual pede \"clareza visual e elegância sóbria\", blocos chapados e respiro generoso; o neobrutalismo dá o gesto tátil do balcão (contorno grafite, sombra dura, o botão que afunda como um carimbo). O resultado é menos grito e mais papel bem impresso: contornos de 2px, sombras curtas, muito espaço em areia, cor em grandes blocos nítidos. O volume cresce só onde a campanha fala (o Cartaz), e mesmo ali a voz vem do *color blocking*, das formas orgânicas da folha e da semente e da fotografia real do campus com a base em dithering, nunca de enfeite.\n\nO isotipo dá o significado de cada cor, e a interface o respeita. A **semente roxa** é o núcleo: o que sustenta (navegação, ação principal, autoridade). A **folha laranja** é o que brota: destaque, conquista, o número grande, a ideia nova. O **petróleo** é o equilíbrio frio dos dados. A **areia** é o solo e o papel. A **pessoa** do símbolo é o estudante, e entra na tela como fotografia real, em cor, com a base dissolvida em pixels como uma impressão. Os pilares IDEIA · PARTICIPAÇÃO · FUTURO não são decoração: viram laranja, gente e progresso.\n\nAs referências estruturais seguem sendo o **Neobrutalism.com** (disciplina: uma sombra por nível, o press exato, poucos tokens) e o **BoldKit** (carimbo, layered card, motion), vendorizados em `src/components/ui/` e `src/components/boldkit/`. Deles vem o comportamento, nunca a paleta nem os enfeites (neon, burst, estrela, escudo). A **Chapa Semente** é a base cromática; o **CAGP** é selo. Modo exclusivamente claro. Primeiro celular (375px), à noite, com sinal ruim e uma mão.",
     "keyCharacteristics": [
-      "Três volumes (Cartaz, Ficha, Papel), cada página com um volume dominante e no máximo um momento Cartaz fora da campanha.",
-      "Contorno ink 3px em contêineres e controles; divisória interna em ink 2px; nunca linha cinza de 1px.",
-      "Sombra dura sem desfoque, com um tamanho por volume (6px Cartaz, 4px Ficha, 0 Papel); clique afunda exatamente na sombra.",
-      "Caixa alta só no grito: título de página, botão, badge, rótulo mono. O resto em caixa de frase.",
-      "Texto de leitura nunca abaixo de 14px; 16px no celular.",
-      "Campanha como assinatura no fim do trâmite, nunca como pedágio antes dele.",
-      "Carimbo, selo e passaporte como vocabulário de conquista, sempre com significado de estado."
+      "Fundo de página em Areia (`#F4F2EC`), nunca branco frio nem cinza; grafite (`#1F1F1F`) como única tinta escura.",
+      "Três volumes: Cartaz (campanha, *color blocking*), Ficha (trâmite), Papel (leitura). Cada página tem um volume dominante.",
+      "Contorno grafite 2px nas fichas e 3px em controles e peças de Cartaz; sombra dura curta (3px na Ficha, 6px no Cartaz); o clique afunda exatamente na sombra.",
+      "Poppins Regular e Bold em tudo, com algarismos tabulares para números de protocolo; Permanent Marker só na palavra que precisa de voz.",
+      "Caixa alta só no grito (título de página, botão, badge, rótulo), sempre com tracking ampliado.",
+      "Laranja como destaque raro; texto sobre roxo e petróleo sempre branco.",
+      "Fotografia real em cor original, com a base dissolvida em pixels de dithering translúcidos; duotone roxo só em capas de Cartaz.",
+      "Campanha como assinatura no fim do trâmite, nunca como pedágio antes dele."
     ],
     "rules": [
       {
         "name": "The Flat Poster Rule",
-        "body": "Toda área de cor é bloco chapado. Zero degradês, zero transparência sobre cor (`bg-primary/10`, `border-border/15`), zero vidro.",
+        "body": "Toda área de cor é bloco chapado sólido. Zero degradês lineares, radiais ou mesh, zero transparência sobre cor (`bg-primary/10`), zero vidro. Translucidez só na fotografia: o dithering pixelado da base e o duotone roxo de capa (ver Components › Fotografia).",
         "section": "colors"
       },
       {
-        "name": "The One Ink Rule",
-        "body": "Existe um só preto: `ink`. `#0A0A0A`, `#000`, cinzas de borda (`#c8cdd6`) e cremes avulsos (`#f4f0ea`, `#FFFDF9`, `#EFE9E0`) saem; viram `ink`, `paper` ou `card-white`.",
+        "name": "The Sand Not Gray Rule",
+        "body": "O claro do sistema é quente: areia, areia funda e branco. Cinzas frios (`#f4f5f7`, `#e5e7ec`, `#4a4e58`) e pretos azulados (`#16181d`) saem do código; viram `areia`, `areia-funda`, `grafite-secundario` e `grafite`.",
         "section": "colors"
       },
       {
-        "name": "The Orange Never Reads Rule",
-        "body": "`germinar-orange` nunca é texto de leitura. Laranja em texto pequeno usa `orange-text`; texto sobre laranja usa `ink`.",
+        "name": "The White On Color Rule",
+        "body": "Sobre roxo e petróleo, todo texto é branco puro (`#FFFFFF`). Sobre laranja, todo texto é grafite. Não existe texto roxo sobre petróleo, laranja sobre roxo nem cinza sobre cor.",
+        "section": "colors"
+      },
+      {
+        "name": "The Orange Is The Leaf Rule",
+        "body": "Laranja Vibrante é destaque: linha, caixa, número grande, palavra isolada, forma orgânica. Nunca frase, parágrafo ou texto pequeno; texto pequeno alaranjado usa `orange-text`.",
         "section": "colors"
       },
       {
         "name": "The Rubro Is a Seal Rule",
-        "body": "Rubro só no selo do CAGP. Eixos de navegação não têm cor própria: o eixo ativo veste roxo Semente (os `color` de `navigationRegistry.ts` não pintam interface).",
+        "body": "Rubro só no selo do CAGP. Eixos de navegação não têm cor própria: o eixo ativo veste roxo (os `color` de `navigationRegistry.ts` não pintam interface).",
         "section": "colors"
       },
       {
         "name": "The One Loud Color Rule",
-        "body": "Cada tela tem no máximo um campo chapado grande (roxo ou laranja). Dois heróis coloridos vizinhos se anulam.",
+        "body": "Cada tela tem no máximo um campo chapado grande de cor quente ou roxa. Roxo e petróleo podem dividir uma composição em blocos nítidos (o *color blocking* do manual), mas laranja nunca é campo de fundo grande.",
         "section": "colors"
       },
       {
         "name": "The Shout Only Rule",
-        "body": "Caixa alta é grito e só serve a quatro coisas: título de página (Display), botão, badge e rótulo mono. Headline e Title são caixa de frase. Parágrafo em caixa alta é proibido.",
+        "body": "Caixa alta é grito e só serve a quatro coisas: título de página, botão, badge/rótulo e carimbo. Sempre com tracking ampliado (+20 a +40, ou 0.02–0.04em). Headline e Title são caixa de frase. Parágrafo em caixa alta é proibido.",
+        "section": "typography"
+      },
+      {
+        "name": "The Two Faces Rule",
+        "body": "Só Poppins e Permanent Marker. Nenhuma terceira família (Space Mono, Inter, system-ui) entra por gosto; números ganham caráter pelo `tabular-nums` e pelo peso, não por outra fonte.",
         "section": "typography"
       },
       {
         "name": "The 14px Floor Rule",
-        "body": "Nada que se lê como frase fica abaixo de 14px (0.875rem); no celular, texto de leitura é 16px. `text-[9px]`, `text-[10px]`, `text-[11px]` saem do código; 12px só existe em Space Mono rotulando algo.",
+        "body": "Nada que se lê como frase fica abaixo de 14px; no celular, texto de leitura é 16px. 12px existe só no Label (caixa alta, Bold, curto).",
         "section": "typography"
       },
       {
         "name": "The Two Weights Rule",
-        "body": "Só 400 e 700. `font-medium`, `font-semibold`, `font-extrabold` e `font-black` não existem nesta marca; hierarquia vem de tamanho, caixa e cor, não de peso intermediário.",
-        "section": "typography"
-      },
-      {
-        "name": "The Protocol Mono Rule",
-        "body": "Código de disciplina, carga horária, data, prazo, número de resolução e valor monetário vão em Space Mono tabular.",
+        "body": "Só 400 e 700. `font-medium`, `font-semibold`, `font-extrabold` e `font-black` não existem nesta marca.",
         "section": "typography"
       },
       {
         "name": "The Wordmark Is an Asset Rule",
-        "body": "SEMENTE e CAGP nunca são redigitados; sempre os arquivos de `public/logos/` (policromático sobre claro, `-branco` sobre roxo; sem rotação, filtro ou sombra).",
+        "body": "SEMENTE e CAGP nunca são redigitados nem imitados com fonte; sempre os arquivos de `public/logos/`.",
         "section": "typography"
       },
       {
+        "name": "The Small Change Rule",
+        "body": "\"Toda mudança começa pequena\": uma ação principal por bloco, um destaque laranja por tela, um passo de cada vez. Se a tela tem duas coisas pedindo atenção igual, uma delas sai.",
+        "section": "layout"
+      },
+      {
         "name": "The Content-First Rule",
-        "body": "No celular (375×812), a primeira informação útil (o primeiro passo, o resultado, o primeiro item) começa dentro dos primeiros 480px. Cabeçalho do app + cabeça de página + abas somam no máximo ~300px.",
+        "body": "No celular (375×812), a primeira informação útil começa dentro dos primeiros 480px. Cabeçalho do app + cabeça de página + abas somam no máximo ~300px.",
         "section": "layout"
       },
       {
@@ -318,60 +333,71 @@
       },
       {
         "name": "The Signature at the End Rule",
-        "body": "A campanha entra depois que o estudante foi atendido: Assinatura Semente no fim do guia, antes do JourneyNav. Nunca entre o título e o primeiro passo.",
+        "body": "A campanha entra depois que o estudante foi atendido: Assinatura Semente no fim do guia, antes do JourneyNav.",
         "section": "layout"
       },
       {
         "name": "The One Float Rule",
-        "body": "Acima da barra inferior cabe no máximo um elemento flutuante por vez (instalar app *ou* voltar ao topo *ou* toast). Nada flutuante cobre conteúdo nem rótulos da barra.",
+        "body": "Acima da barra inferior cabe no máximo um elemento flutuante por vez.",
         "section": "layout"
       },
       {
         "name": "The One Shadow Per Volume Rule",
-        "body": "Papel = 0, Ficha = 4px, Cartaz = 6px. Uma ficha dentro de outra ficha não tem sombra; ganha só contorno 2px ou fundo `muted-fog`. Sombra empilhada em três níveis é proibida.",
+        "body": "Papel = 0, Ficha = 3px, Cartaz = 6px (só em painéis, nunca em faixas). Ficha dentro de ficha não tem sombra; ganha fundo `areia-funda` ou `petroleo-tint`.",
         "section": "elevation"
       },
       {
         "name": "The Press-Into-Shadow Rule",
-        "body": "Hover: translate −1px e sombra +2px (o objeto se ergue). Active: translate igual à sombra e sombra 0 (afunda). Duração 150ms com `--bk-ease-snap`. Nunca glow, blur ou escala.",
+        "body": "Hover: translate −1px e sombra +2px. Active: translate igual à sombra e sombra 0. 150ms com `--ease-snap`. Nunca glow, blur ou escala.",
+        "section": "elevation"
+      },
+      {
+        "name": "The No Shadow On Brand Rule",
+        "body": "Logo, símbolo, wordmark e fotografias nunca recebem sombra, contorno brilhante, chanfro ou efeito 3D (manual, Regra 03). A sombra é da ficha que os contém, não do asset.",
         "section": "elevation"
       },
       {
         "name": "The Opaque Paper Rule",
-        "body": "`backdrop-filter` e `backdrop-blur` são anulados; `bg-background/95` vira `bg-background`. Toda superfície é opaca.",
+        "body": "`backdrop-filter` é anulado; toda superfície é opaca.",
         "section": "elevation"
       }
     ],
     "dos": [
+      "Do usar Areia (`#F4F2EC`) como fundo de página e Grafite (`#1F1F1F`) como única tinta escura.",
       "Do declarar o volume da página (Cartaz, Ficha ou Papel) e o arquétipo antes de compor.",
-      "Do contornar contêineres e controles com 3px de `ink` e divisórias internas com 2px.",
-      "Do usar uma sombra por volume (0 / 4px / 6px) e afundar o elemento exatamente na sombra ao clicar.",
+      "Do contornar fichas com 2px de grafite e controles com 3px; sombra de 3px na Ficha e 6px só em painéis de Cartaz.",
+      "Do construir o Cartaz com blocos chapados de roxo e petróleo em divisões nítidas sobre areia, formas orgânicas e fotografia com dithering.",
+      "Do pôr texto branco sobre roxo e petróleo, e texto grafite sobre laranja.",
+      "Do usar Poppins com `tabular-nums` para códigos, horas, datas, prazos e valores.",
+      "Do dar tracking ampliado (0.02–0.04em) a todo texto em caixa alta.",
+      "Do manter a cor original das fotos e deixar a faixa de dithering (20% inferiores) fazer a assinatura; duotone roxo só em capa de Cartaz.",
+      "Do escolher o asset de logo pelo fundo (policromático, negativo, badge, preto) e respeitar a zona de proteção.",
       "Do levar o primeiro passo útil para dentro dos primeiros 480px da tela de 375×812.",
       "Do pôr formulário, link e contato dentro do passo a que pertencem.",
-      "Do usar Space Mono tabular para códigos, horas, datas, prazos e valores.",
       "Do marcar cada item simulado com o sticker SIMULADO, além do aviso de página.",
-      "Do fechar todo guia com Assinatura Semente + JourneyNav.",
-      "Do reservar animação de impacto ao carimbo de mudança de estado; o resto do movimento é feedback de 150–220ms.",
+      "Do fechar todo guia com Assinatura Semente + JourneyNav, escrita na primeira pessoa do plural.",
+      "Do reservar animação de impacto ao carimbo de mudança de estado e a germinação à forma orgânica do herói.",
       "Do usar Bootstrap Icons (`bi bi-*`) ou SVG do `CagpIcon` para todo ícone.",
-      "Do manter alvos de toque ≥44px e respeitar `prefers-reduced-motion` e a escala de fonte do painel.",
-      "Do aplicar os logos SEMENTE e CAGP só a partir dos arquivos oficiais."
+      "Do manter alvos de toque ≥44px e respeitar `prefers-reduced-motion` e a escala de fonte do painel."
     ],
     "donts": [
+      "Don't usar cinzas frios ou pretos azulados (`#f4f5f7`, `#e5e7ec`, `#16181d`, `#0A0A0A`); o claro é areia, o escuro é grafite.",
+      "Don't usar degradê de nenhum tipo entre cores da paleta, nem vidro ou `backdrop-filter`.",
+      "Don't usar Laranja Vibrante em frase, parágrafo ou texto pequeno; nem como campo de fundo grande.",
+      "Don't usar fonte fora de Poppins e Permanent Marker (Space Mono sai do sistema).",
       "Don't pôr caixa alta em título de ficha, seção, passo ou parágrafo.",
-      "Don't pôr eyebrow/kicker acima de título, nem numerar abas ou seções (\"01 / 02\") quando a ordem não é informação.",
-      "Don't usar emoji ou glifo (✦ ★ ✓ ✕ → 🌱) como ícone.",
+      "Don't pôr eyebrow acima de título, nem numerar abas ou seções quando a ordem não é informação.",
+      "Don't usar emoji ou glifo como ícone.",
+      "Don't usar shapes BoldKit (burst, estrela, escudo), stickers decorativos ou rotação de conteúdo; a única decoração é a forma orgânica da marca.",
+      "Don't usar foto sem a faixa de dithering, nem trocar a faixa por degradê suave ou desfoque.",
+      "Don't aplicar sombra, glow, contorno, filtro ou rotação em logo, símbolo ou wordmark, nem redigitar SEMENTE ou CAGP.",
       "Don't usar faixa colorida lateral (`border-left` > 1px) em ficha, alerta ou citação.",
       "Don't animar seção na rolagem nem usar canvas fora do volume Cartaz.",
-      "Don't usar texto de leitura abaixo de 14px nem `text-[9px]`/`[10px]`/`[11px]`.",
-      "Don't usar pesos 500, 600, 800 ou 900.",
-      "Don't usar borda cinza de 1px, preto diferente de `ink`, ou cor de paleta com transparência.",
+      "Don't usar texto de leitura abaixo de 14px, nem pesos 500, 600, 800 ou 900.",
       "Don't empilhar barra de voltar, faixa tricolor, badges em série ou faixa de campanha acima do conteúdo.",
-      "Don't pôr a faixa da Chapa Semente entre o título e o primeiro passo.",
-      "Don't usar shapes, canvas, marquee, layered card ou Permanent Marker fora do volume Cartaz.",
       "Don't mostrar dois elementos flutuantes ao mesmo tempo sobre a barra inferior.",
-      "Don't usar degradês, glassmorphism, `backdrop-filter`, sombra difusa ou glow.",
-      "Don't usar `germinar-orange` como texto de leitura nem o rubro CAGP como cor de interface ou de eixo.",
-      "Don't usar componentes de prova social (Testimonials, Logo Cloud, contadores de adesão): não há dados reais para eles.",
+      "Don't usar o rubro CAGP como cor de interface, eixo ou gráfico.",
+      "Don't usar componentes de prova social (Testimonials, Logo Cloud com apoios, contadores de adesão): não há dados reais.",
       "Don't introduzir modo escuro; o sistema é exclusivamente claro."
     ]
   }

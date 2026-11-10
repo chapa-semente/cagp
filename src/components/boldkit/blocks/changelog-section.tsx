@@ -44,14 +44,14 @@ export function ChangelogSection({
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black">{title}</h2>
           {subtitle && <p className="text-muted-foreground">{subtitle}</p>}
         </motion.div>
-        <ol className="relative border-l-3 border-[#16181d] pl-8 space-y-8">
+        <ol className="relative border-l-3 border-[#1F1F1F] pl-8 space-y-8">
           {entries.map((entry) => (
             <motion.li
               key={entry.version}
               variants={staggerItem}
-              className="relative rounded-xl border-3 border-[#16181d] bg-card p-5 shadow-[4px_4px_0_0_#16181d]"
+              className="relative rounded-xl border-2 border-[#1F1F1F] bg-card p-5 shadow-[3px_3px_0_0_#1F1F1F]"
             >
-              <span className="absolute -left-[44px] top-5 flex h-5 w-5 items-center justify-center rounded-sm border-3 border-[#16181d] bg-primary shadow-[2px_2px_0_0_#16181d]" />
+              <span className="absolute -left-[44px] top-5 flex h-5 w-5 items-center justify-center rounded-sm border-3 border-[#1F1F1F] bg-primary shadow-[2px_2px_0_0_#1F1F1F]" />
               <div className="flex flex-wrap items-center gap-3">
                 <span className="font-mono text-lg sm:text-xl font-black uppercase tracking-wide">{entry.version}</span>
                 {entry.tag && <Badge variant={tagVariant[entry.tag]}>{entry.tag}</Badge>}
@@ -61,7 +61,7 @@ export function ChangelogSection({
               <ul className="mt-2 space-y-1.5">
                 {entry.items.map((item) => (
                   <li key={item} className="flex gap-2 text-sm text-muted-foreground">
-                    <span className="mt-2 h-1.5 w-1.5 shrink-0 bg-[#16181d]" />
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 bg-[#1F1F1F]" />
                     {item}
                   </li>
                 ))}

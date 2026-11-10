@@ -43,17 +43,17 @@ export const CHART_PALETTES = {
     '#5B2A85', // Roxo Semente
     '#FE8812', // Laranja Germinar
     '#134E4A', // Teal Acadêmico
-    '#9E2424', // Vermelho CAGP
-    '#15803D', // Verde
-    '#1E3F66', // Azul
+    '#A85300', // Laranja contraste (rubro é só selo)
+    '#166534', // Verde
+    '#4A216E', // Azul
   ],
   vibrant: [
     '#5B2A85',
     '#FE8812',
     '#134E4A',
-    '#9E2424',
-    '#15803D',
-    '#1E3F66',
+    '#A85300',
+    '#166534',
+    '#4A216E',
   ],
   pastel: [
     'hsl(0 84% 75%)',      // Light coral
@@ -64,12 +64,12 @@ export const CHART_PALETTES = {
     'hsl(212 100% 75%)',   // Light blue
   ],
   monochrome: [
-    '#16181d',
-    'color-mix(in srgb, #16181d calc(0.8 * 100%), transparent)',
-    'color-mix(in srgb, #16181d calc(0.6 * 100%), transparent)',
-    'color-mix(in srgb, #16181d calc(0.4 * 100%), transparent)',
-    'color-mix(in srgb, #16181d calc(0.2 * 100%), transparent)',
-    'color-mix(in srgb, #16181d calc(0.1 * 100%), transparent)',
+    '#1F1F1F',
+    'color-mix(in srgb, #1F1F1F calc(0.8 * 100%), transparent)',
+    'color-mix(in srgb, #1F1F1F calc(0.6 * 100%), transparent)',
+    'color-mix(in srgb, #1F1F1F calc(0.4 * 100%), transparent)',
+    'color-mix(in srgb, #1F1F1F calc(0.2 * 100%), transparent)',
+    'color-mix(in srgb, #1F1F1F calc(0.1 * 100%), transparent)',
   ],
 } as const
 
@@ -124,17 +124,17 @@ function useChart() {
 }
 
 const chartContainerVariants = cva(
-  'flex aspect-video justify-center overflow-hidden rounded-xl text-xs [&_.recharts-cartesian-axis-tick_text]:fill-foreground [&_.recharts-cartesian-grid_line[stroke="#ccc"]]:stroke-muted-foreground/30 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-muted-foreground [&_.recharts-polar-grid_[stroke="#ccc"]]:stroke-[#16181d] [&_.recharts-reference-line_[stroke="#ccc"]]:stroke-[#16181d] [&_.recharts-dot[stroke="#fff"]]:stroke-transparent [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke="#fff"]]:stroke-[#16181d] [&_.recharts-surface]:outline-hidden [&_.recharts-layer_path]:[fill-opacity:1] [&_.recharts-layer_path]:[stroke-width:3] [&_.recharts-layer_path]:[stroke:#16181d]',
+  'flex aspect-video justify-center overflow-hidden rounded-xl text-xs [&_.recharts-cartesian-axis-tick_text]:fill-foreground [&_.recharts-cartesian-grid_line[stroke="#ccc"]]:stroke-muted-foreground/30 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-muted-foreground [&_.recharts-polar-grid_[stroke="#ccc"]]:stroke-[#1F1F1F] [&_.recharts-reference-line_[stroke="#ccc"]]:stroke-[#1F1F1F] [&_.recharts-dot[stroke="#fff"]]:stroke-transparent [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke="#fff"]]:stroke-[#1F1F1F] [&_.recharts-surface]:outline-hidden [&_.recharts-layer_path]:[fill-opacity:1] [&_.recharts-layer_path]:[stroke-width:3] [&_.recharts-layer_path]:[stroke:#1F1F1F]',
   {
     variants: {
       variant: {
-        default: 'border-3 border-[#16181d] bg-background p-4 shadow-[6px_6px_0_0_#16181d]',
-        elevated: 'border-3 border-[#16181d] bg-background p-4 shadow-[6px_6px_0_0_#16181d] hover:shadow-[8px_8px_0_0_#16181d] hover:translate-x-[-2px] hover:translate-y-[-2px] transition',
-        flat: 'border-3 border-[#16181d] bg-background p-4',
-        filled: 'border-3 border-[#16181d] bg-background p-4 shadow-[6px_6px_0_0_#16181d]',
+        default: 'border-3 border-[#1F1F1F] bg-background p-4 shadow-[6px_6px_0_0_#1F1F1F]',
+        elevated: 'border-3 border-[#1F1F1F] bg-background p-4 shadow-[6px_6px_0_0_#1F1F1F] hover:shadow-[8px_8px_0_0_#1F1F1F] hover:translate-x-[-2px] hover:translate-y-[-2px] transition',
+        flat: 'border-3 border-[#1F1F1F] bg-background p-4',
+        filled: 'border-3 border-[#1F1F1F] bg-background p-4 shadow-[6px_6px_0_0_#1F1F1F]',
         minimal: 'bg-background p-4',
-        accent: 'border-3 border-[#16181d] bg-accent-tint p-4 shadow-[4px_4px_0px_var(--accent)]',
-        primary: 'border-3 border-[#16181d] bg-primary-tint p-4 shadow-[4px_4px_0px_var(--primary)]',
+        accent: 'border-3 border-[#1F1F1F] bg-accent-tint p-4 shadow-[4px_4px_0px_var(--accent)]',
+        primary: 'border-3 border-[#1F1F1F] bg-primary-tint p-4 shadow-[4px_4px_0px_var(--primary)]',
       },
     },
     defaultVariants: {
@@ -319,7 +319,7 @@ function ChartTooltipContent({
   return (
     <div
       className={cn(
-        'grid min-w-[8rem] items-start gap-1.5 rounded-lg border-3 border-[#16181d] bg-white px-2.5 py-1.5 text-xs shadow-[4px_4px_0_0_#16181d]',
+        'grid min-w-[8rem] items-start gap-1.5 rounded-lg border-3 border-[#1F1F1F] bg-white px-2.5 py-1.5 text-xs shadow-[3px_3px_0_0_#1F1F1F]',
         className
       )}
     >

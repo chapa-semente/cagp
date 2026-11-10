@@ -25,11 +25,11 @@ export const Art41Widget: React.FC = () => {
   const isEligible = checkedCount === 5;
 
   return (
-    <div className="cagp-card p-5 bg-white border-3 border-[#16181d] rounded-xl flex flex-col justify-between h-full shadow-[4px_4px_0_0_#16181d] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[6px_6px_0_0_#16181d] transition-all select-none">
+    <div className="cagp-card p-5 bg-white border-2 border-[#1F1F1F] rounded-xl flex flex-col justify-between h-full shadow-[3px_3px_0_0_#1F1F1F] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[6px_6px_0_0_#1F1F1F] transition-all select-none">
       <div>
         <div className="flex items-center justify-between gap-2 mb-3.5">
           <div className="flex items-center gap-2.5">
-            <span className="w-10 h-10 rounded-xl bg-[#134E4A] text-white flex items-center justify-center text-lg border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+            <span className="w-10 h-10 rounded-xl bg-[#134E4A] text-white flex items-center justify-center text-lg border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]">
               <i className="bi bi-briefcase-fill" aria-hidden="true" />
             </span>
             <div>
@@ -40,11 +40,11 @@ export const Art41Widget: React.FC = () => {
             </div>
           </div>
           <span
-            className={`px-2.5 py-1 rounded-md font-head text-xs font-bold border-2 border-[#16181d] shadow-xs ${
+            className={`px-2.5 py-1 rounded-md font-head text-xs font-bold border-2 border-[#1F1F1F] shadow-xs ${
               isEligible
                 ? 'bg-[#134E4A] text-white'
                 : checkedCount > 0
-                ? 'bg-[#FE8812] text-[#16181d]'
+                ? 'bg-[#FE8812] text-[#1F1F1F]'
                 : 'bg-white text-foreground'
             }`}
           >
@@ -56,7 +56,7 @@ export const Art41Widget: React.FC = () => {
           Trilha oficial de <strong>Aproveitamento Servidor (Art. 41)</strong> para dispensar as 300h de estágio com atuação no setor público ou OSC.
         </p>
 
-        <div className="p-3 bg-white border-2 border-[#16181d] rounded-lg mb-4 flex items-center justify-between text-xs shadow-xs">
+        <div className="p-3 bg-white border-2 border-[#1F1F1F] rounded-lg mb-4 flex items-center justify-between text-xs shadow-xs">
           <span className="text-muted-foreground font-medium">Status da Simulação:</span>
           <span className="font-mono font-bold text-[#134E4A]">
             {isEligible ? 'Dispensa Apta (300h)' : `${checkedCount} requisitos marcados`}
@@ -66,7 +66,7 @@ export const Art41Widget: React.FC = () => {
 
       <a
         href="#art41"
-        className="min-h-[44px] px-4 py-2.5 bg-[#134E4A] hover:bg-[#0f3d39] text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
+        className="min-h-[44px] px-4 py-2.5 bg-[#134E4A] hover:bg-[#0f3d39] text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
       >
         <span>Simular Aproveitamento Servidor</span>
         <i className="bi bi-arrow-right" aria-hidden="true" />

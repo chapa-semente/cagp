@@ -98,7 +98,7 @@ export function ContactSplit({
           </div>
 
           {/* Form side */}
-          <div className="border-3 border-foreground bg-card p-8 shadow-lg">
+          <div className="border-2 border-foreground bg-card p-8 shadow-lg">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="name" className="font-bold uppercase text-sm">
@@ -208,7 +208,7 @@ export function ContactCentered({
           </p>
         </div>
 
-        <div className="border-3 border-foreground bg-card p-8 shadow-lg">
+        <div className="border-2 border-foreground bg-card p-8 shadow-lg">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">

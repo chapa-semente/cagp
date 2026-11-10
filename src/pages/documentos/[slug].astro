@@ -157,7 +157,7 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
     </div>
 
     <!-- Card de Cabeçalho do Documento -->
-    <header class="p-5 sm:p-6 bg-card border-3 border-border rounded-xl shadow-md space-y-4 text-foreground" data-context-type="doc-template">
+    <header class="p-5 sm:p-6 bg-card border-2 border-border rounded-xl shadow-md space-y-4 text-foreground" data-context-type="doc-template">
       <div class="flex items-start justify-between gap-3 flex-wrap sm:flex-nowrap">
         <div class="space-y-1.5 min-w-0">
           <div class="flex items-center gap-2 flex-wrap">
@@ -184,7 +184,7 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
             name={meta.pdf}
             type="application/pdf"
             href={asset(`/documentos/${meta.pdf}`)}
-            className="w-full sm:w-[270px] bg-white border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] text-foreground"
+            className="w-full sm:w-[270px] bg-white border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] text-foreground"
           />
         </div>
       </div>
@@ -207,22 +207,22 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
     <!-- Sumário Recolhível em Gaveta no Mobile (visível em telas pequenas e tablets) -->
     {filteredHeadings.length > 0 && (
-      <div class="lg:hidden sticky top-16 z-30 cagp-card bg-[#ffffff] border-3 border-[#16181d] rounded-xl shadow-[4px_4px_0_0_#16181d] overflow-hidden">
+      <div class="lg:hidden sticky top-16 z-30 cagp-card bg-[#ffffff] border-2 border-[#1F1F1F] rounded-xl shadow-[3px_3px_0_0_#1F1F1F] overflow-hidden">
         <details class="group">
-          <summary class="cursor-pointer font-head font-black uppercase text-xs text-[#16181d] flex items-center justify-between min-h-[48px] py-3.5 px-4 tracking-wide list-none bg-[#ffffff] hover:bg-[#f4f5f7]">
+          <summary class="cursor-pointer font-head font-black uppercase text-xs text-[#1F1F1F] flex items-center justify-between min-h-[48px] py-3.5 px-4 tracking-wide list-none bg-[#ffffff] hover:bg-[#F4F2EC]">
             <span class="flex items-center gap-2">
               <i class="bi bi-layout-sidebar-inset text-secondary text-sm" aria-hidden="true"></i>
               <span>Gaveta de Sumário Normativo ({filteredHeadings.length} seções)</span>
             </span>
-            <span class="px-2 py-0.5 rounded bg-[#16181d] text-white font-mono text-xs group-open:bg-secondary transition-colors">
+            <span class="px-2 py-0.5 rounded bg-[#1F1F1F] text-white font-mono text-xs group-open:bg-secondary transition-colors">
               ABRIR / FECHAR
             </span>
           </summary>
-          <nav class="p-3 border-t-2 border-[#16181d] bg-white space-y-1 max-h-64 overflow-y-auto text-xs font-body font-medium">
+          <nav class="p-3 border-t-2 border-[#1F1F1F] bg-white space-y-1 max-h-64 overflow-y-auto text-xs font-body font-medium">
             {filteredHeadings.map((h) => (
               <a
                 href={`#${h.slug}`}
-                class={`block py-1.5 px-2 rounded-lg hover:bg-[#f4f5f7] hover:text-secondary transition-colors truncate ${h.depth === 1 ? 'font-bold text-foreground' : h.depth === 2 ? 'pl-3 text-gray-700' : 'pl-5 text-gray-500'}`}
+                class={`block py-1.5 px-2 rounded-lg hover:bg-[#F4F2EC] hover:text-secondary transition-colors truncate ${h.depth === 1 ? 'font-bold text-foreground' : h.depth === 2 ? 'pl-3 text-gray-700' : 'pl-5 text-gray-500'}`}
               >
                 {h.text}
               </a>
@@ -233,7 +233,7 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
     )}
 
     <!-- Corpo do Artigo / Documento Transcrito -->
-    <main class="lg:col-span-8 xl:col-span-9 bg-white border-3 border-border rounded-xl shadow-md p-5 sm:p-7 lg:p-9 min-w-0">
+    <main class="lg:col-span-8 xl:col-span-9 bg-white border-2 border-border rounded-xl shadow-md p-5 sm:p-7 lg:p-9 min-w-0">
       <article class="cagp-doc-reader prose prose-sm sm:prose-base lg:prose-lg max-w-[72ch] mx-auto text-foreground leading-relaxed">
         <Content />
       </article>
@@ -255,7 +255,7 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
 
     <!-- Barra Lateral Sticky: Sumário do Documento (Desktop) -->
     {filteredHeadings.length > 0 && (
-      <aside class="hidden lg:block lg:col-span-4 xl:col-span-3 sticky top-20 max-h-[calc(100dvh-6rem)] overflow-y-auto cagp-card p-4 bg-white border-3 border-border rounded-xl shadow space-y-2 text-xs">
+      <aside class="hidden lg:block lg:col-span-4 xl:col-span-3 sticky top-20 max-h-[calc(100dvh-6rem)] overflow-y-auto cagp-card p-4 bg-white border-2 border-border rounded-xl shadow space-y-2 text-xs">
         <div class="flex items-center justify-between border-b-2 border-border pb-2.5">
           <span class="font-head font-bold uppercase text-xs tracking-wider text-foreground flex items-center gap-1.5">
             <i class="bi bi-list-nested text-secondary" aria-hidden="true"></i>
@@ -290,7 +290,7 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
   /* Tipografia Editorial Neobrutalista para o Leitor de Documentos */
   .cagp-doc-reader {
     font-family: var(--font-body, 'Poppins', system-ui, sans-serif);
-    color: #16181d;
+    color: #1F1F1F;
   }
 
   .cagp-doc-reader h1 {
@@ -299,11 +299,11 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: -0.01em;
-    color: #16181d;
+    color: #1F1F1F;
     margin-top: 2rem;
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
-    border-bottom: 3px solid #16181d;
+    border-bottom: 3px solid #1F1F1F;
   }
 
   .cagp-doc-reader h2 {
@@ -316,7 +316,7 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
     margin-top: 1.75rem;
     margin-bottom: 0.75rem;
     padding-bottom: 0.25rem;
-    border-bottom: 2px solid #16181d;
+    border-bottom: 2px solid #1F1F1F;
   }
 
   .cagp-doc-reader h3 {
@@ -324,7 +324,7 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
     font-size: 1rem;
     font-weight: 700;
     text-transform: uppercase;
-    color: #16181d;
+    color: #1F1F1F;
     margin-top: 1.25rem;
     margin-bottom: 0.5rem;
   }
@@ -333,7 +333,7 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
     font-family: var(--font-head, 'Poppins', sans-serif);
     font-size: 0.95rem;
     font-weight: 700;
-    color: #16181d;
+    color: #1F1F1F;
     margin-top: 1rem;
     margin-bottom: 0.5rem;
   }
@@ -342,7 +342,7 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
     font-size: 0.95rem;
     line-height: 1.7;
     margin-bottom: 1rem;
-    color: #16181d;
+    color: #1F1F1F;
   }
 
   .cagp-doc-reader ul,
@@ -367,15 +367,15 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
   }
 
   .cagp-doc-reader blockquote {
-    border: 2px solid #16181d;
+    border: 2px solid #1F1F1F;
     border-left: 6px solid #8B1E2D;
     border-radius: 12px;
     padding: 0.85rem 1.15rem;
     margin: 1.25rem 0;
     background-color: #FFFFFF;
     font-style: italic;
-    color: #16181d;
-    box-shadow: 3px 3px 0 0 #16181d;
+    color: #1F1F1F;
+    box-shadow: 3px 3px 0 0 #1F1F1F;
   }
 
   .cagp-doc-reader table {
@@ -383,31 +383,31 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
     border-collapse: collapse;
     margin: 1.25rem 0;
     font-size: 0.85rem;
-    border: 2px solid #16181d;
+    border: 2px solid #1F1F1F;
     border-radius: 12px;
     display: block;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    box-shadow: 3px 3px 0 0 #16181d;
+    box-shadow: 3px 3px 0 0 #1F1F1F;
     background: #FFFFFF;
   }
 
   .cagp-doc-reader th {
-    background-color: #f4f5f7;
-    border: 2px solid #16181d;
+    background-color: #F4F2EC;
+    border: 2px solid #1F1F1F;
     padding: 0.6rem 0.75rem;
     font-family: var(--font-head, 'Poppins', sans-serif);
     font-weight: 800;
     text-transform: uppercase;
     text-align: left;
-    color: #16181d;
+    color: #1F1F1F;
     white-space: nowrap;
   }
 
   .cagp-doc-reader td {
-    border: 1px solid #16181d;
+    border: 1px solid #1F1F1F;
     padding: 0.5rem 0.75rem;
-    color: #16181d;
+    color: #1F1F1F;
     vertical-align: top;
   }
 
@@ -417,20 +417,20 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
 
   .cagp-doc-reader hr {
     border: 0;
-    border-top: 2px solid #16181d;
+    border-top: 2px solid #1F1F1F;
     margin: 2rem 0;
   }
 
   .cagp-doc-reader strong {
     font-weight: 700;
-    color: #16181d;
+    color: #1F1F1F;
   }
 
   .cagp-doc-reader code {
-    font-family: var(--font-mono, 'Space Mono', monospace);
+    font-family: var(--font-heading, 'Poppins', sans-serif);
     font-size: 0.85em;
     background-color: #F7F5F0;
-    border: 1.5px solid #16181d;
+    border: 1.5px solid #1F1F1F;
     padding: 0.15rem 0.35rem;
     border-radius: 6px;
   }
@@ -440,8 +440,8 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
     background-color: #8B1E2D;
     color: #FFFFFF !important;
     font-weight: 700;
-    border: 1.5px solid #16181d;
-    box-shadow: 2px 2px 0 0 #16181d;
+    border: 1.5px solid #1F1F1F;
+    box-shadow: 2px 2px 0 0 #1F1F1F;
   }
 </style>
 

@@ -51,7 +51,7 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
   return (
     <div className="space-y-4 font-body">
       {/* Upload de Foto & Presets */}
-      <div className="bg-white border-3 border-border p-4 rounded-xl shadow space-y-3">
+      <div className="bg-white border-2 border-border p-4 rounded-xl shadow space-y-3">
         <span className="font-head font-extrabold text-xs uppercase text-foreground block">
           1. Foto de Perfil &amp; Avatar (256x256)
         </span>
@@ -78,7 +78,7 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
             <button
               type="button"
               onClick={() => onChange({ ...profile, photoDataUrl: undefined })}
-              className="min-h-[44px] px-3.5 py-2 bg-white hover:bg-[#FFEBEE] text-destructive font-head font-bold uppercase text-xs rounded-xl border-2 border-destructive shadow-[2px_2px_0_0_#DC2626] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer inline-flex items-center gap-1.5"
+              className="min-h-[44px] px-3.5 py-2 bg-white hover:bg-[#FFEBEE] text-destructive font-head font-bold uppercase text-xs rounded-xl border-2 border-destructive shadow-[2px_2px_0_0_#B91C1C] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer inline-flex items-center gap-1.5"
             >
               <i className="bi bi-trash" aria-hidden="true" />
               <span>Remover Foto</span>
@@ -100,7 +100,7 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
                   onClick={() => onChange({ ...profile, avatarPreset: p.id, photoDataUrl: undefined })}
                   className={`p-2 rounded-xl border-2 text-left flex items-center gap-2 transition-all cursor-pointer select-none ${
                     isSelected
-                      ? 'border-border bg-white shadow-[3px_3px_0px_#16181d] -translate-x-[1px] -translate-y-[1px]'
+                      ? 'border-border bg-white shadow-[3px_3px_0px_#1F1F1F] -translate-x-[1px] -translate-y-[1px]'
                       : 'border-border bg-white hover:bg-muted'
                   }`}
                 >
@@ -127,7 +127,7 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
       </div>
 
       {/* Identificação Acadêmica */}
-      <div className="bg-white border-3 border-border p-4 rounded-xl shadow space-y-3">
+      <div className="bg-white border-2 border-border p-4 rounded-xl shadow space-y-3">
         <span className="font-head font-extrabold text-xs uppercase text-foreground block">
           2. Dados do Estudante
         </span>
@@ -185,7 +185,7 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
       </div>
 
       {/* Marcador de Orgulho */}
-      <div className="bg-white border-3 border-border p-4 rounded-xl shadow space-y-2.5">
+      <div className="bg-white border-2 border-border p-4 rounded-xl shadow space-y-2.5">
         <span className="font-head font-extrabold text-xs uppercase text-foreground block">
           3. Marcador / Pin de Diversidade (Opcional)
         </span>
@@ -209,7 +209,7 @@ export const TalentBankEditor: React.FC<TalentBankEditorProps> = ({
       </div>
 
       {/* Áreas de Interesse (Banco de Talentos) */}
-      <div className="bg-white border-3 border-border p-4 rounded-xl shadow space-y-2.5">
+      <div className="bg-white border-2 border-border p-4 rounded-xl shadow space-y-2.5">
         <div className="flex items-center justify-between border-b-2 border-border pb-2">
           <span className="font-head font-extrabold text-xs uppercase text-foreground">
             4. Áreas de Atuação &amp; Banco de Talentos

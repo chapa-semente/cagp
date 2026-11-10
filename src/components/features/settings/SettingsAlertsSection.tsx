@@ -25,7 +25,7 @@ export const SettingsAlertsSection: React.FC<Props> = ({ notifs, updateNotifs })
       </div>
 
       <div className="space-y-3">
-        <div className="p-4 bg-white rounded-xl border-3 border-border shadow-sm flex flex-wrap items-center justify-between gap-3">
+        <div className="p-4 bg-white rounded-xl border-2 border-border shadow-sm flex flex-wrap items-center justify-between gap-3">
           <div>
             <strong className="block text-xs font-head font-extrabold uppercase text-foreground">
               Jantar no RU II Setorial (18h15)
@@ -49,7 +49,7 @@ export const SettingsAlertsSection: React.FC<Props> = ({ notifs, updateNotifs })
           </div>
         </div>
 
-        <div className="p-4 bg-white rounded-xl border-3 border-border shadow-sm flex flex-wrap items-center justify-between gap-3">
+        <div className="p-4 bg-white rounded-xl border-2 border-border shadow-sm flex flex-wrap items-center justify-between gap-3">
           <div>
             <strong className="block text-xs font-head font-extrabold uppercase text-foreground">
               Último Circular FAFICH (22h30)
@@ -73,7 +73,7 @@ export const SettingsAlertsSection: React.FC<Props> = ({ notifs, updateNotifs })
           </div>
         </div>
 
-        <div className="p-4 bg-white rounded-xl border-3 border-border shadow-sm flex flex-wrap items-center justify-between gap-3">
+        <div className="p-4 bg-white rounded-xl border-2 border-border shadow-sm flex flex-wrap items-center justify-between gap-3">
           <div>
             <strong className="block text-xs font-head font-extrabold uppercase text-foreground">
               Guardião 120 Dias de AAC

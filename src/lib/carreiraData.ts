@@ -64,7 +64,7 @@ export const SEMENTE_CAREER_PROPOSALS = [
     title: 'Divulgação Ágil de Vagas, Estágios, Bolsas e Concursos',
     desc: 'Radar permanente de editais de estágio, programas de trainee em gestão pública (Vetores, FJP), bolsas de extensão/IC e concursos com alertas diretos no SuperApp.',
     badge: 'Mural de Vagas Ativo',
-    color: 'bg-[#FE8812] text-[#16181d]',
+    color: 'bg-[#FE8812] text-[#1F1F1F]',
     icon: 'bi-megaphone-fill',
   },
 ];

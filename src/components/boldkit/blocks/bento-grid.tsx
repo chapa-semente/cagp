@@ -47,7 +47,7 @@ export function BentoGrid({ title, subtitle, items, className }: BentoGridProps)
         {(title || subtitle) && (
           <div className="text-center mb-8 sm:mb-10 space-y-2.5">
             {title && (
-              <h2 className="text-2xl sm:text-4xl font-black text-[#16181d]">{title}</h2>
+              <h2 className="text-2xl sm:text-4xl font-black text-[#1F1F1F]">{title}</h2>
             )}
             {subtitle && <p className="text-muted-foreground max-w-2xl mx-auto text-xs sm:text-sm">{subtitle}</p>}
           </div>
@@ -61,11 +61,11 @@ export function BentoGrid({ title, subtitle, items, className }: BentoGridProps)
               key={item.title}
               variants={staggerItem}
               layout
-              whileHover={{ x: -3, y: -3, boxShadow: '8px 8px 0px 0px #16181d' }}
-              whileTap={{ x: 2, y: 2, boxShadow: '0px 0px 0px 0px #16181d' }}
+              whileHover={{ x: -3, y: -3, boxShadow: '8px 8px 0px 0px #1F1F1F' }}
+              whileTap={{ x: 2, y: 2, boxShadow: '0px 0px 0px 0px #1F1F1F' }}
               transition={tactileSpring}
               className={cn(
-                'flex flex-col justify-between rounded-xl border-3 border-[#16181d] p-5 shadow-[6px_6px_0_0_#16181d] text-[#16181d]',
+                'flex flex-col justify-between rounded-xl border-3 border-[#1F1F1F] p-5 shadow-[6px_6px_0_0_#1F1F1F] text-[#1F1F1F]',
                 spanClass[item.span ?? 'normal'],
                 accentClass[item.accent ?? 'card']
               )}
@@ -73,19 +73,19 @@ export function BentoGrid({ title, subtitle, items, className }: BentoGridProps)
               <div className="space-y-3">
                 <div className="flex items-start justify-between gap-3">
                   {item.icon && (
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border-3 border-[#16181d] bg-white shadow-[2px_2px_0_0_#16181d]">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border-3 border-[#1F1F1F] bg-white shadow-[2px_2px_0_0_#1F1F1F]">
                       {item.icon}
                     </div>
                   )}
                   {item.badge && (
-                    <span className="px-2.5 py-1 rounded-md bg-[#16181d] text-white font-mono text-xs font-black uppercase tracking-wider border-2 border-[#16181d] shadow-[2px_2px_0_0_#FE8812]">
+                    <span className="px-2.5 py-1 rounded-md bg-[#1F1F1F] text-white font-mono text-xs font-black uppercase tracking-wider border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#FE8812]">
                       {item.badge}
                     </span>
                   )}
                 </div>
 
                 <div>
-                  <h3 className="text-base sm:text-lg font-head font-black text-[#16181d] leading-snug m-0">
+                  <h3 className="text-base sm:text-lg font-head font-black text-[#1F1F1F] leading-snug m-0">
                     {item.title}
                   </h3>
                   {item.meta && (
@@ -102,13 +102,13 @@ export function BentoGrid({ title, subtitle, items, className }: BentoGridProps)
               </div>
 
               {(item.tags?.length || item.href || item.secondaryHref) && (
-                <div className="mt-4 pt-3 border-t-2 border-[#16181d] space-y-3">
+                <div className="mt-4 pt-3 border-t-2 border-[#1F1F1F] space-y-3">
                   {item.tags && item.tags.length > 0 && (
                     <div className="flex flex-wrap gap-1.5">
                       {item.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="px-2 py-0.5 rounded-md bg-white border-2 border-[#16181d] font-mono text-xs font-bold text-[#16181d] shadow-[1px_1px_0_0_#16181d]"
+                          className="px-2 py-0.5 rounded-md bg-white border-2 border-[#1F1F1F] font-mono text-xs font-bold text-[#1F1F1F] shadow-[1px_1px_0_0_#1F1F1F]"
                         >
                           {tag}
                         </span>
@@ -123,7 +123,7 @@ export function BentoGrid({ title, subtitle, items, className }: BentoGridProps)
                           href={item.href}
                           target={item.external ? '_blank' : undefined}
                           rel={item.external ? 'noopener noreferrer' : undefined}
-                          className="min-h-[48px] min-w-[48px] flex-1 px-3.5 py-2 rounded-xl bg-[#5B2A85] hover:bg-[#461e69] text-white font-head text-xs font-black uppercase tracking-wider border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] inline-flex items-center justify-center gap-1.5 no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5"
+                          className="min-h-[48px] min-w-[48px] flex-1 px-3.5 py-2 rounded-xl bg-[#5B2A85] hover:bg-[#461e69] text-white font-head text-xs font-black uppercase tracking-wider border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] inline-flex items-center justify-center gap-1.5 no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5"
                         >
                           <span>{item.ctaLabel || 'Acessar Núcleo'}</span>
                           <i className={`bi ${item.external ? 'bi-box-arrow-up-right' : 'bi-arrow-right'} text-xs`} aria-hidden="true" />
@@ -132,7 +132,7 @@ export function BentoGrid({ title, subtitle, items, className }: BentoGridProps)
                       {item.secondaryHref && (
                         <a
                           href={item.secondaryHref}
-                          className="min-h-[48px] min-w-[48px] px-3 py-2 rounded-xl bg-[#ffffff] hover:bg-[#FE8812] text-[#16181d] font-mono text-xs font-black uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] inline-flex items-center justify-center gap-1 no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5"
+                          className="min-h-[48px] min-w-[48px] px-3 py-2 rounded-xl bg-[#ffffff] hover:bg-[#FE8812] text-[#1F1F1F] font-mono text-xs font-black uppercase border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] inline-flex items-center justify-center gap-1 no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5"
                         >
                           <span>{item.secondaryLabel || '90h AAC'}</span>
                         </a>

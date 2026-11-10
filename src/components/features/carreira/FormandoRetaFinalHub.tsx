@@ -201,7 +201,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
   return (
     <div className="cagp-formando-reta-final-hub space-y-6 select-none text-foreground font-sans">
       {/* Cockpit Superior da Persona Formando */}
-      <div className="p-5 sm:p-6 rounded-xl border-3 border-border bg-white shadow-md space-y-5">
+      <div className="p-5 sm:p-6 rounded-xl border-2 border-border bg-white shadow-md space-y-5">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b-3 border-border pb-4">
           <div className="space-y-1.5">
             <div className="flex flex-wrap items-center gap-2">
@@ -228,7 +228,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
                 transition={tactileSpring}
                 type="button"
                 onClick={activateFormandoPersona}
-                className="min-h-[44px] px-4 py-2.5 rounded-xl border-3 border-border bg-[#FE8812] hover:bg-[#e67600] text-[#16181d] font-heading text-xs font-black uppercase shadow-sm cursor-pointer transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                className="min-h-[44px] px-4 py-2.5 rounded-xl border-3 border-border bg-[#FE8812] hover:bg-[#e67600] text-[#1F1F1F] font-heading text-xs font-black uppercase shadow-sm cursor-pointer transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
                 Ativar Modo Formando no App
               </motion.button>
@@ -243,7 +243,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
 
         {/* 3 Cards de Status Integrados (Estágio 300h, TCC 180h, Colação & 600h) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="p-4 rounded-xl border-3 border-border bg-card shadow-sm flex flex-col justify-between gap-3">
+          <div className="p-4 rounded-xl border-2 border-border bg-card shadow-sm flex flex-col justify-between gap-3">
             <div>
               <div className="flex items-center justify-between gap-2 mb-1">
                 <span className="font-mono text-xs font-bold uppercase text-[#134E4A]">
@@ -278,7 +278,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
             </div>
           </div>
 
-          <div className="p-4 rounded-xl border-3 border-border bg-card shadow-sm flex flex-col justify-between gap-3">
+          <div className="p-4 rounded-xl border-2 border-border bg-card shadow-sm flex flex-col justify-between gap-3">
             <div>
               <div className="flex items-center justify-between gap-2 mb-1">
                 <span className="font-mono text-xs font-bold uppercase text-secondary">
@@ -313,7 +313,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
             </div>
           </div>
 
-          <div className="p-4 rounded-xl border-3 border-border bg-card shadow-sm flex flex-col justify-between gap-3">
+          <div className="p-4 rounded-xl border-2 border-border bg-card shadow-sm flex flex-col justify-between gap-3">
             <div>
               <div className="flex items-center justify-between gap-2 mb-1">
                 <span className="font-mono text-xs font-bold uppercase text-primary">
@@ -350,7 +350,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
         </div>
 
         {/* Barra de Progresso Geral Animada com Delight */}
-        <div className="p-4 sm:p-5 rounded-xl border-3 border-border bg-white shadow-sm space-y-3">
+        <div className="p-4 sm:p-5 rounded-xl border-2 border-border bg-white shadow-sm space-y-3">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <span className="font-heading text-xs sm:text-sm font-black uppercase text-foreground">
               Progresso Geral Rumo à Colação de Grau: {completedTotal} de {totalSteps} Etapas Concluídas
@@ -363,7 +363,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
               className={`px-3 py-1 rounded-lg border-2 border-border font-mono text-xs font-black shadow-2xs ${
                 isGradReady
                   ? 'bg-[#134E4A] text-white'
-                  : 'bg-[#FE8812] text-[#16181d]'
+                  : 'bg-[#FE8812] text-[#1F1F1F]'
               }`}
             >
               {isGradReady ? '100% PRONTO P/ FORMATURA' : `${progressPct}% INTEGRALIZADO`}
@@ -407,7 +407,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
       </div>
 
       {/* Filtros de Categoria e Lista Interativa Animada */}
-      <div className="p-5 sm:p-6 rounded-xl border-3 border-border bg-white shadow-md space-y-5">
+      <div className="p-5 sm:p-6 rounded-xl border-2 border-border bg-white shadow-md space-y-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-3 border-border pb-4">
           <div>
             <h3 className="font-heading text-base sm:text-lg font-black text-foreground m-0">
@@ -456,7 +456,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.96 }}
                   transition={tactileSpring}
-                  className={`p-4 sm:p-5 rounded-xl border-3 border-border shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4 transition-colors ${
+                  className={`p-4 sm:p-5 rounded-xl border-2 border-border shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4 transition-colors ${
                     isDone ? 'bg-[#F0FDF4]' : 'bg-white'
                   }`}
                 >
@@ -525,9 +525,9 @@ export const FormandoRetaFinalHub: React.FC = () => {
       </div>
 
       {/* Kit Rápido de Downloads para Formandos & Chamada Eleitoral Chapa Semente */}
-      <div className="p-5 sm:p-6 rounded-xl border-3 border-border bg-card shadow-md flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+      <div className="p-5 sm:p-6 rounded-xl border-2 border-border bg-card shadow-md flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
         <div className="space-y-1 max-w-2xl">
-          <span className="px-2.5 py-0.5 rounded bg-[#FE8812] text-[#16181d] border-2 border-border font-mono text-xs font-black uppercase shadow-2xs">
+          <span className="px-2.5 py-0.5 rounded bg-[#FE8812] text-[#1F1F1F] border-2 border-border font-mono text-xs font-black uppercase shadow-2xs">
             PROPOSTA DA CHAPA SEMENTE MATERIALIZADA • 25 E 26/11
           </span>
           <h4 className="font-heading text-base sm:text-lg font-black text-foreground m-0 pt-1">

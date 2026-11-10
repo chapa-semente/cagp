@@ -26,14 +26,14 @@ export const SettingsA11ySection: React.FC<Props> = ({ a11y, updateA11y }) => {
         </span>
       </div>
 
-      <div className="divide-y-2 divide-[#16181d]">
+      <div className="divide-y-2 divide-[#1F1F1F]">
         {/* Tamanho da Fonte */}
         <div className="py-3.5 flex flex-wrap items-center justify-between gap-3">
           <div>
             <strong className="block text-xs font-head font-extrabold uppercase text-foreground">Tamanho da Tipografia</strong>
             <span className="text-xs text-foreground font-medium">Escala responsiva do texto do aplicativo (90% a 130%)</span>
           </div>
-          <div className="flex items-center gap-1.5 bg-white p-1.5 rounded-xl border-3 border-border shadow-sm">
+          <div className="flex items-center gap-1.5 bg-white p-1.5 rounded-xl border-2 border-border shadow-sm">
             {(['sm', 'md', 'lg', 'xl'] as const).map((s) => (
               <button
                 key={s}
@@ -73,7 +73,7 @@ export const SettingsA11ySection: React.FC<Props> = ({ a11y, updateA11y }) => {
         <div className="py-3.5 flex items-center justify-between gap-3">
           <div>
             <strong className="block text-xs font-head font-extrabold uppercase text-foreground">Alto Contraste AAA (Preto &amp; Amarelo)</strong>
-            <span className="text-xs text-foreground font-medium">Fundo nanquim (#16181d) e textos amarelos de alto contraste</span>
+            <span className="text-xs text-foreground font-medium">Fundo nanquim (#1F1F1F) e textos amarelos de alto contraste</span>
           </div>
           <label className="min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer">
             <input

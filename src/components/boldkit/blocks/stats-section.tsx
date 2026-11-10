@@ -43,7 +43,7 @@ export function StatsGrid({
           <motion.div
             key={`stat-${stat.label}`}
             variants={staggerItem}
-            className="text-center space-y-2 rounded-xl border-3 border-[#16181d] bg-card p-5 shadow-[4px_4px_0_0_#16181d]"
+            className="text-center space-y-2 rounded-xl border-2 border-[#1F1F1F] bg-card p-5 shadow-[3px_3px_0_0_#1F1F1F]"
           >
             <div className="font-mono text-3xl sm:text-4xl md:text-5xl font-black">{stat.value}</div>
             <div className="text-xs sm:text-sm text-muted-foreground font-bold uppercase tracking-wide">
@@ -111,7 +111,7 @@ export function StatsCards({
               whileHover={{ x: -3, y: -3 }}
               transition={tactileSpring}
               className={cn(
-                'rounded-xl border-3 border-[#16181d] p-5 sm:p-6 shadow-[4px_4px_0_0_#16181d] hover:shadow-[6px_6px_0_0_#16181d] transition',
+                'rounded-xl border-3 border-[#1F1F1F] p-5 sm:p-6 shadow-[3px_3px_0_0_#1F1F1F] hover:shadow-[6px_6px_0_0_#1F1F1F] transition',
                 cardColors[index % 4]
               )}
             >
@@ -191,7 +191,7 @@ export function StatsSplit({
           {stats.map((stat) => (
             <div
               key={`stat-${stat.label}`}
-              className="border-3 border-foreground bg-card p-6 shadow-md"
+              className="border-2 border-foreground bg-card p-6 shadow-md"
             >
               <div className="text-3xl font-black">{stat.value}</div>
               <div className="text-sm text-muted-foreground font-bold uppercase tracking-wide mt-1">

@@ -21,7 +21,7 @@ export const OverviewGuardianWidget: React.FC = () => {
   }, []);
 
   return (
-    <div className="cagp-card p-5 bg-white border-3 border-border rounded-xl flex flex-col justify-between h-full shadow hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-md transition-all">
+    <div className="cagp-card p-5 bg-white border-2 border-border rounded-xl flex flex-col justify-between h-full shadow hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-md transition-all">
       <div>
         {/* Header do Widget */}
         <div className="flex items-center justify-between gap-2 mb-3">
@@ -43,7 +43,7 @@ export const OverviewGuardianWidget: React.FC = () => {
 
         {/* Status dos Certificados */}
         <div className="mb-4">
-          <div className="bg-[#FEF3C7] border-3 border-border rounded-lg p-3 mb-3 text-xs text-foreground leading-relaxed shadow-xs">
+          <div className="bg-[#FEF3C7] border-2 border-border rounded-lg p-3 mb-3 text-xs text-foreground leading-relaxed shadow-xs">
             <div className="font-bold flex items-center gap-1.5 text-warning mb-1 font-head uppercase tracking-wider text-xs">
               <i className="bi bi-alarm-fill" aria-hidden="true" />
               <span>Prazo Fatal Regimental:</span>

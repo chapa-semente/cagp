@@ -48,19 +48,19 @@ export const cardHoverVariants = {
   rest: {
     x: 0,
     y: 0,
-    boxShadow: "4px 4px 0px var(--border, #16181d)",
+    boxShadow: "4px 4px 0px var(--border, #1F1F1F)",
     transition: tactileSpring,
   },
   hover: {
     x: -1,
     y: -1,
-    boxShadow: "6px 6px 0px var(--border, #16181d)",
+    boxShadow: "6px 6px 0px var(--border, #1F1F1F)",
     transition: tactileSpring,
   },
   tap: {
     x: 4,
     y: 4,
-    boxShadow: "0px 0px 0px var(--border, #16181d)",
+    boxShadow: "0px 0px 0px var(--border, #1F1F1F)",
     transition: tactileSpring,
   },
 };

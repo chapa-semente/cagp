@@ -1,28 +1,29 @@
 ---
 name: Super App Discente — Chapa Semente • CAGP UFMG
-description: Balcão Neoburocrata — neobrutalismo em três volumes (Cartaz, Ficha, Papel) que traduz a burocracia da UFMG em passos resolvíveis no celular, à noite.
+description: O Balcão que Germina — neobrutalismo sóbrio sobre a identidade da Chapa Semente (roxo, laranja, petróleo, areia) que traduz a burocracia da UFMG em passos resolvíveis no celular, à noite.
 colors:
   semente-purple: "#5B2A85"
   semente-purple-hover: "#4A216E"
   semente-purple-tint: "#EFE7F6"
   germinar-orange: "#FE8812"
   germinar-orange-hover: "#E07406"
+  germinar-tint: "#FFEEDB"
   orange-text: "#A85300"
   petroleo-teal: "#266264"
   petroleo-deep: "#134E4A"
-  petroleo-tint: "#E3F0EF"
+  petroleo-tint: "#E2EDEA"
+  areia: "#F4F2EC"
+  areia-funda: "#E7E3D8"
+  branco: "#FFFFFF"
+  grafite: "#1F1F1F"
+  grafite-secundario: "#4A4740"
+  grafite-apagado: "#5E5A52"
   cagp-rubro: "#9E2424"
-  ink: "#16181d"
-  paper: "#f4f5f7"
-  card-white: "#ffffff"
-  muted-fog: "#e5e7ec"
-  content-secondary: "#4a4e58"
-  content-muted: "#5d626e"
-  success: "#15803D"
+  success: "#166534"
   success-tint: "#DCFCE7"
-  warning: "#B45309"
+  warning: "#92400E"
   warning-tint: "#FEF3C7"
-  destructive: "#DC2626"
+  destructive: "#B91C1C"
   destructive-tint: "#FEE2E2"
   info: "#005A9C"
   info-tint: "#DBEAFE"
@@ -32,17 +33,18 @@ typography:
     fontSize: "2.25rem"
     fontWeight: 700
     lineHeight: 1.05
-    letterSpacing: "0.01em"
+    letterSpacing: "0.03em"
   display-sm:
     fontFamily: "'Poppins', sans-serif"
     fontSize: "1.75rem"
     fontWeight: 700
     lineHeight: 1.05
+    letterSpacing: "0.02em"
   headline:
     fontFamily: "'Poppins', sans-serif"
     fontSize: "1.5rem"
     fontWeight: 700
-    lineHeight: 1.15
+    lineHeight: 1.2
   title:
     fontFamily: "'Poppins', sans-serif"
     fontSize: "1.125rem"
@@ -58,27 +60,35 @@ typography:
     fontSize: "0.875rem"
     fontWeight: 400
     lineHeight: 1.5
-  accent:
-    fontFamily: "'Permanent Marker', cursive"
-    fontSize: "1.25rem"
-    fontWeight: 400
-    lineHeight: 1
   label:
-    fontFamily: "'Space Mono', monospace"
+    fontFamily: "'Poppins', sans-serif"
     fontSize: "0.75rem"
     fontWeight: 700
     lineHeight: 1.2
-    letterSpacing: "0.05em"
+    letterSpacing: "0.04em"
+    fontFeature: "'tnum' 1"
+  numeral:
+    fontFamily: "'Poppins', sans-serif"
+    fontSize: "2.5rem"
+    fontWeight: 700
+    lineHeight: 1
+    fontFeature: "'tnum' 1"
   button:
     fontFamily: "'Poppins', sans-serif"
     fontSize: "0.875rem"
     fontWeight: 700
     lineHeight: 1
-    letterSpacing: "0.025em"
+    letterSpacing: "0.03em"
+  accent:
+    fontFamily: "'Permanent Marker', cursive"
+    fontSize: "1.25rem"
+    fontWeight: 400
+    lineHeight: 1
 rounded:
   sm: "6px"
   md: "8px"
   lg: "12px"
+  xl: "16px"
   full: "9999px"
 spacing:
   1: "4px"
@@ -91,84 +101,93 @@ spacing:
   10: "40px"
   12: "48px"
   16: "64px"
+  20: "80px"
 components:
   button-primary:
     backgroundColor: "{colors.semente-purple}"
-    textColor: "{colors.card-white}"
+    textColor: "{colors.branco}"
     typography: "{typography.button}"
     rounded: "{rounded.lg}"
-    padding: "10px 20px"
+    padding: "12px 20px"
     height: "44px"
   button-primary-hover:
     backgroundColor: "{colors.semente-purple-hover}"
-    textColor: "{colors.card-white}"
+    textColor: "{colors.branco}"
   button-accent:
     backgroundColor: "{colors.germinar-orange}"
-    textColor: "{colors.ink}"
+    textColor: "{colors.grafite}"
     typography: "{typography.button}"
     rounded: "{rounded.lg}"
-    padding: "10px 20px"
+    padding: "12px 20px"
     height: "44px"
   button-accent-hover:
     backgroundColor: "{colors.germinar-orange-hover}"
-    textColor: "{colors.ink}"
+    textColor: "{colors.grafite}"
   button-secondary:
     backgroundColor: "{colors.petroleo-teal}"
-    textColor: "{colors.card-white}"
+    textColor: "{colors.branco}"
     typography: "{typography.button}"
     rounded: "{rounded.lg}"
-    padding: "10px 20px"
+    padding: "12px 20px"
     height: "44px"
   button-outline:
-    backgroundColor: "{colors.card-white}"
-    textColor: "{colors.ink}"
+    backgroundColor: "{colors.branco}"
+    textColor: "{colors.grafite}"
     typography: "{typography.button}"
     rounded: "{rounded.lg}"
-    padding: "10px 20px"
+    padding: "12px 20px"
     height: "44px"
   button-outline-hover:
-    backgroundColor: "{colors.muted-fog}"
-    textColor: "{colors.ink}"
+    backgroundColor: "{colors.areia-funda}"
+    textColor: "{colors.grafite}"
   card-ficha:
-    backgroundColor: "{colors.card-white}"
-    textColor: "{colors.ink}"
+    backgroundColor: "{colors.branco}"
+    textColor: "{colors.grafite}"
     rounded: "{rounded.lg}"
-    padding: "16px"
+    padding: "20px"
   card-cartaz:
     backgroundColor: "{colors.semente-purple}"
-    textColor: "{colors.card-white}"
-    rounded: "{rounded.lg}"
-    padding: "24px"
+    textColor: "{colors.branco}"
+    rounded: "{rounded.xl}"
+    padding: "32px"
+  band-cartaz:
+    backgroundColor: "{colors.semente-purple}"
+    textColor: "{colors.branco}"
+    padding: "48px 16px"
+  band-petroleo:
+    backgroundColor: "{colors.petroleo-teal}"
+    textColor: "{colors.branco}"
+    padding: "48px 16px"
   block-papel:
-    backgroundColor: "{colors.paper}"
-    textColor: "{colors.ink}"
+    backgroundColor: "{colors.areia}"
+    textColor: "{colors.grafite}"
     typography: "{typography.body}"
     padding: "0px"
     width: "68ch"
   page-head:
-    backgroundColor: "{colors.card-white}"
-    textColor: "{colors.ink}"
+    backgroundColor: "{colors.branco}"
+    textColor: "{colors.grafite}"
     rounded: "{rounded.lg}"
-    padding: "16px"
+    padding: "20px"
   input:
-    backgroundColor: "{colors.card-white}"
-    textColor: "{colors.ink}"
+    backgroundColor: "{colors.branco}"
+    textColor: "{colors.grafite}"
     typography: "{typography.body}"
     rounded: "{rounded.lg}"
     padding: "10px 14px"
     height: "48px"
   badge:
     backgroundColor: "{colors.semente-purple}"
-    textColor: "{colors.card-white}"
+    textColor: "{colors.branco}"
     typography: "{typography.label}"
     rounded: "{rounded.md}"
-    padding: "3px 8px"
+    padding: "4px 8px"
   badge-outline:
-    backgroundColor: "{colors.card-white}"
-    textColor: "{colors.ink}"
+    backgroundColor: "{colors.branco}"
+    textColor: "{colors.grafite}"
     typography: "{typography.label}"
     rounded: "{rounded.md}"
-    padding: "3px 8px"
+    padding: "4px 8px"
   stamp-deferido:
     backgroundColor: "{colors.success-tint}"
     textColor: "{colors.success}"
@@ -189,18 +208,18 @@ components:
     padding: "4px 10px"
   sticker-simulado:
     backgroundColor: "{colors.warning-tint}"
-    textColor: "{colors.ink}"
+    textColor: "{colors.grafite}"
     typography: "{typography.label}"
     rounded: "{rounded.sm}"
-    padding: "3px 8px"
+    padding: "4px 8px"
   semente-signature:
     backgroundColor: "{colors.semente-purple-tint}"
-    textColor: "{colors.ink}"
+    textColor: "{colors.grafite}"
     rounded: "{rounded.lg}"
-    padding: "16px"
+    padding: "20px"
   bottom-nav:
-    backgroundColor: "{colors.card-white}"
-    textColor: "{colors.ink}"
+    backgroundColor: "{colors.branco}"
+    textColor: "{colors.grafite}"
     height: "64px"
 ---
 
@@ -208,290 +227,322 @@ components:
 
 ## Overview
 
-**Creative North Star: "Balcão Neoburocrata"**
+**Creative North Star: "O Balcão que Germina"**
 
-O site é o balcão que a UFMG nunca teve: você chega com pressa, depois do trabalho, e sai com o passo, o formulário e o contato na mão. A linguagem continua neobrutalista (tinta preta, contorno grosso, sombra dura, cor chapada, carimbo), mas agora o brutalismo **é hierarquia, não volume constante**. Cartaz de campanha grita; ficha de protocolo organiza; papel de leitura se cala. Quando tudo grita, o estudante não acha o passo, e a campanha perde a prova.
+O site é o balcão que a UFMG nunca teve, montado pela identidade da Chapa Semente. Você chega com pressa, depois do trabalho, e sai com o passo, o formulário e o contato na mão; cada trâmite resolvido é uma semente que germina. O lema da chapa é a regra de composição: **toda mudança começa pequena**. Um passo por vez, um destaque por tela, uma ação clara.
 
-O sistema bebe de duas fontes. Do **Neobrutalism.com** vem a disciplina: uma única sombra por nível, o clique que afunda exatamente na sombra, poucos tokens, cor principal única por superfície. Do **BoldKit** vêm os gestos de assinatura (sticker, carimbo, layered card, marquee, shapes, motion "snap" e "stamp") reservados aos momentos que merecem voz: campanha, conquista, trâmite concluído. As duas bibliotecas estão em `_referencias/design-system/` e o código vendorizado em `src/components/ui/` e `src/components/boldkit/`. Usamos o comportamento e a estrutura delas, nunca as paletas (neon, clash, azul do neobrutalism.com).
+A linguagem é um **neobrutalismo sóbrio**: o manual pede "clareza visual e elegância sóbria", blocos chapados e respiro generoso; o neobrutalismo dá o gesto tátil do balcão (contorno grafite, sombra dura, o botão que afunda como um carimbo). O resultado é menos grito e mais papel bem impresso: contornos de 2px, sombras curtas, muito espaço em areia, cor em grandes blocos nítidos. O volume cresce só onde a campanha fala (o Cartaz), e mesmo ali a voz vem do *color blocking*, das formas orgânicas da folha e da semente e da fotografia real do campus com a base em dithering, nunca de enfeite.
 
-A hierarquia de marca segue fixa: a **Chapa Semente** é a base cromática; o **CAGP** é selo. O modo é exclusivamente claro. Primeiro celular (375px), à noite, com sinal ruim e uma mão.
+O isotipo dá o significado de cada cor, e a interface o respeita. A **semente roxa** é o núcleo: o que sustenta (navegação, ação principal, autoridade). A **folha laranja** é o que brota: destaque, conquista, o número grande, a ideia nova. O **petróleo** é o equilíbrio frio dos dados. A **areia** é o solo e o papel. A **pessoa** do símbolo é o estudante, e entra na tela como fotografia real, em cor, com a base dissolvida em pixels como uma impressão. Os pilares IDEIA · PARTICIPAÇÃO · FUTURO não são decoração: viram laranja, gente e progresso.
+
+As referências estruturais seguem sendo o **Neobrutalism.com** (disciplina: uma sombra por nível, o press exato, poucos tokens) e o **BoldKit** (carimbo, layered card, motion), vendorizados em `src/components/ui/` e `src/components/boldkit/`. Deles vem o comportamento, nunca a paleta nem os enfeites (neon, burst, estrela, escudo). A **Chapa Semente** é a base cromática; o **CAGP** é selo. Modo exclusivamente claro. Primeiro celular (375px), à noite, com sinal ruim e uma mão.
 
 **Key Characteristics:**
-- Três volumes (Cartaz, Ficha, Papel), cada página com um volume dominante e no máximo um momento Cartaz fora da campanha.
-- Contorno ink 3px em contêineres e controles; divisória interna em ink 2px; nunca linha cinza de 1px.
-- Sombra dura sem desfoque, com um tamanho por volume (6px Cartaz, 4px Ficha, 0 Papel); clique afunda exatamente na sombra.
-- Caixa alta só no grito: título de página, botão, badge, rótulo mono. O resto em caixa de frase.
-- Texto de leitura nunca abaixo de 14px; 16px no celular.
+- Fundo de página em Areia (`#F4F2EC`), nunca branco frio nem cinza; grafite (`#1F1F1F`) como única tinta escura.
+- Três volumes: Cartaz (campanha, *color blocking*), Ficha (trâmite), Papel (leitura). Cada página tem um volume dominante.
+- Contorno grafite 2px nas fichas e 3px em controles e peças de Cartaz; sombra dura curta (3px na Ficha, 6px no Cartaz); o clique afunda exatamente na sombra.
+- Poppins Regular e Bold em tudo, com algarismos tabulares para números de protocolo; Permanent Marker só na palavra que precisa de voz.
+- Caixa alta só no grito (título de página, botão, badge, rótulo), sempre com tracking ampliado.
+- Laranja como destaque raro; texto sobre roxo e petróleo sempre branco.
+- Fotografia real em cor original, com a base dissolvida em pixels de dithering translúcidos; duotone roxo só em capas de Cartaz.
 - Campanha como assinatura no fim do trâmite, nunca como pedágio antes dele.
-- Carimbo, selo e passaporte como vocabulário de conquista, sempre com significado de estado.
 
 ## Colors
 
-Paleta de cartaz: três campos chapados da Semente sobre tinta preta e papel frio, com o rubro do CAGP guardado no selo e tintas claras só para estado.
+A paleta oficial do manual, em blocos chapados: três campos de cor da Semente sobre areia e grafite, com o rubro do CAGP guardado no selo e tintas claras só para estado.
 
 ### Primary
-- **Roxo Semente Profundo** (`semente-purple`): autoridade e ação principal. Botão primário, item ativo de navegação, anel de foco, campo do herói Cartaz, badge padrão. Hover em `semente-purple-hover`.
-- **Roxo Lavado** (`semente-purple-tint`): fundo da Assinatura Semente e de destaques de proposta em volume Ficha. Nunca fundo de página inteira.
+- **Roxo Profundo** (`semente-purple`): a semente, núcleo e autoridade. Botão primário, item ativo de navegação, anel de foco, faixas e painéis do Cartaz, títulos de alto impacto, badge padrão. Hover em `semente-purple-hover`.
+- **Roxo Lavado** (`semente-purple-tint`): fundo da Assinatura Semente, do Accordion aberto e de destaques de proposta no volume Ficha. Nunca fundo de página inteira.
 
 ### Secondary
-- **Verde-Petróleo** (`petroleo-teal`): análise e dados. Gráficos, Transparência, barras de progresso de horas, botão secundário.
-- **Petróleo Fundo** (`petroleo-deep`): o petróleo que lê. Texto e ícone petróleo sobre fundo claro (substitui os 93 `#134E4A` soltos no código).
+- **Verde-Petróleo** (`petroleo-teal`): equilíbrio frio e sobriedade. Blocos de dados, infográficos, Transparência, progresso das 600h, aba ativa, botão secundário, faixas analíticas do Cartaz. Lê bem como texto sobre areia (6.2:1).
+- **Petróleo Escuro** (`petroleo-deep`): hover do petróleo e texto petróleo pequeno onde se quer mais peso.
 - **Petróleo Lavado** (`petroleo-tint`): fundo de bloco de dados e de "dica prática".
 
 ### Tertiary
-- **Laranja Germinar** (`germinar-orange`): energia de chamada. Um CTA de destaque por tela, números-herói, shapes de campanha, sticker. Sempre com texto `ink`. Hover em `germinar-orange-hover`.
-- **Laranja Contraste** (`orange-text`): a única forma de laranja em texto pequeno sobre claro.
+- **Laranja Vibrante** (`germinar-orange`): a folha, o que brota. Um CTA de destaque por tela, números de grande porte, formas orgânicas, badges de chamada, a conquista. Sempre com texto grafite por cima (6.9:1). Hover em `germinar-orange-hover`.
+- **Laranja Lavado** (`germinar-tint`): fundo de destaque leve para conquista ou novidade (texto em `orange-text` ou grafite).
+- **Laranja Contraste** (`orange-text`): obrigatório para texto pequeno e legenda alaranjados sobre fundo claro (4.8:1 sobre areia).
 
 ### Neutral
-- **Tinta Grafite** (`ink`): texto, todos os contornos, todas as sombras. É o único preto do sistema.
-- **Papel Frio** (`paper`): fundo da página e do volume Papel.
-- **Branco Ficha** (`card-white`): fichas, inputs, popovers, sheets, barra inferior.
-- **Névoa** (`muted-fog`): trilhos de progresso, hover de outline, fundo de abas inativas, skeleton.
-- **Texto Secundário** (`content-secondary`): descrições e subtítulos. **Texto Apagado** (`content-muted`): metadados e datas.
+- **Areia / Papel Natural** (`areia`): fundo oficial da página e do volume Papel; o "solo" do sistema.
+- **Areia Funda** (`areia-funda`): trilhos de progresso, hover de outline, fundo da barra de abas, sub-blocos dentro de fichas, skeleton.
+- **Branco Puro** (`branco`): fichas, inputs, popovers, sheets, barra inferior; texto sobre roxo e petróleo.
+- **Preto Grafite** (`grafite`): texto, todos os contornos, todas as sombras, carimbos. É a única tinta escura (14.7:1 sobre areia).
+- **Grafite Secundário** (`grafite-secundario`): subtítulos e descrições (8.3:1). **Grafite Apagado** (`grafite-apagado`): metadados e datas (6.1:1). Ambos quentes, derivados do grafite; nunca cinza azulado.
 
 ### Institutional seal
-- **Rubro CAGP** (`cagp-rubro`): somente o selo CAGP e contextos estritamente institucionais (atalho SIGA). Não é cor de eixo, botão, badge informativo nem erro.
+- **Rubro CAGP** (`cagp-rubro`): somente o selo CAGP e contextos estritamente institucionais (atalho SIGA). Não é cor de eixo, botão, badge informativo, gráfico nem erro.
 
 ### Status
-- `success`, `warning`, `destructive`, `info` com suas tintas `-tint`: alertas, validação, carimbos (DEFERIDO, PENDENTE, INDEFERIDO, VISTO) e o sticker SIMULADO. A cor forte vai no texto e no ícone; a tinta vai no fundo; o contorno continua `ink`.
+- `success`, `warning`, `destructive`, `info` com tintas `-tint`: cores funcionais, fora da paleta de marca e por isso nunca decorativas. Servem a alerta, validação, carimbos (DEFERIDO, PENDENTE, INDEFERIDO, HOMOLOGADO) e ao sticker SIMULADO. A cor forte vai no texto e no ícone (todas ≥5:1 sobre a própria tinta); a tinta vai no fundo; o contorno continua grafite.
 
 ### Named Rules
-**The Flat Poster Rule.** Toda área de cor é bloco chapado. Zero degradês, zero transparência sobre cor (`bg-primary/10`, `border-border/15`), zero vidro.
+**The Flat Poster Rule.** Toda área de cor é bloco chapado sólido. Zero degradês lineares, radiais ou mesh, zero transparência sobre cor (`bg-primary/10`), zero vidro. Translucidez só na fotografia: o dithering pixelado da base e o duotone roxo de capa (ver Components › Fotografia).
 
-**The One Ink Rule.** Existe um só preto: `ink`. `#0A0A0A`, `#000`, cinzas de borda (`#c8cdd6`) e cremes avulsos (`#f4f0ea`, `#FFFDF9`, `#EFE9E0`) saem; viram `ink`, `paper` ou `card-white`.
+**The Sand Not Gray Rule.** O claro do sistema é quente: areia, areia funda e branco. Cinzas frios (`#f4f5f7`, `#e5e7ec`, `#4a4e58`) e pretos azulados (`#16181d`) saem do código; viram `areia`, `areia-funda`, `grafite-secundario` e `grafite`.
 
-**The Orange Never Reads Rule.** `germinar-orange` nunca é texto de leitura. Laranja em texto pequeno usa `orange-text`; texto sobre laranja usa `ink`.
+**The White On Color Rule.** Sobre roxo e petróleo, todo texto é branco puro (`#FFFFFF`). Sobre laranja, todo texto é grafite. Não existe texto roxo sobre petróleo, laranja sobre roxo nem cinza sobre cor.
 
-**The Rubro Is a Seal Rule.** Rubro só no selo do CAGP. Eixos de navegação não têm cor própria: o eixo ativo veste roxo Semente (os `color` de `navigationRegistry.ts` não pintam interface).
+**The Orange Is The Leaf Rule.** Laranja Vibrante é destaque: linha, caixa, número grande, palavra isolada, forma orgânica. Nunca frase, parágrafo ou texto pequeno; texto pequeno alaranjado usa `orange-text`.
 
-**The One Loud Color Rule.** Cada tela tem no máximo um campo chapado grande (roxo ou laranja). Dois heróis coloridos vizinhos se anulam.
+**The Rubro Is a Seal Rule.** Rubro só no selo do CAGP. Eixos de navegação não têm cor própria: o eixo ativo veste roxo (os `color` de `navigationRegistry.ts` não pintam interface).
+
+**The One Loud Color Rule.** Cada tela tem no máximo um campo chapado grande de cor quente ou roxa. Roxo e petróleo podem dividir uma composição em blocos nítidos (o *color blocking* do manual), mas laranja nunca é campo de fundo grande.
 
 ## Typography
 
-**Display & Body Font:** Poppins, apenas Regular (400) e Bold (700), como autoriza o manual.
-**Accent Font:** Permanent Marker (400), substituta da Cinema Outfit; token `--font-accent`.
-**Label/Mono Font:** Space Mono (400/700) para protocolo: códigos, horas, datas, prazos, valores.
+**Família única:** Poppins, apenas Regular (400) e Bold (700), como autoriza o manual (§5.2).
+**Destaque:** Permanent Marker Regular (400), tipografia secundária oficial do manual (§5.3); token `--font-accent`.
+**Números de protocolo:** Poppins com algarismos tabulares (`font-variant-numeric: tabular-nums`). Space Mono sai do sistema: o manual só autoriza Poppins e Permanent Marker.
 **Acessibilidade:** OpenDyslexic (400/700) substitui todas as famílias quando o painel é ativado.
 
-**Character:** Poppins Bold em caixa alta é o letreiro do cartaz; Poppins em caixa de frase é a voz do atendente explicando o passo; Space Mono é o número do protocolo; Permanent Marker é a caneta da chapa escrevendo por cima, rara.
+**Character:** Poppins Bold em caixa alta e tracking aberto é o letreiro do cartaz, a voz da assinatura `CHAPA GESTÃO PÚBLICA`. Poppins Regular em caixa de frase é o atendente explicando o passo, com entrelinha folgada. Os números (horas, códigos, prazos) são Poppins Bold tabular: a sensação de protocolo vem do alinhamento, não de uma fonte "técnica". Permanent Marker é a caneta da chapa escrevendo por cima, rara.
 
 ### Hierarchy
-- **Display** (700, `display-sm` 1.75rem no celular → `display` 2.25rem ≥640px, lh 1.05, caixa alta, `text-wrap: balance`): título de página nos volumes Cartaz e Ficha. Um por página.
-- **Headline** (700, 1.25rem → 1.5rem, lh 1.15, caixa de frase): títulos de seção dentro da página ("Como pedir o aproveitamento").
+- **Display** (700, `display-sm` 1.75rem no celular → `display` 2.25rem ≥640px, lh 1.05, caixa alta, tracking 0.02–0.03em, `text-wrap: balance`): título de página. Um por página.
+- **Headline** (700, 1.25rem → 1.5rem, lh 1.2, caixa de frase): títulos de seção ("Como pedir o aproveitamento").
 - **Title** (700, 1.125rem, lh 1.3, caixa de frase): título de ficha, de passo, de item de lista.
-- **Body** (400, 1rem, lh 1.6, `text-wrap: pretty`, máx. 68ch): todo texto de leitura no celular. No desktop pode descer para Body-sm só dentro de fichas densas, nunca no volume Papel.
+- **Body** (400, 1rem, lh 1.6, `text-wrap: pretty`, máx. 68ch): todo texto de leitura. No desktop pode descer para Body-sm só dentro de fichas densas, nunca no volume Papel.
 - **Body-sm** (400, 0.875rem, lh 1.5): descrição de ficha, legenda, metadado em prosa. Piso absoluto de texto corrido.
-- **Label** (Space Mono 700, 0.75rem, tracking 0.05em, caixa alta, `tabular-nums`): código (DCP 135), horas, datas, prazos, chips de status, carimbos, direção do JourneyNav. Única família autorizada a 12px. Nunca como "eyebrow" acima de título: o título fala sozinho.
-- **Button** (Poppins 700, 0.875rem, tracking 0.025em, caixa alta): botões e abas.
-- **Accent** (Permanent Marker 400, ≥1.25rem, até 4 palavras, `normal-case tracking-normal`): no máximo um por tela, e só em volume Cartaz (herói, painel da chapa, rodapé com o lema, numeral de erro). Nunca em navegação, botão, rótulo, carimbo, dado, prazo, nome de pessoa ou texto < 20px.
+- **Label** (700, 0.75rem, caixa alta, tracking 0.04em, tabular): códigos (DCP 135), horas, datas, prazos, badges, chips de status, carimbos, direção do JourneyNav. Só aparece em caixa alta e curto (até ~5 palavras); nunca como eyebrow acima de título.
+- **Numeral** (700, 2.5rem+, lh 1, tabular): número de grande porte (horas integralizadas, contagem, prazo em dias). É o lugar natural do laranja (folha) ou do roxo.
+- **Button** (700, 0.875rem, caixa alta, tracking 0.03em): botões e abas.
+- **Accent** (Permanent Marker 400, ≥1.25rem, até 4 palavras, `normal-case tracking-normal`): uma vez por tela, só no volume Cartaz (herói, painel da chapa, lema no rodapé, numeral de erro). Nunca em navegação, botão, rótulo, carimbo, dado, prazo, nome de pessoa, lista ou texto < 20px.
 
 ### Named Rules
-**The Shout Only Rule.** Caixa alta é grito e só serve a quatro coisas: título de página (Display), botão, badge e rótulo mono. Headline e Title são caixa de frase. Parágrafo em caixa alta é proibido.
+**The Shout Only Rule.** Caixa alta é grito e só serve a quatro coisas: título de página, botão, badge/rótulo e carimbo. Sempre com tracking ampliado (+20 a +40, ou 0.02–0.04em). Headline e Title são caixa de frase. Parágrafo em caixa alta é proibido.
 
-**The 14px Floor Rule.** Nada que se lê como frase fica abaixo de 14px (0.875rem); no celular, texto de leitura é 16px. `text-[9px]`, `text-[10px]`, `text-[11px]` saem do código; 12px só existe em Space Mono rotulando algo.
+**The Two Faces Rule.** Só Poppins e Permanent Marker. Nenhuma terceira família (Space Mono, Inter, system-ui) entra por gosto; números ganham caráter pelo `tabular-nums` e pelo peso, não por outra fonte.
 
-**The Two Weights Rule.** Só 400 e 700. `font-medium`, `font-semibold`, `font-extrabold` e `font-black` não existem nesta marca; hierarquia vem de tamanho, caixa e cor, não de peso intermediário.
+**The 14px Floor Rule.** Nada que se lê como frase fica abaixo de 14px; no celular, texto de leitura é 16px. 12px existe só no Label (caixa alta, Bold, curto).
 
-**The Protocol Mono Rule.** Código de disciplina, carga horária, data, prazo, número de resolução e valor monetário vão em Space Mono tabular.
+**The Two Weights Rule.** Só 400 e 700. `font-medium`, `font-semibold`, `font-extrabold` e `font-black` não existem nesta marca.
 
-**The Wordmark Is an Asset Rule.** SEMENTE e CAGP nunca são redigitados; sempre os arquivos de `public/logos/` (policromático sobre claro, `-branco` sobre roxo; sem rotação, filtro ou sombra).
+**The Wordmark Is an Asset Rule.** SEMENTE e CAGP nunca são redigitados nem imitados com fonte; sempre os arquivos de `public/logos/`.
 
 ## Layout
 
 ### Volumes
 Cada página declara um volume dominante (ligado ao `mode` do `BaseLayout`):
 
-| Volume | Modo | Onde | Contêiner | Decoração |
+| Volume | Modo | Onde | Contêiner | Expressão |
 |---|---|---|---|---|
-| **Cartaz** | Persuade / Experience | Home (herói), /chapa-semente, Carta-Proposta, 404 | Campo chapado roxo ou laranja, sombra 6px | Sticker, shapes BoldKit, marquee, accent, layered card |
-| **Ficha** | Operate | Guias de trâmite, ferramentas, hubs de eixo, catálogos | Fichas brancas 3px + sombra 4px sobre `paper` | Nenhuma; só ícones funcionais e carimbos de estado |
-| **Papel** | Read | Normas, FAQ, história, textos longos dentro de guias | Sem caixa: texto direto no `paper`, coluna de 68ch | Nenhuma; separação por espaço e régua ink 2px |
+| **Cartaz** | Persuade / Experience | Home (herói), /chapa-semente, Carta-Proposta, 404 | Faixas de cor de ponta a ponta (roxo, petróleo) em divisões nítidas sobre areia; painéis-vitrine com contorno 3px e sombra 6px | Formas orgânicas (folha, semente, semicírculo), fotografia com faixa de dithering (duotone roxo na capa), numeral laranja, Permanent Marker |
+| **Ficha** | Operate | Guias de trâmite, ferramentas, hubs de eixo, catálogos | Fichas brancas, contorno 2px e sombra 3px, sobre areia | Nenhuma; só ícones funcionais e carimbos de estado |
+| **Papel** | Read | Normas, FAQ, história, textos longos dentro de guias | Sem caixa: texto direto na areia, coluna de 68ch | Nenhuma; separação por espaço e régua grafite 2px |
 
-Uma página Ficha pode conter blocos Papel (o texto da norma dentro do guia) e no máximo **um** momento Cartaz (por exemplo, o resultado de um simulador com carimbo DEFERIDO). Volume Cartaz nunca aparece dentro de volume Papel.
+Uma página Ficha pode conter blocos Papel e no máximo **um** momento Cartaz (o resultado de um simulador com carimbo). Cartaz nunca aparece dentro de Papel.
 
 ### Grade e ritmo
-- Base de 4px. Dentro de uma ficha: 12–16px. Entre fichas irmãs: 16px no celular, 24px no desktop. Entre seções: 40px no celular, 48–64px no desktop. O ritmo vem da diferença entre esses três degraus; nada de `space-y-6` uniforme na página inteira.
-- Contêiner: 1440px (1600px em 2xl), gutter 16px no celular e 24px ≥640px. Páginas Ficha de guia limitam a coluna principal a 72rem; volume Papel a 68ch.
-- Desktop ≥1024px em guias: coluna principal + trilho lateral direito (sumário de passos / "nesta página" / contatos do trâmite), sticky.
-- Sem rolagem horizontal (`overflow-x: clip`). Tabelas largas viram lista de fichas no celular.
+- Base de 4px, com respiro generoso (manual §10.2: *generous whitespace and margins*). Dentro de uma ficha: 16–20px. Entre fichas irmãs: 20px no celular, 24px no desktop. Entre seções: 48px no celular, 64–80px no desktop. O ritmo vem da diferença entre os degraus; nada de espaçamento uniforme na página inteira.
+- Contêiner: 1440px (1600px em 2xl), gutter 16px no celular e 24px ≥640px. Guias limitam a coluna principal a 72rem; Papel a 68ch.
+- **Color blocking (Cartaz):** a composição se divide em blocos horizontais ou verticais nítidos entre areia, roxo e petróleo, de ponta a ponta do contêiner, sem contorno nem sombra entre eles. A divisa pode ser reta ou uma curva orgânica (semicírculo, arco da folha), nunca diagonal ou serrilhada.
+- **Zona de proteção dos logos:** livre ao redor do símbolo e da assinatura, no mínimo a largura do núcleo da semente (≈ 1/5 da altura do símbolo; na prática ≥ 12px num símbolo de 64px). Logo nunca encosta na borda da tela, do cartão ou da faixa.
+- Desktop ≥1024px em guias: coluna principal + trilho lateral direito (sumário de passos, contatos), sticky.
+- Sem rolagem horizontal. Tabelas largas viram lista de fichas no celular.
 - A raiz aceita 93.75 / 100 / 112.5 / 125% pelo painel de acessibilidade; tudo em rem.
 
 ### Shell
-- **Celular (<768px):** cabeçalho compacto de 56px (menu, eixo atual com voltar, busca, perfil) + barra inferior fixa de 64px com os 5 eixos. `padding-bottom` do corpo reserva barra + safe-area.
-- **Desktop (≥768px):** trilho lateral de ícones com os eixos, cabeçalho com busca (atalho ⌘K) e perfil; barra inferior some.
-- **Faixa de campanha:** banner roxo com marquee no topo, colapsa para 24px ao rolar. Aparece no volume Cartaz e na home; nas páginas Ficha e Papel fica colapsada desde o início.
+- **Celular (<768px):** cabeçalho compacto de 56px (menu, eixo atual com voltar, busca, perfil) + barra inferior fixa de 64px com os 5 eixos.
+- **Desktop (≥768px):** trilho lateral de ícones com os eixos, cabeçalho com busca (⌘K) e perfil; barra inferior some.
+- **Faixa de campanha:** roxo chapado com texto branco e marquee no topo; aparece aberta no volume Cartaz e colapsada desde o início em Ficha e Papel.
 - **Eixos:** Hoje, Acolhimento, Trajetória 600h, Carreira, O CAGP (`navigationRegistry.ts`).
 
 ### Arquétipos de página
 Toda página nova escolhe um destes; não se inventa estrutura por página.
 
-1. **Hub de eixo** (`/curso`, `/percurso`, `/carreira`, `/transparencia`; volume Ficha). Cabeça de página → "Resolva agora" (3–6 fichas-ação: verbo + resultado, ex. "Pedir aproveitamento do Art. 41") → lista completa do eixo como itens (`Item`) → assinatura Semente.
-2. **Guia de trâmite** (`/estagio`, `/acg`, `/tcc`, `/permanencia`, `/documentos`; Ficha + Papel). Cabeça de página → abas (máx. 4) → em cada aba: **resumo de 3 linhas** ("o que é · quem pode · prazo") → **passo a passo** numerado (Stepper/Timeline) com formulário e contato no próprio passo → base normativa (Papel, recolhível) → assinatura Semente → JourneyNav.
-3. **Ferramenta** (calculadora 600h, simulador Art. 41, Passaporte; Ficha). Entrada à esquerda/em cima, resultado à direita/embaixo; resultado ganha o único momento Cartaz da página (carimbo + número-herói em mono). Estado salvo localmente é dito na tela.
-4. **Catálogo** (`/optativas`, `/cursos`, `/documentos`, `/noticias`; Ficha). Busca + filtros em chips no topo, contagem em mono, lista de itens; detalhe abre em Drawer no celular e Sheet lateral no desktop. Conteúdo simulado leva o sticker SIMULADO no item e o `SIMULATION_NOTICE` no topo.
-5. **Leitura** (normas, `/faq`, história, `/sobre`; Papel). Título, sumário, texto em 68ch, Accordion para perguntas (aberto em `semente-purple-tint`), citação normativa como bloco `paper` com contorno ink 2px e rótulo mono da fonte ("ART. 15, § 4º") acima do texto. Nunca faixa colorida lateral.
-6. **Campanha** (home herói, `/chapa-semente`, Carta-Proposta; Cartaz). Liberdade BoldKit completa, mas cada bloco ainda aponta para uma função real do site (a prova, não o discurso).
-7. **Erro e vazio** (404, offline, lista vazia). Empty state com uma frase do que aconteceu, uma ação e um link; o 404 pode ser Cartaz.
+1. **Hub de eixo** (`/curso`, `/percurso`, `/carreira`, `/transparencia`; Ficha). Cabeça de página → "Resolva agora" (3–6 fichas-ação: verbo + resultado) → lista completa do eixo como itens → Assinatura Semente.
+2. **Guia de trâmite** (`/estagio`, `/acg`, `/tcc`, `/permanencia`, `/documentos`; Ficha + Papel). Cabeça de página → abas (máx. 4) → em cada aba: resumo de 3 linhas ("o que é · quem pode · prazo") → passo a passo numerado com formulário e contato no próprio passo → base normativa (Papel, recolhível) → Assinatura Semente → JourneyNav.
+3. **Ferramenta** (calculadora 600h, simulador Art. 41, Passaporte; Ficha). Entrada em cima/à esquerda, resultado embaixo/à direita; o resultado ganha o único momento Cartaz da página (carimbo + numeral). Estado salvo localmente é dito na tela.
+4. **Catálogo** (`/optativas`, `/cursos`, `/documentos`, `/noticias`; Ficha). Busca + filtros em chips, contagem tabular, lista de itens; detalhe em Drawer no celular e Sheet no desktop. Conteúdo simulado leva o sticker SIMULADO no item e o `SIMULATION_NOTICE` no topo.
+5. **Leitura** (normas, `/faq`, história, `/sobre`; Papel). Título, sumário, texto em 68ch, Accordion para perguntas, citação normativa como bloco branco com contorno grafite 2px e rótulo da fonte ("ART. 15, § 4º") acima. Nunca faixa colorida lateral.
+6. **Campanha** (home herói, `/chapa-semente`, Carta-Proposta; Cartaz). Color blocking roxo/petróleo sobre areia, formas orgânicas, fotografia real dos 11 integrantes e do campus, numeral laranja, o lema em Permanent Marker. Cada bloco aponta para uma função real do site (a prova, não o discurso).
+7. **Erro e vazio** (404, offline, lista vazia). Uma frase do que aconteceu, uma ação e um link; o 404 pode ser Cartaz com o símbolo isolado.
 
 ### Named Rules
-**The Content-First Rule.** No celular (375×812), a primeira informação útil (o primeiro passo, o resultado, o primeiro item) começa dentro dos primeiros 480px. Cabeçalho do app + cabeça de página + abas somam no máximo ~300px.
+**The Small Change Rule.** "Toda mudança começa pequena": uma ação principal por bloco, um destaque laranja por tela, um passo de cada vez. Se a tela tem duas coisas pedindo atenção igual, uma delas sai.
+
+**The Content-First Rule.** No celular (375×812), a primeira informação útil começa dentro dos primeiros 480px. Cabeçalho do app + cabeça de página + abas somam no máximo ~300px.
 
 **The Chrome Budget Rule.** Acima do conteúdo, só três camadas: cabeçalho do app, cabeça de página, abas. Barra de "voltar" separada, faixa tricolor, badges em série e faixa de campanha não entram nessa pilha.
 
-**The Signature at the End Rule.** A campanha entra depois que o estudante foi atendido: Assinatura Semente no fim do guia, antes do JourneyNav. Nunca entre o título e o primeiro passo.
+**The Signature at the End Rule.** A campanha entra depois que o estudante foi atendido: Assinatura Semente no fim do guia, antes do JourneyNav.
 
-**The One Float Rule.** Acima da barra inferior cabe no máximo um elemento flutuante por vez (instalar app *ou* voltar ao topo *ou* toast). Nada flutuante cobre conteúdo nem rótulos da barra.
+**The One Float Rule.** Acima da barra inferior cabe no máximo um elemento flutuante por vez.
 
 ## Elevation & Depth
 
-Profundidade é física e estrutural: papel colado sobre papel. Sombra dura em `ink`, para baixo e à direita, sem desfoque. A lição do Neobrutalism.com é que **cada nível tem uma sombra só**, e interação é deslocamento: o elemento se move exatamente o tamanho da sombra ao ser pressionado, sem crescer, brilhar ou mudar de cor de sombra.
+Profundidade é física e curta: papel bem impresso colado sobre a areia. Sombra dura em grafite, para baixo e à direita, sem desfoque, e **mais curta do que o neobrutalismo de catálogo**, para manter a sobriedade do manual. Interação é deslocamento: o elemento afunda exatamente o tamanho da sombra, como um carimbo pressionado.
 
 ### Shadow Vocabulary
-- **Hairline** (`1px 1px 0 0 ink`): ícone dentro de pílula, microchip.
-- **Chip** (`2px 2px 0 0 ink`): badge, carimbo, sticker, input em repouso, botão compacto.
-- **Ficha** (`4px 4px 0 0 ink`): botão em repouso, ficha, input em foco, sheet, popover. A sombra padrão do sistema.
-- **Cartaz** (`6px 6px 0 0 ink`): herói, painel da chapa, ficha-resultado de ferramenta. Ficha interativa sobe de 4px para 6px no hover.
-- **Palco** (`10px 10px 0 1px ink`): raríssimo; só peças de vitrine em volume Cartaz (passaporte aberto, carta-proposta).
+- **Chip** (`2px 2px 0 0 grafite`): badge, carimbo, input em repouso, botão compacto, pílula ativa da navegação.
+- **Ficha** (`3px 3px 0 0 grafite`): botão em repouso, ficha, input em foco, sheet, popover. A sombra padrão do sistema.
+- **Cartaz** (`6px 6px 0 0 grafite`): painéis-vitrine do Cartaz (painel da chapa, carta-proposta, ficha-resultado de ferramenta). Ficha interativa sobe de 3px para 5px no hover.
+- Faixas de *color blocking* não têm sombra nem contorno: a profundidade delas é o próprio contraste de cor.
 
 ### Named Rules
-**The One Shadow Per Volume Rule.** Papel = 0, Ficha = 4px, Cartaz = 6px. Uma ficha dentro de outra ficha não tem sombra; ganha só contorno 2px ou fundo `muted-fog`. Sombra empilhada em três níveis é proibida.
+**The One Shadow Per Volume Rule.** Papel = 0, Ficha = 3px, Cartaz = 6px (só em painéis, nunca em faixas). Ficha dentro de ficha não tem sombra; ganha fundo `areia-funda` ou `petroleo-tint`.
 
-**The Press-Into-Shadow Rule.** Hover: translate −1px e sombra +2px (o objeto se ergue). Active: translate igual à sombra e sombra 0 (afunda). Duração 150ms com `--bk-ease-snap`. Nunca glow, blur ou escala.
+**The Press-Into-Shadow Rule.** Hover: translate −1px e sombra +2px. Active: translate igual à sombra e sombra 0. 150ms com `--ease-snap`. Nunca glow, blur ou escala.
 
-**The Opaque Paper Rule.** `backdrop-filter` e `backdrop-blur` são anulados; `bg-background/95` vira `bg-background`. Toda superfície é opaca.
+**The No Shadow On Brand Rule.** Logo, símbolo, wordmark e fotografias nunca recebem sombra, contorno brilhante, chanfro ou efeito 3D (manual, Regra 03). A sombra é da ficha que os contém, não do asset.
+
+**The Opaque Paper Rule.** `backdrop-filter` é anulado; toda superfície é opaca.
 
 ## Shapes
 
-Retângulos firmes com cantos suavizados, coerentes com o lettering da marca ("cantos sutilmente arredondados"). **12px** em fichas, botões, inputs, sheets; **8px** em badges, carimbos, botões compactos e itens dentro de fichas; **6px** em stickers; **pílula** só em indicadores (ponto de status, pílula do eixo ativo, trilho de progresso).
+Retângulos firmes com cantos **sutilmente arredondados**, como o lettering do wordmark (manual §5.1): **12px** em fichas, botões, inputs e sheets; **16px** em painéis do Cartaz; **8px** em badges, carimbos e botões compactos; **6px** no sticker SIMULADO; **pílula** só em indicadores (status, eixo ativo, trilho de progresso).
 
-Contorno: **3px ink** em todo contêiner e controle; **2px ink** em divisórias internas, contorno de item aninhado e modo alto contraste. Linha de 1px cinza não existe.
+Contorno grafite: **2px** em fichas, divisórias internas, itens aninhados, badges e carimbos; **3px** em controles interativos (botão, input, aba ativa) e painéis do Cartaz. Linha cinza de 1px não existe.
 
-Rotação é exclusiva de sticker e carimbo (entre −2° e +2°); nada de conteúdo rotacionado. Formas orgânicas (folha, semente) e shapes BoldKit (burst, star, shield) são decoração chapada em laranja/roxo, só no volume Cartaz, nunca atrás de texto e nunca como contêiner.
+**Formas orgânicas** (manual §7.1) são a única decoração do sistema: o arco da folha, a gota da semente, o semicírculo, recortes curvilíneos e traços fluidos. Servem de máscara para fotografia, divisor de seção entre blocos de cor e elemento de apoio no fundo do Cartaz, sempre chapadas em laranja, roxo ou petróleo, sempre desenhadas como SVG com a geometria do símbolo (nunca círculo genérico aproximando silhueta). Shapes BoldKit (burst, estrela, escudo), stickers decorativos e rotação de conteúdo não pertencem à marca. Rotação só em carimbo (−2° a +2°).
 
 ## Components
 
-Mapa de origem: cada primitivo já está vendorizado em `src/components/ui/`. A coluna "Referência" indica de qual biblioteca vem o comportamento a seguir quando houver dúvida.
+Mapa de origem: cada primitivo está vendorizado em `src/components/ui/`. A coluna "Referência" indica de qual biblioteca vem o comportamento.
 
 | Componente | Referência | Volumes | Regra local |
 |---|---|---|---|
 | Button, Button Group | neobrutalism.com | todos | press-into-shadow exato |
-| Badge | BoldKit | Ficha, Cartaz | máx. 1 na cabeça de página no celular |
+| Badge | BoldKit | Ficha, Cartaz | Label Poppins; máx. 1 na cabeça de página no celular |
 | Card | BoldKit | Ficha, Cartaz | `card-ficha` ou `card-cartaz`, nada intermediário |
 | Item | neobrutalism.com | Ficha | linha de lista de trâmite/documento |
 | Layered Card | BoldKit | Cartaz | só vitrine (passaporte, carta) |
-| Sticker, Stamp | BoldKit | todos | só com significado de estado |
+| Stamp | BoldKit | todos | só com significado de estado |
 | Tabs / SegmentedControl | neobrutalism.com | Ficha | máx. 4 abas, rolagem horizontal no celular |
 | Stepper, Timeline | BoldKit | Ficha | o passo a passo dos trâmites |
 | Accordion, Collapsible | neobrutalism.com | Papel | FAQ, base normativa |
 | Alert | BoldKit | Ficha, Papel | prazos e avisos, com ícone e tinta de status |
 | Input, Field, Input Group, Textarea | neobrutalism.com | Ficha | label sempre visível |
-| Native Select | neobrutalism.com | Ficha | preferido no celular ao Select Radix |
+| Native Select | neobrutalism.com | Ficha | preferido no celular |
 | Checkbox, Switch | BoldKit | Ficha | checklists do calouro e do formando |
-| Progress, Stat Card | BoldKit | Ficha | horas 600h, em petróleo + mono |
+| Progress, Stat Card | BoldKit | Ficha | horas 600h: trilho areia funda, preenchimento petróleo, numeral tabular |
 | Table, Data Table | neobrutalism.com | Ficha | desktop; vira lista de Item no celular |
 | Drawer / Sheet | BoldKit | Ficha | Drawer no celular, Sheet ≥768px |
-| Dialog, Alert Dialog | neobrutalism.com | Ficha | só confirmação destrutiva (apagar cofre) |
+| Dialog, Alert Dialog | neobrutalism.com | Ficha | só confirmação destrutiva |
 | Toast | BoldKit | todos | 1 por vez, acima da barra inferior |
-| Empty, Skeleton | neobrutalism.com | todos | skeleton em `muted-fog`, sem shimmer |
+| Empty, Skeleton | neobrutalism.com | todos | skeleton em `areia-funda`, sem shimmer |
 | Marquee | BoldKit | Cartaz | só a faixa de campanha; 1 por página |
-| Shapes, Canvas effects | BoldKit | Cartaz | decoração; parados sob `prefers-reduced-motion` |
-| Charts | BoldKit | Ficha | Transparência; petróleo, roxo, laranja, névoa |
+| Charts | BoldKit | Ficha | petróleo e roxo como séries principais, laranja como destaque de um ponto, areia funda como grade; nunca rubro |
 | Tour, Questionnaire | BoldKit / neobrutalism.com | Cartaz | tour da chapa e escolha de perfil |
 | Kbd, Command | BoldKit | Ficha | só desktop (busca ⌘K) |
 
-Fora do sistema (não usar em páginas novas): Math Curve *, ASCII Shapes, Rating, Bubble/Message, Pricing, Testimonials (não há depoimentos reais), Logo Cloud com apoios.
+Fora do sistema: Shapes BoldKit (burst, star, shield), Sticker decorativo, Math Curve *, ASCII Shapes, Rating, Pricing, Testimonials e Logo Cloud com apoios (não há dados reais), e os efeitos de canvas que não dialogam com a geometria orgânica da marca.
 
 ### Buttons
-Táteis e confiantes; afundam na própria sombra.
-- **Shape:** 12px; compactos (sm, 36px de altura) em 8px. Altura mínima 44px; 48px para o CTA principal no celular.
-- **Primary:** roxo Semente, texto branco, contorno 3px, sombra Ficha. Uma ação primária por bloco.
-- **Accent:** laranja Germinar, texto ink. O CTA de maior energia, no máximo um por tela (votar, tour, abrir passaporte).
+Táteis e sóbrios; afundam na própria sombra como um carimbo.
+- **Shape:** 12px; compactos (36px de altura) em 8px. Altura mínima 44px; 48px para o CTA principal no celular.
+- **Primary:** roxo, texto branco, contorno grafite 3px, sombra Ficha (3px). Uma ação primária por bloco.
+- **Accent:** laranja, texto grafite. O CTA de maior energia (a folha), no máximo um por tela (votar, tour, abrir passaporte).
 - **Secondary:** petróleo, texto branco; ações analíticas (exportar, simular).
-- **Outline:** branco ficha, texto ink, hover em névoa; ação de apoio.
-- **Ghost / Link:** sem sombra nem contorno em repouso; link é roxo sublinhado com offset 0.22em.
-- **Estados:** hover translate −1px + sombra 6px; active translate 4px + sombra 0; foco outline 2px roxo com offset 2px; desabilitado 50% de opacidade, sem sombra. Rótulo é verbo + objeto ("Baixar o TCE"), nunca "Clique aqui".
+- **Outline:** branco, texto grafite, hover em areia funda; ação de apoio.
+- **Ghost / Link:** sem sombra nem contorno; link é roxo sublinhado com offset 0.22em.
+- **Estados:** hover translate −1px + sombra 5px; active translate 3px + sombra 0; foco outline 2px roxo com offset 2px (laranja sobre campo roxo); desabilitado 50%, sem sombra. Rótulo é verbo + objeto ("Baixar o TCE").
 
 ### Chips / Badges
-- **Style:** Space Mono 700 12px caixa alta, contorno 2px ink, raio 8px, sombra Chip.
-- **Variants:** semente (roxo), accent (laranja), teal, dark (ink), outline, e estados (fundo `-tint`, texto na cor forte). A variante `ufmg` só identifica conteúdo da UFMG.
-- **Filtro:** chip selecionável em catálogos; selecionado = fundo roxo + texto branco + afunda; altura 36px com área de toque de 44px.
+- **Style:** Label (Poppins 700 12px caixa alta, tracking 0.04em, tabular), contorno grafite 2px, raio 8px, sombra Chip.
+- **Variants:** roxo (padrão), laranja (chamada), petróleo (dado/institucional), grafite, outline branco, e estados (fundo `-tint`, texto na cor forte). A variante `ufmg` só identifica conteúdo da UFMG.
+- **Filtro:** chip selecionável em catálogos; selecionado = roxo + texto branco + afunda; área de toque de 44px.
 
 ### Cards / Containers
-- **Ficha** (`card-ficha`): branco, contorno 3px, raio 12px, sombra 4px, padding 16px (20px ≥768px). Título em Title (caixa de frase), descrição em Body-sm, ação no rodapé. Ficha clicável inteira tem um único link e sobe no hover.
-- **Cartaz** (`card-cartaz`): campo roxo (ou laranja com texto ink), sombra 6px, padding 24px; aceita sticker, shape e accent.
-- **Bloco Papel** (`block-papel`): sem caixa; texto em 68ch sobre `paper`; régua ink 2px sob Headline.
-- **Aninhamento:** dentro de uma ficha, sub-blocos usam fundo `muted-fog` ou `petroleo-tint` e contorno 2px, sem sombra.
+- **Ficha** (`card-ficha`): branco, contorno grafite 2px, raio 12px, sombra 3px, padding 20px (24px ≥768px). Título em Title (caixa de frase), descrição em Body-sm, ação no rodapé. Ficha clicável inteira tem um único link e sobe no hover.
+- **Painel Cartaz** (`card-cartaz`): roxo (ou petróleo) com texto branco, contorno 3px, raio 16px, sombra 6px, padding 32px; aceita forma orgânica, fotografia, numeral laranja e accent.
+- **Faixa Cartaz** (`band-cartaz`, `band-petroleo`): bloco de cor de ponta a ponta, sem contorno, sombra nem raio; texto branco; divisa reta ou curva orgânica com a faixa vizinha.
+- **Bloco Papel** (`block-papel`): sem caixa; texto em 68ch sobre areia; régua grafite 2px sob Headline.
+- **Aninhamento:** sub-blocos dentro de uma ficha usam fundo `areia-funda` ou `petroleo-tint`, sem contorno extra e sem sombra.
 
 ### Inputs / Fields
-- **Style:** branco, contorno 3px, raio 12px, altura 48px, sombra Chip; texto 16px no celular (evita zoom do iOS).
-- **Label:** sempre visível acima, Body-sm 700 em caixa de frase; ajuda abaixo em Body-sm `content-secondary`.
+- **Style:** branco, contorno grafite 3px, raio 12px, altura 48px, sombra Chip; texto 16px no celular.
+- **Label:** visível acima, Body-sm 700 em caixa de frase; ajuda abaixo em Body-sm `grafite-secundario`.
 - **Focus:** outline 2px roxo com offset + sombra sobe para Ficha.
 - **Error:** contorno `destructive`, mensagem abaixo com ícone, dizendo como corrigir. **Disabled:** 50%.
 
 ### Navigation
-- **Barra inferior (celular):** 5 eixos em grade, ícone em pílula 44×28, rótulo `mobileLabel` em Poppins 700 12px caixa alta (Hoje · Acolhida · 600h · Carreira · CAGP) que cabe inteiro em 75px; nome completo para leitor de tela. Branca, contorno superior 3px. Ativo: pílula roxa preenchida com ícone branco.
-- **Cabeçalho (celular):** 56px; o rótulo do eixo é também o botão de voltar ao hub (substitui a barra "Voltar ao Hub").
-- **Trilho lateral (desktop):** botões-ícone quadrados 44px com contorno; ativo em roxo; tooltip com o nome do eixo.
-- **Abas** (`SegmentedControl`): barra névoa sticky com contorno 3px; aba ativa em petróleo com texto branco, contorno 2px e sombra Chip; Poppins 700 caixa alta. Rótulo curto (≤18 caracteres) e **sem numeração** ("Simular horas", não "1. Simular horas"). No celular é uma linha rolável com snap; nunca grade 2×2.
-- **JourneyNav:** duas fichas (anterior / próximo) no fim do guia, com título e uma linha.
+- **Barra inferior (celular):** 5 eixos, ícone em pílula 44×28, rótulo `mobileLabel` em Poppins 700 12px caixa alta (Hoje · Acolhida · 600h · Carreira · CAGP) inteiro em 75px; nome completo para leitor de tela. Branca, contorno superior grafite 3px. Ativo: pílula roxa com ícone branco.
+- **Cabeçalho (celular):** 56px, branco; o rótulo do eixo é o botão de voltar ao hub. Perfil como botão-avatar de 44px.
+- **Trilho lateral (desktop):** botões-ícone 44px com contorno; ativo em roxo; tooltip com o nome do eixo.
+- **Abas** (`SegmentedControl`): barra em areia funda, sticky, contorno 2px; aba ativa em petróleo com texto branco, contorno 2px e sombra Chip; Button em caixa alta. Rótulo curto e sem numeração. No celular, uma linha rolável com snap.
+- **JourneyNav:** duas fichas (anterior / próximo) no fim do guia, com título e uma linha; direção em Label.
 
 ### Cabeça de página (signature)
-O único cabeçalho de página. Ficha branca com contorno 3px e sombra 4px (Cartaz em páginas de campanha).
-- **Conteúdo:** Display, subtítulo em Body `content-secondary` (máx. 2 linhas no celular, 68ch), badges normativos (1 no celular, até 3 no desktop). Breadcrumb só no desktop. **Sem eyebrow**: o eixo já aparece no cabeçalho do app ("← Carreira") e no breadcrumb.
-- **Shell no celular:** o rótulo do eixo no cabeçalho é o botão de voltar ao hub (seta à esquerda fora da raiz do eixo, ícone do eixo na raiz). O perfil é um botão-avatar de 44px, sem texto. Barras de "Voltar ao Hub" dentro da página não existem.
-- **Fora da cabeça:** faixa tricolor, círculos e quadrados decorativos, faixa Semente expansível, badges normativos extras (vão para o bloco "Base normativa").
+O único cabeçalho de página. Ficha branca, contorno 2px, sombra 3px (no Cartaz, faixa roxa de ponta a ponta com título branco).
+- **Conteúdo:** Display, subtítulo em Body `grafite-secundario` (máx. 2 linhas no celular), badges normativos (1 no celular, até 3 no desktop). Breadcrumb só no desktop. Sem eyebrow: o eixo já está no cabeçalho do app.
 
 ### Passo a passo de trâmite (signature)
-O coração do volume Ficha. Stepper vertical numerado em Space Mono, cada passo uma ficha com: título-verbo, uma ou duas frases, e **na própria ficha** o que se precisa (formulário para baixar, link do SEI/SIGA, e-mail do setor, prazo em mono). Passo concluído pelo estudante (checklist local) ganha carimbo VISTO.
+O coração do volume Ficha. Stepper vertical com o número do passo em Numeral roxo (tabular), cada passo uma ficha: título-verbo, uma ou duas frases e, **na própria ficha**, o que se precisa (formulário, link do SEI/SIGA, e-mail do setor, prazo em Label). Passo concluído ganha carimbo VISTO e o número passa a laranja (a folha brotou).
 
-### Carimbos, stickers e Passaporte (signature)
-- **Carimbo:** Space Mono 700 caixa alta, contorno 2px ink, sombra Chip, rotação −2° a +2°, fundo `-tint` e texto na cor de status. Vocabulário fechado: DEFERIDO (success), HOMOLOGADO (info), PENDENTE (warning), INDEFERIDO (destructive), VISTO (ink sobre névoa). Animação de impacto 240ms com `--bk-ease-stamp`; parada sob reduced-motion.
-- **Sticker SIMULADO:** fita amarela `warning-tint` com texto ink, colado em todo item fictício (notícias, vagas, talentos, lançamentos). O real × simulado nunca depende só do aviso no topo.
-- **Passaporte Discente:** Layered Card com carimbos das etapas conquistadas; é o único lugar onde carimbos se acumulam.
+### Carimbos, sticker SIMULADO e Passaporte (signature)
+- **Carimbo:** Label (Poppins 700 caixa alta, tracking 0.04em), contorno grafite 2px, sombra Chip, rotação −2° a +2°, fundo `-tint` e texto na cor de status. É o uso que o manual prevê para o grafite ("carimbos, documentos"). Vocabulário fechado: DEFERIDO (success), HOMOLOGADO (info), PENDENTE (warning), INDEFERIDO (destructive), VISTO (grafite sobre areia funda). Variante da chapa: roxo com texto branco. O carimbo grande de resultado pode trazer o símbolo Semente monocromático preto (asset `semente-simbolo-preto`), como o selo de autenticidade do manual.
+- **Sticker SIMULADO:** etiqueta `warning-tint` com texto grafite, raio 6px, colada em todo item fictício (notícias, vagas, talentos, lançamentos).
+- **Passaporte Discente:** Layered Card com os carimbos das etapas conquistadas; único lugar onde carimbos se acumulam.
+
+### Fotografia (signature)
+A "pessoa" do símbolo entra na tela como gente real, **em cor original**, com uma assinatura de impressão na base. Decisão do site que substitui a Regra 04 do manual (P&B obrigatório): a foto mantém a cor, e a marca aparece no acabamento.
+- **Faixa de dithering:** os ~20% inferiores de toda foto se dissolvem em pixels quadrados translúcidos, por pontilhado ordenado (Bayer 4×4): densos junto à foto, esparsos na borda, como uma cópia xerox que perde tinta. Os pixels "apagados" ficam a 35% e revelam a superfície cinza/areia por baixo; nada some por completo. Bordas nítidas, sem desfoque e sem degradê suave: é um degradê **pixelado**, não gradiente de cor.
+- **Implementação:** máscara CSS em `global.css` (camada sólida nos 80% superiores + tile SVG de dithering em `repeat-x` nos 20% inferiores, com `mask-size: auto 20%` para os quadrados continuarem quadrados em qualquer tamanho). Aplicada automaticamente às fotos de `/images/chapa/`, `/imagens/semente/foto_*`, Os Candangos e campus; para outra foto, use a classe `.cagp-photo`.
+- **Escopo:** todas as fotografias (integrantes, campus, Os Candangos, notícias). Ficam fora: prints de tutorial, logos, ícones e peças de campanha já finalizadas.
+- **Texto sobre foto:** legenda ou nome entram na faixa de dithering, em branco sobre fundo grafite sólido (etiqueta), nunca solto sobre a imagem.
+- **Duotone de capa:** só no Cartaz (capa do herói, banner de encerramento): camada roxa (`#5B2A85`) em `mix-blend-mode: multiply` via `.cagp-photo-duotone`, mantendo a faixa de dithering.
+- **Recorte:** retângulo de 12px ou máscara orgânica (folha, semente, semicírculo). Avatares dos integrantes: quadrado de 12px com contorno 2px.
+- **Proibido:** filtros de cor (sépia, saturação forçada), vinheta, degradê suave sobre a foto, banco de imagem genérico.
+
+### Logos (signature)
+- **Escolha do asset por fundo** (`public/logos/semente/`): areia e branco → policromático (`semente-horizontal`, `semente-vertical`, `semente-simbolo`); roxo e petróleo → negativo (`-branco`); fotografia → badge (`semente-horizontal-badge-laranja` ou `-petroleo`); impressão P&B, carimbo e documento → `-preto`.
+- **Proibido:** distorcer, rotacionar, deitar ou inverter; recolorir fora da paleta ou com filtro CSS; sombra, glow, chanfro ou 3D; encostar na borda; redigitar o wordmark.
+- **Assinatura textual** (quando o asset não cabe, ex. rodapé de documento gerado): `CHAPA GESTÃO PÚBLICA · SEMENTE` em Poppins 700 caixa alta com tracking 0.04em, sem tentar imitar o lettering.
 
 ### Assinatura Semente (signature)
-Ficha em `semente-purple-tint`, contorno 3px, sem sombra (Ficha) no fim de cada guia: selo-símbolo Semente (asset), rótulo mono "PROPOSTA 3 · EM AÇÃO", uma frase do que a chapa fez nesta página, nome e diretoria responsável (de `chapaSementeData.ts`) e um link outline "Conhecer a proposta". Sem citação longa, sem botão laranja, sem expansão.
+Ficha em `semente-purple-tint`, contorno grafite 2px, sem sombra, no fim de cada guia: símbolo Semente policromático (asset, com zona de proteção), rótulo em Label roxo "PROPOSTA 3 · EM AÇÃO", uma frase do que a chapa fez nesta página (primeira pessoa do plural, como pede o manual §9: "organizamos", "entregamos"), nome e diretoria responsável quando houver, e um link outline "Conhecer a proposta". Sem citação longa, sem botão laranja, sem expansão.
 
 ### Movimento
 O movimento explica estado; não decora seção. Tokens em `src/styles/global.css` (`--ease-snap`, `--ease-stamp`, `--duration-press` 150ms, `--duration-view` 220ms, `--duration-stamp` 240ms), espelhando o L1 do BoldKit.
 
-- **Momento autoral: o carimbo.** Quando um estado muda (resultado do simulador do Art. 41, checklist concluído, credenciamento homologado), o carimbo desce grande e desfocado, **acelera** até o papel (`--ease-stamp`, 240ms) e só no impacto a tinta "pega": a sombra de 2px aparece de uma vez. A rotação final vem de `--stamp-rotate`. Classes: `.cagp-big-stamp` (resultado) e `.cagp-stamp-impact` (carimbo pequeno). O `key` do React remonta o carimbo a cada mudança, então o impacto toca de novo. Carimbo nunca anima no carregamento por enfeite: o `.cagp-stamp-badge` em repouso é estático.
-- **Feedback:** press-into-shadow em 150ms (`--ease-snap`); hover ergue 1px e a sombra cresce 2px. Sem `scale` no toque.
-- **Continuidade:** troca de aba e entrada de sheet/drawer em 220ms, deslocamento curto (12px) + opacidade. Uma ficha que se desbloqueia sobe da própria sombra (`.cagp-seal-unlock`).
-- **Proibido:** entrada de seção ao rolar (`whileInView`, fade-and-rise), stagger em seções que não são lista, shimmer colorido em skeleton (skeleton = névoa com pulso lento de opacidade), bounce/elástico, escala no toque.
-- **Canvas BoldKit** (`GlobalCanvasBackdrop`): só no volume Cartaz (`data-visitor-mode` persuade/experience). Em Ficha e Papel o fundo é papel parado, exceto se o estudante escolher um efeito nas configurações.
-- **Reduced motion:** durações caem para 1ms e loops param (marquee, canvas, pulsos); cor e estado continuam, então todo feedback segue legível.
+- **Momento autoral: o carimbo.** Quando um estado muda (resultado do simulador do Art. 41, checklist concluído, credenciamento homologado), o carimbo desce grande e desfocado, acelera até o papel (`--ease-stamp`, 240ms) e só no impacto a tinta "pega": a sombra de 2px aparece de uma vez. A rotação final vem de `--stamp-rotate`. Classes `.cagp-big-stamp` e `.cagp-stamp-impact`; o `key` do React remonta o carimbo a cada mudança. Carimbo em repouso é estático.
+- **Germinar (Cartaz):** a única entrada autoral fora do carimbo é a forma orgânica que "brota" no herói da home e da /chapa-semente: a folha laranja cresce a partir da base com `clip-path`/`scale` ancorado embaixo, uma vez, ~500ms com `--ease-out-natural`. Não se repete em outras seções.
+- **Feedback:** press-into-shadow em 150ms; hover ergue 1px e a sombra cresce 2px. Sem `scale` no toque.
+- **Continuidade:** troca de aba e entrada de sheet/drawer em 220ms, deslocamento curto (12px) + opacidade.
+- **Proibido:** entrada de seção ao rolar (`whileInView`, fade-and-rise), stagger em seções que não são lista, shimmer em skeleton, bounce/elástico, escala no toque, efeitos de canvas genéricos (matrix, plasma, warp) que não falam a geometria da marca.
+- **Canvas** (`GlobalCanvasBackdrop`): só no volume Cartaz e só efeitos que dialogam com formas orgânicas e cor chapada (topografia, pontos), em roxo/petróleo sobre areia, com opacidade de bloco (nunca degradê). Em Ficha e Papel o fundo é areia parada, salvo escolha explícita do estudante.
+- **Reduced motion:** durações caem para 1ms e loops param; cor e estado continuam, então todo feedback segue legível.
 
 ## Do's and Don'ts
 
 ### Do:
+- **Do** usar Areia (`#F4F2EC`) como fundo de página e Grafite (`#1F1F1F`) como única tinta escura.
 - **Do** declarar o volume da página (Cartaz, Ficha ou Papel) e o arquétipo antes de compor.
-- **Do** contornar contêineres e controles com 3px de `ink` e divisórias internas com 2px.
-- **Do** usar uma sombra por volume (0 / 4px / 6px) e afundar o elemento exatamente na sombra ao clicar.
+- **Do** contornar fichas com 2px de grafite e controles com 3px; sombra de 3px na Ficha e 6px só em painéis de Cartaz.
+- **Do** construir o Cartaz com blocos chapados de roxo e petróleo em divisões nítidas sobre areia, formas orgânicas e fotografia com dithering.
+- **Do** pôr texto branco sobre roxo e petróleo, e texto grafite sobre laranja.
+- **Do** usar Poppins com `tabular-nums` para códigos, horas, datas, prazos e valores.
+- **Do** dar tracking ampliado (0.02–0.04em) a todo texto em caixa alta.
+- **Do** manter a cor original das fotos e deixar a faixa de dithering (20% inferiores) fazer a assinatura; duotone roxo só em capa de Cartaz.
+- **Do** escolher o asset de logo pelo fundo (policromático, negativo, badge, preto) e respeitar a zona de proteção.
 - **Do** levar o primeiro passo útil para dentro dos primeiros 480px da tela de 375×812.
 - **Do** pôr formulário, link e contato dentro do passo a que pertencem.
-- **Do** usar Space Mono tabular para códigos, horas, datas, prazos e valores.
 - **Do** marcar cada item simulado com o sticker SIMULADO, além do aviso de página.
-- **Do** fechar todo guia com Assinatura Semente + JourneyNav.
-- **Do** reservar animação de impacto ao carimbo de mudança de estado; o resto do movimento é feedback de 150–220ms.
+- **Do** fechar todo guia com Assinatura Semente + JourneyNav, escrita na primeira pessoa do plural.
+- **Do** reservar animação de impacto ao carimbo de mudança de estado e a germinação à forma orgânica do herói.
 - **Do** usar Bootstrap Icons (`bi bi-*`) ou SVG do `CagpIcon` para todo ícone.
 - **Do** manter alvos de toque ≥44px e respeitar `prefers-reduced-motion` e a escala de fonte do painel.
-- **Do** aplicar os logos SEMENTE e CAGP só a partir dos arquivos oficiais.
 
 ### Don't:
+- **Don't** usar cinzas frios ou pretos azulados (`#f4f5f7`, `#e5e7ec`, `#16181d`, `#0A0A0A`); o claro é areia, o escuro é grafite.
+- **Don't** usar degradê de nenhum tipo entre cores da paleta, nem vidro ou `backdrop-filter`.
+- **Don't** usar Laranja Vibrante em frase, parágrafo ou texto pequeno; nem como campo de fundo grande.
+- **Don't** usar fonte fora de Poppins e Permanent Marker (Space Mono sai do sistema).
 - **Don't** pôr caixa alta em título de ficha, seção, passo ou parágrafo.
-- **Don't** pôr eyebrow/kicker acima de título, nem numerar abas ou seções ("01 / 02") quando a ordem não é informação.
-- **Don't** usar emoji ou glifo (✦ ★ ✓ ✕ → 🌱) como ícone.
+- **Don't** pôr eyebrow acima de título, nem numerar abas ou seções quando a ordem não é informação.
+- **Don't** usar emoji ou glifo como ícone.
+- **Don't** usar shapes BoldKit (burst, estrela, escudo), stickers decorativos ou rotação de conteúdo; a única decoração é a forma orgânica da marca.
+- **Don't** usar foto sem a faixa de dithering, nem trocar a faixa por degradê suave ou desfoque.
+- **Don't** aplicar sombra, glow, contorno, filtro ou rotação em logo, símbolo ou wordmark, nem redigitar SEMENTE ou CAGP.
 - **Don't** usar faixa colorida lateral (`border-left` > 1px) em ficha, alerta ou citação.
 - **Don't** animar seção na rolagem nem usar canvas fora do volume Cartaz.
-- **Don't** usar texto de leitura abaixo de 14px nem `text-[9px]`/`[10px]`/`[11px]`.
-- **Don't** usar pesos 500, 600, 800 ou 900.
-- **Don't** usar borda cinza de 1px, preto diferente de `ink`, ou cor de paleta com transparência.
+- **Don't** usar texto de leitura abaixo de 14px, nem pesos 500, 600, 800 ou 900.
 - **Don't** empilhar barra de voltar, faixa tricolor, badges em série ou faixa de campanha acima do conteúdo.
-- **Don't** pôr a faixa da Chapa Semente entre o título e o primeiro passo.
-- **Don't** usar shapes, canvas, marquee, layered card ou Permanent Marker fora do volume Cartaz.
 - **Don't** mostrar dois elementos flutuantes ao mesmo tempo sobre a barra inferior.
-- **Don't** usar degradês, glassmorphism, `backdrop-filter`, sombra difusa ou glow.
-- **Don't** usar `germinar-orange` como texto de leitura nem o rubro CAGP como cor de interface ou de eixo.
-- **Don't** usar componentes de prova social (Testimonials, Logo Cloud, contadores de adesão): não há dados reais para eles.
+- **Don't** usar o rubro CAGP como cor de interface, eixo ou gráfico.
+- **Don't** usar componentes de prova social (Testimonials, Logo Cloud com apoios, contadores de adesão): não há dados reais.
 - **Don't** introduzir modo escuro; o sistema é exclusivamente claro.

@@ -49,7 +49,7 @@ export const CarreiraVagasFeed: React.FC = () => {
           >
             <div>
               <div className="flex items-center justify-between gap-2 mb-2">
-                <span className="text-xs font-mono font-black uppercase px-2 py-0.5 rounded bg-[#f4f5f7] border-2 border-border text-foreground">
+                <span className="text-xs font-mono font-black uppercase px-2 py-0.5 rounded bg-[#F4F2EC] border-2 border-border text-foreground">
                   {v.tag}
                 </span>
                 <span className="text-xs font-heading font-black uppercase px-2 py-0.5 rounded bg-[#134E4A] text-white border-2 border-border">
@@ -63,7 +63,7 @@ export const CarreiraVagasFeed: React.FC = () => {
                 {v.role}
               </p>
 
-              <div className="mt-3 p-2.5 rounded-lg bg-[#f4f5f7] border border-border space-y-1 text-xs font-mono text-foreground tabular-nums">
+              <div className="mt-3 p-2.5 rounded-lg bg-[#F4F2EC] border border-border space-y-1 text-xs font-mono text-foreground tabular-nums">
                 <div className="flex items-center justify-between">
                   <span>Jornada:</span>
                   <strong>{v.hours}</strong>

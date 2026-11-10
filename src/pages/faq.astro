@@ -235,10 +235,10 @@ const quickFaqItems: FAQItem[] = faqs.slice(0, 5).map((f) => ({
     <FaqChatAssistant client:load faqs={faqs} />
 
     <!-- Card Final: Convite para Conhecer as 14 Propostas da Chapa Semente -->
-    <div class="p-6 sm:p-7 rounded-2xl border-3 border-[#16181d] bg-[#5B2A85] text-white shadow-[8px_8px_0_0_#FE8812] flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+    <div class="p-6 sm:p-7 rounded-2xl border-2 border-[#1F1F1F] bg-[#5B2A85] text-white shadow-[8px_8px_0_0_#FE8812] flex flex-col lg:flex-row lg:items-center justify-between gap-5">
       <div class="space-y-2 max-w-2xl">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="px-2.5 py-1 rounded-md bg-[#FE8812] text-[#16181d] font-mono text-xs font-black uppercase border-2 border-[#16181d]">
+          <span class="px-2.5 py-1 rounded-md bg-[#FE8812] text-[#1F1F1F] font-mono text-xs font-black uppercase border-2 border-[#1F1F1F]">
             DESCOMPLICAR A UFMG É COMPROMISSO DA SEMENTE
           </span>
           <span class="font-mono text-xs font-bold text-[#FFD6A5]">
@@ -255,14 +255,14 @@ const quickFaqItems: FAQItem[] = faqs.slice(0, 5).map((f) => ({
       <div class="flex flex-wrap items-center gap-3 shrink-0">
         <a
           href="/chapa-semente#propostas"
-          class="min-h-[48px] px-5 py-3 rounded-xl bg-[#FE8812] text-[#16181d] font-heading font-black text-xs uppercase tracking-wider border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all inline-flex items-center gap-2 no-underline"
+          class="min-h-[48px] px-5 py-3 rounded-xl bg-[#FE8812] text-[#1F1F1F] font-heading font-black text-xs uppercase tracking-wider border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all inline-flex items-center gap-2 no-underline"
         >
           <span>Conhecer as 14 Propostas da Semente</span>
           <i class="bi bi-arrow-right" aria-hidden="true"></i>
         </a>
         <a
           href="/documentos"
-          class="min-h-[48px] px-4 py-3 rounded-xl bg-white text-[#16181d] font-heading font-black text-xs uppercase tracking-wider border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] hover:bg-[#f4f5f7] transition-all inline-flex items-center gap-2 no-underline"
+          class="min-h-[48px] px-4 py-3 rounded-xl bg-white text-[#1F1F1F] font-heading font-black text-xs uppercase tracking-wider border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] hover:bg-[#F4F2EC] transition-all inline-flex items-center gap-2 no-underline"
         >
           <span>Abrir Acervo de PDFs</span>
         </a>
@@ -279,7 +279,7 @@ const quickFaqItems: FAQItem[] = faqs.slice(0, 5).map((f) => ({
 
   <!-- Sub-view 2: Acessibilidade & NAI -->
   <section id="ws-panel-v2" class="cagp-workspace-view space-y-4" data-ws-panel="v2" data-context-type="faq-item" hidden>
-    <div class="bg-card border-3 border-border rounded-xl p-5 shadow-md space-y-4 text-xs font-sans text-foreground leading-relaxed">
+    <div class="bg-card border-2 border-border rounded-xl p-5 shadow-md space-y-4 text-xs font-sans text-foreground leading-relaxed">
       <div class="flex items-center justify-between border-b-2 border-border pb-3 flex-wrap gap-2">
         <div class="flex items-center gap-2.5">
           <div class="w-8 h-8 rounded-lg bg-[#134E4A] text-white flex items-center justify-center border-3 border-border shadow-xs">
@@ -298,7 +298,7 @@ const quickFaqItems: FAQItem[] = faqs.slice(0, 5).map((f) => ({
         O NAI assessora estudantes com deficiência física, visual, auditiva, transtorno do espectro autista e altas habilidades, garantindo mediação pedagógica, adaptação de provas e intérpretes de Libras.
       </p>
 
-      <div class="p-4 bg-background rounded-xl border-3 border-border shadow-xs space-y-2">
+      <div class="p-4 bg-background rounded-xl border-2 border-border shadow-xs space-y-2">
         <p class="m-0"><strong>Contato NAI Oficial:</strong> <span class="font-mono text-secondary font-bold">acessibilidade@ufmg.br</span> • Tel: <span class="font-mono font-bold">(31) 3409-4674</span> • Site: <span class="font-mono">ufmg.br/nai</span></p>
         <p class="m-0"><strong>Saúde Mental e Escuta (DASE/PRAE):</strong> <span class="font-mono text-primary font-bold">dase@prae.ufmg.br</span> (Espaço de Escuta e Acolhimento na PRAE)</p>
         <p class="m-0"><strong>Urgência e Vigilância no Campus:</strong> Ramal <span class="font-mono font-bold">(31) 3409-4444</span> / SAMU <span class="font-mono font-bold">192</span> • Ouvidoria UFMG: <span class="font-mono">ufmg.br/ouvidoria</span></p>

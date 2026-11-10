@@ -9,7 +9,7 @@ export interface NoturnoItem {
   id: string;
   icon: CagpIconName;
   label: string;
-  /** Faixa de horário em texto, exibida em Space Mono. */
+  /** Faixa de horário em texto, exibida em Poppins tabular. */
   horario: string;
   /** Uma linha de orientação prática. */
   detalhe: string;

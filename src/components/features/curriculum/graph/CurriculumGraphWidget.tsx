@@ -21,7 +21,7 @@ export const CurriculumGraphWidget: React.FC = () => {
   }, []);
 
   return (
-    <div className="cagp-card p-5 bg-white border-3 border-border rounded-xl flex flex-col justify-between h-full shadow hover:shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] transition-all select-none">
+    <div className="cagp-card p-5 bg-white border-2 border-border rounded-xl flex flex-col justify-between h-full shadow hover:shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] transition-all select-none">
       <div>
         <div className="flex items-center justify-between gap-2 mb-3.5">
           <div className="flex items-center gap-2.5">
@@ -44,7 +44,7 @@ export const CurriculumGraphWidget: React.FC = () => {
           Grafo interativo com 27 disciplinas obrigatórias e slots customizáveis para simular seu fluxo de matrícula no SIGA.
         </p>
 
-        <div className="p-3 bg-white border-3 border-border rounded-lg mb-4 flex items-center justify-between text-xs shadow-xs">
+        <div className="p-3 bg-white border-2 border-border rounded-lg mb-4 flex items-center justify-between text-xs shadow-xs">
           <span className="text-muted-foreground font-medium">Matérias Obrigatórias:</span>
           <span className="font-mono font-bold text-foreground">27 (1.860h)</span>
         </div>

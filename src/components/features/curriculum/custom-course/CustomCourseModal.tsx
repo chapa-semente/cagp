@@ -267,7 +267,7 @@ export const CustomCourseModal: React.FC<Props> = ({
             </button>
             <button
               type="submit"
-              className="min-h-[44px] px-5 py-2 bg-secondary text-white hover:bg-foreground text-background rounded-lg font-['Oswald'] text-xs uppercase font-bold tracking-wider shadow-[2px_2px_0px_#16181d] transition-all"
+              className="min-h-[44px] px-5 py-2 bg-secondary text-white hover:bg-foreground text-background rounded-lg font-['Oswald'] text-xs uppercase font-bold tracking-wider shadow-[2px_2px_0px_#1F1F1F] transition-all"
             >
               Confirmar & Inserir no Grafo
             </button>

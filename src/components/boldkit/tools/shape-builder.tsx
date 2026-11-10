@@ -142,7 +142,7 @@ export function ShapeBuilder({ className }: { className?: string }) {
           <div>
             <Label className="font-bold font-mono text-sm">Cor:</Label>
             <div className="flex gap-2 mt-1">
-              {['#8B1E2D', '#E8A317', '#1E3F66', '#15803D', '#5B2A85', '#16181d'].map(c => (
+              {['#8B1E2D', '#A85300', '#1E3F66', '#166534', '#5B2A85', '#1F1F1F'].map(c => (
                 <button
                   key={c}
                   type="button"
@@ -169,7 +169,7 @@ export function ShapeBuilder({ className }: { className?: string }) {
         </div>
 
         {/* Live Preview */}
-        <div className="md:col-span-6 flex flex-col items-center justify-center p-8 bg-neutral-100 border-3 border-black shadow-inner min-h-[300px]">
+        <div className="md:col-span-6 flex flex-col items-center justify-center p-8 bg-neutral-100 border-2 border-black shadow-inner min-h-[300px]">
           <div className="p-4 bg-white border-2 border-black shadow-md flex items-center justify-center min-w-[200px] min-h-[200px]">
             <ShapeComp
               size={size}

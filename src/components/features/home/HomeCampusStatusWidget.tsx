@@ -114,7 +114,7 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {/* Card 1: Bandejão RU II Setorial */}
-        <div className="bg-white p-4 sm:p-5 rounded-xl border-3 border-border shadow-md flex flex-col justify-between">
+        <div className="bg-white p-4 sm:p-5 rounded-xl border-2 border-border shadow-md flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between gap-2 mb-3">
               <span className="w-10 h-10 rounded-xl bg-secondary text-white flex items-center justify-center shrink-0 border-2 border-border">
@@ -125,7 +125,7 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({
                   status.ruTone === 'open'
                     ? 'bg-success-tint text-[#166534]'
                     : status.ruTone === 'warn'
-                    ? 'bg-[#FEF08A] text-[#854D0E]'
+                    ? 'bg-[#FEF3C7] text-[#854D0E]'
                     : 'bg-background text-muted-foreground'
                 }`}
               >
@@ -144,7 +144,7 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({
             </div>
             <div className="flex items-baseline justify-between gap-2">
               <h3 className="text-sm font-heading font-extrabold text-foreground m-0">Bandejão RU II Setorial</h3>
-              <span className="font-mono text-xs font-bold text-foreground bg-[#e5e7ec] px-2 py-0.5 rounded border border-border tabular-nums">
+              <span className="font-mono text-xs font-bold text-foreground bg-[#E7E3D8] px-2 py-0.5 rounded border border-border tabular-nums">
                 R$ 5,60
               </span>
             </div>
@@ -173,7 +173,7 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({
         </div>
 
         {/* Card 2: Circular Interno */}
-        <div className="bg-white p-4 sm:p-5 rounded-xl border-3 border-border shadow-md flex flex-col justify-between">
+        <div className="bg-white p-4 sm:p-5 rounded-xl border-2 border-border shadow-md flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between gap-2 mb-3">
               <span className="w-10 h-10 rounded-xl bg-info text-white flex items-center justify-center shrink-0 border-2 border-border">
@@ -184,7 +184,7 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({
                   status.busTone === 'open'
                     ? 'bg-success-tint text-[#166534]'
                     : status.busTone === 'warn'
-                    ? 'bg-[#FEF08A] text-[#854D0E]'
+                    ? 'bg-[#FEF3C7] text-[#854D0E]'
                     : 'bg-background text-muted-foreground'
                 }`}
               >
@@ -227,13 +227,13 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({
         </div>
 
         {/* Card 3: Secretaria do Colegiado & FAFICH */}
-        <div className="bg-white p-4 sm:p-5 rounded-xl border-3 border-border shadow-md flex flex-col justify-between sm:col-span-2 lg:col-span-1">
+        <div className="bg-white p-4 sm:p-5 rounded-xl border-2 border-border shadow-md flex flex-col justify-between sm:col-span-2 lg:col-span-1">
           <div>
             <div className="flex items-center justify-between gap-2 mb-3">
               <span className="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center shrink-0 border-2 border-border">
                 <CagpIcon name="building" className="w-5 h-5" />
               </span>
-              <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold bg-[#e5e7ec] text-foreground px-2.5 py-1 rounded-lg border-2 border-border tabular-nums">
+              <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold bg-[#E7E3D8] text-foreground px-2.5 py-1 rounded-lg border-2 border-border tabular-nums">
                 <span className="w-2 h-2 rounded-full bg-success border border-border" aria-hidden="true" />
                 <span>Sala F-2039 • 2º Andar</span>
               </span>

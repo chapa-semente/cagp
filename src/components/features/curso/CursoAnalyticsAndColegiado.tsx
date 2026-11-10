@@ -5,34 +5,34 @@ import { StatCard } from '@/components/ui/stat-card';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 
 const EGRESSOS_DATA = [
-  { name: 'Executivo Estadual', value: 37, fill: '#9E2424', desc: 'Secretarias de Estado, EPPGG-MG e fundações' },
+  { name: 'Executivo Estadual', value: 37, fill: '#A85300', desc: 'Secretarias de Estado, EPPGG-MG e fundações' },
   { name: 'Executivo Federal', value: 15, fill: '#5B2A85', desc: 'Ministérios, agências reguladoras e autarquias' },
   { name: 'Executivo Municipal', value: 13, fill: '#266264', desc: 'Prefeituras (PBH e região metropolitana)' },
   { name: 'Consultoria Especializada', value: 12, fill: '#FE8812', desc: 'Empresas de assessoria governamental e projetos' },
-  { name: 'Terceiro Setor / ONGs', value: 6, fill: '#15803D', desc: 'Institutos sociais, fundações e advocacy' },
+  { name: 'Terceiro Setor / ONGs', value: 6, fill: '#166534', desc: 'Institutos sociais, fundações e advocacy' },
   { name: 'Outros Setores / Academia', value: 17, fill: '#57534E', desc: 'Pós-graduação, pesquisa acadêmica e setor privado' },
 ];
 
 const FUNNEL_STAGES = [
   { stage: '1. Vagas SiSU / Ano', value: 80, percent: 100, fill: '#5B2A85', desc: '40 vagas no 1º semestre e 40 no 2º semestre via SiSU' },
-  { stage: '2. Matrículas Confirmadas', value: 78, percent: 97.5, fill: '#9E2424', desc: 'Taxa histórica de preenchimento e confirmação de matrícula' },
+  { stage: '2. Matrículas Confirmadas', value: 78, percent: 97.5, fill: '#A85300', desc: 'Taxa histórica de preenchimento e confirmação de matrícula' },
   { stage: '3. Ciclo Básico Concluído', value: 68, percent: 85, fill: '#FE8812', desc: 'Integralização dos primeiros 4 períodos interdisciplinares' },
   { stage: '4. Estágio Supervisionado', value: 56, percent: 70, fill: '#266264', desc: 'Atuação profissional em órgãos públicos ou terceiro setor' },
-  { stage: '5. Bacharéis Diplomados', value: 48, percent: 60, fill: '#15803D', desc: 'Colação de grau e obtenção do diploma de Gestor Público' },
+  { stage: '5. Bacharéis Diplomados', value: 48, percent: 60, fill: '#166534', desc: 'Colação de grau e obtenção do diploma de Gestor Público' },
 ];
 
 const SALARY_RANGES = [
   { range: 'Mais de R$ 10.000', value: 24, fill: '#5B2A85', desc: 'Carreiras de Estado estruturadas (EPPGG Federal, EPPGG-MG e consultorias seniores)' },
   { range: 'R$ 7.000 a R$ 10.000', value: 32, fill: '#FE8812', desc: 'Cargos comissionados, coordenações estaduais e analistas plenos' },
   { range: 'R$ 4.500 a R$ 7.000', value: 28, fill: '#266264', desc: 'Analistas municipais, assessores de secretarias e analistas juniores' },
-  { range: 'Até R$ 4.500', value: 16, fill: '#9E2424', desc: 'Técnicos recém-formados, residentes de gestão e bolsas de pesquisa' },
+  { range: 'Até R$ 4.500', value: 16, fill: '#A85300', desc: 'Técnicos recém-formados, residentes de gestão e bolsas de pesquisa' },
 ];
 
 const DEPARTAMENTOS_DATA = [
   { depto: 'DCP / FAFICH (Ciência Política)', horas: 1560, pct: 52, fill: '#5B2A85' },
   { depto: 'FACE / UFMG (Economia & Finanças)', horas: 360, pct: 12, fill: '#FE8812' },
-  { depto: 'Extensão Universitária (SIEX Obrigatória)', horas: 300, pct: 10, fill: '#15803D' },
-  { depto: 'DSO / FAFICH (Sociologia & Políticas Sociais)', horas: 180, pct: 6, fill: '#9E2424' },
+  { depto: 'Extensão Universitária (SIEX Obrigatória)', horas: 300, pct: 10, fill: '#166534' },
+  { depto: 'DSO / FAFICH (Sociologia & Políticas Sociais)', horas: 180, pct: 6, fill: '#A85300' },
   { depto: 'Faculdade de Direito (Direito Público)', horas: 180, pct: 6, fill: '#266264' },
   { depto: 'Cedeplar / IGC (Planejamento Urbano)', horas: 120, pct: 4, fill: '#D97706' },
   { depto: 'DACE / FAFICH (Metodologia Científica)', horas: 120, pct: 4, fill: '#4F46E5' },
@@ -76,7 +76,7 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
 
       {/* Tabs Interativos: Egressos, Cientometria e Colegiado 2026 */}
       <Tabs defaultValue="egressos" className="w-full">
-        <TabsList className="w-full flex flex-wrap h-auto gap-2 bg-card p-2 border-3 border-border rounded-xl">
+        <TabsList className="w-full flex flex-wrap h-auto gap-2 bg-card p-2 border-2 border-border rounded-xl">
           <TabsTrigger value="egressos" className="flex-1 min-w-[180px] min-h-[44px] text-xs font-head font-bold uppercase">
             1. Onde Atuam os Egressos (65% Executivo)
           </TabsTrigger>
@@ -90,7 +90,7 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
 
         {/* Aba 1: Pesquisa de Egressos & Inserção Profissional */}
         <TabsContent value="egressos" className="mt-4">
-          <Card className="bg-white border-3 border-border shadow-[5px_5px_0_0_#16181d]">
+          <Card className="bg-white border-3 border-border shadow-[5px_5px_0_0_#1F1F1F]">
             <CardHeader className="border-b-3 border-border bg-card">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div>
@@ -119,7 +119,7 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
                 </div>
 
                 <div
-                  className="w-full h-7 rounded-lg border-2 border-[#16181d] overflow-hidden flex bg-muted shadow-[2px_2px_0_0_#16181d]"
+                  className="w-full h-7 rounded-lg border-2 border-[#1F1F1F] overflow-hidden flex bg-muted shadow-[2px_2px_0_0_#1F1F1F]"
                   role="progressbar"
                   aria-label="Distribuição percentual por setor de atuação"
                   aria-valuenow={100}
@@ -131,7 +131,7 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
                       key={item.name}
                       style={{ width: `${item.value}%`, backgroundColor: item.fill }}
                       title={`${item.name}: ${item.value}%`}
-                      className="h-full relative group transition-opacity hover:opacity-90 border-r border-[#16181d] last:border-r-0"
+                      className="h-full relative group transition-opacity hover:opacity-90 border-r border-[#1F1F1F] last:border-r-0"
                     />
                   ))}
                 </div>
@@ -139,7 +139,7 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
                 <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-xs font-mono font-medium text-gray-700">
                   {EGRESSOS_DATA.map((item) => (
                     <div key={item.name} className="flex items-center gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-full border border-[#16181d]" style={{ backgroundColor: item.fill }} />
+                      <span className="w-2.5 h-2.5 rounded-full border border-[#1F1F1F]" style={{ backgroundColor: item.fill }} />
                       <span>{item.name}: <strong>{item.value}%</strong></span>
                     </div>
                   ))}
@@ -151,12 +151,12 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
                 {EGRESSOS_DATA.map((item) => (
                   <div
                     key={item.name}
-                    className="p-4 rounded-xl border-2 border-border bg-white shadow-[2px_2px_0_0_#16181d] flex flex-col justify-between gap-2"
+                    className="p-4 rounded-xl border-2 border-border bg-white shadow-[2px_2px_0_0_#1F1F1F] flex flex-col justify-between gap-2"
                   >
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-2">
                         <span
-                          className="w-3.5 h-3.5 rounded-md border-2 border-[#16181d] shrink-0"
+                          className="w-3.5 h-3.5 rounded-md border-2 border-[#1F1F1F] shrink-0"
                           style={{ backgroundColor: item.fill }}
                         />
                         <span className="font-head text-xs font-black uppercase text-foreground">
@@ -197,7 +197,7 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
                             {st.value} estudantes ({st.percent}%)
                           </span>
                         </div>
-                        <div className="w-full h-3 rounded-md bg-muted border border-[#16181d] overflow-hidden">
+                        <div className="w-full h-3 rounded-md bg-muted border border-[#1F1F1F] overflow-hidden">
                           <div
                             className="h-full rounded-sm transition-all"
                             style={{ width: `${st.percent}%`, backgroundColor: st.fill }}
@@ -228,11 +228,11 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
                           <span className="font-head font-black uppercase text-foreground">
                             {sal.range}
                           </span>
-                          <span className="font-mono font-black text-[#16181d]">
+                          <span className="font-mono font-black text-[#1F1F1F]">
                             {sal.value}% dos respondentes
                           </span>
                         </div>
-                        <div className="w-full h-3 rounded-md bg-muted border border-[#16181d] overflow-hidden">
+                        <div className="w-full h-3 rounded-md bg-muted border border-[#1F1F1F] overflow-hidden">
                           <div
                             className="h-full rounded-sm transition-all"
                             style={{ width: `${sal.value * 2.5}%`, backgroundColor: sal.fill }}
@@ -248,12 +248,12 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
               </div>
 
               {/* Informação Operacional de Turno Noturno & Horários */}
-              <div className="p-5 rounded-xl border-2 border-border bg-white shadow-[2px_2px_0_0_#16181d] space-y-3">
+              <div className="p-5 rounded-xl border-2 border-border bg-white shadow-[2px_2px_0_0_#1F1F1F] space-y-3">
                 <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-border pb-2">
                   <span className="font-mono text-xs font-black uppercase text-secondary">
                     Grade Horária Oficial da FAFICH • Noturno
                   </span>
-                  <span className="px-2.5 py-0.5 rounded-md bg-[#FEF08A] text-[#16181d] font-mono text-xs font-bold border border-[#16181d]">
+                  <span className="px-2.5 py-0.5 rounded-md bg-[#FEF3C7] text-[#1F1F1F] font-mono text-xs font-bold border border-[#1F1F1F]">
                     19h00 às 22h25
                   </span>
                 </div>
@@ -278,7 +278,7 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
 
         {/* Aba 2: Cientometria do Campo de Públicas */}
         <TabsContent value="cientometria" className="mt-4">
-          <Card className="bg-white border-3 border-border shadow-[5px_5px_0_0_#16181d]">
+          <Card className="bg-white border-3 border-border shadow-[5px_5px_0_0_#1F1F1F]">
             <CardHeader className="border-b-3 border-border bg-card">
               <Badge variant="secondary" className="mb-2 w-fit">
                 ESTUDO CIENTOMÉTRICO • CLEMENTE ET AL. (2022) • REV. SOCIOLOGIA E POLÍTICA
@@ -292,7 +292,7 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
             </CardHeader>
             <CardContent className="pt-6 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="p-4 rounded-xl border-3 border-border bg-primary text-white shadow-[4px_4px_0px_#16181d] space-y-2">
+                <div className="p-4 rounded-xl border-2 border-border bg-primary text-white shadow-[3px_3px_0_0_#1F1F1F] space-y-2">
                   <Badge variant="accent">CLUSTER DA UFMG • 4 CURSOS</Badge>
                   <h4 className="font-heading text-base font-black">
                     Cluster Gestão de Políticas Públicas
@@ -302,7 +302,7 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
                   </p>
                 </div>
 
-                <div className="p-4 rounded-xl border-3 border-border bg-white shadow-[4px_4px_0px_#16181d] space-y-2">
+                <div className="p-4 rounded-xl border-2 border-border bg-white shadow-[3px_3px_0_0_#1F1F1F] space-y-2">
                   <Badge variant="default">CLUSTER ADMINISTRATIVO • 7 CURSOS</Badge>
                   <h4 className="font-heading text-base font-black text-foreground">
                     Administração Pública e Organizacional
@@ -312,7 +312,7 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
                   </p>
                 </div>
 
-                <div className="p-4 rounded-xl border-3 border-border bg-white shadow-[4px_4px_0px_#16181d] space-y-2">
+                <div className="p-4 rounded-xl border-2 border-border bg-white shadow-[3px_3px_0_0_#1F1F1F] space-y-2">
                   <Badge variant="teal">CURSOS SINGULARES • 3 CURSOS</Badge>
                   <h4 className="font-heading text-base font-black text-foreground">
                     Perfis Regionais e Específicos
@@ -344,7 +344,7 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
                           {dep.horas}h ({dep.pct}%)
                         </span>
                       </div>
-                      <div className="w-full h-3 rounded-md bg-muted border border-[#16181d] overflow-hidden">
+                      <div className="w-full h-3 rounded-md bg-muted border border-[#1F1F1F] overflow-hidden">
                         <div
                           className="h-full rounded-sm transition-all"
                           style={{ width: `${dep.pct}%`, backgroundColor: dep.fill }}
@@ -360,7 +360,7 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
 
         {/* Aba 3: Atendimento e Diretório do Colegiado */}
         <TabsContent value="colegiado" className="mt-4">
-          <Card className="bg-white border-3 border-border shadow-[5px_5px_0_0_#16181d]">
+          <Card className="bg-white border-3 border-border shadow-[5px_5px_0_0_#1F1F1F]">
             <CardHeader className="border-b-3 border-border bg-card">
               <Badge variant="ufmg" className="mb-2 w-fit">
                 GOVERNANÇA &amp; ATENDIMENTO • SALA 2039 FAFICH
@@ -374,7 +374,7 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
             </CardHeader>
             <CardContent className="pt-6 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-5 rounded-xl border-3 border-border bg-[#ffffff] shadow-[3px_3px_0_0_#16181d] space-y-2">
+                <div className="p-5 rounded-xl border-2 border-border bg-[#ffffff] shadow-[3px_3px_0_0_#1F1F1F] space-y-2">
                   <span className="font-mono text-xs font-bold uppercase text-secondary block">
                     Secretaria Didática Presencial
                   </span>
@@ -391,7 +391,7 @@ export const CursoAnalyticsAndColegiado: React.FC = () => {
                   </p>
                 </div>
 
-                <div className="p-5 rounded-xl border-3 border-border bg-[#ffffff] shadow-[3px_3px_0_0_#16181d] space-y-2">
+                <div className="p-5 rounded-xl border-2 border-border bg-[#ffffff] shadow-[3px_3px_0_0_#1F1F1F] space-y-2">
                   <span className="font-mono text-xs font-bold uppercase text-primary block">
                     Protocolo Noturno Geral
                   </span>

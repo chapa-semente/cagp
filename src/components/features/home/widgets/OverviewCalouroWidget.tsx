@@ -24,7 +24,7 @@ export const OverviewCalouroWidget: React.FC = () => {
   const percent = Math.round((doneCount / totalTasks) * 100);
 
   return (
-    <div className="cagp-card p-5 bg-white border-3 border-border rounded-xl flex flex-col justify-between h-full shadow hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-md transition-all">
+    <div className="cagp-card p-5 bg-white border-2 border-border rounded-xl flex flex-col justify-between h-full shadow hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-md transition-all">
       <div>
         {/* Header do Widget */}
         <div className="flex items-center justify-between gap-2 mb-3">

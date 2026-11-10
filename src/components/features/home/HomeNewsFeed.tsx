@@ -17,13 +17,13 @@ export function renderNewsMotifSvg(motif: SimulatedNewsItem['motif']) {
   if (motif === 'assembleia') {
     return (
       <svg viewBox="0 0 320 120" className="w-full h-full object-cover" aria-hidden="true">
-        <rect width="320" height="120" fill="#9E2424" />
+        <rect width="320" height="120" fill="#A85300" />
         <circle cx="270" cy="25" r="55" fill="#8B1E2D" />
-        <path d="M24 96H296" stroke="#16181d" strokeWidth="4" />
-        <rect x="32" y="34" width="14" height="62" rx="2" fill="#FFFFFF" fillOpacity="0.4" stroke="#16181d" strokeWidth="2" />
-        <rect x="58" y="24" width="14" height="72" rx="2" fill="#FFFFFF" fillOpacity="0.6" stroke="#16181d" strokeWidth="2" />
-        <rect x="84" y="42" width="14" height="54" rx="2" fill="#FFFFFF" fillOpacity="0.4" stroke="#16181d" strokeWidth="2" />
-        <circle cx="248" cy="64" r="24" stroke="#16181d" strokeWidth="3" fill="#FE8812" />
+        <path d="M24 96H296" stroke="#1F1F1F" strokeWidth="4" />
+        <rect x="32" y="34" width="14" height="62" rx="2" fill="#FFFFFF" fillOpacity="0.4" stroke="#1F1F1F" strokeWidth="2" />
+        <rect x="58" y="24" width="14" height="72" rx="2" fill="#FFFFFF" fillOpacity="0.6" stroke="#1F1F1F" strokeWidth="2" />
+        <rect x="84" y="42" width="14" height="54" rx="2" fill="#FFFFFF" fillOpacity="0.4" stroke="#1F1F1F" strokeWidth="2" />
+        <circle cx="248" cy="64" r="24" stroke="#1F1F1F" strokeWidth="3" fill="#FE8812" />
       </svg>
     );
   }
@@ -32,19 +32,19 @@ export function renderNewsMotifSvg(motif: SimulatedNewsItem['motif']) {
       <svg viewBox="0 0 320 120" className="w-full h-full object-cover" aria-hidden="true">
         <rect width="320" height="120" fill="#1E3F66" />
         <circle cx="265" cy="95" r="65" fill="#005A9C" fillOpacity="0.55" />
-        <path d="M30 88L95 54L150 70L225 32L285 44" stroke="#16181d" strokeWidth="4" fill="none" strokeLinecap="round" />
-        <circle cx="95" cy="54" r="6" fill="#ffffff" stroke="#16181d" strokeWidth="2" />
-        <circle cx="150" cy="70" r="6" fill="#ffffff" stroke="#16181d" strokeWidth="2" />
-        <circle cx="225" cy="32" r="7" fill="#FE8812" stroke="#16181d" strokeWidth="2" />
+        <path d="M30 88L95 54L150 70L225 32L285 44" stroke="#1F1F1F" strokeWidth="4" fill="none" strokeLinecap="round" />
+        <circle cx="95" cy="54" r="6" fill="#ffffff" stroke="#1F1F1F" strokeWidth="2" />
+        <circle cx="150" cy="70" r="6" fill="#ffffff" stroke="#1F1F1F" strokeWidth="2" />
+        <circle cx="225" cy="32" r="7" fill="#FE8812" stroke="#1F1F1F" strokeWidth="2" />
       </svg>
     );
   }
   if (motif === 'calourada') {
     return (
       <svg viewBox="0 0 320 120" className="w-full h-full object-cover" aria-hidden="true">
-        <rect width="320" height="120" fill="#15803D" />
+        <rect width="320" height="120" fill="#166534" />
         <circle cx="60" cy="20" r="50" fill="#166534" />
-        <circle cx="255" cy="60" r="32" stroke="#16181d" strokeWidth="3" fill="#FEF08A" />
+        <circle cx="255" cy="60" r="32" stroke="#1F1F1F" strokeWidth="3" fill="#FEF3C7" />
         <path d="M180 95C195 68 230 68 245 95" stroke="#ffffff" strokeWidth="3.5" fill="none" />
         <path d="M225 95C240 68 275 68 290 95" stroke="#FE8812" strokeWidth="3.5" fill="none" />
       </svg>
@@ -53,9 +53,9 @@ export function renderNewsMotifSvg(motif: SimulatedNewsItem['motif']) {
   return (
     <svg viewBox="0 0 320 120" className="w-full h-full object-cover" aria-hidden="true">
       <rect width="320" height="120" fill="#5B2A85" />
-      <circle cx="90" cy="60" r="24" stroke="#16181d" strokeWidth="3" fill="#FE8812" />
-      <circle cx="170" cy="38" r="18" stroke="#16181d" strokeWidth="3" fill="#FFFFFF" />
-      <circle cx="240" cy="74" r="22" stroke="#16181d" strokeWidth="3" fill="#266264" />
+      <circle cx="90" cy="60" r="24" stroke="#1F1F1F" strokeWidth="3" fill="#FE8812" />
+      <circle cx="170" cy="38" r="18" stroke="#1F1F1F" strokeWidth="3" fill="#FFFFFF" />
+      <circle cx="240" cy="74" r="22" stroke="#1F1F1F" strokeWidth="3" fill="#266264" />
     </svg>
   );
 }
@@ -92,7 +92,7 @@ export const HomeNewsFeed: React.FC = () => {
       {/* Tarja de Transparência Simulação */}
       <div
         role="note"
-        className="px-4 py-2.5 rounded-xl bg-[#FEF08A] border-3 border-border shadow-xs flex flex-wrap items-center justify-between gap-2 text-xs text-foreground"
+        className="px-4 py-2.5 rounded-xl bg-[#FEF3C7] border-3 border-border shadow-xs flex flex-wrap items-center justify-between gap-2 text-xs text-foreground"
       >
         <span className="font-medium max-w-prose">
           <strong>Aviso:</strong> {SIMULATION_NOTICE}
@@ -109,7 +109,7 @@ export const HomeNewsFeed: React.FC = () => {
             item.tagColor === 'burgundy'
               ? 'bg-secondary text-white'
               : item.tagColor === 'gold'
-              ? 'bg-[#E8A317] text-foreground'
+              ? 'bg-[#A85300] text-foreground'
               : item.tagColor === 'green'
               ? 'bg-success text-white'
               : 'bg-primary text-white';

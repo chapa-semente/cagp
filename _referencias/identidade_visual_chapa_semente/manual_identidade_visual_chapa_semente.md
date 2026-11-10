@@ -131,9 +131,9 @@ A família Poppins é a base de comunicação institucional da campanha.
 
   * Para corpo de texto: Espaçamento normal, entrelinha padrão de 1.4 a 1.6x.
 
-### 5.3. Tipografia Secundária de Destaque: **Cinema Outfit**
+### 5.3. Tipografia Secundária de Destaque: **Permanent Maker*
 
-* **Estilo Autorizado**: `Cinema Outfit Regular`.
+* **Estilo Autorizado**: `Permanent Maker Regular`.
 
 * **Função**: Tipografia display complementar, usada em palavras de destaque, chamadas conceituais pontuais, termos enfáticos ou vinhetas visuais que requeiram personalidade singular.
 
@@ -287,4 +287,4 @@ Estilo Visual Obrigatório:
 
 * \[ \] O logotipo respeita a margem mínima de respiro e não está distorcido?
 
-* \[ \] A tipografia dos textos está em Poppins ou Cinema Outfit?
+* \[ \] A tipografia dos textos está em Poppins ou Permanent Maker?

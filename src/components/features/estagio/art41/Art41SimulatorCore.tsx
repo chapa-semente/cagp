@@ -111,7 +111,7 @@ export const Art41SimulatorCore: React.FC = () => {
   return (
     <div className="cagp-art41-simulator space-y-6 select-none text-foreground">
       {/* Cabeçalho do Simulador em Folha Contínua */}
-      <div className="p-5 sm:p-6 bg-white border-3 border-border rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-md">
+      <div className="p-5 sm:p-6 bg-white border-2 border-border rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-md">
         <div>
           <div className="flex flex-wrap items-center gap-2 mb-1">
             <span className="px-2.5 py-0.5 rounded-md bg-[#134E4A] text-white text-xs font-mono font-bold uppercase border border-border">
@@ -208,7 +208,7 @@ export const Art41SimulatorCore: React.FC = () => {
       </div>
 
       {/* Checklist Interativo com Transições de Mola entre Perguntas */}
-      <div className="p-5 sm:p-6 bg-white border-3 border-border rounded-xl space-y-4 shadow-md">
+      <div className="p-5 sm:p-6 bg-white border-2 border-border rounded-xl space-y-4 shadow-md">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b-2 border-border pb-3 gap-3">
           <div>
             <span className="text-xs font-heading uppercase font-black text-foreground block">
@@ -251,7 +251,7 @@ export const Art41SimulatorCore: React.FC = () => {
             <span>Progresso de Elegibilidade Art. 41</span>
             <span className="text-[#134E4A] tabular-nums">{progressPercent}% concluído</span>
           </div>
-          <div className="w-full h-3.5 bg-[#f4f5f7] rounded-lg border-2 border-border overflow-hidden p-0.5">
+          <div className="w-full h-3.5 bg-[#F4F2EC] rounded-lg border-2 border-border overflow-hidden p-0.5">
             <motion.div
               className="h-full rounded bg-[#134E4A]"
               initial={{ width: 0 }}
@@ -295,7 +295,7 @@ export const Art41SimulatorCore: React.FC = () => {
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: -24, scale: 0.98 }}
                 transition={tactileSpring}
-                className="p-5 rounded-xl border-2 border-border bg-[#f4f5f7] space-y-4"
+                className="p-5 rounded-xl border-2 border-border bg-[#F4F2EC] space-y-4"
               >
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className="px-2.5 py-1 rounded-md bg-white border-2 border-border font-mono text-xs font-bold uppercase text-foreground">
@@ -427,7 +427,7 @@ export const Art41SimulatorCore: React.FC = () => {
       <motion.div
         layout
         transition={tactileSpring}
-        className={`p-5 sm:p-6 rounded-xl border-3 border-border shadow-md space-y-5 ${
+        className={`p-5 sm:p-6 rounded-xl border-2 border-border shadow-md space-y-5 ${
           isFullyEligible
             ? 'bg-[#F0FDF4]'
             : 'bg-[#FFFBEB]'

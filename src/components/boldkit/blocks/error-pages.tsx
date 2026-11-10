@@ -77,11 +77,11 @@ export function NotFoundPage({
         <div className="flex flex-wrap items-center justify-center gap-2">
           <motion.span
             whileHover={photoCardHover}
-            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#FE8812] text-[#16181d] font-mono text-xs font-black uppercase border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] -rotate-2 cursor-default"
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#FE8812] text-[#1F1F1F] font-mono text-xs font-black uppercase border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] -rotate-2 cursor-default"
           >
             <span>🏛️ SALA F-4000 • 4º ANDAR FAFICH</span>
           </motion.span>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#5B2A85] text-white font-mono text-xs font-black uppercase border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] rotate-1">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#5B2A85] text-white font-mono text-xs font-black uppercase border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] rotate-1">
             <span>🌱 CHAPA SEMENTE 2026</span>
           </span>
         </div>
@@ -91,7 +91,7 @@ export function NotFoundPage({
           <motion.h1
             animate={{ rotate: [-1.5, 1.5, -1.5] }}
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-            className="font-accent font-normal text-[120px] sm:text-[165px] leading-none text-[#16181d]/15 select-none m-0"
+            className="font-accent font-normal text-[120px] sm:text-[165px] leading-none text-[#1F1F1F]/15 select-none m-0"
           >
             {displayCode}
           </motion.h1>
@@ -99,7 +99,7 @@ export function NotFoundPage({
             <motion.div
               whileHover={{ scale: 1.08, rotate: -4 }}
               transition={bounceSpring}
-              className="w-24 h-24 flex flex-col items-center justify-center border-3 border-[#16181d] bg-secondary text-white rounded-2xl shadow-[6px_6px_0_0_#16181d]"
+              className="w-24 h-24 flex flex-col items-center justify-center border-2 border-[#1F1F1F] bg-secondary text-white rounded-2xl shadow-[6px_6px_0_0_#1F1F1F]"
             >
               <FileQuestion className="h-10 w-10 text-white" />
               <span className="font-mono text-xs font-black uppercase mt-1">EXTRVIADO</span>
@@ -108,7 +108,7 @@ export function NotFoundPage({
         </div>
 
         <div className="space-y-3">
-          <h2 className="text-2xl md:text-3xl font-black text-[#16181d] m-0">
+          <h2 className="text-2xl md:text-3xl font-black text-[#1F1F1F] m-0">
             Rota Não Localizada no Arquivo da FAFICH
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground font-medium max-w-lg mx-auto m-0 leading-relaxed">
@@ -130,7 +130,7 @@ export function NotFoundPage({
                     window.dispatchEvent(new CustomEvent('cagp:open-spotlight'))
                   }
                 }}
-                className="border-3 border-[#16181d] min-h-[44px]"
+                className="border-3 border-[#1F1F1F] min-h-[44px]"
               />
               <Button
                 type="button"
@@ -140,7 +140,7 @@ export function NotFoundPage({
                     window.dispatchEvent(new CustomEvent('cagp:open-spotlight'))
                   }
                 }}
-                className="min-h-[44px] border-3 border-[#16181d] bg-[#16181d] text-white font-mono font-black"
+                className="min-h-[44px] border-3 border-[#1F1F1F] bg-[#1F1F1F] text-white font-mono font-black"
               >
                 <Search className="h-4 w-4 mr-1.5" />
                 <span>⌘K</span>
@@ -150,7 +150,7 @@ export function NotFoundPage({
         )}
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-2">
-          <Button asChild size="lg" className="min-h-[48px] border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]">
+          <Button asChild size="lg" className="min-h-[48px] border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F]">
             <a href={safeHref(homeHref)}>
               <Home className="mr-2 h-4 w-4" />
               Voltar à Bússola Inicial (Home)
@@ -161,7 +161,7 @@ export function NotFoundPage({
               variant="outline"
               size="lg"
               asChild
-              className="min-h-[48px] bg-[#FE8812] hover:bg-[#ff9831] text-[#16181d] font-black border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]"
+              className="min-h-[48px] bg-[#FE8812] hover:bg-[#ff9831] text-[#1F1F1F] font-black border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F]"
             >
               <a href={safeHref(backHref)}>
                 <Sparkles className="mr-2 h-4 w-4" />
@@ -305,7 +305,7 @@ export function MaintenancePage({
         </div>
 
         {features && features.length > 0 && (
-          <div className="border-3 border-foreground p-6 bg-card text-left space-y-3">
+          <div className="border-2 border-foreground p-6 bg-card text-left space-y-3">
             <h3 className="font-bold text-sm">What we're working on:</h3>
             <ul className="space-y-2">
               {features.map((feature, index) => (
@@ -368,7 +368,7 @@ export function OfflinePage({
         </div>
 
         <div className="space-y-4">
-          <div className="border-3 border-foreground p-4 bg-background text-left">
+          <div className="border-2 border-foreground p-4 bg-background text-left">
             <h3 className="font-bold text-sm mb-2">Things to try:</h3>
             <ul className="space-y-1 text-sm text-muted-foreground">
               <li>• Check your Wi-Fi connection</li>
@@ -530,7 +530,7 @@ export function ComingSoonPage({
             ].map((item) => (
               <div
                 key={`action-${item.label}`}
-                className="border-3 border-foreground p-4 bg-card shadow-md w-24"
+                className="border-2 border-foreground p-4 bg-card shadow-md w-24"
               >
                 <div className="text-3xl font-black">{item.value}</div>
                 <div className="text-xs font-bold uppercase text-muted-foreground">
@@ -555,7 +555,7 @@ export function ComingSoonPage({
         )}
 
         {submitted && (
-          <div className="border-3 border-success bg-success-tint p-4">
+          <div className="border-2 border-success bg-success-tint p-4">
             <p className="font-bold text-success">
               Thanks! We'll notify you when we launch.
             </p>

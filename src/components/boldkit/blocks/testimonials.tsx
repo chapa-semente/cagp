@@ -68,7 +68,7 @@ export function TestimonialsGrid({
               whileHover={{ x: -3, y: -3 }}
               transition={tactileSpring}
             >
-              <Card className="h-full bg-card border-3 border-[#16181d] shadow-[6px_6px_0_0_#16181d] hover:shadow-[8px_8px_0_0_#16181d] transition">
+              <Card className="h-full bg-card border-3 border-[#1F1F1F] shadow-[6px_6px_0_0_#1F1F1F] hover:shadow-[8px_8px_0_0_#1F1F1F] transition">
                 <CardContent className="p-6 space-y-4">
                   <Quote className="h-8 w-8 text-primary" />
 
@@ -92,8 +92,8 @@ export function TestimonialsGrid({
                     "{testimonial.quote}"
                   </p>
 
-                  <div className="flex items-center gap-3 pt-4 border-t-2 border-[#16181d]">
-                    <Avatar className="h-12 w-12 border-2 border-[#16181d]">
+                  <div className="flex items-center gap-3 pt-4 border-t-2 border-[#1F1F1F]">
+                    <Avatar className="h-12 w-12 border-2 border-[#1F1F1F]">
                       <AvatarImage src={testimonial.avatar} />
                       <AvatarFallback className="font-bold">
                         {testimonial.author.charAt(0)}
@@ -281,7 +281,7 @@ export function TestimonialsWithAvatars({
           </div>
         )}
 
-        <div className="border-3 border-foreground bg-card p-8 shadow-lg">
+        <div className="border-2 border-foreground bg-card p-8 shadow-lg">
           <Quote className="h-10 w-10 text-primary mx-auto mb-6" />
 
           <blockquote className="text-xl md:text-2xl font-medium leading-relaxed mb-6">

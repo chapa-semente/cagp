@@ -21,7 +21,7 @@ const viasIngresso = [
     desc: 'Vagas remanescentes destinadas a candidatos diplomados em cursos superiores reconhecidos pelo MEC, com aproveitamento de disciplinas de áreas afins.',
     icon: 'bi-mortarboard-fill',
     badge: 'Diplomados',
-    badgeColor: 'bg-[#16181d] text-white',
+    badgeColor: 'bg-[#1F1F1F] text-white',
     docUrl: asset('/documentos/forma-ingresso-obtencao-novo-titulo.pdf'),
     docLabel: 'Guia Novo Título (PDF)',
   },
@@ -43,7 +43,7 @@ const viasIngresso = [
     desc: 'Destinado a graduandos matriculados em cursos de Gestão Pública ou áreas afins de outras Instituições de Ensino Superior (públicas ou privadas) do país.',
     icon: 'bi-send-fill',
     badge: 'Outras IES',
-    badgeColor: 'bg-[#15803D] text-white',
+    badgeColor: 'bg-[#166534] text-white',
     docUrl: asset('/documentos/requerimento-transferencia-outra-ies.pdf'),
     docLabel: 'Formulário DRCA (PDF)',
   },
@@ -52,39 +52,39 @@ const viasIngresso = [
 
 <div class="space-y-6 text-foreground">
   <!-- Destaque Institucional: Ensino Público e Gratuito -->
-  <div class="p-5 sm:p-6 bg-white border-3 border-[#16181d] rounded-2xl shadow-[6px_6px_0_0_#16181d] space-y-4">
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-3 border-[#16181d] pb-3">
+  <div class="p-5 sm:p-6 bg-white border-2 border-[#1F1F1F] rounded-2xl shadow-[6px_6px_0_0_#1F1F1F] space-y-4">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-3 border-[#1F1F1F] pb-3">
       <div>
-        <h2 class="font-head text-lg sm:text-2xl font-black text-[#16181d] m-0">
+        <h2 class="font-head text-lg sm:text-2xl font-black text-[#1F1F1F] m-0">
           Formas de Ingresso no Bacharelado
         </h2>
         <p class="text-xs sm:text-sm text-gray-800 mt-1 m-0 font-body font-medium">
           O Bacharelado em Gestão Pública da UFMG é 100% público, gratuito e de excelência acadêmica Nota 4 MEC. Não há cobrança de mensalidades ou taxas de matrícula.
         </p>
       </div>
-      <span class="px-3.5 py-1.5 rounded-xl bg-[#5B2A85] text-white font-mono text-xs font-black uppercase shrink-0 border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+      <span class="px-3.5 py-1.5 rounded-xl bg-[#5B2A85] text-white font-mono text-xs font-black uppercase shrink-0 border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]">
         4 Vias Oficiais
       </span>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-body">
       {viasIngresso.map((via) => (
-        <article class="p-5 bg-[#ffffff] border-3 border-[#16181d] rounded-xl flex flex-col justify-between shadow-[4px_4px_0_0_#16181d] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0_0_#16181d] transition-all space-y-3">
+        <article class="p-5 bg-[#ffffff] border-2 border-[#1F1F1F] rounded-xl flex flex-col justify-between shadow-[3px_3px_0_0_#1F1F1F] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0_0_#1F1F1F] transition-all space-y-3">
           <div class="space-y-2.5">
             <div class="flex items-center justify-between gap-2 flex-wrap">
-              <span class={`px-2.5 py-0.5 rounded-md font-mono text-xs font-black uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] ${via.badgeColor}`}>
+              <span class={`px-2.5 py-0.5 rounded-md font-mono text-xs font-black uppercase border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] ${via.badgeColor}`}>
                 {via.badge}
               </span>
-              <span class="font-mono text-xs font-bold text-gray-700 bg-white px-2 py-0.5 rounded border border-[#16181d]">
+              <span class="font-mono text-xs font-bold text-gray-700 bg-white px-2 py-0.5 rounded border border-[#1F1F1F]">
                 {via.vagas}
               </span>
             </div>
 
             <div class="flex items-center gap-2.5">
-              <div class="w-9 h-9 rounded-lg bg-[#16181d] text-white flex items-center justify-center shrink-0 border-2 border-[#16181d]">
+              <div class="w-9 h-9 rounded-lg bg-[#1F1F1F] text-white flex items-center justify-center shrink-0 border-2 border-[#1F1F1F]">
                 <i class={`bi ${via.icon} text-sm`} aria-hidden="true" />
               </div>
-              <h3 class="font-head font-black text-sm sm:text-base text-[#16181d] m-0 leading-tight">
+              <h3 class="font-head font-black text-sm sm:text-base text-[#1F1F1F] m-0 leading-tight">
                 {via.numero}. {via.nome}
               </h3>
             </div>
@@ -94,11 +94,11 @@ const viasIngresso = [
             </p>
           </div>
 
-          <div class="pt-2 border-t-2 border-[#16181d]/15">
+          <div class="pt-2 border-t-2 border-[#1F1F1F]/15">
             <a
               href={via.docUrl}
               download
-              class="min-h-[44px] py-2 px-3 rounded-lg border-2 border-[#16181d] bg-white hover:bg-[#f4f5f7] active:translate-x-0.5 active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all text-xs font-head font-bold uppercase tracking-wider text-[#16181d] inline-flex items-center gap-1.5 no-underline shadow-[2px_2px_0_0_#16181d]"
+              class="min-h-[44px] py-2 px-3 rounded-lg border-2 border-[#1F1F1F] bg-white hover:bg-[#F4F2EC] active:translate-x-0.5 active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all text-xs font-head font-bold uppercase tracking-wider text-[#1F1F1F] inline-flex items-center gap-1.5 no-underline shadow-[2px_2px_0_0_#1F1F1F]"
             >
               <i class="bi bi-file-earmark-pdf" aria-hidden="true" />
               <span>{via.docLabel} &rarr;</span>

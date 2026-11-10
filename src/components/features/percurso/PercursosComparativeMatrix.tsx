@@ -164,7 +164,7 @@ export const PercursosComparativeMatrix: React.FC = () => {
         <CardContent className="pt-6 space-y-6">
           {/* 3 Cards Explicativos */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 rounded-xl border-3 border-border bg-white shadow flex flex-col justify-between space-y-3">
+            <div className="p-4 rounded-xl border-2 border-border bg-white shadow flex flex-col justify-between space-y-3">
               <div className="space-y-1.5">
                 <Badge variant="default">1. NÚCLEO GERAL (INGRESSO PADRÃO)</Badge>
                 <h4 className="font-heading text-sm font-black text-foreground">
@@ -181,7 +181,7 @@ export const PercursosComparativeMatrix: React.FC = () => {
               </Button>
             </div>
 
-            <div className="p-4 rounded-xl border-3 border-border bg-white shadow flex flex-col justify-between space-y-3">
+            <div className="p-4 rounded-xl border-2 border-border bg-white shadow flex flex-col justify-between space-y-3">
               <div className="space-y-1.5">
                 <Badge variant="secondary">2. NÚCLEO COMPLEMENTAR (FCA)</Badge>
                 <h4 className="font-heading text-sm font-black text-foreground">
@@ -198,7 +198,7 @@ export const PercursosComparativeMatrix: React.FC = () => {
               </Button>
             </div>
 
-            <div className="p-4 rounded-xl border-3 border-border bg-white shadow flex flex-col justify-between space-y-3">
+            <div className="p-4 rounded-xl border-2 border-border bg-white shadow flex flex-col justify-between space-y-3">
               <div className="space-y-1.5">
                 <Badge variant="teal">3. NÚCLEO AVANÇADO (PÓS-GRADUAÇÃO)</Badge>
                 <h4 className="font-heading text-sm font-black text-foreground">
@@ -217,7 +217,7 @@ export const PercursosComparativeMatrix: React.FC = () => {
           </div>
 
           {/* Gráfico Radar Recharts: Comparação Geométrica dos 3 Percursos */}
-          <div className="p-4 bg-background border-3 border-border rounded-xl shadow-sm space-y-3">
+          <div className="p-4 bg-background border-2 border-border rounded-xl shadow-sm space-y-3">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <span className="font-heading text-xs uppercase font-extrabold text-foreground">
                 Perfil Geométrico de Distribuição de Carga Horária

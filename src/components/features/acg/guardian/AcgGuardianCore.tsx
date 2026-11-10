@@ -90,7 +90,7 @@ export const AcgGuardianCore: React.FC = () => {
     const nextList = [...sampleCerts, ...certs];
     setCerts(nextList);
     setVaultItem('cagp_aac_120d_certs_v1', nextList);
-    setStatusMessage('Simulação ativada: confira o carimbo mecânico vermelho (#9E2424) nos certificados em risco!');
+    setStatusMessage('Simulação ativada: confira o carimbo INDEFERIDO nos certificados em risco!');
     setTimeout(() => setStatusMessage(null), 5000);
   };
 
@@ -111,9 +111,9 @@ export const AcgGuardianCore: React.FC = () => {
   return (
     <div className="cagp-guardian-core select-none space-y-6">
       {/* Alerta Normativo do Art. 15, § 4º com Microcopy Canônico "Alerta 120 Dias" */}
-      <div className="p-5 bg-[#FFFBEB] border-[3px] border-[#16181d] rounded-xl shadow-[6px_6px_0_0_#9E2424] flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="p-5 bg-[#FFFBEB] border-[3px] border-[#1F1F1F] rounded-xl shadow-[6px_6px_0_0_#1F1F1F] flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-start gap-3.5">
-          <span className="w-11 h-11 rounded-xl bg-secondary text-white flex items-center justify-center shrink-0 mt-0.5 border-3 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+          <span className="w-11 h-11 rounded-xl bg-secondary text-white flex items-center justify-center shrink-0 mt-0.5 border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]">
             <CagpIcon name="shield" className="w-5 h-5" />
           </span>
           <div>
@@ -121,7 +121,7 @@ export const AcgGuardianCore: React.FC = () => {
               <span className="cagp-stamp-badge is-semente text-xs py-0.5 px-2">
                 Ferramenta Criada pela Chapa Semente
               </span>
-              <span className="px-2 py-0.5 rounded-md bg-secondary text-white font-mono text-xs font-bold border border-[#16181d]">
+              <span className="px-2 py-0.5 rounded-md bg-secondary text-white font-mono text-xs font-bold border border-[#1F1F1F]">
                 ART. 15, § 4º • N-20229
               </span>
             </div>
@@ -137,7 +137,7 @@ export const AcgGuardianCore: React.FC = () => {
         <button
           type="button"
           onClick={handleSimulateUrgentCert}
-          className="min-h-[44px] px-4 py-2.5 rounded-xl bg-secondary hover:bg-[#851E1E] text-white font-head text-xs uppercase font-black tracking-wider border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all shrink-0 cursor-pointer flex items-center justify-center gap-2"
+          className="min-h-[44px] px-4 py-2.5 rounded-xl bg-secondary hover:bg-[#851E1E] text-white font-head text-xs uppercase font-black tracking-wider border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all shrink-0 cursor-pointer flex items-center justify-center gap-2"
         >
           <i className="bi bi-PatchExclamationFill bi-exclamation-octagon-fill" aria-hidden="true" />
           <span>Simular Alerta 120 Dias</span>
@@ -147,7 +147,7 @@ export const AcgGuardianCore: React.FC = () => {
       {/* Layout Empilhado em 320px–767px e Lado a Lado em 1024px+ */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Formulário de Cadastro de Certificado */}
-        <div className="lg:col-span-5 cagp-card p-5 bg-white border-3 border-border rounded-xl h-fit shadow">
+        <div className="lg:col-span-5 cagp-card p-5 bg-white border-2 border-border rounded-xl h-fit shadow">
           <h4 className="font-head text-sm font-bold text-foreground mb-3 pb-2 border-b-2 border-border flex items-center gap-2">
             <i className="bi bi-plus-circle text-secondary" aria-hidden="true" />
             <span>Cadastrar no Alerta 120 Dias</span>
@@ -176,7 +176,7 @@ export const AcgGuardianCore: React.FC = () => {
                 'image/*': ['.png', '.jpg', '.jpeg'],
               }}
               maxFiles={1}
-              className="rounded-xl bg-card border-3 border-dashed border-border shadow-sm p-4 text-center cursor-pointer hover:bg-background"
+              className="rounded-xl bg-card border-2 border-dashed border-border shadow-sm p-4 text-center cursor-pointer hover:bg-background"
             >
               {({ isDragging }) => (
                 <div className="space-y-1">
@@ -253,7 +253,7 @@ export const AcgGuardianCore: React.FC = () => {
                   max={180}
                   step={5}
                 >
-                  <NumberFieldContent className="flex items-center border-3 border-border rounded-xl bg-white shadow-sm overflow-hidden h-[42px]">
+                  <NumberFieldContent className="flex items-center border-2 border-border rounded-xl bg-white shadow-sm overflow-hidden h-[42px]">
                     <NumberFieldDecrement className="p-2 bg-muted hover:bg-secondary hover:text-white transition-colors cursor-pointer border-none" />
                     <NumberFieldInput
                       id="cert-hours"
@@ -288,7 +288,7 @@ export const AcgGuardianCore: React.FC = () => {
           </div>
 
           {certs.length === 0 ? (
-            <div className="p-8 text-center bg-white border-3 border-border rounded-xl text-muted-foreground shadow space-y-3">
+            <div className="p-8 text-center bg-white border-2 border-border rounded-xl text-muted-foreground shadow space-y-3">
               <i className="bi bi-folder2-open text-4xl text-muted-foreground block mb-1" aria-hidden="true" />
               <p className="text-sm font-head font-bold uppercase text-foreground m-0">Nenhum certificado cadastrado no Alerta 120 Dias.</p>
               <p className="font-body text-xs text-muted-foreground max-w-sm mx-auto m-0">
@@ -297,7 +297,7 @@ export const AcgGuardianCore: React.FC = () => {
               <button
                 type="button"
                 onClick={handleSimulateUrgentCert}
-                className="min-h-[44px] px-4 py-2 rounded-xl bg-secondary text-white font-head text-xs uppercase font-black border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all inline-flex items-center gap-2 cursor-pointer"
+                className="min-h-[44px] px-4 py-2 rounded-xl bg-secondary text-white font-head text-xs uppercase font-black border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all inline-flex items-center gap-2 cursor-pointer"
               >
                 <i className="bi bi-lightning-charge-fill" aria-hidden="true" />
                 <span>Simular Certificado Crítico (Carimbo 120d)</span>
@@ -320,9 +320,9 @@ export const AcgGuardianCore: React.FC = () => {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.92 }}
                       transition={tactileSpring}
-                      className={`p-4 bg-white border-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
+                      className={`p-4 bg-white border-2 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
                         isCriticalStamp
-                          ? 'border-secondary shadow-[5px_5px_0_0_#16181d] bg-[#D7F6F6]'
+                          ? 'border-secondary shadow-[5px_5px_0_0_#1F1F1F] bg-[#D7F6F6]'
                           : 'border-border shadow'
                       }`}
                     >
@@ -348,7 +348,7 @@ export const AcgGuardianCore: React.FC = () => {
                               initial={{ scale: 2.2, rotate: -14, opacity: 0 }}
                               animate={{ scale: 1, rotate: -2.5, opacity: 1 }}
                               transition={bounceSpring}
-                              className="cagp-stamp-badge is-indeferido text-xs font-mono font-black tracking-wider text-white border-3 border-[#16181d] bg-secondary rounded-lg inline-flex items-center gap-1.5 py-1.5 px-3 shadow-[3px_3px_0_0_#16181d]"
+                              className="cagp-stamp-badge is-indeferido text-xs font-mono font-black tracking-wider text-white border-3 border-[#1F1F1F] bg-secondary rounded-lg inline-flex items-center gap-1.5 py-1.5 px-3 shadow-[3px_3px_0_0_#1F1F1F]"
                             >
                               <i className="bi bi-x-octagon-fill" aria-hidden="true" />
                               <span>PRESCRITO • FORA DOS 120D ({daysLeft}D)</span>
@@ -358,13 +358,13 @@ export const AcgGuardianCore: React.FC = () => {
                               initial={{ scale: 2.2, rotate: 12, opacity: 0 }}
                               animate={{ scale: 1, rotate: 2, opacity: 1 }}
                               transition={bounceSpring}
-                              className="cagp-stamp-badge text-xs font-mono font-black tracking-wider text-white border-3 border-[#16181d] bg-secondary rounded-lg inline-flex items-center gap-1.5 py-1.5 px-3 shadow-[3px_3px_0_0_#16181d]"
+                              className="cagp-stamp-badge text-xs font-mono font-black tracking-wider text-white border-3 border-[#1F1F1F] bg-secondary rounded-lg inline-flex items-center gap-1.5 py-1.5 px-3 shadow-[3px_3px_0_0_#1F1F1F]"
                             >
                               <i className="bi bi-alarm-fill" aria-hidden="true" />
                               <span>PRAZO FATAL • RESTAM {daysLeft}D</span>
                             </motion.span>
                           ) : (
-                            <span className="cagp-stamp-badge is-feito text-xs font-mono font-bold tracking-wider text-white border-2 border-[#16181d] bg-teal-700 rounded-md inline-flex items-center gap-1 py-1 px-2.5 shadow-xs">
+                            <span className="cagp-stamp-badge is-feito text-xs font-mono font-bold tracking-wider text-white border-2 border-[#1F1F1F] bg-teal-700 rounded-md inline-flex items-center gap-1 py-1 px-2.5 shadow-xs">
                               <i className="bi bi-check-circle-fill" aria-hidden="true" />
                               <span>NO PRAZO ({daysLeft}D RESTANTES)</span>
                             </span>

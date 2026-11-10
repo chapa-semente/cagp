@@ -25,7 +25,7 @@ const iconColors = [
   'bg-secondary text-secondary-foreground',
   'bg-accent text-accent-foreground',
   'bg-green-600 text-white',
-  'bg-amber-500 text-[#16181d]',
+  'bg-amber-500 text-[#1F1F1F]',
   'bg-teal-700 text-white',
 ]
 
@@ -97,14 +97,14 @@ export function FeatureGridWithIcons({
             >
               <Card
                 className={cn(
-                  'group h-full border-3 border-[#16181d] shadow-[6px_6px_0_0_#16181d] hover:shadow-[8px_8px_0_0_#16181d] transition',
+                  'group h-full border-3 border-[#1F1F1F] shadow-[6px_6px_0_0_#1F1F1F] hover:shadow-[8px_8px_0_0_#1F1F1F] transition',
                   featureColors[index % 6]
                 )}
               >
                 <CardHeader>
                   <div
                     className={cn(
-                      'w-14 h-14 rounded-xl flex items-center justify-center border-3 border-[#16181d] mb-4 shadow-[3px_3px_0_0_#16181d]',
+                      'w-14 h-14 rounded-xl flex items-center justify-center border-3 border-[#1F1F1F] mb-4 shadow-[3px_3px_0_0_#1F1F1F]',
                       iconColors[index % 6]
                     )}
                   >
@@ -175,7 +175,7 @@ export function FeatureGridWithImages({
               <motion.div
                 whileHover={photoCardHover}
                 transition={photoZoomSpring}
-                className="rounded-xl border-3 border-[#16181d] overflow-hidden shadow-[6px_6px_0_0_#16181d] mb-4"
+                className="rounded-xl border-2 border-[#1F1F1F] overflow-hidden shadow-[6px_6px_0_0_#1F1F1F] mb-4"
               >
                 <img
                   src={feature.image}

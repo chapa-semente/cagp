@@ -86,7 +86,7 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
     >
       <div className="space-y-4 text-foreground">
         {/* Controle Segmentado Interno: [Passaporte] [Banco de Talentos] */}
-        <div className="grid grid-cols-2 gap-1.5 bg-white p-1 rounded-xl border-3 border-border shadow-xs">
+        <div className="grid grid-cols-2 gap-1.5 bg-white p-1 rounded-xl border-2 border-border shadow-xs">
           <button
             type="button"
             onClick={() => setActiveTab('passport')}
@@ -131,7 +131,7 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
         {activeTab === 'passport' && (
           <div>
             {/* Seletor de Perfil / Momento no Curso */}
-            <div className="p-3.5 bg-white border-3 border-border rounded-xl mb-3 shadow-md">
+            <div className="p-3.5 bg-white border-2 border-border rounded-xl mb-3 shadow-md">
               <div className="flex items-center justify-between mb-2">
                 <strong className="font-heading font-black text-xs uppercase text-foreground">
                   Momento no Curso (Perfil da Home)
@@ -180,7 +180,7 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
             />
 
             {/* Atalho para Configurações do Super App (BUG-12 in-place fix) */}
-            <div className="p-3.5 bg-white border-3 border-border shadow-md rounded-xl flex items-center justify-between gap-2 mb-3">
+            <div className="p-3.5 bg-white border-2 border-border shadow-md rounded-xl flex items-center justify-between gap-2 mb-3">
               <div>
                 <strong className="block font-heading font-black text-xs uppercase text-foreground">
                   <i className="bi bi-gear-fill text-secondary mr-1" aria-hidden="true" />
@@ -203,7 +203,7 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
             </div>
 
             {/* Backup & Restauração Rápida */}
-            <div className="bg-muted p-3.5 rounded-xl border-3 border-border shadow-md space-y-2">
+            <div className="bg-muted p-3.5 rounded-xl border-2 border-border shadow-md space-y-2">
               <span className="font-heading font-black text-xs uppercase text-foreground block">
                 Cofre Discente Offline (Meu CAGP Sync)
               </span>

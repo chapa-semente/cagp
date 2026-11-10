@@ -23,7 +23,7 @@ const CATEGORIES = [
     desc: 'Denuncie bibliografias desatualizadas ou conteúdos fora da realidade do setor público para o Colegiado.',
     icon: 'bi-journal-x',
     badge: 'Prioridade Pedagógica',
-    color: 'bg-[#FEF08A] text-[#854D0E] border-[#CA8A04]',
+    color: 'bg-[#FEF3C7] text-[#854D0E] border-[#CA8A04]',
   },
   {
     id: 'infra',
@@ -47,7 +47,7 @@ const CATEGORIES = [
     desc: 'Garantias para estudantes trabalhadores, suporte à neurodivergência e denúncias de assédio ou descaso.',
     icon: 'bi-shield-check',
     badge: 'Permanência & Direitos',
-    color: 'bg-[#FEE2E2] text-[#991B1B] border-[#DC2626]',
+    color: 'bg-[#FEE2E2] text-[#991B1B] border-[#B91C1C]',
   },
 ];
 
@@ -135,28 +135,28 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
   return (
     <div className="space-y-8">
       {/* Selo de Garantia Visual de Sigilo Local */}
-      <div className="p-4 rounded-xl bg-[#ECFDF5] border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="p-4 rounded-xl bg-[#ECFDF5] border-2 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-start sm:items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-[#15803D] text-white border-2 border-[#16181d] flex items-center justify-center shrink-0">
+          <div className="w-10 h-10 rounded-lg bg-[#166534] text-white border-2 border-[#1F1F1F] flex items-center justify-center shrink-0">
             <i className="bi bi-shield-lock-fill text-lg" aria-hidden="true" />
           </div>
           <div>
-            <span className="font-heading font-black text-xs sm:text-sm uppercase text-[#16181d] block">
+            <span className="font-heading font-black text-xs sm:text-sm uppercase text-[#1F1F1F] block">
               Fala com o CA (Proposta 14 Semente) • Sigilo Local Garantido
             </span>
-            <p className="text-xs text-[#16181d]/85 m-0 font-medium">
+            <p className="text-xs text-[#1F1F1F]/85 m-0 font-medium">
               Nenhum dado sai do seu aparelho sem sua ação expressa. Suas manifestações ficam protegidas no Cofre Discente (<code className="font-mono font-bold">studentVault.ts</code>).
             </p>
           </div>
         </div>
-        <span className="px-3 py-1 rounded-lg bg-white border-2 border-[#16181d] font-mono text-xs font-black uppercase text-[#15803D] shrink-0 self-start sm:self-center">
+        <span className="px-3 py-1 rounded-lg bg-white border-2 border-[#1F1F1F] font-mono text-xs font-black uppercase text-[#166534] shrink-0 self-start sm:self-center">
           CRIPTOGRAFIA LOCAL ATIVA
         </span>
       </div>
 
       {/* Formulário Multi-Etapas Animado */}
       <div className="space-y-5">
-        <div className="p-4 rounded-xl bg-white border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]">
+        <div className="p-4 rounded-xl bg-white border-2 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F]">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
             {OUVIDORIA_STEPS.map((st, idx) => {
               const isCurrent = activeStep === idx;
@@ -171,13 +171,13 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                   }}
                   className={`min-h-[48px] p-3 rounded-xl border-3 text-left transition-all cursor-pointer flex items-center gap-3 ${
                     isCurrent
-                      ? 'bg-[#5B2A85] text-white border-[#16181d] shadow-[3px_3px_0_0_#FE8812]'
+                      ? 'bg-[#5B2A85] text-white border-[#1F1F1F] shadow-[3px_3px_0_0_#FE8812]'
                       : isDone
-                      ? 'bg-[#DCFCE7] text-[#16181d] border-[#16181d]'
-                      : 'bg-[#f4f5f7] text-[#16181d] border-[#16181d]/60 hover:bg-white'
+                      ? 'bg-[#DCFCE7] text-[#1F1F1F] border-[#1F1F1F]'
+                      : 'bg-[#F4F2EC] text-[#1F1F1F] border-[#1F1F1F]/60 hover:bg-white'
                   }`}
                 >
-                  <span className="w-7 h-7 rounded-lg border-2 border-[#16181d] bg-white text-[#16181d] font-mono font-black text-xs flex items-center justify-center shrink-0">
+                  <span className="w-7 h-7 rounded-lg border-2 border-[#1F1F1F] bg-white text-[#1F1F1F] font-mono font-black text-xs flex items-center justify-center shrink-0">
                     {isDone ? <i className="bi bi-check-lg" aria-hidden="true" /> : idx + 1}
                   </span>
                   <div className="min-w-0">
@@ -196,7 +196,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
 
         <form
           onSubmit={handleSubmit}
-          className="p-5 sm:p-7 rounded-2xl bg-card border-3 border-[#16181d] shadow-[8px_8px_0px_#16181d] space-y-5"
+          className="p-5 sm:p-7 rounded-2xl bg-card border-2 border-[#1F1F1F] shadow-[8px_8px_0px_#1F1F1F] space-y-5"
         >
           <AnimatePresence mode="wait">
             {activeStep === 0 && (
@@ -208,7 +208,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                 transition={tactileSpring}
                 className="space-y-5"
               >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b-2 border-[#16181d]">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b-2 border-[#1F1F1F]">
                   <div>
                     <h3 className="text-base sm:text-lg font-heading font-black text-foreground m-0">
                       Etapa 1: Selecione o Eixo da Demanda &amp; Modo de Sigilo
@@ -217,7 +217,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                       Escolha uma das 4 frentes de atuação do Fala com o CA.
                     </p>
                   </div>
-                  <div className="flex items-center gap-2 bg-[#FFFBEB] px-3.5 py-2 rounded-xl border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+                  <div className="flex items-center gap-2 bg-[#FFFBEB] px-3.5 py-2 rounded-xl border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]">
                     <input
                       type="checkbox"
                       id="sigilo-toggle"
@@ -225,7 +225,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                       onChange={(e) => setIsAnonymous(e.target.checked)}
                       className="w-4 h-4 text-primary rounded border-border focus:ring-primary cursor-pointer"
                     />
-                    <label htmlFor="sigilo-toggle" className="text-xs font-heading font-black uppercase text-[#16181d] cursor-pointer select-none">
+                    <label htmlFor="sigilo-toggle" className="text-xs font-heading font-black uppercase text-[#1F1F1F] cursor-pointer select-none">
                       {isAnonymous ? 'Modo Sigiloso (Anônimo)' : 'Modo Identificado'}
                     </label>
                   </div>
@@ -241,8 +241,8 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                         onClick={() => setSelectedCategory(cat.id)}
                         className={`text-left p-4 rounded-xl border-3 transition-all min-h-[48px] flex flex-col justify-between cursor-pointer ${
                           isSelected
-                            ? 'border-[#16181d] bg-white shadow-[5px_5px_0px_#16181d] -translate-y-0.5 ring-2 ring-primary'
-                            : 'border-[#16181d]/60 bg-background hover:bg-white opacity-95'
+                            ? 'border-[#1F1F1F] bg-white shadow-[5px_5px_0px_#1F1F1F] -translate-y-0.5 ring-2 ring-primary'
+                            : 'border-[#1F1F1F]/60 bg-background hover:bg-white opacity-95'
                         }`}
                       >
                         <div>
@@ -273,7 +273,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setActiveStep(1)}
-                    className="min-h-[48px] px-6 py-3 rounded-xl bg-[#5B2A85] text-white font-heading font-black text-xs uppercase tracking-wider border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all cursor-pointer inline-flex items-center gap-2"
+                    className="min-h-[48px] px-6 py-3 rounded-xl bg-[#5B2A85] text-white font-heading font-black text-xs uppercase tracking-wider border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all cursor-pointer inline-flex items-center gap-2"
                   >
                     <span>Avançar para o Relato</span>
                     <i className="bi bi-arrow-right" aria-hidden="true" />
@@ -291,11 +291,11 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                 transition={tactileSpring}
                 className="space-y-4"
               >
-                <div className="flex items-center justify-between flex-wrap gap-2 pb-3 border-b-2 border-[#16181d]">
+                <div className="flex items-center justify-between flex-wrap gap-2 pb-3 border-b-2 border-[#1F1F1F]">
                   <h3 className="text-base sm:text-lg font-heading font-black text-foreground m-0">
                     Etapa 2: Detalhar Manifestação ({getCategoryMeta(selectedCategory).title})
                   </h3>
-                  <span className="font-mono text-xs font-bold px-2.5 py-1 rounded bg-[#f4f5f7] border-2 border-[#16181d]">
+                  <span className="font-mono text-xs font-bold px-2.5 py-1 rounded bg-[#F4F2EC] border-2 border-[#1F1F1F]">
                     {isAnonymous ? 'Anônimo no Cofre' : 'Identificado'}
                   </span>
                 </div>
@@ -312,7 +312,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                       value={subject}
                       onChange={(e) => setSubject(e.target.value)}
                       placeholder="Ex: Bibliografia de DCP123 desatualizada desde 2012"
-                      className="w-full px-3.5 py-2.5 text-base sm:text-sm bg-background border-3 border-[#16181d] rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all font-medium min-h-[44px]"
+                      className="w-full px-3.5 py-2.5 text-base sm:text-sm bg-background border-3 border-[#1F1F1F] rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all font-medium min-h-[44px]"
                     />
                   </div>
 
@@ -326,7 +326,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                       value={targetDept}
                       onChange={(e) => setTargetDept(e.target.value)}
                       placeholder="Ex: DCP 123 / Sala 4010"
-                      className="w-full px-3.5 py-2.5 text-base sm:text-sm bg-background border-3 border-[#16181d] rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all font-medium min-h-[44px]"
+                      className="w-full px-3.5 py-2.5 text-base sm:text-sm bg-background border-3 border-[#1F1F1F] rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all font-medium min-h-[44px]"
                     />
                   </div>
                 </div>
@@ -342,7 +342,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Descreva a situação com clareza. Caso trate de ementa defasada, cite os autores cobrados ou o problema na grade. Caso seja infraestrutura, informe horários e localização precisa."
-                    className="w-full px-3.5 py-2.5 text-base sm:text-sm bg-background border-3 border-[#16181d] rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all font-normal leading-relaxed resize-y min-h-[120px]"
+                    className="w-full px-3.5 py-2.5 text-base sm:text-sm bg-background border-3 border-[#1F1F1F] rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all font-normal leading-relaxed resize-y min-h-[120px]"
                   />
                 </div>
 
@@ -350,7 +350,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setActiveStep(0)}
-                    className="min-h-[44px] px-4 py-2.5 rounded-xl bg-white text-[#16181d] font-heading font-black text-xs uppercase border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] cursor-pointer"
+                    className="min-h-[44px] px-4 py-2.5 rounded-xl bg-white text-[#1F1F1F] font-heading font-black text-xs uppercase border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] cursor-pointer"
                   >
                     ← Voltar ao Eixo
                   </button>
@@ -363,7 +363,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                       }
                       setActiveStep(2);
                     }}
-                    className="min-h-[48px] px-6 py-3 rounded-xl bg-[#5B2A85] text-white font-heading font-black text-xs uppercase tracking-wider border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] cursor-pointer inline-flex items-center gap-2"
+                    className="min-h-[48px] px-6 py-3 rounded-xl bg-[#5B2A85] text-white font-heading font-black text-xs uppercase tracking-wider border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] cursor-pointer inline-flex items-center gap-2"
                   >
                     <span>Revisar &amp; Carimbar Protocolo</span>
                     <i className="bi bi-arrow-right" aria-hidden="true" />
@@ -382,15 +382,15 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                 className="space-y-5"
               >
                 {lastStamped ? (
-                  <div className="p-6 rounded-2xl bg-[#ECFDF5] border-3 border-[#16181d] shadow-[6px_6px_0_0_#16181d] space-y-4 text-center">
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl bg-[#15803D] text-white font-mono text-xs font-black uppercase border-2 border-[#16181d] shadow-[3px_3px_0_0_#16181d] -rotate-1">
+                  <div className="p-6 rounded-2xl bg-[#ECFDF5] border-2 border-[#1F1F1F] shadow-[6px_6px_0_0_#1F1F1F] space-y-4 text-center">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl bg-[#166534] text-white font-mono text-xs font-black uppercase border-2 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] -rotate-1">
                       <i className="bi bi-patch-check-fill" aria-hidden="true" />
                       <span>PROTOCOLADO NO COFRE • FALA COM O CA</span>
                     </div>
-                    <h4 className="font-heading text-xl sm:text-2xl font-black text-[#16181d] m-0">
+                    <h4 className="font-heading text-xl sm:text-2xl font-black text-[#1F1F1F] m-0">
                       Recibo de Protocolo: {lastStamped.protocol}
                     </h4>
-                    <p className="text-xs sm:text-sm text-[#16181d]/85 max-w-lg mx-auto m-0 font-medium">
+                    <p className="text-xs sm:text-sm text-[#1F1F1F]/85 max-w-lg mx-auto m-0 font-medium">
                       Sua manifestação (&ldquo;{lastStamped.subject}&rdquo;) foi carimbada e salva com segurança no seu Cofre Local em {lastStamped.createdAt}.
                     </p>
                     <div className="pt-2 flex justify-center gap-3">
@@ -400,7 +400,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                           setLastStamped(null);
                           setActiveStep(0);
                         }}
-                        className="min-h-[44px] px-5 py-2.5 rounded-xl bg-[#16181d] text-white font-heading font-black text-xs uppercase border-2 border-[#16181d] shadow-[3px_3px_0_0_#FE8812] cursor-pointer"
+                        className="min-h-[44px] px-5 py-2.5 rounded-xl bg-[#1F1F1F] text-white font-heading font-black text-xs uppercase border-2 border-[#1F1F1F] shadow-[3px_3px_0_0_#FE8812] cursor-pointer"
                       >
                         Registrar Nova Manifestação
                       </button>
@@ -408,16 +408,16 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    <div className="p-4 rounded-xl bg-[#ffffff] border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] space-y-2">
+                    <div className="p-4 rounded-xl bg-[#ffffff] border-2 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] space-y-2">
                       <div className="flex items-center justify-between flex-wrap gap-2">
                         <span className="font-mono text-xs font-black uppercase text-[#5B2A85]">
                           Resumo para Protocolo • {getCategoryMeta(selectedCategory).title}
                         </span>
-                        <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-[#FEF3C7] border border-[#16181d]">
+                        <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-[#FEF3C7] border border-[#1F1F1F]">
                           {isAnonymous ? 'Sigilo Anônimo Ativo' : 'Identificado'}
                         </span>
                       </div>
-                      <p className="font-heading font-black text-sm text-[#16181d] m-0">
+                      <p className="font-heading font-black text-sm text-[#1F1F1F] m-0">
                         {subject || '(Assunto não preenchido)'}
                       </p>
                       {targetDept && (
@@ -425,7 +425,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                           Alvo: {targetDept}
                         </p>
                       )}
-                      <p className="text-xs text-[#16181d]/90 leading-relaxed m-0 pt-1 border-t border-[#16181d]/20">
+                      <p className="text-xs text-[#1F1F1F]/90 leading-relaxed m-0 pt-1 border-t border-[#1F1F1F]/20">
                         {message || '(Relato ainda não preenchido — volte à Etapa 2 para detalhar)'}
                       </p>
                     </div>
@@ -434,7 +434,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => setActiveStep(1)}
-                        className="min-h-[44px] px-4 py-2.5 rounded-xl bg-white text-[#16181d] font-heading font-black text-xs uppercase border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] cursor-pointer"
+                        className="min-h-[44px] px-4 py-2.5 rounded-xl bg-white text-[#1F1F1F] font-heading font-black text-xs uppercase border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] cursor-pointer"
                       >
                         ← Editar Relato
                       </button>
@@ -442,7 +442,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#FE8812] text-[#16181d] font-heading font-black text-sm uppercase tracking-wider rounded-xl border-3 border-[#16181d] shadow-[5px_5px_0px_#16181d] hover:bg-[#ff9831] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer min-h-[48px] disabled:opacity-50"
+                        className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#FE8812] text-[#1F1F1F] font-heading font-black text-sm uppercase tracking-wider rounded-xl border-3 border-[#1F1F1F] shadow-[5px_5px_0px_#1F1F1F] hover:bg-[#ff9831] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer min-h-[48px] disabled:opacity-50"
                       >
                         {isSubmitting ? (
                           <>
@@ -490,7 +490,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
         </div>
 
         {manifestacoes.length === 0 ? (
-          <div className="p-8 text-center rounded-2xl border-3 border-dashed border-border bg-background">
+          <div className="p-8 text-center rounded-2xl border-2 border-dashed border-border bg-background">
             <i className="bi bi-chat-square-quote text-3xl text-muted-foreground/60 mb-2 block"></i>
             <p className="text-sm font-heading font-extrabold text-foreground">
               Nenhuma manifestação protocolada neste navegador
@@ -506,7 +506,7 @@ export const OuvidoriaInteractiveCenter: React.FC = () => {
               return (
                 <div
                   key={item.id}
-                  className="p-4 rounded-xl border-3 border-border bg-card shadow-[3px_3px_0px_#000] flex flex-col sm:flex-row sm:items-start justify-between gap-3"
+                  className="p-4 rounded-xl border-2 border-border bg-card shadow-[3px_3px_0px_#000] flex flex-col sm:flex-row sm:items-start justify-between gap-3"
                 >
                   <div className="space-y-1.5 flex-1 min-w-0">
                     <div className="flex flex-wrap items-center gap-2">

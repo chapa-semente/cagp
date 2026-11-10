@@ -40,7 +40,7 @@ export const CarreiraTalentosPreview: React.FC = () => {
     <section
       id="cagp-carreira-talentos-preview"
       aria-labelledby="heading-talentos-preview"
-      className="p-5 sm:p-6 rounded-xl border-3 border-border bg-white shadow-md space-y-4 font-sans select-none"
+      className="p-5 sm:p-6 rounded-xl border-2 border-border bg-white shadow-md space-y-4 font-sans select-none"
     >
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-2 border-border pb-4">
         <div>
@@ -77,10 +77,10 @@ export const CarreiraTalentosPreview: React.FC = () => {
           </p>
 
           <div className="flex flex-wrap items-center gap-2 pt-1 text-xs font-mono font-bold">
-            <span className="px-2.5 py-1 rounded-md bg-[#f4f5f7] border border-border text-foreground">
+            <span className="px-2.5 py-1 rounded-md bg-[#F4F2EC] border border-border text-foreground">
               Status: {profile ? STATUS_LABELS[profile.stageStatus] : 'Buscando Estágio'}
             </span>
-            <span className="px-2.5 py-1 rounded-md bg-[#f4f5f7] border border-border text-foreground tabular-nums">
+            <span className="px-2.5 py-1 rounded-md bg-[#F4F2EC] border border-border text-foreground tabular-nums">
               Disponibilidade: {profile?.weeklyHoursAvailable ?? 30}h/sem
             </span>
             <span className="px-2.5 py-1 rounded-md bg-[#F0FDF4] border border-[#134E4A]/40 text-[#134E4A] tabular-nums">
@@ -89,7 +89,7 @@ export const CarreiraTalentosPreview: React.FC = () => {
           </div>
         </div>
 
-        <div className="md:col-span-4 p-4 rounded-xl border-2 border-border bg-[#f4f5f7] space-y-3">
+        <div className="md:col-span-4 p-4 rounded-xl border-2 border-border bg-[#F4F2EC] space-y-3">
           <div className="flex items-center justify-between border-b border-border pb-2">
             <span className="font-mono text-xs font-black uppercase text-primary">
               Cartão Colecionável

@@ -67,11 +67,11 @@ const RadialBarChartComponent = React.forwardRef<HTMLDivElement, RadialBarChartP
 
     // Assign a chart color to each item that does not supply its own fill
     const chartData = React.useMemo(() => {
-      const sementeColors = ['#5B2A85', '#FE8812', '#134E4A', '#9E2424', '#15803D', '#1E3F66']
+      const sementeColors = ['#5B2A85', '#FE8812', '#266264', '#A85300', '#4A216E', '#134E4A']
       return (data ?? []).map((item, index) => ({
         ...item,
         fill: item.fill || sementeColors[index % sementeColors.length],
-        stroke: '#16181d',
+        stroke: '#1F1F1F',
         strokeWidth: 3,
       }))
     }, [data])

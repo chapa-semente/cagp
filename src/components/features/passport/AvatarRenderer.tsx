@@ -38,8 +38,8 @@ export const AvatarRenderer: React.FC<AvatarRendererProps> = ({
       transition={photoZoomSpring}
       className={`cagp-avatar-frame ${sizeClass} relative flex items-center justify-center overflow-hidden ${
         isLarge
-          ? 'rounded-2xl border-3 border-[#16181d] shadow-[6px_6px_0_0_#16181d]'
-          : 'rounded-full border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]'
+          ? 'rounded-2xl border-2 border-[#1F1F1F] shadow-[6px_6px_0_0_#1F1F1F]'
+          : 'rounded-full border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]'
       }`}
       style={{
         backgroundColor: profile.photoDataUrl ? '#FFFFFF' : preset.bg,
@@ -86,7 +86,7 @@ export const AvatarRenderer: React.FC<AvatarRendererProps> = ({
       >
         {content}
         {showCameraBadge && (
-          <span className="cagp-avatar-cam-badge group-hover:bg-[#E8A317] transition-colors">
+          <span className="cagp-avatar-cam-badge group-hover:bg-[#A85300] transition-colors">
             <i className="bi bi-camera-fill" aria-hidden="true" />
           </span>
         )}

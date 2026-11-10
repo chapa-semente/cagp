@@ -11,7 +11,7 @@ import { asset } from '@/lib/paths';
 
 export const PercursoNavigationMenu: React.FC = () => {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 p-3 bg-white border-3 border-border rounded-xl shadow-[3px_3px_0_0_#16181d] mb-4">
+    <div className="flex flex-wrap items-center justify-between gap-3 p-3 bg-white border-2 border-border rounded-xl shadow-[3px_3px_0_0_#1F1F1F] mb-4">
       <div className="flex items-center gap-2">
         <span className="font-heading text-xs font-black uppercase text-foreground">
           Atalhos de Percurso:
@@ -25,7 +25,7 @@ export const PercursoNavigationMenu: React.FC = () => {
             <NavigationMenuTrigger className="text-xs min-h-[44px]">
               1. Núcleo Geral
             </NavigationMenuTrigger>
-            <NavigationMenuContent className="p-3 w-80 space-y-2 bg-card border-3 border-border shadow-lg">
+            <NavigationMenuContent className="p-3 w-80 space-y-2 bg-card border-2 border-border shadow-lg">
               <h4 className="font-heading text-xs font-extrabold text-foreground m-0">
                 Núcleo Geral (Ingresso Padrão)
               </h4>
@@ -48,7 +48,7 @@ export const PercursoNavigationMenu: React.FC = () => {
             <NavigationMenuTrigger className="text-xs min-h-[44px]">
               2. FCA Complementar
             </NavigationMenuTrigger>
-            <NavigationMenuContent className="p-3 w-80 space-y-2 bg-card border-3 border-border shadow-lg">
+            <NavigationMenuContent className="p-3 w-80 space-y-2 bg-card border-2 border-border shadow-lg">
               <h4 className="font-heading text-xs font-extrabold text-foreground m-0">
                 Formação Complementar Aberta (FCA)
               </h4>
@@ -71,7 +71,7 @@ export const PercursoNavigationMenu: React.FC = () => {
             <NavigationMenuTrigger className="text-xs min-h-[44px]">
               3. Núcleo Avançado
             </NavigationMenuTrigger>
-            <NavigationMenuContent className="p-3 w-80 space-y-2 bg-card border-3 border-border shadow-lg">
+            <NavigationMenuContent className="p-3 w-80 space-y-2 bg-card border-2 border-border shadow-lg">
               <h4 className="font-heading text-xs font-extrabold text-foreground m-0">
                 Núcleo Avançado (Pós-Graduação)
               </h4>

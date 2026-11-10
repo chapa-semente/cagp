@@ -25,9 +25,9 @@ const NEUBRUTALISM_COLORS = [
   '#5B2A85',
   '#FE8812',
   '#134E4A',
-  '#9E2424',
-  '#15803D',
-  '#1E3F66',
+  '#A85300',
+  '#166534',
+  '#4A216E',
 ]
 
 interface CustomContentProps {

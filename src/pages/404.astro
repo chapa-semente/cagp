@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { ErrorPageBlock } from '../components/boldkit/blocks/error-pages';
-import { MatrixRain } from '../components/boldkit/canvas-effects/MatrixRain';
+import { SeedShape, LeafShape } from '../components/ui/semente-shapes';
 import { route } from '@/lib/paths';
 ---
 
@@ -10,11 +10,10 @@ import { route } from '@/lib/paths';
   description="A rota solicitada não foi localizada no Superapp do Centro Acadêmico de Gestão Pública (CAGP FAFICH/UFMG)."
   mode="persuade"
 >
-  <div class="relative overflow-hidden my-6 rounded-2xl border-3 border-[#16181d] bg-card shadow-[8px_8px_0_0_#16181d] p-6 sm:p-10 space-y-8" data-context-type="shell">
-    <!-- WebGL 60fps Canvas Shader MatrixRain no Fundo -->
-    <div class="absolute inset-0 opacity-15 pointer-events-none" aria-hidden="true">
-      <MatrixRain client:load color="#9E2424" speed={1.2} />
-    </div>
+  <div class="relative overflow-hidden my-6 rounded-2xl border-2 border-[#1F1F1F] bg-card shadow-[6px_6px_0_0_#1F1F1F] p-6 sm:p-10 space-y-8" data-context-type="shell">
+    <!-- Formas orgânicas da marca: a semente que ainda não brotou (sem canvas genérico) -->
+    <SeedShape color="purple" className="pointer-events-none absolute -right-8 -bottom-10 w-40 sm:w-56 h-auto" />
+    <LeafShape color="orange" className="pointer-events-none absolute right-16 sm:right-28 -bottom-2 w-16 sm:w-20 h-auto" />
 
     <div class="relative z-10">
       <ErrorPageBlock
@@ -34,35 +33,35 @@ import { route } from '@/lib/paths';
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           <a
             href={route('/')}
-            class="p-3.5 rounded-xl border-3 border-border bg-card hover:bg-muted shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline text-foreground"
+            class="p-3.5 rounded-xl border-2 border-border bg-card hover:bg-muted shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline text-foreground"
           >
             <span class="font-mono text-xs font-bold text-secondary block">EIXO 1</span>
             <span class="font-heading text-xs font-extrabold uppercase">Hoje &amp; Campus</span>
           </a>
           <a
             href={route('/calouros')}
-            class="p-3.5 rounded-xl border-3 border-border bg-card hover:bg-muted shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline text-foreground"
+            class="p-3.5 rounded-xl border-2 border-border bg-card hover:bg-muted shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline text-foreground"
           >
             <span class="font-mono text-xs font-bold text-primary block">EIXO 2</span>
             <span class="font-heading text-xs font-extrabold uppercase">Manual Calouros</span>
           </a>
           <a
             href={route('/percurso')}
-            class="p-3.5 rounded-xl border-3 border-border bg-card hover:bg-muted shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline text-foreground"
+            class="p-3.5 rounded-xl border-2 border-border bg-card hover:bg-muted shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline text-foreground"
           >
             <span class="font-mono text-xs font-bold text-[#134E4A] block">EIXO 3</span>
             <span class="font-heading text-xs font-extrabold uppercase">Grade &amp; 600h</span>
           </a>
           <a
             href={route('/documentos')}
-            class="p-3.5 rounded-xl border-3 border-border bg-card hover:bg-muted shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline text-foreground"
+            class="p-3.5 rounded-xl border-2 border-border bg-card hover:bg-muted shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline text-foreground"
           >
             <span class="font-mono text-xs font-bold text-accent block">EIXO 4</span>
             <span class="font-heading text-xs font-extrabold uppercase">Acervo &amp; PDFs</span>
           </a>
           <a
             href={route('/gestao')}
-            class="p-3.5 rounded-xl border-3 border-border bg-card hover:bg-muted shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline text-foreground"
+            class="p-3.5 rounded-xl border-2 border-border bg-card hover:bg-muted shadow-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all no-underline text-foreground"
           >
             <span class="font-mono text-xs font-bold text-secondary block">EIXO 5</span>
             <span class="font-heading text-xs font-extrabold uppercase">CAGP &amp; Semente</span>

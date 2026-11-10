@@ -210,7 +210,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
   return (
     <div className="cagp-curriculum-graph-dynamic select-none space-y-6">
       {/* HUD Linear de Integralização da Matriz */}
-      <div className="p-4 sm:p-5 bg-card border-3 border-border rounded-xl shadow-md">
+      <div className="p-4 sm:p-5 bg-card border-2 border-border rounded-xl shadow-md">
         <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
           <div>
             <div className="flex items-center gap-2">
@@ -232,7 +232,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
             </span>
             {/* Alternador de Modo: Colunas 10P vs Mapa SVG vs Lista Móvel (44x44pt Touch Targets) */}
             <div
-              className="inline-flex rounded-xl border-3 border-border p-1 bg-white shadow-xs"
+              className="inline-flex rounded-xl border-2 border-border p-1 bg-white shadow-xs"
               role="radiogroup"
               aria-label="Modo de visualização do grafo"
             >
@@ -324,7 +324,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
       </div>
 
       {periods.length === 0 && (
-        <div className="flex flex-col items-center justify-center p-8 border-3 border-border rounded-xl bg-card gap-4">
+        <div className="flex flex-col items-center justify-center p-8 border-2 border-border rounded-xl bg-card gap-4">
           <MathCurveLoader curve="lissajous" size="lg" headColor="#5B2A85" trackColor="#FE8812" />
           <span className="font-mono text-xs font-bold uppercase text-muted-foreground">
             Calculando topologia e travas regimentais do grafo 10P...
@@ -339,7 +339,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
       )}
 
       {/* Barra Tátil de Filtros Rápidos, Zoom e Navegação 44x44pt (Mobile, Tablet & Desktop) */}
-      <div className="p-3 bg-white border-3 border-border rounded-xl shadow-sm flex flex-wrap items-center justify-between gap-3">
+      <div className="p-3 bg-white border-2 border-border rounded-xl shadow-sm flex flex-wrap items-center justify-between gap-3">
         <div className="scroll-mask-x flex items-center gap-1.5 pb-1 sm:pb-0 max-w-full">
           {[
             { id: 'all', label: 'Todas (27)' },
@@ -353,7 +353,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
               onClick={() => setStatusFilter(flt.id as any)}
               className={`min-h-[44px] px-3 py-1.5 rounded-xl font-heading text-xs uppercase font-extrabold border-2 transition-all shrink-0 cursor-pointer ${
                 statusFilter === flt.id
-                  ? 'bg-[#5B2A85] text-white border-[#16181d] shadow-[2px_2px_0_0_#16181d]'
+                  ? 'bg-[#5B2A85] text-white border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]'
                   : 'bg-white text-foreground border-border hover:bg-muted'
               }`}
             >
@@ -426,14 +426,14 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.98 }}
             transition={bounceSpring}
-            className="p-3.5 bg-[#EFE7F6] border-3 border-[#16181d] rounded-xl shadow-[4px_4px_0_0_#5B2A85] flex flex-wrap items-center justify-between gap-3 text-xs"
+            className="p-3.5 bg-[#EFE7F6] border-2 border-[#1F1F1F] rounded-xl shadow-[3px_3px_0_0_#1F1F1F] flex flex-wrap items-center justify-between gap-3 text-xs"
           >
             <div className="flex flex-wrap items-center gap-2">
-              <span className="px-2.5 py-1 rounded-lg bg-[#5B2A85] text-white font-mono font-bold border-2 border-[#16181d]">
+              <span className="px-2.5 py-1 rounded-lg bg-[#5B2A85] text-white font-mono font-bold border-2 border-[#1F1F1F]">
                 FOCO: {activeChainData.code} ({activeChainData.name})
               </span>
               {activePrereqCodes.size > 0 ? (
-                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#FEE2E2] text-[#9E2424] font-mono font-bold border-2 border-[#9E2424]">
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#FEE2E2] text-[#B91C1C] font-mono font-bold border-2 border-[#9E2424]">
                   ⬅ Exige Pré-Req: {Array.from(activePrereqCodes).join(', ')}
                 </span>
               ) : (
@@ -442,7 +442,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                 </span>
               )}
               {activeUnlockCodes.size > 0 && (
-                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#DCFCE7] text-[#15803D] font-mono font-bold border-2 border-[#15803D]">
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#DCFCE7] text-[#166534] font-mono font-bold border-2 border-[#166534]">
                   Libera → {Array.from(activeUnlockCodes).join(', ')}
                 </span>
               )}
@@ -450,7 +450,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
             <button
               type="button"
               onClick={() => setFocusedCode(null)}
-              className="min-h-[44px] px-3 py-1 rounded-lg bg-white hover:bg-muted border-2 border-[#16181d] font-heading font-extrabold uppercase text-xs cursor-pointer"
+              className="min-h-[44px] px-3 py-1 rounded-lg bg-white hover:bg-muted border-2 border-[#1F1F1F] font-heading font-extrabold uppercase text-xs cursor-pointer"
             >
               Limpar destaque
             </button>
@@ -490,7 +490,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                 return (
                   <div
                     key={p}
-                    className="w-72 bg-white border-3 border-border rounded-xl p-3 flex flex-col justify-between shrink-0 shadow-md"
+                    className="w-72 bg-white border-2 border-border rounded-xl p-3 flex flex-col justify-between shrink-0 shadow-md"
                   >
                     <div>
                       {/* Cabeçalho do Período */}
@@ -531,11 +531,11 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                                   transition={tactileSpring}
                                   className={`p-2.5 rounded-lg border-2 transition-colors text-xs cursor-pointer ${
                                     isCurrentFocus
-                                      ? 'bg-[#EFE7F6] border-[#5B2A85] shadow-[4px_4px_0_0_#5B2A85]'
+                                      ? 'bg-[#EFE7F6] border-[#5B2A85] shadow-[3px_3px_0_0_#1F1F1F]'
                                       : isPrereqChain
-                                      ? 'bg-[#FFF5F5] border-[#9E2424] shadow-[4px_4px_0_0_#9E2424]'
+                                      ? 'bg-[#FFF5F5] border-[#9E2424] shadow-[3px_3px_0_0_#1F1F1F]'
                                       : isUnlockChain
-                                      ? 'bg-[#F0FDF4] border-[#15803D] shadow-[4px_4px_0_0_#15803D]'
+                                      ? 'bg-[#F0FDF4] border-[#166534] shadow-[3px_3px_0_0_#1F1F1F]'
                                       : isCompleted
                                       ? 'bg-success-tint border-success'
                                       : 'bg-white border-border hover:shadow-xs'
@@ -558,7 +558,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                                         </span>
                                       )}
                                       {isUnlockChain && (
-                                        <span className="text-xs font-mono font-black uppercase py-0.5 px-1.5 rounded bg-[#15803D] text-white">
+                                        <span className="text-xs font-mono font-black uppercase py-0.5 px-1.5 rounded bg-[#166534] text-white">
                                           LIBERA →
                                         </span>
                                       )}
@@ -728,7 +728,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
       {viewMode === 'svg' && (
         <div className="space-y-4 animate-in fade-in duration-150">
           {/* Filtro por Trilhas Temáticas */}
-          <div className="flex items-center gap-1.5 p-3 bg-card border-3 border-border rounded-xl shadow-[3px_3px_0_0_#16181d] overflow-x-auto scroll-mask-x scrollbar-none">
+          <div className="flex items-center gap-1.5 p-3 bg-card border-2 border-border rounded-xl shadow-[3px_3px_0_0_#1F1F1F] overflow-x-auto scroll-mask-x scrollbar-none">
             <span className="text-xs font-heading uppercase font-black text-foreground mr-1 flex items-center gap-1.5 shrink-0">
               <CagpIcon name="filter" className="w-3.5 h-3.5 text-primary" />
               Filtrar Trilha:
@@ -740,7 +740,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
                 onClick={() => setActiveTrack(key)}
                 className={`min-h-[44px] px-3 py-1.5 rounded-lg text-xs font-heading font-extrabold uppercase border-2 transition-all cursor-pointer shrink-0 ${
                   activeTrack === key
-                    ? 'bg-primary text-primary-foreground border-border shadow-[2px_2px_0_0_#16181d]'
+                    ? 'bg-primary text-primary-foreground border-border shadow-[2px_2px_0_0_#1F1F1F]'
                     : 'bg-white text-foreground border-border hover:bg-muted'
                 }`}
               >
@@ -750,7 +750,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
           </div>
 
           {/* Legenda Cartográfica */}
-          <div className="p-3 bg-white border-3 border-border rounded-xl flex flex-wrap items-center justify-between gap-3 text-xs shadow-sm">
+          <div className="p-3 bg-white border-2 border-border rounded-xl flex flex-wrap items-center justify-between gap-3 text-xs shadow-sm">
             <div className="flex flex-wrap items-center gap-3">
               <div className="flex items-center gap-1.5">
                 <span className="w-4 h-0.5 bg-destructive inline-block" />
@@ -776,7 +776,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
               animate={{ scale: zoomLevel }}
               transition={tactileSpring}
               style={{ transformOrigin: 'top left' }}
-              className="cagp-grafo-viewport border-3 border-border rounded-xl bg-card overflow-hidden min-w-[980px] shadow-[4px_4px_0_0_#16181d]"
+              className="cagp-grafo-viewport border-2 border-border rounded-xl bg-card overflow-hidden min-w-[980px] shadow-[3px_3px_0_0_#1F1F1F]"
             >
               <ResizablePanelGroup direction="horizontal" className="min-h-[580px]">
                 <ResizablePanel defaultSize={selectedNode ? 72 : 100} minSize={50} className="overflow-x-auto">
@@ -838,7 +838,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
             return (
               <details
                 key={p}
-                className="group border-3 border-border rounded-xl bg-card overflow-hidden shadow-xs"
+                className="group border-2 border-border rounded-xl bg-card overflow-hidden shadow-xs"
                 open={p <= 2}
               >
                 <summary className="p-3.5 bg-white flex items-center justify-between cursor-pointer font-heading font-black uppercase text-sm border-b-2 border-border select-none">

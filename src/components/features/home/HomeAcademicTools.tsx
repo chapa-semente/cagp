@@ -24,8 +24,8 @@ export const ART41_PREVIEW_STEPS = [
 export const UFMG_SYSTEMS = [
   { name: 'SIGA UFMG', desc: 'Matrícula e Histórico', href: 'https://siga.ufmg.br', color: '#9E2424' },
   { name: 'MinhaUFMG', desc: 'E-mail e Serviços', href: 'https://minha.ufmg.br', color: '#005A9C' },
-  { name: 'Moodle Virtual', desc: 'Salas de Aula', href: 'https://virtual.ufmg.br', color: '#B45309' },
-  { name: 'SEI UFMG', desc: 'Processos Oficiais', href: 'https://sei.ufmg.br', color: '#15803D' },
+  { name: 'Moodle Virtual', desc: 'Salas de Aula', href: 'https://virtual.ufmg.br', color: '#92400E' },
+  { name: 'SEI UFMG', desc: 'Processos Oficiais', href: 'https://sei.ufmg.br', color: '#166534' },
 ];
 
 interface Props {
@@ -39,7 +39,7 @@ export const HomeAcademicTools: React.FC<Props> = ({ art41Checklist, toggleArt41
       {/* Bloco Art. 41 Preview para Veteranos / Formandos — Container Único Sem Cards Aninhados */}
       <section
         aria-labelledby="heading-art41-preview"
-        className="divide-y divide-border bg-white rounded-xl border-3 border-border shadow-md overflow-hidden font-sans"
+        className="divide-y divide-border bg-white rounded-xl border-2 border-border shadow-md overflow-hidden font-sans"
       >
         <div className="p-5 sm:p-6 flex flex-wrap items-center justify-between gap-3 bg-white">
           <div className="flex items-center gap-3">
@@ -114,7 +114,7 @@ export const HomeAcademicTools: React.FC<Props> = ({ art41Checklist, toggleArt41
       {/* Acesso Rápido aos Sistemas Oficiais da UFMG */}
       <section
         aria-labelledby="heading-sistemas-ufmg"
-        className="bg-white rounded-xl border-3 border-border shadow-md overflow-hidden"
+        className="bg-white rounded-xl border-2 border-border shadow-md overflow-hidden"
       >
         <div className="px-5 py-3.5 border-b-2 border-border bg-white flex items-center justify-between">
           <h3

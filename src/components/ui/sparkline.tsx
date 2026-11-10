@@ -120,7 +120,7 @@ const Sparkline = React.forwardRef<HTMLDivElement, SparklineProps>(
               <Bar
                 dataKey="value"
                 fill={resolvedColor}
-                stroke="#16181d"
+                stroke="#1F1F1F"
                 strokeWidth={2}
                 isAnimationActive={animated}
                 animationDuration={300}

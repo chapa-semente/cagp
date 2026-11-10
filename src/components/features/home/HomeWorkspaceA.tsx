@@ -23,11 +23,9 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { StatCard } from '@/components/ui/stat-card';
 import { Progress } from '@/components/ui/progress';
-import { Sticker } from '@/components/ui/sticker';
 import { Marquee, MarqueeItem, MarqueeSeparator } from '@/components/ui/marquee';
 import { LayeredCard } from '@/components/ui/layered-card';
-import { Topography } from '@/components/boldkit/canvas-effects/Topography';
-import { BurstShape, Star4Shape, ShieldShape } from '@/components/boldkit/shapes';
+import { LeafShape, SemicircleShape } from '@/components/ui/semente-shapes';
 
 import { HomeCampusStatusWidget,
   computeCampusLiveStatus,
@@ -208,30 +206,17 @@ export const HomeWorkspaceA: React.FC = () => {
       {/* 2. HERO BANNER NEOBRUTALISTA TRI-CAMADA + BOLDKIT TOPOGRAPHY CANVAS */}
       <section
         aria-label="Boas-vindas e Seletor de Perfil"
-        className="relative overflow-hidden bg-primary rounded-xl p-5 sm:p-7 text-white border-3 border-border shadow-lg space-y-5"
+        className="relative overflow-hidden bg-primary rounded-xl p-5 sm:p-7 text-white border-2 border-border shadow-lg space-y-5"
       >
-        {/* Canvas Effect Topography (BoldKit) */}
-        <div className="pointer-events-none absolute inset-0 opacity-25 mix-blend-screen" aria-hidden="true">
-          <Topography
-            lineColor="#FE8812"
-            levels={10}
-            speed={0.6}
-            palette={['#5B2A85', '#4A216E', '#FE8812', '#FFD6A5', '#266264', '#9E2424']}
-          />
-        </div>
-
-        {/* Shapes Decorativos Vetoriais BoldKit */}
-        <BurstShape
-          size={84}
-          color="#FE8812"
-          className="pointer-events-none absolute -right-4 -top-4 opacity-25 hidden sm:block rotate-12"
-          aria-hidden="true"
+        {/* Formas orgânicas da marca (manual §7.1): a folha laranja brota no canto, o semicírculo petróleo faz o color blocking. */}
+        <SemicircleShape
+          color="teal"
+          className="pointer-events-none absolute -left-10 -bottom-1 w-44 sm:w-56 h-auto"
         />
-        <Star4Shape
-          size={42}
-          color="#FE8812"
-          className="pointer-events-none absolute right-48 bottom-3 opacity-35 hidden lg:block -rotate-6"
-          aria-hidden="true"
+        <LeafShape
+          color="orange"
+          germinate
+          className="pointer-events-none absolute -right-6 -top-6 w-28 h-28 sm:w-40 sm:h-40"
         />
 
         <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
@@ -259,9 +244,9 @@ export const HomeWorkspaceA: React.FC = () => {
                   <span className="text-secondary hidden min-[400px]:inline">PROPOSTAS</span>
                 </a>
 
-                <Sticker variant="default" size="sm" rotation="slight" className="font-accent font-normal normal-case tracking-normal text-base leading-none pt-1.5">
+                <span className="font-accent font-normal normal-case tracking-normal text-xl leading-none text-accent">
                   Turno Noturno
-                </Sticker>
+                </span>
 
                 <Badge variant="secondary" className="hidden sm:inline-flex bg-secondary text-white">
                   FAFICH / UFMG • PPC 2020
@@ -468,7 +453,7 @@ export const HomeWorkspaceA: React.FC = () => {
           </h2>
         </div>
 
-        <div className="rounded-2xl border-3 border-border bg-card shadow-md overflow-hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 divide-y sm:divide-y-0 sm:divide-x divide-border">
+        <div className="rounded-2xl border-2 border-border bg-card shadow-md overflow-hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 divide-y sm:divide-y-0 sm:divide-x divide-border">
           <a
             id="cagp-shortcut-carreira"
             href={route('/carreira')}
@@ -746,7 +731,7 @@ export const HomeWorkspaceA: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className="w-12 h-12 rounded-xl bg-primary text-white border-3 border-border shadow-sm flex flex-col items-center justify-center shrink-0 tabular-nums">
+                    <div className="w-12 h-12 rounded-xl bg-primary text-white border-2 border-border shadow-sm flex flex-col items-center justify-center shrink-0 tabular-nums">
                       <span className="text-xs font-heading font-extrabold tabular-nums">{globalPct}%</span>
                       <span className="text-xs font-mono font-bold tabular-nums">3.000h</span>
                     </div>
@@ -757,9 +742,7 @@ export const HomeWorkspaceA: React.FC = () => {
                       <CagpIcon name="stamp" className="w-3.5 h-3.5" />
                       <span>{profile.period.toUpperCase()} • ATIVO</span>
                     </Badge>
-                    <Sticker variant="secondary" size="sm" rotation="slight-right">
-                      {candangoMilestone}
-                    </Sticker>
+                    <Badge variant="accent">{candangoMilestone}</Badge>
                   </div>
 
                   <div className="space-y-3 pt-1">
@@ -786,7 +769,7 @@ export const HomeWorkspaceA: React.FC = () => {
 
                   <div className="pt-3 border-t-2 border-border flex items-center justify-between gap-2 text-xs">
                     <div className="flex items-center gap-2 text-foreground">
-                      <ShieldShape size={18} color="#15803D" />
+                      <i className="bi bi-shield-check text-success" aria-hidden="true" />
                       <span className="font-bold">Percurso {profile.pathway || '01-01'}</span>
                       <span className="text-muted-foreground font-mono tabular-nums">
                         • {certs.length} cert. 120d

@@ -92,7 +92,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
                 </span>
               </div>
             </div>
-            <span className="font-mono text-xs font-bold text-foreground bg-[#e5e7ec] px-2 py-1 rounded border border-border tabular-nums">R$ 5,60</span>
+            <span className="font-mono text-xs font-bold text-foreground bg-[#E7E3D8] px-2 py-1 rounded border border-border tabular-nums">R$ 5,60</span>
           </div>
           <p className="text-xs text-muted-foreground m-0 leading-snug font-medium">
             Catracas fecham <strong>impreterivelmente às 19h30</strong>. Chegue antes das 18h30 para evitar fila extensa.
@@ -170,12 +170,12 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
         <div className="bg-white p-4 rounded-xl border-[2.5px] border-border shadow space-y-3">
           <div className="flex items-center justify-between flex-wrap gap-2">
             <div className="flex items-center gap-2.5">
-              <span className="w-9 h-9 rounded-xl bg-[#E8A317] text-black flex items-center justify-center shrink-0 border-2 border-border shadow-xs">
+              <span className="w-9 h-9 rounded-xl bg-[#A85300] text-black flex items-center justify-center shrink-0 border-2 border-border shadow-xs">
                 <i className="bi bi-shield-exclamation text-base" aria-hidden="true" />
               </span>
               <div>
                 <span className="font-heading font-extrabold text-sm uppercase text-foreground">Guardião de 120 Dias AAC</span>
-                <span className="text-xs font-mono bg-[#FEF08A] text-[#854D0E] font-bold px-2 py-0.5 rounded border border-border ml-2">
+                <span className="text-xs font-mono bg-[#FEF3C7] text-[#854D0E] font-bold px-2 py-0.5 rounded border border-border ml-2">
                   Art. 15, § 4º
                 </span>
               </div>
@@ -199,7 +199,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
 
         {/* 4. Atendimento e Contatos Oficiais */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
-          <div className="bg-white p-3 rounded-xl border-3 border-border shadow-sm">
+          <div className="bg-white p-3 rounded-xl border-2 border-border shadow-sm">
             <span className="font-heading font-extrabold uppercase text-foreground block">
               Secretaria Sala F-2039
             </span>
@@ -209,7 +209,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
             </a>
           </div>
 
-          <div className="bg-white p-3 rounded-xl border-3 border-border shadow-sm">
+          <div className="bg-white p-3 rounded-xl border-2 border-border shadow-sm">
             <span className="font-heading font-extrabold uppercase text-foreground block">
               Coordenação &amp; CEAG
             </span>

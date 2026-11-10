@@ -175,7 +175,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
     <div
       className="fixed inset-0 z-[9999] w-screen h-[100dvh] flex flex-col bg-card text-foreground overflow-hidden select-none animate-in fade-in duration-200"
       style={{
-        backgroundImage: 'radial-gradient(#16181d 1px, transparent 1px)',
+        backgroundImage: 'radial-gradient(#1F1F1F 1px, transparent 1px)',
         backgroundSize: '24px 24px',
       }}
       role="dialog"
@@ -330,7 +330,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
 
               {/* Grid Neobrutalista de 3 Pilares com Contraste Marcante */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
-                <div className="p-4 rounded-xl border-3 border-border bg-card shadow flex flex-col justify-between">
+                <div className="p-4 rounded-xl border-2 border-border bg-card shadow flex flex-col justify-between">
                   <div>
                     <div className="w-8 h-8 rounded-lg bg-primary text-white border-3 border-border flex items-center justify-center font-bold mb-2">
                       <i className="bi bi-shield-check text-base" aria-hidden="true" />
@@ -347,7 +347,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                   </span>
                 </div>
 
-                <div className="p-4 rounded-xl border-3 border-border bg-card shadow flex flex-col justify-between">
+                <div className="p-4 rounded-xl border-2 border-border bg-card shadow flex flex-col justify-between">
                   <div>
                     <div className="w-8 h-8 rounded-lg bg-accent text-foreground border-3 border-border flex items-center justify-center font-bold mb-2">
                       <i className="bi bi-wifi-off text-base" aria-hidden="true" />
@@ -364,7 +364,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                   </span>
                 </div>
 
-                <div className="p-4 rounded-xl border-3 border-border bg-card shadow flex flex-col justify-between">
+                <div className="p-4 rounded-xl border-2 border-border bg-card shadow flex flex-col justify-between">
                   <div>
                     <div className="w-8 h-8 rounded-lg bg-teal-700 text-white border-3 border-border flex items-center justify-center font-bold mb-2">
                       <i className="bi bi-code-slash text-base" aria-hidden="true" />
@@ -383,8 +383,8 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
               </div>
 
               {/* Banner de Compromisso Eleitoral */}
-              <div className="p-4 rounded-xl border-3 border-border bg-[#EFE7F6] flex items-center gap-3.5 shadow-md">
-                <div className="w-12 h-12 rounded-xl bg-primary border-3 border-border p-1.5 shrink-0 flex items-center justify-center shadow-sm">
+              <div className="p-4 rounded-xl border-2 border-border bg-[#EFE7F6] flex items-center gap-3.5 shadow-md">
+                <div className="w-12 h-12 rounded-xl bg-primary border-2 border-border p-1.5 shrink-0 flex items-center justify-center shadow-sm">
                   <img
                     src={asset('/logos/semente/semente-simbolo-branco.webp')}
                     alt=""
@@ -421,7 +421,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
               {/* CENÁRIO STANDALONE: JÁ INSTALADO */}
               {isStandaloneApp ? (
                 <div className="p-6 rounded-2xl border-4 border-border bg-success-tint text-center space-y-3 shadow-lg">
-                  <div className="w-16 h-16 rounded-2xl bg-success text-white border-3 border-border mx-auto flex items-center justify-center shadow">
+                  <div className="w-16 h-16 rounded-2xl bg-success text-white border-2 border-border mx-auto flex items-center justify-center shadow">
                     <i className="bi bi-check2-all text-3xl" aria-hidden="true" />
                   </div>
                   <div className="cagp-stamp-badge is-deferido mx-auto -rotate-1 text-xs">
@@ -456,7 +456,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                     </div>
 
                     {/* Ilustração Vetorial da Barra Inferior do Safari */}
-                    <div className="p-3 bg-white border-3 border-border rounded-xl shadow flex items-center justify-between px-6 sm:px-12 relative overflow-hidden">
+                    <div className="p-3 bg-white border-2 border-border rounded-xl shadow flex items-center justify-between px-6 sm:px-12 relative overflow-hidden">
                       {/* Seta Indicadora Apontando para o Compartilhar */}
                       <div className="absolute -top-1 left-1/2 -translate-x-1/2 flex flex-col items-center z-10 pointer-events-none">
                         <span className="font-mono text-xs font-black uppercase bg-accent text-foreground px-2 py-0.5 rounded border border-border shadow-xs">
@@ -474,7 +474,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
 
                       {/* Botão de Compartilhar em Destaque Absoluto */}
                       <div className="relative my-2">
-                        <div className="w-12 h-12 rounded-xl bg-accent text-foreground border-3 border-border flex items-center justify-center font-black text-xl shadow-sm relative z-10 scale-105">
+                        <div className="w-12 h-12 rounded-xl bg-accent text-foreground border-2 border-border flex items-center justify-center font-black text-xl shadow-sm relative z-10 scale-105">
                           <i className="bi bi-box-arrow-up" aria-hidden="true" />
                         </div>
                       </div>
@@ -546,14 +546,14 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                     <button
                       type="button"
                       onClick={handleAndroidInstallClick}
-                      className="w-full py-4 px-6 rounded-xl bg-success hover:bg-[#166534] text-white border-3 border-border font-heading font-black text-sm sm:text-base uppercase tracking-wider shadow-[5px_5px_0_0_#16181d] hover:shadow transition-all active:translate-x-1 active:translate-y-1 active:shadow-none cursor-pointer flex items-center justify-center gap-3"
+                      className="w-full py-4 px-6 rounded-xl bg-success hover:bg-[#166534] text-white border-3 border-border font-heading font-black text-sm sm:text-base uppercase tracking-wider shadow-[5px_5px_0_0_#1F1F1F] hover:shadow transition-all active:translate-x-1 active:translate-y-1 active:shadow-none cursor-pointer flex items-center justify-center gap-3"
                     >
                       <i className="bi bi-phone-fill text-2xl" aria-hidden="true" />
                       <span>INSTALAR SUPER APP SEMENTE AGORA</span>
                     </button>
 
                     {/* Fallback de 3 Pontinhos */}
-                    <div className="p-3.5 rounded-xl bg-[#F8FAFC] border-3 border-border flex items-center gap-3">
+                    <div className="p-3.5 rounded-xl bg-[#F8FAFC] border-2 border-border flex items-center gap-3">
                       <div className="w-9 h-9 rounded-lg bg-white border-3 border-border flex items-center justify-center font-bold text-lg shrink-0 shadow-xs">
                         <i className="bi bi-three-dots-vertical" aria-hidden="true" />
                       </div>
@@ -580,7 +580,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-6 py-2">
                       {/* Viewfinder Brutalista com Marcas de Mira Óptica */}
-                      <div className="relative p-3 bg-background border-3 border-border rounded-2xl shadow-md flex flex-col items-center">
+                      <div className="relative p-3 bg-background border-2 border-border rounded-2xl shadow-md flex flex-col items-center">
                         {/* Cantoneiras de Mira Óptica */}
                         <div className="absolute top-1 left-1 text-xs font-mono font-black text-foreground">+</div>
                         <div className="absolute top-1 right-1 text-xs font-mono font-black text-foreground">+</div>
@@ -653,7 +653,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div className="p-3 rounded-xl bg-white border-3 border-border shadow-sm">
+                  <div className="p-3 rounded-xl bg-white border-2 border-border shadow-sm">
                     <span className="font-mono text-xs font-bold uppercase text-secondary block">
                       24/11/2026 • 18h00
                     </span>
@@ -665,7 +665,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                     </span>
                   </div>
 
-                  <div className="p-3 rounded-xl bg-white border-3 border-border shadow-sm">
+                  <div className="p-3 rounded-xl bg-white border-2 border-border shadow-sm">
                     <span className="font-mono text-xs font-bold uppercase text-success block">
                       25 e 26/11/2026 • 17h às 22h30
                     </span>
@@ -776,7 +776,7 @@ export const PwaElectionCredenciamentoModal: React.FC = () => {
                         key={id}
                         type="button"
                         onClick={() => setSelectedTurno(id as ElectionActivation['votedDateChoice'])}
-                        className={`p-3 rounded-xl border-3 border-border text-left cursor-pointer transition-all ${
+                        className={`p-3 rounded-xl border-2 border-border text-left cursor-pointer transition-all ${
                           isSelected
                             ? 'bg-primary text-white shadow-md scale-[1.02]'
                             : 'bg-card text-foreground hover:bg-background shadow-sm'

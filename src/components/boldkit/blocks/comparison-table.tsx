@@ -24,12 +24,12 @@ function Cell({ value }: { value: string | boolean }) {
     // The tick/cross IS the data. lucide marks its icons aria-hidden, so without
     // the sr-only text a screen reader reads these cells as empty.
     return value ? (
-      <span className="inline-flex h-7 w-7 items-center justify-center rounded-md border-2 border-[#16181d] bg-success shadow-[2px_2px_0_0_#16181d]">
+      <span className="inline-flex h-7 w-7 items-center justify-center rounded-md border-2 border-[#1F1F1F] bg-success shadow-[2px_2px_0_0_#1F1F1F]">
         <Check className="h-4 w-4 text-white stroke-[3]" />
         <span className="sr-only">Incluído</span>
       </span>
     ) : (
-      <span className="inline-flex h-7 w-7 items-center justify-center rounded-md border-2 border-[#16181d] bg-muted">
+      <span className="inline-flex h-7 w-7 items-center justify-center rounded-md border-2 border-[#1F1F1F] bg-muted">
         <X className="h-4 w-4 text-muted-foreground stroke-[3]" />
         <span className="sr-only">Não incluído</span>
       </span>
@@ -58,11 +58,11 @@ export function ComparisonTable({
         </motion.div>
         <motion.div
           variants={staggerItem}
-          className="scroll-mask-x overflow-x-auto rounded-xl border-3 border-[#16181d] bg-card shadow-[6px_6px_0_0_#16181d]"
+          className="scroll-mask-x overflow-x-auto rounded-xl border-2 border-[#1F1F1F] bg-card shadow-[6px_6px_0_0_#1F1F1F]"
         >
           <table className="w-full border-collapse">
             <thead>
-              <tr className="border-b-3 border-[#16181d] bg-muted">
+              <tr className="border-b-3 border-[#1F1F1F] bg-muted">
                 <th scope="col" className="p-4 text-left text-sm font-black uppercase tracking-wide">
                   Recurso / Compromisso
                 </th>
@@ -82,7 +82,7 @@ export function ComparisonTable({
             </thead>
             <tbody>
               {rows.map((row) => (
-                <tr key={row.feature} className="border-b-2 border-[#16181d]/25 last:border-b-0 hover:bg-accent-tint transition-colors">
+                <tr key={row.feature} className="border-b-2 border-[#1F1F1F]/25 last:border-b-0 hover:bg-accent-tint transition-colors">
                   <th scope="row" className="p-4 text-left text-sm font-bold">
                     {row.feature}
                   </th>

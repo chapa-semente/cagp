@@ -118,7 +118,7 @@ export const SuperAppWelcomeModal: React.FC = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.95 }}
             transition={bounceSpring}
-            className="fixed bottom-[calc(4.75rem+env(safe-area-inset-bottom,0px))] md:bottom-5 right-3 md:right-6 z-[1045] max-w-md w-[calc(100vw-1.5rem)] bg-white border-3 border-border rounded-2xl shadow-lg p-4"
+            className="fixed bottom-[calc(4.75rem+env(safe-area-inset-bottom,0px))] md:bottom-5 right-3 md:right-6 z-[1045] max-w-md w-[calc(100vw-1.5rem)] bg-white border-2 border-border rounded-2xl shadow-lg p-4"
             aria-label="Escolha seu perfil no Super App CAGP"
           >
             <div className="flex items-start justify-between gap-3 mb-3">
@@ -212,7 +212,7 @@ export const SuperAppWelcomeModal: React.FC = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
               transition={bounceSpring}
-              className="w-full max-w-xl bg-white border-3 border-border rounded-2xl shadow-xl overflow-hidden"
+              className="w-full max-w-xl bg-white border-2 border-border rounded-2xl shadow-xl overflow-hidden"
             >
               {/* Faixa Superior Semente */}
               <div className="bg-primary text-white px-5 py-3.5 border-b-3 border-border flex items-center justify-between gap-3">
@@ -265,7 +265,7 @@ export const SuperAppWelcomeModal: React.FC = () => {
                         transition={tactileSpring}
                         type="button"
                         onClick={() => setSelectedRole(role)}
-                        className={`w-full p-3.5 rounded-xl border-3 border-border text-left transition-colors cursor-pointer flex items-start gap-3.5 relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed ${
+                        className={`w-full p-3.5 rounded-xl border-2 border-border text-left transition-colors cursor-pointer flex items-start gap-3.5 relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed ${
                           isSelected
                             ? 'bg-[#ffffff] shadow-[6px_6px_0_0_var(--color-primary)]'
                             : 'bg-white hover:bg-muted shadow-md'

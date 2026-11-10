@@ -154,7 +154,7 @@ export function LogoCloudCards({
           {logos.map((logo) => {
             const inner = (
               <div
-                className="border-3 border-foreground bg-card p-6 flex items-center justify-center h-24 hover:shadow-md hover:translate-x-[-2px] hover:translate-y-[-2px] transition cursor-pointer"
+                className="border-2 border-foreground bg-card p-6 flex items-center justify-center h-24 hover:shadow-md hover:translate-x-[-2px] hover:translate-y-[-2px] transition cursor-pointer"
               >
                 {typeof logo.logo === 'string' ? (
                   <img
@@ -220,7 +220,7 @@ export function LogoCloudWithStats({
               {stats.map((stat) => (
                 <div
                   key={`stat-${stat.label}`}
-                  className="border-3 border-foreground p-4 shadow-md"
+                  className="border-2 border-foreground p-4 shadow-md"
                 >
                   <div className="text-3xl font-black">{stat.value}</div>
                   <div className="text-sm text-muted-foreground font-bold uppercase">

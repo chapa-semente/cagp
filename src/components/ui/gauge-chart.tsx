@@ -50,7 +50,7 @@ export interface GaugeChartProps
 }
 
 const DEFAULT_ZONES: GaugeChartZone[] = [
-  { from: 0, to: 33, color: '#9E2424', label: 'Baixo' },
+  { from: 0, to: 33, color: '#266264', label: 'Baixo' },
   { from: 33, to: 66, color: '#FE8812', label: 'Médio' },
   { from: 66, to: 100, color: '#5B2A85', label: 'Alto' },
 ]
@@ -300,7 +300,7 @@ const GaugeChart = React.forwardRef<HTMLDivElement, GaugeChartProps>(
               transition={bounceSpring}
               style={{
                 transformOrigin: `${centerX}px ${centerY}px`,
-                filter: 'drop-shadow(2px 2px 0px #16181d)',
+                filter: 'drop-shadow(2px 2px 0px #1F1F1F)',
               }}
             >
               {/* Needle body */}

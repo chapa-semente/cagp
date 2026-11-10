@@ -246,8 +246,8 @@ export const TRACK_NAMES: Record<string, string> = {
 
 export const DEPT_COLORS: Record<string, string> = {
   DCP: '#8B1E2D',
-  ECN: '#16181d',
-  SOA: '#15803D',
+  ECN: '#1F1F1F',
+  SOA: '#166534',
   EST: '#1E3F66'
 };
 

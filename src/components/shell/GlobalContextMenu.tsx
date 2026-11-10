@@ -196,7 +196,7 @@ export const GlobalContextMenu: React.FC = () => {
       ref={menuRef}
       role="menu"
       aria-label="Menu de Contexto do SuperApp"
-      className="fixed z-[9999] min-w-[240px] max-w-[280px] rounded-xl border-3 border-foreground bg-popover p-1.5 text-popover-foreground shadow-lg select-none animate-in fade-in-0 zoom-in-95 duration-100"
+      className="fixed z-[9999] min-w-[240px] max-w-[280px] rounded-xl border-2 border-foreground bg-popover p-1.5 text-popover-foreground shadow-lg select-none animate-in fade-in-0 zoom-in-95 duration-100"
       style={{ left: `${position.x}px`, top: `${position.y}px` }}
     >
       {/* Context-Specific Items */}

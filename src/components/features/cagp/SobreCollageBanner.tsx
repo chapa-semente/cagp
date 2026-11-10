@@ -2,11 +2,7 @@ import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Sticker, Stamp } from '@/components/ui/sticker';
-import { Halftone } from '@/components/boldkit/canvas-effects/Halftone';
-import { MouseRipple } from '@/components/boldkit/canvas-effects/MouseRipple';
-import { BurstShape, RibbonShape, Star4Shape } from '@/components/boldkit/shapes';
-import { AsciiGeodesicDome } from '@/components/boldkit/ascii-shapes';
+import { LeafShape } from '@/components/ui/semente-shapes';
 import { asset } from '@/lib/paths';
 
 export const SobreCollageBanner: React.FC = () => {
@@ -17,31 +13,13 @@ export const SobreCollageBanner: React.FC = () => {
       aria-label="Síntese Semiótica e Colagem Institucional CAGP + Semente + UFMG"
       className="mb-6"
     >
-      <Card className="relative overflow-hidden border-3 border-border shadow-lg bg-card">
-        {/* Efeito de Canvas Interativo: Halftone + MouseRipple (BoldKit) */}
-        <div
-          className="pointer-events-none absolute inset-0 opacity-15"
-          aria-hidden="true"
-        >
-          <Halftone color="#9E2424" gap={20} maxScale={0.65} speed={0.7} />
-        </div>
-        <div
-          className="pointer-events-none absolute inset-0 opacity-20"
-          aria-hidden="true"
-        >
-          <MouseRipple color="#5B2A85" speed={1} />
-        </div>
-
+      <Card className="relative overflow-hidden bg-card">
         <CardContent className="relative z-10 p-5 sm:p-7 space-y-6">
           {/* Topo: Seletor de Camadas de Identidade Visual */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b-3 border-border">
             <div className="space-y-1">
               <div className="flex flex-wrap items-center gap-2">
-                <Sticker variant="primary" size="sm" rotation="slight">
-                  TRÍADE IDENTITÁRIA
-                </Sticker>
-                <Badge variant="secondary">Post-Modern Academic Collage</Badge>
-                <Badge variant="accent">Neobrutalism rL9Ap</Badge>
+                <Badge variant="default">Tríade identitária</Badge>
               </div>
               <h2 className="font-heading text-xl sm:text-2xl font-extrabold text-foreground m-0 mt-1">
                 Semiótica &amp; Memória Visual: Candangos • Semente • UFMG
@@ -79,16 +57,11 @@ export const SobreCollageBanner: React.FC = () => {
           {/* Conteúdo Dinâmico da Camada Selecionada */}
           {activeLayer === 'candangos' && (
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-              <div className="lg:col-span-4 flex flex-col items-center justify-center p-6 rounded-xl border-3 border-border bg-white shadow-md relative">
-                <BurstShape
-                  size={56}
-                  color="#9E2424"
-                  className="absolute -top-3 -left-3 rotate-12 opacity-80"
-                />
+              <div className="lg:col-span-4 flex flex-col items-center justify-center p-6 rounded-xl border-2 border-border bg-white shadow-md relative">
                 <img
                   src={asset('/logos/cagp/01_vertical_fundo_claro.svg')}
                   alt="Marca Oficial CAGP UFMG — Os Candangos de Bruno Giorgi (1959)"
-                  className="w-40 h-40 object-contain rounded-xl border-3 border-border bg-white p-3 shadow-sm"
+                  className="w-40 h-40 object-contain rounded-xl border-2 border-border bg-white p-3 shadow-sm"
                 />
                 <div className="mt-3 text-center">
                   <Badge variant="default">Bruno Giorgi • 1959</Badge>
@@ -114,12 +87,8 @@ export const SobreCollageBanner: React.FC = () => {
 
           {activeLayer === 'semente' && (
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-              <div className="lg:col-span-4 flex flex-col items-center justify-center p-6 rounded-xl border-3 border-border bg-primary text-white shadow-md relative overflow-hidden">
-                <Star4Shape
-                  size={48}
-                  color="#FE8812"
-                  className="absolute top-2 right-2 rotate-12"
-                />
+              <div className="lg:col-span-4 flex flex-col items-center justify-center p-6 rounded-xl border-2 border-border bg-primary text-white shadow-md relative overflow-hidden">
+                <LeafShape color="orange" className="absolute -top-3 -right-3 w-16 h-16" />
                 <img
                   src={asset('/logos/semente/semente-vertical-branco.webp')}
                   alt="Chapa Gestão Pública Semente"
@@ -151,7 +120,7 @@ export const SobreCollageBanner: React.FC = () => {
 
           {activeLayer === 'ufmg' && (
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-              <div className="lg:col-span-4 flex flex-col items-center justify-center p-6 rounded-xl border-3 border-border bg-white shadow-md relative">
+              <div className="lg:col-span-4 flex flex-col items-center justify-center p-6 rounded-xl border-2 border-border bg-white shadow-md relative">
                 <div className="flex items-baseline gap-1 select-none py-3">
                   <span className="font-serif font-bold text-5xl text-black">U</span>
                   <span className="font-serif font-bold text-5xl text-black">F</span>
@@ -184,22 +153,6 @@ export const SobreCollageBanner: React.FC = () => {
             </div>
           )}
 
-          {/* Rodapé Artístico com ASCII Shape (BoldKit) + Stamp */}
-          <div className="pt-4 border-t-2 border-border flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="hidden sm:flex items-center justify-center rounded-xl border-3 border-border bg-foreground text-background text-accent p-1.5 overflow-hidden">
-                <AsciiGeodesicDome size="sm" animated={false} />
-              </div>
-              <div className="text-xs font-sans text-muted-foreground">
-                <strong className="text-foreground font-heading uppercase block">
-                  Engenharia Visual Canônica • WCAG 2.1 AAA
-                </strong>
-                <span>Bordas de 3px • Raio 0.75rem • Poppins &amp; Permanent Marker</span>
-              </div>
-            </div>
-
-            <RibbonShape size={42} color="#FE8812" />
-          </div>
         </CardContent>
       </Card>
     </section>

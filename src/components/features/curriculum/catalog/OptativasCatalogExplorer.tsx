@@ -160,7 +160,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
           const allocatedCourse = allocatedMap[item.code];
           return isAllocated ? (
             <div className="flex items-center gap-1.5">
-              <span className="text-xs py-0.5 px-2 rounded-md bg-teal-700 text-white font-mono font-bold border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+              <span className="text-xs py-0.5 px-2 rounded-md bg-teal-700 text-white font-mono font-bold border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]">
                 {allocatedCourse.period}ºP
               </span>
               <button
@@ -178,7 +178,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                 setViewMode('cards');
                 setAllocatingCode(item.code);
               }}
-              className="min-h-[44px] px-3 rounded-lg border-2 border-[#16181d] bg-[#F2CD5C] text-[#16181d] shadow-[2px_2px_0_0_#16181d] text-xs font-head font-black uppercase hover:bg-primary hover:text-white transition-all cursor-pointer"
+              className="min-h-[44px] px-3 rounded-lg border-2 border-[#1F1F1F] bg-[#FFEEDB] text-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] text-xs font-head font-black uppercase hover:bg-primary hover:text-white transition-all cursor-pointer"
             >
               Alocar +
             </button>
@@ -217,14 +217,14 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
   return (
     <div className="cagp-optativas-catalog space-y-6 select-none text-foreground">
       {/* Barra de Busca e Filtros */}
-      <div className="p-4 sm:p-6 bg-white border-3 border-[#16181d] rounded-xl space-y-4 shadow-[5px_5px_0_0_#16181d]">
+      <div className="p-4 sm:p-6 bg-white border-2 border-[#1F1F1F] rounded-xl space-y-4 shadow-[5px_5px_0_0_#1F1F1F]">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-1">
               <span className="text-xs font-head uppercase font-extrabold tracking-wider text-[#5B2A85]">
                 Catálogo Curricular Homologado • PPC N-20229
               </span>
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#F2CD5C] border-2 border-[#16181d] text-xs font-head font-black uppercase text-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#FFEEDB] border-2 border-[#1F1F1F] text-xs font-head font-black uppercase text-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]">
                 Curadoria Chapa Semente
               </span>
             </div>
@@ -233,7 +233,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
             </h3>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-xs text-foreground font-mono font-bold px-2.5 py-1.5 bg-[#FAF6F0] border-2 border-[#16181d] rounded-lg shadow-[2px_2px_0_0_#16181d] self-start sm:self-auto">
+            <span className="text-xs text-foreground font-mono font-bold px-2.5 py-1.5 bg-[#FAF6F0] border-2 border-[#1F1F1F] rounded-lg shadow-[2px_2px_0_0_#1F1F1F] self-start sm:self-auto">
               Mostrando {filtered.length} de {optativas.length}
             </span>
             <ToggleGroup
@@ -244,7 +244,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
               }}
               size="sm"
               variant="outline"
-              className="bg-card rounded-xl p-1 border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]"
+              className="bg-card rounded-xl p-1 border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]"
             >
               <ToggleGroupItem value="cards" aria-label="Visualização em Cards" className="min-h-[38px] px-3 font-head font-extrabold uppercase text-xs">
                 <i className="bi bi-grid mr-1.5" aria-hidden="true" />
@@ -259,8 +259,8 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
         </div>
 
         {/* Busca Instantânea com Foco Roxo Semente (#5B2A85) */}
-        <InputGroup className="rounded-xl overflow-hidden border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] focus-within:ring-3 focus-within:ring-[#5B2A85] focus-within:border-[#5B2A85] transition-all">
-          <InputGroupAddon position="leading" className="bg-[#FAF6F0] text-[#5B2A85] font-bold border-r-2 border-[#16181d]">
+        <InputGroup className="rounded-xl overflow-hidden border-2 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] focus-within:ring-3 focus-within:ring-[#5B2A85] focus-within:border-[#5B2A85] transition-all">
+          <InputGroupAddon position="leading" className="bg-[#FAF6F0] text-[#5B2A85] font-bold border-r-2 border-[#1F1F1F]">
             <i className="bi bi-search" aria-hidden="true" />
           </InputGroupAddon>
           <InputGroupInput
@@ -286,10 +286,10 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                   key={dept.id}
                   type="button"
                   onClick={() => setSelectedDept(dept.id)}
-                  className={`min-h-[44px] px-3.5 py-1.5 rounded-xl text-xs font-head uppercase tracking-tight shrink-0 transition-all cursor-pointer border-3 border-[#16181d] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none ${
+                  className={`min-h-[44px] px-3.5 py-1.5 rounded-xl text-xs font-head uppercase tracking-tight shrink-0 transition-all cursor-pointer border-3 border-[#1F1F1F] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none ${
                     active
-                      ? 'bg-[#5B2A85] text-white font-black shadow-[3px_3px_0_0_#16181d]'
-                      : 'bg-white text-foreground hover:bg-[#FAF6F0] font-bold shadow-[2px_2px_0_0_#16181d]'
+                      ? 'bg-[#5B2A85] text-white font-black shadow-[3px_3px_0_0_#1F1F1F]'
+                      : 'bg-white text-foreground hover:bg-[#FAF6F0] font-bold shadow-[2px_2px_0_0_#1F1F1F]'
                   }`}
                 >
                   {dept.label}
@@ -308,10 +308,10 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
             <button
               type="button"
               onClick={() => setSelectedModulo('todos')}
-              className={`min-h-[44px] px-3.5 py-1.5 rounded-xl text-xs font-head uppercase tracking-tight shrink-0 transition-all cursor-pointer border-3 border-[#16181d] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none ${
+              className={`min-h-[44px] px-3.5 py-1.5 rounded-xl text-xs font-head uppercase tracking-tight shrink-0 transition-all cursor-pointer border-3 border-[#1F1F1F] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none ${
                 selectedModulo === 'todos'
-                  ? 'bg-[#16181d] text-white font-black shadow-[3px_3px_0_0_#5B2A85]'
-                  : 'bg-white text-foreground hover:bg-[#F3ECE0] font-bold shadow-[2px_2px_0_0_#16181d]'
+                  ? 'bg-[#1F1F1F] text-white font-black shadow-[3px_3px_0_0_#5B2A85]'
+                  : 'bg-white text-foreground hover:bg-[#F3ECE0] font-bold shadow-[2px_2px_0_0_#1F1F1F]'
               }`}
             >
               Todos Módulos ({optativas.length})
@@ -321,10 +321,10 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                 key={m}
                 type="button"
                 onClick={() => setSelectedModulo(m)}
-                className={`min-h-[44px] px-3.5 py-1.5 rounded-xl text-xs font-head uppercase tracking-tight shrink-0 transition-all cursor-pointer border-3 border-[#16181d] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none ${
+                className={`min-h-[44px] px-3.5 py-1.5 rounded-xl text-xs font-head uppercase tracking-tight shrink-0 transition-all cursor-pointer border-3 border-[#1F1F1F] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none ${
                   selectedModulo.toLowerCase() === m.toLowerCase()
-                    ? 'bg-secondary text-white font-black shadow-[3px_3px_0_0_#16181d]'
-                    : 'bg-white text-foreground hover:bg-[#F3ECE0] font-bold shadow-[2px_2px_0_0_#16181d]'
+                    ? 'bg-secondary text-white font-black shadow-[3px_3px_0_0_#1F1F1F]'
+                    : 'bg-white text-foreground hover:bg-[#F3ECE0] font-bold shadow-[2px_2px_0_0_#1F1F1F]'
                 }`}
               >
                 {m}
@@ -336,7 +336,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
 
       {/* Renderização Condicional: Tabela Operacional vs Grid de Cards Animados */}
       {filtered.length === 0 ? (
-        <Empty className="py-12 bg-card border-3 border-[#16181d] rounded-xl shadow-[4px_4px_0_0_#16181d]">
+        <Empty className="py-12 bg-card border-3 border-[#1F1F1F] rounded-xl shadow-[3px_3px_0_0_#1F1F1F]">
           <EmptyMedia variant="icon">
             <i className="bi bi-search text-xl" aria-hidden="true" />
           </EmptyMedia>
@@ -348,7 +348,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
           </EmptyHeader>
         </Empty>
       ) : viewMode === 'table' ? (
-        <div className="bg-card border-3 border-[#16181d] rounded-xl p-4 shadow-[5px_5px_0_0_#16181d] overflow-hidden">
+        <div className="bg-card border-2 border-[#1F1F1F] rounded-xl p-4 shadow-[5px_5px_0_0_#1F1F1F] overflow-hidden">
           <DataTable
             columns={columns}
             data={filtered}
@@ -377,17 +377,17 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                   exit={{ opacity: 0, scale: 0.92, y: -8 }}
                   whileHover={{ x: -2, y: -2 }}
                   transition={tactileSpring}
-                  className={`cagp-card p-4 bg-white border-3 border-[#16181d] rounded-xl flex flex-col justify-between shadow-[4px_4px_0_0_#16181d] hover:shadow-[6px_6px_0_0_#16181d] transition-shadow ${
+                  className={`cagp-card p-4 bg-white border-2 border-[#1F1F1F] rounded-xl flex flex-col justify-between shadow-[3px_3px_0_0_#1F1F1F] hover:shadow-[6px_6px_0_0_#1F1F1F] transition-shadow ${
                     isAllocated ? 'ring-3 ring-[#266264] bg-[#F0FDF4]' : ''
                   }`}
                 >
                   <div>
                     <div className="flex items-center justify-between gap-2 mb-2">
-                      <span className="font-mono text-xs font-black px-2.5 py-0.5 rounded-md bg-[#FAF6F0] border-2 border-[#16181d] text-[#5B2A85] shadow-[2px_2px_0_0_#16181d]">
+                      <span className="font-mono text-xs font-black px-2.5 py-0.5 rounded-md bg-[#FAF6F0] border-2 border-[#1F1F1F] text-[#5B2A85] shadow-[2px_2px_0_0_#1F1F1F]">
                         {item.code}
                       </span>
                       <div className="flex items-center gap-1.5">
-                        <span className="text-xs font-mono font-extrabold text-foreground px-2 py-0.5 rounded bg-muted border border-[#16181d]">
+                        <span className="text-xs font-mono font-extrabold text-foreground px-2 py-0.5 rounded bg-muted border border-[#1F1F1F]">
                           {item.ch}h ({Math.round(item.ch / 15)} cr)
                         </span>
                         {isAllocated && (
@@ -395,7 +395,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                             initial={{ scale: 1.5, rotate: -6 }}
                             animate={{ scale: 1, rotate: 0 }}
                             transition={bounceSpring}
-                            className="text-xs py-0.5 px-2 rounded-md bg-teal-700 text-white font-mono font-bold border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] inline-flex items-center gap-1"
+                            className="text-xs py-0.5 px-2 rounded-md bg-teal-700 text-white font-mono font-bold border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] inline-flex items-center gap-1"
                           >
                             <i className="bi bi-diagram-3-fill text-xs" aria-hidden="true" />
                             <span>NO GRAFO • {allocatedCourse.period}ºP</span>
@@ -428,7 +428,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                         </span>
                         <p
                           className={`font-body text-xs text-muted-foreground leading-relaxed m-0 select-text ${
-                            isExpanded ? 'bg-[#FAF6F0] p-2.5 border-2 border-[#16181d] rounded-lg mt-1 shadow-[2px_2px_0_0_#16181d]' : 'line-clamp-2'
+                            isExpanded ? 'bg-[#FAF6F0] p-2.5 border-2 border-[#1F1F1F] rounded-lg mt-1 shadow-[2px_2px_0_0_#1F1F1F]' : 'line-clamp-2'
                           }`}
                         >
                           {item.ementa}
@@ -459,7 +459,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                               key={p}
                               type="button"
                               onClick={() => handleAllocate(item, p)}
-                              className="min-h-[44px] py-1 bg-white hover:bg-[#5B2A85] hover:text-white border-2 border-[#16181d] rounded-lg text-xs font-mono font-black transition-all shadow-[2px_2px_0_0_#16181d] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer"
+                              className="min-h-[44px] py-1 bg-white hover:bg-[#5B2A85] hover:text-white border-2 border-[#1F1F1F] rounded-lg text-xs font-mono font-black transition-all shadow-[2px_2px_0_0_#1F1F1F] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer"
                             >
                               {p}ºP
                             </button>
@@ -478,14 +478,14 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                         <button
                           type="button"
                           onClick={() => setAllocatingCode(item.code)}
-                          className="flex-1 min-h-[44px] px-3 py-1.5 bg-white hover:bg-[#F3ECE0] border-3 border-[#16181d] rounded-xl text-xs font-head uppercase font-extrabold text-foreground transition-all shadow-[3px_3px_0_0_#16181d] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer"
+                          className="flex-1 min-h-[44px] px-3 py-1.5 bg-white hover:bg-[#F3ECE0] border-3 border-[#1F1F1F] rounded-xl text-xs font-head uppercase font-extrabold text-foreground transition-all shadow-[3px_3px_0_0_#1F1F1F] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer"
                         >
                           Mover ({allocatedCourse.period}ºP)
                         </button>
                         <button
                           type="button"
                           onClick={() => handleRemove(item.code)}
-                          className="min-h-[44px] min-w-[44px] px-3 py-1.5 bg-red-100 hover:bg-red-200 text-secondary border-3 border-[#16181d] rounded-xl text-xs font-bold transition-all shadow-[3px_3px_0_0_#16181d] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer flex items-center justify-center"
+                          className="min-h-[44px] min-w-[44px] px-3 py-1.5 bg-red-100 hover:bg-red-200 text-secondary border-3 border-[#1F1F1F] rounded-xl text-xs font-bold transition-all shadow-[3px_3px_0_0_#1F1F1F] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer flex items-center justify-center"
                           title="Desvincular do Grafo"
                           aria-label="Desvincular do Grafo"
                         >
@@ -496,7 +496,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                       <button
                         type="button"
                         onClick={() => setAllocatingCode(item.code)}
-                        className="w-full min-h-[44px] px-3 py-2 bg-[#5B2A85] hover:bg-[#48206B] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl text-xs font-head uppercase font-extrabold tracking-wider flex items-center justify-center gap-1.5 transition-all border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] cursor-pointer"
+                        className="w-full min-h-[44px] px-3 py-2 bg-[#5B2A85] hover:bg-[#48206B] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl text-xs font-head uppercase font-extrabold tracking-wider flex items-center justify-center gap-1.5 transition-all border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] cursor-pointer"
                       >
                         <i className="bi bi-plus-circle" aria-hidden="true" />
                         <span>Vincular ao Grafo</span>

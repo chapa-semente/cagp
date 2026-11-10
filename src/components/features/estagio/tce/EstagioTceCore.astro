@@ -108,7 +108,7 @@ const normasEstagio = [
   <div id="tutorial" class="cagp-anchor-target scroll-mt-24"></div>
 
   {/* Cabeçalho Limpo — Sem Eyebrow Redundante */}
-  <div class="p-5 sm:p-6 bg-white border-3 border-border rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-md">
+  <div class="p-5 sm:p-6 bg-white border-2 border-border rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-md">
     <div>
       <h3 class="font-heading text-base sm:text-xl font-black text-foreground m-0">
         Preenchimento do Termo de Compromisso de Estágio (TCE)
@@ -140,7 +140,7 @@ const normasEstagio = [
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
       {formulariosGoogle.map((f) => (
-        <div class="p-5 bg-white border-3 border-border rounded-xl flex flex-col justify-between shadow-sm">
+        <div class="p-5 bg-white border-2 border-border rounded-xl flex flex-col justify-between shadow-sm">
           <div>
             <div className="flex items-center justify-between gap-2 mb-2">
               <span class="px-2.5 py-0.5 rounded-md bg-[#134E4A] text-white text-xs font-mono font-bold border border-border">{f.badge}</span>
@@ -176,7 +176,7 @@ const normasEstagio = [
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">
-      <div class="cagp-doc-preview-wrapper border-3 border-border rounded-xl overflow-hidden shadow-sm" role="region" aria-label="Visualização anotada do modelo de TCE">
+      <div class="cagp-doc-preview-wrapper border-2 border-border rounded-xl overflow-hidden shadow-sm" role="region" aria-label="Visualização anotada do modelo de TCE">
         <img
           src={asset('/imagens/tutoriais/print-termo-estagio-1.png')}
           alt="Primeira folha do modelo oficial de Termo de Compromisso de Estágio da UFMG com demarcações dos campos de preenchimento"
@@ -215,7 +215,7 @@ const normasEstagio = [
   <EstagioTceWizard client:load />
 
   {/* Acervo Canônico de Modelos Oficiais de Estágio — Lista Aplanada 'divide-y' Sem Cards Aninhados */}
-  <div id="modelos-estagio" class="p-5 sm:p-6 bg-white border-3 border-border rounded-xl space-y-4 shadow-md">
+  <div id="modelos-estagio" class="p-5 sm:p-6 bg-white border-2 border-border rounded-xl space-y-4 shadow-md">
     <div class="flex items-center justify-between border-b-2 border-border pb-3 flex-wrap gap-2">
       <div>
         <h4 class="font-heading text-base font-black text-foreground m-0 flex items-center gap-2">
@@ -224,7 +224,7 @@ const normasEstagio = [
         </h4>
         <p class="font-sans text-xs text-muted-foreground mt-0.5 m-0 font-medium">Preenchimento direto em computador ou edição na nuvem pelo Google Drive:</p>
       </div>
-      <span class="text-xs text-foreground font-mono font-bold px-2.5 py-1 bg-[#f4f5f7] border border-border rounded-md shadow-xs">7 Modelos Homologados</span>
+      <span class="text-xs text-foreground font-mono font-bold px-2.5 py-1 bg-[#F4F2EC] border border-border rounded-md shadow-xs">7 Modelos Homologados</span>
     </div>
 
     <div class="divide-y divide-border">
@@ -275,7 +275,7 @@ const normasEstagio = [
   </div>
 
   {/* Resoluções Normativas e Manual da FAFICH — Grid Aplanado */}
-  <div class="p-5 sm:p-6 bg-white border-3 border-border rounded-xl space-y-4 shadow-md">
+  <div class="p-5 sm:p-6 bg-white border-2 border-border rounded-xl space-y-4 shadow-md">
     <div class="flex items-center justify-between border-b-2 border-border pb-3">
       <h4 class="font-heading text-base font-black text-foreground m-0 flex items-center gap-2">
         <i class="bi bi-shield-check text-[#134E4A]" aria-hidden="true" />

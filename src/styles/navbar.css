@@ -22,17 +22,17 @@
 }
 
 .cagp-island-dropdown-btn:hover {
-  background: #f4f5f7;
-  border-color: #16181d;
+  background: #F4F2EC;
+  border-color: #1F1F1F;
 }
 
 .cagp-island-dropdown-btn.is-active,
 .cagp-island-nav-link.is-active {
   background: var(--primary, #5B2A85) !important;
-  border: 1.5px solid #16181d !important;
+  border: 1.5px solid #1F1F1F !important;
   color: #FFFFFF !important;
   font-weight: 700;
-  box-shadow: 1.5px 1.5px 0px #16181d !important;
+  box-shadow: 1.5px 1.5px 0px #1F1F1F !important;
 }
 
 .cagp-island-dropdown-btn.is-active i,
@@ -41,8 +41,8 @@
 }
 
 .cagp-island-dropdown.is-open .cagp-island-dropdown-btn {
-  background: #f4f5f7;
-  border-color: #16181d;
+  background: #F4F2EC;
+  border-color: #1F1F1F;
   color: var(--primary, #5B2A85);
 }
 
@@ -103,14 +103,14 @@
   padding: 0.5rem 0.75rem;
   border-radius: 0.75rem;
   text-decoration: none !important;
-  color: #16181d !important;
+  color: #1F1F1F !important;
   border: 1px solid transparent;
   transition: all 0.15s ease;
 }
 
 .cagp-island-dropdown-item:hover {
-  background: #f4f5f7;
-  border-color: #16181d;
+  background: #F4F2EC;
+  border-color: #1F1F1F;
 }
 
 .cagp-island-dropdown-item.is-active {

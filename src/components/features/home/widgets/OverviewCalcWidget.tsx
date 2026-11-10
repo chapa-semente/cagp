@@ -43,7 +43,7 @@ export const OverviewCalcWidget: React.FC = () => {
   const percent = Math.round((total / 600) * 100);
 
   return (
-    <div className="cagp-card p-5 bg-white border-3 border-border rounded-xl flex flex-col justify-between h-full shadow hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-md transition-all">
+    <div className="cagp-card p-5 bg-white border-2 border-border rounded-xl flex flex-col justify-between h-full shadow hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-md transition-all">
       <div>
         {/* Header do Widget */}
         <div className="flex items-center justify-between gap-2 mb-3">
@@ -93,7 +93,7 @@ export const OverviewCalcWidget: React.FC = () => {
         </div>
 
         {total === 0 ? (
-          <p className="text-xs text-gray-700 font-body font-medium bg-white p-3 rounded-lg border-3 border-border mb-3 shadow-xs">
+          <p className="text-xs text-gray-700 font-body font-medium bg-white p-3 rounded-lg border-2 border-border mb-3 shadow-xs">
             <i className="bi bi-info-circle mr-1 text-secondary" aria-hidden="true" />
             Nenhuma hora lançada ainda. Simule suas atividades para calcular a integralização.
           </p>

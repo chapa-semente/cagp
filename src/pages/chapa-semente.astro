@@ -52,7 +52,7 @@ const bentoItems = [
   description="Carta-Programa oficial da Chapa Semente na eleição para o Centro Acadêmico de Gestão Pública da UFMG: 4 eixos, 14 propostas e cronograma do edital."
 >
   <!-- PALCO PRINCIPAL (PRIMEIRO VIEWPORT): HeroCentered + Canvas Shader 60fps Protagonista -->
-  <div class="relative overflow-hidden my-3 rounded-2xl border-3 border-[#16181d] bg-card shadow-[8px_8px_0_0_#16181d]">
+  <div class="relative overflow-hidden my-3 rounded-2xl border-2 border-[#1F1F1F] bg-card shadow-[8px_8px_0_0_#1F1F1F]">
     <div class="absolute inset-0 opacity-20 pointer-events-none" aria-hidden="true">
       <ParticleWeb client:load count={55} particleColor="#5B2A85" lineColor="#FE8812" maxDistance={115} speed={1.0} />
     </div>
@@ -70,10 +70,10 @@ const bentoItems = [
       />
 
       <!-- Selos Táteis + Gatilho do Tour Guiado das Lideranças -->
-      <div class="px-4 sm:px-8 pb-8 flex flex-col items-center gap-4 border-t-2 border-[#16181d]/15 pt-5 bg-white/80">
+      <div class="px-4 sm:px-8 pb-8 flex flex-col items-center gap-4 border-t-2 border-[#1F1F1F]/15 pt-5 bg-white/80">
         <div class="flex flex-wrap items-center justify-center gap-2">
           {badges.map((b) => (
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg border-2 border-[#16181d] bg-white shadow-[2px_2px_0_0_#16181d] font-mono text-xs font-extrabold uppercase text-[#16181d]">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg border-2 border-[#1F1F1F] bg-white shadow-[2px_2px_0_0_#1F1F1F] font-mono text-xs font-extrabold uppercase text-[#1F1F1F]">
               <i class={`bi ${b.icon} text-primary`} aria-hidden="true"></i>
               <span>{b.label}</span>
             </span>
@@ -88,7 +88,7 @@ const bentoItems = [
     <!-- 1. BANNER DO CRONOGRAMA ELEITORAL (EDITAL DE CONVOCAÇÃO 2026) COM PARTICLEWEB SHADER -->
     <section
       aria-label="Cronograma Oficial das Eleições"
-      class="relative overflow-hidden p-5 sm:p-6 rounded-xl border-3 border-border bg-card shadow-md space-y-4"
+      class="relative overflow-hidden p-5 sm:p-6 rounded-xl border-2 border-border bg-card shadow-md space-y-4"
       data-context-type="proposal"
       data-context-data='{"id": "cronograma-eleitoral", "title": "Cronograma Oficial das Eleições CAGP 2026"}'
     >
@@ -119,17 +119,17 @@ const bentoItems = [
 
       <!-- Timeline dos 6 Passos Oficiais com Quebra Fluida -->
       <div class="relative z-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 pt-2">
-        <div class="p-3 rounded-lg border-3 border-border bg-card shadow-xs">
+        <div class="p-3 rounded-lg border-2 border-border bg-card shadow-xs">
           <span class="font-mono text-xs font-bold text-muted-foreground block">04/11/2026</span>
           <span class="font-heading font-extrabold text-xs uppercase text-foreground block mt-0.5">Edital Publicado</span>
           <span class="text-xs font-sans text-muted-foreground block mt-1">Convocação oficial</span>
         </div>
-        <div class="p-3 rounded-lg border-3 border-border bg-card shadow-xs">
+        <div class="p-3 rounded-lg border-2 border-border bg-card shadow-xs">
           <span class="font-mono text-xs font-bold text-muted-foreground block">04 a 10/11</span>
           <span class="font-heading font-extrabold text-xs uppercase text-foreground block mt-0.5">Inscrição de Chapas</span>
           <span class="text-xs font-sans text-muted-foreground block mt-1">Até 23h59 por e-mail</span>
         </div>
-        <div class="p-3 rounded-lg border-3 border-border bg-card shadow-xs">
+        <div class="p-3 rounded-lg border-2 border-border bg-card shadow-xs">
           <span class="font-mono text-xs font-bold text-muted-foreground block">11/11/2026</span>
           <span class="font-heading font-extrabold text-xs uppercase text-foreground block mt-0.5">Homologação</span>
           <span class="text-xs font-sans text-muted-foreground block mt-1">Divulgação das chapas</span>
@@ -144,7 +144,7 @@ const bentoItems = [
           <span class="font-heading font-extrabold text-xs uppercase text-foreground block mt-0.5">Debate das Chapas</span>
           <span class="text-xs font-sans text-muted-foreground block mt-1">Local a definir</span>
         </div>
-        <div class="p-3 rounded-lg border-3 border-border bg-primary text-primary-foreground shadow-xs">
+        <div class="p-3 rounded-lg border-2 border-border bg-primary text-primary-foreground shadow-xs">
           <span class="font-mono text-xs font-bold text-[#FFD6A5] block">25 e 26/11</span>
           <span class="font-heading font-extrabold text-xs uppercase text-white block mt-0.5">Votação no CAGP</span>
           <span class="text-xs font-sans text-white block mt-1">17h às 22h30 • Voto secreto</span>
@@ -157,8 +157,8 @@ const bentoItems = [
     </section>
 
     <!-- 2. IDENTIDADE VISUAL & SÍMBOLO DA SEMENTE -->
-    <section aria-label="Identidade Visual da Chapa Semente" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center p-6 rounded-xl border-3 border-border bg-card shadow-md">
-      <div class="lg:col-span-4 flex flex-col items-center justify-center p-6 rounded-xl border-3 border-border bg-primary text-white shadow-sm relative overflow-hidden">
+    <section aria-label="Identidade Visual da Chapa Semente" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center p-6 rounded-xl border-2 border-border bg-card shadow-md">
+      <div class="lg:col-span-4 flex flex-col items-center justify-center p-6 rounded-xl border-2 border-border bg-primary text-white shadow-sm relative overflow-hidden">
         <img
           src={asset('/logos/semente/semente-vertical-branco.webp')}
           alt="Chapa Gestão Pública Semente"
@@ -231,7 +231,7 @@ const bentoItems = [
         {CHAPA_LEADERS.map((leader, idx) => (
           <article
             id={leader.targetId}
-            class="p-4 sm:p-5 rounded-2xl border-3 border-[#16181d] bg-white shadow-[6px_6px_0_0_#16181d] hover:shadow-[8px_8px_0_0_#16181d] transition-shadow flex flex-col justify-between gap-4 scroll-mt-24 relative"
+            class="p-4 sm:p-5 rounded-2xl border-2 border-[#1F1F1F] bg-white shadow-[6px_6px_0_0_#1F1F1F] hover:shadow-[8px_8px_0_0_#1F1F1F] transition-shadow flex flex-col justify-between gap-4 scroll-mt-24 relative"
           >
             <div id={leader.id} class="cagp-anchor-target scroll-mt-24"></div>
             <div class="space-y-3.5">
@@ -250,7 +250,7 @@ const bentoItems = [
 
               {/* Cargo e Meta */}
               <div class="flex items-center justify-between gap-2 pt-1">
-                <span class={`text-xs font-heading font-black uppercase px-2.5 py-0.5 rounded-md border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] ${leader.badgeBg}`}>
+                <span class={`text-xs font-heading font-black uppercase px-2.5 py-0.5 rounded-md border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] ${leader.badgeBg}`}>
                   {leader.role}
                 </span>
                 <span class="text-xs font-mono font-bold text-primary">
@@ -259,12 +259,12 @@ const bentoItems = [
               </div>
 
               {/* Citação em Destaque */}
-              <blockquote class="p-3 rounded-xl bg-background border-2 border-[#16181d] text-xs font-sans text-foreground italic leading-relaxed m-0">
+              <blockquote class="p-3 rounded-xl bg-background border-2 border-[#1F1F1F] text-xs font-sans text-foreground italic leading-relaxed m-0">
                 "{leader.quote}"
               </blockquote>
 
               {/* Dor Discente Resolvida */}
-              <div class="p-3 rounded-xl bg-card border-2 border-[#16181d]/30 space-y-1">
+              <div class="p-3 rounded-xl bg-card border-2 border-[#1F1F1F]/30 space-y-1">
                 <span class="font-mono text-xs font-extrabold uppercase text-secondary block">
                   Dor Discente Resolvida:
                 </span>
@@ -274,7 +274,7 @@ const bentoItems = [
               </div>
             </div>
 
-            <div class="pt-3 border-t-2 border-[#16181d] space-y-2.5">
+            <div class="pt-3 border-t-2 border-[#1F1F1F] space-y-2.5">
               <div class="text-xs font-sans text-foreground leading-snug">
                 <strong class="font-heading uppercase text-primary block text-xs">
                   Entrega Materializada no SuperApp:
@@ -283,7 +283,7 @@ const bentoItems = [
               </div>
               <a
                 href={leader.toolHref}
-                class="w-full min-h-[44px] px-4 py-2.5 rounded-xl bg-primary hover:bg-[#4A216E] text-white border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none inline-flex items-center justify-between gap-2 text-xs font-heading font-black uppercase tracking-wider no-underline transition-all"
+                class="w-full min-h-[44px] px-4 py-2.5 rounded-xl bg-primary hover:bg-[#4A216E] text-white border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none inline-flex items-center justify-between gap-2 text-xs font-heading font-black uppercase tracking-wider no-underline transition-all"
               >
                 <span>{leader.toolLabel}</span>
                 <i class="bi bi-arrow-right text-sm" aria-hidden="true"></i>
@@ -295,8 +295,8 @@ const bentoItems = [
     </section>
 
     <!-- 2.5. GALERIA VISUAL E ARTES OFICIAIS DA CAMPANHA SEMENTE -->
-    <section aria-label="Galeria Visual da Campanha Chapa Semente" class="p-5 sm:p-6 rounded-2xl border-3 border-[#16181d] bg-card shadow-[6px_6px_0_0_#16181d] space-y-5">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b-2 border-[#16181d]">
+    <section aria-label="Galeria Visual da Campanha Chapa Semente" class="p-5 sm:p-6 rounded-2xl border-2 border-[#1F1F1F] bg-card shadow-[6px_6px_0_0_#1F1F1F] space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b-2 border-[#1F1F1F]">
         <div>
           <span class="font-mono text-xs font-bold uppercase tracking-widest text-primary block">
             Identidade &amp; Mobilização Presencial na FAFICH
@@ -305,21 +305,21 @@ const bentoItems = [
             Galeria Oficial da Campanha Semente
           </h2>
         </div>
-        <span class="px-3 py-1 rounded-lg bg-accent text-foreground border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-mono text-xs font-extrabold uppercase self-start sm:self-center">
+        <span class="px-3 py-1 rounded-lg bg-accent text-foreground border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] font-mono text-xs font-extrabold uppercase self-start sm:self-center">
           Urnas: 25 e 26/11
         </span>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <figure class="m-0 flex flex-col gap-2.5">
-          <div class="cagp-photo-frame relative aspect-[4/5] min-h-[320px] rounded-xl overflow-hidden border-3 border-[#16181d] shadow-[8px_8px_0_0_#16181d] bg-white">
+          <div class="cagp-photo-frame relative aspect-[4/5] min-h-[320px] rounded-xl overflow-hidden border-3 border-[#1F1F1F] shadow-[8px_8px_0_0_#1F1F1F] bg-white">
             <img
               src={asset('/imagens/semente/post_02_quem_somos_nos.jpg')}
               alt="Arte oficial da Chapa Semente: Quem Somos Nós e o manifesto de renovação do CAGP"
               class="w-full h-full object-cover"
               loading="lazy"
             />
-            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-primary text-white border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-mono text-xs font-extrabold uppercase">
+            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-primary text-white border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] font-mono text-xs font-extrabold uppercase">
               MANIFESTO SEMENTE
             </span>
           </div>
@@ -329,14 +329,14 @@ const bentoItems = [
         </figure>
 
         <figure class="m-0 flex flex-col gap-2.5">
-          <div class="cagp-photo-frame relative aspect-[4/5] min-h-[320px] rounded-xl overflow-hidden border-3 border-[#16181d] shadow-[8px_8px_0_0_#16181d] bg-white">
+          <div class="cagp-photo-frame relative aspect-[4/5] min-h-[320px] rounded-xl overflow-hidden border-3 border-[#1F1F1F] shadow-[8px_8px_0_0_#1F1F1F] bg-white">
             <img
               src={asset('/imagens/semente/post_01_propostas_david.jpg')}
               alt="Arte oficial de propostas da Chapa Semente para o Centro Acadêmico de Gestão Pública"
               class="w-full h-full object-cover"
               loading="lazy"
             />
-            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-accent text-foreground border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-mono text-xs font-extrabold uppercase">
+            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-accent text-foreground border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] font-mono text-xs font-extrabold uppercase">
               COMPROMISSO PÚBLICO
             </span>
           </div>
@@ -346,14 +346,14 @@ const bentoItems = [
         </figure>
 
         <figure class="m-0 flex flex-col gap-2.5">
-          <div class="cagp-photo-frame relative aspect-[4/5] min-h-[320px] rounded-xl overflow-hidden border-3 border-[#16181d] shadow-[8px_8px_0_0_#16181d] bg-white">
+          <div class="cagp-photo-frame relative aspect-[4/5] min-h-[320px] rounded-xl overflow-hidden border-3 border-[#1F1F1F] shadow-[8px_8px_0_0_#1F1F1F] bg-white">
             <img
               src={asset('/imagens/semente/foto_campus_universitario.jpg')}
               alt="Fotografia do Campus Pampulha e vivência universitária na FAFICH/UFMG"
               class="w-full h-full object-cover"
               loading="lazy"
             />
-            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-teal-700 text-white border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-mono text-xs font-extrabold uppercase">
+            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-teal-700 text-white border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] font-mono text-xs font-extrabold uppercase">
               CAMPUS PAMPULHA
             </span>
           </div>
@@ -391,12 +391,12 @@ const bentoItems = [
     </section>
 
     <!-- 4. ACERVO EM ANEXO & DOCUMENTOS ORIGINAIS -->
-    <section aria-label="Anexos Oficiais e Downloads" class="p-6 rounded-xl border-3 border-border bg-card shadow-md space-y-4">
+    <section aria-label="Anexos Oficiais e Downloads" class="p-6 rounded-xl border-2 border-border bg-card shadow-md space-y-4">
       <h3 class="font-heading text-lg font-extrabold text-foreground m-0">
         Documentos Oficiais em Anexo para Consulta
       </h3>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="p-4 rounded-xl border-3 border-border bg-card flex items-center justify-between gap-3 shadow-xs">
+        <div class="p-4 rounded-xl border-2 border-border bg-card flex items-center justify-between gap-3 shadow-xs">
           <div class="min-w-0">
             <span class="font-mono text-xs font-bold uppercase text-primary block">PDF Oficial</span>
             <span class="font-heading font-bold text-sm uppercase text-foreground block truncate">
@@ -415,7 +415,7 @@ const bentoItems = [
           </a>
         </div>
 
-        <div class="p-4 rounded-xl border-3 border-border bg-card flex items-center justify-between gap-3 shadow-xs">
+        <div class="p-4 rounded-xl border-2 border-border bg-card flex items-center justify-between gap-3 shadow-xs">
           <div class="min-w-0">
             <span class="font-mono text-xs font-bold uppercase text-accent block">Documento de Campanha</span>
             <span class="font-heading font-bold text-sm uppercase text-foreground block truncate">

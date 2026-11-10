@@ -92,7 +92,7 @@ export const CourseDetailDrawer: React.FC<CourseDetailDrawerProps> = ({
                 </Badge>
               )}
             </div>
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#F2CD5C] border-2 border-[#16181d] text-xs font-heading font-black uppercase text-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#FFEEDB] border-2 border-[#1F1F1F] text-xs font-heading font-black uppercase text-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]">
               Mapa Chapa Semente
             </span>
           </div>
@@ -118,7 +118,7 @@ export const CourseDetailDrawer: React.FC<CourseDetailDrawerProps> = ({
             <h4 className="font-heading text-xs font-extrabold text-muted-foreground mb-1">
               Ementa Oficial & Conteúdo Programático
             </h4>
-            <p className="text-foreground leading-relaxed bg-white p-3.5 rounded-xl border-3 border-border text-xs sm:text-sm shadow-[3px_3px_0_0_#16181d]">
+            <p className="text-foreground leading-relaxed bg-white p-3.5 rounded-xl border-2 border-border text-xs sm:text-sm shadow-[3px_3px_0_0_#1F1F1F]">
               {node.desc || 'Ementa cadastrada em conformidade com o Projeto Pedagógico do Curso (PPC 2020).'}
             </p>
           </div>
@@ -129,7 +129,7 @@ export const CourseDetailDrawer: React.FC<CourseDetailDrawerProps> = ({
               initial={{ opacity: 0, x: -8 }}
               animate={{ opacity: 1, x: 0 }}
               transition={bounceSpring}
-              className="p-3 rounded-xl border-3 border-border bg-white space-y-1 shadow-[3px_3px_0_0_#16181d]"
+              className="p-3 rounded-xl border-2 border-border bg-white space-y-1 shadow-[3px_3px_0_0_#1F1F1F]"
             >
               <span className="text-xs font-heading font-extrabold uppercase text-secondary block">
                 ⬅ Pré-Requisitos Formais (SIGA)
@@ -139,7 +139,7 @@ export const CourseDetailDrawer: React.FC<CourseDetailDrawerProps> = ({
                   {node.formalReqs.map((req) => (
                     <span
                       key={req}
-                      className="px-2 py-0.5 rounded-md bg-[#FEE2E2] border-2 border-[#16181d] text-secondary font-mono text-xs font-bold shadow-[2px_2px_0_0_#16181d]"
+                      className="px-2 py-0.5 rounded-md bg-[#FEE2E2] border-2 border-[#1F1F1F] text-secondary font-mono text-xs font-bold shadow-[2px_2px_0_0_#1F1F1F]"
                     >
                       {req}
                     </span>
@@ -154,7 +154,7 @@ export const CourseDetailDrawer: React.FC<CourseDetailDrawerProps> = ({
               initial={{ opacity: 0, x: 8 }}
               animate={{ opacity: 1, x: 0 }}
               transition={bounceSpring}
-              className="p-3 rounded-xl border-3 border-border bg-white space-y-1 shadow-[3px_3px_0_0_#16181d]"
+              className="p-3 rounded-xl border-2 border-border bg-white space-y-1 shadow-[3px_3px_0_0_#1F1F1F]"
             >
               <span className="text-xs font-heading font-extrabold uppercase text-primary block">
                 Libera no Fluxo Curricular →
@@ -164,7 +164,7 @@ export const CourseDetailDrawer: React.FC<CourseDetailDrawerProps> = ({
                   {node.formalUnlocks.map((unl) => (
                     <span
                       key={unl}
-                      className="px-2 py-0.5 rounded-md bg-[#EDE9FE] border-2 border-[#16181d] text-primary font-mono text-xs font-bold shadow-[2px_2px_0_0_#16181d]"
+                      className="px-2 py-0.5 rounded-md bg-[#EFE7F6] border-2 border-[#1F1F1F] text-primary font-mono text-xs font-bold shadow-[2px_2px_0_0_#1F1F1F]"
                     >
                       {unl}
                     </span>

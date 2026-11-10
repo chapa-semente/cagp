@@ -49,7 +49,7 @@ export const HomeCalouroGuide: React.FC<Props> = ({ checklist, toggleStep }) => 
   return (
     <section
       aria-labelledby="heading-role-calouro"
-      className="bg-white rounded-xl border-3 border-border p-5 sm:p-6 shadow-md space-y-4 font-sans"
+      className="bg-white rounded-xl border-2 border-border p-5 sm:p-6 shadow-md space-y-4 font-sans"
     >
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
@@ -71,7 +71,7 @@ export const HomeCalouroGuide: React.FC<Props> = ({ checklist, toggleStep }) => 
             allDone
               ? 'bg-success-tint text-success'
               : doneCount > 0
-              ? 'bg-[#FEF08A] text-[#854D0E]'
+              ? 'bg-[#FEF3C7] text-[#854D0E]'
               : 'bg-white text-foreground'
           } tabular-nums`}
         >
@@ -90,7 +90,7 @@ export const HomeCalouroGuide: React.FC<Props> = ({ checklist, toggleStep }) => 
           <span className="font-bold text-foreground">Progresso de ambientação noturna</span>
           <span className="font-mono font-bold text-secondary">{pct}%</span>
         </div>
-        <div className="h-3 w-full bg-[#e5e7ec] rounded-md border-3 border-border overflow-hidden">
+        <div className="h-3 w-full bg-[#E7E3D8] rounded-md border-3 border-border overflow-hidden">
           <div
             className={`h-full transition-[width,background-color] duration-300 ${
               allDone ? 'bg-success' : 'bg-secondary'
@@ -113,7 +113,7 @@ export const HomeCalouroGuide: React.FC<Props> = ({ checklist, toggleStep }) => 
               whileHover={{ y: -2, x: -1 }}
               whileTap={{ y: 2, x: 2 }}
               transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-              className={`p-3.5 rounded-xl border-3 border-border shadow text-left cursor-pointer flex flex-col justify-between min-h-[96px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed ${
+              className={`p-3.5 rounded-xl border-2 border-border shadow text-left cursor-pointer flex flex-col justify-between min-h-[96px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed ${
                 checked
                   ? 'bg-success-tint text-foreground'
                   : 'bg-white hover:bg-muted text-foreground'

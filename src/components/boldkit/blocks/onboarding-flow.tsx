@@ -127,10 +127,10 @@ export function OnboardingWizard({
           exit={{ opacity: 0, y: -8, scale: 0.98 }}
           transition={bounceSpring}
         >
-          <Card className="border-3 border-[#16181d] shadow-[6px_6px_0_0_#16181d]">
+          <Card className="border-3 border-[#1F1F1F] shadow-[6px_6px_0_0_#1F1F1F]">
             <CardHeader className="text-center">
               {steps[currentStep].icon && (
-                <div className="w-16 h-16 mx-auto flex items-center justify-center border-3 border-[#16181d] bg-primary-tint shadow-[4px_4px_0_0_#16181d] mb-4">
+                <div className="w-16 h-16 mx-auto flex items-center justify-center border-3 border-[#1F1F1F] bg-primary-tint shadow-[3px_3px_0_0_#1F1F1F] mb-4">
                   {steps[currentStep].icon}
                 </div>
               )}
@@ -218,7 +218,7 @@ export function WelcomeScreen({
               {features.map((feature) => (
                 <div
                   key={feature.title}
-                  className="border-3 border-foreground p-4 bg-background space-y-2"
+                  className="border-2 border-foreground p-4 bg-background space-y-2"
                 >
                   <div className="w-10 h-10 flex items-center justify-center border-2 border-foreground bg-card">
                     {feature.icon}

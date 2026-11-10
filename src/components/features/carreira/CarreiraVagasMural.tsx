@@ -15,7 +15,7 @@ export const CarreiraVagasMural: React.FC = () => {
   return (
     <div className="space-y-6 font-sans select-none text-foreground">
       {/* Barra de Filtros por Esfera */}
-      <div className="p-4 sm:p-5 rounded-xl border-3 border-border bg-white shadow-md space-y-3">
+      <div className="p-4 sm:p-5 rounded-xl border-2 border-border bg-white shadow-md space-y-3">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <h2 className="text-base sm:text-lg font-heading font-black text-foreground m-0 flex items-center gap-2">
@@ -50,7 +50,7 @@ export const CarreiraVagasMural: React.FC = () => {
           <span className="font-mono text-xs font-bold text-muted-foreground">
             Total de Vagas Listadas: <strong className="text-foreground tabular-nums">{filteredVacancies.length}</strong>
           </span>
-          <span className="px-2.5 py-1 rounded bg-[#f4f5f7] border border-border font-mono text-xs font-bold text-primary uppercase">
+          <span className="px-2.5 py-1 rounded bg-[#F4F2EC] border border-border font-mono text-xs font-bold text-primary uppercase">
             Proposta 12 • Radar Permanente Chapa Semente
           </span>
         </div>
@@ -72,7 +72,7 @@ export const CarreiraVagasMural: React.FC = () => {
             >
               <div>
                 <div className="flex items-center justify-between gap-2 mb-2">
-                  <span className="text-xs font-mono font-black uppercase px-2.5 py-0.5 rounded bg-[#f4f5f7] border-2 border-border text-foreground">
+                  <span className="text-xs font-mono font-black uppercase px-2.5 py-0.5 rounded bg-[#F4F2EC] border-2 border-border text-foreground">
                     {v.tag}
                   </span>
                   <span className="text-xs font-heading font-black uppercase px-2.5 py-0.5 rounded bg-[#134E4A] text-white border-2 border-border">
@@ -86,7 +86,7 @@ export const CarreiraVagasMural: React.FC = () => {
                   {v.role}
                 </p>
 
-                <div className="mt-4 p-3 rounded-xl bg-[#f4f5f7] border border-border space-y-1.5 text-xs font-mono text-foreground tabular-nums">
+                <div className="mt-4 p-3 rounded-xl bg-[#F4F2EC] border border-border space-y-1.5 text-xs font-mono text-foreground tabular-nums">
                   <div className="flex items-center justify-between">
                     <span className="text-muted-foreground">Jornada:</span>
                     <strong>{v.hours}</strong>

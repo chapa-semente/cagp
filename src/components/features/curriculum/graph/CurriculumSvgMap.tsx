@@ -119,13 +119,13 @@ export const CurriculumSvgMap: React.FC<Props> = ({
           <path d="M 0 1 L 9 5 L 0 9 z" fill="#9CA3AF" />
         </marker>
         <marker id="arrow-formal" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M 0 1 L 9 5 L 0 9 z" fill="#DC2626" />
+          <path d="M 0 1 L 9 5 L 0 9 z" fill="#B91C1C" />
         </marker>
         <marker id="arrow-req" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M 0 1 L 9 5 L 0 9 z" fill="#E8A317" />
+          <path d="M 0 1 L 9 5 L 0 9 z" fill="#A85300" />
         </marker>
         <marker id="arrow-next" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M 0 1 L 9 5 L 0 9 z" fill="#15803D" />
+          <path d="M 0 1 L 9 5 L 0 9 z" fill="#166534" />
         </marker>
       </defs>
 
@@ -276,7 +276,7 @@ export const CurriculumSvgMap: React.FC<Props> = ({
                 <text
                   x={x + 92}
                   y={y + 66}
-                  fill="#15803D"
+                  fill="#166534"
                   fontSize="13"
                   fontWeight="bold"
                 >

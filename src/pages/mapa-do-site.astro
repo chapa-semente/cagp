@@ -42,26 +42,26 @@ const badges = [
   />
 
   <!-- Barra de Busca Instantânea ⌘K -->
-  <div class="my-4 p-4 sm:p-5 rounded-2xl border-3 border-[#16181d] bg-[#ffffff] shadow-[6px_6px_0_0_#16181d] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+  <div class="my-4 p-4 sm:p-5 rounded-2xl border-2 border-[#1F1F1F] bg-[#ffffff] shadow-[6px_6px_0_0_#1F1F1F] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
     <div class="space-y-1">
       <span class="font-mono text-xs font-black uppercase tracking-widest text-[#5B2A85] block">
         ATALHO DE TECLADO GLOBAL • COMMAND PALETTE
       </span>
-      <h2 class="font-heading text-base sm:text-lg font-black text-[#16181d] m-0">
+      <h2 class="font-heading text-base sm:text-lg font-black text-[#1F1F1F] m-0">
         Navegação Instantânea por Qualquer uma das 26 Rotas
       </h2>
       <p class="text-xs text-muted-foreground m-0 font-medium">
-        Pressione <kbd class="px-1.5 py-0.5 rounded bg-white border-2 border-[#16181d] font-mono font-bold text-xs">⌘K</kbd> ou <kbd class="px-1.5 py-0.5 rounded bg-white border-2 border-[#16181d] font-mono font-bold text-xs">Ctrl+K</kbd> a qualquer momento para saltar direto para uma ferramenta, proposta ou PDF.
+        Pressione <kbd class="px-1.5 py-0.5 rounded bg-white border-2 border-[#1F1F1F] font-mono font-bold text-xs">⌘K</kbd> ou <kbd class="px-1.5 py-0.5 rounded bg-white border-2 border-[#1F1F1F] font-mono font-bold text-xs">Ctrl+K</kbd> a qualquer momento para saltar direto para uma ferramenta, proposta ou PDF.
       </p>
     </div>
     <button
       type="button"
       onclick="window.dispatchEvent(new CustomEvent('cagp:open-spotlight'))"
-      class="min-h-[48px] px-5 py-3 rounded-xl bg-[#5B2A85] text-white font-heading font-black text-xs uppercase tracking-wider border-3 border-[#16181d] shadow-[4px_4px_0_0_#FE8812] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all cursor-pointer inline-flex items-center gap-2.5 shrink-0"
+      class="min-h-[48px] px-5 py-3 rounded-xl bg-[#5B2A85] text-white font-heading font-black text-xs uppercase tracking-wider border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all cursor-pointer inline-flex items-center gap-2.5 shrink-0"
     >
       <i class="bi bi-search" aria-hidden="true"></i>
       <span>Acionar Busca Rápida</span>
-      <kbd class="px-2 py-0.5 rounded bg-[#16181d] text-[#FE8812] font-mono text-xs font-black border border-white/30">⌘K</kbd>
+      <kbd class="px-2 py-0.5 rounded bg-[#1F1F1F] text-[#FE8812] font-mono text-xs font-black border border-white/30">⌘K</kbd>
     </button>
   </div>
 
@@ -69,12 +69,12 @@ const badges = [
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-6" data-context-type="shell">
     {AXIS_REGISTRY.map((axis) => (
-      <div class="p-5 rounded-2xl border-3 border-[#16181d] bg-card shadow-[6px_6px_0_0_#16181d] hover:shadow-[8px_8px_0_0_#16181d] hover:-translate-y-0.5 transition-all space-y-3 text-foreground">
-        <div class="flex items-center justify-between border-b-2 border-[#16181d] pb-2">
+      <div class="p-5 rounded-2xl border-2 border-[#1F1F1F] bg-card shadow-[6px_6px_0_0_#1F1F1F] hover:shadow-[8px_8px_0_0_#1F1F1F] hover:-translate-y-0.5 transition-all space-y-3 text-foreground">
+        <div class="flex items-center justify-between border-b-2 border-[#1F1F1F] pb-2">
           <span class="font-mono text-xs font-black uppercase text-secondary">
             EIXO {axis.number}
           </span>
-          <span class="font-mono text-xs font-bold px-2 py-0.5 rounded bg-[#f4f5f7] border border-[#16181d]">
+          <span class="font-mono text-xs font-bold px-2 py-0.5 rounded bg-[#F4F2EC] border border-[#1F1F1F]">
             {axis.items.length} Rotas Principais
           </span>
         </div>
@@ -87,7 +87,7 @@ const badges = [
             <li>
               <a
                 href={item.href}
-                class="flex items-center justify-between p-2.5 min-h-[44px] rounded-xl border-3 border-[#16181d] bg-white hover:bg-[#FFFBEB] text-xs font-bold text-foreground no-underline shadow-[3px_3px_0_0_#16181d] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[5px_5px_0_0_#16181d] transition-all"
+                class="flex items-center justify-between p-2.5 min-h-[44px] rounded-xl border-3 border-[#1F1F1F] bg-white hover:bg-[#FFFBEB] text-xs font-bold text-foreground no-underline shadow-[3px_3px_0_0_#1F1F1F] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[5px_5px_0_0_#1F1F1F] transition-all"
               >
                 <span>{item.label}</span>
                 <span class="font-mono text-xs font-black text-secondary">→</span>
@@ -99,12 +99,12 @@ const badges = [
     ))}
 
     <!-- Card 6: As 8 Rotas do Leitor Normativo (/documentos/[slug]) + Rotas Utilitárias = 26 Rotas -->
-    <div class="p-5 rounded-2xl border-3 border-[#16181d] bg-[#ffffff] shadow-[6px_6px_0_0_#5B2A85] hover:shadow-[8px_8px_0_0_#5B2A85] hover:-translate-y-0.5 transition-all space-y-3 text-foreground">
-      <div class="flex items-center justify-between border-b-2 border-[#16181d] pb-2">
+    <div class="p-5 rounded-2xl border-2 border-[#1F1F1F] bg-[#ffffff] shadow-[6px_6px_0_0_#5B2A85] hover:shadow-[8px_8px_0_0_#5B2A85] hover:-translate-y-0.5 transition-all space-y-3 text-foreground">
+      <div class="flex items-center justify-between border-b-2 border-[#1F1F1F] pb-2">
         <span class="font-mono text-xs font-black uppercase text-[#5B2A85]">
           LEITOR NORMATIVO &amp; UTILITÁRIOS
         </span>
-        <span class="font-mono text-xs font-bold px-2 py-0.5 rounded bg-[#5B2A85] text-white border border-[#16181d]">
+        <span class="font-mono text-xs font-bold px-2 py-0.5 rounded bg-[#5B2A85] text-white border border-[#1F1F1F]">
           10 Rotas Complementares
         </span>
       </div>
@@ -119,7 +119,7 @@ const badges = [
           <li>
             <a
               href={docRoute.href}
-              class="flex items-center justify-between p-2 min-h-[40px] rounded-xl border-2 border-[#16181d] bg-white hover:bg-[#f4f5f7] text-xs font-bold text-foreground no-underline shadow-[2px_2px_0_0_#16181d] transition-all"
+              class="flex items-center justify-between p-2 min-h-[40px] rounded-xl border-2 border-[#1F1F1F] bg-white hover:bg-[#F4F2EC] text-xs font-bold text-foreground no-underline shadow-[2px_2px_0_0_#1F1F1F] transition-all"
             >
               <span class="truncate pr-2">{docRoute.label}</span>
               <span class="font-mono text-xs font-black text-[#5B2A85] shrink-0">→</span>
@@ -130,10 +130,10 @@ const badges = [
           <li>
             <a
               href={u.href}
-              class="flex items-center justify-between p-2 min-h-[40px] rounded-xl border-2 border-[#16181d] bg-[#FEF3C7] hover:bg-[#FDE68A] text-xs font-bold text-[#16181d] no-underline shadow-[2px_2px_0_0_#16181d] transition-all"
+              class="flex items-center justify-between p-2 min-h-[40px] rounded-xl border-2 border-[#1F1F1F] bg-[#FEF3C7] hover:bg-[#FDE68A] text-xs font-bold text-[#1F1F1F] no-underline shadow-[2px_2px_0_0_#1F1F1F] transition-all"
             >
               <span>Utilitário: {u.label}</span>
-              <span class="font-mono text-xs font-black text-[#16181d] shrink-0">→</span>
+              <span class="font-mono text-xs font-black text-[#1F1F1F] shrink-0">→</span>
             </a>
           </li>
         ))}

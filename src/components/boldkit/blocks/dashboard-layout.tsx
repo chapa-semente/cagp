@@ -74,7 +74,7 @@ export function DashboardLayout({
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="border-3 border-foreground bg-card p-4 shadow-md"
+              className="border-2 border-foreground bg-card p-4 shadow-md"
             >
               <div className="text-xs font-bold uppercase tracking-wide text-muted-foreground">
                 {stat.label}
@@ -90,7 +90,7 @@ export function DashboardLayout({
         {children ?? (
           <>
             {/* Chart placeholder */}
-            <div className="border-3 border-foreground bg-card p-5 shadow-md">
+            <div className="border-2 border-foreground bg-card p-5 shadow-md">
               <div className="mb-4 text-sm font-black uppercase tracking-wide">Weekly activity</div>
               <div className="flex h-40 items-end gap-3">
                 {demoBars.map((h, i) => (

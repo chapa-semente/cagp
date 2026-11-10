@@ -32,7 +32,7 @@ export function CTASimple({
     <section className={cn('py-14 sm:py-16 px-4 md:px-8 lg:px-16', className)}>
       <motion.div
         variants={staggerContainer(0.07)}
-        className="max-w-4xl mx-auto rounded-2xl border-3 border-[#16181d] bg-card p-6 sm:p-10 text-center space-y-6 shadow-[8px_8px_0_0_#16181d]"
+        className="max-w-4xl mx-auto rounded-2xl border-2 border-[#1F1F1F] bg-card p-6 sm:p-10 text-center space-y-6 shadow-[8px_8px_0_0_#1F1F1F]"
       >
         {badge && (
           <motion.div variants={staggerItem}>
@@ -120,7 +120,7 @@ export function CTAWithBackground({
       <motion.div
         variants={staggerContainer(0.07)}
         className={cn(
-          'max-w-5xl mx-auto rounded-2xl border-3 border-[#16181d] p-8 md:p-12 shadow-[8px_8px_0_0_#16181d]',
+          'max-w-5xl mx-auto rounded-2xl border-3 border-[#1F1F1F] p-8 md:p-12 shadow-[8px_8px_0_0_#1F1F1F]',
           bgColors[backgroundColor]
         )}
       >

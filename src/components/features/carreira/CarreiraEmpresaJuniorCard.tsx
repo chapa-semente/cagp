@@ -35,7 +35,7 @@ export const CarreiraEmpresaJuniorCard: React.FC = () => {
     <section
       id="cagp-carreira-ej-card"
       aria-labelledby="heading-empresa-junior"
-      className="p-5 sm:p-6 rounded-xl border-3 border-border bg-[#F0FDF4] shadow-[4px_4px_0_0_#16181d] flex flex-col sm:flex-row sm:items-center justify-between gap-5 font-sans select-none"
+      className="p-5 sm:p-6 rounded-xl border-2 border-border bg-[#F0FDF4] shadow-[3px_3px_0_0_#1F1F1F] flex flex-col sm:flex-row sm:items-center justify-between gap-5 font-sans select-none"
     >
       <div className="space-y-1.5 max-w-2xl">
         <div className="flex items-center gap-2">
@@ -61,7 +61,7 @@ export const CarreiraEmpresaJuniorCard: React.FC = () => {
         transition={tactileSpring}
         type="button"
         onClick={toggleInterest}
-        className={`min-h-[44px] px-4 py-2.5 rounded-xl border-3 border-border font-heading text-xs font-black uppercase shrink-0 cursor-pointer flex items-center justify-center gap-2 shadow-[3px_3px_0_0_#16181d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all ${
+        className={`min-h-[44px] px-4 py-2.5 rounded-xl border-3 border-border font-heading text-xs font-black uppercase shrink-0 cursor-pointer flex items-center justify-center gap-2 shadow-[3px_3px_0_0_#1F1F1F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all ${
           interested
             ? 'bg-[#134E4A] text-white'
             : 'bg-white text-foreground hover:bg-muted'

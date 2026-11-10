@@ -163,7 +163,7 @@ export const CARTA_PROPOSTAS_DATA: PropostaItem[] = [
     eixoId: 4,
     eixoName: 'Comunicação e Institucional',
     eixoBadge: 'Eixo 4',
-    eixoColor: '#9E2424',
+    eixoColor: '#A85300',
     title: 'Comunicação Ativa de Oportunidades',
     summary: 'Divulgação contínua de estágios, bolsas, concursos públicos, pesquisa, extensão e calendário discente.',
     fullText: 'A Gestão se compromete em desenvolver uma comunicação ativa e informativa para os estudantes, com conteúdos sobre oportunidades acadêmicas e profissionais, estágios, concursos, bolsas, pesquisa, extensão, atualidades e temas relevantes para a área. Também se compromete em buscar parcerias com outras entidades para divulgar projetos, ações e resultados do Centro Acadêmico, além de criar um calendário de publicações e incentivar a participação dos discentes na produção de conteúdo.',
@@ -174,7 +174,7 @@ export const CARTA_PROPOSTAS_DATA: PropostaItem[] = [
     eixoId: 4,
     eixoName: 'Comunicação e Institucional',
     eixoBadge: 'Eixo 4',
-    eixoColor: '#9E2424',
+    eixoColor: '#A85300',
     title: 'Linha de Produtos Personalizados do CAGP',
     summary: 'Camisetas, canecas, ecobags e adesivos sob demanda e pré-venda a preços populares.',
     fullText: 'A Gestão irá se comprometer em criar uma linha de produtos personalizados do curso, como camisetas, canecas, ecobags, adesivos, bottons e outros itens. Serão realizadas consultas com os estudantes para definir produtos, estampas e preços, priorizando opções acessíveis e modelos de produção sob demanda ou pré-venda, para reduzir custos e evitar desperdícios.',
@@ -185,7 +185,7 @@ export const CARTA_PROPOSTAS_DATA: PropostaItem[] = [
     eixoId: 4,
     eixoName: 'Comunicação e Institucional',
     eixoBadge: 'Eixo 4',
-    eixoColor: '#9E2424',
+    eixoColor: '#A85300',
     title: 'Canais Permanentes de Escuta e Acolhimento',
     summary: 'Canais abertos para acolher dúvidas, demandas e sugestões, incentivando a participação nas decisões.',
     fullText: 'A Gestão irá se comprometer com a criação de canais permanentes de escuta e diálogo para o acolhimento contínuo de dúvidas, demandas e sugestões discentes. Além disso, a entidade garantirá a ampla transparência mediante a divulgação periódica das iniciativas vigentes e dos encaminhamentos institucionais, associada à elaboração de materiais informativos para esclarecer a estrutura da representação discente e incentivar a participação popular nas deliberações universitárias.',
@@ -235,29 +235,29 @@ export const CartaPropostaInteractive: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* 1. COMPROMISSO INSTITUCIONAL DESTAQUE (PROPOSTA 3 MATERIALIZADA) COM FOTOGRAFIA AMPLIADA */}
-      <Card className="border-3 border-[#16181d] bg-[#ffffff] shadow-[8px_8px_0_0_#FE8812] p-5 sm:p-6 relative overflow-hidden">
+      <Card className="border-2 border-[#1F1F1F] bg-[#ffffff] shadow-[8px_8px_0_0_#FE8812] p-5 sm:p-6 relative overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
           <div className="lg:col-span-8 space-y-3">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#FE8812] text-[#16181d] font-heading font-black text-xs uppercase border-2 border-[#16181d] shadow-[3px_3px_0_0_#16181d] -rotate-1">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#FE8812] text-[#1F1F1F] font-heading font-black text-xs uppercase border-2 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] -rotate-1">
                 <Sparkles className="w-3.5 h-3.5" />
                 CARIMBO DOURADO • PROPOSTA 3 JÁ MATERIALIZADA
               </span>
-              <Badge variant="secondary" className="bg-[#5B2A85] text-white font-mono text-xs uppercase border-2 border-[#16181d]">
+              <Badge variant="secondary" className="bg-[#5B2A85] text-white font-mono text-xs uppercase border-2 border-[#1F1F1F]">
                 Votação: 25 e 26 de Novembro
               </Badge>
             </div>
-            <h2 className="font-heading text-xl sm:text-2xl font-black text-[#16181d] m-0">
+            <h2 className="font-heading text-xl sm:text-2xl font-black text-[#1F1F1F] m-0">
               Este SuperApp <span className="font-accent font-normal normal-case tracking-normal text-primary text-[1.15em]">já é</span> a Proposta 3 Entregue para Toda a Comunidade
             </h2>
-            <p className="text-xs sm:text-sm font-sans text-[#16181d]/90 leading-relaxed max-w-3xl m-0">
+            <p className="text-xs sm:text-sm font-sans text-[#1F1F1F]/90 leading-relaxed max-w-3xl m-0">
               Enquanto campanhas tradicionais prometem no papel, a <strong>Chapa Semente</strong> construiu e entregou antecipadamente o <strong>SuperApp do Curso de Gestão Pública</strong> — com grafo curricular, calculadora de 600h, simulador do Art. 41, livro-caixa aberto e acervo de 80 documentos. <strong>Vote Chapa Semente nos dias 25 e 26 de Novembro no CAGP!</strong>
             </p>
             <div className="pt-1 flex flex-wrap items-center gap-3">
               <button
                 type="button"
                 onClick={handlePledgeVote}
-                className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#FE8812] hover:bg-[#e67300] text-[#16181d] border-3 border-[#16181d] font-heading font-black text-xs uppercase tracking-wide max-w-full text-left shadow-[4px_4px_0_0_#16181d] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none cursor-pointer transition-all"
+                className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#FE8812] hover:bg-[#e67300] text-[#1F1F1F] border-3 border-[#1F1F1F] font-heading font-black text-xs uppercase tracking-wide max-w-full text-left shadow-[3px_3px_0_0_#1F1F1F] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none cursor-pointer transition-all"
               >
                 <CheckCircle2 className="w-4 h-4 shrink-0" />
                 <span>{votePledged ? 'Compromisso Confirmado (25 e 26/11)' : 'Firmar Compromisso de Voto (25 e 26/11)'}</span>
@@ -265,7 +265,7 @@ export const CartaPropostaInteractive: React.FC = () => {
               <button
                 type="button"
                 onClick={() => downloadPresetIcs('eleicoes-cagp-2026')}
-                className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#5B2A85] hover:bg-[#4A216E] text-white border-3 border-[#16181d] font-heading font-black text-xs uppercase tracking-wide max-w-full text-left shadow-[4px_4px_0_0_#16181d] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none cursor-pointer transition-all"
+                className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#5B2A85] hover:bg-[#4A216E] text-white border-3 border-[#1F1F1F] font-heading font-black text-xs uppercase tracking-wide max-w-full text-left shadow-[3px_3px_0_0_#1F1F1F] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none cursor-pointer transition-all"
               >
                 <CalendarCheck className="w-4 h-4 shrink-0" />
                 <span>Salvar Votação 25 e 26/11 na Agenda (.ICS)</span>
@@ -274,14 +274,14 @@ export const CartaPropostaInteractive: React.FC = () => {
           </div>
 
           <div className="lg:col-span-4">
-            <div className="cagp-photo-frame relative aspect-[4/5] min-h-[260px] w-full rounded-xl border-3 border-[#16181d] shadow-[8px_8px_0_0_#16181d] overflow-hidden bg-[#5B2A85]">
+            <div className="cagp-photo-frame relative aspect-[4/5] min-h-[260px] w-full rounded-xl border-3 border-[#1F1F1F] shadow-[8px_8px_0_0_#1F1F1F] overflow-hidden bg-[#5B2A85]">
               <img
                 src={asset('/imagens/semente/post_01_propostas_david.jpg')}
                 alt="Propostas da Chapa Semente — Germinar o CAGP"
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
-              <span className="absolute bottom-3 left-3 px-2.5 py-1 rounded-lg bg-[#FE8812] text-[#16181d] font-mono text-xs font-black uppercase border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d]">
+              <span className="absolute bottom-3 left-3 px-2.5 py-1 rounded-lg bg-[#FE8812] text-[#1F1F1F] font-mono text-xs font-black uppercase border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F]">
                 14 Propostas Auditáveis
               </span>
             </div>
@@ -290,10 +290,10 @@ export const CartaPropostaInteractive: React.FC = () => {
       </Card>
 
       {/* 2. FILTROS POR EIXO (4 EIXOS) E BUSCA */}
-      <div id="propostas-grid" className="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0_0_#16181d] space-y-3">
+      <div id="propostas-grid" className="p-4 rounded-xl border-2 border-[#1F1F1F] bg-white shadow-[3px_3px_0_0_#1F1F1F] space-y-3">
         <div className="flex flex-col sm:flex-row gap-3 items-center justify-between">
           <div className="overflow-x-auto no-scrollbar w-full sm:w-auto pb-1 sm:pb-0">
-            <ButtonGroup orientation="horizontal" className="rounded-xl overflow-hidden border-3 border-[#16181d] shadow-sm">
+            <ButtonGroup orientation="horizontal" className="rounded-xl overflow-hidden border-2 border-[#1F1F1F] shadow-sm">
               <Button
                 type="button"
                 size="sm"
@@ -348,7 +348,7 @@ export const CartaPropostaInteractive: React.FC = () => {
               placeholder="Buscar nas 14 propostas..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="text-xs min-h-[44px] border-3 border-[#16181d]"
+              className="text-xs min-h-[44px] border-3 border-[#1F1F1F]"
             />
           </div>
         </div>
@@ -374,16 +374,16 @@ export const CartaPropostaInteractive: React.FC = () => {
                   <ContextMenuTrigger asChild>
                     <div className="h-full">
                       <NeobrutalistMotionCard
-                        className={`h-full border-3 border-[#16181d] transition-all flex flex-col justify-between cursor-context-menu overflow-hidden ${
+                        className={`h-full border-3 border-[#1F1F1F] transition-all flex flex-col justify-between cursor-context-menu overflow-hidden ${
                           isProposta3
                             ? 'bg-[#FFFDF5] shadow-[6px_6px_0_0_#FE8812] ring-2 ring-[#FE8812]'
-                            : 'bg-card shadow-[4px_4px_0_0_#16181d] hover:shadow-[6px_6px_0_0_#16181d]'
+                            : 'bg-card shadow-[3px_3px_0_0_#1F1F1F] hover:shadow-[6px_6px_0_0_#1F1F1F]'
                         }`}
                       >
                         <CardHeader className="p-4 pb-2 space-y-2">
                           {isProposta3 && (
                             <div className="flex items-center justify-between gap-2 pb-1">
-                              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#FE8812] text-[#16181d] border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-mono text-xs font-black uppercase -rotate-1">
+                              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#FE8812] text-[#1F1F1F] border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] font-mono text-xs font-black uppercase -rotate-1">
                                 <Sparkles className="w-3 h-3" />
                                 ESTE SUPERAPP JÁ MATERIALIZADO • ENTREGUE!
                               </span>
@@ -392,12 +392,12 @@ export const CartaPropostaInteractive: React.FC = () => {
                           <div className="flex items-center justify-between gap-2">
                             <div className="flex items-center gap-2">
                               <span
-                                className="w-7 h-7 rounded-lg text-white flex items-center justify-center font-heading font-black text-xs border-2 border-[#16181d] shadow-xs"
+                                className="w-7 h-7 rounded-lg text-white flex items-center justify-center font-heading font-black text-xs border-2 border-[#1F1F1F] shadow-xs"
                                 style={{ backgroundColor: item.eixoColor }}
                               >
                                 {item.id}
                               </span>
-                              <Badge variant="outline" className="border-2 border-[#16181d] text-xs font-bold">
+                              <Badge variant="outline" className="border-2 border-[#1F1F1F] text-xs font-bold">
                                 {item.eixoName}
                               </Badge>
                             </div>
@@ -425,15 +425,15 @@ export const CartaPropostaInteractive: React.FC = () => {
                                   transition={tactileSpring}
                                   className="overflow-hidden"
                                 >
-                                  <div className="mt-3 p-3 rounded-lg bg-white border-2 border-[#16181d] text-xs font-sans text-foreground leading-relaxed shadow-xs space-y-2">
+                                  <div className="mt-3 p-3 rounded-lg bg-white border-2 border-[#1F1F1F] text-xs font-sans text-foreground leading-relaxed shadow-xs space-y-2">
                                     <strong>Texto Integral da Carta-Programa:</strong>
                                     <p className="mt-1 m-0">{item.fullText}</p>
                                     {isProposta3 && (
-                                      <div className="pt-2 border-t border-[#16181d]/20 flex flex-wrap gap-2">
+                                      <div className="pt-2 border-t border-[#1F1F1F]/20 flex flex-wrap gap-2">
                                         <button
                                           type="button"
                                           onClick={handlePledgeVote}
-                                          className="min-h-[40px] px-3 py-1.5 rounded-lg bg-[#FE8812] text-[#16181d] border-2 border-[#16181d] shadow-[2px_2px_0_0_#16181d] font-heading font-black text-xs uppercase cursor-pointer"
+                                          className="min-h-[40px] px-3 py-1.5 rounded-lg bg-[#FE8812] text-[#1F1F1F] border-2 border-[#1F1F1F] shadow-[2px_2px_0_0_#1F1F1F] font-heading font-black text-xs uppercase cursor-pointer"
                                         >
                                           Votar Chapa Semente em 25 e 26/11 →
                                         </button>
@@ -507,7 +507,7 @@ export const CartaPropostaInteractive: React.FC = () => {
       </motion.div>
 
       {/* 4. SIMULAÇÃO DE CREDENCIAMENTO COM INPUT-OTP */}
-      <div className="p-6 bg-card border-3 border-border rounded-xl shadow-md space-y-3">
+      <div className="p-6 bg-card border-2 border-border rounded-xl shadow-md space-y-3">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1">
             <span className="text-xs font-head uppercase font-bold text-accent tracking-wider block">
@@ -539,8 +539,8 @@ export const CartaPropostaInteractive: React.FC = () => {
       </div>
 
       {filteredPropostas.length === 0 && (
-        <div className="p-8 text-center rounded-xl border-3 border-[#16181d] bg-white">
-          <p className="font-heading text-base font-bold uppercase text-[#16181d]">
+        <div className="p-8 text-center rounded-xl border-2 border-[#1F1F1F] bg-white">
+          <p className="font-heading text-base font-bold uppercase text-[#1F1F1F]">
             Nenhuma proposta encontrada para o filtro selecionado.
           </p>
           <Button

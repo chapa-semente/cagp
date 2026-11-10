@@ -188,7 +188,7 @@ export const AXIS_REGISTRY: AxisConfig[] = [
     mobileLabel: '600h',
     tagline: 'Grade 10P, Grafo Vivo, Calculadora 600h & Cursos ENAP',
     icon: 'bi-diagram-3',
-    color: '#15803D',
+    color: '#166534',
     rootHref: route('/percurso'),
     items: [
       {
@@ -268,7 +268,7 @@ export const AXIS_REGISTRY: AxisConfig[] = [
     mobileLabel: 'Carreira',
     tagline: 'Estágio Não Obrigatório, Obrigatório 300h, Art. 41 & TCC',
     icon: 'bi-briefcase',
-    color: '#B45309',
+    color: '#92400E',
     rootHref: route('/carreira'),
     items: [
       {

@@ -66,7 +66,7 @@ export function FAQAccordion({
             <motion.div key={item.question} variants={staggerItem}>
               <AccordionItem
                 value={`item-${index}`}
-                className="border-3 border-[#16181d] bg-card shadow-[4px_4px_0_0_#16181d] data-[state=open]:shadow-[6px_6px_0_0_#16181d] data-[state=open]:translate-x-[-2px] data-[state=open]:translate-y-[-2px] transition"
+                className="border-3 border-[#1F1F1F] bg-card shadow-[3px_3px_0_0_#1F1F1F] data-[state=open]:shadow-[6px_6px_0_0_#1F1F1F] data-[state=open]:translate-x-[-2px] data-[state=open]:translate-y-[-2px] transition"
               >
                 <AccordionTrigger className="px-6 py-4 font-bold hover:no-underline">
                   {item.question}
@@ -238,7 +238,7 @@ export function FAQWithContact({
           ))}
         </Accordion>
 
-        <div className="border-3 border-foreground bg-primary-tint p-8 shadow-lg text-center space-y-4">
+        <div className="border-2 border-foreground bg-primary-tint p-8 shadow-lg text-center space-y-4">
           <HelpCircle className="h-12 w-12 mx-auto text-primary" />
           <h3 className="text-xl font-black">{contactTitle}</h3>
           <p className="text-muted-foreground font-medium max-w-md mx-auto">
@@ -297,7 +297,7 @@ export function FAQSimpleList({
 // ============================================================================
 function FAQCard({ item, index }: { item: FAQItem; index: number }) {
   return (
-    <div className="border-3 border-foreground bg-card p-6 shadow-md">
+    <div className="border-2 border-foreground bg-card p-6 shadow-md">
       <div className="flex gap-4">
         <div className="w-8 h-8 bg-primary text-primary-foreground flex items-center justify-center font-black text-sm shrink-0 border-2 border-foreground">
           {index + 1}

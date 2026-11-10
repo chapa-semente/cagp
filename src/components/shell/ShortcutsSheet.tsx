@@ -109,7 +109,7 @@ export const ShortcutsSheet: React.FC<ShortcutsSheetProps> = ({ isOpen, onClose 
               onClick={() => setFilterCategory(cat)}
               className={`px-2.5 py-1 rounded-[4px] text-xs font-['Oswald'] uppercase font-semibold transition-all border shrink-0 cursor-pointer ${
                 filterCategory === cat
-                  ? 'bg-secondary text-white border-secondary shadow-[1px_1px_0_#16181d]'
+                  ? 'bg-secondary text-white border-secondary shadow-[1px_1px_0_#1F1F1F]'
                   : 'bg-white text-gray-700 border-muted hover:bg-background'
               }`}
               role="tab"
@@ -132,7 +132,7 @@ export const ShortcutsSheet: React.FC<ShortcutsSheetProps> = ({ isOpen, onClose 
                 onClick={() => handleToggle(item.id)}
                 className={`p-2.5 rounded-[6px] border-2 transition-all flex items-center justify-between gap-3 cursor-pointer select-none ${
                   isSelected
-                    ? 'border-border bg-white shadow-[2px_2px_0_#16181d]'
+                    ? 'border-border bg-white shadow-[2px_2px_0_#1F1F1F]'
                     : 'border-muted bg-background hover:bg-white hover:border-gray-400 opacity-80'
                 }`}
                 role="checkbox"

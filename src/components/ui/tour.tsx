@@ -193,7 +193,7 @@ function TourOverlay({ targetRect, spotlightPadding }: TourOverlayProps) {
           height: spotlightRect.height,
         }}
         transition={tactileSpring}
-        className="fixed z-[9998] pointer-events-none rounded-xl border-3 border-accent ring-3 ring-border shadow-md"
+        className="fixed z-[9998] pointer-events-none rounded-xl border-2 border-accent ring-3 ring-border shadow-md"
       >
         <div className="absolute -top-4 left-2 px-2 py-0.5 rounded-md bg-accent text-foreground font-mono font-bold text-xs uppercase tracking-wider shadow-xs flex items-center gap-1.5 border-2 border-border">
           <span className="w-1.5 h-1.5 rounded-full bg-foreground shrink-0" aria-hidden="true" />
@@ -348,7 +348,7 @@ function TourPopover({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: -8 }}
           transition={bounceSpring}
-          className="relative border-3 border-border bg-card rounded-2xl shadow-lg flex flex-col max-h-[44vh] sm:max-h-none overflow-hidden"
+          className="relative border-2 border-border bg-card rounded-2xl shadow-lg flex flex-col max-h-[44vh] sm:max-h-none overflow-hidden"
         >
           {/* Faixa Superior Editorial Semente */}
           <div className="bg-primary text-white px-3.5 py-2 border-b-3 border-border flex items-center justify-between gap-2 shrink-0">

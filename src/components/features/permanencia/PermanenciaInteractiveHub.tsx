@@ -358,7 +358,7 @@ export const PermanenciaPedido: React.FC = () => {
         </a>
       </section>
 
-      <section className="rounded-xl border-3 border-border bg-secondary text-secondary-foreground shadow-lg p-4 sm:p-5 space-y-3" aria-labelledby="pedido-ajuda-titulo">
+      <section className="rounded-xl border-2 border-border bg-secondary text-secondary-foreground shadow-lg p-4 sm:p-5 space-y-3" aria-labelledby="pedido-ajuda-titulo">
         <h3 id="pedido-ajuda-titulo" className="font-heading font-extrabold text-lg sm:text-xl leading-tight m-0">
           Travou no cadastro?
         </h3>
@@ -375,13 +375,13 @@ export const PermanenciaPedido: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <figure className="m-0 space-y-2">
-          <div className="aspect-[16/10] w-full rounded-xl border-3 border-border shadow-lg overflow-hidden bg-muted">
+          <div className="aspect-[16/10] w-full rounded-xl border-2 border-border shadow-lg overflow-hidden bg-muted">
             <img src={asset('/imagens/campanha-permanecer-fump.png')} alt="Cartaz da campanha institucional Permanecer é Direito, da FUMP e da UFMG" className="w-full h-full object-cover" loading="lazy" />
           </div>
           <figcaption className="text-sm text-muted-foreground">Campanha institucional de permanência da FUMP/UFMG.</figcaption>
         </figure>
         <figure className="m-0 space-y-2">
-          <div className="aspect-[16/10] w-full rounded-xl border-3 border-border shadow-lg overflow-hidden bg-muted">
+          <div className="aspect-[16/10] w-full rounded-xl border-2 border-border shadow-lg overflow-hidden bg-muted">
             <img src={asset('/imagens/dast-novo-bh.jpg')} alt="Prédio da Divisão de Atenção à Saúde do Estudante (DAST/FUMP) no Campus Pampulha" className="w-full h-full object-cover" loading="lazy" />
           </div>
           <figcaption className="text-sm text-muted-foreground">DAST e DASE/PRAE: atendimento médico, odontológico e psicossocial gratuito.</figcaption>

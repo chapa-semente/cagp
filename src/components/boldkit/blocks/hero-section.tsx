@@ -45,7 +45,7 @@ export function HeroCentered({
       >
         {badge && (
           <motion.div variants={staggerItem}>
-            <Badge variant="semente" className="text-xs sm:text-sm px-4 py-1.5 shadow-[3px_3px_0_0_#16181d]">
+            <Badge variant="semente" className="text-xs sm:text-sm px-4 py-1.5 shadow-[3px_3px_0_0_#1F1F1F]">
               <Sparkles className="h-3.5 w-3.5 mr-2 text-[#FE8812]" />
               {badge}
             </Badge>
@@ -58,7 +58,7 @@ export function HeroCentered({
         >
           {title}{' '}
           {titleHighlight && (
-            <span className="inline-block bg-primary px-3 pt-1 pb-0.5 font-accent font-normal normal-case tracking-normal text-primary-foreground border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d] -rotate-1">
+            <span className="inline-block bg-primary px-3 pt-1 pb-0.5 font-accent font-normal normal-case tracking-normal text-primary-foreground border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] -rotate-1">
               {titleHighlight}
             </span>
           )}
@@ -147,7 +147,7 @@ export function HeroSplit({
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight leading-[1.08]">
             {title}{' '}
             {titleHighlight && (
-              <span className="inline-block bg-accent px-2.5 pt-1 pb-0.5 font-accent font-normal normal-case tracking-normal text-accent-foreground border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]">
+              <span className="inline-block bg-accent px-2.5 pt-1 pb-0.5 font-accent font-normal normal-case tracking-normal text-accent-foreground border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F]">
                 {titleHighlight}
               </span>
             )}
@@ -192,7 +192,7 @@ export function HeroSplit({
           transition={photoZoomSpring}
           className={cn('relative', imageOrder)}
         >
-          <div className="rounded-xl border-3 border-[#16181d] shadow-[8px_8px_0_0_#16181d] overflow-hidden bg-card">
+          <div className="rounded-xl border-2 border-[#1F1F1F] shadow-[8px_8px_0_0_#1F1F1F] overflow-hidden bg-card">
             <img
               src={imageSrc}
               alt={imageAlt}
@@ -200,8 +200,8 @@ export function HeroSplit({
             />
           </div>
           {/* Decorative elements */}
-          <div className="absolute -top-4 -right-4 w-8 h-8 rounded-lg bg-primary border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d]" />
-          <div className="absolute -bottom-4 -left-4 w-12 h-12 rounded-lg bg-accent border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d]" />
+          <div className="absolute -top-4 -right-4 w-8 h-8 rounded-lg bg-primary border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F]" />
+          <div className="absolute -bottom-4 -left-4 w-12 h-12 rounded-lg bg-accent border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F]" />
         </motion.div>
       </motion.div>
     </section>
@@ -240,7 +240,7 @@ export function HeroWithStats({
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight">
             {title}{' '}
             {titleHighlight && (
-              <span className="inline-block bg-secondary px-2.5 pt-1 pb-0.5 font-accent font-normal normal-case tracking-normal text-secondary-foreground border-3 border-[#16181d] shadow-[4px_4px_0_0_#16181d]">
+              <span className="inline-block bg-secondary px-2.5 pt-1 pb-0.5 font-accent font-normal normal-case tracking-normal text-secondary-foreground border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F]">
                 {titleHighlight}
               </span>
             )}
@@ -273,7 +273,7 @@ export function HeroWithStats({
               whileHover="hover"
               whileTap="tap"
               transition={tactileSpring}
-              className="rounded-xl border-3 border-[#16181d] bg-card p-5 sm:p-6 text-center shadow-[4px_4px_0_0_#16181d]"
+              className="rounded-xl border-2 border-[#1F1F1F] bg-card p-5 sm:p-6 text-center shadow-[3px_3px_0_0_#1F1F1F]"
             >
               <div className="font-mono text-2xl sm:text-3xl md:text-4xl font-black">{stat.value}</div>
               <div className="text-xs sm:text-sm text-muted-foreground font-bold uppercase tracking-wide mt-1">
@@ -340,7 +340,7 @@ export function HeroMinimal({
           )}
         </motion.div>
 
-        <div className="w-full h-1 bg-[#16181d]" />
+        <div className="w-full h-1 bg-[#1F1F1F]" />
       </motion.div>
     </section>
   )
@@ -419,7 +419,7 @@ export function HeroWithVideo({
           className="relative group cursor-pointer"
           onClick={onPlayClick}
         >
-          <div className="rounded-xl border-3 border-[#16181d] shadow-[8px_8px_0_0_#16181d] overflow-hidden">
+          <div className="rounded-xl border-2 border-[#1F1F1F] shadow-[8px_8px_0_0_#1F1F1F] overflow-hidden">
             <img
               src={videoThumbnail}
               alt="Video thumbnail"
@@ -427,8 +427,8 @@ export function HeroWithVideo({
             />
           </div>
           {/* Play button overlay */}
-          <div className="absolute inset-0 flex items-center justify-center bg-[#16181d]/20 group-hover:bg-[#16181d]/30 transition-colors rounded-xl">
-            <div className="w-20 h-20 rounded-xl bg-primary border-3 border-[#16181d] flex items-center justify-center shadow-[4px_4px_0_0_#16181d] group-hover:translate-x-[-4px] group-hover:translate-y-[-4px] group-hover:shadow-[8px_8px_0_0_#16181d] transition">
+          <div className="absolute inset-0 flex items-center justify-center bg-[#1F1F1F]/20 group-hover:bg-[#1F1F1F]/30 transition-colors rounded-xl">
+            <div className="w-20 h-20 rounded-xl bg-primary border-3 border-[#1F1F1F] flex items-center justify-center shadow-[3px_3px_0_0_#1F1F1F] group-hover:translate-x-[-4px] group-hover:translate-y-[-4px] group-hover:shadow-[8px_8px_0_0_#1F1F1F] transition">
               <Play className="h-8 w-8 fill-current text-white" />
             </div>
           </div>

@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: space-between;
   padding-bottom: 8px;
-  border-bottom: 2px solid #16181d;
+  border-bottom: 2px solid #1F1F1F;
 }
 
 .cagp-settings-group-title {
@@ -17,15 +17,15 @@
   font-size: 1.1rem;
   font-weight: 800;
   text-transform: uppercase;
-  color: #16181d;
+  color: #1F1F1F;
   letter-spacing: -0.01em;
 }
 
 .cagp-settings-card {
   background-color: #FFFFFF;
-  border: 2px solid #16181d;
+  border: 2px solid #1F1F1F;
   border-radius: 12px;
-  box-shadow: 3px 3px 0 0 #16181d;
+  box-shadow: 3px 3px 0 0 #1F1F1F;
   overflow: hidden;
 }
 
@@ -49,7 +49,7 @@
 
 .cagp-settings-info strong {
   font-size: 0.88rem;
-  color: #16181d;
+  color: #1F1F1F;
   display: block;
 }
 
@@ -90,7 +90,7 @@
   display: block;
   font-size: 0.88rem;
   font-weight: 600;
-  color: #16181d;
+  color: #1F1F1F;
 }
 
 .cagp-grouped-item-desc {

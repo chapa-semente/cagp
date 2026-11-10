@@ -295,7 +295,7 @@ export function NotificationSettings({
           {settings.map((setting) => (
             <div
               key={setting.id}
-              className="flex items-center justify-between border-3 border-foreground p-4 bg-card"
+              className="flex items-center justify-between border-2 border-foreground p-4 bg-card"
             >
               <div>
                 <p className="font-bold">{setting.title}</p>
@@ -363,7 +363,7 @@ export function SecuritySettings({
       </CardHeader>
       <CardContent className="space-y-6">
         {/* Password */}
-        <div className="flex items-center justify-between border-3 border-foreground p-4 bg-background">
+        <div className="flex items-center justify-between border-2 border-foreground p-4 bg-background">
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 flex items-center justify-center border-2 border-foreground bg-card">
               <Key className="h-5 w-5" />
@@ -381,7 +381,7 @@ export function SecuritySettings({
         </div>
 
         {/* Two-Factor Authentication */}
-        <div className="flex items-center justify-between border-3 border-foreground p-4 bg-background">
+        <div className="flex items-center justify-between border-2 border-foreground p-4 bg-background">
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 flex items-center justify-center border-2 border-foreground bg-card">
               <Shield className="h-5 w-5" />
@@ -464,7 +464,7 @@ const accentColors = [
   { name: 'Laranja Germinar', value: '#FE8812' },
   { name: 'Rubro CAGP', value: '#9E2424' },
   { name: 'Verde Petróleo', value: '#134E4A' },
-  { name: 'Dourado FAFICH', value: '#E8A317' },
+  { name: 'Dourado FAFICH', value: '#A85300' },
   { name: 'Azul UFMG', value: '#005A9C' },
 ]
 
@@ -691,7 +691,7 @@ export function SettingsPage({ defaultTab = 'profile', className }: SettingsPage
             Modo Claro Editorial Semente exclusivo (sem Dark Mode), com suporte a Alto Contraste AAA, fonte OpenDyslexic e escala tipográfica.
           </p>
         </div>
-        <span className="px-3 py-1.5 rounded-xl bg-[#FEF3C7] text-[#16181d] border-2 border-[#16181d] font-mono text-xs font-black uppercase shadow-[2px_2px_0_0_#16181d]">
+        <span className="px-3 py-1.5 rounded-xl bg-[#FEF3C7] text-[#1F1F1F] border-2 border-[#1F1F1F] font-mono text-xs font-black uppercase shadow-[2px_2px_0_0_#1F1F1F]">
           ☀️ MODO CLARO EDITORIAL EXCLUSIVO
         </span>
       </div>

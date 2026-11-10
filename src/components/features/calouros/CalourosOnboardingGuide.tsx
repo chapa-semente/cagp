@@ -15,7 +15,7 @@ const ONBOARDING_STEPS = [
     step: 1,
     tag: 'PASSO 1 • IDENTIDADE DIGITAL',
     title: 'Folha de NIPs, minhaUFMG & App Siga UFMG',
-    color: '#9E2424',
+    color: '#A85300',
     summary: 'Ative seu login institucional @ufmg.br e entenda a diferença entre o portal Web e o App móvel.',
     points: [
       'Primeiro Acesso (Folha NIPs): Após o Registro Acadêmico no DRCA, acesse sistemas.ufmg.br para criar seu login @ufmg.br e senha única (libera Google Workspace e Microsoft 365). Suporte: suporte@dti.ufmg.br.',
@@ -144,8 +144,8 @@ export const CalourosOnboardingGuide: React.FC = () => {
   return (
     <section className="space-y-6 my-4" aria-label="Tour Interativo de Primeiros Passos na UFMG">
       {/* Trilha Interativa dos 5 Primeiros Passos do Ingressante */}
-      <Card className="bg-white border-3 border-[#16181d] shadow-[6px_6px_0_0_#16181d]">
-        <CardHeader className="border-b-3 border-[#16181d] bg-[#ffffff]">
+      <Card className="bg-white border-3 border-[#1F1F1F] shadow-[6px_6px_0_0_#1F1F1F]">
+        <CardHeader className="border-b-3 border-[#1F1F1F] bg-[#ffffff]">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <Badge variant="secondary" className="mb-1.5">
@@ -159,10 +159,10 @@ export const CalourosOnboardingGuide: React.FC = () => {
               </CardDescription>
             </div>
             <div className="min-w-[200px] text-right space-y-1">
-              <span className="font-mono text-xs font-black uppercase text-[#16181d] block">
+              <span className="font-mono text-xs font-black uppercase text-[#1F1F1F] block">
                 {completed.length} de {ONBOARDING_STEPS.length} Etapas ({progressPct}%)
               </span>
-              <div className="w-full bg-[#f4f5f7] border-3 border-[#16181d] rounded-full h-4 overflow-hidden p-0.5 shadow-[2px_2px_0_0_#16181d]">
+              <div className="w-full bg-[#F4F2EC] border-3 border-[#1F1F1F] rounded-full h-4 overflow-hidden p-0.5 shadow-[2px_2px_0_0_#1F1F1F]">
                 <motion.div
                   initial={false}
                   animate={{ width: `${progressPct}%` }}
@@ -188,12 +188,12 @@ export const CalourosOnboardingGuide: React.FC = () => {
                   whileTap={{ x: 2, y: 2 }}
                   transition={tactileSpring}
                   onClick={() => setActiveStep(idx)}
-                  className={`min-h-[64px] p-3 rounded-xl border-3 border-[#16181d] text-left transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
+                  className={`min-h-[64px] p-3 rounded-xl border-2 border-[#1F1F1F] text-left transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
                     isSelected
-                      ? 'bg-[#16181d] text-white shadow-[4px_4px_0px_#9E2424]'
+                      ? 'bg-[#1F1F1F] text-white shadow-[3px_3px_0_0_#1F1F1F]'
                       : isDone
-                      ? 'bg-[#DCFCE7] text-[#16181d] shadow-[2px_2px_0px_#16181d]'
-                      : 'bg-white text-[#16181d] hover:bg-muted shadow-[2px_2px_0px_#16181d]'
+                      ? 'bg-[#DCFCE7] text-[#1F1F1F] shadow-[2px_2px_0px_#1F1F1F]'
+                      : 'bg-white text-[#1F1F1F] hover:bg-muted shadow-[2px_2px_0px_#1F1F1F]'
                   }`}
                 >
                   <div className="flex items-center justify-between mb-1">
@@ -201,7 +201,7 @@ export const CalourosOnboardingGuide: React.FC = () => {
                       Passo {item.step}
                     </span>
                     {isDone && (
-                      <span className="px-1.5 py-0.5 text-xs font-mono font-black bg-[#15803D] text-white rounded">
+                      <span className="px-1.5 py-0.5 text-xs font-mono font-black bg-[#166534] text-white rounded">
                         OK
                       </span>
                     )}
@@ -222,21 +222,21 @@ export const CalourosOnboardingGuide: React.FC = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8, scale: 0.99 }}
               transition={tactileSpring}
-              className="p-5 rounded-xl border-3 border-[#16181d] bg-[#ffffff] shadow-[6px_6px_0px_#16181d] space-y-4"
+              className="p-5 rounded-xl border-2 border-[#1F1F1F] bg-[#ffffff] shadow-[6px_6px_0px_#1F1F1F] space-y-4"
             >
-              <div className="flex flex-wrap items-center justify-between gap-4 border-b-3 border-[#16181d] pb-4">
+              <div className="flex flex-wrap items-center justify-between gap-4 border-b-3 border-[#1F1F1F] pb-4">
                 <div className="flex items-center gap-3.5">
-                  <div className="w-14 h-14 rounded-xl border-3 border-[#16181d] bg-white p-1.5 flex items-center justify-center shrink-0 shadow-[3px_3px_0px_#16181d]">
+                  <div className="w-14 h-14 rounded-xl border-2 border-[#1F1F1F] bg-white p-1.5 flex items-center justify-center shrink-0 shadow-[3px_3px_0px_#1F1F1F]">
                     <img src={current.logo} alt="" className="max-h-10 max-w-full object-contain" />
                   </div>
                   <div>
                     <span
-                      className="inline-block px-2.5 py-0.5 rounded-md text-xs font-mono font-black uppercase text-white border-2 border-[#16181d] mb-1"
+                      className="inline-block px-2.5 py-0.5 rounded-md text-xs font-mono font-black uppercase text-white border-2 border-[#1F1F1F] mb-1"
                       style={{ backgroundColor: current.color }}
                     >
                       {current.tag}
                     </span>
-                    <h3 className="font-heading text-lg sm:text-xl font-black text-[#16181d]">
+                    <h3 className="font-heading text-lg sm:text-xl font-black text-[#1F1F1F]">
                       {current.title}
                     </h3>
                     <p className="text-xs text-[#57534E] font-medium">{current.summary}</p>
@@ -264,9 +264,9 @@ export const CalourosOnboardingGuide: React.FC = () => {
                 {current.points.map((pt, i) => (
                   <li
                     key={i}
-                    className="p-3.5 rounded-xl border-2 border-[#16181d] bg-white shadow-[2px_2px_0px_#16181d] text-xs text-[#16181d] leading-relaxed font-medium flex gap-2.5"
+                    className="p-3.5 rounded-xl border-2 border-[#1F1F1F] bg-white shadow-[2px_2px_0px_#1F1F1F] text-xs text-[#1F1F1F] leading-relaxed font-medium flex gap-2.5"
                   >
-                    <span className="w-6 h-6 rounded-md bg-secondary text-white font-mono text-xs font-black flex items-center justify-center shrink-0 mt-0.5 border border-[#16181d]">
+                    <span className="w-6 h-6 rounded-md bg-secondary text-white font-mono text-xs font-black flex items-center justify-center shrink-0 mt-0.5 border border-[#1F1F1F]">
                       {i + 1}
                     </span>
                     <span>{pt}</span>
@@ -309,12 +309,12 @@ export const CalourosOnboardingGuide: React.FC = () => {
           {/* Onboarding Wizard BoldKit Compacto */}
           <OnboardingWizard
             steps={wizardSteps}
-            className="border-3 border-[#16181d] bg-card shadow-[4px_4px_0_0_#16181d]"
+            className="border-3 border-[#1F1F1F] bg-card shadow-[3px_3px_0_0_#1F1F1F]"
           />
 
           {/* Filtro Rápido com TagInput */}
-          <div className="p-4 bg-[#ffffff] border-3 border-[#16181d] rounded-xl space-y-2 shadow-[3px_3px_0_0_#16181d]">
-            <span className="text-xs font-head uppercase font-bold text-[#16181d] block">
+          <div className="p-4 bg-[#ffffff] border-2 border-[#1F1F1F] rounded-xl space-y-2 shadow-[3px_3px_0_0_#1F1F1F]">
+            <span className="text-xs font-head uppercase font-bold text-[#1F1F1F] block">
               Tópicos de Interesse do Ingressante (TagInput):
             </span>
             <TagInput
@@ -322,12 +322,12 @@ export const CalourosOnboardingGuide: React.FC = () => {
               onChange={setInterests}
               suggestions={['RU Setorial', 'Bolsa FUMP', 'Circular 3/4', 'Biblioteca', 'eduroam', 'CEAG', 'DCP', 'Estágio', 'NAI']}
               placeholder="Adicionar tema de interesse..."
-              className="bg-white border-3 border-[#16181d] rounded-xl shadow-xs"
+              className="bg-white border-2 border-[#1F1F1F] rounded-xl shadow-xs"
             />
           </div>
 
           {/* Seção do Quiz do Calouro com Questionnaire */}
-          <div className="p-5 bg-card border-3 border-[#16181d] rounded-xl shadow-[4px_4px_0_0_#16181d] space-y-3">
+          <div className="p-5 bg-card border-2 border-[#1F1F1F] rounded-xl shadow-[3px_3px_0_0_#1F1F1F] space-y-3">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
                 <span className="text-xs font-mono font-bold uppercase text-secondary block">
@@ -353,8 +353,8 @@ export const CalourosOnboardingGuide: React.FC = () => {
             {showQuiz && (
               <div className="pt-3 border-t-2 border-border">
                 {quizResult ? (
-                  <div className="p-4 bg-[#DCFCE7] border-3 border-[#16181d] rounded-xl text-xs font-sans text-[#16181d] space-y-2 shadow-[3px_3px_0_0_#16181d]">
-                    <strong className="font-head uppercase block text-[#15803D]">
+                  <div className="p-4 bg-[#DCFCE7] border-2 border-[#1F1F1F] rounded-xl text-xs font-sans text-[#1F1F1F] space-y-2 shadow-[3px_3px_0_0_#1F1F1F]">
+                    <strong className="font-head uppercase block text-[#166534]">
                       Perfil Diagnóstico Identificado:
                     </strong>
                     <p className="m-0 leading-relaxed font-medium">{quizResult}</p>

@@ -253,7 +253,7 @@ export const DocumentosInteractiveSearch: React.FC = () => {
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.95 }}
                       transition={tactileSpring}
-                      className="p-4 rounded-xl border-3 border-[#16181d] bg-white shadow-[4px_4px_0_0_#16181d] hover:shadow-[6px_6px_0_0_#16181d] hover:translate-x-[-1px] hover:translate-y-[-1px] flex flex-col justify-between gap-3 transition-all cursor-context-menu"
+                      className="p-4 rounded-xl border-2 border-[#1F1F1F] bg-white shadow-[3px_3px_0_0_#1F1F1F] hover:shadow-[6px_6px_0_0_#1F1F1F] hover:translate-x-[-1px] hover:translate-y-[-1px] flex flex-col justify-between gap-3 transition-all cursor-context-menu"
                     >
                       <div className="space-y-1.5">
                         <Badge variant="secondary" className="text-xs">
@@ -265,19 +265,19 @@ export const DocumentosInteractiveSearch: React.FC = () => {
                         <p className="text-xs text-muted-foreground leading-relaxed">{doc.desc}</p>
                       </div>
 
-                      <div className="flex flex-wrap items-center gap-2 pt-2 border-t-2 border-[#16181d]/20">
+                      <div className="flex flex-wrap items-center gap-2 pt-2 border-t-2 border-[#1F1F1F]/20">
                         <a
                           href={asset(doc.pdf)}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-3 py-1.5 min-h-[40px] inline-flex items-center rounded-lg border-3 border-[#16181d] bg-secondary hover:bg-secondary-hover text-secondary-foreground text-xs font-mono font-bold no-underline shadow-[2px_2px_0_0_#16181d] transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+                          className="px-3 py-1.5 min-h-[40px] inline-flex items-center rounded-lg border-3 border-[#1F1F1F] bg-secondary hover:bg-secondary-hover text-secondary-foreground text-xs font-mono font-bold no-underline shadow-[2px_2px_0_0_#1F1F1F] transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
                         >
                           Baixar / Abrir PDF ↗
                         </a>
                         {doc.slug && (
                           <a
                             href={route(`/documentos/${doc.slug}`)}
-                            className="px-3 py-1.5 min-h-[40px] inline-flex items-center rounded-lg border-3 border-[#16181d] bg-white hover:bg-background text-foreground text-xs font-mono font-bold no-underline shadow-[2px_2px_0_0_#16181d] transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+                            className="px-3 py-1.5 min-h-[40px] inline-flex items-center rounded-lg border-3 border-[#1F1F1F] bg-white hover:bg-background text-foreground text-xs font-mono font-bold no-underline shadow-[2px_2px_0_0_#1F1F1F] transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
                           >
                             Leitor Normativo →
                           </a>

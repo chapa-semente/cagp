@@ -1,29 +1,29 @@
-/* Neobrutalism.com Theme (rL9Ap) — Sistema Tri-Camada CAGP / Semente / UFMG (Modo Claro Exclusivo) */
+/* Tema Chapa Semente — neobrutalismo sóbrio sobre a paleta do manual (Areia #F4F2EC, Grafite #1F1F1F). Modo claro exclusivo. */
 :root {
   /* Geometria e Formas Canônicas rL9Ap */
   --radius: 0.75rem; /* 12px / rounded-xl */
-  --border-w: 3px;
-  --border: #16181d;
-  --shadow-color: #16181d;
+  --border-w: 2px;
+  --border: #1F1F1F;
+  --shadow-color: #1F1F1F;
 
   /* Sombras Duras sem desfoque (Neobrutalism Offset) */
   --shadow-xs: 1px 1px 0 0 var(--shadow-color);
   --shadow-sm: 2px 2px 0 0 var(--shadow-color);
   --shadow: 3px 3px 0 0 var(--shadow-color);
-  --shadow-md: 4px 4px 0 0 var(--shadow-color);
-  --shadow-lg: 6px 6px 0 0 var(--shadow-color);
+  --shadow-md: 3px 3px 0 0 var(--shadow-color);
+  --shadow-lg: 5px 5px 0 0 var(--shadow-color);
   --shadow-xl: 10px 10px 0 1px var(--shadow-color);
   --shadow-2xl: 16px 16px 0 1px var(--shadow-color);
 
   /* Superfícies & Contraste (Modo Claro rL9Ap) */
-  --background: #f4f5f7;
-  --foreground: #16181d;
+  --background: #F4F2EC;
+  --foreground: #1F1F1F;
   --card: #ffffff;
-  --card-foreground: #16181d;
+  --card-foreground: #1F1F1F;
   --popover: #ffffff;
-  --popover-foreground: #16181d;
-  --muted: #e5e7ec;
-  --muted-foreground: #5d626e;
+  --popover-foreground: #1F1F1F;
+  --muted: #E7E3D8;
+  --muted-foreground: #5E5A52;
   --input: #ffffff;
 
   /* Cores Semânticas Tri-Camada Harmonizadas (Chapa Semente Primária) */
@@ -40,15 +40,15 @@
   /* Camada 3: Laranja Germinar (CTA / Destaques / Energia Estudantil) */
   --accent: #FE8812;
   --accent-hover: #E07406;
-  --accent-foreground: #000000;
+  --accent-foreground: #1F1F1F;
 
   /* Anéis de foco e estados de alerta */
   --ring: #5B2A85;
-  --destructive: #DC2626;
+  --destructive: #B91C1C;
   --destructive-foreground: #ffffff;
-  --success: #15803D;
+  --success: #166534;
   --success-foreground: #ffffff;
-  --warning: #B45309;
+  --warning: #92400E;
   --warning-foreground: #ffffff;
   --info: #005A9C;
   --info-foreground: #ffffff;
@@ -60,18 +60,18 @@
   --semente-orange: #FE8812;
   --semente-teal: #266264;
   --cagp-rubro: #9E2424; /* Selo institucional CAGP — não usar como cor de interface */
-  --cagp-gold: #E8A317;
-  --cagp-black: #16181d;
+  --cagp-gold: #A85300;
+  --cagp-black: #1F1F1F;
 
   /* Gráficos & Visualização BoldKit */
   --chart-1: #5B2A85; /* Roxo Semente */
   --chart-2: #FE8812; /* Laranja Germinar */
-  --chart-3: #9E2424; /* Rubro CAGP */
+  --chart-3: #134E4A; /* Petróleo escuro (rubro é só selo) */
   --chart-4: #266264; /* Verde Petróleo Semente */
-  --chart-5: #E8A317; /* Dourado FAFICH */
+  --chart-5: #A85300; /* Laranja contraste */
 
   /* Tipografia rL9Ap */
   --font-heading: 'Poppins', sans-serif;
   --font-sans: 'Poppins', sans-serif;
-  --font-mono: 'Space Mono', monospace;
+  --font-mono: 'Poppins', sans-serif; /* manual: só Poppins + Permanent Marker; números via tabular-nums */
 }

@@ -24,15 +24,15 @@ export function BoldLineChart({ data, config, className, dataKey = 'value', cate
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" stroke="#d4d4d8" />
-          <XAxis dataKey={categoryKey} stroke="#16181d" strokeWidth={2} />
-          <YAxis stroke="#16181d" strokeWidth={2} />
+          <XAxis dataKey={categoryKey} stroke="#1F1F1F" strokeWidth={2} />
+          <YAxis stroke="#1F1F1F" strokeWidth={2} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <Line
             type="monotone"
             dataKey={dataKey}
             stroke="#5B2A85"
             strokeWidth={3}
-            dot={{ stroke: '#16181d', strokeWidth: 3, r: 5, fill: '#FE8812' }}
+            dot={{ stroke: '#1F1F1F', strokeWidth: 3, r: 5, fill: '#FE8812' }}
             isAnimationActive={true}
             animationDuration={400}
           />
@@ -48,13 +48,13 @@ export function BoldBarChart({ data, config, className, dataKey = 'value', categ
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data}>
           <CartesianGrid strokeDasharray="3 3" stroke="#d4d4d8" />
-          <XAxis dataKey={categoryKey} stroke="#16181d" strokeWidth={2} />
-          <YAxis stroke="#16181d" strokeWidth={2} />
+          <XAxis dataKey={categoryKey} stroke="#1F1F1F" strokeWidth={2} />
+          <YAxis stroke="#1F1F1F" strokeWidth={2} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <Bar
             dataKey={dataKey}
             fill="#5B2A85"
-            stroke="#16181d"
+            stroke="#1F1F1F"
             strokeWidth={3}
             isAnimationActive={true}
             animationDuration={400}
@@ -71,13 +71,13 @@ export function BoldAreaChart({ data, config, className, dataKey = 'value', cate
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart data={data}>
           <CartesianGrid strokeDasharray="3 3" stroke="#d4d4d8" />
-          <XAxis dataKey={categoryKey} stroke="#16181d" strokeWidth={2} />
-          <YAxis stroke="#16181d" strokeWidth={2} />
+          <XAxis dataKey={categoryKey} stroke="#1F1F1F" strokeWidth={2} />
+          <YAxis stroke="#1F1F1F" strokeWidth={2} />
           <ChartTooltip content={<ChartTooltipContent />} />
           <Area
             type="monotone"
             dataKey={dataKey}
-            stroke="#16181d"
+            stroke="#1F1F1F"
             strokeWidth={3}
             fill="#5B2A85"
             fillOpacity={0.75}
@@ -91,7 +91,7 @@ export function BoldAreaChart({ data, config, className, dataKey = 'value', cate
 }
 
 export function BoldPieChart({ data, config, className, dataKey = 'value', categoryKey = 'name' }: BaseChartProps) {
-  const COLORS = ['#5B2A85', '#FE8812', '#134E4A', '#9E2424', '#15803D', '#1E3F66'];
+  const COLORS = ['#5B2A85', '#FE8812', '#266264', '#A85300', '#4A216E', '#134E4A'];
   return (
     <ChartContainer config={config || {}} className={className}>
       <ResponsiveContainer width="100%" height="100%">
@@ -104,13 +104,13 @@ export function BoldPieChart({ data, config, className, dataKey = 'value', categ
             cx="50%"
             cy="50%"
             outerRadius={80}
-            stroke="#16181d"
+            stroke="#1F1F1F"
             strokeWidth={3}
             isAnimationActive={true}
             animationDuration={400}
           >
             {data.map((_, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} stroke="#16181d" strokeWidth={3} />
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} stroke="#1F1F1F" strokeWidth={3} />
             ))}
           </Pie>
         </PieChart>
@@ -125,13 +125,13 @@ export function BoldScatterChart({ data, config, className, dataKey = 'y', categ
       <ResponsiveContainer width="100%" height="100%">
         <ScatterChart>
           <CartesianGrid strokeDasharray="3 3" stroke="#d4d4d8" />
-          <XAxis dataKey={categoryKey} stroke="#16181d" strokeWidth={2} name="X" />
-          <YAxis dataKey={dataKey} stroke="#16181d" strokeWidth={2} name="Y" />
+          <XAxis dataKey={categoryKey} stroke="#1F1F1F" strokeWidth={2} name="X" />
+          <YAxis dataKey={dataKey} stroke="#1F1F1F" strokeWidth={2} name="Y" />
           <ChartTooltip content={<ChartTooltipContent />} />
           <Scatter
             data={data}
             fill="#5B2A85"
-            stroke="#16181d"
+            stroke="#1F1F1F"
             strokeWidth={3}
             isAnimationActive={true}
             animationDuration={400}

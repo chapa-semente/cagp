@@ -64,12 +64,12 @@ export function DotMatrixStudio({ className }: { className?: string }) {
     const width = COLS * (dotSize + gap);
     const height = ROWS * (dotSize + gap);
     let svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">`;
-    svgContent += `<rect width="100%" height="100%" fill="#16181d"/>`;
+    svgContent += `<rect width="100%" height="100%" fill="#1F1F1F"/>`;
     currentGrid.forEach((row, r) => {
       row.forEach((filled, c) => {
         const x = c * (dotSize + gap) + gap;
         const y = r * (dotSize + gap) + gap;
-        svgContent += `<circle cx="${x + dotSize / 2}" cy="${y + dotSize / 2}" r="${dotSize / 2}" fill="${filled ? '#E8A317' : '#222222'}"/>`;
+        svgContent += `<circle cx="${x + dotSize / 2}" cy="${y + dotSize / 2}" r="${dotSize / 2}" fill="${filled ? '#A85300' : '#222222'}"/>`;
       });
     });
     svgContent += `</svg>`;
@@ -109,7 +109,7 @@ export function DotMatrixStudio({ className }: { className?: string }) {
                 onClick={() => togglePixel(r, c)}
                 className={cn(
                   "w-5 h-5 sm:w-7 sm:h-7 rounded-full border border-neutral-800 transition-colors",
-                  filled ? "bg-cagp-gold shadow-[0_0_8px_#E8A317]" : "bg-neutral-900 hover:bg-neutral-800"
+                  filled ? "bg-cagp-gold shadow-[0_0_8px_#A85300]" : "bg-neutral-900 hover:bg-neutral-800"
                 )}
               />
             ))

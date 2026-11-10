@@ -6,9 +6,9 @@
   overflow-x: auto;
   overflow-y: hidden;
   background: #FFFFFF;
-  border: 3px solid #16181d;
+  border: 3px solid #1F1F1F;
   border-radius: 12px;
-  box-shadow: 4px 4px 0px #16181d;
+  box-shadow: 4px 4px 0px #1F1F1F;
   padding: 1rem 0.5rem;
   -webkit-overflow-scrolling: touch;
   touch-action: pan-x;
@@ -24,7 +24,7 @@
 /* Colunas dos 10 Períodos */
 .grafo-col-bg {
   fill: #FFFFFF;
-  stroke: #16181d;
+  stroke: #1F1F1F;
   stroke-width: 1.5px;
 }
 
@@ -32,7 +32,7 @@
   font-family: var(--font-head, 'Poppins', sans-serif);
   font-size: 11px;
   font-weight: 800;
-  fill: #16181d;
+  fill: #1F1F1F;
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
@@ -101,17 +101,17 @@
 
 .grafo-node rect.node-card {
   fill: #FFFFFF;
-  stroke: #16181d;
+  stroke: #1F1F1F;
   stroke-width: 2.5px;
   rx: 10px;
   ry: 10px;
-  filter: drop-shadow(3px 3px 0px #16181d);
+  filter: drop-shadow(3px 3px 0px #1F1F1F);
   transition: all 0.12s ease;
 }
 
 .grafo-node:hover:not(.is-dimmed) rect.node-card {
   stroke: var(--primary, #5B2A85);
-  filter: drop-shadow(4px 4px 0px #16181d);
+  filter: drop-shadow(4px 4px 0px #1F1F1F);
   transform: translate(-1.5px, -1.5px);
 }
 
@@ -124,7 +124,7 @@
   stroke: var(--primary, #5B2A85);
   stroke-width: 3px;
   fill: #F3EAFE;
-  filter: drop-shadow(4px 4px 0px #16181d);
+  filter: drop-shadow(4px 4px 0px #1F1F1F);
 }
 
 .grafo-node.is-prereq rect.node-card {
@@ -153,10 +153,10 @@
 
 /* Tipografia dentro do nó */
 .grafo-node text.node-code {
-  font-family: var(--font-mono, 'Space Mono', monospace);
+  font-family: var(--font-heading, 'Poppins', sans-serif);
   font-size: 11px;
   font-weight: 700;
-  fill: #16181d;
+  fill: #1F1F1F;
   letter-spacing: 0.02em;
 }
 
@@ -164,12 +164,12 @@
   font-family: var(--font-body, 'Poppins', sans-serif);
   font-size: 9.5px;
   font-weight: 700;
-  fill: #16181d;
+  fill: #1F1F1F;
 }
 
 .grafo-node rect.node-badge {
   rx: 4px;
-  stroke: #16181d;
+  stroke: #1F1F1F;
   stroke-width: 1px;
 }
 
@@ -184,7 +184,7 @@
 .grafo-node rect.node-lock-badge {
   fill: #9E2424;
   rx: 4px;
-  stroke: #16181d;
+  stroke: #1F1F1F;
   stroke-width: 1px;
 }
 

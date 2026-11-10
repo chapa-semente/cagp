@@ -123,7 +123,7 @@ function DataTableToolbar<TData>({
               placeholder={filterPlaceholder}
               value={String(column.getFilterValue() ?? '')}
               onChange={(event) => column.setFilterValue(event.target.value)}
-              className="min-h-[44px] h-11 w-full pl-10 rounded-xl border-3 border-[#16181d] bg-white font-sans shadow-[3px_3px_0_0_#16181d] focus-visible:ring-3 focus-visible:ring-[#5B2A85] focus-visible:border-[#5B2A85]"
+              className="min-h-[44px] h-11 w-full pl-10 rounded-xl border-3 border-[#1F1F1F] bg-white font-sans shadow-[3px_3px_0_0_#1F1F1F] focus-visible:ring-3 focus-visible:ring-[#5B2A85] focus-visible:border-[#5B2A85]"
             />
           </div>
         )}
@@ -131,7 +131,7 @@ function DataTableToolbar<TData>({
       {showColumnVisibility && (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="sm" className="ml-auto min-h-[44px] h-11 rounded-xl border-3 border-[#16181d] shadow-[3px_3px_0_0_#16181d] font-heading font-extrabold uppercase text-xs">
+            <Button variant="outline" size="sm" className="ml-auto min-h-[44px] h-11 rounded-xl border-3 border-[#1F1F1F] shadow-[3px_3px_0_0_#1F1F1F] font-heading font-extrabold uppercase text-xs">
               <Settings2 className="mr-2 h-4 w-4" />
               Colunas
               <ChevronDown className="ml-2 h-4 w-4" />
@@ -191,7 +191,7 @@ function DataTablePagination<TData>({
               table.setPageSize(Number(value))
             }}
           >
-            <SelectTrigger className="min-h-[44px] h-11 w-[88px] rounded-xl border-3 border-[#16181d] bg-white font-mono font-bold">
+            <SelectTrigger className="min-h-[44px] h-11 w-[88px] rounded-xl border-3 border-[#1F1F1F] bg-white font-mono font-bold">
               <SelectValue placeholder={table.getState().pagination.pageSize} />
             </SelectTrigger>
             <SelectContent side="top">
@@ -219,7 +219,7 @@ function DataTablePagination<TData>({
                   if (table.getCanPreviousPage()) table.previousPage()
                 }}
                 className={cn(
-                  'min-h-[44px] px-3 rounded-xl border-3 border-[#16181d] bg-white font-heading font-extrabold uppercase text-xs shadow-[2px_2px_0_0_#16181d] cursor-pointer select-none',
+                  'min-h-[44px] px-3 rounded-xl border-3 border-[#1F1F1F] bg-white font-heading font-extrabold uppercase text-xs shadow-[2px_2px_0_0_#1F1F1F] cursor-pointer select-none',
                   !table.getCanPreviousPage() && 'pointer-events-none opacity-45'
                 )}
               />
@@ -234,7 +234,7 @@ function DataTablePagination<TData>({
                   if (table.getCanNextPage()) table.nextPage()
                 }}
                 className={cn(
-                  'min-h-[44px] px-3 rounded-xl border-3 border-[#16181d] bg-white font-heading font-extrabold uppercase text-xs shadow-[2px_2px_0_0_#16181d] cursor-pointer select-none',
+                  'min-h-[44px] px-3 rounded-xl border-3 border-[#1F1F1F] bg-white font-heading font-extrabold uppercase text-xs shadow-[2px_2px_0_0_#1F1F1F] cursor-pointer select-none',
                   !table.getCanNextPage() && 'pointer-events-none opacity-45'
                 )}
               />
@@ -384,11 +384,11 @@ function DataTable<TData, TValue>({
         )}
 
         {/* Table */}
-        <div className="scroll-mask-x overflow-x-auto rounded-xl border-3 border-[#16181d] bg-card shadow-[6px_6px_0_0_#16181d]">
+        <div className="scroll-mask-x overflow-x-auto rounded-xl border-2 border-[#1F1F1F] bg-card shadow-[6px_6px_0_0_#1F1F1F]">
           <Table>
-            <TableHeader className="border-b-3 border-[#16181d] bg-muted">
+            <TableHeader className="border-b-3 border-[#1F1F1F] bg-muted">
               {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id} className="border-b-2 border-[#16181d]">
+                <TableRow key={headerGroup.id} className="border-b-2 border-[#1F1F1F]">
                   {headerGroup.headers.map((header) => {
                     return (
                       <TableHead key={header.id} className="font-heading font-extrabold uppercase tracking-wider text-foreground">
@@ -412,7 +412,7 @@ function DataTable<TData, TValue>({
                     className="h-24 text-center"
                   >
                     <div className="flex items-center justify-center">
-                      <div className="h-6 w-6 animate-spin border-3 border-[#16181d] border-t-transparent" />
+                      <div className="h-6 w-6 animate-spin border-3 border-[#1F1F1F] border-t-transparent" />
                     </div>
                   </TableCell>
                 </TableRow>
@@ -421,7 +421,7 @@ function DataTable<TData, TValue>({
                   <TableRow
                     key={row.id}
                     data-state={row.getIsSelected() && 'selected'}
-                    className="border-b-2 border-[#16181d]/20 hover:bg-accent-tint transition-colors"
+                    className="border-b-2 border-[#1F1F1F]/20 hover:bg-accent-tint transition-colors"
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>
