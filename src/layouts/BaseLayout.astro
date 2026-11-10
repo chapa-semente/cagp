@@ -287,7 +287,10 @@ const routeMeta = getRouteMeta();
           }
         });
 
-        if ('serviceWorker' in navigator) {
+        // Script inline com define:vars é reexecutado pelo ClientRouter a cada troca de página:
+        // a parte do SW roda uma vez só por carregamento, senão os listeners se acumulam.
+        if ('serviceWorker' in navigator && !window.__cagpSwSetup) {
+          window.__cagpSwSetup = true;
           if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname === '0.0.0.0') {
             // Em ambiente local, desregistra qualquer SW prévio e limpa caches para visualização 100% atualizada
             navigator.serviceWorker.getRegistrations().then((regs) => {
@@ -303,9 +306,21 @@ const routeMeta = getRouteMeta();
             // não pode disputar a rede com as trocas de página do tour na primeira visita.
             const registerSw = () => {
               const swPath = `${cleanBase}/sw.js`;
-              navigator.serviceWorker.register(swPath).catch((err) => {
-                console.warn('[PWA] Service Worker registration failed:', err);
-              });
+              navigator.serviceWorker
+                .register(swPath, { scope: `${cleanBase}/`, updateViaCache: 'none' })
+                .then((reg) => {
+                  // App instalado fica aberto por dias: confere versão nova ao voltar para ele
+                  // (no máximo uma vez por hora), sem esperar a próxima navegação completa.
+                  let lastCheck = Date.now();
+                  document.addEventListener('visibilitychange', () => {
+                    if (document.visibilityState !== 'visible' || Date.now() - lastCheck < 3600000) return;
+                    lastCheck = Date.now();
+                    reg.update().catch(() => {});
+                  });
+                })
+                .catch((err) => {
+                  console.warn('[PWA] Service Worker registration failed:', err);
+                });
             };
             const tourDone = () => {
               try {

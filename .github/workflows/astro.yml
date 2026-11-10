@@ -10,12 +10,11 @@ permissions:
   pages: write
   id-token: write
 
+# Um deploy por vez. Não cancela o que está em andamento (o Pages pode ficar num estado
+# inconsistente); um push novo espera e o push intermediário pendente é descartado.
 concurrency:
   group: "pages"
   cancel-in-progress: false
-
-env:
-  BUILD_PATH: "."
 
 jobs:
   build:
@@ -23,13 +22,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: "22"
           cache: "pnpm"
@@ -40,33 +39,46 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-        working-directory: ${{ env.BUILD_PATH }}
 
-      - name: Build with Astro & Generate SW Manifest
+      - name: Build (Astro + service worker)
         run: |
           pnpm exec astro build \
             --site "${{ steps.pages.outputs.origin }}" \
             --base "${{ steps.pages.outputs.base_path }}"
           node scripts/generate-sw-manifest.mjs
-        working-directory: ${{ env.BUILD_PATH }}
+
+      - name: Artifact size
+        run: |
+          echo "### Pages artifact" >> "$GITHUB_STEP_SUMMARY"
+          echo "- $(find dist -type f | wc -l) arquivos, $(du -sh dist | cut -f1)" >> "$GITHUB_STEP_SUMMARY"
+          echo "- SW: $(grep -m1 -o "const VERSION = '[^']*'" dist/sw.js)" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
-          path: ${{ env.BUILD_PATH }}/dist
+          path: dist
 
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    name: Deploy
     needs: build
     runs-on: ubuntu-latest
-    name: Deploy
+    environment:
+      name: github-pages
+      url: ${{ steps.retry.outputs.page_url || steps.deployment.outputs.page_url }}
     steps:
+      # Um deploy normal leva ~15 s. Às vezes o lado do GitHub Pages trava em "syncing_files" e o
+      # passo só morre no timeout (foi o que derrubou os deploys de 09/11 e 10/11). Em vez de esperar
+      # 10 min e falhar, desiste em 4 min e tenta de novo com o mesmo artefato.
       - name: Deploy to GitHub Pages
         id: deployment
+        continue-on-error: true
         uses: actions/deploy-pages@v5
         with:
-          # Padrão é 600000 (10 min). O GitHub às vezes fica preso em
-          # "syncing_files"; damos mais margem antes de abortar.
-          timeout: 1800000
+          timeout: 240000
+
+      - name: Deploy to GitHub Pages (2ª tentativa)
+        id: retry
+        if: steps.deployment.outcome == 'failure'
+        uses: actions/deploy-pages@v5
+        with:
+          timeout: 600000

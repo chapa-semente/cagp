@@ -69,6 +69,6 @@ describe('service worker', () => {
   it('trata o fetch de página do ClientRouter como página (rede primeiro), não como asset', () => {
     const sw = read('public/sw.js');
     expect(sw).toMatch(/function isPageRequest/);
-    expect(sw).toMatch(/if \(isPageRequest\(req, url\)\)/);
+    expect(sw).toMatch(/if \(!isFile && isPageRequest\(req, url\)\)/);
   });
 });
