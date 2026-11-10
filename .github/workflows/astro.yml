@@ -62,23 +62,86 @@ jobs:
     name: Deploy
     needs: build
     runs-on: ubuntu-latest
+    # 1ª tentativa (10 min, máximo do deploy-pages) + 2 tentativas com ID novo (15 min cada) + folga.
+    timeout-minutes: 45
+    permissions:
+      actions: read # achar o artefato do run nas novas tentativas
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.retry.outputs.page_url || steps.deployment.outputs.page_url }}
     steps:
-      # Um deploy normal leva ~15 s. Às vezes o lado do GitHub Pages trava em "syncing_files" e o
-      # passo só morre no timeout (foi o que derrubou os deploys de 09/11 e 10/11). Em vez de esperar
-      # 10 min e falhar, desiste em 4 min e tenta de novo com o mesmo artefato.
+      # Um deploy normal leva ~15 s. Desde 06/11/2026 o GitHub Pages trava com frequência em
+      # "syncing_files" (vários repositórios relataram; o status oficial segue "operational").
+      # Repetir o deploy-pages não adianta: ele usa o SHA do commit como ID, então a 2ª tentativa
+      # cai no MESMO deploy travado. As novas tentativas abaixo criam o deploy pela API com um
+      # pages_build_version único (SHA + tentativa) e cancelam o que travar.
       - name: Deploy to GitHub Pages
         id: deployment
         continue-on-error: true
         uses: actions/deploy-pages@v5
         with:
-          timeout: 240000
+          timeout: 600000
 
-      - name: Deploy to GitHub Pages (2ª tentativa)
+      - name: Deploy to GitHub Pages (novas tentativas com ID novo)
         id: retry
         if: steps.deployment.outcome == 'failure'
-        uses: actions/deploy-pages@v5
+        uses: actions/github-script@v8
         with:
-          timeout: 600000
+          script: |
+            const { owner, repo } = context.repo;
+            const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+            const ATTEMPTS = 2;
+            const LIMIT_MS = 15 * 60 * 1000;
+            const FAILED = new Set([
+              'deployment_failed', 'deployment_content_failed', 'deployment_cancelled',
+              'deployment_lost', 'deployment_perms_error', 'deployment_attempt_error',
+            ]);
+
+            const { data: list } = await github.rest.actions.listWorkflowRunArtifacts({
+              owner, repo, run_id: context.runId, name: 'github-pages',
+            });
+            const artifact = list.artifacts.find((a) => a.name === 'github-pages');
+            if (!artifact) return core.setFailed('Artefato "github-pages" não encontrado neste run.');
+
+            for (let i = 1; i <= ATTEMPTS; i++) {
+              const version = `${context.sha}-a${process.env.GITHUB_RUN_ATTEMPT}-r${i}`;
+              const { data: dep } = await github.request('POST /repos/{owner}/{repo}/pages/deployments', {
+                owner, repo,
+                artifact_id: artifact.id,
+                pages_build_version: version,
+                oidc_token: await core.getIDToken(),
+              });
+              core.info(`Tentativa ${i}: deploy ${dep.id}`);
+
+              const started = Date.now();
+              let status = '';
+              while (Date.now() - started < LIMIT_MS) {
+                await sleep(10000);
+                try {
+                  const { data } = await github.request(
+                    'GET /repos/{owner}/{repo}/pages/deployments/{pages_deployment_id}',
+                    { owner, repo, pages_deployment_id: dep.id },
+                  );
+                  status = data.status;
+                } catch (err) {
+                  core.info(`  status indisponível (${err.status}), tentando de novo`);
+                  continue;
+                }
+                core.info(`  ${Math.round((Date.now() - started) / 1000)}s: ${status}`);
+                if (status === 'succeed') {
+                  core.setOutput('page_url', dep.page_url);
+                  return;
+                }
+                if (FAILED.has(status)) break;
+              }
+
+              core.warning(`Tentativa ${i} parou em "${status || 'sem status'}". Cancelando esse deploy.`);
+              await github
+                .request('POST /repos/{owner}/{repo}/pages/deployments/{pages_deployment_id}/cancel', {
+                  owner, repo, pages_deployment_id: dep.id,
+                })
+                .catch(() => {});
+            }
+            core.setFailed('O GitHub Pages não concluiu o deploy em 3 tentativas. Rode o workflow de novo mais tarde (Actions > Re-run jobs).');
