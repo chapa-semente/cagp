@@ -20,35 +20,31 @@ const badges = [
 const atalhosCarreira = [
   {
     id: 'vagas',
-    label: 'Radar de Vagas',
-    sublabel: 'Editais & Trainees Públicos',
+    label: 'Vagas e editais',
+    sublabel: 'Estágio e trainee no setor público',
     href: route('/carreira/vagas'),
     icon: 'carreira',
-    color: 'bg-emerald-600 text-white',
   },
   {
     id: 'talentos',
-    label: 'Banco de Talentos',
+    label: 'Banco de talentos',
     sublabel: 'Seu perfil profissional',
     href: route('/carreira/talentos'),
     icon: 'stars',
-    color: 'bg-primary text-white',
   },
   {
     id: 'estagio',
-    label: 'Estágio 300h & Art. 41',
-    sublabel: 'Dispensa Servidor & TCE',
+    label: 'Estágio',
+    sublabel: 'As 300h, o TCE e o Art. 41',
     href: route('/estagio'),
     icon: 'briefcase',
-    color: 'bg-secondary text-white',
   },
   {
     id: 'reta-final',
-    label: 'TCC & Reta Final',
-    sublabel: 'Modalidades & Colação',
+    label: 'Formatura',
+    sublabel: 'TCC e colação de grau',
     href: route('/formatura'),
     icon: 'thesis',
-    color: 'bg-amber-600 text-white',
   },
 ];
 ---
@@ -85,7 +81,7 @@ const atalhosCarreira = [
             class="p-4 bg-card hover:bg-muted flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[96px]"
           >
             <div class="flex items-center justify-between">
-              <span class={`w-9 h-9 rounded-lg ${a.color} flex items-center justify-center text-xs border-2 border-border shadow-xs`}>
+              <span class="w-10 h-10 rounded-xl bg-muted text-primary flex items-center justify-center">
                 <CagpIcon name={a.icon as any} class="w-4 h-4" />
               </span>
               <CagpIcon name="arrow-up-right" class="w-4 h-4 text-muted-foreground/60 group-hover:text-primary transition-colors" />

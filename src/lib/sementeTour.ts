@@ -24,7 +24,7 @@ export type TourLeaderId =
 
 export interface TourStop {
   leaderId: TourLeaderId;
-  /** Rota onde a ferramenta vive. */
+  /** Rota onde a ferramenta vive (o tour mostra uma captura dela; ver scripts/capture-tour-shots.mjs). */
   route: string;
   /** Aba do SegmentedControl (`data-ws-tab`) que precisa estar aberta. */
   tab?: string;
@@ -51,7 +51,7 @@ export const TOUR_STOPS: Record<TourLeaderId, TourStop> = {
     hook: 'Pediu o requerimento no grupo e ninguém mandou?',
     answer: 'Gabriel construiu este site para os documentos do curso ficarem com os estudantes, não com a diretoria da vez.',
     tool: 'Documentos mais pedidos',
-    proof: 'Os formulários que mais aparecem no WhatsApp, prontos para abrir e mandar. Fica no ar mesmo se a gente perder.',
+    proof: 'Os formulários que mais aparecem no WhatsApp, prontos para abrir e mandar. Ideia nossa, construída há muito tempo, e o site é do curso.',
   },
   larissa: {
     leaderId: 'larissa',
@@ -150,7 +150,7 @@ export const TOUR_STOPS: Record<TourLeaderId, TourStop> = {
     hook: 'Saiu da aula às 22h e o Circular já tinha passado?',
     answer: 'Paloma defende o turno da noite: um CA no horário de quem trabalha.',
     tool: 'Campus agora',
-    proof: 'O horário do jantar no RU e o lembrete do último Circular, logo na tela inicial.',
+    proof: 'O horário do jantar no RU e as últimas partidas do ônibus interno, logo na tela inicial.',
   },
   alice: {
     leaderId: 'alice',

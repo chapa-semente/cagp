@@ -2,6 +2,8 @@
 // PageHeader.astro — Cabeça de página (DESIGN.md › Components › Cabeça de página).
 // Título + 1 linha + até 3 badges (1 no celular). Sem eyebrow, faixa tricolor ou decoração.
 // `eyebrow` é aceito por compatibilidade e ignorado: o eixo já aparece no cabeçalho do app e no breadcrumb.
+// Badge do cabeçalho tem um estilo só (branco, contorno grafite): `variant` é aceito e ignorado.
+// Cor por página fazia cada cabeçalho parecer de um site diferente.
 import type { AxisId } from '@/lib/navigationRegistry';
 import { getItemByPath } from '@/lib/navigationRegistry';
 import CagpIcon from './CagpIcon.astro';
@@ -10,6 +12,8 @@ import { vtTitleName } from '@/lib/viewTransitionNames';
 import { resolveCagpIconName } from '@/lib/cagpIcons';
 import { badgeVariants } from './badge';
 import { cn } from '@/lib/utils';
+import EstagioArt from './EstagioArt.astro';
+import { estagioDaRota } from '@/lib/estagios';
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -76,23 +80,8 @@ const titleParts = markerAt >= 0
   : null;
 
 const isPersuadeMode = mode === 'persuade' || mode === 'experience';
+const estagio = estagioDaRota(Astro.url.pathname);
 const isOperateOrCondensed = mode === 'operate' || condensed;
-
-const mapToBadgeVariant = (v?: string): any => {
-  switch (v) {
-    // 'red' era usado para informação neutra; vermelho fica reservado a erro (variant destructive direto).
-    case 'red': return 'default';
-    case 'purple': return 'default';
-    case 'orange': return 'accent';
-    case 'dark': return 'dark';
-    case 'blue': return 'info';
-    case 'green': return 'success';
-    case 'gold': return 'warning';
-    case 'secondary': return 'secondary';
-    case 'accent': return 'accent';
-    default: return 'dark';
-  }
-};
 
 const visibleBadges = badges.slice(0, 3);
 
@@ -117,10 +106,9 @@ const computedBreadcrumbs = breadcrumbs && breadcrumbs.length > 0
 <header class={cn(isPersuadeMode ? 'mb-2 sm:mb-3' : 'mb-4 sm:mb-6')}>
 
   {!isPersuadeMode && (
-    <div class={cn(
-      'rounded-xl border-2 border-border bg-card shadow-md',
-      isOperateOrCondensed ? 'p-5 sm:p-6' : 'p-5 sm:p-8'
-    )}>
+    <div class={cn('cagp-page-head', isOperateOrCondensed ? 'p-5 sm:p-6' : 'p-5 sm:p-8')}>
+      <EstagioArt estagio={estagio} class="cagp-page-head-art" />
+      <div class="cagp-page-head-body">
       {computedBreadcrumbs.length > 0 && (
         <div class="mb-3 hidden md:block">
           <Breadcrumb>
@@ -144,16 +132,16 @@ const computedBreadcrumbs = breadcrumbs && breadcrumbs.length > 0
       )}
 
       <h1 class={cn(
-        'font-heading font-bold uppercase text-foreground m-0 leading-[1.05]',
+        'font-heading font-bold uppercase m-0 leading-[1.05] text-balance',
         isOperateOrCondensed ? 'text-2xl sm:text-3xl' : 'text-[1.75rem] sm:text-4xl'
       )} style={`view-transition-name: ${vtTitleName(Astro.url.pathname)}; view-transition-class: vt-title`}>
         {titleParts ? (
-          <>{titleParts[0]}<MarkerWord class="text-[1.15em] align-baseline">{titleParts[1]}</MarkerWord>{titleParts[2]}</>
+          <>{titleParts[0]}<MarkerWord onColor={estagio.fg === '#FFFFFF'} class="text-[1.15em] align-baseline">{titleParts[1]}</MarkerWord>{titleParts[2]}</>
         ) : title}
       </h1>
 
       {subtitle && (
-        <p class="mt-2 mb-0 max-w-[68ch] text-base leading-relaxed text-content-secondary line-clamp-2 sm:line-clamp-none">
+        <p class="mt-2 mb-0 max-w-[60ch] text-base leading-relaxed line-clamp-2 sm:line-clamp-none">
           {subtitle}
         </p>
       )}
@@ -162,7 +150,7 @@ const computedBreadcrumbs = breadcrumbs && breadcrumbs.length > 0
         <ul class="mt-3 mb-0 p-0 list-none flex flex-wrap items-center gap-2" aria-label="Base normativa">
           {visibleBadges.map((b, idx) => (
             <li class={cn(idx >= 1 ? 'hidden sm:inline-flex' : 'inline-flex')}>
-              <span class={cn(badgeVariants({ variant: mapToBadgeVariant(b.variant) }), 'items-center gap-1.5')}>
+              <span class={cn(badgeVariants({ variant: 'outline' }), 'items-center gap-1.5')}>
                 {b.icon && <CagpIcon name={resolveCagpIconName(b.icon)} class="w-3.5 h-3.5 shrink-0" />}
                 <span>{b.label}</span>
               </span>
@@ -172,6 +160,7 @@ const computedBreadcrumbs = breadcrumbs && breadcrumbs.length > 0
       )}
 
       <slot />
+      </div>
     </div>
   )}
 </header>

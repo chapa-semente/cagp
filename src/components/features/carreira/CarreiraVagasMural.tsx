@@ -30,7 +30,7 @@ export const CarreiraVagasMural: React.FC = () => {
               <span>Filtro por Esfera Governamental &amp; Setor</span>
             </h2>
             <p className="text-xs text-muted-foreground m-0 mt-0.5 font-medium">
-              Selecione o nível de atuação para visualizar os editais vigentes:
+              Filtre os exemplos por esfera:
             </p>
           </div>
 

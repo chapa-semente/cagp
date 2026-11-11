@@ -79,9 +79,9 @@ export function downloadCircular2230Ics(): void {
 
   downloadIcs(
     {
-      title: 'Último Circular da noite (FAFICH/UFMG)',
-      description: 'Alerta para saída da sala de aula antes da última viagem do Circular Interno às 22h45 saindo da FAFICH/Praça de Serviços.',
-      location: 'Ponto do Circular Noturno — FAFICH / Praça de Serviços UFMG',
+      title: 'Últimos ônibus internos da noite (UFMG)',
+      description: 'Hora de sair da sala: as últimas partidas do ônibus interno são 22h30 (linha 2) e 22h50 (linha 3), da Escola de Música. Confira em ufmg.br/transporte.',
+      location: 'Campus Pampulha, UFMG',
       startDate: start,
       endDate: end,
       rrule: 'FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR',

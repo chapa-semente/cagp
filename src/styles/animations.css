@@ -359,7 +359,7 @@ html[data-nav-dir="drill-out"]::view-transition-new(cagp-main) {
   }
   .cagp-reveal {
     animation: cagpReveal linear both;
-    animation-timeline: view();
+    animation-timeline: var(--cagp-tl, view());
     animation-range: entry 0% entry 55%;
   }
   /* A sombra dura "pousa" junto: o bloco entra sem sombra e ganha a sombra ao assentar. */
@@ -369,13 +369,13 @@ html[data-nav-dir="drill-out"]::view-transition-new(cagp-main) {
   }
   .cagp-reveal-card {
     animation: cagpRevealCard linear both;
-    animation-timeline: view();
+    animation-timeline: var(--cagp-tl, view());
     animation-range: entry 0% entry 60%;
   }
   /* Filhos em cascata: cada item começa um pouco depois no mesmo trilho de rolagem. */
   .cagp-reveal-stagger > * {
     animation: cagpReveal linear both;
-    animation-timeline: view();
+    animation-timeline: var(--cagp-tl, view());
     animation-range: entry calc(var(--i, 0) * 6%) entry calc(50% + var(--i, 0) * 6%);
   }
   .cagp-reveal-stagger > *:nth-child(2) { --i: 1; }
@@ -391,7 +391,7 @@ html[data-nav-dir="drill-out"]::view-transition-new(cagp-main) {
   }
   .cagp-parallax {
     animation: cagpParallax linear both;
-    animation-timeline: view();
+    animation-timeline: var(--cagp-tl, view());
     animation-range: cover;
     will-change: transform;
   }
@@ -452,7 +452,7 @@ html[data-nav-dir="drill-out"]::view-transition-new(cagp-main) {
 @supports (animation-timeline: view()) {
   .cagp-marker.is-scroll .cagp-marker__stroke path {
     animation: cagpMarkerDraw linear both;
-    animation-timeline: view();
+    animation-timeline: var(--cagp-tl, view());
     animation-range: entry 40% cover 35%;
   }
 }

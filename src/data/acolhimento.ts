@@ -33,9 +33,9 @@ export const NOTURNO_HOJE: NoturnoItem[] = [
   {
     id: 'circular',
     icon: 'bus',
-    label: 'Circular interno (linhas 3 e 4)',
-    horario: 'até 22h45',
-    detalhe: 'Gratuito. Para em frente ao Setorial II e passa pela Física, ICEx, FACE e Biblioteca Universitária.',
+    label: 'Ônibus interno (linhas 2 e 3)',
+    horario: 'até 22h50',
+    detalhe: 'Gratuito. Últimas partidas da Escola de Música: 22h10, 22h30 e 22h50. Paradas e mapa em Guias › Ônibus internos.',
   },
   {
     id: 'ceag',
@@ -84,4 +84,17 @@ export const PAGINAS_ACOLHIMENTO = {
   calouros: { titulo: 'Guia do Calouro', curto: 'Calouros', href: '/calouros' },
   permanencia: { titulo: 'Permanência & Noturno', curto: 'Permanência', href: '/permanencia' },
   pesquisa: { titulo: 'Pesquisa & Extensão', curto: 'Pesquisa', href: '/pesquisa' },
+} as const;
+
+/**
+ * Horários do campus à noite em formato de máquina: a home ("Hoje à noite") e a folha Campus agora
+ * leem daqui, então o texto e o "aberto agora" nunca divergem.
+ * Jantar: assistencia-estudantil-e-alimentacao.md (RU Setorial II, 17h10 às 19h30, dias úteis).
+ * Circular: últimas partidas do período letivo (linhas 2 e 3, saindo da Escola de Música), copiadas de
+ * src/data/onibusInternos.json (site oficial da UFMG). Retrato estático: a home não calcula "próximo ônibus".
+ */
+export const CAMPUS_HORARIOS = {
+  jantar: { abre: '17:10', fecha: '19:30', dias: DIAS_UTEIS, texto: '17h10–19h30', local: 'RU Setorial II' },
+  almoco: { texto: '11h–14h' },
+  circular: { ultimasSaidas: ['22:10', '22:30', '22:50'], texto: 'até 22h50', linhas: 'linhas 2 e 3, gratuito' },
 } as const;

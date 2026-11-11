@@ -76,7 +76,7 @@ export const HomeNewsFeed: React.FC = () => {
             id="heading-news-mural"
             className="font-heading text-base sm:text-lg font-extrabold text-foreground m-0"
           >
-            Mural de Notícias, Eventos & Carreiras
+            Mural
           </h2>
         </div>
 
@@ -109,7 +109,7 @@ export const HomeNewsFeed: React.FC = () => {
             item.tagColor === 'burgundy'
               ? 'bg-secondary text-white'
               : item.tagColor === 'gold'
-              ? 'bg-orange-text text-foreground'
+              ? 'bg-orange-text text-white'
               : item.tagColor === 'green'
               ? 'bg-success text-white'
               : 'bg-primary text-white';

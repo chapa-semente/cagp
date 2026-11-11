@@ -5,15 +5,16 @@
 // (foto + dor do estudante) que se recolhe num cartão enquanto o spotlight recorta a ferramenta real
 // → fechamento com a votação. Ao terminar, devolve a pessoa à página por onde ela entrou.
 //
-// Montado uma vez no BaseLayout com `transition:persist`: o ClientRouter troca as páginas por baixo
-// sem desmontar o tour, então os spotlights atravessam rotas sem recarregar.
+// Decisão de 10/11/2026: o tour NÃO navega mais pelo site. Cada parada mostra uma captura estática da
+// ferramenta (public/images/chapa/tour/shots, geradas por scripts/capture-tour-shots.mjs) e o spotlight
+// recorta a ferramenta na própria foto. Nenhuma página é carregada por trás: zero rede além das imagens.
 //
 // Movimento (DESIGN.md › Movimento): o bloco de cor que vira cartão é o gesto autoral, feito com
 // clip-path; fotos "germinam" de baixo para cima; o fim é o carimbo. Movimento sempre ativo.
 
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, MotionConfig, motion } from 'motion/react';
-import { navigate } from 'astro:transitions/client';
+import SHOTS_JSON from '@/data/sementeTourShots.json';
 import { asset } from '@/lib/paths';
 import { easeOutExpo } from '@/lib/motion';
 import { MarkerWord } from '@/components/ui/marker-word';
@@ -35,8 +36,8 @@ import {
   loadSementeTour,
   saveSementeTour,
   type SementeTourState,
-  type TourPerson,
-} from '@/lib/sementeTour';
+  type TourPerson, SEMENTE_TOUR_KEY } from '@/lib/sementeTour';
+import { START_PROPOSTAS_TOUR } from '@/lib/propostasTour';
 
 // ---------------------------------------------------------------------------
 // Sequência de telas
@@ -77,9 +78,25 @@ function splitLeadingName(answer: string, name: string): [string, string] {
   return answer.startsWith(name) ? [name, answer.slice(name.length)] : ['', answer];
 }
 
-const normalizePath = (p: string) => p.replace(/\/$/, '') || '/';
-const toPageUrl = (p: string) => (p.endsWith('/') ? p : `${p}/`);
-const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
+/** Captura estática de uma ferramenta: a imagem e onde o alvo está dentro dela (em px da imagem). */
+interface TourShot {
+  src: string;
+  w: number;
+  h: number;
+  rect: { x: number; y: number; w: number; h: number };
+}
+const SHOTS = SHOTS_JSON as Record<string, { mobile?: TourShot; desktop?: TourShot }>;
+
+/** Tela em pé ou estreita usa a captura de celular; o resto usa a de desktop. */
+function pickShot(id: string, vw: number, vh: number): TourShot | null {
+  const entry = SHOTS[id];
+  if (!entry) return null;
+  const portrait = vw < 700 || vw / Math.max(1, vh) < 0.85;
+  return (portrait ? entry.mobile ?? entry.desktop : entry.desktop ?? entry.mobile) ?? null;
+}
+const preloadShot = (shot: TourShot | null) => {
+  if (shot) new Image().src = asset(shot.src);
+};
 
 interface Rect {
   top: number;
@@ -173,17 +190,10 @@ export const SementeTour: React.FC = () => {
   const [state, setState] = useState<TourRuntime | null>(null);
   const [vp, setVp] = useState({ w: 0, h: 0 });
   const [cardRect, setCardRect] = useState<Rect | null>(null);
-  const [holeRect, setHoleRect] = useState<Rect | null>(null);
-  const [targetMissing, setTargetMissing] = useState(false);
-  /** A página da ferramenta ainda está chegando (rede lenta): o cartão diz isso em vez de parecer travado. */
-  const [waitingPage, setWaitingPage] = useState(false);
-  /** Rota com troca já em andamento: não dispara outra igual (reiniciaria o download na rede lenta). */
-  const pendingRoute = useRef<string | null>(null);
   const [closing, setClosing] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const [cardEl, setCardEl] = useState<HTMLDivElement | null>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
-  const locateRun = useRef(0);
 
   const screens = useMemo(() => buildScreens(state?.profile), [state?.profile]);
   const open = state?.status === 'active';
@@ -229,6 +239,21 @@ export const SementeTour: React.FC = () => {
     if (state) saveSementeTour(state);
   }, [state]);
 
+  // Outra aba terminou o tour (ou o armazenamento mudou por fora): esta aba fecha em vez de
+  // regravar "ativo" por cima. O tour vive entre páginas (transition:persist), então sem isso
+  // ele seguia navegando pelas paradas com o estado salvo já "concluído".
+  useEffect(() => {
+    const onStorage = (e: StorageEvent) => {
+      if (e.key !== SEMENTE_TOUR_KEY) return;
+      const saved = loadSementeTour() as TourRuntime | null;
+      if (saved?.status === 'done') {
+        setState((s) => (s && s.status === 'active' && !s.replay ? saved : s));
+      }
+    };
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, []);
+
   // ---- Viewport ---------------------------------------------------------------------------------
   useLayoutEffect(() => {
     const measure = () => setVp({ w: window.innerWidth, h: window.innerHeight });
@@ -255,14 +280,8 @@ export const SementeTour: React.FC = () => {
     };
     apply();
     document.addEventListener('astro:after-swap', apply);
-    // A troca de página roda por trás do bloco de cor: pula a view transition, que bloqueia toques
-    // enquanto anima (os "Próxima" tocados nessa janela eram perdidos).
-    const skip = (e: Event) => (e as Event & { viewTransition?: ViewTransition }).viewTransition?.skipTransition();
-    document.addEventListener('astro:before-swap', skip);
     return () => {
       document.removeEventListener('astro:after-swap', apply);
-      document.removeEventListener('astro:before-swap', skip);
-      document.body.style.removeProperty('padding-bottom');
       document.documentElement.classList.remove('cagp-semente-tour-open');
       document.querySelectorAll('[data-tour-inert]').forEach((el) => {
         el.removeAttribute('inert');
@@ -271,40 +290,13 @@ export const SementeTour: React.FC = () => {
     };
   }, [open]);
 
-  // ---- Rotas: a tela de história já leva a página certa para trás do bloco de cor ----------------
-  const ensureRoute = (rawRoute: string) => {
-    const route = normalizePath(rawRoute);
-    if (normalizePath(window.location.pathname) !== route && pendingRoute.current !== route) {
-      pendingRoute.current = route;
-      navigate(toPageUrl(rawRoute));
-    }
-  };
-
+  // ---- Capturas: a foto da próxima ferramenta já vem enquanto a pessoa lê a tela atual -----------
   useEffect(() => {
-    if (!screen || (screen.kind !== 'story' && screen.kind !== 'spot')) return;
-    ensureRoute(screen.person.stop.route);
-  }, [screen]);
-
-  useEffect(() => {
-    const clear = () => {
-      pendingRoute.current = null;
-    };
-    document.addEventListener('astro:page-load', clear);
-    return () => document.removeEventListener('astro:page-load', clear);
-  }, []);
-
-  // Enquanto a pessoa lê o cartão, a página da próxima já vem pela rede.
-  useEffect(() => {
-    if (screen?.kind !== 'spot' || !screen.next) return;
-    const nextRoute = screen.next.stop.route;
-    if (normalizePath(nextRoute) === normalizePath(window.location.pathname)) return;
-    // fetch de baixa prioridade: aquece o cache HTTP (GitHub Pages) e o do service worker.
-    const ctrl = new AbortController();
-    fetch(toPageUrl(nextRoute), { credentials: 'same-origin', signal: ctrl.signal, priority: 'low' } as RequestInit).catch(
-      () => {}
-    );
-    return () => ctrl.abort();
-  }, [screen]);
+    if (!screen || !vp.w) return;
+    if (screen.kind === 'story') preloadShot(pickShot(screen.person.leader.id, vp.w, vp.h));
+    if (screen.kind === 'spot' && screen.next) preloadShot(pickShot(screen.next.leader.id, vp.w, vp.h));
+    if (screen.kind === 'perfil' && state?.profile) preloadShot(pickShot(TOUR_ORDER[state.profile][0], vp.w, vp.h));
+  }, [screen, vp.w, vp.h, state?.profile]);
 
   // ---- Medida do cartão do spotlight -----------------------------------------------------------
   useLayoutEffect(() => {
@@ -322,97 +314,6 @@ export const SementeTour: React.FC = () => {
     ro.observe(el);
     return () => ro.disconnect();
   }, [isSpot, cardEl, vp.w, vp.h]);
-
-  // ---- Localiza o alvo, abre a aba certa, rola e recorta --------------------------------------
-  const locate = useCallback(async () => {
-    if (!screen || screen.kind !== 'spot') return;
-    const run = ++locateRun.current;
-    const { stop } = screen.person;
-    setTargetMissing(false);
-
-    // Espera a rota certa (a troca começou na tela de história). Em rede lenta pode levar segundos:
-    // o cartão avisa "abrindo a página" e o spotlight só procura a ferramenta quando ela chegou.
-    if (normalizePath(window.location.pathname) !== normalizePath(stop.route)) {
-      setWaitingPage(true);
-      setHoleRect(null); // nada de recorte aceso sobre a página errada enquanto a certa chega
-    }
-    for (let i = 0; i < 300; i++) {
-      if (normalizePath(window.location.pathname) === normalizePath(stop.route)) break;
-      // Outra troca terminou por cima desta (a pessoa voltou e avançou rápido): pede a página de novo.
-      if (i % 20 === 0) ensureRoute(stop.route);
-      if (i > 0 && normalizePath(window.location.pathname) !== normalizePath(stop.route)) {
-        setWaitingPage(true);
-        setHoleRect(null);
-      }
-      await wait(100);
-    }
-    if (run !== locateRun.current) return;
-    setWaitingPage(false);
-    if (normalizePath(window.location.pathname) !== normalizePath(stop.route)) {
-      // Nunca chegou (offline): tenta de novo e deixa o cartão orientar a pessoa.
-      pendingRoute.current = null;
-      setTargetMissing(true);
-      return;
-    }
-
-    if (stop.tab) {
-      const tabBtn = document.querySelector<HTMLButtonElement>(`.cagp-workspace-tab[data-ws-tab="${stop.tab}"]`);
-      if (tabBtn && tabBtn.getAttribute('aria-selected') !== 'true') tabBtn.click();
-    }
-
-    let el: HTMLElement | null = null;
-    for (let i = 0; i < 40; i++) {
-      el = document.querySelector<HTMLElement>(stop.target);
-      if (el && el.getBoundingClientRect().height > 0) break;
-      el = null;
-      await wait(100);
-    }
-    if (run !== locateRun.current) return;
-    if (!el) {
-      if (import.meta.env.DEV) console.warn(`[SementeTour] alvo não encontrado: ${stop.target} em ${stop.route}`);
-      setTargetMissing(true);
-      setHoleRect(null);
-      return;
-    }
-
-    const headerOffset = window.innerWidth >= 768 ? 88 : 72;
-    // Ferramenta no fim da página: sem sobra de rolagem, ela ficaria embaixo do cartão.
-    // Uma folga temporária no fim do body deixa o alvo subir até logo abaixo do cabeçalho.
-    const cardBox = cardEl?.getBoundingClientRect();
-    if (cardBox) document.body.style.paddingBottom = `${Math.ceil(window.innerHeight - cardBox.top + 24)}px`;
-    // Espera a rolagem suave do SegmentedControl terminar antes de fixar a posição.
-    await wait(60);
-    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - headerOffset, behavior: 'instant' });
-    await new Promise((r) => requestAnimationFrame(() => r(null)));
-    if (run !== locateRun.current) return;
-
-    const r = el.getBoundingClientRect();
-    const card = cardEl?.getBoundingClientRect();
-    const floor = card ? card.top - 14 : window.innerHeight - 14;
-    const top = Math.max(8, r.top - 8);
-    const bottom = Math.min(floor, r.bottom + 8);
-    const left = Math.max(8, r.left - 8);
-    const right = Math.min(window.innerWidth - 8, r.right + 8);
-    setHoleRect({ top, left, width: Math.max(0, right - left), height: Math.max(48, bottom - top) });
-  }, [screen, cardEl]);
-
-  useEffect(() => {
-    if (!isSpot) {
-      locateRun.current++;
-      setHoleRect(null);
-      setTargetMissing(false);
-      setWaitingPage(false);
-      return;
-    }
-    void locate();
-    const onLoad = () => void locate();
-    document.addEventListener('astro:page-load', onLoad);
-    window.addEventListener('resize', onLoad);
-    return () => {
-      document.removeEventListener('astro:page-load', onLoad);
-      window.removeEventListener('resize', onLoad);
-    };
-  }, [isSpot, locate, cardRect?.top]);
 
   // ---- Navegação entre telas --------------------------------------------------------------------
   const go = useCallback(
@@ -433,22 +334,16 @@ export const SementeTour: React.FC = () => {
 
   const finish = useCallback(() => {
     setClosing(true);
-    const returnTo = state?.returnTo;
     setVaultItem('cagp_onboarding_completed_v1', true);
     window.setTimeout(
       () => {
         setState((s) => (s ? { ...s, status: 'done', index: 0 } : s));
         setClosing(false);
         window.dispatchEvent(new CustomEvent('cagp:semente-tour-done'));
-        if (returnTo && normalizePath(returnTo.split(/[?#]/)[0]) !== normalizePath(window.location.pathname)) {
-          navigate(returnTo);
-        } else {
-          window.scrollTo({ top: 0, behavior: 'instant' });
-        }
       },
       520
     );
-  }, [state?.returnTo]);
+  }, []);
 
   // Foco no título de cada tela + teclado (setas avançam e voltam; Esc não fecha na primeira visita).
   useEffect(() => {
@@ -489,6 +384,19 @@ export const SementeTour: React.FC = () => {
       ? insetFor(cardRect, vp.w, vp.h)
       : FULL_INSET;
   const showScrim = isSpot && !closing;
+  // A captura ocupa a largura da tela, alinhada ao topo; o recorte é o alvo na escala da foto.
+  const shot = screen.kind === 'spot' && vp.w ? pickShot(screen.person.leader.id, vp.w, vp.h) : null;
+  const shotScale = shot ? vp.w / shot.w : 1;
+  let holeRect: Rect | null = null;
+  if (shot && cardRect) {
+    const top = Math.max(8, shot.rect.y * shotScale - 8);
+    const left = Math.max(8, shot.rect.x * shotScale - 8);
+    const right = Math.min(vp.w - 8, (shot.rect.x + shot.rect.w) * shotScale + 8);
+    const overCard = right > cardRect.left && left < cardRect.left + cardRect.width;
+    const floor = Math.min(shot.h * shotScale, overCard ? cardRect.top - 14 : vp.h - 14);
+    const bottom = Math.min(floor, (shot.rect.y + shot.rect.h) * shotScale + 8);
+    holeRect = { top, left, width: Math.max(0, right - left), height: Math.max(48, bottom - top) };
+  }
   const hole = holeRect ?? { top: 0, left: 0, width: vp.w, height: vp.h };
   const settledSpot = isSpot && !!cardRect;
 
@@ -515,6 +423,28 @@ export const SementeTour: React.FC = () => {
         <p className="sr-only" aria-live="polite">
           {liveText}
         </p>
+
+        {/* 0. O "site" por trás do tour é uma fotografia: areia opaca e a captura da ferramenta. */}
+        {!closing && <div aria-hidden="true" className="absolute inset-0 bg-background" />}
+        <AnimatePresence initial={false}>
+          {shot && !closing && (
+            <motion.img
+              key={shot.src}
+              src={asset(shot.src)}
+              alt=""
+              aria-hidden="true"
+              draggable={false}
+              decoding="async"
+              width={shot.w}
+              height={shot.h}
+              className="absolute left-0 top-0 block h-auto w-full max-w-none select-none"
+              initial={{ y: 56, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ opacity: 0, transition: { duration: 0.12 } }}
+              transition={{ duration: 0.7, ease: easeOutExpo }}
+            />
+          )}
+        </AnimatePresence>
 
         {/* 1. Escurecimento com o recorte da ferramenta */}
         <motion.svg
@@ -611,8 +541,7 @@ export const SementeTour: React.FC = () => {
                   person={screen.person}
                   n={screen.n}
                   next={screen.next}
-                  missing={targetMissing}
-                  waiting={waitingPage}
+                  missing={!shot}
                   onNext={() => go(1)}
                   onBack={() => go(-1)}
                 />
@@ -846,10 +775,9 @@ const SpotCard: React.FC<{
   n: number;
   next?: TourPerson;
   missing: boolean;
-  waiting: boolean;
   onNext: () => void;
   onBack: () => void;
-}> = ({ cardRef, headingRef, person, n, next, missing, waiting, onNext, onBack }) => {
+}> = ({ cardRef, headingRef, person, n, next, missing, onNext, onBack }) => {
   const { leader, stop } = person;
   return (
     <div
@@ -887,11 +815,7 @@ const SpotCard: React.FC<{
         )}
       </div>
       <p className="m-0 mt-1.5 text-base leading-snug">
-        {waiting
-          ? 'Abrindo a página da ferramenta…'
-          : missing
-            ? `${stop.proof} A página não abriu agora; você encontra a ferramenta depois pelo menu.`
-            : stop.proof}
+        {missing ? `${stop.proof} Você encontra a ferramenta depois, pelo menu.` : stop.proof}
       </p>
       <div className="mt-4 flex items-center gap-3">
         <BackButton onClick={onBack} />
@@ -975,7 +899,7 @@ const FinalScreen: React.FC<{
             {canVote ? (
               <>
                 25 e 26 de novembro:{' '}
-                vote <MarkerWord onColor className="text-[1.1em] tracking-normal">Semente</MarkerWord>.
+                <MarkerWord onColor className="text-[1.1em] tracking-normal">vote</MarkerWord> Semente.
               </>
             ) : (
               <>
@@ -1039,6 +963,23 @@ const FinalScreen: React.FC<{
                 <i className="bi bi-whatsapp text-lg text-success" aria-hidden="true" />
                 Chamar a turma no WhatsApp
               </a>
+            </li>
+            <li>
+              <button
+                type="button"
+                className={actionBtn}
+                onClick={() => {
+                  record(false);
+                  onFinish();
+                  window.setTimeout(() => {
+                    (window as unknown as { __cagpPropostasPending?: boolean }).__cagpPropostasPending = true;
+                    window.dispatchEvent(new CustomEvent(START_PROPOSTAS_TOUR));
+                  }, 620);
+                }}
+              >
+                <i className="bi bi-card-checklist text-lg text-primary" aria-hidden="true" />
+                Ver as 14 propostas, uma por uma
+              </button>
             </li>
           </ul>
 

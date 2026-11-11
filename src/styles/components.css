@@ -400,7 +400,7 @@ html[data-a11y-contrast="high"] .cagp-toast {
   }
   .scroll-mask-x {
     animation: cagpScrollMaskX linear both;
-    animation-timeline: scroll(self inline);
+    animation-timeline: var(--cagp-tl, scroll(self inline));
   }
 }
 .scroll-mask-x::-webkit-scrollbar {

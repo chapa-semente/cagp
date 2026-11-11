@@ -1,0 +1,40 @@
+---
+// GrowthBackdrop.astro — O ramo que cresce com a rolagem (DESIGN.md › Movimento › Crescer).
+// Um caule ondulado na borda direita se desenha conforme a página desce; as folhas brotam no caminho
+// e o fruto aparece no fim. É CSS guiado pela rolagem (animation-timeline: scroll()), sem JS: onde o
+// navegador não suporta, o ramo aparece inteiro e parado. Decorativo: aria-hidden, sem eventos.
+const folhas = [9, 20, 31, 42, 53, 64, 75, 86];
+---
+
+<div class="cagp-growth" aria-hidden="true">
+  <svg class="cagp-growth-shape" viewBox="0 0 200 200">
+    <path d="M200 200H40C40 110 104 44 200 40z" />
+  </svg>
+</div>
+<div class="cagp-growth-vine" aria-hidden="true">
+    <svg class="cagp-growth-stem" viewBox="0 0 40 1000" preserveAspectRatio="none">
+      <path pathLength="1" d="M20 0C36 60 4 120 20 180s16 120 0 180-16 120 0 180 16 120 0 180-16 120 0 180 10 60 0 100" />
+    </svg>
+    {folhas.map((top, i) => (
+      <svg class={`cagp-growth-leaf ${i % 2 ? 'is-left' : 'is-right'} ${i % 3 === 1 ? 'is-orange' : ''}`} style={`top:${top}%; --at:${top}%`} viewBox="0 0 40 40">
+        <path d="M2 38C2 16 16 3 38 2c0 22-14 35-36 36z" />
+      </svg>
+    ))}
+  <span class="cagp-growth-fruit" style="--at:95%"></span>
+</div>
+
+<script is:inline>
+  (function () {
+    if (window.__cagpGrowthSetup) return;
+    window.__cagpGrowthSetup = true;
+    // Só anima pela rolagem quando há o que rolar; página curta mostra o ramo inteiro.
+    var check = function () {
+      var el = document.documentElement;
+      el.classList.toggle('cagp-can-scroll', el.scrollHeight > window.innerHeight + 80);
+    };
+    check();
+    document.addEventListener('astro:page-load', check);
+    window.addEventListener('load', check);
+    window.addEventListener('resize', check);
+  })();
+</script>

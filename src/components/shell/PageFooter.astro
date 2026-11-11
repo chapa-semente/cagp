@@ -1,5 +1,4 @@
 ---
-import MarkerWord from '@/components/ui/MarkerWord.astro';
 // PageFooter.astro - Rodapé Institucional Neobrutalista (Chancelas UFMG + CAGP Candangos + Chapa Semente)
 import { FooterMultiColumn, type FooterColumn, type FooterSocialLink } from '@/components/boldkit/blocks/footer-section';
 import { asset, route } from '@/lib/paths';
@@ -40,11 +39,13 @@ const footerColumns: FooterColumn[] = [
 
 const socialLinks: FooterSocialLink[] = [
   { platform: 'instagram', href: 'https://instagram.com/cagpufmg' },
-  { platform: 'github', href: 'https://github.com/gsathler/cagp' },
 ];
+import EstagiosFaixa from './EstagiosFaixa.astro';
 ---
 
-<footer id="cagp-page-footer" class="relative z-10 w-full bg-card border-t-3 border-border shadow-[0_-4px_0_0_var(--shadow-color)] mt-12 py-8 px-4 sm:px-6 select-none text-xs text-foreground pb-24 sm:pb-10">
+<EstagiosFaixa />
+
+<footer id="cagp-page-footer" class="relative z-10 w-full bg-card border-t-3 border-border py-8 px-4 sm:px-6 select-none text-xs text-foreground pb-24 sm:pb-10">
   <!-- Barra Cromática Tri-Camada Superior -->
   <div class="max-w-[1360px] mx-auto space-y-6">
     <!-- Régua de Chancelas Conjuntas (Chapa Semente como Realizadora + CAGP UFMG) -->
@@ -65,7 +66,7 @@ const socialLinks: FooterSocialLink[] = [
             class="h-12 w-auto max-w-full"
           />
           <span class="block font-heading font-bold text-base leading-tight text-foreground mt-3">
-            Toda mudança começa <MarkerWord class="text-[1.2em]" scroll>pequena</MarkerWord>.
+            Toda mudança começa pequena.
           </span>
         </div>
       </a>
@@ -217,7 +218,7 @@ const socialLinks: FooterSocialLink[] = [
         <button
           type="button"
           onclick="window.dispatchEvent(new CustomEvent('cagp:open-settings'))"
-          class="px-3.5 py-2.5 min-h-[44px] inline-flex items-center rounded-xl border-3 border-border bg-accent text-foreground shadow-sm hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-xs cursor-pointer font-heading text-xs font-extrabold uppercase transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none"
+          class="px-3.5 py-2.5 min-h-[44px] inline-flex items-center rounded-xl border-2 border-border bg-white text-foreground shadow-sm hover:-translate-x-px hover:-translate-y-px hover:shadow-md hover:bg-primary-tint active:translate-x-0.5 active:translate-y-0.5 active:shadow-none cursor-pointer font-heading text-xs font-bold uppercase tracking-[0.03em] transition-[transform,box-shadow,background-color] duration-(--duration-press) ease-(--ease-spring-snappy) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none"
           aria-label="Abrir painel de configurações"
         >
           Ajustes

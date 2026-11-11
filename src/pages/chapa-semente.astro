@@ -6,6 +6,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import JourneyNav from '../components/ui/JourneyNav.astro';
 import { CartaPropostaInteractive } from '../components/features/semente/CartaPropostaInteractive';
 import { ChapaSementeTour } from '../components/features/semente/ChapaSementeTour';
+import { PropostasTourButton } from '../components/features/semente/PropostasTourButton';
 import { CHAPA_LEADERS, getLeaderPhotoUrl } from '@/lib/chapaSementeData';
 import { asset, route } from '@/lib/paths';
 import { Marquee, MarqueeItem, MarqueeSeparator } from '../components/ui/marquee';
@@ -50,8 +51,8 @@ const jaFunciona = [
         />
         <h1 id="cs-hero-title" class="cs-display">Você já está usando a nossa <MarkerWord onColor class="cs-marker">proposta</MarkerWord>.</h1>
         <p class="cs-hero-lede">
-          A Proposta 3 da nossa carta-programa é um site para o curso. É este aqui: já está no ar e fica com
-          os estudantes mesmo se a gente perder a eleição.
+          A Proposta 3 da nossa carta-programa é um site para o curso. É este aqui: ideia nossa, construída há muito
+          tempo, já no ar e feita pra ficar com os estudantes.
         </p>
         <p class="cs-accent">Toda mudança começa pequena.</p>
         <div class="flex flex-wrap items-center gap-x-5 gap-y-3">
@@ -142,8 +143,9 @@ const jaFunciona = [
       <div class="space-y-2 max-w-[68ch]">
         <h2 id="cs-propostas-title" class="cs-headline">As 14 propostas</h2>
         <p class="text-base text-muted-foreground m-0">
-          O texto integral da carta-programa, em 4 eixos. Abra uma proposta para ler a íntegra.
+          O texto integral da carta-programa, em 4 eixos. Abra uma proposta para ler a íntegra, ou veja uma por uma com quem vai tocar cada uma.
         </p>
+        <PropostasTourButton client:visible className="mt-2 w-full sm:w-auto" />
       </div>
       <CartaPropostaInteractive client:visible />
     </section>

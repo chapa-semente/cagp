@@ -1,6 +1,6 @@
 ---
 name: Super App Discente — Chapa Semente • CAGP UFMG
-description: O Balcão que Germina — neobrutalismo sóbrio sobre a identidade da Chapa Semente (roxo, laranja, petróleo, areia) que traduz a burocracia da UFMG em passos resolvíveis no celular, à noite.
+description: O Balcão que Germina — neobrutalismo vivo sobre a identidade da Chapa Semente (roxo, laranja, petróleo, areia) ampliada pelo ciclo da planta (raiz, broto, fruto), que traduz a burocracia da UFMG em passos resolvíveis no celular, à noite.
 colors:
   semente-purple: "#5B2A85"
   semente-purple-hover: "#4A216E"
@@ -18,6 +18,13 @@ colors:
   grafite: "#1F1F1F"
   grafite-secundario: "#4A4740"
   grafite-apagado: "#5E5A52"
+  raiz: "#8A4B2A"
+  raiz-tint: "#F3E3D5"
+  broto: "#6DB33F"
+  broto-deep: "#2F6B1E"
+  broto-tint: "#E4F2D8"
+  fruto: "#FFC83D"
+  fruto-tint: "#FFF2C7"
   cagp-rubro: "#9E2424"
   ufmg-red: "#C4161C"
   success: "#166534"
@@ -238,8 +245,10 @@ O isotipo dá o significado de cada cor, e a interface o respeita. A **semente r
 
 As referências estruturais seguem sendo o **Neobrutalism.com** (disciplina: uma sombra por nível, o press exato, poucos tokens) e o **BoldKit** (carimbo, layered card, motion), vendorizados em `src/components/ui/` e `src/components/boldkit/`. Deles vem o comportamento, nunca a paleta nem os enfeites (neon, burst, estrela, escudo). A **Chapa Semente** é a base cromática; o **CAGP** é selo. Modo exclusivamente claro. Primeiro celular (375px), à noite, com sinal ruim e uma mão.
 
+**Virada de 10/11/2026: o site vivo.** O layout e a navegação ficaram; a expressão subiu. O site agora cresce como a semente do nome: **semente → raiz → broto → planta → fruto**. Cada aba é um estágio com cor própria (Hoje = semente roxa, Guias = raiz terra, Chapa = broto verde, Meu curso = planta petróleo, Mais = fruto amarelo), e o estágio pinta a cabeça de página, o solo (fundo), as sombras e o ramo que cresce com a rolagem. A carga expressiva vale para todas as páginas, inclusive guias e ferramentas (decisão do Gabriel: "máximo em tudo", mesmo com custo de contraste em decoração). O que não muda: texto de leitura grafite sobre claro, alvos de toque, a ordem do conteúdo. Onde este documento ainda disser "sóbrio" ou restringir cor a Cartaz, vale esta virada. Fonte: `src/lib/estagios.ts` e `src/styles/estagios.css`.
+
 **Key Characteristics:**
-- Fundo de página em Areia (`#F4F2EC`), nunca branco frio nem cinza; grafite (`#1F1F1F`) como única tinta escura.
+- Fundo de página no **solo do estágio** (lilás, terra clara, verde claro, petróleo claro ou amarelo claro; `--estagio-solo`), nunca branco frio nem cinza; grafite (`#1F1F1F`) como única tinta escura. Areia continua nas superfícies internas.
 - Três volumes: Cartaz (campanha, *color blocking*), Ficha (trâmite), Papel (leitura). Cada página tem um volume dominante.
 - Contorno grafite 2px nas fichas e 3px em controles e peças de Cartaz; sombra dura curta (3px na Ficha, 6px no Cartaz); o clique afunda exatamente na sombra.
 - Poppins Regular e Bold em tudo, com algarismos tabulares para números de protocolo; Permanent Marker só na palavra que precisa de voz.
@@ -287,6 +296,20 @@ A paleta oficial do manual, em blocos chapados: três campos de cor da Semente s
 - **Preto Grafite** (`grafite`): texto, todos os contornos, todas as sombras, carimbos. É a única tinta escura (14.7:1 sobre areia).
 - **Grafite Secundário** (`grafite-secundario`): subtítulos e descrições (8.3:1). **Grafite Apagado** (`grafite-apagado`): metadados e datas (6.1:1). Ambos quentes, derivados do grafite; nunca cinza azulado.
 
+### Acentos botânicos (o ciclo da planta)
+Três cores novas ampliam a paleta do manual, sempre chapadas (tokens em `global.css`, uso em `estagios.css`):
+- **Terra de raiz** (`raiz`, `#8A4B2A`, texto branco 6.8:1): o estágio Guias, o eixo "Transparência e gestão" no tour das propostas, a linha de sábado dos ônibus.
+- **Verde-broto** (`broto`, `#6DB33F`, texto grafite 6.6:1; `broto-deep` para sombra e texto verde): o estágio Chapa, folhas do ramo e dos desenhos, fundo dos mapas de itinerário (`broto-tint`).
+- **Amarelo-fruto** (`fruto`, `#FFC83D`, texto grafite): o estágio Mais, frutos dos desenhos, destaque de aviso útil (o bloco "Saiu da aula às 22h30?"), partidas com observação (`fruto-tint`).
+
+| Aba | Estágio | Bloco | Texto | Solo | Sombra |
+|---|---|---|---|---|---|
+| Hoje | Semente | `#5B2A85` | branco | `#EFE7F6` | roxo |
+| Guias | Raiz | `#8A4B2A` | branco | `#F3E3D5` | terra |
+| Chapa | Broto | `#6DB33F` | grafite | `#E4F2D8` | `#2F6B1E` |
+| Meu curso | Planta | `#266264` | branco | `#E3F0EF` | petróleo |
+| Mais | Fruto | `#FFC83D` | grafite | `#FFF2C7` | laranja |
+
 ### Institutional seal
 - **Rubro CAGP** (`cagp-rubro`): somente o selo CAGP e contextos estritamente institucionais (atalho SIGA). Não é cor de eixo, botão, badge informativo, gráfico nem erro.
 - **Vermelho UFMG** (`ufmg-red`, `#C4161C`): a palavra "UFMG" e o traço sob "CAGP" no selo do CAGP no rodapé. Nunca verde/petróleo nesse selo, e nunca fora de marca institucional da UFMG.
@@ -297,17 +320,17 @@ A paleta oficial do manual, em blocos chapados: três campos de cor da Semente s
 ### Named Rules
 **The Flat Poster Rule.** Toda área de cor é bloco chapado sólido. Zero degradês lineares, radiais ou mesh, zero transparência sobre cor (`bg-primary/10`), zero vidro. Translucidez só no duotone roxo de capa da fotografia (ver Components › Fotografia).
 
-**The Sand Not Gray Rule.** O claro do sistema é quente: areia, areia funda e branco. Cinzas frios (`#f4f5f7`, `#e5e7ec`, `#4a4e58`) e pretos azulados (`#16181d`) saem do código; viram `areia`, `areia-funda`, `grafite-secundario` e `grafite`.
+**The Sand Not Gray Rule.** O claro do sistema é quente: o solo do estágio no fundo da página, areia, areia funda e branco nas superfícies. Cinzas frios (`#f4f5f7`, `#e5e7ec`, `#4a4e58`) e pretos azulados (`#16181d`) saem do código; viram `areia`, `areia-funda`, `grafite-secundario` e `grafite`.
 
 **The White On Color Rule.** Sobre roxo e petróleo, todo texto é branco puro (`#FFFFFF`). Sobre laranja, todo texto é grafite. Não existe texto roxo sobre petróleo, laranja sobre roxo nem cinza sobre cor.
 
 **The Orange Is The Leaf Rule.** Laranja Vibrante é destaque: linha, caixa, número grande, palavra isolada, forma orgânica. Nunca frase, parágrafo ou texto pequeno; texto pequeno alaranjado usa `orange-text`.
 
-**The Rubro Is a Seal Rule.** Rubro e vermelho UFMG só no selo do CAGP. Abas de navegação não têm cor própria: a aba ativa veste roxo (os `color` de `navigationRegistry.ts` não pintam interface).
+**The Rubro Is a Seal Rule.** Rubro e vermelho UFMG só no selo do CAGP. As abas têm cor de estágio (ver tabela acima), nunca rubro.
 
-**The One Active Color Rule.** Todo estado "selecionado" do site (aba da barra, aba de página, chip de filtro, perfil escolhido, item do trilho) é roxo Semente com texto branco (token `--color-active`). Petróleo, laranja e grafite nunca marcam seleção.
+**The One Active Color Rule.** Dentro da página, todo estado "selecionado" (aba de página, chip de filtro, perfil escolhido, item do trilho) é roxo Semente com texto branco (token `--color-active`). Exceção desde 10/11/2026: a **aba da navegação** ativa (barra inferior e trilho) veste a cor do próprio estágio, e as inativas mostram o ícone sobre o solo do seu estágio.
 
-**The One Loud Color Rule.** Cada tela tem no máximo um campo chapado grande de cor quente ou roxa. Roxo e petróleo podem dividir uma composição em blocos nítidos (o *color blocking* do manual), mas laranja nunca é campo de fundo grande.
+**The Stage Leads Rule** (substitui One Loud Color). A cor dominante de uma tela é a do seu estágio; as outras cores do ciclo entram como apoio em blocos nítidos (ícones de lista, linhas de ônibus, faixa do rodapé). Laranja segue sendo destaque e cabeçalho de bloco pequeno, não fundo de página.
 
 ## Typography
 
@@ -373,13 +396,14 @@ Uma página Ficha pode conter blocos Papel e no máximo **um** momento Cartaz (o
   - **Meu curso** (`/meu-curso`): ferramentas com estado salvo no aparelho (horas 600h, grade, cursos que contam horas, formatura).
   - **Mais** (painel por cima da página; `/mais` no desktop e sem JS): Carreira, O CAGP (ouvidoria, transparência, sobre) e Este site (ajustes, mapa).
 - **Dono da rota:** cada rota pertence a uma única aba, e é ela que acende. Hubs podem ter atalhos para rotas de outras abas sem mudar o dono.
-- **Rodapé:** duas chancelas lado a lado (Chapa Semente como realizadora, selo CAGP com "FAFICH" em grafite e "UFMG" em vermelho UFMG), ecossistema UFMG, atendimento e colunas de links. A linha de direitos é só `© 2026 Chapa Semente`: sem nome do CAGP como titular e sem menção a licença ou código aberto.
+- **Faixa "da semente ao fruto"** (`EstagiosFaixa.astro`): acima do rodapé, em todas as páginas, cinco blocos chapados de ponta a ponta, um por aba, com o desenho do estágio (`EstagioArt.astro`) e o nome da aba. É navegação e é a assinatura visual do ciclo.
+- **Rodapé:** duas chancelas lado a lado (Chapa Semente como realizadora, selo CAGP com "FAFICH" em grafite e "UFMG" em vermelho UFMG), ecossistema UFMG, atendimento e colunas de links. A linha de direitos é só `© 2026 Chapa Semente`: sem nome do CAGP como titular, sem link do GitHub e sem menção a licença ou código aberto.
 
 ### Arquétipos de página
 Toda página nova escolhe um destes; não se inventa estrutura por página.
 
 1. **Hub de aba** (`/guias`, `/meu-curso`, `/mais`; Ficha). Cabeça de página condensada → bloco de ação principal da aba (em Guias, os Documentos mais pedidos) → grupos de no máximo 5 linhas (`HubItemList`: ícone, título, uma linha do que resolve). Sem cards soltos em grade.
-2. **Guia de trâmite** (`/estagio`, `/acg`, `/tcc`, `/permanencia`, `/documentos`; Ficha + Papel). Cabeça de página → abas (máx. 4) → em cada aba: resumo de 3 linhas ("o que é · quem pode · prazo") → passo a passo numerado com formulário e contato no próprio passo → base normativa (Papel, recolhível) → Assinatura Semente → JourneyNav.
+2. **Guia de trâmite** (`/estagio`, `/acg`, `/tcc`, `/permanencia`, `/documentos`; Ficha + Papel). Cabeça de página → abas (máx. 4) → em cada aba: resumo de 3 linhas ("o que é · quem pode · prazo") → passo a passo numerado com formulário e contato no próprio passo → base normativa (Papel, recolhível) → Assinatura Semente → JourneyNav. Peças prontas em `src/components/ui/tramite/`: `TramiteResumo`, `TramitePassos` (número roxo, régua grafite, ações dentro do passo), `TramiteModelos` (um documento por linha, PDF · Word · Google Docs) e `TramiteAcoes`. `/estagio` e `/acg` são a referência.
 3. **Ferramenta** (calculadora 600h, simulador Art. 41, Passaporte; Ficha). Entrada em cima/à esquerda, resultado embaixo/à direita; o resultado ganha o único momento Cartaz da página (carimbo + numeral). Estado salvo localmente é dito na tela.
 4. **Catálogo** (`/optativas`, `/cursos`, `/documentos`, `/noticias`; Ficha). Busca + filtros em chips, contagem tabular, lista de itens; detalhe em Drawer no celular e Sheet no desktop. Conteúdo simulado leva o sticker SIMULADO no item e o `SIMULATION_NOTICE` no topo.
 5. **Leitura** (normas, `/faq`, história, `/sobre`; Papel). Título, sumário, texto em 68ch, Accordion para perguntas, citação normativa como bloco branco com contorno grafite 2px e rótulo da fonte ("ART. 15, § 4º") acima. Nunca faixa colorida lateral.
@@ -412,7 +436,8 @@ Profundidade é física e curta: papel bem impresso colado sobre a areia. Sombra
 
 ### Shadow Vocabulary
 - **Chip** (`2px 2px 0 0 grafite`): badge, carimbo, input em repouso, botão compacto, pílula ativa da navegação.
-- **Ficha** (`3px 3px 0 0 grafite`): botão em repouso, ficha, input em foco, sheet, popover. A sombra padrão do sistema.
+- **Cor da sombra:** desde 10/11/2026 a sombra dura veste a cor do estágio (`--shadow-color`, definido por `html[data-estagio]`); o contorno continua grafite. Cabeça de página e painéis de Cartaz mantêm sombra grafite. No contraste alto volta a grafite.
+- **Ficha** (`3px 3px 0 0`): botão em repouso, ficha, input em foco, sheet, popover. A sombra padrão do sistema.
 - **Cartaz** (`6px 6px 0 0 grafite`): painéis-vitrine do Cartaz (painel da chapa, carta-proposta, ficha-resultado de ferramenta). Ficha interativa sobe de 3px para 5px no hover.
 - Faixas de *color blocking* não têm sombra nem contorno: a profundidade delas é o próprio contraste de cor.
 
@@ -502,8 +527,8 @@ Táteis e sóbrios; afundam na própria sombra como um carimbo.
 - **JourneyNav:** duas fichas (anterior / próximo) no fim da página, com título e uma linha; direção em Label. A ordem é a do registro, **dentro da mesma aba** (nunca uma corrente global que termina em campanha).
 
 ### Cabeça de página (signature)
-O único cabeçalho de página. Ficha branca, contorno 2px, sombra 3px (no Cartaz, faixa roxa de ponta a ponta com título branco).
-- **Conteúdo:** Display, subtítulo em Body `grafite-secundario` (máx. 2 linhas no celular), badges normativos (1 no celular, até 3 no desktop). Breadcrumb só no desktop. Sem eyebrow: o eixo já está no cabeçalho do app.
+O único cabeçalho de página (`PageHeader.astro`, classe `.cagp-page-head`). **Bloco de cor do estágio** com contorno 3px, raio 16px e sombra grafite de 6px; uma folha grande na cor de apoio brota do canto superior direito e o desenho do estágio (`EstagioArt`: semente, raízes, broto, planta, frutos) se desenha à direita ao carregar. No modo Persuade a página traz o próprio herói.
+- **Conteúdo:** Display, subtítulo em Body na cor do bloco (máx. 2 linhas no celular), badges normativos (1 no celular, até 3 no desktop). Breadcrumb só no desktop. Sem eyebrow: o eixo já está no cabeçalho do app.
 
 ### Passo a passo de trâmite (signature)
 O coração do volume Ficha. Stepper vertical com o número do passo em Numeral roxo (tabular), cada passo uma ficha: título-verbo, uma ou duas frases e, **na própria ficha**, o que se precisa (formulário, link do SEI/SIGA, e-mail do setor, prazo em Label). Passo concluído ganha carimbo VISTO e o número passa a laranja (a folha brotou).
@@ -524,18 +549,26 @@ A "pessoa" do símbolo entra na tela como gente real, **em cor original e inteir
 
 ### Tour da Chapa (signature)
 O tour obrigatório da primeira visita (`src/components/features/semente/SementeTour.tsx`, roteiro em `src/lib/sementeTour.ts`). Volume Cartaz do começo ao fim.
-- **Fluxo:** abertura com os 12 rostos e o lema → "Em que momento do curso você está?" (4 opções, reordena as pessoas) → para cada integrante, uma tela de história e um spotlight na ferramenta real → fechamento com a votação. Sem "pular" na primeira visita; ao rever (botões "Rever o tour da chapa"), há fechar.
-- **Tela de história:** bloco chapado de ponta a ponta, roxo e petróleo alternando por pessoa; foto grande e inteira com contorno 3px; nome e cargo em etiqueta grafite na base da foto; a dor do estudante como pergunta (Display) e uma frase de quem resolveu. No máximo ~30 palavras. Segmentos de progresso: feitos em branco, atual em laranja, por vir só contornados.
-- **Spotlight:** o bloco de cor se recolhe (`clip-path`) no cartão Cartaz (contorno 3px, sombra 6px) ancorado embaixo; a página fica sob grafite com um recorte da ferramenta contornado em laranja 3px. Um alvo por parada, com `data-tour="<id>"` na página; `tests/sementeTour.test.ts` confere todos.
-- **Fechamento:** quando, onde e o que levar; agenda, tela inicial e convite no WhatsApp como ações de apoio; "Vou votar na Semente" desce o carimbo SEMENTE PLANTADA. Item simulado (mural) leva o sticker SIMULADO.
-- **Técnica:** montado com `transition:persist` no BaseLayout, troca de página pelo ClientRouter por trás do bloco de cor (sem recarregar); página de trás `inert`; foco no título de cada tela; setas avançam e voltam; fotos em `public/images/chapa/tour/*.webp`.
+- **Fluxo:** abertura com os 12 rostos e o lema → "Em que momento do curso você está?" (4 opções, reordena as pessoas) → para cada integrante, uma tela de história e um spotlight na ferramenta → fechamento com a votação e o convite para o tour das propostas. Sem "pular" na primeira visita; ao rever, há fechar.
+- **Capturas estáticas (10/11/2026):** o tour **não navega** pelo site. O spotlight acontece sobre uma fotografia real da ferramenta (`public/images/chapa/tour/shots/<id>-{mobile,desktop}.webp`), com a posição do alvo em `src/data/sementeTourShots.json`. As capturas são geradas por `node scripts/capture-tour-shots.mjs http://localhost:4330` a partir do build (rodar de novo quando o visual de uma ferramenta mudar). Tela em pé usa a captura de celular; o resto, a de desktop. A captura da próxima parada é pré-carregada enquanto a pessoa lê.
+- **Tela de história:** bloco chapado de ponta a ponta, roxo e petróleo alternando por pessoa; foto grande e inteira com contorno 3px; nome e cargo em etiqueta grafite na base da foto; a dor do estudante como pergunta (Display) e uma frase de quem resolveu. No máximo ~30 palavras.
+- **Spotlight:** o bloco de cor se recolhe (`clip-path`) no cartão Cartaz ancorado embaixo; a captura sobe do rodapé e fica sob grafite, com o recorte da ferramenta contornado em laranja 3px. `data-tour="<id>"` continua nas páginas: é o que o script fotografa (`tests/sementeTour.test.ts` confere todos).
+- **Fechamento:** quando, onde e o que levar; agenda, tela inicial, WhatsApp e "Ver as 14 propostas, uma por uma" como ações de apoio; "Vou votar na Semente" desce o carimbo SEMENTE PLANTADA.
+
+### Tour das propostas (signature)
+Opcional (`PropostasTour.tsx`, roteiro em `src/lib/propostasTour.ts`), aberto pelo botão na `/chapa-semente` e pelo fim do tour da chapa (evento `cagp:start-propostas-tour`). Sempre tem fechar.
+- **Estrutura:** abertura com os 4 eixos como 4 estágios (Raiz = Transparência e gestão, Broto = Cultura, Planta = Acadêmico e carreira, Fruto = Comunicação) → 14 telas, uma por proposta → fechamento com "Como votar".
+- **Tela de proposta:** bloco chapado na cor do eixo; um quadro areia com o número e uma **animação vetorial** própria da proposta (traço que se desenha, forma que brota; geometria pura, sem ilustração); título, o compromisso em uma frase, e a **fala da diretoria** responsável em ficha branca com foto. As falas são trechos literais de `_referencias/briefing_do_site.md`; não se inventa fala. Quando o site já mostra a proposta, um link leva à prova (com o sticker SIMULADO se for modelo).
+
+### Abertura (splash)
+`SplashScreen.astro`: bloco roxo com a semente germinando, em toda abertura do site (carregamento completo, nunca nas trocas internas). Cada estágio do desenho é um passo real: semente = HTML, raiz = fontes, broto = página carregada, fruto = cache offline pronto. ~1,1s com tudo em cache; espera o service worker até um teto de 4,5s. Sai com um recorte que sobe. CSS e script inline; sem JS, some sozinha.
 
 ### Ícones (signature)
 Um sistema só: **Phosphor Bold**, peso único em todo o site, na cor do texto.
 - **Abas da barra:** quatro ícones próprios com a geometria da Semente, no grid 256 do Phosphor e traço equivalente ao Bold (`src/lib/cagpIcons.ts › TAB_ICONS`): **Hoje** (o semicírculo nascendo no horizonte), **Guias** (o caminho em S do aro até a folha), **Meu curso** (livro aberto com a folha brotando da lombada), **Mais** (três blocos e a folha no canto). A aba Chapa usa o símbolo oficial.
 - **Astro e dados:** `<CagpIcon name="…">` (SVG inline) ou a classe legada `bi bi-*`, que agora desenha o glifo Phosphor equivalente por uma fonte recortada (`src/styles/icons.css`, gerada por `node scripts/build-icons.mjs`; rodar de novo ao usar um `bi-*` novo).
 - **React:** `@/components/ui/icons` (mesmos nomes que o lucide usava, desenho Phosphor Bold) ou `@phosphor-icons/react` com `weight="bold"`.
-- **Moldura:** quando o ícone ganha caixa, é quadrado de 12px em `areia-funda` (ou `primary-tint`), sem contorno extra. Nunca blocos de ícone em cores diferentes por item (arco-íris).
+- **Moldura:** quando o ícone ganha caixa, é quadrado de 12px. Nas listas de hub (`HubItemList`) as caixas percorrem as cinco cores do ciclo, uma por linha, com contorno 2px; em outros contextos, `areia-funda` ou `primary-tint`.
 - **Proibido:** emoji, glifo Unicode como ícone (→ ↗ ✓ ☀ ♀), mistura de pesos (Regular com Bold), ícone sem rótulo na navegação.
 
 ### Logos (signature)
@@ -564,18 +597,21 @@ O site se mexe como papel e carimbo: peso, mola e impacto. Movimento é **sempre
 - **Momento autoral: o carimbo.** Quando um estado muda (resultado do simulador do Art. 41, checklist concluído, voto declarado), o carimbo cai grande e inclinado, bate no papel, passa do ponto e assenta; só no impacto a tinta "pega" (a sombra dura aparece de uma vez) e o papel embaixo cede 3px. Classes `.cagp-big-stamp`, `.cagp-stamp-impact`, `.cagp-stamp-host-jolt`; o `key` do React remonta o carimbo a cada mudança. Carimbo em repouso é estático.
 - **A caneta:** o traço laranja da `MarkerWord` se desenha uma vez ao carregar (ou guiado pela rolagem com `scroll`).
 - **Germinar (Cartaz):** a folha laranja do herói cresce da base com a ginga, uma vez.
+- **Crescer (todas as páginas):** um ramo ondulado na borda direita (`GrowthBackdrop.astro`) se desenha conforme a página rola; as folhas brotam no caminho e o fruto aparece no fim. Uma forma orgânica grande, num tom médio do estágio, fica parada atrás do conteúdo no canto inferior direito. CSS guiado pela rolagem, sem JS; sem suporte, o ramo aparece inteiro. Some no tour, na impressão e no contraste alto.
+- **Desenho do estágio:** na cabeça de página e na faixa do rodapé, as partes da planta entram em ordem (raiz desenha, folha brota, fruto pinga).
 - **Tour da Chapa:** o bloco de cor que se recolhe no cartão do spotlight (clip-path) é o gesto do tour; as fotos germinam de baixo para cima; o fim é o carimbo.
 - **Números:** numerais grandes contam até o valor quando aparecem (`data-count-to`, `data-count-suffix`; `src/scripts/countUp.ts`). O HTML já traz o valor final.
 - **Tour:** com o tour aberto, a troca de página por trás do bloco de cor pula a view transition (a camada de transição engolia os toques em "Próxima").
 
 **Proibido:** blur e desfoque em qualquer forma, glow, escala no toque, rotação de conteúdo (só carimbo), shimmer em skeleton, loop decorativo fora do marquee da campanha, efeitos de canvas genéricos (matrix, plasma, warp) que não falam a geometria da marca.
 
-**Canvas** (`GlobalCanvasBackdrop`): só no volume Cartaz e só efeitos que dialogam com formas orgânicas e cor chapada (topografia, pontos), em roxo/petróleo sobre areia, com opacidade de bloco (nunca degradê). Em Ficha e Papel o fundo é areia parada, salvo escolha explícita do estudante.
+**Canvas** (`GlobalCanvasBackdrop`): só no volume Cartaz, escolhido pelo site e nunca pelo estudante: topografia na /chapa-semente, pontos nas outras telas de campanha. Em Ficha e Papel o fundo é o solo do estágio com o ramo e a forma orgânica. Ajustes › Leitura só tem tamanho da letra, contraste e fonte para dislexia.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** usar Areia (`#F4F2EC`) como fundo de página e Grafite (`#1F1F1F`) como única tinta escura.
+- **Do** usar o solo do estágio como fundo de página (areia nas superfícies internas) e Grafite (`#1F1F1F`) como única tinta escura.
+- **Do** pintar a página com o estágio da aba: cabeça em bloco de cor, sombra na cor do estágio, ramo crescendo na rolagem.
 - **Do** declarar o volume da página (Cartaz, Ficha ou Papel) e o arquétipo antes de compor.
 - **Do** contornar fichas com 2px de grafite e controles com 3px; sombra de 3px na Ficha e 6px só em painéis de Cartaz.
 - **Do** construir o Cartaz com blocos chapados de roxo e petróleo em divisões nítidas sobre areia, formas orgânicas e fotografia real em cor.
@@ -608,8 +644,9 @@ O site se mexe como papel e carimbo: peso, mola e impacto. Movimento é **sempre
 - **Don't** aplicar sombra, glow, contorno, filtro ou rotação em logo, símbolo ou wordmark, nem redigitar SEMENTE ou CAGP.
 - **Don't** usar faixa colorida lateral (`border-left` > 1px) em ficha, alerta ou citação.
 - **Don't** usar blur, `backdrop-filter` ou `filter: blur` em nada, nem dentro de keyframe.
-- **Don't** animar texto corrido na rolagem nem usar canvas fora do volume Cartaz.
-- **Don't** marcar seleção com petróleo, laranja ou grafite: ativo é roxo.
+- **Don't** animar texto corrido na rolagem nem usar canvas fora do volume Cartaz (o ramo e as formas do estágio são SVG/CSS, não canvas).
+- **Don't** marcar seleção dentro da página com petróleo, laranja ou grafite: ativo é roxo (só a aba da navegação veste a cor do estágio).
+- **Don't** pôr dado "ao vivo" que o site não tem: ônibus internos são retrato datado do site da UFMG (`/onibus-internos`), sem "próximo em X min".
 - **Don't** pôr jargão interno na tela (Eixo, Hub, Canônico, Token, Workspace).
 - **Don't** usar texto de leitura abaixo de 14px, nem pesos 500, 600, 800 ou 900.
 - **Don't** empilhar barra de voltar, faixa tricolor, badges em série ou faixa de campanha acima do conteúdo.

@@ -41,6 +41,7 @@ export const PassportCard: React.FC<PassportCardProps> = ({
   const globalPct = Math.round((obrigPct + extPct) / 2);
 
   const roleMeta = USER_ROLE_META[role];
+  const hasSavedProfile = typeof window !== 'undefined' && !!localStorage.getItem('cagp_student_profile_v1');
   const stampLabel = `${roleMeta.shortLabel.toUpperCase()} • ATIVO`;
   const cred = typeof window !== 'undefined' ? getVaultItem('cagp_election_activation_v1') : null;
   const isSementeEleitor = cred?.completed && cred?.sementeSupporter;
@@ -93,8 +94,18 @@ export const PassportCard: React.FC<PassportCardProps> = ({
 
           <div className="flex flex-wrap items-center gap-1.5 mt-2">
             <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-head font-extrabold uppercase bg-primary text-white border border-border shadow-xs">{roleMeta.shortLabel} · {roleMeta.badge}</span>
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono font-bold bg-foreground text-background text-white border border-border shadow-xs">Ingresso {profile.semester || '2026/1'}</span>
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-head font-bold uppercase bg-primary text-white border border-border shadow-xs">{profile.pathway || '01-01'} • Geral</span>
+            {/* Ingresso e percurso só aparecem depois que a pessoa preenche "Sobre você":
+                antes disso eram valores padrão que pareciam dados reais. */}
+            {hasSavedProfile ? (
+              <>
+                <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-heading font-bold tabular-nums bg-muted text-foreground border-2 border-border">Ingresso {profile.semester}</span>
+                <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-heading font-bold tabular-nums bg-muted text-foreground border-2 border-border">Percurso {profile.pathway}</span>
+              </>
+            ) : (
+              <button type="button" onClick={onEditPhoto} className="text-xs font-bold text-primary underline underline-offset-[0.22em] cursor-pointer bg-transparent border-0 p-0 min-h-0">
+                Completar em Sobre você
+              </button>
+            )}
             {isSementeEleitor && (
               <span className="cagp-stamp-badge is-semente text-xs py-0.5 px-2 flex items-center gap-1">
                 <img

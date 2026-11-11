@@ -1,103 +1,276 @@
 ---
-// estagio.astro — Central de Estágio Supervisionado (300h) & Aproveitamento Servidor (Art. 41)
+// src/pages/estagio.astro — Guia de trâmite (DESIGN.md › Arquétipos 2), volume Ficha + Papel.
+// Cabeça → abas → em cada aba: resumo (o que é · quem pode · prazo) → passo a passo com o
+// formulário e o modelo dentro do passo → base normativa recolhível. Assinatura e JourneyNav no fim.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
 import SegmentedControl from '../components/ui/SegmentedControl.astro';
 import SementeSignature from '../components/ui/SementeSignature.astro';
 import JourneyNav from '../components/ui/JourneyNav.astro';
-import FactCheckBanner from '../components/ui/FactCheckBanner.astro';
-import EstagioCentralOverview from '../components/features/estagio/EstagioCentralOverview.astro';
+import TramiteResumo from '../components/ui/tramite/TramiteResumo.astro';
+import TramitePassos from '../components/ui/tramite/TramitePassos.astro';
+import TramiteModelos from '../components/ui/tramite/TramiteModelos.astro';
+import type { TramiteModelo, TramitePasso } from '../components/ui/tramite/types';
 import { Art41SimulatorCore } from '../components/features/estagio/art41/Art41SimulatorCore';
-import EstagioObrigatorioCore from '../components/features/estagio/obrigatorio/EstagioObrigatorioCore.astro';
-import EstagioTceCore from '../components/features/estagio/tce/EstagioTceCore.astro';
-import { EstagioDocumentDrawerAndGuide } from '../components/features/estagio/EstagioDocumentDrawerAndGuide';
-import { route } from '@/lib/paths';
+import { EstagioTceWizard } from '../components/features/estagio/tce/EstagioTceWizard';
+import { asset } from '@/lib/paths';
 
+// Os ids v1 (Art. 41) e as âncoras antigas (#obrigatorio, #art41, #tutorial) continuam valendo:
+// o tour da Lara abre a aba v1 e outras páginas linkam #art41.
 const tabs = [
-  { id: 'v0', shortLabel: 'Visão geral', fullLabel: 'Visão geral e modelos', hash: '#visao-geral' },
-  { id: 'v1', shortLabel: 'Art. 41', fullLabel: 'Dispensa pelo Art. 41', hash: '#art41' },
   { id: 'v2', shortLabel: '300h', fullLabel: 'Estágio de 300h', hash: '#obrigatorio' },
+  { id: 'v1', shortLabel: 'Art. 41', fullLabel: 'Dispensa pelo Art. 41', hash: '#art41' },
   { id: 'v3', shortLabel: 'TCE', fullLabel: 'Como fazer o TCE', hash: '#tutorial' },
+  { id: 'v4', shortLabel: 'Modelos', fullLabel: 'Modelos e normas', hash: '#modelos' },
 ];
 
-const badges = [
-  { label: 'Aproveitamento Servidor (Art. 41)', variant: 'green' as const, icon: 'bi-file-earmark-check-fill' },
-  { label: '300h Obrigatórias (DCP 135/136)', variant: 'red' as const, icon: 'bi-briefcase-fill' },
-  { label: 'Lei Federal 11.788/2008', variant: 'blue' as const, icon: 'bi-journal-text' },
-  { label: 'Regulamento N-20229', variant: 'dark' as const, icon: 'bi-shield-check' },
+const badges = [{ label: 'Regulamento, arts. 29 a 41', variant: 'default' as const, icon: 'bi-journal-text' }];
+
+const doc = (f: string) => asset(`/documentos/${f}`);
+
+const FORM_INICIO = 'https://docs.google.com/forms/d/e/1FAIpQLScnRdWYJDa4yERPesbL4IZ-Atk2uPBE4ihR2ht9ho0mIeumMQ/viewform';
+const FORM_ART41 = 'https://docs.google.com/forms/d/e/1FAIpQLSdIGMGFzJMsnyLTvkDTDVPQddU37S_OO1ABuQbMv5F3wElKLA/viewform';
+
+const passos300h: TramitePasso[] = [
+  {
+    titulo: 'Ache a vaga e combine o plano de atividades',
+    texto: 'Vale órgão público ou OSC. O plano diz o que você vai fazer lá, e as tarefas precisam ter a ver com Gestão Pública.',
+    acoes: [
+      { kind: 'pdf', href: doc('estagio-modelo-plano-de-atividades.pdf'), label: 'Plano de atividades (PDF)' },
+      { kind: 'docx', href: doc('estagio-modelo-plano-de-atividades.docx') },
+      { kind: 'gdoc', href: 'https://docs.google.com/document/d/100ECMbDcwXjIUojwU6WwcN0eWN72NIjI/edit' },
+    ],
+  },
+  {
+    titulo: 'Preencha o Termo de Compromisso (TCE)',
+    texto: 'É o contrato do estágio, exigido pela Lei 11.788/2008. Use o modelo <strong>com convênio</strong> se o órgão já tem convênio com a UFMG; se não, o <strong>sem vínculo prévio</strong>. Campo por campo na aba <a href="#tutorial">TCE</a>.',
+    prazo: 'Assinado antes do 1º dia',
+    acoes: [
+      { kind: 'pdf', href: doc('estagio-modelo-termo-de-compromisso-com-convenio.pdf'), label: 'TCE com convênio' },
+      { kind: 'pdf', href: doc('estagio-modelo-termo-de-compromisso-sem-vinculo.pdf'), label: 'TCE sem vínculo' },
+      { kind: 'anchor', href: '#tutorial', label: 'Como preencher' },
+    ],
+  },
+  {
+    titulo: 'Mande pro Colegiado homologar',
+    texto: 'Envie o TCE e o plano de atividades pelo formulário de solicitação inicial. A Coordenação do curso e o docente orientador do DCP assinam pela FAFICH.',
+    acoes: [{ kind: 'form', href: FORM_INICIO, label: 'Solicitação inicial de estágio', primary: true }],
+  },
+  {
+    titulo: 'Cumpra as horas',
+    texto: '<strong>DCP 135</strong> (7º período) tem 180h e <strong>DCP 136</strong> (8º) tem 120h. O limite é 6h por dia e 30h por semana, e dá pra cumprir horas nas férias (Art. 31).',
+    prazo: 'Relatório a cada 6 meses',
+    acoes: [
+      { kind: 'pdf', href: doc('estagio-modelo-relatorio-semestral.pdf'), label: 'Relatório semestral (PDF)' },
+      { kind: 'docx', href: doc('estagio-modelo-relatorio-semestral.docx') },
+    ],
+  },
+  {
+    titulo: 'Entregue o relatório final',
+    texto: 'É ele que fecha os créditos de DCP 135 ou DCP 136.',
+    acoes: [
+      { kind: 'pdf', href: doc('estagio-modelo-relatorio-final.pdf'), label: 'Relatório final (PDF)' },
+      { kind: 'docx', href: doc('estagio-modelo-relatorio-final.docx') },
+      { kind: 'gdoc', href: 'https://docs.google.com/document/d/1fB4afw-U3ODnZrkOjk9R5q3-a8qYNtVV/edit' },
+    ],
+  },
+];
+
+const passosArt41: TramitePasso[] = [
+  {
+    titulo: 'Junte os três documentos',
+    texto: 'O requerimento, uma declaração da sua chefia e o relatório das atividades que você faz no trabalho, mostrando a ligação com Gestão Pública.',
+    acoes: [
+      { kind: 'pdf', href: doc('estagio-requerimento-integralizacao-experiencia-profissional.pdf'), label: 'Requerimento (PDF)' },
+      { kind: 'docx', href: doc('estagio-requerimento-integralizacao-experiencia-profissional.docx'), label: 'Requerimento (Word)' },
+      { kind: 'pdf', href: doc('estagio-relatorio-atividades-experiencia-profissional.pdf'), label: 'Relatório de atividades (PDF)' },
+      { kind: 'docx', href: doc('estagio-relatorio-atividades-experiencia-profissional.docx'), label: 'Relatório (Word)' },
+    ],
+  },
+  {
+    titulo: 'Protocole no formulário do Colegiado',
+    texto: 'Uma comissão designada pelo Colegiado analisa o pedido e dá o parecer.',
+    prazo: 'No início do semestre',
+    acoes: [{ kind: 'form', href: FORM_ART41, label: 'Pedir a dispensa', primary: true }],
+  },
+  {
+    titulo: 'Entregue o relatório no Moodle',
+    texto: 'No fim do semestre, o relatório de atividades vai pelo Moodle da disciplina.',
+    prazo: 'No fim do semestre',
+  },
+];
+
+const passosTce: TramitePasso[] = [
+  {
+    titulo: 'Dados da concedente',
+    texto: 'Razão social, CNPJ e endereço do órgão, OSC ou empresa conveniada, mais os dados de quem assina por ela.',
+  },
+  {
+    titulo: 'Seus dados',
+    texto: 'CPF, RG e endereço. Escreva o curso como <strong>Bacharelado em Gestão Pública</strong>, turno <strong>noturno</strong>, e a sua matrícula do SIGA.',
+  },
+  {
+    titulo: 'Interveniência da FAFICH',
+    texto: 'Identifique a Faculdade de Filosofia e Ciências Humanas e o Colegiado de Gestão Pública. Quem assina é a Coordenação do curso junto com o docente orientador do DCP.',
+  },
+  {
+    titulo: 'Plano de atividades e seguro',
+    texto: 'Anexe o plano de atividades e informe a apólice do seguro contra acidentes pessoais, que é contratado pela concedente (Lei 11.788/2008).',
+    acoes: [{ kind: 'pdf', href: doc('estagio-modelo-plano-de-atividades.pdf'), label: 'Plano de atividades' }],
+  },
+];
+
+const modelos: TramiteModelo[] = [
+  { titulo: 'Plano de atividades', desc: 'Cronograma e tarefas, assinado antes de começar.', pdf: 'estagio-modelo-plano-de-atividades.pdf', docx: 'estagio-modelo-plano-de-atividades.docx', gdoc: 'https://docs.google.com/document/d/100ECMbDcwXjIUojwU6WwcN0eWN72NIjI/edit' },
+  { titulo: 'TCE com convênio', desc: 'Pra órgão que já tem convênio com a UFMG.', pdf: 'estagio-modelo-termo-de-compromisso-com-convenio.pdf', docx: 'estagio-modelo-termo-de-compromisso-com-convenio.docx', gdoc: 'https://docs.google.com/document/d/1bzFYhmoGkgcEnBwMqSDBlENP-r2ke1X_/edit' },
+  { titulo: 'TCE sem vínculo prévio', desc: 'Pra empresa ou órgão via agente integrador.', pdf: 'estagio-modelo-termo-de-compromisso-sem-vinculo.pdf', docx: 'estagio-modelo-termo-de-compromisso-sem-vinculo.docx', gdoc: 'https://docs.google.com/document/d/19-Elm9v0ztx3sWgwPsRGB-NuaxoaByI4/edit' },
+  { titulo: 'Relatório semestral', desc: 'Exigido a cada 6 meses de estágio.', pdf: 'estagio-modelo-relatorio-semestral.pdf', docx: 'estagio-modelo-relatorio-semestral.docx', gdoc: 'https://docs.google.com/document/d/1SNyHiDvFQocVO5W6FiJIBtomJasQis_d/edit' },
+  { titulo: 'Relatório final', desc: 'Fecha os créditos de DCP 135 ou DCP 136.', pdf: 'estagio-modelo-relatorio-final.pdf', docx: 'estagio-modelo-relatorio-final.docx', gdoc: 'https://docs.google.com/document/d/1fB4afw-U3ODnZrkOjk9R5q3-a8qYNtVV/edit' },
+  { titulo: 'Requerimento do Art. 41', desc: 'Pedido de dispensa das 300h por experiência profissional.', pdf: 'estagio-requerimento-integralizacao-experiencia-profissional.pdf', docx: 'estagio-requerimento-integralizacao-experiencia-profissional.docx', gdoc: 'https://docs.google.com/document/d/1QJJ8wLISxpztQFH--V2aYm8-509D6_418o14zSfxbe4/edit' },
+  { titulo: 'Relatório de atividades do Art. 41', desc: 'O que você faz no trabalho, pra comissão avaliar.', pdf: 'estagio-relatorio-atividades-experiencia-profissional.pdf', docx: 'estagio-relatorio-atividades-experiencia-profissional.docx', gdoc: 'https://docs.google.com/document/d/1Uc3oHwEBM9zbf9tJ2q5N80YPQme3niFh/edit' },
+];
+
+const normas = [
+  { titulo: 'Regulamento do curso (arts. 29 a 41)', file: 'regulamento-gestao-publica-ufmg.pdf' },
+  { titulo: 'Resolução GP nº 01/2019 (Colegiado)', file: 'resolucao-01-2019-estagio-curricular.pdf' },
+  { titulo: 'Resolução CEPE nº 02/2009 (UFMG)', file: 'resolucao-cepe-02-2009-estagio-ufmg.pdf' },
+  { titulo: 'Manual de orientações de estágio da FAFICH', file: 'estagio-manual-orientacoes-fafich.pdf' },
 ];
 ---
 
 <BaseLayout
   title="Estágio"
-  description="Regras do estágio supervisionado de Gestão Pública da UFMG (300h: DCP 135 e DCP 136), simulador de Aproveitamento Servidor (Art. 41) e modelos oficiais de TCE."
+  description="Estágio de Gestão Pública na UFMG: as 300h de DCP 135 e DCP 136 passo a passo, a dispensa pelo Art. 41 pra quem já trabalha no serviço público e os modelos de TCE."
   mode="operate"
 >
-  <div class="space-y-6 max-w-6xl mx-auto font-sans">
+  <div class="space-y-6 max-w-4xl mx-auto font-sans">
     <PageHeader
       axisId="guias"
       mode="operate"
       condensed={true}
-      showAxisNav={false}
       title="Estágio"
       subtitle="As 300h obrigatórias, o TCE passo a passo e a dispensa pelo Art. 41 pra quem já trabalha no serviço público."
       badges={badges}
     />
 
-    <SegmentedControl tabs={tabs} defaultTab="v0" />
+    <SegmentedControl tabs={tabs} defaultTab="v2" showViewAll={false} />
 
-  <!-- Sub-view 0: Visão Geral da Central de Estágio -->
-  <section id="ws-panel-v0" class="cagp-workspace-view" data-ws-panel="v0">
-    <div id="visao-geral" class="cagp-anchor-target scroll-mt-24"></div>
-    <EstagioDocumentDrawerAndGuide client:visible />
-    <EstagioCentralOverview />
-  </section>
+    <!-- 300h -->
+    <section id="ws-panel-v2" class="cagp-workspace-view space-y-8" data-ws-panel="v2">
+      <div id="obrigatorio" class="cagp-anchor-target"></div>
+      <TramiteResumo
+        oQue="300h de estágio em órgão público ou OSC, em duas disciplinas: DCP 135 (180h) e DCP 136 (120h)."
+        quemPode="Quem está no 7º período em diante. Já trabalha no serviço público? <a href='#art41'>Veja a dispensa pelo Art. 41</a>."
+        prazo="DCP 135 no 7º período e DCP 136 no 8º. O TCE precisa estar assinado antes de começar."
+      />
+      <TramitePassos id="passos-300h" passos={passos300h} />
+      <aside class="p-4 sm:p-5 rounded-xl border-2 border-border bg-secondary-tint space-y-1">
+        <h2 class="m-0 font-heading font-bold text-base text-foreground">E o estágio não obrigatório?</h2>
+        <p class="m-0 text-base text-content-secondary">
+          Dá pra fazer desde os primeiros períodos, com bolsa e auxílio-transporte. Precisa de TCE do mesmo jeito,
+          e as horas na área pública contam até <strong class="text-foreground">60h de AAC</strong> (modalidade IX).
+        </p>
+      </aside>
+    </section>
 
-  <!-- Sub-view 1: Aproveitamento Servidor (Art. 41) -->
-  <section id="ws-panel-v1" class="cagp-workspace-view space-y-4" data-ws-panel="v1" hidden>
-    <div id="art41" class="cagp-anchor-target scroll-mt-24"></div>
-    <FactCheckBanner
-      claim="Servidor público em exercício, celetista no setor público ou comissionado tem dispensa do Estágio Supervisionado (300h)?"
-      verdict="homologado"
-      stampText="APROVEITAMENTO SERVIDOR"
-      normativeSource="Art. 41 do Regulamento Versão N-20229 & Parecer CNE/CES 01/2006"
-      explanation="VERDADEIRO, MEDIANTE PROTOCOLO FORMAL. O discente com vínculo formal ativo na administração pública direta ou indireta ou em OSC de interesse público pode obter o Aproveitamento Servidor (dispensa das 300h de DCP 135 e DCP 136). Basta apresentar requerimento, declaração da chefia e relatório de atividades correlatas à Gestão Pública."
-      officialRuleExcerpt={`Regulamento do Curso — Art. 41:
-O discente que comprovar exercício profissional ou estágio não-obrigatório correlato à área de Gestão Pública na administração direta ou indireta, por período mínimo regulamentar, poderá requerer a dispensa das disciplinas de Estágio Supervisionado A e B, mediante parecer fundamentado da comissão avaliadora designada pelo Colegiado.`}
+    <!-- Art. 41 -->
+    <section id="ws-panel-v1" class="cagp-workspace-view space-y-8" data-ws-panel="v1" hidden>
+      <div id="art41" class="cagp-anchor-target"></div>
+      <TramiteResumo
+        oQue="A dispensa das 300h de estágio pra quem já trabalha na área."
+        quemPode="Servidor efetivo, comissionado, celetista no setor público ou quem trabalha em OSC, numa função ligada à Gestão Pública."
+        prazo="O pedido sai no início do semestre e o relatório vai pelo Moodle no fim."
+      />
+      <section aria-labelledby="art41-simulador" class="space-y-3">
+        <h2 id="art41-simulador" class="font-heading font-bold text-xl text-foreground m-0">Confira se você se encaixa</h2>
+        <div data-tour="lara"><Art41SimulatorCore client:load /></div>
+      </section>
+      <TramitePassos id="passos-art41" passos={passosArt41} titulo="Como pedir a dispensa" />
+    </section>
+
+    <!-- TCE -->
+    <section id="ws-panel-v3" class="cagp-workspace-view space-y-8" data-ws-panel="v3" hidden>
+      <div id="tutorial" class="cagp-anchor-target"></div>
+      <TramiteResumo
+        oQue="O Termo de Compromisso de Estágio: o contrato entre você, quem oferece a vaga e a UFMG."
+        quemPode="Todo estágio precisa de TCE, obrigatório ou não."
+        prazo="Assinado pelas três partes antes do primeiro dia de estágio."
+      />
+      <TramitePassos id="passos-tce" passos={passosTce} titulo="Campo por campo" />
+      <section aria-labelledby="tce-conferir" class="space-y-3">
+        <h2 id="tce-conferir" class="font-heading font-bold text-xl text-foreground m-0">Confira antes de mandar</h2>
+        <EstagioTceWizard client:visible />
+      </section>
+    </section>
+
+    <!-- Modelos e normas -->
+    <section id="ws-panel-v4" class="cagp-workspace-view space-y-8" data-ws-panel="v4" hidden>
+      <div id="modelos" class="cagp-anchor-target"></div>
+      <TramiteModelos modelos={modelos} />
+    </section>
+
+    <!-- Base normativa (volume Papel, recolhível): vale para todas as abas. -->
+    <details class="cagp-base-normativa">
+      <summary>Base normativa</summary>
+      <div class="space-y-4 pt-3">
+        <blockquote class="m-0 p-4 bg-white border-2 border-border rounded-xl">
+          <p class="m-0 mb-2 font-heading font-bold text-xs uppercase tracking-[0.04em] text-muted-foreground">Regulamento do curso, Art. 41</p>
+          <p class="m-0 text-base leading-relaxed text-foreground">
+            O discente que comprovar exercício profissional ou estágio não-obrigatório correlato à área de Gestão Pública
+            na administração direta ou indireta, por período mínimo regulamentar, poderá requerer a dispensa das disciplinas
+            de Estágio Supervisionado A e B, mediante parecer fundamentado da comissão avaliadora designada pelo Colegiado.
+          </p>
+        </blockquote>
+        <ul class="list-none m-0 p-0 space-y-2">
+          {normas.map((n) => (
+            <li>
+              <a href={asset(`/documentos/${n.file}`)} class="inline-flex items-center gap-2 min-h-[44px] text-primary font-bold underline underline-offset-[0.22em]">
+                <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>{n.titulo}
+              </a>
+            </li>
+          ))}
+          <li class="text-sm text-content-secondary">Lei Federal nº 11.788/2008 (Lei do Estágio).</li>
+        </ul>
+      </div>
+    </details>
+
+    <SementeSignature
+      proposal="Propostas 3 e 12"
+      text="Juntamos os 7 modelos e o simulador do Art. 41 num lugar só pra o seu estágio não travar na burocracia."
+      leaderId="lara"
     />
-    <div data-tour="lara"><Art41SimulatorCore client:load /></div>
-  </section>
 
-  <!-- Sub-view 2: Estágio Obrigatório (300h) -->
-  <section id="ws-panel-v2" class="cagp-workspace-view" data-ws-panel="v2" hidden>
-    <div id="obrigatorio" class="cagp-anchor-target scroll-mt-24"></div>
-    <EstagioObrigatorioCore />
-  </section>
-
-  <!-- Sub-view 3: Tutorial TCE & Minutas -->
-  <section id="ws-panel-v3" class="cagp-workspace-view" data-ws-panel="v3" hidden>
-    <div id="tutorial" class="cagp-anchor-target scroll-mt-24"></div>
-    <EstagioTceCore />
-  </section>
-
-  <SementeSignature
-    proposal="Propostas 3 e 12"
-    text="As 7 minutas de TCE e o simulador do Art. 41 estão aqui para o seu contrato não travar na burocracia."
-    leaderId="lara"
-  />
-
-  <!-- Journey Navigation Trail -->
-  <JourneyNav
-    prev={{
-      title: 'Banco de talentos',
-      href: '/carreira/talentos',
-      desc: 'Mapeamento de competências práticas discentes e exportação para currículo.',
-    }}
-    next={{
-      title: 'Trabalho de Conclusão de Curso (180h)',
-      href: '/tcc',
-      desc: 'Compare Monografia vs Artigo Científico (Art. 19), baixe o Termo de Aceite e veja o cronograma de defesa.',
-    }}
-  />
+    <JourneyNav
+      prev={{ title: 'Banco de talentos', href: '/carreira/talentos', desc: 'Seu perfil profissional pro LinkedIn ou Lattes.' }}
+      next={{ title: 'TCC', href: '/tcc', desc: 'Monografia ou artigo, prazos e termo de aceite.' }}
+    />
   </div>
 </BaseLayout>
+
+<style>
+  .cagp-base-normativa {
+    border-top: 2px solid var(--color-border);
+    padding-top: 1rem;
+  }
+  .cagp-base-normativa > summary {
+    cursor: pointer;
+    font-family: var(--font-heading);
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-foreground);
+    list-style: none;
+    gap: 0.5rem;
+  }
+  .cagp-base-normativa > summary::-webkit-details-marker { display: none; }
+  .cagp-base-normativa > summary::after {
+    content: '';
+    margin-left: auto;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform var(--duration-spring) var(--ease-spring);
+  }
+  .cagp-base-normativa[open] > summary::after { transform: rotate(-135deg); }
+</style>

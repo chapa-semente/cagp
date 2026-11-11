@@ -1,0 +1,86 @@
+---
+// TramiteAcoes.astro — Os botões de um passo: formulário, modelo ou link, cada um com o ícone do que é.
+import type { TramiteAcao } from './types';
+
+interface Props {
+  acoes: TramiteAcao[];
+}
+
+const { acoes } = Astro.props;
+
+const META: Record<TramiteAcao['kind'], { icon: string; label: string; external: boolean; download: boolean }> = {
+  pdf: { icon: 'bi-file-earmark-pdf', label: 'PDF', external: false, download: true },
+  docx: { icon: 'bi-file-earmark-word', label: 'Word', external: false, download: true },
+  gdoc: { icon: 'bi-file-earmark-text', label: 'Google Docs', external: true, download: false },
+  form: { icon: 'bi-box-arrow-up-right', label: 'Abrir formulário', external: true, download: false },
+  link: { icon: 'bi-box-arrow-up-right', label: 'Abrir', external: true, download: false },
+  anchor: { icon: 'bi-arrow-right', label: 'Ver', external: false, download: false },
+};
+---
+
+<div class="cagp-tramite-acoes">
+  {acoes.map((a) => {
+    const m = META[a.kind];
+    return (
+      <a
+        href={a.href}
+        class:list={['cagp-tramite-acao', a.primary && 'is-primary']}
+        target={m.external ? '_blank' : undefined}
+        rel={m.external ? 'noopener noreferrer' : undefined}
+        download={m.download ? '' : undefined}
+      >
+        {a.kind !== 'anchor' && <i class={`bi ${m.icon}`} aria-hidden="true"></i>}
+        <span>{a.label ?? m.label}</span>
+        {a.kind === 'anchor' && <i class={`bi ${m.icon}`} aria-hidden="true"></i>}
+      </a>
+    );
+  })}
+</div>
+
+<style>
+  .cagp-tramite-acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .cagp-tramite-acao {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 44px;
+    padding: 0.5rem 0.875rem;
+    border: 2px solid var(--color-border);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--color-foreground);
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: var(--shadow-chip);
+    transition:
+      transform var(--duration-press) var(--ease-spring-snappy),
+      box-shadow var(--duration-press) var(--ease-spring-snappy),
+      background-color var(--duration-press) var(--ease-snap);
+  }
+  .cagp-tramite-acao:hover {
+    background: var(--color-primary-tint);
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 0 var(--color-border);
+  }
+  .cagp-tramite-acao:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+  }
+  .cagp-tramite-acao:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  .cagp-tramite-acao.is-primary {
+    background: var(--color-primary);
+    color: #fff;
+  }
+  .cagp-tramite-acao.is-primary:hover {
+    background: var(--color-primary-hover);
+  }
+</style>

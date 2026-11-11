@@ -10,6 +10,10 @@ import BottomNav from '../components/shell/BottomNav.astro';
 import { GlobalSheets } from '../components/shell/GlobalSheets';
 import { PwaCredenciamentoPill } from '@/components/features/pwa/PwaCredenciamentoPill';
 import { SementeTour } from '@/components/features/semente/SementeTour';
+import { PropostasTour } from '@/components/features/semente/PropostasTour';
+import SplashScreen from '@/components/shell/SplashScreen.astro';
+import GrowthBackdrop from '@/components/shell/GrowthBackdrop.astro';
+import { estagioDaRota } from '@/lib/estagios';
 import { GlobalCanvasBackdrop } from '../components/shell/GlobalCanvasBackdrop';
 import { asset } from '@/lib/paths';
 import { getRouteMeta } from '@/lib/navigationRegistry';
@@ -20,6 +24,7 @@ import '@fontsource/opendyslexic/400.css';
 import '@fontsource/opendyslexic/700.css';
 import '../styles/icons.css';
 import '../styles/global.css';
+import '../styles/estagios.css';
 
 interface Props {
   title: string;
@@ -38,10 +43,11 @@ const {
   hideFloatingPill = false,
 } = Astro.props;
 const routeMeta = getRouteMeta();
+const estagio = estagioDaRota(Astro.url.pathname);
 ---
 
 <!doctype html>
-<html lang="pt-BR" style="color-scheme: light;" data-visitor-mode={mode} data-base-url={import.meta.env.BASE_URL}>
+<html lang="pt-BR" style="color-scheme: light;" data-visitor-mode={mode} data-estagio={estagio.id} data-base-url={import.meta.env.BASE_URL}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -138,6 +144,12 @@ const routeMeta = getRouteMeta();
     </noscript>
   </head>
   <body class="bg-background text-foreground font-sans antialiased min-h-[100dvh] flex flex-col selection:bg-primary selection:text-white relative isolate">
+    <!-- Abertura: a semente germina enquanto o site e o cache carregam (primeiro elemento do body). -->
+    <SplashScreen />
+
+    <!-- O ramo que cresce com a rolagem + a forma orgânica do estágio (decorativo) -->
+    <GrowthBackdrop />
+
     <!-- Canvas Interativo Temático por Eixo Neobrutalista BoldKit -->
     <GlobalCanvasBackdrop client:load />
 
@@ -184,6 +196,9 @@ const routeMeta = getRouteMeta();
 
     <!-- Tour obrigatório da Chapa Semente (primeira visita). Persiste entre páginas do ClientRouter. -->
     <SementeTour client:load transition:persist="semente-tour" />
+
+    <!-- Tour opcional das 14 propostas (abre pelo evento cagp:start-propostas-tour). -->
+    <PropostasTour client:load transition:persist="propostas-tour" />
 
     <!-- Directional Navigation & Progress Bar Controller -->
     <script is:inline define:vars={{ ROUTE_META_FROM_REGISTRY: routeMeta }}>
@@ -320,11 +335,10 @@ const routeMeta = getRouteMeta();
                 return true;
               }
             };
-            if (tourDone() || navigator.serviceWorker.controller) {
-              window.addEventListener('load', registerSw);
-            } else {
-              window.addEventListener('cagp:semente-tour-done', () => setTimeout(registerSw, 1500), { once: true });
-            }
+            // O tour não navega mais pelo site (mostra capturas), então o cache pode instalar já no
+            // carregamento: é ele que a abertura (SplashScreen) espera para dizer "pronto pra usar".
+            if (document.readyState === 'complete') registerSw();
+            else window.addEventListener('load', registerSw);
             // Atualização do SW: recarrega para pegar a versão nova, mas nunca no primeiro registro
             // (não havia versão velha) nem com o tour da chapa aberto (a recarga cortava o tour).
             const hadController = Boolean(navigator.serviceWorker.controller);

@@ -162,9 +162,9 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
         data-context-data={JSON.stringify({ slug: article.slug, title: article.title })}
       >
         <!-- Imagem de Capa com Moldura Neobrutalista e Física Tátil -->
-        <div class="group relative aspect-[16/10] min-h-[220px] sm:min-h-[320px] rounded-xl overflow-hidden border-3 border-border shadow-md transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.01]">
+        <div class="group relative aspect-[16/10] min-h-[220px] sm:min-h-[320px] rounded-xl overflow-hidden border-3 border-border shadow-md">
           {article.motif === 'assembleia' && (
-            <svg viewBox="0 0 640 400" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" aria-hidden="true">
+            <svg viewBox="0 0 640 400" class="w-full h-full object-cover" aria-hidden="true">
               <rect width="640" height="400" fill="#8B1E2D" />
               <circle cx="520" cy="95" r="145" fill="#A85300" />
               <path d="M40 330H600" stroke="#FE8812" stroke-width="5" stroke-opacity="0.9" />
@@ -175,7 +175,7 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
             </svg>
           )}
           {article.motif === 'carreiras' && (
-            <svg viewBox="0 0 640 400" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" aria-hidden="true">
+            <svg viewBox="0 0 640 400" class="w-full h-full object-cover" aria-hidden="true">
               <rect width="640" height="400" fill="#266264" />
               <circle cx="510" cy="280" r="155" fill="#166534" fill-opacity="0.6" />
               <path d="M56 300L190 185L300 230L450 110L575 140" stroke="#FE8812" stroke-width="6" fill="none" stroke-linecap="round" />
@@ -185,7 +185,7 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
             </svg>
           )}
           {article.motif === 'calourada' && (
-            <svg viewBox="0 0 640 400" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" aria-hidden="true">
+            <svg viewBox="0 0 640 400" class="w-full h-full object-cover" aria-hidden="true">
               <rect width="640" height="400" fill="#166534" />
               <circle cx="130" cy="85" r="130" fill="#166534" />
               <circle cx="490" cy="190" r="76" stroke="#1F1F1F" stroke-width="4" fill="#FEF3C7" />
@@ -194,7 +194,7 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
             </svg>
           )}
           {article.motif === 'congresso' && (
-            <svg viewBox="0 0 640 400" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" aria-hidden="true">
+            <svg viewBox="0 0 640 400" class="w-full h-full object-cover" aria-hidden="true">
               <rect width="640" height="400" fill="#5B2A85" />
               <circle cx="180" cy="200" r="58" stroke="#1F1F1F" stroke-width="4" fill="#FE8812" />
               <circle cx="340" cy="135" r="46" stroke="#1F1F1F" stroke-width="4" fill="#ffffff" />

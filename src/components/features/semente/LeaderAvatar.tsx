@@ -69,7 +69,7 @@ export const LeaderAvatar: React.FC<LeaderAvatarProps> = ({
               alt={`Retrato oficial de ${name} — ${role || 'Liderança Chapa Semente'}`}
               onError={() => setHasError(true)}
               style={{ objectPosition: photoPosition }}
-              className="w-full h-full object-cover transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
+              className="w-full h-full object-cover"
               loading="lazy"
             />
                       </>
@@ -92,7 +92,7 @@ export const LeaderAvatar: React.FC<LeaderAvatarProps> = ({
 
             {/* Centro: Ilustração Vetorial Semente + Iniciais Gigantes em Poppins Bold */}
             <div className="relative my-auto flex flex-col items-center justify-center z-10">
-              <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl bg-white border-2 border-border shadow-md flex items-center justify-center p-3 transition-transform duration-300 group-hover:scale-110">
+              <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl bg-white border-2 border-border shadow-md flex items-center justify-center p-3">
                 <img
                   src={asset('/logos/semente/semente-simbolo.webp')}
                   alt=""

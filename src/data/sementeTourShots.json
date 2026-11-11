@@ -1,0 +1,290 @@
+{
+ "gabriel": {
+  "mobile": {
+   "src": "/images/chapa/tour/shots/gabriel-mobile.webp",
+   "w": 390,
+   "h": 1000,
+   "rect": {
+    "x": 12,
+    "y": 72,
+    "w": 366,
+    "h": 928
+   }
+  },
+  "desktop": {
+   "src": "/images/chapa/tour/shots/gabriel-desktop.webp",
+   "w": 1440,
+   "h": 1000,
+   "rect": {
+    "x": 288,
+    "y": 88,
+    "w": 1128,
+    "h": 912
+   }
+  }
+ },
+ "larissa": {
+  "mobile": {
+   "src": "/images/chapa/tour/shots/larissa-mobile.webp",
+   "w": 390,
+   "h": 1000,
+   "rect": {
+    "x": 12,
+    "y": 72,
+    "w": 366,
+    "h": 928
+   }
+  },
+  "desktop": {
+   "src": "/images/chapa/tour/shots/larissa-desktop.webp",
+   "w": 1440,
+   "h": 1000,
+   "rect": {
+    "x": 340,
+    "y": 88,
+    "w": 1024,
+    "h": 912
+   }
+  }
+ },
+ "livia": {
+  "mobile": {
+   "src": "/images/chapa/tour/shots/livia-mobile.webp",
+   "w": 390,
+   "h": 1000,
+   "rect": {
+    "x": 12,
+    "y": 72,
+    "w": 366,
+    "h": 928
+   }
+  },
+  "desktop": {
+   "src": "/images/chapa/tour/shots/livia-desktop.webp",
+   "w": 1440,
+   "h": 1000,
+   "rect": {
+    "x": 288,
+    "y": 88,
+    "w": 1128,
+    "h": 912
+   }
+  }
+ },
+ "mariana": {
+  "mobile": {
+   "src": "/images/chapa/tour/shots/mariana-mobile.webp",
+   "w": 390,
+   "h": 1000,
+   "rect": {
+    "x": 12,
+    "y": 72,
+    "w": 366,
+    "h": 928
+   }
+  },
+  "desktop": {
+   "src": "/images/chapa/tour/shots/mariana-desktop.webp",
+   "w": 1440,
+   "h": 1000,
+   "rect": {
+    "x": 288,
+    "y": 88,
+    "w": 1128,
+    "h": 912
+   }
+  }
+ },
+ "nilo": {
+  "mobile": {
+   "src": "/images/chapa/tour/shots/nilo-mobile.webp",
+   "w": 390,
+   "h": 1000,
+   "rect": {
+    "x": 12,
+    "y": 72,
+    "w": 366,
+    "h": 928
+   }
+  },
+  "desktop": {
+   "src": "/images/chapa/tour/shots/nilo-desktop.webp",
+   "w": 1440,
+   "h": 1000,
+   "rect": {
+    "x": 288,
+    "y": 88,
+    "w": 1128,
+    "h": 912
+   }
+  }
+ },
+ "joao": {
+  "mobile": {
+   "src": "/images/chapa/tour/shots/joao-mobile.webp",
+   "w": 390,
+   "h": 1000,
+   "rect": {
+    "x": 12,
+    "y": 72,
+    "w": 366,
+    "h": 928
+   }
+  },
+  "desktop": {
+   "src": "/images/chapa/tour/shots/joao-desktop.webp",
+   "w": 1440,
+   "h": 1000,
+   "rect": {
+    "x": 288,
+    "y": 88,
+    "w": 1128,
+    "h": 912
+   }
+  }
+ },
+ "vitoria": {
+  "mobile": {
+   "src": "/images/chapa/tour/shots/vitoria-mobile.webp",
+   "w": 390,
+   "h": 1000,
+   "rect": {
+    "x": 12,
+    "y": 72,
+    "w": 366,
+    "h": 858
+   }
+  },
+  "desktop": {
+   "src": "/images/chapa/tour/shots/vitoria-desktop.webp",
+   "w": 1440,
+   "h": 1000,
+   "rect": {
+    "x": 288,
+    "y": 88,
+    "w": 1128,
+    "h": 450
+   }
+  }
+ },
+ "klaus": {
+  "mobile": {
+   "src": "/images/chapa/tour/shots/klaus-mobile.webp",
+   "w": 390,
+   "h": 1000,
+   "rect": {
+    "x": 12,
+    "y": 72,
+    "w": 366,
+    "h": 928
+   }
+  },
+  "desktop": {
+   "src": "/images/chapa/tour/shots/klaus-desktop.webp",
+   "w": 1440,
+   "h": 1000,
+   "rect": {
+    "x": 288,
+    "y": 88,
+    "w": 1128,
+    "h": 912
+   }
+  }
+ },
+ "italo": {
+  "mobile": {
+   "src": "/images/chapa/tour/shots/italo-mobile.webp",
+   "w": 390,
+   "h": 1000,
+   "rect": {
+    "x": 12,
+    "y": 72,
+    "w": 366,
+    "h": 928
+   }
+  },
+  "desktop": {
+   "src": "/images/chapa/tour/shots/italo-desktop.webp",
+   "w": 1440,
+   "h": 1000,
+   "rect": {
+    "x": 288,
+    "y": 88,
+    "w": 1128,
+    "h": 912
+   }
+  }
+ },
+ "lara": {
+  "mobile": {
+   "src": "/images/chapa/tour/shots/lara-mobile.webp",
+   "w": 390,
+   "h": 1000,
+   "rect": {
+    "x": 12,
+    "y": 72,
+    "w": 366,
+    "h": 928
+   }
+  },
+  "desktop": {
+   "src": "/images/chapa/tour/shots/lara-desktop.webp",
+   "w": 1440,
+   "h": 1000,
+   "rect": {
+    "x": 404,
+    "y": 88,
+    "w": 896,
+    "h": 912
+   }
+  }
+ },
+ "paloma": {
+  "mobile": {
+   "src": "/images/chapa/tour/shots/paloma-mobile.webp",
+   "w": 390,
+   "h": 1000,
+   "rect": {
+    "x": 12,
+    "y": 72,
+    "w": 366,
+    "h": 344
+   }
+  },
+  "desktop": {
+   "src": "/images/chapa/tour/shots/paloma-desktop.webp",
+   "w": 1440,
+   "h": 1000,
+   "rect": {
+    "x": 960,
+    "y": 96,
+    "w": 456,
+    "h": 300
+   }
+  }
+ },
+ "alice": {
+  "mobile": {
+   "src": "/images/chapa/tour/shots/alice-mobile.webp",
+   "w": 390,
+   "h": 1000,
+   "rect": {
+    "x": 12,
+    "y": 72,
+    "w": 366,
+    "h": 928
+   }
+  },
+  "desktop": {
+   "src": "/images/chapa/tour/shots/alice-desktop.webp",
+   "w": 1440,
+   "h": 1000,
+   "rect": {
+    "x": 288,
+    "y": 88,
+    "w": 1128,
+    "h": 912
+   }
+  }
+ }
+}

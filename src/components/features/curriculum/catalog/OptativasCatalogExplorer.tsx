@@ -461,7 +461,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                         className="w-full min-h-[44px] px-3 py-2 bg-primary hover:bg-primary-hover active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl text-xs font-head uppercase font-extrabold tracking-wider flex items-center justify-center gap-1.5 transition-all border-3 border-border shadow-md cursor-pointer"
                       >
                         <i className="bi bi-plus-circle" aria-hidden="true" />
-                        <span>Vincular ao Grafo</span>
+                        <span>Pôr na minha grade</span>
                       </button>
                     )}
                   </div>

@@ -12,7 +12,9 @@ const owner = getItemByPath(Astro.url.pathname);
 const axis = owner?.axis ?? AXIS_REGISTRY[0];
 const isAxisRoot = owner ? normalizePathname(axis.rootHref) === cleanPath : false;
 // Na raiz mostra o nome da aba; dentro dela, o nome curto da página.
-const title = owner && !isAxisRoot ? owner.item.shortLabel : axis.name;
+// Rota fora do registro (404): título próprio e a seta leva ao início.
+const isUnknown = !owner && !isHome;
+const title = isUnknown ? 'Página não encontrada' : owner && !isAxisRoot ? owner.item.shortLabel : axis.name;
 ---
 
 <header

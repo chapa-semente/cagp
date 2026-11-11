@@ -1,99 +1,208 @@
 ---
-// acg.astro — Central de Horas & Certificados (600h): Extensão & AAC (Modo Operate)
+// acg.astro — Ferramenta + Guia de trâmite (DESIGN.md › Arquétipos 2 e 3), volume Ficha + Papel.
+// Resumo das 600h → abas: Somar (calculadora) · Protocolar (passo a passo com o requerimento
+// dentro do passo) · 120 dias (certificados com prazo). Base normativa recolhível no fim.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
 import SegmentedControl from '../components/ui/SegmentedControl.astro';
 import SementeSignature from '../components/ui/SementeSignature.astro';
 import JourneyNav from '../components/ui/JourneyNav.astro';
-import FactCheckBanner from '../components/ui/FactCheckBanner.astro';
-import AcgCentralOverview from '../components/features/acg/AcgCentralOverview.astro';
+import TramiteResumo from '../components/ui/tramite/TramiteResumo.astro';
+import TramitePassos from '../components/ui/tramite/TramitePassos.astro';
+import type { TramitePasso } from '../components/ui/tramite/types';
 import { AcgCalculatorCore } from '../components/features/acg/calculator/AcgCalculatorCore';
 import { AcgGuardianCore } from '../components/features/acg/guardian/AcgGuardianCore';
-import AcgTramitacaoCore from '../components/features/acg/tramitacao/AcgTramitacaoCore.astro';
-import { route } from '../lib/paths';
+import { asset } from '../lib/paths';
 
+// As âncoras antigas continuam valendo (#calculadora, #guardiao-120-dias, #protocolo-colegiado).
 const tabs = [
-  { id: 'v0', shortLabel: 'Visão geral', fullLabel: 'Como funcionam as 600h', hash: '#visao-geral' },
-  { id: 'v1', shortLabel: 'Simular', fullLabel: 'Simular minhas horas', hash: '#calculadora' },
-  { id: 'v2', shortLabel: '120 dias', fullLabel: 'Prazo de 120 dias', hash: '#guardiao-120-dias' },
+  { id: 'v1', shortLabel: 'Somar', fullLabel: 'Somar minhas horas', hash: '#calculadora' },
   { id: 'v3', shortLabel: 'Protocolar', fullLabel: 'Protocolar no Colegiado', hash: '#protocolo-colegiado' },
+  { id: 'v2', shortLabel: '120 dias', fullLabel: 'Prazo de 120 dias', hash: '#guardiao-120-dias' },
 ];
 
-const badges = [
-  { label: '300h Extensão (CEPE 10/19)', variant: 'red' as const, icon: 'bi-people-fill' },
-  { label: 'Até 300h AAC (Art. 15)', variant: 'dark' as const, icon: 'bi-award-fill' },
-  { label: 'Alerta 120 Dias', variant: 'gold' as const, icon: 'bi-alarm-fill' },
-  { label: 'PPC N-20229', variant: 'blue' as const, icon: 'bi-shield-check' },
+const badges = [{ label: 'Regulamento, Art. 15', variant: 'default' as const, icon: 'bi-journal-text' }];
+
+const REQUERIMENTO = asset('/documentos/requerimento-atividade-integralizadora-credito-v20229.pdf');
+
+const passosProtocolo: TramitePasso[] = [
+  {
+    titulo: 'Baixe e preencha o requerimento',
+    texto: 'Um requerimento por atividade. Comece pelos seus dados: nome, matrícula, telefone e e-mail <strong>@ufmg.br</strong>. Confira se a versão curricular marcada é a <strong>N-20229</strong>.',
+    acoes: [{ kind: 'pdf', href: REQUERIMENTO, label: 'Requerimento de AAC (PDF)', primary: true }],
+  },
+  {
+    titulo: 'Diga que atividade foi',
+    texto: 'Marque a modalidade (de I a IX, lista abaixo), quando começou e terminou, quem promoveu e quantos créditos pede. <strong>Cada crédito vale 15h</strong> comprovadas.',
+    acoes: [{ kind: 'anchor', href: '#modalidades', label: 'Ver as 9 modalidades' }],
+  },
+  {
+    titulo: 'Mande pra Coordenação assinar',
+    texto: 'Assine, anexe os certificados (com o código ou link de autenticidade) e mande por e-mail pedindo a análise e a assinatura da Coordenação.',
+    prazo: 'Até 120 dias depois do certificado',
+    acoes: [{ kind: 'link', href: 'mailto:coordgestaopublica@gmail.com?subject=Requerimento%20de%20AAC', label: 'coordgestaopublica@gmail.com' }],
+  },
+  {
+    titulo: 'Protocole na Secretaria',
+    texto: 'Com o requerimento assinado e deferido, imprima e leve pessoalmente à Secretaria do curso (sala F-2039, com a Norma Guedes). É ali que as horas entram no seu histórico do SIGA.',
+  },
+];
+
+const modalidades = [
+  { mod: 'I', nome: 'Pesquisa interinstitucional', teto: '75h', comp: 'Relatório assinado pelo orientador de outra instituição pública ou órgão de pesquisa.' },
+  { mod: 'II', nome: 'Monitoria', teto: '45h', comp: 'Relatório final de monitoria assinado pelo docente da UFMG.' },
+  { mod: 'III', nome: 'Eventos como ouvinte', teto: '60h', comp: 'Certificado com carga horária.', prazo: true },
+  { mod: 'IV', nome: 'Grupos de estudo', teto: '30h', comp: 'Declaração de participação validada por docente.' },
+  { mod: 'V', nome: 'Iniciação científica (UFMG)', teto: '90h', comp: 'PIBIC ou voluntário cadastrado na PRPq, com relatório aprovado.' },
+  { mod: 'VI', nome: 'Pesquisa bibliográfica', teto: '30h', comp: 'Texto orientado por docente, diferente do TCC.' },
+  { mod: 'VII', nome: 'Trabalho em anais', teto: '30h', comp: 'Apresentação oral ou pôster publicado em anais.', prazo: true },
+  { mod: 'VIII', nome: 'Artigo em periódico', teto: '60h', comp: 'Artigo aceito ou publicado em periódico Qualis/CAPES.' },
+  { mod: 'IX', nome: 'Vivência profissional', teto: '60h', comp: 'Estágio não obrigatório com TCE em órgão público ou terceiro setor.' },
 ];
 ---
 
 <BaseLayout
   title="Horas 600h"
-  description="Simulador interativo de 300h de Extensão Obrigatória e 300h de AAC com Alerta 120 Dias corridos e protocolo do Colegiado N-20229 — Ferramenta criada pela Chapa Semente."
+  description="Some suas 300h de extensão e até 300h de atividades complementares (AAC) de Gestão Pública na UFMG, veja quanto falta e protocole certificado no Colegiado dentro do prazo de 120 dias."
   mode="operate"
 >
-  <PageHeader
-    mode="operate"
-    condensed={true}
-    axisId="curso"
-    activeId="acg"
-    title="Horas 600h"
-    subtitle="Some suas horas de extensão e AAC, veja quanto falta e protocole certificado antes de vencer o prazo de 120 dias."
-    badges={badges}
-  />
-
-  <SegmentedControl tabs={tabs} defaultTab="v0" />
-
-  <!-- Sub-view 0: Visão Geral da Central de Horas -->
-  <section id="ws-panel-v0" class="cagp-workspace-view" data-ws-panel="v0">
-    <div id="visao-geral" class="cagp-anchor-target scroll-mt-24"></div>
-    <AcgCentralOverview />
-  </section>
-
-  <!-- Sub-view 1: Calculadora 600h Core -->
-  <section id="ws-panel-v1" class="cagp-workspace-view" data-ws-panel="v1" hidden>
-    <div id="calculadora" class="cagp-anchor-target scroll-mt-24"></div>
-    <AcgCalculatorCore client:load />
-  </section>
-
-  <!-- Sub-view 2: Guardião 120 Dias Core -->
-  <section id="ws-panel-v2" class="cagp-workspace-view space-y-4" data-ws-panel="v2" hidden>
-    <div id="guardiao-120-dias" class="cagp-anchor-target scroll-mt-24"></div>
-    <FactCheckBanner
-      claim="Posso acumular todos os meus certificados de palestras e cursos e protocolar tudo junto no último semestre antes de colar grau?"
-      verdict="atencao"
-      stampText="120 DIAS CORRIDOS"
-      normativeSource="Art. 15, § 4º do Regulamento do Curso Versão N-20229"
-      explanation="ALERTA MÁXIMO • INDEFERIMENTO AUTOMÁTICO. O Regulamento estabelece o prazo peremptório de exatamente 120 dias corridos a contar da data de emissão do certificado ou encerramento da atividade para requerer o aproveitamento perante o Colegiado. Certificados fora do prazo são sumariamente indeferidos, mesmo que autênticos."
-      officialRuleExcerpt={`Regulamento do Curso de Graduação em Gestão Pública — Versão N-20229:
-Art. 15, § 4º — O discente terá o prazo máximo de 120 (cento e vinte) dias corridos, contados a partir da data de encerramento da atividade ou emissão do respectivo certificado, para requerer o aproveitamento de carga horária em Atividades Acadêmicas Complementares (AAC).
-§ 5º — Expirado o prazo previsto no § 4º, o requerimento não será apreciado pela Comissão de Acompanhamento.`}
+  <div class="space-y-6 max-w-5xl mx-auto font-sans">
+    <PageHeader
+      mode="operate"
+      condensed={true}
+      axisId="curso"
+      activeId="acg"
+      title="Horas 600h"
+      subtitle="Some suas horas de extensão e AAC, veja quanto falta e protocole certificado antes de vencer o prazo de 120 dias."
+      badges={badges}
     />
-    <AcgGuardianCore client:load />
-  </section>
 
-  <!-- Sub-view 3: Guia & Protocolo Colegiado N-20229 Core -->
-  <section id="ws-panel-v3" class="cagp-workspace-view" data-ws-panel="v3" hidden>
-    <div id="protocolo-colegiado" class="cagp-anchor-target scroll-mt-24"></div>
-    <AcgTramitacaoCore />
-  </section>
+    <TramiteResumo
+      oQue="600h fora da grade: <strong>300h de extensão</strong>, obrigatórias, e até <strong>300h de atividades complementares</strong> (as AAC: eventos, monitoria, pesquisa, estágio não obrigatório)."
+      quemPode="Todo estudante do currículo N-20229. Cada atividade entra por um requerimento no Colegiado."
+      prazo="Certificado de evento ou de trabalho em anais tem <strong>120 dias corridos</strong> pra ser protocolado. Passou disso, o Colegiado indefere."
+    />
 
-  <SementeSignature
-    proposal="Proposta 3"
-    text="Chega de planilha perdida ou certificado recusado por prazo: a Chapa Semente entregou esta calculadora antes da eleição para proteger a sua colação de grau."
-  />
+    <SegmentedControl tabs={tabs} defaultTab="v1" showViewAll={false} />
 
-  <!-- Journey Navigation Trail -->
-  <JourneyNav
-    prev={{
-      title: 'Trajetória Curricular & Grafo 10P',
-      href: '/percurso',
-      desc: 'Explore as 27 obrigatórias, simule optativas e consulte travas do SIGA.',
-    }}
-    next={{
-      title: 'Estágio Supervisionado (300h)',
-      href: '/estagio',
-      desc: 'Simulador do Art. 41 para servidores e modelo oficial de Termo de Compromisso.',
-    }}
-  />
+    <!-- Somar -->
+    <section id="ws-panel-v1" class="cagp-workspace-view" data-ws-panel="v1">
+      <div id="calculadora" class="cagp-anchor-target"></div>
+      <AcgCalculatorCore client:load />
+    </section>
+
+    <!-- Protocolar -->
+    <section id="ws-panel-v3" class="cagp-workspace-view space-y-8" data-ws-panel="v3" hidden>
+      <div id="protocolo-colegiado" class="cagp-anchor-target"></div>
+      <TramitePassos id="passos-aac" passos={passosProtocolo} titulo="Como protocolar uma atividade" />
+
+      <figure class="m-0 space-y-2">
+        <img
+          src={asset('/imagens/tutoriais/print-requerimento-aac-1.png')}
+          alt="O requerimento de AAC preenchido: em cima a identificação, no meio os dados da atividade e os créditos, embaixo a comprovação e a assinatura."
+          loading="lazy"
+          class="w-full max-w-2xl h-auto rounded-xl border-2 border-border bg-white"
+        />
+        <figcaption class="text-sm text-muted-foreground">Como fica o requerimento preenchido.</figcaption>
+      </figure>
+
+      <section id="modalidades" aria-labelledby="modalidades-titulo" class="space-y-4 scroll-mt-24">
+        <h2 id="modalidades-titulo" class="font-heading font-bold text-xl text-foreground m-0">Quanto cada atividade vale</h2>
+        <ul class="list-none m-0 p-0 bg-white border-2 border-border rounded-xl shadow-md overflow-hidden divide-y-2 divide-border cagp-reveal-stagger">
+          {modalidades.map((m) => (
+            <li class="px-4 py-3 sm:px-5 grid grid-cols-[2.75rem_minmax(0,1fr)_auto] gap-3 items-baseline">
+              <span class="font-heading font-bold text-sm text-primary tabular-nums">{m.mod}</span>
+              <span class="min-w-0">
+                <span class="block font-heading font-bold text-base text-foreground">{m.nome}</span>
+                <span class="block text-sm text-content-secondary">{m.comp}</span>
+                {m.prazo && (
+                  <span class="mt-1 inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-warning-tint text-warning font-heading font-bold text-xs uppercase tracking-[0.04em]">
+                    <i class="bi bi-clock" aria-hidden="true"></i>120 dias
+                  </span>
+                )}
+              </span>
+              <span class="font-heading font-bold text-base text-foreground tabular-nums whitespace-nowrap">até {m.teto}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </section>
+
+    <!-- 120 dias -->
+    <section id="ws-panel-v2" class="cagp-workspace-view space-y-6" data-ws-panel="v2" hidden>
+      <div id="guardiao-120-dias" class="cagp-anchor-target"></div>
+      <div class="space-y-2 max-w-[68ch]">
+        <h2 class="font-heading font-bold text-xl text-foreground m-0">Seus certificados com prazo</h2>
+        <p class="m-0 text-base text-content-secondary">
+          Cadastre cada certificado de evento ou de trabalho em anais e veja quantos dias faltam pra protocolar.
+          Evento nas férias? A contagem só começa no <strong class="text-foreground">primeiro dia letivo</strong> do semestre seguinte.
+        </p>
+      </div>
+      <AcgGuardianCore client:load />
+    </section>
+
+    <details class="cagp-base-normativa">
+      <summary>Base normativa</summary>
+      <div class="space-y-4 pt-3">
+        <blockquote class="m-0 p-4 bg-white border-2 border-border rounded-xl">
+          <p class="m-0 mb-2 font-heading font-bold text-xs uppercase tracking-[0.04em] text-muted-foreground">Regulamento do curso (N-20229), Art. 15, §§ 4º e 5º</p>
+          <p class="m-0 text-base leading-relaxed text-foreground">
+            O discente terá o prazo máximo de 120 (cento e vinte) dias corridos, contados a partir da data de encerramento
+            da atividade ou emissão do respectivo certificado, para requerer o aproveitamento de carga horária em Atividades
+            Acadêmicas Complementares (AAC). Expirado o prazo, o requerimento não será apreciado pela Comissão de Acompanhamento.
+          </p>
+        </blockquote>
+        <ul class="list-none m-0 p-0 space-y-2">
+          <li>
+            <a href={asset('/documentos/regulamento-gestao-publica-ufmg.pdf')} class="inline-flex items-center gap-2 min-h-[44px] text-primary font-bold underline underline-offset-[0.22em]">
+              <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>Regulamento do curso (N-20229)
+            </a>
+          </li>
+          <li>
+            <a href={REQUERIMENTO} class="inline-flex items-center gap-2 min-h-[44px] text-primary font-bold underline underline-offset-[0.22em]">
+              <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>Requerimento de atividade integralizadora (N-20229)
+            </a>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <SementeSignature
+      proposal="Proposta 3"
+      text="Fizemos esta calculadora antes da eleição pra nenhum certificado seu ser recusado por prazo."
+    />
+
+    <JourneyNav
+      prev={{ title: 'Grade e percurso', href: '/percurso', desc: 'As 27 obrigatórias e os pré-requisitos do SIGA.' }}
+      next={{ title: 'Estágio', href: '/estagio', desc: 'As 300h passo a passo e a dispensa pelo Art. 41.' }}
+    />
+  </div>
 </BaseLayout>
+
+<style>
+  .cagp-base-normativa {
+    border-top: 2px solid var(--color-border);
+    padding-top: 1rem;
+  }
+  .cagp-base-normativa > summary {
+    cursor: pointer;
+    font-family: var(--font-heading);
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-foreground);
+    list-style: none;
+    gap: 0.5rem;
+  }
+  .cagp-base-normativa > summary::-webkit-details-marker { display: none; }
+  .cagp-base-normativa > summary::after {
+    content: '';
+    margin-left: auto;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform var(--duration-spring) var(--ease-spring);
+  }
+  .cagp-base-normativa[open] > summary::after { transform: rotate(-135deg); }
+</style>

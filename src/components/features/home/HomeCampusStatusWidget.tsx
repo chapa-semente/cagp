@@ -1,8 +1,11 @@
-// HomeCampusStatusWidget.tsx — "Hoje à noite" na home: RU e Circular agora, em uma ficha.
+// HomeCampusStatusWidget.tsx — "Hoje à noite" na home: RU agora e as últimas partidas do ônibus interno.
+// O ônibus NÃO é ao vivo (decisão de 10/11/2026): mostra o horário oficial e leva à página /onibus-internos.
 // O dono dos horários completos e dos lembretes é a folha Campus agora (CampusSheet); aqui é o resumo.
 // O id #cagp-widget-campus é o alvo do tour (parada da Paloma).
 import React from 'react';
 import { CagpIcon } from '@/components/ui/CagpIcon';
+import { CAMPUS_HORARIOS } from '@/data/acolhimento';
+import { route } from '@/lib/paths';
 
 export interface CampusLiveStatus {
   ruBadge: string;
@@ -18,66 +21,44 @@ export interface CampusLiveStatus {
  * (GitHub Actions, em UTC); calcular "aberto agora" durante o render fazia o texto do servidor
  * divergir do navegador (erro de hidratação #418). O horário real entra depois de montar.
  */
+const toMin = (hhmm: string) => {
+  const [h, m] = hhmm.split(':').map(Number);
+  return h * 60 + m;
+};
+const fmt = (m: number) => `${Math.floor(m / 60)}h${String(m % 60).padStart(2, '0')}`;
+
+const J = CAMPUS_HORARIOS.jantar;
+const C = CAMPUS_HORARIOS.circular;
+
 export const NEUTRAL_CAMPUS_STATUS: CampusLiveStatus = {
-  ruBadge: 'Jantar 17h30–19h30',
+  ruBadge: `Jantar ${J.texto}`,
   ruTone: 'warn',
-  ruSub: 'Catraca fecha às 19h30 em ponto',
-  busBadge: 'Saídas até 22h45',
+  ruSub: `${J.local}. A catraca fecha às 19h30 em ponto.`,
+  busBadge: `Dias de aula, ${C.texto}`,
   busTone: 'open',
-  busSub: 'Noturno: 18h50 · 19h10 · 20h40 · 22h15 · 22h35 · 22h45',
+  busSub: `Últimas partidas: ${C.ultimasSaidas.map((t) => fmt(toMin(t))).join(', ')} (${C.linhas}).`,
 };
 
 export function computeCampusLiveStatus(now: Date): CampusLiveStatus {
-  const day = now.getDay();
   const minutes = now.getHours() * 60 + now.getMinutes();
-  const isWeekend = day === 0 || day === 6;
+  const isWeekday = (J.dias as readonly number[]).includes(now.getDay());
+  const abre = toMin(J.abre);
+  const fecha = toMin(J.fecha);
 
-  let ruBadge = 'Jantar 17h30–19h30';
-  let ruTone: CampusLiveStatus['ruTone'] = 'warn';
-  let ruSub = 'Catraca fecha às 19h30 em ponto';
-
-  if (isWeekend) {
-    ruBadge = 'Fechado no fim de semana';
-    ruTone = 'closed';
-    ruSub = 'Volta segunda: almoço 11h, jantar 17h30';
-  } else if (minutes >= 17 * 60 + 30 && minutes < 19 * 60 + 30) {
-    ruBadge = 'Aberto agora';
-    ruTone = 'open';
-    ruSub = `Fecha em ${19 * 60 + 30 - minutes} min (19h30)`;
-  } else if (minutes >= 19 * 60 + 30) {
-    ruBadge = 'Jantar encerrado';
-    ruTone = 'closed';
-    ruSub = 'Amanhã: almoço 11h, jantar 17h30';
+  let ru: Pick<CampusLiveStatus, 'ruBadge' | 'ruTone' | 'ruSub'>;
+  if (!isWeekday) {
+    ru = { ruBadge: 'Fechado hoje', ruTone: 'closed', ruSub: 'O jantar volta na segunda, às 17h10.' };
+  } else if (minutes >= abre && minutes < fecha) {
+    ru = { ruBadge: 'Aberto agora', ruTone: 'open', ruSub: `Fecha em ${fecha - minutes} min, às 19h30.` };
+  } else if (minutes >= fecha) {
+    ru = { ruBadge: 'Jantar encerrado', ruTone: 'closed', ruSub: 'Amanhã tem de novo, das 17h10 às 19h30.' };
   } else {
-    ruBadge = 'Jantar às 17h30';
-    ruTone = 'warn';
-    ruSub = 'Catraca fecha às 19h30 em ponto';
+    ru = { ruBadge: 'Abre às 17h10', ruTone: 'warn', ruSub: `${J.local}. A catraca fecha às 19h30 em ponto.` };
   }
 
-  const departures = [18 * 60 + 50, 19 * 60 + 10, 20 * 60 + 40, 22 * 60 + 15, 22 * 60 + 35, 22 * 60 + 45];
-  const next = departures.find((d) => d >= minutes);
-  let busBadge: string;
-  let busTone: CampusLiveStatus['busTone'];
-  let busSub = 'Noturno: 18h50 · 19h10 · 20h40 · 22h15 · 22h35 · 22h45';
-  const fmt = (m: number) => `${Math.floor(m / 60)}h${String(m % 60).padStart(2, '0')}`;
-  if (isWeekend) {
-    busBadge = 'Sem Circular hoje';
-    busTone = 'closed';
-    busSub = 'Volta segunda-feira';
-  } else if (next === undefined) {
-    busBadge = 'Último já saiu';
-    busTone = 'closed';
-    busSub = 'O último sai 22h45. Amanhã tem de novo.';
-  } else if (next - minutes <= 15) {
-    busBadge = `Próximo ${fmt(next)}`;
-    busTone = 'warn';
-    busSub = `Sai em ${next - minutes} min. Corre!`;
-  } else {
-    busBadge = `Próximo ${fmt(next)}`;
-    busTone = 'open';
-  }
-
-  return { ruBadge, ruTone, ruSub, busBadge, busTone, busSub };
+  // Ônibus interno: sempre o horário oficial publicado, nunca "próximo em X min".
+  const { busBadge, busTone, busSub } = NEUTRAL_CAMPUS_STATUS;
+  return { ...ru, busBadge, busTone, busSub };
 }
 
 const TONE: Record<CampusLiveStatus['ruTone'], string> = {
@@ -93,8 +74,8 @@ interface Props {
 
 export const HomeCampusStatusWidget: React.FC<Props> = ({ status, openCampus }) => {
   const rows = [
-    { icon: 'utensils' as const, title: 'RU II, jantar', badge: status.ruBadge, tone: status.ruTone, sub: status.ruSub },
-    { icon: 'bus' as const, title: 'Circular', badge: status.busBadge, tone: status.busTone, sub: status.busSub },
+    { icon: 'utensils' as const, title: 'RU II, jantar', badge: status.ruBadge, tone: status.ruTone, sub: status.ruSub, href: undefined as string | undefined, cta: '' },
+    { icon: 'bus' as const, title: 'Ônibus interno', badge: status.busBadge, tone: status.busTone, sub: status.busSub, href: route('/onibus-internos'), cta: 'Ver horários e mapa das linhas' },
   ];
 
   return (
@@ -103,9 +84,8 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({ status, openCampus }) 
         <h2 id="home-hoje-a-noite" className="font-heading font-bold text-lg text-foreground m-0">
           Hoje à noite
         </h2>
-        <span className="inline-flex items-center gap-1.5 text-xs font-heading font-bold uppercase tracking-[0.04em] text-muted-foreground">
-          <span className="w-2 h-2 rounded-full bg-success cagp-pulse-indicator" aria-hidden="true" />
-          ao vivo
+        <span className="text-xs font-heading font-bold uppercase tracking-[0.04em] text-muted-foreground">
+          Horário de hoje
         </span>
       </div>
       <ul className="list-none m-0 p-0 mt-3 divide-y-2 divide-border border-t-2 border-border">
@@ -122,6 +102,12 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({ status, openCampus }) 
                 </span>
               </span>
               <span className="block text-sm text-content-secondary tabular-nums mt-0.5">{r.sub}</span>
+              {r.href && (
+                <a href={r.href} className="inline-flex items-center gap-1 min-h-[44px] -mb-2 text-sm font-heading font-bold text-primary underline underline-offset-[0.22em]">
+                  {r.cta}
+                  <CagpIcon name="chevron-right" className="w-4 h-4" />
+                </a>
+              )}
             </span>
           </li>
         ))}
@@ -133,7 +119,7 @@ export const HomeCampusStatusWidget: React.FC<Props> = ({ status, openCampus }) 
       >
         <span className="inline-flex items-center gap-2">
           <i className="bi bi-alarm-fill text-primary" aria-hidden="true" />
-          Horários e lembrete do último Circular
+          Lembretes do jantar e do último ônibus
         </span>
         <CagpIcon name="chevron-right" className="w-4 h-4" />
       </button>

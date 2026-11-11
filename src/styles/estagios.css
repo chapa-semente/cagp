@@ -1,0 +1,246 @@
+/* estagios.css — O ciclo da planta como sistema de cor (src/lib/estagios.ts).
+   html[data-estagio] vem do BaseLayout (a aba dona da rota). Cada estágio define:
+   --estagio / --estagio-fg  bloco de cor da cabeça de página
+   --estagio-solo            fundo da página (o "solo" da aba)
+   --shadow-color            a sombra dura de tudo (fichas, botões) veste a cor do estágio
+   --estagio-broto           cor de apoio (ícones, marcadores, ramo) */
+
+:root,
+html[data-estagio='semente'] {
+  --estagio-forma: #DCC8EC;
+  --estagio: #5B2A85;
+  --estagio-fg: #FFFFFF;
+  --estagio-solo: #EFE7F6;
+  --estagio-broto: #FE8812;
+  --shadow-color: #5B2A85;
+}
+html[data-estagio='raiz'] {
+  --estagio-forma: #E6C3A6;
+  --estagio: #8A4B2A;
+  --estagio-fg: #FFFFFF;
+  --estagio-solo: #F3E3D5;
+  --estagio-broto: #FFC83D;
+  --shadow-color: #8A4B2A;
+}
+html[data-estagio='broto'] {
+  --estagio-forma: #C2E2A6;
+  --estagio: #6DB33F;
+  --estagio-fg: #1F1F1F;
+  --estagio-solo: #E4F2D8;
+  --estagio-broto: #5B2A85;
+  --shadow-color: #2F6B1E;
+}
+html[data-estagio='planta'] {
+  --estagio-forma: #B7D8D5;
+  --estagio: #266264;
+  --estagio-fg: #FFFFFF;
+  --estagio-solo: #E3F0EF;
+  --estagio-broto: #6DB33F;
+  --shadow-color: #266264;
+}
+html[data-estagio='fruto'] {
+  --estagio-forma: #FFDF85;
+  --estagio: #FFC83D;
+  --estagio-fg: #1F1F1F;
+  --estagio-solo: #FFF2C7;
+  --estagio-broto: #5B2A85;
+  --shadow-color: #FE8812;
+}
+/* Contraste alto do painel de acessibilidade: volta ao papel neutro e à sombra grafite. */
+html[data-a11y-contrast='high'] {
+  --estagio-solo: #FFFFFF;
+  --shadow-color: #1F1F1F;
+}
+
+body {
+  background-color: var(--estagio-solo);
+}
+
+/* Superfícies do navegador na cor da marca */
+::selection { background: var(--estagio); color: var(--estagio-fg); }
+html { scrollbar-color: var(--estagio) var(--estagio-solo); accent-color: #5B2A85; caret-color: #5B2A85; }
+
+/* ---- Cabeça de página: bloco de cor do estágio ------------------------------------------- */
+.cagp-page-head {
+  position: relative;
+  overflow: hidden;
+  background: var(--estagio);
+  color: var(--estagio-fg);
+  border: 3px solid var(--color-border);
+  border-radius: 16px;
+  box-shadow: 6px 6px 0 0 var(--color-border);
+}
+.cagp-page-head-body { position: relative; z-index: 1; padding-right: clamp(4.5rem, 22vw, 11rem); }
+.cagp-page-head :is(h1, p, nav, ol, li, a, [aria-current]) { color: inherit; }
+.cagp-page-head nav a { text-decoration: underline; text-underline-offset: 0.22em; }
+.cagp-page-head nav svg { color: inherit; opacity: 1; }
+.cagp-page-head-art {
+  position: absolute;
+  right: clamp(-0.5rem, 1vw, 1.5rem);
+  bottom: 0;
+  width: clamp(5rem, 22vw, 11rem);
+  height: auto;
+  color: var(--estagio-fg);
+}
+/* Folha grande no canto livre (acima do desenho, longe do título): a forma orgânica do manual. */
+.cagp-page-head::before {
+  content: '';
+  position: absolute;
+  right: -3rem;
+  top: -6rem;
+  width: 13rem;
+  height: 13rem;
+  background: var(--estagio-broto);
+  border-radius: 100% 0 100% 0;
+  transform: rotate(-8deg);
+}
+.cagp-page-head::before { clip-path: inset(0 0 0 0); animation: cagp-head-leaf var(--duration-reveal) var(--ease-spring) both; }
+@keyframes cagp-head-leaf { from { transform: rotate(-8deg) scale(0); } to { transform: rotate(-8deg) scale(1); } }
+.cagp-page-head::before { transform-origin: 100% 0%; }
+.cagp-page-head-body > :first-child { margin-top: 0; }
+@media (max-width: 639px) {
+  .cagp-page-head::before { width: 7rem; height: 7rem; right: -2.5rem; top: -3.5rem; }
+}
+
+/* ---- Desenho do estágio: traço que se desenha, forma que brota --------------------------- */
+.cagp-estagio-art { overflow: visible; }
+.cagp-estagio-art .ea-draw {
+  stroke-dasharray: 1;
+  animation: cagp-ea-draw 700ms var(--ease-snap) var(--d, 0s) both;
+}
+.cagp-estagio-art .ea-pop {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: cagp-ea-pop var(--duration-spring) var(--ease-spring-bouncy) var(--d, 0s) both;
+}
+@keyframes cagp-ea-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes cagp-ea-pop { from { transform: scale(0); } to { transform: scale(1); } }
+
+/* ---- O ramo que cresce com a rolagem ------------------------------------------------------ */
+.cagp-growth { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.cagp-growth-shape {
+  position: absolute;
+  right: -2rem;
+  bottom: -2rem;
+  width: min(46vw, 26rem);
+  height: auto;
+  fill: var(--estagio-forma);
+}
+@media (max-width: 767px) { .cagp-growth-shape { bottom: 3rem; width: 62vw; } }
+.cagp-growth-vine {
+  pointer-events: none;
+  position: fixed;
+  z-index: 15;
+  top: 4.75rem;
+  bottom: 5.25rem;
+  right: 0;
+  width: 14px;
+}
+@media (min-width: 768px) { .cagp-growth-vine { top: 5.5rem; bottom: 1.25rem; right: 5px; width: 22px; } }
+.cagp-growth-stem { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.cagp-growth-stem path {
+  fill: none;
+  stroke: var(--estagio);
+  stroke-width: 4;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+html[data-estagio='fruto'] .cagp-growth-stem path { stroke: #266264; }
+.cagp-growth-leaf { position: absolute; width: 16px; height: 16px; fill: #6DB33F; overflow: visible; }
+html[data-estagio='broto'] .cagp-growth-leaf { fill: #5B2A85; }
+.cagp-growth-leaf.is-orange { fill: #FE8812; }
+.cagp-growth-leaf.is-right { left: 50%; transform-origin: 0% 100%; }
+.cagp-growth-leaf.is-left { right: 50%; transform-origin: 100% 100%; scale: -1 1; }
+@media (min-width: 768px) { .cagp-growth-leaf { width: 24px; height: 24px; } }
+.cagp-growth-fruit {
+  position: absolute;
+  top: 95%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin-left: -8px;
+  border-radius: 9999px;
+  background: #FFC83D;
+  border: 2px solid var(--color-border);
+}
+html[data-estagio='fruto'] .cagp-growth-fruit { background: #5B2A85; }
+
+@supports (animation-timeline: scroll()) {
+  .cagp-growth-stem path {
+    stroke-dasharray: 1;
+    animation: cagp-ea-draw linear both;
+    animation-timeline: var(--cagp-tl, scroll(root block));
+  }
+  .cagp-growth-leaf,
+  .cagp-growth-fruit {
+    animation: cagp-growth-pop linear both;
+    animation-timeline: var(--cagp-tl, scroll(root block));
+    animation-range: calc(var(--at) - 4%) calc(var(--at) + 3%);
+  }
+  @keyframes cagp-growth-pop {
+    0% { transform: scale(0) rotate(-30deg); }
+    70% { transform: scale(1.25) rotate(6deg); }
+    100% { transform: scale(1) rotate(0deg); }
+  }
+}
+/* Página curta (sem rolagem): o ramo já aparece inteiro. */
+html:not(.cagp-can-scroll) .cagp-growth-stem path,
+html:not(.cagp-can-scroll) .cagp-growth-leaf,
+html:not(.cagp-can-scroll) .cagp-growth-fruit { animation: none; }
+/* Tour, impressão e contraste alto: sem ramo. */
+html.cagp-semente-tour-open .cagp-growth-vine,
+html[data-a11y-contrast='high'] :is(.cagp-growth, .cagp-growth-vine) { display: none; }
+@media print { .cagp-growth, .cagp-growth-vine { display: none; } }
+
+/* ---- Listas de hub: cada linha ganha uma cor do ciclo ------------------------------------- */
+.cagp-hub-list > li:nth-child(5n + 1) .cagp-hub-icon { background: #5B2A85; color: #FFFFFF; }
+.cagp-hub-list > li:nth-child(5n + 2) .cagp-hub-icon { background: #FE8812; color: #1F1F1F; }
+.cagp-hub-list > li:nth-child(5n + 3) .cagp-hub-icon { background: #6DB33F; color: #1F1F1F; }
+.cagp-hub-list > li:nth-child(5n + 4) .cagp-hub-icon { background: #266264; color: #FFFFFF; }
+.cagp-hub-list > li:nth-child(5n + 5) .cagp-hub-icon { background: #FFC83D; color: #1F1F1F; }
+.cagp-hub-list .cagp-hub-icon { border: 2px solid var(--color-border); transition: transform var(--duration-spring) var(--ease-spring-bouncy); }
+.cagp-hub-row:hover .cagp-hub-icon { transform: rotate(-8deg) scale(1.08); }
+
+/* ---- Navegação: cada aba carrega a cor do seu estágio no ícone ---------------------------- */
+[data-bottom-axis='hoje'] .cagp-bottom-axis-pill, [data-nav-axis='hoje'] { --aba: #5B2A85; --aba-fg: #FFFFFF; --aba-solo: #EFE7F6; }
+[data-bottom-axis='guias'] .cagp-bottom-axis-pill, [data-nav-axis='guias'] { --aba: #8A4B2A; --aba-fg: #FFFFFF; --aba-solo: #F3E3D5; }
+[data-bottom-axis='chapa'] .cagp-bottom-axis-pill, [data-nav-axis='chapa'] { --aba: #6DB33F; --aba-fg: #1F1F1F; --aba-solo: #E4F2D8; }
+[data-bottom-axis='curso'] .cagp-bottom-axis-pill, [data-nav-axis='curso'] { --aba: #266264; --aba-fg: #FFFFFF; --aba-solo: #E3F0EF; }
+[data-bottom-axis='mais'] .cagp-bottom-axis-pill, [data-nav-axis='mais'] { --aba: #FFC83D; --aba-fg: #1F1F1F; --aba-solo: #FFF2C7; }
+a.cagp-bottom-axis-item:not(.is-active) .cagp-bottom-axis-pill { background: var(--aba-solo); border-color: transparent; }
+a.cagp-bottom-axis-item.is-active { color: var(--color-foreground); }
+a.cagp-bottom-axis-item.is-active .cagp-bottom-axis-pill { background: var(--aba); color: var(--aba-fg); border-color: var(--color-border); box-shadow: 2px 2px 0 0 var(--color-border); }
+a.cagp-bottom-axis-item[data-bottom-axis='chapa'].is-active .cagp-bottom-axis-pill { background: #FFFFFF; }
+.cagp-nav-chip[data-nav-axis] { background: var(--aba-solo); }
+.cagp-nav-fill[data-nav-axis] { background: var(--aba); }
+.cagp-nav-link.is-active[data-nav-axis] { color: var(--aba-fg); }
+
+/* ---- Faixa "da semente ao fruto" acima do rodapé ------------------------------------------- */
+.cagp-estagios-faixa { position: relative; z-index: 10; margin-top: 3rem; border-top: 3px solid var(--color-border); }
+.cagp-estagios-faixa ul { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; }
+.cagp-estagios-faixa li + li { border-left: 3px solid var(--color-border); }
+.cagp-estagios-faixa a {
+  display: grid;
+  justify-items: center;
+  align-content: end;
+  gap: 0.125rem;
+  min-height: 7.5rem;
+  height: 100%;
+  padding: 0.75rem 0.25rem 0.875rem;
+  text-decoration: none;
+  overflow: hidden;
+}
+.cagp-estagios-faixa-art { width: clamp(3rem, 12vw, 6.5rem); height: auto; transition: transform var(--duration-spring) var(--ease-spring-bouncy); transform-origin: 50% 100%; }
+.cagp-estagios-faixa a:hover .cagp-estagios-faixa-art { transform: scale(1.12) rotate(-3deg); }
+.cagp-estagios-faixa a:focus-visible { outline: 3px solid var(--color-foreground); outline-offset: -6px; }
+.cagp-estagios-faixa-nome { font-family: var(--font-heading); font-weight: 700; font-size: clamp(0.75rem, 2.6vw, 1.125rem); text-transform: uppercase; letter-spacing: 0.03em; line-height: 1.1; text-align: center; }
+.cagp-estagios-faixa-estagio { font-size: clamp(0.75rem, 2.2vw, 0.875rem); line-height: 1.2; }
+.cagp-estagios-faixa + footer { margin-top: 0; }
+@supports (animation-timeline: view()) {
+  .cagp-estagios-faixa .cagp-estagio-art :is(.ea-draw, .ea-pop) { animation-timeline: var(--cagp-tl, view()); animation-range: entry 0% entry 90%; animation-delay: 0s; animation-duration: auto; }
+}
+
+/* Nota de build: o minificador (Lightning CSS) funde `animation-timeline: view()` dentro do atalho
+   `animation`, e o Chrome descarta o atalho inteiro (a linha do tempo é só de reset ali). Por isso
+   todo animation-timeline do site é escrito como var(--cagp-tl, view()): o var() impede a fusão.
+   --cagp-tl nunca é definido; vale sempre o valor de reserva. */

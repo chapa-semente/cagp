@@ -99,7 +99,7 @@ export const CagpTransparenciaPortal: React.FC = () => {
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-1">
               <span className="px-2 py-0.5 rounded bg-primary text-white font-mono text-xs font-black uppercase">
-                PROPOSTA 1 • EIXO 1 SEMENTE
+                PROPOSTA 1 DA CHAPA
               </span>
               <span className="font-heading text-xs font-bold uppercase tracking-[0.04em] text-secondary">
                 Formato do Art. 30, XI e XII
@@ -192,9 +192,9 @@ export const CagpTransparenciaPortal: React.FC = () => {
           <div className="p-4 sm:p-5 rounded-xl border-2 border-border bg-white shadow-md flex flex-col justify-between space-y-3">
             <div className="flex items-center justify-between gap-2">
               <span className="font-heading text-xs sm:text-sm font-extrabold uppercase text-foreground">
-                Fluxo Mensal Entradas vs Saídas
+                Quanto entrou e quanto saiu, mês a mês
               </span>
-              <Badge variant="outline">RREO</Badge>
+              <Badge variant="outline">Simulado</Badge>
             </div>
             <ChartContainer config={RREO_CHART_CONFIG} className="min-h-[200px] w-full">
               <BarChart data={RREO_BAR_DATA} margin={{ top: 8, right: 8, left: -16, bottom: 0 }}>

@@ -1,3 +1,4 @@
+import { route } from '@/lib/paths';
 import React, { useState, useEffect } from 'react';
 import { BottomSheet } from './BottomSheet';
 import { getVaultItem, setVaultItem, type VaultData } from '@/lib/storage/studentVault';
@@ -48,7 +49,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
     Notification.requestPermission().then((perm) => {
       if (perm === 'granted') {
         new Notification('CAGP UFMG — Campus Agora', {
-          body: 'Notificações ativadas! Você receberá avisos do RU II (18h15), Circular (22h30) e Guardião 120d.',
+          body: 'Notificações ativadas! Você receberá avisos do RU II (18h15), ônibus interno (22h30) e Guardião 120d.',
           icon: '/logos/cagp/10_simbolo_transparente_positivo.svg',
         });
         if (typeof window !== 'undefined' && (window as unknown as { cagpToast?: (msg: string, icon?: string) => void }).cagpToast) {
@@ -74,7 +75,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
             </span>
           </div>
           <p className="text-xs text-muted-foreground m-0 leading-relaxed font-medium">
-            Configure alarmes locais e adicione eventos (.ics) à sua agenda do celular para não perder os horários do bandejão e do ônibus.
+            Ligue um lembrete ou ponha na agenda do celular pra não perder o jantar nem o último Circular.
           </p>
         </div>
 
@@ -88,7 +89,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
               <div>
                 <span className="font-heading font-extrabold text-sm uppercase text-foreground">RU II Setorial</span>
                 <span className="text-xs font-mono bg-success-tint text-success font-bold px-2 py-0.5 rounded border border-border ml-2">
-                  Almoço 11h–14h · Jantar 17h30–19h30
+                  Almoço 11h–14h · Jantar 17h10–19h30
                 </span>
               </div>
             </div>
@@ -108,7 +109,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
               }`}
             >
               <CagpIcon name="bell" className="w-3.5 h-3.5" />
-              <span>{prefs.ru1815 ? 'Alarme 18h15 Ativo' : 'Ativar Alarme 18h15'}</span>
+              <span>{prefs.ru1815 ? 'Lembrete das 18h15 ligado' : 'Me lembra às 18h15'}</span>
             </button>
             <button
               type="button"
@@ -117,7 +118,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
               title="Baixar evento para Apple / Google Calendar"
             >
               <CagpIcon name="calendar" className="w-3.5 h-3.5 text-secondary" />
-              <span>Agenda (.ics)</span>
+              <span>Pôr na agenda</span>
             </button>
           </div>
         </div>
@@ -130,16 +131,17 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
                 <i className="bi bi-bus-front-fill text-base" aria-hidden="true" />
               </span>
               <div>
-                <span className="font-heading font-extrabold text-sm uppercase text-foreground">Circular Noturno FAFICH</span>
+                <span className="font-heading font-extrabold text-sm uppercase text-foreground">Ônibus interno à noite</span>
                 <span className="text-xs font-mono bg-info-tint text-info font-bold px-2 py-0.5 rounded border border-border ml-2">
-                  17h00 às 22h45
+                  até 22h50
                 </span>
               </div>
             </div>
-            <span className="font-mono text-xs font-bold text-gray-700">Linhas 1, 2, 3 e 4</span>
+            <span className="font-mono text-xs font-bold text-gray-700">Linhas 2 e 3 · gratuito</span>
           </div>
           <p className="text-xs text-muted-foreground m-0 leading-snug font-medium">
-            Últimas viagens saindo da Praça de Serviços e FAFICH: <strong>22h15, 22h35 e 22h45</strong>.
+            Últimas partidas da Escola de Música em dia de aula: <strong>22h10, 22h30 e 22h50</strong>.{' '}
+            <a href={route('/onibus-internos')} className="text-primary font-bold underline underline-offset-2">Ver paradas e mapa</a>.
           </p>
           <div className="flex items-center gap-2 pt-1 border-t border-border">
             <button
@@ -152,7 +154,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
               }`}
             >
               <i className={`bi ${prefs.circular2230 ? 'bi-bell-fill' : 'bi-bell'}`} />
-              <span>{prefs.circular2230 ? 'Alarme 22h30 Ativo' : 'Ativar Alarme 22h30'}</span>
+              <span>{prefs.circular2230 ? 'Lembrete das 22h30 ligado' : 'Me lembra às 22h30'}</span>
             </button>
             <button
               type="button"
@@ -161,7 +163,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
               title="Baixar evento para Apple / Google Calendar"
             >
               <i className="bi bi-calendar-plus text-xs text-info" />
-              <span>Agenda (.ics)</span>
+              <span>Pôr na agenda</span>
             </button>
           </div>
         </div>

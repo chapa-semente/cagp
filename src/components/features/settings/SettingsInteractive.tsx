@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getVaultItem, setVaultItem, type VaultData, VaultDefaults, applyA11yPrefsToDOM } from '@/lib/storage/studentVault';
 import { route } from '@/lib/paths';
-import { SettingsA11ySection } from './SettingsA11ySection';
+import { A11yTabContent } from '@/components/shell/A11yTabContent';
 import { SettingsDataSection } from './SettingsDataSection';
 
 // Ajustes (/configuracoes): acessibilidade + atalhos para os donos de cada dado.
@@ -24,7 +24,10 @@ export const SettingsInteractive: React.FC = () => {
 
   return (
     <div className="space-y-6 font-body">
-      <SettingsA11ySection a11y={a11y} updateA11y={updateA11y} />
+      <section aria-labelledby="ajustes-leitura" className="bg-white border-2 border-border rounded-xl p-5 sm:p-6 shadow-md space-y-4">
+        <h2 id="ajustes-leitura" className="font-heading font-bold text-lg text-foreground m-0">Leitura</h2>
+        <A11yTabContent prefs={a11y} update={updateA11y} />
+      </section>
 
       <SettingsDataSection />
 

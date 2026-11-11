@@ -79,6 +79,31 @@
   --color-brand-hover: #4A216E;
   --color-brand-accent: #FE8812;
 
+  /* Trava de paleta: famílias de cor do Tailwind apontam para a cor equivalente da marca ou de status
+     (teal → petróleo, emerald/green → success, amber/yellow → warning, red/rose → destructive,
+     blue/sky/indigo → info, orange → laranja Germinar, violet/purple → roxo Semente). */
+  --color-teal-50: #E2EDEA; --color-teal-100: #E2EDEA; --color-teal-200: #C5DBD7; --color-teal-300: #8FB8B3; --color-teal-400: #4F8C8B; --color-teal-500: #2F7375; --color-teal-600: #266264; --color-teal-700: #266264; --color-teal-800: #1E4A4C; --color-teal-900: #134E4A; --color-teal-950: #0E3A37;
+  --color-cyan-50: #E2EDEA; --color-cyan-100: #E2EDEA; --color-cyan-200: #C5DBD7; --color-cyan-300: #8FB8B3; --color-cyan-400: #4F8C8B; --color-cyan-500: #2F7375; --color-cyan-600: #266264; --color-cyan-700: #266264; --color-cyan-800: #1E4A4C; --color-cyan-900: #134E4A; --color-cyan-950: #0E3A37;
+  --color-emerald-50: #DCFCE7; --color-emerald-100: #DCFCE7; --color-emerald-200: #BBF7D0; --color-emerald-300: #86EFAC; --color-emerald-400: #22A05A; --color-emerald-500: #178A4A; --color-emerald-600: #166534; --color-emerald-700: #166534; --color-emerald-800: #14532D; --color-emerald-900: #14532D; --color-emerald-950: #0F3D21;
+  --color-green-50: #DCFCE7; --color-green-100: #DCFCE7; --color-green-200: #BBF7D0; --color-green-300: #86EFAC; --color-green-400: #22A05A; --color-green-500: #178A4A; --color-green-600: #166534; --color-green-700: #166534; --color-green-800: #14532D; --color-green-900: #14532D; --color-green-950: #0F3D21;
+  --color-amber-50: #FEF3C7; --color-amber-100: #FEF3C7; --color-amber-200: #FDE68A; --color-amber-300: #FCD34D; --color-amber-400: #E0A21A; --color-amber-500: #B7791F; --color-amber-600: #92400E; --color-amber-700: #92400E; --color-amber-800: #78350F; --color-amber-900: #78350F; --color-amber-950: #5C2A0B;
+  --color-yellow-50: #FEF3C7; --color-yellow-100: #FEF3C7; --color-yellow-200: #FDE68A; --color-yellow-300: #FCD34D; --color-yellow-400: #E0A21A; --color-yellow-500: #B7791F; --color-yellow-600: #92400E; --color-yellow-700: #92400E; --color-yellow-800: #78350F; --color-yellow-900: #78350F; --color-yellow-950: #5C2A0B;
+  --color-red-50: #FEE2E2; --color-red-100: #FEE2E2; --color-red-200: #FECACA; --color-red-300: #FCA5A5; --color-red-400: #E15B5B; --color-red-500: #C53030; --color-red-600: #B91C1C; --color-red-700: #B91C1C; --color-red-800: #991B1B; --color-red-900: #7F1D1D; --color-red-950: #5C1414;
+  --color-rose-50: #FEE2E2; --color-rose-100: #FEE2E2; --color-rose-200: #FECACA; --color-rose-300: #FCA5A5; --color-rose-400: #E15B5B; --color-rose-500: #C53030; --color-rose-600: #B91C1C; --color-rose-700: #B91C1C; --color-rose-800: #991B1B; --color-rose-900: #7F1D1D; --color-rose-950: #5C1414;
+  --color-blue-50: #DBEAFE; --color-blue-100: #DBEAFE; --color-blue-200: #BFDBFE; --color-blue-300: #93C5FD; --color-blue-400: #3B82C4; --color-blue-500: #1D6FB0; --color-blue-600: #005A9C; --color-blue-700: #005A9C; --color-blue-800: #004A80; --color-blue-900: #003A66; --color-blue-950: #002A4D;
+  --color-sky-50: #DBEAFE; --color-sky-100: #DBEAFE; --color-sky-200: #BFDBFE; --color-sky-300: #93C5FD; --color-sky-400: #3B82C4; --color-sky-500: #1D6FB0; --color-sky-600: #005A9C; --color-sky-700: #005A9C; --color-sky-800: #004A80; --color-sky-900: #003A66; --color-sky-950: #002A4D;
+  --color-indigo-50: #DBEAFE; --color-indigo-100: #DBEAFE; --color-indigo-200: #BFDBFE; --color-indigo-300: #93C5FD; --color-indigo-400: #3B82C4; --color-indigo-500: #1D6FB0; --color-indigo-600: #005A9C; --color-indigo-700: #005A9C; --color-indigo-800: #004A80; --color-indigo-900: #003A66; --color-indigo-950: #002A4D;
+  --color-orange-50: #FFEEDB; --color-orange-100: #FFEEDB; --color-orange-200: #FFD6A5; --color-orange-300: #FFB866; --color-orange-400: #FF9F3D; --color-orange-500: #FE8812; --color-orange-600: #E07406; --color-orange-700: #A85300; --color-orange-800: #8A4400; --color-orange-900: #6E3600; --color-orange-950: #522800;
+  --color-violet-50: #EFE7F6; --color-violet-100: #EFE7F6; --color-violet-200: #DCCBEB; --color-violet-300: #BFA2D9; --color-violet-400: #8F62B5; --color-violet-500: #73429E; --color-violet-600: #5B2A85; --color-violet-700: #4A216E; --color-violet-800: #3D1B5B; --color-violet-900: #2F1546; --color-violet-950: #211033;
+  --color-purple-50: #EFE7F6; --color-purple-100: #EFE7F6; --color-purple-200: #DCCBEB; --color-purple-300: #BFA2D9; --color-purple-400: #8F62B5; --color-purple-500: #73429E; --color-purple-600: #5B2A85; --color-purple-700: #4A216E; --color-purple-800: #3D1B5B; --color-purple-900: #2F1546; --color-purple-950: #211033;
+  /* The Sand Not Gray Rule: as escalas cinza do Tailwind (gray, zinc, slate, neutral, stone) viram
+     tons quentes da paleta. Classe cinza solta no código nunca vira cinza azulado na tela. */
+  --color-gray-50: #FAF8F4; --color-gray-100: #F4F2EC; --color-gray-200: #E7E3D8; --color-gray-300: #D3CEC2; --color-gray-400: #A8A296; --color-gray-500: #736E64; --color-gray-600: #5E5A52; --color-gray-700: #4A4740; --color-gray-800: #34312C; --color-gray-900: #1F1F1F; --color-gray-950: #141414;
+  --color-zinc-50: #FAF8F4; --color-zinc-100: #F4F2EC; --color-zinc-200: #E7E3D8; --color-zinc-300: #D3CEC2; --color-zinc-400: #A8A296; --color-zinc-500: #736E64; --color-zinc-600: #5E5A52; --color-zinc-700: #4A4740; --color-zinc-800: #34312C; --color-zinc-900: #1F1F1F; --color-zinc-950: #141414;
+  --color-slate-50: #FAF8F4; --color-slate-100: #F4F2EC; --color-slate-200: #E7E3D8; --color-slate-300: #D3CEC2; --color-slate-400: #A8A296; --color-slate-500: #736E64; --color-slate-600: #5E5A52; --color-slate-700: #4A4740; --color-slate-800: #34312C; --color-slate-900: #1F1F1F; --color-slate-950: #141414;
+  --color-neutral-50: #FAF8F4; --color-neutral-100: #F4F2EC; --color-neutral-200: #E7E3D8; --color-neutral-300: #D3CEC2; --color-neutral-400: #A8A296; --color-neutral-500: #736E64; --color-neutral-600: #5E5A52; --color-neutral-700: #4A4740; --color-neutral-800: #34312C; --color-neutral-900: #1F1F1F; --color-neutral-950: #141414;
+  --color-stone-50: #FAF8F4; --color-stone-100: #F4F2EC; --color-stone-200: #E7E3D8; --color-stone-300: #D3CEC2; --color-stone-400: #A8A296; --color-stone-500: #736E64; --color-stone-600: #5E5A52; --color-stone-700: #4A4740; --color-stone-800: #34312C; --color-stone-900: #1F1F1F; --color-stone-950: #141414;
+
   /* Estado ativo único (aba, chip, filtro, navegação, seleção): sempre roxo Semente com texto branco. */
   --color-active: #5B2A85;
   --color-active-foreground: #FFFFFF;
@@ -93,6 +118,19 @@
   --color-warning-tint: #FEF3C7;
   --color-destructive-tint: #FEE2E2;
   --color-info-tint: #DBEAFE;
+
+  /* Acentos botânicos (10/11/2026): o ciclo da planta amplia a paleta do manual.
+     raiz = terra, broto = verde-folha, fruto = amarelo. Chapados, como o resto. */
+  --color-raiz: #8A4B2A;
+  --color-raiz-foreground: #FFFFFF;
+  --color-raiz-tint: #F3E3D5;
+  --color-broto: #6DB33F;
+  --color-broto-foreground: #1F1F1F;
+  --color-broto-deep: #2F6B1E;
+  --color-broto-tint: #E4F2D8;
+  --color-fruto: #FFC83D;
+  --color-fruto-foreground: #1F1F1F;
+  --color-fruto-tint: #FFF2C7;
 
   /* Two Weights Rule: o manual só autoriza Poppins 400 e 700. */
   --font-weight-light: 400;
@@ -1362,6 +1400,6 @@ details[open]:not([data-expand-state="closing"]) > summary .cagp-expand-chevron 
 /* One Float Rule: com a pílula "Sou Semente" na tela, o fim da página ganha folga para o último
    conteúdo subir acima dela, e o "voltar ao topo" some no celular. */
 @media (max-width: 767px) {
-  html.cagp-has-float #main-content { padding-bottom: calc(6rem + 3.5rem); }
+  html.cagp-has-float #main-content { padding-bottom: calc(6rem + 3.75rem); }
   html.cagp-has-float #cagp-back-to-top { display: none; }
 }

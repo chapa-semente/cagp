@@ -304,7 +304,8 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
                         whileHover={{ x: 4 }}
                         whileTap={{ x: 2, y: 2 }}
                         transition={tactileSpring}
-                        className={`relative overflow-hidden flex items-center min-h-[44px] ${
+                        data-nav-axis={axis.id}
+                        className={`cagp-nav-link ${isAxisActive ? 'is-active' : ''} relative overflow-hidden flex items-center min-h-[44px] ${
                           isCompact ? 'justify-center px-1 py-2' : 'justify-between px-3 py-2.5'
                         } rounded-xl border-3 transition-colors no-underline ${
                           isAxisActive
@@ -316,14 +317,16 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
                           <motion.span
                             layoutId={layoutScope === 'desktop' ? 'sidebar-active-indicator' : `sidebar-active-indicator-${layoutScope}`}
                             transition={tactileSpring}
-                            className="absolute inset-0 bg-primary -z-0"
+                            data-nav-axis={axis.id}
+                            className="cagp-nav-fill absolute inset-0 bg-primary -z-0"
                             aria-hidden="true"
                           />
                         )}
                         <div className={`relative z-10 flex min-w-0 ${isCompact ? 'flex-col items-center gap-1' : 'items-center gap-2.5'}`}>
                           <span
-                            className={`w-7 h-7 rounded-lg flex items-center justify-center border-2 shrink-0 ${
-                              isAxisActive ? 'bg-white text-primary border-border' : 'bg-background text-foreground border-border'
+                            data-nav-axis={isAxisActive ? undefined : axis.id}
+                            className={`cagp-nav-chip w-7 h-7 rounded-lg flex items-center justify-center border-2 shrink-0 ${
+                              isAxisActive ? 'bg-white text-foreground border-border' : 'bg-background text-foreground border-border'
                             }`}
                           >
                             {axis.id === 'chapa' ? (
@@ -376,8 +379,8 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
                           }}
                           className={`flex items-center justify-between px-2.5 py-2 min-h-[44px] rounded-lg text-xs transition-colors no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                             isSubActive
-                              ? 'bg-card text-primary font-extrabold border-3 border-border shadow-xs'
-                              : 'text-content-secondary hover:text-foreground hover:bg-background font-semibold'
+                              ? 'bg-active text-active-foreground font-bold border-2 border-border shadow-xs'
+                              : 'text-content-secondary hover:text-foreground hover:bg-primary-tint font-bold'
                           }`}
                         >
                           <span className="truncate">{subItem.shortLabel || subItem.label}</span>
@@ -408,7 +411,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
               title="Horários do RU Setorial I/II e Circulares 3 e 4"
             >
               <CagpIcon name={resolveCagpIconName('bi-clock-history')} className="w-4 h-4 text-secondary shrink-0" />
-              <span>RU/Bus</span>
+              <span>Campus agora</span>
             </button>
             <a
               href={route('/configuracoes')}

@@ -16,7 +16,7 @@ Outros públicos confirmados, atendidos pelo mesmo site:
 - **Eleitor indeciso:** estudante avaliando a Chapa Semente antes da eleição do CAGP em **25–26/11/2026**.
 - **Formando:** TCC, fechamento das 600h, colação de grau.
 
-O site atende o estudante e, até a eleição de 25–26/11/2026, também precisa converter voto: a Chapa Semente tem aba própria na navegação e o herói da home apresenta os integrantes de forma pessoal. A utilidade continua sendo a prova, e a campanha não bloqueia trâmites, com **uma exceção decidida em 10/11/2026**: na primeira visita, o tour da Chapa Semente (`src/components/features/semente/SementeTour.tsx`) abre antes de qualquer conteúdo, inclusive para quem chega por link de documento, não tem botão de pular e só fecha no fim. Ele apresenta os 12 integrantes, cada um com spotlight na ferramenta real que defendeu, adapta a ordem ao momento de curso do visitante e, ao terminar, devolve a pessoa à página por onde entrou. Aparece uma vez por aparelho (`localStorage`).
+O site atende o estudante e, até a eleição de 25–26/11/2026, também precisa converter voto: a Chapa Semente tem aba própria na navegação e o herói da home apresenta os integrantes de forma pessoal. A utilidade continua sendo a prova, e a campanha não bloqueia trâmites, com **uma exceção decidida em 10/11/2026**: na primeira visita, o tour da Chapa Semente (`src/components/features/semente/SementeTour.tsx`) abre antes de qualquer conteúdo, inclusive para quem chega por link de documento, não tem botão de pular e só fecha no fim. Ele apresenta os 12 integrantes, cada um com spotlight numa captura estática da ferramenta que defendeu (o tour não navega mais pelo site, para não carregar páginas à toa), adapta a ordem ao momento de curso do visitante e, ao terminar, deixa a pessoa na página por onde entrou. Um segundo tour, opcional, apresenta as 14 propostas com a fala de cada diretoria (`PropostasTour.tsx`). Aparece uma vez por aparelho (`localStorage`).
 
 ## Product Purpose
 
@@ -28,7 +28,7 @@ Sucesso: estudantes resolvem de fato seus trâmites pelo site, e o site convence
 
 ## Positioning
 
-O argumento da chapa é que a proposta já existe: um site no ar, feito pelo próprio presidente da chapa. Nenhuma outra chapa pode dizer isso com verdade. Ele responde à "terra arrasada" de cada troca de diretoria do CA: informação que pertence aos estudantes, não a uma diretoria, alimentada por Markdown simples e em código aberto.
+O argumento da chapa é que a proposta já existe: um site no ar, feito pelo próprio presidente da chapa. Nenhuma outra chapa pode dizer isso com verdade. Ele responde à "terra arrasada" de cada troca de diretoria do CA: informação que pertence aos estudantes, não a uma diretoria, alimentada por Markdown simples. Decisão de 10/11/2026: o site não diz explicitamente que será entregue "mesmo em caso de derrota" (para não liberar o voto em outra chapa); diz que é do curso, que a ideia é da Semente e que vem sendo construído há muito tempo. Sem link para o GitHub nem menção a código aberto. A carta original está em `_referencias/CARTA PROPOSTA - SEMENTE (original).md`.
 
 ## Operating Context
 

@@ -1,0 +1,111 @@
+---
+// onibus-internos.astro — Linhas internas gratuitas do campus Pampulha.
+// Retrato estático do site oficial da UFMG (ver scripts/scrape-onibus-internos.mjs): horários,
+// legenda, itinerário e mapa de cada linha. Sem "próxima partida" nem relógio: a página diz a data
+// da coleta e manda conferir na fonte.
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+import SegmentedControl from '@/components/ui/SegmentedControl.astro';
+import JourneyNav from '@/components/ui/JourneyNav.astro';
+import CagpIcon from '@/components/ui/CagpIcon.astro';
+import OnibusLinha, { type Linha } from '@/components/features/internos/OnibusLinha.astro';
+import dados from '@/data/onibusInternos.json';
+
+const linhas = dados.linhas as Linha[];
+const porPeriodo = (p: string) => linhas.filter((l) => l.periodo === p);
+
+const TONS = [
+  { bloco: 'bg-primary text-white', traco: 'text-primary', folha: 'text-accent' },
+  { bloco: 'bg-secondary text-white', traco: 'text-secondary', folha: 'text-broto' },
+  { bloco: 'bg-accent text-foreground', traco: 'text-accent', folha: 'text-fruto' },
+  { bloco: 'bg-broto text-foreground', traco: 'text-broto', folha: 'text-secondary' },
+];
+const tomDe = (l: Linha) => (l.periodo === 'Sábado' ? { bloco: 'bg-raiz text-white', traco: 'text-raiz', folha: 'text-accent' } : TONS[(Number(l.nome.match(/\d+/)?.[0] ?? 1) - 1) % TONS.length]);
+
+const tabs = [
+  { id: 'v0', shortLabel: 'Aulas', fullLabel: 'Período letivo', hash: '#letivo' },
+  { id: 'v1', shortLabel: 'Sábado', fullLabel: 'Sábado', hash: '#sabado' },
+  { id: 'v2', shortLabel: 'Férias', fullLabel: 'Férias e recessos', hash: '#ferias' },
+];
+const paineis = [
+  { id: 'v0', ancora: 'letivo', titulo: 'Período letivo', linhas: porPeriodo('Período Letivo') },
+  { id: 'v1', ancora: 'sabado', titulo: 'Sábado', linhas: porPeriodo('Sábado') },
+  { id: 'v2', ancora: 'ferias', titulo: 'Férias e recessos', linhas: porPeriodo('Férias e Recessos') },
+];
+
+// Quem sai da aula do noturno: partidas a partir das 22h no período letivo, direto dos dados.
+const noturnas = porPeriodo('Período Letivo')
+  .flatMap((l) => l.turnos.flatMap((t) => t.partidas.filter((p) => p.hora >= '22:00').map((p) => ({ hora: p.hora, linha: l.nome, slug: l.slug }))))
+  .sort((a, b) => a.hora.localeCompare(b.hora));
+
+const coleta = new Date(`${dados.coletadoEm}T12:00:00`).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+<BaseLayout
+  title="Ônibus internos do campus"
+  description="Horários, legenda, paradas e mapa do itinerário das linhas internas gratuitas do campus Pampulha da UFMG, linha por linha."
+  mode="operate"
+>
+  <PageHeader
+    title="Ônibus internos"
+    subtitle="As linhas gratuitas que circulam dentro do campus Pampulha: horário de partida, paradas e o desenho do trajeto de cada uma."
+    badges={[{ label: `Dados da UFMG · ${coleta}`, icon: 'bi-calendar-check' }]}
+    axisId="guias"
+    activeId="guias-internos"
+    mode="operate"
+    condensed={true}
+  />
+
+  <SegmentedControl tabs={tabs} defaultTab="v0" showViewAll={false} />
+
+  {paineis.map((painel, i) => (
+    <section id={`ws-panel-${painel.id}`} class="cagp-workspace-view space-y-6" data-ws-panel={painel.id} hidden={i > 0}>
+      <div id={painel.ancora} class="cagp-anchor-target"></div>
+      <h2 class="sr-only">{painel.titulo}</h2>
+
+      {i === 0 && noturnas.length > 0 && (
+        <aside class="rounded-2xl border-3 border-border bg-fruto text-foreground shadow-lg p-4 sm:p-6" aria-labelledby="internos-noturno">
+          <h3 id="internos-noturno" class="font-heading font-bold text-xl sm:text-2xl leading-tight m-0 text-balance">
+            Saiu da aula às 22h30? Ainda tem ônibus.
+          </h3>
+          <p class="m-0 mt-2 text-base leading-relaxed max-w-[60ch]">
+            Estas são as partidas depois das 22h, contadas da Escola de Música. O ônibus leva alguns minutos até chegar ao seu ponto.
+          </p>
+          <ul class="list-none m-0 mt-4 p-0 flex flex-wrap gap-2.5">
+            {noturnas.map((n) => (
+              <li>
+                <a href={`#${n.slug}-titulo`} class="cagp-noturna inline-flex items-baseline gap-2 min-h-[48px] px-4 py-2 rounded-xl border-3 border-border bg-white shadow-md no-underline text-foreground">
+                  <span class="font-heading font-bold text-2xl tabular-nums leading-none">{n.hora}</span>
+                  <span class="font-heading font-bold uppercase tracking-[0.04em] text-xs">{n.linha}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </aside>
+      )}
+
+      {painel.linhas.map((linha) => <OnibusLinha linha={linha} tom={tomDe(linha)} />)}
+    </section>
+  ))}
+
+  <section class="mt-8 rounded-2xl border-2 border-border bg-card shadow-md p-4 sm:p-6" aria-labelledby="internos-fonte">
+    <h2 id="internos-fonte" class="font-heading font-bold text-lg sm:text-xl m-0">De onde vêm estes horários</h2>
+    <p class="m-0 mt-2 text-base leading-relaxed text-content-secondary max-w-[68ch]">
+      Copiamos os horários e os trajetos do site de transporte da UFMG em {coleta}. Não é um painel ao vivo:
+      a universidade pode mudar uma partida sem aviso, então confira na fonte antes de depender do último ônibus.
+    </p>
+    <div class="mt-4 flex flex-wrap gap-3">
+      <a href={dados.fonte} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 min-h-[44px] px-4 rounded-xl border-3 border-border bg-primary text-white font-heading font-bold uppercase tracking-[0.03em] text-sm shadow-md no-underline">
+        Abrir o site da UFMG <CagpIcon name="external" class="w-4 h-4" />
+      </a>
+      <a href={`tel:+55${dados.contato.telefone.replace(/\D/g, '')}`} class="inline-flex items-center gap-2 min-h-[44px] px-4 rounded-xl border-3 border-border bg-white text-foreground font-heading font-bold uppercase tracking-[0.03em] text-sm shadow-md no-underline">
+        <CagpIcon name="phone" class="w-4 h-4" /> {dados.contato.setor} · {dados.contato.telefone}
+      </a>
+    </div>
+  </section>
+
+  <JourneyNav
+    prev={{ title: 'Guia do calouro', href: '/calouros', desc: 'Checklist dos primeiros 30 dias, mapa do campus e salas da FAFICH.' }}
+    next={{ title: 'FUMP e vida no noturno', href: '/permanencia', desc: 'Níveis da FUMP, auxílios e o que funciona à noite.' }}
+  />
+</BaseLayout>

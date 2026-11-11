@@ -379,7 +379,7 @@ html[data-bk-transition='stamp']::view-transition-new(root) {
     -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 var(--bk-fade-top), #000 calc(100% - var(--bk-fade-bottom)), transparent 100%);
     mask-image: linear-gradient(to bottom, transparent 0, #000 var(--bk-fade-top), #000 calc(100% - var(--bk-fade-bottom)), transparent 100%);
     animation: bk-scroll-fade linear both;
-    animation-timeline: scroll(self); /* must follow the shorthand */
+    animation-timeline: var(--cagp-tl, scroll(self)); /* must follow the shorthand */
   }
 }
 

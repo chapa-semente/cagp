@@ -13,7 +13,7 @@ Abaixo, detalhamos as propostas estruturadas por eixos estratégicos de atuaçã
 
 3. SITE DO CURSO
 
-	A Chapa Semente se compromete em criar e disponibilizar, mesmo em uma eventual derrota eleitoral, um site para o curso de Gestão Pública. Neste site se concentrarão informações sobre a Universidade (questões relativas à vivência universitária) e sobre o Curso de Gestão Pública, além de um portal de transparência para publicação das decisões das reuniões e dos boletins de prestação de contas.
+	A Chapa Semente idealizou e construiu o site do curso de Gestão Pública, um projeto nosso, pensado e desenvolvido há muito tempo, que já está no ar e pertence ao curso, não a um mandato. Neste site se concentram informações sobre a Universidade (questões relativas à vivência universitária) e sobre o Curso de Gestão Pública, além de um portal de transparência para publicação das decisões das reuniões e dos boletins de prestação de contas.
 
 4. ABERTURA DO CNPJ
 

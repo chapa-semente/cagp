@@ -58,7 +58,7 @@ export const SIMULATED_NEWS: SimulatedNewsItem[] = [
     ],
     highlights: [
       'Local e horário: Auditório B102 (FAFICH) às 18h30 em primeira convocação e 18h45 em segunda convocação.',
-      'Pauta 1: Fluxo do Jantar no Bandejão RU II Setorial (17h30–19h30) e iluminação das paradas do Circular Interno.',
+      'Pauta 1: Fluxo do Jantar no Bandejão RU II Setorial (17h10–19h30) e iluminação das paradas do Circular Interno.',
       'Pauta 2: Mapeamento de vagas em programas e projetos para integralização das 300h de Extensão Universitária.',
       'Pauta 3: Indicação de representantes discentes titulares e suplentes nos órgãos colegiados (Art. 29, VII).',
     ],

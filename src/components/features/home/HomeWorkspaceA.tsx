@@ -167,11 +167,11 @@ export const HomeWorkspaceA: React.FC = () => {
           </span>
 
           <h1 id="home-chapa-title" className="font-heading font-bold uppercase text-[1.75rem] leading-[1.05] tracking-[0.02em] sm:text-5xl m-0 max-w-[16ch] text-balance">
-            Você já tá usando a nossa <MarkerWord onColor className="text-[1.12em] normal-case">proposta</MarkerWord>.
+            Toda mudança começa <MarkerWord onColor className="text-[1.12em] normal-case">pequena</MarkerWord>.
           </h1>
 
           <p className="text-base sm:text-lg leading-relaxed m-0 max-w-[46ch] text-white">
-            Doze estudantes de GP montaram este app pra você resolver estágio, 600h e FUMP sem depender de quem &ldquo;sabe o caminho&rdquo;.
+            A nossa começou com este app, feito por 12 estudantes de GP pra você resolver estágio, 600h e FUMP sem depender de ninguém.
             Dias 25 e 26/11, vote Semente.
           </p>
 

@@ -1,0 +1,77 @@
+---
+// TramiteModelos.astro — Os modelos de um trâmite numa lista só: nome, pra que serve e os formatos.
+// Substitui gavetas e grades de cards: uma ficha, uma linha por documento.
+import TramiteAcoes from './TramiteAcoes.astro';
+import type { TramiteModelo } from './types';
+import { asset } from '@/lib/paths';
+
+interface Props {
+  modelos: TramiteModelo[];
+  titulo?: string;
+  id?: string;
+}
+
+const { modelos, titulo = 'Modelos pra baixar', id } = Astro.props;
+const headingId = id ? `${id}-titulo` : undefined;
+---
+
+<section class="space-y-4" aria-labelledby={headingId} id={id}>
+  <h2 id={headingId} class="font-heading font-bold text-xl text-foreground m-0">{titulo}</h2>
+  <ul class="cagp-tramite-modelos cagp-reveal-stagger">
+    {modelos.map((m) => (
+      <li>
+        <div class="min-w-0">
+          <h3>{m.titulo}</h3>
+          <p>{m.desc}</p>
+        </div>
+        <TramiteAcoes
+          acoes={[
+            ...(m.pdf ? [{ kind: 'pdf' as const, href: asset(`/documentos/${m.pdf}`) }] : []),
+            ...(m.docx ? [{ kind: 'docx' as const, href: asset(`/documentos/${m.docx}`) }] : []),
+            ...(m.gdoc ? [{ kind: 'gdoc' as const, href: m.gdoc }] : []),
+          ]}
+        />
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .cagp-tramite-modelos {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    border: 2px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-ficha);
+    overflow: hidden;
+  }
+  .cagp-tramite-modelos > li {
+    display: grid;
+    gap: 0.75rem;
+    padding: 1rem 1.125rem;
+  }
+  .cagp-tramite-modelos > li + li {
+    border-top: 2px solid var(--color-border);
+  }
+  @media (min-width: 1024px) {
+    .cagp-tramite-modelos > li {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+    }
+  }
+  h3 {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-foreground);
+  }
+  p {
+    margin: 0.125rem 0 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--color-content-secondary);
+  }
+</style>

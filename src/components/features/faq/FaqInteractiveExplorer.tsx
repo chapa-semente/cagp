@@ -84,21 +84,18 @@ export const FaqInteractiveExplorer: React.FC<Props> = ({ faqs }) => {
             />
           </div>
 
-          <div className="flex flex-wrap gap-2">
-            {CATEGORIES.map((cat) => {
-              const isActive = selectedCat === cat.id;
-              return (
-                <Button
-                  key={cat.id}
-                  type="button"
-                  size="xs"
-                  variant={isActive ? 'default' : 'outline'}
-                  onClick={() => setSelectedCat(cat.id)}
-                >
-                  {cat.label}
-                </Button>
-              );
-            })}
+          <div role="group" aria-label="Assunto" className="flex items-center gap-2 overflow-x-auto scroll-mask-x scrollbar-none py-1 px-0.5">
+            {CATEGORIES.map((cat) => (
+              <button
+                key={cat.id}
+                type="button"
+                className="cagp-chip"
+                aria-pressed={selectedCat === cat.id}
+                onClick={() => setSelectedCat(cat.id)}
+              >
+                {cat.label}
+              </button>
+            ))}
           </div>
         </CardContent>
       </Card>

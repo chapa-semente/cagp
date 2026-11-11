@@ -1,0 +1,72 @@
+---
+// TramiteResumo.astro — As três linhas que abrem todo guia: o que é · quem pode · prazo.
+// DESIGN.md › Arquétipos 2 (Guia de trâmite). Uma ficha, três respostas, nada de herói.
+interface Props {
+  oQue: string;
+  quemPode: string;
+  prazo: string;
+}
+
+const { oQue, quemPode, prazo } = Astro.props;
+const linhas = [
+  { rotulo: 'O que é', texto: oQue },
+  { rotulo: 'Quem pode', texto: quemPode },
+  { rotulo: 'Prazo', texto: prazo },
+];
+---
+
+<dl class="cagp-tramite-resumo cagp-reveal-stagger">
+  {linhas.map((l) => (
+    <div>
+      <dt>{l.rotulo}</dt>
+      <dd set:html={l.texto} />
+    </div>
+  ))}
+</dl>
+
+<style>
+  .cagp-tramite-resumo {
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    background: #fff;
+    border: 2px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-ficha);
+    overflow: hidden;
+  }
+  .cagp-tramite-resumo > div {
+    padding: 1rem 1.125rem;
+  }
+  .cagp-tramite-resumo > div + div {
+    border-top: 2px solid var(--color-border);
+  }
+  @media (min-width: 768px) {
+    .cagp-tramite-resumo {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .cagp-tramite-resumo > div + div {
+      border-top: 0;
+      border-left: 2px solid var(--color-border);
+    }
+  }
+  dt {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+  dd {
+    margin: 0.25rem 0 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--color-foreground);
+    text-wrap: pretty;
+  }
+  dd :global(a) {
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+</style>

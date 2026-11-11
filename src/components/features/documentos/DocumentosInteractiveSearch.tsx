@@ -172,7 +172,7 @@ export const DocumentosInteractiveSearch: React.FC = () => {
                 Buscar documento
               </CardTitle>
               <CardDescription className="text-xs font-medium text-muted-foreground">
-                A fonte oficial prevalecente é sempre o PDF publicado em documentos/.
+                Se o texto no site e o PDF discordarem, vale o PDF oficial.
               </CardDescription>
             </div>
             <div className="w-full sm:w-72">
@@ -185,60 +185,20 @@ export const DocumentosInteractiveSearch: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-2 pt-3">
+          <div role="group" aria-label="Tipo de documento" className="flex items-center gap-2 overflow-x-auto scroll-mask-x scrollbar-none py-1 px-0.5 pt-3">
             {CATEGORIES.map((cat) => (
-              <Button
+              <button
                 key={cat}
                 type="button"
-                size="sm"
-                variant={selectedCat === cat ? 'default' : 'outline'}
+                className="cagp-chip"
+                aria-pressed={selectedCat === cat}
                 onClick={() => setSelectedCat(cat)}
               >
                 {cat}
-              </Button>
+              </button>
             ))}
           </div>
 
-          {/* Barra de Menus Neobrutalista Canônica & DatePicker */}
-          <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t-2 border-border">
-            <Menubar className="rounded-lg">
-              <MenubarMenu>
-                <MenubarTrigger>Filtrar Acervo</MenubarTrigger>
-                <MenubarContent className="border-3 border-border bg-card shadow-md">
-                  {CATEGORIES.map((cat) => (
-                    <MenubarItem key={cat} onClick={() => setSelectedCat(cat)} className="cursor-pointer">
-                      {cat} {selectedCat === cat && <i className="bi bi-check-lg" aria-hidden="true" />}
-                    </MenubarItem>
-                  ))}
-                  <MenubarSeparator />
-                  <MenubarItem onClick={() => { setSelectedCat('Todos'); setQuery(''); setFilterDate(undefined); }} className="cursor-pointer text-destructive">
-                    Limpar Todos os Filtros
-                  </MenubarItem>
-                </MenubarContent>
-              </MenubarMenu>
-              <MenubarMenu>
-                <MenubarTrigger>Ações Rápidas</MenubarTrigger>
-                <MenubarContent className="border-3 border-border bg-card shadow-md">
-                  <MenubarItem onClick={() => window.print()} className="cursor-pointer">
-                    Imprimir Catálogo Geral
-                  </MenubarItem>
-                  <MenubarItem onClick={() => navigator.clipboard.writeText(window.location.href)} className="cursor-pointer">
-                    Copiar Link Desta Pesquisa
-                  </MenubarItem>
-                </MenubarContent>
-              </MenubarMenu>
-            </Menubar>
-
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-mono font-bold text-muted-foreground uppercase">Data de Corte:</span>
-              <DatePicker
-                value={filterDate}
-                onChange={setFilterDate}
-                placeholder="Filtrar por data..."
-                className="min-h-[38px] text-xs font-mono bg-white"
-              />
-            </div>
-          </div>
         </CardHeader>
 
         <CardContent className="pt-6">
@@ -279,7 +239,7 @@ export const DocumentosInteractiveSearch: React.FC = () => {
                             href={route(`/documentos/${doc.slug}`)}
                             className="px-3 py-1.5 min-h-[40px] inline-flex items-center rounded-lg border-3 border-border bg-white hover:bg-background text-foreground text-xs font-mono font-bold no-underline shadow-sm transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
                           >
-                            Leitor Normativo <i className="bi bi-arrow-right" aria-hidden="true"></i>
+                            Ler no site <i className="bi bi-arrow-right" aria-hidden="true"></i>
                           </a>
                         )}
                       </div>
