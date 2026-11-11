@@ -100,6 +100,14 @@ describe('textos de compartilhar', () => {
     }
   });
 
+  it('toda mensagem leva o coração roxo e o laranja, em qualquer tom e em qualquer fase', () => {
+    for (const fase of ['antes', 'dia', 'depois'] as const)
+      for (const tom of ['util', 'convite', 'voto'] as const) {
+        const texto = montarMensagem({ corpo: tom === 'voto' ? '💜🧡 Eu voto' : 'corpo', url: 'https://exemplo.test/', tom }, fase, ANTES);
+        expect(texto, `${tom}/${fase}`).toContain('💜🧡');
+      }
+  });
+
   it('o debate de 24/11 aparece até o dia do debate e some depois', () => {
     expect(assinatura('util', 'antes', ANTES)).toContain('Debate das chapas: 24/11');
     expect(assinatura('util', 'antes', VESPERA)).not.toContain('Debate');

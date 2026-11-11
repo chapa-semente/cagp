@@ -256,7 +256,8 @@ export const AXIS_REGISTRY: AxisConfig[] = [
         type: 'overview',
         isOverview: true,
         keywords: 'chapa 2 dois número semente votar eleição propostas integrantes candidatos',
-        match: ['^/chapa-semente', '^/propostas/'],
+        // A moldura de apoio é página própria da aba (item abaixo): fica fora deste padrão.
+        match: ['^/chapa-semente(?!/moldura)', '^/propostas/'],
       },
       {
         id: 'chapa-eleicao',
@@ -268,6 +269,17 @@ export const AXIS_REGISTRY: AxisConfig[] = [
         type: 'page',
         keywords: 'eleição votar chapa 2 número urna edital junta eleitoral debate diretorias',
         match: ['^/gestao'],
+      },
+      {
+        id: 'chapa-moldura',
+        label: 'Moldura de apoio',
+        shortLabel: 'Moldura',
+        href: route('/chapa-semente/moldura'),
+        icon: 'd-moldura',
+        description: 'Ponha a sua foto numa moldura da Chapa 2 e poste no perfil, no feed ou no story.',
+        type: 'tool',
+        keywords: 'moldura foto perfil story feed apoio gostosas bb faz o s twibbon avatar campanha',
+        match: ['^/chapa-semente/moldura'],
       },
     ],
   },

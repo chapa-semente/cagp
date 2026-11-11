@@ -1,0 +1,11 @@
+{
+  "_comentario": "Molduras de apoio da Chapa 2 (página /chapa-semente/moldura). Cada item é uma moldura: `linhas` é o texto (a última linha sai maior), `cor` é a cor da faixa (roxo, petroleo, broto, fruto, papel ou tinta). Para criar uma moldura, copie um item e troque o id, o texto e a cor. `circularS` desenha o círculo da caneta em volta do S.",
+  "molduras": [
+    { "id": "gostosas-chapa-2", "linhas": ["Gostosas com", "Chapa 2"], "cor": "roxo" },
+    { "id": "gostosas-semente", "linhas": ["Gostosas com", "Semente"], "cor": "broto" },
+    { "id": "faz-o-s", "linhas": ["Faz o S!"], "cor": "petroleo", "circularS": true },
+    { "id": "as-bb-semente", "linhas": ["As BB quer", "Semente"], "cor": "fruto" },
+    { "id": "as-bb-chapa-2", "linhas": ["As BB quer", "Chapa 2"], "cor": "papel" },
+    { "id": "eu-voto", "linhas": ["Eu voto", "Chapa 2"], "cor": "tinta" }
+  ]
+}

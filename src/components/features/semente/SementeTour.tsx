@@ -1,7 +1,8 @@
 // src/components/features/semente/SementeTour.tsx — Tour obrigatório da Chapa Semente.
 //
 // Primeira visita: abre antes de qualquer conteúdo, sem "pular", e só fecha no fim (decisão de 10/11/2026).
-// Fluxo: abertura (todos os rostos) → pergunta de perfil → para cada integrante, uma tela de história
+// Fluxo: panfletagem (suspense + o Plantão Semente em vídeo, sem pular; ver TourPanfletagem.tsx)
+// → abertura (todos os rostos) → pergunta de perfil → para cada integrante, uma tela de história
 // (foto + dor do estudante) que se recolhe num cartão enquanto o spotlight recorta a ferramenta real
 // → fechamento com a votação. Ao terminar, devolve a pessoa à página por onde ela entrou.
 //
@@ -19,6 +20,7 @@ import { asset } from '@/lib/paths';
 import { easeOutExpo } from '@/lib/motion';
 import { MarkerWord } from '@/components/ui/marker-word';
 import { GritoDeVoto } from '@/components/ui/grito-de-voto';
+import molduras from '@/data/molduras.json';
 import { getVaultItem, setVaultItem, type UserRole } from '@/lib/storage/studentVault';
 import {
   canTriggerInstallPrompt,
@@ -40,6 +42,7 @@ import {
   type TourPerson, SEMENTE_TOUR_KEY } from '@/lib/sementeTour';
 import { START_PROPOSTAS_TOUR } from '@/lib/propostasTour';
 import { CHAPA_NUMERO, CHAPA_ROTULO } from '@/lib/chapaSementeData';
+import { TourPanfletagem } from './TourPanfletagem';
 
 // ---------------------------------------------------------------------------
 // Sequência de telas
@@ -50,7 +53,9 @@ type Screen =
   | { kind: 'perfil' }
   | { kind: 'story'; person: TourPerson; n: number }
   | { kind: 'spot'; person: TourPerson; n: number; next?: TourPerson }
-  | { kind: 'final' };
+  | { kind: 'final' }
+  // A última tela (decisão do Gabriel em 11/11/2026): a moldura de apoio. Toda saída do tour passa por ela.
+  | { kind: 'moldura' };
 
 const TOTAL_PEOPLE = TOUR_PEOPLE_IN_CHAPA_ORDER.length;
 
@@ -63,6 +68,7 @@ function buildScreens(profile?: UserRole): Screen[] {
     screens.push({ kind: 'spot', person, n, next: people[n + 1] });
   });
   screens.push({ kind: 'final' });
+  screens.push({ kind: 'moldura' });
   return screens;
 }
 
@@ -190,6 +196,8 @@ export const SementeTour: React.FC = () => {
   const [vp, setVp] = useState({ w: 0, h: 0 });
   const [cardRect, setCardRect] = useState<Rect | null>(null);
   const [closing, setClosing] = useState(false);
+  // A panfletagem roda antes da tela dos rostos e não entra no índice salvo: quem volta do perfil não a revê.
+  const [panfletagem, setPanfletagem] = useState(true);
   const rootRef = useRef<HTMLDivElement>(null);
   const [cardEl, setCardEl] = useState<HTMLDivElement | null>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -199,6 +207,7 @@ export const SementeTour: React.FC = () => {
   const index = state ? Math.min(state.index, screens.length - 1) : 0;
   const screen = open ? screens[index] : undefined;
   const isSpot = screen?.kind === 'spot';
+  const showPanfletagem = screen?.kind === 'intro' && panfletagem;
 
   // ---- Montagem: decide se o tour abre --------------------------------------------------------
   useEffect(() => {
@@ -222,6 +231,7 @@ export const SementeTour: React.FC = () => {
   useEffect(() => {
     const start = () => {
       setClosing(false);
+      setPanfletagem(true);
       setState({
         status: 'active',
         index: 0,
@@ -354,7 +364,7 @@ export const SementeTour: React.FC = () => {
     if (!open) return;
     const t = window.setTimeout(() => headingRef.current?.focus({ preventScroll: true }), 260);
     return () => window.clearTimeout(t);
-  }, [open, index]);
+  }, [open, index, showPanfletagem]);
 
   useEffect(() => {
     if (!open) return;
@@ -366,7 +376,8 @@ export const SementeTour: React.FC = () => {
       }
       const tag = (e.target as HTMLElement | null)?.tagName;
       if (tag === 'INPUT' || tag === 'TEXTAREA') return;
-      if (e.key === 'ArrowRight' && screen?.kind !== 'perfil' && screen?.kind !== 'final') {
+      if (showPanfletagem) return;
+      if (e.key === 'ArrowRight' && screen?.kind !== 'perfil' && screen?.kind !== 'final' && screen?.kind !== 'moldura') {
         e.preventDefault();
         go(1);
       } else if (e.key === 'ArrowLeft' && index > 0) {
@@ -376,7 +387,7 @@ export const SementeTour: React.FC = () => {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [open, screen, index, go, finish, state?.replay]);
+  }, [open, screen, index, go, finish, state?.replay, showPanfletagem]);
 
   if (!open || !screen) return null;
 
@@ -411,7 +422,9 @@ export const SementeTour: React.FC = () => {
         ? `Ferramenta: ${screen.person.stop.tool}.`
         : screen.kind === 'final'
           ? 'Votação: 25 e 26 de novembro.'
-          : '';
+          : screen.kind === 'moldura'
+            ? 'Sua foto com a moldura da Chapa 2.'
+            : '';
 
   return (
     <MotionConfig reducedMotion="never">
@@ -519,13 +532,14 @@ export const SementeTour: React.FC = () => {
         <AnimatePresence mode="wait" initial={false}>
           {!closing && (
             <motion.div
-              key={`${screen.kind}-${index}`}
+              key={showPanfletagem ? 'panfletagem' : `${screen.kind}-${index}`}
               className="absolute inset-0 text-white"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, transition: { duration: 0.22, delay: isSpot ? 0.34 : 0.12 } }}
               exit={{ opacity: 0, transition: { duration: 0.14 } }}
             >
-              {screen.kind === 'intro' && <IntroScreen headingRef={headingRef} onStart={() => go(1)} />}
+              {showPanfletagem && <TourPanfletagem onDone={() => setPanfletagem(false)} />}
+              {screen.kind === 'intro' && !showPanfletagem && <IntroScreen headingRef={headingRef} onStart={() => go(1)} />}
               {screen.kind === 'perfil' && (
                 <PerfilScreen headingRef={headingRef} onChoose={chooseProfile} onBack={() => go(-1)} />
               )}
@@ -555,8 +569,11 @@ export const SementeTour: React.FC = () => {
                   headingRef={headingRef}
                   profile={state?.profile}
                   onBack={() => go(-1)}
-                  onFinish={finish}
+                  onNext={() => go(1)}
                 />
+              )}
+              {screen.kind === 'moldura' && (
+                <MolduraScreen headingRef={headingRef} onBack={() => go(-1)} onFinish={finish} />
               )}
             </motion.div>
           )}
@@ -836,8 +853,9 @@ const FinalScreen: React.FC<{
   headingRef: HeadingRef;
   profile?: UserRole;
   onBack: () => void;
-  onFinish: () => void;
-}> = ({ headingRef, profile, onBack, onFinish }) => {
+  /** Segue para a última tela (a moldura de apoio): nenhuma saída do tour pula essa tela. */
+  onNext: () => void;
+}> = ({ headingRef, profile, onBack, onNext }) => {
   const [calendarSaved, setCalendarSaved] = useState(false);
   const [canInstall, setCanInstall] = useState(false);
   const [showIosHint, setShowIosHint] = useState(false);
@@ -869,7 +887,7 @@ const FinalScreen: React.FC<{
   const handleCommit = () => {
     record(true);
     setStamped(true);
-    window.setTimeout(onFinish, 1500);
+    window.setTimeout(onNext, 1500);
   };
 
   const handleInstall = async () => {
@@ -986,23 +1004,6 @@ const FinalScreen: React.FC<{
                 Chamar a turma no WhatsApp
               </a>
             </li>
-            <li>
-              <button
-                type="button"
-                className={actionBtn}
-                onClick={() => {
-                  record(false);
-                  onFinish();
-                  window.setTimeout(() => {
-                    (window as unknown as { __cagpPropostasPending?: boolean }).__cagpPropostasPending = true;
-                    window.dispatchEvent(new CustomEvent(START_PROPOSTAS_TOUR));
-                  }, 620);
-                }}
-              >
-                <i className="bi bi-card-checklist text-lg text-primary" aria-hidden="true" />
-                Ver as 14 propostas, uma por uma
-              </button>
-            </li>
           </ul>
 
           <div className="relative min-h-[136px] pt-2">
@@ -1026,15 +1027,160 @@ const FinalScreen: React.FC<{
                     type="button"
                     onClick={() => {
                       record(false);
-                      onFinish();
+                      onNext();
                     }}
                     className="inline-flex min-h-[44px] w-full items-center justify-center text-sm font-bold text-white underline underline-offset-[0.22em] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                   >
-                    {canVote ? 'Ainda estou decidindo' : 'Ir para o site'}
+                    {canVote ? 'Ainda estou decidindo' : 'Continuar'}
                   </button>
                 </motion.div>
               )}
             </AnimatePresence>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* ───────────────────────── Última tela: a moldura de apoio ───────────────────────── */
+
+const MOLDURA_FUNDO: Record<string, string> = { roxo: '#5B2A85', petroleo: '#266264', broto: '#6DB33F', fruto: '#FFC83D', papel: '#FFFFFF', tinta: '#1F1F1F' };
+const MOLDURA_ESCURA = new Set(['roxo', 'petroleo', 'tinta']);
+
+/**
+ * A moldura de apoio, dentro do tour. É a mesma ferramenta de /chapa-semente/moldura
+ * (src/scripts/molduraDeApoio.ts), só com a moldura redonda de perfil. Na primeira visita o tour só
+ * fecha depois que a pessoa põe uma foto (decisão do Gabriel em 11/11/2026, ciente de que isso barra
+ * quem chega só por um documento). Única válvula: se a ferramenta não carregar, a saída aparece, para
+ * um erro de rede não trancar o site.
+ */
+const MolduraScreen: React.FC<{ headingRef: HeadingRef; onBack: () => void; onFinish: () => void }> = ({ headingRef, onBack, onFinish }) => {
+  const raizRef = React.useRef<HTMLDivElement>(null);
+  const [temFoto, setTemFoto] = useState(false);
+  const [falhou, setFalhou] = useState(false);
+
+  useEffect(() => {
+    const raiz = raizRef.current;
+    if (!raiz) return;
+    let vivo = true;
+    const comFoto = () => setTemFoto(true);
+    raiz.addEventListener('moldura:foto', comFoto);
+    import('@/scripts/molduraDeApoio')
+      .then((m) => {
+        if (!vivo) return;
+        m.ligarMoldura(raiz);
+        if (raiz.dataset.temFoto) setTemFoto(true);
+      })
+      .catch(() => vivo && setFalhou(true));
+    return () => {
+      vivo = false;
+      raiz.removeEventListener('moldura:foto', comFoto);
+    };
+  }, []);
+
+  const verPropostas = () => {
+    onFinish();
+    window.setTimeout(() => {
+      (window as unknown as { __cagpPropostasPending?: boolean }).__cagpPropostasPending = true;
+      window.dispatchEvent(new CustomEvent(START_PROPOSTAS_TOUR));
+    }, 620);
+  };
+
+  return (
+    <div className={screenPad}>
+      <div
+        ref={raizRef}
+        data-moldura
+        className="mx-auto flex min-h-full max-w-[1040px] flex-col justify-center gap-5 py-4 md:grid md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] md:items-center md:gap-12"
+      >
+        <div className="grid justify-items-center gap-2">
+          <canvas
+            width={1080}
+            height={1080}
+            data-formato="perfil"
+            aria-label="Prévia da sua foto com a moldura da Chapa 2"
+            className="block h-auto w-[min(54vw,216px)] touch-none cursor-grab rounded-full border-3 border-foreground bg-primary-tint shadow-lg md:w-[min(34vw,380px)]"
+          />
+          {temFoto && <p className="m-0 text-sm text-white">Arraste a foto pra enquadrar.</p>}
+        </div>
+
+        <div className="grid gap-4">
+          <h2
+            id="semente-tour-heading"
+            ref={headingRef}
+            tabIndex={-1}
+            className="m-0 font-heading text-[clamp(1.7rem,5.4vw,3rem)] font-bold leading-[1.06] tracking-[-0.02em] [text-wrap:balance] focus:outline-none"
+          >
+            Agora põe a sua <MarkerWord onColor className="text-[1.1em] tracking-normal">cara</MarkerWord> na campanha.
+          </h2>
+          <p className="m-0 max-w-[46ch] text-base leading-relaxed sm:text-lg">
+            Escolha uma foto e uma moldura. Em um minuto a sua foto de perfil já está pedindo voto pra {CHAPA_ROTULO}. A foto não sai do seu celular.
+          </p>
+
+          <div className="flex flex-wrap items-center gap-2.5">
+            <label className={`${temFoto ? btnOutlineLight : btnAccent} h-[56px] cursor-pointer px-5 text-sm has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-white has-[:focus-visible]:outline-offset-2`}>
+              <i className="bi bi-camera" aria-hidden="true" />
+              {temFoto ? 'Trocar a foto' : 'Escolher minha foto'}
+              <input type="file" accept="image/*" className="sr-only" data-moldura-foto />
+            </label>
+            <button type="button" data-moldura-baixar disabled hidden={!temFoto} className={`${btnOutlineLight} h-[56px] px-5 text-sm`}>
+              <i className="bi bi-download" aria-hidden="true" />
+              Baixar
+            </button>
+            <button type="button" data-moldura-postar disabled hidden={!temFoto} className={`${btnOutlineLight} h-[56px] px-5 text-sm`}>
+              <i className="bi bi-share" aria-hidden="true" />
+              Postar
+            </button>
+          </div>
+
+          <fieldset className="m-0 border-0 p-0">
+            <legend className="mb-2 p-0 text-sm font-bold uppercase tracking-[0.04em]">Escolha a moldura</legend>
+            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
+              {molduras.molduras.map((m, i) => (
+                <label
+                  key={m.id}
+                  style={{ background: MOLDURA_FUNDO[m.cor] }}
+                  className="grid min-h-[56px] cursor-pointer place-items-center rounded-[16px_5px_16px_5px] border-3 border-foreground px-2 py-1.5 text-center shadow-sm transition-[translate,box-shadow] duration-(--duration-press) has-[:checked]:translate-x-0.5 has-[:checked]:translate-y-0.5 has-[:checked]:shadow-none has-[:checked]:outline-4 has-[:checked]:outline-offset-2 has-[:checked]:outline-white has-[:focus-visible]:outline-4 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent"
+                >
+                  <input type="radio" name="moldura" value={m.id} defaultChecked={i === 0} className="sr-only" />
+                  <span className={`cagp-grito cagp-grito--sm justify-center [animation:none] ${MOLDURA_ESCURA.has(m.cor) ? 'is-on-color' : ''}`} style={{ ['--grito' as string]: '1.0625rem' }}>
+                    {m.linhas.join(' ')}
+                  </span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-1">
+            <BackButton onClick={onBack} />
+            {temFoto ? (
+              <>
+                <button type="button" onClick={onFinish} className={`${btnAccent} h-[56px] px-6 text-sm`}>
+                  Pronto, ir pro site
+                  <i className="bi bi-arrow-right" aria-hidden="true" />
+                </button>
+                <button
+                  type="button"
+                  onClick={verPropostas}
+                  className="inline-flex min-h-[44px] items-center text-sm font-bold text-white underline underline-offset-[0.22em] cursor-pointer focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
+                >
+                  Ver as 14 propostas, uma por uma
+                </button>
+              </>
+            ) : falhou ? (
+              <button
+                type="button"
+                onClick={onFinish}
+                className="inline-flex min-h-[44px] items-center text-sm font-bold text-white underline underline-offset-[0.22em] cursor-pointer focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
+              >
+                A moldura não carregou. Ir pro site
+              </button>
+            ) : (
+              <p className="m-0 min-w-0 flex-1 text-sm font-bold leading-snug text-white" role="status">
+                Ponha a sua foto na moldura pra entrar no site.
+              </p>
+            )}
           </div>
         </div>
       </div>

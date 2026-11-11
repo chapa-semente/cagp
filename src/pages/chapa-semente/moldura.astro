@@ -1,0 +1,270 @@
+---
+// /chapa-semente/moldura — A moldura de apoio (decisão do Gabriel em 11/11/2026).
+// Quem já decidiu o voto vira campanha: põe a própria foto numa moldura da Chapa 2 e posta no perfil,
+// no feed ou no story. Vocabulário de eleição nas redes ("Gostosas com Chapa 2", "As BB quer Semente",
+// "Faz o S!"). A imagem é montada no navegador (src/scripts/molduraDeApoio.ts): a foto não sai do aparelho.
+// Arquétipo: Ferramenta, no volume Cartaz. Molduras em src/data/molduras.json.
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import MarkerWord from '@/components/ui/MarkerWord.astro';
+import dados from '@/data/molduras.json';
+import { previaDaRota } from '@/lib/previas';
+
+const previa = previaDaRota(Astro.url.pathname);
+// Faixas escuras levam o grito com sombra; as claras, com contorno de tinta.
+const ESCURAS = new Set(['roxo', 'petroleo', 'tinta']);
+const FUNDO: Record<string, string> = { roxo: '#5B2A85', petroleo: '#266264', broto: '#6DB33F', fruto: '#FFC83D', papel: '#FFFFFF', tinta: '#1F1F1F' };
+const FORMATOS = [
+  { id: 'perfil', nome: 'Perfil', detalhe: 'Foto de perfil, 1:1' },
+  { id: 'feed', nome: 'Feed', detalhe: 'Cartaz com a moldura, 4:5' },
+  { id: 'story', nome: 'Story', detalhe: 'Cartaz pra story e status, 9:16' },
+];
+---
+
+<BaseLayout mode="persuade" hideFloatingPill title="Moldura de apoio" description={previa.descricao}>
+  <div class="mo-page" data-moldura>
+    <header class="mo-cabeca">
+      <h1 class="mo-titulo">Põe a sua <MarkerWord class="mo-caneta">cara</MarkerWord> na campanha</h1>
+      <p class="mo-lede">
+        Escolha uma foto sua e a moldura: ela é redonda, do jeito da foto de perfil. Depois é só baixar e postar. A foto não sai do seu aparelho.
+      </p>
+    </header>
+
+    <div class="mo-grade">
+      <div class="mo-previa">
+        <canvas width="1080" height="1080" data-formato="perfil" aria-label="Prévia da sua foto com a moldura escolhida"></canvas>
+        <p class="mo-dica">Arraste a foto pra enquadrar.</p>
+      </div>
+
+      <div class="mo-controles">
+        <fieldset class="mo-passo">
+          <legend>1. Sua foto</legend>
+          <label class="sk-btn sk-btn-folha mo-escolher">
+            <i class="bi bi-camera" aria-hidden="true"></i>
+            Escolher minha foto
+            <input type="file" accept="image/*" class="sr-only" data-moldura-foto />
+          </label>
+          <label class="mo-zoom">
+            <span>Aproximar</span>
+            <input type="range" min="1" max="3" step="0.02" value="1" data-moldura-zoom />
+          </label>
+        </fieldset>
+
+        <fieldset class="mo-passo">
+          <legend>2. A moldura</legend>
+          <div class="mo-molduras">
+            {dados.molduras.map((m, i) => (
+              <label class="mo-moldura" style={`--mo-bg:${FUNDO[m.cor]}`}>
+                <input type="radio" name="moldura" value={m.id} checked={i === 0} class="sr-only" />
+                <span class:list={['cagp-grito', 'cagp-grito--sm', ESCURAS.has(m.cor) && 'is-on-color']}>{m.linhas.join(' ')}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <fieldset class="mo-passo">
+          <legend>3. Onde vai postar</legend>
+          <div class="mo-formatos">
+            {FORMATOS.map((f, i) => (
+              <label class="mo-formato">
+                <input type="radio" name="formato" value={f.id} checked={i === 0} class="sr-only" />
+                <span class="mo-formato-nome">{f.nome}</span>
+                <span class="mo-formato-detalhe">{f.detalhe}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <div class="mo-acoes">
+          <button type="button" class="sk-btn sk-btn-roxo" data-moldura-baixar disabled>
+            <i class="bi bi-download" aria-hidden="true"></i>
+            Baixar a foto
+          </button>
+          <button type="button" class="sk-btn" data-moldura-postar disabled>
+            <i class="bi bi-share" aria-hidden="true"></i>
+            Postar agora
+          </button>
+        </div>
+        <p class="mo-nota">
+          A moldura é montada aqui mesmo, no seu celular. A foto não é enviada pra lugar nenhum.
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import '@/scripts/molduraDeApoio';
+</script>
+
+<style>
+  .mo-page {
+    display: grid;
+    gap: 1.5rem;
+    max-width: 68rem;
+    margin-block: 0.75rem 1rem;
+  }
+  .mo-cabeca {
+    display: grid;
+    gap: 0.625rem;
+  }
+  .mo-titulo {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(1.75rem, 1.3rem + 2.2vw, 2.25rem);
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+  .mo-titulo :global(.mo-caneta) { font-size: 1.15em; text-transform: none; }
+  .mo-lede {
+    margin: 0;
+    max-width: 60ch;
+    line-height: 1.55;
+    color: var(--color-content-secondary, #4a4740);
+  }
+  .mo-grade {
+    display: grid;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .mo-previa {
+    display: grid;
+    gap: 0.5rem;
+    justify-items: center;
+  }
+  .mo-previa canvas {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: min(62vh, 34rem);
+    background: var(--color-primary-tint);
+    border: 3px solid #1f1f1f;
+    border-radius: 16px;
+    box-shadow: 6px 6px 0 0 #1f1f1f;
+    touch-action: none;
+    cursor: grab;
+  }
+  .mo-previa canvas:active { cursor: grabbing; }
+  /* No perfil a prévia já aparece redonda, como o aplicativo vai cortar. */
+  .mo-previa canvas[data-formato='perfil'] { border-radius: 50%; }
+  .mo-dica {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--color-content-secondary, #4a4740);
+  }
+  .mo-page:not([data-tem-foto]) .mo-dica,
+  .mo-page:not([data-tem-foto]) .mo-zoom { display: none; }
+  .mo-controles {
+    display: grid;
+    gap: 1.25rem;
+    padding: 1.25rem;
+    background: var(--color-card, #fff);
+    border: 3px solid #1f1f1f;
+    border-radius: 12px;
+    box-shadow: 4px 4px 0 0 var(--shadow-color, #1f1f1f);
+  }
+  .mo-passo {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+  }
+  .mo-passo legend {
+    padding: 0;
+    margin-bottom: 0.625rem;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  .mo-escolher { justify-self: start; cursor: pointer; }
+  .mo-escolher:has(input:focus-visible) { outline: 3px solid var(--color-primary); outline-offset: 3px; }
+  .mo-zoom {
+    display: grid;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+  .mo-zoom input {
+    width: 100%;
+    height: 2.75rem;
+    accent-color: var(--color-primary);
+    cursor: pointer;
+  }
+  .mo-molduras {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+  .mo-moldura {
+    display: grid;
+    place-items: center;
+    min-height: 4.5rem;
+    padding: 0.625rem 0.5rem;
+    background: var(--mo-bg);
+    border: 3px solid #1f1f1f;
+    border-radius: 16px 5px 16px 5px;
+    box-shadow: 3px 3px 0 0 #1f1f1f;
+    text-align: center;
+    cursor: pointer;
+    transition: translate var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out), box-shadow var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out);
+  }
+  .mo-moldura :global(.cagp-grito) { justify-content: center; animation: none; rotate: -2deg; }
+  .mo-moldura:hover { translate: -1px -1px; box-shadow: 5px 5px 0 0 #1f1f1f; }
+  /* Selecionado: anel roxo (a cor de "ativo" do site) e o cartão assentado. */
+  .mo-moldura:has(input:checked) {
+    outline: 4px solid var(--color-primary);
+    outline-offset: 3px;
+    translate: 2px 2px;
+    box-shadow: 1px 1px 0 0 #1f1f1f;
+  }
+  .mo-moldura:has(input:focus-visible),
+  .mo-formato:has(input:focus-visible) { outline: 4px solid var(--color-accent); outline-offset: 3px; }
+  .mo-formatos {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+  .mo-formato {
+    display: grid;
+    gap: 0.125rem;
+    min-height: 3.5rem;
+    padding: 0.5rem 0.625rem;
+    background: #fff;
+    border: 3px solid #1f1f1f;
+    border-radius: 12px;
+    box-shadow: 2px 2px 0 0 #1f1f1f;
+    cursor: pointer;
+  }
+  .mo-formato-nome {
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .mo-formato-detalhe { font-size: 0.75rem; line-height: 1.3; color: var(--color-content-secondary, #4a4740); }
+  .mo-formato:has(input:checked) { background: var(--color-primary); color: #fff; translate: 2px 2px; box-shadow: none; }
+  .mo-formato:has(input:checked) .mo-formato-detalhe { color: #fff; }
+  .mo-acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .mo-acoes :global(.sk-btn:disabled) { opacity: 0.5; box-shadow: none; cursor: not-allowed; }
+  .mo-nota {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--color-content-secondary, #4a4740);
+  }
+  @media (min-width: 900px) {
+    .mo-grade { grid-template-columns: minmax(0, 1fr) minmax(0, 26rem); gap: 2rem; }
+    .mo-previa { position: sticky; top: 1.5rem; }
+    .mo-previa canvas { max-height: min(74vh, 44rem); }
+  }
+</style>

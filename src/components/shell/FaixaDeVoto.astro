@@ -1,7 +1,7 @@
 ---
 // FaixaDeVoto.astro — A faixa que fecha toda página pedindo o voto (decisão de 11/11/2026: mais conversão).
 // Painel Cartaz roxo, antes do rodapé: o grito na caneta laranja, quando e onde votar, o debate e duas
-// ações (como votar e chamar a turma). Some sozinha depois da eleição; a linha do debate some depois dele.
+// ações (como votar, fazer a moldura de apoio com a própria foto e chamar a turma). Some sozinha depois da eleição; a linha do debate some depois dele.
 import GritoDeVoto from '@/components/ui/GritoDeVoto.astro';
 import { CHAPA_LEADERS, CHAPA_NUMERO, CHAPA_ROTULO, DEBATE_DATA, DEBATE_HORA } from '@/lib/chapaSementeData';
 import { normalizePathname } from '@/lib/navigationRegistry';
@@ -9,6 +9,7 @@ import { route } from '@/lib/paths';
 
 // Em /gestao a pessoa já está no "como votar": a ação principal vira chamar a turma.
 const naEleicao = normalizePathname(Astro.url.pathname) === '/gestao';
+const naMoldura = normalizePathname(Astro.url.pathname) === '/chapa-semente/moldura';
 const CONVITE = `🌱 A Semente é a ${CHAPA_ROTULO} na eleição do CAGP e já pôs no ar um site com os guias do curso: documentos, estágio, 600h, FUMP, calouros.\nDá uma olhada e conhece as ${CHAPA_LEADERS.length} pessoas da chapa:`;
 ---
 
@@ -32,6 +33,12 @@ const CONVITE = `🌱 A Semente é a ${CHAPA_ROTULO} na eleição do CAGP e já 
       <a href={route('/gestao')} class="sk-btn sk-btn-folha">
         Como votar
         <i class="bi bi-arrow-right" aria-hidden="true"></i>
+      </a>
+    )}
+    {!naMoldura && (
+      <a href={route('/chapa-semente/moldura')} class="sk-btn">
+        <i class="bi bi-camera" aria-hidden="true"></i>
+        Fazer minha moldura
       </a>
     )}
     <button

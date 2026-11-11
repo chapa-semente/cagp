@@ -17,3 +17,6 @@ node_modules/
 dist/
 .astro/
 *.tsbuildinfo
+
+# Rascunhos de trabalho (vídeos de teste, não vão para o site)
+/_rascunhos/

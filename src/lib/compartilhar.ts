@@ -27,13 +27,15 @@ export function faseDaEleicao(agora: number = Date.now()): FaseDaEleicao {
 }
 
 const ONDE_E_QUANDO = 'das 17h às 22h30, na sala do CAGP (FAFICH)';
+/** As cores da Semente: o coração roxo e o laranja fecham toda mensagem (pedido do Gabriel em 11/11/2026). */
+export const CORACOES = '💜🧡';
 
 /** A chamada de voto que fecha toda mensagem: o grito, a eleição e, até o dia 24, o debate. */
 export function chamadaDeVoto(fase: FaseDaEleicao = faseDaEleicao(), agora: number = Date.now()): string[] {
   if (fase === 'depois') return [];
-  if (fase === 'dia') return [`🗳️ *É hoje! ${GRITO}* 🌱`, `📍 Até 22h30, na sala do CAGP (FAFICH). Leve documento com foto.`];
+  if (fase === 'dia') return [`🗳️ *É hoje! ${GRITO}* ${CORACOES}`, `📍 Até 22h30, na sala do CAGP (FAFICH). Leve documento com foto.`];
   return [
-    `🗳️ *${GRITO}* 🌱`,
+    `🗳️ *${GRITO}* ${CORACOES}`,
     `📅 Eleição do CAGP: 25 e 26/11, ${ONDE_E_QUANDO}.`,
     ...(agora <= FIM_DO_DEBATE ? [`🎤 Debate das chapas: ${DEBATE_DATA}, às ${DEBATE_HORA}.`] : []),
   ];
@@ -41,8 +43,8 @@ export function chamadaDeVoto(fase: FaseDaEleicao = faseDaEleicao(), agora: numb
 
 /** As linhas finais da mensagem. Asteriscos e sublinhados viram negrito e itálico no WhatsApp. */
 export function assinatura(tom: TomDeCompartilhar, fase: FaseDaEleicao = faseDaEleicao(), agora: number = Date.now()): string {
-  if (fase === 'depois') return tom === 'voto' ? '' : '🌱 _Tá no site do curso de Gestão Pública._';
-  const autoria = tom === 'voto' ? [] : [tom === 'util' ? `🌱 _Tá no site do curso, feito pela ${CHAPA_NOME}._` : `💜🧡 _Feito pela ${CHAPA_NOME}._`];
+  if (fase === 'depois') return tom === 'voto' ? '' : `${CORACOES} _Tá no site do curso de Gestão Pública._`;
+  const autoria = tom === 'voto' ? [] : [tom === 'util' ? `🌱 _Tá no site do curso, feito pela ${CHAPA_NOME}._` : `🌱 _Feito pela ${CHAPA_NOME}._`];
   const lembrete = tom === 'voto' && fase === 'antes' ? ['🪪 Leve documento com foto.'] : [];
   return [...autoria, ...chamadaDeVoto(fase, agora), ...lembrete].join('\n');
 }

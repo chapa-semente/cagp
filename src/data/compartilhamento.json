@@ -1,6 +1,6 @@
 {
   "_comentario": "Fonte única das prévias de link (WhatsApp, X, Facebook, Instagram Direct) e dos banners de cada endereço. O layout lê título e descrição daqui; node scripts/generate-og.mjs lê o campo banner e grava os JPGs em public/og/. Em gancho, a palavra entre chaves sai na caneta (uma por banner). Mudou um banner? Rode o script e suba o número em versao. O campo emoji abre a mensagem de compartilhar daquela página (só no texto que vai pro WhatsApp; a tela do site não usa emoji).",
-  "versao": 3,
+  "versao": 4,
   "padrao": {
     "titulo": "O site do curso de Gestão Pública",
     "descricao": "Estágio, 600h, FUMP e documentos, passo a passo. Feito pela Chapa 2 · Semente.",
@@ -117,6 +117,14 @@
       "emoji": "💜🧡",
       "imagem": "chapa",
       "banner": { "molde": "chapa" }
+    },
+    "/chapa-semente/moldura": {
+      "titulo": "Põe a sua cara na campanha: moldura da Chapa 2",
+      "descricao": "Escolha uma foto sua e uma moldura (Faz o S!, Gostosas com Chapa 2, As BB quer Semente) e poste no perfil, no feed ou no story.",
+      "emoji": "📸",
+      "mensagem": "Fiz a minha foto com a moldura da Chapa 2 · Semente. Faz a tua também, é rapidinho:",
+      "imagem": "p-moldura",
+      "banner": { "molde": "pagina", "aba": "chapa", "etiqueta": "Moldura de apoio", "gancho": [ "Põe a sua {cara}", "na campanha." ], "sub": [ "Sua foto com a moldura da Chapa 2,", "pronta pra postar." ], "arte": "fichas" }
     },
     "/gestao": {
       "titulo": "Eleição do CAGP: 25 e 26/11, das 17h às 22h30",
