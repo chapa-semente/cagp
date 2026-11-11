@@ -22,6 +22,24 @@ import {
 import { DatePicker } from '@/components/ui/date-picker';
 import { ArrowUpRight, Copy, FileText } from '@/components/ui/icons';
 import { asset, route } from '@/lib/paths';
+import { compartilhar, urlAbsoluta } from '@/lib/compartilhar';
+import maisPedidos from '@/data/documentosMaisPedidos.json';
+
+// Documento que tem endereço curto (/doc/<id>) manda esse endereço, que tem prévia com banner.
+const ENDERECO_CURTO = new Map<string, string>(
+  maisPedidos.grupos.flatMap((g) => g.documentos.map((d) => [d.arquivo, d.id] as [string, string])),
+);
+
+function mandarDocumento(doc: { title: string; pdf: string; slug?: string }) {
+  const curto = ENDERECO_CURTO.get(doc.pdf);
+  const caminho = curto ? route(`/doc/${curto}`) : doc.slug ? route(`/documentos/${doc.slug}`) : asset(doc.pdf);
+  return compartilhar({
+    titulo: doc.title,
+    corpo: `*${doc.title}*\n${doc.slug && !curto ? 'Dá pra ler no celular, sem baixar o PDF:' : 'PDF pra baixar:'}`,
+    url: urlAbsoluta(caminho),
+    tom: 'util',
+  });
+}
 import { tactileSpring } from '@/lib/motion';
 
 interface DocEntry {
@@ -239,6 +257,14 @@ export const DocumentosInteractiveSearch: React.FC = () => {
                             Ler no site <i className="bi bi-arrow-right" aria-hidden="true"></i>
                           </a>
                         )}
+                        <button
+                          type="button"
+                          onClick={() => mandarDocumento(doc)}
+                          aria-label={`Mandar ${doc.title} pra alguém`}
+                          className="px-3 py-1.5 min-h-[40px] inline-flex items-center gap-1.5 rounded-lg border-3 border-border bg-white hover:bg-background text-foreground text-xs font-mono font-bold shadow-sm transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+                        >
+                          <i className="bi bi-share" aria-hidden="true"></i> Mandar
+                        </button>
                       </div>
                     </motion.div>
                   </ContextMenuTrigger>

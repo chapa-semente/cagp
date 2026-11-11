@@ -1,0 +1,224 @@
+---
+// VagasReais.astro — Vagas reais recebidas no grupo "Conexão Gestão Pública" (11/11/2026).
+// São as primeiras vagas de verdade do mural: ficam antes dos exemplos e não levam o sticker SIMULADO.
+// O anúncio aparece como chegou no grupo (src/data/vagasReais.json, campo `texto`, sem edição); os fatos
+// do cartão são trechos do próprio anúncio. A vaga se marca como encerrada sozinha quando o prazo passa.
+import dados from '@/data/vagasReais.json';
+import { route } from '@/lib/paths';
+
+interface Vaga {
+  id: string;
+  tipo: string;
+  orgao: string;
+  titulo: string;
+  recebidaEm?: string;
+  fatos: string[][];
+  prazo: string | null;
+  prazoTexto: string | null;
+  acao: { rotulo: string; href: string };
+  texto: string;
+}
+const vagas = dados.vagas as Vaga[];
+const dataCurta = (iso: string) => iso.split('-').reverse().slice(0, 2).join('/');
+---
+
+<section aria-labelledby="vagas-reais-titulo" class="vr">
+  <div class="vr-cabeca">
+    <h2 id="vagas-reais-titulo" class="vr-h2">Vagas que chegaram no grupo</h2>
+    <p class="vr-lede">
+      Vagas reais, enviadas no {dados.fonte}. O anúncio está como chegou; confira o prazo e as regras na fonte antes de se inscrever.
+    </p>
+  </div>
+
+  <ul class="vr-lista" role="list">
+    {vagas.map((v) => (
+      <li class="vr-vaga" id={`vaga-${v.id}`} data-prazo={v.prazo ?? undefined}>
+        <div class="vr-topo">
+          <span class="vr-tipo">{v.tipo}</span>
+          <span class="vr-real">Vaga real</span>
+          <span class="vr-encerrada" hidden>Prazo encerrado</span>
+        </div>
+        <h3 class="vr-titulo">{v.titulo}</h3>
+        <dl class="vr-fatos">
+          {v.fatos.map(([rotulo, valor]) => (
+            <div><dt>{rotulo}</dt><dd>{valor}</dd></div>
+          ))}
+          <div>
+            <dt>Prazo</dt>
+            <dd>{v.prazoTexto ?? `O anúncio não informa${v.recebidaEm ? ` (enviado no grupo em ${dataCurta(v.recebidaEm)})` : ''}`}</dd>
+          </div>
+        </dl>
+        <div class="vr-acoes">
+          <a href={v.acao.href} class="sk-btn sk-btn-roxo" target={v.acao.href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer">
+            {v.acao.rotulo}
+            <i class={v.acao.href.startsWith('http') ? 'bi bi-box-arrow-up-right' : 'bi bi-send'} aria-hidden="true"></i>
+          </a>
+          <button
+            type="button"
+            class="sk-btn"
+            data-compartilhar
+            data-corpo={`*${v.titulo}*\n${v.fatos[0][0]}: ${v.fatos[0][1]}${v.prazoTexto ? `\nPrazo: ${v.prazoTexto}` : ''}`}
+            data-url={`${route('/carreira/vagas')}#vaga-${v.id}`}
+            data-tom="util"
+            data-titulo={v.titulo}
+          >
+            <i class="bi bi-share" aria-hidden="true"></i>
+            Mandar pra alguém
+          </button>
+        </div>
+        <details class="vr-anuncio">
+          <summary>Ler o anúncio como chegou no grupo</summary>
+          <p class="vr-texto">{v.texto}</p>
+        </details>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<script>
+  import '@/scripts/botaoCompartilhar';
+
+  // Prazo vencido: a vaga continua na página, marcada como encerrada (nada de vaga velha parecendo aberta).
+  function marcarEncerradas() {
+    document.querySelectorAll<HTMLElement>('.vr-vaga[data-prazo]').forEach((el) => {
+      const fim = Date.parse(`${el.dataset.prazo}:00-03:00`);
+      if (Number.isNaN(fim) || Date.now() <= fim) return;
+      el.classList.add('is-encerrada');
+      el.querySelector<HTMLElement>('.vr-encerrada')?.removeAttribute('hidden');
+      el.querySelector<HTMLElement>('.vr-real')?.setAttribute('hidden', '');
+    });
+  }
+  marcarEncerradas();
+  document.addEventListener('astro:page-load', marcarEncerradas);
+</script>
+
+<style>
+  .vr {
+    display: grid;
+    gap: 1.25rem;
+  }
+  .vr-cabeca {
+    display: grid;
+    gap: 0.375rem;
+  }
+  .vr-h2 {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .vr-lede {
+    margin: 0;
+    max-width: 68ch;
+    color: var(--color-content-secondary, #4a4740);
+  }
+  .vr-lista {
+    display: grid;
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .vr-vaga {
+    display: grid;
+    gap: 0.875rem;
+    align-content: start;
+    padding: 1.25rem;
+    background: var(--color-card, #fff);
+    border: 3px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: 4px 4px 0 0 var(--shadow-color, var(--color-border));
+    scroll-margin-top: 6rem;
+  }
+  .vr-topo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .vr-tipo,
+  .vr-real,
+  .vr-encerrada {
+    padding: 0.125rem 0.5rem;
+    border: 2px solid var(--color-border);
+    border-radius: 8px;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+  .vr-tipo { background: #fff; }
+  .vr-real { background: var(--color-secondary); color: #fff; }
+  .vr-encerrada { background: var(--color-muted); }
+  .vr-titulo {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.3;
+    text-wrap: balance;
+  }
+  .vr-fatos {
+    display: grid;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0.875rem 1rem;
+    background: var(--color-secondary-tint, #e3f0ef);
+    border-radius: 8px;
+  }
+  .vr-fatos div {
+    display: grid;
+    gap: 0.125rem;
+  }
+  .vr-fatos dt {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-content-secondary, #4a4740);
+  }
+  .vr-fatos dd {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.45;
+    font-variant-numeric: tabular-nums;
+  }
+  .vr-acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .vr-acoes .sk-btn { text-decoration: none; }
+  .vr-anuncio summary {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    font-weight: 700;
+    font-size: 0.875rem;
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 0.22em;
+    cursor: pointer;
+  }
+  .vr-anuncio summary:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  .vr-texto {
+    margin: 0.5rem 0 0;
+    padding: 1rem;
+    background: var(--color-muted);
+    border-radius: 8px;
+    font-size: 0.875rem;
+    line-height: 1.55;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+  .vr-vaga.is-encerrada .vr-titulo { color: var(--color-content-secondary, #4a4740); }
+  @media (min-width: 900px) {
+    .vr-lista { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; }
+  }
+</style>

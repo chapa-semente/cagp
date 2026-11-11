@@ -47,7 +47,9 @@ O argumento da chapa é que a proposta já existe: um site no ar, feito pelo pr�
 - Conteúdo mantido em Markdown/JSON (`src/content/`, `conteudo/`) para que pessoas que não programam possam manter.
 - **Real × simulado** (deve continuar explícito na tela):
   - *Real:* guias e tutoriais (ACG, estágio, FUMP, calouro), documentos oficiais e normas, disciplinas e optativas, cursos da ENAP (derivados de `_referencias/catalogo_enap.csv`), história do curso, informações de colegiado e secretarias, núcleos de pesquisa e os 12 integrantes da chapa.
-  - *Simulado:* mural de notícias, vagas e editais, banco de talentos e os lançamentos contábeis do Portal da Transparência. Esses trechos levam o `SIMULATION_NOTICE` (`src/lib/simulatedData.ts`).
+  - *Real desde 11/11/2026:* os programas da FUMP (`src/data/fumpProgramas.json`), resumidos do site da FUMP com o link de cada página e a data da consulta. O preço do RU por nível é o da tabela oficial; moradia e suportes financeiros saem por chamada e não têm valor fixo por nível, então o site não simula mais esses valores.
+  - *Real desde 11/11/2026:* vagas enviadas no grupo "Conexão Gestão Pública" (`src/data/vagasReais.json`), com o anúncio como chegou e o prazo; ficam antes dos exemplos, sem o sticker SIMULADO, e se marcam como encerradas quando o prazo passa.
+  - *Simulado:* mural de notícias, os exemplos de vagas e editais, banco de talentos e os lançamentos contábeis do Portal da Transparência. Esses trechos levam o `SIMULATION_NOTICE` (`src/lib/simulatedData.ts`).
 - Em aberto: o papel do site após a eleição e a origem dos dados reais de transparência.
 
 ## Brand Commitments

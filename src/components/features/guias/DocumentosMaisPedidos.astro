@@ -3,6 +3,7 @@
 // prontos para abrir ou mandar. Dados em src/data/documentosMaisPedidos.json (manutenção sem código).
 import data from '@/data/documentosMaisPedidos.json';
 import { asset, route } from '@/lib/paths';
+import { nomeCurtoDoDocumento, previaDoDocumento } from '@/lib/previas';
 ---
 
 <section aria-labelledby="mais-pedidos-titulo" class="space-y-4" data-tour="gabriel">
@@ -31,7 +32,9 @@ import { asset, route } from '@/lib/paths';
           {grupo.documentos.map((doc) => (
             <li class="cagp-doc-row" id={`doc-${doc.id}`}>
               <div class="min-w-0 flex-1 space-y-0.5">
-                <p class="m-0 font-heading text-base font-bold text-foreground">{doc.nome}</p>
+                <p class="m-0 font-heading text-base font-bold text-foreground">
+                  <a href={route(`/doc/${doc.id}`)} class="cagp-doc-nome">{doc.nome}</a>
+                </p>
                 <p class="m-0 text-sm leading-snug text-muted-foreground">{doc.descricao}</p>
               </div>
               <div class="cagp-doc-actions">
@@ -59,11 +62,14 @@ import { asset, route } from '@/lib/paths';
                 <button
                   type="button"
                   class="cagp-doc-btn is-share"
-                  data-share-path={asset(doc.arquivo)}
-                  data-share-title={doc.nome}
+                  data-compartilhar
+                  data-corpo={previaDoDocumento(doc).mensagem}
+                  data-url={route(`/doc/${doc.id}`)}
+                  data-tom="util"
+                  data-titulo={nomeCurtoDoDocumento(doc.id)}
                   aria-label={`Enviar o link de ${doc.nome}`}
                 >
-                  <i class="bi bi-whatsapp" aria-hidden="true"></i>
+                  <i class="bi bi-share" aria-hidden="true"></i>
                   Enviar
                 </button>
               </div>
@@ -138,6 +144,16 @@ import { asset, route } from '@/lib/paths';
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
   }
+  .cagp-doc-nome {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.22em;
+  }
+  .cagp-doc-nome:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
   .cagp-doc-btn.is-share {
     background: var(--color-primary);
     color: #fff;
@@ -151,27 +167,7 @@ import { asset, route } from '@/lib/paths';
 </style>
 
 <script>
-  // Compartilhar: menu nativo do celular quando existe; senão abre o WhatsApp com o link.
-  function setupDocShare() {
-    document.querySelectorAll<HTMLButtonElement>('[data-share-path]').forEach((btn) => {
-      if ((btn as any).__share_bound) return;
-      (btn as any).__share_bound = true;
-      btn.addEventListener('click', async () => {
-        const url = new URL(btn.dataset.sharePath || '', window.location.origin).href;
-        const title = btn.dataset.shareTitle || 'Documento';
-        if (navigator.share) {
-          try {
-            await navigator.share({ title, text: title, url });
-            return;
-          } catch (err) {
-            if ((err as DOMException)?.name === 'AbortError') return;
-          }
-        }
-        const text = encodeURIComponent(`${title}: ${url}`);
-        window.open(`https://wa.me/?text=${text}`, '_blank', 'noopener,noreferrer');
-      });
-    });
-  }
-  setupDocShare();
-  document.addEventListener('astro:page-load', setupDocShare);
+  // Compartilhar: menu nativo do celular quando existe; senão abre o WhatsApp. O link é o endereço
+  // curto do documento (/doc/<id>), que tem prévia com banner; a mensagem é montada em src/lib/compartilhar.ts.
+  import '@/scripts/botaoCompartilhar';
 </script>

@@ -1,0 +1,329 @@
+/* campanha-detalhe.css — As páginas de uma proposta (/propostas/N) e de uma pessoa (/chapa-semente/nome).
+   Volume Cartaz (DESIGN.md › Layout › Volumes): bloco chapado na cor do eixo ou da chapa, contorno 3px,
+   sombra dura de 6px, canto de folha nas peças do kit. São o destino dos banners de compartilhamento:
+   quem chega pelo link encontra na página o mesmo bloco de cor, o mesmo rosto e a mesma frase. Prefixo cd-. */
+.cd-page {
+  display: grid;
+  gap: 2.5rem;
+  max-width: 62rem;
+  margin-block: 0.75rem 3rem;
+}
+@media (min-width: 1024px) {
+  .cd-page { gap: 3.5rem; }
+}
+
+/* O bloco de abertura. --cd-bg / --cd-fg / --cd-fundo vêm da página (cor do eixo ou da chapa). */
+.cd-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  gap: 1.5rem;
+  padding: 1.5rem 1.25rem;
+  background: var(--cd-bg, var(--color-primary));
+  color: var(--cd-fg, #fff);
+  border: 3px solid #1f1f1f;
+  border-radius: 16px;
+  box-shadow: 6px 6px 0 0 #1f1f1f;
+}
+.cd-hero-folha {
+  position: absolute;
+  z-index: -1;
+  right: -3rem;
+  bottom: -5rem;
+  width: 17rem;
+  height: 25rem;
+  overflow: visible;
+  fill: var(--cd-fundo, #4a216e);
+  rotate: 22deg;
+  pointer-events: none;
+}
+.cd-hero-topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+}
+.cd-etiqueta {
+  display: inline-block;
+  padding: 0.375rem 0.625rem;
+  background: #fff;
+  color: #1f1f1f;
+  border: 2px solid #1f1f1f;
+  border-radius: 8px;
+  box-shadow: 2px 2px 0 0 #1f1f1f;
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+.cd-titulo {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(1.75rem, 1.3rem + 2.2vw, 2.25rem);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+.cd-lede {
+  margin: 0;
+  max-width: 46ch;
+  font-size: 1rem;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+.cd-hero-texto {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+  min-width: 0;
+}
+
+/* Retrato na moldura de folha: foto inteira, em cor; nome e cargo em etiqueta grafite na base. */
+.cd-retrato {
+  position: relative;
+  justify-self: start;
+  width: min(100%, 17rem);
+  margin: 0;
+  background: var(--color-muted);
+  border: 3px solid #1f1f1f;
+  border-radius: 3.5rem 0.875rem 3.5rem 0.875rem;
+  box-shadow: 6px 6px 0 0 #1f1f1f;
+  overflow: hidden;
+}
+.cd-retrato img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center 30%;
+}
+.cd-retrato figcaption {
+  display: grid;
+  gap: 0.125rem;
+  padding: 0.625rem 1rem 0.75rem 1.25rem;
+  background: #1f1f1f;
+  color: #fff;
+  font-family: var(--font-heading);
+  line-height: 1.25;
+}
+.cd-retrato figcaption b { font-size: 1rem; }
+.cd-retrato figcaption span { font-size: 0.8125rem; font-weight: 400; }
+
+/* Fichas brancas sobre o solo */
+.cd-ficha {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: var(--color-card, #fff);
+  color: var(--color-foreground);
+  border: 3px solid #1f1f1f;
+  border-radius: 12px;
+  box-shadow: 4px 4px 0 0 var(--shadow-color, #1f1f1f);
+}
+.cd-h2 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+.cd-texto {
+  margin: 0;
+  max-width: 68ch;
+  line-height: 1.6;
+  color: var(--color-content-secondary, #4a4740);
+  text-wrap: pretty;
+}
+.cd-texto strong { color: var(--color-foreground); }
+.cd-citacao {
+  margin: 0;
+  max-width: 60ch;
+  font-size: 1.125rem;
+  line-height: 1.55;
+  color: var(--color-foreground);
+  text-wrap: pretty;
+}
+
+/* A fala de quem puxa a proposta */
+.cd-fala {
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  border-radius: 18px 5px 18px 5px;
+}
+.cd-avatar {
+  width: 4.5rem;
+  height: 4.5rem;
+  object-fit: cover;
+  object-position: center 30%;
+  border: 2px solid #1f1f1f;
+  border-radius: 12px;
+  background: var(--color-muted);
+}
+.cd-fala-quem {
+  margin: 0.5rem 0 0;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--color-content-secondary, #4a4740);
+}
+.cd-fala-quem a,
+.cd-link {
+  color: var(--color-primary);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+}
+
+.cd-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+.cd-acoes .sk-btn,
+.cd-fecho .sk-btn { text-decoration: none; }
+
+/* Lista de ligações (propostas de uma pessoa, ferramenta que ela puxou) */
+.cd-lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 2px solid #1f1f1f;
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+}
+.cd-lista li + li { border-top: 2px solid #1f1f1f; }
+.cd-lista a {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  min-height: 48px;
+  padding: 0.75rem 1rem;
+  color: var(--color-foreground);
+  text-decoration: none;
+}
+.cd-lista a:hover { background: var(--color-muted); }
+.cd-lista-n {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  background: var(--color-primary);
+  color: #fff;
+  border: 2px solid #1f1f1f;
+  border-radius: 10px 3px 10px 3px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.cd-lista-nome {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* Kit: a arte em pé para baixar e a legenda para copiar */
+.cd-kit {
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+.cd-kit-arte {
+  display: block;
+  width: min(100%, var(--cd-kit-arte, 11rem));
+  height: auto;
+  border: 2px solid #1f1f1f;
+  border-radius: 12px;
+}
+@media (min-width: 640px) {
+  /* coluna de largura fixa: a arte tem 1080px de largura natural e empurraria o texto */
+  .cd-kit { grid-template-columns: var(--cd-kit-arte, 11rem) 1fr; gap: 1.5rem; }
+}
+
+/* Título + texto + ação de uma seção: o respiro vem do gap, não de margem solta. */
+.cd-secao {
+  display: grid;
+  gap: 0.75rem;
+  justify-items: start;
+  align-content: start;
+  min-width: 0;
+}
+
+/* Anterior / próxima */
+.cd-vizinhos {
+  display: grid;
+  gap: 1rem;
+}
+.cd-vizinho {
+  display: grid;
+  gap: 0.25rem;
+  min-height: 48px;
+  padding: 0.875rem 1rem;
+  background: #fff;
+  color: var(--color-foreground);
+  border: 2px solid #1f1f1f;
+  border-radius: 12px;
+  box-shadow: 3px 3px 0 0 var(--shadow-color, #1f1f1f);
+  text-decoration: none;
+  transition: translate var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out), box-shadow var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out);
+}
+.cd-vizinho:hover { translate: -1px -1px; box-shadow: 5px 5px 0 0 var(--shadow-color, #1f1f1f); }
+.cd-vizinho:active { translate: 3px 3px; box-shadow: 0 0 0 0 #1f1f1f; }
+.cd-vizinho-dir { text-align: right; }
+.cd-vizinho small {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-muted-foreground);
+}
+.cd-vizinho b { font-family: var(--font-heading); line-height: 1.3; }
+
+/* Fechamento: a página termina no voto */
+.cd-fecho {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  margin: 0;
+  padding: 1.25rem;
+  background: var(--color-primary);
+  color: #fff;
+  border: 3px solid #1f1f1f;
+  border-radius: 16px;
+  box-shadow: 6px 6px 0 0 #1f1f1f;
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.cd-fecho span { flex: 1 1 16rem; min-width: 0; }
+
+.cd-page a:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+}
+.cd-hero a:focus-visible,
+.cd-fecho a:focus-visible { outline-color: var(--color-accent); }
+
+@media (min-width: 640px) {
+  .cd-hero { padding: 2rem; }
+  .cd-ficha { padding: 1.5rem; }
+  .cd-vizinhos { grid-template-columns: 1fr 1fr; }
+  .cd-fecho { padding: 1.5rem 2rem; }
+}
+@media (min-width: 768px) {
+  .cd-hero-pessoa { grid-template-columns: auto 1fr; align-items: center; gap: 2.25rem; padding: 2.25rem; }
+  .cd-retrato { width: 18rem; }
+}

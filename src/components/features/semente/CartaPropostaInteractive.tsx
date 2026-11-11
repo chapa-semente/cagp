@@ -16,6 +16,8 @@ import {
 import { Copy, Link2 } from '@/components/ui/icons';
 import { ExpandRegion, ExpandChevron, useExpandSet, useMasonryColumns } from '@/components/ui/expand';
 import { CagpIcon } from '@/components/ui/CagpIcon';
+import { route } from '@/lib/paths';
+import { montarMensagem, urlAbsoluta } from '@/lib/compartilhar';
 
 export interface PropostaItem {
   id: number;
@@ -334,9 +336,14 @@ export const CartaPropostaInteractive: React.FC = () => {
                                 {isExpanded ? 'Recolher' : 'Ler o texto integral'}
                                 <ExpandChevron open={isExpanded} />
                               </button>
-                              <span className="text-xs font-bold tabular-nums text-muted-foreground">
-                                Proposta {item.id}/14
-                              </span>
+                              <a
+                                href={route(`/propostas/${item.id}`)}
+                                className="min-h-[44px] inline-flex items-center gap-1.5 text-sm font-bold text-primary underline underline-offset-[0.22em]"
+                                aria-label={`Abrir e compartilhar a proposta ${item.id}`}
+                              >
+                                Abrir e mandar
+                                <i className="bi bi-arrow-right" aria-hidden="true" />
+                              </a>
                             </div>
                           </div>
                         </CardContent>
@@ -350,7 +357,11 @@ export const CartaPropostaInteractive: React.FC = () => {
                       {isExpanded ? 'Recolher Detalhes' : 'Ver Texto Integral'}
                     </ContextMenuItem>
                     <ContextMenuItem onClick={() => {
-                      const shareText = `Proposta ${item.id} da Chapa 2 · Semente: ${item.title}\n\n${item.summary}\n\nConheça no Super App: ${window.location.href}`;
+                      const shareText = montarMensagem({
+                        corpo: `*Proposta ${item.id} da Chapa 2 · Semente: ${item.title}*\n${item.summary}`,
+                        url: urlAbsoluta(route(`/propostas/${item.id}`)),
+                        tom: 'convite',
+                      });
                       navigator.clipboard.writeText(shareText);
                       if (typeof navigator !== 'undefined' && 'vibrate' in navigator) navigator.vibrate(15);
                       (window as any).cagpToast?.(`Proposta ${item.id} copiada para divulgação!`, 'bi-clipboard-check');
@@ -360,7 +371,7 @@ export const CartaPropostaInteractive: React.FC = () => {
                     </ContextMenuItem>
                     <ContextMenuSeparator />
                     <ContextMenuItem onClick={() => {
-                      const url = `${window.location.origin}/chapa-semente#proposta-${item.id}`;
+                      const url = urlAbsoluta(route(`/propostas/${item.id}`));
                       navigator.clipboard.writeText(url);
                       (window as any).cagpToast?.(`Link da Proposta ${item.id} copiado!`, 'bi-link-45deg');
                     }}>

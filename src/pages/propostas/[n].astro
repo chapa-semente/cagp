@@ -1,0 +1,140 @@
+---
+// /propostas/<n> — Uma proposta por endereço (decisão de 11/11/2026).
+// A âncora #proposta-7 da página da chapa não tem prévia própria: rede social ignora o que vem depois
+// do #. Aqui cada proposta tem o seu banner (public/og/proposta-<n>.jpg) e a sua página.
+// Volume Cartaz. Título, compromisso, quem puxa e a fala vêm de src/lib/propostasTour.ts (fala literal
+// do briefing); o texto integral, da carta-programa (CartaPropostaInteractive › CARTA_PROPOSTAS_DATA).
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BotaoCompartilhar from '@/components/ui/BotaoCompartilhar.astro';
+import { CARTA_PROPOSTAS_DATA } from '@/components/features/semente/CartaPropostaInteractive';
+import { CHAPA_LEADERS, CHAPA_ROTULO, getLeaderPhotoUrl } from '@/lib/chapaSementeData';
+import { PROPOSTA_EIXOS, PROPOSTA_STOPS } from '@/lib/propostasTour';
+import { previaDaProposta } from '@/lib/previas';
+import { asset, route } from '@/lib/paths';
+import '@/styles/campanha-detalhe.css';
+
+export function getStaticPaths() {
+  return PROPOSTA_STOPS.map((proposta) => ({ params: { n: String(proposta.id) }, props: { proposta } }));
+}
+
+const { proposta } = Astro.props;
+const total = PROPOSTA_STOPS.length;
+const carta = CARTA_PROPOSTAS_DATA.find((c) => c.id === proposta.id)!;
+const eixo = PROPOSTA_EIXOS.find((e) => e.id === carta.eixoId)!;
+const pessoa = CHAPA_LEADERS.find((l) => l.id === proposta.leaderId)!;
+const foto = getLeaderPhotoUrl(pessoa.photoFilename, 'thumb');
+const previa = previaDaProposta(proposta);
+const anterior = PROPOSTA_STOPS.find((p) => p.id === proposta.id - 1);
+const proxima = PROPOSTA_STOPS.find((p) => p.id === proposta.id + 1);
+// Tom chapado mais fundo de cada eixo, para a folha de fundo (o mesmo dos banners).
+const FUNDO: Record<number, string> = { 1: '#733C20', 2: '#5CA032', 3: '#1D5052', 4: '#F5B41F' };
+const legenda = [
+  `Proposta ${proposta.id} de ${total}: ${proposta.titulo}.`,
+  '',
+  proposta.compromisso,
+  '',
+  `As ${total} propostas e o site do curso estão no link da bio.`,
+  'Eleição do CAGP: 25 e 26/11, das 17h às 22h30, na sala do CAGP (FAFICH).',
+  '',
+  '#GestãoPúblicaUFMG #CAGP #ChapaSemente #Chapa2',
+].join('\n');
+---
+
+<BaseLayout
+  mode="persuade"
+  hideFloatingPill
+  title={`Proposta ${proposta.id}: ${proposta.titulo}`}
+  description={previa.descricao}
+>
+  <div class="cd-page">
+    <section
+      class="cd-hero"
+      aria-labelledby="cd-titulo"
+      style={`--cd-bg:${eixo.bg};--cd-fg:${eixo.fg};--cd-fundo:${FUNDO[eixo.id]}`}
+    >
+      <svg class="cd-hero-folha" viewBox="-46 -110 72 118" aria-hidden="true"><use href="#sg-folha"></use></svg>
+      <div class="cd-hero-topo">
+        <p class="sk-chapa-num m-0" aria-hidden="true">
+          <span class="sk-chapa-num-rotulo">Nº</span>
+          <span class="sk-chapa-num-n">{proposta.id}</span>
+        </p>
+        <p class="cd-etiqueta m-0">Proposta {proposta.id} de {total} · {eixo.nome}</p>
+      </div>
+      <div class="cd-hero-texto">
+        <h1 id="cd-titulo" class="cd-titulo">{proposta.titulo}</h1>
+        <p class="cd-lede">{proposta.compromisso}</p>
+      </div>
+      <div class="cd-acoes">
+        <BotaoCompartilhar corpo={previa.mensagem} tom="convite" titulo={previa.titulo} rotulo="Mandar essa proposta" />
+        {proposta.prova && (
+          <a href={route(proposta.prova.href)} class="sk-btn">
+            {proposta.prova.label}
+            {proposta.prova.simulado && <span class="cagp-sticker-simulado">Simulado</span>}
+          </a>
+        )}
+      </div>
+    </section>
+
+    <section class="cd-ficha cd-fala" aria-label={`Quem puxa esta proposta: ${pessoa.name}`}>
+      {foto && <img src={foto} alt="" width="72" height="72" class="cd-avatar" loading="lazy" decoding="async" />}
+      <div class="min-w-0">
+        <blockquote class="cd-citacao">“{proposta.fala}”</blockquote>
+        <p class="cd-fala-quem">
+          <a href={route(`/chapa-semente/${pessoa.id}`)}>{pessoa.name}</a>, {pessoa.role}
+        </p>
+      </div>
+    </section>
+
+    <section class="cd-secao" aria-labelledby="cd-carta">
+      <h2 id="cd-carta" class="cd-h2">O que diz a carta-programa</h2>
+      <p class="cd-texto">{carta.fullText}</p>
+      <a href={route('/chapa-semente') + '#propostas'} class="cd-link">Ler as {total} propostas</a>
+    </section>
+
+    <section class="cd-ficha cd-kit" aria-labelledby="cd-kit">
+      <img
+        src={asset(`/og/kit/feed-proposta-${proposta.id}.jpg`)}
+        alt={`Arte da proposta ${proposta.id} para o feed: ${proposta.titulo}`}
+        width="1080"
+        height="1350"
+        class="cd-kit-arte"
+        loading="lazy"
+        decoding="async"
+      />
+      <div class="cd-secao">
+        <h2 id="cd-kit" class="cd-h2">Quer postar esta proposta?</h2>
+        <p class="cd-texto">A arte já vem no tamanho do feed do Instagram. A legenda sai pronta, é só colar.</p>
+        <div class="cd-acoes">
+          <a href={asset(`/og/kit/feed-proposta-${proposta.id}.jpg`)} download={`semente-proposta-${proposta.id}.jpg`} class="sk-btn sk-btn-roxo">
+            <i class="bi bi-download" aria-hidden="true"></i>
+            Baixar a arte
+          </a>
+          <button type="button" class="sk-btn" data-copiar-mensagem data-texto={legenda}>
+            <i class="bi bi-clipboard" aria-hidden="true"></i>
+            Copiar a legenda
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <nav class="cd-vizinhos" aria-label="Outras propostas">
+      {anterior ? (
+        <a href={route(`/propostas/${anterior.id}`)} class="cd-vizinho">
+          <small>Proposta {anterior.id}</small>
+          <b>{anterior.titulo}</b>
+        </a>
+      ) : <span></span>}
+      {proxima && (
+        <a href={route(`/propostas/${proxima.id}`)} class="cd-vizinho cd-vizinho-dir">
+          <small>Proposta {proxima.id}</small>
+          <b>{proxima.titulo}</b>
+        </a>
+      )}
+    </nav>
+
+    <p class="cd-fecho">
+      <span>Vote {CHAPA_ROTULO}: dias 25 e 26/11, das 17h às 22h30, na sala do CAGP.</span>
+      <a href={route('/gestao')} class="sk-btn sk-btn-folha">Como votar</a>
+    </p>
+  </div>
+</BaseLayout>

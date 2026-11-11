@@ -3,6 +3,7 @@
 // DESIGN.md › Components › Assinatura Semente. Volume Ficha: tinta roxa chapada, contorno 3px, sem sombra.
 import { asset, route } from '@/lib/paths';
 import { CHAPA_LEADERS } from '@/lib/chapaSementeData';
+import { previaDaRota } from '@/lib/previas';
 
 interface Props {
   /** Rótulo curto da proposta, ex.: "Proposta 3" (sem "em ação": o componente completa). */
@@ -18,6 +19,8 @@ interface Props {
 const { proposal, text, leaderId, href } = Astro.props;
 const leader = leaderId ? CHAPA_LEADERS.find((l) => l.id === leaderId) : undefined;
 const target = href ?? route('/chapa-semente') + (leader ? `#${leader.id}` : '');
+// O guia já atendeu: agora dá pra mandar pra quem precisa, com a prévia desta página.
+const previa = previaDaRota(Astro.url.pathname);
 ---
 
 <aside class="cagp-signature" aria-label="Assinatura da Chapa 2, a Semente">
@@ -36,11 +39,29 @@ const target = href ?? route('/chapa-semente') + (leader ? `#${leader.id}` : '')
       <p class="cagp-signature-who">{leader.name} · {leader.role}</p>
     )}
   </div>
-  <a href={target} class="cagp-signature-link">
-    Conhecer a proposta
-    <i class="bi bi-arrow-right" aria-hidden="true"></i>
-  </a>
+  <div class="cagp-signature-acoes">
+    <button
+      type="button"
+      class="cagp-signature-link"
+      data-compartilhar
+      data-corpo={previa.mensagem}
+      data-url={Astro.url.pathname}
+      data-tom={previa.tom}
+      data-titulo={previa.titulo}
+    >
+      <i class="bi bi-share" aria-hidden="true"></i>
+      Mandar pra quem precisa
+    </button>
+    <a href={target} class="cagp-signature-link">
+      Conhecer a proposta
+      <i class="bi bi-arrow-right" aria-hidden="true"></i>
+    </a>
+  </div>
 </aside>
+
+<script>
+  import '@/scripts/botaoCompartilhar';
+</script>
 
 <style>
   .cagp-signature {
@@ -81,10 +102,15 @@ const target = href ?? route('/chapa-semente') + (leader ? `#${leader.id}` : '')
     font-size: 0.875rem;
     color: var(--color-content-secondary, #4A4740);
   }
-  .cagp-signature-link {
+  .cagp-signature-acoes {
     grid-column: 1 / -1;
-    justify-self: start;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+  }
+  .cagp-signature-link {
     display: inline-flex;
+    cursor: pointer;
     align-items: center;
     gap: 0.5rem;
     min-height: 44px;
@@ -115,8 +141,10 @@ const target = href ?? route('/chapa-semente') + (leader ? `#${leader.id}` : '')
       align-items: center;
       padding: 1.25rem;
     }
-    .cagp-signature-link {
+    .cagp-signature-acoes {
       grid-column: auto;
+      justify-content: flex-end;
+      max-width: 22rem;
     }
   }
 </style>

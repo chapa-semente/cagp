@@ -1,6 +1,6 @@
 {
   "_comentario": "Fonte única das prévias de link (WhatsApp, X, Facebook, Instagram Direct) e dos banners de cada endereço. O layout lê título e descrição daqui; node scripts/generate-og.mjs lê o campo banner e grava os JPGs em public/og/. Em gancho, a palavra entre chaves sai na caneta (uma por banner). Mudou um banner? Rode o script e suba o número em versao.",
-  "versao": 1,
+  "versao": 2,
   "padrao": {
     "titulo": "O site do curso de Gestão Pública",
     "descricao": "Estágio, 600h, FUMP e documentos, passo a passo. Feito pela Chapa 2 · Semente.",
@@ -56,11 +56,11 @@
       "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "Quem atende", "gancho": ["Quem resolve", "o quê no {curso}?"], "sub": ["Secretaria, Colegiado e horários", "de atendimento."], "arte": "balao" }
     },
     "/permanencia": {
-      "titulo": "FUMP sem juridiquês: níveis, auxílios e como pedir",
-      "descricao": "O que cada nível garante e o passo a passo do pedido. Feito pela Chapa 2 · Semente.",
-      "mensagem": "Pra quem não sabe se tem direito à FUMP: o que cada nível garante e como pedir, sem juridiquês.",
+      "titulo": "FUMP sem juridiquês: programas, preço do RU e como pedir",
+      "descricao": "Os quatro programas da FUMP, quanto o RU custa em cada nível e o passo a passo do pedido. Feito pela Chapa 2 · Semente.",
+      "mensagem": "Pra quem não sabe se tem direito à FUMP: os programas, quanto o RU custa em cada nível e como pedir, sem juridiquês.",
       "imagem": "p-permanencia",
-      "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "FUMP e vida no noturno", "gancho": ["Será que você", "tem direito", "à {FUMP}?"], "sub": ["Níveis, auxílios e como pedir."], "pessoa": "vitoria" }
+      "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "FUMP e vida no noturno", "gancho": ["Será que você", "tem direito", "à {FUMP}?"], "sub": ["Programas, preço do RU e como pedir."], "pessoa": "vitoria" }
     },
     "/optativas": {
       "titulo": "As optativas de Gestão Pública, por tema",
@@ -152,11 +152,11 @@
       "banner": { "molde": "pagina", "aba": "mais", "etiqueta": "Carreira", "gancho": ["E depois do", "{diploma}?"], "sub": ["Caminhos de carreira", "em gestão pública."], "arte": "planta" }
     },
     "/carreira/vagas": {
-      "titulo": "Mural de vagas do curso (modelo)",
-      "descricao": "Como pode ficar o mural de estágios e editais. As vagas de agora são exemplos: é a proposta 12 da Chapa 2 · Semente.",
-      "mensagem": "Olha como pode ficar o mural de vagas do curso (as vagas de agora são exemplos):",
+      "titulo": "Vagas e estágios que chegam no grupo do curso",
+      "descricao": "Vagas reais enviadas no grupo Conexão Gestão Pública, com prazo e link, e o modelo do mural que a Chapa 2 · Semente propõe.",
+      "mensagem": "As vagas e os estágios que chegam no grupo do curso tão reunidos aqui, com prazo e link:",
       "imagem": "p-carreira-vagas",
-      "banner": { "molde": "pagina", "aba": "mais", "etiqueta": "Vagas e editais", "gancho": ["Um mural de", "{vagas} do curso."], "sub": ["É o modelo que a chapa propõe."], "arte": "fichas", "modelo": true }
+      "banner": { "molde": "pagina", "aba": "mais", "etiqueta": "Vagas e editais", "gancho": ["As {vagas} que", "chegam no grupo."], "sub": ["Estágios e empregos reais,", "com prazo e link."], "arte": "fichas" }
     },
     "/carreira/talentos": {
       "titulo": "Organize suas competências e leve pro currículo",
@@ -197,7 +197,7 @@
     "vitoria": { "cargo": "Diretora Financeira", "foco": [0.5, 0.4] },
     "klaus": { "cargo": "Vice-Diretor Financeiro", "foco": [0.5, 0.3] },
     "italo": { "cargo": "Articulação e Assuntos Políticos", "foco": [0.5, 0.4] },
-    "lara": { "cargo": "Diretora Jurídica", "foco": [0.62, 0.4] },
+    "lara": { "cargo": "Diretora Jurídica", "foco": [0.5, 0.26] },
     "paloma": { "cargo": "Diretora de Cultura", "foco": [0.5, 0.3] },
     "alice": { "cargo": "Vice-Diretora de Cultura", "foco": [0.5, 0.45] }
   },

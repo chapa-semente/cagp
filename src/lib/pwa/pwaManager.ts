@@ -1,6 +1,7 @@
 // src/lib/pwa/pwaManager.ts
 // Gerenciador Unificado de PWA, Notificações Eleitorais e Compartilhamento Viral da Chapa Semente
 
+import { corpoDoAppInstalado, montarMensagem } from '@/lib/compartilhar';
 import { downloadIcs } from '../calendar/icsGenerator';
 
 export interface BeforeInstallPromptEvent extends Event {
@@ -184,32 +185,13 @@ export function downloadElectionCalendarReminder(type: 'voting' | 'debate' | 'al
 }
 
 /**
- * Cria a mensagem de mobilização e o link de compartilhamento para o WhatsApp da turma
+ * Convite de quem pôs o site na tela inicial. Voz de colega, sem lista de recursos; a assinatura da
+ * chapa muda sozinha com a data (src/lib/compartilhar.ts).
  */
-export function getWhatsAppShareData(customName?: string): { url: string; text: string } {
+export function getWhatsAppShareData(_customName?: string): { url: string; text: string } {
   const baseUrl = typeof window !== 'undefined'
-    ? `${window.location.protocol}//${window.location.host}${window.location.pathname}`
-    : 'https://cagp-ufmg.github.io';
-
-  const studentName = customName && customName !== 'Estudante de Gestão Pública' ? `${customName}` : 'colega de Gestão Pública';
-
-  const text = `*SUPER APP DISCENTE — CHAPA 2 · SEMENTE (CAGP 2026)*
-
-Colegas de Gestão Pública, aqui é o(a) ${studentName}.
-
-Instalei no celular o Super App da Gestão Pública (FAFICH/UFMG), feito pela Chapa Semente.
-
-[+] Calculadora de Horas ACG 600h
-[+] Catálogo e percurso das 95 matérias
-[+] 100% offline para os subsolos e salas da FAFICH
-
-Nos dias 25 e 26 de novembro acontecem as Eleições do CAGP, na sala do CAGP na FAFICH (17h às 22h30). Eu vou votar na Chapa 2, a Semente — Potencial que se Transforma em Ação!
-
-Abra no celular e conheça a proposta:
-${baseUrl}`;
-
-  const encoded = encodeURIComponent(text);
-  const url = `https://api.whatsapp.com/send?text=${encoded}`;
-
-  return { url, text };
+    ? new URL(document.documentElement.dataset.baseUrl || '/', window.location.origin).href
+    : '/';
+  const text = montarMensagem({ corpo: corpoDoAppInstalado(), url: baseUrl, tom: 'convite' });
+  return { url: `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, text };
 }

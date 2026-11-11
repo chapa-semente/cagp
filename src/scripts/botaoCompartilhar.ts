@@ -1,6 +1,9 @@
 // src/scripts/botaoCompartilhar.ts — Liga todo botão de compartilhar do site (um ouvinte só, no documento).
 //
 //   data-compartilhar            abre o menu de compartilhar (ou o WhatsApp) com a mensagem montada
+//   data-compartilhar="pagina"   manda a página aberta agora: lê o texto das metas que o BaseLayout
+//                                escreve (cagp:mensagem, cagp:tom, og:title). É o botão do cabeçalho e
+//                                do trilho, que ficam parados enquanto o conteúdo troca.
 //   data-copiar-mensagem         copia a mesma mensagem (para colar em legenda ou em outro app)
 //
 // O botão traz: data-corpo (o texto antes do link), data-url (caminho com o caminho-base),
@@ -13,7 +16,17 @@ declare global {
   }
 }
 
+const meta = (seletor: string) => document.querySelector<HTMLMetaElement>(seletor)?.content ?? '';
+
 function lerMensagem(el: HTMLElement) {
+  if (el.dataset.compartilhar === 'pagina') {
+    return {
+      titulo: meta('meta[property="og:title"]') || document.title,
+      corpo: meta('meta[name="cagp:mensagem"]') || document.title,
+      url: urlAbsoluta(window.location.pathname),
+      tom: (meta('meta[name="cagp:tom"]') as TomDeCompartilhar) || 'util',
+    };
+  }
   return {
     titulo: el.dataset.titulo,
     corpo: el.dataset.corpo ?? '',

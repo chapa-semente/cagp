@@ -1,0 +1,134 @@
+---
+// /chapa-semente/<nome> — Uma pessoa da chapa por endereço (decisão de 11/11/2026).
+// Serve ao "essa é a fulana da minha sala": o link tem o banner com o rosto (public/og/pessoa-<id>.jpg)
+// e a página apresenta a pessoa pela dor que ela resolve. Volume Cartaz.
+// Dados: src/lib/chapaSementeData.ts (quem é, a fala) e src/lib/sementeTour.ts (a dor e a ferramenta).
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BotaoCompartilhar from '@/components/ui/BotaoCompartilhar.astro';
+import { CHAPA_LEADERS, CHAPA_ROTULO, getLeaderPhotoUrl } from '@/lib/chapaSementeData';
+import { PROPOSTA_STOPS } from '@/lib/propostasTour';
+import { TOUR_STOPS, type TourLeaderId } from '@/lib/sementeTour';
+import { previaDaPessoa } from '@/lib/previas';
+import { route } from '@/lib/paths';
+import '@/styles/campanha-detalhe.css';
+
+export function getStaticPaths() {
+  return CHAPA_LEADERS.map((pessoa, indice) => ({ params: { pessoa: pessoa.id }, props: { pessoa, indice } }));
+}
+
+const { pessoa, indice } = Astro.props;
+const parada = TOUR_STOPS[pessoa.id as TourLeaderId];
+const foto = getLeaderPhotoUrl(pessoa.photoFilename);
+const primeiroNome = pessoa.name.split(' ')[0];
+const previa = previaDaPessoa(pessoa);
+const propostas = PROPOSTA_STOPS.filter((p) => p.leaderId === pessoa.id);
+const anterior = CHAPA_LEADERS[indice - 1];
+const proxima = CHAPA_LEADERS[indice + 1];
+// Roxo e petróleo alternam por pessoa, como no tour e nos banners.
+const cor = indice % 2 === 1 ? { bg: '#266264', fundo: '#1D5052' } : { bg: '#5B2A85', fundo: '#4A216E' };
+---
+
+<BaseLayout mode="persuade" hideFloatingPill title={`${pessoa.name}, ${pessoa.role}`} description={previa.descricao}>
+  <div class="cd-page">
+    <section
+      class="cd-hero cd-hero-pessoa"
+      aria-labelledby="cd-titulo"
+      style={`--cd-bg:${cor.bg};--cd-fg:#FFFFFF;--cd-fundo:${cor.fundo}`}
+    >
+      <svg class="cd-hero-folha" viewBox="-46 -110 72 118" aria-hidden="true"><use href="#sg-folha"></use></svg>
+      {foto && (
+        <figure class="cd-retrato">
+          <img
+            src={foto}
+            alt={`${pessoa.name}, ${pessoa.role}`}
+            width="640"
+            height="800"
+            decoding="async"
+            style={`object-position:${parada.photoPosition ?? pessoa.photoPosition ?? 'center 30%'}`}
+          />
+          <figcaption><b>{pessoa.name}</b><span>{pessoa.role}</span></figcaption>
+        </figure>
+      )}
+      <div class="cd-hero-texto">
+        <div class="cd-hero-topo">
+          <p class="cd-etiqueta m-0">{String(indice + 1).padStart(2, '0')}/{CHAPA_LEADERS.length} · {CHAPA_ROTULO} · Semente</p>
+        </div>
+        <h1 id="cd-titulo" class="cd-titulo">{parada.hook}</h1>
+        <p class="cd-lede">{parada.answer}</p>
+        <div class="cd-acoes">
+          <BotaoCompartilhar corpo={previa.mensagem} tom="convite" titulo={previa.titulo} rotulo={`Apresentar ${primeiroNome}`} />
+        </div>
+      </div>
+    </section>
+
+    <section class="cd-ficha" aria-labelledby="cd-ferramenta">
+      <div class="flex flex-wrap items-center gap-2">
+        <h2 id="cd-ferramenta" class="cd-h2">{parada.tool}</h2>
+        {parada.simulated && <span class="cagp-sticker-simulado">Simulado</span>}
+      </div>
+      <p class="cd-texto">{parada.proof}</p>
+      <div class="cd-acoes">
+        <a href={parada.route} class="sk-btn sk-btn-roxo">
+          Abrir no site
+          <i class="bi bi-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+    </section>
+
+    <section class="cd-secao" aria-labelledby="cd-fala">
+      <h2 id="cd-fala" class="cd-h2">{pessoa.quote ? `O que ${primeiroNome} diz` : `O que ${primeiroNome} quer resolver`}</h2>
+      {pessoa.quote && <blockquote class="cd-citacao">“{pessoa.quote}”</blockquote>}
+      <p class="cd-texto"><strong>O problema:</strong> {pessoa.painPoint}</p>
+      <p class="cd-texto"><strong>{parada.simulated ? 'A proposta:' : 'Já funciona:'}</strong> {pessoa.solution}</p>
+    </section>
+
+    {propostas.length > 0 && (
+      <section class="cd-secao" aria-labelledby="cd-propostas">
+        <h2 id="cd-propostas" class="cd-h2">
+          {propostas.length === 1 ? `A proposta que ${primeiroNome} puxa` : `As propostas que ${primeiroNome} puxa`}
+        </h2>
+        <ul class="cd-lista" role="list" style="justify-self:stretch">
+          {propostas.map((p) => (
+            <li>
+              <a href={route(`/propostas/${p.id}`)}>
+                <span class="cd-lista-n" aria-hidden="true">{p.id}</span>
+                <span class="cd-lista-nome"><span class="sr-only">Proposta {p.id}: </span>{p.titulo}</span>
+                <i class="bi bi-arrow-right shrink-0" aria-hidden="true"></i>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <nav class="cd-vizinhos" aria-label="Outras pessoas da chapa">
+      {anterior ? (
+        <a href={route(`/chapa-semente/${anterior.id}`)} class="cd-vizinho">
+          <small>{anterior.role}</small>
+          <b>{anterior.name}</b>
+        </a>
+      ) : (
+        <a href={route('/chapa-semente') + '#integrantes'} class="cd-vizinho">
+          <small>A chapa</small>
+          <b>Ver as {CHAPA_LEADERS.length} pessoas</b>
+        </a>
+      )}
+      {proxima ? (
+        <a href={route(`/chapa-semente/${proxima.id}`)} class="cd-vizinho cd-vizinho-dir">
+          <small>{proxima.role}</small>
+          <b>{proxima.name}</b>
+        </a>
+      ) : (
+        <a href={route('/chapa-semente') + '#propostas'} class="cd-vizinho cd-vizinho-dir">
+          <small>A chapa</small>
+          <b>Ver as {PROPOSTA_STOPS.length} propostas</b>
+        </a>
+      )}
+    </nav>
+
+    <p class="cd-fecho">
+      <span>Vote {CHAPA_ROTULO}: dias 25 e 26/11, das 17h às 22h30, na sala do CAGP.</span>
+      <a href={route('/gestao')} class="sk-btn sk-btn-folha">Como votar</a>
+    </p>
+  </div>
+</BaseLayout>

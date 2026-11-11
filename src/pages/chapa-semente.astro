@@ -14,6 +14,9 @@ import EstagioIlustra from '@/components/ui/EstagioIlustra.astro';
 import CagpIcon from '@/components/ui/CagpIcon.astro';
 import { resolveCagpIconName } from '@/lib/cagpIcons';
 import { getItemByPath } from '@/lib/navigationRegistry';
+import BotaoCompartilhar from '@/components/ui/BotaoCompartilhar.astro';
+import { corpoDoVoto } from '@/lib/compartilhar';
+import '@/styles/campanha-detalhe.css';
 
 const MARQUEE = [
   `Vote ${CHAPA_NOME} · 25 e 26/11 · 17h às 22h30`,
@@ -23,6 +26,8 @@ const MARQUEE = [
 ];
 
 const EDITAL_PDF = asset('/documentos/edital-eleicoes-cagp-2026.pdf');
+/** Convite pro grupo da turma (a data, o lugar e a assinatura entram na hora de mandar). */
+const CONVITE = `A Semente é a ${CHAPA_ROTULO} na eleição do CAGP e já pôs no ar um site com os guias do curso: documentos, estágio, 600h, FUMP, calouros.\nDá uma olhada e conhece as ${CHAPA_LEADERS.length} pessoas da chapa:`;
 const TOTAL = String(CHAPA_LEADERS.length).padStart(2, '0');
 
 /** Funções reais do site (nada simulado entra aqui). */
@@ -170,7 +175,7 @@ const jaFunciona = jaFuncionaBase.map((t) => {
                 <span class="cs-counter" aria-hidden="true">{String(idx + 1).padStart(2, '0')}/{TOTAL}</span>
               </div>
               <div class="space-y-0.5">
-                <h3 class="cs-member-name">{leader.name}</h3>
+                <h3 class="cs-member-name"><a href={route(`/chapa-semente/${leader.id}`)}>{leader.name}</a></h3>
                 <p class="cs-member-role">{leader.role}</p>
               </div>
               <details class="cs-details">
@@ -232,7 +237,52 @@ const jaFunciona = jaFuncionaBase.map((t) => {
       <CartaPropostaInteractive client:visible />
     </section>
 
-    <!-- 6. FECHAMENTO: a página termina na ação -->
+    <!-- 6. KIT DE DIVULGAÇÃO: quem já decidiu o voto vira quem espalha (artes em public/og/kit/) -->
+    <section id="divulgar" aria-labelledby="cs-kit-title" class="scroll-mt-24 space-y-5">
+      <div class="space-y-2 max-w-[68ch]">
+        <h2 id="cs-kit-title" class="cs-headline">Ajude a espalhar</h2>
+        <p class="text-base text-muted-foreground m-0">
+          Vai votar na Semente? Conte pra turma. A arte e os textos já estão prontos.
+        </p>
+      </div>
+      <div class="cs-kit">
+        <div class="cd-ficha cd-kit" style="--cd-kit-arte:8.5rem">
+          <img
+            src={asset('/og/kit/story-voto.jpg')}
+            alt="Arte de story: Eu voto Chapa 2, com os 12 integrantes, a data e o local da eleição"
+            width="1080"
+            height="1920"
+            class="cd-kit-arte"
+            loading="lazy"
+            decoding="async"
+          />
+          <div class="cd-secao">
+            <h3 class="cd-h2">Pro story e pro status</h3>
+            <p class="cd-texto">A arte “Eu voto {CHAPA_ROTULO}” já vem no tamanho do story. Baixe, poste e cole o link do site.</p>
+            <div class="cd-acoes">
+              <a href={asset('/og/kit/story-voto.jpg')} download="eu-voto-chapa-2-semente.jpg" class="sk-btn sk-btn-roxo">
+                <i class="bi bi-download" aria-hidden="true"></i>
+                Baixar a arte
+              </a>
+              <BotaoCompartilhar corpo={corpoDoVoto()} url={route('/')} tom="voto" rotulo="Declarar meu voto" />
+            </div>
+          </div>
+        </div>
+        <div class="cd-ficha">
+          <h3 class="cd-h2">Pro grupo da turma</h3>
+          <p class="cd-texto">Um convite curto, com a data e o lugar da eleição e o link do site.</p>
+          <div class="cd-acoes">
+            <BotaoCompartilhar corpo={CONVITE} url={route('/')} tom="convite" variante="roxo" rotulo="Mandar o convite" />
+            <BotaoCompartilhar corpo={CONVITE} url={route('/')} tom="convite" variante="copiar" />
+          </div>
+          <p class="cd-texto">
+            Cada proposta e cada pessoa da chapa tem a sua página, com link e arte próprios: abra uma e use o botão de mandar.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. FECHAMENTO: a página termina na ação -->
     <p class="cs-close">
       <span>Vote {CHAPA_ROTULO}: dias 25 e 26/11, das 17h às 22h30, na sala do CAGP.</span>
       <a href="#votar" class="cs-btn cs-btn-accent">Como votar</a>
@@ -553,6 +603,24 @@ const jaFunciona = jaFuncionaBase.map((t) => {
     letter-spacing: 0.04em;
     font-variant-numeric: tabular-nums;
     color: #1f1f1f;
+  }
+  .cs-member-name a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.2em;
+  }
+  .cs-member-name a:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  .cs-kit {
+    display: grid;
+    gap: 1.25rem;
+    align-items: start;
+  }
+  @media (min-width: 900px) {
+    .cs-kit { grid-template-columns: 1fr 1fr; }
   }
   .cs-member-name {
     margin: 0;

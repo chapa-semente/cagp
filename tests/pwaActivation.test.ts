@@ -62,14 +62,15 @@ describe('PWA & Eleições Chapa Semente Activation Test Suite', () => {
   });
 
   describe('WhatsApp Viral Mobilization Link (Zero Emojis)', () => {
-    it('deve gerar texto institucional e persuasivo SEM nenhum emoji', () => {
+    it('deve gerar o convite em voz de colega, com o link, SEM nenhum emoji', () => {
       const { url, text } = getWhatsAppShareData('Mariana Silva');
 
       expect(url).toContain('https://api.whatsapp.com/send?text=');
-      expect(text).toContain('Mariana Silva');
-      expect(text).toContain('Calculadora de Horas ACG 600h');
-      expect(text).toContain('Chapa 2, a Semente — Potencial que se Transforma em Ação');
-      expect(text).toContain('25 e 26 de novembro');
+      expect(text).toContain('calculadora das 600h');
+      expect(text).toContain(window.location.origin);
+      // Sem lista de recursos em "[+]" e sem prometer "100% offline" (documentos não abrem sem internet).
+      expect(text).not.toContain('[+]');
+      expect(text).not.toMatch(/100% offline/i);
 
       // Asserção estrita de ausência de emojis
       expect(EMOJI_REGEX.test(text)).toBe(false);
@@ -79,9 +80,9 @@ describe('PWA & Eleições Chapa Semente Activation Test Suite', () => {
       expect(decodedParam).toBe(text);
     });
 
-    it('deve usar fallback amigável quando nenhum nome for passado e não ter emojis', () => {
+    it('deve funcionar sem nome e não ter emojis', () => {
       const { text } = getWhatsAppShareData();
-      expect(text).toContain('colega de Gestão Pública');
+      expect(text).toContain('site do curso de Gestão Pública');
       expect(EMOJI_REGEX.test(text)).toBe(false);
     });
   });

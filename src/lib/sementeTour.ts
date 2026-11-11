@@ -108,8 +108,8 @@ export const TOUR_STOPS: Record<TourLeaderId, TourStop> = {
     target: '[data-tour="vitoria"]',
     hook: 'Trabalha de dia, estuda à noite e não sabe se tem direito à FUMP?',
     answer: 'Vitória escreveu o guia da assistência estudantil sem juridiquês.',
-    tool: 'Níveis da FUMP',
-    proof: 'O que cada nível garante, quem pode pedir e um simulador para ver onde você se encaixa.',
+    tool: 'Programas da FUMP',
+    proof: 'Os quatro programas da FUMP, quanto o RU custa em cada nível e o passo a passo para pedir.',
   },
   klaus: {
     leaderId: 'klaus',

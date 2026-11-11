@@ -181,8 +181,26 @@ const BADGE_ACCENT =
           <CagpIcon name={resolveCagpIconName('bi-clock-history')} class="w-4 h-4 text-secondary shrink-0" />
           <span>Campus agora</span>
         </button>
+        <button
+          type="button"
+          data-compartilhar="pagina"
+          class="flex items-center justify-center gap-2 min-h-[44px] py-2 px-3 rounded-xl bg-white hover:bg-background border-3 border-border shadow-xs text-xs font-heading font-extrabold uppercase tracking-tight text-foreground cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
+          title="Mandar esta página pra alguém"
+        >
+          <i class="bi bi-share text-sm text-secondary shrink-0" aria-hidden="true"></i>
+          <span>Mandar esta página</span>
+        </button>
       </div>
     ) : (
+      <button
+        type="button"
+        data-compartilhar="pagina"
+        class="w-full min-h-[44px] p-2 rounded-xl bg-white border-3 border-border shadow-xs flex items-center justify-center cursor-pointer active:translate-x-0.5 active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none"
+        title="Mandar esta página pra alguém"
+        aria-label="Mandar esta página pra alguém"
+      >
+        <i class="bi bi-share text-base" aria-hidden="true"></i>
+      </button>
       <button
         type="button"
         data-rail-action="expand"

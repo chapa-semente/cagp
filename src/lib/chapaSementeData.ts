@@ -214,7 +214,8 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
       'A insegurança e o desgaste burocrático de perder estágios ou ter contratos travados por desconhecimento das regras institucionais da UFMG.',
     solution:
       'Roteiro de preenchimento de Termos de Compromisso de Estágio (TCE), minutas para download e instruções claras para dispensa do Artigo 41.',
-    photoFilename: 'Lara.png',
+    photoFilename: 'Lara.jpeg',
+    photoPosition: 'center 30%',
     initials: 'LS',
     deptColor: 'bg-indigo-700 text-white border-indigo-900',
     badgeBg: 'bg-indigo-100 text-indigo-900 border-indigo-300',
@@ -278,7 +279,7 @@ const AVAILABLE_LEADER_PHOTOS = new Set([
   'João Pedro Fragoso.jpg',
   'Vitoria.png',
   'Italo.jpeg',
-  'Lara.png',
+  'Lara.jpeg',
   'Paloma.jpeg',
   'Klaus.jpg',
   'Alice.png',

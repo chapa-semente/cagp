@@ -6,22 +6,19 @@ import PageHeader from '@/components/ui/PageHeader.astro';
 import SegmentedControl from '@/components/ui/SegmentedControl.astro';
 import JourneyNav from '@/components/ui/JourneyNav.astro';
 import NoturnoHoje from '@/components/features/acolhimento/NoturnoHoje.astro';
-import {
-  PermanenciaNiveis,
-  PermanenciaSimulador,
-  PermanenciaPedido,
-} from '@/components/features/permanencia/PermanenciaInteractiveHub';
+import FumpProgramas from '@/components/features/permanencia/FumpProgramas.astro';
+import { PermanenciaSimulador, PermanenciaPedido } from '@/components/features/permanencia/PermanenciaInteractiveHub';
 import { PAGINAS_ACOLHIMENTO as P } from '@/data/acolhimento';
 
 const tabs = [
-  { id: 'v0', shortLabel: 'Níveis', fullLabel: 'Níveis da FUMP', hash: '#niveis' },
-  { id: 'v1', shortLabel: 'Simular', fullLabel: 'Simular auxílios', hash: '#simular' },
+  { id: 'v0', shortLabel: 'Programas', fullLabel: 'Programas da FUMP', hash: '#programas' },
+  { id: 'v1', shortLabel: 'Conta do RU', fullLabel: 'Conta do RU', hash: '#simular' },
   { id: 'v2', shortLabel: 'Pedir', fullLabel: 'Como pedir', hash: '#pedir' },
   { id: 'v3', shortLabel: 'Noturno', fullLabel: 'Guia noturno', hash: '#noturno' },
 ];
 
 const badges = [
-  { label: 'FUMP · Níveis I, II e III', variant: 'secondary' as const, icon: 'bi-shield-check' },
+  { label: 'FUMP · 4 programas', variant: 'secondary' as const, icon: 'bi-shield-check' },
   { label: 'Portaria PRAE 1.286/2026', variant: 'dark' as const, icon: 'bi-file-text' },
 ];
 
@@ -34,12 +31,12 @@ const maisNoite = [
 
 <BaseLayout
   title={P.permanencia.titulo}
-  description="Níveis I, II e III da FUMP, como pedir, simulação ilustrativa de auxílios e o guia do turno noturno da FAFICH: RU, circular, CEAG e segurança."
+  description="Os quatro programas da FUMP (alimentação, moradia, saúde e suportes financeiros), o preço do RU por nível, como pedir e o guia do turno noturno da FAFICH."
   mode="operate"
 >
   <PageHeader
     title={P.permanencia.titulo}
-    subtitle="O que cada nível da FUMP garante, como pedir sem perder prazo e o que funciona à noite na FAFICH."
+    subtitle="Os programas da FUMP, o preço do RU em cada nível, como pedir e o que funciona à noite na FAFICH."
     badges={badges}
     axisId="guias"
     activeId="curso-permanencia"
@@ -50,14 +47,14 @@ const maisNoite = [
   <SegmentedControl tabs={tabs} defaultTab="v0" />
 
   <section id="ws-panel-v0" class="cagp-workspace-view" data-ws-panel="v0" data-tour="vitoria">
-    <div id="niveis" class="cagp-anchor-target"></div>
-    <h2 class="sr-only">Níveis da FUMP</h2>
-    <PermanenciaNiveis client:visible />
+    <div id="programas" class="cagp-anchor-target"></div>
+    <h2 class="sr-only">Programas da FUMP</h2>
+    <FumpProgramas />
   </section>
 
   <section id="ws-panel-v1" class="cagp-workspace-view" data-ws-panel="v1" hidden>
     <div id="simular" class="cagp-anchor-target"></div>
-    <h2 class="sr-only">Simular auxílios</h2>
+    <h2 class="sr-only">Conta do RU por nível</h2>
     <PermanenciaSimulador client:visible />
   </section>
 

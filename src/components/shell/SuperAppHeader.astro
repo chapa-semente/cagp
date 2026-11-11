@@ -1,6 +1,6 @@
 ---
 // src/components/shell/SuperAppHeader.astro — Cabeçalho do celular (< 768px), Modelo B.
-// [‹ voltar] Título · [Buscar] [Perfil]. O "voltar" usa o histórico quando a página anterior
+// [‹ voltar] Título · [Buscar] [Mandar] [Perfil]. "Mandar" compartilha a página aberta (11/11/2026). O "voltar" usa o histórico quando a página anterior
 // é deste site; senão leva à raiz da aba. Na raiz da aba não há seta.
 import { AXIS_REGISTRY, getItemByPath, normalizePathname } from '@/lib/navigationRegistry';
 import { getCagpIconSvg } from '@/lib/cagpIcons';
@@ -63,6 +63,16 @@ const title = isUnknown ? fallbackTitle || 'Página não encontrada' : owner && 
         aria-label="Buscar no site"
       >
         <span class="flex" aria-hidden="true" set:html={getCagpIconSvg('search', 'w-4 h-4')} />
+      </button>
+
+      <button
+        type="button"
+        id="cagp-btn-compartilhar"
+        data-compartilhar="pagina"
+        class="w-11 h-11 min-w-[44px] rounded-xl bg-white hover:bg-muted border-3 border-border text-primary flex items-center justify-center cursor-pointer active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+        aria-label="Mandar esta página pra alguém"
+      >
+        <i class="bi bi-share text-base" aria-hidden="true"></i>
       </button>
 
       <button
@@ -174,4 +184,9 @@ const title = isUnknown ? fallbackTitle || 'Página não encontrada' : owner && 
     }
   });
   window.addEventListener('cagp:vault-updated', setupHeaderListeners);
+</script>
+
+<script>
+  // Liga o botão de mandar a página (aqui e no trilho do desktop).
+  import '@/scripts/botaoCompartilhar';
 </script>

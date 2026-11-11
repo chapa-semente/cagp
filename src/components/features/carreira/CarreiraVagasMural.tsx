@@ -17,7 +17,7 @@ export const CarreiraVagasMural: React.FC = () => {
     <div className="space-y-6 font-sans select-none text-foreground">
       {/* Vagas de exemplo: o radar real é a Proposta 12 (PRODUCT.md › Real × simulado). */}
       <div role="note" className="px-4 py-3 rounded-xl bg-warning-tint border-2 border-border flex flex-wrap items-center justify-between gap-2 text-sm text-foreground">
-        <span className="max-w-prose"><strong>Aviso:</strong> {SIMULATION_NOTICE} As vagas abaixo são exemplos, não editais abertos.</span>
+        <span className="max-w-prose"><strong>Aviso:</strong> {SIMULATION_NOTICE} As vagas deste bloco são exemplos, não editais abertos. As vagas reais estão no bloco de cima.</span>
         <span className="cagp-sticker-simulado">Simulado</span>
       </div>
 

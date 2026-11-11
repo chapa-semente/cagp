@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from 'motion/react';
 import { tactileSpring, bounceSpring } from '@/lib/motion';
 import { getVaultItem, setVaultItem, type VaultData } from '../../../../lib/storage/studentVault';
 import { MarkerWord } from '@/components/ui/marker-word';
+import { compartilhar, urlAbsoluta } from '@/lib/compartilhar';
+import { route } from '@/lib/paths';
 import { LinearHud } from '@/components/features/acg/calculator/LinearHud';
 import { EXTENSION_ITEMS, AAC_ITEMS, type AcgItemDef } from '@/components/features/acg/calculator/acgCatalog';
 import { GaugeChart } from '@/components/boldkit/charts/gauge-chart';
@@ -79,11 +81,6 @@ export const AcgCalculatorCore: React.FC = () => {
     const nextData = { ...data, [key]: clamped };
     setData(nextData);
     setVaultItem('cagp_calc_ext_aac_v1', nextData);
-  };
-
-  const handleStep = (item: AcgItemDef, delta: number) => {
-    const current = data[item.key] || 0;
-    updateItemHours(item.key, current + delta, item.max);
   };
 
   const handleMaxOut = (item: AcgItemDef) => {
@@ -261,38 +258,8 @@ export const AcgCalculatorCore: React.FC = () => {
 
         {/* Controles Táteis Apple HIG */}
         <div>
-          <div className="flex items-center justify-between gap-2 pt-2.5 border-t-2 border-border">
-            <div className="flex items-center gap-1.5">
-              <button
-                type="button"
-                onClick={() => handleStep(item, -item.step)}
-                disabled={val <= 0}
-                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white hover:bg-muted border-3 border-border shadow-sm active:translate-x-[1px] active:translate-y-[1px] active:shadow-none disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center text-base font-bold text-foreground cursor-pointer transition-all"
-                aria-label={`Diminuir ${item.step}h de ${item.label}`}
-              >
-                <i className="bi bi-dash" aria-hidden="true" />
-              </button>
-
-              <div className="w-16 h-11 min-h-[44px] bg-card border-3 border-border rounded-xl shadow-sm flex flex-col items-center justify-center">
-                <span className="font-mono text-xs font-black text-foreground leading-none">
-                  {val}h
-                </span>
-                <span className="text-xs text-muted-foreground font-mono">
-                  /{item.max}h
-                </span>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => handleStep(item, item.step)}
-                disabled={isMaxed}
-                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white hover:bg-muted border-3 border-border shadow-sm active:translate-x-[1px] active:translate-y-[1px] active:shadow-none disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center text-base font-bold text-foreground cursor-pointer transition-all"
-                aria-label={`Adicionar ${item.step}h em ${item.label}`}
-              >
-                <i className="bi bi-plus" aria-hidden="true" />
-              </button>
-            </div>
-
+          {/* As horas se ajustam só pelo slider (decisão de 11/11/2026); "Teto" e "Regras" são apoio. */}
+          <div className="flex items-center justify-end gap-2 pt-2.5 border-t-2 border-border">
             <div className="flex items-center gap-1.5">
               {isMaxed ? (
                 <span className="min-h-[44px] text-xs font-mono font-bold text-white bg-teal-700 border-3 border-border px-2.5 py-1 rounded-xl flex items-center gap-1 shadow-sm">
@@ -334,7 +301,7 @@ export const AcgCalculatorCore: React.FC = () => {
           {/* Ajuste Fino via Slider Neobrutalista */}
           <div className="mt-3 pt-2.5 border-t-2 border-border">
             <div className="flex items-center justify-between text-xs font-mono text-muted-foreground mb-1.5 font-bold">
-              <span>Ajuste Rápido (Slider)</span>
+              <span>Arraste pra ajustar</span>
               <span className="text-foreground">{val}h / {item.max}h</span>
             </div>
             <Slider
@@ -452,6 +419,30 @@ export const AcgCalculatorCore: React.FC = () => {
                 <>Some suas horas abaixo pra ver quanto falta.</>
               )}
             </p>
+            {/* O número só sai daqui se a pessoa mandar; o link é o da calculadora, sem dado nenhum. */}
+            {grandTotal > 0 && (
+              <div className="flex justify-center">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() =>
+                    compartilhar({
+                      titulo: 'Calculadora das 600h',
+                      corpo:
+                        grandTotal >= 600
+                          ? 'Fechei as minhas 600h de extensão e AAC.\nDá pra fazer a sua conta em um minuto:'
+                          : `Fiz a conta das minhas 600h: faltam ${600 - grandTotal}h.\nDá pra fazer a sua em um minuto:`,
+                      url: urlAbsoluta(route('/acg')),
+                      tom: 'util',
+                    })
+                  }
+                >
+                  <i className="bi bi-share mr-1.5" aria-hidden="true" />
+                  Mandar meu resultado
+                </Button>
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>

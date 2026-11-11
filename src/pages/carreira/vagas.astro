@@ -4,6 +4,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/ui/PageHeader.astro';
 import JourneyNav from '@/components/ui/JourneyNav.astro';
 import { CarreiraVagasMural } from '@/components/features/carreira/CarreiraVagasMural';
+import VagasReais from '@/components/features/carreira/VagasReais.astro';
 import { route } from '@/lib/paths';
 
 const badges = [
@@ -16,7 +17,7 @@ const badges = [
 
 <BaseLayout
   title="Vagas e editais"
-  description="Mural de editais de estágio, trainees em gestão pública e vagas em órgãos públicos (SEPLAG, PBH, TCE, MPMG, ALMG) e OSCs conectadas à Proposta 12 da Chapa Semente."
+  description="Vagas reais que chegam no grupo Conexão Gestão Pública e o modelo do mural de estágios e editais da Proposta 12 da Chapa Semente."
   mode="read"
 >
   <div class="space-y-6 max-w-6xl mx-auto">
@@ -26,10 +27,13 @@ const badges = [
       condensed={true}
       showAxisNav={false}
       title="Vagas e editais"
-      subtitle="Estágios e trainees no governo de MG, na PBH, em tribunais e no terceiro setor. É a Proposta 12 da chapa."
+      subtitle="Vagas reais que chegam no grupo do curso e o modelo do mural que a chapa propõe (Proposta 12)."
       badges={badges}
     />
 
+    <VagasReais />
+
+    <h2 class="font-heading text-xl font-bold text-foreground m-0 pt-4">Como o mural pode ficar</h2>
     <CarreiraVagasMural client:load />
 
     <JourneyNav
