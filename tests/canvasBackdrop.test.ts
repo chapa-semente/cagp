@@ -138,6 +138,8 @@ function expectSameCalls(actual: Call[], expected: Call[], tolerance: number) {
 
 // Tamanhos reais: iPhone (390×844 a 3x), Android comum (360×800 a 2x) e desktop.
 const SIZES: Array<[number, number]> = [[1170, 2532], [720, 1600], [1440, 900]];
+// A referência original é lenta de propósito (é o que o motor novo substitui): folga no relógio.
+const SLOW = 60_000;
 
 describe('fundo animado: motor novo desenha o mesmo que o original', () => {
   it('DotWave: mesmos quadrados, tamanhos e opacidades em vários instantes', () => {
@@ -156,7 +158,7 @@ describe('fundo animado: motor novo desenha o mesmo que o original', () => {
         t += 0.035 * step;
       }
     }
-  });
+  }, SLOW);
 
   it('Topography: mesmas curvas de nível, cores e espessuras em vários instantes', () => {
     for (const [W, H] of SIZES) {
@@ -174,7 +176,7 @@ describe('fundo animado: motor novo desenha o mesmo que o original', () => {
         t += 0.006 * 0.5 * step;
       }
     }
-  });
+  }, SLOW);
 
   it('redimensionar no meio da animação continua desenhando igual', () => {
     const size = { width: 720, height: 1600 };
@@ -188,5 +190,5 @@ describe('fundo animado: motor novo desenha o mesmo que o original', () => {
     const ref = recorder();
     referenceTopography(ref.ctx, 1600, 720, 0.006 * 0.5 * 2);
     expectSameCalls(calls, ref.calls, 0);
-  });
+  }, SLOW);
 });

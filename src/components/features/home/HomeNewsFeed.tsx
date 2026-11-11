@@ -1,17 +1,14 @@
 import React from 'react';
-import { motion } from 'motion/react';
 import {
   SIMULATED_NEWS,
   SIMULATION_NOTICE,
   type SimulatedNewsItem,
 } from '@/lib/simulatedData';
 import { route } from '@/lib/paths';
-import {
-  photoCardHover,
-  photoCardTap,
-  photoZoomSpring,
-  tactileSpring,
-} from '@/lib/motion';
+
+// Sem motion/react: o cartão e a foto reagem ao hover e ao toque por CSS, com as mesmas molas
+// (.cagp-noticia-card e .cagp-noticia-foto, em src/styles/animations.css). Assim o mural sai
+// pronto do build e a home não precisa hidratar React.
 
 export function renderNewsMotifSvg(motif: SimulatedNewsItem['motif']) {
   if (motif === 'assembleia') {
@@ -117,33 +114,25 @@ export const HomeNewsFeed: React.FC = () => {
           const articleUrl = route(`/noticias/${item.slug}`);
 
           return (
-            <motion.article
+            <article
               key={item.id}
               data-context-type="news"
               data-context-data={JSON.stringify({ id: item.id, title: item.title, slug: item.slug })}
-              whileHover={{ y: -3, x: -2 }}
-              whileTap={{ y: 2, x: 2 }}
-              transition={tactileSpring}
-              className="bg-card rounded-xl overflow-hidden border-3 border-border shadow-md hover:shadow-lg transition-shadow flex flex-col justify-between group cursor-pointer"
+              className="cagp-noticia-card bg-card rounded-xl overflow-hidden border-3 border-border shadow-md hover:shadow-lg transition-shadow flex flex-col justify-between group cursor-pointer"
             >
               <a
                 href={articleUrl}
                 className="no-underline text-inherit flex flex-col flex-1 justify-between p-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-xl"
               >
                 <div>
-                  <motion.div
-                    whileHover={photoCardHover}
-                    whileTap={photoCardTap}
-                    transition={photoZoomSpring}
-                    className="aspect-[16/10] relative overflow-hidden rounded-lg border-3 border-border shadow-xs mb-3"
-                  >
+                  <div className="cagp-noticia-foto aspect-[16/10] relative overflow-hidden rounded-lg border-3 border-border shadow-xs mb-3">
                     {renderNewsMotifSvg(item.motif)}
                     <span
                       className={`absolute top-2.5 left-2.5 text-xs font-heading font-extrabold uppercase tracking-wide px-2.5 py-1 rounded-lg border-2 border-border shadow-xs ${badgeClass}`}
                     >
                       {item.tag}
                     </span>
-                  </motion.div>
+                  </div>
                   <div className="px-1 pb-2">
                     <h3 className="font-heading font-extrabold text-sm text-foreground group-hover:text-secondary transition-colors leading-snug m-0">
                       {item.title}
@@ -164,7 +153,7 @@ export const HomeNewsFeed: React.FC = () => {
                   </span>
                 </div>
               </a>
-            </motion.article>
+            </article>
           );
         })}
       </div>

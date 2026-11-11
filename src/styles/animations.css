@@ -463,3 +463,53 @@ html[data-nav-dir="drill-out"]::view-transition-new(cagp-main) {
   animation-duration: var(--duration-spring);
   animation-timing-function: var(--ease-spring);
 }
+
+/* 17. Home sem React (src/pages/index.astro): o que era motion/react virou CSS com as mesmas molas.
+   Durações medidas na física de src/lib/motion.ts: mola tátil ≈ 460ms com --ease-spring, mola firme
+   ≈ 320ms com --ease-spring-snappy, ginga ≈ 660ms com --ease-spring-bouncy. */
+
+/* Rostos da chapa: sobem 18px e aparecem, um depois do outro (era initial/animate com atraso de
+   150ms + 35ms por rosto). Com a abertura (splash) na frente, esperam ela sair: [data-espera]. */
+@keyframes cagpRostoEntra {
+  from { opacity: 0; translate: 0 18px; }
+}
+.cagp-rosto {
+  animation: cagpRostoEntra 460ms var(--ease-spring) both;
+  animation-delay: calc(150ms + var(--i, 0) * 35ms);
+}
+[data-home-rostos][data-espera] .cagp-rosto { animation-play-state: paused; }
+
+/* Cartão de notícia: levanta no hover, afunda no toque (era whileHover x:-2 y:-3, whileTap x:2 y:2). */
+.cagp-noticia-card {
+  transition:
+    box-shadow var(--default-transition-duration, 150ms) var(--default-transition-timing-function, ease),
+    translate 460ms var(--ease-spring);
+}
+@media (hover: hover) {
+  .cagp-noticia-card:hover { translate: -2px -3px; }
+}
+.cagp-noticia-card:active { translate: 2px 2px; }
+
+/* Foto do cartão: sobe e a sombra cresce (papel colado); no toque afunda na sombra, com a mola firme. */
+.cagp-noticia-foto {
+  transition: translate 460ms var(--ease-spring), box-shadow 460ms var(--ease-spring);
+}
+@media (hover: hover) {
+  .cagp-noticia-foto:hover {
+    translate: -2px -4px;
+    --tw-shadow: 6px 6px 0 0 var(--color-border, #1F1F1F);
+  }
+}
+.cagp-noticia-foto:active {
+  translate: 3px 3px;
+  --tw-shadow: 0 0 0 0 var(--color-border, #1F1F1F);
+  transition-duration: 320ms;
+  transition-timing-function: var(--ease-spring-snappy);
+}
+
+/* Barra de "Seu progresso": enche com a ginga quando o cartão aparece (era whileInView, uma vez). */
+.cagp-barra-progresso {
+  width: 0;
+  transition: width 660ms var(--ease-spring-bouncy);
+}
+.cagp-barra-progresso.is-in { width: var(--pct, 3%); }

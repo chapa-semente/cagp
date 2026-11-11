@@ -1,7 +1,11 @@
 ---
 // src/pages/index.astro — Eixo 1: Hoje (Proposta A: App Shell + Home Adaptada por Perfil)
+//
+// A home é HTML pronto: os componentes React abaixo são renderizados no build e não hidratam
+// (nenhum client:*), então a página inicial abre sem baixar React. O que depende do aparelho
+// (fase do curso, contagem, RU aberto agora, progresso) é ligado por src/scripts/homeToday.ts.
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { HomeWorkspaceA } from '../components/features/home/HomeWorkspaceA';
+import { HomeWorkspaceA, HomeAtalhos, HomeProgresso, HOME_ROLES } from '../components/features/home/HomeWorkspaceA';
 ---
 
 <BaseLayout
@@ -9,5 +13,38 @@ import { HomeWorkspaceA } from '../components/features/home/HomeWorkspaceA';
   description="Portal Institucional e Super App Discente do Centro Acadêmico de Gestão Pública (CAGP FAFICH/UFMG)."
   mode="persuade"
 >
-  <HomeWorkspaceA client:load />
+  <HomeWorkspaceA />
+
+  <!-- Um bloco de atalhos pronto por fase do curso; o script põe na página o da pessoa. -->
+  {HOME_ROLES.map((role) => (
+    <template data-home-role={role}><HomeAtalhos role={role} /></template>
+  ))}
+  <!-- Molde do cartão "Seu progresso": só entra na página quando há dado salvo. -->
+  <template data-home-progresso><HomeProgresso /></template>
+
+  <!-- Antes da primeira pintura: a fase salva troca os atalhos (sem piscar os de calouro), e os
+       rostos esperam a abertura sair para entrar. Sem JS, a página fica como veio: calouro e rostos à vista. -->
+  <script is:inline>
+    (function () {
+      try {
+        var host = document.querySelector('[data-home-atalhos]');
+        var role = JSON.parse(localStorage.getItem('cagp_user_role_v1') || 'null');
+        var tpl = typeof role === 'string' && /^[a-z]+$/.test(role) ? document.querySelector('template[data-home-role="' + role + '"]') : null;
+        if (host && tpl && host.getAttribute('data-home-atalhos') !== role) {
+          host.replaceChildren(tpl.content.cloneNode(true));
+          host.setAttribute('data-home-atalhos', role);
+        }
+      } catch (e) {}
+      var rostos = document.querySelector('[data-home-rostos]');
+      if (rostos && !document.documentElement.classList.contains('cagp-booted')) {
+        rostos.setAttribute('data-espera', '');
+        // Rede de segurança: se a abertura não avisar que saiu, os rostos entram assim mesmo.
+        setTimeout(function () { rostos.removeAttribute('data-espera'); }, 6000);
+      }
+    })();
+  </script>
+  <script>
+    import { setupHomeToday } from '@/scripts/homeToday';
+    setupHomeToday();
+  </script>
 </BaseLayout>

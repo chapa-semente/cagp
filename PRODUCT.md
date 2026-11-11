@@ -40,6 +40,7 @@ O argumento da chapa é que a proposta já existe: um site no ar, feito pelo pr�
 ## Capabilities and Constraints
 
 - **Stack:** Astro 7 (saída estática) + ilhas React 19, Tailwind 4, MDX/content collections. Deploy no GitHub Pages / Netlify. PWA (service worker, manifest).
+- **Leveza (decisão de 11/11/2026):** a moldura (cabeçalho, trilho lateral, barra, fundo animado) e a home são HTML e JS puro; nenhuma página baixa React só por causa dela. As ferramentas continuam em React, mas ilhas da moldura (folhas, busca, tours, pílula) só carregam quando alguém abre (`client:sinal`, central de sinais no `BaseLayout.astro`), e ferramentas fora da primeira tela ou em aba oculta usam `client:visible`. Offline em duas etapas (núcleo na instalação, resto em segundo plano); documentos (PDF/DOCX) nunca ficam em cache: sem sinal, o toque avisa.
 - **Sem backend.** Tudo é estático. A ouvidoria e os pedidos de informação saem por `mailto:`/link externo; dados pessoais (cofre, preferências) ficam no navegador.
 - Navegação por **tarefa** (`src/lib/navigationRegistry.ts`, fonte única): Hoje, Guias, Chapa 2, Meu curso, Mais.
 - **Contato:** o CAGP ainda não tem e-mail público. Contatos do site usam `chapa.semente.gp@gmail.com`, sempre identificado como e-mail da Chapa. A ouvidoria não envia demandas (só salva e copia o texto) até existir um canal oficial.

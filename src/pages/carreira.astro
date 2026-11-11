@@ -100,13 +100,13 @@ const atalhosCarreira = [
     </section>
 
     {/* 2. RADAR DE VAGAS EM DESTAQUE (Feed Sintético) */}
-    <CarreiraVagasFeed client:load />
+    <CarreiraVagasFeed client:visible={{ rootMargin: "400px" }} />
 
     {/* 3. EMPRESA JÚNIOR DE GESTÃO PÚBLICA (Proposta 11) */}
-    <CarreiraEmpresaJuniorCard client:load />
+    <CarreiraEmpresaJuniorCard client:visible={{ rootMargin: "400px" }} />
 
     {/* 4. PREVIEW DO BANCO DE TALENTOS DISCENTE (Cofre Local) */}
-    <CarreiraTalentosPreview client:load />
+    <CarreiraTalentosPreview client:visible={{ rootMargin: "400px" }} />
 
     {/* 5. REGULAÇÃO & RETA FINAL: GUIAS INSTITUCIONAIS DEDICADOS */}
     <section aria-labelledby="heading-guias-regimentais" class="space-y-4">

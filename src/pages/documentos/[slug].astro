@@ -180,7 +180,6 @@ const filteredHeadings = headings.filter((h) => h.depth >= 1 && h.depth <= 3 && 
         <!-- Download do PDF Assinado com Primitiva Attachment (Borda 3px + Sombra 4px) -->
         <div class="shrink-0 self-start">
           <Attachment
-            client:load
             name={meta.pdf}
             type="application/pdf"
             href={asset(`/documentos/${meta.pdf}`)}

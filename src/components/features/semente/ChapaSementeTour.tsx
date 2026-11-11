@@ -11,12 +11,8 @@ export const ChapaSementeTour: React.FC<ChapaSementeTourProps> = ({
   variant = 'hero',
   className = '',
 }) => {
-  const handleStart = () => {
-    if (typeof window !== 'undefined') {
-      window.dispatchEvent(new CustomEvent('cagp:start-semente-tour'));
-    }
-  };
-
+  // Sem onClick: o clique é atendido pelo ouvinte único do BaseLayout (data-cagp-dispatch), então o
+  // botão funciona como HTML puro, sem precisar hidratar React só para disparar um evento.
   const getButtonClasses = () => {
     // Link sobre cor: ação de apoio, sem disputar com o único CTA laranja da tela.
     if (variant === 'link') {
@@ -35,9 +31,8 @@ export const ChapaSementeTour: React.FC<ChapaSementeTourProps> = ({
     <div className={`inline-block ${className}`}>
       <button
         type="button"
-        onClick={handleStart}
+        data-cagp-dispatch="cagp:start-semente-tour"
         className={getButtonClasses()}
-        
       >
         <i className={`bi bi-compass-fill ${variant === 'link' ? 'text-base' : 'text-base sm:text-lg'}`} aria-hidden="true"></i>
         <span>{buttonText}</span>

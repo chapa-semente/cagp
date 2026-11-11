@@ -18,6 +18,7 @@ import { estagioDaRota } from '@/lib/estagios';
 import GlobalCanvasBackdrop from '../components/shell/GlobalCanvasBackdrop.astro';
 import { asset } from '@/lib/paths';
 import { getRouteMeta } from '@/lib/navigationRegistry';
+import { imagemOg, previaDaRota } from '@/lib/previas';
 // As duas fontes do texto, pedidas já no <head>: sem isso o navegador só descobre a fonte depois
 // de baixar e ler o CSS inteiro, e a página pisca com a fonte do sistema no celular.
 import poppins400 from '@fontsource/poppins/files/poppins-latin-400-normal.woff2?url';
@@ -39,6 +40,8 @@ interface Props {
   activeGroup?: string;
   /** Esconde a pílula flutuante "Ativar app" (páginas de campanha já têm sua própria ação). */
   hideFloatingPill?: boolean;
+  /** Troca a prévia de link desta página (padrão: src/lib/previas.ts, pela rota). */
+  share?: { titulo?: string; descricao?: string; imagem?: string };
 }
 
 const {
@@ -48,6 +51,12 @@ const {
   hideFloatingPill = false,
 } = Astro.props;
 const routeMeta = getRouteMeta();
+// Prévia de link (WhatsApp, X, Facebook, Instagram Direct): título, descrição e banner por rota.
+// As redes pedem endereço absoluto; Astro.site já traz o domínio do deploy.
+const previa = { ...previaDaRota(Astro.url.pathname), ...(Astro.props.share ?? {}) };
+const origem = Astro.site ?? Astro.url;
+const previaUrl = new URL(Astro.url.pathname, origem).href;
+const previaImagem = new URL(imagemOg(previa.imagem), origem).href;
 const estagio = estagioDaRota(Astro.url.pathname);
 import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
 ---
@@ -74,6 +83,21 @@ import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
     <link rel="preload" as="font" type="font/woff2" href={poppins700} crossorigin />
 
     <title>{title} — Chapa 2 Semente • CAGP UFMG</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Chapa 2 · Semente · Gestão Pública UFMG" />
+    <meta property="og:url" content={previaUrl} />
+    <meta property="og:title" content={previa.titulo} />
+    <meta property="og:description" content={previa.descricao} />
+    <meta property="og:image" content={previaImagem} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={previa.titulo} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={previa.titulo} />
+    <meta name="twitter:description" content={previa.descricao} />
+    <meta name="twitter:image" content={previaImagem} />
     <ClientRouter />
     <!-- Metadados extras da página (ex.: noindex numa página que não é pública). -->
     <slot name="head" />
@@ -243,6 +267,13 @@ import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
           if (window.__cagpPaletteMounted) return;
           window.__cagpSpotlightPending = Date.now();
           sinal('busca');
+        });
+
+        // Botões que só disparam um evento (rever o tour, ver as propostas) são HTML puro com
+        // data-cagp-dispatch="nome-do-evento": um ouvinte só, para o site inteiro.
+        document.addEventListener('click', function (event) {
+          var alvo = event.target && event.target.closest ? event.target.closest('[data-cagp-dispatch]') : null;
+          if (alvo) window.dispatchEvent(new CustomEvent(alvo.getAttribute('data-cagp-dispatch')));
         });
 
         // Tour das propostas e "rever o tour": quando alguém pede.

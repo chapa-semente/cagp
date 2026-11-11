@@ -124,7 +124,7 @@ export const AXIS_REGISTRY: AxisConfig[] = [
         type: 'catalog',
         group: 'documentos',
         keywords: 'formulário requerimento tce termo de compromisso plano de atividades colação aproveitamento trancamento resolução norma pdf',
-        match: ['^/documentos'],
+        match: ['^/documentos', '^/doc/'],
       },
       {
         id: 'guias-calouros',
@@ -256,7 +256,7 @@ export const AXIS_REGISTRY: AxisConfig[] = [
         type: 'overview',
         isOverview: true,
         keywords: 'chapa 2 dois número semente votar eleição propostas integrantes candidatos',
-        match: ['^/chapa-semente'],
+        match: ['^/chapa-semente', '^/propostas/'],
       },
       {
         id: 'chapa-eleicao',

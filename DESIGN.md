@@ -627,7 +627,7 @@ O site se mexe como papel e carimbo: peso, mola e impacto. Movimento é **sempre
 
 **Proibido:** blur e desfoque em qualquer forma, glow, escala no toque, rotação de texto de leitura, shimmer em skeleton, loop decorativo fora do marquee da campanha e do balanço das folhas, efeitos de canvas genéricos (matrix, plasma, warp) que não falam a geometria da marca.
 
-**Canvas** (`GlobalCanvasBackdrop`): só no volume Cartaz, escolhido pelo site e nunca pelo estudante: topografia na /chapa-semente, pontos nas outras telas de campanha. Em Ficha e Papel o fundo é o solo do estágio com o ramo e a forma orgânica. Ajustes › Leitura só tem tamanho da letra, contraste e fonte para dislexia.
+**Canvas** (`GlobalCanvasBackdrop.astro` + `src/lib/canvasBackdrop.ts`, sem React): só no volume Cartaz, escolhido pelo site e nunca pelo estudante: topografia na /chapa-semente, pontos nas outras telas de campanha. O desenho é o dos efeitos BoldKit, com motor leve: 30 quadros por segundo, tabelas pré-calculadas, parado quando a abertura ou um tour cobrem a tela (`tests/canvasBackdrop.test.ts` garante que o traço não mudou). Em Ficha e Papel o fundo é o solo do estágio com o ramo e a forma orgânica. Ajustes › Leitura só tem tamanho da letra, contraste e fonte para dislexia.
 
 ## Do's and Don'ts
 

@@ -1,0 +1,227 @@
+{
+  "_comentario": "Fonte única das prévias de link (WhatsApp, X, Facebook, Instagram Direct) e dos banners de cada endereço. O layout lê título e descrição daqui; node scripts/generate-og.mjs lê o campo banner e grava os JPGs em public/og/. Em gancho, a palavra entre chaves sai na caneta (uma por banner). Mudou um banner? Rode o script e suba o número em versao.",
+  "versao": 1,
+  "padrao": {
+    "titulo": "O site do curso de Gestão Pública",
+    "descricao": "Estágio, 600h, FUMP e documentos, passo a passo. Feito pela Chapa 2 · Semente.",
+    "imagem": "padrao"
+  },
+  "paginas": {
+    "/": {
+      "titulo": "O site do curso de Gestão Pública, feito pela Chapa 2",
+      "descricao": "Estágio, 600h, FUMP e documentos, passo a passo. Conheça a Semente: eleição do CAGP em 25 e 26/11.",
+      "imagem": "home",
+      "banner": { "molde": "home" }
+    },
+    "/noticias": {
+      "titulo": "Um mural do curso que não fala só de festa (modelo)",
+      "descricao": "Assembleias, editais e o que muda no curso. As notícias de agora são exemplos: é a proposta 12 da Chapa 2 · Semente.",
+      "mensagem": "Olha como pode ficar o mural do curso (as notícias de agora são exemplos):",
+      "imagem": "p-noticias",
+      "banner": { "molde": "pagina", "aba": "hoje", "etiqueta": "Mural do curso", "gancho": ["Um mural que não", "fala só de {festa}."], "sub": ["Assembleias, editais e o que muda no curso."], "pessoa": "joao", "modelo": true }
+    },
+    "/guias": {
+      "titulo": "Todo trâmite de Gestão Pública, passo a passo",
+      "descricao": "Estágio, 600h, FUMP, TCC e colação, com os documentos de cada um. Feito pela Chapa 2 · Semente.",
+      "mensagem": "Todos os guias do curso num lugar só: estágio, 600h, FUMP, TCC e colação, com os documentos de cada um.",
+      "imagem": "p-guias",
+      "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "Guias do curso", "gancho": ["Do primeiro dia", "à {colação}."], "sub": ["Todo trâmite do curso, passo a passo."], "arte": "planta" }
+    },
+    "/documentos": {
+      "titulo": "Os documentos mais pedidos do curso, prontos pra baixar",
+      "descricao": "Formulários, requerimentos e normas de Gestão Pública (UFMG). Feito pela Chapa 2 · Semente.",
+      "mensagem": "Os documentos do curso tão todos aqui: formulários, requerimentos e normas, prontos pra baixar.",
+      "imagem": "p-documentos",
+      "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "Documentos", "gancho": ["Pediu no grupo", "e ninguém {mandou}?"], "sub": ["Os documentos mais pedidos,", "prontos pra baixar."], "pessoa": "gabriel" }
+    },
+    "/calouros": {
+      "titulo": "Primeiros 30 dias na UFMG: o checklist do calouro",
+      "descricao": "O que fazer nas primeiras semanas e onde fica cada sala da FAFICH. Feito pela Chapa 2 · Semente.",
+      "mensagem": "Pra quem acabou de entrar: o checklist dos primeiros 30 dias na UFMG e onde fica cada sala da FAFICH.",
+      "imagem": "p-calouros",
+      "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "Guia do calouro", "gancho": ["Chegou na UFMG", "sem saber por", "onde {começar}?"], "sub": ["O checklist dos primeiros 30 dias."], "pessoa": "alice" }
+    },
+    "/onibus-internos": {
+      "titulo": "Ônibus internos do campus: horários e paradas",
+      "descricao": "As linhas gratuitas do campus Pampulha, linha por linha. No site do curso, feito pela Chapa 2 · Semente.",
+      "mensagem": "Horários e paradas dos ônibus internos do campus, linha por linha:",
+      "imagem": "p-onibus-internos",
+      "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "Ônibus internos", "gancho": ["Saiu da aula", "às {22h30}?"], "sub": ["Horários e paradas dos ônibus", "gratuitos do campus."], "pessoa": "paloma" }
+    },
+    "/curso": {
+      "titulo": "Secretaria e Colegiado: quem atende e quando",
+      "descricao": "Quem resolve o quê no curso de Gestão Pública e os horários de atendimento. Feito pela Chapa 2 · Semente.",
+      "mensagem": "Quem atende o quê no curso (secretaria, Colegiado) e em que horário:",
+      "imagem": "p-curso",
+      "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "Quem atende", "gancho": ["Quem resolve", "o quê no {curso}?"], "sub": ["Secretaria, Colegiado e horários", "de atendimento."], "arte": "balao" }
+    },
+    "/permanencia": {
+      "titulo": "FUMP sem juridiquês: níveis, auxílios e como pedir",
+      "descricao": "O que cada nível garante e o passo a passo do pedido. Feito pela Chapa 2 · Semente.",
+      "mensagem": "Pra quem não sabe se tem direito à FUMP: o que cada nível garante e como pedir, sem juridiquês.",
+      "imagem": "p-permanencia",
+      "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "FUMP e vida no noturno", "gancho": ["Será que você", "tem direito", "à {FUMP}?"], "sub": ["Níveis, auxílios e como pedir."], "pessoa": "vitoria" }
+    },
+    "/optativas": {
+      "titulo": "As optativas de Gestão Pública, por tema",
+      "descricao": "Busque as optativas e as disciplinas de formação livre do curso. Feito pela Chapa 2 · Semente.",
+      "mensagem": "Tá escolhendo optativa? Dá pra buscar por tema e departamento aqui:",
+      "imagem": "p-optativas",
+      "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "Optativas", "gancho": ["68 optativas.", "Qual {puxar}?"], "sub": ["Busque por tema e departamento."], "arte": "fichas" }
+    },
+    "/estagio": {
+      "titulo": "Estágio sem travar: TCE, Art. 41 e modelos",
+      "descricao": "Passo a passo do estágio em Gestão Pública (UFMG). Feito pela Chapa 2 · Semente.",
+      "mensagem": "Pra quem tá enrolado com estágio: o passo a passo do TCE, os modelos e a dispensa pra quem já trabalha no serviço público (Art. 41).",
+      "imagem": "p-estagio",
+      "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "Guia de estágio", "gancho": ["Já trabalha e", "ainda precisa", "de {estágio}?"], "sub": ["Art. 41, TCE e modelos, passo a passo."], "pessoa": "lara" }
+    },
+    "/pesquisa": {
+      "titulo": "Os 11 núcleos de pesquisa do DCP e como entrar",
+      "descricao": "Quem são, o que estudam e o primeiro passo pra iniciação científica. Feito pela Chapa 2 · Semente.",
+      "mensagem": "Quer pesquisar? Os 11 núcleos do DCP e o caminho pra entrar em iniciação científica tão aqui:",
+      "imagem": "p-pesquisa",
+      "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "Pesquisa e extensão", "gancho": ["Pesquisa não é", "conversa de", "{corredor}."], "sub": ["Os 11 núcleos do DCP num lugar só."], "pessoa": "mariana" }
+    },
+    "/tcc": {
+      "titulo": "TCC: monografia ou artigo, termo de aceite e prazos",
+      "descricao": "As modalidades do TCC de Gestão Pública e a linha do tempo da defesa. Feito pela Chapa 2 · Semente.",
+      "mensagem": "Pra quem tá chegando no TCC: modalidades, termo de aceite do orientador e os prazos da defesa.",
+      "imagem": "p-tcc",
+      "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "TCC", "gancho": ["Monografia", "ou {artigo}?"], "sub": ["Modalidades, termo de aceite", "e prazos da defesa."], "arte": "fichas" }
+    },
+    "/faq": {
+      "titulo": "Dúvidas frequentes do curso, com resposta curta",
+      "descricao": "As perguntas que mais aparecem sobre Gestão Pública na UFMG. Feito pela Chapa 2 · Semente.",
+      "mensagem": "As dúvidas que mais aparecem sobre o curso, com resposta curta:",
+      "imagem": "p-faq",
+      "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "Dúvidas frequentes", "gancho": ["A dúvida que", "você ia mandar", "no {grupo}."], "sub": ["Respostas curtas sobre o curso."], "arte": "balao" }
+    },
+    "/chapa-semente": {
+      "titulo": "Chapa 2 · Semente: 12 pessoas, 14 propostas, 1 site no ar",
+      "descricao": "Conheça quem são e o que propõem para o CAGP. Eleição em 25 e 26/11, das 17h às 22h30.",
+      "imagem": "chapa",
+      "banner": { "molde": "chapa" }
+    },
+    "/gestao": {
+      "titulo": "Eleição do CAGP: 25 e 26/11, das 17h às 22h30",
+      "descricao": "Na sala do CAGP, na FAFICH. Leve um documento oficial com foto. A Semente é a Chapa 2.",
+      "imagem": "votar",
+      "banner": { "molde": "votar" }
+    },
+    "/meu-curso": {
+      "titulo": "Sua grade, suas horas e sua formatura num lugar só",
+      "descricao": "Ferramentas do curso de Gestão Pública que ficam salvas no seu celular. Feito pela Chapa 2 · Semente.",
+      "mensagem": "Grade, calculadora das 600h e checklist da formatura num lugar só, salvos no seu celular:",
+      "imagem": "p-meu-curso",
+      "banner": { "molde": "pagina", "aba": "curso", "etiqueta": "Meu curso", "gancho": ["Sua grade,", "suas horas,", "sua {formatura}."], "sub": ["Tudo salvo no seu celular."], "arte": "planta" }
+    },
+    "/acg": {
+      "titulo": "Calculadora das 600h: veja quanto falta",
+      "descricao": "Some extensão e AAC e veja o que falta pra fechar as 600h. Feito pela Chapa 2 · Semente.",
+      "mensagem": "Dá pra calcular em um minuto quanto falta das 600h de extensão e AAC:",
+      "imagem": "p-acg",
+      "banner": { "molde": "pagina", "aba": "curso", "etiqueta": "Calculadora das 600h", "gancho": ["Quantas horas", "{faltam} pra você?"], "sub": ["Some extensão e AAC em um minuto."], "arte": "numero", "numero": "600h" }
+    },
+    "/percurso": {
+      "titulo": "A grade de Gestão Pública e os pré-requisitos",
+      "descricao": "As disciplinas dos 10 períodos e o que cada uma trava. Feito pela Chapa 2 · Semente.",
+      "mensagem": "A grade do curso com os pré-requisitos de cada disciplina, período por período:",
+      "imagem": "p-percurso",
+      "banner": { "molde": "pagina", "aba": "curso", "etiqueta": "Grade e percurso", "gancho": ["Qual matéria", "{trava} qual?"], "sub": ["Os 10 períodos e os pré-requisitos."], "arte": "grade" }
+    },
+    "/cursos": {
+      "titulo": "Cursos gratuitos da ENAP que contam nas 600h",
+      "descricao": "Filtre por tema e carga horária e mande o curso pra calculadora. Feito pela Chapa 2 · Semente.",
+      "mensagem": "Faltam horas complementares? Tem curso gratuito da ENAP que entra na conta das 600h:",
+      "imagem": "p-cursos",
+      "banner": { "molde": "pagina", "aba": "curso", "etiqueta": "Cursos que contam horas", "gancho": ["Faltam horas", "e não sobra", "{dinheiro}?"], "sub": ["Cursos gratuitos da ENAP", "que entram nas 600h."], "pessoa": "italo" }
+    },
+    "/formatura": {
+      "titulo": "Colação de grau: os dez passos da reta final",
+      "descricao": "Do estágio à colação, com o que entregar em cada passo. Feito pela Chapa 2 · Semente.",
+      "mensagem": "Pra quem tá na reta final: os dez passos do estágio até a colação de grau.",
+      "imagem": "p-formatura",
+      "banner": { "molde": "pagina", "aba": "curso", "etiqueta": "Formatura e colação", "gancho": ["O que falta", "pra você", "{colar grau}?"], "sub": ["Dez passos, do estágio à colação."], "pessoa": "livia" }
+    },
+    "/carreira": {
+      "titulo": "Carreira em gestão pública: por onde começar",
+      "descricao": "Caminhos de carreira para quem estuda Gestão Pública na UFMG. Feito pela Chapa 2 · Semente.",
+      "mensagem": "Caminhos de carreira pra quem estuda Gestão Pública:",
+      "imagem": "p-carreira",
+      "banner": { "molde": "pagina", "aba": "mais", "etiqueta": "Carreira", "gancho": ["E depois do", "{diploma}?"], "sub": ["Caminhos de carreira", "em gestão pública."], "arte": "planta" }
+    },
+    "/carreira/vagas": {
+      "titulo": "Mural de vagas do curso (modelo)",
+      "descricao": "Como pode ficar o mural de estágios e editais. As vagas de agora são exemplos: é a proposta 12 da Chapa 2 · Semente.",
+      "mensagem": "Olha como pode ficar o mural de vagas do curso (as vagas de agora são exemplos):",
+      "imagem": "p-carreira-vagas",
+      "banner": { "molde": "pagina", "aba": "mais", "etiqueta": "Vagas e editais", "gancho": ["Um mural de", "{vagas} do curso."], "sub": ["É o modelo que a chapa propõe."], "arte": "fichas", "modelo": true }
+    },
+    "/carreira/talentos": {
+      "titulo": "Organize suas competências e leve pro currículo",
+      "descricao": "Monte seu perfil de competências em gestão pública. Fica salvo só no seu celular.",
+      "mensagem": "Dá pra organizar suas competências e levar pro currículo (fica salvo só no seu celular):",
+      "imagem": "p-carreira-talentos",
+      "banner": { "molde": "pagina", "aba": "mais", "etiqueta": "Banco de talentos", "gancho": ["Suas competências", "viram {currículo}."], "sub": ["Fica salvo só no seu celular."], "arte": "fichas" }
+    },
+    "/ouvidoria": {
+      "titulo": "Fala com o CA: escreva sua demanda",
+      "descricao": "Ementa, infraestrutura, Colegiado: organize sua demanda e guarde o texto. Proposta 14 da Chapa 2 · Semente.",
+      "mensagem": "Tem uma reclamação sobre o curso? Dá pra escrever e organizar a demanda aqui:",
+      "imagem": "p-ouvidoria",
+      "banner": { "molde": "pagina", "aba": "mais", "etiqueta": "Fala com o CA", "gancho": ["Tem uma reclamação", "e não sabe pra", "quem {levar}?"], "sub": ["Escreva sua demanda e guarde o texto."], "pessoa": "larissa" }
+    },
+    "/transparencia": {
+      "titulo": "Livro-caixa aberto do CAGP (modelo da proposta)",
+      "descricao": "O que o Regimento exige sobre as contas e como a Chapa 2 · Semente propõe abrir o caixa. Os valores são exemplos.",
+      "mensagem": "Olha o modelo de livro-caixa aberto que a Semente propõe pro CAGP (os valores de agora são exemplos):",
+      "imagem": "p-transparencia",
+      "banner": { "molde": "pagina", "aba": "mais", "etiqueta": "Transparência", "gancho": ["Pra onde vai", "o {dinheiro} do CA?"], "sub": ["O livro-caixa aberto que a chapa propõe."], "pessoa": "klaus", "modelo": true }
+    },
+    "/sobre": {
+      "titulo": "O que é o CAGP e como ele funciona",
+      "descricao": "História, Regimento Interno e funcionamento do Centro Acadêmico de Gestão Pública da UFMG.",
+      "mensagem": "O que é o CAGP, a história e o regimento:",
+      "imagem": "p-sobre",
+      "banner": { "molde": "pagina", "aba": "mais", "etiqueta": "Sobre o CAGP", "gancho": ["O que é", "e o que faz", "o {CAGP}."], "sub": ["História, regimento e como funciona."], "arte": "planta" }
+    }
+  },
+  "pessoas": {
+    "gabriel": { "cargo": "Presidente", "foco": [0.5, 0.42] },
+    "larissa": { "cargo": "Vice-Presidente", "foco": [0.5, 0.4] },
+    "livia": { "cargo": "Assessora da Presidência", "foco": [0.5, 0.16] },
+    "mariana": { "cargo": "Diretora Acadêmica", "foco": [0.5, 0.12] },
+    "nilo": { "cargo": "Vice-Diretor Acadêmico", "foco": [0.5, 0.15] },
+    "joao": { "cargo": "Marketing e Comunicação", "foco": [0.5, 0.4] },
+    "vitoria": { "cargo": "Diretora Financeira", "foco": [0.5, 0.4] },
+    "klaus": { "cargo": "Vice-Diretor Financeiro", "foco": [0.5, 0.3] },
+    "italo": { "cargo": "Articulação e Assuntos Políticos", "foco": [0.5, 0.4] },
+    "lara": { "cargo": "Diretora Jurídica", "foco": [0.62, 0.4] },
+    "paloma": { "cargo": "Diretora de Cultura", "foco": [0.5, 0.3] },
+    "alice": { "cargo": "Vice-Diretora de Cultura", "foco": [0.5, 0.45] }
+  },
+  "documentos": {
+    "tce-com-convenio": { "curto": "TCE com convênio", "sigla": "TCE", "tipo": "Modelo · estágio", "nome": ["Termo de compromisso", "de estágio (TCE)"], "sub": ["Com convênio · PDF e Word"] },
+    "tce-sem-vinculo": { "curto": "TCE sem vínculo", "sigla": "TCE", "tipo": "Modelo · estágio", "nome": ["Termo de compromisso", "de estágio (TCE)"], "sub": ["Sem vínculo · PDF e Word"] },
+    "plano-de-atividades": { "curto": "Plano de atividades de estágio", "sigla": "PLANO", "tipo": "Modelo · estágio", "nome": ["Plano de atividades", "de estágio"], "sub": ["Vai junto com o TCE · PDF e Word"] },
+    "relatorio-semestral": { "curto": "Relatório semestral de estágio", "sigla": "RELATÓRIO", "tipo": "Modelo · estágio", "nome": ["Relatório semestral", "de estágio"], "sub": ["A cada semestre · PDF e Word"] },
+    "relatorio-final": { "curto": "Relatório final de estágio", "sigla": "RELATÓRIO", "tipo": "Modelo · estágio", "nome": ["Relatório final", "de estágio"], "sub": ["Ao terminar o estágio · PDF e Word"] },
+    "aproveitamento-colegiado": { "curto": "Requerimento de aproveitamento de estudos", "sigla": "APROVEITAR", "tipo": "Requerimento", "nome": ["Aproveitamento", "de estudos"], "sub": ["Pedido ao Colegiado · PDF"] },
+    "atividade-integralizadora-20229": { "curto": "Requerimento de atividade integralizadora (currículo 20229)", "sigla": "ACG", "tipo": "Requerimento", "nome": ["Requerimento", "de atividade", "integralizadora"], "sub": ["Currículo 20229 · extensão e AAC"] },
+    "atividade-integralizadora-20152": { "curto": "Requerimento de atividade integralizadora (currículo 20152)", "sigla": "ACG", "tipo": "Requerimento", "nome": ["Requerimento", "de atividade", "integralizadora"], "sub": ["Currículo 20152 · extensão e AAC"] },
+    "termo-aceite-orientador": { "curto": "Termo de aceite do orientador de TCC", "sigla": "TCC", "tipo": "Termo", "nome": ["Termo de aceite", "do orientador"], "sub": ["Assinado no início do TCC · PDF"] },
+    "colacao-colegiado": { "curto": "Inscrição na colação de grau (Colegiado)", "sigla": "COLAÇÃO", "tipo": "Requerimento", "nome": ["Inscrição na", "colação de grau"], "sub": ["Via Colegiado do curso · PDF"] },
+    "colacao-drca": { "curto": "Inscrição na colação de grau (DRCA)", "sigla": "COLAÇÃO", "tipo": "Requerimento", "nome": ["Inscrição na", "colação de grau"], "sub": ["Via DRCA · PDF"] }
+  },
+  "normas": {
+    "ppc-gestao-publica-ufmg": { "curto": "Projeto Pedagógico do Curso (PPC 2020)", "sigla": "PPC", "tipo": "Documento mestre", "nome": ["Projeto Pedagógico", "do Curso"], "sub": ["PPC 2020 · leia no celular"] },
+    "regulamento-gestao-publica-ufmg": { "curto": "Regulamento do curso (N-20229)", "sigla": "N-20229", "tipo": "Norma vigente", "nome": ["Regulamento", "do curso"], "sub": ["Versão N-20229 · leia no celular"] },
+    "regimento-interno-cagp-ufmg": { "curto": "Regimento Interno do CAGP", "sigla": "CAGP", "tipo": "Regimento", "nome": ["Regimento Interno", "do CAGP"], "sub": ["Assembleia de 14/10/2024"] },
+    "percurso-bacharelado-nucleo-geral": { "curto": "Percurso curricular 01-01 (núcleo geral)", "sigla": "01-01", "tipo": "Percurso curricular", "nome": ["Percurso curricular", "núcleo geral"], "sub": ["Bacharelado · versão N-20229"] },
+    "percurso-bacharelado-nucleo-complementar": { "curto": "Percurso curricular 01-02 (formação complementar)", "sigla": "01-02", "tipo": "Percurso curricular", "nome": ["Percurso curricular", "com formação", "complementar"], "sub": ["Bacharelado · versão N-20229"] },
+    "percurso-bacharelado-nucleo-avancado": { "curto": "Percurso curricular 01-03 (núcleo avançado)", "sigla": "01-03", "tipo": "Percurso curricular", "nome": ["Percurso curricular", "núcleo avançado"], "sub": ["Com disciplinas da pós"] },
+    "ementario-gestao-publica-ufmg": { "curto": "Ementário do curso", "sigla": "EMENTAS", "tipo": "Catálogo de ementas", "nome": ["Ementário", "do curso"], "sub": ["27 obrigatórias e 68 optativas"] },
+    "transcricao-recepcao-ingressantes-2024-2": { "curto": "Palestra de recepção de ingressantes 2024/2", "sigla": "2024/2", "tipo": "Guia do calouro", "nome": ["Recepção de", "ingressantes"], "sub": ["A palestra da coordenação, transcrita"] }
+  }
+}

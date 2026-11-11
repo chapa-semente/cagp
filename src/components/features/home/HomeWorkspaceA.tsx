@@ -2,12 +2,19 @@
 // Ordem: faixa Cartaz (12 rostos, contagem, um CTA laranja) → Hoje à noite (RU e Circular) →
 // Resolver agora (atalhos da fase do curso) → seu progresso (só se houver dado) → mural (simulado).
 // A moldura é a do app (SuperAppHeader + barra): a home não desenha cabeçalho, ☰ nem sino próprios.
-import React, { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
-import { getVaultItem, USER_ROLE_META, type UserRole } from '@/lib/storage/studentVault';
+//
+// Renderizada no build e NÃO hidratada (src/pages/index.astro usa o componente sem client:*): a
+// página inicial abre sem baixar React. O que depende do aparelho é ligado por
+// src/scripts/homeToday.ts sobre este mesmo HTML:
+//   - fase do curso → troca o bloco [data-home-atalhos] pelo <template data-home-role> da fase;
+//   - contagem para a eleição → [data-home-countdown]; RU aberto agora → [data-home-ru-*];
+//   - "Seu progresso" → clona <template data-home-progresso> quando há dado salvo.
+// As animações que eram motion/react (rostos entrando, barra de progresso) são CSS com as mesmas
+// molas (src/styles/animations.css). Botões só disparam eventos (data-cagp-dispatch, BaseLayout).
+import React from 'react';
+import { USER_ROLE_META, type UserRole } from '@/lib/userRole';
 import { CHAPA_LEADERS, CHAPA_NOME, CHAPA_NUMERO, CHAPA_ROTULO } from '@/lib/chapaSementeData';
 import { asset, route } from '@/lib/paths';
-import { tactileSpring, celebrateSpring } from '@/lib/motion';
 import { CagpIcon, type CagpIconName } from '@/components/ui/CagpIcon';
 import { resolveCagpIconName } from '@/lib/cagpIcons';
 import { getItemByPath } from '@/lib/navigationRegistry';
@@ -15,15 +22,8 @@ import { MarkerWord } from '@/components/ui/marker-word';
 import { Marquee, MarqueeItem, MarqueeSeparator } from '@/components/ui/marquee';
 import { LeafShape, SemicircleShape, SeedShape } from '@/components/ui/semente-shapes';
 import { ChapaSementeTour } from '@/components/features/semente/ChapaSementeTour';
-import {
-  HomeCampusStatusWidget,
-  computeCampusLiveStatus,
-  NEUTRAL_CAMPUS_STATUS,
-  type CampusLiveStatus,
-} from './HomeCampusStatusWidget';
+import { HomeCampusStatusWidget } from './HomeCampusStatusWidget';
 import { HomeNewsFeed } from './HomeNewsFeed';
-
-const ELECTION_DAY = new Date(2026, 10, 25); // 25/11/2026, 00h, horário local
 
 type Shortcut = { id: string; href: string; icon: CagpIconName; title: string; line: string };
 
@@ -101,50 +101,61 @@ function ShortcutGroup({ title, items, idPrefix }: { title: string; items: Short
   );
 }
 
+/** As fases do curso, na ordem do perfil. A home traz um bloco de atalhos pronto para cada uma. */
+export const HOME_ROLES: readonly UserRole[] = ['calouro', 'veterano', 'formando', 'ingressar'];
+
+/** Coluna de atalhos de uma fase: "Resolver agora", a linha da fase e "Com o CA". */
+export const HomeAtalhos: React.FC<{ role: UserRole }> = ({ role }) => (
+  <>
+    {/* 2. Resolver agora — atalhos da fase do curso, que é escolhida só em Seu perfil. */}
+    <div className="space-y-2">
+      <ShortcutGroup title="Resolver agora" items={SHORTCUTS[role]} idPrefix="home-resolver" />
+      <p className="text-sm text-content-secondary m-0">
+        Atalhos de quem é <strong className="text-foreground">{USER_ROLE_META[role].shortLabel.toLowerCase()}</strong>.{' '}
+        <button type="button" data-cagp-dispatch="cagp:open-passport" className="text-primary font-bold underline underline-offset-[0.22em] cursor-pointer bg-transparent border-0 p-0 min-h-0">
+          Não é sua fase? Troca em Seu perfil
+        </button>
+      </p>
+    </div>
+
+    {/* Um destino por página: tira do CA o que já está em Resolver agora. */}
+    <ShortcutGroup
+      title="Com o CA"
+      items={CA_SHORTCUTS.filter((c) => !SHORTCUTS[role].some((s) => s.href === c.href))}
+      idPrefix="home-ca"
+    />
+  </>
+);
+
+/** 4. Seu progresso — molde. Só entra na página quando há dado salvo (zero na tela só desanima). */
+export const HomeProgresso: React.FC = () => (
+  <section aria-labelledby="home-progresso" className="cagp-reveal-card bg-white border-2 border-border rounded-xl shadow-md p-4 sm:p-5 space-y-4">
+    <h2 id="home-progresso" className="font-heading font-bold text-lg text-foreground m-0">
+      Seu progresso
+    </h2>
+    {[
+      { key: 'ext', label: 'Extensão e AAC', unit: 'h', of: 'de 600h', href: '/acg', bar: 'bg-secondary' },
+      { key: 'obrig', label: 'Obrigatórias', unit: '', of: 'de 27', href: '/meu-curso', bar: 'bg-primary' },
+    ].map((p) => (
+      <a key={p.label} href={route(p.href)} className="block no-underline text-inherit group">
+        <span className="flex items-baseline justify-between gap-2">
+          <span className="font-heading font-bold text-sm text-foreground group-hover:text-primary">{p.label}</span>
+          <span className="tabular-nums">
+            <strong className="font-heading text-2xl text-foreground" data-home-progresso-n={p.key} data-count-to={0} data-count-suffix={p.unit}>{`0${p.unit}`}</strong>{' '}
+            <span className="text-sm text-content-secondary">{p.of}</span>
+          </span>
+        </span>
+        <span className="mt-2 block h-3 rounded-full bg-muted border-2 border-border overflow-hidden" aria-hidden="true">
+          <span className={`cagp-barra-progresso block h-full ${p.bar}`} data-home-progresso-barra={p.key} />
+        </span>
+      </a>
+    ))}
+  </section>
+);
+
 export const HomeWorkspaceA: React.FC = () => {
-  const [role, setRole] = useState<UserRole>('calouro');
-  const [daysLeft, setDaysLeft] = useState<number | null>(null);
-  const [campus, setCampus] = useState<CampusLiveStatus>(NEUTRAL_CAMPUS_STATUS);
-  const [progress, setProgress] = useState({ ext: 0, obrig: 0 });
-
-  useEffect(() => {
-    const load = () => {
-      setRole(getVaultItem('cagp_user_role_v1'));
-      const calc = getVaultItem('cagp_calc_ext_aac_v1');
-      const ext = Math.min(600, Object.values(calc).reduce((a, b) => a + (Number(b) || 0), 0));
-      const grade = getVaultItem('cagp_minha_grade_v1');
-      setProgress({ ext, obrig: grade.savedCourses ? grade.savedCourses.length : 0 });
-    };
-    load();
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    setDaysLeft(Math.round((ELECTION_DAY.getTime() - today.getTime()) / 86_400_000));
-    setCampus(computeCampusLiveStatus(new Date()));
-    const timer = window.setInterval(() => setCampus(computeCampusLiveStatus(new Date())), 30_000);
-    window.addEventListener('cagp:vault-updated', load);
-    return () => {
-      window.clearInterval(timer);
-      window.removeEventListener('cagp:vault-updated', load);
-    };
-  }, []);
-
-  const openCampus = () => window.dispatchEvent(new CustomEvent('cagp:open-campus'));
-  const openProfile = () => window.dispatchEvent(new CustomEvent('cagp:open-passport'));
-
-  const countdown =
-    daysLeft === null
-      ? 'Eleição do CA: 25 e 26/11'
-      : daysLeft > 1
-        ? `Faltam ${daysLeft} dias pra eleição`
-        : daysLeft === 1
-          ? 'A eleição é amanhã'
-          : daysLeft >= -1
-            ? 'Hoje tem eleição no CA'
-            : 'A eleição de 2026 já passou';
-
-  const hasProgress = progress.ext > 0 || progress.obrig > 0;
-  const extPct = Math.round((progress.ext / 600) * 100);
-  const obrigPct = Math.min(100, Math.round((progress.obrig / 27) * 100));
+  // Texto de antes de o aparelho dizer que dia é hoje (homeToday.ts troca pela contagem).
+  const countdown = 'Eleição do CA: 25 e 26/11';
 
   return (
     <div className="space-y-8 sm:space-y-10 pb-8">
@@ -167,7 +178,7 @@ export const HomeWorkspaceA: React.FC = () => {
         <div className="relative z-10 p-5 pb-6 sm:p-8 sm:pb-8 space-y-5">
           <span className="inline-flex items-center gap-2 px-2.5 py-1 rounded-lg bg-white text-primary border-2 border-border shadow-sm font-heading font-bold text-xs uppercase tracking-[0.04em] tabular-nums">
             <i className="bi bi-calendar-check" aria-hidden="true" />
-            {countdown}
+            <span data-home-countdown>{countdown}</span>
           </span>
 
           <h1 id="home-chapa-title" className="font-heading font-bold uppercase text-[1.75rem] leading-[1.05] tracking-[0.02em] sm:text-5xl m-0 max-w-[16ch] text-balance">
@@ -190,14 +201,9 @@ export const HomeWorkspaceA: React.FC = () => {
             </span>
           </p>
 
-          <ul className="list-none m-0 p-0 flex flex-wrap gap-1.5 sm:gap-2 max-w-[34rem]" aria-label="Integrantes da Chapa Semente">
+          <ul className="list-none m-0 p-0 flex flex-wrap gap-1.5 sm:gap-2 max-w-[34rem]" aria-label="Integrantes da Chapa Semente" data-home-rostos>
             {CHAPA_LEADERS.map((leader, i) => (
-              <motion.li
-                key={leader.id}
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ ...tactileSpring, delay: 0.15 + i * 0.035 }}
-              >
+              <li key={leader.id} className="cagp-rosto" style={{ ['--i' as string]: i }}>
                 <a
                   href={route('/chapa-semente') + '#integrantes'}
                   title={`${leader.name}, ${leader.role}`}
@@ -212,7 +218,7 @@ export const HomeWorkspaceA: React.FC = () => {
                     className="w-full h-full object-cover"
                   />
                 </a>
-              </motion.li>
+              </li>
             ))}
           </ul>
 
@@ -254,61 +260,14 @@ export const HomeWorkspaceA: React.FC = () => {
       </section>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-start">
-        <div className="lg:col-span-7 space-y-8">
-          {/* 2. Resolver agora — atalhos da fase do curso, que é escolhida só em Seu perfil. */}
-          <div className="space-y-2">
-            <ShortcutGroup title="Resolver agora" items={SHORTCUTS[role]} idPrefix="home-resolver" />
-            <p className="text-sm text-content-secondary m-0">
-              Atalhos de quem é <strong className="text-foreground">{USER_ROLE_META[role].shortLabel.toLowerCase()}</strong>.{' '}
-              <button type="button" onClick={openProfile} className="text-primary font-bold underline underline-offset-[0.22em] cursor-pointer bg-transparent border-0 p-0 min-h-0">
-                Não é sua fase? Troca em Seu perfil
-              </button>
-            </p>
-          </div>
-
-          {/* Um destino por página: tira do CA o que já está em Resolver agora. */}
-          <ShortcutGroup
-            title="Com o CA"
-            items={CA_SHORTCUTS.filter((c) => !SHORTCUTS[role].some((s) => s.href === c.href))}
-            idPrefix="home-ca"
-          />
+        <div className="lg:col-span-7 space-y-8" data-home-atalhos="calouro">
+          <HomeAtalhos role="calouro" />
         </div>
 
-        <aside className="order-first lg:order-none lg:col-span-5 space-y-8 lg:sticky lg:top-24">
+        <aside className="order-first lg:order-none lg:col-span-5 space-y-8 lg:sticky lg:top-24" data-home-aside>
           {/* 3. Hoje à noite — RU e Circular agora; horários completos e lembretes na folha Campus. */}
-          <HomeCampusStatusWidget status={campus} openCampus={openCampus} />
-
-          {/* 4. Seu progresso — só aparece com dado salvo. Zero na tela só desanima. */}
-          {hasProgress && (
-            <section aria-labelledby="home-progresso" className="cagp-reveal-card bg-white border-2 border-border rounded-xl shadow-md p-4 sm:p-5 space-y-4">
-              <h2 id="home-progresso" className="font-heading font-bold text-lg text-foreground m-0">
-                Seu progresso
-              </h2>
-              {[
-                { label: 'Extensão e AAC', n: progress.ext, unit: 'h', of: 'de 600h', pct: extPct, href: '/acg', bar: 'bg-secondary' },
-                { label: 'Obrigatórias', n: progress.obrig, unit: '', of: 'de 27', pct: obrigPct, href: '/meu-curso', bar: 'bg-primary' },
-              ].map((p) => (
-                <a key={p.label} href={route(p.href)} className="block no-underline text-inherit group">
-                  <span className="flex items-baseline justify-between gap-2">
-                    <span className="font-heading font-bold text-sm text-foreground group-hover:text-primary">{p.label}</span>
-                    <span className="tabular-nums">
-                      <strong className="font-heading text-2xl text-foreground" data-count-to={p.n} data-count-suffix={p.unit}>{`${p.n}${p.unit}`}</strong>{' '}
-                      <span className="text-sm text-content-secondary">{p.of}</span>
-                    </span>
-                  </span>
-                  <span className="mt-2 block h-3 rounded-full bg-muted border-2 border-border overflow-hidden" aria-hidden="true">
-                    <motion.span
-                      className={`block h-full ${p.bar}`}
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${Math.max(3, p.pct)}%` }}
-                      viewport={{ once: true }}
-                      transition={celebrateSpring}
-                    />
-                  </span>
-                </a>
-              ))}
-            </section>
-          )}
+          <HomeCampusStatusWidget />
+          {/* 4. Seu progresso entra aqui pelo script, só quando há dado salvo. */}
         </aside>
       </div>
 

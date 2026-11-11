@@ -26,9 +26,11 @@ const ilhasSobDemanda = {
 export default defineConfig({
   output: 'static',
   outDir: './dist',
+  // O domínio entra nas prévias de link (og:image precisa de endereço absoluto). Fora do GitHub
+  // Actions, usa o endereço que o Netlify informa (URL), quando existir.
   site: isGitHubActions && githubRepo
     ? `https://${githubRepo.split('/')[0]}.github.io`
-    : 'https://cagp-ufmg.github.io',
+    : process.env.URL || 'https://cagp-ufmg.github.io',
   base: isGitHubActions && repoName && !isUserPage
     ? `/${repoName}`
     : '/',

@@ -94,13 +94,13 @@ const badges = [
 A matrícula nas disciplinas com pré-requisito formal cadastrado fica condicionada à obtenção prévia de aprovação (nota mínima 60 e frequência de 75%) na disciplina propedêutica correspondente.`}
     />
 
-    <CurriculumGraphDynamic client:load catalogOptions={catalogOptions} />
+    <CurriculumGraphDynamic client:visible={{ rootMargin: "400px" }} catalogOptions={catalogOptions} />
   </section>
 
   <!-- Sub-view 2: Catálogo de 68 Optativas e 120h de Formação Livre -->
   <section id="ws-panel-v2" class="cagp-workspace-view" data-ws-panel="v2" hidden>
     <div id="optativas" class="cagp-anchor-target scroll-mt-24"></div>
-    <OptativasCatalogExplorer client:load optativas={optativasData} />
+    <OptativasCatalogExplorer client:visible={{ rootMargin: "400px" }} optativas={optativasData} />
   </section>
 
   <!-- Sub-view 3: Ementário das 27 Obrigatórias -->
