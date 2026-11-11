@@ -5,6 +5,7 @@ import AppSidebar from '../components/shell/AppSidebar.astro';
 import { CommandPalette } from '../components/shell/CommandPalette';
 import SuperAppHeader from '../components/shell/SuperAppHeader.astro';
 import PageFooter from '../components/shell/PageFooter.astro';
+import FaixaDeVoto from '../components/shell/FaixaDeVoto.astro';
 import BackToTop from '../components/shell/BackToTop.astro';
 import DynamicToast from '../components/shell/DynamicToast.astro';
 import BottomNav from '../components/shell/BottomNav.astro';
@@ -230,6 +231,8 @@ import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
           class="relative z-10 flex-1 w-full max-w-[1440px] 2xl:max-w-[1600px] mx-auto px-3 sm:px-6 py-4 sm:py-6 pb-24 md:pb-8 overflow-x-clip focus:outline-none"
         >
           <slot />
+          <!-- Toda página termina pedindo o voto (some sozinha depois da eleição). -->
+          <FaixaDeVoto />
         </main>
 
         <!-- Rodapé Institucional -->

@@ -19,6 +19,7 @@ import { CagpIcon, type CagpIconName } from '@/components/ui/CagpIcon';
 import { resolveCagpIconName } from '@/lib/cagpIcons';
 import { getItemByPath } from '@/lib/navigationRegistry';
 import { MarkerWord } from '@/components/ui/marker-word';
+import { GritoDeVoto } from '@/components/ui/grito-de-voto';
 import { Marquee, MarqueeItem, MarqueeSeparator } from '@/components/ui/marquee';
 import { LeafShape, SemicircleShape, SeedShape } from '@/components/ui/semente-shapes';
 import { ChapaSementeTour } from '@/components/features/semente/ChapaSementeTour';
@@ -195,9 +196,9 @@ export const HomeWorkspaceA: React.FC = () => {
               <span className="sk-chapa-num-rotulo">Chapa</span>
               <span className="sk-chapa-num-n">{CHAPA_NUMERO}</span>
             </span>
-            <span className="font-heading font-bold text-lg sm:text-xl leading-tight text-white">
-              Vote {CHAPA_ROTULO}.
-              <span className="block text-base font-normal tabular-nums">Dias 25 e 26/11, na sala do CAGP.</span>
+            <span className="grid gap-1.5 min-w-0">
+              <GritoDeVoto as="span" onColor tamanho="md" />
+              <span className="block text-base font-normal tabular-nums text-white">Dias 25 e 26/11, na sala do CAGP.</span>
             </span>
           </p>
 
@@ -246,6 +247,7 @@ export const HomeWorkspaceA: React.FC = () => {
           <Marquee data-impeccable-ignore="marquee" speed="slow" pauseOnHover className="bg-foreground text-white border-0 shadow-none py-2.5">
             {[
               `Vote ${CHAPA_NOME} · 25 e 26/11 · 17h às 22h30 na sala do CAGP`,
+              'Faz o S!',
               'Este app é proposta que já funciona',
               'Toda mudança começa pequena',
               'Leve documento com foto pra votar',

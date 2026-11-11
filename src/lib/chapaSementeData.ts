@@ -29,6 +29,13 @@ export const CHAPA_NUMERO = 2;
 export const CHAPA_ROTULO = `Chapa ${CHAPA_NUMERO}`;
 /** Nome completo para títulos e rótulos: "Chapa 2 · Semente". */
 export const CHAPA_NOME = `${CHAPA_ROTULO} · Semente`;
+/** O grito de campanha (11/11/2026), sempre na caneta laranja: componente GritoDeVoto. */
+export const GRITO_VOTO = `Vote ${CHAPA_ROTULO}!`;
+export const GRITO_S = 'Faz o S!';
+export const GRITO = `${GRITO_VOTO} ${GRITO_S}`;
+/** Debate oficial entre as chapas (cronograma da Junta Eleitoral, em /gestao). */
+export const DEBATE_DATA = '24/11';
+export const DEBATE_HORA = '18h';
 
 export const CHAPA_LEADERS: LeaderInfo[] = [
   {

@@ -3,8 +3,8 @@
 // Cada função devolve um SVG (texto) no tamanho final: 1200×630 para a prévia de link, 1080×1920 para story
 // e 1080×1350 para feed. Quem fotografa os SVGs é scripts/generate-og.mjs, num Chrome sem janela e com as
 // fontes do site. Anatomia fixa: bloco na cor da aba, gancho curto com uma palavra na caneta, um rosto ou um
-// desenho na moldura de folha e a barra branca com o logo (asset oficial, sempre sobre branco), a data e o
-// adesivo do 2. As curvas de folha e de semente vêm de src/lib/sementeGeometry.ts; nada aqui remonta o símbolo.
+// desenho na moldura de folha e a barra branca com o logo (asset oficial, sempre sobre branco), o grito
+// "Faz o S!" na caneta laranja, a data e o adesivo do 2. As curvas de folha e de semente vêm de src/lib/sementeGeometry.ts; nada aqui remonta o símbolo.
 
 export const TINTA = '#1F1F1F';
 export const ROXO = '#5B2A85';
@@ -31,9 +31,9 @@ export const EIXOS = {
 };
 
 const BARRA = {
-  antes: { texto: 'Eleição do CAGP · 25 e 26/11', adesivo: true },
-  dia: { texto: 'É hoje, até 22h30 · sala do CAGP', adesivo: true },
-  depois: { texto: 'O site do curso de Gestão Pública', adesivo: false },
+  antes: { texto: 'Eleição do CAGP · 25 e 26/11', adesivo: true, grito: true },
+  dia: { texto: 'É hoje, até 22h30 · sala do CAGP', adesivo: true, grito: true },
+  depois: { texto: 'O site do curso de Gestão Pública', adesivo: false, grito: false },
 };
 
 export const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -199,6 +199,10 @@ export function criarMoldes({ pessoas, ordem, logo, logoBranco, fase = 'antes' }
     const k = 62 / logo.h;
     let s = `<rect x="0" y="${y}" width="${W}" height="${h}" fill="#FFFFFF"/><rect x="0" y="${y - 3}" width="${W}" height="5" fill="${TINTA}"/>`;
     s += `<use href="#lg-h" transform="translate(44 ${y + 17}) scale(${k.toFixed(4)})"/>`;
+    // O grito da campanha na caneta: laranja com contorno de tinta, ao lado do logo.
+    if (barraDaFase.grito && W === 1200) {
+      s += `<text x="292" y="${y + 64}" transform="rotate(-3 292 ${y + 64})" font-family="'Permanent Marker', cursive" font-size="42" fill="${LARANJA}" stroke="${TINTA}" stroke-width="7" stroke-linejoin="round" paint-order="stroke">Faz o S!</text>`;
+    }
     if (direita) s += texto(adesivo ? 1018 : 1150, y + 60, direita, 30, TINTA, { ancora: 'end' });
     if (adesivo) s += adesivo2(1046, y - 62);
     return s;

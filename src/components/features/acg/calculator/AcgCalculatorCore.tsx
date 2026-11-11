@@ -431,8 +431,8 @@ export const AcgCalculatorCore: React.FC = () => {
                       titulo: 'Calculadora das 600h',
                       corpo:
                         grandTotal >= 600
-                          ? 'Fechei as minhas 600h de extensão e AAC.\nDá pra fazer a sua conta em um minuto:'
-                          : `Fiz a conta das minhas 600h: faltam ${600 - grandTotal}h.\nDá pra fazer a sua em um minuto:`,
+                          ? '🎉 Fechei as minhas 600h de extensão e AAC.\nDá pra fazer a sua conta em um minuto:'
+                          : `⏱️ Fiz a conta das minhas 600h: faltam ${600 - grandTotal}h.\nDá pra fazer a sua em um minuto:`,
                       url: urlAbsoluta(route('/acg')),
                       tom: 'util',
                     })

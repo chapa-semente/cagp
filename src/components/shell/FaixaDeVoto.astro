@@ -1,0 +1,130 @@
+---
+// FaixaDeVoto.astro — A faixa que fecha toda página pedindo o voto (decisão de 11/11/2026: mais conversão).
+// Painel Cartaz roxo, antes do rodapé: o grito na caneta laranja, quando e onde votar, o debate e duas
+// ações (como votar e chamar a turma). Some sozinha depois da eleição; a linha do debate some depois dele.
+import GritoDeVoto from '@/components/ui/GritoDeVoto.astro';
+import { CHAPA_LEADERS, CHAPA_NUMERO, CHAPA_ROTULO, DEBATE_DATA, DEBATE_HORA } from '@/lib/chapaSementeData';
+import { normalizePathname } from '@/lib/navigationRegistry';
+import { route } from '@/lib/paths';
+
+// Em /gestao a pessoa já está no "como votar": a ação principal vira chamar a turma.
+const naEleicao = normalizePathname(Astro.url.pathname) === '/gestao';
+const CONVITE = `🌱 A Semente é a ${CHAPA_ROTULO} na eleição do CAGP e já pôs no ar um site com os guias do curso: documentos, estágio, 600h, FUMP, calouros.\nDá uma olhada e conhece as ${CHAPA_LEADERS.length} pessoas da chapa:`;
+---
+
+<aside class="cagp-faixa-voto" aria-label={`Vote ${CHAPA_ROTULO}`} data-faixa-voto>
+  <svg class="cagp-faixa-voto-folha" viewBox="-46 -110 72 118" aria-hidden="true"><use href="#sg-folha"></use></svg>
+  <p class="sk-chapa-num m-0" aria-hidden="true">
+    <span class="sk-chapa-num-rotulo">Chapa</span>
+    <span class="sk-chapa-num-n">{CHAPA_NUMERO}</span>
+  </p>
+  <div class="cagp-faixa-voto-corpo">
+    <GritoDeVoto onColor tamanho="lg" />
+    <p class="cagp-faixa-voto-quando">
+      Dias <strong>25 e 26/11</strong>, das 17h às 22h30, na sala do CAGP (FAFICH). Leve documento com foto.
+    </p>
+    <p class="cagp-faixa-voto-debate" data-faixa-debate>
+      Antes, tem debate entre as chapas: <strong>{DEBATE_DATA}, às {DEBATE_HORA}</strong>.
+    </p>
+  </div>
+  <div class="cagp-faixa-voto-acoes">
+    {!naEleicao && (
+      <a href={route('/gestao')} class="sk-btn sk-btn-folha">
+        Como votar
+        <i class="bi bi-arrow-right" aria-hidden="true"></i>
+      </a>
+    )}
+    <button
+      type="button"
+      class="sk-btn"
+      data-compartilhar
+      data-corpo={CONVITE}
+      data-url={route('/')}
+      data-tom="convite"
+      data-titulo={`Vote ${CHAPA_ROTULO}`}
+    >
+      <i class="bi bi-share" aria-hidden="true"></i>
+      Chamar a turma
+    </button>
+  </div>
+</aside>
+
+<script is:inline>
+  // Depois da votação a faixa some; depois do debate, só a linha dele (horário de Brasília).
+  (function () {
+    function ajustar() {
+      var agora = Date.now();
+      var faixa = document.querySelector('[data-faixa-voto]');
+      if (!faixa) return;
+      if (agora > Date.parse('2026-11-26T22:30:00-03:00')) {
+        faixa.hidden = true;
+        // Tudo que só existe por causa da campanha (adesivo de voto da cabeça de página etc.).
+        document.querySelectorAll('[data-so-campanha]').forEach(function (el) { el.hidden = true; });
+      }
+      var debate = faixa.querySelector('[data-faixa-debate]');
+      if (debate && agora > Date.parse('2026-11-24T23:59:59-03:00')) debate.hidden = true;
+    }
+    ajustar();
+    document.addEventListener('astro:page-load', ajustar);
+  })();
+</script>
+
+<style>
+  .cagp-faixa-voto {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: grid;
+    gap: 1.25rem;
+    margin-block: 3rem 2rem;
+    padding: 1.5rem 1.25rem;
+    background: var(--color-primary);
+    color: #fff;
+    border: 3px solid #1f1f1f;
+    border-radius: 16px;
+    box-shadow: 6px 6px 0 0 #1f1f1f;
+  }
+  .cagp-faixa-voto[hidden] { display: none; }
+  .cagp-faixa-voto-folha {
+    position: absolute;
+    z-index: -1;
+    right: -2.5rem;
+    bottom: -6rem;
+    width: 15rem;
+    height: 22rem;
+    overflow: visible;
+    fill: var(--color-primary-hover, #4a216e);
+    rotate: 24deg;
+    pointer-events: none;
+  }
+  .cagp-faixa-voto-corpo {
+    display: grid;
+    gap: 0.75rem;
+    min-width: 0;
+  }
+  .cagp-faixa-voto-quando,
+  .cagp-faixa-voto-debate {
+    margin: 0;
+    max-width: 52ch;
+    line-height: 1.5;
+    font-variant-numeric: tabular-nums;
+  }
+  .cagp-faixa-voto-quando { font-size: 1.125rem; }
+  .cagp-faixa-voto-debate { font-size: 1rem; }
+  .cagp-faixa-voto-acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .cagp-faixa-voto-acoes :global(.sk-btn) { text-decoration: none; }
+  .cagp-faixa-voto-acoes :global(.sk-btn:focus-visible) { outline-color: var(--color-accent); }
+  @media (min-width: 768px) {
+    .cagp-faixa-voto {
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 1.5rem 2rem;
+      padding: 2rem 2.25rem;
+    }
+    .cagp-faixa-voto-acoes { flex-direction: column; align-items: stretch; }
+  }
+</style>

@@ -35,7 +35,7 @@ function mandarDocumento(doc: { title: string; pdf: string; slug?: string }) {
   const caminho = curto ? route(`/doc/${curto}`) : doc.slug ? route(`/documentos/${doc.slug}`) : asset(doc.pdf);
   return compartilhar({
     titulo: doc.title,
-    corpo: `*${doc.title}*\n${doc.slug && !curto ? 'Dá pra ler no celular, sem baixar o PDF:' : 'PDF pra baixar:'}`,
+    corpo: `📄 *${doc.title}*\n${doc.slug && !curto ? 'Dá pra ler no celular, sem baixar o PDF:' : 'PDF pra baixar:'}`,
     url: urlAbsoluta(caminho),
     tom: 'util',
   });

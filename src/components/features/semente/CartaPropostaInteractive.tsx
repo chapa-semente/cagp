@@ -358,7 +358,7 @@ export const CartaPropostaInteractive: React.FC = () => {
                     </ContextMenuItem>
                     <ContextMenuItem onClick={() => {
                       const shareText = montarMensagem({
-                        corpo: `*Proposta ${item.id} da Chapa 2 · Semente: ${item.title}*\n${item.summary}`,
+                        corpo: `🌱 *Proposta ${item.id} da Chapa 2 · Semente: ${item.title}*\n${item.summary}`,
                         url: urlAbsoluta(route(`/propostas/${item.id}`)),
                         tom: 'convite',
                       });

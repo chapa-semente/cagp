@@ -80,32 +80,51 @@ describe('prévias de link', () => {
 
 describe('textos de compartilhar', () => {
   const ANTES = Date.parse('2026-11-11T12:00:00-03:00');
+  const VESPERA = Date.parse('2026-11-25T08:00:00-03:00');
   const DEPOIS = Date.parse('2026-11-27T08:00:00-03:00');
 
-  it('a mensagem é corpo, link e assinatura, nessa ordem', () => {
-    const texto = montarMensagem({ corpo: '*TCE com convênio*', url: 'https://exemplo.test/doc/tce', tom: 'util' }, 'antes');
-    expect(texto.split('\n')).toEqual(['*TCE com convênio*', 'https://exemplo.test/doc/tce', '', '_Tá no site do curso, feito pela Chapa 2 · Semente._']);
+  it('a mensagem é corpo, link e a chamada de voto, nessa ordem', () => {
+    const linhas = montarMensagem({ corpo: '📄 *TCE com convênio*', url: 'https://exemplo.test/doc/tce', tom: 'util' }, 'antes', ANTES).split('\n');
+    expect(linhas.slice(0, 3)).toEqual(['📄 *TCE com convênio*', 'https://exemplo.test/doc/tce', '']);
+    expect(linhas[3]).toContain('feito pela Chapa 2 · Semente');
+    expect(linhas[4]).toContain('Vote Chapa 2! Faz o S!');
   });
 
-  it('antes da eleição o convite traz o número, a data e o lugar', () => {
+  it('antes da eleição toda mensagem chama pro voto, com o número, a data e o lugar', () => {
     expect(faseDaEleicao(ANTES)).toBe('antes');
-    const fim = assinatura('convite', 'antes');
-    expect(fim).toContain('Chapa 2');
-    expect(fim).toContain('25 e 26/11');
-    expect(fim).toContain('sala do CAGP');
+    for (const tom of ['util', 'convite', 'voto'] as const) {
+      const fim = assinatura(tom, 'antes', ANTES);
+      expect(fim).toContain('Vote Chapa 2! Faz o S!');
+      expect(fim).toContain('25 e 26/11');
+      expect(fim).toContain('sala do CAGP');
+    }
+  });
+
+  it('o debate de 24/11 aparece até o dia do debate e some depois', () => {
+    expect(assinatura('util', 'antes', ANTES)).toContain('Debate das chapas: 24/11');
+    expect(assinatura('util', 'antes', VESPERA)).not.toContain('Debate');
   });
 
   it('depois da eleição nenhum texto pede voto nem cita a data', () => {
     expect(faseDaEleicao(DEPOIS)).toBe('depois');
     for (const tom of ['util', 'convite', 'voto'] as const) {
-      const fim = assinatura(tom, 'depois');
-      expect(fim).not.toMatch(/25 e 26|vot|Chapa 2/i);
+      const fim = assinatura(tom, 'depois', DEPOIS);
+      expect(fim).not.toMatch(/25 e 26|vot|Chapa 2|Faz o S|Debate/i);
     }
   });
 
   it('nenhuma assinatura diz que o site fica "mesmo se a chapa perder"', () => {
     for (const fase of ['antes', 'dia', 'depois'] as const)
       for (const tom of ['util', 'convite', 'voto'] as const)
-        expect(assinatura(tom, fase)).not.toMatch(/perder|independente|código aberto|github/i);
+        expect(assinatura(tom, fase, ANTES)).not.toMatch(/perder|independente|código aberto|github/i);
+  });
+
+  it('a mensagem de cada página abre com o emoji do assunto; título e descrição da prévia ficam sem emoji', () => {
+    const EMOJI = /\p{Extended_Pictographic}/u;
+    for (const rota of Object.keys(dados.paginas)) {
+      const p = previaDaRota(rota);
+      expect(EMOJI.test(p.mensagem), rota).toBe(true);
+      expect(EMOJI.test(p.titulo + p.descricao), rota).toBe(false);
+    }
   });
 });

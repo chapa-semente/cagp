@@ -57,7 +57,7 @@ const dataCurta = (iso: string) => iso.split('-').reverse().slice(0, 2).join('/'
             type="button"
             class="sk-btn"
             data-compartilhar
-            data-corpo={`*${v.titulo}*\n${v.fatos[0][0]}: ${v.fatos[0][1]}${v.prazoTexto ? `\nPrazo: ${v.prazoTexto}` : ''}`}
+            data-corpo={`${v.tipo === 'Estágio' ? '💼' : '📌'} *${v.titulo}*\n💰 ${v.fatos[0][0]}: ${v.fatos[0][1]}${v.prazoTexto ? `\n⏰ Prazo: ${v.prazoTexto}` : ''}`}
             data-url={`${route('/carreira/vagas')}#vaga-${v.id}`}
             data-tom="util"
             data-titulo={v.titulo}

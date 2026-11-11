@@ -29,9 +29,17 @@ export interface Previa {
 interface PaginaJson {
   titulo: string;
   descricao: string;
+  /** Abre a mensagem de compartilhar (só no texto que sai do site). */
+  emoji?: string;
   imagem: string;
   mensagem?: string;
 }
+
+/** O emoji de cada proposta, pela ilustração que o tour das propostas já usa. */
+const EMOJI_DA_PROPOSTA: Record<PropostaStop['art'], string> = {
+  contas: '💰', reunioes: '🤝', site: '💻', cnpj: '🧾', seguranca: '🔒', patrimonio: '🛠️', calouros: '🎉',
+  entidades: '✊', eventos: '🎤', cursos: '📚', empresa: '🚀', comunicacao: '📣', produtos: '👕', escuta: '👂',
+};
 
 interface DocumentoPedido {
   id: string;
@@ -66,7 +74,7 @@ export function previaDoDocumento(doc: DocumentoPedido): Previa {
     titulo: `${curto}: ${formatos} pra baixar`,
     descricao: `${doc.descricao} No site do curso de Gestão Pública, feito pela ${CHAPA_NOME}.`,
     imagem: `doc-${doc.id}`,
-    mensagem: `*${curto}*\n${formatos} pra baixar:`,
+    mensagem: `📄 *${curto}*\n${formatos} pra baixar:`,
     tom: 'util',
   };
 }
@@ -76,7 +84,7 @@ export function previaDaProposta(p: PropostaStop): Previa {
     titulo: `Proposta ${p.id} de ${PROPOSTA_STOPS.length}: ${p.titulo}`,
     descricao: `${p.compromisso} ${CHAPA_NOME}, eleição do CAGP em 25 e 26/11.`,
     imagem: `proposta-${p.id}`,
-    mensagem: `*Proposta ${p.id} da ${CHAPA_NOME}: ${p.titulo}*\n${p.compromisso}`,
+    mensagem: `${EMOJI_DA_PROPOSTA[p.art]} *Proposta ${p.id} da ${CHAPA_NOME}: ${p.titulo}*\n${p.compromisso}`,
     tom: 'convite',
   };
 }
@@ -94,14 +102,15 @@ export function previaDaPessoa(leader: LeaderInfo): Previa {
     titulo: `${leader.name}, ${leader.role} · Chapa 2`,
     descricao: `${parada.hook} Conheça ${primeiroNome} e as outras ${CHAPA_LEADERS.length - 1} pessoas da Semente.`,
     imagem: `pessoa-${leader.id}`,
-    mensagem: `${leader.name} concorre ao CAGP pela ${CHAPA_NOME} como ${leader.role}.${fala ? `\n“${fala}”` : ''}`,
+    mensagem: `💜🧡 ${leader.name} concorre ao CAGP pela ${CHAPA_NOME} como ${leader.role}.${fala ? `\n💬 “${fala}”` : ''}`,
     tom: 'convite',
   };
 }
 
 function daPagina(p: PaginaJson, rota: string): Previa {
   const campanha = rota === '/' || rota === '/chapa-semente' || rota === '/gestao';
-  return { titulo: p.titulo, descricao: p.descricao, imagem: p.imagem, mensagem: p.mensagem ?? p.titulo, tom: campanha ? 'convite' : 'util' };
+  const corpo = p.mensagem ?? p.titulo;
+  return { titulo: p.titulo, descricao: p.descricao, imagem: p.imagem, mensagem: p.emoji ? `${p.emoji} ${corpo}` : corpo, tom: campanha ? 'convite' : 'util' };
 }
 
 /** A prévia do endereço. Rota sem entrada própria cai no banner padrão. */
@@ -123,7 +132,7 @@ export function previaDaRota(pathname: string): Previa {
       titulo: `${curto}: leia sem baixar o PDF`,
       descricao: `O documento oficial transcrito pra ler no celular, com o PDF original. No site do curso, feito pela ${CHAPA_NOME}.`,
       imagem: `norma-${norma[1]}`,
-      mensagem: `*${curto}*\nDá pra ler no celular, sem baixar o PDF:`,
+      mensagem: `📜 *${curto}*\nDá pra ler no celular, sem baixar o PDF:`,
       tom: 'util',
     };
   }
@@ -143,5 +152,5 @@ export function previaDaRota(pathname: string): Previa {
   // Notícia de exemplo não ganha banner próprio: usa o do mural, que leva o adesivo de modelo.
   if (rota.startsWith('/noticias/')) return daPagina(PAGINAS['/noticias'], '/noticias');
 
-  return { ...dados.padrao, mensagem: dados.padrao.titulo, tom: 'util' };
+  return { ...dados.padrao, mensagem: `${dados.padrao.emoji} ${dados.padrao.titulo}`, tom: 'util' };
 }

@@ -9,6 +9,7 @@ import { AnimatePresence, MotionConfig, motion } from 'motion/react';
 import { asset, route } from '@/lib/paths';
 import { celebrateSpring, easeOutExpo } from '@/lib/motion';
 import { MarkerWord } from '@/components/ui/marker-word';
+import { GritoDeVoto } from '@/components/ui/grito-de-voto';
 import { getTourPerson } from '@/lib/sementeTour';
 import { CHAPA_ROTULO } from '@/lib/chapaSementeData';
 import { PROPOSTA_EIXOS, PROPOSTA_STOPS, START_PROPOSTAS_TOUR, type PropostaArt, type PropostaStop } from '@/lib/propostasTour';
@@ -502,7 +503,8 @@ const Fechamento: React.FC<{ headingRef: HeadingRef; onBack: () => void; onClose
         tabIndex={-1}
         className="m-0 font-heading text-[clamp(1.9rem,6.2vw,3.5rem)] font-bold leading-[1.06] tracking-[-0.02em] [text-wrap:balance] focus:outline-none"
       >
-        Da raiz ao fruto: dias 25 e 26, <MarkerWord onColor className="text-[1.08em] tracking-normal">vote</MarkerWord> {CHAPA_ROTULO}.
+        <span className="block">Da raiz ao fruto, dias 25 e 26:</span>
+        <GritoDeVoto as="span" onColor duasLinhas tamanho="lg" className="mt-3" />
       </h2>
       <p className="m-0 max-w-[50ch] text-base leading-relaxed sm:text-lg">
         Essas são as {TOTAL} propostas da nossa Carta-Programa. O texto completo de cada uma está na página da chapa.

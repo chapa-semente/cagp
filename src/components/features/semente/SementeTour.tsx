@@ -18,6 +18,7 @@ import SHOTS_JSON from '@/data/sementeTourShots.json';
 import { asset } from '@/lib/paths';
 import { easeOutExpo } from '@/lib/motion';
 import { MarkerWord } from '@/components/ui/marker-word';
+import { GritoDeVoto } from '@/components/ui/grito-de-voto';
 import { getVaultItem, setVaultItem, type UserRole } from '@/lib/storage/studentVault';
 import {
   canTriggerInstallPrompt,
@@ -901,8 +902,8 @@ const FinalScreen: React.FC<{
           >
             {canVote ? (
               <>
-                25 e 26 de novembro:{' '}
-                <MarkerWord onColor className="text-[1.1em] tracking-normal">vote</MarkerWord> {CHAPA_ROTULO}.
+                <span className="block">25 e 26 de novembro:</span>
+                <GritoDeVoto as="span" onColor duasLinhas tamanho="lg" className="mt-3" />
               </>
             ) : (
               <>

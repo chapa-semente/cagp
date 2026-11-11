@@ -8,6 +8,8 @@ import type { AxisId } from '@/lib/navigationRegistry';
 import { getItemByPath } from '@/lib/navigationRegistry';
 import CagpIcon from './CagpIcon.astro';
 import MarkerWord from './MarkerWord.astro';
+import GritoDeVoto from './GritoDeVoto.astro';
+import { route } from '@/lib/paths';
 import { vtTitleName } from '@/lib/viewTransitionNames';
 import { resolveCagpIconName } from '@/lib/cagpIcons';
 import { badgeVariants } from './badge';
@@ -158,6 +160,13 @@ const computedBreadcrumbs = breadcrumbs && breadcrumbs.length > 0
           ))}
         </ul>
       )}
+
+      {/* O adesivo de voto: o grito da campanha em toda cabeça de página (some depois da eleição). */}
+      <p class="mt-3 mb-0" data-so-campanha>
+        <a href={route('/gestao')} class="cagp-adesivo-voto">
+          <GritoDeVoto as="span" tamanho="sm" curto />
+        </a>
+      </p>
 
       <slot />
       </div>

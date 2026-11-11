@@ -6,6 +6,7 @@
 
 import { asset, route } from '@/lib/paths';
 import { CHAPA_LEADERS, type LeaderInfo } from '@/lib/chapaSementeData';
+import { montarMensagem } from '@/lib/compartilhar';
 import type { UserRole } from '@/lib/storage/studentVault';
 
 export type TourLeaderId =
@@ -242,16 +243,14 @@ export function saveSementeTour(state: SementeTourState): void {
   }
 }
 
-/** Mensagem de convite (o tour não sabe se a pessoa instalou nada, então não afirma isso). */
+/** Convite do fim do tour (o tour não sabe se a pessoa instalou nada, então não afirma isso). */
 export function getTourShareUrl(): string {
   const base = document.documentElement.dataset.baseUrl || '/';
   const siteUrl = `${window.location.origin}${base.endsWith('/') ? base : `${base}/`}`;
-  const text = [
-    '*Eleição do CAGP: 25 e 26 de novembro, das 17h às 22h30, na sala do CAGP (FAFICH)*',
-    '',
-    'A Semente é a Chapa 2 e já pôs no ar um site com os guias do curso: documentos, estágio, 600h, FUMP, calouros.',
-    `Dá uma olhada e conhece as ${CHAPA_LEADERS.length} pessoas da chapa:`,
-    siteUrl,
-  ].join('\n');
+  const text = montarMensagem({
+    corpo: `🌱 A Semente é a Chapa 2 na eleição do CAGP e já pôs no ar um site com os guias do curso: documentos, estágio, 600h, FUMP, calouros.\nDá uma olhada e conhece as ${CHAPA_LEADERS.length} pessoas da chapa:`,
+    url: siteUrl,
+    tom: 'convite',
+  });
   return `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
 }
