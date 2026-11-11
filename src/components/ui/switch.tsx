@@ -6,19 +6,19 @@ const Switch = React.forwardRef<
   React.ElementRef<typeof SwitchPrimitives.Root>,
   React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root>
 >(({ className, ...props }, ref) => (
+  // Kit Semente: a semente rola para a direita e brota quando liga (DESIGN.md › kit Semente).
   <SwitchPrimitives.Root
     className={cn(
-      'peer inline-flex h-7 w-12 shrink-0 cursor-pointer items-center border-3 border-foreground bg-muted shadow-md bk-interactive focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none active:translate-x-[4px] active:translate-y-[4px] active:shadow-none',
+      'sk-switch-trilho sk-switch-radix peer cursor-pointer p-0 focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-50',
       className
     )}
     {...props}
     ref={ref}
   >
-    <SwitchPrimitives.Thumb
-      className={cn(
-        'pointer-events-none block h-5 w-5 border-2 border-foreground bg-background shadow-sm bk-interactive data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0.5'
-      )}
-    />
+    <svg className="sk-switch-folha" viewBox="-46 -110 72 118" aria-hidden="true">
+      <use href="#sg-folha" />
+    </svg>
+    <SwitchPrimitives.Thumb className="sk-switch-botao pointer-events-none block" />
   </SwitchPrimitives.Root>
 ))
 Switch.displayName = SwitchPrimitives.Root.displayName

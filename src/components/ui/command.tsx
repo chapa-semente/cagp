@@ -39,15 +39,19 @@ const CommandDialog = ({
   return (
     <Dialog {...props}>
       <DialogPortal>
-        <DialogOverlay />
+        {/* Acima da barra inferior (z 1000) e no mesmo andar das folhas. */}
+        <DialogOverlay className="z-[1080]" />
         <DialogPrimitive.Content
-          className="fixed left-[50%] top-[20%] z-50 w-full max-w-lg translate-x-[-50%] rounded-xl border-2 border-foreground bg-background shadow-xl duration-100 ease-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
+          className="fixed inset-x-0 bottom-0 top-[max(0.75rem,env(safe-area-inset-top))] z-[1090] flex flex-col overflow-hidden rounded-t-2xl border-[3px] border-b-0 border-foreground bg-background shadow-[0_-6px_0_0_var(--color-foreground)] data-[state=open]:animate-in data-[state=open]:slide-in-from-bottom data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom md:inset-x-auto md:bottom-auto md:left-1/2 md:top-[16%] md:w-full md:max-w-xl md:-translate-x-1/2 md:rounded-xl md:border-b-[3px] md:shadow-xl md:data-[state=open]:slide-in-from-bottom-6 md:data-[state=open]:fade-in-0 md:data-[state=closed]:slide-out-to-bottom-6 md:data-[state=closed]:fade-out-0"
         >
           <DialogPrimitive.Title className="sr-only">{title}</DialogPrimitive.Title>
           <DialogPrimitive.Description className="sr-only">{description}</DialogPrimitive.Description>
-          <Command filter={filter} className="[&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-bold [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wide [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12">
+          <Command filter={filter} className="flex min-h-0 flex-1 flex-col [&_[cmdk-list]]:min-h-0 [&_[cmdk-list]]:flex-1 [&_[cmdk-list]]:max-h-none md:[&_[cmdk-list]]:max-h-[min(60svh,460px)] [&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-bold [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wide [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12">
             {children}
           </Command>
+          <DialogPrimitive.Close className="md:hidden shrink-0 min-h-12 border-t-[3px] border-foreground bg-muted font-heading text-sm font-bold uppercase tracking-[0.03em] text-foreground cursor-pointer pb-[env(safe-area-inset-bottom)] active:bg-background focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-primary">
+            Fechar a busca
+          </DialogPrimitive.Close>
         </DialogPrimitive.Content>
       </DialogPortal>
     </Dialog>

@@ -9,6 +9,8 @@ import { CHAPA_LEADERS } from '@/lib/chapaSementeData';
 import { asset, route } from '@/lib/paths';
 import { tactileSpring, celebrateSpring } from '@/lib/motion';
 import { CagpIcon, type CagpIconName } from '@/components/ui/CagpIcon';
+import { resolveCagpIconName } from '@/lib/cagpIcons';
+import { getItemByPath } from '@/lib/navigationRegistry';
 import { MarkerWord } from '@/components/ui/marker-word';
 import { Marquee, MarqueeItem, MarqueeSeparator } from '@/components/ui/marquee';
 import { LeafShape, SemicircleShape, SeedShape } from '@/components/ui/semente-shapes';
@@ -65,33 +67,35 @@ const CA_SHORTCUTS: Shortcut[] = [
 ];
 
 function ShortcutGroup({ title, items, idPrefix }: { title: string; items: Shortcut[]; idPrefix: string }) {
-  // Um mesmo id não pode aparecer duas vezes na página: o segundo grupo usa o sufixo.
+  // Bloco de atalhos do kit Semente: no celular, quadro e nome curto; a partir de 640px, cartão com
+  // a linha do que resolve. O desenho, o nome curto e a cor vêm do registro (um ícone por destino).
   return (
     <section aria-labelledby={`${idPrefix}-title`} className="space-y-3">
-      <h2 id={`${idPrefix}-title`} className="font-heading font-bold text-lg text-foreground m-0">
+      <h2 id={`${idPrefix}-title`} className="font-heading font-bold text-xl text-foreground m-0">
         {title}
       </h2>
-      <ul className="cagp-reveal-stagger list-none m-0 p-0 bg-white border-2 border-border rounded-xl shadow-md overflow-hidden divide-y-2 divide-border">
-        {items.map((s) => (
-          <li key={s.href}>
-            <a
-              href={route(s.href)}
-              className="group min-h-[64px] px-4 py-3 flex items-center gap-3 no-underline text-inherit bg-white hover:bg-primary-tint transition-colors duration-(--duration-press) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary"
-            >
-              <span className="w-10 h-10 rounded-xl bg-muted group-hover:bg-white flex items-center justify-center shrink-0 transition-colors duration-(--duration-press)" aria-hidden="true">
-                <CagpIcon name={s.icon} className="w-5 h-5 text-primary" />
-              </span>
-              <span className="flex-1 min-w-0">
-                <span className="block w-fit font-heading font-bold text-base text-foreground" data-vt-title data-vt-href={route(s.href)}>{s.title}</span>
-                <span className="block text-sm text-content-secondary">{s.line}</span>
-              </span>
-              <CagpIcon
-                name="chevron-right"
-                className="w-4 h-4 text-muted-foreground shrink-0 transition-transform duration-(--duration-press) ease-(--ease-spring-snappy) group-hover:translate-x-1"
-              />
-            </a>
-          </li>
-        ))}
+      <ul className="sk-atalhos sk-atalhos-hub sk-atalhos-mistos cagp-reveal-stagger" role="list">
+        {items.map((s) => {
+          const dono = getItemByPath(s.href);
+          return (
+            <li key={s.href}>
+              <a href={route(s.href)} data-nav-axis={dono?.axis.id ?? 'hoje'}>
+                <span className="sk-tile sk-tile-g sk-tile-broto" aria-hidden="true">
+                  <CagpIcon name={dono ? resolveCagpIconName(dono.item.icon) : s.icon} />
+                  <svg className="sk-broto" viewBox="-46 -110 72 118">
+                    <use href="#sg-folha" />
+                  </svg>
+                </span>
+                <span className="sk-atalho-txt">
+                  <span className="sk-atalho-nome" data-vt-title data-vt-href={route(s.href)}>
+                    {dono?.item.shortLabel ?? s.title}
+                  </span>
+                  <span className="sk-atalho-desc">{s.line}</span>
+                </span>
+              </a>
+            </li>
+          );
+        })}
       </ul>
     </section>
   );
@@ -220,7 +224,8 @@ export const HomeWorkspaceA: React.FC = () => {
         </div>
 
         {/* Marquee da campanha: a única faixa que rola sozinha (DESIGN.md › Marquee). */}
-        <div className="relative z-10 border-t-3 border-border bg-foreground text-white">
+        <p className="sr-only">Vote Semente nos dias 25 e 26/11, das 17h às 22h30, na sala do CAGP. Leve documento com foto.</p>
+        <div className="relative z-10 border-t-3 border-border bg-foreground text-white" aria-hidden="true">
           <Marquee data-impeccable-ignore="marquee" speed="slow" pauseOnHover className="bg-foreground text-white border-0 shadow-none py-2.5">
             {[
               'Vote Semente · 25 e 26/11 · 17h às 22h30 na sala do CAGP',
@@ -270,7 +275,7 @@ export const HomeWorkspaceA: React.FC = () => {
               </h2>
               {[
                 { label: 'Extensão e AAC', n: progress.ext, unit: 'h', of: 'de 600h', pct: extPct, href: '/acg', bar: 'bg-secondary' },
-                { label: 'Obrigatórias', n: progress.obrig, unit: '', of: 'de 27', pct: obrigPct, href: '/percurso', bar: 'bg-primary' },
+                { label: 'Obrigatórias', n: progress.obrig, unit: '', of: 'de 27', pct: obrigPct, href: '/meu-curso', bar: 'bg-primary' },
               ].map((p) => (
                 <a key={p.label} href={route(p.href)} className="block no-underline text-inherit group">
                   <span className="flex items-baseline justify-between gap-2">

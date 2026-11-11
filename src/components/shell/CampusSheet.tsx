@@ -64,7 +64,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
   };
 
   return (
-    <BottomSheet id="cagp-campus-sheet" isOpen={isOpen} onClose={onClose} title="Status Operacional do Campus & Alertas" initialDetent="large">
+    <BottomSheet id="cagp-campus-sheet" isOpen={isOpen} onClose={onClose} title="Campus agora" initialDetent="large">
       <div className="space-y-4 text-foreground px-1 pb-4 font-sans">
         {/* Banner Informativo */}
         <div className="bg-white border-[2.5px] border-border p-4 rounded-xl shadow">
@@ -191,7 +191,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
                   : 'bg-white text-gray-700 shadow-sm'
               }`}
             >
-              {prefs.aac120d ? 'Monitoramento Ativo' : 'Ativar Monitoramento'}
+              {prefs.aac120d ? 'Lembrete ligado' : 'Ligar lembrete'}
             </button>
           </div>
           <p className="text-xs text-muted-foreground m-0 leading-snug font-medium">
@@ -227,7 +227,7 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
           className="w-full min-h-[44px] py-2.5 bg-white hover:bg-muted text-foreground font-heading text-xs font-bold uppercase rounded-xl border-[2.5px] border-border shadow-sm flex items-center justify-center gap-1.5 transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed"
         >
           <CagpIcon name="bell" className="w-4 h-4 text-secondary" />
-          <span>Testar Notificação do Navegador</span>
+          <span>Testar um aviso agora</span>
         </button>
       </div>
     </BottomSheet>

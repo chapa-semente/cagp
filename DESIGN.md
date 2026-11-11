@@ -247,6 +247,17 @@ As referências estruturais seguem sendo o **Neobrutalism.com** (disciplina: uma
 
 **Virada de 10/11/2026: o site vivo.** O layout e a navegação ficaram; a expressão subiu. O site agora cresce como a semente do nome: **semente → raiz → broto → planta → fruto**. Cada aba é um estágio com cor própria (Hoje = semente roxa, Guias = raiz terra, Chapa = broto verde, Meu curso = planta petróleo, Mais = fruto amarelo), e o estágio pinta a cabeça de página, o solo (fundo), as sombras e o ramo que cresce com a rolagem. A carga expressiva vale para todas as páginas, inclusive guias e ferramentas (decisão do Gabriel: "máximo em tudo", mesmo com custo de contraste em decoração). O que não muda: texto de leitura grafite sobre claro, alvos de toque, a ordem do conteúdo. Onde este documento ainda disser "sóbrio" ou restringir cor a Cartaz, vale esta virada. Fonte: `src/lib/estagios.ts` e `src/styles/estagios.css`.
 
+**Virada de 11/11/2026: o kit Semente.** Depois da amostra aprovada pelo Gabriel (a página `/amostra` foi apagada quando o kit terminou de se espalhar; a referência agora é `src/styles/semente-kit.css`), o site ficou mais expressivo e mais próximo do neobrutalismo de BoldKit e Neobrutalism.com, sem sair da geometria do símbolo. Oito regras mudaram e valem sobre qualquer trecho antigo deste documento:
+1. **Ilustração com tinta.** Os desenhos de estágio são adesivos recortados: formas cheias com contorno grafite, montadas só com as duas curvas do símbolo (`src/lib/sementeGeometry.ts`, `src/lib/estagioIlustra.ts`, `EstagioIlustra.astro`). O traço fino de `EstagioArt` saiu.
+2. **A planta veste as cores do logo em todas as abas:** caule e cabeça roxos, folha laranja; verde-broto e amarelo-fruto de apoio. O estágio muda o bloco, a terra e o tamanho da planta, não a cor da folha.
+3. **Folhas que respiram.** Depois de brotar, as folhas das ilustrações balançam de leve em laço (3,6s). É o único laço decorativo além do marquee.
+4. **Inclinação de colagem.** Quadros de atalho (−3°/+2°), cartões deslizantes (±1,2°) e adesivos (−4° a −6°) podem inclinar. Texto de leitura, formulários e passos de trâmite continuam retos.
+5. **Adesivos.** Etiqueta curta inclinada com sombra dupla (laranja + grafite) para número, rótulo de cartão e valor de slider. No máximo um por bloco; nunca como eyebrow de título.
+6. **Cantos de folha.** O raio assimétrico do símbolo (pontas no alto à direita e embaixo à esquerda: `18px 5px 18px 5px` e proporcionais) vale em quadros de ícone, no botão de destaque, no indicador das abas e na caixa de marcar. Fichas e inputs seguem em 12px.
+7. **Cartão em camadas** (duas folhas de cor por trás) vale para o cartão-saldo de cada aba, além de passaporte e carta.
+8. **Sombra dura de 4 a 5px** em controles, quadros e blocos de aba; a Ficha comum segue em 3px e o Cartaz em 6px.
+Peças do kit em `src/styles/semente-kit.css` (prefixo `sk-`): quadro de ícone com a folha brotando, grade de atalhos, cartões deslizantes, cartão-saldo, slider com a semente, interruptor que brota, ficha de marcar com carimbo, progresso em caule, adesivo. As abas trocam as listas de linhas por estes blocos; a home mantém o herói da Chapa. O ramo, no celular, é a borda de baixo do cabeçalho (a semente rola e deixa caule e folhas); no desktop segue na margem direita.
+
 **Key Characteristics:**
 - Fundo de página no **solo do estágio** (lilás, terra clara, verde claro, petróleo claro ou amarelo claro; `--estagio-solo`), nunca branco frio nem cinza; grafite (`#1F1F1F`) como única tinta escura. Areia continua nas superfícies internas.
 - Três volumes: Cartaz (campanha, *color blocking*), Ficha (trâmite), Papel (leitura). Cada página tem um volume dominante.
@@ -603,7 +614,7 @@ O site se mexe como papel e carimbo: peso, mola e impacto. Movimento é **sempre
 - **Números:** numerais grandes contam até o valor quando aparecem (`data-count-to`, `data-count-suffix`; `src/scripts/countUp.ts`). O HTML já traz o valor final.
 - **Tour:** com o tour aberto, a troca de página por trás do bloco de cor pula a view transition (a camada de transição engolia os toques em "Próxima").
 
-**Proibido:** blur e desfoque em qualquer forma, glow, escala no toque, rotação de conteúdo (só carimbo), shimmer em skeleton, loop decorativo fora do marquee da campanha, efeitos de canvas genéricos (matrix, plasma, warp) que não falam a geometria da marca.
+**Proibido:** blur e desfoque em qualquer forma, glow, escala no toque, rotação de texto de leitura, shimmer em skeleton, loop decorativo fora do marquee da campanha e do balanço das folhas, efeitos de canvas genéricos (matrix, plasma, warp) que não falam a geometria da marca.
 
 **Canvas** (`GlobalCanvasBackdrop`): só no volume Cartaz, escolhido pelo site e nunca pelo estudante: topografia na /chapa-semente, pontos nas outras telas de campanha. Em Ficha e Papel o fundo é o solo do estágio com o ramo e a forma orgânica. Ajustes › Leitura só tem tamanho da letra, contraste e fonte para dislexia.
 
@@ -639,7 +650,7 @@ O site se mexe como papel e carimbo: peso, mola e impacto. Movimento é **sempre
 - **Don't** pôr caixa alta em título de ficha, seção, passo ou parágrafo.
 - **Don't** pôr eyebrow acima de título, nem numerar abas ou seções quando a ordem não é informação.
 - **Don't** usar emoji ou glifo como ícone.
-- **Don't** usar shapes BoldKit (burst, estrela, escudo), stickers decorativos ou rotação de conteúdo; a única decoração é a forma orgânica da marca.
+- **Don't** usar shapes BoldKit (burst, estrela, escudo) nem inclinar texto de leitura, formulário ou passo de trâmite; adesivo e inclinação só nos casos da virada de 11/11/2026.
 - **Don't** aplicar faixa de dithering, pontilhado, quadriculado, degradê ou desfoque sobre a foto.
 - **Don't** aplicar sombra, glow, contorno, filtro ou rotação em logo, símbolo ou wordmark, nem redigitar SEMENTE ou CAGP.
 - **Don't** usar faixa colorida lateral (`border-left` > 1px) em ficha, alerta ou citação.

@@ -22,7 +22,7 @@ export const CarreiraVagasFeed: React.FC = () => {
               id="heading-vagas-feed"
               className="font-heading text-base sm:text-lg font-black text-foreground m-0"
             >
-              Radar de Vagas &amp; Editais Ativos (Proposta 12)
+              Vagas e editais de exemplo (Proposta 12)
             </h2>
             <p className="text-xs text-muted-foreground m-0 mt-0.5 font-medium">
               Oportunidades curadas em órgãos estaduais, municipais, controle externo e OSCs.

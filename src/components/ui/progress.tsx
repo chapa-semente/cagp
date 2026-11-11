@@ -26,14 +26,14 @@ const Progress = React.forwardRef<
       value={ariaValue}
       max={safeMax}
       className={cn(
-        "relative h-4 w-full overflow-hidden rounded-xl border-3 border-border bg-muted shadow-xs",
+        "relative h-[18px] w-full overflow-hidden rounded-full border-3 border-border bg-muted shadow-[3px_3px_0_0_var(--color-border)]",
         className
       )}
       {...props}
     >
       <ProgressPrimitive.Indicator
         className={cn(
-          "h-full w-full flex-1 bg-primary transition-transform duration-500 ease-out",
+          "h-full w-full flex-1 border-r-3 border-border bg-primary transition-transform duration-500 ease-out",
           variant === "stepped" && "bk-progress-stepped",
           indeterminate && "bk-progress-marquee",
           indicatorClassName

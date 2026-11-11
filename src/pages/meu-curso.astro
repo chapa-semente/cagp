@@ -4,9 +4,17 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/ui/PageHeader.astro';
 import HubItemList from '@/components/shell/HubItemList.astro';
 import { getAxisById } from '@/lib/navigationRegistry';
+import { MinhasHoras, type DisciplinaObrigatoria } from '@/components/features/meu-curso/MinhasHoras';
+import { DISCIPLINAS_GRAFO } from '@/components/features/curriculum/graph/curriculumGraphData';
 
 const axis = getAxisById('curso')!;
 const items = axis.items.filter((i) => i.type !== 'hub');
+
+// As 27 obrigatórias do percurso (25 disciplinas + os dois estágios curriculares, DCP 135 e 136).
+const ESTAGIOS = new Set(['DCP 135', 'DCP 136']);
+const disciplinas: DisciplinaObrigatoria[] = Object.values(DISCIPLINAS_GRAFO)
+  .map((d) => ({ code: d.code, name: d.name, period: d.period, ch: d.ch, estagio: ESTAGIOS.has(d.code) }))
+  .sort((a, b) => a.period - b.period || a.code.localeCompare(b.code));
 ---
 
 <BaseLayout
@@ -16,13 +24,15 @@ const items = axis.items.filter((i) => i.type !== 'hub');
 >
   <PageHeader
     title="Meu curso"
-    subtitle="Sua grade, suas horas e a reta final. O que você preencher fica salvo só neste celular."
+    subtitle="Quanto falta para se formar, grupo a grupo. Fica salvo só neste celular."
     mode="operate"
     condensed={true}
   />
 
-  <div class="space-y-8">
-    <HubItemList items={items} />
+  <div class="space-y-10">
+    <MinhasHoras client:load disciplinas={disciplinas} />
+
+    <HubItemList heading="Ferramentas" headingId="meu-curso-ferramentas" items={items} />
 
     <section aria-labelledby="meu-curso-passaporte" class="cagp-passport-cta">
       <div class="min-w-0 space-y-1">

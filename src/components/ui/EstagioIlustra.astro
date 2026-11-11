@@ -1,0 +1,64 @@
+---
+// EstagioIlustra.astro — Ilustração de estágio desenhada com as curvas do símbolo da Semente.
+// Substituiu o antigo EstagioArt (traço fino geométrico) em 11/11/2026. Ver src/lib/estagioIlustra.ts.
+import { renderEstagioIlustra, ILUSTRA_CORES, type IlustraNivel } from '@/lib/estagioIlustra';
+
+interface Props {
+  nivel: IlustraNivel;
+  /** Usa as cores de outro estágio (ex.: o broto dentro de um cartão petróleo). */
+  coresDe?: IlustraNivel;
+  /** Pinta o bloco de cor por trás (para usar fora da cabeça de página). */
+  comFundo?: boolean;
+  /** Sem a entrada animada (ex.: miniatura numa lista). */
+  parada?: boolean;
+  class?: string;
+}
+const { nivel, coresDe, comFundo = false, parada = false, class: className = '' } = Astro.props;
+const cores = ILUSTRA_CORES[coresDe ?? nivel];
+---
+
+<svg
+  class:list={['cagp-ilustra', parada && 'is-parada', className]}
+  viewBox="0 0 200 200"
+  aria-hidden="true"
+  style={comFundo ? `background:${cores.bg}` : undefined}
+  set:html={renderEstagioIlustra(nivel, cores)}
+/>
+
+<style is:global>
+  .cagp-ilustra { display: block; overflow: hidden; --ei-ink: 5px; }
+  /* Tinta: contorno grafite por fora da forma (o traço fica atrás do preenchimento, então só a
+     metade de fora aparece) e sempre na mesma espessura na tela, em qualquer tamanho do desenho. */
+  .cagp-ilustra .ei-ink {
+    stroke: #1f1f1f;
+    stroke-width: var(--ei-ink);
+    stroke-linejoin: round;
+    paint-order: stroke;
+    vector-effect: non-scaling-stroke;
+  }
+  .cagp-ilustra .ei-veio {
+    fill: none;
+    stroke: #1f1f1f;
+    stroke-width: calc(var(--ei-ink) * 0.4);
+    stroke-linecap: round;
+    vector-effect: non-scaling-stroke;
+  }
+  /* Cada parte brota do próprio pé (a origem local é a base da forma), na ordem da planta. */
+  .cagp-ilustra .ei-pop {
+    animation: cagp-ei-pop var(--duration-spring) var(--ease-spring-bouncy) calc(var(--i, 0) * 55ms + 140ms) both;
+  }
+  .cagp-ilustra .ei-rise {
+    animation: cagp-ei-rise var(--duration-reveal, 640ms) var(--ease-spring) calc(var(--i, 0) * 55ms + 140ms) both;
+  }
+  /* Depois de brotar, as folhas respiram: um balanço curto em torno do pé, cada uma no seu tempo. */
+  .cagp-ilustra .ei-sway {
+    animation: cagp-ei-sway 3.6s ease-in-out calc(var(--i, 0) * -0.4s) infinite alternate;
+  }
+  .cagp-ilustra.is-parada :is(.ei-pop, .ei-rise, .ei-sway) { animation: none; }
+  @keyframes cagp-ei-pop { from { transform: scale(0); } }
+  @keyframes cagp-ei-rise { from { transform: scaleY(0); } }
+  @keyframes cagp-ei-sway {
+    from { transform: rotate(calc(var(--s, 1) * -4deg)); }
+    to { transform: rotate(calc(var(--s, 1) * 5deg)); }
+  }
+</style>

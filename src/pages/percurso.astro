@@ -11,7 +11,6 @@ import { CurriculumGraphDynamic } from '../components/features/curriculum/graph/
 import CurriculumCentralOverview from '../components/features/curriculum/CurriculumCentralOverview.astro';
 import { OptativasCatalogExplorer } from '../components/features/curriculum/catalog/OptativasCatalogExplorer';
 import MandatoryTimelineExplorer from '../components/features/curriculum/timeline/MandatoryTimelineExplorer.astro';
-import { StudentDossierTracker } from '../components/features/curriculum/dossie/StudentDossierTracker';
 import { PercursosComparativeMatrix } from '../components/features/percurso/PercursosComparativeMatrix';
 import { PercursoNavigationMenu } from '../components/features/percurso/PercursoNavigationMenu';
 import { route } from '../lib/paths';
@@ -47,7 +46,7 @@ const tabs = [
 ];
 
 const badges = [
-  { label: 'Central Curricular 10P', variant: 'red' as const, icon: 'bi-diagram-3-fill' },
+  { label: 'Os 10 períodos', variant: 'red' as const, icon: 'bi-diagram-3-fill' },
   { label: '27 Obrigatórias • 1.860h', variant: 'dark' as const, icon: 'bi-book-half' },
   { label: '68 Optativas Homologadas', variant: 'blue' as const, icon: 'bi-collection-fill' },
   { label: '120h Formação Livre', variant: 'gold' as const, icon: 'bi-plus-slash-minus' },
@@ -57,7 +56,7 @@ const badges = [
 
 <BaseLayout
   title="Grade e percurso"
-  description="Central Curricular unificada de Gestão Pública UFMG: grafo reativo dos 10 semestres, 27 obrigatórias, 68 optativas e adição de disciplinas livres."
+  description="A grade de Gestão Pública da UFMG: grafo reativo dos 10 semestres, 27 obrigatórias, 68 optativas e adição de disciplinas livres."
   mode="operate"
 >
   <div id="cagp-percurso-header">
@@ -113,7 +112,22 @@ A matrícula nas disciplinas com pré-requisito formal cadastrado fica condicion
   <!-- Sub-view 4: Dossiê Minha Grade & 3.000h -->
   <section id="ws-panel-v4" class="cagp-workspace-view space-y-4" data-ws-panel="v4" hidden>
     <div id="minha-grade" class="cagp-anchor-target scroll-mt-24"></div>
-    <StudentDossierTracker client:load />
+    <!-- A conta das 3.000h tem um dono só: o painel de Meu curso (DESIGN.md › One Owner). -->
+    <div class="p-5 sm:p-6 rounded-2xl border-3 border-border bg-card shadow-md space-y-3 max-w-[44rem]">
+      <h2 class="font-heading text-xl font-bold text-foreground m-0">A conta das 3.000h mudou de lugar</h2>
+      <p class="m-0 text-base leading-relaxed text-muted-foreground">
+        Agora ela fica em <strong class="text-foreground">Meu curso</strong>, com os seis grupos do percurso
+        (obrigatórias, estágio, optativas gerais, extensão, AAC e formação livre), as disciplinas por período e o seu NSG.
+        O que você já marcou no mapa continua valendo lá.
+      </p>
+      <a
+        href={route('/meu-curso')}
+        class="inline-flex items-center gap-2 min-h-[48px] px-5 rounded-xl bg-primary text-white border-3 border-border font-heading font-bold text-sm uppercase tracking-[0.03em] no-underline shadow-md active:translate-x-1 active:translate-y-1 active:shadow-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+      >
+        Abrir Meu curso
+        <i class="bi bi-arrow-right" aria-hidden="true"></i>
+      </a>
+    </div>
   </section>
 
   <SementeSignature

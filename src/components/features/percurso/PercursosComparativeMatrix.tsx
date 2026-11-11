@@ -223,7 +223,7 @@ export const PercursosComparativeMatrix: React.FC = () => {
                 Perfil Geométrico de Distribuição de Carga Horária
               </span>
               <span className="text-xs font-mono font-bold px-2 py-0.5 bg-card border border-border rounded shadow-xs text-muted-foreground">
-                Radar Recharts Multi-Eixo
+                Comparação por área
               </span>
             </div>
             <div className="h-[300px] w-full">

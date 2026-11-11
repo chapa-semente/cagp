@@ -329,7 +329,7 @@ export const PesquisaBentoDirectory: React.FC = () => {
             href={route('/noticias')}
             className="min-h-[44px] px-4 py-2.5 bg-white hover:bg-background active:translate-x-0.5 active:translate-y-0.5 active:shadow-none text-foreground rounded-xl font-head text-xs uppercase font-black tracking-wider inline-flex items-center justify-center gap-1.5 no-underline border-3 border-border shadow-md transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
-            <span>Radar de Editais &amp; Bolsas</span>
+            <span>Editais e bolsas</span>
           </a>
           <a
             href={route('/chapa-semente#propostas')}

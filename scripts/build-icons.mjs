@@ -10,6 +10,7 @@
 //      dados como 'bi-shield-check') passam a desenhar o glifo Phosphor Bold equivalente.
 //   2. src/assets/fonts/phosphor-bold-subset.woff — só os glifos usados (~10 KB em vez de 150 KB).
 //   3. src/lib/cagpIconPaths.generated.ts — o miolo SVG Phosphor dos nomes do CagpIcon.
+//   4. src/components/ui/iconPaths.generated.ts — o miolo SVG dos ícones React (icons.tsx).
 //
 // Rodar depois de usar um `bi-*` novo:  node scripts/build-icons.mjs
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
@@ -89,6 +90,14 @@ const CAGP = {
   'arrow-left': 'arrow-left', 'file-pdf': 'file-pdf', 'graduation-cap': 'graduation-cap', 'map-trifold': 'map-trifold',
   megaphone: 'megaphone-simple', vote: 'check-square-offset', 'seal-check': 'seal-check', copy: 'copy',
   leaf: 'plant', accessibility: 'person-arms-spread', 'chevron-left': 'caret-left', external: 'arrow-square-out',
+  // Um desenho por destino (DESIGN.md › kit Semente): nenhuma página do registro repete ícone.
+  'd-mural': 'newspaper', 'd-documentos': 'folder-open', 'd-calouro': 'backpack', 'd-onibus': 'bus',
+  'd-atende': 'call-bell', 'd-fump': 'hand-heart', 'd-optativas': 'puzzle-piece', 'd-estagio': 'briefcase',
+  'd-pesquisa': 'flask', 'd-tcc': 'pen-nib', 'd-duvidas': 'question', 'd-chapa': 'users-three',
+  'd-votar': 'calendar-check', 'd-horas': 'hourglass-medium', 'd-grade': 'tree-structure', 'd-cursos': 'certificate',
+  'd-formatura': 'graduation-cap', 'd-carreira': 'steps', 'd-vagas': 'binoculars', 'd-talentos': 'identification-badge',
+  'd-ouvidoria': 'megaphone', 'd-transparencia': 'receipt', 'd-sobre': 'bank', 'd-ajustes': 'sliders-horizontal',
+  'd-mapa': 'map-trifold', 'd-ru': 'fork-knife',
 };
 
 const missing = [];
@@ -127,6 +136,19 @@ for (const [cagpName, phName] of Object.entries(CAGP)) {
   const svg = readFileSync(join(coreDir, 'assets/bold', `${phName}-bold.svg`), 'utf8');
   const inner = svg.replace(/^[\s\S]*?<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '').trim();
   pathEntries.push(`  ${JSON.stringify(cagpName)}: ${JSON.stringify(inner)},`);
+}
+
+// 2b) Miolo SVG dos ícones React (src/components/ui/icons.tsx): só o peso usado em cada um.
+const iconsTsx = readFileSync(join(root, 'src/components/ui/icons.tsx'), 'utf8');
+const reactKeys = [...new Set([...iconsTsx.matchAll(/make\('([a-z0-9-]+(?::[a-z]+)?)'/g)].map((m) => m[1]))].sort();
+const reactEntries = [];
+for (const key of reactKeys) {
+  const [phName, weight = 'bold'] = key.split(':');
+  if (!need(phName, `icons.tsx:${key}`)) continue;
+  const file = weight === 'regular' ? `${phName}.svg` : `${phName}-${weight}.svg`;
+  const svg = readFileSync(join(coreDir, 'assets', weight, file), 'utf8');
+  const inner = svg.replace(/^[\s\S]*?<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '').trim();
+  reactEntries.push(`  ${JSON.stringify(key)}: ${JSON.stringify(inner)},`);
 }
 
 if (missing.length) {
@@ -175,6 +197,18 @@ writeFileSync(
 }
 
 ${cssRules.join('\n')}
+`,
+);
+
+writeFileSync(
+  join(root, 'src/components/ui/iconPaths.generated.ts'),
+  `// GERADO por scripts/build-icons.mjs — não editar à mão.
+// Miolo SVG (grade 256) de cada ícone React de src/components/ui/icons.tsx, só no peso usado.
+export const ICON_PATHS = {
+${reactEntries.join('\n')}
+} as const;
+
+export type IconKey = keyof typeof ICON_PATHS;
 `,
 );
 

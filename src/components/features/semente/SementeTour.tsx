@@ -941,13 +941,27 @@ const FinalScreen: React.FC<{
             </li>
             {(canInstall || ios) && !installed && (
               <li>
-                <button type="button" className={actionBtn} onClick={handleInstall} aria-expanded={ios ? showIosHint : undefined}>
+                {/* O convite de instalar (decisão de 11/11/2026): com o motivo, porque no iPhone o Safari
+                    pode apagar o que foi salvo num site que fica 7 dias sem uso, e na tela inicial não. */}
+                <button
+                  type="button"
+                  className={`${actionBtn} h-auto py-2.5`}
+                  onClick={handleInstall}
+                  aria-expanded={ios ? showIosHint : undefined}
+                >
                   <i className="bi bi-phone text-lg text-primary" aria-hidden="true" />
-                  Pôr o site na tela inicial
+                  <span className="grid gap-0.5">
+                    <span>Pôr o site na tela inicial</span>
+                    <span className="text-sm font-normal normal-case tracking-normal text-content-secondary">
+                      {ios
+                        ? 'Assim o iPhone não apaga suas horas, notas e foto se você ficar uns dias sem abrir.'
+                        : 'Abre direto, como um app, e funciona sem sinal.'}
+                    </span>
+                  </span>
                 </button>
                 {showIosHint && (
                   <p className="m-0 mt-2 rounded-[12px] bg-white p-3 text-sm text-foreground">
-                    No Safari, toque em <strong>Compartilhar</strong> e depois em <strong>Adicionar à Tela de Início</strong>.
+                    Abra este site no <strong>Safari</strong>, toque em <strong>Compartilhar</strong> e depois em <strong>Adicionar à Tela de Início</strong>. Pelo navegador do WhatsApp essa opção não aparece.
                   </p>
                 )}
               </li>

@@ -119,38 +119,42 @@ const jaFunciona = [
       </Marquee>
     </div>
 
-    <!-- 2. O QUE JÁ FUNCIONA (faixa petróleo) -->
-    <section aria-labelledby="cs-funciona-title" class="cs-band">
-      <h2 id="cs-funciona-title" class="cs-headline cs-on-color">O que já funciona no site</h2>
-      <p class="cs-band-lede">Isto não é promessa: está no ar hoje e você pode usar agora.</p>
-      <ul class="cs-tools" role="list">
-        {jaFunciona.map((t) => (
-          <li>
-            <a href={t.href} class="cs-tool">
-              <span class="min-w-0">
-                <span class="cs-tool-title">{t.title}</span>
-                <span class="cs-tool-desc">{t.desc}</span>
-              </span>
-              <i class="bi bi-arrow-right text-lg shrink-0" aria-hidden="true"></i>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </section>
-
-    <!-- 3. AS 14 PROPOSTAS -->
-    <section id="propostas" aria-labelledby="cs-propostas-title" class="scroll-mt-24 space-y-5">
-      <div class="space-y-2 max-w-[68ch]">
-        <h2 id="cs-propostas-title" class="cs-headline">As 14 propostas</h2>
-        <p class="text-base text-muted-foreground m-0">
-          O texto integral da carta-programa, em 4 eixos. Abra uma proposta para ler a íntegra, ou veja uma por uma com quem vai tocar cada uma.
-        </p>
-        <PropostasTourButton client:visible className="mt-2 w-full sm:w-auto" />
+    <!-- 2. QUANDO E ONDE VOTAR (logo depois do topo: quem chega indeciso precisa disto primeiro) -->
+    <section id="votar" aria-labelledby="cs-votar-title" class="cs-vote scroll-mt-24">
+      <h2 id="cs-votar-title" class="cs-headline cs-on-color">Quando e onde votar</h2>
+      <dl class="cs-vote-list">
+        <div>
+          <dt>Votação</dt>
+          <dd><strong>25 e 26 de novembro</strong>, das 17h às 22h30, no CAGP. Voto secreto.</dd>
+        </div>
+        <div>
+          <dt>Quem vota</dt>
+          <dd>Todo estudante com matrícula ativa em Gestão Pública, levando documento oficial com foto.</dd>
+        </div>
+        <div>
+          <dt>Debate</dt>
+          <dd>24 de novembro, às 18h. Local a definir.</dd>
+        </div>
+        <div>
+          <dt>Mandato</dt>
+          <dd>A chapa eleita dirige o CAGP por 1 ano (Regimento, art. 48).</dd>
+        </div>
+      </dl>
+      <p class="cs-vote-note">
+        Nos dias de votação é proibido fazer campanha no 1º andar da FAFICH (edital, art. 17).
+      </p>
+      <div class="flex flex-wrap items-center gap-3">
+        <button type="button" class="cs-btn cs-btn-accent" data-cs-ics>
+          <i class="bi bi-calendar-plus" aria-hidden="true" data-cs-ics-icon></i>
+          <span data-cs-ics-label>Lembrar na agenda</span>
+        </button>
+        <a href={route('/gestao')} class="cs-btn cs-btn-ghost-light">
+          Tudo sobre a eleição
+        </a>
       </div>
-      <CartaPropostaInteractive client:visible />
+      <p class="cs-ics-note" data-cs-ics-note aria-live="polite"></p>
     </section>
-
-    <!-- 4. OS INTEGRANTES -->
+    <!-- 3. OS INTEGRANTES (os rostos antes das propostas) -->
     <section id="integrantes" aria-labelledby="cs-integrantes-title" class="scroll-mt-24 space-y-5">
       <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div class="space-y-2 max-w-[68ch]">
@@ -211,41 +215,42 @@ const jaFunciona = [
       </ul>
     </section>
 
-    <!-- 5. QUANDO E ONDE VOTAR (fechamento com a ação) -->
-    <section id="votar" aria-labelledby="cs-votar-title" class="cs-vote scroll-mt-24">
-      <h2 id="cs-votar-title" class="cs-headline cs-on-color">Quando e onde votar</h2>
-      <dl class="cs-vote-list">
-        <div>
-          <dt>Votação</dt>
-          <dd><strong>25 e 26 de novembro</strong>, das 17h às 22h30, no CAGP. Voto secreto.</dd>
-        </div>
-        <div>
-          <dt>Quem vota</dt>
-          <dd>Todo estudante com matrícula ativa em Gestão Pública, levando documento oficial com foto.</dd>
-        </div>
-        <div>
-          <dt>Debate</dt>
-          <dd>24 de novembro, às 18h. Local a definir.</dd>
-        </div>
-        <div>
-          <dt>Mandato</dt>
-          <dd>A chapa eleita dirige o CAGP por 1 ano (Regimento, art. 48).</dd>
-        </div>
-      </dl>
-      <p class="cs-vote-note">
-        Nos dias de votação é proibido fazer campanha no 1º andar da FAFICH (edital, art. 17).
-      </p>
-      <div class="flex flex-wrap items-center gap-3">
-        <button type="button" class="cs-btn cs-btn-accent" data-cs-ics>
-          <i class="bi bi-calendar-plus" aria-hidden="true" data-cs-ics-icon></i>
-          <span data-cs-ics-label>Lembrar na agenda</span>
-        </button>
-        <a href={route('/gestao')} class="cs-btn cs-btn-ghost-light">
-          Tudo sobre a eleição
-        </a>
-      </div>
-      <p class="cs-ics-note" data-cs-ics-note aria-live="polite"></p>
+    <!-- 4. O QUE JÁ FUNCIONA (faixa roxa) -->
+    <section aria-labelledby="cs-funciona-title" class="cs-band">
+      <h2 id="cs-funciona-title" class="cs-headline cs-on-color">O que já funciona no site</h2>
+      <p class="cs-band-lede">Isto não é promessa: está no ar hoje e você pode usar agora.</p>
+      <ul class="cs-tools" role="list">
+        {jaFunciona.map((t) => (
+          <li>
+            <a href={t.href} class="cs-tool">
+              <span class="min-w-0">
+                <span class="cs-tool-title">{t.title}</span>
+                <span class="cs-tool-desc">{t.desc}</span>
+              </span>
+              <i class="bi bi-arrow-right text-lg shrink-0" aria-hidden="true"></i>
+            </a>
+          </li>
+        ))}
+      </ul>
     </section>
+
+    <!-- 5. AS 14 PROPOSTAS -->
+    <section id="propostas" aria-labelledby="cs-propostas-title" class="scroll-mt-24 space-y-5">
+      <div class="space-y-2 max-w-[68ch]">
+        <h2 id="cs-propostas-title" class="cs-headline">As 14 propostas</h2>
+        <p class="text-base text-muted-foreground m-0">
+          O texto integral da carta-programa, em 4 eixos. Abra uma proposta para ler a íntegra, ou veja uma por uma com quem vai tocar cada uma.
+        </p>
+        <PropostasTourButton client:visible className="mt-2 w-full sm:w-auto" />
+      </div>
+      <CartaPropostaInteractive client:visible />
+    </section>
+
+    <!-- 6. FECHAMENTO: a página termina na ação -->
+    <p class="cs-close">
+      <span>Dias 25 e 26/11, das 17h às 22h30, na sala do CAGP.</span>
+      <a href="#votar" class="cs-btn cs-btn-accent">Como votar</a>
+    </p>
   </div>
 
   <JourneyNav
@@ -638,7 +643,7 @@ const jaFunciona = [
     gap: 1rem;
     padding: 1.75rem 1.25rem;
     border-radius: 16px;
-    background: var(--color-secondary);
+    background: var(--color-primary);
   }
   @media (min-width: 1024px) {
     .cs-band { padding: 2.5rem; }
@@ -824,11 +829,27 @@ const jaFunciona = [
     padding: 1.75rem 1.25rem;
     border: 3px solid #1f1f1f;
     border-radius: 16px;
-    background: var(--color-primary);
+    /* Petróleo: vem logo abaixo do topo roxo, e bloco vizinho não repete cor. */
+    background: var(--color-secondary);
     box-shadow: 6px 6px 0 0 #1f1f1f;
   }
   @media (min-width: 1024px) {
     .cs-vote { padding: 2.5rem; }
+  }
+  .cs-close {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: 0;
+    padding-top: 1.5rem;
+    border-top: 2px solid #1f1f1f;
+    font-weight: 700;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-variant-numeric: tabular-nums;
+    text-wrap: balance;
   }
   .cs-vote-list {
     display: grid;

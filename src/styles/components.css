@@ -468,3 +468,33 @@ html[data-a11y-contrast="high"] .cagp-toast {
   text-transform: uppercase;
   line-height: 1.4;
 }
+
+/* Link de pular: só aparece com foco de teclado, como um botão do sistema no canto. */
+.cagp-skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 2000;
+  padding: 0.75rem 1rem;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  border: 3px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-accent);
+  color: var(--color-foreground);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 3px 3px 0 0 var(--color-border);
+  translate: 0 -200%;
+  transition: translate var(--duration-press) var(--ease-spring-snappy);
+}
+.cagp-skip-link:focus-visible {
+  translate: 0 0;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}

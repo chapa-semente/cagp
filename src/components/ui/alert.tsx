@@ -33,13 +33,14 @@ const Alert = React.forwardRef<
 ))
 Alert.displayName = 'Alert'
 
+// Título de aviso não é título de seção: como <h5> ele furava a ordem dos títulos da página.
 const AlertTitle = React.forwardRef<
-  HTMLHeadingElement,
-  React.HTMLAttributes<HTMLHeadingElement>
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
-  <h5
+  <p
     ref={ref}
-    className={cn('mb-1 font-bold leading-snug', className)}
+    className={cn('m-0 mb-1 font-bold leading-snug', className)}
     {...props}
   />
 ))

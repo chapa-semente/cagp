@@ -1,14 +1,16 @@
 ---
 // TramiteResumo.astro — As três linhas que abrem todo guia: o que é · quem pode · prazo.
 // DESIGN.md › Arquétipos 2 (Guia de trâmite). Uma ficha, três respostas, nada de herói.
+// Quando as três perguntas não servem (ex.: "como votar"), passe `linhas` com os próprios rótulos.
 interface Props {
-  oQue: string;
-  quemPode: string;
-  prazo: string;
+  oQue?: string;
+  quemPode?: string;
+  prazo?: string;
+  linhas?: { rotulo: string; texto: string }[];
 }
 
-const { oQue, quemPode, prazo } = Astro.props;
-const linhas = [
+const { oQue = '', quemPode = '', prazo = '', linhas: custom } = Astro.props;
+const linhas = custom ?? [
   { rotulo: 'O que é', texto: oQue },
   { rotulo: 'Quem pode', texto: quemPode },
   { rotulo: 'Prazo', texto: prazo },

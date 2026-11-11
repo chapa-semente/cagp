@@ -58,7 +58,7 @@ export const CarreiraVagasMural: React.FC = () => {
             Total de Vagas Listadas: <strong className="text-foreground tabular-nums">{filteredVacancies.length}</strong>
           </span>
           <span className="px-2.5 py-1 rounded bg-background border border-border font-mono text-xs font-bold text-primary uppercase">
-            Proposta 12 • Radar Permanente Chapa Semente
+            Proposta 12 da Chapa Semente
           </span>
         </div>
       </div>

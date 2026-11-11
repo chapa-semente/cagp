@@ -6,6 +6,7 @@ import maisPedidos from '@/data/documentosMaisPedidos.json';
 import { CagpIcon } from '@/components/ui/CagpIcon';
 import { resolveCagpIconName } from '@/lib/cagpIcons';
 import { asset, route } from '@/lib/paths';
+import { readStoredProfile, renderAvatarHtml } from '@/lib/avatarHelper';
 import { tactileSpring, drawerSpring } from '@/lib/motion';
 import { getVaultItem, USER_ROLE_META } from '@/lib/storage/studentVault';
 import {
@@ -101,6 +102,8 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
   const [commandOpen, setCommandOpen] = useState(false);
   const [studentName, setStudentName] = useState('Seu perfil');
   const [studentPeriod, setStudentPeriod] = useState('Toque para escolher sua fase');
+  /** Markup do avatar (foto, avatar escolhido ou iniciais); null enquanto não há perfil salvo. */
+  const [avatarHtml, setAvatarHtml] = useState<string | null>(null);
 
   const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
 
@@ -115,6 +118,10 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
       setStudentName(name && name !== 'Estudante de Gestão Pública' ? name : 'Seu perfil');
       const meta = USER_ROLE_META[getVaultItem('cagp_user_role_v1')];
       if (meta) setStudentPeriod(`${meta.shortLabel} · ${meta.badge}`);
+      const stored = readStoredProfile();
+      setAvatarHtml(
+        stored && (stored.photoDataUrl || stored.avatarPreset || stored.name) ? renderAvatarHtml(stored, 'sm') : null
+      );
     } catch {
       // ignore storage errors
     }
@@ -453,9 +460,16 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
           title="Abrir Seu perfil"
         >
           <div className="flex items-center gap-2.5 min-w-0">
-            <div className="w-8 h-8 rounded-lg bg-accent text-foreground border-3 border-border flex items-center justify-center font-heading font-black text-xs shrink-0">
-              GP
-            </div>
+            {avatarHtml ? (
+              <div
+                className="relative w-9 h-9 rounded-lg bg-white border-2 border-border overflow-hidden flex items-center justify-center shrink-0"
+                dangerouslySetInnerHTML={{ __html: avatarHtml }}
+              />
+            ) : (
+              <div className="w-9 h-9 rounded-lg bg-accent text-foreground border-2 border-border flex items-center justify-center font-heading font-bold text-xs shrink-0">
+                GP
+              </div>
+            )}
             {!isCompact && (
               <div className="text-left min-w-0">
                 <span className="font-heading text-xs font-extrabold uppercase block truncate">
@@ -607,7 +621,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
             Nenhum resultado encontrado. Tente buscar por &quot;ACG&quot;, &quot;Estágio&quot;, &quot;Calouros&quot; ou &quot;Optativas&quot;.
           </CommandEmpty>
 
-          <CommandGroup heading="Ações Rápidas & Painéis">
+          <CommandGroup heading="Atalhos">
             <CommandItem
               value="Status do Campus Agora RU II Restaurante Universitário Ônibus Circular Noturno Plantão"
               onSelect={() => {
@@ -618,13 +632,13 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
               <CagpIcon name={resolveCagpIconName('bi-buildings')} className="w-4 h-4 text-success mr-2" />
               <div className="flex flex-col flex-1 min-w-0">
                 <span className="font-heading font-extrabold text-xs uppercase text-foreground">
-                  Status do Campus Agora • RU II &amp; Circulares
+                  Campus agora: RU e ônibus
                 </span>
                 <span className="text-xs text-muted-foreground truncate">
-                  Plantão noturno, horários de janta no RU e linhas de ônibus interno
+                  Jantar no RU, ônibus internos e lembretes
                 </span>
               </div>
-              <CommandShortcut>Painel</CommandShortcut>
+              <CommandShortcut>Abrir</CommandShortcut>
             </CommandItem>
 
             <CommandItem
@@ -656,19 +670,19 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
               <CagpIcon name={resolveCagpIconName('bi-universal-access')} className="w-4 h-4 text-accent mr-2" />
               <div className="flex flex-col flex-1 min-w-0">
                 <span className="font-heading font-extrabold text-xs uppercase text-foreground">
-                  Painel de Acessibilidade &amp; Preferências
+                  Ajustes de leitura
                 </span>
                 <span className="text-xs text-muted-foreground truncate">
                   Ajustes de alto contraste, fonte para dislexia e tamanho de texto
                 </span>
               </div>
-              <CommandShortcut>A11y</CommandShortcut>
+              <CommandShortcut>Ajustes</CommandShortcut>
             </CommandItem>
           </CommandGroup>
 
           <CommandSeparator />
 
-          <CommandGroup heading="Eleições CAGP 2026 • Chapa Semente">
+          <CommandGroup heading="Eleição do CAGP">
             <CommandItem
               value="Chapa Semente Carta-Programa Propostas Eleição 2026 4 Eixos"
               onSelect={() => navigateTo(route('/chapa-semente'))}
@@ -772,7 +786,7 @@ export const AppShellSidebarIsland: React.FC<AppShellSidebarIslandProps> = ({
 
           <CommandSeparator />
 
-          <CommandGroup heading="Portais Oficiais UFMG & Assistência Estudantil">
+          <CommandGroup heading="Portais da UFMG">
             {EXTERNAL_PORTALS.map((portal) => (
               <CommandItem
                 key={portal.id}

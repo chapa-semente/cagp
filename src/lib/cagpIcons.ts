@@ -6,16 +6,18 @@ import { PHOSPHOR_PATHS, type PhosphorCagpName } from './cagpIconPaths.generated
 /** Traço dos ícones próprios: o mesmo peso visual do Phosphor Bold (24 em 256 ≈ 2,25px a 24px). */
 const S = 'fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"';
 
-/** As 4 abas desenhadas para a marca. A aba Chapa usa o símbolo oficial (asset), nunca um ícone. */
+/** As 4 abas desenhadas para a marca. A aba Chapa usa o símbolo oficial (asset), nunca um ícone.
+ *  A folha de Guias, Meu curso e Mais é a própria folha do símbolo, reaproveitada do sprite que o
+ *  BaseLayout põe em toda página (<use href="#sg-folha">, ver src/lib/sementeGeometry.ts). */
 const TAB_ICONS = {
   // Hoje: o semicírculo do manual nascendo na linha do horizonte.
   hoje: `<path ${S} d="M28 192h200"/><path ${S} d="M64 192a64 64 0 0 1 128 0"/><path ${S} d="M128 44v32M52 84l22 22M204 84l-22 22"/>`,
   // Guias: o caminho em S do primeiro passo (aro) até a folha (chegada).
-  guias: `<circle ${S} cx="60" cy="200" r="22"/><path ${S} d="M82 200h50a38 38 0 0 0 0-76h-28a38 38 0 0 1 0-76h24"/><path fill="currentColor" d="M152 76V52a28 28 0 0 1 28-28h52v24a28 28 0 0 1-28 28z"/>`,
+  guias: `<circle ${S} cx="60" cy="200" r="22"/><path ${S} d="M82 200h50a38 38 0 0 0 0-76h-28a38 38 0 0 1 0-76h24"/><use href="#sg-folha" fill="currentColor" transform="translate(150 84) rotate(58) scale(0.96)"/>`,
   // Meu curso: o livro aberto com a folha brotando da lombada.
-  curso: `<path ${S} d="M128 104c-26-16-58-20-96-16v112c38-4 70 0 96 16 26-16 58-20 96-16V88c-38-4-70 0-96 16z"/><path ${S} d="M128 104v112"/><path fill="currentColor" d="M117 98c0-38 22-66 62-72 2 40-22 66-62 72z"/>`,
+  curso: `<path ${S} d="M128 104c-26-16-58-20-96-16v112c38-4 70 0 96 16 26-16 58-20 96-16V88c-38-4-70 0-96 16z"/><path ${S} d="M128 104v112"/><use href="#sg-folha" fill="currentColor" transform="translate(126 100) rotate(28) scale(0.84)"/>`,
   // Mais: três blocos e a folha no canto que brota.
-  mais: `<rect ${S} x="36" y="36" width="72" height="72" rx="16"/><rect ${S} x="36" y="148" width="72" height="72" rx="16"/><rect ${S} x="148" y="148" width="72" height="72" rx="16"/><path fill="currentColor" d="M137 119V84a59 59 0 0 1 59-59h35v35a59 59 0 0 1-59 59z"/>`,
+  mais: `<rect ${S} x="36" y="36" width="72" height="72" rx="16"/><rect ${S} x="36" y="148" width="72" height="72" rx="16"/><rect ${S} x="148" y="148" width="72" height="72" rx="16"/><use href="#sg-folha" fill="currentColor" transform="translate(140 118) rotate(45) scale(1.24)"/>`,
 } as const;
 
 export type CagpIconName = keyof typeof TAB_ICONS | PhosphorCagpName;

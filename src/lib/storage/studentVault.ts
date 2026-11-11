@@ -158,6 +158,16 @@ export const VaultSchemas = {
     updatedAt: z.string().optional(),
   }),
   cagp_reta_final_checklist_v1: z.record(z.string(), z.boolean()),
+  // Minhas horas (/meu-curso): o que não tem outro dono. As disciplinas marcadas ficam em
+  // cagp_minha_grade_v1 e as horas de extensão e AAC em cagp_calc_ext_aac_v1.
+  cagp_minhas_horas_v1: z.object({
+    optativasH: z.number().min(0).max(2000).default(0),
+    livreH: z.number().min(0).max(1000).default(0),
+    /** Nota (0 a 100) por código de disciplina. */
+    notas: z.record(z.string(), z.number().min(0).max(100)).default({}),
+    /** NSG de cada semestre, na ordem (null = ainda não preenchido). */
+    nsg: z.array(z.number().min(0).max(100).nullable()).max(17).default([]),
+  }),
 } as const;
 
 export type VaultKey = keyof typeof VaultSchemas;
@@ -222,6 +232,7 @@ export const VaultDefaults: { [K in VaultKey]: VaultData<K> } = {
     interestedInEmpresaJunior: false,
   },
   cagp_reta_final_checklist_v1: {},
+  cagp_minhas_horas_v1: { optativasH: 0, livreH: 0, notas: {}, nsg: [] },
 };
 
 export function getVaultItem<K extends VaultKey>(key: K): VaultData<K> {

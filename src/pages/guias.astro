@@ -1,5 +1,5 @@
 ---
-// /guias — Hub da aba Guias (Modelo B). Documentos mais pedidos primeiro; depois os guias por momento do curso.
+// /guias — Hub da aba Guias (Modelo B). Primeiro o bloco com todos os guias; depois os documentos mais pedidos.
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/ui/PageHeader.astro';
 import HubItemList from '@/components/shell/HubItemList.astro';
@@ -7,8 +7,11 @@ import DocumentosMaisPedidos from '@/components/features/guias/DocumentosMaisPed
 import { getAxisById } from '@/lib/navigationRegistry';
 
 const axis = getAxisById('guias')!;
-const groups = (axis.groups ?? []).filter((g) => g.id !== 'documentos');
-const docsItem = axis.items.find((i) => i.group === 'documentos');
+// Um bloco só com todos os guias, na ordem do curso (documentos, começando, durante, terminando, dúvidas).
+const ordem = (axis.groups ?? []).map((g) => g.id);
+const guias = axis.items
+  .filter((i) => i.type !== 'hub')
+  .sort((x, y) => ordem.indexOf(x.group ?? '') - ordem.indexOf(y.group ?? ''));
 ---
 
 <BaseLayout
@@ -24,18 +27,7 @@ const docsItem = axis.items.find((i) => i.group === 'documentos');
   />
 
   <div class="space-y-10 sm:space-y-12">
+    <HubItemList items={guias} />
     <DocumentosMaisPedidos />
-
-    {groups.map((group) => (
-      <HubItemList
-        heading={group.title}
-        headingId={`guias-${group.id}`}
-        items={axis.items.filter((i) => i.group === group.id)}
-      />
-    ))}
-
-    {docsItem && (
-      <HubItemList heading="Todos os documentos" headingId="guias-acervo" items={[docsItem]} />
-    )}
   </div>
 </BaseLayout>

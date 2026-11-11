@@ -206,14 +206,14 @@ export const FormandoRetaFinalHub: React.FC = () => {
           <div className="space-y-1.5">
             <div className="flex flex-wrap items-center gap-2">
               <span className="px-2.5 py-1 rounded-md border-2 border-border bg-primary text-white font-mono text-xs font-bold uppercase shadow-2xs">
-                Persona: Formando (8º ao 10º Período)
+                Para quem está do 8º ao 10º período
               </span>
               <span className="px-2.5 py-1 rounded-md border-2 border-border bg-petroleo-deep text-white font-mono text-xs font-bold uppercase shadow-2xs">
                 Estágio 300h + TCC 180h + Colação
               </span>
             </div>
             <h2 className="font-heading text-lg sm:text-2xl font-black text-foreground m-0">
-              Checklist Reta Final &amp; Painel Integrado de Colação de Grau
+              Checklist da reta final e da colação de grau
             </h2>
             <p className="font-sans text-xs sm:text-sm text-muted-foreground m-0 max-w-3xl leading-relaxed">
               Acompanhe em uma única tela suas obrigações de <strong>Estágio Supervisionado (300h / Art. 41)</strong>, <strong>TCC (180h / Art. 19)</strong> e <strong>Colação de Grau no DRCA</strong>. Fica tudo salvo neste celular.

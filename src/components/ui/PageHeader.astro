@@ -12,7 +12,7 @@ import { vtTitleName } from '@/lib/viewTransitionNames';
 import { resolveCagpIconName } from '@/lib/cagpIcons';
 import { badgeVariants } from './badge';
 import { cn } from '@/lib/utils';
-import EstagioArt from './EstagioArt.astro';
+import EstagioIlustra from './EstagioIlustra.astro';
 import { estagioDaRota } from '@/lib/estagios';
 import {
   Breadcrumb,
@@ -107,7 +107,7 @@ const computedBreadcrumbs = breadcrumbs && breadcrumbs.length > 0
 
   {!isPersuadeMode && (
     <div class={cn('cagp-page-head', isOperateOrCondensed ? 'p-5 sm:p-6' : 'p-5 sm:p-8')}>
-      <EstagioArt estagio={estagio} class="cagp-page-head-art" />
+      <EstagioIlustra nivel={estagio.nivel} class="cagp-page-head-art" />
       <div class="cagp-page-head-body">
       {computedBreadcrumbs.length > 0 && (
         <div class="mb-3 hidden md:block">
@@ -141,7 +141,7 @@ const computedBreadcrumbs = breadcrumbs && breadcrumbs.length > 0
       </h1>
 
       {subtitle && (
-        <p class="mt-2 mb-0 max-w-[60ch] text-base leading-relaxed line-clamp-2 sm:line-clamp-none">
+        <p class="mt-2 mb-0 max-w-[60ch] text-base leading-relaxed line-clamp-3 sm:line-clamp-none">
           {subtitle}
         </p>
       )}

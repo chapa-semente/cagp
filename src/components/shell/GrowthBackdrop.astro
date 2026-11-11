@@ -1,6 +1,7 @@
 ---
 // GrowthBackdrop.astro — O ramo que cresce com a rolagem (DESIGN.md › Movimento › Crescer).
-// Um caule ondulado na borda direita se desenha conforme a página desce; as folhas brotam no caminho
+// No desktop: um caule ondulado na borda direita, com a folha do símbolo. No celular o ramo vive na
+// borda de baixo do cabeçalho (SuperAppHeader.astro › .cagp-ramo). Aqui: um caule ondulado na borda direita se desenha conforme a página desce; as folhas brotam no caminho
 // e o fruto aparece no fim. É CSS guiado pela rolagem (animation-timeline: scroll()), sem JS: onde o
 // navegador não suporta, o ramo aparece inteiro e parado. Decorativo: aria-hidden, sem eventos.
 const folhas = [9, 20, 31, 42, 53, 64, 75, 86];
@@ -16,8 +17,12 @@ const folhas = [9, 20, 31, 42, 53, 64, 75, 86];
       <path pathLength="1" d="M20 0C36 60 4 120 20 180s16 120 0 180-16 120 0 180 16 120 0 180-16 120 0 180 10 60 0 100" />
     </svg>
     {folhas.map((top, i) => (
-      <svg class={`cagp-growth-leaf ${i % 2 ? 'is-left' : 'is-right'} ${i % 3 === 1 ? 'is-orange' : ''}`} style={`top:${top}%; --at:${top}%`} viewBox="0 0 40 40">
-        <path d="M2 38C2 16 16 3 38 2c0 22-14 35-36 36z" />
+      <svg
+        class={`cagp-growth-leaf ${i % 2 ? 'is-left' : 'is-right'} ${i % 3 === 1 ? 'is-green' : ''}`}
+        style={`top:${top}%; --at:${top}%`}
+        viewBox={i % 2 ? '-104 -72 110 84' : '-6 -72 110 84'}
+      >
+        <g transform={`rotate(${i % 2 ? -62 : 62})`}><use href="#sg-folha" /></g>
       </svg>
     ))}
   <span class="cagp-growth-fruit" style="--at:95%"></span>

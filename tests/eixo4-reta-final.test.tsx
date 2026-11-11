@@ -35,7 +35,7 @@ describe('Eixo 4 — Reta Final, Estágio (Art. 41), TCC & Carreira', () => {
     render(<FormandoRetaFinalHub />);
 
     expect(
-      screen.getByText(/Checklist Reta Final & Painel Integrado de Colação de Grau/i)
+      screen.getByText(/Checklist da reta final e da colação de grau/i)
     ).toBeDefined();
 
     const checkboxes = screen.getAllByRole('checkbox');

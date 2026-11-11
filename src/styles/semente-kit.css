@@ -1,0 +1,692 @@
+/* semente-kit.css — O kit Semente (DESIGN.md › Virada de 11/11/2026).
+ *
+ * Peças aprovadas na amostra, com prefixo `sk-`: quadro de ícone com a folha brotando, adesivo,
+ * grade de atalhos, cartões deslizantes, cartão-saldo, slider com a semente, interruptor que
+ * brota, abas com indicador em folha, ficha de marcar com carimbo e progresso em caule.
+ * Todos os controles são elementos nativos por baixo (input range, checkbox, radio).
+ *
+ * --sk-semente é a semente do símbolo com a sombra dura junto (pegador do slider, botão do
+ * interruptor, ponta do ramo). É gerada de src/lib/sementeGeometry.ts; se a geometria mudar,
+ * regenerar este valor.
+ */
+:root {
+  --sk-areia: var(--color-muted, #e7e3d8);
+  --sk-semente: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-62 -112 132 132'%3E%3Cg transform='rotate%2858 0 -50%29'%3E%3Cpath transform='translate%287 0%29 scale%281.5 1%29' d='M-0.0-100.0C1.7-99.1 3.3-98.6 4.7-97.5C6.1-96.4 7.4-95.2 8.6-93.9C9.7-92.6 10.8-91.2 11.8-89.8C12.7-88.3 13.6-86.8 14.4-85.2C15.2-83.6 15.8-82.0 16.5-80.3C17.1-78.6 17.6-76.9 18.1-75.2C18.5-73.5 19.0-71.7 19.3-70.0C19.6-68.2 19.9-66.5 20.1-64.7C20.3-63.0 20.5-61.2 20.5-59.4C20.6-57.7 20.6-55.9 20.5-54.2C20.4-52.4 20.2-50.7 19.9-48.9C19.7-47.2 19.4-45.4 19.0-43.7C18.5-42.0 18.1-40.3 17.5-38.6C17.0-36.9 16.4-35.2 15.8-33.6C15.1-31.9 14.4-30.3 13.6-28.7C12.9-27.1 12.1-25.5 11.2-23.9C10.4-22.4 9.5-20.9 8.6-19.4C7.6-17.8 6.7-16.3 5.9-14.8C5.1-13.2 4.3-11.6 3.7-10.0C3.0-8.3 2.4-6.7 1.8-5.0C1.3-3.3 0.5-1.7 0.0 0.0C-1.4-1.2-3.0-2.0-4.2-3.3C-5.4-4.6-6.5-6.0-7.4-7.5C-8.4-9.0-9.3-10.5-10.1-12.1C-11.0-13.7-11.7-15.4-12.3-17.0C-13.0-18.7-13.5-20.4-14.0-22.2C-14.5-23.9-14.9-25.7-15.3-27.4C-15.7-29.2-16.0-31.0-16.2-32.7C-16.4-34.5-16.5-36.3-16.6-38.1C-16.6-39.9-16.6-41.7-16.5-43.5C-16.4-45.2-16.2-47.0-16.0-48.8C-15.7-50.6-15.4-52.3-15.0-54.1C-14.7-55.8-14.2-57.6-13.7-59.3C-13.2-61.0-12.7-62.8-12.1-64.5C-11.5-66.2-10.9-67.8-10.2-69.5C-9.5-71.2-8.8-72.8-8.1-74.5C-7.4-76.1-6.7-77.8-6.1-79.4C-5.4-81.1-4.8-82.8-4.2-84.5C-3.7-86.2-3.2-87.9-2.7-89.6C-2.2-91.4-1.8-93.1-1.5-94.9C-1.1-96.6-0.3-98.2-0.0-100.0Z' fill='%231F1F1F' stroke='%231F1F1F' stroke-width='7' stroke-linejoin='round'/%3E%3Cpath transform='scale%281.5 1%29' d='M-0.0-100.0C1.7-99.1 3.3-98.6 4.7-97.5C6.1-96.4 7.4-95.2 8.6-93.9C9.7-92.6 10.8-91.2 11.8-89.8C12.7-88.3 13.6-86.8 14.4-85.2C15.2-83.6 15.8-82.0 16.5-80.3C17.1-78.6 17.6-76.9 18.1-75.2C18.5-73.5 19.0-71.7 19.3-70.0C19.6-68.2 19.9-66.5 20.1-64.7C20.3-63.0 20.5-61.2 20.5-59.4C20.6-57.7 20.6-55.9 20.5-54.2C20.4-52.4 20.2-50.7 19.9-48.9C19.7-47.2 19.4-45.4 19.0-43.7C18.5-42.0 18.1-40.3 17.5-38.6C17.0-36.9 16.4-35.2 15.8-33.6C15.1-31.9 14.4-30.3 13.6-28.7C12.9-27.1 12.1-25.5 11.2-23.9C10.4-22.4 9.5-20.9 8.6-19.4C7.6-17.8 6.7-16.3 5.9-14.8C5.1-13.2 4.3-11.6 3.7-10.0C3.0-8.3 2.4-6.7 1.8-5.0C1.3-3.3 0.5-1.7 0.0 0.0C-1.4-1.2-3.0-2.0-4.2-3.3C-5.4-4.6-6.5-6.0-7.4-7.5C-8.4-9.0-9.3-10.5-10.1-12.1C-11.0-13.7-11.7-15.4-12.3-17.0C-13.0-18.7-13.5-20.4-14.0-22.2C-14.5-23.9-14.9-25.7-15.3-27.4C-15.7-29.2-16.0-31.0-16.2-32.7C-16.4-34.5-16.5-36.3-16.6-38.1C-16.6-39.9-16.6-41.7-16.5-43.5C-16.4-45.2-16.2-47.0-16.0-48.8C-15.7-50.6-15.4-52.3-15.0-54.1C-14.7-55.8-14.2-57.6-13.7-59.3C-13.2-61.0-12.7-62.8-12.1-64.5C-11.5-66.2-10.9-67.8-10.2-69.5C-9.5-71.2-8.8-72.8-8.1-74.5C-7.4-76.1-6.7-77.8-6.1-79.4C-5.4-81.1-4.8-82.8-4.2-84.5C-3.7-86.2-3.2-87.9-2.7-89.6C-2.2-91.4-1.8-93.1-1.5-94.9C-1.1-96.6-0.3-98.2-0.0-100.0Z' fill='%23FE8812' stroke='%231F1F1F' stroke-width='7' stroke-linejoin='round'/%3E%3Cpath transform='translate%284 -22%29 scale%28.55 .5%29' d='M-0.0-100.0C1.7-99.1 3.3-98.6 4.7-97.5C6.1-96.4 7.4-95.2 8.6-93.9C9.7-92.6 10.8-91.2 11.8-89.8C12.7-88.3 13.6-86.8 14.4-85.2C15.2-83.6 15.8-82.0 16.5-80.3C17.1-78.6 17.6-76.9 18.1-75.2C18.5-73.5 19.0-71.7 19.3-70.0C19.6-68.2 19.9-66.5 20.1-64.7C20.3-63.0 20.5-61.2 20.5-59.4C20.6-57.7 20.6-55.9 20.5-54.2C20.4-52.4 20.2-50.7 19.9-48.9C19.7-47.2 19.4-45.4 19.0-43.7C18.5-42.0 18.1-40.3 17.5-38.6C17.0-36.9 16.4-35.2 15.8-33.6C15.1-31.9 14.4-30.3 13.6-28.7C12.9-27.1 12.1-25.5 11.2-23.9C10.4-22.4 9.5-20.9 8.6-19.4C7.6-17.8 6.7-16.3 5.9-14.8C5.1-13.2 4.3-11.6 3.7-10.0C3.0-8.3 2.4-6.7 1.8-5.0C1.3-3.3 0.5-1.7 0.0 0.0C-1.4-1.2-3.0-2.0-4.2-3.3C-5.4-4.6-6.5-6.0-7.4-7.5C-8.4-9.0-9.3-10.5-10.1-12.1C-11.0-13.7-11.7-15.4-12.3-17.0C-13.0-18.7-13.5-20.4-14.0-22.2C-14.5-23.9-14.9-25.7-15.3-27.4C-15.7-29.2-16.0-31.0-16.2-32.7C-16.4-34.5-16.5-36.3-16.6-38.1C-16.6-39.9-16.6-41.7-16.5-43.5C-16.4-45.2-16.2-47.0-16.0-48.8C-15.7-50.6-15.4-52.3-15.0-54.1C-14.7-55.8-14.2-57.6-13.7-59.3C-13.2-61.0-12.7-62.8-12.1-64.5C-11.5-66.2-10.9-67.8-10.2-69.5C-9.5-71.2-8.8-72.8-8.1-74.5C-7.4-76.1-6.7-77.8-6.1-79.4C-5.4-81.1-4.8-82.8-4.2-84.5C-3.7-86.2-3.2-87.9-2.7-89.6C-2.2-91.4-1.8-93.1-1.5-94.9C-1.1-96.6-0.3-98.2-0.0-100.0Z' fill='%23FFC83D'/%3E%3C/g%3E%3C/svg%3E");
+}
+/* Adesivo: etiqueta inclinada com sombra dupla (BoldKit › Sticker). */
+.sk-adesivo {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border: 2px solid #1f1f1f;
+  border-radius: 6px;
+  background: #fff;
+  color: #1f1f1f;
+  font: 700 0.75rem/1 var(--font-heading);
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+  rotate: -5deg;
+  box-shadow: 2px 2px 0 0 var(--color-accent), 4px 4px 0 0 #1f1f1f;
+  pointer-events: none;
+}
+.sk-tile {
+  position: relative;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: 3px solid #1f1f1f;
+  /* O corpo do símbolo: pontas no alto à direita e embaixo à esquerda. */
+  border-radius: 18px 5px 18px 5px;
+  background: var(--bg);
+  color: var(--fg);
+  box-shadow: 3px 3px 0 0 #1f1f1f;
+  transition: translate var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out), box-shadow var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out);
+}
+.sk-tile > svg:first-child { width: 26px; height: 26px; }
+.sk-tile-g { width: 62px; height: 62px; border-radius: 22px 6px 22px 6px; box-shadow: 4px 4px 0 0 #1f1f1f; }
+.sk-tile-g > svg:first-child { width: 30px; height: 30px; }
+/* A folha laranja do símbolo, brotando do canto. */
+.sk-broto {
+  position: absolute;
+  right: -9px;
+  top: -19px;
+  width: 17px;
+  height: 27px;
+  overflow: visible;
+  fill: var(--color-accent);
+  stroke: #1f1f1f;
+  stroke-width: 5px;
+  stroke-linejoin: round;
+  paint-order: stroke;
+  transform-origin: 62% 96%;
+  rotate: 22deg;
+  transition: rotate var(--duration-spring, 520ms) var(--ease-spring-bouncy, ease-out), scale var(--duration-spring, 520ms) var(--ease-spring-bouncy, ease-out);
+}
+.sk-tile-g .sk-broto { width: 20px; height: 32px; right: -10px; top: -23px; }
+:is(li, a):hover > .sk-tile-broto .sk-broto { rotate: -8deg; scale: 1.2; }
+:is(li, a):hover > .sk-tile { translate: -1px -1px; box-shadow: 5px 5px 0 0 #1f1f1f; }
+
+.sk-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0.75rem 1.25rem;
+  border: 3px solid #1f1f1f;
+  border-radius: 12px;
+  background: #fff;
+  color: #1f1f1f;
+  font: 700 0.875rem/1 var(--font-heading);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  box-shadow: 4px 4px 0 0 #1f1f1f;
+  cursor: pointer;
+  transition: translate var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out), box-shadow var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out);
+}
+.sk-btn:hover { translate: -1px -1px; box-shadow: 6px 6px 0 0 #1f1f1f; }
+.sk-btn:active { translate: 4px 4px; box-shadow: 0 0 0 0 #1f1f1f; }
+.sk-btn:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; }
+.sk-btn-roxo { background: var(--color-primary); color: #fff; }
+.sk-btn-folha { background: var(--color-accent); border-radius: 26px 7px 26px 7px; padding-inline: 1.5rem; }
+.sk-btn-folha svg {
+  width: 16px;
+  height: 24px;
+  margin-block: -6px;
+  overflow: visible;
+  fill: var(--color-primary);
+  stroke: #1f1f1f;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+  paint-order: stroke;
+  transform-origin: 62% 96%;
+  rotate: 16deg;
+  transition: rotate var(--duration-spring, 520ms) var(--ease-spring-bouncy, ease-out);
+}
+.sk-btn-folha:hover svg { rotate: -14deg; }
+.sk-slider { display: grid; gap: 0.25rem; }
+.sk-slider label { font-weight: 700; font-size: 0.875rem; }
+.sk-slider-pista { position: relative; padding-top: 2.5rem; }
+/* O valor num adesivo que acompanha a semente. */
+.sk-slider-bolha {
+  position: absolute;
+  left: calc(26px + var(--pct, 0.4) * (100% - 52px));
+  top: 0;
+  translate: -50% 0;
+  padding: 0.375rem 0.625rem;
+  border: 3px solid #1f1f1f;
+  border-radius: 10px 3px 10px 3px;
+  background: #ffc83d;
+  font: 700 1rem/1 var(--font-heading);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  rotate: -4deg;
+  box-shadow: 3px 3px 0 0 #1f1f1f;
+  pointer-events: none;
+}
+.sk-slider-marcas { display: flex; justify-content: space-between; padding-inline: 14px; font-weight: 700; font-size: 0.75rem; font-variant-numeric: tabular-nums; color: #4a4740; }
+.sk-range {
+  --pct: 50%;
+  --tilt: 0deg;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  height: 48px;
+  margin: 0;
+  background: transparent;
+  cursor: grab;
+}
+.sk-range:active { cursor: grabbing; }
+/* Pista com o enchimento terminando numa aresta dura (neobrutalism › Progress). */
+.sk-range::-webkit-slider-runnable-track {
+  height: 18px;
+  border: 3px solid #1f1f1f;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--color-secondary) var(--pct), #1f1f1f var(--pct), #1f1f1f calc(var(--pct) + 3px), var(--sk-areia) calc(var(--pct) + 3px));
+  box-shadow: 3px 3px 0 0 #1f1f1f;
+}
+.sk-range::-moz-range-track {
+  height: 12px;
+  border: 3px solid #1f1f1f;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--color-secondary) var(--pct), #1f1f1f var(--pct), #1f1f1f calc(var(--pct) + 3px), var(--sk-areia) calc(var(--pct) + 3px));
+  box-shadow: 3px 3px 0 0 #1f1f1f;
+}
+.sk-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 52px;
+  height: 52px;
+  margin-top: -20px;
+  border: 0;
+  background: var(--sk-semente) center / contain no-repeat;
+  rotate: var(--tilt);
+  transition: rotate var(--duration-spring, 520ms) var(--ease-spring-bouncy, ease-out), translate var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out);
+}
+.sk-range::-moz-range-thumb {
+  width: 52px;
+  height: 52px;
+  border: 0;
+  border-radius: 0;
+  background: var(--sk-semente) center / contain no-repeat;
+  rotate: var(--tilt);
+  transition: rotate var(--duration-spring, 520ms) var(--ease-spring-bouncy, ease-out);
+}
+.sk-range:active::-webkit-slider-thumb { translate: 2px 2px; }
+.sk-range:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 2px; border-radius: 10px; }
+
+.sk-switch { display: flex; align-items: center; gap: 1rem; min-height: 60px; font-size: 1rem; cursor: pointer; }
+.sk-switch input { position: absolute; opacity: 0; pointer-events: none; }
+.sk-switch-trilho {
+  position: relative;
+  flex: none;
+  width: 76px;
+  height: 40px;
+  border: 3px solid #1f1f1f;
+  border-radius: 999px;
+  background: var(--sk-areia);
+  box-shadow: 3px 3px 0 0 #1f1f1f;
+  transition: background-color var(--duration-press, 160ms) var(--ease-snap, ease-out);
+}
+.sk-switch-botao {
+  position: absolute;
+  top: -9px;
+  left: -8px;
+  width: 52px;
+  height: 52px;
+  background: var(--sk-semente) center / contain no-repeat;
+  transition: translate var(--duration-spring, 520ms) var(--ease-spring, ease-out), rotate var(--duration-spring, 520ms) var(--ease-spring, ease-out);
+}
+.sk-switch-folha {
+  position: absolute;
+  left: 50px;
+  bottom: 26px;
+  width: 22px;
+  height: 36px;
+  overflow: visible;
+  fill: #6db33f;
+  stroke: #1f1f1f;
+  stroke-width: 5px;
+  stroke-linejoin: round;
+  paint-order: stroke;
+  transform-origin: 62% 96%;
+  scale: 0;
+  rotate: 16deg;
+  transition: scale 120ms var(--ease-snap, ease-out);
+}
+.sk-switch input:checked + .sk-switch-trilho { background: var(--color-primary); }
+.sk-switch input:checked + .sk-switch-trilho .sk-switch-botao { translate: 36px 0; rotate: 180deg; }
+.sk-switch input:checked + .sk-switch-trilho .sk-switch-folha {
+  scale: 1;
+  transition: scale var(--duration-spring, 520ms) var(--ease-spring-bouncy, ease-out) 180ms;
+}
+.sk-switch:active .sk-switch-trilho { translate: 3px 3px; box-shadow: 0 0 0 0 #1f1f1f; }
+.sk-switch input:focus-visible + .sk-switch-trilho { outline: 3px solid var(--color-primary); outline-offset: 4px; }
+
+.sk-seg {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 5px;
+  border: 3px solid #1f1f1f;
+  border-radius: 16px;
+  background: var(--sk-areia);
+  box-shadow: 3px 3px 0 0 #1f1f1f;
+}
+.sk-seg input { position: absolute; opacity: 0; pointer-events: none; }
+.sk-seg label {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  min-height: 44px;
+  font: 700 0.875rem/1 var(--font-heading);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color var(--duration-press, 160ms) var(--ease-snap, ease-out);
+}
+.sk-seg input:checked + label { color: #fff; }
+.sk-seg input:focus-visible + label { outline: 3px solid var(--color-primary); outline-offset: 2px; border-radius: 10px; }
+.sk-seg-ind {
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  left: 5px;
+  width: calc((100% - 10px) / 3);
+  border: 3px solid #1f1f1f;
+  border-radius: 20px 5px 20px 5px;
+  background: var(--color-primary);
+  box-shadow: 2px 2px 0 0 #1f1f1f;
+  transition: translate var(--duration-spring, 520ms) var(--ease-spring, ease-out);
+}
+.sk-seg:has(input:nth-of-type(2):checked) .sk-seg-ind { translate: 100% 0; }
+.sk-seg:has(input:nth-of-type(3):checked) .sk-seg-ind { translate: 200% 0; }
+
+/* A linha inteira é a ficha: marca, pinta e leva o carimbo. */
+.sk-check {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 60px;
+  margin-bottom: 0.875rem;
+  padding: 0.625rem 0.875rem;
+  border: 3px solid #1f1f1f;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 3px 3px 0 0 #1f1f1f;
+  font-size: 0.9375rem;
+  line-height: 1.35;
+  cursor: pointer;
+  transition: translate var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out), box-shadow var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out), background-color var(--duration-press, 160ms) var(--ease-snap, ease-out);
+}
+.sk-check:active { translate: 3px 3px; box-shadow: 0 0 0 0 #1f1f1f; }
+.sk-check:has(input:checked) { background: var(--color-primary-tint, #efe7f6); }
+.sk-check-txt { min-width: 0; padding-right: 4.75rem; }
+.sk-check-txt strong { display: block; font: 700 0.75rem/1.2 var(--font-heading); letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
+.sk-check input {
+  flex: none;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  border: 3px solid #1f1f1f;
+  border-radius: 12px 3px 12px 3px;
+  background: #fff center / 0 no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E");
+  cursor: pointer;
+  transition: background-size var(--duration-spring, 520ms) var(--ease-spring-bouncy, ease-out), background-color var(--duration-press, 160ms) var(--ease-snap, ease-out);
+}
+.sk-check input:checked { background-color: var(--color-primary); background-size: 78%; }
+.sk-check input:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; }
+.sk-check-carimbo {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  padding: 0.25rem 0.5rem;
+  border: 2px solid #1f1f1f;
+  border-radius: 8px;
+  background: var(--color-primary);
+  color: #fff;
+  font: 700 0.75rem/1 var(--font-heading);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  translate: 0 -50%;
+  rotate: -6deg;
+  scale: 1.8;
+  opacity: 0;
+}
+/* O carimbo desce grande, bate e assenta; a sombra só "pega" no fim. */
+.sk-check input:checked ~ .sk-check-carimbo {
+  scale: 1;
+  opacity: 1;
+  box-shadow: 2px 2px 0 0 #1f1f1f;
+  transition: scale var(--duration-stamp, 560ms) var(--ease-spring-bouncy, ease-out), opacity 80ms linear, box-shadow 0s linear 260ms;
+}
+
+.sk-prog-num { margin: 0; font-size: 1rem; font-variant-numeric: tabular-nums; }
+.sk-prog-num strong { font: 700 2rem/1 var(--font-heading); }
+.sk-caule { position: relative; height: 22px; margin: 2.75rem 14px 0.5rem 0; border: 3px solid #1f1f1f; border-radius: 999px; background: var(--sk-areia); box-shadow: 3px 3px 0 0 #1f1f1f; }
+.sk-caule-cheio { position: absolute; inset: 0 auto 0 0; width: calc(var(--p) * 100%); border-right: 3px solid #1f1f1f; border-radius: 999px 0 0 999px; background: var(--color-secondary); }
+.sk-caule-folha {
+  position: absolute;
+  bottom: calc(100% + 1px);
+  width: 20px;
+  height: 32px;
+  margin-left: -8px;
+  overflow: visible;
+  fill: #6db33f;
+  stroke: #1f1f1f;
+  stroke-width: 5px;
+  stroke-linejoin: round;
+  paint-order: stroke;
+  transform-origin: 62% 96%;
+  rotate: 14deg;
+  scale: clamp(0, calc((var(--p) - var(--t)) * 1000), 1);
+}
+.sk-caule-folha:nth-of-type(2) { fill: var(--color-accent); rotate: -12deg; }
+.sk-caule-fruto {
+  position: absolute;
+  right: -16px;
+  top: 50%;
+  width: 34px;
+  height: 34px;
+  margin-top: -17px;
+  border: 3px solid #1f1f1f;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 2px 2px 0 0 #1f1f1f;
+}
+/* Cartão em camadas (BoldKit › Layered Card): duas folhas de cor aparecendo por trás. */
+.sk-saldo {
+  margin: 0 12px 12px 0;
+  border: 3px solid #1f1f1f;
+  border-radius: 18px;
+  background: var(--color-secondary);
+  color: #fff;
+  /* Cada camada é uma sombra de cor por cima de uma sombra grafite 3px maior. */
+  box-shadow:
+    6px 6px 0 -3px var(--color-accent),
+    6px 6px 0 0 #1f1f1f,
+    12px 12px 0 -3px #ffc83d,
+    12px 12px 0 0 #1f1f1f;
+}
+.sk-saldo-topo { display: flex; justify-content: space-between; align-items: flex-end; gap: 0.25rem; overflow: hidden; border-radius: 15px 15px 0 0; }
+.sk-saldo-topo > div { padding: 1.125rem 0 1rem 1.125rem; min-width: 0; }
+.sk-saldo-rotulo {
+  display: inline-block;
+  margin: 0;
+  padding: 0.25rem 0.5rem;
+  border: 2px solid #1f1f1f;
+  border-radius: 6px;
+  background: #ffc83d;
+  color: #1f1f1f;
+  font: 700 0.75rem/1 var(--font-heading);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  rotate: -4deg;
+  box-shadow: 2px 2px 0 0 #1f1f1f;
+}
+.sk-saldo-num { margin: 0.625rem 0 0; font: 700 3.75rem/0.95 var(--font-heading); font-variant-numeric: tabular-nums; color: #fff; }
+.sk-saldo-num span { font-size: 1.75rem; margin-left: 0.125rem; color: #ffc83d; }
+.sk-saldo-sub { margin: 0.5rem 0 0; font-size: 0.875rem; line-height: 1.4; font-variant-numeric: tabular-nums; }
+.sk-saldo .sk-saldo-art { flex: none; width: 8.5rem; height: 8.5rem; margin-right: -0.5rem; --ei-ink: 4px; }
+.sk-saldo-papel { display: grid; gap: 1.125rem; padding: 1.125rem; border-top: 3px solid #1f1f1f; border-radius: 0 0 15px 15px; background: #fff; color: #1f1f1f; }
+.sk-saldo-grupos { display: grid; gap: 0.75rem; margin: 0; padding: 0; list-style: none; }
+.sk-saldo-grupos li { display: grid; grid-template-columns: 1fr auto; gap: 0.3125rem 0.75rem; font-size: 0.875rem; line-height: 1.3; }
+.sk-saldo-g-nome { font-weight: 700; }
+.sk-saldo-g-val { font-variant-numeric: tabular-nums; }
+.sk-saldo-g-barra { grid-column: 1 / -1; height: 14px; border: 2px solid #1f1f1f; border-radius: 999px; background: var(--sk-areia); overflow: hidden; }
+.sk-saldo-g-barra span { display: block; height: 100%; min-width: 0; border-right: 2px solid #1f1f1f; background: var(--cor); }
+.sk-saldo-g-barra span[style*='width:0%'] { border-right: 0; }
+
+.sk-atalhos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem 0.25rem; margin: 0; padding: 1rem 0 0; list-style: none; }
+.sk-atalhos a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.625rem;
+  min-height: 44px;
+  color: #1f1f1f;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  text-wrap: balance;
+}
+.sk-atalhos a:active .sk-tile { translate: 4px 4px; box-shadow: 0 0 0 0 #1f1f1f; }
+.sk-atalhos a:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 4px; border-radius: 8px; }
+/* Colagem: os quadros alternam uma inclinação leve. */
+.sk-atalhos li:nth-child(odd) .sk-tile { rotate: -3deg; }
+.sk-atalhos li:nth-child(even) .sk-tile { rotate: 2deg; }
+
+.sk-desliza {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 74%;
+  gap: 1rem;
+  margin: 0 -1rem;
+  padding: 0.5rem 1rem 1rem;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 1rem;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+.sk-desliza:focus-visible { outline: 3px solid var(--color-primary); outline-offset: -3px; }
+.sk-desliza li {
+  scroll-snap-align: start;
+  border: 3px solid #1f1f1f;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 4px 4px 0 0 #1f1f1f;
+  overflow: hidden;
+}
+.sk-desliza li:nth-child(odd) { rotate: -1.2deg; }
+.sk-desliza li:nth-child(even) { rotate: 1deg; }
+.sk-desliza-faixa {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.625rem 0.875rem;
+  border-bottom: 3px solid #1f1f1f;
+  background: var(--bg);
+  color: var(--fg);
+  font: 700 0.75rem/1 var(--font-heading);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.sk-desliza-faixa svg { width: 22px; height: 22px; }
+.sk-desliza-t { margin: 0.875rem 0.875rem 0; font-size: 0.875rem; line-height: 1.3; color: #4a4740; }
+.sk-desliza-n { display: flex; flex-wrap: wrap; gap: 0 0.75rem; margin: 0.125rem 0.875rem 1rem; font: 700 1.375rem/1.25 var(--font-heading); font-variant-numeric: tabular-nums; }
+.sk-desliza-n span { white-space: nowrap; }
+
+/* ---- Atalhos de aba (HubItemList) ---------------------------------------------------------
+   Celular: grade de 3, quadro em cima e nome curto embaixo. A partir de 640px: cartões com a
+   linha do que a página resolve. A cor vem de [data-nav-axis] (--aba, --aba-fg, --aba-solo). */
+.sk-atalhos-hub { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.75rem 0.5rem; padding-top: 1.25rem; }
+.sk-atalhos-hub a { --bg: var(--aba); --fg: var(--aba-fg); font-size: 0.875rem; }
+/* Ritmo dentro da mesma aba: um quadro cheio, um claro. */
+.sk-atalhos-hub li:nth-child(even) a { --bg: var(--aba-solo); --fg: #1f1f1f; }
+.sk-atalho-txt { display: grid; gap: 0.25rem; min-width: 0; }
+.sk-atalho-nome { width: fit-content; margin-inline: auto; font-weight: 700; line-height: 1.2; }
+.sk-atalho-desc {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+@media (min-width: 640px) {
+  /* Quantas colunas couberem com cartões de pelo menos 16.5rem (a home usa uma coluna estreita). */
+  .sk-atalhos-hub { grid-template-columns: repeat(auto-fill, minmax(16.5rem, 1fr)); gap: 1.5rem 1.25rem; padding-top: 0.75rem; }
+  .sk-atalhos-hub a {
+    flex-direction: row;
+    align-items: center;
+    gap: 1.125rem;
+    height: 100%;
+    padding: 1rem 1.125rem;
+    border: 3px solid #1f1f1f;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 4px 4px 0 0 var(--shadow-color, #1f1f1f);
+    text-align: left;
+    font-size: 1rem;
+    transition: translate var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out), box-shadow var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out);
+  }
+  .sk-atalhos-hub a:hover { translate: -1px -1px; box-shadow: 6px 6px 0 0 var(--shadow-color, #1f1f1f); }
+  .sk-atalhos-hub a:active { translate: 4px 4px; box-shadow: 0 0 0 0 #1f1f1f; }
+  .sk-atalhos-hub a:active .sk-tile { translate: none; box-shadow: 4px 4px 0 0 #1f1f1f; }
+  .sk-atalho-nome { margin-inline: 0; font-family: var(--font-heading); font-size: 1.0625rem; }
+  .sk-atalho-desc {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip-path: none;
+    white-space: normal;
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: var(--color-muted-foreground, #4a4740);
+    text-wrap: pretty;
+  }
+}
+
+/* Grade com atalhos de abas diferentes (home): todo quadro fica cheio, na cor da própria aba. */
+.sk-atalhos-mistos li:nth-child(even) a { --bg: var(--aba); --fg: var(--aba-fg); }
+
+/* ---- Cartões deslizantes com corpo clicável (home › Hoje à noite) ------------------------- */
+.sk-desliza-corpo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+}
+:is(a, button).sk-desliza-corpo { cursor: pointer; }
+:is(a, button).sk-desliza-corpo:focus-visible { outline: 3px solid var(--color-primary); outline-offset: -5px; border-radius: 14px; }
+.sk-desliza-corpo > :where(span) { display: block; }
+.sk-desliza-faixa svg { flex: none; }
+.sk-desliza-sub { margin: -0.5rem 0.875rem 1rem; font-size: 0.875rem; line-height: 1.4; color: var(--color-muted-foreground, #4a4740); font-variant-numeric: tabular-nums; }
+.sk-desliza-corpo > .sk-desliza-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 0.875rem;
+  border-top: 2px solid #1f1f1f;
+  background: var(--sk-areia);
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+.sk-desliza-home { margin-inline: -0.75rem; padding-inline: 0.75rem; scroll-padding-inline: 0.75rem; }
+.sk-desliza-home .sk-desliza-n { font-size: 1.25rem; }
+@media (min-width: 640px) {
+  .sk-desliza-home { margin-inline: -0.25rem; padding-inline: 0.25rem; scroll-padding-inline: 0.25rem; grid-auto-columns: 46%; }
+}
+@media (min-width: 1024px) {
+  .sk-desliza-home { grid-auto-flow: row; grid-auto-columns: auto; overflow: visible; }
+}
+.sk-desliza-corpo > .sk-desliza-faixa { display: flex; }
+
+/* ---- Minhas horas (/meu-curso) -------------------------------------------------------------
+   O cartão-saldo fica à esquerda (parado no desktop) e as fichas de marcar à direita. */
+.mh { display: grid; gap: 2.5rem; }
+.mh-saldo { align-self: start; }
+.mh-saldo .sk-saldo-art { --ei-ink: 4px; }
+.sk-saldo-g-barra span[data-vazio] { border-right: 0; }
+.mh-coluna { display: grid; gap: 2.5rem; min-width: 0; }
+@media (min-width: 1024px) {
+  .mh { grid-template-columns: minmax(0, 23rem) minmax(0, 1fr); gap: 2.5rem 3rem; align-items: start; }
+  .mh-saldo { position: sticky; top: 5.5rem; }
+}
+.mh-bloco h2 { margin: 0 0 1rem; font: 700 1.25rem/1.2 var(--font-heading); text-wrap: balance; }
+.mh-nota-rodape { margin: 0; font-size: 0.875rem; line-height: 1.5; color: var(--color-muted-foreground, #4a4740); text-wrap: pretty; }
+
+/* Período: uma gaveta por semestre, com a contagem no puxador. */
+.mh-periodo { margin-bottom: 0.875rem; border: 3px solid #1f1f1f; border-radius: 16px; background: var(--estagio-solo, #e3f0ef); box-shadow: 4px 4px 0 0 var(--shadow-color, #1f1f1f); }
+.mh-periodo > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 56px;
+  padding: 0.5rem 1rem;
+  border-radius: 13px;
+  background: #fff;
+  list-style: none;
+  cursor: pointer;
+}
+.mh-periodo > summary::-webkit-details-marker { display: none; }
+.mh-periodo[open] > summary { border-bottom: 3px solid #1f1f1f; border-radius: 13px 13px 0 0; }
+.mh-periodo > summary:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; }
+.mh-periodo-nome { font: 700 1.0625rem/1.2 var(--font-heading); }
+.mh-periodo-conta {
+  padding: 0.3125rem 0.5rem;
+  border: 2px solid #1f1f1f;
+  border-radius: 8px;
+  background: #fff;
+  font: 700 0.75rem/1 var(--font-heading);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+.mh-periodo-conta[data-cheio] { background: var(--color-primary); color: #fff; rotate: -3deg; box-shadow: 2px 2px 0 0 #1f1f1f; }
+.mh-periodo > ul { display: grid; gap: 0.875rem; margin: 0; padding: 1rem 0.875rem 1.125rem; list-style: none; }
+.mh-periodo .sk-check { margin-bottom: 0; }
+.mh-nota {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.625rem;
+  margin: 0.5rem 0.25rem 0;
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+.mh-nota input, .mh-nsg input {
+  width: 5.5rem;
+  min-height: 44px;
+  padding: 0.375rem 0.625rem;
+  border: 3px solid #1f1f1f;
+  border-radius: 12px;
+  background: #fff;
+  color: #1f1f1f;
+  font: 700 1rem/1 var(--font-heading);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  box-shadow: 2px 2px 0 0 #1f1f1f;
+}
+.mh-nota input::placeholder, .mh-nsg input::placeholder { color: #5e5a52; font-weight: 400; }
+.mh-nota input:focus-visible, .mh-nsg input:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 2px; }
+
+.mh-ficha { display: grid; gap: 1rem; padding: 1.125rem; border: 3px solid #1f1f1f; border-radius: 16px; background: #fff; box-shadow: 4px 4px 0 0 var(--shadow-color, #1f1f1f); }
+.mh-passo { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.mh-passo-nome { margin: 0; font-weight: 700; font-size: 1rem; line-height: 1.3; }
+.mh-passo-dica { margin: 0.125rem 0 0; font-size: 0.875rem; line-height: 1.4; color: var(--color-muted-foreground, #4a4740); font-variant-numeric: tabular-nums; }
+.mh-passo-ctl { display: inline-flex; align-items: center; border: 3px solid #1f1f1f; border-radius: 14px; background: var(--sk-areia); box-shadow: 3px 3px 0 0 #1f1f1f; overflow: hidden; }
+.mh-passo-ctl button {
+  width: 48px;
+  height: 48px;
+  border: 0;
+  background: var(--color-accent);
+  color: #1f1f1f;
+  font: 700 1.5rem/1 var(--font-heading);
+  cursor: pointer;
+  transition: background-color var(--duration-press, 160ms) var(--ease-snap, ease-out);
+}
+.mh-passo-ctl button:first-child { border-right: 3px solid #1f1f1f; background: #fff; }
+.mh-passo-ctl button:last-child { border-left: 3px solid #1f1f1f; }
+.mh-passo-ctl button:active { background: var(--color-primary); color: #fff; }
+.mh-passo-ctl button:disabled { color: #8d877b; cursor: default; }
+.mh-passo-ctl button:focus-visible { outline: 3px solid var(--color-primary); outline-offset: -5px; }
+.mh-passo-ctl output { min-width: 5rem; padding: 0 0.5rem; text-align: center; font: 700 1.125rem/1 var(--font-heading); font-variant-numeric: tabular-nums; }
+.mh-atalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 56px;
+  padding: 0.75rem 1rem;
+  border: 2px solid #1f1f1f;
+  border-radius: 12px;
+  background: var(--sk-areia);
+  color: #1f1f1f;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  text-decoration: none;
+}
+.mh-atalho strong { display: block; font-size: 1rem; }
+.mh-atalho:hover { background: var(--color-primary-tint, #efe7f6); }
+.mh-atalho:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 2px; }
+
+.mh-nsg { display: grid; grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr)); gap: 0.875rem 0.75rem; }
+.mh-nsg label { display: grid; gap: 0.25rem; font: 700 0.75rem/1.2 var(--font-heading); letter-spacing: 0.04em; }
+.mh-nsg input { width: 100%; }
+.mh-nsg-media { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin: 0; padding-top: 1rem; border-top: 2px solid #1f1f1f; font-size: 0.875rem; }
+.mh-nsg-media strong { font: 700 2rem/1 var(--font-heading); font-variant-numeric: tabular-nums; }
+
+/* ---- Os mesmos controles nos componentes Radix do site ------------------------------------ */
+/* Interruptor (ui/switch.tsx): o estado vem de data-state, não de um input vizinho. */
+.sk-switch-radix { display: inline-block; vertical-align: middle; appearance: none; font: inherit; }
+.sk-switch-radix[data-state='checked'] { background: var(--color-primary); }
+.sk-switch-radix[data-state='checked'] .sk-switch-botao { translate: 36px 0; rotate: 180deg; }
+.sk-switch-radix[data-state='checked'] .sk-switch-folha {
+  scale: 1;
+  transition: scale var(--duration-spring, 520ms) var(--ease-spring-bouncy, ease-out) 180ms;
+}
+.sk-switch-radix:active { translate: 3px 3px; box-shadow: 0 0 0 0 #1f1f1f; }
+/* Slider (ui/slider.tsx): a semente como pegador. */
+.sk-slider-semente { background: var(--sk-semente) center / contain no-repeat; }

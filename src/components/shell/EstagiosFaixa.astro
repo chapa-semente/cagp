@@ -1,7 +1,7 @@
 ---
 // EstagiosFaixa.astro — "Da semente ao fruto": as 5 abas do site como os 5 estágios da planta.
 // Faixa de blocos chapados acima do rodapé, em todas as páginas; cada bloco leva à sua aba.
-import EstagioArt from '@/components/ui/EstagioArt.astro';
+import EstagioIlustra from '@/components/ui/EstagioIlustra.astro';
 import { AXIS_REGISTRY } from '@/lib/navigationRegistry';
 import { ESTAGIOS } from '@/lib/estagios';
 ---
@@ -13,9 +13,9 @@ import { ESTAGIOS } from '@/lib/estagios';
       return (
         <li>
           <a href={axis.rootHref} style={`background:${e.bg};color:${e.fg}`}>
-            <EstagioArt estagio={e} class="cagp-estagios-faixa-art" />
             <span class="cagp-estagios-faixa-nome">{axis.mobileLabel}</span>
             <span class="cagp-estagios-faixa-estagio">{e.nome}</span>
+            <EstagioIlustra nivel={e.nivel} class="cagp-estagios-faixa-art" />
           </a>
         </li>
       );

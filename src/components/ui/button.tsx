@@ -19,7 +19,7 @@ const buttonVariants = cva(
         secondary:
           "border-3 border-border bg-secondary text-secondary-foreground shadow-md hover:-translate-x-px hover:-translate-y-px hover:bg-secondary-hover hover:shadow-lg active:translate-x-[3px] active:translate-y-[3px] active:shadow-none",
         accent:
-          "border-3 border-border bg-accent text-accent-foreground shadow-md hover:-translate-x-px hover:-translate-y-px hover:bg-accent-hover hover:shadow-lg active:translate-x-[3px] active:translate-y-[3px] active:shadow-none",
+          "rounded-[1.5rem_0.4rem_1.5rem_0.4rem] border-3 border-border bg-accent text-accent-foreground shadow-md hover:-translate-x-px hover:-translate-y-px hover:bg-accent-hover hover:shadow-lg active:translate-x-[3px] active:translate-y-[3px] active:shadow-none",
         destructive:
           "border-3 border-border bg-destructive text-destructive-foreground shadow-md hover:-translate-x-px hover:-translate-y-px hover:bg-destructive hover:shadow-lg active:translate-x-[3px] active:translate-y-[3px] active:shadow-none",
         outline:

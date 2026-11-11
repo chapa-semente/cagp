@@ -179,7 +179,7 @@ export const CursoCandangosAndTimeline: React.FC = () => {
               className="cagp-photo-frame relative aspect-[16/10] min-h-[280px] sm:min-h-[360px] w-full rounded-xl border-3 border-border shadow-xl overflow-hidden bg-background"
             >
               <img
-                src={asset('/imagens/os-candangos.jpg')}
+                src={asset('/imagens/os-candangos.webp')}
                 alt="Monumento Os Candangos (Dois Guerreiros) de Bruno Giorgi (1959) na Praça dos Três Poderes em Brasília"
                 className="w-full h-full object-cover"
                 loading="lazy"

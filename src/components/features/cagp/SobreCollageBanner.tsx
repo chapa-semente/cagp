@@ -19,11 +19,8 @@ export const SobreCollageBanner: React.FC = () => {
           {/* Topo: Seletor de Camadas de Identidade Visual */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b-3 border-border">
             <div className="space-y-1">
-              <div className="flex flex-wrap items-center gap-2">
-                <Badge variant="default">Tríade identitária</Badge>
-              </div>
               <h2 className="font-heading text-xl sm:text-2xl font-extrabold text-foreground m-0 mt-1">
-                Semiótica &amp; Memória Visual: Candangos • Semente • UFMG
+                As três marcas do site: CAGP, Semente e UFMG
               </h2>
             </div>
 
@@ -70,11 +67,6 @@ export const SobreCollageBanner: React.FC = () => {
               </div>
 
               <div className="lg:col-span-8 space-y-3">
-                <div className="flex flex-wrap items-center gap-2">
-                  <Badge variant="dark" className="font-mono">Grid 1000×1000</Badge>
-                  <Badge variant="outline" className="font-mono">Unidade X = 49px</Badge>
-                  <Badge variant="default" className="font-mono">Rubro #9E2424</Badge>
-                </div>
                 <h3 className="font-heading text-lg sm:text-xl font-extrabold text-foreground m-0">
                   &ldquo;Dois Guerreiros&rdquo; (Os Candangos) — Praça dos Três Poderes
                 </h3>

@@ -19,38 +19,56 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
 }) => {
   const [detent, setDetent] = useState<'medium' | 'large'>(initialDetent);
   const [dragY, setDragY] = useState(0);
-  const [mounted, setMounted] = useState(false);
+  // 'closing' mantém a folha montada enquanto ela desce; só depois ela sai do DOM.
+  const [phase, setPhase] = useState<'closed' | 'open' | 'closing'>('closed');
   const isDragging = useRef(false);
   const startY = useRef(0);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const returnFocusRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    setDetent(initialDetent);
-    setDragY(0);
+    if (isOpen) {
+      returnFocusRef.current = document.activeElement as HTMLElement | null;
+      setDetent(initialDetent);
+      setDragY(0);
+      setPhase('open');
+      return;
+    }
+    setPhase((current) => (current === 'open' ? 'closing' : current));
   }, [isOpen, initialDetent]);
 
+  // Saída: espera a animação; o temporizador cobre aba em segundo plano, onde ela não roda.
   useEffect(() => {
-    if (!isOpen) return;
+    if (phase !== 'closing') return;
+    const timer = window.setTimeout(() => setPhase('closed'), 320);
+    return () => window.clearTimeout(timer);
+  }, [phase]);
+
+  useEffect(() => {
+    if (phase === 'closed') {
+      returnFocusRef.current?.focus?.({ preventScroll: true });
+      returnFocusRef.current = null;
+      return;
+    }
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-
     return () => {
       document.body.style.overflow = prevOverflow;
-      window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isOpen, onClose]);
+  }, [phase]);
 
-  if (!isOpen || !mounted || typeof document === 'undefined') return null;
+  useEffect(() => {
+    if (phase !== 'open') return;
+    panelRef.current?.focus({ preventScroll: true });
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [phase, onClose]);
+
+  if (phase === 'closed' || typeof document === 'undefined') return null;
+  const closing = phase === 'closing';
 
   const handleTouchStart = (e: React.TouchEvent) => {
     isDragging.current = true;
@@ -72,7 +90,9 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
     if (!isDragging.current) return;
     isDragging.current = false;
     if (dragY > 100) {
+      // Soltou longe: a folha continua descendo de onde o dedo deixou.
       onClose();
+      return;
     }
     setDragY(0);
   };
@@ -82,23 +102,33 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
   return (
     <div
       id={id}
-      className="fixed inset-0 z-[1080] flex flex-col justify-end md:justify-center md:items-center p-0 md:p-4 pointer-events-auto"
+      className={`fixed inset-0 z-[1080] flex flex-col justify-end md:justify-center md:items-center p-0 md:p-4 ${closing ? 'pointer-events-none' : 'pointer-events-auto'}`}
       role="dialog"
       aria-modal="true"
       aria-labelledby={`${id}-title`}
     >
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/65 transition-opacity duration-200 animate-in fade-in"
+        className={`fixed inset-0 bg-foreground/70 ${closing ? 'animate-out fade-out' : 'animate-in fade-in duration-200 ease-(--ease-snap)'}`}
         onClick={onClose}
         aria-hidden="true"
       />
 
       {/* Sheet / Form Sheet Modal Container Neobrutalista */}
       <div
-        className={`relative z-[1090] w-full max-w-2xl md:max-w-xl mx-auto bg-white rounded-t-2xl md:rounded-2xl border-[3px] border-border shadow-[0_-6px_0_0_#1F1F1F] md:shadow-lg flex flex-col transition-all duration-200 animate-in slide-in-from-bottom md:zoom-in-95 ease-out ${heightClass}`}
+        ref={panelRef}
+        tabIndex={-1}
+        onAnimationEnd={(e) => {
+          if (closing && e.target === e.currentTarget) setPhase('closed');
+        }}
+        className={`relative z-[1090] w-full max-w-2xl md:max-w-xl mx-auto bg-white rounded-t-2xl md:rounded-2xl border-[3px] border-border shadow-[0_-6px_0_0_#1F1F1F] md:shadow-lg flex flex-col outline-none transition-[height] duration-(--duration-view) ease-(--ease-spring) ${
+          closing
+            ? 'animate-out slide-out-to-bottom md:slide-out-to-bottom-6 md:fade-out'
+            : 'animate-in slide-in-from-bottom md:slide-in-from-bottom-6 md:fade-in'
+        } ${heightClass}`}
         style={{
-          transform: `translateY(${dragY}px)`,
+          // O arrasto usa `translate`; a entrada e a saída usam `transform`, então os dois somam.
+          translate: `0 ${dragY}px`,
           paddingBottom: 'calc(1rem + env(safe-area-inset-bottom, 0px))',
         }}
       >
@@ -109,7 +139,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
           onClick={() => setDetent(detent === 'medium' ? 'large' : 'medium')}
-          aria-label="Alternar altura da gaveta"
+          aria-label="Arraste para baixo para fechar; toque para mudar a altura"
         >
           <div className="w-12 h-2 bg-foreground text-background rounded-full hover:bg-black transition-colors" />
         </div>
@@ -123,17 +153,17 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
             <button
               type="button"
               onClick={() => setDetent(detent === 'medium' ? 'large' : 'medium')}
-              className="hidden md:flex w-9 h-9 items-center justify-center rounded-xl bg-white hover:bg-muted border-[2px] border-border shadow-xs text-foreground text-xs font-bold transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+              className="hidden md:flex w-11 h-11 items-center justify-center rounded-xl bg-white hover:bg-muted border-[2px] border-border shadow-xs text-foreground text-xs font-bold transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
               title={detent === 'medium' ? 'Expandir' : 'Recolher'}
-              aria-label={detent === 'medium' ? 'Expandir gaveta' : 'Recolher gaveta'}
+              aria-label={detent === 'medium' ? 'Expandir' : 'Recolher'}
             >
               <i className={`bi ${detent === 'medium' ? 'bi-arrows-angle-expand' : 'bi-arrows-angle-contract'}`}></i>
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="w-9 h-9 flex items-center justify-center rounded-xl bg-white hover:bg-muted border-[2px] border-border shadow-xs text-foreground hover:text-secondary font-bold text-sm transition-all cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
-              aria-label="Fechar gaveta"
+              className="w-11 h-11 flex items-center justify-center rounded-xl bg-white hover:bg-muted border-[2px] border-border shadow-xs text-foreground font-bold text-sm transition-[box-shadow,translate,background-color] duration-(--duration-press) ease-(--ease-spring-snappy) cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+              aria-label="Fechar"
             >
               <i className="bi bi-x-lg" aria-hidden="true" />
             </button>

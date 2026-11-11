@@ -15,6 +15,10 @@ export const GlobalSheets: React.FC = () => {
     const handleSettings = () => setActiveSheet('settings');
     const handleShortcuts = () => setActiveSheet('shortcuts');
 
+    // Toque dado antes desta ilha montar (ela monta em client:idle): o BaseLayout anotou qual folha.
+    const pendente = (window as unknown as { __cagpPendingSheet?: { nome: typeof activeSheet; quando: number } }).__cagpPendingSheet;
+    if (pendente && Date.now() - pendente.quando < 10000) setActiveSheet(pendente.nome);
+
     window.addEventListener('cagp:open-passport', handlePassport);
     window.addEventListener('cagp:open-campus', handleCampus);
     window.addEventListener('cagp:open-a11y', handleA11y);

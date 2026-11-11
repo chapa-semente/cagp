@@ -50,7 +50,7 @@ export const LeaderAvatar: React.FC<LeaderAvatarProps> = ({
       ? `${String(index + 1).padStart(2, '0')}/${String(total).padStart(2, '0')}`
       : null;
   const [hasError, setHasError] = useState(false);
-  const photoUrl = getLeaderPhotoUrl(photoFilename);
+  const photoUrl = getLeaderPhotoUrl(photoFilename, variant === 'portrait' ? 'full' : 'thumb');
 
   if (variant === 'portrait') {
     const hasRealPhoto = Boolean(photoUrl && !hasError);
@@ -71,6 +71,7 @@ export const LeaderAvatar: React.FC<LeaderAvatarProps> = ({
               style={{ objectPosition: photoPosition }}
               className="w-full h-full object-cover"
               loading="lazy"
+              decoding="async"
             />
                       </>
         ) : (
@@ -134,6 +135,7 @@ export const LeaderAvatar: React.FC<LeaderAvatarProps> = ({
         onError={() => setHasError(true)}
         className={`${sizeClasses} rounded-full object-cover border-3 border-border shadow-xs shrink-0 bg-muted select-none ${className}`}
         loading="lazy"
+        decoding="async"
       />
     );
   }

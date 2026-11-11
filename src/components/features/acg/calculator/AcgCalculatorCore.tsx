@@ -404,10 +404,10 @@ export const AcgCalculatorCore: React.FC = () => {
     <div className="cagp-calculator-core select-none space-y-6">
       {/* Alerta Normativo Institucional Resolução Complementar 01/2023 */}
       <Alert variant="info" className="rounded-xl border-2 border-border shadow-sm">
-        <i className="bi bi-info-circle-fill text-info text-base" aria-hidden="true" />
+        <i className="bi bi-info-circle-fill text-info-foreground text-base" aria-hidden="true" />
         <div>
-          <AlertTitle>Diretriz Curricular Resolução Complementar 01/2023</AlertTitle>
-          <AlertDescription className="text-xs text-muted-foreground font-medium">
+          <AlertTitle>Resolução Complementar 01/2023</AlertTitle>
+          <AlertDescription className="text-sm text-info-foreground">
             São exigidas no mínimo 300h de Atividades de Extensão e 300h de Atividades Complementares (AAC) para colação de grau. O limite máximo por atividade segue os tetos regimentais.
           </AlertDescription>
         </div>

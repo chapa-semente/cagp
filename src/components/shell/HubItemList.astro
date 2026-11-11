@@ -1,10 +1,11 @@
 ---
-// HubItemList.astro — Lista de páginas de uma aba (arquétipo "Hub de eixo", volume Ficha).
-// Uma ficha com linhas separadas por régua grafite; cada linha é um link inteiro.
+// HubItemList.astro — Bloco de atalhos de uma aba (DESIGN.md › kit Semente).
+// No celular é uma grade de quadros com o nome curto embaixo, como num app de banco; a partir de
+// 640px cada atalho vira um cartão com a linha do que a página resolve. O quadro veste a cor da
+// aba onde a página mora e tem a folha do símbolo brotando do canto.
 import CagpIcon from '@/components/ui/CagpIcon.astro';
 import { resolveCagpIconName } from '@/lib/cagpIcons';
-import type { NavigationItem } from '@/lib/navigationRegistry';
-
+import { getItemByPath, type NavigationItem } from '@/lib/navigationRegistry';
 interface Props {
   items: NavigationItem[];
   heading?: string;
@@ -15,75 +16,25 @@ const { items, heading, headingId } = Astro.props;
 ---
 
 {items.length > 0 && (
-  <section class="space-y-3" aria-labelledby={heading ? headingId : undefined}>
+  <section class="space-y-4" aria-labelledby={heading ? headingId : undefined}>
     {heading && (
       <h2 id={headingId} class="font-heading text-xl font-bold text-foreground m-0">{heading}</h2>
     )}
-    <ul class="cagp-hub-list cagp-reveal-stagger m-0 p-0 list-none">
+    <ul class="sk-atalhos sk-atalhos-hub cagp-reveal-stagger" role="list">
       {items.map((item) => (
         <li>
-          <a href={item.href} class="cagp-hub-row">
-            <span class="cagp-hub-icon" aria-hidden="true">
-              <CagpIcon name={resolveCagpIconName(item.icon)} class="w-5 h-5" />
+          <a href={item.href} data-nav-axis={getItemByPath(item.href)?.axis.id ?? 'hoje'}>
+            <span class="sk-tile sk-tile-g sk-tile-broto" aria-hidden="true">
+              <CagpIcon name={resolveCagpIconName(item.icon)} class="sk-tile-glifo" />
+              <svg class="sk-broto" viewBox="-46 -110 72 118"><use href="#sg-folha" /></svg>
             </span>
-            <span class="flex flex-col min-w-0 flex-1 gap-0.5">
-              <span class="font-heading text-base font-bold text-foreground w-fit" data-vt-title data-vt-href={item.href}>{item.label}</span>
-              <span class="text-sm leading-snug text-muted-foreground">{item.description}</span>
+            <span class="sk-atalho-txt">
+              <span class="sk-atalho-nome" data-vt-title data-vt-href={item.href}>{item.shortLabel}</span>
+              <span class="sk-atalho-desc">{item.description}</span>
             </span>
-            <CagpIcon name="chevron-right" class="w-4 h-4 shrink-0 text-muted-foreground" />
           </a>
         </li>
       ))}
     </ul>
   </section>
 )}
-
-<style>
-  .cagp-hub-list {
-    background: var(--color-card, #fff);
-    border: 2px solid var(--color-border);
-    border-radius: 12px;
-    box-shadow: 4px 4px 0 0 var(--shadow-color, var(--color-border));
-    overflow: hidden;
-  }
-  .cagp-hub-list > li + li {
-    border-top: 2px solid var(--color-border);
-  }
-  .cagp-hub-row {
-    display: flex;
-    align-items: center;
-    gap: 0.875rem;
-    min-height: 64px;
-    padding: 0.875rem 1rem;
-    color: inherit;
-    text-decoration: none;
-    transition: background-color var(--duration-press) var(--ease-snap);
-  }
-  .cagp-hub-row:hover {
-    background: var(--color-primary-tint);
-  }
-  .cagp-hub-row :global(svg:last-child) {
-    transition: transform var(--duration-press) var(--ease-spring-snappy);
-  }
-  .cagp-hub-row:hover :global(svg:last-child) {
-    transform: translateX(4px);
-  }
-  .cagp-hub-row:hover .cagp-hub-icon {
-    background: #fff;
-  }
-  .cagp-hub-row:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: -4px;
-  }
-  .cagp-hub-icon {
-    width: 2.5rem;
-    height: 2.5rem;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    background: var(--color-primary-tint, #efe7f6);
-    color: var(--color-primary);
-  }
-</style>

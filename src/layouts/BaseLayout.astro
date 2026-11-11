@@ -44,6 +44,7 @@ const {
 } = Astro.props;
 const routeMeta = getRouteMeta();
 const estagio = estagioDaRota(Astro.url.pathname);
+import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
 ---
 
 <!doctype html>
@@ -67,6 +68,8 @@ const estagio = estagioDaRota(Astro.url.pathname);
 
     <title>{title} — Chapa Semente • CAGP UFMG</title>
     <ClientRouter />
+    <!-- Metadados extras da página (ex.: noindex numa página que não é pública). -->
+    <slot name="head" />
 
     <!-- Tour obrigatório: cobre a página em roxo até a ilha do tour montar (sem piscar o conteúdo).
          Se o JS não carregar em 6s, a cobertura sai sozinha e o site segue utilizável. -->
@@ -144,14 +147,20 @@ const estagio = estagioDaRota(Astro.url.pathname);
     </noscript>
   </head>
   <body class="bg-background text-foreground font-sans antialiased min-h-[100dvh] flex flex-col selection:bg-primary selection:text-white relative isolate">
-    <!-- Abertura: a semente germina enquanto o site e o cache carregam (primeiro elemento do body). -->
+    <!-- As curvas do símbolo, uma vez por página; todo desenho as reaproveita com <use>. -->
+    <Fragment set:html={SEMENTE_SPRITE} />
+
+    <!-- Primeiro foco do teclado: pula cabeçalho e trilho e cai direto no conteúdo. -->
+    <a href="#main-content" class="cagp-skip-link">Pular para o conteúdo</a>
+
+    <!-- Abertura: a semente germina enquanto o site e o cache carregam. -->
     <SplashScreen />
 
     <!-- O ramo que cresce com a rolagem + a forma orgânica do estágio (decorativo) -->
     <GrowthBackdrop />
 
     <!-- Canvas Interativo Temático por Eixo Neobrutalista BoldKit -->
-    <GlobalCanvasBackdrop client:load />
+    <GlobalCanvasBackdrop client:idle />
 
     <!-- Aviso flutuante único (lib/toast.ts e window.cagpToast desenham aqui) -->
     <DynamicToast />
@@ -167,11 +176,12 @@ const estagio = estagioDaRota(Astro.url.pathname);
 
       <div class="flex-1 flex flex-col min-w-0 transition-all duration-250 ease-out">
         <!-- Topbar Contextual para Sub-rotas -->
-        <SuperAppHeader />
+        <SuperAppHeader fallbackTitle={title} />
 
         <!-- Main Content Area -->
         <main
           id="main-content"
+          tabindex="-1"
           class="relative z-10 flex-1 w-full max-w-[1440px] 2xl:max-w-[1600px] mx-auto px-3 sm:px-6 py-4 sm:py-6 pb-24 md:pb-8 overflow-x-clip focus:outline-none"
         >
           <slot />
@@ -189,16 +199,29 @@ const estagio = estagioDaRota(Astro.url.pathname);
     <BottomNav />
 
     <!-- Global React Sheets & Spotlight Command Palette -->
-    <GlobalSheets client:load />
+    <!-- As folhas montam quando o navegador fica livre. Se alguém tocar antes (perfil, campus,
+         ajustes), o toque fica anotado e a folha abre assim que montar. -->
+    <script is:inline>
+      (function () {
+        if (window.__cagpSheetQueue) return;
+        window.__cagpSheetQueue = true;
+        ['passport', 'campus', 'a11y', 'settings', 'shortcuts'].forEach(function (nome) {
+          window.addEventListener('cagp:open-' + nome, function () {
+            window.__cagpPendingSheet = { nome: nome, quando: Date.now() };
+          });
+        });
+      })();
+    </script>
+    <GlobalSheets client:idle />
 
     <!-- Pílula "Sou Semente" (só para quem terminou o tour declarando voto) -->
-    {!hideFloatingPill && <PwaCredenciamentoPill client:load />}
+    {!hideFloatingPill && <PwaCredenciamentoPill client:idle />}
 
     <!-- Tour obrigatório da Chapa Semente (primeira visita). Persiste entre páginas do ClientRouter. -->
     <SementeTour client:load transition:persist="semente-tour" />
 
     <!-- Tour opcional das 14 propostas (abre pelo evento cagp:start-propostas-tour). -->
-    <PropostasTour client:load transition:persist="propostas-tour" />
+    <PropostasTour client:idle transition:persist="propostas-tour" />
 
     <!-- Directional Navigation & Progress Bar Controller -->
     <script is:inline define:vars={{ ROUTE_META_FROM_REGISTRY: routeMeta }}>
@@ -371,7 +394,9 @@ const estagio = estagioDaRota(Astro.url.pathname);
     <script>
       import { setupCountUp } from '../scripts/countUp';
       import { setupSharedTitle } from '../scripts/sharedTitle';
+      import { setupTabSwipe } from '../scripts/tabSwipe';
       setupSharedTitle();
+      setupTabSwipe();
       document.addEventListener('astro:page-load', () => setupCountUp());
     </script>
   </body>

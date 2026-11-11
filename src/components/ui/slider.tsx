@@ -453,7 +453,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
         ref={ref}
         className={cn(
           'relative flex touch-none select-none items-center',
-          orientation === 'vertical' ? 'h-full w-5 flex-col' : 'w-full py-2',
+          orientation === 'vertical' ? 'h-full w-5 flex-col' : 'w-full py-4',
           disabled && 'opacity-50 pointer-events-none',
           className
         )}
@@ -463,20 +463,19 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
         <div
           ref={trackRef}
           className={cn(
-            'relative cursor-pointer overflow-hidden',
+            // Kit Semente: pista arredondada com sombra dura; o enchimento termina numa aresta grafite.
+            'relative cursor-pointer overflow-hidden rounded-full',
             'border-3 border-foreground bg-muted',
-            'shadow-md',
-            'transition-shadow duration-200',
-            orientation === 'vertical' ? 'h-full w-4' : 'h-4 w-full',
-            activeThumb !== null && 'shadow-sm'
+            'shadow-[3px_3px_0_0_var(--color-border)]',
+            orientation === 'vertical' ? 'h-full w-[18px]' : 'h-[18px] w-full'
           )}
           onPointerDown={handleTrackPointerDown}
         >
           {/* Range fill */}
           <div
             className={cn(
-              'absolute bg-primary',
-              orientation === 'vertical' ? 'w-full' : 'h-full'
+              'absolute bg-secondary',
+              orientation === 'vertical' ? 'w-full border-t-3 border-foreground' : 'h-full border-r-3 border-foreground'
             )}
             style={
               orientation === 'vertical'
@@ -486,20 +485,6 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
                   }
                 : getRangeFillStyle()
             }
-          />
-
-          {/* Decorative stripes */}
-          <div
-            className="absolute inset-0 opacity-10 pointer-events-none"
-            style={{
-              backgroundImage: `repeating-linear-gradient(
-                ${orientation === 'vertical' ? '0deg' : '45deg'},
-                transparent,
-                transparent 3px,
-                currentColor 3px,
-                currentColor 4px
-              )`,
-            }}
           />
         </div>
 
@@ -512,7 +497,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
             aria-valuemin={min}
             aria-valuemax={max}
             aria-valuenow={actualValue[index]}
-            aria-valuetext={`${actualValue[index]} of ${max}`}
+            aria-valuetext={`${actualValue[index]} de ${max}`}
             aria-disabled={disabled}
             aria-orientation={orientation}
             aria-label={ariaLabel}
@@ -522,18 +507,16 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
             onMouseEnter={() => setHoveringThumb(index)}
             onMouseLeave={() => setHoveringThumb(null)}
             className={cn(
-              'absolute h-7 w-7 cursor-grab',
-              'border-3 border-foreground bg-background',
-              'shadow-md',
-              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
-              'transition-shadow duration-150',
-              activeThumb === index && 'cursor-grabbing shadow-sm z-10',
-              hoveringThumb === index && activeThumb !== index && 'shadow-[5px_5px_0px_var(--shadow-color)]'
+              // O pegador é a semente do símbolo (com a sombra dura no próprio desenho).
+              'sk-slider-semente absolute h-[52px] w-[52px] cursor-grab',
+              'focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-primary rounded-xl',
+              activeThumb === index && 'cursor-grabbing z-10',
+              hoveringThumb === index && activeThumb !== index && 'is-hover'
             )}
             style={
               orientation === 'vertical'
                 ? {
-                    bottom: `calc(${spring.position}% - 14px)`,
+                    bottom: `calc(${spring.position}% - 26px)`,
                     left: '50%',
                     transform: `
                       translateX(-50%)
@@ -543,7 +526,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
                     `,
                   }
                 : {
-                    left: `calc(${spring.position}% - 14px)`,
+                    left: `calc(${spring.position}% - 26px)`,
                     top: '50%',
                     transform: `
                       translateY(-50%)
@@ -553,30 +536,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
                     `,
                   }
             }
-          >
-            {/* Inner border detail */}
-            <div className="absolute inset-1 border-2 border-foreground/20" />
-            {/* Grip lines */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className={cn(
-                'flex gap-0.5',
-                orientation === 'vertical' ? 'flex-row' : 'flex-col'
-              )}>
-                <div className={cn(
-                  'bg-foreground/30',
-                  orientation === 'vertical' ? 'w-0.5 h-3' : 'w-3 h-0.5'
-                )} />
-                <div className={cn(
-                  'bg-foreground/30',
-                  orientation === 'vertical' ? 'w-0.5 h-3' : 'w-3 h-0.5'
-                )} />
-                <div className={cn(
-                  'bg-foreground/30',
-                  orientation === 'vertical' ? 'w-0.5 h-3' : 'w-3 h-0.5'
-                )} />
-              </div>
-            </div>
-          </div>
+          />
         ))}
       </div>
     )

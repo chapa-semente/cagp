@@ -1,0 +1,147 @@
+/* enter-exit.css — Entrada e saída de folhas, diálogos, popovers e menus.
+ *
+ * As classes `animate-in`, `fade-in-0`, `slide-in-from-bottom` etc. já estavam escritas nos
+ * componentes de `src/components/ui/`, mas nada as definia, então tudo abria seco. Aqui elas
+ * passam a existir, com a mola e as durações do site (DESIGN.md › Movimento):
+ *   entrada: --duration-spring com --ease-spring (passa 4% e assenta)
+ *   saída:   200ms com --ease-snap (rápida, sem sobra)
+ * `duration-*` e `ease-*` na mesma classe continuam valendo como ajuste local.
+ * Nenhum blur. A animação usa `transform`; o posicionamento do Tailwind usa `translate`,
+ * então centralizar com `-translate-x-1/2` não briga com a entrada.
+ */
+
+@keyframes cagp-enter {
+  from {
+    opacity: var(--tw-enter-opacity, 1);
+    transform: translate3d(var(--tw-enter-translate-x, 0), var(--tw-enter-translate-y, 0), 0)
+      scale(var(--tw-enter-scale, 1));
+  }
+}
+
+@keyframes cagp-exit {
+  to {
+    opacity: var(--tw-exit-opacity, 1);
+    transform: translate3d(var(--tw-exit-translate-x, 0), var(--tw-exit-translate-y, 0), 0)
+      scale(var(--tw-exit-scale, 1));
+  }
+}
+
+@utility animate-in {
+  animation: cagp-enter var(--tw-duration, var(--duration-spring)) var(--tw-ease, var(--ease-spring)) both;
+}
+@utility animate-out {
+  animation: cagp-exit var(--tw-duration, 200ms) var(--tw-ease, var(--ease-snap)) both;
+}
+
+/* Opacidade */
+@utility fade-in {
+  --tw-enter-opacity: 0;
+}
+@utility fade-in-* {
+  --tw-enter-opacity: calc(--value(integer) * 1%);
+}
+@utility fade-out {
+  --tw-exit-opacity: 0;
+}
+@utility fade-out-* {
+  --tw-exit-opacity: calc(--value(integer) * 1%);
+}
+
+/* Escala (só em entrada e saída de diálogo; o toque nunca escala) */
+@utility zoom-in-* {
+  --tw-enter-scale: calc(--value(integer) * 1%);
+}
+@utility zoom-out-* {
+  --tw-exit-scale: calc(--value(integer) * 1%);
+}
+
+/* Deslocamento: sem valor = a própria altura/largura (folha que sobe inteira). */
+@utility slide-in-from-top {
+  --tw-enter-translate-y: -100%;
+}
+@utility slide-in-from-top-full {
+  --tw-enter-translate-y: -100%;
+}
+@utility slide-in-from-top-* {
+  --tw-enter-translate-y: calc(var(--spacing) * --value(integer) * -1);
+  --tw-enter-translate-y: calc(--value(ratio) * -100%);
+  --tw-enter-translate-y: calc(--value([percentage], [length]) * -1);
+}
+@utility slide-in-from-bottom {
+  --tw-enter-translate-y: 100%;
+}
+@utility slide-in-from-bottom-full {
+  --tw-enter-translate-y: 100%;
+}
+@utility slide-in-from-bottom-* {
+  --tw-enter-translate-y: calc(var(--spacing) * --value(integer));
+  --tw-enter-translate-y: calc(--value(ratio) * 100%);
+  --tw-enter-translate-y: --value([percentage], [length]);
+}
+@utility slide-in-from-left {
+  --tw-enter-translate-x: -100%;
+}
+@utility slide-in-from-left-full {
+  --tw-enter-translate-x: -100%;
+}
+@utility slide-in-from-left-* {
+  --tw-enter-translate-x: calc(var(--spacing) * --value(integer) * -1);
+  --tw-enter-translate-x: calc(--value(ratio) * -100%);
+  --tw-enter-translate-x: calc(--value([percentage], [length]) * -1);
+}
+@utility slide-in-from-right {
+  --tw-enter-translate-x: 100%;
+}
+@utility slide-in-from-right-full {
+  --tw-enter-translate-x: 100%;
+}
+@utility slide-in-from-right-* {
+  --tw-enter-translate-x: calc(var(--spacing) * --value(integer));
+  --tw-enter-translate-x: calc(--value(ratio) * 100%);
+  --tw-enter-translate-x: --value([percentage], [length]);
+}
+
+@utility slide-out-to-top {
+  --tw-exit-translate-y: -100%;
+}
+@utility slide-out-to-top-full {
+  --tw-exit-translate-y: -100%;
+}
+@utility slide-out-to-top-* {
+  --tw-exit-translate-y: calc(var(--spacing) * --value(integer) * -1);
+  --tw-exit-translate-y: calc(--value(ratio) * -100%);
+  --tw-exit-translate-y: calc(--value([percentage], [length]) * -1);
+}
+@utility slide-out-to-bottom {
+  --tw-exit-translate-y: 100%;
+}
+@utility slide-out-to-bottom-full {
+  --tw-exit-translate-y: 100%;
+}
+@utility slide-out-to-bottom-* {
+  --tw-exit-translate-y: calc(var(--spacing) * --value(integer));
+  --tw-exit-translate-y: calc(--value(ratio) * 100%);
+  --tw-exit-translate-y: --value([percentage], [length]);
+}
+@utility slide-out-to-left {
+  --tw-exit-translate-x: -100%;
+}
+@utility slide-out-to-left-full {
+  --tw-exit-translate-x: -100%;
+}
+@utility slide-out-to-left-* {
+  --tw-exit-translate-x: calc(var(--spacing) * --value(integer) * -1);
+  --tw-exit-translate-x: calc(--value(ratio) * -100%);
+  --tw-exit-translate-x: calc(--value([percentage], [length]) * -1);
+}
+@utility slide-out-to-right {
+  --tw-exit-translate-x: 100%;
+}
+@utility slide-out-to-right-full {
+  --tw-exit-translate-x: 100%;
+}
+@utility slide-out-to-right-* {
+  --tw-exit-translate-x: calc(var(--spacing) * --value(integer));
+  --tw-exit-translate-x: calc(--value(ratio) * 100%);
+  --tw-exit-translate-x: --value([percentage], [length]);
+}

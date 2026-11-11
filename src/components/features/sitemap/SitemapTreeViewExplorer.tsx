@@ -38,14 +38,11 @@ export const SitemapTreeViewExplorer: React.FC = () => {
         <CardHeader className="border-b-3 border-border bg-card">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <Badge variant="secondary" className="mb-1.5 w-fit">
-                BOLDKIT TREEVIEW • ARQUITETURA DE INFORMAÇÃO (5 EIXOS • 26 ROTAS)
-              </Badge>
               <CardTitle className="text-xl">
                 Todas as páginas, por aba
               </CardTitle>
               <CardDescription className="text-xs font-medium text-muted-foreground">
-                Expanda ou recolha os nós da árvore (suporte total a navegação por setas do teclado ARIA Tree e atalho ⌘K).
+                Abra uma aba para ver as páginas dela. Funciona com as setas do teclado.
               </CardDescription>
             </div>
             <button

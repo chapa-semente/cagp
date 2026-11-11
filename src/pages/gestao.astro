@@ -10,62 +10,63 @@ import GestaoContas from '../components/features/gestao/GestaoContas.astro';
 import { GestaoDiretoriaAndEstatuto } from '../components/features/gestao/GestaoDiretoriaAndEstatuto';
 import { TeamGrid, type TeamMember } from '../components/boldkit/blocks/team-section';
 import { asset, route } from '@/lib/paths';
+import TramiteResumo from '@/components/ui/tramite/TramiteResumo.astro';
 
 const gestaoMembers: TeamMember[] = [
   {
     name: 'Gabriel Sathler',
     role: '1. Presidência (DIPRE • Art. 28)',
     bio: 'Representação institucional perante a Reitoria e Colegiado, assinatura de convênios e criação do SuperApp discente.',
-    image: asset('/images/chapa/Gabriel Sathler.jpg'),
+    image: asset('/images/chapa/tour/gabriel.webp'),
     social: { email: 'chapa.semente.gp@gmail.com' },
   },
   {
     name: 'Lívia Martins',
     role: '2. Assessoria da Presidência (DIPRE • Art. 28)',
     bio: 'Idealizadora do Manual "Como se Formar", direção de arte institucional e banco de currículos integrado.',
-    image: asset('/images/chapa/Livia Martins.jpeg'),
+    image: asset('/images/chapa/tour/livia.webp'),
     social: { email: 'chapa.semente.gp@gmail.com' },
   },
   {
     name: 'Larissa Prado',
     role: '3. Vice-Presidência (DIPRE • Art. 28)',
     bio: 'Acolhimento estudantil, coordenação do canal de escuta permanente ("Fala com o CA") e integração de calouros.',
-    image: asset('/images/chapa/Larissa Prado.png'),
+    image: asset('/images/chapa/tour/larissa.webp'),
     social: { email: 'chapa.semente.gp@gmail.com' },
   },
   {
     name: 'Mariana Presti',
     role: '4. Diretoria Acadêmica (DIAC • Art. 31)',
     bio: 'Orientação sobre percursos curriculares, mapeamento dos 11 núcleos de pesquisa do DCP e diálogo com o Colegiado.',
-    image: asset('/images/chapa/MarianaPresti.jpeg'),
+    image: asset('/images/chapa/tour/mariana.webp'),
     social: { email: 'chapa.semente.gp@gmail.com' },
   },
   {
     name: 'Nilo Neto',
     role: 'Vice-Diretoria Acadêmica (DIAC • Art. 31)',
     bio: 'Apoio à coordenação de pesquisa discente, fomento à iniciação científica e aproximação com os laboratórios do DCP.',
-    image: asset('/images/chapa/Nilo Neto.png'),
+    image: asset('/images/chapa/tour/nilo.webp'),
     social: { email: 'chapa.semente.gp@gmail.com' },
   },
   {
     name: 'João Pedro Fragoso',
     role: '5. Comunicação & Marketing (DIMAC • Art. 34)',
     bio: 'Seriedade institucional, portal de notícias, atualização de ementas junto ao Colegiado e mídias sociais.',
-    image: asset('/images/chapa/João Pedro Fragoso.jpg'),
+    image: asset('/images/chapa/tour/joao.webp'),
     social: { email: 'chapa.semente.gp@gmail.com' },
   },
   {
     name: 'Vitória Moraes',
     role: '6. Diretoria Financeira (DIFI • Art. 30)',
     bio: 'Livro-Caixa Aberto centavo a centavo, emissão mensal do RREO e tutoriais de assistência estudantil FUMP.',
-    image: asset('/images/chapa/Vitoria.png'),
+    image: asset('/images/chapa/tour/vitoria.webp'),
     social: { email: 'chapa.semente.gp@gmail.com' },
   },
   {
     name: 'Ítalo de Morais',
     role: '7. Articulação & Assuntos Políticos (DIAP • Art. 32)',
     bio: 'Representação no Conselho de CAs (CEB), interlocução com DA FAFICH, DCE UFMG e ENECAP (Campo de Públicas).',
-    image: asset('/images/chapa/Italo.jpeg'),
+    image: asset('/images/chapa/tour/italo.webp'),
     social: { email: 'chapa.semente.gp@gmail.com' },
   },
   {
@@ -104,8 +105,8 @@ const badges = [
 >
   <PageHeader
     title="Eleição e como votar"
-    subtitle="25 e 26/11, das 17h às 22h30, na sala do CAGP. Aqui estão o edital, o calendário e como o CA funciona."
-    badges={badges}
+    subtitle="25 e 26/11, das 17h às 22h30, na sala do CAGP."
+    badges={badges.slice(0, 1)}
     mode="read"
   />
 
@@ -114,6 +115,16 @@ const badges = [
   <!-- Sub-view 0: Eleições 2026 & Edital de Convocação -->
   <section id="ws-panel-v0" class="cagp-workspace-view space-y-6" data-ws-panel="v0">
     <div id="eleicoes" class="cagp-anchor-target scroll-mt-24"></div>
+
+    <!-- Como votar: a resposta que dá nome à página vem antes do cronograma do edital. -->
+    <TramiteResumo
+      linhas={[
+        { rotulo: 'Quando', texto: '<strong>25 e 26 de novembro</strong>, das 17h às 22h30.' },
+        { rotulo: 'Onde', texto: 'Na <strong>sala do CAGP</strong>, na FAFICH. O voto é presencial e secreto.' },
+        { rotulo: 'Quem vota', texto: 'Todo estudante com matrícula ativa em Gestão Pública (edital, art. 21).' },
+        { rotulo: 'O que levar', texto: 'Um <strong>documento oficial com foto</strong>.' },
+      ]}
+    />
 
     <!-- Banner Cronograma e Junta Eleitoral -->
     <div class="p-5 sm:p-6 rounded-xl border-2 border-border bg-card shadow-md space-y-4">
@@ -263,7 +274,7 @@ const badges = [
       desc: 'História, governança, estatuto interno e esferas de representação.',
     }}
     next={{
-      title: 'Mapa Panorâmico do Super App',
+      title: 'Mapa do site',
       href: '/mapa-do-site',
       desc: 'Visão panorâmica e taxonômica de todas as 14 rotas ativas do portal discente.',
     }}

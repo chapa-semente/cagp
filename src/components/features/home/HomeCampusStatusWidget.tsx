@@ -61,68 +61,85 @@ export function computeCampusLiveStatus(now: Date): CampusLiveStatus {
   return { ...ru, busBadge, busTone, busSub };
 }
 
-const TONE: Record<CampusLiveStatus['ruTone'], string> = {
-  open: 'bg-success-tint text-success',
-  warn: 'bg-warning-tint text-warning',
-  closed: 'bg-muted text-content-secondary',
-};
-
 interface Props {
   status: CampusLiveStatus;
   openCampus: () => void;
 }
 
+/** Hoje à noite: cartões que deslizam de lado (kit Semente). No desktop eles empilham. */
 export const HomeCampusStatusWidget: React.FC<Props> = ({ status, openCampus }) => {
-  const rows = [
-    { icon: 'utensils' as const, title: 'RU II, jantar', badge: status.ruBadge, tone: status.ruTone, sub: status.ruSub, href: undefined as string | undefined, cta: '' },
-    { icon: 'bus' as const, title: 'Ônibus interno', badge: status.busBadge, tone: status.busTone, sub: status.busSub, href: route('/onibus-internos'), cta: 'Ver horários e mapa das linhas' },
+  const cards = [
+    { icon: 'utensils' as const, rotulo: 'RU II', title: 'Jantar', num: status.ruBadge, sub: status.ruSub, bg: '#FFC83D', fg: '#1F1F1F' },
+    {
+      icon: 'bus' as const,
+      rotulo: 'Ônibus interno',
+      title: 'Hoje',
+      num: status.busBadge,
+      sub: status.busSub,
+      bg: '#6DB33F',
+      fg: '#1F1F1F',
+      href: route('/onibus-internos'),
+      cta: 'Ver horários e mapa das linhas',
+    },
+    {
+      icon: 'bell' as const,
+      rotulo: 'Lembretes',
+      title: 'No seu calendário',
+      num: 'Jantar e último ônibus',
+      sub: '',
+      bg: '#5B2A85',
+      fg: '#FFFFFF',
+      onClick: openCampus,
+      cta: 'Escolher os lembretes',
+    },
   ];
 
   return (
-    <section id="cagp-widget-campus" aria-labelledby="home-hoje-a-noite" className="cagp-reveal-card bg-white border-2 border-border rounded-xl shadow-md overflow-hidden">
-      <div className="px-4 pt-4 sm:px-5 sm:pt-5 flex items-center justify-between gap-3">
-        <h2 id="home-hoje-a-noite" className="font-heading font-bold text-lg text-foreground m-0">
+    <section id="cagp-widget-campus" aria-labelledby="home-hoje-a-noite" className="space-y-1">
+      <div className="flex items-baseline justify-between gap-3">
+        <h2 id="home-hoje-a-noite" className="font-heading font-bold text-xl text-foreground m-0">
           Hoje à noite
         </h2>
         <span className="text-xs font-heading font-bold uppercase tracking-[0.04em] text-muted-foreground">
           Horário de hoje
         </span>
       </div>
-      <ul className="list-none m-0 p-0 mt-3 divide-y-2 divide-border border-t-2 border-border">
-        {rows.map((r) => (
-          <li key={r.title} className="px-4 py-3 sm:px-5 flex items-center gap-3">
-            <span className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center shrink-0" aria-hidden="true">
-              <CagpIcon name={r.icon} className="w-5 h-5 text-foreground" />
-            </span>
-            <span className="flex-1 min-w-0">
-              <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                <span className="font-heading font-bold text-sm text-foreground">{r.title}</span>
-                <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-xs font-heading font-bold uppercase tracking-[0.04em] tabular-nums ${TONE[r.tone]}`}>
-                  {r.badge}
-                </span>
+      <ul className="sk-desliza sk-desliza-home" role="list" tabIndex={0} aria-label="Hoje à noite: deslize para o lado">
+        {cards.map((c) => {
+          const miolo = (
+            <>
+              <span className="sk-desliza-faixa">
+                <CagpIcon name={c.icon} />
+                {c.rotulo}
               </span>
-              <span className="block text-sm text-content-secondary tabular-nums mt-0.5">{r.sub}</span>
-              {r.href && (
-                <a href={r.href} className="inline-flex items-center gap-1 min-h-[44px] -mb-2 text-sm font-heading font-bold text-primary underline underline-offset-[0.22em]">
-                  {r.cta}
+              <span className="sk-desliza-t">{c.title}</span>
+              <span className="sk-desliza-n">{c.num}</span>
+              {c.sub && <span className="sk-desliza-sub">{c.sub}</span>}
+              {c.cta && (
+                <span className="sk-desliza-cta">
+                  {c.cta}
                   <CagpIcon name="chevron-right" className="w-4 h-4" />
-                </a>
+                </span>
               )}
-            </span>
-          </li>
-        ))}
+            </>
+          );
+          return (
+            <li key={c.rotulo} style={{ '--bg': c.bg, '--fg': c.fg } as React.CSSProperties}>
+              {c.href ? (
+                <a href={c.href} className="sk-desliza-corpo">
+                  {miolo}
+                </a>
+              ) : c.onClick ? (
+                <button type="button" onClick={c.onClick} className="sk-desliza-corpo">
+                  {miolo}
+                </button>
+              ) : (
+                <div className="sk-desliza-corpo">{miolo}</div>
+              )}
+            </li>
+          );
+        })}
       </ul>
-      <button
-        type="button"
-        onClick={openCampus}
-        className="w-full min-h-[48px] px-4 sm:px-5 border-t-2 border-border bg-muted hover:bg-primary-tint flex items-center justify-between gap-2 text-sm font-heading font-bold text-foreground cursor-pointer transition-colors duration-(--duration-press) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary"
-      >
-        <span className="inline-flex items-center gap-2">
-          <i className="bi bi-alarm-fill text-primary" aria-hidden="true" />
-          Lembretes do jantar e do último ônibus
-        </span>
-        <CagpIcon name="chevron-right" className="w-4 h-4" />
-      </button>
     </section>
   );
 };

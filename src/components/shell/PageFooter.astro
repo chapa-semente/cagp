@@ -1,55 +1,36 @@
 ---
-// PageFooter.astro - Rodapé Institucional Neobrutalista (Chancelas UFMG + CAGP Candangos + Chapa Semente)
-import { FooterMultiColumn, type FooterColumn, type FooterSocialLink } from '@/components/boldkit/blocks/footer-section';
+// PageFooter.astro — Rodapé enxuto (DESIGN.md › Rodapé; decisão de 11/11/2026: 5 links).
+// Faixa "da semente ao fruto" → duas chancelas (Chapa Semente como realizadora, selo do CAGP) →
+// cinco links do site → portais da UFMG e atendimento em texto → linha de direitos.
+// Sem colunas de links (repetiam a navegação com outros nomes) e sem ilha React.
 import { asset, route } from '@/lib/paths';
-
-const footerColumns: FooterColumn[] = [
-  {
-    title: 'Eixos do SuperApp',
-    links: [
-      { label: 'Hoje & Campus', href: route('/') },
-      { label: 'O Bacharelado', href: route('/curso') },
-      { label: 'Calouros (1º Período)', href: route('/calouros') },
-      { label: 'Central Curricular 10P', href: route('/percurso') },
-      { label: 'Extensão & ACG (600h)', href: route('/acg') },
-      { label: 'Estágio & TCC', href: route('/estagio') },
-    ],
-  },
-  {
-    title: 'Governança Discente',
-    links: [
-      { label: 'O CAGP UFMG', href: route('/sobre') },
-      { label: 'Diretoria Executiva', href: route('/gestao') },
-      { label: 'Chapa Semente 2026', href: route('/chapa-semente') },
-      { label: 'Portal da Transparência', href: route('/transparencia') },
-      { label: 'Acervo de Documentos', href: route('/documentos') },
-    ],
-  },
-  {
-    title: 'Suporte & Inclusão',
-    links: [
-      { label: 'Dúvidas Regimentais', href: route('/faq') },
-      { label: 'Acessibilidade & NAI', href: route('/faq#acessibilidade') },
-      { label: 'Configurações do Cofre', href: route('/configuracoes') },
-      { label: 'Mapa Panorâmico', href: route('/mapa-do-site') },
-      { label: 'Feedback sobre o site', href: 'mailto:chapa.semente.gp@gmail.com?subject=Feedback%20sobre%20o%20site' },
-    ],
-  },
-];
-
-const socialLinks: FooterSocialLink[] = [
-  { platform: 'instagram', href: 'https://instagram.com/cagpufmg' },
-];
 import EstagiosFaixa from './EstagiosFaixa.astro';
+
+const links = [
+  { label: 'Documentos', href: route('/documentos') },
+  { label: 'Dúvidas', href: route('/faq') },
+  { label: 'Fala com o CA', href: route('/ouvidoria') },
+  { label: 'Transparência', href: route('/transparencia') },
+  { label: 'Mapa do site', href: route('/mapa-do-site') },
+];
+
+const portais = [
+  { label: 'SIGA e minhaUFMG', href: 'https://sistemas.ufmg.br/' },
+  { label: 'FUMP', href: 'https://www.fump.ufmg.br/' },
+  { label: 'PRAE', href: 'https://www.ufmg.br/prae/' },
+  { label: 'NAI', href: 'https://www.ufmg.br/nai/' },
+  { label: 'Prograd', href: 'https://www.ufmg.br/prograd/' },
+  { label: 'Proex', href: 'https://www.ufmg.br/proex/' },
+];
 ---
 
 <EstagiosFaixa />
 
-<footer id="cagp-page-footer" class="relative z-10 w-full bg-card border-t-3 border-border py-8 px-4 sm:px-6 select-none text-xs text-foreground pb-24 sm:pb-10">
+<footer id="cagp-page-footer" class="relative z-10 w-full bg-card border-t-3 border-border py-8 px-4 sm:px-6 text-foreground pb-24 sm:pb-10">
   <!-- Barra Cromática Tri-Camada Superior -->
   <div class="max-w-[1360px] mx-auto space-y-6">
     <!-- Régua de Chancelas Conjuntas (Chapa Semente como Realizadora + CAGP UFMG) -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pb-6 border-b-3 border-border">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <!-- 1. REALIZAÇÃO PRINCIPAL: CHAPA SEMENTE -->
       <a
         href={route('/chapa-semente')}
@@ -93,148 +74,81 @@ import EstagiosFaixa from './EstagiosFaixa.astro';
       </div>
     </div>
 
-    <!-- LogoCloud Oficial: Órgãos Universitários, Assistência Estudantil e Sistemas -->
-    <div class="pb-6 border-b-3 border-border space-y-3">
-      <div class="flex items-center justify-between">
-        <h3 class="font-heading text-xs font-extrabold text-foreground m-0">
-          Ecossistema Institucional UFMG
-        </h3>
-        <span class="font-mono text-xs font-bold text-secondary uppercase tabular-nums">
-          Fontes Oficiais Verificadas
-        </span>
-      </div>
-      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5">
-        <a
-          href="https://www.ufmg.br/prograd/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="p-2 rounded-xl border-3 border-border bg-white shadow-xs hover:translate-y-[-1px] transition-all flex items-center justify-center h-12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-          title="PROGRAD — Pró-Reitoria de Graduação UFMG"
-        >
-          <img src={asset('/logos/ufmg/assinaturas/prograd-ufmg.jpg')} alt="PROGRAD UFMG" class="max-h-8 max-w-full object-contain" />
-        </a>
-        <a
-          href="https://www.ufmg.br/proex/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="p-2 rounded-xl border-3 border-border bg-white shadow-xs hover:translate-y-[-1px] transition-all flex items-center justify-center h-12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-          title="PROEX — Pró-Reitoria de Extensão UFMG"
-        >
-          <img src={asset('/logos/ufmg/assinaturas/proex-ufmg.jpg')} alt="PROEX UFMG" class="max-h-8 max-w-full object-contain" />
-        </a>
-        <a
-          href="https://www.ufmg.br/prae/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="p-2 rounded-xl border-3 border-border bg-white shadow-xs hover:translate-y-[-1px] transition-all flex items-center justify-center h-12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-          title="PRAE — Pró-Reitoria de Assuntos Estudantis"
-        >
-          <img src={asset('/logos/ufmg/assinaturas/prae-ufmg.png')} alt="PRAE UFMG" class="max-h-8 max-w-full object-contain" />
-        </a>
-        <a
-          href="https://www.fump.ufmg.br/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="p-2 rounded-xl border-3 border-border bg-white shadow-xs hover:translate-y-[-1px] transition-all flex items-center justify-center h-12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-          title="FUMP — Fundação Universitária Mendes Pimentel"
-        >
-          <img src={asset('/logos/fump/03-fump-sinae-logo-colorido-fundo-branco.png')} alt="FUMP SINAE" class="max-h-8 max-w-full object-contain" />
-        </a>
-        <a
-          href="https://www.ufmg.br/nai/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="p-2 rounded-xl border-3 border-border bg-white shadow-xs hover:translate-y-[-1px] transition-all flex items-center justify-center h-12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-          title="NAI — Núcleo de Acessibilidade e Inclusão"
-        >
-          <img src={asset('/logos/ufmg/assinaturas/nai-ufmg.png')} alt="NAI UFMG" class="max-h-8 max-w-full object-contain" />
-        </a>
-        <a
-          href="https://sistemas.ufmg.br/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="p-2 rounded-xl border-3 border-border bg-white shadow-xs hover:translate-y-[-1px] transition-all flex items-center justify-center h-12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-          title="Portal minhaUFMG"
-        >
-          <img src={asset('/logos/minhaufmg/logo-minha-ufmg.png')} alt="minhaUFMG" class="max-h-7 max-w-full object-contain" />
-        </a>
-        <a
-          href="https://sistemas.ufmg.br/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="p-2 rounded-xl border-3 border-border bg-white shadow-xs hover:translate-y-[-1px] transition-all flex items-center justify-center h-12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-          title="SIGA UFMG — Sistema Acadêmico da Graduação"
-        >
-          <img src={asset('/logos/siga/siga-ufmg-fundo-branco.webp')} alt="SIGA UFMG" class="max-h-8 max-w-full object-contain" />
-        </a>
-      </div>
+    <!-- Cinco links do site -->
+    <nav aria-label="Atalhos do rodapé">
+      <ul class="cagp-footer-links" role="list">
+        {links.map((l) => (
+          <li><a href={l.href}>{l.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <!-- Portais da UFMG e atendimento: texto, sem nuvem de logos -->
+    <div class="cagp-footer-info">
+      <p>
+        <strong>Portais da UFMG</strong>
+        {portais.map((p, i) => (
+          <>
+            {i > 0 && <span aria-hidden="true"> · </span>}
+            <a href={p.href} target="_blank" rel="noopener noreferrer">{p.label}</a>
+          </>
+        ))}
+      </p>
+      <p>
+        <strong>Atendimento do curso</strong>
+        Secretaria de Gestão Pública, sala 2039 da FAFICH (quartas, 13h às 19h), telefone <span class="tabular-nums">3409-3826</span>.
+        CEAG, 2º andar (segunda a sexta, 8h às 22h). Coordenação:{' '}
+        <a href="mailto:coordgestaopublicaufmg@gmail.com">coordgestaopublicaufmg@gmail.com</a>{' '}ou{' '}
+        <a href="mailto:gestaopublica@ufmg.br">gestaopublica@ufmg.br</a>.
+      </p>
+      <p>
+        <strong>CAGP</strong>
+        <a href="https://instagram.com/cagpufmg" target="_blank" rel="noopener noreferrer">Instagram @cagpufmg</a>
+        <span aria-hidden="true"> · </span>
+        <button type="button" onclick="window.dispatchEvent(new CustomEvent('cagp:open-settings'))">Ajustes de leitura</button>
+      </p>
     </div>
 
-    <!-- Informações de Atendimento & Navegação Rápida -->
-    <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-      <div class="space-y-1.5 max-w-xl">
-        <p class="font-heading font-extrabold text-sm uppercase tracking-wide text-foreground m-0">
-          Centro Acadêmico de Gestão Pública — Gestão Estudantil &amp; Super App Discente
-        </p>
-        <p class="text-xs font-sans text-muted-foreground leading-relaxed m-0 max-w-prose">
-          Av. Pres. Antônio Carlos, 6627 — Campus Pampulha, Belo Horizonte - MG • CEP 31270-901<br />
-          Secretaria GP: Sala 2039 (4ª feira, 13h–19h • Tel: <span class="tabular-nums">3409-3826</span>) • CEAG 2º Andar (Seg a Sex, 08h–22h) • Coordenação (Profª Isabele Mitozo):{' '}
-          <span class="font-mono font-bold text-secondary">coordgestaopublicaufmg@gmail.com</span> / <span class="font-mono font-bold text-foreground">gestaopublica@ufmg.br</span>
-        </p>
-      </div>
-
-      <div class="flex flex-wrap items-center gap-2.5 text-xs font-heading font-extrabold uppercase">
-        <a
-          href={route('/chapa-semente')}
-          class="px-3.5 py-2.5 min-h-[44px] inline-flex items-center gap-1.5 rounded-xl border-3 border-border bg-primary text-white shadow-sm hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-xs no-underline transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-        >
-          <span class="w-2 h-2 rounded-full bg-accent"></span>
-          <span>Chapa Semente</span>
-        </a>
-        <a
-          href={route('/mapa-do-site')}
-          class="px-3.5 py-2.5 min-h-[44px] inline-flex items-center rounded-xl border-3 border-border bg-card text-foreground shadow-sm hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-xs hover:bg-muted no-underline transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-        >
-          Mapa do Site
-        </a>
-        <a
-          href={route('/faq')}
-          class="px-3.5 py-2.5 min-h-[44px] inline-flex items-center rounded-xl border-3 border-border bg-card text-foreground shadow-sm hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-xs hover:bg-muted no-underline transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-        >
-          Dúvidas &amp; NAI
-        </a>
-        <a
-          href={route('/documentos')}
-          class="px-3.5 py-2.5 min-h-[44px] inline-flex items-center rounded-xl border-3 border-border bg-card text-foreground shadow-sm hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-xs hover:bg-muted no-underline transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-        >
-          Documentos
-        </a>
-        <a
-          href={route('/transparencia')}
-          class="px-3.5 py-2.5 min-h-[44px] inline-flex items-center rounded-xl border-3 border-border bg-card text-foreground shadow-sm hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-xs no-underline transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-        >
-          Transparência
-        </a>
-        <button
-          type="button"
-          onclick="window.dispatchEvent(new CustomEvent('cagp:open-settings'))"
-          class="px-3.5 py-2.5 min-h-[44px] inline-flex items-center rounded-xl border-2 border-border bg-white text-foreground shadow-sm hover:-translate-x-px hover:-translate-y-px hover:shadow-md hover:bg-primary-tint active:translate-x-0.5 active:translate-y-0.5 active:shadow-none cursor-pointer font-heading text-xs font-bold uppercase tracking-[0.03em] transition-[transform,box-shadow,background-color] duration-(--duration-press) ease-(--ease-spring-snappy) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none"
-          aria-label="Abrir painel de configurações"
-        >
-          Ajustes
-        </button>
-      </div>
-    </div>
-
-    <!-- BoldKit Multi-Column Footer Grid -->
-    <div class="pt-6 border-t-3 border-border">
-      <FooterMultiColumn
-        client:visible
-        columns={footerColumns}
-        socialLinks={socialLinks}
-        copyright="© 2026 Chapa Semente"
-        className="py-2 px-0 bg-transparent border-t-0"
-      />
-    </div>
+    <p class="cagp-footer-direitos">© 2026 Chapa Semente</p>
   </div>
 </footer>
+
+<style>
+  .cagp-footer-links { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 0; padding: 0; list-style: none; }
+  .cagp-footer-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 1.125rem;
+    border: 3px solid var(--color-border);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--color-foreground);
+    font: 700 0.875rem/1 var(--font-heading);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    text-decoration: none;
+    box-shadow: 3px 3px 0 0 var(--shadow-color, var(--color-border));
+    transition: translate var(--duration-press) var(--ease-spring-snappy), box-shadow var(--duration-press) var(--ease-spring-snappy);
+  }
+  .cagp-footer-links a:hover { translate: -1px -1px; box-shadow: 5px 5px 0 0 var(--shadow-color, var(--color-border)); }
+  .cagp-footer-links a:active { translate: 3px 3px; box-shadow: 0 0 0 0 var(--color-border); }
+  .cagp-footer-links a:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; }
+  .cagp-footer-info { display: grid; gap: 0.875rem; max-width: 68ch; }
+  .cagp-footer-info p { margin: 0; font-size: 0.875rem; line-height: 1.6; color: var(--color-muted-foreground); overflow-wrap: anywhere; }
+  .cagp-footer-info strong { display: block; color: var(--color-foreground); }
+  .cagp-footer-info :is(a, button) {
+    display: inline;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--color-primary);
+    font: inherit;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 0.22em;
+    cursor: pointer;
+  }
+  .cagp-footer-info :is(a, button):focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+  .cagp-footer-direitos { margin: 0; padding-top: 1rem; border-top: 2px solid var(--color-border); font-size: 0.875rem; color: var(--color-muted-foreground); }
+</style>

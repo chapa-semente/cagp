@@ -277,10 +277,16 @@ const AVAILABLE_LEADER_PHOTOS = new Set([
   'Alice.png',
 ]);
 
-export function getLeaderPhotoUrl(filename?: string): string | null {
+/**
+ * Retrato do integrante já reduzido (webp de 640px, ou miniatura de 220px para avatares).
+ * Os originais em /images/chapa/ chegam a 4 MB cada e não são mais servidos pelas páginas:
+ * as versões leves ficam em /images/chapa/tour/<id>.webp (as mesmas do tour).
+ */
+export function getLeaderPhotoUrl(filename?: string, size: 'full' | 'thumb' = 'full'): string | null {
   if (!filename || !AVAILABLE_LEADER_PHOTOS.has(filename)) return null;
-  const encodedName = encodeURIComponent(filename);
-  return asset(`/images/chapa/${encodedName}`);
+  const leader = CHAPA_LEADERS.find((l) => l.photoFilename === filename);
+  if (!leader) return null;
+  return asset(`/images/chapa/tour/${leader.id}${size === 'thumb' ? '-thumb' : ''}.webp`);
 }
 
 // O roteiro do tour da chapa vive em src/lib/sementeTour.ts.

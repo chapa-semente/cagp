@@ -5,6 +5,8 @@
 import { AXIS_REGISTRY, getItemByPath, normalizePathname } from '@/lib/navigationRegistry';
 import { getCagpIconSvg } from '@/lib/cagpIcons';
 import { asset } from '@/lib/paths';
+// O ramo do celular: folhas penduradas na borda de baixo do cabeçalho, em % da rolagem.
+const folhasRamo = [14, 30, 46, 62, 78];
 
 const cleanPath = normalizePathname(Astro.url.pathname);
 const isHome = cleanPath === '/';
@@ -13,8 +15,13 @@ const axis = owner?.axis ?? AXIS_REGISTRY[0];
 const isAxisRoot = owner ? normalizePathname(axis.rootHref) === cleanPath : false;
 // Na raiz mostra o nome da aba; dentro dela, o nome curto da página.
 // Rota fora do registro (404): título próprio e a seta leva ao início.
+// Página fora do registro que não é 404 (ex.: uma amostra interna) diz o próprio nome.
+interface Props {
+  fallbackTitle?: string;
+}
+const { fallbackTitle } = Astro.props;
 const isUnknown = !owner && !isHome;
-const title = isUnknown ? 'Página não encontrada' : owner && !isAxisRoot ? owner.item.shortLabel : axis.name;
+const title = isUnknown ? fallbackTitle || 'Página não encontrada' : owner && !isAxisRoot ? owner.item.shortLabel : axis.name;
 ---
 
 <header
@@ -66,17 +73,44 @@ const title = isUnknown ? 'Página não encontrada' : owner && !isAxisRoot ? own
       >
         <span
           id="cagp-header-avatar-slot"
-          class="w-7 h-7 rounded-lg bg-white text-primary border-2 border-border flex items-center justify-center text-xs font-heading font-bold overflow-hidden"
+          class="cagp-header-avatar w-7 h-7 rounded-lg bg-white text-primary border-2 border-border flex items-center justify-center text-xs font-heading font-bold overflow-hidden"
         >
           GP
         </span>
       </button>
     </div>
   </div>
+
+  <!-- O ramo que cresce: a semente rola pela borda conforme a página desce e deixa caule e folhas.
+       Decorativo e só com rolagem guiada por CSS; sem suporte, não aparece. -->
+  <div class="cagp-ramo" aria-hidden="true">
+    <span class="cagp-ramo-caule"></span>
+    {folhasRamo.map((t, i) => (
+      <svg class={`cagp-ramo-folha ${i % 2 ? 'is-laranja' : ''}`} style={`left:${t}%; --at:${t}%`} viewBox="-52 -10 104 122">
+        <g transform={`rotate(${i % 2 ? 204 : 156})`}><use href="#sg-folha" /></g>
+      </svg>
+    ))}
+    <span class="cagp-ramo-fruto" style="--at:97%"></span>
+    <span class="cagp-ramo-ponta"></span>
+  </div>
 </header>
 
+<style is:global>
+  /* Foto do perfil: preenche o botão até o contorno, sem moldura dupla. */
+  #cagp-btn-passport:has(.cagp-header-avatar[data-photo]) {
+    overflow: hidden;
+    background: var(--color-card, #fff);
+  }
+  .cagp-header-avatar[data-photo] {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+  }
+</style>
+
 <script>
-  import { renderAvatarHtml } from '@/lib/avatarHelper';
+  import { readStoredProfile, renderAvatarHtml } from '@/lib/avatarHelper';
 
   function cameFromThisSite(): boolean {
     try {
@@ -107,21 +141,27 @@ const title = isUnknown ? 'Página não encontrada' : owner && !isAxisRoot ? own
       };
     }
 
+    paintHeaderAvatar();
+  }
+
+  /** Foto (ou avatar escolhido) de Seu perfil no botão do cabeçalho. Sem perfil salvo, fica "GP". */
+  function paintHeaderAvatar() {
     const avatarSlot = document.getElementById('cagp-header-avatar-slot');
-    if (avatarSlot) {
-      try {
-        const raw = localStorage.getItem('cagp_student_profile_v1');
-        if (raw) {
-          const profile = JSON.parse(raw);
-          if (profile.avatarPreset) {
-            avatarSlot.innerHTML = renderAvatarHtml(profile.avatarPreset, profile.prideChoice);
-          }
-        }
-      } catch {
-        // sem perfil salvo
-      }
+    if (!avatarSlot) return;
+    const profile = readStoredProfile();
+    if (profile && (profile.photoDataUrl || profile.avatarPreset || profile.name)) {
+      avatarSlot.innerHTML = renderAvatarHtml(profile, 'sm');
+      // Com foto, ela ocupa o botão inteiro (38px úteis) em vez do miolo de 28px.
+      avatarSlot.toggleAttribute('data-photo', Boolean(avatarSlot.querySelector('img')));
     }
   }
+
+  // Trocou a foto ou o nome em Seu perfil (nesta aba ou em outra): o cabeçalho acompanha na hora.
+  window.addEventListener('cagp:vault-updated', paintHeaderAvatar);
+  window.addEventListener('cagp:passport-updated', paintHeaderAvatar);
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'cagp_student_profile_v1') paintHeaderAvatar();
+  });
 
   setupHeaderListeners();
   document.addEventListener('astro:page-load', setupHeaderListeners);
