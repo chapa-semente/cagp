@@ -66,7 +66,7 @@ export const LeaderAvatar: React.FC<LeaderAvatarProps> = ({
           <>
             <img
               src={photoUrl!}
-              alt={`Retrato oficial de ${name} — ${role || 'Liderança Chapa Semente'}`}
+              alt={`Retrato oficial de ${name} — ${role || 'Liderança da Chapa 2 · Semente'}`}
               onError={() => setHasError(true)}
               style={{ objectPosition: photoPosition }}
               className="w-full h-full object-cover"
@@ -82,7 +82,7 @@ export const LeaderAvatar: React.FC<LeaderAvatarProps> = ({
             {/* Selo Superior Esquerdo + Sticker do Cargo */}
             <div className="w-full flex items-center justify-between gap-2 z-10">
               <span className="px-2.5 py-1 rounded-lg bg-accent text-foreground border-2 border-border shadow-xs font-heading text-xs font-black uppercase tracking-wider -rotate-2">
-                {role || 'CHAPA SEMENTE 2026'}
+                {role || 'CHAPA 2 · SEMENTE'}
               </span>
               {counter && (
                 <span className="px-2 py-0.5 rounded-md bg-white text-foreground border-2 border-border shadow-xs font-mono text-xs font-black tabular-nums">

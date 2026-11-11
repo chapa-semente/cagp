@@ -50,7 +50,15 @@ export function renderEstagioIlustra(nivel: IlustraNivel, cores: IlustraCores = 
   const out: string[] = [];
   let ordem = 0;
   /** Cada parte entra na vez dela (`--i` é o atraso): primeiro a semente, por último o fruto. */
-  const anima = (classe: 'ei-pop' | 'ei-rise', miolo: string) => `<g class="${classe}" style="--i:${ordem++}">${miolo}</g>`;
+  // data-p diz que parte da planta é (s semente, r raiz, c caule, f folha, u fruto e cabeça):
+  // a abertura do site revela a planta por etapa com isso.
+  let parte = 's';
+  const anima = (classe: 'ei-pop' | 'ei-rise', miolo: string) =>
+    `<g class="${classe}" data-p="${parte}" style="--i:${ordem++}">${miolo}</g>`;
+  const de = (p: string, miolo: () => string) => {
+    parte = p;
+    return miolo();
+  };
 
   const folha = (x: number, y: number, rot: number, len: number, fill: string, espelha = false, nervura = true) => {
     const k = len / 100;
@@ -142,27 +150,30 @@ export function renderEstagioIlustra(nivel: IlustraNivel, cores: IlustraCores = 
   }
   if (nivel >= 4) {
     out.push(
-      raizes(100, 178, 22),
-      semente(100, 174, 36),
-      caule(100, 164, 124, 10, 6.5),
-      folha(104, 136, 62, 50, LARANJA),
-      folha(96, 118, -64, 54, VERDE, true),
-      folha(103, 96, 54, 44, LARANJA),
-      folha(97, 80, -56, 40, VERDE, true),
-      // A pessoa do símbolo: o braço roxo, a folha laranja e a cabeça entre os dois.
-      folha(100, 50, 30, 38, LARANJA),
-      folha(100, 52, -34, 30, ROXO, true),
-      bola(97, 25, 11, ROXO, false)
+      de('r', () => raizes(100, 178, 22)),
+      de('s', () => semente(100, 174, 36)),
+      de('c', () => caule(100, 164, 124, 10, 6.5)),
+      de('f', () =>
+        [
+          folha(104, 136, 62, 50, LARANJA),
+          folha(96, 118, -64, 54, VERDE, true),
+          folha(103, 96, 54, 44, LARANJA),
+          folha(97, 80, -56, 40, VERDE, true),
+          // A pessoa do símbolo: o braço roxo, a folha laranja e a cabeça entre os dois.
+          folha(100, 50, 30, 38, LARANJA),
+          folha(100, 52, -34, 30, ROXO, true),
+        ].join('')
+      ),
+      de('u', () => bola(97, 25, 11, ROXO, false))
     );
   }
   if (nivel === 5) {
     out.push(
-      bola(150, 112, 14, AMARELO),
-      bola(48, 92, 13, AMARELO),
-      bola(142, 62, 12, AMARELO),
-      bola(60, 48, 11, AMARELO),
+      de('u', () =>
+        [bola(150, 112, 14, AMARELO), bola(48, 92, 13, AMARELO), bola(142, 62, 12, AMARELO), bola(60, 48, 11, AMARELO)].join('')
+      ),
       // A semente que cai e recomeça o ciclo.
-      gota(156, 158, 72, 24, LARANJA, 1.45)
+      de('u', () => gota(156, 158, 72, 24, LARANJA, 1.45))
     );
   }
   return out.join('');

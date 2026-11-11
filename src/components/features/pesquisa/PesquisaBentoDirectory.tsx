@@ -314,7 +314,7 @@ export const PesquisaBentoDirectory: React.FC = () => {
             <span className="px-2.5 py-0.5 rounded-md bg-primary text-white font-mono text-xs font-black uppercase border-2 border-border">
               PROPOSTAS 9 E 12 • PESQUISA, EXTENSÃO &amp; RADAR DE BOLSAS
             </span>
-            <span className="font-mono text-xs font-bold text-secondary">Chapa Semente 2026</span>
+            <span className="font-mono text-xs font-bold text-secondary">Chapa 2 · Semente</span>
           </div>
           <h4 className="font-head text-base sm:text-lg font-black text-foreground m-0">
             Divulgação Ativa de Editais PIBIC/PROEX e Integração do Turno Noturno aos Laboratórios

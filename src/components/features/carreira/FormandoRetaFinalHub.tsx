@@ -204,17 +204,10 @@ export const FormandoRetaFinalHub: React.FC = () => {
       <div className="p-5 sm:p-6 rounded-xl border-2 border-border bg-white shadow-md space-y-5">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b-3 border-border pb-4">
           <div className="space-y-1.5">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="px-2.5 py-1 rounded-md border-2 border-border bg-primary text-white font-mono text-xs font-bold uppercase shadow-2xs">
-                Para quem está do 8º ao 10º período
-              </span>
-              <span className="px-2.5 py-1 rounded-md border-2 border-border bg-petroleo-deep text-white font-mono text-xs font-bold uppercase shadow-2xs">
-                Estágio 300h + TCC 180h + Colação
-              </span>
-            </div>
             <h2 className="font-heading text-lg sm:text-2xl font-black text-foreground m-0">
               Checklist da reta final e da colação de grau
             </h2>
+            <p className="m-0 mt-1 text-sm text-muted-foreground">Para quem está do 8º ao 10º período.</p>
             <p className="font-sans text-xs sm:text-sm text-muted-foreground m-0 max-w-3xl leading-relaxed">
               Acompanhe em uma única tela suas obrigações de <strong>Estágio Supervisionado (300h / Art. 41)</strong>, <strong>TCC (180h / Art. 19)</strong> e <strong>Colação de Grau no DRCA</strong>. Fica tudo salvo neste celular.
             </p>
@@ -527,14 +520,11 @@ export const FormandoRetaFinalHub: React.FC = () => {
       {/* Kit Rápido de Downloads para Formandos & Chamada Eleitoral Chapa Semente */}
       <div className="p-5 sm:p-6 rounded-xl border-2 border-border bg-card shadow-md flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
         <div className="space-y-1 max-w-2xl">
-          <span className="px-2.5 py-0.5 rounded bg-accent text-foreground border-2 border-border font-mono text-xs font-black uppercase shadow-2xs">
-            PROPOSTA DA CHAPA SEMENTE MATERIALIZADA • 25 E 26/11
-          </span>
           <h4 className="font-heading text-base sm:text-lg font-black text-foreground m-0 pt-1">
             Formar sem burocracia é direito de todo estudante do noturno
           </h4>
           <p className="font-sans text-xs text-content-secondary leading-relaxed m-0 font-medium">
-            A <strong>Chapa Semente</strong> construiu esta tela antes mesmo da eleição para que nenhum formando perca prazos de TCE, Aproveitamento Servidor (Art. 41) ou depósito de TCC. Vote na chapa que já trabalha por você!
+            A <strong>Chapa Semente</strong> construiu esta tela antes mesmo da eleição para que nenhum formando perca prazos de TCE, Aproveitamento Servidor (Art. 41) ou depósito de TCC. Vote Chapa 2, a chapa que já trabalha por você!
           </p>
         </div>
 

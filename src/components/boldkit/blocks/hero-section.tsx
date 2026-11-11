@@ -27,7 +27,7 @@ export interface HeroCenteredProps {
 }
 
 export function HeroCentered({
-  badge = 'CHAPA SEMENTE • PROPOSTA MATERIALIZADA • 25 E 26/11',
+  badge,
   title,
   titleHighlight,
   description,

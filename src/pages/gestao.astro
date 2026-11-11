@@ -94,13 +94,13 @@ const badges = [
   { label: 'Eleições: 25 e 26/11 no CAGP', variant: 'red' as const, icon: 'bi-calendar-check' },
   { label: 'Edital Oficial Publicado', variant: 'gold' as const, icon: 'bi-file-earmark-pdf' },
   { label: '9 Pastas & Diretorias', variant: 'dark' as const, icon: 'bi-diagram-3-fill' },
-  { label: 'Chapa Semente Concorrente', variant: 'blue' as const, icon: 'bi-flower1' },
+  { label: 'Chapa 2 · Semente', variant: 'blue' as const, icon: 'bi-flower1' },
 ];
 ---
 
 <BaseLayout
   title="Eleição e como votar"
-  description="Processo eleitoral 2026, edital de convocação da Junta Eleitoral, candidatura da Chapa Semente e organograma regimental do CAGP FAFICH/UFMG."
+  description="Processo eleitoral 2026, edital de convocação da Junta Eleitoral, candidatura da Chapa 2 (Semente) e organograma regimental do CAGP FAFICH/UFMG."
   mode="read"
 >
   <PageHeader
@@ -123,6 +123,7 @@ const badges = [
         { rotulo: 'Onde', texto: 'Na <strong>sala do CAGP</strong>, na FAFICH. O voto é presencial e secreto.' },
         { rotulo: 'Quem vota', texto: 'Todo estudante com matrícula ativa em Gestão Pública (edital, art. 21).' },
         { rotulo: 'O que levar', texto: 'Um <strong>documento oficial com foto</strong>.' },
+        { rotulo: 'A Semente', texto: 'É a <strong>Chapa 2</strong>.' },
       ]}
     />
 
@@ -216,14 +217,14 @@ const badges = [
         <div class="space-y-1">
           <div class="flex items-center gap-2">
             <span class="font-heading text-lg font-bold text-foreground">
-              Chapa Semente
+              Chapa 2 · Semente
             </span>
             <span class="px-2 py-0.5 rounded-full bg-accent text-foreground font-mono text-xs font-black uppercase">
               Candidata Inscrita
             </span>
           </div>
           <p class="text-xs font-sans text-content-secondary leading-relaxed max-w-xl m-0">
-            A Chapa Semente apresenta sua <strong>Carta-Programa com 14 propostas</strong> divididas em 4 eixos (Transparência, Cultura, Desenvolvimento de Carreiras e Comunicação), além do compromisso público de manutenção e entrega deste Superapp à comunidade acadêmica.
+            A Semente concorre como <strong>Chapa 2</strong> e apresenta sua <strong>Carta-Programa com 14 propostas</strong> divididas em 4 eixos (Transparência, Cultura, Desenvolvimento de Carreiras e Comunicação), além do compromisso público de manutenção e entrega deste Superapp à comunidade acadêmica.
           </p>
         </div>
       </div>

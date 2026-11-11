@@ -20,7 +20,7 @@ const leader = leaderId ? CHAPA_LEADERS.find((l) => l.id === leaderId) : undefin
 const target = href ?? route('/chapa-semente') + (leader ? `#${leader.id}` : '');
 ---
 
-<aside class="cagp-signature" aria-label="Assinatura da Chapa Semente">
+<aside class="cagp-signature" aria-label="Assinatura da Chapa 2, a Semente">
   <img
     src={asset('/logos/semente/semente-simbolo.webp')}
     alt=""
@@ -30,7 +30,7 @@ const target = href ?? route('/chapa-semente') + (leader ? `#${leader.id}` : '')
     loading="lazy"
   />
   <div class="cagp-signature-body">
-    <p class="cagp-signature-label">{proposal} · em ação</p>
+    <p class="cagp-signature-label">Chapa 2 · {proposal} em ação</p>
     <p class="cagp-signature-text">{text}</p>
     {leader && (
       <p class="cagp-signature-who">{leader.name} · {leader.role}</p>

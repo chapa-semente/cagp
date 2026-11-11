@@ -165,9 +165,6 @@ export const DocumentosInteractiveSearch: React.FC = () => {
         <CardHeader className="border-b-3 border-border bg-card">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
-              <Badge variant="default" className="mb-1.5">
-                PDF e leitura no site
-              </Badge>
               <CardTitle className="text-xl">
                 Buscar documento
               </CardTitle>

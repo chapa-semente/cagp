@@ -249,7 +249,7 @@ export function getTourShareUrl(): string {
   const text = [
     '*Eleição do CAGP: 25 e 26 de novembro, das 17h às 22h30, na sala do CAGP (FAFICH)*',
     '',
-    'A Chapa Semente já pôs no ar um site com os guias do curso: documentos, estágio, 600h, FUMP, calouros.',
+    'A Semente é a Chapa 2 e já pôs no ar um site com os guias do curso: documentos, estágio, 600h, FUMP, calouros.',
     `Dá uma olhada e conhece as ${CHAPA_LEADERS.length} pessoas da chapa:`,
     siteUrl,
   ].join('\n');

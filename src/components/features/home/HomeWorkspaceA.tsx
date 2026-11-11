@@ -5,7 +5,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { getVaultItem, USER_ROLE_META, type UserRole } from '@/lib/storage/studentVault';
-import { CHAPA_LEADERS } from '@/lib/chapaSementeData';
+import { CHAPA_LEADERS, CHAPA_NOME, CHAPA_NUMERO, CHAPA_ROTULO } from '@/lib/chapaSementeData';
 import { asset, route } from '@/lib/paths';
 import { tactileSpring, celebrateSpring } from '@/lib/motion';
 import { CagpIcon, type CagpIconName } from '@/components/ui/CagpIcon';
@@ -176,7 +176,18 @@ export const HomeWorkspaceA: React.FC = () => {
 
           <p className="text-base sm:text-lg leading-relaxed m-0 max-w-[46ch] text-white">
             A nossa começou com este app, feito por 12 estudantes de GP pra você resolver estágio, 600h e FUMP sem depender de ninguém.
-            Dias 25 e 26/11, vote Semente.
+          </p>
+
+          {/* O número da chapa: adesivo de cédula + a chamada de voto (o que a pessoa precisa lembrar no dia). */}
+          <p className="mt-3 mb-4 flex items-center gap-4">
+            <span className="sk-chapa-num" aria-hidden="true">
+              <span className="sk-chapa-num-rotulo">Chapa</span>
+              <span className="sk-chapa-num-n">{CHAPA_NUMERO}</span>
+            </span>
+            <span className="font-heading font-bold text-lg sm:text-xl leading-tight text-white">
+              Vote {CHAPA_ROTULO}.
+              <span className="block text-base font-normal tabular-nums">Dias 25 e 26/11, na sala do CAGP.</span>
+            </span>
           </p>
 
           <ul className="list-none m-0 p-0 flex flex-wrap gap-1.5 sm:gap-2 max-w-[34rem]" aria-label="Integrantes da Chapa Semente">
@@ -224,11 +235,11 @@ export const HomeWorkspaceA: React.FC = () => {
         </div>
 
         {/* Marquee da campanha: a única faixa que rola sozinha (DESIGN.md › Marquee). */}
-        <p className="sr-only">Vote Semente nos dias 25 e 26/11, das 17h às 22h30, na sala do CAGP. Leve documento com foto.</p>
+        <p className="sr-only">Vote {CHAPA_ROTULO}, a Semente, nos dias 25 e 26/11, das 17h às 22h30, na sala do CAGP. Leve documento com foto.</p>
         <div className="relative z-10 border-t-3 border-border bg-foreground text-white" aria-hidden="true">
           <Marquee data-impeccable-ignore="marquee" speed="slow" pauseOnHover className="bg-foreground text-white border-0 shadow-none py-2.5">
             {[
-              'Vote Semente · 25 e 26/11 · 17h às 22h30 na sala do CAGP',
+              `Vote ${CHAPA_NOME} · 25 e 26/11 · 17h às 22h30 na sala do CAGP`,
               'Este app é proposta que já funciona',
               'Toda mudança começa pequena',
               'Leve documento com foto pra votar',

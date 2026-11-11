@@ -15,8 +15,11 @@ export const GlobalSheets: React.FC = () => {
     const handleSettings = () => setActiveSheet('settings');
     const handleShortcuts = () => setActiveSheet('shortcuts');
 
-    // Toque dado antes desta ilha montar (ela monta em client:idle): o BaseLayout anotou qual folha.
-    const pendente = (window as unknown as { __cagpPendingSheet?: { nome: typeof activeSheet; quando: number } }).__cagpPendingSheet;
+    // Esta ilha só carrega quando alguém pede uma folha (client:sinal="folhas"): o BaseLayout anotou
+    // qual foi, e ela abre ao montar. O pedido é consumido, para não reabrir na página seguinte.
+    const w = window as unknown as { __cagpPendingSheet?: { nome: typeof activeSheet; quando: number } };
+    const pendente = w.__cagpPendingSheet;
+    w.__cagpPendingSheet = undefined;
     if (pendente && Date.now() - pendente.quando < 10000) setActiveSheet(pendente.nome);
 
     window.addEventListener('cagp:open-passport', handlePassport);

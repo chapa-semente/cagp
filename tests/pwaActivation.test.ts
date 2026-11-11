@@ -68,7 +68,7 @@ describe('PWA & Eleições Chapa Semente Activation Test Suite', () => {
       expect(url).toContain('https://api.whatsapp.com/send?text=');
       expect(text).toContain('Mariana Silva');
       expect(text).toContain('Calculadora de Horas ACG 600h');
-      expect(text).toContain('Chapa Semente — Potencial que se Transforma em Ação');
+      expect(text).toContain('Chapa 2, a Semente — Potencial que se Transforma em Ação');
       expect(text).toContain('25 e 26 de novembro');
 
       // Asserção estrita de ausência de emojis

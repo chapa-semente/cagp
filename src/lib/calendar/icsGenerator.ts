@@ -65,7 +65,7 @@ export function downloadPresetIcs(preset: 'ru-1815' | 'circular-2230' | 'secreta
   if (preset === 'eleicoes-cagp-2026') {
     const electionDay = new Date(2026, 10, 25, 17, 0, 0, 0); // 25/11/2026 17h
     downloadIcs({
-      title: 'Votação Eleições CAGP 2026 (Chapa Semente)',
+      title: 'Votação Eleições CAGP 2026 (Chapa 2 · Semente)',
       description: 'Votação presencial nas Eleições do Centro Acadêmico de Gestão Pública da UFMG (CAGP FAFICH). Horário: 17h às 22h30 na Sede F-4000.',
       location: 'Sede do CAGP (Sala F-4000) • 4º Andar FAFICH/UFMG',
       filename: 'eleicoes-cagp-2026',

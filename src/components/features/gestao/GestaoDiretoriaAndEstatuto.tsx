@@ -95,13 +95,10 @@ export const GestaoDiretoriaAndEstatuto: React.FC = () => {
                 />
               </div>
               <div>
-                <div className="flex flex-wrap items-center gap-2 mb-1">
-                  <Badge variant="secondary">CHAPA SEMENTE • GESTÃO ELEITA</Badge>
-                  <Badge variant="default">REGIMENTO INTERNO DE 14/10/2024</Badge>
-                </div>
                 <CardTitle className="text-xl">
                   As 7 Diretorias Regimentais do CAGP (Art. 24º a 34º)
                 </CardTitle>
+                <p className="m-0 mt-1 text-sm text-muted-foreground">Base: Regimento Interno de 14/10/2024.</p>
                 <CardDescription className="text-xs font-medium text-muted-foreground">
                   Estrutura mínima obrigatória de 8 representantes eleitos, suprapartidária, autônoma e regida pelos princípios da Administração Pública (LIMPE).
                 </CardDescription>
@@ -155,17 +152,16 @@ export const GestaoDiretoriaAndEstatuto: React.FC = () => {
           {/* Linha Sucessória e Comissão de Reformulação 2024 */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div className="p-4 rounded-xl border-2 border-border bg-card shadow space-y-2">
-              <Badge variant="ufmg">LINHA SUCESSÓRIA &amp; TRANSPARÊNCIA (ART. 15º E 26º)</Badge>
               <h4 className="font-heading text-sm font-black text-foreground">
                 Sucessão Presidencial e Direito de Fiscalização
               </h4>
+              <p className="m-0 mt-1 text-sm text-muted-foreground">Base: Regimento Interno, arts. 15 e 26.</p>
               <p className="text-xs text-content-secondary leading-relaxed">
                 Pelo <strong>Art. 26º</strong>, na vacância da Presidência assumem sucessivamente: 1º Vice-Presidência (DIPRE) → 2º Diretoria Jurídica (DIJUR) → 3º Diretoria Financeira (DIFI). Pelo <strong>Art. 15º, V</strong>, todo estudante matriculado tem direito de examinar as contas mediante requerimento, com prazo máximo de <strong>3 dias letivos</strong> para exibição.
               </p>
             </div>
 
             <div className="p-4 rounded-xl border-2 border-border bg-card shadow space-y-2">
-              <Badge variant="teal">HISTÓRICO • REFORMULAÇÃO ESTATUTÁRIA DE 14/10/2024</Badge>
               <h4 className="font-heading text-sm font-black text-foreground">
                 Comissão de Reformulação do Regimento Interno
               </h4>

@@ -97,20 +97,13 @@ export const CagpTransparenciaPortal: React.FC = () => {
       >
         <div className="flex flex-wrap items-start justify-between gap-3 pb-3 border-b-2 border-border">
           <div>
-            <div className="flex flex-wrap items-center gap-2 mb-1">
-              <span className="px-2 py-0.5 rounded bg-primary text-white font-mono text-xs font-black uppercase">
-                PROPOSTA 1 DA CHAPA
-              </span>
-              <span className="font-heading text-xs font-bold uppercase tracking-[0.04em] text-secondary">
-                Formato do Art. 30, XI e XII
-              </span>
-            </div>
             <h2
               id="heading-balancete-kpis"
               className="font-head text-lg sm:text-xl font-extrabold text-foreground m-0"
             >
               Livro-Caixa Aberto • Balancete Financeiro Consolidado
             </h2>
+            <p className="m-0 mt-1 text-sm text-muted-foreground">Proposta 1 da chapa, no formato do Regimento, art. 30, XI e XII.</p>
             <p className="text-xs font-mono text-foreground mt-1 m-0 font-bold">
               {SIMULATED_TRANSPARENCY.referencePeriod} • Diretoria Financeira (Art. 30)
             </p>

@@ -1,7 +1,8 @@
 ---
 // BaseLayout.astro - Casca Global Astro 7 (Proposta A: App Shell + Sidebar Responsiva & View Transitions)
 import { ClientRouter } from 'astro:transitions';
-import { AppShellSidebarIsland } from '../components/shell/AppShellSidebarIsland';
+import AppSidebar from '../components/shell/AppSidebar.astro';
+import { CommandPalette } from '../components/shell/CommandPalette';
 import SuperAppHeader from '../components/shell/SuperAppHeader.astro';
 import PageFooter from '../components/shell/PageFooter.astro';
 import BackToTop from '../components/shell/BackToTop.astro';
@@ -14,9 +15,13 @@ import { PropostasTour } from '@/components/features/semente/PropostasTour';
 import SplashScreen from '@/components/shell/SplashScreen.astro';
 import GrowthBackdrop from '@/components/shell/GrowthBackdrop.astro';
 import { estagioDaRota } from '@/lib/estagios';
-import { GlobalCanvasBackdrop } from '../components/shell/GlobalCanvasBackdrop';
+import GlobalCanvasBackdrop from '../components/shell/GlobalCanvasBackdrop.astro';
 import { asset } from '@/lib/paths';
 import { getRouteMeta } from '@/lib/navigationRegistry';
+// As duas fontes do texto, pedidas já no <head>: sem isso o navegador só descobre a fonte depois
+// de baixar e ler o CSS inteiro, e a página pisca com a fonte do sistema no celular.
+import poppins400 from '@fontsource/poppins/files/poppins-latin-400-normal.woff2?url';
+import poppins700 from '@fontsource/poppins/files/poppins-latin-700-normal.woff2?url';
 import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/700.css';
 import '@fontsource/permanent-marker/400.css';
@@ -65,8 +70,10 @@ import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
     <link rel="manifest" href={asset('/manifest.webmanifest')} />
+    <link rel="preload" as="font" type="font/woff2" href={poppins400} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={poppins700} crossorigin />
 
-    <title>{title} — Chapa Semente • CAGP UFMG</title>
+    <title>{title} — Chapa 2 Semente • CAGP UFMG</title>
     <ClientRouter />
     <!-- Metadados extras da página (ex.: noindex numa página que não é pública). -->
     <slot name="head" />
@@ -159,8 +166,8 @@ import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
     <!-- O ramo que cresce com a rolagem + a forma orgânica do estágio (decorativo) -->
     <GrowthBackdrop />
 
-    <!-- Canvas Interativo Temático por Eixo Neobrutalista BoldKit -->
-    <GlobalCanvasBackdrop client:idle />
+    <!-- Fundo animado das páginas Cartaz (canvas, sem React) -->
+    <GlobalCanvasBackdrop mode={mode} />
 
     <!-- Aviso flutuante único (lib/toast.ts e window.cagpToast desenham aqui) -->
     <DynamicToast />
@@ -170,13 +177,24 @@ import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
       <div class="cagp-route-progress-fill"></div>
     </div>
 
-    <!-- Casca Principal Proposta A: Sidebar Esquerda (Tablet/Desktop/Drawer) via React Island + Coluna de Conteúdo com transições fluidas de redimensionamento -->
+    <!-- Casca principal: trilho lateral (tablet/desktop, HTML + JS puro) + coluna de conteúdo -->
     <div class="relative z-10 flex-1 flex min-h-0 w-full transition-[padding,margin,width] duration-250 ease-out">
-      <AppShellSidebarIsland client:load initialPath={Astro.url.pathname} />
+      <AppSidebar currentPath={Astro.url.pathname} />
 
       <div class="flex-1 flex flex-col min-w-0 transition-all duration-250 ease-out">
         <!-- Topbar Contextual para Sub-rotas -->
         <SuperAppHeader fallbackTitle={title} />
+
+        <!-- Esqueleto: aparece só quando a troca de página demora (rede lenta). Blocos parados, sem brilho. -->
+        <div id="cagp-skeleton" aria-hidden="true">
+          <div class="cagp-skeleton-painel">
+            <span class="cagp-sq-cabeca"></span>
+            <span class="cagp-sq-quadros"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+            <span class="cagp-sq-ficha"><i></i><i></i></span>
+            <span class="cagp-sq-ficha"><i></i><i></i></span>
+          </div>
+        </div>
+        <span id="cagp-skeleton-aviso" class="sr-only" role="status" aria-live="polite"></span>
 
         <!-- Main Content Area -->
         <main
@@ -198,30 +216,90 @@ import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
     <!-- Bottom Navigation (Mobile < 768px) -->
     <BottomNav />
 
-    <!-- Global React Sheets & Spotlight Command Palette -->
-    <!-- As folhas montam quando o navegador fica livre. Se alguém tocar antes (perfil, campus,
-         ajustes), o toque fica anotado e a folha abre assim que montar. -->
+    <!-- Central de sinais: as ilhas React abaixo ficam dormindo (client:sinal) e só baixam o React
+         quando alguém precisa delas. Quem decide é este script; a diretiva está em
+         src/lib/astro/clientSinal.ts. Toque dado antes de a ilha existir fica anotado e ela abre ao chegar. -->
     <script is:inline>
       (function () {
-        if (window.__cagpSheetQueue) return;
-        window.__cagpSheetQueue = true;
+        if (window.__cagpSinal) return;
+        var vistos = (window.__cagpSinais = window.__cagpSinais || {});
+        var sinal = (window.__cagpSinal = function (nome) {
+          if (vistos[nome]) return;
+          vistos[nome] = Date.now();
+          window.dispatchEvent(new CustomEvent('cagp:sinal', { detail: nome }));
+        });
+        var ocioso = window.requestIdleCallback ? function (fn) { window.requestIdleCallback(fn); } : function (fn) { setTimeout(fn, 1); };
+
+        // Folhas (perfil, campus, ajustes, atalhos): no primeiro pedido de abrir uma delas.
         ['passport', 'campus', 'a11y', 'settings', 'shortcuts'].forEach(function (nome) {
           window.addEventListener('cagp:open-' + nome, function () {
             window.__cagpPendingSheet = { nome: nome, quando: Date.now() };
+            sinal('folhas');
           });
         });
+
+        // Busca (Ctrl+K, "/", botões de busca). Montada, ela mesma escuta o evento.
+        window.addEventListener('cagp:open-spotlight', function () {
+          if (window.__cagpPaletteMounted) return;
+          window.__cagpSpotlightPending = Date.now();
+          sinal('busca');
+        });
+
+        // Tour das propostas e "rever o tour": quando alguém pede.
+        window.addEventListener('cagp:start-propostas-tour', function () {
+          // Pedido feito antes de a ilha existir: ela lê este aviso ao montar e abre.
+          if (!vistos.propostas) window.__cagpPropostasPending = true;
+          sinal('propostas');
+        });
+        window.addEventListener('cagp:start-semente-tour', function () {
+          if (!window.__cagpTourMounted) window.__cagpSementeTourPending = Date.now();
+          sinal('tour');
+        });
+
+        // Tour obrigatório: na primeira visita ele carrega já (a página está coberta esperando por ele).
+        function tourPendente() {
+          if (document.documentElement.getAttribute('data-semente-tour') === 'pending') sinal('tour');
+        }
+
+        // Pílula "Sou Semente": só para quem terminou o tour declarando voto, e sem pressa.
+        function apoiador() {
+          try {
+            var a = JSON.parse(localStorage.getItem('cagp_election_activation_v1') || 'null');
+            return Boolean(a && a.completed && a.sementeSupporter);
+          } catch (e) {
+            return false;
+          }
+        }
+        function pilula() {
+          if (apoiador()) ocioso(function () { sinal('pilula'); });
+        }
+        window.addEventListener('cagp:vault-updated', function () { if (apoiador()) sinal('pilula'); });
+
+        // Página nova: as ilhas que não atravessam a navegação voltam a dormir até serem pedidas.
+        document.addEventListener('astro:after-swap', function () {
+          delete vistos.folhas;
+          delete vistos.busca;
+          delete vistos.pilula;
+        });
+        document.addEventListener('astro:page-load', pilula);
+        tourPendente();
       })();
     </script>
-    <GlobalSheets client:idle />
+
+    <!-- Folhas globais (perfil, campus, ajustes, atalhos) -->
+    <GlobalSheets client:sinal="folhas" />
+
+    <!-- Busca do site (Ctrl+K) -->
+    <CommandPalette client:sinal="busca" />
 
     <!-- Pílula "Sou Semente" (só para quem terminou o tour declarando voto) -->
-    {!hideFloatingPill && <PwaCredenciamentoPill client:idle />}
+    {!hideFloatingPill && <PwaCredenciamentoPill client:sinal="pilula" />}
 
     <!-- Tour obrigatório da Chapa Semente (primeira visita). Persiste entre páginas do ClientRouter. -->
-    <SementeTour client:load transition:persist="semente-tour" />
+    <SementeTour client:sinal="tour" transition:persist="semente-tour" />
 
     <!-- Tour opcional das 14 propostas (abre pelo evento cagp:start-propostas-tour). -->
-    <PropostasTour client:idle transition:persist="propostas-tour" />
+    <PropostasTour client:sinal="propostas" transition:persist="propostas-tour" />
 
     <!-- Directional Navigation & Progress Bar Controller -->
     <script is:inline define:vars={{ ROUTE_META_FROM_REGISTRY: routeMeta }}>
@@ -315,6 +393,22 @@ import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
           }
         });
 
+        // Documentos (PDF/DOCX) nunca ficam guardados no aparelho: sem conexão, o toque no link
+        // avisa em vez de cair na página de erro do navegador. Um ouvinte só, para o site inteiro.
+        if (!window.__cagpDocOffline) {
+          window.__cagpDocOffline = true;
+          document.addEventListener('click', function (event) {
+            if (navigator.onLine !== false) return;
+            const link = event.target && event.target.closest ? event.target.closest('a[href]') : null;
+            if (!link) return;
+            let path = '';
+            try { path = new URL(link.href, window.location.href).pathname; } catch (e) { return; }
+            if (!/\/documentos\/[^/]+\.(?!html?$)[a-z0-9]+$/i.test(path)) return;
+            event.preventDefault();
+            if (window.cagpToast) window.cagpToast('Sem internet. Conecte para baixar este documento.', 'bi-wifi-off', 4000);
+          }, true);
+        }
+
         // Script inline com define:vars é reexecutado pelo ClientRouter a cada troca de página:
         // a parte do SW roda uma vez só por carregamento, senão os listeners se acumulam.
         if ('serviceWorker' in navigator && !window.__cagpSwSetup) {
@@ -337,6 +431,17 @@ import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
               navigator.serviceWorker
                 .register(swPath, { scope: `${cleanBase}/`, updateViaCache: 'none' })
                 .then((reg) => {
+                  // Segunda etapa do offline: com o núcleo instalado e o navegador ocioso, pede ao
+                  // SW o resto do site (ferramentas pesadas, páginas menos usadas). O SW ignora o
+                  // pedido se já baixou tudo desta versão; se foi interrompido, retoma daqui.
+                  const pedirResto = () => {
+                    navigator.serviceWorker.ready
+                      .then((ready) => ready.active && ready.active.postMessage({ type: 'cagp:precache-rest' }))
+                      .catch(() => {});
+                  };
+                  const ocioso = window.requestIdleCallback || ((fn) => setTimeout(fn, 1));
+                  setTimeout(() => ocioso(pedirResto), 4000);
+
                   // App instalado fica aberto por dias: confere versão nova ao voltar para ele
                   // (no máximo uma vez por hora), sem esperar a próxima navegação completa.
                   let lastCheck = Date.now();
@@ -397,6 +502,30 @@ import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
       import { setupTabSwipe } from '../scripts/tabSwipe';
       setupSharedTitle();
       setupTabSwipe();
+
+      // Esqueleto de carregamento: só entra se a página nova demorar mais de 220ms para chegar.
+      if (!(window as unknown as { __cagpSkeleton?: boolean }).__cagpSkeleton) {
+        (window as unknown as { __cagpSkeleton?: boolean }).__cagpSkeleton = true;
+        let espera = 0;
+        const aviso = () => document.getElementById('cagp-skeleton-aviso');
+        const tira = () => {
+          window.clearTimeout(espera);
+          document.documentElement.classList.remove('cagp-carregando');
+          const a = aviso();
+          if (a) a.textContent = '';
+        };
+        document.addEventListener('astro:before-preparation', () => {
+          window.clearTimeout(espera);
+          espera = window.setTimeout(() => {
+            document.documentElement.classList.add('cagp-carregando');
+            const a = aviso();
+            if (a) a.textContent = 'Carregando a página';
+          }, 220);
+        });
+        document.addEventListener('astro:after-preparation', tira);
+        document.addEventListener('astro:after-swap', tira);
+        document.addEventListener('astro:page-load', tira);
+      }
       document.addEventListener('astro:page-load', () => setupCountUp());
     </script>
   </body>

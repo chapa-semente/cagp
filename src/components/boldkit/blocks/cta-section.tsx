@@ -23,7 +23,7 @@ export interface CTASimpleProps {
 export function CTASimple({
   title,
   description,
-  badge = 'CHAPA SEMENTE • PROPOSTA MATERIALIZADA • 25 E 26/11',
+  badge,
   primaryAction,
   secondaryAction,
   className,

@@ -150,14 +150,6 @@ export const CursoCandangosAndTimeline: React.FC = () => {
       <div className="p-5 sm:p-7 bg-white border-2 border-border rounded-2xl shadow-xl space-y-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b-3 border-border pb-4">
           <div>
-            <div className="flex flex-wrap items-center gap-2 mb-1.5">
-              <span className="px-2.5 py-0.5 rounded-md bg-[#9E2424] text-white font-mono text-xs font-black uppercase border-2 border-border shadow-sm">
-                MEMÓRIA HISTÓRICA • BRUNO GIORGI (1959)
-              </span>
-              <span className="px-2.5 py-0.5 rounded-md bg-primary text-white font-mono text-xs font-black uppercase border-2 border-border">
-                SÍMBOLO OFICIAL DO CAGP UFMG
-              </span>
-            </div>
             <h2 className="font-head text-xl sm:text-2xl md:text-3xl font-black text-foreground m-0">
               Os Candangos de 1959 &amp; A Construção Democrática do Estado
             </h2>

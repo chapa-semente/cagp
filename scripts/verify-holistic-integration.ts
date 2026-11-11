@@ -43,7 +43,8 @@ const results: CheckResult[] = [];
 function checkSearchDuplication(): void {
   const spotlightModalExists = fs.existsSync(path.join(COMPONENTS_DIR, 'shell/SpotlightModal.tsx'));
   const globalSheetsPath = path.join(COMPONENTS_DIR, 'shell/GlobalSheets.tsx');
-  const sidebarIslandPath = path.join(COMPONENTS_DIR, 'shell/AppShellSidebarIsland.tsx');
+  // A busca saiu do trilho lateral (que virou Astro + JS puro) para a ilha CommandPalette.tsx.
+  const sidebarIslandPath = path.join(COMPONENTS_DIR, 'shell/CommandPalette.tsx');
 
   let globalSheetsHasSpotlight = false;
   if (fs.existsSync(globalSheetsPath)) {
@@ -78,7 +79,8 @@ function checkSearchDuplication(): void {
 // -------------------------------------------------------------
 function checkTabletBannerZIndex(): void {
   const bannerPath = path.join(COMPONENTS_DIR, 'shell/CampaignBanner.astro');
-  const sidebarIslandPath = path.join(COMPONENTS_DIR, 'shell/AppShellSidebarIsland.tsx');
+  // A gaveta do tablet é montada por src/scripts/appSidebar.ts (openTabletDrawer).
+  const sidebarIslandPath = path.join(COMPONENTS_DIR, '../scripts/appSidebar.ts');
 
   let bannerZ = 1050;
   if (fs.existsSync(bannerPath)) {
@@ -91,7 +93,7 @@ function checkTabletBannerZIndex(): void {
   if (fs.existsSync(sidebarIslandPath)) {
     const sidebarContent = fs.readFileSync(sidebarIslandPath, 'utf-8');
     // procura tabletExpanded overlay z-index especificamente no bloco renderizado
-    const match = sidebarContent.match(/\{tabletExpanded\s*&&[\s\S]*?<div[^>]*z-(\d+|\[\d+\])/);
+    const match = sidebarContent.match(/function openTabletDrawer[\s\S]*?className = '[^']*z-(\d+|\[\d+\])/);
     if (match) {
       const zVal = match[1].replace(/[\[\]]/g, '');
       tabletOverlayZ = parseInt(zVal, 10);

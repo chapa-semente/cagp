@@ -1,0 +1,221 @@
+---
+// AppSidebarNav.astro — O miolo do trilho lateral, em duas formas: aberto (com as páginas da aba
+// ativa) e compacto (só os cinco ícones). Mesma marcação e classes que o trilho em React gerava;
+// o que era estado virou atributo data-rail-* que src/scripts/appSidebar.ts escuta.
+import { AXIS_REGISTRY, getAxisByPath, getActiveItemId } from '@/lib/navigationRegistry';
+import CagpIcon from '@/components/ui/CagpIcon.astro';
+import { resolveCagpIconName } from '@/lib/cagpIcons';
+import { asset, route } from '@/lib/paths';
+
+interface Props {
+  currentPath: string;
+  compact?: boolean;
+}
+
+const { currentPath, compact = false } = Astro.props;
+const isCompact = compact;
+const activeAxis = getAxisByPath(currentPath) || AXIS_REGISTRY[0];
+
+// Ícones das abas (o eixo Chapa usa o símbolo oficial da Semente, não um ícone).
+const SIDEBAR_ICONS: Record<string, string> = { hoje: 'hoje', guias: 'guias', curso: 'curso', mais: 'mais' };
+
+const BADGE_ACCENT =
+  'inline-flex items-center justify-center gap-1.5 rounded-md border-2 border-border font-bold uppercase tracking-[0.04em] tabular-nums max-w-full text-left whitespace-normal break-words shadow-sm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary [&_svg]:size-3.5 [&_svg]:shrink-0 bg-accent text-accent-foreground font-mono text-xs px-1.5 py-0.5';
+---
+
+<div class="flex flex-col justify-between h-full bg-white text-foreground select-none" data-rail-content={isCompact ? 'compact' : 'full'}>
+  {/* Top Scrollable Area */}
+  <div class="flex flex-col flex-1 min-h-0 overflow-y-auto no-scrollbar p-3 xl:p-4 gap-3.5">
+    {/* Brand Header */}
+    <div class="flex items-center justify-between gap-2 pb-3 border-b-3 border-border">
+      <a
+        href={route('/chapa-semente')}
+        class="flex items-center gap-2.5 p-1 rounded-xl hover:bg-background transition-all no-underline group min-w-0"
+        title="Chapa 2 · Semente — Proposta Materializada para o CAGP UFMG"
+      >
+        {isCompact ? (
+          <div class="w-10 h-10 rounded-xl bg-white text-foreground flex items-center justify-center shrink-0 border-3 border-border shadow-xs group-hover:translate-x-[-1px] group-hover:translate-y-[-1px] transition-all p-1">
+            <img src={asset('/logos/semente/semente-simbolo.webp')} alt="Chapa Semente" width="466" height="603" class="w-full h-full object-contain" />
+          </div>
+        ) : (
+          <div class="min-w-0 flex-1">
+            <img src={asset('/logos/semente/semente-horizontal.webp')} alt="Chapa Gestão Pública Semente" width="768" height="229" class="h-9 w-auto max-w-full block" />
+            <div class="flex items-center gap-1 mt-1.5 truncate">
+              <span class="text-xs font-heading text-primary font-bold truncate">Gestão Pública · UFMG</span>
+              <img src={asset('/logos/cagp/10_simbolo_transparente_positivo.svg')} alt="CAGP" class="w-3.5 h-3.5 object-contain inline-block shrink-0" />
+            </div>
+          </div>
+        )}
+      </a>
+
+      {!isCompact && (
+        <button
+          type="button"
+          data-rail-action="collapse"
+          class="hidden md:flex w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-background hover:bg-card border-3 border-border shadow-xs items-center justify-center cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none"
+          title="Recolher barra lateral (Ctrl+B)"
+        >
+          <CagpIcon name={resolveCagpIconName('bi-chevron-left')} class="w-4 h-4" />
+        </button>
+      )}
+    </div>
+
+    {/* Search / Command Trigger */}
+    <button
+      type="button"
+      id="cagp-sidebar-search-btn"
+      data-rail-action="search"
+      class={`cagp-tato cagp-tato-2 w-full min-h-[44px] rounded-xl bg-background hover:bg-card border-3 border-border shadow-sm text-foreground flex items-center ${
+        isCompact ? 'justify-center p-2.5' : 'justify-between px-3 py-2.5'
+      } transition-colors cursor-pointer`}
+      title="Buscar (⌘K)"
+    >
+      <span class="flex items-center gap-2.5 text-xs font-extrabold uppercase tracking-wide truncate">
+        <CagpIcon name="search" class="w-4 h-4 text-primary shrink-0" />
+        {!isCompact && <span>Buscar (⌘K)</span>}
+      </span>
+      {!isCompact && <kbd class="px-1.5 py-0.5 text-xs font-mono font-bold bg-white border-2 border-border rounded-md shadow-xs">⌘K</kbd>}
+    </button>
+
+    {/* 5 Canonical Axes */}
+    <div class="space-y-1.5" role="navigation" aria-label="Navegação principal">
+      {AXIS_REGISTRY.map((axis) => {
+        const isAxisActive = activeAxis.id === axis.id;
+        const paginas = axis.items.filter((i) => !i.isOverview);
+        const grupos = (axis.groups ?? []).filter((g) => paginas.some((i) => i.group === g.id));
+        const blocos =
+          grupos.length > 1
+            ? grupos.map((g) => ({ titulo: g.title as string | null, itens: paginas.filter((i) => i.group === g.id) }))
+            : [{ titulo: null as string | null, itens: paginas }];
+        const activeItemId = getActiveItemId(axis, currentPath);
+        return (
+          <div class="space-y-1">
+            <a
+              href={axis.rootHref}
+              data-nav-axis={axis.id}
+              data-rail-tip={isCompact ? `${axis.name} — ${axis.tagline}` : undefined}
+              class={`cagp-tato cagp-nav-link ${isAxisActive ? 'is-active' : ''} relative overflow-hidden flex items-center min-h-[44px] ${
+                isCompact ? 'justify-center px-1 py-2' : 'justify-between px-3 py-2.5'
+              } rounded-xl border-3 transition-colors no-underline ${
+                isAxisActive
+                  ? 'text-white border-border shadow-md font-extrabold'
+                  : 'bg-white hover:bg-background text-foreground border-border hover:border-border hover:shadow-xs font-bold'
+              }`}
+            >
+              {isAxisActive && <span data-nav-axis={axis.id} class="cagp-nav-fill absolute inset-0 bg-primary -z-0" aria-hidden="true" />}
+              <div class={`relative z-10 flex min-w-0 ${isCompact ? 'flex-col items-center gap-1' : 'items-center gap-2.5'}`}>
+                <span
+                  data-nav-axis={isAxisActive ? undefined : axis.id}
+                  class={`cagp-nav-chip w-7 h-7 rounded-lg flex items-center justify-center border-2 shrink-0 ${
+                    isAxisActive ? 'bg-white text-foreground border-border' : 'bg-background text-foreground border-border'
+                  }`}
+                >
+                  {axis.id === 'chapa' ? (
+                    <img src={asset('/logos/semente/semente-simbolo.webp')} alt="" width="466" height="603" class="h-5 w-auto" />
+                  ) : (
+                    <CagpIcon name={resolveCagpIconName(SIDEBAR_ICONS[axis.id] ?? axis.icon)} class="w-4 h-4" />
+                  )}
+                </span>
+                <span
+                  class={`font-heading uppercase ${
+                    isCompact ? 'text-[0.75rem] font-bold tracking-[0.01em] leading-tight text-center whitespace-normal' : 'text-xs tracking-[0.02em] truncate'
+                  }`}
+                >
+                  {isCompact ? axis.mobileLabel : axis.name}
+                </span>
+              </div>
+            </a>
+
+            {/* Páginas da aba ativa: sem repetir o próprio nome da aba (o botão acima já leva ao hub),
+                cada uma com o seu ícone e, onde a aba tem grupos, um rótulo pequeno por grupo. */}
+            {!isCompact && isAxisActive && paginas.length > 0 && (
+              <div class="pl-3 ml-3 border-l-3 border-border space-y-1 py-1">
+                {blocos.map((bloco) => (
+                  <div class="space-y-1">
+                    {/* Grupo de uma página só não ganha rótulo: o nome dela já diz. */}
+                    {bloco.titulo && bloco.itens.length > 1 && (
+                      <p class="m-0 px-2.5 pt-2 pb-0.5 text-xs font-heading font-bold uppercase tracking-[0.04em] text-muted-foreground">{bloco.titulo}</p>
+                    )}
+                    {bloco.itens.map((subItem) => {
+                      const isSubActive = activeItemId === subItem.id;
+                      return (
+                        <a
+                          href={subItem.href}
+                          aria-current={isSubActive ? 'page' : undefined}
+                          class={`cagp-tato flex items-center justify-between gap-2 px-2 py-1.5 min-h-[44px] rounded-lg text-sm transition-colors no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
+                            isSubActive
+                              ? 'bg-active text-active-foreground font-bold border-2 border-border shadow-xs'
+                              : 'text-foreground hover:bg-primary-tint font-bold border-2 border-transparent'
+                          }`}
+                        >
+                          <span class="flex items-center gap-2.5 min-w-0">
+                            <span class="sk-mini" data-nav-axis={axis.id} aria-hidden="true">
+                              <CagpIcon name={resolveCagpIconName(subItem.icon)} class="w-4 h-4" />
+                            </span>
+                            <span class="truncate">{subItem.shortLabel || subItem.label}</span>
+                          </span>
+                          {subItem.badge && <span data-slot="badge" class={BADGE_ACCENT}>{subItem.badge}</span>}
+                        </a>
+                      );
+                    })}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  </div>
+
+  {/* Bottom Anchored Student Passport & Quick Tools */}
+  <div class="p-3 border-t-3 border-border bg-card space-y-2.5 shrink-0">
+    {!isCompact ? (
+      <div class="grid gap-2">
+        <button
+          type="button"
+          data-rail-action="campus"
+          class="flex items-center justify-center gap-2 min-h-[44px] py-2 px-3 rounded-xl bg-white hover:bg-background border-3 border-border shadow-xs text-xs font-heading font-extrabold uppercase tracking-tight text-foreground cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
+          title="Horários do RU Setorial I/II e Circulares 3 e 4"
+        >
+          <CagpIcon name={resolveCagpIconName('bi-clock-history')} class="w-4 h-4 text-secondary shrink-0" />
+          <span>Campus agora</span>
+        </button>
+      </div>
+    ) : (
+      <button
+        type="button"
+        data-rail-action="expand"
+        class="w-full min-h-[44px] p-2 rounded-xl bg-white border-3 border-border shadow-xs flex items-center justify-center cursor-pointer active:translate-x-0.5 active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none"
+        title="Expandir Menu Lateral (Ctrl+B)"
+      >
+        <CagpIcon name="chevron-right" class="w-4 h-4" />
+      </button>
+    )}
+
+    {/* Student Passport Card Trigger */}
+    <button
+      type="button"
+      id="cagp-sidebar-passport-btn"
+      data-rail-action="passport"
+      class={`cagp-tato cagp-tato-2 w-full rounded-xl bg-primary text-white border-3 border-border shadow-sm flex items-center ${
+        isCompact ? 'justify-center p-2' : 'justify-between p-2.5'
+      } cursor-pointer transition-colors hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-primary disabled:opacity-50 disabled:pointer-events-none`}
+      title="Abrir Seu perfil"
+    >
+      <div class="flex items-center gap-2.5 min-w-0">
+        <div
+          data-rail-avatar
+          class="w-9 h-9 rounded-lg bg-accent text-foreground border-2 border-border flex items-center justify-center font-heading font-bold text-xs shrink-0"
+        >GP</div>
+        {!isCompact && (
+          <div class="text-left min-w-0">
+            <span data-rail-name class="font-heading text-xs font-extrabold uppercase block truncate">Seu perfil</span>
+            <span data-rail-period class="text-xs font-mono text-white block truncate">Toque para escolher sua fase</span>
+          </div>
+        )}
+      </div>
+      {!isCompact && <span data-slot="badge" class={`${BADGE_ACCENT} shrink-0`}>Perfil</span>}
+    </button>
+  </div>
+</div>

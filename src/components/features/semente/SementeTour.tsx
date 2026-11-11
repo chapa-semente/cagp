@@ -38,6 +38,7 @@ import {
   type SementeTourState,
   type TourPerson, SEMENTE_TOUR_KEY } from '@/lib/sementeTour';
 import { START_PROPOSTAS_TOUR } from '@/lib/propostasTour';
+import { CHAPA_NUMERO, CHAPA_ROTULO } from '@/lib/chapaSementeData';
 
 // ---------------------------------------------------------------------------
 // Sequência de telas
@@ -122,19 +123,15 @@ function insetFor(rect: Rect, vw: number, vh: number, radius = 16): string {
 /** Um segmento por pessoa: feitos em branco, atual em laranja (a folha), por vir só contornados. */
 const PeopleProgress: React.FC<{ current: number; compact?: boolean }> = ({ current, compact }) => (
   <ol
-    className={`flex items-center gap-1 m-0 p-0 list-none ${compact ? 'h-1.5' : 'h-2'}`}
+    className={`flex items-center gap-1 m-0 p-0 list-none ${compact ? 'h-2.5' : 'h-3'}`}
     aria-label={`Pessoa ${current + 1} de ${TOTAL_PEOPLE}`}
   >
     {Array.from({ length: TOTAL_PEOPLE }, (_, i) => (
       <li
         key={i}
         aria-hidden="true"
-        className={`h-full flex-1 rounded-full border-2 ${
-          i < current
-            ? 'bg-white border-white'
-            : i === current
-              ? 'bg-accent border-accent'
-              : 'bg-transparent border-white'
+        className={`h-full flex-1 rounded-full border-2 border-foreground ${
+          i < current ? 'bg-white' : i === current ? 'bg-accent' : 'bg-white/0 border-white'
         }`}
       />
     ))}
@@ -162,14 +159,15 @@ const GrowPhoto: React.FC<{
   />
 );
 
+// Botões do tour no gesto do kit Semente: o laranja (ação principal) tem os cantos da folha.
 const btnBase =
-  'inline-flex items-center justify-center gap-2 rounded-[12px] border-3 border-foreground font-heading font-bold select-none cursor-pointer ' +
+  'inline-flex items-center justify-center gap-2 border-3 border-foreground font-heading font-bold select-none cursor-pointer ' +
   'transition-[transform,box-shadow,background-color] duration-150 ease-[cubic-bezier(0.16,1,0.3,1)] ' +
   'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-50 disabled:cursor-not-allowed';
 const btnAccent =
-  `${btnBase} uppercase tracking-[0.04em] bg-accent text-foreground shadow-md hover:-translate-x-px hover:-translate-y-px hover:shadow-lg hover:bg-accent-hover active:translate-x-[3px] active:translate-y-[3px] active:shadow-none`;
+  `${btnBase} rounded-[26px_7px_26px_7px] uppercase tracking-[0.04em] bg-accent text-foreground shadow-md hover:-translate-x-px hover:-translate-y-px hover:shadow-lg hover:bg-accent-hover active:translate-x-[3px] active:translate-y-[3px] active:shadow-none`;
 const btnOutlineLight =
-  `${btnBase} bg-white text-foreground shadow-md hover:-translate-x-px hover:-translate-y-px hover:shadow-lg hover:bg-muted active:translate-x-[3px] active:translate-y-[3px] active:shadow-none`;
+  `${btnBase} rounded-[12px] bg-white text-foreground shadow-md hover:-translate-x-px hover:-translate-y-px hover:shadow-lg hover:bg-muted active:translate-x-[3px] active:translate-y-[3px] active:shadow-none`;
 
 const BackButton: React.FC<{ onClick: () => void; label?: string }> = ({ onClick, label = 'Voltar' }) => (
   <button type="button" onClick={onClick} className={`${btnOutlineLight} w-12 h-12 shrink-0 text-base`} aria-label={label}>
@@ -231,6 +229,11 @@ export const SementeTour: React.FC = () => {
       });
     };
     window.addEventListener('cagp:start-semente-tour', start);
+    // Para quem já fez o tour esta ilha só carrega quando pedem para rever (client:sinal="tour"):
+    // o pedido que a acordou chegou antes de ela existir, e o BaseLayout deixou anotado.
+    const w = window as unknown as { __cagpSementeTourPending?: number };
+    if (w.__cagpSementeTourPending && Date.now() - w.__cagpSementeTourPending < 10000) start();
+    w.__cagpSementeTourPending = undefined;
     return () => window.removeEventListener('cagp:start-semente-tour', start);
   }, []);
 
@@ -591,7 +594,7 @@ const IntroScreen: React.FC<{ headingRef: HeadingRef; onStart: () => void }> = (
         aria-label={`As ${TOTAL_PEOPLE} pessoas da Chapa Semente`}
       >
         {TOUR_PEOPLE_IN_CHAPA_ORDER.map((p, i) => (
-          <li key={p.leader.id} className="aspect-square overflow-hidden rounded-[12px] border-2 border-foreground bg-muted-foreground">
+          <li key={p.leader.id} className="aspect-square overflow-hidden rounded-[30%_10%_30%_10%] border-3 border-foreground bg-muted-foreground odd:-rotate-2 even:rotate-1">
             <GrowPhoto person={p} sizes="thumb" delay={0.08 + i * 0.045} alt={`${p.leader.name}, ${p.leader.role}`} />
           </li>
         ))}
@@ -615,7 +618,7 @@ const IntroScreen: React.FC<{ headingRef: HeadingRef; onStart: () => void }> = (
           <MarkerWord onColor className="text-[1.1em] tracking-normal">quem fez</MarkerWord> este site.
         </h1>
         <p className="m-0 max-w-[46ch] text-base leading-relaxed text-white sm:text-lg">
-          Somos a Chapa Semente, candidata ao Centro Acadêmico de Gestão Pública. São {TOTAL_PEOPLE} pessoas, e cada uma vai te
+          Somos a Semente, a {CHAPA_ROTULO} na eleição do Centro Acadêmico de Gestão Pública. São {TOTAL_PEOPLE} pessoas, e cada uma vai te
           mostrar uma ferramenta que já funciona aqui.
         </p>
         <p className="m-0 font-heading text-base font-bold uppercase tracking-[0.04em] text-white" aria-hidden="true">
@@ -704,14 +707,14 @@ const StoryScreen: React.FC<{
           <PeopleProgress current={n} />
           <div className="flex items-center justify-between gap-3">
             <img src={asset('/logos/semente/semente-simbolo-branco.webp')} alt="" aria-hidden="true" className="h-7 w-auto" />
-            <span className="text-sm font-bold tabular-nums">
+            <span className="-rotate-3 rounded-md border-2 border-foreground bg-[#FFC83D] px-2 py-1 text-sm font-bold tabular-nums text-foreground shadow-[2px_2px_0_0_#1F1F1F]">
               {n + 1} de {TOTAL_PEOPLE}
             </span>
           </div>
         </div>
 
         <div className="flex min-h-0 flex-1 flex-col gap-5 md:grid md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] md:items-center md:gap-14">
-          <figure className="relative m-0 min-h-[170px] flex-1 overflow-hidden rounded-[16px] border-3 border-foreground bg-muted-foreground md:aspect-[4/5] md:max-h-[72dvh] md:flex-none">
+          <figure className="relative m-0 mr-2 mb-2 min-h-[170px] flex-1 overflow-hidden rounded-[48px_12px_48px_12px] border-3 border-foreground bg-muted-foreground shadow-[5px_5px_0_0_var(--color-accent),9px_9px_0_0_#1F1F1F] md:aspect-[4/5] md:max-h-[72dvh] md:flex-none">
             <GrowPhoto person={person} className="absolute inset-0" />
             <motion.figcaption
               className="absolute bottom-3 left-3 rounded-[8px] bg-foreground px-3 py-2 text-white"
@@ -885,7 +888,7 @@ const FinalScreen: React.FC<{
         <div className="space-y-5">
           <ul className="m-0 flex list-none flex-wrap gap-1.5 p-0" aria-label={`As ${TOTAL_PEOPLE} pessoas da Chapa Semente`}>
             {TOUR_PEOPLE_IN_CHAPA_ORDER.map((p, i) => (
-              <li key={p.leader.id} className="h-10 w-10 overflow-hidden rounded-[10px] border-2 border-foreground bg-muted-foreground sm:h-12 sm:w-12">
+              <li key={p.leader.id} className="h-10 w-10 overflow-hidden rounded-[30%_10%_30%_10%] border-2 border-foreground bg-muted-foreground sm:h-12 sm:w-12">
                 <GrowPhoto person={p} sizes="thumb" delay={0.05 + i * 0.035} alt={p.leader.name} />
               </li>
             ))}
@@ -899,7 +902,7 @@ const FinalScreen: React.FC<{
             {canVote ? (
               <>
                 25 e 26 de novembro:{' '}
-                <MarkerWord onColor className="text-[1.1em] tracking-normal">vote</MarkerWord> Semente.
+                <MarkerWord onColor className="text-[1.1em] tracking-normal">vote</MarkerWord> {CHAPA_ROTULO}.
               </>
             ) : (
               <>
@@ -909,6 +912,10 @@ const FinalScreen: React.FC<{
             )}
           </h2>
           <dl className="m-0 grid gap-3 text-base">
+            <div className="flex gap-3">
+              <dt className="w-16 shrink-0 text-sm font-bold uppercase tracking-[0.04em] leading-6">Chapa</dt>
+              <dd className="m-0 font-bold tabular-nums">{CHAPA_NUMERO} · Semente</dd>
+            </div>
             <div className="flex gap-3">
               <dt className="w-16 shrink-0 text-sm font-bold uppercase tracking-[0.04em] leading-6">Quando</dt>
               <dd className="m-0 tabular-nums">25 e 26/11, das 17h às 22h30</dd>
@@ -1003,7 +1010,7 @@ const FinalScreen: React.FC<{
                 <motion.div key="stamp" className="flex justify-center pt-2" initial={{ opacity: 1 }} animate={{ opacity: 1 }}>
                   <span className="cagp-big-stamp is-semente" role="status">
                     <span className="cagp-big-stamp-title">Semente plantada</span>
-                    <span className="cagp-big-stamp-sub">Até dia 25</span>
+                    <span className="cagp-big-stamp-sub">{CHAPA_ROTULO} · até dia 25</span>
                   </span>
                 </motion.div>
               ) : (
@@ -1011,7 +1018,7 @@ const FinalScreen: React.FC<{
                   <div className="flex items-center gap-3">
                     <BackButton onClick={onBack} />
                     <button type="button" onClick={handleCommit} className={`${btnAccent} h-[56px] flex-1 px-5 text-sm`}>
-                      {canVote ? 'Vou votar na Semente' : 'Apoio a Semente'}
+                      {canVote ? `Vou votar na ${CHAPA_ROTULO}` : `Apoio a ${CHAPA_ROTULO}`}
                     </button>
                   </div>
                   <button

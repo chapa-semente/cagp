@@ -350,7 +350,7 @@ export const CartaPropostaInteractive: React.FC = () => {
                       {isExpanded ? 'Recolher Detalhes' : 'Ver Texto Integral'}
                     </ContextMenuItem>
                     <ContextMenuItem onClick={() => {
-                      const shareText = `Proposta ${item.id} Chapa Semente: ${item.title}\n\n${item.summary}\n\nConheça no Super App: ${window.location.href}`;
+                      const shareText = `Proposta ${item.id} da Chapa 2 · Semente: ${item.title}\n\n${item.summary}\n\nConheça no Super App: ${window.location.href}`;
                       navigator.clipboard.writeText(shareText);
                       if (typeof navigator !== 'undefined' && 'vibrate' in navigator) navigator.vibrate(15);
                       (window as any).cagpToast?.(`Proposta ${item.id} copiada para divulgação!`, 'bi-clipboard-check');

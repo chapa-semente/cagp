@@ -113,17 +113,10 @@ export const Art41SimulatorCore: React.FC = () => {
       {/* Cabeçalho do Simulador em Folha Contínua */}
       <div className="p-5 sm:p-6 bg-white border-2 border-border rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-md">
         <div>
-          <div className="flex flex-wrap items-center gap-2 mb-1">
-            <span className="px-2.5 py-0.5 rounded-md bg-petroleo-deep text-white text-xs font-mono font-bold uppercase border border-border">
-              Aproveitamento Servidor
-            </span>
-            <span className="text-xs font-heading uppercase font-bold tracking-wider text-secondary">
-              Regulamento N-20229 • Art. 41
-            </span>
-          </div>
           <h3 className="font-heading text-base sm:text-lg font-black text-foreground m-0">
             Simulador de Aproveitamento Servidor (Dispensa Art. 41)
           </h3>
+          <p className="m-0 mt-1 text-sm text-muted-foreground">Base: Regulamento N-20229, art. 41.</p>
           <p className="font-sans text-xs text-muted-foreground mt-0.5 m-0 max-w-prose">
             Responda às 5 perguntas regimentais para verificar sua elegibilidade à dispensa das 300h (DCP 135 e DCP 136) e baixar os requerimentos oficiais.
           </p>

@@ -13,7 +13,7 @@ Usuário primário: o **estudante noturno de Gestão Pública no celular**. Em g
 Outros públicos confirmados, atendidos pelo mesmo site:
 
 - **Calouro perdido:** primeiras semanas na UFMG, sem conhecer ninguém; precisa de mapa do campus, guia da recepção e de saber a quem recorrer.
-- **Eleitor indeciso:** estudante avaliando a Chapa Semente antes da eleição do CAGP em **25–26/11/2026**.
+- **Eleitor indeciso:** estudante avaliando a Chapa Semente antes da eleição do CAGP em **25–26/11/2026**. A Semente concorre como **Chapa 2** (número divulgado em 11/11/2026); toda chamada de voto do site diz "Chapa 2".
 - **Formando:** TCC, fechamento das 600h, colação de grau.
 
 O site atende o estudante e, até a eleição de 25–26/11/2026, também precisa converter voto: a Chapa Semente tem aba própria na navegação e o herói da home apresenta os integrantes de forma pessoal. A utilidade continua sendo a prova, e a campanha não bloqueia trâmites, com **uma exceção decidida em 10/11/2026**: na primeira visita, o tour da Chapa Semente (`src/components/features/semente/SementeTour.tsx`) abre antes de qualquer conteúdo, inclusive para quem chega por link de documento, não tem botão de pular e só fecha no fim. Ele apresenta os 12 integrantes, cada um com spotlight numa captura estática da ferramenta que defendeu (o tour não navega mais pelo site, para não carregar páginas à toa), adapta a ordem ao momento de curso do visitante e, ao terminar, deixa a pessoa na página por onde entrou. Um segundo tour, opcional, apresenta as 14 propostas com a fala de cada diretoria (`PropostasTour.tsx`). Aparece uma vez por aparelho (`localStorage`).
@@ -41,7 +41,7 @@ O argumento da chapa é que a proposta já existe: um site no ar, feito pelo pr�
 
 - **Stack:** Astro 7 (saída estática) + ilhas React 19, Tailwind 4, MDX/content collections. Deploy no GitHub Pages / Netlify. PWA (service worker, manifest).
 - **Sem backend.** Tudo é estático. A ouvidoria e os pedidos de informação saem por `mailto:`/link externo; dados pessoais (cofre, preferências) ficam no navegador.
-- Navegação por **tarefa** (`src/lib/navigationRegistry.ts`, fonte única): Hoje, Guias, Chapa, Meu curso, Mais.
+- Navegação por **tarefa** (`src/lib/navigationRegistry.ts`, fonte única): Hoje, Guias, Chapa 2, Meu curso, Mais.
 - **Contato:** o CAGP ainda não tem e-mail público. Contatos do site usam `chapa.semente.gp@gmail.com`, sempre identificado como e-mail da Chapa. A ouvidoria não envia demandas (só salva e copia o texto) até existir um canal oficial.
 - Conteúdo mantido em Markdown/JSON (`src/content/`, `conteudo/`) para que pessoas que não programam possam manter.
 - **Real × simulado** (deve continuar explícito na tela):

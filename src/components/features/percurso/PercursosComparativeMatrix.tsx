@@ -131,13 +131,10 @@ export const PercursosComparativeMatrix: React.FC = () => {
         <CardHeader className="border-b-3 border-border bg-card">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
-              <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                <Badge variant="default">VERSÃO CURRICULAR N-20229 (3.000 HORAS)</Badge>
-                <Badge variant="secondary">3 PERCURSOS OFICIAIS DO PPC</Badge>
-              </div>
               <CardTitle className="text-xl">
                 Matriz Comparativa dos 3 Percursos Curriculares (Geral, FCA e Pós)
               </CardTitle>
+              <p className="m-0 mt-1 text-sm text-muted-foreground">Versão curricular N-20229, 3.000 horas.</p>
               <CardDescription className="text-xs font-medium text-muted-foreground">
                 Todo ingressante inicia no Núcleo Geral e pode optar por migrar para a Formação Complementar Aberta (a partir do 5º período) ou para o Núcleo Avançado de Pós-Graduação (a partir do 7º período).
               </CardDescription>

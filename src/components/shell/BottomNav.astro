@@ -26,15 +26,12 @@ const ICONS: Record<string, string> = {
     {AXIS_REGISTRY.map((axis) => {
       const isCurrent = activeAxis?.id === axis.id;
       const isChapa = axis.id === 'chapa';
-      const isMais = axis.id === 'mais';
       const iconSvg = isChapa ? '' : getCagpIconSvg(resolveCagpIconName(ICONS[axis.id] ?? axis.icon), 'w-5 h-5');
 
       return (
         <a
           href={axis.rootHref}
           data-bottom-axis={axis.id}
-          data-opens-sheet={isMais ? 'mais' : undefined}
-          aria-haspopup={isMais ? 'dialog' : undefined}
           aria-current={isCurrent ? 'page' : undefined}
           class={`cagp-bottom-axis-item flex flex-col items-center justify-center gap-1 min-h-[52px] min-w-0 py-1 px-0 rounded-xl no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset ${
             isCurrent ? 'is-active text-foreground' : 'text-foreground'
@@ -103,16 +100,6 @@ const ICONS: Record<string, string> = {
       link.classList.toggle('text-foreground', !isCurrent);
       if (isCurrent) link.setAttribute('aria-current', 'page');
       else link.removeAttribute('aria-current');
-
-      // "Mais" abre o painel por cima da página; o href /mais fica como fallback sem JS.
-      if (link.dataset.opensSheet === 'mais' && !(link as any).__mais_bound) {
-        (link as any).__mais_bound = true;
-        link.addEventListener('click', (e) => {
-          if (e.metaKey || e.ctrlKey || e.shiftKey) return;
-          e.preventDefault();
-          window.dispatchEvent(new CustomEvent('cagp:open-mais'));
-        });
-      }
     });
   }
 

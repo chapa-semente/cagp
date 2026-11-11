@@ -292,7 +292,7 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
                 Achou este conteúdo útil? Ele faz parte do SuperApp construído pela Chapa Semente!
               </h3>
               <p class="text-xs sm:text-sm text-content-secondary font-medium m-0 leading-relaxed max-w-prose">
-                Compartilhe esta publicação no grupo da sua turma e conheça as 14 propostas da Chapa Semente para transformar a Gestão Pública na FAFICH/UFMG.
+                Compartilhe esta publicação no grupo da sua turma e conheça as 14 propostas da Chapa 2, a Semente, para transformar a Gestão Pública na FAFICH/UFMG.
               </p>
             </div>
 
@@ -310,7 +310,7 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
                 href={route('/chapa-semente')}
                 class="min-h-[44px] px-5 py-2.5 rounded-xl bg-accent hover:bg-accent-hover text-foreground border-3 border-border shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none font-heading text-xs font-black uppercase tracking-wider no-underline inline-flex items-center gap-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
-                <span>Apoiar a Chapa Semente &amp; Ver Propostas</span>
+                <span>Apoiar a Chapa 2 &amp; Ver Propostas</span>
                 <span set:html={arrowRightSvg} />
               </a>
             </div>
@@ -437,7 +437,7 @@ const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
           shareBtn.onclick = async function() {
             const shareData = {
               title: document.title,
-              text: 'Confira no SuperApp CAGP (Proposta Materializada da Chapa Semente): ' + document.title,
+              text: 'Confira no SuperApp CAGP (Proposta Materializada da Chapa 2 · Semente): ' + document.title,
               url: window.location.href,
             };
             try {

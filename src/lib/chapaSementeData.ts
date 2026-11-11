@@ -23,6 +23,13 @@ export interface LeaderInfo {
   targetId: string;
 }
 
+/** Número da Semente na eleição do CAGP 2026 (divulgado em 11/11/2026). */
+export const CHAPA_NUMERO = 2;
+/** Como se pede o voto: "Chapa 2". */
+export const CHAPA_ROTULO = `Chapa ${CHAPA_NUMERO}`;
+/** Nome completo para títulos e rótulos: "Chapa 2 · Semente". */
+export const CHAPA_NOME = `${CHAPA_ROTULO} · Semente`;
+
 export const CHAPA_LEADERS: LeaderInfo[] = [
   {
     id: 'gabriel',

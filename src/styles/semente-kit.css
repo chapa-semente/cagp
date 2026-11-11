@@ -30,6 +30,39 @@
   box-shadow: 2px 2px 0 0 var(--color-accent), 4px 4px 0 0 #1f1f1f;
   pointer-events: none;
 }
+/* Número da chapa: o adesivo de número no tamanho de cédula. Branco, canto de folha, sombra dupla
+   (laranja + grafite), "Chapa" em Label e o algarismo em Numeral roxo. Um por bloco. */
+.sk-chapa-num {
+  flex: none;
+  display: inline-grid;
+  justify-items: center;
+  align-content: center;
+  gap: 0.125rem;
+  width: 4rem;
+  height: 4.25rem;
+  padding-top: 0.25rem;
+  border: 3px solid #1f1f1f;
+  border-radius: 18px 5px 18px 5px;
+  background: #fff;
+  color: #1f1f1f;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  rotate: -4deg;
+  box-shadow: 3px 3px 0 0 var(--color-accent), 6px 6px 0 0 #1f1f1f;
+}
+.sk-chapa-num-rotulo {
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.sk-chapa-num-n {
+  font-size: 2.5rem;
+  line-height: 0.9;
+  color: var(--color-primary);
+  font-variant-numeric: tabular-nums;
+}
 .sk-tile {
   position: relative;
   flex: none;
@@ -690,3 +723,17 @@
 .sk-switch-radix:active { translate: 3px 3px; box-shadow: 0 0 0 0 #1f1f1f; }
 /* Slider (ui/slider.tsx): a semente como pegador. */
 .sk-slider-semente { background: var(--sk-semente) center / contain no-repeat; }
+
+/* Quadro pequeno para subitens (sidebar): a mesma folha, sem sombra. */
+.sk-mini {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 2px solid #1f1f1f;
+  border-radius: 10px 3px 10px 3px;
+  background: var(--aba-solo, #fff);
+  color: #1f1f1f;
+}
+[aria-current='page'] > span > .sk-mini { background: #fff; }

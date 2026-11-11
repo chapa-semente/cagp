@@ -1,4 +1,6 @@
-@import "tailwindcss";
+/* source(".."): o Tailwind só lê src/. Sem isso ele varria o repositório inteiro (_referencias,
+   .claude, .agents: mais de mil arquivos) e gerava classes que o site nunca usa. */
+@import "tailwindcss" source("..");
 @import "./neobrutalism.css";
 @import "./boldkit.css";
 @import "./animations.css";
@@ -183,14 +185,14 @@
   /* Vocabulário fechado (DESIGN.md › Elevation): 2 chip · 3 ficha · 5 hover · 6 cartaz. */
   --shadow-xs: 2px 2px 0 0 var(--shadow-color, #1F1F1F);
   --shadow-sm: 2px 2px 0 0 var(--shadow-color, #1F1F1F);
-  --shadow: 3px 3px 0 0 var(--shadow-color, #1F1F1F);
-  --shadow-md: 3px 3px 0 0 var(--shadow-color, #1F1F1F);
-  --shadow-lg: 5px 5px 0 0 var(--shadow-color, #1F1F1F);
+  --shadow: 4px 4px 0 0 var(--shadow-color, #1F1F1F);
+  --shadow-md: 4px 4px 0 0 var(--shadow-color, #1F1F1F);
+  --shadow-lg: 6px 6px 0 0 var(--shadow-color, #1F1F1F);
   --shadow-xl: 6px 6px 0 0 var(--shadow-color, #1F1F1F);
   --shadow-2xl: 6px 6px 0 0 var(--shadow-color, #1F1F1F);
   --shadow-chip: 2px 2px 0 0 var(--shadow-color, #1F1F1F);
-  --shadow-ficha: 3px 3px 0 0 var(--shadow-color, #1F1F1F);
-  --shadow-lift: 5px 5px 0 0 var(--shadow-color, #1F1F1F);
+  --shadow-ficha: 4px 4px 0 0 var(--shadow-color, #1F1F1F);
+  --shadow-lift: 6px 6px 0 0 var(--shadow-color, #1F1F1F);
   --shadow-cartaz: 6px 6px 0 0 var(--shadow-color, #1F1F1F);
 
   --shadow-cagp-hard: 3px 3px 0 #1F1F1F;
@@ -1405,4 +1407,47 @@ details[open]:not([data-expand-state="closing"]) > summary .cagp-expand-chevron 
 @media (max-width: 767px) {
   html.cagp-has-float #main-content { padding-bottom: calc(6rem + 3.75rem); }
   html.cagp-has-float #cagp-back-to-top { display: none; }
+}
+
+/* ---- Kit Semente no site inteiro (DESIGN.md › Virada de 11/11/2026) ------------------------
+   As páginas montam fichas com utilitários soltos (border-2 + shadow-*). Toda caixa com contorno
+   E sombra dura é um bloco do kit: contorno de 3px. Divisórias e itens sem sombra seguem em 2px. */
+.border-2:is(.shadow, .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl, .shadow-2xl) { border-width: 3px; }
+
+/* ---- Revisão página por página (11/11/2026): o que destoava do kit, corrigido por regra -----
+   Estas regras alcançam as 30 páginas sem editar cada uma. Valem dentro de <main> e das folhas. */
+
+/* 1. Canto reto não existe no kit: caixa com contorno e sem raio declarado ganha o raio da ficha. */
+:is(div, button, a, section, article, li, span, input, select, textarea):is(.border-2, .border-3, .border-4):not([class*='rounded']) {
+  border-radius: 12px;
+}
+
+/* 2. Caixinha de ícone (quadrado pequeno que só tem um ícone dentro) vira o quadro de folha. */
+:is(span, div):is(.w-7.h-7, .w-8.h-8, .w-9.h-9, .w-10.h-10, .w-11.h-11, .w-12.h-12, .w-14.h-14):is([class*='rounded-'], .border-2, .border-3):has(> :is(svg, i):only-child) {
+  border-radius: 36% 10% 36% 10%;
+}
+
+/* 3. Caixa alta é grito (título de página, botão, etiqueta, carimbo). Título de seção fala em
+      caixa de frase (DESIGN.md › The Shout Only Rule). */
+#main-content :is(h2, h3, h4):is(.uppercase, [class*='uppercase']) {
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+/* 4. Texto corrido não desce de 14px (DESIGN.md › The 14px Floor Rule). Etiquetas curtas em
+      <span> continuam em 12px; parágrafo, item de lista e célula sobem. */
+#main-content :is(p, li, dd, td, blockquote).text-xs:not(.uppercase) { font-size: 0.875rem; line-height: 1.5; }
+/* O mesmo para quem herda o tamanho da lista ou da tabela, e para a prosa escrita em <span>/<div>
+   (texto com entrelinha de leitura). */
+#main-content :is(ul, ol, table, tbody, tr, div, section).text-xs :is(li, td, p):not([class*='text-']):not(.uppercase) { font-size: 0.875rem; line-height: 1.5; }
+#main-content :is(span, div).text-xs:is(.leading-relaxed, .leading-snug, .leading-normal, .leading-tight):not(.uppercase):not(.font-mono) { font-size: 0.875rem; }
+/* Nada abaixo de 12px, nem etiqueta. */
+#main-content :is([class*='text-[10px]'], [class*='text-[11px]'], [class*='text-[9px]'], [class*='text-[0.6'], [class*='text-[0.5']) { font-size: 0.75rem; }
+
+/* 5. Ficha dentro de ficha não tem sombra (DESIGN.md › One Shadow Per Volume): a de dentro fica
+      com contorno de 2px e sem sombra. Botões e links seguem com a deles. */
+:is(div, section, article, li).border-2:is(.shadow, .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl)
+  :is(div, section, article, li).border-2:is(.shadow, .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl) {
+  border-width: 2px;
+  box-shadow: none;
 }

@@ -1,7 +1,7 @@
 // src/scripts/tabSwipe.ts — Arrastar de lado troca de aba (celular).
 //
-// Na raiz de uma aba (Hoje, Guias, Chapa, Meu curso), arrastar o conteúdo para a esquerda abre a
-// aba seguinte e para a direita, a anterior. Depois de Meu curso, o arrasto abre o painel Mais.
+// Na raiz de uma aba (Hoje, Guias, Chapa, Meu curso, Mais), arrastar o conteúdo para a esquerda abre
+// a aba seguinte e para a direita, a anterior.
 // O conteúdo acompanha o dedo com resistência e, ao soltar, a troca usa a mesma animação de página
 // (o <main> anda na direção certa e a pílula da barra viaja até a aba nova).
 //
@@ -23,8 +23,7 @@ export function setupTabSwipe() {
   if (w.__cagpTabSwipe) return;
   w.__cagpTabSwipe = true;
 
-  // "Mais" é um painel no celular, então fica fora da fila de abas.
-  const abas = AXIS_REGISTRY.filter((a) => a.id !== 'mais');
+  const abas = AXIS_REGISTRY;
   const raizes = abas.map((a) => normalizePathname(new URL(a.rootHref, window.location.href).pathname));
 
   let x0 = 0;
@@ -86,7 +85,7 @@ export function setupTabSwipe() {
       }
       if (eixo !== 'lado') return;
       // Na primeira aba não há o que abrir à direita: o conteúdo quase não cede.
-      const semDestino = dx > 0 && indice === 0;
+      const semDestino = (dx > 0 && indice === 0) || (dx < 0 && indice === abas.length - 1);
       main.style.transition = 'none';
       main.style.translate = `${dx * (semDestino ? 0.12 : 0.4)}px 0`;
     },
@@ -105,13 +104,8 @@ export function setupTabSwipe() {
     if (Math.abs(dx) < DISPARO && !rapido) return solta(true);
 
     const destino = dx < 0 ? atual + 1 : atual - 1;
-    if (destino < 0) return solta(true);
+    if (destino < 0 || destino >= abas.length) return solta(true);
     if ('vibrate' in navigator) navigator.vibrate(8);
-    if (destino >= abas.length) {
-      solta(true);
-      window.dispatchEvent(new CustomEvent('cagp:open-mais'));
-      return;
-    }
     solta(false);
     navigate(abas[destino].rootHref);
   };

@@ -138,3 +138,24 @@ html[data-a11y-contrast="high"] .cagp-island-nav-link.is-active {
 html[data-a11y-contrast="high"] .cagp-island-dropdown-item {
   color: #FFFF00 !important;
 }
+
+/* ─── Toque do trilho lateral ─────────────────────────────────────────────────
+   Era motion/react (whileHover x:4 ou x:2, whileTap x:2 y:2, mola tátil). Agora é CSS com a mesma
+   mola (--ease-spring, DESIGN.md › Movimento): o item desliza no hover e afunda no toque.
+   Só o deslocamento usa a mola; as cores seguem a transição padrão do transition-colors. */
+.cagp-tato {
+  --tato-x: 4px;
+  transition:
+    color var(--default-transition-duration, 150ms) var(--default-transition-timing-function, ease),
+    background-color var(--default-transition-duration, 150ms) var(--default-transition-timing-function, ease),
+    border-color var(--default-transition-duration, 150ms) var(--default-transition-timing-function, ease),
+    outline-color var(--default-transition-duration, 150ms) var(--default-transition-timing-function, ease),
+    fill var(--default-transition-duration, 150ms) var(--default-transition-timing-function, ease),
+    stroke var(--default-transition-duration, 150ms) var(--default-transition-timing-function, ease),
+    translate var(--duration-spring) var(--ease-spring);
+}
+.cagp-tato-2 { --tato-x: 2px; }
+@media (hover: hover) {
+  .cagp-tato:hover { translate: var(--tato-x) 0; }
+}
+.cagp-tato:active { translate: 2px 2px; }

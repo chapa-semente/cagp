@@ -10,6 +10,7 @@ import { asset, route } from '@/lib/paths';
 import { celebrateSpring, easeOutExpo } from '@/lib/motion';
 import { MarkerWord } from '@/components/ui/marker-word';
 import { getTourPerson } from '@/lib/sementeTour';
+import { CHAPA_ROTULO } from '@/lib/chapaSementeData';
 import { PROPOSTA_EIXOS, PROPOSTA_STOPS, START_PROPOSTAS_TOUR, type PropostaArt, type PropostaStop } from '@/lib/propostasTour';
 
 const TOTAL = PROPOSTA_STOPS.length;
@@ -212,13 +213,13 @@ function Art({ kind, tint }: { kind: PropostaArt; tint: string }) {
 // ---------------------------------------------------------------------------
 
 const btnBase =
-  'inline-flex items-center justify-center gap-2 rounded-[12px] border-3 border-foreground font-heading font-bold select-none cursor-pointer no-underline ' +
+  'inline-flex items-center justify-center gap-2 border-3 border-foreground font-heading font-bold select-none cursor-pointer no-underline ' +
   'transition-[transform,box-shadow,background-color] duration-150 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-md ' +
   'hover:-translate-x-px hover:-translate-y-px hover:shadow-lg active:translate-x-[3px] active:translate-y-[3px] active:shadow-none ' +
   'focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-foreground';
-const btnWhite = `${btnBase} bg-white text-foreground hover:bg-muted`;
-const btnGo = `${btnBase} uppercase tracking-[0.04em] bg-accent text-foreground hover:bg-accent-hover`;
-const btnGoPurple = `${btnBase} uppercase tracking-[0.04em] bg-primary text-white hover:bg-primary-hover`;
+const btnWhite = `${btnBase} rounded-[12px] bg-white text-foreground hover:bg-muted`;
+const btnGo = `${btnBase} rounded-[26px_7px_26px_7px] uppercase tracking-[0.04em] bg-accent text-foreground hover:bg-accent-hover`;
+const btnGoPurple = `${btnBase} rounded-[12px] uppercase tracking-[0.04em] bg-primary text-white hover:bg-primary-hover`;
 
 const Progress: React.FC<{ current: number; fg: string }> = ({ current, fg }) => (
   <ol className="m-0 flex h-2 list-none items-center gap-1 p-0" aria-label={`Proposta ${current} de ${TOTAL}`}>
@@ -428,7 +429,7 @@ const Proposta: React.FC<{
         </div>
 
         <div className="flex min-h-0 flex-1 flex-col gap-5 md:grid md:grid-cols-[minmax(0,4fr)_minmax(0,6fr)] md:items-center md:gap-14">
-          <div className="relative mx-auto aspect-square w-full max-w-[220px] shrink-0 overflow-hidden rounded-[16px] border-3 border-foreground bg-background text-foreground shadow-xl md:max-w-[400px]">
+          <div className="relative mx-auto aspect-square w-full max-w-[220px] shrink-0 overflow-hidden rounded-[28%_8%_28%_8%] border-3 border-foreground shadow-[5px_5px_0_0_var(--color-accent),9px_9px_0_0_#1F1F1F] rotate-2 bg-background text-foreground shadow-xl md:max-w-[400px]">
             <svg viewBox="0 0 200 200" className="absolute inset-0 h-full w-full p-[9%]" aria-hidden="true">
               <Art kind={stop.art} tint={eixo.tinta === PURPLE ? PURPLE : '#FE8812'} />
             </svg>
@@ -456,7 +457,7 @@ const Proposta: React.FC<{
             >
               <blockquote className="m-0 text-base font-bold leading-snug sm:text-lg">“{stop.fala}”</blockquote>
               <figcaption className="mt-3 flex items-center gap-3">
-                <span className="h-11 w-11 shrink-0 overflow-hidden rounded-[10px] border-2 border-foreground bg-muted">
+                <span className="h-11 w-11 shrink-0 overflow-hidden rounded-[30%_10%_30%_10%] border-2 border-foreground bg-muted">
                   <img src={person.thumb} alt="" className="h-full w-full object-cover" style={{ objectPosition: person.position }} />
                 </span>
                 <span className="min-w-0 text-sm leading-snug">
@@ -501,7 +502,7 @@ const Fechamento: React.FC<{ headingRef: HeadingRef; onBack: () => void; onClose
         tabIndex={-1}
         className="m-0 font-heading text-[clamp(1.9rem,6.2vw,3.5rem)] font-bold leading-[1.06] tracking-[-0.02em] [text-wrap:balance] focus:outline-none"
       >
-        Da raiz ao fruto: dias 25 e 26, <MarkerWord onColor className="text-[1.08em] tracking-normal">vote</MarkerWord> Semente.
+        Da raiz ao fruto: dias 25 e 26, <MarkerWord onColor className="text-[1.08em] tracking-normal">vote</MarkerWord> {CHAPA_ROTULO}.
       </h2>
       <p className="m-0 max-w-[50ch] text-base leading-relaxed sm:text-lg">
         Essas são as {TOTAL} propostas da nossa Carta-Programa. O texto completo de cada uma está na página da chapa.

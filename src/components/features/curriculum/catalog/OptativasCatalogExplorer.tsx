@@ -1,4 +1,5 @@
 // src/components/features/curriculum/catalog/OptativasCatalogExplorer.tsx — Catálogo Interativo das Optativas
+import { nomeDisciplina } from '@/lib/nomeDisciplina';
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
@@ -317,7 +318,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
               const isAllocated = !!allocatedMap[item.code];
               const allocatedCourse = allocatedMap[item.code];
               // Há códigos repetidos no PPC ("DCP xxx"): a ementa abre pelo par código + nome.
-              const ementaKey = `${item.code}-${item.name}`;
+              const ementaKey = `${item.code}-${nomeDisciplina(item.name)}`;
               const ementaId = `ementa-${ementaKey.normalize('NFD').replace(/[^a-zA-Z0-9]+/g, '-').toLowerCase()}`;
               const isExpanded = ementas.isOpen(ementaKey);
               const isSelectingPeriod = allocatingCode === item.code;
@@ -361,7 +362,7 @@ export const OptativasCatalogExplorer: React.FC<Props> = ({ optativas }) => {
                     </div>
 
                     <h4 className="font-head text-sm font-black text-foreground leading-snug mb-1.5 m-0">
-                      {item.name}
+                      {nomeDisciplina(item.name)}
                     </h4>
 
                     <div className="flex items-center justify-between gap-2 mb-2">

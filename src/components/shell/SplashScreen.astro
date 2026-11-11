@@ -1,7 +1,10 @@
 ---
 // SplashScreen.astro — Abertura do site: a semente germina enquanto o site carrega de verdade.
 //
-// Aparece em toda abertura (carregamento completo da página), nunca nas trocas internas do ClientRouter.
+// Aparece UMA vez por sessão: quando a pessoa abre o site ou o app (decisão de 11/11/2026). Recarregar,
+// abrir outro link na mesma sessão e as trocas internas do ClientRouter não mostram a abertura de novo;
+// troca de página lenta mostra o esqueleto (BaseLayout › #cagp-skeleton).
+// O desenho é a ilustração do kit Semente (src/lib/estagioIlustra.ts), revelada por etapa.
 // Cada estágio da planta é um passo real do carregamento, nesta ordem:
 //   1 semente = HTML pronto · 2 raiz = fontes · 3 broto = página e ilhas (window load)
 //   4 fruto  = cache offline instalado (service worker ativo), só onde há service worker.
@@ -9,26 +12,15 @@
 // depois de uma atualização. CSS e script são inline para pintar antes do resto do bundle.
 // Sem JS o bloco some sozinho (noscript + animação de segurança).
 import { asset } from '@/lib/paths';
+import { renderEstagioIlustra, ILUSTRA_CORES } from '@/lib/estagioIlustra';
+
+// A planta inteira (fruto) sobre o bloco roxo; cada parte leva data-p e aparece na sua etapa.
+const planta = renderEstagioIlustra(5, ILUSTRA_CORES[1]);
 ---
 
 <div id="cagp-splash" data-stage="0" role="status" aria-live="polite">
   <div class="cagp-splash-box">
-    <svg class="cagp-splash-planta" viewBox="0 0 240 240" aria-hidden="true">
-      <!-- 4. fruto -->
-      <circle class="s4 pop" cx="150" cy="58" r="15" fill="#FFC83D" />
-      <path class="s4 pop" d="M120 96c-30 0-48-16-50-44 30 0 48 16 50 44z" fill="#6DB33F" />
-      <!-- 3. broto -->
-      <path class="s3 draw" pathLength="1" d="M120 148V64" stroke="#6DB33F" />
-      <path class="s3 pop late" d="M120 122c0-30 16-48 46-50 0 30-16 48-46 50z" fill="#6DB33F" />
-      <!-- 2. raiz -->
-      <path class="s2 draw" pathLength="1" d="M120 160v54" stroke="#FFC83D" />
-      <path class="s2 draw" pathLength="1" d="M120 172c-12 10-28 12-44 26" stroke="#FFC83D" />
-      <path class="s2 draw" pathLength="1" d="M120 180c12 8 26 8 40 22" stroke="#FFC83D" />
-      <!-- chão -->
-      <path d="M28 150h184" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" fill="none" />
-      <!-- 1. semente -->
-      <path class="s1 seed" d="M120 132c12 8 16 18 16 24a16 16 0 0 1-32 0c0-6 4-16 16-24z" fill="#FE8812" />
-    </svg>
+    <svg class="cagp-splash-planta" viewBox="0 0 200 200" aria-hidden="true" set:html={planta} />
 
     <img class="cagp-splash-logo" src={asset('/logos/semente/semente-horizontal-branco.webp')} alt="Chapa Gestão Pública Semente" width="768" height="229" />
 
@@ -58,29 +50,43 @@ import { asset } from '@/lib/paths';
   #cagp-splash.is-leaving { clip-path: inset(0 0 100% 0); pointer-events: none; }
   @keyframes cagp-splash-failsafe { to { visibility: hidden; pointer-events: none; } }
 
-  .cagp-splash-box { width: min(78vw, 300px); display: grid; justify-items: center; gap: 18px; }
-  .cagp-splash-planta { width: min(56vw, 220px); height: auto; overflow: visible; }
+  .cagp-splash-box { width: min(78vw, 300px); display: grid; justify-items: center; gap: 22px; }
+  .cagp-splash-planta { width: min(58vw, 230px); height: auto; aspect-ratio: 1; }
   .cagp-splash-logo { width: min(52vw, 190px); height: auto; }
   .cagp-splash-label { margin: 0; min-height: 1.4em; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; text-align: center; }
 
   .cagp-splash-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; width: 100%; margin: 0; padding: 0; list-style: none; }
-  .cagp-splash-steps li { height: 8px; border: 2px solid #fff; border-radius: 9999px; transition: background-color 200ms linear; }
+  .cagp-splash-steps li { height: 12px; border: 3px solid #1F1F1F; border-radius: 9999px; background: #3F1A61; transition: background-color 200ms linear; }
   #cagp-splash[data-stage='1'] .cagp-splash-steps li:nth-child(-n + 1),
   #cagp-splash[data-stage='2'] .cagp-splash-steps li:nth-child(-n + 2),
   #cagp-splash[data-stage='3'] .cagp-splash-steps li:nth-child(-n + 3),
   #cagp-splash[data-stage='4'] .cagp-splash-steps li { background: #fff; }
-  #cagp-splash[data-stage='4'] .cagp-splash-steps li:last-child { background: #FE8812; border-color: #FE8812; }
+  #cagp-splash[data-stage='4'] .cagp-splash-steps li:last-child { background: #FFC83D; }
 
-  .cagp-splash-planta .draw { fill: none; stroke-width: 8; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 420ms cubic-bezier(0.16, 1, 0.3, 1); }
-  .cagp-splash-planta .pop { transform-box: fill-box; transform-origin: 50% 100%; transform: scale(0); transition: transform 460ms linear(0, 0.166, 0.494, 0.803, 1.011, 1.109, 1.126, 1.097, 1.053, 1.015, 0.993, 0.987, 0.99, 0.996, 1); }
-  .cagp-splash-planta .pop.late { transition-delay: 160ms; }
-  .cagp-splash-planta .seed { transform-box: fill-box; transform-origin: 50% 100%; transform: translateY(-90px) scale(0.6); opacity: 0; transition: transform 380ms linear(0, 0.166, 0.494, 0.803, 1.011, 1.109, 1.126, 1.097, 1.053, 1.015, 0.993, 0.987, 0.99, 0.996, 1), opacity 80ms linear; }
-
-  #cagp-splash:not([data-stage='0']) .seed { transform: none; opacity: 1; }
-  #cagp-splash:is([data-stage='2'], [data-stage='3'], [data-stage='4']) .s2.draw,
-  #cagp-splash:is([data-stage='3'], [data-stage='4']) .s3.draw { stroke-dashoffset: 0; }
-  #cagp-splash:is([data-stage='3'], [data-stage='4']) .s3.pop,
-  #cagp-splash[data-stage='4'] .s4.pop { transform: scale(1); }
+  /* Adesivo do kit: quadro com os cantos da folha, contorno, sombra em camadas e leve inclinação. */
+  .cagp-splash-planta {
+    overflow: hidden;
+    border: 3px solid #1F1F1F;
+    border-radius: 28% 8% 28% 8%;
+    background: #5B2A85;
+    box-shadow: 6px 6px 0 0 #FE8812, 12px 12px 0 0 #1F1F1F;
+    rotate: -3deg;
+  }
+  .cagp-splash-planta .ei-ink { stroke: #1F1F1F; stroke-width: 5px; stroke-linejoin: round; paint-order: stroke; vector-effect: non-scaling-stroke; }
+  .cagp-splash-planta .ei-veio { fill: none; stroke: #1F1F1F; stroke-width: 2px; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+  /* Cada parte espera a sua etapa: semente (1), raiz (2), caule e folhas (3), frutos (4). */
+  .cagp-splash-planta :is(.ei-pop, .ei-rise) {
+    animation: none;
+    transform: scale(0);
+    transition: transform 460ms linear(0, 0.166, 0.494, 0.803, 1.011, 1.109, 1.126, 1.097, 1.053, 1.015, 0.993, 0.987, 0.99, 0.996, 1);
+    transition-delay: calc(var(--i, 0) * 22ms);
+  }
+  .cagp-splash-planta .ei-rise { transform: scaleY(0); transition-delay: 0ms; }
+  .cagp-splash-planta .ei-sway { animation: none; }
+  #cagp-splash:not([data-stage='0']) [data-p='s'],
+  #cagp-splash:is([data-stage='2'], [data-stage='3'], [data-stage='4']) [data-p='r'],
+  #cagp-splash:is([data-stage='3'], [data-stage='4']) :is([data-p='c'], [data-p='f']),
+  #cagp-splash[data-stage='4'] [data-p='u'] { transform: none; }
 </style>
 
 <script is:inline>
@@ -97,8 +103,12 @@ import { asset } from '@/lib/paths';
         root.classList.add('cagp-booted');
       });
     }
+    // Uma abertura por sessão: quem recarrega ou abre outro link do site não espera de novo.
     var off = false;
-    try { off = sessionStorage.getItem('cagp_splash_off') === '1'; } catch (e) {}
+    try {
+      off = sessionStorage.getItem('cagp_splash_off') === '1' || sessionStorage.getItem('cagp_splash_vista') === '1';
+      sessionStorage.setItem('cagp_splash_vista', '1');
+    } catch (e) {}
     if (!el || window.__cagpBooted || off) {
       root.classList.add('cagp-booted');
       return;
