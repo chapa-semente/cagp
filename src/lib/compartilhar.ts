@@ -33,7 +33,7 @@ export const CORACOES = '💜🧡';
 /** A chamada de voto que fecha toda mensagem: o grito, a eleição e, até o dia 24, o debate. */
 export function chamadaDeVoto(fase: FaseDaEleicao = faseDaEleicao(), agora: number = Date.now()): string[] {
   if (fase === 'depois') return [];
-  if (fase === 'dia') return [`🗳️ *É hoje! ${GRITO}* ${CORACOES}`, `📍 Até 22h30, na sala do CAGP (FAFICH). Leve documento com foto.`];
+  if (fase === 'dia') return [`🗳️ *É hoje! ${GRITO}* ${CORACOES}`, `📍 Até 22h30, na sala do CAGP (FAFICH).`];
   return [
     `🗳️ *${GRITO}* ${CORACOES}`,
     `📅 Eleição do CAGP: 25 e 26/11, ${ONDE_E_QUANDO}.`,
@@ -45,7 +45,7 @@ export function chamadaDeVoto(fase: FaseDaEleicao = faseDaEleicao(), agora: numb
 export function assinatura(tom: TomDeCompartilhar, fase: FaseDaEleicao = faseDaEleicao(), agora: number = Date.now()): string {
   if (fase === 'depois') return tom === 'voto' ? '' : `${CORACOES} _Tá no site do curso de Gestão Pública._`;
   const autoria = tom === 'voto' ? [] : [tom === 'util' ? `🌱 _Tá no site do curso, feito pela ${CHAPA_NOME}._` : `🌱 _Feito pela ${CHAPA_NOME}._`];
-  const lembrete = tom === 'voto' && fase === 'antes' ? ['🪪 Leve documento com foto.'] : [];
+  const lembrete = tom === 'voto' && fase === 'antes' ? ['✖️ Na cédula, um X em uma chapa só.'] : [];
   return [...autoria, ...chamadaDeVoto(fase, agora), ...lembrete].join('\n');
 }
 

@@ -4,35 +4,28 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/ui/PageHeader.astro';
 import HubItemList from '@/components/shell/HubItemList.astro';
 import { getAxisById } from '@/lib/navigationRegistry';
-import { MinhasHoras, type DisciplinaObrigatoria } from '@/components/features/meu-curso/MinhasHoras';
-import { DISCIPLINAS_GRAFO } from '@/components/features/curriculum/graph/curriculumGraphData';
+import { MinhasHoras } from '@/components/features/meu-curso/MinhasHoras';
 
 const axis = getAxisById('curso')!;
 const items = axis.items.filter((i) => i.type !== 'hub');
-
-// As 27 obrigatórias do percurso (25 disciplinas + os dois estágios curriculares, DCP 135 e 136).
-const ESTAGIOS = new Set(['DCP 135', 'DCP 136']);
-const disciplinas: DisciplinaObrigatoria[] = Object.values(DISCIPLINAS_GRAFO)
-  .map((d) => ({ code: d.code, name: d.name, period: d.period, ch: d.ch, estagio: ESTAGIOS.has(d.code) }))
-  .sort((a, b) => a.period - b.period || a.code.localeCompare(b.code));
 ---
 
 <BaseLayout
   title="Meu curso"
-  description="Sua grade, a calculadora das 600h de atividades complementares e o checklist da formatura, salvos no seu celular."
+  description="Quanto falta para se formar, seus prazos, o próximo semestre e as atividades das 600h num painel só, salvo no seu celular."
   mode="operate"
 >
   <PageHeader
     title="Meu curso"
-    subtitle="Quanto falta para se formar, grupo a grupo. Fica salvo só neste celular."
+    subtitle="Quanto falta, o que vence e o que cursar depois."
     mode="operate"
     condensed={true}
   />
 
   <div class="space-y-10">
-    <MinhasHoras client:load disciplinas={disciplinas} />
+    <MinhasHoras client:load />
 
-    <HubItemList heading="Ferramentas" headingId="meu-curso-ferramentas" items={items} />
+    <HubItemList heading="Guias e mapas do curso" headingId="meu-curso-ferramentas" items={items} />
 
     <section aria-labelledby="meu-curso-passaporte" class="cagp-passport-cta">
       <div class="min-w-0 space-y-1">

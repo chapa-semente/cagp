@@ -18,13 +18,20 @@ interface Vaga {
   acao: { rotulo: string; href: string };
   texto: string;
 }
-const vagas = dados.vagas as Vaga[];
+interface Props {
+  /** Mostra só um tipo de vaga (ex.: "Estágio", no guia de estágio). Sem ele, todas. */
+  apenas?: string;
+}
+const { apenas } = Astro.props;
+const vagas = (dados.vagas as Vaga[]).filter((v) => !apenas || v.tipo === apenas);
+const noGuia = Boolean(apenas);
 const dataCurta = (iso: string) => iso.split('-').reverse().slice(0, 2).join('/');
 ---
 
+{vagas.length > 0 && (
 <section aria-labelledby="vagas-reais-titulo" class="vr">
   <div class="vr-cabeca">
-    <h2 id="vagas-reais-titulo" class="vr-h2">Vagas que chegaram no grupo</h2>
+    <h2 id="vagas-reais-titulo" class="vr-h2">{noGuia ? 'Vagas de estágio que chegaram no grupo' : 'Vagas que chegaram no grupo'}</h2>
     <p class="vr-lede">
       Vagas reais, enviadas no {dados.fonte}. O anúncio está como chegou; confira o prazo e as regras na fonte antes de se inscrever.
     </p>
@@ -73,7 +80,13 @@ const dataCurta = (iso: string) => iso.split('-').reverse().slice(0, 2).join('/'
       </li>
     ))}
   </ul>
+  {noGuia && (
+    <p class="vr-lede">
+      <a href={route('/carreira/vagas')}>Ver todas as vagas e editais</a>
+    </p>
+  )}
 </section>
+)}
 
 <script>
   import '@/scripts/botaoCompartilhar';

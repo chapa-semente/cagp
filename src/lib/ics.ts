@@ -1,3 +1,4 @@
+import { ATENDIMENTO_CURSO } from '@/data/acolhimento';
 // ics.ts - Gerador e Baixador de Eventos de Calendário iCalendar (.ics) para Agenda Discente
 
 export interface IcsEventOptions {
@@ -103,8 +104,8 @@ export function downloadAac120dIcs(
   downloadIcs(
     {
       title: `Último dia pra protocolar AAC: ${certTitle}`,
-      description: `Art. 15, § 4º do Regulamento do Curso N-20229: Prazo fatal de 120 dias corridos para protocolar o certificado no Colegiado (Sala F-2039) ou via e-mail coordgestaopublica@gmail.com.`,
-      location: 'Secretaria do Colegiado Sala F-2039 (coordgestaopublica@gmail.com)',
+      description: `Art. 15, § 4º do Regulamento do Curso N-20229: Prazo fatal de 120 dias corridos para protocolar o certificado no Colegiado (Sala F-2039) ou via e-mail ${ATENDIMENTO_CURSO.coordenacao.email}.`,
+      location: `Secretaria do Colegiado Sala F-2039 (${ATENDIMENTO_CURSO.coordenacao.email})`,
       startDate: start,
       endDate: end,
     },

@@ -1,20 +1,21 @@
 ---
 // CursoColegiado.astro - Sub-view 3: Colegiado do Curso, NDE & Secretaria
 import { asset, route } from '@/lib/paths';
+import { ATENDIMENTO_CURSO } from '@/data/acolhimento';
 
 const coordenacao = {
   coordenadora: 'Profª Isabele Batista Mitozo',
-  emailCoord: 'coordgestaopublicaufmg@gmail.com',
+  emailCoord: ATENDIMENTO_CURSO.coordenacao.email,
   subcoordenadora: 'Profª Ludmila Mendonça Lopes Ribeiro',
   emailSub: 'ludmila.ribeiro@gmail.com',
 };
 
 const secretarios = {
-  secretaria: 'Wander Wenceslau Pereira / Ubirajara Dutra',
+  secretaria: ATENDIMENTO_CURSO.secretaria.atendentes,
   horario: 'Quarta-feira, das 13h00 às 19h00',
   sala: 'FAFICH, 2º Andar, Sala F-2039',
-  telefone: '(31) 3409-3826',
-  email: 'gestaopublica@ufmg.br',
+  telefone: ATENDIMENTO_CURSO.secretaria.telefone,
+  email: ATENDIMENTO_CURSO.secretaria.email,
 };
 
 const ceag = {
@@ -24,7 +25,7 @@ const ceag = {
 };
 
 const ndeMembros = [
-  { nome: 'Profª Isabele Batista Mitozo', papel: 'Presidente do NDE / Coordenadora', email: 'coordgestaopublicaufmg@gmail.com' },
+  { nome: 'Profª Isabele Batista Mitozo', papel: 'Presidente do NDE / Coordenadora', email: ATENDIMENTO_CURSO.coordenacao.email },
   { nome: 'Profª Ludmila Mendonça Lopes Ribeiro', papel: 'Subcoordenadora do Colegiado', email: 'ludmila.ribeiro@gmail.com' },
   { nome: 'Prof. Paulo Ricardo Diniz Filho', papel: 'Docente DCP / FAFICH', email: 'paulo.ng.diniz@gmail.com' },
   { nome: 'Prof. Marcus Abílio Pereira', papel: 'Docente DCP / FAFICH', email: 'magopebh@gmail.com' },

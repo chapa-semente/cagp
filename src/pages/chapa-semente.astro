@@ -6,8 +6,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import JourneyNav from '../components/ui/JourneyNav.astro';
 import { CartaPropostaInteractive } from '../components/features/semente/CartaPropostaInteractive';
 import { ChapaSementeTour } from '../components/features/semente/ChapaSementeTour';
-import { PropostasTourButton } from '../components/features/semente/PropostasTourButton';
-import { CHAPA_LEADERS, CHAPA_NOME, CHAPA_NUMERO, CHAPA_ROTULO, getLeaderPhotoUrl } from '@/lib/chapaSementeData';
+import { PROPOSTA_EIXOS } from '@/lib/propostasTour';
+import { CHAPA_LEADERS, CHAPA_NOME, CHAPA_NUMERO, CHAPA_ROTULO, SOLUTION_LABEL, getLeaderPhotoUrl } from '@/lib/chapaSementeData';
 import { asset, route } from '@/lib/paths';
 import { Marquee, MarqueeItem, MarqueeSeparator } from '../components/ui/marquee';
 import EstagioIlustra from '@/components/ui/EstagioIlustra.astro';
@@ -24,7 +24,7 @@ const MARQUEE = [
   'Faz o S!',
   '12 pessoas, 14 propostas, 1 site no ar',
   'Toda mudança começa pequena',
-  'Leve documento com foto',
+  'Na cédula, um X em uma chapa só',
 ];
 
 const EDITAL_PDF = asset('/documentos/edital-eleicoes-cagp-2026.pdf');
@@ -79,7 +79,10 @@ const jaFunciona = jaFuncionaBase.map((t) => {
         <p class="cs-accent">Toda mudança começa pequena.</p>
         <GritoDeVoto onColor tamanho="lg" />
         <div class="flex flex-wrap items-center gap-x-5 gap-y-3">
-          <a href="#propostas" class="cs-btn cs-btn-accent">Ver as 14 propostas</a>
+          <button type="button" class="cs-btn cs-btn-accent" data-cagp-dispatch="cagp:start-propostas-tour">
+            <i class="bi bi-play-fill" aria-hidden="true"></i>
+            Propostas em 1 minuto
+          </button>
           <a href="#votar" class="cs-vote-link">Dias 25 e 26/11, das 17h às 22h30: como votar <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
         </div>
       </div>
@@ -119,7 +122,7 @@ const jaFunciona = jaFuncionaBase.map((t) => {
         </div>
         <div>
           <dt>Quem vota</dt>
-          <dd>Todo estudante com matrícula ativa em Gestão Pública, levando documento oficial com foto.</dd>
+          <dd>Todo estudante regularmente matriculado em Gestão Pública. Na cédula, um X em uma chapa só.</dd>
         </div>
         <div>
           <dt>Debate</dt>
@@ -153,7 +156,7 @@ const jaFunciona = jaFuncionaBase.map((t) => {
             Cada pessoa responde por uma área do centro acadêmico e por uma parte do site.
           </p>
         </div>
-        <ChapaSementeTour variant="compact" buttonText="Rever o tour da chapa" />
+        <ChapaSementeTour variant="compact" buttonText="Rever a apresentação da chapa" />
       </div>
 
       <ul class="cs-team" role="list" data-masonry>
@@ -191,7 +194,7 @@ const jaFunciona = jaFuncionaBase.map((t) => {
                     <strong class="text-foreground">O problema:</strong> {leader.painPoint}
                   </p>
                   <p class="m-0 text-sm text-muted-foreground leading-snug">
-                    <strong class="text-foreground">Já funciona:</strong> {leader.solution}
+                    <strong class="text-foreground">{SOLUTION_LABEL[leader.solutionStatus]}</strong> {leader.solution}
                   </p>
                 </div>
               </details>
@@ -232,12 +235,32 @@ const jaFunciona = jaFuncionaBase.map((t) => {
     <section id="propostas" aria-labelledby="cs-propostas-title" class="scroll-mt-24 space-y-5">
       <div class="space-y-2 max-w-[68ch]">
         <h2 id="cs-propostas-title" class="cs-headline">As 14 propostas</h2>
-        <p class="text-base text-muted-foreground m-0">
-          O texto integral da carta-programa, em 4 eixos. Abra uma proposta para ler a íntegra, ou veja uma por uma com quem vai tocar cada uma.
-        </p>
-        <PropostasTourButton className="mt-2 w-full sm:w-auto" />
+        <p class="text-base text-muted-foreground m-0">Quatro perguntas, quatro telas. Toque numa.</p>
       </div>
-      <CartaPropostaInteractive client:visible />
+      <!-- A entrada do tour das propostas: um bloco por eixo, cada um abre o tour naquele eixo. -->
+      <ul class="cs-eixos">
+        {PROPOSTA_EIXOS.map((e) => (
+          <li>
+            <button type="button" class="cs-eixo" data-cagp-dispatch="cagp:start-propostas-tour" data-cagp-eixo={e.id}>
+              <span class="cs-eixo-adesivo" style={`background:${e.bg};color:${e.fg}`}>{e.estagio}</span>
+              <span class="cs-eixo-gancho">{e.gancho}</span>
+              <span class="cs-eixo-pe">
+                <span>{e.nome} · {e.ate - e.de + 1} propostas</span>
+                <i class="bi bi-play-fill" aria-hidden="true"></i>
+              </span>
+            </button>
+          </li>
+        ))}
+      </ul>
+      <p class="m-0 text-base text-muted-foreground">
+        Discorda de alguma, ou acha que faltou uma? <a href={route('/ouvidoria')} class="font-bold text-primary underline underline-offset-[0.22em]">Fala com a gente</a>.
+      </p>
+      <details class="cs-carta">
+        <summary>Ler a carta completa, proposta por proposta</summary>
+        <div class="pt-4">
+          <CartaPropostaInteractive client:visible />
+        </div>
+      </details>
     </section>
 
     <!-- 6. KIT DE DIVULGAÇÃO: quem já decidiu o voto vira quem espalha (artes em public/og/kit/) -->
@@ -300,9 +323,9 @@ const jaFunciona = jaFuncionaBase.map((t) => {
 
   <JourneyNav
     prev={{
-      title: 'Hoje no campus',
+      title: 'Início',
       href: '/',
-      desc: 'Volte à página inicial do Super App.',
+      desc: 'RU, ônibus e os atalhos do dia.',
     }}
     next={{
       title: 'História e regimento do CAGP',
@@ -479,6 +502,51 @@ const jaFunciona = jaFuncionaBase.map((t) => {
   /* O laranja é o botão de destaque: cantos da folha do símbolo. */
   .cs-btn-accent { background: var(--color-accent); color: #1f1f1f; border-radius: 26px 7px 26px 7px; padding-inline: 1.5rem; }
   .cs-btn-ghost-light { background: #fff; color: #1f1f1f; }
+
+  /* Os quatro blocos de eixo: a entrada do tour das propostas. */
+  .cs-eixos { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.875rem; }
+  @media (min-width: 720px) { .cs-eixos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .cs-eixo {
+    display: grid;
+    gap: 0.625rem;
+    justify-items: start;
+    width: 100%;
+    height: 100%;
+    padding: 1rem 1rem 0.875rem;
+    text-align: left;
+    color: #fff;
+    background: var(--color-primary);
+    border: 3px solid var(--color-border);
+    border-radius: 16px;
+    box-shadow: 4px 4px 0 0 #1f1f1f;
+    cursor: pointer;
+    transition: translate var(--duration-press, 150ms) cubic-bezier(0.16, 1, 0.3, 1), box-shadow var(--duration-press, 150ms) cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .cs-eixos li:nth-child(even) .cs-eixo { background: #266264; }
+  .cs-eixo:hover { translate: -1px -1px; box-shadow: 6px 6px 0 0 #1f1f1f; }
+  .cs-eixo:active { translate: 3px 3px; box-shadow: none; }
+  .cs-eixo:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 2px; }
+  .cs-eixo-adesivo {
+    rotate: -3deg;
+    padding: 0.125rem 0.5rem;
+    border: 2px solid #1f1f1f;
+    border-radius: 6px;
+    box-shadow: 2px 2px 0 0 #1f1f1f;
+    font-size: 0.8125rem;
+    font-weight: 700;
+  }
+  .cs-eixo-gancho { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; line-height: 1.15; text-wrap: balance; }
+  .cs-eixo-pe { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 0.75rem; font-size: 0.875rem; line-height: 1.3; }
+  .cs-eixo-pe i { display: grid; place-items: center; flex: none; width: 2rem; height: 2rem; color: #1f1f1f; background: var(--color-accent); border: 2px solid #1f1f1f; border-radius: 50%; }
+  .cs-carta summary {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 0.22em;
+    cursor: pointer;
+  }
 
   /* 2. Faixa petróleo */
   .cs-band {

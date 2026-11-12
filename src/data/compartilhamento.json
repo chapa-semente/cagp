@@ -128,7 +128,7 @@
     },
     "/gestao": {
       "titulo": "Eleição do CAGP: 25 e 26/11, das 17h às 22h30",
-      "descricao": "Na sala do CAGP, na FAFICH. Leve um documento oficial com foto. A Semente é a Chapa 2.",
+      "descricao": "Na sala do CAGP, na FAFICH. A Semente é a Chapa 2.",
       "emoji": "🗳️",
       "imagem": "votar",
       "banner": { "molde": "votar" }
@@ -198,20 +198,20 @@
       "banner": { "molde": "pagina", "aba": "mais", "etiqueta": "Banco de talentos", "gancho": [ "Suas competências", "viram {currículo}." ], "sub": [ "Fica salvo só no seu celular." ], "arte": "fichas" }
     },
     "/ouvidoria": {
-      "titulo": "Fala com o CA: escreva sua demanda",
-      "descricao": "Ementa, infraestrutura, Colegiado: organize sua demanda e guarde o texto. Proposta 14 da Chapa 2 · Semente.",
+      "titulo": "Fala com a gente: mande sua crítica ao site",
+      "descricao": "Achou um erro, tem uma ideia ou uma crítica ao site da Chapa 2 · Semente? Mande aqui. É também a Proposta 14: o canal de escuta que a chapa quer para o CAGP.",
       "emoji": "📣",
-      "mensagem": "Tem uma reclamação sobre o curso? Dá pra escrever e organizar a demanda aqui:",
+      "mensagem": "A Semente tá pedindo crítica ao site que ela fez. Achou erro ou tem ideia? Manda aqui:",
       "imagem": "p-ouvidoria",
-      "banner": { "molde": "pagina", "aba": "mais", "etiqueta": "Fala com o CA", "gancho": [ "Tem uma reclamação", "e não sabe pra", "quem {levar}?" ], "sub": [ "Escreva sua demanda e guarde o texto." ], "pessoa": "larissa" }
+      "banner": { "molde": "pagina", "aba": "mais", "etiqueta": "Fala com a gente", "gancho": [ "Achou um erro?", "{Critica} a gente." ], "sub": [ "Erro, ideia ou crítica ao site: manda." ], "pessoa": "larissa" }
     },
     "/transparencia": {
-      "titulo": "Livro-caixa aberto do CAGP (modelo da proposta)",
-      "descricao": "O que o Regimento exige sobre as contas e como a Chapa 2 · Semente propõe abrir o caixa. Os valores são exemplos.",
+      "titulo": "Portal da Transparência do CAGP (pronto, com números de exemplo)",
+      "descricao": "O portal da Chapa 2 · Semente já está pronto: livro-caixa, boletim a cada três meses e planilha para baixar. Os números são de exemplo, porque a chapa ainda não é gestão.",
       "emoji": "💰",
-      "mensagem": "Olha o modelo de livro-caixa aberto que a Semente propõe pro CAGP (os valores de agora são exemplos):",
+      "mensagem": "Olha o Portal da Transparência que a Semente já deixou pronto pro CAGP (os números de agora são exemplos, porque a chapa ainda não é gestão):",
       "imagem": "p-transparencia",
-      "banner": { "molde": "pagina", "aba": "mais", "etiqueta": "Transparência", "gancho": [ "Pra onde vai", "o {dinheiro} do CA?" ], "sub": [ "O livro-caixa aberto que a chapa propõe." ], "pessoa": "klaus", "modelo": true }
+      "banner": { "molde": "pagina", "aba": "mais", "etiqueta": "Transparência", "gancho": [ "Pra onde vai", "o {dinheiro} do CA?" ], "sub": [ "O portal já está pronto." ], "pessoa": "klaus", "modelo": true }
     },
     "/sobre-o-site": {
       "titulo": "Como usar o site do curso em cinco passos",

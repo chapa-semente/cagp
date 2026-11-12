@@ -2,8 +2,8 @@
 // O tour abre antes de qualquer conteúdo (decisão de 10/11/2026). Desde 12/11/2026, depois do teste de
 // uma colega do curso, ele tem "Pular" em toda tela e mostra só as TOUR_CURTO primeiras pessoas da
 // ordem do perfil; os outros integrantes ficam atrás de "Conhecer os outros".
-// Cada integrante tem uma tela de história (foto + dor do estudante) e um spotlight na ferramenta
-// real que defendeu. A ordem muda conforme o momento de curso que a pessoa escolhe na abertura.
+// Cada integrante tem uma tela só: foto, a dor do estudante e um "print" da ferramenta real que
+// defendeu (até 12/11/2026 eram duas, história e spotlight). A ordem muda conforme o momento de curso.
 // Fatos: só o que o site já entrega. Ferramenta simulada leva `simulated: true` (sticker SIMULADO).
 
 import { asset, route } from '@/lib/paths';
@@ -62,8 +62,8 @@ export const TOUR_STOPS: Record<TourLeaderId, TourStop> = {
     target: '[data-tour="larissa"]',
     hook: 'Tem uma reclamação sobre o curso e não sabe para quem levar?',
     answer: 'Larissa quer um centro acadêmico que escute todas as turmas, não só a panelinha.',
-    tool: 'Ouvidoria do estudante',
-    proof: 'Você escreve a demanda, o site organiza o texto e guarda no seu celular, pronto para copiar e enviar.',
+    tool: 'Fala com a gente',
+    proof: 'Erro, ideia ou crítica ao site: você escreve e manda pra chapa. Se a Semente ganhar, o mesmo canal passa a levar as demandas do curso.',
   },
   livia: {
     leaderId: 'livia',
@@ -122,7 +122,7 @@ export const TOUR_STOPS: Record<TourLeaderId, TourStop> = {
     hook: 'Sabe para onde vai o dinheiro do centro acadêmico?',
     answer: 'Klaus quer o caixa do CAGP aberto, lançamento por lançamento, para qualquer estudante conferir.',
     tool: 'Portal da Transparência',
-    proof: 'É o modelo do livro-caixa que vamos publicar. Os lançamentos de agora são exemplos.',
+    proof: 'O portal já está pronto. Os lançamentos de agora são exemplos, porque ainda não somos gestão.',
     simulated: true,
   },
   italo: {
@@ -233,7 +233,12 @@ export interface SementeTourState {
   full?: boolean;
   /** Tela em que a pessoa tocou em "Pular": o voltar da tela da votação devolve para ela. */
   skipFrom?: number;
+  /** Versão da sequência de telas. Estado ativo de outra versão recomeça (os índices mudaram). */
+  v?: number;
 }
+
+/** Sequência de 12/11/2026 (noite): vídeo, momento do curso, uma tela por pessoa, carteirinha, votação. */
+export const TOUR_SEQUENCIA = 3;
 
 export function loadSementeTour(): SementeTourState | null {
   try {

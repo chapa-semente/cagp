@@ -189,7 +189,6 @@ export const AcgCalculatorCore: React.FC = () => {
 
   const renderCard = (item: AcgItemDef) => {
     const val = data[item.key] || 0;
-    const itemPct = Math.min(100, Math.round((val / item.max) * 100));
     const isDrawerOpen = !!openDrawers[item.key];
     const isMaxed = val >= item.max;
 
@@ -243,17 +242,6 @@ export const AcgCalculatorCore: React.FC = () => {
 
           <p className="font-body text-xs text-muted-foreground mb-2.5 leading-relaxed">{item.desc}</p>
 
-          {/* Barra de Progresso do Item com Física de Mola */}
-          <div className="w-full h-2.5 bg-surface-hover border-2 border-border rounded-full overflow-hidden mb-2.5">
-            <motion.div
-              initial={false}
-              animate={{ width: `${itemPct}%` }}
-              transition={bounceSpring}
-              className={`h-full ${
-                isMaxed ? 'bg-teal-700' : 'bg-secondary'
-              }`}
-            />
-          </div>
         </div>
 
         {/* Controles Táteis Apple HIG */}

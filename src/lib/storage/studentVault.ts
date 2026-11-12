@@ -9,6 +9,23 @@ export const CertSchema = z.object({
 });
 export type StudentCert = z.infer<typeof CertSchema>;
 
+export const AtividadeSchema = z.object({
+  id: z.string(),
+  titulo: z.string().min(1),
+  /** Chave da modalidade em acgCatalog (ext_* ou aac_*). */
+  mod: z.string(),
+  horas: z.number().min(0).max(300),
+  /** Data do certificado ou do fim da atividade (AAAA-MM-DD). */
+  data: z.string().optional(),
+  /** Onde o comprovante está guardado (Drive, e-mail). O arquivo não fica no site. */
+  link: z.string().optional(),
+  situacao: z.enum(['quero', 'feita', 'protocolada']),
+  /** false = veio da lista antiga de certificados e pode já estar nos totais digitados antes. */
+  soma: z.boolean().default(true),
+  criadaEm: z.string(),
+});
+export type Atividade = z.infer<typeof AtividadeSchema>;
+
 export const CustomCourseSchema = z.object({
   id: z.string(),
   code: z.string().min(2),
@@ -65,8 +82,10 @@ export const VaultSchemas = {
     answers: z.record(z.string(), z.string()),
     resultPath: z.string().optional(),
   }),
+  // savedCourses = cursadas; cursando = matriculado neste semestre (três estados desde 12/11/2026).
   cagp_minha_grade_v1: z.object({
     savedCourses: z.array(z.string()),
+    cursando: z.array(z.string()).default([]),
   }),
   cagp_art41_checklist_v1: z.record(z.string(), z.boolean()),
   cagp_a11y_prefs_v2: z.object({
@@ -93,6 +112,8 @@ export const VaultSchemas = {
     interests: z.array(z.string()).optional(),
     bio: z.string().optional(),
     linkedin: z.string().optional(),
+    /** Perfil criado só pela foto ou pelo nome do tour: ingresso e percurso ainda são os padrões. */
+    rascunho: z.boolean().optional(),
   }),
   cagp_ouvidoria_manifestacoes_v1: z.array(
     z.object({
@@ -137,6 +158,13 @@ export const VaultSchemas = {
     /** NSG de cada semestre, na ordem (null = ainda não preenchido). */
     nsg: z.array(z.number().min(0).max(100).nullable()).max(17).default([]),
   }),
+  // Lista única de atividades das 600h (dono: src/lib/atividades.ts). `base` guarda os totais que a
+  // pessoa digitou na calculadora antiga, por modalidade. cagp_calc_ext_aac_v1 virou espelho desta chave.
+  cagp_atividades_v1: z.object({
+    itens: z.array(AtividadeSchema).default([]),
+    base: z.record(z.string(), z.number()).default({}),
+    migrado: z.boolean().default(false),
+  }),
 } as const;
 
 export type VaultKey = keyof typeof VaultSchemas;
@@ -155,7 +183,7 @@ export const VaultDefaults: { [K in VaultKey]: VaultData<K> } = {
   },
   cagp_calouro_checklist_v1: {},
   cagp_percurso_quiz_v1: { answers: {} },
-  cagp_minha_grade_v1: { savedCourses: [] },
+  cagp_minha_grade_v1: { savedCourses: [], cursando: [] },
   cagp_art41_checklist_v1: {},
   cagp_a11y_prefs_v2: {
     font: 'md',
@@ -202,6 +230,7 @@ export const VaultDefaults: { [K in VaultKey]: VaultData<K> } = {
   },
   cagp_reta_final_checklist_v1: {},
   cagp_minhas_horas_v1: { optativasH: 0, livreH: 0, notas: {}, nsg: [] },
+  cagp_atividades_v1: { itens: [], base: {}, migrado: false },
 };
 
 export function getVaultItem<K extends VaultKey>(key: K): VaultData<K> {

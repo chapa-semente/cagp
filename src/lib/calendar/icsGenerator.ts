@@ -1,3 +1,4 @@
+import { ATENDIMENTO_CURSO } from '@/data/acolhimento';
 // icsGenerator.ts - Utilitário de Geração de Arquivos .ics para Calendário
 
 export interface IcsOptions {
@@ -66,8 +67,8 @@ export function downloadPresetIcs(preset: 'ru-1815' | 'circular-2230' | 'secreta
     const electionDay = new Date(2026, 10, 25, 17, 0, 0, 0); // 25/11/2026 17h
     downloadIcs({
       title: 'Votação Eleições CAGP 2026 (Chapa 2 · Semente)',
-      description: 'Votação presencial nas Eleições do Centro Acadêmico de Gestão Pública da UFMG (CAGP FAFICH). Horário: 17h às 22h30 na Sede F-4000.',
-      location: 'Sede do CAGP (Sala F-4000) • 4º Andar FAFICH/UFMG',
+      description: 'Votação presencial nas Eleições do Centro Acadêmico de Gestão Pública da UFMG (CAGP FAFICH). Horário: 17h às 22h30 na sala do CAGP.',
+      location: 'Sala do CAGP • 1º andar da FAFICH/UFMG, ao lado da entrada da rampa',
       filename: 'eleicoes-cagp-2026',
       startDate: electionDay,
       durationMinutes: 330,
@@ -96,7 +97,7 @@ export function downloadPresetIcs(preset: 'ru-1815' | 'circular-2230' | 'secreta
     tomorrow.setHours(16, 30, 0, 0);
     downloadIcs({
       title: 'Plantão Presencial Secretaria Gestão Pública (Sala F-2039)',
-      description: 'Atendimento presencial com Norma Guedes na Secretaria do Curso (Sala F-2039) terças (16h30–19h30) e seg/qua no CEAG FAFICH (16h00–22h00). Contato: coordgestaopublica@gmail.com.',
+      description: `Atendimento presencial na Secretaria do Curso (Sala F-2039), com ${ATENDIMENTO_CURSO.secretaria.atendentesCurto}: ${ATENDIMENTO_CURSO.secretaria.horario.toLowerCase()}. Fora desse horário, o CEAG da FAFICH protocola de ${ATENDIMENTO_CURSO.ceag.horario.toLowerCase()}. Contato: ${ATENDIMENTO_CURSO.secretaria.email}.`,
       location: 'Sala F-2039 FAFICH / CEAG Sala F-2033',
       filename: 'agenda-secretaria-f2039',
       startDate: tomorrow,

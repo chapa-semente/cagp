@@ -56,9 +56,17 @@ export const NOTURNO_HOJE: NoturnoItem[] = [
   },
 ];
 
+/**
+ * Fonte única dos contatos do curso. Nenhuma página escreve e-mail, sala, horário ou nome de quem
+ * atende por conta própria: importa daqui. Secretaria conferida em
+ * `_referencias/documentos-oficiais/secretaria-e-procedimentos.md` (outubro de 2026).
+ */
 export const ATENDIMENTO_CURSO = {
   secretaria: {
     label: 'Secretaria do Colegiado',
+    atendentes: 'Wander Wenceslau Pereira / Ubirajara Dutra',
+    atendentesCurto: 'Wander e Ubirajara',
+    salaCurta: 'sala F-2039',
     sala: 'FAFICH, 2º andar, sala F-2039',
     horario: 'Quarta, 13h–19h',
     email: 'gestaopublica@ufmg.br',
@@ -71,9 +79,14 @@ export const ATENDIMENTO_CURSO = {
     nome: 'Profª Isabele Batista Mitozo',
     email: 'coordgestaopublicaufmg@gmail.com',
   },
+  ceag: {
+    label: 'CEAG',
+    local: 'FAFICH, 2º andar, em frente aos caixas eletrônicos',
+    horario: 'Segunda a sexta, 8h–22h',
+  },
   cagp: {
     label: 'Sala do CAGP',
-    sala: 'FAFICH, 4º andar, sala F-4000',
+    sala: 'FAFICH, 1º andar, ao lado da entrada da rampa',
     canal: '/ouvidoria',
   },
 } as const;

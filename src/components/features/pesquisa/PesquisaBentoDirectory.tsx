@@ -4,20 +4,33 @@ import { BentoGrid, type BentoItem } from '@/components/boldkit/blocks/bento-gri
 import { route } from '@/lib/paths';
 import { tactileSpring } from '@/lib/motion';
 
+type Eixo = 'politicas_estado' | 'legislativo_justica' | 'democracia_genero';
+
 interface ResearchCenterItem {
   id: string;
   sigla: string;
   nome: string;
-  eixo: 'politicas_estado' | 'legislativo_justica' | 'democracia_genero';
+  eixo: Eixo;
   eixoLabel: string;
+  /** Quem responde pelo grupo, com o papel que a fonte dá (coordenação, líder, docente vinculado). */
   lider: string;
   tema: string;
   tags: string[];
   span?: 'large' | 'tall' | 'wide' | 'normal';
   accent?: 'primary' | 'secondary' | 'accent' | 'card';
+  /** Canal principal do grupo (site, página ou rede social) e o rótulo do botão. */
   url: string;
+  urlLabel: string;
+  /** Segundo canal, quando o grupo tem. */
+  url2?: string;
+  url2Label?: string;
   iconClass: string;
 }
+
+// Fonte dos dados (conferidos em 12/11/2026): página "Grupos de Pesquisa" do PPGCP/UFMG
+// (https://ppgcp.fafich.ufmg.br/grupopesq.php) e os canais de cada grupo, linkados no cartão.
+// Só entra aqui o que essas páginas dizem. Sem link próprio no ar, o botão leva à ficha do grupo no PPGCP.
+const PPGCP_GRUPOS = 'https://ppgcp.fafich.ufmg.br/grupopesq.php';
 
 const NUCLEOS_DCP: ResearchCenterItem[] = [
   {
@@ -25,13 +38,14 @@ const NUCLEOS_DCP: ResearchCenterItem[] = [
     sigla: 'PUBLICUS',
     nome: 'PUBLICUS — Núcleo de Estudos em Gestão e Políticas Públicas',
     eixo: 'politicas_estado',
-    eixoLabel: 'Eixo 1 • Gestão & Políticas Públicas',
-    lider: 'Coord.: Profa. Dra. Telma Maria Gonçalves Menicucci',
-    tema: 'Referência nacional em políticas sociais, Sistema Único de Saúde (SUS), reformas do Estado, capacidades estatais e arranjos federativos no Brasil.',
-    tags: ['Políticas Sociais', 'SUS & Saúde', 'Capacidades Estatais', 'Federalismo', 'Até 90h AAC'],
+    eixoLabel: 'Gestão & políticas públicas',
+    lider: 'Coord.: Telma Menicucci · vice: Márcia Miranda Soares',
+    tema: 'Criado em 2011 por professores do DCP. Pesquisa análise de políticas públicas, federalismo e relações intergovernamentais, políticas sociais, burocracia e gestão pública. Faz extensão com órgãos públicos e apoia o Programa de Imersão, que envolve alunos de Gestão Pública.',
+    tags: ['Políticas sociais', 'Federalismo', 'Burocracia', 'Programa de Imersão'],
     span: 'wide',
     accent: 'primary',
-    url: 'https://www.fafich.ufmg.br/dcp/',
+    url: `${PPGCP_GRUPOS}#9`,
+    urlLabel: 'PUBLICUS no PPGCP',
     iconClass: 'bi-building-gear text-primary',
   },
   {
@@ -39,83 +53,108 @@ const NUCLEOS_DCP: ResearchCenterItem[] = [
     sigla: 'CEPPI',
     nome: 'CEPPI — Centro de Pesquisas em Política e Internet',
     eixo: 'politicas_estado',
-    eixoLabel: 'Eixo 1 • GovTech & Transparência',
-    lider: 'Coord.: Profa. Dra. Isabele Batista Mitozo (Coord. Colegiado GP)',
-    tema: 'Governo digital, transparência ativa, e-Gov, participação online, mídias sociais no setor público e enfrentamento à desinformação.',
-    tags: ['Governo Aberto', 'Transparência', 'Deliberação Digital', 'e-Gov'],
+    eixoLabel: 'Política & internet',
+    lider: 'Docente: Marcus Abílio Pereira',
+    tema: 'Estuda o uso da internet por parlamentos e parlamentares, o ativismo político com tecnologias digitais e a governança digital. Faz reuniões semanais na sala 304 do anexo da FAFICH e já teve alunos de Gestão Pública na equipe.',
+    tags: ['Governança digital', 'Parlamento online', 'Ativismo digital'],
     span: 'normal',
     accent: 'accent',
-    url: 'https://www.fafich.ufmg.br/ceppi/',
+    url: 'https://inctdd.org/rede/grupos/ceppi-centro-de-pesquisas-em-politica-e-internet/',
+    urlLabel: 'Página do CEPPI',
+    url2: 'https://www.facebook.com/CeppiUfmg/',
+    url2Label: 'Facebook',
     iconClass: 'bi-globe2 text-accent',
   },
   {
-    id: 'nesth',
-    sigla: 'NESTH',
-    nome: 'NESTH — Núcleo de Estudos Sobre o Trabalho Humano',
+    id: 'decode',
+    sigla: 'DECODE',
+    nome: 'DECODE — Grupo de Pesquisa em Democracia e Comunicação Digital',
     eixo: 'politicas_estado',
-    eixoLabel: 'Eixo 1 • Burocracia & Trabalho',
-    lider: 'Coord.: Prof. Carlos Roberto Horta e Profa. Flávia Alves',
-    tema: 'Relações de trabalho na administração pública, ergonomia funcional, sindicalismo no setor público e carreiras de Estado.',
-    tags: ['Burocracia Pública', 'Gestão de Pessoas', 'Carreiras de Estado'],
+    eixoLabel: 'Democracia digital',
+    lider: 'Coord.: Isabele Batista Mitozo',
+    tema: 'Investiga como a digitalização do cotidiano muda as funções das instituições do Estado, as inovações democráticas e o comportamento político. Reúne também pesquisadoras da UFPR, da Câmara dos Deputados e do Aláfia Lab.',
+    tags: ['Estado digital', 'Inovações democráticas', 'INCT.DD'],
     span: 'normal',
     accent: 'card',
-    url: 'https://www.fafich.ufmg.br/dcp/',
-    iconClass: 'bi-person-workspace text-secondary',
+    url: 'https://www.instagram.com/decode_ufmg/',
+    urlLabel: 'Instagram do DECODE',
+    iconClass: 'bi-cpu text-secondary',
   },
   {
     id: 'cel',
     sigla: 'CEL',
     nome: 'CEL — Centro de Estudos Legislativos',
     eixo: 'legislativo_justica',
-    eixoLabel: 'Eixo 2 • Legislativo & Coalizões',
-    lider: 'Coord.: Profa. Dra. Magna Maria Inácio',
-    tema: 'Processo decisório no Congresso Nacional e assembleias estaduais (ALMG), presidencialismo de coalizão, emendas orçamentárias e relações Executivo-Legislativo.',
-    tags: ['Processo Legislativo', 'Presidencialismo de Coalizão', 'Orçamento Público'],
+    eixoLabel: 'Legislativo & partidos',
+    lider: 'Coord. (segundo o PPGCP): Carlos Ranulfo Melo',
+    tema: 'Grupo registrado no CNPq em 2002. Pesquisa o Legislativo nacional e local, suas relações com o Executivo e o Judiciário, partidos, sistemas eleitorais, lobby e grupos de interesse. Fica no anexo da FAFICH, 2º andar, sala 206, e abre seleção de graduandos para o Grupo de Estudos Poder Local.',
+    tags: ['Estudos legislativos', 'Executivo e presidências', 'Lobby', 'Poder local'],
     span: 'wide',
     accent: 'secondary',
-    url: 'https://www.fafich.ufmg.br/cel/',
+    url: 'https://www.centroestudoslegislativos.com.br/',
+    urlLabel: 'Site do CEL',
+    url2: 'mailto:celufmg@gmail.com',
+    url2Label: 'E-mail',
     iconClass: 'bi-bank2 text-secondary',
   },
   {
     id: 'femjusp',
     sigla: 'FEMJUSP',
-    nome: 'FEMJUSP — Feminismos, Justiça e Segurança Pública',
+    nome: 'Rede Femjusp — Rede Feminina de Estudos de Violência, Justiça e Prisões',
     eixo: 'legislativo_justica',
-    eixoLabel: 'Eixo 2 • Justiça & Segurança',
-    lider: 'Coord.: Profa. Dra. Ludmila Mendonça Lopes Ribeiro (Subcoord. GP)',
-    tema: 'Sistema de justiça criminal, fluxo de homicídios, violência de gênero, atuação policial e avaliação de políticas penitenciárias.',
-    tags: ['Segurança Pública', 'Justiça Criminal', 'Gênero & Violência'],
+    eixoLabel: 'Violência, justiça & prisões',
+    lider: 'Coord.: Ana Paula Vasconcelos Gonçalves e Ludmila Ribeiro',
+    tema: 'Fundada em 2025 por pesquisadoras de várias áreas. Estuda violência, sistema prisional e socioeducativo e segurança pública sob a perspectiva da desigualdade de gênero: feminicídio, tempo de processamento de crimes letais, familiares de pessoas presas. Tem graduanda de Gestão Pública na equipe.',
+    tags: ['Segurança pública', 'Justiça criminal', 'Violência de gênero'],
     span: 'normal',
     accent: 'primary',
-    url: 'https://www.fafich.ufmg.br/dcp/',
+    url: 'https://femjusp.com.br/sobre',
+    urlLabel: 'Site da Femjusp',
     iconClass: 'bi-shield-shaded text-primary',
   },
   {
-    id: 'margem',
-    sigla: 'MARGEM & OJB',
-    nome: 'MARGEM & Observatório da Justiça Brasileira (OJB)',
+    id: 'ojb',
+    sigla: 'OJB',
+    nome: 'OJB — Observatório da Justiça no Brasil e na América Latina',
     eixo: 'legislativo_justica',
-    eixoLabel: 'Eixo 2 • Judiciário & Democracia',
-    lider: 'Coord.: Prof. Dr. Leonardo Avritzer & Grupo MARGEM',
-    tema: 'Instituições judiciais, judicialização de políticas públicas, ativismo do STF, transições democráticas e teoria crítica.',
-    tags: ['Judiciário & Política', 'STF', 'Teoria Democrática'],
+    eixoLabel: 'Judiciário & política',
+    lider: 'Coord.: Marjorie Corrêa Marona',
+    tema: 'Fundado em 2010. Pesquisa acesso à justiça, reforma institucional, o impacto político do sistema de justiça (em especial o STF), Ministério Público, Defensoria e comportamento judicial. Hoje acompanha as audiências públicas no STF e os Tribunais de Justiça estaduais.',
+    tags: ['STF', 'Acesso à justiça', 'Ministério Público'],
     span: 'normal',
     accent: 'card',
-    url: 'https://www.fafich.ufmg.br/margem/',
-    iconClass: 'bi-balance-scale text-foreground',
+    url: 'https://www.facebook.com/ojbAL.UFMG',
+    urlLabel: 'Facebook do OJB',
+    iconClass: 'bi-building-check text-foreground',
+  },
+  {
+    id: 'margem',
+    sigla: 'MARGEM',
+    nome: 'MARGEM — Grupo de Pesquisa em Democracia e Justiça',
+    eixo: 'legislativo_justica',
+    eixoLabel: 'Democracia & justiça',
+    lider: 'Docentes do DCP: Eleonora Cunha, Ricardo Fabrino Mendonça e Cristiano Rodrigues',
+    tema: 'Faz pesquisa conceitual e empírica sobre os obstáculos ao avanço democrático e as experiências de injustiça que atravessam práticas e instituições sociais, com pluralismo de métodos e de áreas.',
+    tags: ['Teoria democrática', 'Justiça', 'Pluralismo metodológico'],
+    span: 'normal',
+    accent: 'accent',
+    url: 'https://grupomargemufmg.wordpress.com/',
+    urlLabel: 'Site do MARGEM',
+    iconClass: 'bi-signpost-split text-petroleo-deep',
   },
   {
     id: 'ripperp',
     sigla: 'RIPPERP',
-    nome: 'RIPPERP — Rede de Pesquisa em Política Externa e RI',
+    nome: 'RIPPERP — Rede Interinstitucional de Pesquisa em Política Externa e Regime Político',
     eixo: 'legislativo_justica',
-    eixoLabel: 'Eixo 2 • Paradiplomacia & RI',
-    lider: 'Coord.: Prof. Dr. Dawisson Belém Lopes',
-    tema: 'Cooperação internacional sul-sul, diplomacia pública federativa de estados e municípios, e organizações internacionais.',
-    tags: ['Política Externa', 'Diplomacia Federativa', 'Organizações Internacionais'],
+    eixoLabel: 'Política externa',
+    lider: 'Líder: Dawisson Belém Lopes',
+    tema: 'Estuda as relações entre a política doméstica e a política externa, na fronteira entre Ciência Política e Relações Internacionais: instituições internacionais e regionais, meio ambiente, direitos humanos e segurança internacional.',
+    tags: ['Política externa', 'Instituições internacionais', 'Relações Internacionais'],
     span: 'normal',
-    accent: 'accent',
-    url: 'https://www.fafich.ufmg.br/dcp/',
+    accent: 'card',
+    url: 'https://politicaexterna2015.wordpress.com/participantes/',
+    urlLabel: 'Site da RIPPERP',
     iconClass: 'bi-compass-fill text-petroleo-deep',
   },
   {
@@ -123,41 +162,33 @@ const NUCLEOS_DCP: ResearchCenterItem[] = [
     sigla: 'PRODEP',
     nome: 'PRODEP — Projeto Democracia Participativa',
     eixo: 'democracia_genero',
-    eixoLabel: 'Eixo 3 • Participação Social',
-    lider: 'Coord.: Prof. Dr. Leonardo Avritzer',
-    tema: 'Orçamento participativo, conselhos gestores de políticas públicas (saúde, assistência, cidades) e conferências nacionais.',
-    tags: ['Orçamento Participativo', 'Conselhos Gestores', 'Controle Social'],
-    span: 'normal',
-    accent: 'card',
-    url: 'https://www.fafich.ufmg.br/prodep/',
-    iconClass: 'bi-people-fill text-primary',
-  },
-  {
-    id: 'inct-iddc',
-    sigla: 'INCT / IDDC',
-    nome: 'INCT — Instituto da Democracia e Democratização da Comunicação',
-    eixo: 'democracia_genero',
-    eixoLabel: 'Eixo 3 • INCT / CNPq / FAPEMIG',
-    lider: 'Rede Nacional sediada no DCP/FAFICH/UFMG',
-    tema: 'Pesquisa eleitoral comparada, barômetro da confiança nas instituições republicanas e integridade do debate público.',
-    tags: ['Opinião Pública', 'Comunicação Pública', 'INCT / CNPq'],
+    eixoLabel: 'Participação social',
+    lider: 'Coord.: Leonardo Avritzer',
+    tema: 'Núcleo de ensino, pesquisa e extensão do DCP, criado em 2002. Pesquisa democracia e instituições participativas, inovações democráticas, gestão participativa, movimentos sociais e participação na internet. É o laboratório sede do Instituto da Democracia e da Democratização da Comunicação (INCT), que faz a pesquisa A Cara da Democracia.',
+    tags: ['Instituições participativas', 'Movimentos sociais', 'Controle social', 'INCT'],
     span: 'wide',
     accent: 'primary',
-    url: 'https://www.institutodademocracia.org/',
-    iconClass: 'bi-megaphone-fill text-primary',
+    url: 'https://www.facebook.com/prodepufmg/',
+    urlLabel: 'Facebook do PRODEP',
+    url2: 'https://www.institutodademocracia.org/',
+    url2Label: 'Site do INCT',
+    iconClass: 'bi-people-fill text-primary',
   },
   {
     id: 'nepem',
     sigla: 'NEPEM',
     nome: 'NEPEM — Núcleo de Estudos e Pesquisas sobre a Mulher',
     eixo: 'democracia_genero',
-    eixoLabel: 'Eixo 3 • Gênero & Direitos Humanos',
-    lider: 'Coord.: Profa. Dra. Marlise Matos',
-    tema: 'Representação política feminina, transversalidade de gênero em planos plurianuais (PPA), orçamento sensível a gênero e interseccionalidade.',
-    tags: ['Mulheres na Política', 'Orçamento & Gênero', 'Direitos Humanos'],
+    eixoLabel: 'Gênero & feminismo',
+    lider: 'Coord. geral: Marlise Matos',
+    tema: 'Fundado em 1984, interdisciplinar e ligado à FAFICH: foi o terceiro núcleo de gênero e feminismo criado em universidades brasileiras. Pesquisa participação política e autonomia econômica das mulheres, feminicídio e políticas públicas de gênero, e mantém projetos de extensão e ciclos de estudos abertos.',
+    tags: ['Mulheres na política', 'Políticas de gênero', 'Extensão'],
     span: 'normal',
     accent: 'secondary',
-    url: 'https://www.fafich.ufmg.br/nepem/',
+    url: 'https://www.instagram.com/nepemufmg/',
+    urlLabel: 'Instagram do NEPEM',
+    url2: 'https://linktr.ee/nepem.ufmg',
+    url2Label: 'Links',
     iconClass: 'bi-gender-female text-secondary',
   },
   {
@@ -165,22 +196,27 @@ const NUCLEOS_DCP: ResearchCenterItem[] = [
     sigla: 'CECOMP',
     nome: 'CECOMP — Centro de Estudos do Comportamento Político',
     eixo: 'democracia_genero',
-    eixoLabel: 'Eixo 3 • Comportamento Eleitoral',
-    lider: 'Coord.: Prof. Dr. Mario Fuks',
-    tema: 'Cultura política, comportamento eleitoral, polarização, engajamento cívico juvenil e métodos quantitativos em pesquisas de opinião.',
-    tags: ['Cultura Política', 'Comportamento Eleitoral', 'Métodos Quantitativos'],
+    eixoLabel: 'Comportamento político',
+    lider: 'Fundador: Mario Fuks',
+    tema: 'Começou em 2012 e reúne professores e estudantes de graduação, mestrado e doutorado. Pesquisa legitimidade democrática, socialização política, comportamento eleitoral, antipartidarismo, ideologia e participação política. Discute os trabalhos em reuniões abertas ao grupo e organiza um ciclo anual de palestras.',
+    tags: ['Comportamento eleitoral', 'Opinião pública', 'Legitimidade democrática'],
     span: 'normal',
     accent: 'accent',
-    url: 'https://www.fafich.ufmg.br/cecomp/',
+    url: 'https://www.facebook.com/CeComPolitico',
+    urlLabel: 'Facebook do CECOMP',
+    url2: 'mailto:cecomp@outlook.com',
+    url2Label: 'E-mail',
     iconClass: 'bi-bar-chart-line-fill text-petroleo-deep',
   },
 ];
 
+const contarEixo = (eixo: Eixo) => NUCLEOS_DCP.filter((n) => n.eixo === eixo).length;
+
 const EIXO_FILTERS = [
-  { id: 'todos', label: 'Todos os Núcleos (11)' },
-  { id: 'politicas_estado', label: '1. Gestão & Políticas Públicas (3)' },
-  { id: 'legislativo_justica', label: '2. Legislativo, Justiça & RI (4)' },
-  { id: 'democracia_genero', label: '3. Democracia, Gênero & Opinião (4)' },
+  { id: 'todos', label: `Todos os núcleos (${NUCLEOS_DCP.length})` },
+  { id: 'politicas_estado', label: `1. Gestão, Estado & digital (${contarEixo('politicas_estado')})` },
+  { id: 'legislativo_justica', label: `2. Legislativo, justiça & RI (${contarEixo('legislativo_justica')})` },
+  { id: 'democracia_genero', label: `3. Democracia, gênero & opinião (${contarEixo('democracia_genero')})` },
 ];
 
 export const PesquisaBentoDirectory: React.FC = () => {
@@ -209,10 +245,11 @@ export const PesquisaBentoDirectory: React.FC = () => {
     span: activeEixo === 'todos' && !searchQuery ? n.span : 'normal',
     accent: n.accent,
     href: n.url,
-    ctaLabel: `Portal ${n.sigla}`,
+    ctaLabel: n.urlLabel,
     external: true,
-    secondaryHref: route('/acg#calculadora'),
-    secondaryLabel: 'Simular 90h AAC',
+    secondaryHref: n.url2,
+    secondaryLabel: n.url2Label,
+    secondaryExternal: Boolean(n.url2 && !n.url2.startsWith('mailto:')),
     icon: <i className={`bi ${n.iconClass} text-xl`} aria-hidden="true" />,
   }));
 
@@ -226,7 +263,11 @@ export const PesquisaBentoDirectory: React.FC = () => {
               Explore os 11 Laboratórios &amp; Núcleos de Pesquisa
             </h2>
             <p className="text-xs text-gray-800 font-body font-medium mt-0.5 m-0">
-              Filtre por eixo temático ou busque por professor, sigla ou área de interesse para Iniciação Científica (até 90h AAC) e Extensão:
+              Filtre por eixo ou busque por professor, sigla ou tema. Cada cartão leva ao canal do próprio grupo. A relação completa está na{' '}
+              <a href={PPGCP_GRUPOS} target="_blank" rel="noopener noreferrer" className="font-bold underline underline-offset-2">
+                página de grupos de pesquisa do PPGCP
+              </a>
+              .
             </p>
           </div>
 
@@ -241,7 +282,7 @@ export const PesquisaBentoDirectory: React.FC = () => {
                 type="search"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Buscar sigla, docente, SUS, legislativo..."
+                placeholder="Buscar sigla, docente, tema..."
                 className="w-full min-h-[44px] pl-9 pr-3 py-2 rounded-xl border-3 border-border bg-card font-mono text-base md:text-sm font-bold text-foreground placeholder:text-muted-foreground shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
               />
             </div>

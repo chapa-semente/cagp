@@ -7,6 +7,9 @@ import PageHeader from '../components/ui/PageHeader.astro';
 import SegmentedControl from '../components/ui/SegmentedControl.astro';
 import SementeSignature from '../components/ui/SementeSignature.astro';
 import JourneyNav from '../components/ui/JourneyNav.astro';
+import SeuProgresso from '../components/ui/SeuProgresso.astro';
+import QuemViveIsso from '../components/ui/QuemViveIsso.astro';
+import VagasReais from '../components/features/carreira/VagasReais.astro';
 import TramiteResumo from '../components/ui/tramite/TramiteResumo.astro';
 import TramitePassos from '../components/ui/tramite/TramitePassos.astro';
 import TramiteModelos from '../components/ui/tramite/TramiteModelos.astro';
@@ -171,6 +174,8 @@ const normas = [
           e as horas na área pública contam até <strong class="text-foreground">60h de AAC</strong> (modalidade IX).
         </p>
       </aside>
+      <!-- Ainda procurando onde estagiar? As vagas reais do grupo, sem sair do guia. -->
+      <VagasReais apenas="Estágio" />
     </section>
 
     <!-- Art. 41 -->
@@ -233,6 +238,10 @@ const normas = [
         </ul>
       </div>
     </details>
+
+    <QuemViveIsso tema="trabalho" />
+
+    <SeuProgresso tema="estagio" />
 
     <SementeSignature
       proposal="Propostas 3 e 12"

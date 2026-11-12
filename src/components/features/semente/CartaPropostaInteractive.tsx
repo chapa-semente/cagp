@@ -333,7 +333,7 @@ export const CartaPropostaInteractive: React.FC = () => {
                                 aria-controls={`proposta-${item.id}-integral`}
                                 className="min-h-[44px] inline-flex items-center gap-1.5 text-sm font-bold text-primary underline underline-offset-[0.22em] cursor-pointer bg-transparent border-none p-0"
                               >
-                                {isExpanded ? 'Recolher' : 'Ler o texto integral'}
+                                {isExpanded ? 'Recolher' : 'Ler o compromisso'}
                                 <ExpandChevron open={isExpanded} />
                               </button>
                               <a

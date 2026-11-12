@@ -20,6 +20,20 @@
         "4330"
       ],
       "port": 4330
+    },
+    {
+      "name": "astro-preview-cache",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "exec",
+        "astro",
+        "preview",
+        "--outDir",
+        "node_modules/.cache/build-painel",
+        "--port",
+        "4338"
+      ],
+      "port": 4338
     }
   ]
 }

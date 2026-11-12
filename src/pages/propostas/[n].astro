@@ -78,7 +78,7 @@ const legenda = [
     <section class="cd-ficha cd-fala" aria-label={`Quem puxa esta proposta: ${pessoa.name}`}>
       {foto && <img src={foto} alt="" width="72" height="72" class="cd-avatar" loading="lazy" decoding="async" />}
       <div class="min-w-0">
-        <blockquote class="cd-citacao">“{proposta.fala}”</blockquote>
+        <p class="cd-citacao">{proposta.porque}</p>
         <p class="cd-fala-quem">
           <a href={route(`/chapa-semente/${pessoa.id}`)}>{pessoa.name}</a>, {pessoa.role}
         </p>

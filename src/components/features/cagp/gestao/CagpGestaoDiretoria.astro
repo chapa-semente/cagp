@@ -1,26 +1,71 @@
 ---
-// src/components/features/cagp/gestao/CagpGestaoDiretoria.astro — As 7 Diretorias Executivas e Prestação de Contas
-import GestaoOrganograma from '@/components/features/gestao/GestaoOrganograma.astro';
-import GestaoEquipe from '@/components/features/gestao/GestaoEquipe.astro';
-import GestaoContas from '@/components/features/gestao/GestaoContas.astro';
+// CagpGestaoDiretoria.astro — As 7 diretorias do regimento, em uma lista só (12/11/2026).
+//
+// Até 12/11 este bloco montava três componentes (organograma, equipe e contas) que falavam em "9
+// pastas", listavam pessoas que não são da chapa e tratavam CNPJ, ouvidoria financeira e atas no Drive
+// como se existissem. Agora ele diz só o que o Regimento Interno diz (art. 24): os sete núcleos da
+// Diretoria de Gestão. Quem concorre a cada um está em /chapa-semente (CHAPA_LEADERS).
+import { asset, route } from '@/lib/paths';
+
+/** Regimento Interno do CAGP (14/10/2024), art. 24. */
+const DIRETORIAS = [
+  { sigla: 'DIPRE', nome: 'Presidência', nota: 'Presidente, vice-presidente e assessores, se houver.' },
+  { sigla: 'DIJUR', nome: 'Assuntos Jurídicos' },
+  { sigla: 'DIFI', nome: 'Financeira' },
+  { sigla: 'DIAC', nome: 'Acadêmica' },
+  { sigla: 'DIAP', nome: 'Articulação e Assuntos Políticos' },
+  { sigla: 'DICULT', nome: 'Cultura' },
+  { sigla: 'DIMAC', nome: 'Marketing e Comunicação' },
+];
 ---
 
-<div class="cagp-gestao-diretoria space-y-6 select-none text-foreground">
-  <div class="p-5 bg-white border-[3px] border-border rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
-    <div>
-      <h3 class="font-head text-base font-extrabold text-foreground m-0">
-        As 9 Pastas &amp; Diretorias Estatutárias e Transparência
-      </h3>
-      <p class="text-xs font-body text-foreground font-medium mt-1 m-0">
-        Organograma regimental, retratos ampliados das 9 pastas da gestão e transição do processo eleitoral.
-      </p>
-    </div>
-    <span class="px-3 py-1 rounded-lg bg-teal-700 text-white font-mono text-xs font-bold border-3 border-border shadow-sm shrink-0">
-      9 Pastas &amp; Diretorias
-    </span>
+<div class="cgd space-y-5">
+  <div class="space-y-1.5">
+    <h3 class="cgd-h">As 7 diretorias do CAGP</h3>
+    <p class="m-0 max-w-[60ch]">
+      O Regimento Interno (art. 24) divide a gestão do centro acadêmico em sete diretorias, com pelo menos
+      oito integrantes ao todo.
+    </p>
   </div>
 
-  <GestaoOrganograma />
-  <GestaoEquipe />
-  <GestaoContas />
+  <ol class="cgd-lista">
+    {DIRETORIAS.map((d) => (
+      <li>
+        <span class="cgd-sigla">{d.sigla}</span>
+        <span class="min-w-0">
+          <span class="cgd-nome">{d.nome}</span>
+          {d.nota && <span class="cgd-nota">{d.nota}</span>}
+        </span>
+      </li>
+    ))}
+  </ol>
+
+  <div class="flex flex-wrap items-center gap-3">
+    <a href={asset('/documentos/regimento-interno-cagp-ufmg.pdf')} class="sk-btn" download="regimento-interno-cagp-ufmg.pdf">
+      <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
+      Baixar o regimento
+    </a>
+    <a href={route('/chapa-semente')} class="cgd-link">Quem a Chapa 2 indica para cada uma</a>
+  </div>
 </div>
+
+<style>
+  .cgd-h { margin: 0; font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; line-height: 1.2; }
+  .cgd-lista {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-width: 40rem;
+    background: #fff;
+    border: 3px solid var(--color-border);
+    border-radius: 16px;
+    box-shadow: var(--shadow-ficha);
+    overflow: hidden;
+  }
+  .cgd-lista li { display: grid; grid-template-columns: 5rem minmax(0, 1fr); align-items: baseline; column-gap: 0.75rem; padding: 0.75rem 1rem; }
+  .cgd-lista li + li { border-top: 2px solid var(--color-border); }
+  .cgd-sigla { font-family: var(--font-heading); font-size: 0.875rem; font-weight: 700; letter-spacing: 0.04em; color: var(--color-primary); }
+  .cgd-nome { display: block; font-family: var(--font-heading); font-weight: 700; line-height: 1.25; }
+  .cgd-nota { display: block; font-size: 0.875rem; line-height: 1.4; color: var(--color-content-secondary); }
+  .cgd-link { display: inline-flex; min-height: 44px; align-items: center; font-weight: 700; text-underline-offset: 0.22em; }
+</style>

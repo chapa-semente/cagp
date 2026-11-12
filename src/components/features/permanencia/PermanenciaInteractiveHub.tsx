@@ -4,8 +4,9 @@
 // (FumpProgramas.astro). Nada aqui é estimativa de auxílio: a FUMP só define por nível o preço do RU
 // (src/data/fumpProgramas.json); moradia e suportes financeiros saem por chamada, sem valor fixo.
 import React, { useId, useState } from 'react';
-import { asset, route } from '@/lib/paths';
+import { asset } from '@/lib/paths';
 import fump from '@/data/fumpProgramas.json';
+import { Slider } from '@/components/ui/slider';
 
 type NivelRu = (typeof fump.precosRu.niveis)[number];
 const NIVEIS: NivelRu[] = fump.precosRu.niveis;
@@ -86,23 +87,21 @@ export const PermanenciaSimulador: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
         <div className={`${cardClass} lg:col-span-7 p-4 space-y-2`}>
           <div className="flex flex-wrap items-baseline justify-between gap-2">
-            <label htmlFor={sliderId} className="font-heading font-bold text-sm">
+            <span id={sliderId} className="font-heading font-bold text-sm">
               2. Refeições no RU por mês
-            </label>
-            <output htmlFor={sliderId} className="font-heading text-sm font-bold tabular-nums">
+            </span>
+            <output className="font-heading text-sm font-bold tabular-nums">
               {meals} refeições
             </output>
           </div>
-          <input
-            id={sliderId}
-            type="range"
+          <Slider
+            value={[meals]}
             min={4}
             max={60}
             step={2}
-            value={meals}
-            onChange={(e) => setMeals(Number(e.target.value))}
-            className="w-full h-11 accent-primary cursor-pointer"
-            aria-describedby={`${sliderId}-hint`}
+            onValueChange={([v]) => setMeals(v)}
+            aria-labelledby={sliderId}
+            className="py-3"
           />
           <p id={`${sliderId}-hint`} className="text-sm text-muted-foreground m-0">
             22 = jantar em todos os dias úteis · 44 = almoço e jantar
@@ -229,13 +228,13 @@ export const PermanenciaPedido: React.FC = () => {
           Travou no cadastro?
         </h3>
         <p className="text-base leading-relaxed m-0 max-w-2xl text-pretty">
-          O Centro Acadêmico ajuda no preenchimento do questionário, em recursos de bolsa e em demandas do turno noturno, com sigilo.
+          A Chapa Semente ajuda no preenchimento do questionário, em recursos de bolsa e em demandas do turno noturno, com sigilo. Quem responde é a chapa, pelo e-mail dela; o CAGP ainda não tem canal oficial.
         </p>
         <a
-          href={route('/ouvidoria')}
+          href="mailto:chapa.semente.gp@gmail.com?subject=Ajuda%20com%20a%20FUMP"
           className="inline-flex items-center justify-center gap-2 min-h-[48px] px-5 rounded-xl border-3 border-border bg-accent text-accent-foreground font-heading font-extrabold uppercase text-sm tracking-tight no-underline shadow-md hover:bg-accent-hover active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-[transform,box-shadow] focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
         >
-          Pedir ajuda ao CAGP
+          Pedir ajuda à Chapa Semente
         </a>
       </section>
 

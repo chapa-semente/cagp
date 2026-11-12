@@ -5,20 +5,34 @@
 //      (o navegador só libera som depois do toque);
 //   2. o meme: 19 s de vídeo vertical em tela cheia, o "Plantão Semente". Manchetes, legendas e o papel
 //      com a arte da chapa já vêm queimados no arquivo (gerado por _rascunhos/panfletagem/_fonte/long.py).
-//      Em tela deitada o vídeo aparece inteiro, centralizado. O "Pular" é o do próprio tour, no canto
-//      de cima (desde 12/11/2026 ele vale em toda tela); ao rever, é o fechar.
-// Quando o vídeo acaba, o tour segue direto para a tela dos rostos.
-// O vídeo nunca trava o tour: erro, rede lenta ou autoplay negado também levam à tela dos rostos.
+//      Em tela deitada o vídeo aparece inteiro, centralizado. O "Pular vídeo" é daqui e só pula o
+//      vídeo (12/11/2026, noite): fica no cartão do suspense e, com o vídeo rodando, no canto de baixo
+//      à direita, longe do contador e dos adesivos queimados no alto do arquivo. Ao rever, o fechar
+//      do tour continua no canto de cima.
+// Quando o vídeo acaba, o tour segue direto para a pergunta do momento do curso.
+// O vídeo nunca trava o tour: erro, rede lenta ou autoplay negado também seguem adiante.
+//
+// Decisões do Gabriel em 12/11/2026 (tarde), depois de três perguntas minhas:
+//   • a capa mostra o personagem do vídeo de perto (antes era o corredor vazio) e a chamada é
+//     'O "presidente" tem um recado sobre a Chapa 2', com aspas e sem selo de "feito com IA" (ele
+//     entende que o absurdo do vídeo já avisa); a descrição para leitor de tela continua dizendo que
+//     é humor feito com IA. O site não afirma que é um apoio de verdade.
+//   • o pular se chama "Pular (o Lula fica triste)" e leva a uma tela de brincadeira, "Recua, fascista,
+//     recua!", que diz na hora que é brincadeira e segue sozinha. Ele descartou o botão "Sou Bolsonaro"
+//     quando viu o art. 11, III do edital (expressão ofensiva contra grupo da comunidade acadêmica pode
+//     dar impugnação) e quis manter a frase em tom de brincadeira. O Esc pula sem a piada.
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import { asset } from '@/lib/paths';
 import { MarkerWord } from '@/components/ui/marker-word';
 
-type Stage = 'suspense' | 'video';
+type Stage = 'suspense' | 'video' | 'recua';
 
-/** A capa é o corredor ainda vazio. */
-const VIDEO = { src: '/videos/panfletagem-vertical.mp4', poster: '/videos/panfletagem-vertical-poster.webp' } as const;
+/** A capa é um quadro do próprio vídeo (aos 15 s), com o personagem de perto. */
+const VIDEO = { src: '/videos/panfletagem-vertical.mp4', poster: '/videos/panfletagem-vertical-capa.webp' } as const;
+/** Quanto tempo a tela da brincadeira fica antes de seguir sozinha. */
+const RECUA_MS = 3200;
 /** Sem imagem rodando depois disto, o tour segue sem o vídeo (sinal ruim). */
 const START_TIMEOUT_MS = 6000;
 /** Teto do momento do vídeo, contando travadas no meio. */
@@ -82,6 +96,15 @@ export const TourPanfletagem: React.FC<{ onDone: () => void }> = ({ onDone }) =>
     v.play().catch(finish);
   };
 
+  /** "Pular": para o vídeo e mostra a brincadeira por um instante; depois segue como se tivesse acabado. */
+  const skip = () => {
+    if (finished.current) return;
+    clearTimers();
+    videoRef.current?.pause();
+    setStage('recua');
+    timers.current.push(window.setTimeout(finish, RECUA_MS));
+  };
+
   const toggleMute = () => {
     const v = videoRef.current;
     const next = !muted;
@@ -101,48 +124,93 @@ export const TourPanfletagem: React.FC<{ onDone: () => void }> = ({ onDone }) =>
         onEnded={finish}
         onError={() => stage === 'video' && finish()}
         className={`absolute inset-0 block h-full w-full ${empe ? 'object-cover' : 'object-contain'}`}
-        aria-label="Vídeo de humor feito com inteligência artificial, no formato de plantão de notícias: um homem de terno e chapéu espalha panfletos por um corredor de escola. As legendas dizem que a Chapa 2 tem 14 propostas no papel e 10 ferramentas já funcionando neste site, e que a votação é em 25 e 26 de novembro, das 17h às 22h30, na sala do CAGP."
+        aria-label="Vídeo de humor feito com inteligência artificial, uma paródia no formato de plantão de notícias: um personagem de terno azul e chapéu de palha espalha panfletos por um corredor de escola. As legendas dizem que a Chapa 2 tem 14 propostas no papel e 10 ferramentas já funcionando neste site, e que a votação é em 25 e 26 de novembro, das 17h às 22h30, na sala do CAGP."
       />
 
-      {/* O cartão Cartaz ancorado embaixo, o mesmo gesto do spotlight do tour. */}
-      <div
-        className={`absolute bottom-[max(12px,env(safe-area-inset-bottom))] left-3 rounded-[16px] border-3 border-foreground bg-primary text-white shadow-xl md:bottom-6 md:left-6 ${
-          stage === 'suspense' ? 'right-3 p-4 sm:p-5 md:right-auto md:w-[460px]' : 'px-2 py-2'
-        }`}
-      >
-        {stage === 'suspense' ? (
-          <div className="space-y-3">
-            <span className="inline-block -rotate-2 rounded-md border-2 border-foreground bg-accent px-2 py-1 text-sm font-bold uppercase tracking-[0.04em] text-foreground shadow-[2px_2px_0_0_#1F1F1F]">
-              Plantão urgente
-            </span>
-            <h1 id="semente-tour-heading" ref={headingRef} tabIndex={-1} className={headingCls}>
-              Vem um <MarkerWord onColor className="text-[1.1em] tracking-normal">babado</MarkerWord> forte.
-            </h1>
-            <p className="m-0 text-base leading-snug text-white">
-              O Plantão Semente interrompe o site com notícia urgente da Chapa 2. São 19 segundos, e com som é muito melhor.
-            </p>
-            {/* O botão respira para chamar o toque; o afundar no clique continua o do kit. */}
-            <motion.div animate={{ y: [0, -5, 0] }} transition={{ duration: 1.1, repeat: Infinity, repeatDelay: 0.9, ease: 'easeInOut' }}>
-              <button type="button" onClick={() => play(true)} className={`${btnAccent} h-[56px] w-full px-6 text-base`}>
-                <i className="bi bi-play-fill" aria-hidden="true" />
-                Dar o play com som
+      {/* O cartão Cartaz ancorado embaixo: deixa o personagem da capa à vista na metade de cima. */}
+      {stage !== 'recua' && (
+        <div
+          className={`absolute bottom-[max(12px,env(safe-area-inset-bottom))] left-3 rounded-[16px] border-3 border-foreground bg-primary text-white shadow-xl md:bottom-6 md:left-6 ${
+            stage === 'suspense' ? 'right-3 p-4 sm:p-5 md:right-auto md:w-[460px]' : 'px-2 py-2'
+          }`}
+        >
+          {stage === 'suspense' ? (
+            <div className="grid gap-3">
+              <span className="-rotate-2 justify-self-start rounded-md border-2 border-foreground bg-accent px-2 py-1 text-sm font-bold uppercase tracking-[0.04em] text-foreground shadow-[2px_2px_0_0_#1F1F1F]">
+                Plantão urgente
+              </span>
+              <h1 id="semente-tour-heading" ref={headingRef} tabIndex={-1} className={headingCls}>
+                O “presidente” tem um <MarkerWord onColor className="text-[1.1em] tracking-normal">recado</MarkerWord> sobre a Chapa 2.
+              </h1>
+              <p className="m-0 text-base leading-snug text-white">São 19 segundos. Com som é muito melhor.</p>
+              {/* O botão respira para chamar o toque; o afundar no clique continua o do kit. */}
+              <motion.div animate={{ y: [0, -5, 0] }} transition={{ duration: 1.1, repeat: Infinity, repeatDelay: 0.9, ease: 'easeInOut' }}>
+                <button type="button" onClick={() => play(true)} className={`${btnAccent} h-[56px] w-full px-6 text-base`}>
+                  <i className="bi bi-play-fill" aria-hidden="true" />
+                  Ouvir o recado
+                </button>
+              </motion.div>
+              <div className="flex flex-wrap items-center justify-between gap-x-4">
+                <button type="button" onClick={() => play(false)} className={linkBtn}>
+                  Ver sem som
+                </button>
+                <button type="button" onClick={skip} className={linkBtn}>
+                  Pular (o Lula fica triste)
+                </button>
+              </div>
+            </div>
+          ) : (
+            <>
+              <h1 id="semente-tour-heading" ref={headingRef} tabIndex={-1} className="sr-only">
+                Plantão Semente
+              </h1>
+              <button type="button" onClick={toggleMute} aria-pressed={!muted} className={`${btnLight} min-h-[44px] px-3 text-sm`}>
+                {muted ? 'Ligar o som' : 'Tirar o som'}
               </button>
-            </motion.div>
-            <button type="button" onClick={() => play(false)} className={linkBtn}>
-              Tô sem fone, ver sem som
+            </>
+          )}
+        </div>
+      )}
+
+      {stage === 'video' && (
+        <button
+          type="button"
+          onClick={skip}
+          className={`${btnLight} absolute bottom-[max(20px,calc(env(safe-area-inset-bottom)+8px))] right-3 min-h-[44px] max-w-[54%] flex-col gap-0 px-3 py-1 text-sm leading-tight md:bottom-8 md:right-6 md:max-w-none md:flex-row md:gap-1.5`}
+        >
+          <span>Pular</span>
+          <span className="font-normal">(o Lula fica triste)</span>
+        </button>
+      )}
+
+      {/* A brincadeira de quem pulou: diz na hora que é brincadeira e segue sozinha. */}
+      {stage === 'recua' && (
+        <div className="absolute inset-0 grid place-items-center bg-primary px-5 text-white">
+          <div className="grid max-w-[30rem] justify-items-center gap-4 text-center">
+            <span className="-rotate-2 rounded-md border-2 border-foreground bg-accent px-2 py-1 text-sm font-bold uppercase tracking-[0.04em] text-foreground shadow-[2px_2px_0_0_#1F1F1F]">
+              Plantão Semente
+            </span>
+            <motion.h1
+              id="semente-tour-heading"
+              ref={headingRef}
+              tabIndex={-1}
+              className="m-0 grid justify-items-center gap-1 font-heading text-[clamp(1.9rem,9.5vw,4rem)] font-bold leading-[1.05] tracking-[-0.02em] focus:outline-none"
+              initial={{ scale: 1.5, rotate: -8, opacity: 0 }}
+              animate={{ scale: [1.5, 0.94, 1], rotate: [-8, 1, -2], opacity: [0, 1, 1] }}
+              transition={{ duration: 0.34, times: [0, 0.5, 1], ease: (t: number) => (t >= 1 ? 1 : 0) }}
+            >
+              {/* Duas linhas: a palavra à caneta não quebra sozinha e a frase inteira não cabe num celular. */}
+              <MarkerWord onColor className="tracking-normal">Recua, fascista,</MarkerWord>
+              <MarkerWord onColor className="tracking-normal">recua!</MarkerWord>
+            </motion.h1>
+            <p className="m-0 text-base leading-snug">Brincadeira, tá? Você só pulou o vídeo.</p>
+            <button type="button" onClick={finish} className={`${btnAccent} h-[52px] px-6 text-sm`}>
+              Seguir
+              <i className="bi bi-arrow-right" aria-hidden="true" />
             </button>
           </div>
-        ) : (
-          <>
-            <h1 id="semente-tour-heading" ref={headingRef} tabIndex={-1} className="sr-only">
-              Plantão Semente
-            </h1>
-            <button type="button" onClick={toggleMute} aria-pressed={!muted} className={`${btnLight} min-h-[44px] px-3 text-sm`}>
-              {muted ? 'Ligar o som' : 'Tirar o som'}
-            </button>
-          </>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

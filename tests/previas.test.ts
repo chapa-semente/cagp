@@ -7,7 +7,7 @@ import dados from '@/data/compartilhamento.json';
 import { CHAPA_LEADERS } from '@/lib/chapaSementeData';
 import { assinatura, faseDaEleicao, montarMensagem } from '@/lib/compartilhar';
 import { AXIS_REGISTRY, normalizePathname } from '@/lib/navigationRegistry';
-import { DOCUMENTOS_PEDIDOS, falaCurta, previaDaRota } from '@/lib/previas';
+import { DOCUMENTOS_PEDIDOS, previaDaRota } from '@/lib/previas';
 import { PROPOSTA_STOPS } from '@/lib/propostasTour';
 
 const OG = join(process.cwd(), 'public/og');
@@ -62,18 +62,16 @@ describe('prévias de link', () => {
     for (const rota of ['/noticias', '/transparencia']) {
       const p = (dados.paginas as Record<string, { titulo: string; banner: { modelo?: boolean } }>)[rota];
       expect(p.banner.modelo, rota).toBe(true);
-      expect(p.titulo.toLowerCase(), rota).toContain('modelo');
+      // O título do link avisa que o conteúdo é de exemplo (o portal da transparência está pronto, mas os números não são do CAGP).
+      expect(p.titulo.toLowerCase(), rota).toMatch(/modelo|exemplo/);
     }
     // Notícia de exemplo não ganha banner próprio.
     expect(previaDaRota('/noticias/qualquer-noticia').imagem).toBe('p-noticias');
   });
 
-  it('a fala entre aspas da pessoa é a fala literal que o tour das propostas já usa', () => {
+  it('a mensagem da pessoa não põe fala entre aspas na boca de ninguém', () => {
     for (const l of CHAPA_LEADERS) {
-      const fala = falaCurta(l.id);
-      const mensagem = previaDaRota(`/chapa-semente/${l.id}`).mensagem;
-      if (fala) expect(mensagem).toContain(`“${fala}”`);
-      else expect(mensagem).not.toContain('“');
+      expect(previaDaRota(`/chapa-semente/${l.id}`).mensagem).not.toContain('“');
     }
   });
 });

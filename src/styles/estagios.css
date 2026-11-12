@@ -370,3 +370,16 @@ html.cagp-carregando .cagp-ramo-caule { animation: none; clip-path: none; }
 html.cagp-carregando .cagp-ramo-ponta { animation: cagp-ramo-espera 1.1s linear infinite; }
 @keyframes cagp-ramo-espera { from { translate: 0 0; rotate: 0deg; } to { translate: 100vw 0; rotate: 540deg; } }
 @media print { #cagp-skeleton { display: none !important; } }
+
+/* Os dois tours são roxos em qualquer página: dentro deles a sombra dura é sempre grafite, não a cor
+   do estágio da página por trás (na /chapa-semente ela saía verde sobre o roxo). As variáveis de
+   sombra são resolvidas na raiz, por isso são redeclaradas aqui. */
+#cagp-semente-tour,
+#cagp-propostas-tour {
+  --shadow-color: #1F1F1F;
+  --shadow-xs: 2px 2px 0 0 #1F1F1F;
+  --shadow-sm: 2px 2px 0 0 #1F1F1F;
+  --shadow-md: 4px 4px 0 0 #1F1F1F;
+  --shadow-lg: 6px 6px 0 0 #1F1F1F;
+  --shadow-xl: 6px 6px 0 0 #1F1F1F;
+}

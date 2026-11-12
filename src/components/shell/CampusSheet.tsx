@@ -4,6 +4,7 @@ import { BottomSheet } from './BottomSheet';
 import { getVaultItem, setVaultItem, type VaultData } from '@/lib/storage/studentVault';
 import { downloadRu1815Ics, downloadCircular2230Ics } from '@/lib/ics';
 import { CagpIcon } from '@/components/ui/CagpIcon';
+import { ATENDIMENTO_CURSO } from '@/data/acolhimento';
 
 interface CampusSheetProps {
   isOpen: boolean;
@@ -205,9 +206,11 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
             <span className="font-heading font-extrabold uppercase text-foreground block">
               Secretaria Sala F-2039
             </span>
-            <span className="text-gray-600 font-medium block mt-0.5">Norma Guedes · Atendimento 08h às 20h</span>
-            <a href="mailto:coordgestaopublica@gmail.com" className="font-mono text-secondary font-bold block mt-1 hover:underline">
-              coordgestaopublica@gmail.com
+            <span className="text-gray-600 font-medium block mt-0.5">
+              {ATENDIMENTO_CURSO.secretaria.atendentesCurto} · {ATENDIMENTO_CURSO.secretaria.horario}
+            </span>
+            <a href={`mailto:${ATENDIMENTO_CURSO.secretaria.email}`} className="font-mono text-secondary font-bold block mt-1 hover:underline">
+              {ATENDIMENTO_CURSO.secretaria.email}
             </a>
           </div>
 

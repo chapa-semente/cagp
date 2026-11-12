@@ -177,7 +177,7 @@ export function downloadElectionCalendarReminder(type: 'voting' | 'debate' | 'al
   downloadIcs({
     title: 'ELEICOES CAGP UFMG 2026 — Votar na Chapa 2 (Semente)',
     description: 'Eleição da Diretoria do Centro Acadêmico de Gestão Pública (FAFICH/UFMG), das 17h às 22h30. Voto secreto e direto na sala do CAGP. Vote Chapa 2, a Semente!',
-    location: 'Sala do CAGP - FAFICH/UFMG, Campus Pampulha',
+    location: 'Sala do CAGP - 1º andar da FAFICH/UFMG, ao lado da entrada da rampa, Campus Pampulha',
     filename: 'eleicoes-cagp-votar-semente',
     startDate: votingStart,
     durationMinutes: 330, // 17h às 22h30

@@ -41,7 +41,7 @@ export const PassportCard: React.FC<PassportCardProps> = ({
   const globalPct = Math.round((obrigPct + extPct) / 2);
 
   const roleMeta = USER_ROLE_META[role];
-  const hasSavedProfile = typeof window !== 'undefined' && !!localStorage.getItem('cagp_student_profile_v1');
+  const hasSavedProfile = typeof window !== 'undefined' && !!localStorage.getItem('cagp_student_profile_v1') && !profile.rascunho;
   const stampLabel = `${roleMeta.shortLabel.toUpperCase()} • ATIVO`;
   const cred = typeof window !== 'undefined' ? getVaultItem('cagp_election_activation_v1') : null;
   const isSementeEleitor = cred?.completed && cred?.sementeSupporter;

@@ -1,5 +1,6 @@
 // src/components/features/curriculum/dossie/CurriculumDossierWidget.tsx — Widget de Resumo do Dossiê 3.000h
 import React, { useState, useEffect } from 'react';
+import { route } from '@/lib/paths';
 import { getVaultItem, type CustomCourse } from '../../../../lib/storage/studentVault';
 
 export const CurriculumDossierWidget: React.FC = () => {
@@ -62,7 +63,7 @@ export const CurriculumDossierWidget: React.FC = () => {
       </div>
 
       <a
-        href="#minha-grade"
+        href={route('/meu-curso')}
         className="min-h-[44px] px-4 py-2.5 bg-primary text-white hover:bg-primary-hover active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline border-3 border-border shadow-sm"
       >
         <span>Abrir Dossiê Completo</span>

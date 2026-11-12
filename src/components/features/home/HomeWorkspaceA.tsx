@@ -62,7 +62,7 @@ const SHORTCUTS: Record<UserRole, Shortcut[]> = {
 
 /** Sempre à mão, para qualquer fase: o que a chapa propôs para o CA. */
 const CA_SHORTCUTS: Shortcut[] = [
-  { id: 'cagp-shortcut-ouvidoria', href: '/ouvidoria', icon: 'megaphone', title: 'Fala com o CA', line: 'Reclamação, ideia ou denúncia' },
+  { id: 'cagp-shortcut-ouvidoria', href: '/ouvidoria', icon: 'megaphone', title: 'Fala com a gente', line: 'Erro, ideia ou crítica ao site' },
   { id: 'cagp-shortcut-transparencia', href: '/transparencia', icon: 'file-text', title: 'Transparência', line: 'Para onde vai o dinheiro do CA' },
   { id: 'cagp-shortcut-carreira', href: '/carreira', icon: 'carreira', title: 'Carreira e vagas', line: 'Estágios, editais e talentos' },
 ];
@@ -105,7 +105,7 @@ function ShortcutGroup({ title, items, idPrefix }: { title: string; items: Short
 /** As fases do curso, na ordem do perfil. A home traz um bloco de atalhos pronto para cada uma. */
 export const HOME_ROLES: readonly UserRole[] = ['calouro', 'veterano', 'formando', 'ingressar'];
 
-/** Coluna de atalhos de uma fase: "Resolver agora", a linha da fase e "Com o CA". */
+/** Coluna de atalhos de uma fase: "Resolver agora", a linha da fase e "Propostas pro CA". */
 export const HomeAtalhos: React.FC<{ role: UserRole }> = ({ role }) => (
   <>
     {/* 2. Resolver agora — atalhos da fase do curso, que é escolhida só em Seu perfil. */}
@@ -121,7 +121,7 @@ export const HomeAtalhos: React.FC<{ role: UserRole }> = ({ role }) => (
 
     {/* Um destino por página: tira do CA o que já está em Resolver agora. */}
     <ShortcutGroup
-      title="Com o CA"
+      title="Propostas pro CA"
       items={CA_SHORTCUTS.filter((c) => !SHORTCUTS[role].some((s) => s.href === c.href))}
       idPrefix="home-ca"
     />
@@ -160,7 +160,58 @@ export const HomeWorkspaceA: React.FC = () => {
 
   return (
     <div className="space-y-8 sm:space-y-10 pb-8">
-      {/* 1. Faixa Cartaz — a vitrine da chapa (DESIGN.md › Campanha). Um CTA laranja só. */}
+      {/* 1. Cabeça da home (12/11/2026): o lema e a contagem numa faixa curta, pra "Hoje à noite" e
+          "Resolver agora" caberem na primeira tela do celular. A vitrine da chapa vem logo abaixo. */}
+      <section aria-labelledby="home-title" className="relative overflow-hidden rounded-2xl border-3 border-border bg-primary text-white shadow-xl">
+        <div className="pointer-events-none absolute -right-6 -top-8 w-24 h-24 sm:w-40 sm:h-40" aria-hidden="true">
+          <LeafShape color="orange" germinate className="w-full h-full" />
+        </div>
+        <div className="relative z-10 px-4 py-3.5 sm:px-8 sm:py-6 flex flex-wrap items-center gap-x-4 gap-y-2.5">
+          <h1 id="home-title" className="font-heading font-bold uppercase text-xl leading-[1.1] tracking-[0.02em] sm:text-4xl m-0 basis-full pr-16 sm:pr-32 text-balance">
+            Toda mudança começa <MarkerWord onColor className="text-[1.12em] normal-case">pequena</MarkerWord>.
+          </h1>
+          <span className="inline-flex items-center gap-2 px-2.5 py-1 rounded-lg bg-white text-primary border-2 border-border shadow-sm font-heading font-bold text-xs uppercase tracking-[0.04em] tabular-nums">
+            <i className="bi bi-calendar-check" aria-hidden="true" />
+            <span data-home-countdown>{countdown}</span>
+          </span>
+          <a
+            href="#cagp-home-banner-semente"
+            className="inline-flex items-center gap-1.5 min-h-[44px] text-sm font-heading font-bold text-white underline underline-offset-4 decoration-2 decoration-accent hover:decoration-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary rounded"
+          >
+            Quem fez este app
+            <i className="bi bi-arrow-down" aria-hidden="true" />
+          </a>
+        </div>
+      </section>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-start">
+        <div className="lg:col-span-7 space-y-8" data-home-atalhos="calouro">
+          <HomeAtalhos role="calouro" />
+        </div>
+
+        <aside className="order-first lg:order-none lg:col-span-5 space-y-8 lg:sticky lg:top-24" data-home-aside>
+          {/* 3. Hoje à noite — RU e Circular agora; horários completos e lembretes na folha Campus. */}
+          <HomeCampusStatusWidget />
+          {/* 4. Seu progresso entra aqui pelo script, só quando há dado salvo. */}
+        </aside>
+      </div>
+
+      {/* Crítica na porta de entrada (12/11/2026): quem acha um erro não deve precisar procurar onde avisar. */}
+      <a
+        href={route('/ouvidoria')}
+        className="group flex flex-wrap items-center justify-between gap-x-6 gap-y-2 rounded-xl border-3 border-border bg-white px-4 py-3 text-foreground no-underline shadow-md transition-[translate,box-shadow] duration-150 hover:-translate-x-px hover:-translate-y-px hover:shadow-lg active:translate-x-[3px] active:translate-y-[3px] active:shadow-none focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-primary sm:px-5"
+      >
+        <span className="min-w-0">
+          <strong className="block font-heading text-lg font-bold leading-tight">Achou um erro no site? Critica a gente.</strong>
+          <span className="block text-sm leading-snug text-content-secondary">A Semente fez este site e quer saber onde ele falha.</span>
+        </span>
+        <span className="inline-flex min-h-[44px] items-center gap-2 font-heading text-sm font-bold uppercase tracking-[0.03em] text-primary">
+          Falar com a gente
+          <i className="bi bi-arrow-right" aria-hidden="true" />
+        </span>
+      </a>
+
+      {/* 3. Vitrine da chapa (DESIGN.md › Campanha): logo abaixo do serviço. Um CTA laranja só. */}
       <section
         id="cagp-home-banner-semente"
         aria-labelledby="home-chapa-title"
@@ -177,14 +228,10 @@ export const HomeWorkspaceA: React.FC = () => {
         </div>
 
         <div className="relative z-10 p-5 pb-6 sm:p-8 sm:pb-8 space-y-5">
-          <span className="inline-flex items-center gap-2 px-2.5 py-1 rounded-lg bg-white text-primary border-2 border-border shadow-sm font-heading font-bold text-xs uppercase tracking-[0.04em] tabular-nums">
-            <i className="bi bi-calendar-check" aria-hidden="true" />
-            <span data-home-countdown>{countdown}</span>
-          </span>
 
-          <h1 id="home-chapa-title" className="font-heading font-bold uppercase text-[1.75rem] leading-[1.05] tracking-[0.02em] sm:text-5xl m-0 max-w-[16ch] text-balance">
-            Toda mudança começa <MarkerWord onColor className="text-[1.12em] normal-case">pequena</MarkerWord>.
-          </h1>
+          <h2 id="home-chapa-title" className="font-heading font-bold uppercase text-2xl leading-[1.1] tracking-[0.02em] sm:text-4xl m-0 text-balance">
+            Quem fez este app
+          </h2>
 
           <p className="text-base sm:text-lg leading-relaxed m-0 max-w-[46ch] text-white">
             A nossa começou com este app, feito por 12 estudantes de GP pra você resolver estágio, 600h e FUMP sem depender de ninguém.
@@ -242,7 +289,7 @@ export const HomeWorkspaceA: React.FC = () => {
         </div>
 
         {/* Marquee da campanha: a única faixa que rola sozinha (DESIGN.md › Marquee). */}
-        <p className="sr-only">Vote {CHAPA_ROTULO}, a Semente, nos dias 25 e 26/11, das 17h às 22h30, na sala do CAGP. Leve documento com foto.</p>
+        <p className="sr-only">Vote {CHAPA_ROTULO}, a Semente, nos dias 25 e 26/11, das 17h às 22h30, na sala do CAGP.</p>
         <div className="relative z-10 border-t-3 border-border bg-foreground text-white" aria-hidden="true">
           <Marquee data-impeccable-ignore="marquee" speed="slow" pauseOnHover className="bg-foreground text-white border-0 shadow-none py-2.5">
             {[
@@ -250,7 +297,7 @@ export const HomeWorkspaceA: React.FC = () => {
               'Faz o S!',
               'Este app é proposta que já funciona',
               'Toda mudança começa pequena',
-              'Leve documento com foto pra votar',
+              'Na cédula, um X em uma chapa só',
             ].map((t) => (
               <React.Fragment key={t}>
                 <MarqueeItem className="text-sm font-heading font-bold uppercase tracking-[0.04em] text-white">{t}</MarqueeItem>
@@ -260,18 +307,6 @@ export const HomeWorkspaceA: React.FC = () => {
           </Marquee>
         </div>
       </section>
-
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-start">
-        <div className="lg:col-span-7 space-y-8" data-home-atalhos="calouro">
-          <HomeAtalhos role="calouro" />
-        </div>
-
-        <aside className="order-first lg:order-none lg:col-span-5 space-y-8 lg:sticky lg:top-24" data-home-aside>
-          {/* 3. Hoje à noite — RU e Circular agora; horários completos e lembretes na folha Campus. */}
-          <HomeCampusStatusWidget />
-          {/* 4. Seu progresso entra aqui pelo script, só quando há dado salvo. */}
-        </aside>
-      </div>
 
       {/* 5. Mural — conteúdo simulado, com o aviso dentro do próprio componente. */}
       <HomeNewsFeed />

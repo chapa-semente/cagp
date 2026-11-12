@@ -10,13 +10,14 @@ import CagpEstatutoCore from '../components/features/cagp/estatuto/CagpEstatutoC
 import CagpGestaoDiretoria from '../components/features/cagp/gestao/CagpGestaoDiretoria.astro';
 import { SobreCollageBanner } from '../components/features/cagp/SobreCollageBanner';
 import { ContactWithCards } from '../components/boldkit/blocks/contact-section';
+import { ATENDIMENTO_CURSO } from '@/data/acolhimento';
 
 const contactCards = [
   {
     icon: 'bi-building',
-    title: 'Sede do CAGP (Sala F-4000)',
+    title: 'Sala do CAGP',
     description: 'Espaço de convivência discente e plantão da diretoria executiva.',
-    contact: 'FAFICH 4º Andar • 18h às 22h',
+    contact: 'FAFICH, 1º andar, ao lado da rampa • 18h às 22h',
     action: { label: 'Conhecer Sede', href: '#visao-geral' },
   },
   {
@@ -29,8 +30,8 @@ const contactCards = [
   {
     icon: 'bi-mortarboard',
     title: 'Secretaria do Curso (F-2039)',
-    description: 'Atendimento do Colegiado de Gestão Pública com Wander e Ubirajara.',
-    contact: '(31) 3409-3826 • gestaopublica@ufmg.br',
+    description: `Atendimento do Colegiado de Gestão Pública com ${ATENDIMENTO_CURSO.secretaria.atendentesCurto}.`,
+    contact: `${ATENDIMENTO_CURSO.secretaria.telefone} • ${ATENDIMENTO_CURSO.secretaria.email}`,
     action: { label: 'Ver Contatos', href: '/curso#colegiado' },
   },
 ];
@@ -39,7 +40,7 @@ const tabs = [
   { id: 'v0', shortLabel: 'Visão geral', fullLabel: 'O que é o CAGP', hash: '#visao-geral' },
   { id: 'v1', shortLabel: 'História', fullLabel: 'Princípios e história', hash: '#principios' },
   { id: 'v2', shortLabel: 'Estatuto', fullLabel: 'Estatuto e governança', hash: '#governanca' },
-  { id: 'v3', shortLabel: 'Diretorias', fullLabel: 'Diretorias e contas', hash: '#diretorias' },
+  { id: 'v3', shortLabel: 'Diretorias', fullLabel: 'As 7 diretorias', hash: '#diretorias' },
 ];
 
 const badges = [

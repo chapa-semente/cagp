@@ -3,6 +3,35 @@
 
 import { asset, route } from '@/lib/paths';
 
+/** Assunto de uma vivência; decide em qual guia a fala aparece (ver QuemViveIsso.astro). */
+export type VivenciaTema = 'fump' | 'trabalho' | 'cotas';
+
+/**
+ * Fala do próprio integrante, em primeira pessoa, sobre o que vive (FUMP, trabalho de dia, cotas).
+ * Só entra com o texto que a pessoa escreveu e com o consentimento dela para publicar: é dado
+ * pessoal. Ninguém da equipe redige, resume ou deduz a condição de outra pessoa.
+ */
+export interface Vivencia {
+  tema: VivenciaTema;
+  fala: string;
+}
+
+/** Título do bloco no guia. Só aparece quando existe ao menos uma fala daquele tema. */
+export const VIVENCIA_TITULO: Record<VivenciaTema, string> = {
+  fump: 'Quem da chapa também é fumpista',
+  trabalho: 'Quem da chapa também trabalha de dia',
+  cotas: 'Quem da chapa também é cotista',
+};
+
+export type SolutionStatus = 'funciona' | 'parte' | 'proposta';
+
+/** Rótulo que antecede o texto de `solution`. Nunca "Já funciona" sobre o que é proposta. */
+export const SOLUTION_LABEL: Record<SolutionStatus, string> = {
+  funciona: 'Já funciona:',
+  parte: 'Parte já funciona:',
+  proposta: 'A proposta:',
+};
+
 export interface LeaderInfo {
   id: string;
   name: string;
@@ -12,6 +41,14 @@ export interface LeaderInfo {
   quote?: string;
   painPoint: string;
   solution: string;
+  /**
+   * Quanto do texto de `solution` o site entrega hoje. 'funciona': tudo; 'parte': uma parte está no
+   * ar e o resto é proposta ou exemplo simulado; 'proposta': ainda não funciona. Decide o rótulo
+   * na tela (ver SOLUTION_LABEL). Na dúvida, o menor dos dois.
+   */
+  solutionStatus: SolutionStatus;
+  /** O que a pessoa vive, nas palavras dela (ver Vivencia). Ausente até ela mandar e autorizar. */
+  vivencias?: Vivencia[];
   photoFilename?: string;
   /** Ponto focal do retrato (CSS object-position). Padrão: 'center 30%'. */
   photoPosition?: string;
@@ -29,6 +66,9 @@ export const CHAPA_NUMERO = 2;
 export const CHAPA_ROTULO = `Chapa ${CHAPA_NUMERO}`;
 /** Nome completo para títulos e rótulos: "Chapa 2 · Semente". */
 export const CHAPA_NOME = `${CHAPA_ROTULO} · Semente`;
+/** Instagram da chapa (o @cagpufmg é da gestão atual do CA; o site não aponta para ele). */
+export const CHAPA_INSTAGRAM = '@semente.chapa2';
+export const CHAPA_INSTAGRAM_URL = 'https://www.instagram.com/semente.chapa2';
 /** O grito de campanha (11/11/2026), sempre na caneta laranja: componente GritoDeVoto. */
 export const GRITO_VOTO = `Vote ${CHAPA_ROTULO}!`;
 export const GRITO_S = 'Faz o S!';
@@ -49,12 +89,13 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
       'A cada eleição o centro acadêmico perde histórico, arquivos e contatos, deixando os estudantes reféns do improviso da gestão vigente.',
     solution:
       'Infraestrutura perene, pensada e construída pela chapa, com alimentação simples em Markdown para o curso de Gestão Pública.',
+    solutionStatus: 'funciona',
     photoFilename: 'Gabriel Sathler.jpg',
     initials: 'GS',
     deptColor: 'bg-purple-600 text-white border-purple-800',
     badgeBg: 'bg-purple-100 text-purple-900 border-purple-300',
     toolLabel: 'Ver o guia do site',
-    toolHref: route('/transparencia'),
+    toolHref: route('/sobre-o-site'),
     targetId: 'cagp-home-banner-semente',
   },
   {
@@ -68,11 +109,12 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
       'O desamparo de quem vem de fora ou ingressa sem conhecer ninguém, deparando-se com um centro acadêmico fechado em círculos de amizade.',
     solution:
       'Hub de acolhimento estudantil, mapas do campus, guia de recepção de calouros e canal de ouvidoria permanente ("Reclame Aqui GP").',
+    solutionStatus: 'parte',
     photoFilename: 'Larissa Prado.png',
     initials: 'LP',
     deptColor: 'bg-amber-700 text-white border-amber-900',
     badgeBg: 'bg-amber-100 text-amber-900 border-amber-300',
-    toolLabel: 'Falar com o CA',
+    toolLabel: 'Mandar uma crítica ao site',
     toolHref: route('/ouvidoria'),
     targetId: 'cagp-shortcut-ouvidoria',
   },
@@ -87,6 +129,7 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
       'Sobrecarga cognitiva e formato inacessível do portal da universidade, somados ao isolamento profissional de quem não sabe como validar estágios ou se formar.',
     solution:
       'Manual prático descomplicado, estilo neobrutalista moderno e banco de currículos integrado para inserção profissional discente.',
+    solutionStatus: 'parte',
     photoFilename: 'Livia Martins.jpeg',
     photoPosition: 'center 22%',
     initials: 'LM',
@@ -106,7 +149,8 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
     painPoint:
       'O confinamento da pesquisa acadêmica e a dependência de planilhas de Drive esquecidas para achar editais e grupos de pesquisa.',
     solution:
-      'Centralização aberta de todos os 11 núcleos do DCP, laboratórios de pesquisa e oportunidades de bolsas de iniciação científica (PIBIC) em tempo real.',
+      'Centralização aberta de todos os 11 núcleos do DCP, laboratórios de pesquisa e oportunidades de bolsas de iniciação científica (PIBIC).',
+    solutionStatus: 'parte',
     photoFilename: 'MarianaPresti.jpeg',
     initials: 'MP',
     deptColor: 'bg-blue-600 text-white border-blue-800',
@@ -126,6 +170,7 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
       'Desconhecimento dos caminhos para ingressar na iniciação científica e falta de suporte para novos pesquisadores no curso.',
     solution:
       'Mapeamento de grupos de pesquisa, editais de fomento científico e apoio aos percursos acadêmicos dos discentes.',
+    solutionStatus: 'parte',
     photoFilename: 'Nilo Neto.png',
     initials: 'NN',
     deptColor: 'bg-sky-700 text-white border-sky-900',
@@ -145,6 +190,7 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
       'Uma comunicação superficial restrita a cobrir eventos de festa, sem espaço para acolhimento de denúncias ou divulgação científica.',
     solution:
       'Portal oficial de notícias, canal de escuta para reportar disciplinas com ementas defasadas diretamente ao Colegiado e vídeos demonstrativos.',
+    solutionStatus: 'proposta',
     photoFilename: 'João Pedro Fragoso.jpg',
     initials: 'JF',
     deptColor: 'bg-rose-700 text-white border-rose-900',
@@ -163,7 +209,8 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
     painPoint:
       'Caixas opacos com movimentações obscuras e falta de orientação prática para obtenção de auxílios socioeconômicos da assistência estudantil.',
     solution:
-      'Portal da Transparência em tempo real centavo a centavo e tutoriais passo a passo para requerimento de benefícios da FUMP e estágio.',
+      'Portal da Transparência atualizado na hora, a cada lançamento, e tutoriais passo a passo para requerimento de benefícios da FUMP e estágio.',
+    solutionStatus: 'parte',
     photoFilename: 'Vitoria.png',
     initials: 'VM',
     deptColor: 'bg-emerald-700 text-white border-emerald-900',
@@ -180,7 +227,8 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
     painPoint:
       'Saldo parado e movimentações que ninguém consegue acompanhar deixam o estudante sem saber o que o centro acadêmico faz com o dinheiro da turma.',
     solution:
-      'Modelo do Portal da Transparência (hoje com lançamentos de exemplo): o livro-caixa do CAGP aberto lançamento a lançamento, para qualquer estudante conferir.',
+      'Portal da Transparência já pronto (hoje com números de exemplo, porque ainda não somos gestão): o livro-caixa do CAGP aberto lançamento a lançamento, para qualquer estudante conferir e baixar.',
+    solutionStatus: 'proposta',
     photoFilename: 'Klaus.jpg',
     photoPosition: 'center 30%',
     initials: 'K',
@@ -201,6 +249,7 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
       'O isolamento institucional do CA, a falta de formação crítica ampla e o desperdício de recursos contratando terceiros para serviços básicos.',
     solution:
       'Solução de hospedagem técnica em cooperação discente, divulgação aberta de cursos livres de ciência política e defesa da independência do CA.',
+    solutionStatus: 'parte',
     photoFilename: 'Italo.jpeg',
     photoPosition: 'center 45%',
     initials: 'IM',
@@ -221,6 +270,7 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
       'A insegurança e o desgaste burocrático de perder estágios ou ter contratos travados por desconhecimento das regras institucionais da UFMG.',
     solution:
       'Roteiro de preenchimento de Termos de Compromisso de Estágio (TCE), minutas para download e instruções claras para dispensa do Artigo 41.',
+    solutionStatus: 'funciona',
     photoFilename: 'Lara.jpeg',
     photoPosition: 'center 30%',
     initials: 'LS',
@@ -241,6 +291,7 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
       'Atividades de convivência marcadas em horários incompatíveis com o turno da noite e falta de acolhimento nos espaços da universidade.',
     solution:
       'Calendário cultural planejado para o período noturno, integração permanente e defesa das linhas do Circular 22:30.',
+    solutionStatus: 'proposta',
     photoFilename: 'Paloma.jpeg',
     photoPosition: 'center 28%',
     initials: 'PC',
@@ -261,12 +312,13 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
       'Calouros e ingressantes sem referências sobre os espaços da universidade, trâmites e vida estudantil.',
     solution:
       'Tutoriais descomplicados e validados por quem acabou de ingressar, cronograma cultural antecipado e apoio de recepção discente.',
+    solutionStatus: 'parte',
     photoFilename: 'Alice.png',
     initials: 'AM',
     deptColor: 'bg-amber-600 text-white border-amber-800',
     badgeBg: 'bg-amber-100 text-amber-900 border-amber-300',
     toolLabel: 'Ver o guia do calouro',
-    toolHref: route('/'),
+    toolHref: route('/calouros'),
     targetId: 'cagp-shortcut-permanencia',
   },
 ];

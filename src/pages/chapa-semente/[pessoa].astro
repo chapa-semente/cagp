@@ -5,7 +5,7 @@
 // Dados: src/lib/chapaSementeData.ts (quem é, a fala) e src/lib/sementeTour.ts (a dor e a ferramenta).
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import BotaoCompartilhar from '@/components/ui/BotaoCompartilhar.astro';
-import { CHAPA_LEADERS, CHAPA_ROTULO, getLeaderPhotoUrl } from '@/lib/chapaSementeData';
+import { CHAPA_LEADERS, CHAPA_ROTULO, SOLUTION_LABEL, getLeaderPhotoUrl } from '@/lib/chapaSementeData';
 import { PROPOSTA_STOPS } from '@/lib/propostasTour';
 import { TOUR_STOPS, type TourLeaderId } from '@/lib/sementeTour';
 import { previaDaPessoa } from '@/lib/previas';
@@ -79,8 +79,15 @@ const cor = indice % 2 === 1 ? { bg: '#266264', fundo: '#1D5052' } : { bg: '#5B2
       <h2 id="cd-fala" class="cd-h2">{pessoa.quote ? `O que ${primeiroNome} diz` : `O que ${primeiroNome} quer resolver`}</h2>
       {pessoa.quote && <blockquote class="cd-citacao">“{pessoa.quote}”</blockquote>}
       <p class="cd-texto"><strong>O problema:</strong> {pessoa.painPoint}</p>
-      <p class="cd-texto"><strong>{parada.simulated ? 'A proposta:' : 'Já funciona:'}</strong> {pessoa.solution}</p>
+      <p class="cd-texto"><strong>{SOLUTION_LABEL[pessoa.solutionStatus]}</strong> {pessoa.solution}</p>
     </section>
+
+    {pessoa.vivencias && pessoa.vivencias.length > 0 && (
+      <section class="cd-secao" aria-labelledby="cd-vive">
+        <h2 id="cd-vive" class="cd-h2">O que {primeiroNome} vive</h2>
+        {pessoa.vivencias.map((v) => <blockquote class="cd-citacao">“{v.fala}”</blockquote>)}
+      </section>
+    )}
 
     {propostas.length > 0 && (
       <section class="cd-secao" aria-labelledby="cd-propostas">

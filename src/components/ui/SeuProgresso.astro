@@ -1,0 +1,89 @@
+---
+// SeuProgresso.astro — A linha que liga um guia ao painel de /meu-curso.
+// Guia explica, Meu curso guarda (decisão de 12/11/2026): o guia não repete a ferramenta, só mostra
+// onde a pessoa está e leva ao painel. Sem dado salvo (ou sem JS), fica o convite.
+import { route } from '@/lib/paths';
+
+export interface Props {
+  tema: 'horas' | 'estagio' | 'tcc' | 'optativas' | 'grade';
+}
+const { tema } = Astro.props;
+
+const TEMAS = {
+  horas: { convite: 'Lance cada atividade uma vez e o painel soma as 600h e conta o prazo de 120 dias.', acao: 'Lançar atividade', ancora: '#atividades' },
+  estagio: { convite: 'Já cursou DCP 135 ou DCP 136? Marque na sua grade e o painel desconta das 300h.', acao: 'Marcar na grade', ancora: '#grade' },
+  tcc: { convite: 'Marque DCP 089 e DCP 137 na sua grade pra ver o que falta até a defesa.', acao: 'Marcar na grade', ancora: '#grade' },
+  optativas: { convite: 'Optativa posta na grade e marcada como cursada entra sozinha na conta das 3.000h.', acao: 'Ver minha conta', ancora: '#optativas' },
+  grade: { convite: 'Marque o que você já cursou e veja quanto falta e o que pegar no próximo semestre.', acao: 'Abrir meu painel', ancora: '' },
+} as const;
+const t = TEMAS[tema];
+---
+
+<aside class="cagp-seu-progresso" data-seu-progresso={tema} aria-label="Seu progresso em Meu curso">
+  <p>
+    <strong>Seu progresso</strong>
+    <span data-sp-texto>{t.convite}</span>
+  </p>
+  <a href={route('/meu-curso') + t.ancora}>{t.acao}</a>
+</aside>
+
+<script>
+  import '@/scripts/seuProgresso';
+</script>
+
+<style>
+  .cagp-seu-progresso {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 1.25rem;
+    padding: 0.875rem 1rem;
+    border: 2px solid var(--color-border, #1f1f1f);
+    border-radius: 12px;
+    background: #e2edea;
+    color: #1f1f1f;
+  }
+  .cagp-seu-progresso p {
+    flex: 1 1 16rem;
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    font-variant-numeric: tabular-nums;
+    text-wrap: pretty;
+  }
+  .cagp-seu-progresso strong {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+  }
+  .cagp-seu-progresso a {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0.375rem 0.875rem;
+    border: 3px solid #1f1f1f;
+    border-radius: 12px;
+    background: #fff;
+    color: #1f1f1f;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    text-decoration: none;
+    box-shadow: 3px 3px 0 0 #1f1f1f;
+    transition:
+      translate var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out),
+      box-shadow var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out);
+  }
+  .cagp-seu-progresso a:active {
+    translate: 3px 3px;
+    box-shadow: 0 0 0 0 #1f1f1f;
+  }
+  .cagp-seu-progresso a:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+</style>

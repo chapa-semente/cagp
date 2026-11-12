@@ -17,6 +17,7 @@ export interface BentoItem {
   external?: boolean
   secondaryHref?: string
   secondaryLabel?: string
+  secondaryExternal?: boolean
 }
 
 export interface BentoGridProps {
@@ -132,6 +133,8 @@ export function BentoGrid({ title, subtitle, items, className }: BentoGridProps)
                       {item.secondaryHref && (
                         <a
                           href={item.secondaryHref}
+                          target={item.secondaryExternal ? '_blank' : undefined}
+                          rel={item.secondaryExternal ? 'noopener noreferrer' : undefined}
                           className="min-h-[48px] min-w-[48px] px-3 py-2 rounded-xl bg-white hover:bg-accent text-foreground font-mono text-xs font-black uppercase border-2 border-border shadow-sm inline-flex items-center justify-center gap-1 no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5"
                         >
                           <span>{item.secondaryLabel || '90h AAC'}</span>

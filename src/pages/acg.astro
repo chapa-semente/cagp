@@ -10,15 +10,22 @@ import JourneyNav from '../components/ui/JourneyNav.astro';
 import TramiteResumo from '../components/ui/tramite/TramiteResumo.astro';
 import TramitePassos from '../components/ui/tramite/TramitePassos.astro';
 import type { TramitePasso } from '../components/ui/tramite/types';
-import { AcgCalculatorCore } from '../components/features/acg/calculator/AcgCalculatorCore';
-import { AcgGuardianCore } from '../components/features/acg/guardian/AcgGuardianCore';
+import { ATENDIMENTO_CURSO } from '@/data/acolhimento';
+import { ResumoDasHoras } from '../components/features/meu-curso/ResumoDasHoras';
+import { EXTENSION_ITEMS, AAC_ITEMS } from '../components/features/acg/calculator/acgCatalog';
 import { asset } from '../lib/paths';
 
 // As âncoras antigas continuam valendo (#calculadora, #guardiao-120-dias, #protocolo-colegiado).
 const tabs = [
-  { id: 'v1', shortLabel: 'Somar', fullLabel: 'Somar minhas horas', hash: '#calculadora' },
+  { id: 'v1', shortLabel: 'Suas horas', fullLabel: 'Suas horas até agora', hash: '#calculadora' },
   { id: 'v3', shortLabel: 'Protocolar', fullLabel: 'Protocolar no Colegiado', hash: '#protocolo-colegiado' },
-  { id: 'v2', shortLabel: '120 dias', fullLabel: 'Prazo de 120 dias', hash: '#guardiao-120-dias' },
+  { id: 'v2', shortLabel: 'O que conta', fullLabel: 'O que conta em cada modalidade', hash: '#atividades' },
+];
+
+// O que cada modalidade aceita e recusa (o conteúdo que ficava dentro da calculadora).
+const gruposDoCatalogo = [
+  { titulo: 'Extensão: 300h obrigatórias', itens: EXTENSION_ITEMS },
+  { titulo: 'Atividades complementares (AAC): até 300h', itens: AAC_ITEMS },
 ];
 
 const badges = [{ label: 'Regulamento, Art. 15', variant: 'default' as const, icon: 'bi-journal-text' }];
@@ -40,11 +47,11 @@ const passosProtocolo: TramitePasso[] = [
     titulo: 'Mande pra Coordenação assinar',
     texto: 'Assine, anexe os certificados (com o código ou link de autenticidade) e mande por e-mail pedindo a análise e a assinatura da Coordenação.',
     prazo: 'Até 120 dias depois do certificado',
-    acoes: [{ kind: 'link', href: 'mailto:coordgestaopublica@gmail.com?subject=Requerimento%20de%20AAC', label: 'coordgestaopublica@gmail.com' }],
+    acoes: [{ kind: 'link', href: `mailto:${ATENDIMENTO_CURSO.coordenacao.email}?subject=Requerimento%20de%20AAC`, label: ATENDIMENTO_CURSO.coordenacao.email }],
   },
   {
     titulo: 'Protocole na Secretaria',
-    texto: 'Com o requerimento assinado e deferido, imprima e leve pessoalmente à Secretaria do curso (sala F-2039, com a Norma Guedes). É ali que as horas entram no seu histórico do SIGA.',
+    texto: `Com o requerimento assinado e deferido, imprima e leve pessoalmente à Secretaria do curso (${ATENDIMENTO_CURSO.secretaria.salaCurta}, ${ATENDIMENTO_CURSO.secretaria.horario.toLowerCase()}). É ali que as horas entram no seu histórico do SIGA.`,
   },
 ];
 
@@ -63,7 +70,7 @@ const modalidades = [
 
 <BaseLayout
   title="Horas 600h"
-  description="Some suas 300h de extensão e até 300h de atividades complementares (AAC) de Gestão Pública na UFMG, veja quanto falta e protocole certificado no Colegiado dentro do prazo de 120 dias."
+  description="As 600h fora da grade de Gestão Pública na UFMG: o que conta como extensão e AAC, quanto vale cada atividade e como protocolar no Colegiado dentro do prazo de 120 dias."
   mode="operate"
 >
   <div class="space-y-6 max-w-5xl mx-auto font-sans">
@@ -73,7 +80,7 @@ const modalidades = [
       axisId="curso"
       activeId="acg"
       title="Horas 600h"
-      subtitle="Some suas horas de extensão e AAC, veja quanto falta e protocole certificado antes de vencer o prazo de 120 dias."
+      subtitle="O que conta, quanto vale e como protocolar antes de vencer o prazo de 120 dias. A soma fica em Meu curso."
       badges={badges}
     />
 
@@ -85,10 +92,11 @@ const modalidades = [
 
     <SegmentedControl tabs={tabs} defaultTab="v1" showViewAll={false} />
 
-    <!-- Somar -->
+    <!-- Suas horas: o resumo que abre o painel de Meu curso (as âncoras antigas caem aqui) -->
     <section id="ws-panel-v1" class="cagp-workspace-view" data-ws-panel="v1">
       <div id="calculadora" class="cagp-anchor-target"></div>
-      <AcgCalculatorCore client:load />
+      <div id="guardiao-120-dias" class="cagp-anchor-target"></div>
+      <ResumoDasHoras client:load />
     </section>
 
     <!-- Protocolar -->
@@ -128,17 +136,51 @@ const modalidades = [
       </section>
     </section>
 
-    <!-- 120 dias -->
-    <section id="ws-panel-v2" class="cagp-workspace-view space-y-6" data-ws-panel="v2" hidden>
-      <div id="guardiao-120-dias" class="cagp-anchor-target"></div>
-      <div class="space-y-2 max-w-[68ch]">
-        <h2 class="font-heading font-bold text-xl text-foreground m-0">Seus certificados com prazo</h2>
-        <p class="m-0 text-base text-content-secondary">
-          Cadastre cada certificado de evento ou de trabalho em anais e veja quantos dias faltam pra protocolar.
-          Evento nas férias? A contagem só começa no <strong class="text-foreground">primeiro dia letivo</strong> do semestre seguinte.
-        </p>
-      </div>
-      <AcgGuardianCore client:visible={{ rootMargin: "400px" }} />
+    <!-- O que conta -->
+    <section id="ws-panel-v2" class="cagp-workspace-view space-y-8" data-ws-panel="v2" hidden>
+      <div id="atividades" class="cagp-anchor-target"></div>
+      <p class="m-0 max-w-[68ch] text-base text-content-secondary">
+        Evento nas férias? A contagem dos 120 dias só começa no <strong class="text-foreground">primeiro dia letivo</strong> do semestre seguinte.
+      </p>
+      {gruposDoCatalogo.map((g) => (
+        <section class="space-y-4">
+          <h2 class="font-heading font-bold text-xl text-foreground m-0">{g.titulo}</h2>
+          <ul class="list-none m-0 p-0 bg-white border-2 border-border rounded-xl shadow-md overflow-hidden divide-y-2 divide-border">
+            {g.itens.map((m) => (
+              <li>
+                <details class="cagp-oque-conta">
+                  <summary>
+                    <span class="cagp-oque-conta-nome">
+                      <span class="block font-heading font-bold text-xs uppercase tracking-[0.04em] text-primary tabular-nums">{m.code}</span>
+                      <span class="block font-heading font-bold text-base text-foreground">{m.label}</span>
+                    </span>
+                    <span class="cagp-oque-conta-teto font-heading font-bold text-base text-foreground tabular-nums">até {m.max}h</span>
+                    <i class="bi bi-chevron-down cagp-oque-conta-seta" aria-hidden="true"></i>
+                    {m.has120dDeadline && (
+                      <span class="cagp-oque-conta-prazo">
+                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-warning-tint text-warning font-heading font-bold text-xs uppercase tracking-[0.04em]">
+                          <i class="bi bi-clock" aria-hidden="true"></i>120 dias pra protocolar
+                        </span>
+                      </span>
+                    )}
+                  </summary>
+                  <div class="px-4 pb-4 sm:px-5 grid gap-4 sm:grid-cols-2">
+                    <div>
+                      <h3 class="m-0 mb-1.5 font-heading font-bold text-sm text-success">Conta</h3>
+                      <ul class="m-0 pl-5 list-disc space-y-1 text-sm text-foreground">{m.accepted.map((t) => <li>{t}</li>)}</ul>
+                    </div>
+                    <div>
+                      <h3 class="m-0 mb-1.5 font-heading font-bold text-sm text-destructive">Não conta</h3>
+                      <ul class="m-0 pl-5 list-disc space-y-1 text-sm text-foreground">{m.rejected.map((t) => <li>{t}</li>)}</ul>
+                    </div>
+                    {m.alertNote && <p class="m-0 sm:col-span-2 text-sm text-content-secondary">{m.alertNote}</p>}
+                  </div>
+                </details>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
     </section>
 
     <details class="cagp-base-normativa">
@@ -205,4 +247,50 @@ const modalidades = [
     transition: transform var(--duration-spring) var(--ease-spring);
   }
   .cagp-base-normativa[open] > summary::after { transform: rotate(-135deg); }
+</style>
+
+<style>
+  /* "O que conta": uma linha por modalidade, que abre para mostrar o que o Colegiado aceita e recusa. */
+  .cagp-oque-conta > summary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25rem 0.75rem;
+    min-height: 56px;
+    padding: 0.75rem 1rem;
+    list-style: none;
+    cursor: pointer;
+  }
+  .cagp-oque-conta > summary::-webkit-details-marker {
+    display: none;
+  }
+  .cagp-oque-conta > summary:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: -3px;
+  }
+  .cagp-oque-conta-nome {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .cagp-oque-conta-teto {
+    flex: none;
+    white-space: nowrap;
+  }
+  .cagp-oque-conta-seta {
+    flex: none;
+    align-self: center;
+    transition: rotate var(--duration-press, 160ms) var(--ease-snap, ease-out);
+  }
+  .cagp-oque-conta[open] .cagp-oque-conta-seta {
+    rotate: 180deg;
+  }
+  .cagp-oque-conta-prazo {
+    flex: 1 0 100%;
+  }
+  .cagp-oque-conta[open] > summary {
+    background: var(--color-primary-tint, #efe7f6);
+  }
+  .cagp-oque-conta > div {
+    padding-top: 1rem;
+  }
 </style>

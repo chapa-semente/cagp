@@ -4,12 +4,15 @@
 // cinco links do site → portais da UFMG e atendimento em texto → linha de direitos.
 // Sem colunas de links (repetiam a navegação com outros nomes) e sem ilha React.
 import { asset, route } from '@/lib/paths';
+import { ATENDIMENTO_CURSO } from '@/data/acolhimento';
+import { CHAPA_INSTAGRAM, CHAPA_INSTAGRAM_URL } from '@/lib/chapaSementeData';
 import EstagiosFaixa from './EstagiosFaixa.astro';
 
 const links = [
   { label: 'Documentos', href: route('/documentos') },
   { label: 'Dúvidas', href: route('/faq') },
-  { label: 'Fala com o CA', href: route('/ouvidoria') },
+  // "?de=" preenche o campo "em que página" de quem vai reclamar daquela página.
+  { label: 'Achou um erro? Fala com a gente', href: `${route('/ouvidoria')}?de=${encodeURIComponent(Astro.url.pathname)}` },
   { label: 'Transparência', href: route('/transparencia') },
   { label: 'Mapa do site', href: route('/mapa-do-site') },
 ];
@@ -98,12 +101,12 @@ const portais = [
         <strong>Atendimento do curso</strong>
         Secretaria de Gestão Pública, sala 2039 da FAFICH (quartas, 13h às 19h), telefone <span class="tabular-nums">3409-3826</span>.
         CEAG, 2º andar (segunda a sexta, 8h às 22h). Coordenação:{' '}
-        <a href="mailto:coordgestaopublicaufmg@gmail.com">coordgestaopublicaufmg@gmail.com</a>{' '}ou{' '}
-        <a href="mailto:gestaopublica@ufmg.br">gestaopublica@ufmg.br</a>.
+        <a href={`mailto:${ATENDIMENTO_CURSO.coordenacao.email}`}>{ATENDIMENTO_CURSO.coordenacao.email}</a>{' '}ou{' '}
+        <a href={`mailto:${ATENDIMENTO_CURSO.secretaria.email}`}>{ATENDIMENTO_CURSO.secretaria.email}</a>.
       </p>
       <p>
         <strong>CAGP</strong>
-        <a href="https://instagram.com/cagpufmg" target="_blank" rel="noopener noreferrer">Instagram @cagpufmg</a>
+        <a href={CHAPA_INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">Instagram da Chapa 2, {CHAPA_INSTAGRAM}</a>
         <span aria-hidden="true"> · </span>
         <button type="button" onclick="window.dispatchEvent(new CustomEvent('cagp:open-settings'))">Ajustes de leitura</button>
       </p>

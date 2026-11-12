@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
 import SegmentedControl from '../components/ui/SegmentedControl.astro';
 import JourneyNav from '../components/ui/JourneyNav.astro';
+import SeuProgresso from '../components/ui/SeuProgresso.astro';
 import TccCentralOverview from '../components/features/tcc/TccCentralOverview.astro';
 import TccModalidadesExplorer from '../components/features/tcc/modalidades/TccModalidadesExplorer.astro';
 import TccCronogramaTimeline from '../components/features/tcc/cronograma/TccCronogramaTimeline.astro';
@@ -109,6 +110,8 @@ const badges = [
     </section>
 
     <!-- Journey Navigation Trail -->
+    <SeuProgresso tema="tcc" />
+
     <JourneyNav
       prev={{
         title: 'Estágio Supervisionado (300h) & Art. 41',

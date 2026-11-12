@@ -18,7 +18,7 @@ import GrowthBackdrop from '@/components/shell/GrowthBackdrop.astro';
 import { estagioDaRota } from '@/lib/estagios';
 import GlobalCanvasBackdrop from '../components/shell/GlobalCanvasBackdrop.astro';
 import { asset } from '@/lib/paths';
-import { getRouteMeta } from '@/lib/navigationRegistry';
+import { getRouteMeta, normalizePathname } from '@/lib/navigationRegistry';
 import { imagemOg, previaDaRota } from '@/lib/previas';
 // As duas fontes do texto, pedidas já no <head>: sem isso o navegador só descobre a fonte depois
 // de baixar e ler o CSS inteiro, e a página pisca com a fonte do sistema no celular.
@@ -59,6 +59,8 @@ const origem = Astro.site ?? Astro.url;
 const previaUrl = new URL(Astro.url.pathname, origem).href;
 const previaImagem = new URL(imagemOg(previa.imagem), origem).href;
 const estagio = estagioDaRota(Astro.url.pathname);
+// Quem chega por link de documento não vê o tour: vê um convite de uma linha, com o documento à vista.
+const entradaPorDocumento = /^\/(doc|documentos)(\/|$)/.test(normalizePathname(Astro.url.pathname));
 import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
 ---
 
@@ -117,6 +119,14 @@ import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
           var root = document.documentElement;
           var base = root.getAttribute('data-base-url') || '/';
           if (base.slice(-1) !== '/') base += '/';
+          // Entrou por link de documento (12/11/2026): nesta visita o tour não abre. A página do
+          // documento mostra um convite de uma linha; quem voltar outro dia por outra porta vê o tour.
+          var caminho = '/' + location.pathname.slice(base.length);
+          if (/^\/(doc|documentos)(\/|$)/.test(caminho)) sessionStorage.setItem('cagp_entrou_por_doc', '1');
+          if (sessionStorage.getItem('cagp_entrou_por_doc')) {
+            if (!sessionStorage.getItem('cagp_convite_tour_fechado')) root.setAttribute('data-semente-convite', '');
+            return;
+          }
           root.setAttribute('data-semente-tour', 'pending');
           root.style.setProperty('--semente-cover-logo', 'url("' + base + 'logos/semente/semente-simbolo-branco.webp")');
           setTimeout(function () {
@@ -230,6 +240,15 @@ import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
           tabindex="-1"
           class="relative z-10 flex-1 w-full max-w-[1440px] 2xl:max-w-[1600px] mx-auto px-3 sm:px-6 py-4 sm:py-6 pb-24 md:pb-8 overflow-x-clip focus:outline-none"
         >
+          {entradaPorDocumento && (
+            <aside class="cagp-convite-tour" data-convite-tour data-so-campanha aria-label="Convite para conhecer a Chapa 2">
+              <p>Conheça quem fez este site em 19 segundos.</p>
+              <div class="cagp-convite-tour-acoes">
+                <button type="button" class="cagp-convite-tour-sim" data-cagp-dispatch="cagp:start-semente-tour">Conhecer</button>
+                <button type="button" class="cagp-convite-tour-nao" data-convite-fechar aria-label="Agora não"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+              </div>
+            </aside>
+          )}
           <slot />
           <!-- Toda página termina pedindo o voto (some sozinha depois da eleição). -->
           <FaixaDeVoto />
@@ -279,19 +298,40 @@ import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
         // data-cagp-dispatch="nome-do-evento": um ouvinte só, para o site inteiro.
         document.addEventListener('click', function (event) {
           var alvo = event.target && event.target.closest ? event.target.closest('[data-cagp-dispatch]') : null;
-          if (alvo) window.dispatchEvent(new CustomEvent(alvo.getAttribute('data-cagp-dispatch')));
+          // data-cagp-eixo (1 a 4) abre o tour das propostas direto naquele eixo.
+          if (alvo) window.dispatchEvent(new CustomEvent(alvo.getAttribute('data-cagp-dispatch'), { detail: { eixo: Number(alvo.getAttribute('data-cagp-eixo')) || undefined } }));
         });
 
         // Tour das propostas e "rever o tour": quando alguém pede.
-        window.addEventListener('cagp:start-propostas-tour', function () {
-          // Pedido feito antes de a ilha existir: ela lê este aviso ao montar e abre.
-          if (!vistos.propostas) window.__cagpPropostasPending = true;
+        window.addEventListener('cagp:start-propostas-tour', function (e) {
+          // Pedido feito antes de a ilha existir: ela lê este aviso ao montar e abre (no eixo pedido, se houver).
+          if (!vistos.propostas) window.__cagpPropostasPending = (e && e.detail && e.detail.eixo) || true;
           sinal('propostas');
         });
         window.addEventListener('cagp:start-semente-tour', function () {
           if (!window.__cagpTourMounted) window.__cagpSementeTourPending = Date.now();
           sinal('tour');
         });
+
+        // Convite do tour (quem entrou por link de documento): o atributo some na troca de página,
+        // então é reposto a cada página; "Agora não" e o fim do tour o desligam.
+        function convite() {
+          var liga = false;
+          try {
+            var t = JSON.parse(localStorage.getItem('cagp_semente_tour_v2') || 'null');
+            liga = !(t && t.status === 'done') && Boolean(sessionStorage.getItem('cagp_entrou_por_doc')) && !sessionStorage.getItem('cagp_convite_tour_fechado');
+          } catch (e) {}
+          document.documentElement.toggleAttribute('data-semente-convite', liga);
+        }
+        document.addEventListener('click', function (event) {
+          var alvo = event.target && event.target.closest ? event.target.closest('[data-convite-fechar], [data-convite-tour] [data-cagp-dispatch]') : null;
+          if (!alvo) return;
+          try { sessionStorage.setItem('cagp_convite_tour_fechado', '1'); } catch (e) {}
+          convite();
+          var main = document.getElementById('main-content');
+          if (main && alvo.hasAttribute('data-convite-fechar')) main.focus();
+        });
+        document.addEventListener('astro:page-load', convite);
 
         // Tour obrigatório: na primeira visita ele carrega já (a página está coberta esperando por ele).
         function tourPendente() {

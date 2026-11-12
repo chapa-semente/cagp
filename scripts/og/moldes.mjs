@@ -333,7 +333,7 @@ export function criarMoldes({ pessoas, ordem, logo, logoBranco, fase = 'antes' }
     o += adesivo2(92, 96, 2.5, -5);
     o += etiqueta(452, 50, 'Como votar').svg;
     o += texto(452, 176, 'Eleição do CAGP', 64, '#FFFFFF');
-    [['Quando', '25 e 26/11, das 17h às 22h30'], ['Onde', 'Sala do CAGP, na FAFICH'], ['Leve', 'Documento oficial com foto']].forEach(([k, v], i) => {
+    [['Quando', '25 e 26/11, das 17h às 22h30'], ['Onde', 'Sala do CAGP, na FAFICH'], ['Marque', 'Um X em uma chapa só']].forEach(([k, v], i) => {
       const y = 232 + i * 82;
       o += etiqueta(452, y, k, { bg: LARANJA, largura: 132 }).svg + texto(608, y + 33, v, 34, '#FFFFFF');
     });
@@ -381,7 +381,7 @@ export function criarMoldes({ pessoas, ordem, logo, logoBranco, fase = 'antes' }
   function proposta({ n, eixo, titulo, pessoa, fala, modelo }) {
     const e = EIXOS[eixo];
     const linhasTitulo = quebrar(titulo, 20);
-    const linhasFala = quebrar(`“${fala}”`, 46);
+    const linhasFala = quebrar(fala, 46);
     let o = abrir(1200, 630, `Proposta ${n}: ${titulo}`);
     o += `<rect width="1200" height="534" fill="${e.bg}"/>${folhaFundo(e.fundo)}`;
     o += adesivoNumero(60, 34, n);
@@ -472,7 +472,7 @@ export function criarMoldes({ pessoas, ordem, logo, logoBranco, fase = 'antes' }
     let corpoFala = 44;
     let linhasFala = [];
     for (; corpoFala >= 22; corpoFala -= 2) {
-      linhasFala = quebrar(`“${fala}”`, Math.floor(376 / (corpoFala * 0.56)));
+      linhasFala = quebrar(fala, Math.floor(376 / (corpoFala * 0.56)));
       if (linhasFala.length * corpoFala * 1.3 <= 244) break;
     }
     const altoFala = (linhasFala.length - 1) * corpoFala * 1.3;

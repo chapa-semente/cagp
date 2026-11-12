@@ -9,7 +9,7 @@ import FactCheckBanner from '../components/ui/FactCheckBanner.astro';
 import { getCollection } from 'astro:content';
 import { CurriculumGraphDynamic } from '../components/features/curriculum/graph/CurriculumGraphDynamic';
 import CurriculumCentralOverview from '../components/features/curriculum/CurriculumCentralOverview.astro';
-import { OptativasCatalogExplorer } from '../components/features/curriculum/catalog/OptativasCatalogExplorer';
+import SeuProgresso from '../components/ui/SeuProgresso.astro';
 import MandatoryTimelineExplorer from '../components/features/curriculum/timeline/MandatoryTimelineExplorer.astro';
 import { PercursosComparativeMatrix } from '../components/features/percurso/PercursosComparativeMatrix';
 import { PercursoNavigationMenu } from '../components/features/percurso/PercursoNavigationMenu';
@@ -26,23 +26,10 @@ const catalogOptions = allDisciplinas
     ch: d.data.ch,
   }));
 
-const optativasData = allDisciplinas
-  .filter((d) => d.data.natureza === 'optativa')
-  .map((d) => ({
-    code: d.data.codigo,
-    name: d.data.nome,
-    ch: d.data.ch,
-    modulo: d.data.modulo,
-    ementa: d.data.ementa,
-  }))
-  .sort((a, b) => a.code.localeCompare(b.code));
-
 const tabs = [
   { id: 'v0', shortLabel: 'Visão geral', fullLabel: 'Visão geral da grade', hash: '#visao-geral' },
   { id: 'v1', shortLabel: 'Mapa', fullLabel: 'Mapa dos 10 períodos', hash: '#grafo' },
-  { id: 'v2', shortLabel: 'Optativas', fullLabel: 'As 68 optativas', hash: '#optativas' },
   { id: 'v3', shortLabel: 'Obrigatórias', fullLabel: 'As 27 obrigatórias', hash: '#obrigatorias' },
-  { id: 'v4', shortLabel: '3.000h', fullLabel: 'Conta das 3.000h', hash: '#minha-grade' },
 ];
 
 const badges = [
@@ -66,7 +53,7 @@ const badges = [
       axisId="curso"
       activeId="percurso"
       title="Grade e percurso"
-      subtitle="As 27 obrigatórias, os pré-requisitos do SIGA e quanto do curso você já integralizou."
+      subtitle="As 27 obrigatórias, o mapa dos 10 períodos e os pré-requisitos do SIGA."
       badges={badges}
     />
   </div>
@@ -97,38 +84,26 @@ A matrícula nas disciplinas com pré-requisito formal cadastrado fica condicion
     <CurriculumGraphDynamic client:visible={{ rootMargin: "400px" }} catalogOptions={catalogOptions} />
   </section>
 
-  <!-- Sub-view 2: Catálogo de 68 Optativas e 120h de Formação Livre -->
-  <section id="ws-panel-v2" class="cagp-workspace-view" data-ws-panel="v2" hidden>
-    <div id="optativas" class="cagp-anchor-target scroll-mt-24"></div>
-    <OptativasCatalogExplorer client:visible={{ rootMargin: "400px" }} optativas={optativasData} />
-  </section>
-
   <!-- Sub-view 3: Ementário das 27 Obrigatórias -->
   <section id="ws-panel-v3" class="cagp-workspace-view" data-ws-panel="v3" hidden>
     <div id="obrigatorias" class="cagp-anchor-target scroll-mt-24"></div>
     <MandatoryTimelineExplorer />
   </section>
 
-  <!-- Sub-view 4: Dossiê Minha Grade & 3.000h -->
-  <section id="ws-panel-v4" class="cagp-workspace-view space-y-4" data-ws-panel="v4" hidden>
-    <div id="minha-grade" class="cagp-anchor-target scroll-mt-24"></div>
-    <!-- A conta das 3.000h tem um dono só: o painel de Meu curso (DESIGN.md › One Owner). -->
-    <div class="p-5 sm:p-6 rounded-2xl border-3 border-border bg-card shadow-md space-y-3 max-w-[44rem]">
-      <h2 class="font-heading text-xl font-bold text-foreground m-0">A conta das 3.000h mudou de lugar</h2>
-      <p class="m-0 text-base leading-relaxed text-muted-foreground">
-        Agora ela fica em <strong class="text-foreground">Meu curso</strong>, com os seis grupos do percurso
-        (obrigatórias, estágio, optativas gerais, extensão, AAC e formação livre), as disciplinas por período e o seu NSG.
-        O que você já marcou no mapa continua valendo lá.
-      </p>
-      <a
-        href={route('/meu-curso')}
-        class="inline-flex items-center gap-2 min-h-[48px] px-5 rounded-xl bg-primary text-white border-3 border-border font-heading font-bold text-sm uppercase tracking-[0.03em] no-underline shadow-md active:translate-x-1 active:translate-y-1 active:shadow-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-      >
-        Abrir Meu curso
-        <i class="bi bi-arrow-right" aria-hidden="true"></i>
-      </a>
-    </div>
-  </section>
+  <!-- As abas "Optativas" e "3.000h" saíram em 12/11/2026: cada uma tem um dono só (/optativas e
+       /meu-curso). Quem chega por um link antigo é levado ao lugar certo. -->
+  <script is:inline define:vars={{ destinos: { '#optativas': route('/optativas'), '#minha-grade': route('/meu-curso') } }}>
+    (function () {
+      var ir = function () {
+        var destino = destinos[window.location.hash];
+        if (destino && /\/percurso\/?$/.test(window.location.pathname)) window.location.replace(destino);
+      };
+      ir();
+      window.addEventListener('hashchange', ir);
+    })();
+  </script>
+
+  <SeuProgresso tema="grade" />
 
   <SementeSignature
     proposal="Proposta 3"

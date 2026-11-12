@@ -1,49 +1,61 @@
-// MinhasHoras.tsx — O painel de /meu-curso: quanto falta para se formar, grupo a grupo.
+// MinhasHoras.tsx — O painel de /meu-curso: o registro único do curso de cada estudante.
 //
-// Ideia da Liv (11/10/2026): além das 600h, marcar as obrigatórias cursadas e ver cursado × restante,
-// como na planilha "Percurso Curricular", com espaço para notas e NSG.
+// Quatro perguntas, uma tela (redesenho de 12/11/2026):
+//   1. Quanto falta?            → o saldo das 3.000h (src/lib/contaDoCurso.ts, a única conta do site)
+//   2. O que vence?             → prazos que saem dos dados da pessoa + link do calendário oficial
+//   3. O que pego no próximo?   → obrigatórias liberadas pelos pré-requisitos do SIGA
+//   4. Onde estão minhas horas? → a lista única de atividades (MinhasAtividades.tsx)
 //
-// Os totais são os do quadro de integralização do percurso Bacharelado/Núcleo Geral
-// (_referencias/documentos-oficiais/percurso-bacharelado-nucleo-geral.md):
-//   Obrigatórias 1.560h · Estágio obrigatório 300h · Formação livre 120h ·
-//   Optativas 1.020h = Extensão 300h + AAC (até 300h) + Optativas gerais (420 a 720h)   → 3.000h
+// Ideia da Liv (11/10/2026): marcar as obrigatórias cursadas e ver cursado × restante, como na
+// planilha "Percurso Curricular", com espaço para notas e NSG.
 //
-// Donos dos dados (DESIGN.md › One Owner): disciplinas marcadas em cagp_minha_grade_v1 (o mesmo do
-// mapa em /percurso), extensão e AAC em cagp_calc_ext_aac_v1 (a calculadora de /acg) e o resto em
-// cagp_minhas_horas_v1. Tudo fica só neste aparelho.
+// Donos dos dados (DESIGN.md › One Owner): disciplinas em cagp_minha_grade_v1 (o mesmo do mapa em
+// /percurso), extensão e AAC em cagp_atividades_v1 e o resto em cagp_minhas_horas_v1. Só neste aparelho.
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { getVaultItem, setVaultItem, type VaultData } from '@/lib/storage/studentVault';
-import { EXTENSION_ITEMS, AAC_ITEMS } from '@/components/features/acg/calculator/acgCatalog';
+import { getVaultItem, setVaultItem, type CustomCourse, type UserRole, type VaultData } from '@/lib/storage/studentVault';
+import { atualizarAtividade, lerAtividades, prazosAbertos, type EstadoAtividades } from '@/lib/atividades';
+import { OBRIGATORIAS, TOTAL_DO_CURSO, contaDoCurso, liberadasParaOProximo, type DisciplinaObrigatoria } from '@/lib/contaDoCurso';
+import { RETA_FINAL_STEPS, etapaFeita } from '@/lib/retaFinal';
 import { renderEstagioIlustra, ILUSTRA_CORES, type IlustraNivel } from '@/lib/estagioIlustra';
+import { downloadAac120dIcs } from '@/lib/ics';
+import { CagpIcon } from '@/components/ui/CagpIcon';
+import { toast } from '@/lib/toast';
 import { route } from '@/lib/paths';
-
-export interface DisciplinaObrigatoria {
-  code: string;
-  name: string;
-  period: number;
-  ch: number;
-  /** Estágio curricular obrigatório (grupo próprio de 300h). */
-  estagio: boolean;
-}
+import { MinhasAtividades } from './MinhasAtividades';
 
 type Horas = VaultData<'cagp_minhas_horas_v1'>;
+type Grade = VaultData<'cagp_minha_grade_v1'>;
 
-const TOTAL = 3000;
+const TOTAL = TOTAL_DO_CURSO;
 const FMT = new Intl.NumberFormat('pt-BR');
 const h = (n: number) => `${FMT.format(n)}h`;
-const soma = (itens: { key: string }[], dados: Record<string, number>) =>
-  itens.reduce((acc, it) => acc + (Number(dados[it.key]) || 0), 0);
+const DIA = 86_400_000;
+// Calendário escolar oficial (link da capa de ufmg.br, conferido em 12/11/2026): o site não copia
+// datas da UFMG, só aponta para a fonte.
+const CALENDARIO_UFMG = 'https://www.ufmg.br/a-universidade/calendario-escolar/';
 
-export const MinhasHoras: React.FC<{ disciplinas: DisciplinaObrigatoria[] }> = ({ disciplinas }) => {
-  const [cursadas, setCursadas] = useState<string[]>([]);
+export const MinhasHoras: React.FC = () => {
+  const disciplinas = OBRIGATORIAS;
+  const [grade, setGrade] = useState<Grade>({ savedCourses: [], cursando: [] });
+  const [naGrade, setNaGrade] = useState<CustomCourse[]>([]);
   const [horas, setHoras] = useState<Horas>({ optativasH: 0, livreH: 0, notas: {}, nsg: [] });
+  const [atividades, setAtividades] = useState<EstadoAtividades>({ itens: [], base: {}, migrado: true });
   const [calc, setCalc] = useState<Record<string, number>>({});
+  const [checks, setChecks] = useState<Record<string, boolean>>({});
+  const [papel, setPapel] = useState<UserRole>('calouro');
   const [pronto, setPronto] = useState(false);
+  const cursadas = grade.savedCourses;
+  const cursando = grade.cursando;
 
   const carregar = useCallback(() => {
-    setCursadas(getVaultItem('cagp_minha_grade_v1').savedCourses);
+    setGrade(getVaultItem('cagp_minha_grade_v1'));
+    setNaGrade(getVaultItem('cagp_custom_curriculum_v1').assignedCourses);
     setHoras(getVaultItem('cagp_minhas_horas_v1'));
+    // lerAtividades migra os registros antigos na primeira vez e atualiza o espelho das horas.
+    setAtividades(lerAtividades());
     setCalc(getVaultItem('cagp_calc_ext_aac_v1'));
+    setChecks(getVaultItem('cagp_reta_final_checklist_v1'));
+    setPapel(getVaultItem('cagp_user_role_v1'));
     setPronto(true);
   }, []);
 
@@ -59,35 +71,25 @@ export const MinhasHoras: React.FC<{ disciplinas: DisciplinaObrigatoria[] }> = (
 
   const salvarHoras = (patch: Partial<Horas>) => setVaultItem('cagp_minhas_horas_v1', { ...horas, ...patch });
 
-  const marcar = (code: string) => {
+  /** Três estados por disciplina: falta → cursando → cursei. Um código nunca fica nos dois. */
+  const marcar = (code: string, estado: 'falta' | 'cursando' | 'cursei') => {
     if ('vibrate' in navigator) navigator.vibrate(12);
-    const feita = cursadas.includes(code);
     setVaultItem('cagp_minha_grade_v1', {
-      savedCourses: feita ? cursadas.filter((c) => c !== code) : [...cursadas, code],
+      savedCourses: estado === 'cursei' ? [...cursadas.filter((c) => c !== code), code] : cursadas.filter((c) => c !== code),
+      cursando: estado === 'cursando' ? [...cursando.filter((c) => c !== code), code] : cursando.filter((c) => c !== code),
     });
   };
 
-  const conta = useMemo(() => {
-    const feitas = new Set(cursadas);
-    const doGrupo = (estagio: boolean) => disciplinas.filter((d) => d.estagio === estagio);
-    const total = (ds: DisciplinaObrigatoria[]) => ds.reduce((a, d) => a + d.ch, 0);
-    const feito = (ds: DisciplinaObrigatoria[]) => ds.filter((d) => feitas.has(d.code)).reduce((a, d) => a + d.ch, 0);
+  const conta = useMemo(() => contaDoCurso({ cursadas, naGrade, horas, calc }), [cursadas, naGrade, horas, calc]);
+  const liberadas = useMemo(() => liberadasParaOProximo(cursadas, cursando), [cursadas, cursando]);
+  const prazos = useMemo(() => prazosAbertos(atividades), [atividades]);
+  const emCurso = useMemo(() => disciplinas.filter((d) => cursando.includes(d.code)), [disciplinas, cursando]);
 
-    const ext = Math.min(300, soma(EXTENSION_ITEMS, calc));
-    const aac = Math.min(300, soma(AAC_ITEMS, calc));
-    // O grupo Optativas (1.020h) fecha com extensão (300h) + AAC (até 300h) + optativas gerais.
-    const alvoOptativas = 720 - aac;
-    const grupos = [
-      { id: 'ob', nome: 'Obrigatórias', feito: feito(doGrupo(false)), total: total(doGrupo(false)), cor: '#5B2A85' },
-      { id: 'est', nome: 'Estágio obrigatório', feito: feito(doGrupo(true)), total: total(doGrupo(true)), cor: '#8A4B2A' },
-      { id: 'op', nome: 'Optativas gerais', feito: Math.min(alvoOptativas, horas.optativasH), total: alvoOptativas, cor: '#FE8812' },
-      { id: 'ext', nome: 'Extensão', feito: ext, total: 300, cor: '#6DB33F' },
-      { id: 'aac', nome: 'AAC (até 300h)', feito: aac, total: 300, cor: '#FFC83D', opcional: true },
-      { id: 'fl', nome: 'Formação livre', feito: Math.min(120, horas.livreH), total: 120, cor: '#266264' },
-    ];
-    const cursado = grupos.reduce((a, g) => a + g.feito, 0);
-    return { grupos, cursado, falta: Math.max(0, TOTAL - cursado), aac, alvoOptativas };
-  }, [cursadas, disciplinas, calc, horas.optativasH, horas.livreH]);
+  // Reta final: a próxima etapa em aberto, só para quem já entrou nela (formando ou com etapa marcada).
+  const proximaEtapa = useMemo(() => {
+    const comecou = papel === 'formando' || RETA_FINAL_STEPS.some((s) => etapaFeita(s.id, checks, cursadas));
+    return comecou ? RETA_FINAL_STEPS.find((s) => !etapaFeita(s.id, checks, cursadas)) : undefined;
+  }, [papel, checks, cursadas]);
 
   const pct = conta.cursado / TOTAL;
   const nivel: IlustraNivel = pct >= 0.85 ? 5 : pct >= 0.5 ? 4 : pct >= 0.2 ? 3 : pct > 0 ? 2 : 1;
@@ -165,8 +167,154 @@ export const MinhasHoras: React.FC<{ disciplinas: DisciplinaObrigatoria[] }> = (
       </article>
 
       <div className="mh-coluna">
-        {/* 2. Disciplinas obrigatórias e estágio, por período. */}
-        <section aria-labelledby="mh-disc-t" className="mh-bloco">
+        <nav className="mh-ir" aria-label="Partes do painel">
+          <a href="#prazos">Prazos</a>
+          <a href="#proximo">Próximo semestre</a>
+          <a href="#grade">Grade</a>
+          <a href="#atividades">Atividades</a>
+        </nav>
+
+        {/* 2. O que vence: só o que sai dos dados da pessoa. Datas da UFMG ficam na fonte oficial. */}
+        <section aria-labelledby="mh-prazos-t" className="mh-bloco" id="prazos">
+          <h2 id="mh-prazos-t">O que vence</h2>
+          <div className="mh-ficha">
+            {prazos.length === 0 && !proximaEtapa && (
+              <p className="mh-vazio">
+                Nenhum prazo correndo. Quando você lançar um certificado de evento ou de trabalho em anais, os 120 dias
+                pra protocolar aparecem aqui.
+              </p>
+            )}
+            {(prazos.length > 0 || proximaEtapa) && (
+              <ul className="mh-prazos" role="list">
+                {prazos.map(({ atividade: a, dias }) => {
+                  const limite = new Date(new Date(`${a.data}T00:00:00`).getTime() + 120 * DIA);
+                  return (
+                    <li key={a.id} data-s={dias < 0 ? 'vencido' : dias <= 15 ? 'urgente' : 'prazo'}>
+                      <p className="mh-prazo-dias">
+                        {dias < 0 ? (
+                          <strong>Venceu</strong>
+                        ) : (
+                          <>
+                            <strong>{dias}</strong> {dias === 1 ? 'dia' : 'dias'}
+                          </>
+                        )}
+                      </p>
+                      <div className="mh-prazo-txt">
+                        <p className="mh-atv-nome">{a.titulo}</p>
+                        <p className="mh-atv-meta">
+                          {dias < 0
+                            ? `O prazo de 120 dias acabou em ${limite.toLocaleDateString('pt-BR')}. Fale com o Colegiado antes de desistir das horas.`
+                            : `Protocole no Colegiado até ${limite.toLocaleDateString('pt-BR')}.`}
+                        </p>
+                        <div className="mh-atv-acoes">
+                          <button
+                            type="button"
+                            className="mh-btn mh-btn-mini mh-btn-roxo"
+                            onClick={() => {
+                              atualizarAtividade(a.id, { situacao: 'protocolada' });
+                              toast.success('Marcada como protocolada.');
+                            }}
+                          >
+                            Já protocolei
+                          </button>
+                          {dias >= 0 && (
+                            <button type="button" className="mh-btn mh-btn-mini" onClick={() => downloadAac120dIcs(a.titulo, limite)}>
+                              <CagpIcon name="calendar" className="w-4 h-4" />
+                              Lembrar no meu calendário
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </li>
+                  );
+                })}
+                {proximaEtapa && (
+                  <li data-s="etapa">
+                    <p className="mh-prazo-dias">Reta final</p>
+                    <div className="mh-prazo-txt">
+                      <p className="mh-atv-nome">{proximaEtapa.title.replace(/^\d+\.\s*/, '')}</p>
+                      <p className="mh-atv-meta">É a sua próxima etapa em aberto. Ela não tem data aqui: confira no calendário do Colegiado.</p>
+                      <div className="mh-atv-acoes">
+                        <a className="mh-btn mh-btn-mini" href={route('/formatura')}>
+                          Abrir o checklist da formatura
+                        </a>
+                      </div>
+                    </div>
+                  </li>
+                )}
+              </ul>
+            )}
+            <a href={CALENDARIO_UFMG} target="_blank" rel="noopener noreferrer" className="mh-atalho">
+              <span>
+                <strong>Matrícula, trancamento e colação</strong>
+                As datas estão no calendário escolar da UFMG
+              </span>
+              <CagpIcon name="arrow-up-right" className="w-5 h-5" />
+            </a>
+          </div>
+        </section>
+
+        {/* 3. Próximo semestre: o que está em curso e o que os pré-requisitos já liberam. */}
+        <section aria-labelledby="mh-prox-t" className="mh-bloco" id="proximo">
+          <h2 id="mh-prox-t">Pro próximo semestre</h2>
+          <div className="mh-ficha">
+            {emCurso.length > 0 && (
+              <div className="mh-grupo">
+                <h3>Cursando agora</h3>
+                <ul className="mh-linhas" role="list">
+                  {emCurso.map((d) => (
+                    <li key={d.code}>
+                      <span>
+                        <strong>
+                          {d.code} · {d.ch}h
+                        </strong>
+                        {d.name}
+                      </span>
+                      <button type="button" className="mh-btn mh-btn-mini mh-btn-roxo" onClick={() => marcar(d.code, 'cursei')}>
+                        Passei
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            <div className="mh-grupo">
+              <h3>{liberadas.length > 0 ? 'Você já pode pegar' : 'Obrigatórias em dia'}</h3>
+              {liberadas.length === 0 ? (
+                <p className="mh-vazio">
+                  {emCurso.length > 0
+                    ? 'Tudo o que falta das obrigatórias você já está cursando.'
+                    : 'Você marcou todas as obrigatórias. Falta conferir optativas, as 600h e a reta final.'}
+                </p>
+              ) : (
+                <>
+                  <ul className="mh-linhas" role="list">
+                    {liberadas.slice(0, 6).map(({ disciplina: d, dependeDe }) => (
+                      <LinhaLiberada key={d.code} d={d} dependeDe={dependeDe} aoCursar={() => marcar(d.code, 'cursando')} />
+                    ))}
+                  </ul>
+                  {liberadas.length > 6 && (
+                    <details className="mh-mais">
+                      <summary>Mais {liberadas.length - 6} liberadas</summary>
+                      <ul className="mh-linhas" role="list">
+                        {liberadas.slice(6).map(({ disciplina: d, dependeDe }) => (
+                          <LinhaLiberada key={d.code} d={d} dependeDe={dependeDe} aoCursar={() => marcar(d.code, 'cursando')} />
+                        ))}
+                      </ul>
+                    </details>
+                  )}
+                </>
+              )}
+            </div>
+            <p className="mh-nota-rodape">
+              A lista segue os pré-requisitos formais do SIGA, não a oferta: o que abre em cada semestre sai na matrícula.{' '}
+              <a href={route('/percurso')}>Ver o mapa de pré-requisitos</a> ou <a href={route('/optativas')}>escolher optativas</a>.
+            </p>
+          </div>
+        </section>
+
+        {/* 4. A grade: obrigatórias e estágio, por período, com três estados. */}
+        <section aria-labelledby="mh-disc-t" className="mh-bloco" id="grade">
           <h2 id="mh-disc-t">Marque o que você já cursou</h2>
           {periodos.map(([periodo, ds]) => {
             const feitas = ds.filter((d) => cursadas.includes(d.code)).length;
@@ -181,11 +329,12 @@ export const MinhasHoras: React.FC<{ disciplinas: DisciplinaObrigatoria[] }> = (
                 <ul role="list">
                   {ds.map((d) => {
                     const feita = cursadas.includes(d.code);
+                    const agora = cursando.includes(d.code);
                     const idNota = `mh-nota-${d.code.replace(/\s+/g, '')}`;
                     return (
                       <li key={d.code}>
                         <label className="sk-check">
-                          <input type="checkbox" checked={feita} onChange={() => marcar(d.code)} />
+                          <input type="checkbox" checked={feita} onChange={() => marcar(d.code, feita ? 'falta' : 'cursei')} />
                           <span className="sk-check-txt">
                             <strong>
                               {d.code} · {d.ch}h
@@ -196,6 +345,14 @@ export const MinhasHoras: React.FC<{ disciplinas: DisciplinaObrigatoria[] }> = (
                             Cursei
                           </span>
                         </label>
+                        {!feita && (
+                          <div className="mh-nota">
+                            <button type="button" className="mh-agora" aria-pressed={agora} onClick={() => marcar(d.code, agora ? 'falta' : 'cursando')}>
+                              {agora && <CagpIcon name="check" className="w-4 h-4" />}
+                              {agora ? 'Cursando agora' : 'Estou cursando'}
+                            </button>
+                          </div>
+                        )}
                         {feita && (
                           <div className="mh-nota">
                             <label htmlFor={idNota}>Nota (opcional)</label>
@@ -219,20 +376,33 @@ export const MinhasHoras: React.FC<{ disciplinas: DisciplinaObrigatoria[] }> = (
           })}
         </section>
 
-        {/* 3. O que não é disciplina fixa. */}
-        <section aria-labelledby="mh-outras-t" className="mh-bloco">
-          <h2 id="mh-outras-t">Optativas, formação livre e as 600h</h2>
+        {/* 5. As 600h: uma lista só. */}
+        <MinhasAtividades estado={atividades} ext={conta.ext} aac={conta.aac} />
+
+        {/* 6. Optativas e formação livre: o que está na grade soma sozinho; o resto, à mão. */}
+        <section aria-labelledby="mh-outras-t" className="mh-bloco" id="optativas">
+          <h2 id="mh-outras-t">Optativas e formação livre</h2>
           <div className="mh-ficha">
             {[
-              { id: 'optativasH' as const, nome: 'Optativas gerais', dica: `Meta: ${h(conta.alvoOptativas)}`, valor: horas.optativasH },
-              { id: 'livreH' as const, nome: 'Formação livre', dica: 'Meta: 120h (disciplinas de outros cursos)', valor: horas.livreH },
+              {
+                id: 'optativasH' as const,
+                nome: 'Optativas gerais',
+                dica: `Meta: ${h(conta.alvoOptativas)}${conta.optativasGrade ? ` · ${h(conta.optativasGrade)} já vêm da sua grade` : ''}`,
+                valor: horas.optativasH,
+              },
+              {
+                id: 'livreH' as const,
+                nome: 'Formação livre',
+                dica: `Meta: 120h, em disciplinas de outros cursos${conta.livreGrade ? ` · ${h(conta.livreGrade)} já vêm da sua grade` : ''}`,
+                valor: horas.livreH,
+              },
             ].map((c) => (
               <div key={c.id} className="mh-passo">
                 <div>
                   <p className="mh-passo-nome">{c.nome}</p>
                   <p className="mh-passo-dica">{c.dica}</p>
                 </div>
-                <div className="mh-passo-ctl" role="group" aria-label={`${c.nome}: horas cursadas`}>
+                <div className="mh-passo-ctl" role="group" aria-label={`${c.nome}: horas cursadas fora da grade`}>
                   <button type="button" onClick={() => salvarHoras({ [c.id]: Math.max(0, c.valor - 60) })} disabled={c.valor <= 0} aria-label="Tirar 60 horas">
                     −
                   </button>
@@ -243,17 +413,21 @@ export const MinhasHoras: React.FC<{ disciplinas: DisciplinaObrigatoria[] }> = (
                 </div>
               </div>
             ))}
-            <a href={route('/acg') + '#calculadora'} className="mh-atalho">
+            <p className="mh-nota-rodape">
+              Os botões somam o que você cursou sem pôr na grade. Optativa escolhida no catálogo e marcada como cursada
+              no mapa entra na conta sozinha.
+            </p>
+            <a href={route('/optativas')} className="mh-atalho">
               <span>
-                <strong>Extensão e AAC</strong>
-                Somadas na calculadora das 600h
+                <strong>Escolher optativas</strong>
+                As 68 do PPC, por departamento
               </span>
-              <span aria-hidden="true">→</span>
+              <CagpIcon name="arrow-right" className="w-5 h-5" />
             </a>
           </div>
         </section>
 
-        {/* 4. NSG por semestre, como na planilha. */}
+        {/* 7. NSG por semestre, como na planilha. */}
         <section aria-labelledby="mh-nsg-t" className="mh-bloco">
           <h2 id="mh-nsg-t">Seu NSG por semestre</h2>
           <div className="mh-ficha">
@@ -287,3 +461,22 @@ export const MinhasHoras: React.FC<{ disciplinas: DisciplinaObrigatoria[] }> = (
     </div>
   );
 };
+
+const LinhaLiberada: React.FC<{ d: { code: string; name: string; ch: number; period: number }; dependeDe: string[]; aoCursar: () => void }> = ({
+  d,
+  dependeDe,
+  aoCursar,
+}) => (
+  <li>
+    <span>
+      <strong>
+        {d.code} · {d.ch}h · {d.period}º período
+      </strong>
+      {d.name}
+      {dependeDe.length > 0 && <em>Só se você passar em {dependeDe.join(' e ')}</em>}
+    </span>
+    <button type="button" className="mh-btn mh-btn-mini" onClick={aoCursar}>
+      Estou cursando
+    </button>
+  </li>
+);

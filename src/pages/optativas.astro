@@ -5,6 +5,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
 import SementeSignature from '../components/ui/SementeSignature.astro';
 import JourneyNav from '../components/ui/JourneyNav.astro';
+import SeuProgresso from '../components/ui/SeuProgresso.astro';
 import { OptativasCatalogExplorer } from '../components/features/curriculum/catalog/OptativasCatalogExplorer';
 import { route } from '@/lib/paths';
 
@@ -35,6 +36,8 @@ const optativasData = optativasList.map((d) => ({
     mode="operate"
     condensed={true}
   />
+
+  <SeuProgresso tema="optativas" />
 
   <OptativasCatalogExplorer client:load optativas={optativasData} />
 

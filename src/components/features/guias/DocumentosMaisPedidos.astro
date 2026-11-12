@@ -4,6 +4,12 @@
 import data from '@/data/documentosMaisPedidos.json';
 import { asset, route } from '@/lib/paths';
 import { nomeCurtoDoDocumento, previaDoDocumento } from '@/lib/previas';
+
+interface Props {
+  /** Na própria /documentos o atalho "Ver todos os documentos" não faz sentido: some. */
+  naCentral?: boolean;
+}
+const { naCentral = false } = Astro.props;
 ---
 
 <section aria-labelledby="mais-pedidos-titulo" class="space-y-4" data-tour="gabriel">
@@ -11,9 +17,11 @@ import { nomeCurtoDoDocumento, previaDoDocumento } from '@/lib/previas';
     <h2 id="mais-pedidos-titulo" class="font-heading text-xl font-bold text-foreground m-0">
       Documentos mais pedidos
     </h2>
-    <a href={route('/documentos')} class="text-sm font-bold text-primary underline underline-offset-[0.22em]">
-      Ver todos os documentos
-    </a>
+    {!naCentral && (
+      <a href={route('/documentos')} class="text-sm font-bold text-primary underline underline-offset-[0.22em]">
+        Ver todos os documentos
+      </a>
+    )}
   </div>
   <p class="m-0 text-base text-muted-foreground max-w-[68ch]">
     Alguém pediu no grupo? Toque em <strong class="text-foreground">Enviar</strong> e mande o link direto.

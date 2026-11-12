@@ -31,7 +31,7 @@ import { tactileSpring } from '@/lib/motion';
 const BUDGET_ALLOCATION_DATA = [
   { name: 'Semana Acadêmica & Debates', value: 42, fill: '#A85300' },
   { name: 'Acolhimento Calouros', value: 28, fill: '#5B2A85' },
-  { name: 'Manutenção Sede F-4000', value: 18, fill: '#FE8812' },
+  { name: 'Manutenção da sede', value: 18, fill: '#FE8812' },
   { name: 'Fundo de Reserva', value: 12, fill: '#266264' },
 ];
 
@@ -53,6 +53,40 @@ const RREO_CHART_CONFIG: ChartConfig = {
 };
 
 type EntryFilterType = 'todos' | 'receita' | 'despesa';
+
+type Lancamento = (typeof SIMULATED_TRANSPARENCY.entries)[number];
+
+/**
+ * Baixa os lançamentos que estão na tela como planilha (CSV com ponto e vírgula, que o Excel e o
+ * Google Planilhas abrem direto). Enquanto os números forem de exemplo, o arquivo diz isso no nome e
+ * numa coluna própria, para ninguém confundir com as contas do CAGP.
+ */
+function baixarPlanilha(lancamentos: readonly Lancamento[]) {
+  const campo = (v: string) => `"${v.replace(/"/g, '""')}"`;
+  const linhas = [
+    ['Código', 'Data', 'Descrição', 'Rubrica', 'Tipo', 'Valor (R$)', 'Documento', 'Situação', 'Observação'],
+    ...lancamentos.map((l) => [
+      l.code,
+      l.date,
+      l.description,
+      l.category,
+      l.type === 'receita' ? 'Entrada' : 'Saída',
+      (l.type === 'receita' ? l.amountValue : -l.amountValue).toFixed(2).replace('.', ','),
+      l.documentRef,
+      l.status,
+      'EXEMPLO: valor fictício, não é do CAGP',
+    ]),
+  ];
+  const csv = '\uFEFF' + linhas.map((linha) => linha.map(campo).join(';')).join('\r\n');
+  const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'livro-caixa-cagp-exemplo.csv';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 4000);
+}
 
 export const CagpTransparenciaPortal: React.FC = () => {
   const [filterType, setFilterType] = useState<EntryFilterType>('todos');
@@ -79,10 +113,11 @@ export const CagpTransparenciaPortal: React.FC = () => {
       >
         <div className="space-y-1">
           <strong className="font-heading font-bold text-warning block text-sm">
-            Daqui para baixo, tudo é exemplo
+            O portal funciona; os números são de exemplo
           </strong>
           <p className="m-0 text-sm leading-relaxed">
-            Saldos, gráficos, lançamentos, comprovantes e atas abaixo são fictícios. {SIMULATION_NOTICE}
+            Saldos, gráficos, lançamentos, comprovantes e atas abaixo são fictícios, porque a Chapa Semente ainda não é
+            gestão e não tem as contas do CAGP. {SIMULATION_NOTICE}
           </p>
         </div>
         <span className="font-heading text-xs font-bold uppercase tracking-[0.04em] tabular-nums bg-white px-2.5 py-1 rounded-md border-2 border-border text-foreground shrink-0 self-start sm:self-center">
@@ -289,6 +324,15 @@ export const CagpTransparenciaPortal: React.FC = () => {
                 </option>
               ))}
             </select>
+
+            <button
+              type="button"
+              onClick={() => baixarPlanilha(filteredEntries)}
+              className="inline-flex min-h-[44px] items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-head uppercase font-extrabold border-3 border-border bg-white hover:bg-muted text-foreground shadow-xs cursor-pointer active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all"
+            >
+              <i className="bi bi-download" aria-hidden="true" />
+              Baixar planilha (exemplo)
+            </button>
           </div>
         </div>
 

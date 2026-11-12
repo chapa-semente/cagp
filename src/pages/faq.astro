@@ -7,7 +7,9 @@ import SegmentedControl from '../components/ui/SegmentedControl.astro';
 import JourneyNav from '../components/ui/JourneyNav.astro';
 import { FaqInteractiveExplorer } from '../components/features/faq/FaqInteractiveExplorer';
 import { CTASection } from '../components/boldkit/blocks/cta-section';
+import { route } from '@/lib/paths';
 import { asset } from '@/lib/paths';
+import { ATENDIMENTO_CURSO } from '@/data/acolhimento';
 
 const tabs = [
   { id: 'v1', shortLabel: 'Perguntas', fullLabel: 'Perguntas frequentes', hash: '#faq' },
@@ -95,7 +97,7 @@ const faqs = [
     badge: 'F-2039 & CEAG 2º Andar',
     icon: 'bi-moon-stars-fill',
     cat: 'modalidades',
-    a: 'A Secretaria do Curso de Gestão Pública (Sala F-2039, com a secretária Norma Guedes) atende às quartas-feiras das 13h00 às 19h00. O suporte continuado de graduação é realizado pela Central de Atendimento à Graduação (CEAG FAFICH, localizada no 2º andar, Sala F-2033), que atende de segunda a sexta, das 08h00 às 22h00 ininterruptamente, cobrindo integralmente o turno noturno. E-mail do Colegiado: coordgestaopublica@gmail.com.',
+    a: `A Secretaria do Curso de Gestão Pública (Sala F-2039, com ${ATENDIMENTO_CURSO.secretaria.atendentesCurto}) atende às quartas-feiras das 13h00 às 19h00. O suporte continuado de graduação é realizado pela Central de Atendimento à Graduação (CEAG FAFICH, localizada no 2º andar, Sala F-2033), que atende de segunda a sexta, das 08h00 às 22h00 ininterruptamente, cobrindo integralmente o turno noturno. E-mail da Secretaria: ${ATENDIMENTO_CURSO.secretaria.email}. E-mail da Coordenação: ${ATENDIMENTO_CURSO.coordenacao.email}.`,
     links: [],
   },
   {
@@ -227,8 +229,9 @@ const faqs = [
 
     <CTASection
       title="Ainda tem alguma dúvida específica sobre o curso?"
-      subtitle="Fale diretamente com a Secretaria do Curso (Sala 2039, 4ª feira 13h–19h • gestaopublica@ufmg.br), com a Coordenação (Profª Isabele Mitozo • coordgestaopublicaufmg@gmail.com) ou com a Diretoria Acadêmica do CAGP."
-      actionText="Abrir Fala com o CA (Ouvidoria)"
+      subtitle={`Fale diretamente com a Secretaria do Curso (Sala 2039, 4ª feira 13h–19h • ${ATENDIMENTO_CURSO.secretaria.email}), com a Coordenação (Profª Isabele Mitozo • ${ATENDIMENTO_CURSO.coordenacao.email}) ou com a Diretoria Acadêmica do CAGP.`}
+      actionText="Faltou sua dúvida? Fala com a gente"
+      href={route('/ouvidoria')}
       className="rounded-xl bg-primary"
     />
   </section>

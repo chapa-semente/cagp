@@ -9,6 +9,7 @@ import DocumentosAtosRegulamentares from '../components/features/documentos/atos
 import DocumentosFormulariosOficiais from '../components/features/documentos/formularios/DocumentosFormulariosOficiais.astro';
 import DocumentosDrcaPrazos from '../components/features/documentos/drca/DocumentosDrcaPrazos.astro';
 import { DocumentosInteractiveSearch } from '../components/features/documentos/DocumentosInteractiveSearch';
+import DocumentosMaisPedidos from '../components/features/guias/DocumentosMaisPedidos.astro';
 
 const tabs = [
   { id: 'v0', shortLabel: 'Mais pedidos', fullLabel: 'Os mais pedidos', hash: '#visao-geral' },
@@ -40,8 +41,10 @@ const badges = [
   <SegmentedControl tabs={tabs} defaultTab="v0" />
 
   <!-- Sub-view 0: Visão Geral do Eixo 4 (Acervo) -->
-  <section id="ws-panel-v0" class="cagp-workspace-view" data-ws-panel="v0" data-context-type="doc-template">
+  <section id="ws-panel-v0" class="cagp-workspace-view space-y-8" data-ws-panel="v0" data-context-type="doc-template">
     <div id="visao-geral" class="cagp-anchor-target scroll-mt-24"></div>
+    <!-- A aba se chama "Mais pedidos": é a mesma lista da aba Guias, de uma fonte só. -->
+    <DocumentosMaisPedidos naCentral />
     <DocumentosInteractiveSearch client:visible />
     <DocumentosCentralOverview />
   </section>

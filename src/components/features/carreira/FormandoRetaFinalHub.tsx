@@ -10,140 +10,20 @@ import {
 import { asset, route } from '@/lib/paths';
 import { tactileSpring, bounceSpring, staggerContainer, staggerItem } from '@/lib/motion';
 import { toast } from '@/lib/toast';
+import { EXTENSION_ITEMS, AAC_ITEMS } from '@/components/features/acg/calculator/acgCatalog';
 
-interface RetaFinalStep {
-  id: string;
-  category: 'estagio' | 'tcc' | 'colacao';
-  categoryLabel: string;
-  periodTag: string;
-  title: string;
-  desc: string;
-  normativeRef: string;
-  actionHref?: string;
-  actionLabel?: string;
-  isDownload?: boolean;
-}
+import { ETAPA_DISCIPLINA, RETA_FINAL_STEPS } from '@/lib/retaFinal';
 
-const RETA_FINAL_STEPS: RetaFinalStep[] = [
-  {
-    id: 'rf_estagio_plano',
-    category: 'estagio',
-    categoryLabel: 'Estágio 300h',
-    periodTag: '7º Período • DCP 135',
-    title: '1. Homologar TCE + Plano de Atividades ou Protocolar Aproveitamento Servidor (Art. 41)',
-    desc: 'Submeter via Google Forms do Colegiado o Termo de Compromisso assinado ou o Requerimento de Aproveitamento Servidor com declaração da chefia.',
-    normativeRef: 'Arts. 29 e 41 • Regulamento N-20229',
-    actionHref: route('/estagio') + '#art41',
-    actionLabel: 'Simular Art. 41',
-  },
-  {
-    id: 'rf_estagio_dcp135',
-    category: 'estagio',
-    categoryLabel: 'Estágio 300h',
-    periodTag: '7º Período • 180h',
-    title: '2. Integralizar Estágio Supervisionado A (DCP 135 — 180h / 12 créditos)',
-    desc: 'Entregar o Relatório Parcial/Semestral ou Memorial de Experiência Profissional no Moodle para fechamento da nota de DCP 135.',
-    normativeRef: 'Resolução GP nº 01/2019',
-    actionHref: asset('/documentos/estagio-modelo-relatorio-semestral.docx'),
-    actionLabel: 'Modelo Relatório (.DOCX)',
-    isDownload: true,
-  },
-  {
-    id: 'rf_estagio_dcp136',
-    category: 'estagio',
-    categoryLabel: 'Estágio 300h',
-    periodTag: '8º Período • 120h',
-    title: '3. Integralizar Estágio Supervisionado B (DCP 136 — 120h / 8 créditos)',
-    desc: 'Concluir as 300h obrigatórias com a aprovação do Relatório Final de Estágio ou Relatório de Atividades do Art. 41.',
-    normativeRef: 'Total: 300h (20 créditos)',
-    actionHref: asset('/documentos/estagio-modelo-relatorio-final.docx'),
-    actionLabel: 'Relatório Final (.DOCX)',
-    isDownload: true,
-  },
-  {
-    id: 'rf_tcc_orientador',
-    category: 'tcc',
-    categoryLabel: 'TCC 180h',
-    periodTag: 'Pré-9º Período',
-    title: '4. Colher Assinatura no Termo de Aceite de Orientador(a) de TCC',
-    desc: 'Formalizar o aceite com docente do DCP (respeitando o limite de 4 orientandos por professor) e entregar na Secretaria (Sala F-2039) antes da matrícula em DCP 089.',
-    normativeRef: 'Arts. 21 e 22 • Obrigatório para DCP 089',
-    actionHref: asset('/documentos/termo-aceite-orientador-tcc.pdf'),
-    actionLabel: 'Modelo de Aceite (PDF)',
-    isDownload: true,
-  },
-  {
-    id: 'rf_tcc_dcp089',
-    category: 'tcc',
-    categoryLabel: 'TCC 180h',
-    periodTag: '9º Período • 60h',
-    title: '5. Aprovação no Projeto de TCC (DCP 089 — 60h / 4 créditos)',
-    desc: 'Definir uma das 4 modalidades do Art. 19 (Monografia, Artigo Científico, Intervenção Governamental ou IC) e qualificar o projeto.',
-    normativeRef: 'Art. 19 • 4 Modalidades',
-    actionHref: route('/tcc') + '#modalidades',
-    actionLabel: 'Comparar Modalidades',
-  },
-  {
-    id: 'rf_tcc_banca',
-    category: 'tcc',
-    categoryLabel: 'TCC 180h',
-    periodTag: '10º Período • 120h',
-    title: '6. Defesa Pública perante Banca Examinadora (DCP 137 — 120h / 8 créditos)',
-    desc: 'Depositar a versão de defesa até 15 dias antes da sessão pública e obter nota igual ou superior a 60 pontos perante a banca (orientador + avaliador).',
-    normativeRef: 'Arts. 24 a 27 • Regulamento N-20229',
-    actionHref: route('/tcc') + '#cronograma',
-    actionLabel: 'Ver Linha do Tempo',
-  },
-  {
-    id: 'rf_tcc_deposito',
-    category: 'tcc',
-    categoryLabel: 'TCC 180h',
-    periodTag: 'Pós-Defesa • F-2039',
-    title: '7. Depósito da Versão Final em PDF e Ficha Catalográfica',
-    desc: 'Incorporar as recomendações da banca e enviar o PDF definitivo à Secretaria do Colegiado para emissão da ata de conclusão.',
-    normativeRef: 'Art. 28 • Homologação Final',
-    actionHref: route('/tcc') + '#termo-aceite',
-    actionLabel: 'Regras de Depósito',
-  },
-  {
-    id: 'rf_colacao_600h',
-    category: 'colacao',
-    categoryLabel: 'Colação & DRCA',
-    periodTag: 'Até o 9º/10º Período',
-    title: '8. Protocolar 300h de Extensão + 300h de AAC (Respeitando os 120 Dias)',
-    desc: 'Confirmar que todos os certificados de formação livre, eventos e extensão foram lançados no SIGA sem prescrição pelo Art. 15.',
-    normativeRef: '600h Flexíveis • PPC 2020',
-    actionHref: route('/acg'),
-    actionLabel: 'Abrir Calculadora 600h',
-  },
-  {
-    id: 'rf_colacao_enade',
-    category: 'colacao',
-    categoryLabel: 'Colação & DRCA',
-    periodTag: 'Semestre de Formatura',
-    title: '9. Regularidade no ENADE, Nada Consta da Biblioteca e Quitação Eleitoral',
-    desc: 'Verificar ausência de pendências no Sistema de Bibliotecas UFMG, Questionário do Estudante ENADE (se ano de ciclo) e dados civis no SIGA.',
-    normativeRef: 'Exigência DRCA / UFMG',
-    actionHref: route('/documentos'),
-    actionLabel: 'Ver Prazos DRCA',
-  },
-  {
-    id: 'rf_colacao_assinatura',
-    category: 'colacao',
-    categoryLabel: 'Colação & DRCA',
-    periodTag: 'Solenidade FAFICH',
-    title: '10. Requerimento de Colação de Grau na Seção de Ensino & Cadastro no Banco de Talentos',
-    desc: 'Assinar a lista oficial de prováveis formandos da FAFICH e cadastrar seu currículo no Banco de Talentos de Gestão Pública.',
-    normativeRef: 'Diploma de Bacharel em Gestão Pública',
-    actionHref: route('/carreira/talentos'),
-    actionLabel: 'Cadastrar Currículo',
-  },
-];
+const somaHoras = (itens: { key: string }[], dados: Record<string, number>) =>
+  itens.reduce((acc, it) => acc + (Number(dados[it.key]) || 0), 0);
 
 export const FormandoRetaFinalHub: React.FC = () => {
   const [checks, setChecks] = useState<VaultData<'cagp_reta_final_checklist_v1'>>({});
   const [art41Checks, setArt41Checks] = useState<VaultData<'cagp_art41_checklist_v1'>>({});
   const [userRole, setUserRole] = useState<UserRole>('formando');
+  // O que o site já sabe: disciplinas marcadas em Meu curso e horas da lista de atividades.
+  const [cursadas, setCursadas] = useState<string[]>([]);
+  const [calc, setCalc] = useState<Record<string, number>>({});
   const [activeFilter, setActiveFilter] = useState<'all' | 'estagio' | 'tcc' | 'colacao'>('all');
 
   useEffect(() => {
@@ -151,6 +31,8 @@ export const FormandoRetaFinalHub: React.FC = () => {
       setChecks(getVaultItem('cagp_reta_final_checklist_v1') || {});
       setArt41Checks(getVaultItem('cagp_art41_checklist_v1') || {});
       setUserRole(getVaultItem('cagp_user_role_v1') || 'formando');
+      setCursadas(getVaultItem('cagp_minha_grade_v1')?.savedCourses ?? []);
+      setCalc(getVaultItem('cagp_calc_ext_aac_v1') ?? {});
     };
     loadVault();
     window.addEventListener('cagp:vault-updated', loadVault);
@@ -183,14 +65,20 @@ export const FormandoRetaFinalHub: React.FC = () => {
     toast.success('Pronto: etapas marcadas como feitas.');
   };
 
-  const completedTotal = RETA_FINAL_STEPS.filter((s) => checks[s.id]).length;
+  // Feita = marcada aqui OU já marcada na grade de Meu curso (um dado, um dono).
+  const naGrade = (id: string) => Boolean(ETAPA_DISCIPLINA[id] && cursadas.includes(ETAPA_DISCIPLINA[id]));
+  const feita = (id: string) => Boolean(checks[id]) || naGrade(id);
+  const extH = Math.min(300, somaHoras(EXTENSION_ITEMS, calc));
+  const aacH = Math.min(300, somaHoras(AAC_ITEMS, calc));
+
+  const completedTotal = RETA_FINAL_STEPS.filter((s) => feita(s.id)).length;
   const totalSteps = RETA_FINAL_STEPS.length;
   const progressPct = Math.round((completedTotal / totalSteps) * 100);
   const isGradReady = completedTotal === totalSteps;
 
-  const estagioDone = RETA_FINAL_STEPS.filter((s) => s.category === 'estagio' && checks[s.id]).length;
-  const tccDone = RETA_FINAL_STEPS.filter((s) => s.category === 'tcc' && checks[s.id]).length;
-  const colacaoDone = RETA_FINAL_STEPS.filter((s) => s.category === 'colacao' && checks[s.id]).length;
+  const estagioDone = RETA_FINAL_STEPS.filter((s) => s.category === 'estagio' && feita(s.id)).length;
+  const tccDone = RETA_FINAL_STEPS.filter((s) => s.category === 'tcc' && feita(s.id)).length;
+  const colacaoDone = RETA_FINAL_STEPS.filter((s) => s.category === 'colacao' && feita(s.id)).length;
   const art41Count = Object.values(art41Checks).filter(Boolean).length;
 
   const filteredSteps =
@@ -440,7 +328,8 @@ export const FormandoRetaFinalHub: React.FC = () => {
         <motion.div className="space-y-3.5">
           <AnimatePresence mode="popLayout" initial={false}>
             {filteredSteps.map((step) => {
-              const isDone = !!checks[step.id];
+              const auto = naGrade(step.id);
+              const isDone = feita(step.id);
               return (
                 <motion.div
                   layout
@@ -457,6 +346,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
                     <input
                       type="checkbox"
                       checked={isDone}
+                      disabled={auto}
                       onChange={() => toggleStep(step.id)}
                       className="mt-1 w-5 h-5 accent-[#134E4A] rounded border-2 border-border cursor-pointer shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                     />
@@ -482,6 +372,18 @@ export const FormandoRetaFinalHub: React.FC = () => {
                       <p className="font-sans text-xs text-muted-foreground leading-relaxed m-0 font-medium">
                         {step.desc}
                       </p>
+                      {auto && (
+                        <p className="font-sans text-xs text-foreground leading-relaxed m-0 font-bold">
+                          {ETAPA_DISCIPLINA[step.id]} já está marcada em{' '}
+                          <a href={route('/meu-curso')} className="text-primary underline underline-offset-2">Meu curso</a>. Pra desfazer, desmarque lá.
+                        </p>
+                      )}
+                      {step.id === 'rf_colacao_600h' && (
+                        <p className="font-sans text-xs text-foreground leading-relaxed m-0 font-bold tabular-nums">
+                          Nas suas atividades: {extH} de 300h de extensão e {aacH}h de AAC.{' '}
+                          <a href={route('/meu-curso') + '#atividades'} className="text-primary underline underline-offset-2">Abrir minhas atividades</a>
+                        </p>
+                      )}
                     </div>
                   </label>
 
@@ -493,7 +395,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
                         transition={bounceSpring}
                         className="px-2.5 py-1.5 rounded-lg border-2 border-border bg-petroleo-deep text-white font-mono text-xs font-black uppercase shadow-2xs"
                       >
-                        HOMOLOGADO
+                        {auto ? 'NA SUA GRADE' : 'HOMOLOGADO'}
                       </motion.span>
                     )}
                     {step.actionHref && (
@@ -524,7 +426,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
             Formar sem burocracia é direito de todo estudante do noturno
           </h4>
           <p className="font-sans text-xs text-content-secondary leading-relaxed m-0 font-medium">
-            A <strong>Chapa Semente</strong> construiu esta tela antes mesmo da eleição para que nenhum formando perca prazos de TCE, Aproveitamento Servidor (Art. 41) ou depósito de TCC. Vote Chapa 2, a chapa que já trabalha por você!
+            A <strong>Chapa Semente</strong> construiu esta tela antes mesmo da eleição para que nenhum formando perca prazos de TCE, Aproveitamento Servidor (Art. 41) ou depósito de TCC.
           </p>
         </div>
 

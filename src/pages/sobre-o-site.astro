@@ -13,6 +13,8 @@ import TramitePassos from '../components/ui/tramite/TramitePassos.astro';
 import type { TramitePasso } from '../components/ui/tramite/types';
 import { AXIS_REGISTRY } from '@/lib/navigationRegistry';
 import { route } from '@/lib/paths';
+import { ARTISTA_DOS_DESENHOS } from '@/lib/creditos';
+import { AdesivoChapa } from '../components/features/semente/DesenhosDaChapa';
 
 // O passo 1 lê as abas do registro: se uma aba mudar de nome ou de resumo, a cartilha muda junto.
 const abas = AXIS_REGISTRY.map((a) => `<strong>${a.mobileLabel}</strong> · ${a.resumo}`).join('<br>');
@@ -83,15 +85,30 @@ const passos: TramitePasso[] = [
       </p>
     </section>
 
+    <section aria-labelledby="sobre-site-desenhos" class="sobre-site-papel sobre-site-desenhos">
+      <div>
+        <h2 id="sobre-site-desenhos">Quem desenhou</h2>
+        <p>
+          As mãos, a estrela e as letras dos desenhos do site são de <strong>{ARTISTA_DOS_DESENHOS.nome}</strong>,{' '}
+          {ARTISTA_DOS_DESENHOS.quem} e artista. Os outros desenhos seguem o traço dela.
+        </p>
+        <p>
+          Mais do trabalho dela no Instagram:{' '}
+          <a href={ARTISTA_DOS_DESENHOS.url} target="_blank" rel="noopener noreferrer">{ARTISTA_DOS_DESENHOS.instagram}<span class="sr-only"> (abre em outra aba)</span></a>.
+        </p>
+      </div>
+      <AdesivoChapa client:visible className="sobre-site-adesivo" />
+    </section>
+
     <section aria-labelledby="sobre-site-faltou" class="sobre-site-papel">
       <h2 id="sobre-site-faltou">Faltou alguma coisa?</h2>
       <p>
-        Achou um erro ou tem uma ideia? Escreva pro e-mail da Chapa Semente:
-        <a href="mailto:chapa.semente.gp@gmail.com">chapa.semente.gp@gmail.com</a>.
+        Achou um erro, tem uma ideia ou quer criticar? A gente quer ouvir:{' '}
+        <a href={route('/ouvidoria')}>fala com a gente</a>.
       </p>
       <button type="button" class="sobre-site-tour" data-cagp-dispatch="cagp:start-semente-tour">
         <i class="bi bi-compass" aria-hidden="true"></i>
-        Rever o tour da chapa
+        Rever a apresentação da chapa
       </button>
     </section>
   </div>
@@ -106,11 +123,16 @@ const passos: TramitePasso[] = [
     max-width: 46rem;
   }
   /* Volume Papel: texto direto no solo, régua grafite sob o título. */
+  @media (min-width: 640px) { .sobre-site-desenhos { grid-template-columns: minmax(0, 1fr) 15rem; } }
+  .sobre-site-desenhos :global(.sobre-site-adesivo) { display: block; width: min(100%, 15rem); height: auto; rotate: -3deg; }
   .sobre-site-papel {
     display: grid;
     gap: 0.75rem;
     justify-items: start;
   }
+  /* Quem desenhou: o texto de um lado, o adesivo original do outro. */
+  .sobre-site-desenhos { gap: 1rem; align-items: center; }
+  .sobre-site-desenhos > div { display: grid; gap: 0.75rem; justify-items: start; }
   .sobre-site-papel h2 {
     width: 100%;
     margin: 0;

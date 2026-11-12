@@ -163,7 +163,7 @@ export const PwaCredenciamentoPill: React.FC = () => {
               className="absolute bottom-[calc(100%+0.75rem)] left-0 w-[min(20rem,calc(100vw-1.5rem))] p-4 rounded-2xl bg-primary text-white border-3 border-border shadow-xl space-y-3"
             >
               <p className="m-0 font-heading font-bold text-lg leading-tight">Você é Semente.</p>
-              <p className="m-0 text-sm text-white">Nosso número é o <strong>{CHAPA_NUMERO}</strong>. Votação dia 25 e 26/11, das 17h às 22h30, na sala do CAGP. Leve documento com foto.</p>
+              <p className="m-0 text-sm text-white">Nosso número é o <strong>{CHAPA_NUMERO}</strong>. Votação dia 25 e 26/11, das 17h às 22h30, na sala do CAGP.</p>
               <div className="flex flex-col gap-2">
                 <button
                   type="button"

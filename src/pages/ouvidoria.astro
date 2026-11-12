@@ -1,57 +1,104 @@
 ---
-// src/pages/ouvidoria.astro — Canal Contínuo de Escuta Discente & Ouvidoria (Super App CAGP UFMG)
+// src/pages/ouvidoria.astro — "Fala com a gente": críticas, erros e ideias sobre o site, já funcionando.
+//
+// A rota continua /ouvidoria. Até 12/11/2026 a página era só a demonstração da Proposta 14 (o "Fala com
+// o CA", que guardava um rascunho no celular). Decisão do Gabriel em 12/11: o canal passa a servir de
+// verdade, agora, para o que a chapa pode receber sem ser gestão, crítica, erro e sugestão sobre este
+// site. A Proposta 14 continua na página, como o que este mesmo canal vira se a Semente for eleita.
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { OuvidoriaInteractiveCenter } from '@/components/features/ouvidoria/OuvidoriaInteractiveCenter';
+import { FeedbackDoSite } from '@/components/features/ouvidoria/FeedbackDoSite';
 import PageHeader from '@/components/ui/PageHeader.astro';
 import SementeSignature from '@/components/ui/SementeSignature.astro';
+
+const depois = [
+  { titulo: 'Chega na chapa', texto: 'A mensagem cai no e-mail da Chapa Semente, e quem lê é a equipe que fez o site.' },
+  { titulo: 'Erro vira conserto', texto: 'Informação errada, link quebrado ou botão que não funciona entram na frente da fila.' },
+  { titulo: 'Crítica vira mudança', texto: 'Foi assim que o tour encurtou e a aba “Hoje” virou “Início”: uma colega do curso testou e falou o que não gostou.' },
+];
+const proposta = [
+  { titulo: 'Triagem toda semana', texto: 'A Vice-Presidência vai abrir o canal oficial e juntar as demandas, sem expor quem mandou.' },
+  { titulo: 'Vira pauta no Colegiado', texto: 'Ementa desatualizada e cobrança irregular vão ser levadas à reunião do Colegiado.' },
+  { titulo: 'A gente cobra solução', texto: 'Problema de estrutura vai ser cobrado da Diretoria da FAFICH e da Chefia do DCP.' },
+];
 ---
 
 <BaseLayout
-  title="Fala com o CA"
-  description="Fala com o CA (Proposta 14 da Chapa Semente): escreva sua demanda sobre ementas, infraestrutura ou o Colegiado e guarde o texto até o canal oficial abrir."
+  title="Fala com a gente"
+  description="Achou um erro, tem uma ideia ou uma crítica ao site da Chapa Semente? Mande aqui. É também a Proposta 14: o canal de escuta que a chapa quer para o CAGP."
   mode="operate"
 >
-  <div class="space-y-8 max-w-5xl mx-auto">
+  <div class="space-y-10 max-w-5xl mx-auto">
     <PageHeader
-      title="Fala com o CA"
-      subtitle="Reclamação de ementa, sala sem estrutura, pauta pro Colegiado: escreve aqui. O rascunho fica só no seu celular até o CAGP ter um canal oficial."
-      badges={[{ label: 'Proposta 14 da Chapa', variant: 'accent' }]}
+      title="Fala com a gente"
+      subtitle="Erro, ideia ou crítica ao site: manda. A gente quer ouvir."
+      badges={[{ label: 'Já funciona', variant: 'accent' }]}
       mode="operate"
     />
 
-    {/* Centro Interativo de Manifestações */}
-    <section aria-label="Área de Protocolo e Histórico" data-tour="larissa">
-      <OuvidoriaInteractiveCenter client:load />
+    <section aria-label="Mandar uma crítica, um erro ou uma ideia" data-tour="larissa">
+      <FeedbackDoSite client:load />
     </section>
 
-    <section aria-labelledby="ouvidoria-depois" class="space-y-4">
-      <h2 id="ouvidoria-depois" class="font-heading font-bold text-xl text-foreground m-0">
-        Se a Semente ganhar, é assim que funciona
-      </h2>
-      <ol class="list-none m-0 p-0 grid grid-cols-1 sm:grid-cols-3 gap-4 cagp-reveal-stagger">
-        <li class="p-4 rounded-xl border-2 border-border bg-white shadow-md">
-          <span class="font-heading font-bold text-3xl text-primary tabular-nums leading-none">1</span>
-          <strong class="block font-heading font-bold text-base text-foreground mt-2">Triagem toda semana</strong>
-          <span class="block text-sm text-content-secondary mt-1">A Vice-Presidência vai abrir o canal oficial e juntar as demandas, sem expor quem mandou.</span>
-        </li>
-        <li class="p-4 rounded-xl border-2 border-border bg-white shadow-md">
-          <span class="font-heading font-bold text-3xl text-primary tabular-nums leading-none">2</span>
-          <strong class="block font-heading font-bold text-base text-foreground mt-2">Vira pauta no Colegiado</strong>
-          <span class="block text-sm text-content-secondary mt-1">Ementa desatualizada e cobrança irregular vão ser levadas à reunião do Colegiado.</span>
-        </li>
-        <li class="p-4 rounded-xl border-2 border-border bg-white shadow-md">
-          <span class="font-heading font-bold text-3xl text-primary tabular-nums leading-none">3</span>
-          <strong class="block font-heading font-bold text-base text-foreground mt-2">A gente cobra solução</strong>
-          <span class="block text-sm text-content-secondary mt-1">Problema de estrutura vai ser cobrado da Diretoria da FAFICH e da Chefia do DCP.</span>
-        </li>
+    <section aria-labelledby="fala-depois" class="space-y-4">
+      <h2 id="fala-depois" class="fala-h2">O que acontece com o que você manda</h2>
+      <ol class="fala-passos">
+        {depois.map((p) => (
+          <li>
+            <strong>{p.titulo}</strong>
+            <span>{p.texto}</span>
+          </li>
+        ))}
       </ol>
-      <p class="text-sm text-muted-foreground m-0">Hoje ainda não existe canal oficial do CAGP: o que você escreve aqui fica só no seu celular.</p>
+    </section>
+
+    <section aria-labelledby="fala-proposta" class="space-y-4">
+      <div class="space-y-1.5">
+        <h2 id="fala-proposta" class="fala-h2">Se a Semente ganhar, vira o canal do curso</h2>
+        <p class="m-0 max-w-[66ch] text-base leading-relaxed text-content-secondary">
+          Hoje este canal recebe o que é sobre o site. A Proposta 14 da nossa carta é levar o mesmo jeito de escutar para o
+          centro acadêmico: ementa, estrutura, Colegiado. Isso ainda é proposta, e depende da eleição.
+        </p>
+      </div>
+      <ol class="fala-passos">
+        {proposta.map((p) => (
+          <li>
+            <strong>{p.titulo}</strong>
+            <span>{p.texto}</span>
+          </li>
+        ))}
+      </ol>
     </section>
 
     <SementeSignature
       proposal="Proposta 14"
       leaderId="larissa"
-      text="Fizemos este canal porque CA não pode ser panelinha: a gestão existe pra servir todas as turmas, não só quem conhece alguém da diretoria."
+      text="CA não pode ser panelinha, e a gente também não: crítica ao que a Semente fez é bem-vinda, e é por ela que o site melhora."
     />
   </div>
 </BaseLayout>
+
+<style>
+  .fala-h2 { margin: 0; font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; line-height: 1.2; color: var(--color-foreground); }
+  /* A sequência importa (primeiro chega, depois vira conserto): por isso o número. */
+  .fala-passos { margin: 0; padding: 0; list-style: none; display: grid; gap: 0; counter-reset: passo; border-top: 2px solid var(--color-border); }
+  .fala-passos li {
+    counter-increment: passo;
+    display: grid;
+    grid-template-columns: 2.25rem minmax(0, 1fr);
+    column-gap: 0.75rem;
+    padding: 0.875rem 0;
+    border-bottom: 2px solid var(--color-border);
+  }
+  .fala-passos li::before {
+    content: counter(passo);
+    grid-row: span 2;
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-primary);
+  }
+  .fala-passos strong { font-family: var(--font-heading); font-size: 1.125rem; line-height: 1.25; color: var(--color-foreground); }
+  .fala-passos span { font-size: 1rem; line-height: 1.55; color: var(--color-content-secondary); max-width: 62ch; }
+</style>

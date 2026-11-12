@@ -61,7 +61,10 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
   };
 
   const handleSaveProfile = () => {
-    setVaultItem('cagp_student_profile_v1', profile);
+    // Salvou em "Sobre você": o perfil deixa de ser o rascunho criado pela foto do tour.
+    const completo = { ...profile, rascunho: undefined };
+    setProfile(completo);
+    setVaultItem('cagp_student_profile_v1', completo);
     toast.success('Perfil salvo neste celular.');
     setActiveTab('passport');
   };

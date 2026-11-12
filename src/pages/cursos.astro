@@ -4,13 +4,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
 import SementeSignature from '../components/ui/SementeSignature.astro';
 import JourneyNav from '../components/ui/JourneyNav.astro';
+import SeuProgresso from '../components/ui/SeuProgresso.astro';
 import { CursosCatalogHub } from '../components/features/cursos/CursosCatalogHub';
 import { route } from '@/lib/paths';
 ---
 
 <BaseLayout
   title="Cursos que contam horas"
-  description="Proposta 10 da Chapa Semente: Catálogo de Cursos Livres do CAGP, UFMG e 1.045+ cursos gratuitos da ENAP/EV.G com simulação e inscrição em 1 clique na Calculadora de 600h de Extensão e AAC."
+  description="Proposta 10 da Chapa Semente: Catálogo de Cursos Livres do CAGP, UFMG e 1.045+ cursos gratuitos da ENAP/EV.G pra guardar na sua lista de atividades e contar nas 600h de extensão e AAC."
   mode="operate"
 >
   <div id="cagp-cursos-header">
@@ -31,6 +32,8 @@ import { route } from '@/lib/paths';
       <CursosCatalogHub client:load />
     </section>
 
+    <SeuProgresso tema="horas" />
+
     <SementeSignature
       proposal="Proposta 10"
       text="Cursos livres de ciência política, orçamento e dados no portal do CAGP, somados aos cursos gratuitos da ENAP que contam para as suas 600h."
@@ -39,7 +42,7 @@ import { route } from '@/lib/paths';
 
     <JourneyNav
       prev={{ title: 'Catálogo de optativas', href: '/optativas', desc: 'Busca e filtro por departamento no PPC.' }}
-      next={{ title: 'Horas & 600h', href: '/acg', desc: 'Simule as horas e o prazo de 120 dias do Art. 15.' }}
+      next={{ title: 'Horas & 600h', href: '/acg', desc: 'O que conta nas 600h e como protocolar em 120 dias.' }}
     />
   </div>
 </BaseLayout>

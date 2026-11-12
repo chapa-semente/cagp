@@ -8,6 +8,7 @@ import dados from '@/data/molduras.json';
 import { corpoDoVoto, montarMensagem, urlAbsoluta } from '@/lib/compartilhar';
 import { asset, route } from '@/lib/paths';
 import { FOLHA_PATH } from '@/lib/sementeGeometry';
+import { guardarFotoNoPerfil, lerFotoDoPerfil } from '@/lib/fotoDoPerfil';
 
 type Formato = 'perfil' | 'feed' | 'story';
 interface Moldura {
@@ -348,6 +349,25 @@ function baixar(f: File) {
   setTimeout(() => URL.revokeObjectURL(url), 4000);
 }
 
+/**
+ * Uma foto só (12/11/2026): a que a pessoa escolhe aqui vira a de Seu perfil, e a de Seu perfil já
+ * chega aqui no lugar. `substituir` é falso na página da moldura (não troca a foto que ela já tinha).
+ */
+export async function usarFoto(origem: File | string, substituirNoPerfil: boolean): Promise<HTMLImageElement> {
+  const url = typeof origem === 'string' ? origem : URL.createObjectURL(origem);
+  try {
+    const im = await carregar(url);
+    estado.foto = im;
+    estado.zoom = 1;
+    estado.dx = 0;
+    estado.dy = 0;
+    if (typeof origem !== 'string') guardarFotoNoPerfil(im, substituirNoPerfil);
+    return im;
+  } finally {
+    if (typeof origem !== 'string') URL.revokeObjectURL(url);
+  }
+}
+
 /** Liga a ferramenta numa marcação `[data-moldura]` (a página da moldura ou a última tela do tour). */
 export function ligarMoldura(raiz: HTMLElement) {
   if (raiz.dataset.ligado) return;
@@ -368,25 +388,28 @@ export function ligarMoldura(raiz: HTMLElement) {
   carregar(asset('/logos/semente/semente-horizontal.webp')).then((im) => { logos.claro = im; redesenhar(); }).catch(() => {});
   carregar(asset('/logos/semente/semente-horizontal-branco.webp')).then((im) => { logos.escuro = im; redesenhar(); }).catch(() => {});
 
+  const fotoNoLugar = () => {
+    if (zoom) zoom.value = '1';
+    raiz.dataset.temFoto = '1';
+    raiz.dispatchEvent(new CustomEvent('moldura:foto', { bubbles: true }));
+    acoes.forEach((b) => (b.disabled = false));
+    redesenhar();
+  };
+
+  // Quem já tem foto em Seu perfil (do tour ou da carteirinha) não escolhe de novo.
+  const guardada = estado.foto ? null : lerFotoDoPerfil();
+  if (guardada) usarFoto(guardada, false).then(fotoNoLugar).catch(() => {});
+
   entrada.addEventListener('change', async () => {
     const f = entrada.files?.[0];
     if (!f) return;
-    const url = URL.createObjectURL(f);
     try {
-      estado.foto = await carregar(url);
-      estado.zoom = 1;
-      estado.dx = 0;
-      estado.dy = 0;
-      if (zoom) zoom.value = '1';
-      raiz.dataset.temFoto = '1';
-      raiz.dispatchEvent(new CustomEvent('moldura:foto', { bubbles: true }));
-      acoes.forEach((b) => (b.disabled = false));
-      redesenhar();
+      // No tour a foto escolhida é a do perfil; na página da moldura ela só preenche um perfil sem foto.
+      await usarFoto(f, raiz.dataset.molduraPerfil === 'substituir');
+      fotoNoLugar();
       aviso('Foto no lugar. Arraste pra ajustar.', 'bi-camera');
     } catch {
       aviso('Não deu pra abrir essa foto. Tente outra.', 'bi-camera');
-    } finally {
-      URL.revokeObjectURL(url);
     }
   });
 

@@ -89,20 +89,14 @@ export function previaDaProposta(p: PropostaStop): Previa {
   };
 }
 
-/** A fala curta e literal do briefing que o tour das propostas já atribui à pessoa (nem todos têm). */
-export function falaCurta(id: string): string | undefined {
-  return PROPOSTA_STOPS.find((p) => p.leaderId === id)?.fala;
-}
-
 export function previaDaPessoa(leader: LeaderInfo): Previa {
   const parada = TOUR_STOPS[leader.id as TourLeaderId];
-  const fala = falaCurta(leader.id);
   const primeiroNome = leader.name.split(' ')[0];
   return {
     titulo: `${leader.name}, ${leader.role} · Chapa 2`,
     descricao: `${parada.hook} Conheça ${primeiroNome} e as outras ${CHAPA_LEADERS.length - 1} pessoas da Semente.`,
     imagem: `pessoa-${leader.id}`,
-    mensagem: `💜🧡 ${leader.name} concorre ao CAGP pela ${CHAPA_NOME} como ${leader.role}.${fala ? `\n💬 “${fala}”` : ''}`,
+    mensagem: `💜🧡 ${leader.name} concorre ao CAGP pela ${CHAPA_NOME} como ${leader.role}.`,
     tom: 'convite',
   };
 }

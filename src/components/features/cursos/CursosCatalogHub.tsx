@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import allCourses from '@/data/curatedEnapCourses.json';
-import { getVaultItem, setVaultItem } from '@/lib/storage/studentVault';
+import { adicionarAtividade, idDoCurso, lerAtividades } from '@/lib/atividades';
 import { toast } from '@/lib/toast';
 import { tactileSpring, bounceSpring } from '@/lib/motion';
 
@@ -61,67 +61,44 @@ export const CursosCatalogHub: React.FC = () => {
   const [savedCourses, setSavedCourses] = useState<string[]>([]);
   const [visibleCount, setVisibleCount] = useState<number>(18);
 
+  // Oficinas de exemplo (Proposta 10) marcadas nesta visita: só demonstração, não entram na lista.
+  const [exemplos, setExemplos] = useState<string[]>([]);
+
+  // "Guardar" tem um dono só: a lista de atividades de /meu-curso (src/lib/atividades.ts).
   useEffect(() => {
-    try {
-      const saved = getVaultItem('cagp_cursos_enap_salvos_v1');
-      if (Array.isArray(saved)) {
-        setSavedCourses(saved.map((c: any) => c.id));
-      }
-    } catch (e) {
-      console.error('Erro ao ler cursos salvos', e);
-    }
+    const carregar = () => {
+      const prefixo = idDoCurso('');
+      setSavedCourses(
+        lerAtividades()
+          .itens.filter((a) => a.id.startsWith(prefixo))
+          .map((a) => a.id.slice(prefixo.length)),
+      );
+    };
+    carregar();
+    window.addEventListener('cagp:vault-updated', carregar);
+    return () => window.removeEventListener('cagp:vault-updated', carregar);
   }, []);
 
-  const handleAddCourseTo600h = (course: { id: string; title: string; hours: number; certifier?: string }) => {
-    try {
-      const currentEnap = getVaultItem('cagp_cursos_enap_salvos_v1') || [];
-      const isAlreadySaved = currentEnap.some((c: any) => c.id === course.id);
-
-      if (isAlreadySaved) {
-        toast.info(`O curso "${course.title}" já está simulado na sua Calculadora 600h!`);
-        return;
-      }
-
-      const updatedEnap = [
-        ...currentEnap,
-        {
-          id: course.id,
-          title: course.title,
-          hours: course.hours,
-          category: course.certifier || 'ENAP / EV.G / UFMG',
-          addedAt: new Date().toISOString(),
-        },
-      ];
-      setVaultItem('cagp_cursos_enap_salvos_v1', updatedEnap);
-      setSavedCourses(updatedEnap.map((c: any) => c.id));
-
-      // Atualiza também os medidores de horas na Calculadora 600h (cagp_calc_ext_aac_v1)
-      const currentCalc = getVaultItem('cagp_calc_ext_aac_v1') || {};
-      const nextAacCursos = Math.min(90, Number(currentCalc.aac_cursos || 0) + course.hours);
-      setVaultItem('cagp_calc_ext_aac_v1', {
-        ...currentCalc,
-        aac_cursos: nextAacCursos,
-      });
-
-      // Adiciona diretamente na lista de certificados AAC do Guardião 120 dias / Calculadora 600h
-      const currentAac = getVaultItem('cagp_aac_120d_certs_v1') || [];
-      const newCert = {
-        id: `curso-${course.id}-${Date.now()}`,
-        title: course.title,
-        mod: course.certifier ? `Curso Livre (${course.certifier})` : 'Extensão / Cursos Abertos ENAP',
-        date: new Date().toISOString().split('T')[0],
-        hours: course.hours,
-      };
-      setVaultItem('cagp_aac_120d_certs_v1', [...currentAac, newCert]);
-
-      toast.success(
-        `+${course.hours}h ACG simuladas! "${course.title}" foi enviado para a Calculadora 600h e Alerta 120 Dias.`,
-        { duration: 4500 }
-      );
-    } catch (e) {
-      console.error('Erro ao salvar curso na calculadora', e);
-      toast.error('Não deu pra salvar neste celular. Libere espaço no navegador e tente de novo.');
+  const handleAddCourseTo600h = (course: { id: string; title: string; hours: number; certifier?: string }, exemplo = false) => {
+    if (exemplo) {
+      setExemplos((atual) => (atual.includes(course.id) ? atual : [...atual, course.id]));
+      toast.info('Esta oficina é um exemplo da Proposta 10. Não entra na sua lista de verdade.');
+      return;
     }
+    if (savedCourses.includes(course.id)) {
+      toast.info('Este curso já está na sua lista, em Meu curso.');
+      return;
+    }
+    // Curso de escola de governo conta como extensão (DCP 193/194). Entra como "Quero fazer":
+    // as horas só somam quando a pessoa marcar "Já fiz" no painel, com a data do certificado.
+    adicionarAtividade({
+      id: idDoCurso(course.id),
+      titulo: course.title,
+      mod: 'ext_ensino_inter',
+      horas: Math.min(300, Math.max(1, Math.round(course.hours))),
+      situacao: 'quero',
+    });
+    toast.success('Guardado em Meu curso como "Quero fazer". Quando terminar, marque "Já fiz" lá.', { duration: 4500 });
   };
 
   const filteredCourses = useMemo(() => {
@@ -172,7 +149,7 @@ export const CursosCatalogHub: React.FC = () => {
             className="flex items-center gap-2 bg-success-tint text-success border-3 border-border shadow-md px-3.5 py-2 rounded-xl font-mono text-xs font-black shrink-0 self-start sm:self-auto"
           >
             <i className="bi bi-bookmark-check-fill text-success" aria-hidden="true"></i>
-            <span>{savedCourses.length === 1 ? "1 curso somado" : `${savedCourses.length} cursos somados`} nas suas 600h</span>
+            <span>{savedCourses.length === 1 ? "1 curso" : `${savedCourses.length} cursos`} na sua lista</span>
           </motion.div>
         </div>
 
@@ -238,7 +215,7 @@ export const CursosCatalogHub: React.FC = () => {
               Exibindo {Math.min(visibleCount, filteredCourses.length)} de {filteredCourses.length} cursos gratuitos encontrados
             </span>
             <span className="text-primary">
-              Toque em "Somar nas 600h" pra levar o curso pra sua conta de horas
+              Toque em "Guardar na minha lista" pra achar o curso depois em Meu curso
             </span>
           </div>
 
@@ -298,12 +275,12 @@ export const CursosCatalogHub: React.FC = () => {
                         {isSaved ? (
                           <>
                             <i className="bi bi-check-circle-fill text-success" aria-hidden="true"></i>
-                            <span>Simulado nas 600h</span>
+                            <span>Na sua lista</span>
                           </>
                         ) : (
                           <>
                             <i className="bi bi-plus-circle-fill text-accent-tint" aria-hidden="true"></i>
-                            <span>Somar nas 600h (+{c.hours}h)</span>
+                            <span>Guardar na minha lista ({c.hours}h)</span>
                           </>
                         )}
                       </button>
@@ -354,7 +331,7 @@ export const CursosCatalogHub: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {CAGP_COURSES.map((cur) => {
-            const isSimulated = savedCourses.includes(cur.id);
+            const isSimulated = exemplos.includes(cur.id);
             return (
               <motion.div
                 key={cur.id}
@@ -403,7 +380,7 @@ export const CursosCatalogHub: React.FC = () => {
                         title: cur.title,
                         hours: cur.hours,
                         certifier: 'CAGP / DCP UFMG (Proposta 10)',
-                      })
+                      }, true)
                     }
                     className={`w-full min-h-[44px] py-2 px-3 rounded-xl text-xs font-heading font-black uppercase border-3 border-border transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                       isSimulated
@@ -414,12 +391,12 @@ export const CursosCatalogHub: React.FC = () => {
                     {isSimulated ? (
                       <>
                         <i className="bi bi-check-circle-fill" aria-hidden="true"></i>
-                        <span>Inscrito / Simulado nas 600h</span>
+                        <span>Inscrição simulada</span>
                       </>
                     ) : (
                       <>
                         <i className="bi bi-lightning-charge-fill text-accent-tint" aria-hidden="true"></i>
-                        <span>Inscrever / Simular +{cur.hours}h ACG</span>
+                        <span>Simular inscrição ({cur.hours}h)</span>
                       </>
                     )}
                   </button>

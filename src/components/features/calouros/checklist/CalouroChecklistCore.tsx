@@ -78,7 +78,7 @@ const CHECKLIST_ITEMS: ChecklistItem[] = [
   {
     id: 'chk_cagp',
     category: 'academico',
-    title: '9. Conhecer a Sala do CAGP (F-4000) & Grupos de Turma',
+    title: '9. Conhecer a Sala do CAGP (1º andar, ao lado da rampa) & Grupos de Turma',
     desc: 'Visite a sede do Centro Acadêmico e participe da Recepção de Calouros (Proposta 7 da Chapa Semente com TEMAS, SENATUS e Atlética).',
     iconName: 'users',
     link: { label: 'Conhecer Proposta 7 (Semente)', url: route('/chapa-semente#propostas'), ext: false },

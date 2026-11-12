@@ -1,0 +1,107 @@
+---
+// QuemViveIsso.astro — a vivência de quem é da chapa, dentro do guia que trata do assunto.
+// Só aparece quando algum integrante tem uma fala própria sobre o tema (`vivencias` em
+// chapaSementeData.ts). Sem fala cadastrada, o componente não rende nada: o site não atribui
+// condição a ninguém por conta própria. Volume Ficha; entra no fim do guia, antes da Assinatura.
+import { asset, route } from '@/lib/paths';
+import { CHAPA_LEADERS, VIVENCIA_TITULO, type VivenciaTema } from '@/lib/chapaSementeData';
+
+interface Props {
+  tema: VivenciaTema;
+}
+const { tema } = Astro.props;
+const falas = CHAPA_LEADERS.flatMap((l) =>
+  (l.vivencias ?? []).filter((v) => v.tema === tema).map((v) => ({ leader: l, fala: v.fala })),
+);
+const id = `quem-vive-${tema}`;
+---
+
+{falas.length > 0 && (
+  <section class="cagp-vive" aria-labelledby={id}>
+    <h2 id={id} class="cagp-vive-titulo">{VIVENCIA_TITULO[tema]}</h2>
+    <ul class="cagp-vive-lista" role="list">
+      {falas.map(({ leader, fala }) => (
+        <li>
+          <figure class="cagp-vive-fala">
+            <img
+              src={asset(`/images/chapa/tour/${leader.id}-thumb.webp`)}
+              alt=""
+              width="96"
+              height="96"
+              loading="lazy"
+              class="cagp-vive-foto"
+            />
+            <blockquote>“{fala}”</blockquote>
+            <figcaption>
+              <a href={route(`/chapa-semente/${leader.id}`)}>{leader.name}</a>, {leader.role}
+            </figcaption>
+          </figure>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
+
+<style>
+  .cagp-vive {
+    margin-top: 3rem;
+    padding: 1.25rem;
+    background: var(--color-card, #fff);
+    border: 3px solid var(--color-border);
+    border-radius: 16px;
+  }
+  .cagp-vive-titulo {
+    margin: 0 0 1rem;
+    font: 700 1.125rem/1.25 var(--font-heading, 'Poppins', sans-serif);
+    color: var(--color-foreground);
+    text-wrap: balance;
+  }
+  .cagp-vive-lista {
+    display: grid;
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .cagp-vive-fala {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr;
+    gap: 0.375rem 0.875rem;
+    margin: 0;
+  }
+  .cagp-vive-foto {
+    grid-row: span 2;
+    width: 3.5rem;
+    height: 3.5rem;
+    object-fit: cover;
+    border: 2px solid var(--color-border);
+    border-radius: 12px;
+    background: var(--color-muted);
+  }
+  .cagp-vive-fala blockquote {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 65ch;
+    color: var(--color-foreground);
+    text-wrap: pretty;
+  }
+  .cagp-vive-fala figcaption {
+    font-size: 0.875rem;
+    color: var(--color-content-secondary, #4a4740);
+  }
+  .cagp-vive-fala figcaption a {
+    color: var(--color-primary);
+    font-weight: 700;
+    text-underline-offset: 0.2em;
+  }
+  .cagp-vive-fala figcaption a:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  @media (min-width: 768px) {
+    .cagp-vive-lista {
+      grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    }
+  }
+</style>

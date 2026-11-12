@@ -1,7 +1,8 @@
 ---
 // src/pages/transparencia.astro — Eixo 5: O CAGP · Portal da Transparência
-// O que é real (Regimento Interno) vem primeiro; a demonstração com valores fictícios vem depois,
-// marcada como simulação (PRODUCT.md › Real × simulado).
+// O que é real (Regimento Interno) vem primeiro; depois, como a Semente vai prestar contas e o portal em si.
+// Desde 12/11/2026 a página diz que a estrutura está pronta (livro-caixa, gráficos, filtros, planilha) e
+// que só os números são de exemplo, porque a chapa ainda não é gestão (PRODUCT.md › Real × simulado).
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
 import { CagpTransparenciaPortal } from '../components/features/cagp/CagpTransparenciaPortal';
@@ -30,18 +31,35 @@ const regras = [
     texto: 'Qualquer estudante representado pode examinar as contas e os documentos da gestão. Com requerimento formal, a gestão tem até 3 dias letivos para entregar.',
   },
 ];
+
+// O que a Chapa Semente se compromete a fazer (Carta-Programa, proposta 1) com o que o portal já entrega.
+// "Na hora" e não "em tempo real": o site não tem servidor; o lançamento aparece quando é publicado.
+const comoVaiSer = [
+  {
+    quando: 'A cada lançamento',
+    oQue: 'Entrou ou saiu dinheiro, o livro-caixa é atualizado na hora, sem esperar o fim do mês.',
+  },
+  {
+    quando: 'A cada três meses',
+    oQue: 'Um boletim junta tudo e mostra o resultado de um jeito fácil de ler.',
+  },
+  {
+    quando: 'Quando você quiser',
+    oQue: 'Quem quiser olhar de perto consulta lançamento por lançamento e baixa os dados em planilha.',
+  },
+];
 ---
 
 <BaseLayout
   title="Transparência"
-  description="O que o Regimento Interno do CAGP exige sobre prestação de contas e uma demonstração, com valores fictícios, do livro-caixa aberto proposto pela Chapa Semente."
+  description="O Portal da Transparência da Chapa Semente já está pronto: livro-caixa, boletim a cada três meses e dados para baixar. Os números são de exemplo, porque a chapa ainda não é gestão."
   activePage="sobre"
   activeGroup="cagp"
   mode="operate"
 >
   <PageHeader
     title="Portal da Transparência"
-    subtitle="O que o Regimento do CAGP já exige sobre as contas e como a Chapa Semente propõe publicá-las."
+    subtitle="Já está pronto, com números de exemplo."
     axisId="mais"
     activeId="cagp-transparencia"
     mode="operate"
@@ -56,10 +74,10 @@ const regras = [
     >
       <div class="space-y-1">
         <strong class="font-heading font-bold text-warning block text-sm">
-          Os valores desta página são fictícios
+          O portal está pronto; os números são de exemplo
         </strong>
         <p class="m-0 text-sm leading-relaxed max-w-[68ch]">
-          Nenhum saldo, lançamento ou comprovante abaixo é do CAGP: eles mostram o formato do livro-caixa aberto que a Chapa Semente propõe. As regras do Regimento citadas logo a seguir são reais.
+          Livro-caixa, gráficos, filtros e planilha para baixar já funcionam. Os valores são fictícios porque a Chapa Semente ainda não é gestão e não tem as contas do CAGP: nenhum saldo, lançamento ou comprovante abaixo é do centro acadêmico. As regras do Regimento citadas a seguir são reais.
         </p>
       </div>
       <span class="font-heading text-xs font-bold uppercase tracking-[0.04em] bg-white px-2.5 py-1 rounded-md border-2 border-border shrink-0 self-start sm:self-center">
@@ -100,11 +118,26 @@ const regras = [
       </p>
     </section>
 
-    <!-- Demonstração (simulada) -->
+    <!-- Como a Semente vai prestar contas (proposta 1 da carta + o que o portal já faz) -->
+    <section aria-labelledby="heading-como-vai-ser" class="space-y-4">
+      <h2 id="heading-como-vai-ser" class="font-heading text-xl font-bold text-foreground m-0 border-b-2 border-border pb-2">
+        Como a Semente vai prestar contas
+      </h2>
+      <dl class="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-5 m-0">
+        {comoVaiSer.map((c) => (
+          <div class="space-y-1">
+            <dt class="font-heading text-lg font-bold text-foreground">{c.quando}</dt>
+            <dd class="m-0 text-base leading-relaxed text-muted-foreground max-w-[46ch]">{c.oQue}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+
+    <!-- O portal, com números de exemplo -->
     <section aria-labelledby="heading-demonstracao" class="space-y-4" data-tour="klaus">
       <div class="border-b-2 border-border pb-2 flex flex-wrap items-end justify-between gap-3">
         <h2 id="heading-demonstracao" class="font-heading text-xl font-bold text-foreground m-0">
-          Como ficaria o livro-caixa aberto
+          O portal, com números de exemplo
         </h2>
         <a href={route('/chapa-semente')} class="text-sm font-bold text-primary underline underline-offset-[0.22em]">
           Ver a proposta da Chapa Semente

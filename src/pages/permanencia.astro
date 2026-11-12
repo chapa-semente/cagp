@@ -5,6 +5,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/ui/PageHeader.astro';
 import SegmentedControl from '@/components/ui/SegmentedControl.astro';
 import JourneyNav from '@/components/ui/JourneyNav.astro';
+import QuemViveIsso from '@/components/ui/QuemViveIsso.astro';
 import NoturnoHoje from '@/components/features/acolhimento/NoturnoHoje.astro';
 import FumpProgramas from '@/components/features/permanencia/FumpProgramas.astro';
 import { PermanenciaSimulador, PermanenciaPedido } from '@/components/features/permanencia/PermanenciaInteractiveHub';
@@ -83,6 +84,9 @@ const maisNoite = [
       </dl>
     </section>
   </section>
+
+  <QuemViveIsso tema="fump" />
+  <QuemViveIsso tema="cotas" />
 
   <JourneyNav
     prev={{

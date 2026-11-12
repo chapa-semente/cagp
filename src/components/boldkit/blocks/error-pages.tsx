@@ -79,7 +79,7 @@ export function NotFoundPage({
             whileHover={photoCardHover}
             className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-accent text-foreground font-mono text-xs font-black uppercase border-3 border-border shadow-md -rotate-2 cursor-default"
           >
-            <span>🏛️ SALA F-4000 • 4º ANDAR FAFICH</span>
+            <span>🏛️ SALA DO CAGP • 1º ANDAR FAFICH</span>
           </motion.span>
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-primary text-white font-mono text-xs font-black uppercase border-3 border-border shadow-md rotate-1">
             <span>🌱 CHAPA SEMENTE 2026</span>

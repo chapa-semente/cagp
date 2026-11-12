@@ -10,7 +10,6 @@ import {
   TableHead,
   TableCell,
 } from '@/components/ui/table';
-import { RadarChart } from '@/components/ui/radar-chart';
 import { NativeSelect } from '@/components/ui/native-select';
 import { ComparisonTable, type ComparisonRow } from '@/components/boldkit/blocks/comparison-table';
 import { asset } from '@/lib/paths';
@@ -66,22 +65,6 @@ const COMPARATIVO_HORAS = [
     destaque: true,
   },
 ];
-
-const RADAR_DATA = [
-  { subject: 'Obrigatórias', geral: 1560, fca: 1560, avancado: 1560 },
-  { subject: 'Estágio', geral: 300, fca: 300, avancado: 300 },
-  { subject: 'Extensão', geral: 300, fca: 300, avancado: 300 },
-  { subject: 'Formação Livre', geral: 120, fca: 120, avancado: 120 },
-  { subject: 'FCA Compl.', geral: 0, fca: 300, avancado: 0 },
-  { subject: 'Pós-Graduação', geral: 0, fca: 0, avancado: 120 },
-  { subject: 'Optativas Livres', geral: 720, fca: 420, avancado: 600 },
-];
-
-const RADAR_CONFIG = {
-  geral: { label: '01-01 Geral', color: 'var(--primary)' },
-  fca: { label: '01-02 FCA Complementar', color: 'var(--accent)' },
-  avancado: { label: '01-03 Avançado Pós', color: 'var(--secondary)' },
-};
 
 const COMPARISON_ROWS: ComparisonRow[] = [
   {
@@ -210,26 +193,6 @@ export const PercursosComparativeMatrix: React.FC = () => {
                   Relatório Núcleo Avançado (PDF) <i className="bi bi-box-arrow-up-right" aria-hidden="true"></i>
                 </a>
               </Button>
-            </div>
-          </div>
-
-          {/* Gráfico Radar Recharts: Comparação Geométrica dos 3 Percursos */}
-          <div className="p-4 bg-background border-2 border-border rounded-xl shadow-sm space-y-3">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <span className="font-heading text-xs uppercase font-extrabold text-foreground">
-                Perfil Geométrico de Distribuição de Carga Horária
-              </span>
-              <span className="text-xs font-mono font-bold px-2 py-0.5 bg-card border border-border rounded shadow-xs text-muted-foreground">
-                Comparação por área
-              </span>
-            </div>
-            <div className="h-[300px] w-full">
-              <RadarChart
-                data={RADAR_DATA}
-                dataKeys={['geral', 'fca', 'avancado']}
-                config={RADAR_CONFIG}
-                className="h-full w-full"
-              />
             </div>
           </div>
 

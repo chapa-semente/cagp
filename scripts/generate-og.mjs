@@ -60,12 +60,14 @@ const eixoDe = Object.fromEntries(
   [...ler('src/components/features/semente/CartaPropostaInteractive.tsx').matchAll(/\bid: (\d+),\s*eixoId: (\d)/g)].map(([, n, e]) => [n, Number(e)]),
 );
 const propostas = [...ler('src/lib/propostasTour.ts').matchAll(/\{\s*id: (\d+),([\s\S]*?)\n  \},/g)].map(([, n, corpo]) => {
-  const campo = (nome) => {
+  const campo = (nome, opcional = false) => {
     const m = corpo.match(new RegExp(`${nome}: (?:'([^']*)'|"([^"]*)")`));
+    if (!m && opcional) return '';
     if (!m) throw new Error(`Proposta ${n}: não achei "${nome}" em propostasTour.ts`);
     return m[1] ?? m[2];
   };
-  return { n: Number(n), eixo: eixoDe[n], titulo: campo('titulo'), pessoa: campo('leaderId'), fala: campo('fala'), modelo: /simulado: true/.test(corpo) };
+  // O texto do cartão é o `porque` da chapa, sem aspas (12/11/2026: não é fala de ninguém).
+  return { n: Number(n), eixo: eixoDe[n], titulo: campo('titulo'), pessoa: campo('leaderId'), fala: campo('porque'), modelo: /simulado: true/.test(corpo) };
 });
 if (propostas.length !== 14 || propostas.some((p) => !p.eixo)) throw new Error(`Esperava 14 propostas com eixo, achei ${propostas.length}`);
 

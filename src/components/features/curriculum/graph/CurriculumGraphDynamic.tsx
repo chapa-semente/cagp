@@ -92,7 +92,8 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
       : [...completedCourses, code];
 
     setCompletedCourses(updated);
-    setVaultItem('cagp_minha_grade_v1', { savedCourses: updated });
+    const cursando = getVaultItem('cagp_minha_grade_v1').cursando.filter((c) => c !== code);
+    setVaultItem('cagp_minha_grade_v1', { savedCourses: updated, cursando });
 
     (window as any).cagpToast?.(
       isDone ? `${code} desmarcada da sua grade.` : ` ${code} marcada como integralizada (${ch}h)!`,
@@ -108,7 +109,7 @@ export const CurriculumGraphDynamic: React.FC<Props> = ({ catalogOptions = [] })
     if (completedCourses.includes(code)) {
       const updatedDone = completedCourses.filter((c) => c !== code);
       setCompletedCourses(updatedDone);
-      setVaultItem('cagp_minha_grade_v1', { savedCourses: updatedDone });
+      setVaultItem('cagp_minha_grade_v1', { savedCourses: updatedDone, cursando: getVaultItem('cagp_minha_grade_v1').cursando });
     }
 
     (window as any).cagpToast?.(`Disciplina ${code} removida do Grafo.`, 'bi-trash');
