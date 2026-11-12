@@ -1,10 +1,16 @@
-// src/components/features/semente/SementeTour.tsx — Tour obrigatório da Chapa Semente.
+// src/components/features/semente/SementeTour.tsx — Tour da Chapa Semente.
 //
-// Primeira visita: abre antes de qualquer conteúdo, sem "pular", e só fecha no fim (decisão de 10/11/2026).
-// Fluxo: panfletagem (suspense + o Plantão Semente em vídeo, sem pular; ver TourPanfletagem.tsx)
+// Primeira visita: abre antes de qualquer conteúdo (decisão de 10/11/2026), inclusive por link direto.
+// Fluxo: panfletagem (suspense + o Plantão Semente em vídeo; ver TourPanfletagem.tsx)
 // → abertura (todos os rostos) → pergunta de perfil → para cada integrante, uma tela de história
 // (foto + dor do estudante) que se recolhe num cartão enquanto o spotlight recorta a ferramenta real
-// → fechamento com a votação. Ao terminar, devolve a pessoa à página por onde ela entrou.
+// → fechamento com a votação → convite da moldura. Ao terminar, devolve a pessoa à página por onde entrou.
+//
+// Revisão de 12/11/2026 (teste de uma colega do curso, que ficou presa na moldura e achou o tour longo):
+//   • "Pular" em toda tela, desde o vídeo. Leva à tela da votação, que tem "Ir pro site": sai em 2 toques.
+//   • O caminho padrão mostra só as TOUR_CURTO pessoas mais ligadas ao perfil; "Conhecer os outros"
+//     abre o resto (state.full).
+//   • A moldura virou convite: "Agora não, ir pro site" está sempre lá. Nada mais tranca o site.
 //
 // Decisão de 10/11/2026: o tour NÃO navega mais pelo site. Cada parada mostra uma captura estática da
 // ferramenta (public/images/chapa/tour/shots, geradas por scripts/capture-tour-shots.mjs) e o spotlight
@@ -39,7 +45,7 @@ import {
   loadSementeTour,
   saveSementeTour,
   type SementeTourState,
-  type TourPerson, SEMENTE_TOUR_KEY } from '@/lib/sementeTour';
+  type TourPerson, SEMENTE_TOUR_KEY, TOUR_CURTO } from '@/lib/sementeTour';
 import { START_PROPOSTAS_TOUR } from '@/lib/propostasTour';
 import { CHAPA_NUMERO, CHAPA_ROTULO } from '@/lib/chapaSementeData';
 import { TourPanfletagem } from './TourPanfletagem';
@@ -51,22 +57,31 @@ import { TourPanfletagem } from './TourPanfletagem';
 type Screen =
   | { kind: 'intro' }
   | { kind: 'perfil' }
-  | { kind: 'story'; person: TourPerson; n: number }
-  | { kind: 'spot'; person: TourPerson; n: number; next?: TourPerson }
+  | { kind: 'story'; person: TourPerson; n: number; total: number }
+  /** `more`: quantas pessoas ficaram fora do caminho curto (só na última parada dele). */
+  | { kind: 'spot'; person: TourPerson; n: number; total: number; next?: TourPerson; more: number }
   | { kind: 'final' }
-  // A última tela (decisão do Gabriel em 11/11/2026): a moldura de apoio. Toda saída do tour passa por ela.
+  // A última tela (decisão do Gabriel em 11/11/2026): a moldura de apoio, um convite desde 12/11.
   | { kind: 'moldura' };
 
 const TOTAL_PEOPLE = TOUR_PEOPLE_IN_CHAPA_ORDER.length;
 
-function buildScreens(profile?: UserRole): Screen[] {
+/**
+ * A sequência de telas. Sem perfil não há pessoas, mas a votação e a moldura existem sempre: é para
+ * elas que o "Pular" leva. No caminho curto entram só as TOUR_CURTO primeiras pessoas do perfil; como
+ * o completo começa pelas mesmas, o índice salvo vale nos dois.
+ */
+function buildScreens(profile?: UserRole, full = false): Screen[] {
   const screens: Screen[] = [{ kind: 'intro' }, { kind: 'perfil' }];
-  if (!profile) return screens;
-  const people = TOUR_ORDER[profile].map(getTourPerson);
-  people.forEach((person, n) => {
-    screens.push({ kind: 'story', person, n });
-    screens.push({ kind: 'spot', person, n, next: people[n + 1] });
-  });
+  if (profile) {
+    const all = TOUR_ORDER[profile].map(getTourPerson);
+    const people = full ? all : all.slice(0, TOUR_CURTO);
+    people.forEach((person, n) => {
+      const last = n === people.length - 1;
+      screens.push({ kind: 'story', person, n, total: people.length });
+      screens.push({ kind: 'spot', person, n, total: people.length, next: people[n + 1], more: last ? all.length - people.length : 0 });
+    });
+  }
   screens.push({ kind: 'final' });
   screens.push({ kind: 'moldura' });
   return screens;
@@ -128,12 +143,12 @@ function insetFor(rect: Rect, vw: number, vh: number, radius = 16): string {
 // ---------------------------------------------------------------------------
 
 /** Um segmento por pessoa: feitos em branco, atual em laranja (a folha), por vir só contornados. */
-const PeopleProgress: React.FC<{ current: number; compact?: boolean }> = ({ current, compact }) => (
+const PeopleProgress: React.FC<{ current: number; total: number; compact?: boolean }> = ({ current, total, compact }) => (
   <ol
     className={`flex items-center gap-1 m-0 p-0 list-none ${compact ? 'h-2.5' : 'h-3'}`}
-    aria-label={`Pessoa ${current + 1} de ${TOTAL_PEOPLE}`}
+    aria-label={`Pessoa ${current + 1} de ${total}`}
   >
-    {Array.from({ length: TOTAL_PEOPLE }, (_, i) => (
+    {Array.from({ length: total }, (_, i) => (
       <li
         key={i}
         aria-hidden="true"
@@ -202,7 +217,7 @@ export const SementeTour: React.FC = () => {
   const [cardEl, setCardEl] = useState<HTMLDivElement | null>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
 
-  const screens = useMemo(() => buildScreens(state?.profile), [state?.profile]);
+  const screens = useMemo(() => buildScreens(state?.profile, state?.full), [state?.profile, state?.full]);
   const open = state?.status === 'active';
   const index = state ? Math.min(state.index, screens.length - 1) : 0;
   const screen = open ? screens[index] : undefined;
@@ -218,6 +233,8 @@ export const SementeTour: React.FC = () => {
       setState(saved);
       return;
     }
+    // Quem ficou no meio do tour antigo (24 telas) continua de onde parou, no caminho completo.
+    if (saved?.profile && saved.full === undefined && saved.index >= 2 + TOUR_CURTO * 2) saved.full = true;
     setState(
       saved ?? {
         status: 'active',
@@ -334,7 +351,7 @@ export const SementeTour: React.FC = () => {
     (delta: number) => {
       setState((s) => {
         if (!s) return s;
-        const nextIndex = Math.max(0, Math.min(buildScreens(s.profile).length - 1, s.index + delta));
+        const nextIndex = Math.max(0, Math.min(buildScreens(s.profile, s.full).length - 1, s.index + delta));
         return { ...s, index: nextIndex };
       });
     },
@@ -343,15 +360,36 @@ export const SementeTour: React.FC = () => {
 
   const chooseProfile = (role: UserRole) => {
     setVaultItem('cagp_user_role_v1', role);
-    setState((s) => (s ? { ...s, profile: role, index: 2 } : s));
+    setState((s) => (s ? { ...s, profile: role, full: false, index: 2 } : s));
   };
+
+  /** "Conhecer os outros": o caminho completo começa pelas mesmas pessoas, então é só seguir. */
+  const showEveryone = () => setState((s) => (s ? { ...s, full: true, index: s.index + 1 } : s));
+
+  /** "Pular": vai para a tela da votação, de onde a pessoa sai com um toque ou volta para onde estava. */
+  const skip = useCallback(() => {
+    setPanfletagem(false);
+    setState((s) => {
+      if (!s) return s;
+      const finalIndex = buildScreens(s.profile, s.full).findIndex((x) => x.kind === 'final');
+      return s.index >= finalIndex ? s : { ...s, skipFrom: s.index, index: finalIndex };
+    });
+  }, []);
+
+  /** O voltar da votação: quem pulou retorna à tela de onde pulou. */
+  const backFromFinal = () =>
+    setState((s) => {
+      if (!s) return s;
+      if (s.skipFrom === undefined) return { ...s, index: Math.max(0, s.index - 1) };
+      return { ...s, index: s.skipFrom, skipFrom: undefined };
+    });
 
   const finish = useCallback(() => {
     setClosing(true);
     setVaultItem('cagp_onboarding_completed_v1', true);
     window.setTimeout(
       () => {
-        setState((s) => (s ? { ...s, status: 'done', index: 0 } : s));
+        setState((s) => (s ? { ...s, status: 'done', index: 0, skipFrom: undefined } : s));
         setClosing(false);
         window.dispatchEvent(new CustomEvent('cagp:semente-tour-done'));
       },
@@ -359,7 +397,7 @@ export const SementeTour: React.FC = () => {
     );
   }, []);
 
-  // Foco no título de cada tela + teclado (setas avançam e voltam; Esc não fecha na primeira visita).
+  // Foco no título de cada tela + teclado (setas avançam e voltam; Esc pula, e ao rever fecha).
   useEffect(() => {
     if (!open) return;
     const t = window.setTimeout(() => headingRef.current?.focus({ preventScroll: true }), 260);
@@ -372,6 +410,7 @@ export const SementeTour: React.FC = () => {
       if (e.key === 'Escape') {
         e.preventDefault();
         if (state?.replay) finish();
+        else skip();
         return;
       }
       const tag = (e.target as HTMLElement | null)?.tagName;
@@ -387,7 +426,7 @@ export const SementeTour: React.FC = () => {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [open, screen, index, go, finish, state?.replay, showPanfletagem]);
+  }, [open, screen, index, go, finish, skip, state?.replay, showPanfletagem]);
 
   if (!open || !screen) return null;
 
@@ -414,6 +453,10 @@ export const SementeTour: React.FC = () => {
   }
   const hole = holeRect ?? { top: 0, left: 0, width: vp.w, height: vp.h };
   const settledSpot = isSpot && !!cardRect;
+  // O canto de cima à direita: "Pular" na primeira visita (menos na votação e na moldura, que já são
+  // a saída), o fechar ao rever. As telas reservam esse canto para o botão não cobrir nada.
+  const canSkip = !state?.replay && screen.kind !== 'final' && screen.kind !== 'moldura';
+  const corner = canSkip ? 'pular' : state?.replay ? 'fechar' : undefined;
 
   const liveText =
     screen.kind === 'story'
@@ -539,15 +582,19 @@ export const SementeTour: React.FC = () => {
               exit={{ opacity: 0, transition: { duration: 0.14 } }}
             >
               {showPanfletagem && <TourPanfletagem onDone={() => setPanfletagem(false)} />}
-              {screen.kind === 'intro' && !showPanfletagem && <IntroScreen headingRef={headingRef} onStart={() => go(1)} />}
+              {screen.kind === 'intro' && !showPanfletagem && (
+                <IntroScreen headingRef={headingRef} corner={!!corner} onStart={() => go(1)} />
+              )}
               {screen.kind === 'perfil' && (
-                <PerfilScreen headingRef={headingRef} onChoose={chooseProfile} onBack={() => go(-1)} />
+                <PerfilScreen headingRef={headingRef} corner={!!corner} onChoose={chooseProfile} onBack={() => go(-1)} />
               )}
               {screen.kind === 'story' && (
                 <StoryScreen
                   headingRef={headingRef}
                   person={screen.person}
                   n={screen.n}
+                  total={screen.total}
+                  corner={corner}
                   onNext={() => go(1)}
                   onBack={() => go(-1)}
                 />
@@ -558,9 +605,12 @@ export const SementeTour: React.FC = () => {
                   headingRef={headingRef}
                   person={screen.person}
                   n={screen.n}
+                  total={screen.total}
                   next={screen.next}
+                  more={screen.more}
                   missing={!shot}
                   onNext={() => go(1)}
+                  onMore={showEveryone}
                   onBack={() => go(-1)}
                 />
               )}
@@ -568,8 +618,10 @@ export const SementeTour: React.FC = () => {
                 <FinalScreen
                   headingRef={headingRef}
                   profile={state?.profile}
-                  onBack={() => go(-1)}
+                  skipped={state?.skipFrom !== undefined && !state?.replay}
+                  onBack={backFromFinal}
                   onNext={() => go(1)}
+                  onExit={finish}
                 />
               )}
               {screen.kind === 'moldura' && (
@@ -579,6 +631,16 @@ export const SementeTour: React.FC = () => {
           )}
         </AnimatePresence>
 
+        {canSkip && !closing && (
+          <button
+            type="button"
+            onClick={skip}
+            className={`${btnOutlineLight} absolute top-[max(12px,env(safe-area-inset-top))] right-3 h-11 px-4 text-sm uppercase tracking-[0.04em] shadow-sm sm:right-6`}
+            aria-label="Pular o tour"
+          >
+            Pular
+          </button>
+        )}
         {state?.replay && !closing && (
           <button
             type="button"

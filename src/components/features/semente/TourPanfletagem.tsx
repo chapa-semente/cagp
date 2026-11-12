@@ -101,7 +101,7 @@ export const TourPanfletagem: React.FC<{ onDone: () => void }> = ({ onDone }) =>
         onEnded={finish}
         onError={() => stage === 'video' && finish()}
         className={`absolute inset-0 block h-full w-full ${empe ? 'object-cover' : 'object-contain'}`}
-        aria-label="Vídeo de humor feito com inteligência artificial, no formato de plantão de notícias: um homem de terno e chapéu espalha panfletos por um corredor de escola. As legendas dizem que a Chapa 2 espalha 14 propostas e que a votação é em 25 e 26 de novembro, das 17h às 22h30, na sala do CAGP."
+        aria-label="Vídeo de humor feito com inteligência artificial, no formato de plantão de notícias: um homem de terno e chapéu espalha panfletos por um corredor de escola. As legendas dizem que a Chapa 2 tem 14 propostas no papel e 10 ferramentas já funcionando neste site, e que a votação é em 25 e 26 de novembro, das 17h às 22h30, na sala do CAGP."
       />
 
       {/* O cartão Cartaz ancorado embaixo, o mesmo gesto do spotlight do tour. */}

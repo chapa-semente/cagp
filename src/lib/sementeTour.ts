@@ -1,5 +1,7 @@
-// src/lib/sementeTour.ts — Roteiro do tour obrigatório da Chapa Semente (primeira visita).
-// Decisão de 10/11/2026: o tour abre antes de qualquer conteúdo, não tem "pular" e só fecha no fim.
+// src/lib/sementeTour.ts — Roteiro do tour da Chapa Semente (primeira visita).
+// O tour abre antes de qualquer conteúdo (decisão de 10/11/2026). Desde 12/11/2026, depois do teste de
+// uma colega do curso, ele tem "Pular" em toda tela e mostra só as TOUR_CURTO primeiras pessoas da
+// ordem do perfil; os outros integrantes ficam atrás de "Conhecer os outros".
 // Cada integrante tem uma tela de história (foto + dor do estudante) e um spotlight na ferramenta
 // real que defendeu. A ordem muda conforme o momento de curso que a pessoa escolhe na abertura.
 // Fatos: só o que o site já entrega. Ferramenta simulada leva `simulated: true` (sticker SIMULADO).
@@ -173,7 +175,13 @@ export const TOUR_PROFILES: { role: UserRole; label: string; hint: string; icon:
   { role: 'ingressar', label: 'Quero entrar no curso', hint: 'Ainda não estudo aqui', icon: 'bi-compass' },
 ];
 
-/** Quem cuida da dor do perfil aparece primeiro. Mariana e Nilo ficam juntos (mesma página). */
+/** Quantas pessoas o tour mostra por padrão: as primeiras da ordem do perfil (decisão de 12/11/2026). */
+export const TOUR_CURTO = 3;
+
+/**
+ * Quem cuida da dor do perfil aparece primeiro, e as TOUR_CURTO primeiras são o tour padrão.
+ * Mariana e Nilo ficam juntos (mesma página).
+ */
 export const TOUR_ORDER: Record<UserRole, TourLeaderId[]> = {
   calouro: ['alice', 'larissa', 'paloma', 'vitoria', 'klaus', 'gabriel', 'mariana', 'nilo', 'italo', 'lara', 'livia', 'joao'],
   veterano: ['italo', 'lara', 'vitoria', 'klaus', 'gabriel', 'mariana', 'nilo', 'paloma', 'larissa', 'livia', 'alice', 'joao'],
@@ -221,6 +229,10 @@ export interface SementeTourState {
   profile?: UserRole;
   /** Índice da tela atual na sequência derivada do perfil. */
   index: number;
+  /** A pessoa pediu para conhecer todos os integrantes, não só os TOUR_CURTO primeiros. */
+  full?: boolean;
+  /** Tela em que a pessoa tocou em "Pular": o voltar da tela da votação devolve para ela. */
+  skipFrom?: number;
 }
 
 export function loadSementeTour(): SementeTourState | null {
