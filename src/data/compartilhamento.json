@@ -213,6 +213,14 @@
       "imagem": "p-transparencia",
       "banner": { "molde": "pagina", "aba": "mais", "etiqueta": "Transparência", "gancho": [ "Pra onde vai", "o {dinheiro} do CA?" ], "sub": [ "O livro-caixa aberto que a chapa propõe." ], "pessoa": "klaus", "modelo": true }
     },
+    "/sobre-o-site": {
+      "titulo": "Como usar o site do curso em cinco passos",
+      "descricao": "As abas, a busca, os checklists, o botão de mandar e como pôr o site na tela do celular. Feito pela Chapa 2 · Semente.",
+      "emoji": "📖",
+      "mensagem": "Primeira vez no site do curso? Em cinco passos você aprende a mexer:",
+      "imagem": "p-sobre-o-site",
+      "banner": { "molde": "pagina", "aba": "mais", "etiqueta": "Sobre este site", "gancho": ["O site do curso", "em {cinco}", "passos."], "sub": ["Abas, busca, checklists e celular."], "arte": "planta" }
+    },
     "/sobre": {
       "titulo": "O que é o CAGP e como ele funciona",
       "descricao": "História, Regimento Interno e funcionamento do Centro Acadêmico de Gestão Pública da UFMG.",

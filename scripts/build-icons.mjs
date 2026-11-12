@@ -97,7 +97,7 @@ const CAGP = {
   'd-votar': 'calendar-check', 'd-horas': 'hourglass-medium', 'd-grade': 'tree-structure', 'd-cursos': 'certificate',
   'd-formatura': 'graduation-cap', 'd-carreira': 'steps', 'd-vagas': 'binoculars', 'd-talentos': 'identification-badge',
   'd-ouvidoria': 'megaphone', 'd-transparencia': 'receipt', 'd-sobre': 'bank', 'd-ajustes': 'sliders-horizontal',
-  'd-mapa': 'map-trifold', 'd-ru': 'fork-knife', 'd-moldura': 'camera',
+  'd-mapa': 'map-trifold', 'd-ru': 'fork-knife', 'd-moldura': 'camera', 'd-site': 'book-open-text',
 };
 
 const missing = [];

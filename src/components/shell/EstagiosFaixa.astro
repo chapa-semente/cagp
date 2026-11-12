@@ -1,20 +1,34 @@
 ---
-// EstagiosFaixa.astro — "Da semente ao fruto": as 5 abas do site como os 5 estágios da planta.
+// EstagiosFaixa.astro — "O que tem em cada aba": as 5 abas do site como os 5 estágios da planta.
 // Faixa de blocos chapados acima do rodapé, em todas as páginas; cada bloco leva à sua aba.
+//
+// Desde 12/11/2026 cada bloco diz o que se resolve ali (`resumo` do registro), no lugar do nome do
+// estágio (Semente, Raiz…): uma colega do curso que testou o site leu a faixa como enfeite. O estágio
+// continua no desenho e na cor. No celular os blocos empilham em linhas, para o texto caber.
 import EstagioIlustra from '@/components/ui/EstagioIlustra.astro';
 import { AXIS_REGISTRY } from '@/lib/navigationRegistry';
 import { ESTAGIOS } from '@/lib/estagios';
+import { route } from '@/lib/paths';
 ---
 
-<nav class="cagp-estagios-faixa" aria-label="As áreas do site, da semente ao fruto">
+<nav class="cagp-estagios-faixa" aria-labelledby="cagp-estagios-faixa-titulo">
+  <div class="cagp-estagios-faixa-cabeca">
+    <h2 id="cagp-estagios-faixa-titulo">O que tem em cada aba</h2>
+    <a href={route('/sobre-o-site')} aria-label="Como usar o site, em cinco passos">
+      Como usar
+      <i class="bi bi-arrow-right" aria-hidden="true"></i>
+    </a>
+  </div>
   <ul>
     {AXIS_REGISTRY.map((axis) => {
       const e = ESTAGIOS[axis.id];
       return (
         <li>
           <a href={axis.rootHref} style={`background:${e.bg};color:${e.fg}`}>
-            <span class="cagp-estagios-faixa-nome">{axis.mobileLabel}</span>
-            <span class="cagp-estagios-faixa-estagio">{e.nome}</span>
+            <span class="cagp-estagios-faixa-txt">
+              <span class="cagp-estagios-faixa-nome">{axis.mobileLabel}</span>
+              <span class="cagp-estagios-faixa-resumo">{axis.resumo}</span>
+            </span>
             <EstagioIlustra nivel={e.nivel} class="cagp-estagios-faixa-art" />
           </a>
         </li>

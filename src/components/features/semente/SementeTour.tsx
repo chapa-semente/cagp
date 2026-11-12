@@ -662,11 +662,13 @@ export const SementeTour: React.FC = () => {
 
 type HeadingRef = React.RefObject<HTMLHeadingElement | null>;
 
-const screenPad =
-  'absolute inset-0 overflow-y-auto overscroll-contain px-4 sm:px-8 pt-[max(16px,env(safe-area-inset-top))] pb-[max(16px,env(safe-area-inset-bottom))]';
+const screenPadBase = 'absolute inset-0 overflow-y-auto overscroll-contain px-4 sm:px-8 pb-[max(16px,env(safe-area-inset-bottom))]';
+const screenPad = `${screenPadBase} pt-[max(16px,env(safe-area-inset-top))]`;
+/** Telas centradas, quando há botão no canto ("Pular" ou fechar): o conteúdo começa abaixo dele. */
+const screenPadCorner = `${screenPadBase} pt-[max(68px,calc(env(safe-area-inset-top)+56px))]`;
 
-const IntroScreen: React.FC<{ headingRef: HeadingRef; onStart: () => void }> = ({ headingRef, onStart }) => (
-  <div className={screenPad}>
+const IntroScreen: React.FC<{ headingRef: HeadingRef; corner: boolean; onStart: () => void }> = ({ headingRef, corner, onStart }) => (
+  <div className={corner ? screenPadCorner : screenPad}>
     <div className="mx-auto flex min-h-full max-w-[1120px] flex-col justify-center gap-6 py-4 md:grid md:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] md:items-center md:gap-14">
       {/* Mosaico: todos os rostos da chapa */}
       <ul
@@ -698,14 +700,14 @@ const IntroScreen: React.FC<{ headingRef: HeadingRef; onStart: () => void }> = (
           <MarkerWord onColor className="text-[1.1em] tracking-normal">quem fez</MarkerWord> este site.
         </h1>
         <p className="m-0 max-w-[46ch] text-base leading-relaxed text-white sm:text-lg">
-          Somos a Semente, a {CHAPA_ROTULO} na eleição do Centro Acadêmico de Gestão Pública. São {TOTAL_PEOPLE} pessoas, e cada uma vai te
-          mostrar uma ferramenta que já funciona aqui.
+          Somos a Semente, a {CHAPA_ROTULO} na eleição do Centro Acadêmico de Gestão Pública. São {TOTAL_PEOPLE} pessoas, e três delas
+          te mostram agora o que já funciona aqui pro seu momento do curso.
         </p>
         <p className="m-0 font-heading text-base font-bold uppercase tracking-[0.04em] text-white" aria-hidden="true">
           Toda mudança começa pequena.
         </p>
         <p className="m-0 text-sm font-bold uppercase tracking-[0.04em] text-white tabular-nums">
-          Eleição 25 e 26/11 · cerca de 3 minutos · aparece uma vez só
+          Eleição 25 e 26/11 · cerca de 2 minutos · aparece uma vez só
         </p>
         <button type="button" onClick={onStart} className={`${btnAccent} h-[52px] w-full px-6 text-sm sm:w-auto`}>
           Começar
@@ -716,12 +718,13 @@ const IntroScreen: React.FC<{ headingRef: HeadingRef; onStart: () => void }> = (
   </div>
 );
 
-const PerfilScreen: React.FC<{ headingRef: HeadingRef; onChoose: (r: UserRole) => void; onBack: () => void }> = ({
+const PerfilScreen: React.FC<{ headingRef: HeadingRef; corner: boolean; onChoose: (r: UserRole) => void; onBack: () => void }> = ({
   headingRef,
+  corner,
   onChoose,
   onBack,
 }) => (
-  <div className={screenPad}>
+  <div className={corner ? screenPadCorner : screenPad}>
     <div className="mx-auto flex min-h-full max-w-[720px] flex-col justify-center gap-6 py-4">
       <div className="space-y-2">
         <h2
@@ -776,21 +779,25 @@ const StoryScreen: React.FC<{
   headingRef: HeadingRef;
   person: TourPerson;
   n: number;
+  total: number;
+  /** Botão no canto de cima à direita: o cabeçalho da tela abre espaço para ele. */
+  corner?: 'pular' | 'fechar';
   onNext: () => void;
   onBack: () => void;
-}> = ({ headingRef, person, n, onNext, onBack }) => {
+}> = ({ headingRef, person, n, total, corner, onNext, onBack }) => {
   const { leader, stop } = person;
   return (
     <div className={`${screenPad} flex flex-col`}>
       <div className="mx-auto flex w-full max-w-[1120px] flex-1 flex-col gap-4 md:gap-6">
-        <div className="space-y-3">
-          <PeopleProgress current={n} />
-          <div className="flex items-center justify-between gap-3">
-            <img src={asset('/logos/semente/semente-simbolo-branco.webp')} alt="" aria-hidden="true" className="h-7 w-auto" />
-            <span className="-rotate-3 rounded-md border-2 border-foreground bg-[#FFC83D] px-2 py-1 text-sm font-bold tabular-nums text-foreground shadow-[2px_2px_0_0_#1F1F1F]">
-              {n + 1} de {TOTAL_PEOPLE}
-            </span>
+        {/* Uma linha só, da altura do botão do canto: símbolo, progresso e "n de total". */}
+        <div className={`flex min-h-11 items-center gap-3 ${corner === 'pular' ? 'pr-[92px] sm:pr-[100px]' : corner === 'fechar' ? 'pr-14' : ''}`}>
+          <img src={asset('/logos/semente/semente-simbolo-branco.webp')} alt="" aria-hidden="true" className="h-7 w-auto shrink-0" />
+          <div className="min-w-0 flex-1">
+            <PeopleProgress current={n} total={total} />
           </div>
+          <span className="-rotate-3 shrink-0 rounded-md border-2 border-foreground bg-[#FFC83D] px-2 py-1 text-sm font-bold tabular-nums text-foreground shadow-[2px_2px_0_0_#1F1F1F]">
+            {n + 1} de {total}
+          </span>
         </div>
 
         <div className="flex min-h-0 flex-1 flex-col gap-5 md:grid md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] md:items-center md:gap-14">
@@ -856,18 +863,22 @@ const SpotCard: React.FC<{
   headingRef: HeadingRef;
   person: TourPerson;
   n: number;
+  total: number;
   next?: TourPerson;
+  /** Quantas pessoas ficaram fora do caminho curto (só na última parada dele). */
+  more: number;
   missing: boolean;
   onNext: () => void;
+  onMore: () => void;
   onBack: () => void;
-}> = ({ cardRef, headingRef, person, n, next, missing, onNext, onBack }) => {
+}> = ({ cardRef, headingRef, person, n, total, next, more, missing, onNext, onMore, onBack }) => {
   const { leader, stop } = person;
   return (
     <div
       ref={cardRef}
       className="absolute bottom-[max(12px,env(safe-area-inset-bottom))] left-3 right-3 p-4 sm:p-5 md:left-auto md:right-6 md:bottom-6 md:w-[480px]"
     >
-      <PeopleProgress current={n} compact />
+      <PeopleProgress current={n} total={total} compact />
       <div className="mt-3 flex items-center gap-3">
         <span className="h-12 w-12 shrink-0 overflow-hidden rounded-[12px] border-2 border-foreground bg-muted-foreground">
           <img
@@ -907,6 +918,15 @@ const SpotCard: React.FC<{
           <i className="bi bi-arrow-right" aria-hidden="true" />
         </button>
       </div>
+      {more > 0 && (
+        <button
+          type="button"
+          onClick={onMore}
+          className="mt-1.5 inline-flex min-h-[44px] w-full items-center justify-center text-sm font-bold text-white underline underline-offset-[0.22em] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        >
+          Conhecer os outros {more} da chapa
+        </button>
+      )}
     </div>
   );
 };
@@ -914,10 +934,14 @@ const SpotCard: React.FC<{
 const FinalScreen: React.FC<{
   headingRef: HeadingRef;
   profile?: UserRole;
+  /** A pessoa chegou aqui pelo "Pular": a saída é direta, sem passar pela moldura. */
+  skipped: boolean;
   onBack: () => void;
-  /** Segue para a última tela (a moldura de apoio): nenhuma saída do tour pula essa tela. */
+  /** Segue para a última tela (o convite da moldura de apoio). */
   onNext: () => void;
-}> = ({ headingRef, profile, onBack, onNext }) => {
+  /** Fecha o tour daqui mesmo. */
+  onExit: () => void;
+}> = ({ headingRef, profile, skipped, onBack, onNext, onExit }) => {
   const [calendarSaved, setCalendarSaved] = useState(false);
   const [canInstall, setCanInstall] = useState(false);
   const [showIosHint, setShowIosHint] = useState(false);
@@ -1012,7 +1036,8 @@ const FinalScreen: React.FC<{
           </dl>
         </div>
 
-        <div className="space-y-4">
+        {/* Quem pulou vê a saída antes das ações de apoio: em celular baixo ela não pode ficar fora da tela. */}
+        <div className={skipped ? 'flex flex-col-reverse gap-4' : 'space-y-4'}>
           <ul className="m-0 grid list-none gap-2.5 p-0">
             <li>
               <button
@@ -1068,7 +1093,7 @@ const FinalScreen: React.FC<{
             </li>
           </ul>
 
-          <div className="relative min-h-[136px] pt-2">
+          <div className="relative min-h-[140px] pt-2">
             <AnimatePresence mode="wait" initial={false}>
               {stamped ? (
                 <motion.div key="stamp" className="flex justify-center pt-2" initial={{ opacity: 1 }} animate={{ opacity: 1 }}>
@@ -1085,16 +1110,24 @@ const FinalScreen: React.FC<{
                       {canVote ? `Vou votar na ${CHAPA_ROTULO}` : `Apoio a ${CHAPA_ROTULO}`}
                     </button>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      record(false);
-                      onNext();
-                    }}
-                    className="inline-flex min-h-[44px] w-full items-center justify-center text-sm font-bold text-white underline underline-offset-[0.22em] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-                  >
-                    {canVote ? 'Ainda estou decidindo' : 'Continuar'}
-                  </button>
+                  {skipped ? (
+                    // Quem pulou não declarou nada: sai sem registrar apoio nem indecisão.
+                    <button type="button" onClick={onExit} className={`${btnOutlineLight} h-12 w-full px-5 text-sm uppercase tracking-[0.04em]`}>
+                      Ir pro site
+                      <i className="bi bi-arrow-right" aria-hidden="true" />
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        record(false);
+                        onNext();
+                      }}
+                      className="inline-flex min-h-[44px] w-full items-center justify-center text-sm font-bold text-white underline underline-offset-[0.22em] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                    >
+                      {canVote ? 'Ainda estou decidindo' : 'Continuar'}
+                    </button>
+                  )}
                 </motion.div>
               )}
             </AnimatePresence>
@@ -1112,10 +1145,9 @@ const MOLDURA_ESCURA = new Set(['roxo', 'petroleo', 'tinta']);
 
 /**
  * A moldura de apoio, dentro do tour. É a mesma ferramenta de /chapa-semente/moldura
- * (src/scripts/molduraDeApoio.ts), só com a moldura redonda de perfil. Na primeira visita o tour só
- * fecha depois que a pessoa põe uma foto (decisão do Gabriel em 11/11/2026, ciente de que isso barra
- * quem chega só por um documento). Única válvula: se a ferramenta não carregar, a saída aparece, para
- * um erro de rede não trancar o site.
+ * (src/scripts/molduraDeApoio.ts), só com a moldura redonda de perfil. É um convite: desde 12/11/2026
+ * a saída ("Agora não, ir pro site") está sempre na tela. Antes o tour só fechava com uma foto, e uma
+ * colega do curso ficou presa aqui sem conseguir ver o site.
  */
 const MolduraScreen: React.FC<{ headingRef: HeadingRef; onBack: () => void; onFinish: () => void }> = ({ headingRef, onBack, onFinish }) => {
   const raizRef = React.useRef<HTMLDivElement>(null);
@@ -1214,34 +1246,33 @@ const MolduraScreen: React.FC<{ headingRef: HeadingRef; onBack: () => void; onFi
             </div>
           </fieldset>
 
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-1">
+          <button
+            type="button"
+            onClick={verPropostas}
+            className="inline-flex min-h-[44px] items-center justify-self-start text-sm font-bold text-white underline underline-offset-[0.22em] cursor-pointer focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
+          >
+            Ver as 14 propostas, uma por uma
+          </button>
+          {falhou && !temFoto && (
+            <p className="m-0 text-sm font-bold leading-snug text-white" role="status">
+              A moldura não carregou agora. Ela também fica na aba Chapa 2.
+            </p>
+          )}
+
+          {/* A saída fica sempre à vista: no celular é uma barra presa ao pé da tela, por cima da
+              rolagem (a tela é mais alta que o aparelho, e sair não pode depender de rolar). */}
+          <div className="sticky bottom-0 z-10 -mx-4 -mb-8 flex items-center gap-3 border-t-3 border-foreground bg-primary px-4 pt-3 pb-[max(16px,env(safe-area-inset-bottom))] sm:-mx-8 sm:px-8 md:static md:m-0 md:border-0 md:bg-transparent md:p-0">
             <BackButton onClick={onBack} />
             {temFoto ? (
-              <>
-                <button type="button" onClick={onFinish} className={`${btnAccent} h-[56px] px-6 text-sm`}>
-                  Pronto, ir pro site
-                  <i className="bi bi-arrow-right" aria-hidden="true" />
-                </button>
-                <button
-                  type="button"
-                  onClick={verPropostas}
-                  className="inline-flex min-h-[44px] items-center text-sm font-bold text-white underline underline-offset-[0.22em] cursor-pointer focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
-                >
-                  Ver as 14 propostas, uma por uma
-                </button>
-              </>
-            ) : falhou ? (
-              <button
-                type="button"
-                onClick={onFinish}
-                className="inline-flex min-h-[44px] items-center text-sm font-bold text-white underline underline-offset-[0.22em] cursor-pointer focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
-              >
-                A moldura não carregou. Ir pro site
+              <button type="button" onClick={onFinish} className={`${btnAccent} h-[56px] flex-1 px-5 text-sm leading-tight md:flex-none md:px-6`}>
+                Pronto, ir pro site
+                <i className="bi bi-arrow-right" aria-hidden="true" />
               </button>
             ) : (
-              <p className="m-0 min-w-0 flex-1 text-sm font-bold leading-snug text-white" role="status">
-                Ponha a sua foto na moldura pra entrar no site.
-              </p>
+              <button type="button" onClick={onFinish} className={`${btnOutlineLight} h-[56px] flex-1 px-4 text-sm uppercase leading-tight tracking-[0.04em] md:flex-none md:px-5`}>
+                {falhou ? 'Ir pro site' : 'Agora não, ir pro site'}
+                <i className="bi bi-arrow-right" aria-hidden="true" />
+              </button>
             )}
           </div>
         </div>

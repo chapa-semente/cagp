@@ -5,8 +5,8 @@
 //      (o navegador só libera som depois do toque);
 //   2. o meme: 19 s de vídeo vertical em tela cheia, o "Plantão Semente". Manchetes, legendas e o papel
 //      com a arte da chapa já vêm queimados no arquivo (gerado por _rascunhos/panfletagem/_fonte/long.py).
-//      Em tela deitada o vídeo aparece inteiro, centralizado. Não tem "pular" (decisão do Gabriel);
-//      ao rever o tour, o fechar do próprio tour continua lá.
+//      Em tela deitada o vídeo aparece inteiro, centralizado. O "Pular" é o do próprio tour, no canto
+//      de cima (desde 12/11/2026 ele vale em toda tela); ao rever, é o fechar.
 // Quando o vídeo acaba, o tour segue direto para a tela dos rostos.
 // O vídeo nunca trava o tour: erro, rede lenta ou autoplay negado também levam à tela dos rostos.
 

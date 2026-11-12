@@ -1,0 +1,177 @@
+---
+// sobre-o-site.astro — "Sobre este site": o que é e a cartilha de como usar, em cinco passos.
+// Pedido de uma colega do curso que testou o site em 12/11/2026 ("uma cartilha curtinha em linguagem
+// simples" e "uma parte 'o site'"). Fica como último item de Mais › Este site.
+//
+// A parte "Por que existe" (quando e por que o site nasceu) entra depois do post da chapa no Instagram,
+// com o mesmo texto. Decisão do Gabriel em 12/11/2026: não escrever data nem motivo antes disso.
+// Quando entrar, vai entre "O que é" e a cartilha, e segue a regra do legado implícito (PRODUCT.md).
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/ui/PageHeader.astro';
+import JourneyNav from '../components/ui/JourneyNav.astro';
+import TramitePassos from '../components/ui/tramite/TramitePassos.astro';
+import type { TramitePasso } from '../components/ui/tramite/types';
+import { AXIS_REGISTRY } from '@/lib/navigationRegistry';
+import { route } from '@/lib/paths';
+
+// O passo 1 lê as abas do registro: se uma aba mudar de nome ou de resumo, a cartilha muda junto.
+const abas = AXIS_REGISTRY.map((a) => `<strong>${a.mobileLabel}</strong> · ${a.resumo}`).join('<br>');
+
+const passos: TramitePasso[] = [
+  {
+    titulo: 'Comece pelas cinco abas',
+    texto: `Elas ficam na barra de baixo do celular (no computador, na coluna da esquerda). Cada uma junta um tipo de coisa:<br>${abas}`,
+  },
+  {
+    titulo: 'Não achou? Use a busca',
+    texto:
+      'Toque na <strong>lupa</strong>, lá em cima, e escreva com as suas palavras: estágio, TCE, bolsa, formatura. A busca encontra guias, documentos e ferramentas.',
+  },
+  {
+    titulo: 'Marque o que você já fez',
+    texto:
+      'O checklist do calouro e o painel das suas horas e disciplinas guardam o que você marca. Fica salvo só no seu celular: não tem cadastro nem senha.',
+    acoes: [
+      { label: 'Checklist do calouro', href: route('/calouros'), kind: 'anchor', primary: true },
+      { label: 'Minhas horas e disciplinas', href: route('/meu-curso'), kind: 'anchor' },
+    ],
+  },
+  {
+    titulo: 'Mande pra quem precisa',
+    texto:
+      'Toda página tem o botão de <strong>mandar</strong>, ao lado da lupa. Ele abre o WhatsApp, ou o menu de compartilhar do celular, já com o link certo. Serve pra responder aquele pedido de documento no grupo.',
+    acoes: [{ label: 'Documentos mais pedidos', href: route('/guias'), kind: 'anchor' }],
+  },
+  {
+    titulo: 'Ponha o site na tela do celular',
+    texto:
+      'No Android, abra o menu do Chrome e toque em <strong>Adicionar à tela inicial</strong>. No iPhone, abra o site no Safari, toque em <strong>Compartilhar</strong> e depois em <strong>Adicionar à Tela de Início</strong>. Aí ele abre como um aplicativo, até sem internet. Só os documentos em PDF e Word precisam de sinal.',
+  },
+];
+---
+
+<BaseLayout
+  title="Sobre este site"
+  description="O que é o site do curso de Gestão Pública e como usar, em cinco passos: as abas, a busca, os checklists, o botão de mandar e a tela do celular."
+  mode="read"
+>
+  <PageHeader
+    title="Sobre este site"
+    subtitle="O que é e como usar, em cinco passos."
+    mode="read"
+    condensed={true}
+  />
+
+  <div class="sobre-site">
+    <section aria-labelledby="sobre-site-o-que-e" class="sobre-site-papel">
+      <h2 id="sobre-site-o-que-e">O que é</h2>
+      <p>
+        É o site do curso de Gestão Pública da UFMG, feito pela Chapa Semente. Ele junta num lugar só os guias de
+        estágio, das 600h e da FUMP, os documentos mais pedidos e ferramentas pra você acompanhar o seu curso.
+      </p>
+    </section>
+
+    <TramitePassos id="como-usar" passos={passos} titulo="Como usar, em cinco passos" />
+
+    <section aria-labelledby="sobre-site-exemplo" class="sobre-site-papel">
+      <h2 id="sobre-site-exemplo">O que é exemplo vem avisado</h2>
+      <p>
+        Guias, documentos, disciplinas e cursos são de verdade. O mural de notícias, as vagas de exemplo, o banco de
+        talentos e as contas do Portal da Transparência ainda são modelos do que a chapa propõe, e por isso levam esta
+        etiqueta:
+        <span class="cagp-stamp-badge is-simulado">Simulado</span>
+      </p>
+    </section>
+
+    <section aria-labelledby="sobre-site-faltou" class="sobre-site-papel">
+      <h2 id="sobre-site-faltou">Faltou alguma coisa?</h2>
+      <p>
+        Achou um erro ou tem uma ideia? Escreva pro e-mail da Chapa Semente:
+        <a href="mailto:chapa.semente.gp@gmail.com">chapa.semente.gp@gmail.com</a>.
+      </p>
+      <button type="button" class="sobre-site-tour" data-cagp-dispatch="cagp:start-semente-tour">
+        <i class="bi bi-compass" aria-hidden="true"></i>
+        Rever o tour da chapa
+      </button>
+    </section>
+  </div>
+
+  <JourneyNav />
+</BaseLayout>
+
+<style>
+  .sobre-site {
+    display: grid;
+    gap: 3rem;
+    max-width: 46rem;
+  }
+  /* Volume Papel: texto direto no solo, régua grafite sob o título. */
+  .sobre-site-papel {
+    display: grid;
+    gap: 0.75rem;
+    justify-items: start;
+  }
+  .sobre-site-papel h2 {
+    width: 100%;
+    margin: 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--color-border);
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--color-foreground);
+  }
+  .sobre-site-papel p {
+    margin: 0;
+    max-width: 68ch;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-foreground);
+    text-wrap: pretty;
+  }
+  .sobre-site-papel p a {
+    color: var(--color-primary);
+    font-weight: 700;
+    text-underline-offset: 0.22em;
+    overflow-wrap: anywhere;
+  }
+  .sobre-site-papel .cagp-stamp-badge {
+    margin-left: 0.25rem;
+    vertical-align: middle;
+  }
+  .sobre-site-tour {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 48px;
+    padding: 0.625rem 1.125rem;
+    border: 3px solid var(--color-border);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--color-foreground);
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    box-shadow: var(--shadow-ficha);
+    cursor: pointer;
+    transition:
+      translate var(--duration-press) var(--ease-spring-snappy),
+      box-shadow var(--duration-press) var(--ease-spring-snappy),
+      background-color var(--duration-press) var(--ease-snap);
+  }
+  .sobre-site-tour:hover {
+    translate: -1px -1px;
+    background: var(--color-muted);
+  }
+  .sobre-site-tour:active {
+    translate: 3px 3px;
+    box-shadow: none;
+  }
+  .sobre-site-tour:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+</style>

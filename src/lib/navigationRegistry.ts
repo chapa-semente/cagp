@@ -41,6 +41,8 @@ export interface AxisConfig {
   /** Rótulo da barra inferior no celular (cabe em ~70px com Poppins Bold 12px). */
   mobileLabel: string;
   tagline: string;
+  /** O que se resolve na aba, em até cinco palavras (faixa "O que tem em cada aba" e a cartilha). */
+  resumo: string;
   icon: string;
   /** Mantido por compatibilidade; eixos não pintam interface (DESIGN.md › Rubro Is a Seal). */
   color: string;
@@ -54,9 +56,12 @@ export const AXIS_REGISTRY: AxisConfig[] = [
   {
     id: 'hoje',
     number: 1,
-    name: 'Hoje',
-    mobileLabel: 'Hoje',
+    // O id segue 'hoje' (estágio, ícone, dados salvos); o nome na tela é "Início" desde 12/11/2026:
+    // quem abria o site pela primeira vez não lia "Hoje" como a página inicial.
+    name: 'Início',
+    mobileLabel: 'Início',
     tagline: 'O que está acontecendo agora no campus e no curso',
+    resumo: 'RU, ônibus e prazos de hoje',
     icon: 'bi-compass',
     color: '#5B2A85',
     rootHref: route('/'),
@@ -92,6 +97,7 @@ export const AXIS_REGISTRY: AxisConfig[] = [
     name: 'Guias',
     mobileLabel: 'Guias',
     tagline: 'Passo a passo dos trâmites e os documentos de cada um',
+    resumo: 'Estágio, FUMP e documentos',
     icon: 'thesis',
     color: '#5B2A85',
     rootHref: route('/guias'),
@@ -242,6 +248,7 @@ export const AXIS_REGISTRY: AxisConfig[] = [
     name: 'Chapa 2 · Semente',
     mobileLabel: 'Chapa 2',
     tagline: 'Quem somos, o que propomos e como votar na Chapa 2 em 25 e 26/11',
+    resumo: 'Quem somos e como votar',
     icon: 'bi-flower1',
     color: '#5B2A85',
     rootHref: route('/chapa-semente'),
@@ -289,6 +296,7 @@ export const AXIS_REGISTRY: AxisConfig[] = [
     name: 'Meu curso',
     mobileLabel: 'Meu curso',
     tagline: 'Sua grade, suas horas e a reta final',
+    resumo: 'Suas horas, grade e formatura',
     icon: 'bi-diagram-3',
     color: '#266264',
     rootHref: route('/meu-curso'),
@@ -356,6 +364,7 @@ export const AXIS_REGISTRY: AxisConfig[] = [
     name: 'Mais',
     mobileLabel: 'Mais',
     tagline: 'Carreira, CAGP, ouvidoria e ajustes',
+    resumo: 'Carreira, CA e ajustes',
     icon: 'menu',
     color: '#1F1F1F',
     rootHref: route('/mais'),
@@ -446,7 +455,8 @@ export const AXIS_REGISTRY: AxisConfig[] = [
         type: 'page',
         group: 'cagp',
         keywords: 'centro acadêmico cagp história regimento estatuto candangos',
-        match: ['^/sobre'],
+        // Exato: '^/sobre' sozinho também pegava /sobre-o-site.
+        match: ['^/sobre$', '^/sobre/'],
       },
       {
         id: 'mais-ajustes',
@@ -470,6 +480,18 @@ export const AXIS_REGISTRY: AxisConfig[] = [
         type: 'page',
         group: 'app',
         match: ['^/mapa-do-site'],
+      },
+      {
+        id: 'mais-site',
+        label: 'Sobre este site',
+        shortLabel: 'Sobre o site',
+        href: route('/sobre-o-site'),
+        icon: 'd-site',
+        description: 'O que é este site e como usar, em cinco passos.',
+        type: 'page',
+        group: 'app',
+        keywords: 'como usar tutorial cartilha ajuda passo a passo primeira vez como mexer quem fez o site',
+        match: ['^/sobre-o-site'],
       },
     ],
   },
