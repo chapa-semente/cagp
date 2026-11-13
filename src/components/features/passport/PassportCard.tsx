@@ -3,7 +3,8 @@ import { motion } from 'motion/react';
 import { getVaultItem, USER_ROLE_META, type UserRole, type VaultData } from '@/lib/storage/studentVault';
 import { bounceSpring } from '@/lib/motion';
 import { AvatarRenderer } from './AvatarRenderer';
-import { asset } from '@/lib/paths';
+import { asset, route } from '@/lib/paths';
+import { levarAmostraPraMoldura, molduraEmCampanha } from './MolduraNoPerfil';
 
 interface PassportCardProps {
   profile: VaultData<'cagp_student_profile_v1'>;
@@ -12,6 +13,8 @@ interface PassportCardProps {
   /** Momento no curso: a única fonte de "em que fase você está" no site (cagp_user_role_v1). */
   role: UserRole;
   onEditPhoto: () => void;
+  /** Fecha Seu perfil ao sair para a moldura de apoio (o atalho só aparece durante a campanha). */
+  onMoldura?: () => void;
 }
 
 const TALENT_LABELS: Record<string, string> = {
@@ -35,7 +38,10 @@ export const PassportCard: React.FC<PassportCardProps> = ({
   extHours,
   role,
   onEditPhoto,
+  onMoldura,
 }) => {
+  const [comMoldura, setComMoldura] = React.useState(false);
+  React.useEffect(() => setComMoldura(molduraEmCampanha()), []);
   const obrigPct = Math.min(100, Math.round((obrigCount / 27) * 100));
   const extPct = Math.min(100, Math.round((extHours / 600) * 100));
   const globalPct = Math.round((obrigPct + extPct) / 2);
@@ -224,11 +230,25 @@ export const PassportCard: React.FC<PassportCardProps> = ({
         <button
           type="button"
           onClick={onEditPhoto}
-          className="min-h-[44px] cagp-btn-secondary text-xs py-1.5 px-3 flex-1 justify-center cursor-pointer active:translate-x-[3px] active:translate-y-[3px]"
+          className={`cagp-passport-acao cagp-btn-secondary cursor-pointer active:translate-x-[3px] active:translate-y-[3px] ${comMoldura ? '' : 'flex-1'}`}
         >
           <i className="bi bi-camera-fill" aria-hidden="true" />
           <span>Trocar foto</span>
         </button>
+        {comMoldura && (
+          <a
+            href={route('/chapa-semente/moldura')}
+            data-so-campanha
+            onClick={() => {
+              levarAmostraPraMoldura();
+              onMoldura?.();
+            }}
+            className="cagp-passport-acao cagp-btn-outline flex-1 cursor-pointer active:translate-x-[3px] active:translate-y-[3px] active:shadow-none"
+          >
+            <i className="bi bi-stars" aria-hidden="true" />
+            <span>Pôr na moldura</span>
+          </a>
+        )}
       </div>
     </motion.div>
   );

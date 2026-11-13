@@ -213,3 +213,174 @@
   border-color: #1F1F1F;
 }
 
+
+/* As ações da foto no pé da carteirinha (Trocar foto, Pôr na moldura): o Button do sistema, compacto. */
+.cagp-passport-card .cagp-passport-acao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  min-height: 44px;
+  padding: 0.375rem 0.75rem;
+  font: 700 0.75rem/1.15 var(--font-heading);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* A moldura de apoio em Seu perfil (MolduraNoPerfil.tsx): o único momento Cartaz da folha. Cartão roxo
+   em camadas, a foto da pessoa dentro do medalhão, colado torto como adesivo, e o botão em folha.
+   O cartão inteiro é um link só; quem afunda no toque é o botão. */
+.cagp-perfil-moldura {
+  position: relative;
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  grid-template-areas:
+    'medalhao texto'
+    'botao botao';
+  align-items: center;
+  gap: 0.75rem 0.875rem;
+  /* 6px à direita e embaixo são da camada laranja; o resto é o respiro normal entre blocos da folha. */
+  margin: 1rem 6px 1.375rem 0;
+  padding: 0.875rem;
+  border: 3px solid #1f1f1f;
+  border-radius: 16px;
+  background: var(--color-primary);
+  color: #fff;
+  text-decoration: none;
+  box-shadow:
+    6px 6px 0 -3px var(--color-accent),
+    6px 6px 0 0 #1f1f1f;
+}
+.cagp-perfil-moldura:hover { color: #fff; }
+.cagp-perfil-moldura:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 4px; }
+
+/* A folha grande num tom mais fundo do roxo, como nos banners. Recortada pelo canto do cartão. */
+.cagp-perfil-moldura__fundo {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 13px;
+  pointer-events: none;
+}
+.cagp-perfil-moldura__fundo svg {
+  position: absolute;
+  right: -1.25rem;
+  bottom: -3.25rem;
+  width: 8.5rem;
+  height: 12rem;
+  rotate: 24deg;
+  fill: var(--color-primary-hover, #4a216e);
+  stroke: none;
+}
+
+/* O medalhão: sai um pouco por cima da borda do cartão, como adesivo colado depois. */
+.cagp-perfil-moldura__medalhao {
+  grid-area: medalhao;
+  position: relative;
+  display: block;
+  align-self: start;
+  width: 100%;
+  aspect-ratio: 1;
+  margin-top: -1.875rem;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 3px 3px 0 0 #1f1f1f;
+  rotate: -6deg;
+  transition: rotate var(--duration-spring, 520ms) var(--ease-spring, ease-out);
+}
+.cagp-perfil-moldura__medalhao > svg,
+.cagp-perfil-moldura__medalhao > canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.cagp-perfil-moldura__medalhao > canvas { visibility: hidden; }
+.cagp-perfil-moldura__medalhao[data-pronta] > canvas { visibility: visible; }
+/* Quando o desenho com a foto chega, o adesivo bate no cartão: passa do ponto e assenta. */
+.cagp-perfil-moldura__medalhao[data-pronta] {
+  animation: cagp-perfil-moldura-colar var(--duration-stamp, 560ms) var(--ease-spring-bouncy, ease-out) both;
+}
+@keyframes cagp-perfil-moldura-colar {
+  from { scale: 1.3; rotate: 7deg; }
+  to { scale: 1; rotate: -6deg; }
+}
+.cagp-perfil-moldura__medalhao > .bi {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  color: var(--color-primary);
+}
+.cagp-perfil-moldura:hover .cagp-perfil-moldura__medalhao { rotate: -1deg; }
+
+.cagp-perfil-moldura__texto {
+  grid-area: texto;
+  position: relative;
+  display: grid;
+  gap: 0.375rem;
+  min-width: 0;
+}
+.cagp-perfil-moldura__titulo {
+  font: 700 1.0625rem/1.25 var(--font-heading);
+  text-wrap: balance;
+}
+.cagp-perfil-moldura__titulo .cagp-marker { font-size: 1.5rem; }
+.cagp-perfil-moldura__sub {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  max-width: 46ch;
+  text-wrap: pretty;
+}
+.cagp-perfil-moldura__mais { display: none; }
+.cagp-perfil-moldura__botao {
+  grid-area: botao;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0.5rem 1.125rem;
+  border: 3px solid #1f1f1f;
+  border-radius: 26px 7px 26px 7px;
+  background: var(--color-accent);
+  color: #1f1f1f;
+  font: 700 0.875rem/1.15 var(--font-heading);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-align: center;
+  box-shadow: 4px 4px 0 0 #1f1f1f;
+  transition:
+    translate var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out),
+    box-shadow var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out);
+}
+.cagp-perfil-moldura__botao .bi {
+  font-size: 1rem;
+  transition: translate var(--duration-spring, 520ms) var(--ease-spring, ease-out);
+}
+.cagp-perfil-moldura:hover .cagp-perfil-moldura__botao { translate: -1px -1px; box-shadow: 6px 6px 0 0 #1f1f1f; }
+.cagp-perfil-moldura:hover .cagp-perfil-moldura__botao .bi { translate: 4px 0; }
+.cagp-perfil-moldura:active .cagp-perfil-moldura__botao { translate: 4px 4px; box-shadow: 0 0 0 0 #1f1f1f; }
+
+/* Com largura, o botão sobe para a coluna do texto e a linha de apoio aparece inteira. */
+@media (min-width: 30rem) {
+  .cagp-perfil-moldura {
+    grid-template-columns: 8.5rem minmax(0, 1fr);
+    grid-template-areas:
+      'medalhao texto'
+      'medalhao botao';
+    gap: 0.875rem 1.25rem;
+    padding: 1.125rem 1.25rem 1.125rem 1.125rem;
+  }
+  .cagp-perfil-moldura__medalhao { align-self: center; margin-block: -2.25rem 0; }
+  .cagp-perfil-moldura__texto { align-self: end; }
+  .cagp-perfil-moldura__titulo { font-size: 1.25rem; }
+  .cagp-perfil-moldura__titulo .cagp-marker { font-size: 1.75rem; }
+  .cagp-perfil-moldura__mais { display: inline; }
+  .cagp-perfil-moldura__botao { align-self: start; justify-self: start; padding-inline: 1.5rem; }
+}

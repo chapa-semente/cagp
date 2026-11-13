@@ -40,12 +40,16 @@ const estado = {
   dy: 0,
   frase: FRASES[0].id,
   anel: FRASES[0].anel ?? ANEIS[0].id,
+  /** A pessoa tocou numa frase: a amostra de Seu perfil passa a mostrar a escolha dela. */
+  fraseNaMao: false,
   /** A pessoa tocou num anel: daí em diante nenhuma frase troca a cor sozinha. */
   anelNaMao: false,
   flexao: 'o' as Flexao,
   formato: 'perfil' as Formato,
 };
 const logos: { claro?: HTMLImageElement; escuro?: HTMLImageElement } = {};
+/** Na amostra de Seu perfil o círculo sem foto fica vazio: lá o convite é do HTML, não do desenho. */
+let semConvite = false;
 
 function carregar(src: string): Promise<HTMLImageElement> {
   return new Promise((ok, erro) => {
@@ -292,7 +296,7 @@ function medalhao(c: CanvasRenderingContext2D, cx: number, cy: number, R: number
     estado.dx = Math.max(-folgaX, Math.min(folgaX, estado.dx));
     estado.dy = Math.max(-folgaY, Math.min(folgaY, estado.dy));
     c.drawImage(f, cx - w / 2 + estado.dx * lado, cy - h / 2 + estado.dy * lado, w, h);
-  } else {
+  } else if (!semConvite) {
     c.fillStyle = ROXO;
     c.textAlign = 'center';
     c.font = `700 ${62 * u}px Poppins, sans-serif`;
@@ -488,6 +492,47 @@ export async function usarFoto(origem: File | string, substituirNoPerfil: boolea
   }
 }
 
+/**
+ * A amostra da moldura em Seu perfil (MolduraNoPerfil.tsx): o medalhão de perfil com a foto de lá, na
+ * frase e no anel dados. Quem já escolheu frase ou anel na ferramenta vê a própria escolha. Não muda
+ * nada do que a ferramenta guarda: desenha e devolve o estado como estava.
+ */
+export async function desenharAmostra(canvas: HTMLCanvasElement, fotoUrl: string | null, frase: string, anel: string) {
+  const [foto] = await Promise.all([
+    fotoUrl ? carregar(fotoUrl).catch(() => null) : null,
+    document.fonts.load("400 80px 'Permanent Marker'").catch(() => null),
+    document.fonts.load('700 40px Poppins').catch(() => null),
+  ]);
+  const antes = { ...estado };
+  const escolheu = estado.fraseNaMao || estado.anelNaMao;
+  Object.assign(estado, {
+    foto,
+    zoom: 1,
+    dx: 0,
+    dy: 0,
+    frase: escolheu ? estado.frase : frase,
+    anel: escolheu ? estado.anel : anel,
+    formato: 'perfil' as Formato,
+  });
+  semConvite = true;
+  try {
+    desenhar(canvas);
+  } finally {
+    semConvite = false;
+    Object.assign(estado, antes);
+  }
+}
+
+/**
+ * Quem sai da amostra de Seu perfil chega à ferramenta com a mesma frase e o mesmo anel que viu lá.
+ * Só vale para quem ainda não escolheu nada; a frase seguinte continua puxando o anel dela.
+ */
+export function comecarCom(frase: string, anel: string) {
+  if (estado.fraseNaMao || estado.anelNaMao) return;
+  estado.frase = fraseDoId(frase).id;
+  estado.anel = anelDoId(anel).id;
+}
+
 /** Liga a ferramenta numa marcação `[data-moldura]` (a página da moldura ou a última tela do tour). */
 export function ligarMoldura(raiz: HTMLElement) {
   if (raiz.dataset.ligado) return;
@@ -567,6 +612,7 @@ export function ligarMoldura(raiz: HTMLElement) {
     r.addEventListener('change', () => {
       if (!r.checked) return;
       estado.frase = r.value;
+      estado.fraseNaMao = true;
       // A frase puxa o anel dela ("Sou bi" traz a bandeira bi) enquanto a pessoa não escolheu um anel
       // na mão. Um grito nunca tira do lugar uma bandeira que outra frase trouxe.
       const puxa = fraseDoId(r.value).anel;

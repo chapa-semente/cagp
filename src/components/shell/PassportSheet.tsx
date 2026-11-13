@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BottomSheet } from './BottomSheet';
 import { PassportCard } from '@/components/features/passport/PassportCard';
 import { TalentBankEditor } from '@/components/features/passport/TalentBankEditor';
+import { MolduraNoPerfil } from '@/components/features/passport/MolduraNoPerfil';
 import {
   getVaultItem,
   setVaultItem,
@@ -122,6 +123,9 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
 
         {activeTab === 'passport' && (
           <div className="space-y-4 cagp-animate-ws-enter">
+            {/* A moldura de apoio, com a foto do perfil já dentro: atalho para /chapa-semente/moldura. */}
+            <MolduraNoPerfil foto={profile.photoDataUrl} onIr={onClose} />
+
             {/* Momento no curso: único lugar do site onde se escolhe. O tour pergunta uma vez e grava aqui. */}
             <section aria-labelledby="perfil-momento" className="p-4 bg-white border-2 border-border rounded-xl shadow-md">
               <h3 id="perfil-momento" className="font-heading font-bold text-base text-foreground m-0">
@@ -158,6 +162,7 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
               obrigCount={obrigCount}
               extHours={extHours}
               onEditPhoto={() => setActiveTab('talent')}
+              onMoldura={onClose}
             />
 
             {/* Backup: dono único. Ajustes só aponta para cá. */}
