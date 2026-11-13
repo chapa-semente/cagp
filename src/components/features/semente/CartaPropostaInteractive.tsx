@@ -14,10 +14,13 @@ import {
   ContextMenuTrigger,
 } from '@/components/ui/context-menu';
 import { Copy, Link2 } from '@/components/ui/icons';
-import { ExpandRegion, ExpandChevron, useExpandSet, useMasonryColumns } from '@/components/ui/expand';
-import { CagpIcon } from '@/components/ui/CagpIcon';
+import { useMasonryColumns } from '@/components/ui/expand';
 import { route } from '@/lib/paths';
 import { montarMensagem, urlAbsoluta } from '@/lib/compartilhar';
+import { PROPOSTA_STOPS } from '@/lib/propostasTour';
+
+// O adesivo de cada cartão vem do tour (`jaFeito.selo`): uma fonte só para "o que já foi feito".
+const SELO_DA_PROPOSTA = new Map(PROPOSTA_STOPS.map((p) => [p.id, p.jaFeito?.selo]));
 
 export interface PropostaItem {
   id: number;
@@ -40,7 +43,7 @@ export const CARTA_PROPOSTAS_DATA: PropostaItem[] = [
     eixoColor: '#5B2A85',
     title: 'Prestação de Contas Trimestral',
     summary: 'Publicação trimestral de boletins detalhando todas as entradas, saídas e aplicações financeiras.',
-    fullText: 'A Gestão se compromete com a publicação trimestral de boletins detalhando todas as movimentações financeiras (entradas, saídas, aplicações, etc) do caixa da Entidade.',
+    fullText: 'A Gestão se compromete com a publicação trimestral de boletins detalhando todas as movimentações financeiras (entradas, saídas, aplicações, etc) do caixa da Entidade. O portal da transparência já está estruturado, com as informações publicadas na hora, a cada lançamento.',
     tags: ['Finanças', 'Transparência', 'Boletim'],
   },
   {
@@ -62,7 +65,7 @@ export const CARTA_PROPOSTAS_DATA: PropostaItem[] = [
     eixoColor: '#5B2A85',
     title: 'Site do Curso de Gestão Pública (já no ar)',
     summary: 'O site do curso é ideia nossa, construído pela chapa há muito tempo. Já está no ar e pertence ao curso.',
-    fullText: 'A Chapa Semente idealizou e construiu o site do curso de Gestão Pública, um projeto nosso, pensado e desenvolvido há muito tempo, que já está no ar e pertence ao curso, não a um mandato. Neste site se concentram informações sobre a Universidade (questões relativas à vivência universitária) e sobre o Curso de Gestão Pública, além de um portal de transparência para publicação das decisões das reuniões e dos boletins de prestação de contas.',
+    fullText: 'A Chapa Semente idealizou e construiu o site do curso de Gestão Pública, um projeto nosso, pensado e desenvolvido há muito tempo, que já está no ar e pertence ao curso, não a um mandato: o site vai continuar funcionando, porque não depende de mandato. Neste site se concentram informações sobre a Universidade (questões relativas à vivência universitária) e sobre o Curso de Gestão Pública, além de um portal de transparência para publicação das decisões das reuniões e dos boletins de prestação de contas, na hora, a cada lançamento.',
     tags: ['Compromisso Público', 'Plataforma Digital', 'Super App', 'Feito pela Chapa'],
   },
   {
@@ -138,7 +141,7 @@ export const CARTA_PROPOSTAS_DATA: PropostaItem[] = [
     eixoBadge: 'Eixo 3',
     eixoColor: '#266264',
     title: 'Cursos Livres de Curta Duração',
-    summary: 'Cursos abertos à comunidade com foco em ciência política, políticas públicas e análise de dados.',
+    summary: 'Cursos curtos e abertos à comunidade, em temas transversais, com destaque para a ciência política.',
     fullText: 'A Gestão irá se comprometer com a organização de cursos livres de curta duração em temas transversais, com destaque para a ciência política. Os cursos serão abertos à comunidade.',
     tags: ['Cursos Livres', 'Ciência Política', 'Capacitação', 'Comunidade'],
   },
@@ -200,7 +203,6 @@ const EIXO_FILTERS: { id: number | 'all'; label: string; count: number }[] = [
 export const CartaPropostaInteractive: React.FC = () => {
   const [selectedEixo, setSelectedEixo] = useState<number | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const textosIntegrais = useExpandSet<number>();
   const propostasGridRef = useMasonryColumns<HTMLDivElement>();
   const filteredPropostas = useMemo(() => {
     return CARTA_PROPOSTAS_DATA.filter((item) => {
@@ -255,10 +257,11 @@ export const CartaPropostaInteractive: React.FC = () => {
 
       {/* 3. GRID DE PROPOSTAS COM ANIMATEPRESENCE (TRANSIÇÃO ELÁSTICA SEM REDUÇÃO DE MOVIMENTO) */}
       <motion.div ref={propostasGridRef} className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
-        <AnimatePresence mode="popLayout">
+        {/* A carta fica aberta na página (13/11/2026): os cartões já nascem visíveis, sem esperar o JS. */}
+        <AnimatePresence mode="popLayout" initial={false}>
           {filteredPropostas.map((item) => {
-            const isExpanded = textosIntegrais.isOpen(item.id);
             const isProposta3 = item.id === 3;
+            const selo = isProposta3 ? 'Já entregue: é este site' : SELO_DA_PROPOSTA.get(item.id);
             return (
               <motion.div
                 key={item.id}
@@ -280,10 +283,10 @@ export const CartaPropostaInteractive: React.FC = () => {
                         }`}
                       >
                         <CardHeader className="p-4 pb-2 space-y-2">
-                          {isProposta3 && (
+                          {selo && (
                             <div className="flex items-center justify-between gap-2 pb-1">
                               <span className="inline-flex items-center px-2.5 py-1 rounded-md bg-accent text-foreground border-2 border-border shadow-sm text-xs font-bold uppercase tracking-[0.04em] -rotate-1">
-                                Já entregue: é este site
+                                {selo}
                               </span>
                             </div>
                           )}
@@ -306,45 +309,26 @@ export const CartaPropostaInteractive: React.FC = () => {
                         </CardHeader>
 
                         <CardContent className="p-4 pt-1 space-y-3 flex-1 flex flex-col justify-between">
-                          <div>
-                            <p className="text-sm font-sans text-content-secondary leading-relaxed m-0">
+                          <div className="space-y-3">
+                            <p className="text-base font-sans font-bold text-foreground leading-snug m-0">
                               {item.summary}
                             </p>
-
-                            <ExpandRegion
-                              id={`proposta-${item.id}-integral`}
-                              open={isExpanded}
-                              role="region"
-                              aria-label={`Texto integral da proposta ${item.id}`}
-                            >
-                              <div className="mt-3 p-3 rounded-lg bg-muted text-sm font-sans text-foreground leading-relaxed space-y-2">
-                                <strong>Texto integral da carta-programa:</strong>
-                                <p className="mt-1 m-0">{item.fullText}</p>
-                              </div>
-                            </ExpandRegion>
+                            {/* O texto inteiro da carta fica à vista: nada de "ler mais" (13/11/2026). */}
+                            <div className="font-sans space-y-1">
+                              <p className="m-0 font-heading text-sm font-bold text-foreground">Na carta-programa</p>
+                              <p className="m-0 text-base text-content-secondary leading-relaxed [text-wrap:pretty]">{item.fullText}</p>
+                            </div>
                           </div>
 
-                          <div className="pt-1 border-t-2 border-border/15">
-                            <div className="flex items-center justify-between pt-1">
-                              <button
-                                type="button"
-                                onClick={() => textosIntegrais.toggle(item.id)}
-                                aria-expanded={isExpanded}
-                                aria-controls={`proposta-${item.id}-integral`}
-                                className="min-h-[44px] inline-flex items-center gap-1.5 text-sm font-bold text-primary underline underline-offset-[0.22em] cursor-pointer bg-transparent border-none p-0"
-                              >
-                                {isExpanded ? 'Recolher' : 'Ler o compromisso'}
-                                <ExpandChevron open={isExpanded} />
-                              </button>
-                              <a
-                                href={route(`/propostas/${item.id}`)}
-                                className="min-h-[44px] inline-flex items-center gap-1.5 text-sm font-bold text-primary underline underline-offset-[0.22em]"
-                                aria-label={`Abrir e compartilhar a proposta ${item.id}`}
-                              >
-                                Abrir e mandar
-                                <i className="bi bi-arrow-right" aria-hidden="true" />
-                              </a>
-                            </div>
+                          <div className="border-t-2 border-border/15">
+                            <a
+                              href={route(`/propostas/${item.id}`)}
+                              className="min-h-[44px] inline-flex items-center gap-1.5 text-sm font-bold text-primary underline underline-offset-[0.22em]"
+                              aria-label={`Abrir e compartilhar a proposta ${item.id}`}
+                            >
+                              Abrir e mandar
+                              <i className="bi bi-arrow-right" aria-hidden="true" />
+                            </a>
                           </div>
                         </CardContent>
                       </NeobrutalistMotionCard>
@@ -352,10 +336,6 @@ export const CartaPropostaInteractive: React.FC = () => {
                   </ContextMenuTrigger>
 
                   <ContextMenuContent>
-                    <ContextMenuItem onClick={() => textosIntegrais.toggle(item.id)}>
-                      <CagpIcon name="file-text" className="w-4 h-4 mr-2" />
-                      {isExpanded ? 'Recolher Detalhes' : 'Ver Texto Integral'}
-                    </ContextMenuItem>
                     <ContextMenuItem onClick={() => {
                       const shareText = montarMensagem({
                         corpo: `🌱 *Proposta ${item.id} da Chapa 2 · Semente: ${item.title}*\n${item.summary}`,

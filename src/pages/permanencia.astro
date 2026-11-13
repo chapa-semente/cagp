@@ -28,6 +28,7 @@ const maisNoite = [
   { titulo: 'Caminho até o Setorial II', texto: 'Iluminação reforçada na escadaria da Praça de Serviços até o RU. À noite, prefira o ônibus interno (linhas 2 e 3 rodam até 22h50).' },
   { titulo: 'Jantar no Setorial I', texto: 'O CAGP cobra da PRAE e da FUMP a reabertura do jantar no Setorial I, vizinho à FAFICH.' },
 ];
+import ComplementoUfmg from '@/components/features/ufmg/ComplementoUfmg.astro';
 ---
 
 <BaseLayout
@@ -51,6 +52,13 @@ const maisNoite = [
     <div id="programas" class="cagp-anchor-target"></div>
     <h2 class="sr-only">Programas da FUMP</h2>
     <FumpProgramas />
+    {/* O que o Viver UFMG acrescenta ao site da FUMP (src/data/ufmgComplementos.json). */}
+    <div class="mt-8 grid gap-5" aria-label="Mais sobre a assistência, segundo a UFMG">
+      <ComplementoUfmg bloco="permanencia-niveis" />
+      <ComplementoUfmg bloco="permanencia-comer" />
+      <ComplementoUfmg bloco="permanencia-prae" />
+      <ComplementoUfmg bloco="permanencia-projetos" />
+    </div>
   </section>
 
   <section id="ws-panel-v1" class="cagp-workspace-view" data-ws-panel="v1" hidden>

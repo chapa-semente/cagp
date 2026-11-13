@@ -1,0 +1,270 @@
+---
+// FluxoEmergencia.astro — O fluxo de urgência e emergência do DAST Pampulha (UFMG), redesenhado.
+// O original é uma imagem com caixas e setas (viverufmg/.../Dast-novo-BH.jpg). Aqui ele vira texto de verdade:
+// a pergunta do risco à vida e dois caminhos lado a lado (SIM roxo, NÃO petróleo), com os telefones
+// como botão de ligar. Nada foi acrescentado ao fluxo: cada passo é uma caixa do original.
+// A estrela é o desenho original da Marcelly (desenhosReferencia.json, 1º quadro); a exclamação segue
+// o traço dela (desenhosObjetos.json). Sem mãos novas (DESIGN.md › Tour das propostas).
+import CagpIcon from '@/components/ui/CagpIcon.astro';
+import referencia from '@/data/desenhosReferencia.json';
+import objetos from '@/data/desenhosObjetos.json';
+import { ARTISTA_DOS_DESENHOS } from '@/lib/creditos';
+
+const ORIGINAL = 'https://www.ufmg.br/viverufmg/wp-content/uploads/2022/03/Dast-novo-BH.jpg';
+const estrela = referencia.adesivo;
+const [x0, y0, x1, y1] = estrela.caixa;
+const margem = 24;
+const caixa = `${x0 - margem} ${y0 - margem} ${x1 - x0 + margem * 2} ${y1 - y0 + margem * 2}`;
+const exclamacao = objetos.exclamacao;
+const k = 2.5;
+const ex = (x0 + x1) / 2 - (exclamacao.w * k) / 2;
+const ey = (y0 + y1) / 2 - (exclamacao.h * k) / 2;
+
+const riscos = [
+  'Traumas (quedas, desabamentos, acidentes)',
+  'Incêndios',
+  'Queimaduras graves',
+  'Choque elétrico',
+  'Intoxicações e envenenamentos',
+  'Perda de consciência',
+  'Crises convulsivas',
+  'Perda súbita de movimentos',
+  'Dor torácica súbita',
+  'Dispneia (falta de ar)',
+  'Ameaça contra a própria vida ou a dos colegas',
+];
+---
+
+<section class="fluxo" aria-labelledby="fluxo-titulo">
+  <h2 id="fluxo-titulo">O que fazer no campus Pampulha</h2>
+
+  <div class="fluxo-inicio">
+    <p class="fluxo-forte">Alguém precisa de atendimento da equipe de saúde?</p>
+    <p>Peça ajuda a quem estiver perto: chefe, professor, colega, segurança, porteiro ou seção de pessoal.</p>
+  </div>
+
+  <div class="fluxo-pergunta">
+    <svg class="fluxo-estrela" viewBox={caixa} aria-hidden="true">
+      <g transform={`translate(0 ${estrela.h}) scale(1 -1)`}>
+        <path d={estrela.quadros[0].fill} fill="#FE8812" stroke="#1F1F1F" stroke-width="22" stroke-linejoin="round" />
+      </g>
+      <g transform={`translate(${ex} ${ey}) scale(${k})`}>
+        {exclamacao.partes.map((p) => <path d={p.d} fill={p.cor} />)}
+      </g>
+    </svg>
+    <div>
+      <h3>Tem risco potencial à vida?</h3>
+      <p>Conta como risco:</p>
+      <ul class="fluxo-riscos">
+        {riscos.map((r) => <li>{r}</li>)}
+      </ul>
+    </div>
+  </div>
+
+  <div class="fluxo-caminhos">
+    <div class="fluxo-caminho fluxo-sim">
+      <h3><span class="fluxo-resposta">Sim</span> Tem risco à vida</h3>
+      <ol>
+        <li>
+          <strong>Acione o SAMU ou o Corpo de Bombeiros.</strong>
+          <span class="fluxo-acoes">
+            <a class="fluxo-ligar" href="tel:192"><CagpIcon name="phone" class="w-4 h-4" /> SAMU 192</a>
+            <a class="fluxo-ligar" href="tel:193"><CagpIcon name="phone" class="w-4 h-4" /> Bombeiros 193</a>
+          </span>
+        </li>
+        <li><strong>Dê todas as informações</strong> que a Central de Regulação do SAMU pedir.</li>
+        <li>
+          <strong>Avise o DAST.</strong>
+          <span class="fluxo-acoes">
+            <a class="fluxo-ligar" href="tel:+553134094499"><CagpIcon name="phone" class="w-4 h-4" /> (31) 3409-4499</a>
+          </span>
+        </li>
+      </ol>
+      <div class="fluxo-sub">
+        <p class="fluxo-forte">A ambulância do SAMU vai atender?</p>
+        <p><span class="fluxo-resposta">Sim</span> Fique ao lado da pessoa, no local, e aguarde a chegada da ambulância.</p>
+        <p><span class="fluxo-resposta">Não</span> Siga pelo outro caminho: veja se há transporte até o DAST.</p>
+      </div>
+    </div>
+
+    <div class="fluxo-caminho fluxo-nao">
+      <h3><span class="fluxo-resposta">Não</span> Não tem risco à vida</h3>
+      <div class="fluxo-sub">
+        <p class="fluxo-forte">Há transporte disponível?</p>
+        <p><span class="fluxo-resposta">Sim</span> Vá com a pessoa ao DAST.</p>
+        <p><span class="fluxo-resposta">Não</span> Ligue para o DAST, que avalia o transporte pelo serviço.</p>
+        <span class="fluxo-acoes">
+          <a class="fluxo-ligar" href="tel:+553134094499"><CagpIcon name="phone" class="w-4 h-4" /> (31) 3409-4499</a>
+        </span>
+      </div>
+      <p class="fluxo-fim">No DAST, a equipe acolhe, atende e orienta.</p>
+    </div>
+  </div>
+
+  <p class="fluxo-aviso">
+    <CagpIcon name="alert-triangle" class="w-5 h-5" />
+    <span><strong>Precisa de atendimento em dia não útil?</strong> Acione o SAMU (192) ou o Corpo de Bombeiros (193).</span>
+  </p>
+
+  <p class="fluxo-credito">
+    Fluxo do DAST Pampulha, da UFMG, redesenhado por este site; os critérios de risco são os que o original
+    atribui ao SAMU. <a href={ORIGINAL} target="_blank" rel="noopener noreferrer">Ver o fluxograma original</a>.
+    Estrela: desenho de {ARTISTA_DOS_DESENHOS.nome}
+    (<a href={ARTISTA_DOS_DESENHOS.url} target="_blank" rel="noopener noreferrer">{ARTISTA_DOS_DESENHOS.instagram}</a>).
+  </p>
+</section>
+
+<style>
+  .fluxo { display: grid; gap: 1rem; }
+  .fluxo h2 {
+    margin: 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--color-border);
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .fluxo p { margin: 0; font-size: 1rem; line-height: 1.5; }
+  .fluxo-forte { font-family: var(--font-heading); font-weight: 700; font-size: 1.125rem; line-height: 1.3; }
+
+  .fluxo-inicio,
+  .fluxo-pergunta {
+    padding: 1rem 1.125rem;
+    background: #fff;
+    border: 3px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: 4px 4px 0 0 var(--color-border);
+  }
+  .fluxo-inicio { display: grid; gap: 0.375rem; }
+
+  .fluxo-pergunta { display: grid; gap: 0.75rem; }
+  .fluxo-estrela { width: 8.5rem; height: auto; transform: rotate(-4deg); overflow: visible; }
+  .fluxo-pergunta h3 { margin: 0 0 0.5rem; font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; line-height: 1.15; text-wrap: balance; }
+  .fluxo-pergunta p { font-size: 0.875rem; font-weight: 700; }
+  .fluxo-riscos { margin: 0.375rem 0 0; padding-left: 1.125rem; list-style: square; display: grid; gap: 0.25rem 1.5rem; font-size: 1rem; line-height: 1.45; }
+  .fluxo-riscos li::marker { color: var(--color-accent, #FE8812); }
+
+  .fluxo-caminhos { display: grid; gap: 1rem; align-items: start; }
+  .fluxo-caminho {
+    display: grid;
+    gap: 0.875rem;
+    padding: 1rem 1.125rem 1.125rem;
+    color: #fff;
+    border: 3px solid var(--color-border);
+    border-radius: 16px;
+    box-shadow: 6px 6px 0 0 var(--color-border);
+  }
+  .fluxo-sim { background: var(--color-primary); }
+  .fluxo-nao { background: var(--color-secondary); }
+  .fluxo-caminho h3 {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-family: var(--font-heading);
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .fluxo-resposta {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    margin-right: 0.25rem;
+    background: #fff;
+    color: var(--color-foreground);
+    border: 2px solid var(--color-border);
+    border-radius: 8px;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .fluxo-caminho h3 .fluxo-resposta { background: var(--color-accent, #FE8812); font-size: 0.875rem; box-shadow: 2px 2px 0 0 var(--color-border); transform: rotate(-4deg); }
+
+  .fluxo-caminho ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; counter-reset: fluxo; }
+  .fluxo-caminho ol > li {
+    counter-increment: fluxo;
+    position: relative;
+    padding-left: 2.5rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    min-height: 2rem;
+  }
+  .fluxo-caminho ol > li::before {
+    content: counter(fluxo);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1.75rem;
+    height: 1.75rem;
+    display: grid;
+    place-items: center;
+    background: #fff;
+    color: var(--color-foreground);
+    border: 2px solid var(--color-border);
+    border-radius: 11px 3px 11px 3px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+  .fluxo-acoes { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+  .fluxo-ligar {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    min-height: 44px;
+    padding: 0.375rem 0.875rem;
+    background: #fff;
+    color: var(--color-foreground);
+    border: 3px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: 3px 3px 0 0 var(--color-border);
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    text-decoration: none;
+    transition: transform var(--duration-press) var(--ease-spring-snappy), box-shadow var(--duration-press) var(--ease-spring-snappy);
+  }
+  .fluxo-ligar:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 0 var(--color-border); }
+  .fluxo-ligar:active { transform: translate(3px, 3px); box-shadow: none; }
+  .fluxo-ligar:focus-visible { outline: 2px solid var(--color-accent, #FE8812); outline-offset: 2px; }
+
+  .fluxo-sub {
+    display: grid;
+    gap: 0.5rem;
+    padding: 0.875rem 1rem;
+    background: #fff;
+    color: var(--color-foreground);
+    border: 2px solid var(--color-border);
+    border-radius: 12px;
+  }
+  .fluxo-sub .fluxo-resposta { background: var(--color-muted); }
+  .fluxo-fim { font-weight: 700; }
+
+  .fluxo-aviso {
+    display: flex;
+    gap: 0.625rem;
+    align-items: flex-start;
+    padding: 0.75rem 1rem;
+    background: var(--color-warning-tint, #FEF3C7);
+    border: 2px solid var(--color-border);
+    border-radius: 12px;
+  }
+  .fluxo-aviso :global(svg) { flex: none; margin-top: 0.125rem; color: var(--color-warning, #92400E); }
+  .fluxo-credito { font-size: 0.875rem !important; color: var(--color-content-secondary); max-width: 68ch; }
+  .fluxo-credito a { color: var(--color-primary); font-weight: 700; text-underline-offset: 0.22em; }
+
+  @media (min-width: 640px) {
+    .fluxo h2 { font-size: 1.5rem; }
+    .fluxo-pergunta { grid-template-columns: 9.5rem minmax(0, 1fr); align-items: start; gap: 1.25rem; }
+    .fluxo-estrela { width: 9.5rem; margin-top: 0.25rem; }
+    .fluxo-riscos { grid-template-columns: 1fr 1fr; }
+  }
+  @media (min-width: 720px) {
+    .fluxo-caminhos { grid-template-columns: 1fr 1fr; }
+  }
+</style>

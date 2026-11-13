@@ -37,6 +37,12 @@ export interface TourStop {
   hook: string;
   /** Quem resolveu e como, em uma frase. */
   answer: string;
+  /**
+   * De onde a pessoa fala, numa linha em primeira pessoa (tira de papel na tela dela). Só com o que a
+   * própria pessoa declarou e aprovou; a regra "diversidade só em frase coletiva" vale para o que o
+   * site diz por conta própria, não para a fala de quem escolheu contar.
+   */
+  vive?: string;
   /** Nome da ferramenta no spotlight. */
   tool: string;
   /** O que a ferramenta faz de verdade, hoje. */
@@ -53,6 +59,7 @@ export const TOUR_STOPS: Record<TourLeaderId, TourStop> = {
     target: '[data-tour="gabriel"]',
     hook: 'Pediu o requerimento no grupo e ninguém mandou?',
     answer: 'Gabriel construiu este site para os documentos do curso ficarem com os estudantes, não com a diretoria da vez.',
+    vive: 'Sou fumpista nível I, cotista, neurodivergente e trabalho de dia. Presido a Chapa 2 pra quem tem essa rotina.',
     tool: 'Documentos mais pedidos',
     proof: 'Os formulários que mais aparecem no WhatsApp, prontos para abrir e mandar. Ideia nossa, construída há muito tempo, e o site é do curso.',
   },
@@ -111,6 +118,7 @@ export const TOUR_STOPS: Record<TourLeaderId, TourStop> = {
     target: '[data-tour="vitoria"]',
     hook: 'Trabalha de dia, estuda à noite e não sabe se tem direito à FUMP?',
     answer: 'Vitória escreveu o guia da assistência estudantil sem juridiquês.',
+    vive: 'Sou fumpista. Escrevi o guia pra ninguém precisar descobrir sozinho.',
     tool: 'Programas da FUMP',
     proof: 'Os quatro programas da FUMP, quanto o RU custa em cada nível e o passo a passo para pedir.',
   },
@@ -152,6 +160,7 @@ export const TOUR_STOPS: Record<TourLeaderId, TourStop> = {
     target: '#cagp-widget-campus',
     hook: 'Saiu da aula às 22h e o Circular já tinha passado?',
     answer: 'Paloma defende o turno da noite: um CA no horário de quem trabalha.',
+    vive: 'Entrei na UFMG pela cota. Hoje defendo o turno da noite na Chapa 2.',
     tool: 'Campus agora',
     proof: 'O horário do jantar no RU e as últimas partidas do ônibus interno, logo na tela inicial.',
   },
@@ -235,6 +244,11 @@ export interface SementeTourState {
   skipFrom?: number;
   /** Versão da sequência de telas. Estado ativo de outra versão recomeça (os índices mudaram). */
   v?: number;
+  /**
+   * O tour foi dado como visto sem abrir: primeira abertura do app instalado no iPhone, que começa
+   * com os dados vazios (script inline do BaseLayout). A pessoa já passou pelo site no Safari.
+   */
+  peloApp?: boolean;
 }
 
 /** Sequência de 12/11/2026 (noite): vídeo, momento do curso, uma tela por pessoa, carteirinha, votação. */

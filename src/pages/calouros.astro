@@ -20,6 +20,13 @@ const tabs = [
 const badges = [
   { label: 'Primeiros 30 dias', variant: 'purple' as const, icon: 'bi-backpack' },
 ];
+import HubItemList from '@/components/shell/HubItemList.astro';
+import { getItemByPath } from '@/lib/navigationRegistry';
+import { route } from '@/lib/paths';
+
+const primeiraSemana = ['/sistemas', '/carteirinha', '/biblioteca', '/mapas', '/emergencia'].flatMap(
+  (caminho) => getItemByPath(route(caminho))?.item ?? [],
+);
 ---
 
 <BaseLayout
@@ -43,6 +50,10 @@ const badges = [
     <div id="visao-geral" class="cagp-anchor-target"></div>
     <h2 class="sr-only">Hoje e primeiros passos</h2>
     <CalouroCentralOverview />
+    {/* Portas para os guias da vida na UFMG (13/11/2026): o que todo calouro resolve na primeira semana. */}
+    <div class="mt-10">
+      <HubItemList items={primeiraSemana} heading="Primeira semana na UFMG" headingId="calouros-primeira-semana" />
+    </div>
   </section>
 
   <section id="ws-panel-v1" class="cagp-workspace-view space-y-6" data-ws-panel="v1" data-context-type="checklist" data-tour="alice" hidden>

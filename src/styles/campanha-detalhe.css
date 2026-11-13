@@ -151,6 +151,33 @@
   text-wrap: pretty;
 }
 
+.cd-citacao p { margin: 0; }
+.cd-citacao p + p { margin-top: 0.75em; }
+/* A pergunta que abre a fala fala com quem lê: sobe um degrau. */
+.cd-citacao-gancho { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; line-height: 1.3; text-indent: -0.45em; text-wrap: balance; }
+
+/* O que já foi feito da proposta (13/11/2026): ficha com o adesivo laranja batido no canto. */
+.cd-feito { position: relative; padding-top: 1.75rem; }
+.cd-feito-selo {
+  position: absolute;
+  top: -0.875rem;
+  left: 1rem;
+  margin: 0;
+  padding: 0.125rem 0.5rem;
+  rotate: -2deg;
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #1f1f1f;
+  background: var(--color-accent);
+  border: 2px solid #1f1f1f;
+  border-radius: 6px;
+  box-shadow: 2px 2px 0 0 #1f1f1f;
+}
+
 /* A fala de quem puxa a proposta */
 .cd-fala {
   grid-template-columns: auto 1fr;

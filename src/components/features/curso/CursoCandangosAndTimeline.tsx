@@ -33,11 +33,11 @@ interface HistoricalMilestone {
 
 const CANDANGOS_TIMELINE: HistoricalMilestone[] = [
   {
-    year: '1959',
-    title: 'Monumento "Os Candangos" (Dois Guerreiros) — Bruno Giorgi',
+    year: '1957',
+    title: '"Os Guerreiros", de Bruno Giorgi, que o povo rebatizou de "Os Candangos"',
     tag: 'ORIGEM SEMIÓTICA • BRASÍLIA/DF',
     status: 'completed',
-    desc: 'Inaugurada na Praça dos Três Poderes, a escultura em bronze de 8 metros de Bruno Giorgi homenageia os trabalhadores que ergueram a nova capital. Inspira diretamente a marca oficial do CAGP: o Estado como construção coletiva, o prumo republicano e os pilares democráticos.',
+    desc: 'A escultura em bronze de 8 metros foi exposta na Bienal de São Paulo em 1957 com o nome "Os Guerreiros" e levada à Praça dos Três Poderes antes da inauguração de Brasília. Foi a população que passou a chamá-la de "Os Candangos", vendo nas duas figuras os operários que ergueram a capital. "Candango" era xingamento e virou nome de quem construiu a cidade. Inspira a marca do CAGP: o Estado como construção coletiva.',
     highlight: true,
   },
   {
@@ -145,20 +145,20 @@ const CARREIRAS_COMPARATIVAS: PublicCareerCard[] = [
 
 export const CursoCandangosAndTimeline: React.FC = () => {
   return (
-    <section className="space-y-8 my-6 text-foreground" aria-label="Memória dos Candangos de 1959, Linha do Tempo e Carreiras Públicas">
+    <section className="space-y-8 my-6 text-foreground" aria-label="Memória dos Candangos, Linha do Tempo e Carreiras Públicas">
       {/* 1. Dossiê Editorial Ampliado: Os Candangos de 1959 & A Identidade da Gestão Pública na UFMG */}
       <div className="p-5 sm:p-7 bg-white border-2 border-border rounded-2xl shadow-xl space-y-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b-3 border-border pb-4">
           <div>
             <h2 className="font-head text-xl sm:text-2xl md:text-3xl font-black text-foreground m-0">
-              Os Candangos de 1959 &amp; A Construção Democrática do Estado
+              Os Candangos &amp; A Construção Democrática do Estado
             </h2>
             <p className="text-xs sm:text-sm text-gray-800 mt-1 m-0 font-body font-medium max-w-4xl">
-              Por que o monumento <em>Dois Guerreiros ("Os Candangos")</em>, inaugurado em 1959 na Praça dos Três Poderes, batiza a identidade visual do Bacharelado em Gestão Pública da FAFICH/UFMG?
+              Por que a escultura que Bruno Giorgi chamou de <em>Os Guerreiros</em> (1957), e que o povo rebatizou de <em>Os Candangos</em> na Praça dos Três Poderes, inspira a identidade visual do CAGP?
             </p>
           </div>
           <span className="px-3.5 py-2 rounded-xl bg-foreground text-white font-mono text-xs font-black uppercase shrink-0 border-2 border-border shadow-[3px_3px_0_0_#FE8812]">
-            1959 → 2009 → 2026
+            1957 → 2009 → 2026
           </span>
         </div>
 
@@ -172,19 +172,19 @@ export const CursoCandangosAndTimeline: React.FC = () => {
             >
               <img
                 src={asset('/imagens/os-candangos.webp')}
-                alt="Monumento Os Candangos (Dois Guerreiros) de Bruno Giorgi (1959) na Praça dos Três Poderes em Brasília"
+                alt="Escultura Os Candangos (Os Guerreiros), de Bruno Giorgi, na Praça dos Três Poderes em Brasília"
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
               <span className="absolute top-3 left-3 px-3 py-1 rounded-md bg-[#9E2424] text-white font-mono font-black text-xs uppercase tracking-wider border-2 border-border shadow-sm">
-                PRAÇA DOS TRÊS PODERES • 1959
+                PRAÇA DOS TRÊS PODERES • BRASÍLIA
               </span>
               <div className="absolute bottom-4 left-4 right-4 text-white space-y-1 bg-foreground rounded-lg px-3 py-2.5">
                 <h3 className="font-head font-black text-base sm:text-xl leading-tight m-0">
-                  &ldquo;Dois Guerreiros&rdquo; (Os Candangos) — Escultura em Bronze de Bruno Giorgi
+                  &ldquo;Os Guerreiros&rdquo;, hoje Os Candangos — Escultura em Bronze de Bruno Giorgi
                 </h3>
                 <p className="font-mono text-xs text-white m-0">
-                  Patrimônio Cultural da Humanidade (UNESCO) • Símbolo da soberania popular e do trabalho coletivo que ergue o Estado brasileiro.
+                  O nome de hoje veio do povo, que viu nas duas figuras os operários que ergueram Brasília.
                 </p>
               </div>
             </motion.div>
@@ -196,7 +196,7 @@ export const CursoCandangosAndTimeline: React.FC = () => {
                 className="w-16 h-16 object-contain rounded-lg border-2 border-border bg-white p-1.5 shrink-0"
               />
               <p className="text-xs text-foreground font-body font-medium leading-relaxed m-0">
-                <strong>Da Escultura de 1959 ao Símbolo do CAGP (2009):</strong> O traço geométrico rubro (<code>#9E2424</code>) do Centro Acadêmico une os dois guerreiros pelo prumo republicano central, lembrando a cada estudante que gerir a coisa pública é servir ao povo trabalhador.
+                <strong>Da Escultura de 1957 ao Símbolo do CAGP (2009):</strong> O traço geométrico rubro (<code>#9E2424</code>) do Centro Acadêmico une as duas figuras pelo prumo republicano central, lembrando a cada estudante que gerir a coisa pública é servir ao povo trabalhador.
               </p>
             </div>
           </div>
@@ -231,7 +231,7 @@ export const CursoCandangosAndTimeline: React.FC = () => {
                 SEMIÓTICA TRÍPLICE • CANDANGOS + SEMENTE + UFMG
               </span>
               <p className="text-xs text-foreground font-body font-medium leading-relaxed m-0">
-                A <strong>Chapa Semente</strong> honra o legado dos Candangos de 1959 com trabalho real: entregamos o portal e as calculadoras do curso funcionando antes mesmo das urnas.
+                A <strong>Chapa Semente</strong> honra o legado dos candangos com trabalho real: entregamos o portal e as calculadoras do curso funcionando antes mesmo das urnas.
               </p>
             </div>
           </div>
@@ -243,7 +243,7 @@ export const CursoCandangosAndTimeline: React.FC = () => {
         <div className="flex flex-wrap items-center justify-between gap-3 border-b-3 border-border pb-3">
           <div>
             <h3 className="font-head text-lg sm:text-2xl font-black text-foreground m-0">
-              Trajetória Histórica: De 1959 à Gestão Pública na UFMG (2026)
+              Trajetória Histórica: De 1957 à Gestão Pública na UFMG (2026)
             </h3>
           </div>
           <Badge variant="default" className="font-mono">

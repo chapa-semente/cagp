@@ -7,6 +7,9 @@
 //   • fundo roxo e petróleo alternando; a cor do eixo (raiz, broto, planta, fruto) só no adesivo;
 //   • os desenhos são os da chapa, feitos à mão (DesenhosDaChapa.tsx): cada eixo tem uma cena com as
 //     mãos originais, e cada proposta tem o seu desenho a caneta dentro da estrela, colado na foto.
+// Desde 13/11/2026 o tour aponta o que já foi feito: o adesivo laranja ("Já no ar", "Já começou") na
+// linha da proposta, a contagem no subtítulo do eixo e, no detalhe, a ficha branca com o que existe
+// hoje e o link da prova. Proposta sem nada feito diz isso em uma linha (`jaFeito` no roteiro).
 // Abre pelo evento START_PROPOSTAS_TOUR; sempre dá para fechar. Roteiro: src/lib/propostasTour.ts.
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, MotionConfig, motion } from 'motion/react';
@@ -16,7 +19,7 @@ import { GritoDeVoto } from '@/components/ui/grito-de-voto';
 import { getTourPerson } from '@/lib/sementeTour';
 import { AdesivoChapa, AdesivoDaProposta, CenaDoEixo } from './DesenhosDaChapa';
 import { CreditoDosDesenhos } from './CreditoDosDesenhos';
-import { PROPOSTA_EIXOS, PROPOSTA_STOPS, START_PROPOSTAS_TOUR, type PropostaStop } from '@/lib/propostasTour';
+import { PROPOSTA_EIXOS, PROPOSTA_SEM_INICIO, PROPOSTA_STOPS, START_PROPOSTAS_TOUR, type PropostaStop } from '@/lib/propostasTour';
 
 const TOTAL = PROPOSTA_STOPS.length;
 const EIXOS = PROPOSTA_EIXOS.length;
@@ -35,6 +38,8 @@ const btnBase =
   'focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-accent';
 const btnWhite = `${btnBase} rounded-[12px] bg-white text-foreground hover:bg-muted`;
 const btnGo = `${btnBase} rounded-[26px_7px_26px_7px] uppercase tracking-[0.04em] bg-accent text-foreground hover:bg-accent-hover`;
+const linkDark =
+  'inline-flex min-h-[44px] w-fit cursor-pointer flex-wrap items-center gap-2 text-sm font-bold text-foreground underline underline-offset-[0.22em] focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-accent';
 const linkLight =
   'inline-flex min-h-[44px] w-fit cursor-pointer items-center gap-2 text-sm font-bold text-white underline underline-offset-[0.22em] focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-white';
 const h2Cls = 'm-0 font-heading font-bold leading-[1.08] tracking-[-0.02em] [text-wrap:balance] focus:outline-none focus-visible:outline-none';
@@ -198,6 +203,14 @@ const AdesivoEixo: React.FC<{ eixo: EixoInfo; texto: string }> = ({ eixo, texto 
   </span>
 );
 
+/** O adesivo laranja do que já foi feito. Mesmo desenho do cartão da carta completa. */
+const seloCls =
+  'inline-block w-fit rounded-md border-2 border-foreground bg-accent px-1.5 py-0.5 font-heading text-xs font-bold uppercase leading-tight tracking-[0.04em] text-foreground shadow-[2px_2px_0_0_#1F1F1F]';
+
+/** "2 já saíram do papel", "1 já saiu do papel", "as 2 já saíram do papel". */
+const feitasEmTexto = (feitas: number, total: number) =>
+  feitas === total ? `as ${total} já saíram do papel` : feitas === 1 ? '1 já saiu do papel' : `${feitas} já saíram do papel`;
+
 /* ───────────────────────── Uma tela por eixo ───────────────────────── */
 
 const Eixo: React.FC<{ headingRef: HeadingRef; eixo: EixoInfo; bg: string; onOpen: (id: number) => void; onNext: () => void; onBack: () => void }> = ({
@@ -210,9 +223,11 @@ const Eixo: React.FC<{ headingRef: HeadingRef; eixo: EixoInfo; bg: string; onOpe
 }) => {
   const propostas = PROPOSTA_STOPS.filter((p) => p.id >= eixo.de && p.id <= eixo.ate);
   const proximo = PROPOSTA_EIXOS.find((e) => e.id === eixo.id + 1);
+  const feitas = propostas.filter((p) => p.jaFeito).length;
   return (
     <div className={`${screenPad} flex flex-col`}>
-      <div className="mx-auto flex w-full max-w-[1120px] flex-1 flex-col gap-4 md:gap-6">
+      {/* min-h-0: no celular a cena encolhe (até 76px) para a lista caber sem rolar; o eixo Raiz tem 6 linhas. */}
+      <div className="mx-auto flex min-h-0 w-full max-w-[1120px] flex-1 flex-col gap-4 md:gap-6">
         <div className="flex min-h-11 items-center gap-3 pr-[60px] sm:pr-[72px]">
           <img src={asset('/logos/semente/semente-simbolo-branco.webp')} alt="" aria-hidden="true" className="h-7 w-auto shrink-0" />
           <div className="min-w-0 flex-1">
@@ -232,7 +247,7 @@ const Eixo: React.FC<{ headingRef: HeadingRef; eixo: EixoInfo; bg: string; onOpe
                 {eixo.gancho}
               </h2>
               <p className="m-0 text-base leading-snug">
-                {eixo.nome}: {propostas.length} propostas.
+                {eixo.nome}: {propostas.length} propostas{feitas > 0 && `, ${feitasEmTexto(feitas, propostas.length)}`}.
               </p>
             </div>
             <ul className="m-0 grid list-none gap-1.5 p-0">
@@ -249,7 +264,16 @@ const Eixo: React.FC<{ headingRef: HeadingRef; eixo: EixoInfo; bg: string; onOpe
                       <span className="h-9 w-9 shrink-0 overflow-hidden rounded-[30%_10%_30%_10%] border-2 border-foreground bg-muted">
                         <img src={person.thumb} alt="" className="h-full w-full object-cover" style={{ objectPosition: person.position }} />
                       </span>
-                      <span className="min-w-0 flex-1 text-base font-bold leading-tight">{p.titulo}</span>
+                      {/* O adesivo corre na linha do título: título curto não ganha uma linha a mais. */}
+                      <span className="min-w-0 flex-1 py-1 text-base font-bold leading-tight">
+                        {p.titulo}
+                        {p.jaFeito && (
+                          <>
+                            {' '}
+                            <span className={`${seloCls} my-0.5 ml-0.5 -rotate-1 whitespace-nowrap align-middle`}>{p.jaFeito.selo}</span>
+                          </>
+                        )}
+                      </span>
                       <i className="bi bi-chevron-right shrink-0 text-sm" aria-hidden="true" />
                     </button>
                   </motion.li>
@@ -322,12 +346,25 @@ const Detalhe: React.FC<{ headingRef: HeadingRef; stop: PropostaStop; onBack: ()
             </h2>
             <p className="m-0 max-w-[50ch] text-base leading-snug sm:text-lg sm:leading-relaxed">{stop.compromisso}</p>
             <p className="m-0 max-w-[46ch] font-heading text-lg font-bold leading-snug">{stop.porque}</p>
-            {stop.prova && (
-              <a href={route(stop.prova.href)} onClick={onClose} className={`${linkLight} flex-wrap`}>
-                {stop.prova.label}
-                {stop.prova.simulado && <span className="cagp-stamp-badge is-simulado">Simulado</span>}
-                <i className="bi bi-arrow-up-right" aria-hidden="true" />
-              </a>
+            {stop.jaFeito ? (
+              /* O que já existe: papel branco com o adesivo batido no canto, depois que a foto germina. */
+              <div className="relative mt-3 grid max-w-[50ch] gap-1 rounded-[12px] border-3 border-foreground bg-white px-4 pb-2 pt-5 text-foreground shadow-md">
+                <motion.span
+                  className={`${seloCls} absolute -top-3 left-3 origin-left`}
+                  initial={{ opacity: 0, scale: 1.8, rotate: -10 }}
+                  animate={{ opacity: [0, 1, 1], scale: [1.8, 0.92, 1], rotate: [-10, -1, -2] }}
+                  transition={{ duration: 0.36, delay: 0.45, times: [0, 0.62, 1], ease: easeOutExpo }}
+                >
+                  {stop.jaFeito.selo}
+                </motion.span>
+                <p className="m-0 text-base leading-snug">{stop.jaFeito.texto}</p>
+                {stop.prova ? <Prova prova={stop.prova} onClose={onClose} className={linkDark} /> : <span className="h-2" aria-hidden="true" />}
+              </div>
+            ) : (
+              <>
+                <p className="m-0 text-base leading-snug">{PROPOSTA_SEM_INICIO}</p>
+                {stop.prova && <Prova prova={stop.prova} onClose={onClose} className={`${linkLight} flex-wrap`} />}
+              </>
             )}
             <div className="flex items-center gap-3 pt-1">
               <button type="button" onClick={onBack} className={`${btnGo} h-[52px] flex-1 px-5 text-sm md:flex-none`}>
@@ -341,6 +378,14 @@ const Detalhe: React.FC<{ headingRef: HeadingRef; stop: PropostaStop; onBack: ()
     </div>
   );
 };
+
+const Prova: React.FC<{ prova: NonNullable<PropostaStop['prova']>; onClose: () => void; className: string }> = ({ prova, onClose, className }) => (
+  <a href={route(prova.href)} onClick={onClose} className={className}>
+    {prova.label}
+    {prova.simulado && <span className="cagp-stamp-badge is-simulado">Simulado</span>}
+    <i className="bi bi-arrow-up-right" aria-hidden="true" />
+  </a>
+);
 
 /* ───────────────────────── Fechamento ───────────────────────── */
 
@@ -358,7 +403,7 @@ const Fechamento: React.FC<{ headingRef: HeadingRef; onBack: () => void; onClose
           Como votar
           <i className="bi bi-arrow-right" aria-hidden="true" />
         </a>
-        <a href={`${route('/chapa-semente')}#propostas`} onClick={onClose} className={`${btnWhite} min-h-[52px] px-5 text-base`}>
+        <a href={`${route('/chapa-semente')}#carta`} onClick={onClose} className={`${btnWhite} min-h-[52px] px-5 text-base`}>
           Ler a carta completa
         </a>
       </div>

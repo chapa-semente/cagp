@@ -22,7 +22,7 @@ const CHECKLIST_ITEMS: ChecklistItem[] = [
     title: '1. Ativar MinhaUFMG e App SIGA UFMG',
     desc: 'Cadastre sua senha inicial no portal sistemas.ufmg.br utilizando a folha NIPs entregue no registro acadêmico do DRCA.',
     iconName: 'sliders',
-    link: { label: 'Portal MinhaUFMG', url: 'https://sistemas.ufmg.br', ext: true },
+    link: { label: 'Sistemas da UFMG, passo a passo', url: route('/sistemas'), ext: false },
   },
   {
     id: 'chk_eduroam',

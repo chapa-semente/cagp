@@ -108,6 +108,26 @@ import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
     <!-- Metadados extras da página (ex.: noindex numa página que não é pública). -->
     <slot name="head" />
 
+    <!-- Pôr na tela inicial: o navegador avisa UMA vez por carregamento que dá para instalar
+         (Chrome, Edge e Samsung no Android). O aviso é guardado aqui, antes de qualquer módulo, porque
+         o bloco de instalar e o tour só carregam depois e perderiam o evento. Quem usa: src/lib/pwa/instalacao.ts. -->
+    <script is:inline>
+      (function () {
+        if (window.__cagpInstalarOuvindo) return;
+        window.__cagpInstalarOuvindo = true;
+        var mudou = function () { window.dispatchEvent(new Event('cagp:instalar-mudou')); };
+        window.addEventListener('beforeinstallprompt', function (e) {
+          e.preventDefault();
+          window.__cagpInstalar = e;
+          mudou();
+        });
+        window.addEventListener('appinstalled', function () {
+          window.__cagpInstalar = null;
+          mudou();
+        });
+      })();
+    </script>
+
     <!-- Tour obrigatório: cobre a página em roxo até a ilha do tour montar (sem piscar o conteúdo).
          Se o JS não carregar em 6s, a cobertura sai sozinha e o site segue utilizável. -->
     <script is:inline>
@@ -116,13 +136,24 @@ import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
           var raw = localStorage.getItem('cagp_semente_tour_v2');
           var st = raw ? JSON.parse(raw) : null;
           if ((st && st.status === 'done') || window.__cagpTourMounted) return;
+          // App instalado no iPhone (13/11/2026): a tela inicial do iPhone guarda os dados separados do
+          // Safari, então a primeira abertura do app parece primeira visita. Só que ninguém instala sem
+          // ter passado pelo site no Safari: o tour não abre de novo. Fica o "Rever a apresentação da
+          // chapa" em /sobre-o-site e na home. `navigator.standalone` só existe no iPhone e no iPad; no
+          // Android o app divide os dados com o navegador e não precisa disto.
+          if (!st && navigator.standalone === true) {
+            localStorage.setItem('cagp_semente_tour_v2', JSON.stringify({ status: 'done', index: 0, peloApp: true }));
+            return;
+          }
           var root = document.documentElement;
           var base = root.getAttribute('data-base-url') || '/';
           if (base.slice(-1) !== '/') base += '/';
           // Entrou por link de documento (12/11/2026): nesta visita o tour não abre. A página do
           // documento mostra um convite de uma linha; quem voltar outro dia por outra porta vê o tour.
           var caminho = '/' + location.pathname.slice(base.length);
-          if (/^\/(doc|documentos)(\/|$)/.test(caminho)) sessionStorage.setItem('cagp_entrou_por_doc', '1');
+          // /emergencia entra na mesma regra desde 13/11/2026: quem abre a página de urgência precisa dos
+          // telefones na hora. Lá não aparece nem o convite (ele só é desenhado nas páginas de documento).
+          if (/^\/(doc|documentos|emergencia)(\/|$)/.test(caminho)) sessionStorage.setItem('cagp_entrou_por_doc', '1');
           if (sessionStorage.getItem('cagp_entrou_por_doc')) {
             if (!sessionStorage.getItem('cagp_convite_tour_fechado')) root.setAttribute('data-semente-convite', '');
             return;

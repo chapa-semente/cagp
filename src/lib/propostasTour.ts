@@ -23,9 +23,23 @@ export interface PropostaStop {
    */
   porque: string;
   art: PropostaArt;
+  /**
+   * O que a Semente já fez desta proposta antes da eleição (decisão do Gabriel em 13/11/2026: o tour
+   * aponta o que já foi feito, e só isso; nada sobre outra chapa ou gestão). `selo` é o adesivo:
+   * "Já no ar" quando a coisa existe no site e dá pra usar hoje; "Já começou" quando há trabalho feito
+   * mas a entrega depende da gestão. Proposta sem `jaFeito` ainda não começou, e a tela diz isso.
+   * Cada texto tem que ser conferível no site ou na seção "O que a Chapa Semente já fez" do relatório
+   * em `_referencias/analise_gestao_reconecta/`; bagagem de integrante entra em forma coletiva, sem nome.
+   */
+  jaFeito?: { selo: PropostaSelo; texto: string };
   /** Onde o site já mostra essa proposta em ação (ou o modelo dela). */
   prova?: { label: string; href: string; simulado?: boolean };
 }
+
+export type PropostaSelo = 'Já no ar' | 'Já começou';
+
+/** O que a tela diz quando a proposta ainda não tem nada feito. */
+export const PROPOSTA_SEM_INICIO = 'Essa só dá pra começar de dentro do CA.';
 
 /**
  * Os 4 eixos da carta viram os 4 estágios da planta. Desde 12/11/2026 (noite) o tour tem uma tela por
@@ -35,7 +49,7 @@ export const PROPOSTA_EIXOS = [
   { id: 1, nome: 'Transparência e gestão', estagio: 'Raiz', bg: '#8A4B2A', fg: '#FFFFFF', tinta: '#FE8812', de: 1, ate: 6, gancho: 'Sabe pra onde vai o dinheiro do CA?' },
   { id: 2, nome: 'Cultura e bem viver', estagio: 'Broto', bg: '#6DB33F', fg: '#1F1F1F', tinta: '#5B2A85', de: 7, ate: 8, gancho: 'Chegou no curso e ninguém te recebeu?' },
   { id: 3, nome: 'Acadêmico, carreira e formação política', estagio: 'Planta', bg: '#266264', fg: '#FFFFFF', tinta: '#FE8812', de: 9, ate: 11, gancho: 'Estágio, curso, evento: quem te avisa?' },
-  { id: 4, nome: 'Comunicação, institucional e arrecadação', estagio: 'Fruto', bg: '#FFC83D', fg: '#1F1F1F', tinta: '#5B2A85', de: 12, ate: 14, gancho: 'O CA só fala com você quando tem festa?' },
+  { id: 4, nome: 'Comunicação, institucional e arrecadação', estagio: 'Fruto', bg: '#FFC83D', fg: '#1F1F1F', tinta: '#5B2A85', de: 12, ate: 14, gancho: 'CA que só aparece em calourada e eleição? Isso tem nome: ghosting.' },
 ] as const;
 
 export const PROPOSTA_STOPS: PropostaStop[] = [
@@ -44,8 +58,9 @@ export const PROPOSTA_STOPS: PropostaStop[] = [
     titulo: 'Prestação de contas a cada três meses',
     compromisso: 'Um boletim trimestral com todas as entradas, saídas e aplicações do caixa do CA.',
     leaderId: 'vitoria',
-    porque: 'O portal já está pronto: o livro-caixa é atualizado a cada lançamento e, a cada três meses, sai um boletim fácil de ler.',
+    porque: 'O dinheiro do CA é seu. O livro-caixa é atualizado a cada lançamento e, a cada três meses, sai um boletim fácil de ler.',
     art: 'contas',
+    jaFeito: { selo: 'Já começou', texto: 'O portal de transparência já está montado: livro-caixa, gráficos e planilha pra baixar. Os números são de exemplo até a gente ter as contas do CA.' },
     prova: { label: 'Abrir o portal', href: '/transparencia', simulado: true },
   },
   {
@@ -63,6 +78,7 @@ export const PROPOSTA_STOPS: PropostaStop[] = [
     leaderId: 'gabriel',
     porque: 'A informação do curso fica com os estudantes, não com a diretoria da vez.',
     art: 'site',
+    jaFeito: { selo: 'Já no ar', texto: 'É este site: guias de estágio, horas complementares, TCC, permanência e ônibus, mais os documentos do curso num lugar só.' },
     prova: { label: 'Abrir os guias', href: '/guias' },
   },
   {
@@ -96,6 +112,7 @@ export const PROPOSTA_STOPS: PropostaStop[] = [
     leaderId: 'paloma',
     porque: 'Ninguém deveria chegar no curso sem ser recebido, muito menos quem estuda à noite.',
     art: 'calouros',
+    jaFeito: { selo: 'Já no ar', texto: 'O guia do calouro já existe: os primeiros 30 dias na UFMG, onde fica cada sala do curso e a quem recorrer.' },
     prova: { label: 'Abrir o guia do calouro', href: '/calouros' },
   },
   {
@@ -105,6 +122,7 @@ export const PROPOSTA_STOPS: PropostaStop[] = [
     leaderId: 'italo',
     porque: 'Conversa com todas as entidades, sem dever nada a nenhuma.',
     art: 'entidades',
+    jaFeito: { selo: 'Já começou', texto: 'Tem gente nossa que disputa o DA da FAFICH na chapa Nise da Silveira, de independentes, com integrantes dos centros acadêmicos de História, Antropologia e Comunicação.' },
   },
   {
     id: 9,
@@ -129,6 +147,7 @@ export const PROPOSTA_STOPS: PropostaStop[] = [
     leaderId: 'livia',
     porque: 'A empresa júnior é dos estudantes, não de uma chapa. O CA entra como apoio.',
     art: 'empresa',
+    jaFeito: { selo: 'Já começou', texto: 'Tem gente nossa que ajudou a construir a Empresa Júnior.' },
   },
   {
     id: 12,
@@ -137,7 +156,8 @@ export const PROPOSTA_STOPS: PropostaStop[] = [
     leaderId: 'joao',
     porque: 'Estágio, concurso, bolsa e prazo avisados sempre, não só quando tem festa.',
     art: 'comunicacao',
-    prova: { label: 'Ver o modelo do mural', href: '/noticias', simulado: true },
+    jaFeito: { selo: 'Já no ar', texto: 'As vagas que chegam no grupo Conexão Gestão Pública já ficam no site, com o anúncio como chegou e o prazo.' },
+    prova: { label: 'Ver as vagas', href: '/carreira/vagas' },
   },
   {
     id: 13,
@@ -152,10 +172,14 @@ export const PROPOSTA_STOPS: PropostaStop[] = [
     titulo: 'Canal permanente de escuta',
     compromisso: 'Canais fixos para dúvidas, demandas e sugestões, com retorno público do que foi encaminhado.',
     leaderId: 'joao',
-    porque: 'Sua dúvida ou reclamação tem para onde ir, e a resposta volta em público. A gente já começou por nós: o site recebe crítica hoje.',
+    porque: 'Sua dúvida ou reclamação tem para onde ir, e a resposta volta em público.',
     art: 'escuta',
+    jaFeito: { selo: 'Já no ar', texto: 'O Fala com a gente já recebe crítica, erro e ideia sobre o site. A gente começou por nós.' },
     prova: { label: 'Mandar uma crítica ao site agora', href: '/ouvidoria' },
   },
 ];
+
+/** Quantas das 14 já têm algo feito (a página da chapa e o tour contam a partir daqui). */
+export const PROPOSTAS_FEITAS = PROPOSTA_STOPS.filter((p) => p.jaFeito).length;
 
 export const START_PROPOSTAS_TOUR = 'cagp:start-propostas-tour';

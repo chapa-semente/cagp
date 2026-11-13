@@ -59,6 +59,8 @@ interface Props {
   /** A caneta da chapa: uma palavra do título escrita à mão (Permanent Marker + traço que se desenha).
    *  Escreva como deve aparecer (caixa de frase), ex.: title="Estágio sem drama" marker="drama". */
   marker?: string;
+  /** Ícone da própria página no quadro de folha, no lugar do desenho do estágio (guias da vida na UFMG). */
+  icone?: string;
 }
 
 const {
@@ -73,6 +75,7 @@ const {
   mode,
   condensed = false,
   marker,
+  icone,
 } = Astro.props;
 
 // Divide o título em [antes, palavra da caneta, depois]; sem correspondência, o título fica inteiro.
@@ -112,7 +115,14 @@ const computedBreadcrumbs = breadcrumbs && breadcrumbs.length > 0
 
   {!isPersuadeMode && (
     <div class={cn('cagp-page-head', isOperateOrCondensed ? 'p-5 sm:p-6' : 'p-5 sm:p-8')}>
-      <EstagioIlustra nivel={estagio.nivel} class="cagp-page-head-art" />
+      {icone ? (
+        <span class="cagp-page-head-art cagp-page-head-icone" aria-hidden="true">
+          <CagpIcon name={resolveCagpIconName(icone)} class="cagp-page-head-glifo" />
+          <svg class="cagp-page-head-broto" viewBox="-46 -110 72 118"><use href="#sg-folha" /></svg>
+        </span>
+      ) : (
+        <EstagioIlustra nivel={estagio.nivel} class="cagp-page-head-art" />
+      )}
       <div class="cagp-page-head-body">
       {computedBreadcrumbs.length > 0 && (
         <div class="mb-3 hidden md:block">

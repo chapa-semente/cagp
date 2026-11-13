@@ -9,6 +9,29 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import { FeedbackDoSite } from '@/components/features/ouvidoria/FeedbackDoSite';
 import PageHeader from '@/components/ui/PageHeader.astro';
 import SementeSignature from '@/components/ui/SementeSignature.astro';
+import MarkerWord from '@/components/ui/MarkerWord.astro';
+import { route } from '@/lib/paths';
+import { CagpIcon } from '@/components/ui/CagpIcon';
+import {
+  CHAPA_INSTAGRAM,
+  CHAPA_INSTAGRAM_URL,
+  PRESIDENTE_INSTAGRAM,
+  PRESIDENTE_INSTAGRAM_URL,
+  PRESIDENTE_WHATSAPP,
+  PRESIDENTE_WHATSAPP_URL,
+  CHAPA_LEADERS,
+  CHAPA_ROTULO,
+  getLeaderPhotoUrl,
+} from '@/lib/chapaSementeData';
+
+// Falar direto com o presidente (13/11/2026, a pedido do Gabriel): o rosto dele, o WhatsApp e o
+// Instagram pessoais. Os dois saem do site. É o único momento Cartaz desta página.
+const presidente = CHAPA_LEADERS.find((l) => l.id === 'gabriel')!;
+const fotoPresidente = getLeaderPhotoUrl(presidente.photoFilename);
+const canais = [
+  { acao: 'Chamar no WhatsApp', onde: PRESIDENTE_WHATSAPP, href: PRESIDENTE_WHATSAPP_URL, icone: 'bi-whatsapp', cor: '#6DB33F' },
+  { acao: 'Chamar no Instagram', onde: PRESIDENTE_INSTAGRAM, href: PRESIDENTE_INSTAGRAM_URL, icone: 'bi-instagram', cor: '#FE8812' },
+];
 
 const depois = [
   { titulo: 'Chega na chapa', texto: 'A mensagem cai no e-mail da Chapa Semente, e quem lê é a equipe que fez o site.' },
@@ -38,6 +61,65 @@ const proposta = [
     <section aria-label="Mandar uma crítica, um erro ou uma ideia" data-tour="larissa">
       <FeedbackDoSite client:load />
     </section>
+
+    <section aria-labelledby="fala-direto" class="sk-saldo fala-pres">
+      <div class="fala-pres-topo">
+        {fotoPresidente && (
+          <div class="fala-pres-quadro">
+            <figure class="fala-pres-retrato">
+              <img
+                src={fotoPresidente}
+                alt={`${presidente.name}, presidente da ${CHAPA_ROTULO}`}
+                width="640"
+                height="640"
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption><b>{presidente.name}</b><span>{presidente.role}</span></figcaption>
+            </figure>
+            <svg class="sk-broto" viewBox="-46 -110 72 118" aria-hidden="true"><use href="#sg-folha"></use></svg>
+          </div>
+        )}
+        <h2 id="fala-direto" class="fala-pres-titulo">
+          Fala <MarkerWord onColor scroll>direto</MarkerWord> com o presidente
+        </h2>
+      </div>
+      <div class="sk-saldo-papel">
+        <p class="fala-pres-lede">
+          O Gabriel é o presidente da {CHAPA_ROTULO} e quem programa este site. Erro, ideia, crítica ou dúvida sobre a chapa:
+          chama, que quem responde é ele.
+        </p>
+        {presidente.lugarDeFala && (
+          <blockquote class="fala-pres-vive">
+            <strong>“{presidente.lugarDeFala.gancho}</strong>
+            <span>{presidente.lugarDeFala.curta}”</span>
+          </blockquote>
+        )}
+        <ul class="fala-pres-canais" role="list">
+          {canais.map((c) => (
+            <li>
+              <a href={c.href} target="_blank" rel="noopener noreferrer">
+                <span class="fala-pres-ico" style={`--bg:${c.cor}`}><i class={`bi ${c.icone}`} aria-hidden="true"></i></span>
+                <span class="fala-pres-canal">
+                  <strong>{c.acao}</strong>
+                  <span class="tabular-nums">{c.onde}</span>
+                </span>
+                <CagpIcon name="external" class="fala-pres-sai" />
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p class="fala-pres-chapa">
+          Prefere falar com a chapa inteira?{' '}
+          <a href={CHAPA_INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">{CHAPA_INSTAGRAM} no Instagram</a>
+        </p>
+      </div>
+    </section>
+
+    <p class="max-w-[66ch] rounded-xl border-2 border-border bg-white p-4 text-base leading-relaxed">
+      <strong>Sofreu assédio, discriminação ou trote?</strong> Isso não é com este canal: a denúncia vai para a Ouvidoria da UFMG.
+      <a href={route('/direitos')} class="font-bold text-primary underline underline-offset-4">Veja como denunciar</a>.
+    </p>
 
     <section aria-labelledby="fala-depois" class="space-y-4">
       <h2 id="fala-depois" class="fala-h2">O que acontece com o que você manda</h2>
@@ -98,6 +180,109 @@ const proposta = [
     line-height: 1.1;
     font-variant-numeric: tabular-nums;
     color: var(--color-primary);
+  }
+  /* Falar direto com o presidente: cartão em camadas do kit (sk-saldo), na tinta roxa da semente. */
+  /* A margem de baixo soma as duas camadas (12px) ao respiro entre seções da página. */
+  .fala-pres { max-width: 44rem; margin-bottom: calc(2.5rem + 12px); background: var(--color-primary); }
+  .fala-pres-topo {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.75rem 1.125rem 1.5rem 1.25rem;
+  }
+  /* O quadro inclina como colagem e leva a folha; a foto fica inteira, em cor, dentro dele. */
+  .fala-pres-quadro { position: relative; width: 7.25rem; rotate: -3deg; }
+  .fala-pres-retrato {
+    margin: 0;
+    overflow: hidden;
+    border: 3px solid #1f1f1f;
+    border-radius: 26px 7px 26px 7px;
+    background: var(--color-muted);
+    box-shadow: 3px 3px 0 0 var(--color-accent), 6px 6px 0 0 #1f1f1f;
+  }
+  .fala-pres-retrato img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: 52% 30%; }
+  .fala-pres-retrato figcaption {
+    display: grid;
+    gap: 0.125rem;
+    padding: 0.375rem 0.5rem 0.5rem 0.75rem;
+    background: #1f1f1f;
+    color: #fff;
+    font-family: var(--font-heading);
+    line-height: 1.2;
+  }
+  .fala-pres-retrato figcaption b { font-size: 0.875rem; }
+  .fala-pres-retrato figcaption span { font-size: 0.75rem; }
+  .fala-pres-quadro .sk-broto { width: 22px; height: 35px; right: -11px; top: -24px; }
+  .fala-pres:hover .sk-broto { rotate: 12deg; scale: 1.15; }
+  .fala-pres-titulo {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #fff;
+    /* Coluna estreita no celular: quebra corrida ("com o" junto), sem o equilíbrio dos títulos. */
+    text-wrap: wrap;
+  }
+  .fala-pres-titulo :global(.cagp-marker) { font-size: 1.2em; }
+  .fala-pres-lede { margin: 0; max-width: 62ch; font-size: 1rem; line-height: 1.55; color: var(--color-foreground); }
+  .fala-pres-vive { margin: 0; max-width: 46ch; display: grid; gap: 0.5rem; color: var(--color-foreground); }
+  .fala-pres-vive strong { font-family: var(--font-heading); font-size: 1.125rem; font-weight: 700; line-height: 1.35; text-indent: -0.45em; text-wrap: balance; }
+  .fala-pres-vive span { font-size: 1rem; line-height: 1.55; text-wrap: pretty; }
+  .fala-pres-canais { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.875rem; }
+  .fala-pres-canais a {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.625rem;
+    min-height: 68px;
+    padding: 0.5rem 0.75rem 0.5rem 0.5rem;
+    border: 3px solid #1f1f1f;
+    border-radius: 12px;
+    background: #fff;
+    color: var(--color-foreground);
+    text-decoration: none;
+    box-shadow: 4px 4px 0 0 var(--shadow-color, #1f1f1f);
+    transition: translate var(--duration-press) var(--ease-spring-snappy), box-shadow var(--duration-press) var(--ease-spring-snappy);
+  }
+  .fala-pres-canais a:hover { translate: -1px -1px; box-shadow: 6px 6px 0 0 var(--shadow-color, #1f1f1f); }
+  .fala-pres-canais a:active { translate: 4px 4px; box-shadow: 0 0 0 0 #1f1f1f; }
+  .fala-pres-canais a:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; }
+  .fala-pres-ico {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border: 2px solid #1f1f1f;
+    border-radius: 16px 5px 16px 5px;
+    background: var(--bg);
+    color: #1f1f1f;
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+  .fala-pres-canal { display: grid; gap: 0.125rem; min-width: 0; }
+  .fala-pres-canal strong { font-family: var(--font-heading); font-size: 1rem; line-height: 1.25; }
+  .fala-pres-canal > span { font-size: 1rem; font-weight: 700; line-height: 1.3; color: var(--color-primary); overflow-wrap: anywhere; }
+  .fala-pres-canais a :global(.fala-pres-sai) { flex: none; width: 1.25rem; height: 1.25rem; }
+  .fala-pres-chapa { margin: 0; font-size: 1rem; line-height: 1.5; color: var(--color-content-secondary); }
+  .fala-pres-chapa a {
+    display: inline-block;
+    padding-block: 0.625rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 0.22em;
+  }
+  .fala-pres-chapa a:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 2px; border-radius: 8px; }
+  @media (min-width: 640px) {
+    .fala-pres-topo { gap: 1.75rem; padding: 2rem 1.75rem 1.75rem 2rem; }
+    .fala-pres-quadro { width: 9.5rem; }
+    .fala-pres-retrato figcaption b { font-size: 1rem; }
+    .fala-pres-retrato figcaption span { font-size: 0.875rem; }
+    .fala-pres-titulo { font-size: 2.25rem; line-height: 1.12; text-wrap: balance; }
+    .fala-pres :global(.sk-saldo-papel) { padding: 1.5rem 1.75rem; }
+    .fala-pres-canais { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
   .fala-passos strong { font-family: var(--font-heading); font-size: 1.125rem; line-height: 1.25; color: var(--color-foreground); }
   .fala-passos span { font-size: 1rem; line-height: 1.55; color: var(--color-content-secondary); max-width: 62ch; }

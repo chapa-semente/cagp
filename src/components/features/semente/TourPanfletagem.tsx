@@ -124,7 +124,7 @@ export const TourPanfletagem: React.FC<{ onDone: () => void }> = ({ onDone }) =>
         onEnded={finish}
         onError={() => stage === 'video' && finish()}
         className={`absolute inset-0 block h-full w-full ${empe ? 'object-cover' : 'object-contain'}`}
-        aria-label="Vídeo de humor feito com inteligência artificial, uma paródia no formato de plantão de notícias: um personagem de terno azul e chapéu de palha espalha panfletos por um corredor de escola. As legendas dizem que a Chapa 2 tem 14 propostas no papel e 10 ferramentas já funcionando neste site, e que a votação é em 25 e 26 de novembro, das 17h às 22h30, na sala do CAGP."
+        aria-label="Vídeo de humor feito com inteligência artificial, uma paródia no formato de plantão de notícias: um personagem de terno azul e chapéu de palha espalha panfletos por um corredor de escola. As legendas dizem que a Semente não é só uma chapa, é uma ideia que veio para ficar; que tem 14 propostas no papel e 10 ferramentas já funcionando neste site; que não some depois da calourada nem da eleição; que entre os integrantes há fumpista, cotista e quem trabalha; e que a votação é em 25 e 26 de novembro, das 17h às 22h30, na sala do CAGP."
       />
 
       {/* O cartão Cartaz ancorado embaixo: deixa o personagem da capa à vista na metade de cima. */}

@@ -82,10 +82,19 @@ const cor = indice % 2 === 1 ? { bg: '#266264', fundo: '#1D5052' } : { bg: '#5B2
       <p class="cd-texto"><strong>{SOLUTION_LABEL[pessoa.solutionStatus]}</strong> {pessoa.solution}</p>
     </section>
 
-    {pessoa.vivencias && pessoa.vivencias.length > 0 && (
+    {(pessoa.lugarDeFala || (pessoa.vivencias && pessoa.vivencias.length > 0)) && (
       <section class="cd-secao" aria-labelledby="cd-vive">
         <h2 id="cd-vive" class="cd-h2">O que {primeiroNome} vive</h2>
-        {pessoa.vivencias.map((v) => <blockquote class="cd-citacao">“{v.fala}”</blockquote>)}
+        {pessoa.lugarDeFala ? (
+          <blockquote class="cd-citacao">
+            <p class="cd-citacao-gancho">“{pessoa.lugarDeFala.gancho}</p>
+            {pessoa.lugarDeFala.fala.split('\n\n').map((trecho, i, todos) => (
+              <p>{trecho}{i === todos.length - 1 && '”'}</p>
+            ))}
+          </blockquote>
+        ) : (
+          pessoa.vivencias!.map((v) => <blockquote class="cd-citacao">“{v.fala}”</blockquote>)
+        )}
       </section>
     )}
 

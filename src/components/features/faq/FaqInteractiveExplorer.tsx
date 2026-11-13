@@ -26,13 +26,14 @@ interface Props {
 }
 
 const CATEGORIES: { id: string; label: string }[] = [
-  { id: 'all', label: 'Todas (15)' },
+  { id: 'all', label: 'Todas' },
   { id: 'matricula', label: 'Matrícula & Trancamento' },
   { id: 'dispensa', label: 'Dispensa & Aproveitamento' },
   { id: 'modalidades', label: 'Noturno, EaD & Imersão' },
   { id: 'saude', label: 'RAEP & Saúde' },
   { id: 'conclusao', label: 'Formatura & Defesas' },
   { id: 'normas', label: 'Resoluções CEPE/DCN' },
+  { id: 'ufmg', label: 'Chegando na UFMG' },
 ];
 
 export const FaqInteractiveExplorer: React.FC<Props> = ({ faqs }) => {
@@ -131,10 +132,24 @@ export const FaqInteractiveExplorer: React.FC<Props> = ({ faqs }) => {
                           size="sm"
                           className="no-underline font-mono text-xs"
                         >
-                          <a href={asset(link.url)} download>
-                            <i className="bi bi-file-earmark-pdf text-primary text-sm" aria-hidden="true" />
-                            <span>{link.label}</span>
-                          </a>
+                          {/^https?:/.test(link.url) ? (
+                            // Link para a fonte oficial: abre fora do site.
+                            <a href={link.url} target="_blank" rel="noopener noreferrer">
+                              <i className="bi bi-box-arrow-up-right text-primary text-sm" aria-hidden="true" />
+                              <span>{link.label}</span>
+                            </a>
+                          ) : /\.[a-z0-9]{2,5}$/i.test(link.url) ? (
+                            <a href={asset(link.url)} download>
+                              <i className="bi bi-file-earmark-pdf text-primary text-sm" aria-hidden="true" />
+                              <span>{link.label}</span>
+                            </a>
+                          ) : (
+                            // Outra página do site.
+                            <a href={asset(link.url)}>
+                              <i className="bi bi-arrow-right text-primary text-sm" aria-hidden="true" />
+                              <span>{link.label}</span>
+                            </a>
+                          )}
                         </Button>
                       ))}
                     </div>

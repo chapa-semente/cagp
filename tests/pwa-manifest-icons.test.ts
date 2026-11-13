@@ -18,6 +18,55 @@ describe("PWA Manifest, Favicon & Chapa Semente Brand Assets", () => {
     expect(manifest.background_color).toBe("#FFFFFF");
   });
 
+  // O que o Chrome do Android exige para oferecer "Instalar" e o que o iPhone lê ao adicionar à
+  // Tela de Início. Caminhos relativos: o site mora em /cagp/ no GitHub Pages.
+  it("should keep the manifest installable on Android and iOS", () => {
+    const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+
+    expect(manifest.display).toBe("standalone");
+    expect(manifest.start_url).toBe("./");
+    expect(manifest.scope).toBe("./");
+    expect(manifest.prefer_related_applications).not.toBe(true);
+
+    const has = (size: string, purpose: string) =>
+      manifest.icons.some((i: { sizes: string; purpose?: string; type?: string }) =>
+        i.sizes === size && (i.purpose ?? "any").split(" ").includes(purpose) && i.type === "image/png");
+    expect(has("192x192", "any")).toBe(true);
+    expect(has("512x512", "any")).toBe(true);
+    expect(has("512x512", "maskable")).toBe(true);
+
+    for (const icon of manifest.icons) expect(icon.src.startsWith("./"), icon.src).toBe(true);
+    for (const atalho of manifest.shortcuts) {
+      expect(atalho.url.startsWith("./"), atalho.url).toBe(true);
+      // Atalho do ícone abre uma página que existe (sem âncora que pode sumir numa reforma).
+      const pagina = atalho.url.replace(/^\.\//, "").split("#")[0];
+      expect(fs.existsSync(path.join(rootDir, "src/pages", `${pagina}.astro`)), `Página do atalho: ${pagina}`).toBe(true);
+      expect(atalho.url).not.toContain("#");
+    }
+    // Documentos (PDF/Word) nunca ficam no cache: a descrição não pode prometer acervo offline.
+    expect(manifest.description).not.toMatch(/acervo offline/i);
+  });
+
+  it("should capture the install prompt before any module loads", () => {
+    const layout = fs.readFileSync(baseLayoutPath, "utf8");
+    const captura = layout.indexOf("addEventListener('beforeinstallprompt'");
+    expect(captura).toBeGreaterThan(-1);
+    // Dentro do <head>, num script inline: o evento só dispara uma vez por carregamento.
+    expect(captura).toBeLessThan(layout.indexOf("</head>"));
+    expect(layout).toContain("window.__cagpInstalar = e");
+  });
+
+  // O app instalado no iPhone começa com os dados vazios: sem isto, o tour da primeira visita
+  // abriria de novo para quem acabou de passar por ele no Safari.
+  it("should not reopen the first-visit tour inside the installed iPhone app", () => {
+    const layout = fs.readFileSync(baseLayoutPath, "utf8");
+    const pula = layout.indexOf("if (!st && navigator.standalone === true)");
+    expect(pula).toBeGreaterThan(-1);
+    // A decisão vem antes de a página ser coberta à espera do tour.
+    expect(pula).toBeLessThan(layout.indexOf("root.setAttribute('data-semente-tour', 'pending')"));
+    expect(layout.slice(pula, pula + 260)).toContain("status: 'done'");
+  });
+
   it("should verify all icons declared in manifest.webmanifest exist on disk", () => {
     const content = fs.readFileSync(manifestPath, "utf8");
     const manifest = JSON.parse(content);

@@ -92,6 +92,38 @@ html { scrollbar-color: var(--estagio) var(--estagio-solo); accent-color: #5B2A8
   --ei-ink: 4px;
 }
 @media (min-width: 640px) { .cagp-page-head-art { --ei-ink: 5px; } }
+/* Guias da vida na UFMG: o ícone da página no quadro de folha, branco sobre o bloco do estágio,
+   com a folha laranja do símbolo brotando do canto (o mesmo quadro do hub, em tamanho de cabeça). */
+.cagp-page-head-icone {
+  display: grid;
+  place-items: center;
+  background: #fff;
+  color: var(--estagio);
+  overflow: visible;
+  /* Cartão em camadas, em miniatura: duas folhas de cor atrás do quadro. */
+  box-shadow:
+    5px 5px 0 -3px var(--color-accent),
+    5px 5px 0 0 var(--color-border),
+    10px 10px 0 -3px var(--color-fruto),
+    10px 10px 0 0 var(--color-border);
+}
+.cagp-page-head-glifo { width: 54%; height: 54%; }
+.cagp-page-head-broto {
+  position: absolute;
+  right: -8%;
+  top: -24%;
+  width: 26%;
+  height: auto;
+  overflow: visible;
+  fill: var(--color-accent);
+  stroke: var(--color-border);
+  stroke-width: 5px;
+  stroke-linejoin: round;
+  /* A folha respira (o único laço decorativo do kit, 3,6s). */
+  transform-origin: 50% 100%;
+  animation: cagp-head-respira 3.6s ease-in-out infinite;
+}
+@keyframes cagp-head-respira { 0%, 100% { rotate: -5deg; } 50% { rotate: 7deg; } }
 .cagp-page-head-body > :first-child { margin-top: 0; }
 
 /* ---- O ramo que cresce com a rolagem ------------------------------------------------------ */

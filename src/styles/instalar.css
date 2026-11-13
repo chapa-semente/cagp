@@ -1,0 +1,247 @@
+/* instalar.css — o bloco "Deixe o site na tela inicial do celular" (InstalarNaTela.tsx).
+   Bloco amarelo-fruto (o destaque de aviso útil do sistema), contorno 3px, sombra dura na cor do
+   estágio. O adesivo "Recomendado" e o fechar saem pela borda, como colados por cima. */
+
+.cagp-instalar {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem 1rem 1rem;
+  border: 3px solid #1f1f1f;
+  border-radius: 16px;
+  background: var(--color-fruto, #ffc83d);
+  color: #1f1f1f;
+  box-shadow: 4px 4px 0 0 var(--shadow-color, #1f1f1f);
+  scroll-margin-top: 5.5rem;
+}
+.cagp-instalar[hidden],
+.cagp-instalar [hidden] { display: none !important; }
+
+.cagp-instalar-adesivo { top: -0.75rem; left: 0.875rem; }
+
+/* Fechar ("Agora não"): botão compacto de 36px com área de toque de 44px, colado no canto. */
+.cagp-instalar-depois {
+  position: absolute;
+  top: -1rem;
+  right: -0.5rem;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #1f1f1f;
+  cursor: pointer;
+}
+.cagp-instalar-depois > i {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 2px solid #1f1f1f;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 1rem;
+  box-shadow: 2px 2px 0 0 #1f1f1f;
+  transition: translate var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out), box-shadow var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out);
+}
+.cagp-instalar-depois:hover > i { translate: -1px -1px; box-shadow: 3px 3px 0 0 #1f1f1f; }
+.cagp-instalar-depois:active > i { translate: 2px 2px; box-shadow: 0 0 0 0 #1f1f1f; }
+.cagp-instalar-depois:focus-visible { outline: none; }
+.cagp-instalar-depois:focus-visible > i { outline: 3px solid var(--color-primary); outline-offset: 2px; }
+
+.cagp-instalar-topo {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 1rem;
+}
+
+/* A tela do celular: seis lugares de aplicativo, e o da Semente já ocupado. */
+.cagp-instalar-celular {
+  display: grid;
+  grid-template-columns: repeat(2, 1.75rem);
+  gap: 0.4375rem;
+  padding: 0.75rem 0.5625rem 0.875rem;
+  border: 3px solid #1f1f1f;
+  border-radius: 16px;
+  background: var(--color-primary-tint, #efe7f6);
+  box-shadow: 3px 3px 0 0 #1f1f1f;
+}
+.cagp-instalar-vago {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  background: #dcc8ec;
+}
+.cagp-instalar-app {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  border: 2px solid #1f1f1f;
+  border-radius: 8px;
+  background: #fff;
+  scale: 1.36;
+  box-shadow: 2px 2px 0 0 var(--color-accent, #fe8812);
+}
+/* O símbolo é o asset oficial: sem filtro, sem giro, com folga em volta. */
+.cagp-instalar-app img { display: block; width: 76%; height: 76%; object-fit: contain; }
+
+/* O ícone pousa no lugar dele conforme o bloco entra na tela. Sem suporte, já está pousado. */
+@supports (animation-timeline: view()) {
+  .cagp-instalar-app {
+    animation: cagp-instalar-pousa linear both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 32%;
+  }
+}
+@keyframes cagp-instalar-pousa {
+  from { translate: 0 -1.75rem; scale: 2; }
+  70% { translate: 0 0.125rem; scale: 1.28; }
+  to { translate: 0 0; scale: 1.36; }
+}
+
+.cagp-instalar-texto h2 {
+  margin: 0;
+  font: 700 1.125rem/1.25 var(--font-heading);
+  letter-spacing: 0;
+  text-transform: none;
+  text-wrap: balance;
+}
+.cagp-instalar-texto p {
+  margin: 0.375rem 0 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.cagp-instalar-acoes { display: grid; gap: 0.75rem; justify-items: start; }
+.cagp-instalar-acoes .sk-btn { justify-content: center; }
+
+.cagp-instalar-pronto {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.625rem 0.875rem;
+  border: 2px solid #1f1f1f;
+  border-radius: 12px;
+  background: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.cagp-instalar-pronto i { flex: none; font-size: 1.25rem; color: var(--color-success, #166534); }
+
+/* O passo a passo abre dentro do bloco. A folga à direita e embaixo guarda a sombra do botão
+   enquanto a gaveta anima (ela corta o que passa da caixa). */
+.cagp-instalar-como {
+  width: calc(100% + 6px);
+  margin: 0 -6px -6px 0;
+  padding: 0 6px 6px 0;
+}
+.cagp-instalar-como > summary {
+  width: fit-content;
+  list-style: none;
+  user-select: none;
+}
+.cagp-instalar-como > summary::-webkit-details-marker { display: none; }
+.cagp-instalar-como > summary::after {
+  content: '';
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-left: 0.125rem;
+  border-right: 3px solid currentColor;
+  border-bottom: 3px solid currentColor;
+  rotate: 45deg;
+  translate: 0 -0.125rem;
+  transition: rotate var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out), translate var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out);
+}
+.cagp-instalar-como[open] > summary::after { rotate: 225deg; translate: 0 0.125rem; }
+/* Em /sobre-o-site o passo a passo fica sempre aberto: não há o que recolher. */
+.cagp-instalar[data-instalar='pagina'] .cagp-instalar-como > summary { display: none; }
+
+.cagp-instalar-papel {
+  display: grid;
+  gap: 0.875rem;
+  margin-top: 0.875rem;
+  padding: 1rem;
+  border: 2px solid #1f1f1f;
+  border-radius: 12px;
+  background: #fff;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.cagp-instalar[data-instalar='pagina'] .cagp-instalar-papel { margin-top: 0; }
+.cagp-instalar-papel > div { display: grid; gap: 0.875rem; }
+.cagp-instalar-papel p { margin: 0; text-wrap: pretty; }
+.cagp-instalar-aviso { font-weight: 700; }
+
+.cagp-instalar-passos {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: instalar;
+}
+.cagp-instalar-passos li {
+  position: relative;
+  min-height: 1.875rem;
+  padding-left: 2.5rem;
+  counter-increment: instalar;
+}
+/* Número do passo no quadro de folha, como nos passos de trâmite. */
+.cagp-instalar-passos li::before {
+  content: counter(instalar);
+  position: absolute;
+  left: 0;
+  top: -0.0625rem;
+  display: grid;
+  place-items: center;
+  width: 1.875rem;
+  height: 1.875rem;
+  border: 2px solid #1f1f1f;
+  border-radius: 10px 3px 10px 3px;
+  background: var(--color-primary, #5b2a85);
+  color: #fff;
+  font: 700 0.875rem/1 var(--font-heading);
+  font-variant-numeric: tabular-nums;
+}
+
+.cagp-instalar-glifo {
+  display: inline-block;
+  width: 1.2em;
+  height: 1.2em;
+  vertical-align: -0.24em;
+  color: var(--color-primary, #5b2a85);
+}
+
+.cagp-instalar-nota { font-size: 0.875rem; color: var(--color-content-secondary, #4a4740); }
+.cagp-instalar-nota button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-primary, #5b2a85);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.22em;
+  cursor: pointer;
+}
+.cagp-instalar-nota button:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; border-radius: 4px; }
+
+.cagp-instalar-copiar { justify-self: start; }
+
+@media (min-width: 640px) {
+  .cagp-instalar { gap: 1.25rem; padding: 1.5rem; }
+  .cagp-instalar-topo { gap: 1.5rem; }
+  .cagp-instalar-celular { grid-template-columns: repeat(2, 2rem); }
+  .cagp-instalar-texto h2 { font-size: 1.25rem; }
+  .cagp-instalar-texto p { max-width: 52ch; font-size: 1rem; }
+  .cagp-instalar-papel { padding: 1.25rem; }
+  .cagp-instalar-papel > div, .cagp-instalar-papel > p { max-width: 68ch; }
+}

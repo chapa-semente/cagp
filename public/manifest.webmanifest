@@ -1,7 +1,7 @@
 {
   "name": "Semente — Centro Acadêmico de Gestão Pública UFMG",
   "short_name": "Semente",
-  "description": "Portal Institucional & Super App Discente da FAFICH/UFMG: percurso curricular, calculadora de horas e acervo offline.",
+  "description": "Guias, documentos e ferramentas do curso de Gestão Pública da UFMG. Abre sem sinal; só os documentos em PDF e Word precisam de internet.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
@@ -53,10 +53,10 @@
       "icons": [{ "src": "./imagens/pwa/pwa-192x192.png", "sizes": "192x192" }]
     },
     {
-      "name": "Calculadora 600h",
-      "short_name": "Calculadora",
-      "description": "Simulador interativo de horas de extensão e AAC",
-      "url": "./acg#calculadora-horas",
+      "name": "Minhas horas",
+      "short_name": "Minhas horas",
+      "description": "Quanto falta das 3.000h e das 600h de extensão e AAC",
+      "url": "./meu-curso",
       "icons": [{ "src": "./imagens/pwa/pwa-192x192.png", "sizes": "192x192" }]
     },
     {

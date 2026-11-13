@@ -29,6 +29,38 @@ interface CommandDialogProps extends DialogPrimitive.DialogProps {
   filter?: React.ComponentPropsWithoutRef<typeof CommandPrimitive>['filter']
 }
 
+/**
+ * Com o teclado aberto no celular, a folha da busca ocupa só a parte da tela que sobra acima dele.
+ * `position: fixed` mede a tela inteira (o teclado cobre a metade de baixo e os resultados somem);
+ * o visualViewport dá a área visível de verdade, no Android e no iOS. As medidas vão para duas
+ * variáveis CSS lidas por `.cagp-busca-folha` (global.css) e saem quando a busca fecha.
+ */
+function useAreaVisivel(aberta: boolean | undefined) {
+  React.useEffect(() => {
+    const vv = window.visualViewport
+    if (!aberta || !vv) return
+    const raiz = document.documentElement
+    const limpar = () => {
+      raiz.style.removeProperty('--cagp-vv-altura')
+      raiz.style.removeProperty('--cagp-vv-topo')
+    }
+    const medir = () => {
+      // Com a página ampliada por pinça a área visível encolhe sem teclado nenhum: aí vale a tela cheia.
+      if (vv.scale > 1.01) return limpar()
+      raiz.style.setProperty('--cagp-vv-altura', `${Math.round(vv.height)}px`)
+      raiz.style.setProperty('--cagp-vv-topo', `${Math.round(vv.offsetTop)}px`)
+    }
+    medir()
+    vv.addEventListener('resize', medir)
+    vv.addEventListener('scroll', medir)
+    return () => {
+      vv.removeEventListener('resize', medir)
+      vv.removeEventListener('scroll', medir)
+      limpar()
+    }
+  }, [aberta])
+}
+
 const CommandDialog = ({
   children,
   title = 'Command Menu',
@@ -36,13 +68,14 @@ const CommandDialog = ({
   filter,
   ...props
 }: CommandDialogProps) => {
+  useAreaVisivel(props.open)
   return (
     <Dialog {...props}>
       <DialogPortal>
         {/* Acima da barra inferior (z 1000) e no mesmo andar das folhas. */}
         <DialogOverlay className="z-[1080]" />
         <DialogPrimitive.Content
-          className="fixed inset-x-0 bottom-0 top-[max(0.75rem,env(safe-area-inset-top))] z-[1090] flex flex-col overflow-hidden rounded-t-2xl border-[3px] border-b-0 border-foreground bg-background shadow-[0_-6px_0_0_var(--color-foreground)] data-[state=open]:animate-in data-[state=open]:slide-in-from-bottom data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom md:inset-x-auto md:bottom-auto md:left-1/2 md:top-[16%] md:w-full md:max-w-xl md:-translate-x-1/2 md:rounded-xl md:border-b-[3px] md:shadow-xl md:data-[state=open]:slide-in-from-bottom-6 md:data-[state=open]:fade-in-0 md:data-[state=closed]:slide-out-to-bottom-6 md:data-[state=closed]:fade-out-0"
+          className="cagp-busca-folha fixed inset-x-0 z-[1090] flex flex-col overflow-hidden rounded-t-2xl border-[3px] border-b-0 border-foreground bg-background shadow-[0_-6px_0_0_var(--color-foreground)] data-[state=open]:animate-in data-[state=open]:slide-in-from-bottom data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom md:inset-x-auto md:bottom-auto md:left-1/2 md:top-[16%] md:w-full md:max-w-xl md:-translate-x-1/2 md:rounded-xl md:border-b-[3px] md:shadow-xl md:data-[state=open]:slide-in-from-bottom-6 md:data-[state=open]:fade-in-0 md:data-[state=closed]:slide-out-to-bottom-6 md:data-[state=closed]:fade-out-0"
         >
           <DialogPrimitive.Title className="sr-only">{title}</DialogPrimitive.Title>
           <DialogPrimitive.Description className="sr-only">{description}</DialogPrimitive.Description>

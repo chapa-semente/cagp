@@ -1,0 +1,367 @@
+---
+// VisualizadorDeImagem.astro — Abre uma imagem por cima da página, sem sair dela.
+//
+// Uso: ponha este componente uma vez na página e marque cada link de imagem com `data-visualizar`
+// (o href é a imagem; `data-titulo` é a legenda; `data-original`, se houver, o endereço da fonte).
+// Links da mesma página formam uma sequência (anterior / próxima). Sem JavaScript, o link continua
+// abrindo a imagem, como antes.
+//
+// Celular: arrastar move, pinça amplia, dois toques ampliam no ponto, deslizar de lado troca a imagem.
+// Desktop: roda do mouse amplia no cursor, arrastar move, + − 0 e as setas no teclado, Esc fecha.
+// Os botões da barra fazem tudo isso para quem não usa gesto. Sem blur: o fundo é grafite chapado.
+import CagpIcon from './CagpIcon.astro';
+---
+
+<dialog class="viz" data-visualizador aria-labelledby="viz-titulo">
+  <header class="viz-topo">
+    <div class="viz-legenda">
+      <p id="viz-titulo" class="viz-titulo" data-viz-titulo></p>
+      <p class="viz-conta" data-viz-conta></p>
+    </div>
+    <button type="button" class="viz-botao viz-fechar" data-viz-fechar aria-label="Fechar e voltar à página">
+      <CagpIcon name="close" class="w-6 h-6" />
+    </button>
+  </header>
+
+  <div class="viz-palco" data-viz-palco>
+    <img class="viz-img" data-viz-img alt="" draggable="false" />
+    <p class="viz-aviso" data-viz-aviso role="status">Carregando a imagem…</p>
+  </div>
+
+  <footer class="viz-barra">
+    <button type="button" class="viz-botao" data-viz-ant aria-label="Imagem anterior"><CagpIcon name="arrow-left" class="w-5 h-5" /></button>
+    <div class="viz-zoom" role="group" aria-label="Ampliação">
+      <button type="button" class="viz-botao" data-viz-menos aria-label="Diminuir"><CagpIcon name="minus" class="w-5 h-5" /></button>
+      <output class="viz-nivel" data-viz-nivel aria-live="polite">100%</output>
+      <button type="button" class="viz-botao" data-viz-mais aria-label="Ampliar"><CagpIcon name="plus" class="w-5 h-5" /></button>
+    </div>
+    <button type="button" class="viz-botao" data-viz-prox aria-label="Próxima imagem"><CagpIcon name="arrow-right" class="w-5 h-5" /></button>
+    <span class="viz-quebra" aria-hidden="true"></span>
+    <button type="button" class="viz-botao viz-texto" data-viz-ajustar>Ajustar à tela</button>
+    <a class="viz-botao viz-texto viz-original" data-viz-original target="_blank" rel="noopener noreferrer">
+      Original <CagpIcon name="external" class="w-4 h-4" />
+    </a>
+  </footer>
+</dialog>
+
+<script>
+  function ligar() {
+    const dlg = document.querySelector<HTMLDialogElement>('[data-visualizador]');
+    const links = [...document.querySelectorAll<HTMLAnchorElement>('a[data-visualizar]')];
+    if (!dlg || dlg.dataset.pronto || links.length === 0 || typeof dlg.showModal !== 'function') return;
+    dlg.dataset.pronto = '1';
+
+    const q = <T extends HTMLElement>(sel: string) => dlg.querySelector<T>(sel)!;
+    const palco = q('[data-viz-palco]');
+    const img = q<HTMLImageElement>('[data-viz-img]');
+    const aviso = q('[data-viz-aviso]');
+    const titulo = q('[data-viz-titulo]');
+    const conta = q('[data-viz-conta]');
+    const nivel = q('[data-viz-nivel]');
+    const menos = q<HTMLButtonElement>('[data-viz-menos]');
+    const mais = q<HTMLButtonElement>('[data-viz-mais]');
+    const ajustar = q<HTMLButtonElement>('[data-viz-ajustar]');
+    const ant = q<HTMLButtonElement>('[data-viz-ant]');
+    const prox = q<HTMLButtonElement>('[data-viz-prox]');
+    const original = q<HTMLAnchorElement>('[data-viz-original]');
+
+    // Escala (1 = a imagem inteira cabendo no palco) e deslocamento a partir do centro do palco.
+    let s = 1;
+    let x = 0;
+    let y = 0;
+    let atual = 0;
+
+    const maxima = () => Math.max(3, (img.naturalWidth / Math.max(1, img.offsetWidth)) * 1.5);
+    function pintar(suave = false) {
+      const mx = Math.max(0, (img.offsetWidth * s - palco.clientWidth) / 2);
+      const my = Math.max(0, (img.offsetHeight * s - palco.clientHeight) / 2);
+      x = Math.min(mx, Math.max(-mx, x));
+      y = Math.min(my, Math.max(-my, y));
+      img.classList.toggle('viz-suave', suave);
+      img.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${s})`;
+      nivel.textContent = `${Math.round(s * 100)}%`;
+      menos.disabled = s <= 1.001;
+      ajustar.disabled = s <= 1.001;
+      mais.disabled = s >= maxima() - 0.001;
+      palco.toggleAttribute('data-ampliado', s > 1.001);
+    }
+    /** Amplia mantendo parado o ponto (cx, cy), medido a partir do centro do palco. */
+    function ampliar(nova: number, cx = 0, cy = 0, suave = false) {
+      nova = Math.min(maxima(), Math.max(1, nova));
+      const k = nova / s;
+      x = cx - (cx - x) * k;
+      y = cy - (cy - y) * k;
+      s = nova;
+      pintar(suave);
+    }
+    const doCentro = (px: number, py: number) => {
+      const r = palco.getBoundingClientRect();
+      return [px - r.left - r.width / 2, py - r.top - r.height / 2] as const;
+    };
+
+    function mostrar(i: number) {
+      atual = (i + links.length) % links.length;
+      const a = links[atual];
+      s = 1;
+      x = 0;
+      y = 0;
+      aviso.textContent = 'Carregando a imagem…';
+      aviso.hidden = false;
+      img.style.visibility = 'hidden';
+      img.alt = a.querySelector('img')?.alt || a.dataset.titulo || '';
+      img.src = a.href;
+      titulo.textContent = a.dataset.titulo || 'Imagem';
+      conta.textContent = links.length > 1 ? `${atual + 1} de ${links.length}` : '';
+      ant.hidden = prox.hidden = links.length < 2;
+      original.hidden = !a.dataset.original;
+      if (a.dataset.original) original.href = a.dataset.original;
+      pintar();
+    }
+    img.addEventListener('load', () => {
+      aviso.hidden = true;
+      img.style.visibility = '';
+      pintar();
+    });
+    img.addEventListener('error', () => {
+      aviso.textContent = 'A imagem não carregou. Confira a conexão e tente de novo.';
+      aviso.hidden = false;
+    });
+
+    links.forEach((a, i) =>
+      a.addEventListener('click', (e) => {
+        // Ctrl/Cmd + clique continua abrindo em outra aba.
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+        e.preventDefault();
+        mostrar(i);
+        dlg.showModal();
+        document.documentElement.style.overflow = 'hidden';
+        window.addEventListener('resize', aoRedimensionar);
+      }),
+    );
+    const aoRedimensionar = () => pintar();
+    dlg.addEventListener('close', () => {
+      document.documentElement.style.overflow = '';
+      window.removeEventListener('resize', aoRedimensionar);
+      img.removeAttribute('src');
+    });
+
+    q('[data-viz-fechar]').addEventListener('click', () => dlg.close());
+    mais.addEventListener('click', () => ampliar(s * 1.5, 0, 0, true));
+    menos.addEventListener('click', () => ampliar(s / 1.5, 0, 0, true));
+    ajustar.addEventListener('click', () => ampliar(1, 0, 0, true));
+    ant.addEventListener('click', () => mostrar(atual - 1));
+    prox.addEventListener('click', () => mostrar(atual + 1));
+
+    // ---- Gestos: um dedo (ou o mouse) arrasta, dois dedos fazem a pinça, dois toques ampliam no ponto.
+    const dedos = new Map<number, { x: number; y: number }>();
+    let distInicial = 0;
+    let escalaInicial = 1;
+    let inicio = { x: 0, y: 0 };
+    let moveu = false;
+    let ultimoToque = 0;
+    const distancia = () => {
+      const [a, b] = [...dedos.values()];
+      return Math.hypot(a.x - b.x, a.y - b.y);
+    };
+
+    palco.addEventListener('pointerdown', (e) => {
+      // A captura mantém o arrasto vivo fora do palco; se o navegador recusar, o gesto segue sem ela.
+      try {
+        palco.setPointerCapture(e.pointerId);
+      } catch {}
+      dedos.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (dedos.size === 1) {
+        inicio = { x: e.clientX, y: e.clientY };
+        moveu = false;
+      } else if (dedos.size === 2) {
+        distInicial = distancia();
+        escalaInicial = s;
+        moveu = true;
+      }
+    });
+    palco.addEventListener('pointermove', (e) => {
+      const antes = dedos.get(e.pointerId);
+      if (!antes) return;
+      dedos.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (dedos.size === 1) {
+        if (Math.hypot(e.clientX - inicio.x, e.clientY - inicio.y) > 6) moveu = true;
+        if (s > 1.001) {
+          x += e.clientX - antes.x;
+          y += e.clientY - antes.y;
+          pintar();
+        }
+      } else if (dedos.size === 2 && distInicial > 0) {
+        const [a, b] = [...dedos.values()];
+        const [cx, cy] = doCentro((a.x + b.x) / 2, (a.y + b.y) / 2);
+        ampliar((escalaInicial * distancia()) / distInicial, cx, cy);
+      }
+    });
+    const soltar = (e: PointerEvent) => {
+      if (!dedos.delete(e.pointerId)) return;
+      if (dedos.size > 0) return;
+      const dx = e.clientX - inicio.x;
+      // Imagem inteira na tela: deslizar de lado troca de imagem.
+      if (s <= 1.001 && links.length > 1 && Math.abs(dx) > 64 && Math.abs(dx) > Math.abs(e.clientY - inicio.y) * 1.5) {
+        mostrar(atual + (dx < 0 ? 1 : -1));
+        return;
+      }
+      if (moveu) return;
+      const agora = performance.now();
+      if (agora - ultimoToque < 320) {
+        const [cx, cy] = doCentro(e.clientX, e.clientY);
+        ampliar(s > 1.001 ? 1 : 2.5, cx, cy, true);
+        ultimoToque = 0;
+      } else {
+        ultimoToque = agora;
+      }
+    };
+    palco.addEventListener('pointerup', soltar);
+    palco.addEventListener('pointercancel', (e) => {
+      dedos.delete(e.pointerId);
+    });
+    palco.addEventListener(
+      'wheel',
+      (e) => {
+        e.preventDefault();
+        const [cx, cy] = doCentro(e.clientX, e.clientY);
+        ampliar(s * (e.deltaY < 0 ? 1.2 : 1 / 1.2), cx, cy);
+      },
+      { passive: false },
+    );
+
+    dlg.addEventListener('keydown', (e) => {
+      const passo = 80;
+      const teclas: Record<string, () => void> = {
+        '+': () => ampliar(s * 1.5, 0, 0, true),
+        '=': () => ampliar(s * 1.5, 0, 0, true),
+        '-': () => ampliar(s / 1.5, 0, 0, true),
+        '0': () => ampliar(1, 0, 0, true),
+        ArrowLeft: () => (s > 1.001 ? ((x += passo), pintar(true)) : links.length > 1 && mostrar(atual - 1)),
+        ArrowRight: () => (s > 1.001 ? ((x -= passo), pintar(true)) : links.length > 1 && mostrar(atual + 1)),
+        ArrowUp: () => ((y += passo), pintar(true)),
+        ArrowDown: () => ((y -= passo), pintar(true)),
+      };
+      const acao = teclas[e.key];
+      if (!acao) return;
+      e.preventDefault();
+      acao();
+    });
+  }
+  document.addEventListener('astro:page-load', ligar);
+</script>
+
+<style is:global>
+  .viz {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: var(--color-foreground);
+    color: #fff;
+    overflow: hidden;
+    overscroll-behavior: contain;
+  }
+  .viz[open] {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    animation: viz-abre var(--duration-view, 380ms) var(--ease-spring, ease-out);
+  }
+  .viz::backdrop { background: var(--color-foreground); }
+  @keyframes viz-abre {
+    from { opacity: 0; transform: translateY(24px) scale(0.97); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .viz-topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: max(0.625rem, env(safe-area-inset-top)) max(0.75rem, env(safe-area-inset-right)) 0.625rem max(0.875rem, env(safe-area-inset-left));
+  }
+  .viz-legenda { min-width: 0; }
+  .viz-titulo { margin: 0; font-family: var(--font-heading); font-size: 1.125rem; font-weight: 700; line-height: 1.25; text-wrap: balance; }
+  .viz-conta { margin: 0.125rem 0 0; font-family: var(--font-heading); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; font-variant-numeric: tabular-nums; color: var(--color-fruto, #FFC83D); }
+  .viz-conta:empty { display: none; }
+
+  .viz-palco {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 0;
+    overflow: hidden;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: zoom-in;
+  }
+  .viz-palco[data-ampliado] { cursor: grab; }
+  .viz-palco[data-ampliado]:active { cursor: grabbing; }
+  .viz-img {
+    max-width: 100%;
+    max-height: 100%;
+    background: #fff;
+    transform-origin: center;
+    will-change: transform;
+    -webkit-user-drag: none;
+  }
+  .viz-img.viz-suave { transition: transform var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out); }
+  .viz-aviso { position: absolute; margin: 0; padding: 0 1.5rem; font-size: 1rem; line-height: 1.5; text-align: center; }
+  .viz-aviso[hidden] { display: none; }
+
+  .viz-barra {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    padding: 0.75rem max(0.75rem, env(safe-area-inset-right)) max(0.875rem, env(safe-area-inset-bottom)) max(0.75rem, env(safe-area-inset-left));
+  }
+  .viz-zoom { display: flex; align-items: center; gap: 0.375rem; }
+  .viz-nivel {
+    min-width: 3.5rem;
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+  }
+  /* Botão branco com a sombra dura laranja: sobre o grafite, a sombra grafite não apareceria. */
+  .viz-botao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    min-width: 48px;
+    min-height: 48px;
+    padding: 0 0.75rem;
+    background: #fff;
+    color: var(--color-foreground);
+    border: 0;
+    border-radius: 16px 5px 16px 5px;
+    box-shadow: 3px 3px 0 0 var(--color-accent);
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out), box-shadow var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out);
+  }
+  .viz-botao[hidden] { display: none; }
+  .viz-botao:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 0 var(--color-accent); }
+  .viz-botao:active { transform: translate(3px, 3px); box-shadow: none; }
+  .viz-botao:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 3px; }
+  .viz-botao:disabled { opacity: 0.5; box-shadow: none; cursor: default; transform: none; }
+  .viz-fechar { flex: none; background: var(--color-accent); box-shadow: 3px 3px 0 0 #fff; }
+  .viz-fechar:hover { box-shadow: 5px 5px 0 0 #fff; }
+  /* No celular a barra tem duas linhas: navegar e ampliar em cima, ajustar e original embaixo. */
+  .viz-quebra { flex-basis: 100%; height: 0; }
+  @media (min-width: 640px) { .viz-quebra { display: none; } }
+</style>

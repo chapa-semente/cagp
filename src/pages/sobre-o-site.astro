@@ -15,6 +15,7 @@ import { AXIS_REGISTRY } from '@/lib/navigationRegistry';
 import { route } from '@/lib/paths';
 import { ARTISTA_DOS_DESENHOS } from '@/lib/creditos';
 import { AdesivoChapa } from '../components/features/semente/DesenhosDaChapa';
+import { InstalarNaTela } from '../components/features/pwa/InstalarNaTela';
 
 // O passo 1 lê as abas do registro: se uma aba mudar de nome ou de resumo, a cartilha muda junto.
 const abas = AXIS_REGISTRY.map((a) => `<strong>${a.mobileLabel}</strong> · ${a.resumo}`).join('<br>');
@@ -47,7 +48,8 @@ const passos: TramitePasso[] = [
   {
     titulo: 'Ponha o site na tela do celular',
     texto:
-      'No Android, abra o menu do Chrome e toque em <strong>Adicionar à tela inicial</strong>. No iPhone, abra o site no Safari, toque em <strong>Compartilhar</strong> e depois em <strong>Adicionar à Tela de Início</strong>. Aí ele abre como um aplicativo, até sem internet. Só os documentos em PDF e Word precisam de sinal.',
+      'É o que a gente recomenda fazer logo, antes de precisar. O caminho muda de um celular pro outro: o bloco logo abaixo mostra o do seu.',
+    acoes: [{ label: 'Ver o passo a passo', href: '#tela-inicial', kind: 'anchor', primary: true }],
   },
 ];
 ---
@@ -74,6 +76,9 @@ const passos: TramitePasso[] = [
     </section>
 
     <TramitePassos id="como-usar" passos={passos} titulo="Como usar, em cinco passos" />
+
+    <!-- O dono de "pôr na tela inicial": mostra só o caminho do aparelho de quem está lendo. -->
+    <InstalarNaTela onde="pagina" />
 
     <section aria-labelledby="sobre-site-exemplo" class="sobre-site-papel">
       <h2 id="sobre-site-exemplo">O que é exemplo vem avisado</h2>
@@ -115,6 +120,11 @@ const passos: TramitePasso[] = [
 
   <JourneyNav />
 </BaseLayout>
+
+<script>
+  import { setupInstalarNaTela } from '@/scripts/instalarNaTela';
+  setupInstalarNaTela();
+</script>
 
 <style>
   .sobre-site {

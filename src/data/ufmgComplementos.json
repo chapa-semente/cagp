@@ -1,0 +1,83 @@
+{
+  "_comentario": "Blocos curtos que completam páginas do site com o que a UFMG publica no Viver UFMG e no portal. Cada bloco tem a fonte; a data da consulta vale para todos. Não escreva valor, prazo ou contato que a fonte não dá. O jantar do RU segue como Setorial II em outras partes do site: não mude isso a partir daqui.",
+  "consultadoEm": "2026-11-13",
+  "blocos": {
+    "permanencia-niveis": {
+      "titulo": "O que significa cada nível",
+      "texto": "Depois do questionário socioeconômico, uma assistente social analisa os documentos e a FUMP avisa o resultado por e-mail. Você pode pedir a análise logo depois da matrícula ou em qualquer momento do curso.",
+      "itens": [
+        { "nome": "Nível I", "texto": "Família de baixa renda. Sem apoio para as necessidades básicas, há risco de evasão já no início do curso." },
+        { "nome": "Nível II", "texto": "Família de baixa renda, com suporte familiar um pouco mais consistente. Sem apoio, pode levar mais tempo para se formar ou não concluir." },
+        { "nome": "Nível III", "texto": "Precisa de apoio para superar alguns impedimentos ao bom desempenho acadêmico." },
+        { "nome": "Níveis IV-A e IV-B", "texto": "Só para o preço subsidiado no restaurante universitário. O critério é a renda por pessoa da família: até um salário mínimo, IV-A; de um a três, IV-B." }
+      ],
+      "links": [{ "rotulo": "Questionário socioeconômico da FUMP", "url": "https://fump.ufmg.br/questionario-socioeconomico/" }],
+      "fonte": { "nome": "Viver UFMG · Como ter acesso", "url": "https://www.ufmg.br/viverufmg/assistencia-estudantil/como-ter-acesso/" }
+    },
+    "permanencia-comer": {
+      "titulo": "Onde comer no campus",
+      "texto": "Qualquer pessoa pode comer nos restaurantes universitários; o preço muda conforme o vínculo com a UFMG. A carteirinha identifica o seu preço na entrada. Calouro sem carteirinha mostra o comprovante de matrícula e um documento oficial com foto.",
+      "itens": [
+        { "nome": "Pampulha", "texto": "Restaurantes Setorial 1 e Setorial 2." },
+        { "nome": "Campus Saúde", "texto": "Um restaurante universitário." },
+        { "nome": "Faculdade de Direito", "texto": "Um restaurante universitário, no centro." },
+        { "nome": "Lanchonetes e restaurantes", "texto": "Há estabelecimentos terceirizados nas unidades e nos órgãos administrativos, com self-service, prato feito, lanches e comida vegana, entre outras opções. Para reclamar de um deles, escreva para a fiscalização: sfiscal@dsg.ufmg.br." }
+      ],
+      "links": [
+        { "rotulo": "Horários e preços dos RUs (FUMP)", "url": "https://fump.ufmg.br/programa-de-alimentacao/" },
+        { "rotulo": "Cardápio do dia (FUMP)", "url": "https://fump.ufmg.br/cardapio-do-dia/" },
+        { "rotulo": "Pedir a carteirinha", "url": "/carteirinha" }
+      ],
+      "fonte": { "nome": "Viver UFMG · Alimentação no campus", "url": "https://www.ufmg.br/viverufmg/vida-academica/alimentacao-no-campus/" }
+    },
+    "permanencia-prae": {
+      "titulo": "Acolhimento da Prae",
+      "texto": "A Pró-reitoria de Assuntos Estudantis (Prae) oferece acolhimento, diálogo e orientação sobre vida acadêmica, saúde mental, proteção social e pertencimento. Escreva para orientacaoestudantes@prae.ufmg.br.",
+      "links": [
+        { "rotulo": "Setor de Acolhimento e Orientação", "url": "https://www.ufmg.br/prae/setor-de-orientacao-e-acolhimento/" },
+        { "rotulo": "Saúde mental na UFMG", "url": "/saude-mental" }
+      ],
+      "fonte": { "nome": "Viver UFMG · Principais Programas", "url": "https://www.ufmg.br/viverufmg/acessibilidade/programas/" }
+    },
+    "permanencia-projetos": {
+      "titulo": "Dinheiro para projeto de estudante",
+      "texto": "A Prae apoia financeiramente projetos concebidos, organizados e realizados por estudantes de graduação. O apoio sai por edital, nas Chamadas Prae.",
+      "links": [
+        { "rotulo": "Chamadas Prae", "url": "https://www.ufmg.br/prae/chamadas/" },
+        { "rotulo": "Como obter apoio para um projeto", "url": "https://www.ufmg.br/prae/diretoria-de-apoio-a-projetos-de-estudantes/como-obter-apoio-para-os-projetos-estudantis/" }
+      ],
+      "fonte": { "nome": "Viver UFMG · Principais Programas", "url": "https://www.ufmg.br/viverufmg/acessibilidade/programas/" }
+    },
+    "onibus-moradias": {
+      "titulo": "Mora na moradia universitária?",
+      "texto": "Há linhas exclusivas e gratuitas das moradias de Belo Horizonte para o campus Pampulha. Para usar, mostre o documento de estudante da UFMG validado como morador. Os horários ficam nas portarias das moradias, e todos os ônibus têm elevador. Informações: moradia.bh@fump.ufmg.br.",
+      "links": [{ "rotulo": "Infraestrutura das moradias (FUMP)", "url": "https://fump.ufmg.br/infraestrutura/" }],
+      "fonte": { "nome": "Portal UFMG · Transporte", "url": "https://www.ufmg.br/transporte/" }
+    },
+    "onibus-adaptado": {
+      "titulo": "Transporte adaptado",
+      "texto": "O NAI tem um carro adaptado com elevador no campus Pampulha, só para alunos e servidores com deficiência motora ou mobilidade reduzida. Ele leva a qualquer lugar do campus, não só aos pontos oficiais. Para usar, fale com o NAI, que faz a avaliação e o cadastro: (31) 3409-3927 ou nai@ufmg.br.",
+      "links": [{ "rotulo": "Acessibilidade e NAI", "url": "/acessibilidade" }],
+      "fonte": { "nome": "Portal UFMG · Transporte", "url": "https://www.ufmg.br/transporte/" }
+    },
+    "pesquisa-ufmg": {
+      "titulo": "Na UFMG, desde o 1º período",
+      "texto": "Você pode fazer parte de uma equipe de pesquisa da UFMG desde o primeiro período, e a iniciação científica faz parte do currículo. Informe-se no Núcleo de Assessoramento à Pesquisa (NAPq) da sua unidade.",
+      "links": [
+        { "rotulo": "NAPq de cada unidade", "url": "https://www.ufmg.br/prpq/nucleos-de-assessoramento-a-pesquisa/" },
+        { "rotulo": "Pró-reitoria de Pesquisa (PRPq)", "url": "https://www.ufmg.br/prpq/" },
+        { "rotulo": "Iniciação científica no Portal UFMG", "url": "https://www.ufmg.br/pesquisa-e-inovacao/pesquisadores-e-producao-cientifica/iniciacao-cientifica/" }
+      ],
+      "fonte": { "nome": "Viver UFMG · Iniciação Científica", "url": "https://www.ufmg.br/viverufmg/iniciacao-cientifica/" }
+    },
+    "curso-colegiados": {
+      "titulo": "Cursando disciplina de outro curso?",
+      "texto": "Cada curso de graduação é gerido por um colegiado, a primeira instância para questões de currículo e do dia a dia. A UFMG publica os e-mails e telefones de todos eles.",
+      "links": [
+        { "rotulo": "Colegiados de curso da UFMG", "url": "https://www.ufmg.br/a-universidade/estrutura-organizacional/colegiados-de-curso/" },
+        { "rotulo": "Quem é quem na UFMG", "url": "/quem-e-quem" }
+      ],
+      "fonte": { "nome": "Viver UFMG · Colegiados", "url": "https://www.ufmg.br/viverufmg/vida-academica/colegiados/" }
+    }
+  }
+}

@@ -3,16 +3,21 @@
 // Quem já decidiu o voto vira campanha: põe a própria foto numa moldura da Chapa 2 e posta no perfil,
 // no feed ou no story. Vocabulário de eleição nas redes ("Gostosas com Chapa 2", "As BB quer Semente",
 // "Faz o S!"). A imagem é montada no navegador (src/scripts/molduraDeApoio.ts): a foto não sai do aparelho.
-// Arquétipo: Ferramenta, no volume Cartaz. Molduras em src/data/molduras.json.
+// Desde 13/11/2026 são duas escolhas separadas: a frase (os gritos e os "Sou…": fumpista, cotista,
+// caloura, autista…) e a cor do anel (cores da chapa, bandeiras do orgulho, neurodiversidade).
+// Arquétipo: Ferramenta, no volume Cartaz. Frases e anéis em src/data/molduras.json.
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import MarkerWord from '@/components/ui/MarkerWord.astro';
-import dados from '@/data/molduras.json';
+import { ANEIS, FRASES, GRUPOS_DE_ANEIS, GRUPOS_DE_FRASES, amostraDoAnel, temGenero } from '@/lib/molduras';
 import { previaDaRota } from '@/lib/previas';
+import '@/styles/moldura.css';
 
 const previa = previaDaRota(Astro.url.pathname);
-// Faixas escuras levam o grito com sombra; as claras, com contorno de tinta.
-const ESCURAS = new Set(['roxo', 'petroleo', 'tinta']);
-const FUNDO: Record<string, string> = { roxo: '#5B2A85', petroleo: '#266264', broto: '#6DB33F', fruto: '#FFC83D', papel: '#FFFFFF', tinta: '#1F1F1F' };
+const FLEXOES = [
+  { id: 'o', rotulo: '-o', nome: 'masculino' },
+  { id: 'a', rotulo: '-a', nome: 'feminino' },
+  { id: 'e', rotulo: '-e', nome: 'neutro' },
+];
 const FORMATOS = [
   { id: 'perfil', nome: 'Perfil', detalhe: 'Foto de perfil, 1:1' },
   { id: 'feed', nome: 'Feed', detalhe: 'Cartaz com a moldura, 4:5' },
@@ -25,7 +30,7 @@ const FORMATOS = [
     <header class="mo-cabeca">
       <h1 class="mo-titulo">Põe a sua <MarkerWord class="mo-caneta">cara</MarkerWord> na campanha</h1>
       <p class="mo-lede">
-        Escolha uma foto sua e a moldura: ela é redonda, do jeito da foto de perfil. Depois é só baixar e postar. A foto não sai do seu aparelho.
+        Escolha uma foto sua, a frase e a cor do anel: tem as cores da chapa, as bandeiras do orgulho e as da neurodiversidade. Depois é só baixar e postar. A foto não sai do seu aparelho.
       </p>
     </header>
 
@@ -50,19 +55,61 @@ const FORMATOS = [
         </fieldset>
 
         <fieldset class="mo-passo">
-          <legend>2. A moldura</legend>
-          <div class="mo-molduras">
-            {dados.molduras.map((m, i) => (
-              <label class="mo-moldura" style={`--mo-bg:${FUNDO[m.cor]}`}>
-                <input type="radio" name="moldura" value={m.id} checked={i === 0} class="sr-only" />
-                <span class:list={['cagp-grito', 'cagp-grito--sm', ESCURAS.has(m.cor) && 'is-on-color']}>{m.linhas.join(' ')}</span>
-              </label>
+          <legend>2. A frase</legend>
+          <div class="mo-escolhas">
+            <div class="mo-abas" role="group" aria-label="Tipo de frase">
+              {GRUPOS_DE_FRASES.map((g, i) => (
+                <button type="button" class="mo-aba" data-moldura-aba={g.id} aria-pressed={i === 0 ? 'true' : 'false'}>{g.nome}</button>
+              ))}
+            </div>
+            <fieldset class="mo-flexoes" data-moldura-flexoes hidden>
+              <legend>A frase termina em</legend>
+              <div class="sk-seg">
+                <span class="sk-seg-ind" aria-hidden="true"></span>
+                {FLEXOES.map((f, i) => (
+                  <Fragment>
+                    <input type="radio" name="flexao" id={`mo-flexao-${f.id}`} value={f.id} checked={i === 0} aria-label={`Frase no ${f.nome}`} />
+                    <label for={`mo-flexao-${f.id}`}>{f.rotulo}</label>
+                  </Fragment>
+                ))}
+              </div>
+            </fieldset>
+            {GRUPOS_DE_FRASES.map((g, i) => (
+              <div class="mo-frases" data-moldura-grupo={g.id} hidden={i > 0}>
+                {FRASES.filter((f) => f.grupo === g.id).map((f) => (
+                  <label class="mo-frase">
+                    <input type="radio" name="frase" value={f.id} checked={f.id === FRASES[0].id} class="sr-only" />
+                    <span class="cagp-grito" data-moldura-texto={temGenero(f) ? f.id : undefined}>{f.texto}</span>
+                  </label>
+                ))}
+              </div>
             ))}
           </div>
         </fieldset>
 
         <fieldset class="mo-passo">
-          <legend>3. Onde vai postar</legend>
+          <legend>3. A cor do anel</legend>
+          <p class="mo-ajuda">Algumas frases já trazem a cor delas. Aqui você troca por qualquer outra.</p>
+          <div class="mo-escolhas">
+            {GRUPOS_DE_ANEIS.map((g) => (
+              <div class="mo-aneis-grupo" role="group" aria-label={g.nome}>
+                <p class="mo-aneis-nome">{g.nome}</p>
+                <div class="mo-aneis">
+                  {ANEIS.filter((a) => a.grupo === g.id).map((a) => (
+                    <label class="mo-anel">
+                      <input type="radio" name="anel" value={a.id} checked={a.id === (FRASES[0].anel ?? ANEIS[0].id)} class="sr-only" />
+                      <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" set:html={amostraDoAnel(a)} />
+                      <span class="mo-anel-nome">{a.nome}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </fieldset>
+
+        <fieldset class="mo-passo">
+          <legend>4. Onde vai postar</legend>
           <div class="mo-formatos">
             {FORMATOS.map((f, i) => (
               <label class="mo-formato">
@@ -85,7 +132,7 @@ const FORMATOS = [
           </button>
         </div>
         <p class="mo-nota">
-          A moldura é montada aqui mesmo, no seu celular. A foto não é enviada pra lugar nenhum.
+          A moldura é montada aqui mesmo, no seu celular. A foto não é enviada pra lugar nenhum, e a frase e a cor que você escolheu não ficam guardadas.
         </p>
       </div>
     </div>
@@ -144,10 +191,10 @@ const FORMATOS = [
     border: 3px solid #1f1f1f;
     border-radius: 16px;
     box-shadow: 6px 6px 0 0 #1f1f1f;
-    touch-action: none;
-    cursor: grab;
   }
-  .mo-previa canvas:active { cursor: grabbing; }
+  /* Só com foto a prévia segura o dedo (arrastar pra enquadrar); sem foto ela deixa a página rolar. */
+  .mo-page[data-tem-foto] .mo-previa canvas { touch-action: none; cursor: grab; }
+  .mo-page[data-tem-foto] .mo-previa canvas:active { cursor: grabbing; }
   /* No perfil a prévia já aparece redonda, como o aplicativo vai cortar. */
   .mo-previa canvas[data-formato='perfil'] { border-radius: 50%; }
   .mo-dica {
@@ -195,34 +242,12 @@ const FORMATOS = [
     accent-color: var(--color-primary);
     cursor: pointer;
   }
-  .mo-molduras {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.75rem;
+  .mo-ajuda {
+    margin: -0.375rem 0 0;
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: var(--color-content-secondary, #4a4740);
   }
-  .mo-moldura {
-    display: grid;
-    place-items: center;
-    min-height: 4.5rem;
-    padding: 0.625rem 0.5rem;
-    background: var(--mo-bg);
-    border: 3px solid #1f1f1f;
-    border-radius: 16px 5px 16px 5px;
-    box-shadow: 3px 3px 0 0 #1f1f1f;
-    text-align: center;
-    cursor: pointer;
-    transition: translate var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out), box-shadow var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out);
-  }
-  .mo-moldura :global(.cagp-grito) { justify-content: center; animation: none; rotate: -2deg; }
-  .mo-moldura:hover { translate: -1px -1px; box-shadow: 5px 5px 0 0 #1f1f1f; }
-  /* Selecionado: anel roxo (a cor de "ativo" do site) e o cartão assentado. */
-  .mo-moldura:has(input:checked) {
-    outline: 4px solid var(--color-primary);
-    outline-offset: 3px;
-    translate: 2px 2px;
-    box-shadow: 1px 1px 0 0 #1f1f1f;
-  }
-  .mo-moldura:has(input:focus-visible),
   .mo-formato:has(input:focus-visible) { outline: 4px solid var(--color-accent); outline-offset: 3px; }
   .mo-formatos {
     display: grid;
@@ -261,6 +286,20 @@ const FORMATOS = [
     font-size: 0.875rem;
     line-height: 1.5;
     color: var(--color-content-secondary, #4a4740);
+  }
+  /* No celular a prévia fica presa embaixo do cabeçalho: a pessoa vê a moldura mudar enquanto
+     percorre as frases e os anéis, que agora são muitos. */
+  @media (max-width: 899.98px) {
+    .mo-previa {
+      position: sticky;
+      top: var(--mo-topo, 59px);
+      z-index: 5;
+      margin-inline: -0.75rem;
+      padding: 0.625rem 0.75rem;
+      background: var(--color-background, #f4f2ec);
+      border-bottom: 3px solid #1f1f1f;
+    }
+    .mo-previa canvas { max-height: max(11rem, 32vh); box-shadow: 4px 4px 0 0 #1f1f1f; }
   }
   @media (min-width: 900px) {
     .mo-grade { grid-template-columns: minmax(0, 1fr) minmax(0, 26rem); gap: 2rem; }

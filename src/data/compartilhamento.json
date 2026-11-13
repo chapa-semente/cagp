@@ -1,6 +1,6 @@
 {
   "_comentario": "Fonte única das prévias de link (WhatsApp, X, Facebook, Instagram Direct) e dos banners de cada endereço. O layout lê título e descrição daqui; node scripts/generate-og.mjs lê o campo banner e grava os JPGs em public/og/. Em gancho, a palavra entre chaves sai na caneta (uma por banner). Mudou um banner? Rode o script e suba o número em versao. O campo emoji abre a mensagem de compartilhar daquela página (só no texto que vai pro WhatsApp; a tela do site não usa emoji).",
-  "versao": 4,
+  "versao": 6,
   "padrao": {
     "titulo": "O site do curso de Gestão Pública",
     "descricao": "Estágio, 600h, FUMP e documentos, passo a passo. Feito pela Chapa 2 · Semente.",
@@ -111,6 +111,118 @@
       "imagem": "p-faq",
       "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "Dúvidas frequentes", "gancho": [ "A dúvida que", "você ia mandar", "no {grupo}." ], "sub": [ "Respostas curtas sobre o curso." ], "arte": "balao" }
     },
+    "/sistemas": {
+      "titulo": "Sistemas da UFMG: NIPs, minhaUFMG, Siga, Moodle e Wi-Fi",
+      "descricao": "Como entrar no minhaUFMG com a folha NIPs, usar o Siga e o Moodle e conectar no Wi-Fi da UFMG.",
+      "emoji": "💻",
+      "mensagem": "Como entrar nos sistemas da UFMG (NIPs, minhaUFMG, Siga, Moodle e Wi-Fi):",
+      "imagem": "ufmg-sistemas",
+      "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "Sistemas da UFMG", "gancho": ["Um login", "abre {tudo}."], "sub": ["NIPs, minhaUFMG, Siga, Moodle", "e Wi-Fi, na ordem certa."], "arte": "grade" }
+    },
+    "/carteirinha": {
+      "titulo": "Carteirinha da UFMG: como pedir e tirar a segunda via",
+      "descricao": "Passo a passo para pedir, desbloquear e tirar a segunda via da carteirinha da UFMG pelo minhaUFMG.",
+      "emoji": "🪪",
+      "mensagem": "Como pedir a carteirinha da UFMG e tirar a segunda via:",
+      "imagem": "ufmg-carteirinha",
+      "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "Carteirinha da UFMG", "gancho": ["Perdeu a", "{carteirinha}?"], "sub": ["Pedir, desbloquear e tirar", "a segunda via."], "arte": "fichas" }
+    },
+    "/biblioteca": {
+      "titulo": "Biblioteca da UFMG: como liberar o seu cadastro",
+      "descricao": "O cadastro nas bibliotecas da UFMG pede um treinamento on-line. Veja como fazer e onde buscar um livro.",
+      "emoji": "📚",
+      "mensagem": "Como liberar o cadastro nas bibliotecas da UFMG:",
+      "imagem": "ufmg-biblioteca",
+      "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "Biblioteca", "gancho": ["Antes do livro,", "o {treinamento}."], "sub": ["Cadastro, catálogo e ajuda", "pra pesquisar."], "arte": "fichas" }
+    },
+    "/mapas": {
+      "titulo": "Mapas dos campi da UFMG em Belo Horizonte",
+      "descricao": "Os mapas oficiais do campus Pampulha, do campus Saúde e das unidades do centro de Belo Horizonte.",
+      "emoji": "🗺️",
+      "mensagem": "Os mapas oficiais dos campi da UFMG em BH:",
+      "imagem": "ufmg-mapas",
+      "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "Mapas dos campi", "gancho": ["Onde fica", "esse {prédio}?"], "sub": ["Pampulha, Saúde e centro de BH."], "arte": "grade" }
+    },
+    "/cultura-e-lazer": {
+      "titulo": "Cultura, esporte e lazer na UFMG",
+      "descricao": "Como se filiar ao centro esportivo, onde achar as atléticas e a lista de museus e espaços culturais da UFMG.",
+      "emoji": "🎭",
+      "mensagem": "O que a UFMG tem de cultura, esporte e lazer:",
+      "imagem": "ufmg-cultura-e-lazer",
+      "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "Cultura, esporte e lazer", "gancho": ["A UFMG também", "é {lazer}."], "sub": ["CEU, atléticas e 31 museus", "e espaços culturais."], "arte": "planta" }
+    },
+    "/emergencia": {
+      "titulo": "Urgência e emergência na UFMG: para quem ligar",
+      "descricao": "Telefones do SAMU, dos Bombeiros e do DAST e o que fazer se alguém passar mal nos campi de Belo Horizonte.",
+      "emoji": "🚑",
+      "mensagem": "Para quem ligar se alguém passar mal na UFMG:",
+      "imagem": "ufmg-emergencia",
+      "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "Urgência e emergência", "gancho": ["Alguém", "passou {mal}?"], "sub": ["SAMU 192, Bombeiros 193 e o DAST,", "passo a passo."], "arte": "fichas" }
+    },
+    "/intercambio": {
+      "titulo": "Intercâmbio pela UFMG: no Brasil e no exterior",
+      "descricao": "Mobilidade acadêmica na UFMG: intercâmbio internacional pela DRI e mobilidade nacional pela Prograd.",
+      "emoji": "✈️",
+      "mensagem": "Como funciona o intercâmbio pela UFMG:",
+      "imagem": "ufmg-intercambio",
+      "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "Intercâmbio", "gancho": ["Um semestre", "em outro {lugar}."], "sub": ["Mobilidade pela DRI e pela Prograd."], "arte": "planta" }
+    },
+    "/regras-da-graduacao": {
+      "titulo": "Regras da graduação na UFMG, em linguagem direta",
+      "descricao": "Matrícula, recurso em 10 dias, formação avançada e formações transversais: as regras que valem para todo curso.",
+      "emoji": "⚖️",
+      "mensagem": "As regras da graduação na UFMG, em linguagem direta:",
+      "imagem": "ufmg-regras-da-graduacao",
+      "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "Regras da graduação", "gancho": ["Dez dias", "pra {recorrer}."], "sub": ["Matrícula, recurso e formações,", "em linguagem direta."], "arte": "fichas" }
+    },
+    "/acessibilidade": {
+      "titulo": "Acessibilidade na UFMG: o que o NAI oferece",
+      "descricao": "Material adaptado, Libras, monitoria, tecnologia assistiva e transporte acessível: como pedir ao NAI.",
+      "emoji": "♿",
+      "mensagem": "O que o NAI oferece a estudantes com deficiência e como pedir:",
+      "imagem": "ufmg-acessibilidade",
+      "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "Acessibilidade e NAI", "gancho": ["O que o NAI", "pode {fazer}", "por você."], "sub": ["Material adaptado, Libras,", "monitoria e transporte."], "arte": "planta" }
+    },
+    "/saude-mental": {
+      "titulo": "Saúde mental na UFMG: onde ser ouvido",
+      "descricao": "Canais de acolhimento e escuta da UFMG, o acolhimento da Prae e o atendimento psicológico da FUMP.",
+      "emoji": "💬",
+      "mensagem": "Onde ser ouvido na UFMG:",
+      "imagem": "ufmg-saude-mental",
+      "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "Saúde mental", "gancho": ["Tem quem", "te {ouça}."], "sub": ["Canais de acolhimento da UFMG."], "arte": "planta" }
+    },
+    "/direitos": {
+      "titulo": "Seus direitos na UFMG: como denunciar assédio e trote",
+      "descricao": "O que a UFMG proíbe, como denunciar na Ouvidoria e como pedir o uso do nome social.",
+      "emoji": "✊",
+      "mensagem": "Como denunciar assédio, discriminação e trote na UFMG:",
+      "imagem": "ufmg-direitos",
+      "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "Seus direitos", "gancho": ["Assédio e trote", "têm {denúncia}."], "sub": ["Ouvidoria da UFMG, resoluções", "e nome social."], "arte": "fichas" }
+    },
+    "/entidades": {
+      "titulo": "DCE, DA e CA: quem representa você na UFMG",
+      "descricao": "O que faz o DCE, a diferença entre diretório e centro acadêmico, e onde achar atléticas e empresas juniores.",
+      "emoji": "🤝",
+      "mensagem": "Quem representa os estudantes na UFMG (DCE, DA e CA):",
+      "imagem": "ufmg-entidades",
+      "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "Entidades estudantis", "gancho": ["DCE, DA e CA:", "quem é {quem}?"], "sub": ["E as atléticas e empresas juniores."], "arte": "grade" }
+    },
+    "/siglas": {
+      "titulo": "Siglas da UFMG: o que quer dizer cada uma",
+      "descricao": "O glossário de siglas da UFMG (Cepe, DRCA, Prae, Prograd, NAI e outras), com o link oficial.",
+      "emoji": "🔤",
+      "mensagem": "O que quer dizer cada sigla da UFMG:",
+      "imagem": "ufmg-siglas",
+      "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "Siglas da UFMG", "gancho": ["Cepe, DRCA, Prae:", "{traduzindo}."], "sub": ["O glossário da UFMG,", "com o link oficial."], "arte": "balao" }
+    },
+    "/quem-e-quem": {
+      "titulo": "Quem é quem na UFMG: a quem recorrer",
+      "descricao": "Conselhos, pró-reitorias, DRCA, NAI e Ouvidoria: quem decide o quê na UFMG e quem procurar.",
+      "emoji": "🏛️",
+      "mensagem": "Quem decide o quê na UFMG e a quem recorrer:",
+      "imagem": "ufmg-quem-e-quem",
+      "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "Quem é quem na UFMG", "gancho": ["Quem {decide}", "o quê na UFMG?"], "sub": ["Conselhos, pró-reitorias e órgãos."], "arte": "grade" }
+    },
     "/chapa-semente": {
       "titulo": "Chapa 2 · Semente: 12 pessoas, 14 propostas, 1 site no ar",
       "descricao": "Conheça quem são e o que propõem para o CAGP. Eleição em 25 e 26/11, das 17h às 22h30.",
@@ -120,7 +232,7 @@
     },
     "/chapa-semente/moldura": {
       "titulo": "Põe a sua cara na campanha: moldura da Chapa 2",
-      "descricao": "Escolha uma foto sua e uma moldura (Faz o S!, Gostosas com Chapa 2, As BB quer Semente) e poste no perfil, no feed ou no story.",
+      "descricao": "Escolha uma foto sua, a frase (Faz o S!, Gostosas com Chapa 2, Sou fumpista) e a cor do anel, das cores da chapa às bandeiras do orgulho, e poste no perfil, no feed ou no story.",
       "emoji": "📸",
       "mensagem": "Fiz a minha foto com a moldura da Chapa 2 · Semente. Faz a tua também, é rapidinho:",
       "imagem": "p-moldura",

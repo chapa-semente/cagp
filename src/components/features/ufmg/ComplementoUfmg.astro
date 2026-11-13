@@ -1,0 +1,97 @@
+---
+// ComplementoUfmg.astro — Um bloco curto que completa uma página do site com o que a UFMG publica
+// (src/data/ufmgComplementos.json). Ficha branca: título, uma ou duas frases, itens, links e, sempre,
+// a fonte com a data da consulta. Usado em /permanencia, /onibus-internos, /pesquisa e /curso.
+import CagpIcon from '@/components/ui/CagpIcon.astro';
+import dados from '@/data/ufmgComplementos.json';
+import { route } from '@/lib/paths';
+
+interface Bloco {
+  titulo: string;
+  texto?: string;
+  itens?: { nome: string; texto: string }[];
+  links?: { rotulo: string; url: string }[];
+  fonte: { nome: string; url: string };
+}
+interface Props {
+  bloco: keyof typeof dados.blocos;
+}
+
+const { bloco } = Astro.props;
+const b = dados.blocos[bloco] as Bloco;
+const consulta = dados.consultadoEm.split('-').reverse().join('/');
+const externo = (url: string) => /^https?:/.test(url);
+---
+
+<section class="cu" aria-labelledby={`cu-${bloco}`}>
+  <h3 id={`cu-${bloco}`}>{b.titulo}</h3>
+  {b.texto && <p>{b.texto}</p>}
+  {b.itens && (
+    <dl>
+      {b.itens.map((i) => (
+        <div>
+          <dt>{i.nome}</dt>
+          <dd>{i.texto}</dd>
+        </div>
+      ))}
+    </dl>
+  )}
+  {b.links && (
+    <ul role="list">
+      {b.links.map((l) => (
+        <li>
+          {externo(l.url) ? (
+            <a href={l.url} target="_blank" rel="noopener noreferrer">{l.rotulo} <CagpIcon name="external" class="w-4 h-4" /></a>
+          ) : (
+            <a href={route(l.url)}>{l.rotulo} <CagpIcon name="arrow-right" class="w-4 h-4" /></a>
+          )}
+        </li>
+      ))}
+    </ul>
+  )}
+  <p class="cu-fonte">
+    Fonte: <a href={b.fonte.url} target="_blank" rel="noopener noreferrer">{b.fonte.nome}</a>, lido em {consulta}.
+  </p>
+</section>
+
+<style>
+  .cu {
+    display: grid;
+    gap: 0.75rem;
+    padding: 1.125rem 1.25rem 1.25rem;
+    background: #fff;
+    color: var(--color-foreground);
+    border: 3px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-ficha);
+  }
+  .cu h3 { margin: 0; font-family: var(--font-heading); font-size: 1.125rem; font-weight: 700; line-height: 1.3; text-wrap: balance; }
+  .cu p { margin: 0; max-width: 68ch; font-size: 1rem; line-height: 1.55; text-wrap: pretty; }
+  .cu dl { margin: 0; display: grid; }
+  .cu dl > div { padding: 0.625rem 0; border-top: 2px solid var(--color-border); }
+  .cu dt { font-family: var(--font-heading); font-weight: 700; line-height: 1.3; }
+  .cu dd { margin: 0.125rem 0 0; max-width: 68ch; font-size: 0.875rem; line-height: 1.5; color: var(--color-content-secondary); overflow-wrap: anywhere; }
+  .cu ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.625rem; }
+  .cu ul a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    padding: 0.5rem 0.875rem;
+    background: #fff;
+    color: var(--color-foreground);
+    border: 3px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-chip);
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform var(--duration-press) var(--ease-spring-snappy), box-shadow var(--duration-press) var(--ease-spring-snappy);
+  }
+  .cu ul a:hover { transform: translate(-1px, -1px); box-shadow: var(--shadow-ficha); background: var(--color-muted); }
+  .cu ul a:active { transform: translate(2px, 2px); box-shadow: none; }
+  .cu a:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+  .cu-fonte { font-size: 0.875rem !important; color: var(--color-content-secondary); }
+  .cu-fonte a { color: var(--color-primary); font-weight: 700; text-decoration: underline; text-underline-offset: 0.22em; }
+</style>

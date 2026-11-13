@@ -12,6 +12,18 @@
       "port": 4321
     },
     {
+      "name": "astro-preview-instalar",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "4346",
+        "--directory",
+        "node_modules/.cache/build-instalar"
+      ],
+      "port": 4346
+    },
+    {
       "name": "astro-preview",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": [
@@ -34,6 +46,40 @@
         "4338"
       ],
       "port": 4338
+    },
+    {
+      "name": "astro-preview-kit",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "4340",
+        "--directory",
+        "node_modules/.cache/build-kit"
+      ],
+      "port": 4340
+    },
+    {
+      "name": "astro-preview-viver",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "exec",
+        "astro",
+        "preview",
+        "--outDir",
+        "node_modules/.cache/build-viver",
+        "--port",
+        "4339"
+      ],
+      "port": 4339
+    },
+    {
+      "name": "relatorio-pdf",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "_referencias/analise_gestao_reconecta/pdf/servir.mjs"
+      ],
+      "port": 4341
     }
   ]
 }

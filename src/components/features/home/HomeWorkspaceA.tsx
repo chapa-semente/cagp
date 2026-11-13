@@ -24,6 +24,7 @@ import { Marquee, MarqueeItem, MarqueeSeparator } from '@/components/ui/marquee'
 import { LeafShape, SemicircleShape, SeedShape } from '@/components/ui/semente-shapes';
 import { ChapaSementeTour } from '@/components/features/semente/ChapaSementeTour';
 import { HomeCampusStatusWidget } from './HomeCampusStatusWidget';
+import { InstalarNaTela } from '@/components/features/pwa/InstalarNaTela';
 import { HomeNewsFeed } from './HomeNewsFeed';
 
 type Shortcut = { id: string; href: string; icon: CagpIconName; title: string; line: string };
@@ -34,8 +35,10 @@ const SHORTCUTS: Record<UserRole, Shortcut[]> = {
     { id: 'cagp-shortcut-calouro', href: '/calouros', icon: 'checklist', title: 'Guia do calouro', line: 'Os primeiros 30 dias, passo a passo' },
     { id: 'cagp-shortcut-permanencia', href: '/permanencia', icon: 'moon', title: 'FUMP e vida no noturno', line: 'Auxílio, RU e como se virar à noite' },
     { id: 'cagp-shortcut-documentos', href: '/documentos', icon: 'file-text', title: 'Documentos', line: 'Os PDFs que todo mundo pede no grupo' },
-    { id: 'cagp-shortcut-curso', href: '/curso', icon: 'map-pin', title: 'Quem atende e onde fica', line: 'Colegiado, secretaria, salas' },
-    { id: 'cagp-shortcut-grade', href: '/percurso', icon: 'curriculo', title: 'Grade e percurso', line: 'As disciplinas dos 10 períodos' },
+    // 13/11/2026: quem acabou de chegar precisa primeiro do login e da carteirinha. "Quem atende" segue em
+    // Guias › Começando e a grade, na aba Meu curso.
+    { id: 'cagp-shortcut-sistemas', href: '/sistemas', icon: 'd-sistemas', title: 'Sistemas da UFMG', line: 'NIPs, minhaUFMG, Siga, Moodle e Wi-Fi' },
+    { id: 'cagp-shortcut-carteirinha', href: '/carteirinha', icon: 'd-carteirinha', title: 'Carteirinha', line: 'Pedir, desbloquear e segunda via' },
   ],
   veterano: [
     { id: 'cagp-shortcut-cursos', href: '/acg', icon: 'calculator', title: 'Horas 600h', line: 'Quanto falta de extensão e AAC' },
@@ -195,6 +198,10 @@ export const HomeWorkspaceA: React.FC = () => {
           {/* 4. Seu progresso entra aqui pelo script, só quando há dado salvo. */}
         </aside>
       </div>
+
+      {/* Recomendação de instalar (13/11/2026): só no celular e só para quem ainda não pôs o site
+          na tela inicial (src/scripts/instalarNaTela.ts decide). Passo a passo recolhido. */}
+      <InstalarNaTela onde="home" />
 
       {/* Crítica na porta de entrada (12/11/2026): quem acha um erro não deve precisar procurar onde avisar. */}
       <a

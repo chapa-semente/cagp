@@ -5,7 +5,7 @@ Abaixo, detalhamos as propostas estruturadas por eixos estratégicos de atuaçã
 
 1. PRESTAÇÃO DE CONTAS
 
-	A Gestão se compromete com a publicação trimestral de boletins detalhando todas as movimentações financeiras (entradas, saídas, aplicações, etc) do caixa da Entidade.
+	A Gestão se compromete com a publicação trimestral de boletins detalhando todas as movimentações financeiras (entradas, saídas, aplicações, etc) do caixa da Entidade. Portal da transparencia já estruturado com informaçõs em tempo real.
 
 2. REUNIÕES ORDINÁRIAS
 
@@ -13,7 +13,7 @@ Abaixo, detalhamos as propostas estruturadas por eixos estratégicos de atuaçã
 
 3. SITE DO CURSO
 
-	A Chapa Semente idealizou e construiu o site do curso de Gestão Pública, um projeto nosso, pensado e desenvolvido há muito tempo, que já está no ar e pertence ao curso, não a um mandato. Neste site se concentram informações sobre a Universidade (questões relativas à vivência universitária) e sobre o Curso de Gestão Pública, além de um portal de transparência para publicação das decisões das reuniões e dos boletins de prestação de contas.
+	A Chapa Semente idealizou e construiu o site do curso de Gestão Pública, um projeto nosso, pensado e desenvolvido há muito tempo, que já está no ar e pertence ao curso, não a um mandato o site irá continuar funcionando independente do resultado das eleições. Neste site se concentram informações sobre a Universidade (questões relativas à vivência universitária) e sobre o Curso de Gestão Pública, além de um portal de transparência para publicação das decisões das reuniões e dos boletins de prestação de contas em tempo real. Em uma eventual derrota será utilizado para fins do próprio projeto Semente de atender o interesse dos estudantes, eliminando referencias ao CAGP.
 
 4. ABERTURA DO CNPJ
 

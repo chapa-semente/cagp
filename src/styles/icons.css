@@ -112,6 +112,7 @@
 .bi-columns-gap::before { content: "\e546"; }
 .bi-compass::before { content: "\e1c8"; }
 .bi-compass-fill::before { content: "\e1c8"; }
+.bi-cpu::before { content: "\e610"; }
 .bi-cup-hot::before { content: "\e1c2"; }
 .bi-cup-hot-fill::before { content: "\e1c2"; }
 .bi-dash::before { content: "\e32a"; }

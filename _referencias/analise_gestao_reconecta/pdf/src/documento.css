@@ -1,0 +1,218 @@
+/* Página A4 no padrão ABNT adaptado: margens 3/2/2/3 cm, seções numeradas, figuras e quadros com
+   título acima e fonte abaixo, número de página no alto à direita. Cores, tipos, carimbos e peças
+   vêm do CSS do site, importado abaixo. */
+@import "../../../../src/styles/global.css";
+@source "./";
+
+/* Todas as páginas têm a mesma largura útil (a folha inteira): as margens laterais ficam no conteúdo.
+   Com larguras diferentes por página, o Chrome encolhe o documento e corta o texto. */
+@page { size: A4; margin: 3cm 0 2cm 0; }
+@page capa { margin: 0; }
+@page pre { margin: 3cm 0 2cm 0; }
+@page relatorio {
+  margin: 3cm 0 2cm 0;
+  @top-left { content: "Um ano de gestão Reconecta no CAGP · Chapa Semente"; font: 400 7.5pt Poppins, sans-serif; color: #5E5A52; vertical-align: bottom; padding: 0 0 7mm 3cm; }
+  @top-right { content: counter(page); font: 700 9pt Poppins, sans-serif; color: #1F1F1F; vertical-align: bottom; padding: 0 2cm 7mm 0; }
+}
+@page boletim {
+  margin: 2.2cm 0 2cm 0;
+  @top-left { content: "Boletim · gestão 2025-2026 do CAGP · Chapa Semente"; font: 400 7.5pt Poppins, sans-serif; color: #5E5A52; vertical-align: bottom; padding: 0 0 5mm 2.5cm; }
+  @top-right { content: counter(page); font: 700 9pt Poppins, sans-serif; color: #1F1F1F; vertical-align: bottom; padding: 0 2cm 5mm 0; }
+}
+@page relatorio2 {
+  margin: 3cm 0 2cm 0;
+  @top-left { content: "A carta 2026-2027 da Chapa Reconecta · Chapa Semente"; font: 400 7.5pt Poppins, sans-serif; color: #5E5A52; vertical-align: bottom; padding: 0 0 7mm 3cm; }
+  @top-right { content: counter(page); font: 700 9pt Poppins, sans-serif; color: #1F1F1F; vertical-align: bottom; padding: 0 2cm 7mm 0; }
+}
+@page boletim2 {
+  margin: 2.2cm 0 2cm 0;
+  @top-left { content: "Boletim · carta 2026-2027 da Chapa Reconecta · Chapa Semente"; font: 400 7.5pt Poppins, sans-serif; color: #5E5A52; vertical-align: bottom; padding: 0 0 5mm 2.5cm; }
+  @top-right { content: counter(page); font: 700 9pt Poppins, sans-serif; color: #1F1F1F; vertical-align: bottom; padding: 0 2cm 5mm 0; }
+}
+
+html, body { background: #FFFFFF !important; min-height: 0 !important; overflow: visible !important; }
+/* O site reserva espaço embaixo para a barra de abas; no papel isso abriria uma página em branco. */
+html, body, #raiz { padding: 0 !important; margin: 0 !important; height: auto !important; }
+body::before, body::after { content: none !important; }
+body { margin: 0; font: 400 10.5pt/1.5 Poppins, sans-serif; color: #1F1F1F; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+/* A capa não entra na contagem de páginas (ABNT). */
+html[data-tipo="relatorio"] { counter-reset: page -1; }
+.doc-pre, .doc-texto { box-sizing: border-box; width: 210mm; padding: 0 2cm 0 3cm; }
+html[data-tipo="boletim"] .doc-texto { padding-left: 2.5cm; }
+
+.doc-capa { page: capa; }
+.doc-pre { page: pre; break-before: page; }
+html[data-doc="relatorio"] .doc-texto { page: relatorio; }
+html[data-doc="boletim"] .doc-texto { page: boletim; }
+html[data-doc="relatorio2"] .doc-texto { page: relatorio2; }
+html[data-doc="boletim2"] .doc-texto { page: boletim2; }
+.doc-parte { margin-top: 20pt; }
+
+/* Texto corrido */
+.doc-texto p, .doc-pre p { max-width: none; margin: 0 0 6pt; font-size: 10.5pt; line-height: 1.5; text-align: justify; hyphens: auto; text-indent: 1.25cm; orphans: 3; widows: 3; text-wrap: wrap; }
+.doc-lista { margin: 0 0 8pt; padding-left: 1.25cm; }
+.doc-lista li { margin: 0 0 3pt; font-size: 10.5pt; line-height: 1.45; text-align: left; }
+ul.doc-lista { list-style: disc; }
+ol.doc-lista { list-style: decimal; }
+.doc-texto strong, .doc-pre strong { font-weight: 700; }
+.doc-marca { font-size: 1px; line-height: 0; color: #FFFFFF; user-select: none; }
+
+/* Títulos de seção */
+.doc-h2 { display: flex; align-items: center; gap: 3mm; margin: 20pt 0 9pt; font: 700 14pt/1.2 Poppins, sans-serif; text-transform: none; letter-spacing: 0; break-after: avoid; }
+.doc-h2__n { flex: none; display: grid; place-items: center; min-width: 9mm; height: 9mm; padding: 0 2mm; background: #FE8812; border: 1.5pt solid #1F1F1F; border-radius: 14px 4px 14px 4px; font-size: 12pt; font-variant-numeric: tabular-nums; }
+.doc-h2.is-sem-numero { justify-content: center; margin-top: 0; }
+.doc-texto .doc-h2.is-sem-numero { margin-top: 20pt; }
+.doc-h3 { margin: 14pt 0 6pt; font: 700 11.5pt/1.3 Poppins, sans-serif; color: #5B2A85; text-transform: none; break-after: avoid; }
+.doc-h3__n { margin-right: 2.5mm; }
+
+/* Nota destacada (declaração de interesse) */
+.doc-nota { margin: 10pt 0 12pt; padding: 8pt 11pt; background: #E3F0EF; border: 1.5pt solid #1F1F1F; border-radius: 12px; font-size: 9.5pt; line-height: 1.5; break-inside: avoid; }
+.doc-palavras { text-indent: 0 !important; margin-top: 10pt !important; }
+
+/* Figuras, quadros e tabelas */
+.doc-elemento { margin: 11pt 0 13pt; break-inside: avoid; }
+.doc-elemento.is-longo { break-inside: auto; }
+.doc-olhada { margin-top: 22pt; }
+.doc-pre p.doc-olhada__titulo { margin: 0 0 6pt; font-size: 9.5pt; font-weight: 700; text-indent: 0; text-align: left; }
+.doc-legenda { margin: 0 0 5pt; font: 400 9.5pt/1.35 Poppins, sans-serif; text-align: left; break-after: avoid; }
+.doc-legenda strong { font-weight: 700; }
+p.doc-fonte { margin: 4pt 0 0; font-size: 8pt; line-height: 1.35; color: #4A4740; text-indent: 0; text-align: left; hyphens: manual; break-before: avoid; }
+.doc-elemento .overflow-auto { overflow: visible !important; }
+
+table.doc-tabela { width: 100%; border-collapse: collapse; border: 0 !important; box-shadow: none !important; font-size: 8.5pt; line-height: 1.4; border-radius: 0 !important; }
+.doc-tabela thead { display: table-header-group; background: transparent; }
+.doc-tabela tr { break-inside: avoid; border: 0 !important; background: transparent !important; }
+.doc-tabela th { height: auto; padding: 4pt 6pt; background: #F4F2EC; color: #1F1F1F; font: 700 8pt/1.3 Poppins, sans-serif; text-align: left; text-transform: none; letter-spacing: 0; vertical-align: bottom; white-space: normal; }
+.doc-tabela td { padding: 4pt 6pt; vertical-align: top; font-size: 8.5pt; white-space: normal; }
+.doc-tabela td:first-child { font-weight: 700; }
+/* Bordas de um lado só por célula: com border-collapse o Chrome engrossa algumas linhas no PDF. */
+.doc-tabela.is-quadro { border-collapse: separate; border-spacing: 0; border-top: 0.75pt solid #1F1F1F !important; border-left: 0.75pt solid #1F1F1F !important; }
+.doc-tabela.is-quadro th, .doc-tabela.is-quadro td { border: 0 !important; border-right: 0.75pt solid #1F1F1F !important; border-bottom: 0.75pt solid #1F1F1F !important; }
+.doc-tabela.is-tabela { border-top: 1.5pt solid #1F1F1F !important; border-bottom: 1.5pt solid #1F1F1F !important; }
+.doc-tabela.is-tabela th { background: transparent; border-bottom: 0.75pt solid #1F1F1F !important; }
+.doc-tabela.is-tabela td { border-bottom: 0.5pt solid #D9D4C7 !important; }
+.doc-tabela .is-num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.doc-tabela tr.is-total td { background: #E3F0EF; font-weight: 700; }
+.doc-tabela.tem-situacao { table-layout: fixed; }
+.doc-tabela.tem-situacao3 { table-layout: fixed; }
+.doc-tabela.tem-situacao3 th:nth-child(1) { width: 42%; }
+.doc-tabela.tem-situacao3 th:nth-child(2) { width: 37%; }
+.doc-tabela.tem-situacao3 th:nth-child(3) { width: 21%; }
+.doc-tabela.tem-situacao th:nth-child(1) { width: 23%; }
+.doc-tabela.tem-situacao th:nth-child(2) { width: 25%; }
+.doc-tabela.tem-situacao th:nth-child(3) { width: 32%; }
+.doc-tabela.tem-situacao th:nth-child(4) { width: 20%; }
+.doc-tabela td { overflow-wrap: break-word; }
+.doc-tabela__arte { width: 15mm; padding: 2pt !important; }
+.doc-tabela__arte svg { display: block; width: 13mm; height: auto; }
+.doc-tabela.is-semente td:nth-child(2) { font-weight: 400; }
+
+/* No papel não há animação de entrada: carimbo, caneta e adesivos aparecem no estado final. */
+.doc-carimbo, .cagp-marker__stroke path { animation: none !important; }
+.cagp-marker__stroke path { stroke-dashoffset: 0 !important; }
+
+/* Carimbos: os do site, no tamanho do papel */
+.doc-carimbo { opacity: 1 !important; padding: 1.5pt 5pt; border-width: 1.25pt; border-radius: 5px; box-shadow: 1.25pt 1.25pt 0 0 #1F1F1F; font-size: 6.5pt; line-height: 1.25; white-space: normal; max-width: 100%; text-align: left; }
+
+/* Placar */
+.doc-placar { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 3mm; }
+.doc-placar__item { margin: 0; display: grid; justify-items: start; align-content: start; gap: 2mm; padding: 3.5mm 3mm; border: 1.5pt solid #1F1F1F; border-radius: 12px; background: #F4F2EC; }
+.doc-placar__item.is-ok { background: #DCFCE7; }
+.doc-placar__item.is-meio { background: #FEF3C7; }
+.doc-placar__item.is-diz { background: #DBEAFE; }
+.doc-placar__item.is-nao { background: #FEE2E2; }
+.doc-placar__num { font: 700 30pt/1 Poppins, sans-serif; font-variant-numeric: tabular-nums; }
+.doc-placar__desc { font-size: 8pt; line-height: 1.4; }
+
+/* Gráficos */
+.doc-grafico { width: 100%; padding: 0 !important; border: 0 !important; border-radius: 0 !important; overflow: visible !important; background: transparent !important; box-shadow: none !important; }
+.doc-grafico text { font-family: Poppins, sans-serif; }
+p.doc-chave { margin: 4pt 0 0; font-size: 8pt; text-indent: 0; text-align: left; display: flex; flex-wrap: wrap; align-items: center; gap: 2mm 2.5mm; }
+.doc-chave__cor { display: inline-block; width: 3mm; height: 3mm; border: 1pt solid #1F1F1F; border-radius: 2px; margin-left: 2mm; }
+.doc-chave__cor:first-child { margin-left: 0; }
+.doc-chave__linha { display: inline-block; width: 6mm; border-top: 1.5pt dashed #5B2A85; margin-left: 2mm; }
+
+/* Imagens de comprovação */
+.doc-imagens { display: flex; gap: 4mm; align-items: flex-start; }
+.doc-imagens img { display: block; width: 4.3cm; height: auto; border: 1.25pt solid #1F1F1F; border-radius: 8px; }
+
+/* Fluxogramas */
+.doc-fluxo { list-style: none; margin: 0; padding: 0; }
+.doc-fluxo > li { position: relative; margin: 0; padding-top: 6mm; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 4mm; }
+.doc-fluxo > li:first-child { padding-top: 0; }
+.doc-fluxo > li[data-via]::before { content: ""; position: absolute; left: 6mm; top: 0; height: 6mm; border-left: 1.75pt solid #1F1F1F; }
+.doc-fluxo > li[data-via]::after { content: attr(data-via); position: absolute; left: 8mm; top: 1.3mm; font: 700 6.5pt/1 Poppins, sans-serif; letter-spacing: 0.04em; text-transform: uppercase; }
+.doc-fluxo__caixa { display: block; padding: 5pt 9pt; background: #F4F2EC; border: 1.5pt solid #1F1F1F; border-radius: 12px 4px 12px 4px; font-size: 9pt; font-weight: 700; line-height: 1.35; }
+.doc-fluxo__caixa.is-inicio { background: #5B2A85; color: #FFFFFF; }
+.doc-fluxo__ramo { display: flex; align-items: center; gap: 2mm; font-size: 8pt; }
+.doc-fluxo__ramo b { font-size: 6.5pt; letter-spacing: 0.04em; text-transform: uppercase; }
+.doc-fluxo__fim { padding-left: 1mm; }
+.doc-fluxo > li > .doc-fluxo__caixa:only-child, .doc-fluxo > li > .doc-assuntos, .doc-fluxo > li > .doc-fluxo__fim { grid-column: 1 / -1; }
+.doc-assuntos { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2mm; }
+.doc-assuntos li { margin: 0; display: grid; grid-template-columns: 9mm 1fr; column-gap: 2.5mm; align-items: start; padding: 3pt 6pt; background: #E3F0EF; border: 1.25pt solid #1F1F1F; border-radius: 9px; }
+.doc-assuntos li.is-festa { background: #FFE7CC; }
+.doc-assuntos__n { grid-row: 1 / 3; align-self: center; text-align: center; font: 700 15pt/1 Poppins, sans-serif; font-variant-numeric: tabular-nums; }
+.doc-assuntos__nome { font-size: 8.5pt; font-weight: 700; line-height: 1.3; }
+.doc-assuntos__regra { font-size: 7.5pt; line-height: 1.35; color: #4A4740; }
+
+/* Referências */
+.doc-texto p.doc-ref { margin: 0 0 9pt; font-size: 9.5pt; line-height: 1.3; text-indent: 0; text-align: left; hyphens: manual; overflow-wrap: anywhere; break-inside: avoid; }
+
+/* Sumário */
+.doc-sumario { list-style: none; margin: 8pt 0 0; padding: 0; }
+.doc-sumario li { display: flex; align-items: baseline; gap: 2mm; margin: 0 0 5pt; font-size: 10.5pt; }
+.doc-sumario li.is-n2 { margin-top: 8pt; font-weight: 700; }
+.doc-sumario li.is-n3 { padding-left: 8mm; }
+.doc-sumario__num { flex: none; min-width: 8mm; font-variant-numeric: tabular-nums; }
+.doc-sumario li.is-sem-numero .doc-sumario__num { display: none; }
+.doc-sumario__pontos { flex: 1; border-bottom: 1pt dotted #5E5A52; transform: translateY(-2pt); }
+.doc-sumario__pag { flex: none; min-width: 6mm; text-align: right; font-variant-numeric: tabular-nums; }
+
+/* Capa do relatório */
+.doc-capa { position: relative; width: 210mm; height: 297mm; overflow: hidden; background: #F4F2EC; }
+.doc-capa__bloco { position: absolute; inset: 0 0 37% 0; padding: 3cm 2cm 0 3cm; background: #5B2A85; color: #FFFFFF; border-bottom: 2.5pt solid #1F1F1F; }
+.doc-capa__logo { display: block; height: 15mm; width: auto; }
+.doc-capa__titulo { margin: 24mm 0 0; max-width: 14cm; font: 700 31pt/1.06 Poppins, sans-serif; text-transform: uppercase; letter-spacing: 0.02em; color: #FFFFFF; text-wrap: balance; }
+.doc-capa__linha { margin: 7mm 0 0; max-width: 13cm; font: 700 17pt/1.3 Poppins, sans-serif; color: #FFFFFF; text-indent: 0; }
+.doc-capa__linha .cagp-marker { font-size: 1.2em; }
+.doc-capa__sub { margin: 9mm 0 0; max-width: 12cm; font: 400 11pt/1.5 Poppins, sans-serif; color: #FFFFFF; }
+.doc-capa__adesivo { position: absolute; right: 1.6cm; top: 55%; width: 8cm; height: auto; rotate: -5deg; }
+.doc-capa__credito { position: absolute; left: 3cm; top: 66%; max-width: 6.5cm; margin: 0; font-size: 8pt; line-height: 1.4; color: #4A4740; }
+.doc-capa__pe { position: absolute; left: 3cm; right: 2cm; bottom: 2cm; margin: 0; text-align: center; font: 700 11pt/1.5 Poppins, sans-serif; }
+.doc-rascunho { top: 1.2cm; left: auto; right: 2cm; rotate: 4deg; font-size: 8pt; }
+
+/* Cabeçalho do boletim */
+.doc-cabeca { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 4.6cm; align-items: center; gap: 5mm; margin: 0 0 12pt; padding: 7mm 7mm 6mm; background: #5B2A85; color: #FFFFFF; border: 2pt solid #1F1F1F; border-radius: 18px 5px 18px 5px; box-shadow: 4px 4px 0 0 #1F1F1F; }
+.doc-cabeca__logo { display: block; height: 9mm; width: auto; margin-bottom: 5mm; }
+.doc-cabeca__titulo { margin: 0; font: 700 19pt/1.1 Poppins, sans-serif; text-transform: uppercase; letter-spacing: 0.02em; color: #FFFFFF; text-wrap: balance; }
+.doc-cabeca__titulo .cagp-marker { font-size: 1.15em; }
+.doc-texto p.doc-cabeca__sub { margin: 4mm 0 0; font-size: 9.5pt; line-height: 1.45; text-indent: 0; text-align: left; hyphens: manual; }
+.doc-texto p.doc-cabeca__data { margin: 2mm 0 0; font-size: 8pt; text-indent: 0; }
+.doc-cabeca__adesivo { width: 100%; height: auto; rotate: -4deg; }
+.doc-cabeca .doc-rascunho { top: 4mm; right: 5mm; }
+.doc-parte__titulo { margin: 0; padding-top: 14pt; border-top: 1.5pt solid #1F1F1F; font: 700 18pt/1.1 Poppins, sans-serif; text-transform: uppercase; letter-spacing: 0.02em; }
+.doc-texto p.doc-parte__sub { margin: 2mm 0 0; font-weight: 700; text-indent: 0; }
+
+/* Assinatura */
+.doc-assinatura { margin-top: 16pt; padding-top: 9pt; border-top: 1.5pt solid #1F1F1F; break-inside: avoid; }
+.doc-assinatura img { display: block; height: 13mm; width: auto; }
+.doc-texto .doc-assinatura p { margin: 3pt 0 0; font-size: 8pt; text-indent: 0; text-align: left; color: #4A4740; }
+
+/* O boletim é mais compacto que o relatório */
+html[data-tipo="boletim"] .doc-texto p { font-size: 9.5pt; line-height: 1.45; text-indent: 0; margin-bottom: 4pt; }
+html[data-tipo="boletim"] .doc-texto p.doc-fonte { font-size: 8pt; margin: 4pt 0 0; }
+html[data-tipo="boletim"] .doc-texto p.doc-chave { font-size: 8pt; margin: 4pt 0 0; }
+html[data-tipo="boletim"] .doc-lista { padding-left: 5mm; }
+html[data-tipo="boletim"] .doc-lista li { font-size: 9.5pt; line-height: 1.4; margin-bottom: 2pt; }
+html[data-tipo="boletim"] .doc-cabeca { padding: 5mm 7mm 4mm; margin-bottom: 9pt; }
+html[data-tipo="boletim"] .doc-nota { margin: 7pt 0 8pt; padding: 6pt 10pt; font-size: 9pt; }
+html[data-tipo="boletim"] .doc-assinatura { margin-top: 10pt; padding-top: 6pt; }
+html[data-tipo="boletim"] .doc-h2 { justify-content: flex-start; margin: 11pt 0 6pt; font-size: 12.5pt; padding-left: 3mm; border-left: 3mm solid #FE8812; }
+html[data-tipo="boletim"] .doc-elemento { margin: 6pt 0 7pt; }
+.doc-assinatura--so { margin-top: 10pt; }
+
+@media screen {
+  body { background: #E7E3D8 !important; }
+  .doc-capa, .doc-pre, .doc-texto { box-sizing: border-box; width: 210mm; margin: 8mm auto; background: #FFFFFF; box-shadow: 0 0 0 1px #1F1F1F; }
+  .doc-pre, .doc-texto { padding-top: 3cm; padding-bottom: 2cm; }
+}

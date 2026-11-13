@@ -8,6 +8,7 @@ import JourneyNav from '../components/ui/JourneyNav.astro';
 import PesquisaNucleos from '../components/features/pesquisa/PesquisaNucleos.astro';
 import PesquisaIc from '../components/features/pesquisa/PesquisaIc.astro';
 import PesquisaImersao from '../components/features/pesquisa/PesquisaImersao.astro';
+import ComplementoUfmg from '@/components/features/ufmg/ComplementoUfmg.astro';
 import { PesquisaStatsBanner } from '../components/features/pesquisa/PesquisaStatsBanner';
 import { PAGINAS_ACOLHIMENTO as P } from '@/data/acolhimento';
 
@@ -51,6 +52,7 @@ const badges = [
     <PesquisaStatsBanner client:visible />
     <div id="ic" class="cagp-anchor-target"></div>
     <PesquisaIc />
+    <ComplementoUfmg bloco="pesquisa-ufmg" />
     <div id="imersao" class="cagp-anchor-target"></div>
     <PesquisaImersao />
   </section>

@@ -49,6 +49,14 @@ export interface LeaderInfo {
   solutionStatus: SolutionStatus;
   /** O que a pessoa vive, nas palavras dela (ver Vivencia). Ausente até ela mandar e autorizar. */
   vivencias?: Vivencia[];
+  /**
+   * De onde a pessoa fala, em primeira pessoa. `gancho` abre a fala falando com quem lê e vai em
+   * destaque; depois dele vem `fala` (versão inteira, na página dela; parágrafos separados por \n\n)
+   * ou `curta` (num cartão: lista da chapa, "Fala direto com o presidente"). Mesma regra de
+   * `vivencias`: só o que a própria pessoa declarou e aprovou. Sempre entre aspas na tela; o site não
+   * diz isso por ela.
+   */
+  lugarDeFala?: { gancho: string; fala: string; curta: string };
   photoFilename?: string;
   /** Ponto focal do retrato (CSS object-position). Padrão: 'center 30%'. */
   photoPosition?: string;
@@ -69,6 +77,11 @@ export const CHAPA_NOME = `${CHAPA_ROTULO} · Semente`;
 /** Instagram da chapa (o @cagpufmg é da gestão atual do CA; o site não aponta para ele). */
 export const CHAPA_INSTAGRAM = '@semente.chapa2';
 export const CHAPA_INSTAGRAM_URL = 'https://www.instagram.com/semente.chapa2';
+/** Contato direto do presidente da chapa (Gabriel Sathler), publicado a pedido dele em 13/11/2026. */
+export const PRESIDENTE_INSTAGRAM = '@sathler.gab';
+export const PRESIDENTE_INSTAGRAM_URL = 'https://www.instagram.com/sathler.gab';
+export const PRESIDENTE_WHATSAPP = '(31) 99891-2831';
+export const PRESIDENTE_WHATSAPP_URL = 'https://wa.me/5531998912831';
 /** O grito de campanha (11/11/2026), sempre na caneta laranja: componente GritoDeVoto. */
 export const GRITO_VOTO = `Vote ${CHAPA_ROTULO}!`;
 export const GRITO_S = 'Faz o S!';
@@ -90,6 +103,31 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
     solution:
       'Infraestrutura perene, pensada e construída pela chapa, com alimentação simples em Markdown para o curso de Gestão Pública.',
     solutionStatus: 'funciona',
+    // Vivência declarada pelo próprio Gabriel. Texto aprovado por ele em 13/11/2026, segunda rodada: a
+    // primeira versão ("é desse lugar que eu falo") ele achou cringe; pediu persuasão, conexão com quem
+    // lê, competência e o cargo dito com todas as letras. Escolheu abrir com a pergunta ao estudante e
+    // deixar a piada "1001 utilidades" só na fala do trabalho. É dado pessoal dele: não reescrever nem
+    // estender sem perguntar.
+    lugarDeFala: {
+      gancho: 'Você depende do RU, da cota ou do salário pra continuar na UFMG? Eu também.',
+      fala: 'Sou o Gabriel, presidente da Chapa 2: fumpista nível I, cotista, de escola pública, inscrito no CadÚnico, neurodivergente e trabalhador.\n\nFiz este site entre o trabalho e a aula. Quero um CAGP que funcione pra quem tem essa rotina.',
+      curta:
+        'Sou fumpista nível I, cotista, de escola pública, inscrito no CadÚnico, neurodivergente e trabalhador, e presido a Chapa 2.',
+    },
+    vivencias: [
+      {
+        tema: 'fump',
+        fala: 'Depende do RU pra continuar na UFMG? Eu também. Sou fumpista nível I, inscrito no CadÚnico e presidente da Chapa 2.',
+      },
+      {
+        tema: 'cotas',
+        fala: 'Sou cotista e vim de escola pública. Este site que você está usando foi feito por um cotista.',
+      },
+      {
+        tema: 'trabalho',
+        fala: 'Trabalho de dia, estudo à noite, presido a Chapa 2 e programo este site. Fumpista 1001 utilidades.',
+      },
+    ],
     photoFilename: 'Gabriel Sathler.jpg',
     initials: 'GS',
     deptColor: 'bg-purple-600 text-white border-purple-800',
@@ -211,6 +249,14 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
     solution:
       'Portal da Transparência atualizado na hora, a cada lançamento, e tutoriais passo a passo para requerimento de benefícios da FUMP e estágio.',
     solutionStatus: 'parte',
+    // Informado pelo Gabriel em 13/11/2026: a Vitória é fumpista e autorizou publicar. O texto é
+    // rascunho meu aprovado por ele; se ela mandar a frase dela, a dela substitui esta.
+    vivencias: [
+      {
+        tema: 'fump',
+        fala: 'Também sou fumpista. Escrevi o guia da FUMP deste site pra ninguém precisar descobrir sozinho.',
+      },
+    ],
     photoFilename: 'Vitoria.png',
     initials: 'VM',
     deptColor: 'bg-emerald-700 text-white border-emerald-900',
@@ -292,6 +338,14 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
     solution:
       'Calendário cultural planejado para o período noturno, integração permanente e defesa das linhas do Circular 22:30.',
     solutionStatus: 'proposta',
+    // Informado pelo Gabriel em 13/11/2026: a Paloma entrou pela cota e autorizou publicar. O texto é
+    // rascunho meu aprovado por ele; se ela mandar a frase dela, a dela substitui esta.
+    vivencias: [
+      {
+        tema: 'cotas',
+        fala: 'Entrei na UFMG pela cota. Hoje defendo na Chapa 2 o turno da noite, de quem trabalha o dia inteiro.',
+      },
+    ],
     photoFilename: 'Paloma.jpeg',
     photoPosition: 'center 28%',
     initials: 'PC',

@@ -28,11 +28,13 @@ import { asset } from '@/lib/paths';
 import { celebrateSpring, easeOutExpo } from '@/lib/motion';
 import { MarkerWord } from '@/components/ui/marker-word';
 import { GritoDeVoto } from '@/components/ui/grito-de-voto';
-import molduras from '@/data/molduras.json';
+import { ANEIS, FRASES, GRUPOS_DE_ANEIS, GRUPOS_DE_FRASES, amostraDoAnel, temGenero } from '@/lib/molduras';
+import '@/styles/moldura.css';
 import { getVaultItem, setVaultItem, type UserRole } from '@/lib/storage/studentVault';
 import { guardarNomeNoPerfil, lerFotoDoPerfil } from '@/lib/fotoDoPerfil';
 import {
   canTriggerInstallPrompt,
+  isAndroid,
   downloadElectionCalendarReminder,
   isIOS,
   isStandalone,
@@ -78,6 +80,8 @@ type Screen =
   | { kind: 'moldura' };
 
 const TOTAL_PEOPLE = TOUR_PEOPLE_IN_CHAPA_ORDER.length;
+/** Ferramentas do tour que já funcionam (as simuladas não contam). É o "10" que o vídeo também diz. */
+const NO_AR = TOUR_PEOPLE_IN_CHAPA_ORDER.filter((p) => !p.stop.simulated).length;
 
 /**
  * A sequência de telas. Sem perfil não há pessoas, mas a votação existe sempre: é para ela que o
@@ -249,6 +253,9 @@ export const SementeTour: React.FC = () => {
   const [state, setState] = useState<TourRuntime | null>(null);
   const [vp, setVp] = useState({ w: 0, h: 0 });
   const [closing, setClosing] = useState(false);
+  // "Quem é a Semente" (13/11/2026): uma tela curta entre o vídeo e a pergunta do momento do curso.
+  // Mora no mesmo passo do perfil para não mexer no índice salvo; quem volta do primeiro rosto não a revê.
+  const [apresentou, setApresentou] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
 
@@ -281,6 +288,7 @@ export const SementeTour: React.FC = () => {
   useEffect(() => {
     const start = () => {
       setClosing(false);
+      setApresentou(false);
       setState({
         status: 'active',
         index: 0,
@@ -479,7 +487,9 @@ export const SementeTour: React.FC = () => {
           ? 'Votação: 25 e 26 de novembro.'
           : screen.kind === 'moldura'
             ? 'Sua foto com a moldura da Chapa 2.'
-            : '';
+            : screen.kind === 'perfil' && !apresentou
+              ? 'Quem é a Chapa Semente.'
+              : '';
 
   return (
     <MotionConfig reducedMotion="never">
@@ -508,14 +518,19 @@ export const SementeTour: React.FC = () => {
         <AnimatePresence mode="wait" initial={false}>
           {!closing && (
             <motion.div
-              key={`${screen.kind}-${index}`}
+              key={`${screen.kind}-${index}${screen.kind === 'perfil' && !apresentou ? '-chapa' : ''}`}
               className="absolute inset-0 text-white"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, transition: { duration: 0.22, delay: 0.12 } }}
               exit={{ opacity: 0, transition: { duration: 0.14 } }}
             >
               {screen.kind === 'intro' && <TourPanfletagem onDone={afterVideo} />}
-              {screen.kind === 'perfil' && <PerfilScreen headingRef={headingRef} onChoose={chooseProfile} />}
+              {screen.kind === 'perfil' &&
+                (apresentou ? (
+                  <PerfilScreen headingRef={headingRef} onChoose={chooseProfile} />
+                ) : (
+                  <QuemSomosScreen headingRef={headingRef} onNext={() => setApresentou(true)} />
+                ))}
               {screen.kind === 'pessoa' && (
                 <PessoaScreen
                   headingRef={headingRef}
@@ -555,7 +570,7 @@ export const SementeTour: React.FC = () => {
           <button
             type="button"
             onClick={skip}
-            className={`${btnOutlineLight} absolute top-[max(12px,env(safe-area-inset-top))] right-3 h-11 px-4 text-sm uppercase tracking-[0.04em] shadow-sm sm:right-6`}
+            className={`${btnOutlineLight} absolute z-20 top-[max(12px,env(safe-area-inset-top))] right-3 h-11 px-4 text-sm uppercase tracking-[0.04em] shadow-sm sm:right-6`}
             aria-label="Pular o tour"
           >
             Pular
@@ -565,7 +580,7 @@ export const SementeTour: React.FC = () => {
           <button
             type="button"
             onClick={finish}
-            className="absolute top-[max(12px,env(safe-area-inset-top))] right-3 w-11 h-11 rounded-[12px] border-3 border-foreground bg-white text-foreground inline-flex items-center justify-center shadow-sm cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:right-6"
+            className="absolute z-20 top-[max(12px,env(safe-area-inset-top))] right-3 w-11 h-11 rounded-[12px] border-3 border-foreground bg-white text-foreground inline-flex items-center justify-center shadow-sm cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:right-6"
             aria-label="Fechar o tour"
           >
             <i className="bi bi-x-lg" aria-hidden="true" />
@@ -587,6 +602,73 @@ const screenPad = `${screenPadBase} pt-[max(16px,env(safe-area-inset-top))]`;
 /** Telas centradas com botão no canto ("Pular" ou fechar): o conteúdo começa abaixo dele. */
 const screenPadCorner = `${screenPadBase} pt-[max(68px,calc(env(safe-area-inset-top)+56px))]`;
 const h2Cls = 'm-0 font-heading font-bold leading-[1.08] tracking-[-0.02em] [text-wrap:balance] focus:outline-none focus-visible:outline-none';
+
+/* ───────────────────────── Quem é a Semente ───────────────────────── */
+
+/**
+ * Decisões do Gabriel em 13/11/2026: a chapa se apresenta pelo que já resolveu e por ouvir, sem
+ * crítica direta à gestão atual (isso fica para depois, no boletim). A diversidade entra em frase
+ * coletiva, sem atribuir condição a ninguém; a bagagem entra em bloco coletivo, sem nomes; o site
+ * "não depende de mandato" (nunca citar derrota). A chapa do DA aparece sem o número, que é o mesmo
+ * da outra chapa na eleição do CAGP.
+ */
+const QUEM_SOMOS: { icon: string; rotulo: string; texto: string }[] = [
+  {
+    icon: 'bi-people',
+    rotulo: 'Quem somos',
+    texto: 'Entre nós tem fumpista, cotista e gente que trabalha de dia e estuda à noite. A gente vive o curso na pele.',
+  },
+  {
+    icon: 'bi-file-earmark-text',
+    rotulo: 'O que já fizemos',
+    texto: `Você pedia documento no grupo e ninguém mandava. Agora eles estão aqui, com outras ${NO_AR - 1} ferramentas que já funcionam.`,
+  },
+  {
+    icon: 'bi-megaphone',
+    rotulo: 'A gente ouve',
+    texto: 'Achou erro ou tem crítica? O Fala com a gente já está aberto. O site foi feito pros estudantes e não depende de mandato.',
+  },
+];
+
+const QuemSomosScreen: React.FC<{ headingRef: HeadingRef; onNext: () => void }> = ({ headingRef, onNext }) => (
+  <div className={screenPadCorner}>
+    {/* Sem a faixa de rostos (ela abre a tela seguinte): aqui o "Continuar" tem que caber sem rolar no celular. */}
+    <div className="mx-auto flex min-h-full max-w-[720px] flex-col justify-center gap-4 py-2">
+      <div className="grid gap-4">
+        <h2 id="semente-tour-heading" ref={headingRef} tabIndex={-1} className={`${h2Cls} text-[clamp(1.6rem,5.4vw,3rem)]`}>
+          Não é só uma chapa. É uma ideia que veio pra <MarkerWord onColor className="text-[1.1em] tracking-normal">ficar</MarkerWord>.
+        </h2>
+      </div>
+      <ul className="m-0 grid list-none gap-2.5 p-0">
+        {QUEM_SOMOS.map((item, i) => (
+          <motion.li
+            key={item.rotulo}
+            className="flex gap-3 rounded-[12px] border-3 border-foreground bg-white px-3 py-2.5 text-foreground shadow-[4px_4px_0_0_#1F1F1F]"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.1 + i * 0.07, ease: easeOutExpo }}
+          >
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[30%_10%_30%_10%] bg-primary text-white">
+              <i className={`bi ${item.icon} text-xl`} aria-hidden="true" />
+            </span>
+            <span className="min-w-0">
+              <span className="block font-heading text-base font-bold leading-tight">{item.rotulo}</span>
+              <span className="block text-sm leading-snug">{item.texto}</span>
+            </span>
+          </motion.li>
+        ))}
+      </ul>
+      <p className="m-0 text-sm leading-snug text-white">
+        <strong className="font-heading font-bold">De onde a gente vem:</strong> tem gente nossa que ajudou a construir a Empresa Júnior, que
+        idealizou o Minas Vira Voto e que disputa o DA da FAFICH na chapa Nise da Silveira, de independentes.
+      </p>
+      <button type="button" onClick={onNext} className={`${btnAccent} h-[52px] w-full px-6 text-sm sm:w-auto sm:self-start`}>
+        Continuar
+        <i className="bi bi-arrow-right" aria-hidden="true" />
+      </button>
+    </div>
+  </div>
+);
 
 /* ───────────────────────── Momento do curso ───────────────────────── */
 
@@ -710,6 +792,16 @@ const PessoaScreen: React.FC<{
                 stop.answer
               )}
             </motion.p>
+            {stop.vive && (
+              <motion.blockquote
+                className="m-0 max-w-[40ch] -rotate-1 justify-self-start rounded-md border-2 border-foreground bg-white px-3 py-2 text-base font-bold leading-snug text-foreground shadow-[3px_3px_0_0_#1F1F1F]"
+                initial={{ opacity: 0, y: 10, rotate: -4 }}
+                animate={{ opacity: 1, y: 0, rotate: -1 }}
+                transition={{ duration: 0.5, delay: 0.38, ease: easeOutExpo }}
+              >
+                “{stop.vive}”
+              </motion.blockquote>
+            )}
             <p className="m-0 flex flex-wrap items-center gap-x-2.5 gap-y-1">
               <span className="font-heading text-lg font-bold leading-tight">{stop.tool}</span>
               {stop.simulated ? (
@@ -897,9 +989,11 @@ const FinalScreen: React.FC<{
   const [calendarSaved, setCalendarSaved] = useState(false);
   const [debateSaved, setDebateSaved] = useState(false);
   const [canInstall, setCanInstall] = useState(false);
-  const [showIosHint, setShowIosHint] = useState(false);
+  const [showInstallHint, setShowInstallHint] = useState(false);
   const [installed, setInstalled] = useState(false);
   const ios = typeof window !== 'undefined' && isIOS() && !isStandalone();
+  // Android sem o aviso do navegador (Firefox, link aberto pelo WhatsApp): o caminho é pelo menu.
+  const android = typeof window !== 'undefined' && isAndroid() && !isStandalone();
   const canVote = profile !== 'ingressar';
 
   useEffect(() => {
@@ -927,9 +1021,12 @@ const FinalScreen: React.FC<{
       if (res.outcome === 'accepted') {
         setInstalled(true);
         record({ installed: true });
+      } else {
+        // Recusou: o navegador não oferece de novo nesta página, então fica o caminho pelo menu.
+        setShowInstallHint(true);
       }
-    } else if (ios) {
-      setShowIosHint((v) => !v);
+    } else {
+      setShowInstallHint((v) => !v);
     }
   };
 
@@ -1073,11 +1170,11 @@ const FinalScreen: React.FC<{
                       Chamar a turma no WhatsApp
                     </a>
                   </li>
-                  {(canInstall || ios) && !installed && (
+                  {(canInstall || ios || android) && !installed && (
                     <li>
                       {/* O convite de instalar (11/11/2026) vem com o motivo: no iPhone o Safari pode apagar
                           o que foi salvo num site que fica 7 dias sem uso, e na tela inicial não. */}
-                      <button type="button" className={`${actionBtn} h-auto py-2.5`} onClick={handleInstall} aria-expanded={ios ? showIosHint : undefined}>
+                      <button type="button" className={`${actionBtn} h-auto py-2.5`} onClick={handleInstall} aria-expanded={canInstall ? undefined : showInstallHint}>
                         <i className="bi bi-phone text-lg text-primary" aria-hidden="true" />
                         <span className="grid gap-0.5">
                           <span>Pôr o site na tela inicial</span>
@@ -1086,9 +1183,17 @@ const FinalScreen: React.FC<{
                           </span>
                         </span>
                       </button>
-                      {showIosHint && (
+                      {showInstallHint && (
                         <p className="m-0 mt-2 rounded-[12px] bg-white p-3 text-sm text-foreground">
-                          Abra este site no <strong>Safari</strong>, toque em <strong>Compartilhar</strong> e depois em <strong>Adicionar à Tela de Início</strong>. Pelo navegador do WhatsApp essa opção não aparece.
+                          {ios ? (
+                            <>
+                              Abra este site no <strong>Safari</strong>, toque em <strong>Compartilhar</strong> (em iPhone mais novo, dentro dos três pontinhos) e depois em <strong>Adicionar à Tela de Início</strong>. Pelo navegador do WhatsApp ou do Instagram essa opção não aparece. O aplicativo começa vazio: melhor fazer isso antes de preencher suas horas.
+                            </>
+                          ) : (
+                            <>
+                              Toque nos <strong>três pontinhos</strong> do navegador e em <strong>Adicionar à tela inicial</strong> (em alguns celulares, <strong>Instalar aplicativo</strong>). Veio pelo WhatsApp ou pelo Instagram e a opção não aparece? Escolha antes <strong>Abrir no Chrome</strong>.
+                            </>
+                          )}
                         </p>
                       )}
                     </li>
@@ -1145,13 +1250,17 @@ const FinalScreen: React.FC<{
 
 /* ───────────────────────── A moldura de apoio ───────────────────────── */
 
-const MOLDURA_FUNDO: Record<string, string> = { roxo: '#5B2A85', petroleo: '#266264', broto: '#6DB33F', fruto: '#FFC83D', papel: '#FFFFFF', tinta: '#1F1F1F' };
-const MOLDURA_ESCURA = new Set(['roxo', 'petroleo', 'tinta']);
+const MOLDURA_FLEXOES = [
+  { id: 'o', rotulo: '-o', nome: 'masculino' },
+  { id: 'a', rotulo: '-a', nome: 'feminino' },
+  { id: 'e', rotulo: '-e', nome: 'neutro' },
+];
 
 /**
  * A moldura de apoio, dentro do tour: a mesma ferramenta de /chapa-semente/moldura
  * (src/scripts/molduraDeApoio.ts), só com a moldura redonda de perfil. Só chega aqui quem declarou
- * voto, e a foto da carteirinha já vem no lugar. As molduras aparecem quando há foto.
+ * voto, e a foto da carteirinha já vem no lugar. As frases e os anéis aparecem quando há foto, com os
+ * mesmos seletores da página (src/styles/moldura.css): frase e cor do anel são escolhas separadas.
  */
 const MolduraScreen: React.FC<{ headingRef: HeadingRef; onBack: () => void; onFinish: () => void }> = ({ headingRef, onBack, onFinish }) => {
   const raizRef = React.useRef<HTMLDivElement>(null);
@@ -1185,7 +1294,13 @@ const MolduraScreen: React.FC<{ headingRef: HeadingRef; onBack: () => void; onFi
         data-moldura-perfil="substituir"
         className="mx-auto flex min-h-full max-w-[1040px] flex-col justify-center gap-5 py-4 md:grid md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] md:items-center md:gap-12"
       >
-        <div className="grid justify-items-center gap-2">
+        {/* Com foto, a prévia fica presa no alto: a pessoa vê a moldura mudar enquanto percorre frases e anéis.
+            O topo negativo desconta o respiro da tela, para a faixa roxa cobrir até a borda de cima. */}
+        <div
+          className={`grid justify-items-center gap-2 ${
+            temFoto ? 'sticky top-[calc(max(16px,env(safe-area-inset-top))*-1)] z-10 -mx-4 -mt-4 border-b-3 border-foreground bg-primary px-4 pb-2 pt-[calc(max(16px,env(safe-area-inset-top))+8px)] sm:-mx-8 sm:px-8 md:top-8 md:mx-0 md:mt-0 md:self-start md:border-0 md:bg-transparent md:p-0' : ''
+          }`}
+        >
           <canvas
             width={1080}
             height={1080}
@@ -1218,23 +1333,65 @@ const MolduraScreen: React.FC<{ headingRef: HeadingRef; onBack: () => void; onFi
             </label>
           </div>
 
-          <fieldset className="m-0 border-0 p-0" hidden={!temFoto}>
-            <legend className="mb-2 p-0 text-sm font-bold uppercase tracking-[0.04em]">Escolha a moldura</legend>
-            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3">
-              {molduras.molduras.map((m, i) => (
-                <label
-                  key={m.id}
-                  style={{ background: MOLDURA_FUNDO[m.cor] }}
-                  className="grid min-h-[52px] cursor-pointer place-items-center rounded-[16px_5px_16px_5px] border-3 border-foreground px-2 py-1.5 text-center shadow-sm transition-[translate,box-shadow] duration-(--duration-press) has-[:checked]:translate-x-0.5 has-[:checked]:translate-y-0.5 has-[:checked]:shadow-none has-[:checked]:outline-4 has-[:checked]:outline-offset-2 has-[:checked]:outline-white has-[:focus-visible]:outline-4 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent"
-                >
-                  <input type="radio" name="moldura" value={m.id} defaultChecked={i === 0} className="sr-only" />
-                  <span className={`cagp-grito cagp-grito--sm justify-center [animation:none] ${MOLDURA_ESCURA.has(m.cor) ? 'is-on-color' : ''}`} style={{ ['--grito' as string]: '1.0625rem' }}>
-                    {m.linhas.join(' ')}
-                  </span>
-                </label>
-              ))}
-            </div>
-          </fieldset>
+          {/* Um <form> só para os rádios daqui não se misturarem com os da página da moldura, se o tour abrir sobre ela. */}
+          <form className="grid gap-4" hidden={!temFoto} onSubmit={(e) => e.preventDefault()}>
+            <fieldset className="m-0 min-w-0 border-0 p-0">
+              <legend className="mb-2 p-0 text-sm font-bold uppercase tracking-[0.04em]">Escolha a frase</legend>
+              <div className="mo-escolhas is-on-color">
+                <div className="mo-abas" role="group" aria-label="Tipo de frase">
+                  {GRUPOS_DE_FRASES.map((g, i) => (
+                    <button key={g.id} type="button" className="mo-aba" data-moldura-aba={g.id} aria-pressed={i === 0}>
+                      {g.nome}
+                    </button>
+                  ))}
+                </div>
+                <fieldset className="mo-flexoes" data-moldura-flexoes hidden>
+                  <legend>A frase termina em</legend>
+                  <div className="sk-seg">
+                    <span className="sk-seg-ind" aria-hidden="true" />
+                    {MOLDURA_FLEXOES.map((f, i) => (
+                      <React.Fragment key={f.id}>
+                        <input type="radio" name="flexao" id={`tour-flexao-${f.id}`} value={f.id} defaultChecked={i === 0} aria-label={`Frase no ${f.nome}`} />
+                        <label htmlFor={`tour-flexao-${f.id}`}>{f.rotulo}</label>
+                      </React.Fragment>
+                    ))}
+                  </div>
+                </fieldset>
+                {GRUPOS_DE_FRASES.map((g, i) => (
+                  <div key={g.id} className="mo-frases" data-moldura-grupo={g.id} hidden={i > 0}>
+                    {FRASES.filter((f) => f.grupo === g.id).map((f) => (
+                      <label key={f.id} className="mo-frase">
+                        <input type="radio" name="frase" value={f.id} defaultChecked={f.id === FRASES[0].id} className="sr-only" />
+                        <span className="cagp-grito" data-moldura-texto={temGenero(f) ? f.id : undefined}>
+                          {f.texto}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </fieldset>
+
+            <fieldset className="m-0 min-w-0 border-0 p-0">
+              <legend className="mb-2 p-0 text-sm font-bold uppercase tracking-[0.04em]">E a cor do anel</legend>
+              <div className="mo-escolhas is-on-color">
+                {GRUPOS_DE_ANEIS.map((g) => (
+                  <div key={g.id} className="mo-aneis-grupo" role="group" aria-label={g.nome}>
+                    <p className="mo-aneis-nome">{g.nome}</p>
+                    <div className="mo-aneis">
+                      {ANEIS.filter((a) => a.grupo === g.id).map((a) => (
+                        <label key={a.id} className="mo-anel">
+                          <input type="radio" name="anel" value={a.id} defaultChecked={a.id === (FRASES[0].anel ?? ANEIS[0].id)} className="sr-only" />
+                          <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" dangerouslySetInnerHTML={{ __html: amostraDoAnel(a) }} />
+                          <span className="mo-anel-nome">{a.nome}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </fieldset>
+          </form>
 
           {falhou && !temFoto && (
             <p className="m-0 text-sm font-bold leading-snug text-white" role="status">

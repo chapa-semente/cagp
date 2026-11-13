@@ -223,6 +223,15 @@ export const CampusSheet: React.FC<CampusSheetProps> = ({ isOpen, onClose }) => 
           </div>
         </div>
 
+        {/* Urgência e emergência: atalho para o guia (telefones e passo a passo da UFMG). */}
+        <a
+          href={route('/emergencia')}
+          className="w-full min-h-[48px] px-4 py-2.5 bg-white hover:bg-muted text-foreground no-underline font-heading text-sm font-bold rounded-xl border-[3px] border-border shadow-sm flex items-center justify-between gap-2 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
+        >
+          <span>Alguém passou mal? Urgência e emergência</span>
+          <CagpIcon name="arrow-right" className="w-4 h-4 shrink-0" />
+        </a>
+
         {/* Botão de Teste de Notificação Nativa */}
         <button
           type="button"

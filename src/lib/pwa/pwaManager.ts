@@ -4,105 +4,20 @@
 import { corpoDoAppInstalado, montarMensagem } from '@/lib/compartilhar';
 import { downloadIcs } from '../calendar/icsGenerator';
 
-export interface BeforeInstallPromptEvent extends Event {
-  readonly platforms: string[];
-  readonly userChoice: Promise<{
-    outcome: 'accepted' | 'dismissed';
-    platform: string;
-  }>;
-  prompt(): Promise<void>;
-}
-
-let deferredInstallPrompt: BeforeInstallPromptEvent | null = null;
-const promptListeners = new Set<(canPrompt: boolean) => void>();
-
-if (typeof window !== 'undefined') {
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredInstallPrompt = e as BeforeInstallPromptEvent;
-    promptListeners.forEach((listener) => listener(true));
-  });
-
-  window.addEventListener('appinstalled', () => {
-    deferredInstallPrompt = null;
-    promptListeners.forEach((listener) => listener(false));
-  });
-}
-
-/**
- * Registra um callback para quando a disponibilidade do prompt de instalação mudar
- */
-export function onInstallPromptChange(callback: (canPrompt: boolean) => void): () => void {
-  promptListeners.add(callback);
-  callback(deferredInstallPrompt !== null);
-  return () => promptListeners.delete(callback);
-}
-
-/**
- * Verifica se o aplicativo já está sendo executado em modo Standalone PWA (instalado na Home Screen)
- */
-export function isStandalone(): boolean {
-  if (typeof window === 'undefined') return false;
-  const isDisplayStandalone = window.matchMedia('(display-mode: standalone)').matches;
-  const isNavigatorStandalone = (window.navigator as unknown as { standalone?: boolean }).standalone === true;
-  return isDisplayStandalone || isNavigatorStandalone;
-}
-
-/**
- * Detecta se o dispositivo do usuário é iOS (iPhone, iPad, iPod)
- */
-export function isIOS(): boolean {
-  if (typeof window === 'undefined') return false;
-  const ua = window.navigator.userAgent;
-  const isIPhoneOrIPad = /iPad|iPhone|iPod/.test(ua);
-  // iPad no iOS 13+ finge ser MacIntel com tela touch
-  const isIPadOS = window.navigator.platform === 'MacIntel' && window.navigator.maxTouchPoints > 1;
-  return isIPhoneOrIPad || isIPadOS;
-}
-
-/**
- * Detecta se o dispositivo é Android
- */
-export function isAndroid(): boolean {
-  if (typeof window === 'undefined') return false;
-  return /Android/i.test(window.navigator.userAgent);
-}
-
-/**
- * Detecta se o dispositivo é mobile em geral
- */
-export function isMobileDevice(): boolean {
-  return isIOS() || isAndroid();
-}
-
-/**
- * Dispara o prompt nativo de instalação do PWA se disponível (especialmente no Android Chrome)
- */
-export async function triggerInstallPrompt(): Promise<{ outcome: 'accepted' | 'dismissed' | 'unavailable' }> {
-  if (!deferredInstallPrompt) {
-    return { outcome: 'unavailable' };
-  }
-
-  try {
-    await deferredInstallPrompt.prompt();
-    const choice = await deferredInstallPrompt.userChoice;
-    if (choice.outcome === 'accepted') {
-      deferredInstallPrompt = null;
-      promptListeners.forEach((listener) => listener(false));
-    }
-    return { outcome: choice.outcome };
-  } catch (err) {
-    console.warn('[PWA] Erro ao disparar prompt de instalação:', err);
-    return { outcome: 'unavailable' };
-  }
-}
-
-/**
- * Retorna se o prompt de instalação em 1 toque está pronto para disparo
- */
-export function canTriggerInstallPrompt(): boolean {
-  return deferredInstallPrompt !== null;
-}
+// Tudo o que é "pôr o site na tela inicial" mora em instalacao.ts (sem dependências, para o bloco
+// da home não carregar agenda nem WhatsApp junto). Reexportado aqui para quem já importava deste arquivo.
+export {
+  canTriggerInstallPrompt,
+  isAndroid,
+  isIOS,
+  isMobileDevice,
+  isNavegadorEmbutido,
+  isStandalone,
+  modoDeInstalar,
+  onInstallPromptChange,
+  triggerInstallPrompt,
+} from './instalacao';
+export type { BeforeInstallPromptEvent, ModoDeInstalar } from './instalacao';
 
 /**
  * Solicita permissão para notificações na Web Notification API

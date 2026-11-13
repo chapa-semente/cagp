@@ -1,0 +1,867 @@
+---
+// /[ufmg] — Guias da vida na UFMG (um arquivo .md de conteudo/ufmg/ por página).
+// Volume Ficha + Papel: cabeça de página, contatos (no alto só quando é emergência), o texto em 68ch,
+// vídeos que só carregam ao toque, mapas, e o bloco que diz de onde veio a informação e quando foi lida.
+// Regra da pasta: todo fato vem do Viver UFMG ou do portal da UFMG. Nada de campanha além da faixa do fim.
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+import JourneyNav from '@/components/ui/JourneyNav.astro';
+import CagpIcon from '@/components/ui/CagpIcon.astro';
+import FluxoEmergencia from '@/components/features/ufmg/FluxoEmergencia.astro';
+import ContatosUfmg from '@/components/features/ufmg/ContatosUfmg.astro';
+import HubItemList from '@/components/shell/HubItemList.astro';
+import SegmentedControl from '@/components/ui/SegmentedControl.astro';
+import VisualizadorDeImagem from '@/components/ui/VisualizadorDeImagem.astro';
+import AberturaUfmg from '@/components/features/ufmg/AberturaUfmg.astro';
+import { getItemByPath } from '@/lib/navigationRegistry';
+import { asset, route } from '@/lib/paths';
+
+export async function getStaticPaths() {
+  const paginas = await getCollection('ufmg');
+  return paginas.map((entry) => ({ params: { ufmg: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const d = entry.data;
+const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
+const semTags = (t: string) => t.replace(/<[^>]+>/g, '').trim();
+
+// O Markdown já chega convertido pelo carregador da coleção. Quem escreve usa o endereço simples
+// ("/estagio"): aqui o link interno ganha o base path do GitHub Pages e o link de fora abre em outra aba.
+let html: string = (entry.rendered?.html ?? '')
+  .replace(/href="\/(?!\/)/g, `href="${base}/`)
+  .replace(/<a href="(https?:[^"]+)"/g, '<a href="$1" target="_blank" rel="noopener noreferrer"')
+  // Passos entram em cascata com a rolagem (onde o navegador não suporta, já estão na tela).
+  .replace(/<ol>/g, '<ol class="cagp-reveal-stagger">');
+// Cada título de seção ganha o quadro de folha (a seção "brota"); a cor do quadro percorre o ciclo.
+const BROTO = '<span class="ufmg-broto" aria-hidden="true"><svg viewBox="-46 -110 72 118"><use href="#sg-folha"/></svg></span>';
+html = html.replace(/<h2 id="([^"]+)">([\s\S]*?)<\/h2>/g, `<h2 id="$1">${BROTO}<span>$2</span></h2>`);
+// Listas em linhas de ficha: "**SIGLA**: nome" vira rótulo à esquerda e nome à direita.
+if (d.linhas) {
+  html = html
+    .replace(/<ul>/g, '<ul class="ufmg-linhas" role="list">')
+    .replace(/<li><strong>([\s\S]*?)<\/strong>:?\s*([\s\S]*?)<\/li>/g, '<li><strong>$1</strong><span>$2</span></li>');
+}
+
+// O que vem depois de uma linha "***" fica fora das abas e do sumário.
+const [corpo, ...resto] = html.split(/<hr\s*\/?>/);
+const depois = resto.join('');
+const pedacos = corpo.split(/(?=<h2 id=")/);
+const abertura = pedacos[0].startsWith('<h2') ? '' : pedacos.shift()!;
+const secoes = pedacos.map((bloco) => {
+  const m = bloco.match(/^<h2 id="([^"]+)">([\s\S]*?)<\/h2>/);
+  return { id: m?.[1] ?? '', titulo: semTags(m?.[2] ?? ''), html: bloco };
+});
+
+const emAbas = d.abas.length > 0 && d.abas.length === secoes.length;
+const abas = emAbas
+  ? secoes.map((sec, i) => ({ id: `a${i}`, shortLabel: d.abas[i], fullLabel: sec.titulo, hash: `#${sec.id}` }))
+  : [];
+// Sumário: só em página longa (quatro seções ou mais) que não esteja em abas.
+const sumario = !emAbas && secoes.length >= 4 ? secoes : [];
+
+// Quantos itens tem a maior lista (o destaque `numero: "lista"` mostra esse total sem ninguém contar à mão).
+const contagem = Math.max(0, ...[...html.matchAll(/<ul[^>]*>([\s\S]*?)<\/ul>/g)].map((m) => (m[1].match(/<li>/g) ?? []).length));
+
+const dono = getItemByPath(route(`/${entry.id}`));
+const vizinhas = d.vejaTambem.flatMap((caminho) => getItemByPath(route(caminho))?.item ?? []);
+const contatosNoFim = d.contatos.length > 0 && !d.contatosNoTopo && !d.acaoPrimeiro;
+// Desktop: trilho fixo à direita com o sumário e, quando eles ficam no fim, os contatos (DESIGN.md › Grade e ritmo).
+const comTrilho = sumario.length > 0 || contatosNoFim;
+
+const consulta = new Date(`${d.consultadoEm}T12:00:00-03:00`).toLocaleDateString('pt-BR');
+/** 192 e 193 discam direto; os outros ganham o +55. */
+const tel = (n: string) => {
+  const digitos = n.replace(/\D/g, '');
+  return digitos.length <= 4 ? `tel:${digitos}` : `tel:+55${digitos}`;
+};
+---
+
+<BaseLayout title={d.titulo} description={d.descricao} mode="operate">
+  <PageHeader
+    title={d.titulo}
+    subtitle={d.resumo}
+    marker={d.caneta}
+    icone={dono?.item.icon}
+    badges={[{ label: `UFMG · lido em ${consulta.slice(0, 5)}`, icon: 'seal-check' }]}
+    axisId="guias"
+    activeId={dono?.item.id}
+    mode="operate"
+    condensed={true}
+  />
+
+  <div class:list={['ufmg-pagina', comTrilho && 'ufmg-com-trilho']}>
+  <div class:list={['ufmg-guia', d.contatosNoTopo && 'ufmg-guia-largo']}>
+    {d.contatos.length > 0 && d.contatosNoTopo && (
+      <section class="ufmg-contatos ufmg-contatos-topo" aria-labelledby="ufmg-contatos-titulo">
+        <h2 id="ufmg-contatos-titulo" class="sr-only">{d.contatosTitulo}</h2>
+        <ul role="list">
+          {d.contatos.map((c) => (
+            <li>
+              <div>
+                <p class="ufmg-contato-nome">{c.nome}</p>
+                {c.detalhe && <p class="ufmg-contato-detalhe">{c.detalhe}</p>}
+              </div>
+              <div class="ufmg-acoes">
+                {c.telefones.map((n) => (
+                  <a class="ufmg-botao ufmg-botao-forte" href={tel(n)}>
+                    <CagpIcon name="phone" class="w-5 h-5" /> Ligar {n}
+                  </a>
+                ))}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {entry.id === 'emergencia' && <FluxoEmergencia />}
+
+    {(d.destaque || d.resumoRapido.length > 0) && (
+      <AberturaUfmg destaque={d.destaque} resumo={d.resumoRapido} contagem={contagem} />
+    )}
+
+    {d.acaoPrimeiro && d.contatos.length > 0 && (
+      <ContatosUfmg contatos={d.contatos} titulo={d.contatosTitulo} id="ufmg-contatos-titulo" />
+    )}
+
+    {sumario.length > 0 && (
+      <nav class="ufmg-sumario ufmg-so-estreito" aria-label="Nesta página">
+        <p>Nesta página</p>
+        <ul role="list">
+          {sumario.map((sec) => <li><a href={`#${sec.id}`}>{sec.titulo}</a></li>)}
+        </ul>
+      </nav>
+    )}
+
+    {d.filtro && (
+      <div class="ufmg-filtro" data-ufmg-filtro data-unidade={d.filtroUnidade} hidden>
+        <label for="ufmg-filtro-campo">{d.filtro}</label>
+        <div class="ufmg-filtro-caixa">
+          <CagpIcon name="search" class="w-5 h-5" />
+          <input id="ufmg-filtro-campo" type="search" autocomplete="off" enterkeyhint="search" />
+          <span class="ufmg-filtro-conta" aria-live="polite" data-ufmg-conta></span>
+        </div>
+        <p class="ufmg-filtro-vazio" data-ufmg-vazio hidden>Nada com esse nome. Tente só um pedaço da palavra.</p>
+      </div>
+    )}
+
+    <article class="ufmg-texto" data-ufmg-texto>
+      {emAbas ? (
+        <>
+          <Fragment set:html={abertura} />
+          <SegmentedControl tabs={abas} defaultTab="a0" class="ufmg-abas" />
+          {secoes.map((sec, i) => (
+            <section id={`ws-panel-a${i}`} class="cagp-workspace-view" data-ws-panel={`a${i}`} hidden={i > 0}>
+              <Fragment set:html={sec.html} />
+            </section>
+          ))}
+        </>
+      ) : (
+        <Fragment set:html={corpo} />
+      )}
+      {depois && <div class="ufmg-depois"><Fragment set:html={depois} /></div>}
+    </article>
+
+    {d.imagens.length > 0 && (
+      <section class="ufmg-mapas" aria-label="Mapas">
+        {d.imagens.map((img) => (
+          <figure>
+            <h2><Fragment set:html={BROTO} /><span>{img.titulo}</span></h2>
+            <a
+              class="ufmg-mapa"
+              href={asset(`/images/ufmg/${img.arquivo}`)}
+              data-visualizar
+              data-titulo={img.titulo}
+              data-original={img.original}
+              aria-label={`Ampliar o mapa: ${img.titulo}`}
+            >
+              <img src={asset(`/images/ufmg/${img.arquivo}`)} alt={img.alt} loading="lazy" decoding="async" />
+              <span class="ufmg-mapa-ampliar"><CagpIcon name="zoom-in" class="w-5 h-5" /> Ampliar</span>
+            </a>
+            <figcaption>Imagem: UFMG. Toque para ampliar aqui mesmo, com pinça ou pelos botões.</figcaption>
+          </figure>
+        ))}
+      </section>
+    )}
+
+    {d.videos.length > 0 && (
+      <section class="ufmg-videos" aria-labelledby="ufmg-videos-titulo">
+        <h2 id="ufmg-videos-titulo"><Fragment set:html={BROTO} /><span>{d.videos.length > 1 ? 'Em vídeo' : 'Em vídeo, pela UFMG'}</span></h2>
+        <ul role="list" class="cagp-reveal-stagger">
+          {d.videos.map((v) => (
+            <li>
+              <button type="button" class="ufmg-video" data-ufmg-video={v.id} data-titulo={v.titulo}>
+                <span class="ufmg-video-play" aria-hidden="true"><CagpIcon name="play" class="w-6 h-6" /></span>
+                <span class="ufmg-video-txt">
+                  <span class="ufmg-video-titulo">{v.titulo}</span>
+                  <span class="ufmg-video-de">{v.de} · toque para carregar do YouTube</span>
+                </span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {contatosNoFim && (
+      <div class="ufmg-so-estreito">
+        <ContatosUfmg contatos={d.contatos} titulo={d.contatosTitulo} id="ufmg-contatos-titulo" />
+      </div>
+    )}
+
+    {vizinhas.length > 0 && (
+      <div class="ufmg-vizinhas">
+        <HubItemList items={vizinhas} heading="Veja também" headingId="ufmg-vizinhas-titulo" />
+      </div>
+    )}
+
+    <section class="ufmg-fonte" aria-labelledby="ufmg-fonte-titulo">
+      <h2 id="ufmg-fonte-titulo">De onde vem esta página</h2>
+      <p>
+        Reescrevemos a partir do que a UFMG publica, lido em <strong>{consulta}</strong>. A universidade pode
+        mudar um contato ou uma regra sem aviso: antes de depender de um detalhe, confira na fonte.
+        {d.notaDaFonte && <> {d.notaDaFonte}</>}
+      </p>
+      <ul role="list">
+        {d.fontes.map((f) => (
+          <li>
+            <a href={f.url} target="_blank" rel="noopener noreferrer">
+              {f.nome} <CagpIcon name="external" class="w-4 h-4" />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </div>
+
+  {comTrilho && (
+    <aside class="ufmg-trilho" aria-label="Atalhos desta página">
+      {sumario.length > 0 && (
+        <nav class="ufmg-sumario" aria-label="Nesta página">
+          <p>Nesta página</p>
+          <ul role="list">
+            {sumario.map((sec) => <li><a href={`#${sec.id}`}>{sec.titulo}</a></li>)}
+          </ul>
+        </nav>
+      )}
+      {contatosNoFim && <ContatosUfmg contatos={d.contatos} titulo={d.contatosTitulo} id="ufmg-contatos-trilho" compacto />}
+    </aside>
+  )}
+  </div>
+
+  {d.imagens.length > 0 && <VisualizadorDeImagem />}
+
+  <JourneyNav />
+</BaseLayout>
+
+<script>
+  // Vídeo só carrega quando a pessoa toca; filtro só aparece com JavaScript (sem ele, a lista inteira já está na tela).
+  function ligar() {
+    document.querySelectorAll<HTMLButtonElement>('[data-ufmg-video]').forEach((botao) => {
+      botao.addEventListener(
+        'click',
+        () => {
+          const quadro = document.createElement('iframe');
+          quadro.src = `https://www.youtube-nocookie.com/embed/${botao.dataset.ufmgVideo}?autoplay=1`;
+          quadro.title = botao.dataset.titulo || 'Vídeo';
+          quadro.allow = 'autoplay; encrypted-media; picture-in-picture';
+          quadro.allowFullscreen = true;
+          quadro.className = 'ufmg-video-quadro';
+          botao.replaceWith(quadro);
+        },
+        { once: true },
+      );
+    });
+
+    const caixa = document.querySelector<HTMLElement>('[data-ufmg-filtro]');
+    const texto = document.querySelector<HTMLElement>('[data-ufmg-texto]');
+    if (!caixa || !texto || caixa.dataset.pronto) return;
+    // A lista filtrada é a maior da página (as siglas; os espaços culturais).
+    const lista = [...texto.querySelectorAll('ul')].sort((a, b) => b.children.length - a.children.length)[0];
+    if (!lista) return;
+    caixa.dataset.pronto = '1';
+    lista.before(caixa);
+    caixa.hidden = false;
+    const itens = [...lista.children] as HTMLElement[];
+    const campo = caixa.querySelector('input')!;
+    const conta = caixa.querySelector<HTMLElement>('[data-ufmg-conta]')!;
+    const vazio = caixa.querySelector<HTMLElement>('[data-ufmg-vazio]')!;
+    const total = `${itens.length} ${caixa.dataset.unidade || 'itens'}`;
+    conta.textContent = total;
+    const limpo = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+    campo.addEventListener('input', () => {
+      const q = limpo(campo.value.trim());
+      let n = 0;
+      for (const li of itens) {
+        const mostra = !q || limpo(li.textContent || '').includes(q);
+        li.hidden = !mostra;
+        if (mostra) n += 1;
+      }
+      conta.textContent = q ? `${n} de ${itens.length}` : total;
+      vazio.hidden = n > 0;
+      lista.hidden = n === 0;
+    });
+  }
+  document.addEventListener('astro:page-load', ligar);
+</script>
+
+<style is:global>
+  .ufmg-guia {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    min-width: 0;
+    gap: 2.5rem;
+    max-width: 46rem;
+  }
+  .ufmg-guia-largo { max-width: 60rem; }
+  @media (min-width: 640px) {
+    .ufmg-guia { gap: 3rem; }
+  }
+
+  /* ---------- Texto (Papel): direto no solo, 68ch ---------- */
+  .ufmg-texto { max-width: 68ch; }
+  .ufmg-texto > :first-child { margin-top: 0; }
+  .ufmg-texto > :last-child { margin-bottom: 0; }
+  .ufmg-texto p,
+  .ufmg-texto li {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-foreground);
+    text-wrap: pretty;
+  }
+  .ufmg-texto p { margin: 0 0 1rem; }
+  .ufmg-texto h2,
+  .ufmg-mapas h2,
+  .ufmg-videos h2,
+  .ufmg-contatos h2,
+  .ufmg-fonte h2 {
+    margin: 0 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--color-border);
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-wrap: balance;
+    color: var(--color-foreground);
+  }
+  .ufmg-texto h2 { margin-top: 3rem; scroll-margin-top: 5rem; }
+  .ufmg-texto h3 {
+    margin: 2rem 0 0.5rem;
+    font-family: var(--font-heading);
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  @media (min-width: 640px) {
+    .ufmg-texto h2, .ufmg-mapas h2, .ufmg-videos h2, .ufmg-contatos h2, .ufmg-fonte h2 { font-size: 1.5rem; }
+  }
+  .ufmg-texto a,
+  .ufmg-mapas figcaption a {
+    color: var(--color-primary);
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.22em;
+    overflow-wrap: anywhere;
+  }
+  .ufmg-texto a:hover { color: var(--color-primary-hover, #4A216E); }
+  .ufmg-texto ul {
+    margin: 0 0 1rem;
+    padding-left: 1.25rem;
+    list-style: square;
+    display: grid;
+    gap: 0.5rem;
+  }
+  .ufmg-texto ul > li::marker { color: var(--color-primary); }
+  .ufmg-texto li > p { margin: 0; }
+
+  /* Passo a passo: a lista numerada do Markdown vira as fichas de trâmite do site. */
+  .ufmg-texto ol {
+    list-style: none;
+    margin: 0 0 1.25rem;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+    counter-reset: passo;
+  }
+  .ufmg-texto ol > li {
+    counter-increment: passo;
+    position: relative;
+    min-height: 3.5rem;
+    padding: 0.875rem 1rem 0.875rem 4rem;
+    background: #fff;
+    border: 3px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-ficha);
+  }
+  .ufmg-texto ol > li::before {
+    content: counter(passo);
+    position: absolute;
+    left: 0.75rem;
+    top: 0.625rem;
+    width: 2.25rem;
+    height: 2.25rem;
+    display: grid;
+    place-items: center;
+    border: 2px solid var(--color-border);
+    border-radius: 14px 4px 14px 4px;
+    background: var(--color-primary);
+    color: #fff;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Aviso: o que não pode passar batido. Ficha clara, sem faixa lateral. */
+  .ufmg-texto blockquote {
+    margin: 0 0 1.25rem;
+    padding: 0.875rem 1rem;
+    background: var(--color-warning-tint, #FEF3C7);
+    border: 2px solid var(--color-border);
+    border-radius: 12px;
+  }
+  .ufmg-texto blockquote p { margin: 0; }
+  .ufmg-texto blockquote p + p { margin-top: 0.5rem; }
+
+  /* Lista longa recolhida. */
+  .ufmg-texto details {
+    margin: 0 0 1rem;
+    background: #fff;
+    border: 3px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-ficha);
+  }
+  .ufmg-texto summary {
+    min-height: 3rem;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    cursor: pointer;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    list-style: none;
+  }
+  .ufmg-texto summary::-webkit-details-marker { display: none; }
+  .ufmg-texto summary::after {
+    content: '';
+    flex: none;
+    width: 0.625rem;
+    height: 0.625rem;
+    border-right: 3px solid currentColor;
+    border-bottom: 3px solid currentColor;
+    transform: translateY(-2px) rotate(45deg);
+    transition: transform var(--duration-press) var(--ease-spring-snappy);
+  }
+  .ufmg-texto details[open] > summary { background: var(--color-primary-tint); border-bottom: 2px solid var(--color-border); border-radius: 8px 8px 0 0; }
+  .ufmg-texto details[open] > summary::after { transform: translateY(2px) rotate(225deg); }
+  .ufmg-texto details > :not(summary) { margin-left: 1rem; margin-right: 1rem; }
+  .ufmg-texto details > ul { margin-top: 1rem; }
+  .ufmg-texto summary:focus-visible,
+  .ufmg-botao:focus-visible,
+  .ufmg-video:focus-visible,
+  .ufmg-fonte a:focus-visible,
+  .ufmg-filtro input:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  /* ---------- Filtro ---------- */
+  .ufmg-filtro { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.375rem; margin: 0 0 1rem; }
+  .ufmg-filtro[hidden] { display: none; }
+  .ufmg-filtro label { font-size: 0.875rem; font-weight: 700; }
+  .ufmg-filtro-caixa {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    height: 3rem;
+    padding: 0 0.75rem 0 0.875rem;
+    background: #fff;
+    border: 3px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-chip);
+  }
+  .ufmg-filtro-caixa:focus-within { outline: 2px solid var(--color-primary); outline-offset: 2px; box-shadow: var(--shadow-ficha); }
+  .ufmg-filtro-caixa > svg { flex: none; color: var(--color-content-secondary); }
+  .ufmg-filtro input { flex: 1 1 0; width: 0; min-width: 0; height: 100%; padding: 0; font: inherit; font-size: 1rem; background: none; border: 0; border-radius: 0; box-shadow: none; outline: 0; }
+  /* A contagem é um adesivo do kit, colado na ponta do campo. */
+  .ufmg-filtro-conta {
+    flex: none;
+    padding: 0.25rem 0.5rem;
+    background: #fff;
+    border: 2px solid var(--color-border);
+    border-radius: 6px;
+    box-shadow: 2px 2px 0 0 var(--color-accent), 4px 4px 0 0 var(--color-border);
+    font: 700 0.75rem/1 var(--font-heading);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+    rotate: -4deg;
+  }
+  .ufmg-filtro-vazio { margin: 0.5rem 0 0; font-size: 1rem; }
+
+  /* ---------- Listas em linhas de ficha (siglas, espaços culturais) ---------- */
+  .ufmg-texto ul.ufmg-linhas {
+    list-style: none;
+    padding: 0;
+    gap: 0;
+    background: #fff;
+    border: 3px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-ficha);
+    overflow: hidden;
+  }
+  .ufmg-texto ul.ufmg-linhas[hidden] { display: none; }
+  .ufmg-linhas > li {
+    display: grid;
+    grid-template-columns: 5.25rem minmax(0, 1fr);
+    gap: 0.75rem;
+    align-items: baseline;
+    min-height: 3rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 2px solid var(--color-border);
+    line-height: 1.4;
+  }
+  .ufmg-linhas > li[hidden] { display: none; }
+  .ufmg-linhas > li:last-child { border-bottom: 0; }
+  .ufmg-linhas > li:not(:has(> strong)) { grid-template-columns: minmax(0, 1fr); }
+  .ufmg-linhas > li > strong {
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--color-primary);
+    overflow-wrap: anywhere;
+  }
+  .ufmg-texto .ufmg-linhas a { font-weight: 400; color: var(--color-foreground); text-decoration-color: var(--color-primary); }
+  .ufmg-texto .ufmg-linhas a:hover { color: var(--color-primary); }
+  .ufmg-texto details > ul.ufmg-linhas { margin: 0; border: 0; border-radius: 0 0 9px 9px; box-shadow: none; }
+
+  /* ---------- Contatos (Ficha) ---------- */
+  .ufmg-contatos ul,
+  .ufmg-videos ul,
+  .ufmg-fonte ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; }
+  .ufmg-contatos li {
+    padding: 1rem 1.125rem;
+    background: #fff;
+    border: 3px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-ficha);
+  }
+  /* Emergência: os três contatos cabem na primeira tela do celular (nome à esquerda, botão à direita). */
+  .ufmg-contatos-topo ul { gap: 0.625rem; }
+  .ufmg-contatos-topo li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; padding: 0.75rem 1rem; }
+  .ufmg-contatos-topo .ufmg-acoes { margin-top: 0; }
+  @media (min-width: 900px) {
+    .ufmg-contatos-topo ul { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; }
+    .ufmg-contatos-topo li { flex-direction: column; align-items: flex-start; justify-content: flex-start; }
+  }
+  .ufmg-contato-nome { margin: 0; font-family: var(--font-heading); font-size: 1.125rem; font-weight: 700; line-height: 1.3; }
+  .ufmg-contato-detalhe { margin: 0.25rem 0 0; font-size: 0.875rem; line-height: 1.5; color: var(--color-content-secondary); }
+  .ufmg-acoes { margin-top: 0.75rem; display: flex; flex-wrap: wrap; gap: 0.625rem; }
+  .ufmg-botao {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    max-width: 100%;
+    padding: 0.5rem 0.875rem;
+    background: #fff;
+    color: var(--color-foreground);
+    border: 3px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-chip);
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+    transition: transform var(--duration-press) var(--ease-spring-snappy), box-shadow var(--duration-press) var(--ease-spring-snappy);
+  }
+  .ufmg-botao:hover { transform: translate(-1px, -1px); box-shadow: var(--shadow-ficha); background: var(--color-muted); }
+  .ufmg-botao:active { transform: translate(2px, 2px); box-shadow: none; }
+  .ufmg-botao-forte { background: var(--color-primary); color: #fff; min-height: 48px; font-size: 1rem; }
+  .ufmg-botao-forte:hover { background: var(--color-primary-hover, #4A216E); }
+
+  /* ---------- Mapas ---------- */
+  .ufmg-mapas { display: grid; gap: 2.5rem; }
+  .ufmg-mapas figure { margin: 0; }
+  .ufmg-mapas figure > a { display: block; border: 3px solid var(--color-border); border-radius: 12px; overflow: hidden; background: #fff; }
+  .ufmg-mapas img { display: block; width: 100%; height: auto; }
+  .ufmg-mapas figcaption { margin-top: 0.625rem; font-size: 0.875rem; line-height: 1.5; color: var(--color-content-secondary); }
+
+  /* ---------- Vídeos ---------- */
+  .ufmg-video {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    min-height: 4rem;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font: inherit;
+    color: var(--color-foreground);
+    background: #fff;
+    border: 3px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-ficha);
+    cursor: pointer;
+    transition: transform var(--duration-press) var(--ease-spring-snappy), box-shadow var(--duration-press) var(--ease-spring-snappy);
+  }
+  .ufmg-video:hover { transform: translate(-1px, -1px); box-shadow: var(--shadow-lift); }
+  .ufmg-video:active { transform: translate(4px, 4px); box-shadow: none; }
+  .ufmg-video-play {
+    flex: none;
+    width: 2.75rem;
+    height: 2.75rem;
+    display: grid;
+    place-items: center;
+    background: var(--color-primary);
+    color: #fff;
+    border: 2px solid var(--color-border);
+    border-radius: 18px 5px 18px 5px;
+  }
+  .ufmg-video-txt { display: grid; gap: 0.125rem; min-width: 0; }
+  .ufmg-video-titulo { font-family: var(--font-heading); font-weight: 700; line-height: 1.3; }
+  .ufmg-video-de { font-size: 0.875rem; color: var(--color-content-secondary); }
+  .ufmg-video-quadro { display: block; width: 100%; aspect-ratio: 16 / 9; border: 3px solid var(--color-border); border-radius: 12px; background: var(--color-foreground); }
+
+  /* ---------- Fonte ---------- */
+  .ufmg-fonte {
+    padding: 1rem 1.125rem 1.125rem;
+    background: var(--color-muted);
+    border: 2px solid var(--color-border);
+    border-radius: 12px;
+  }
+  .ufmg-fonte h2 { font-size: 1.125rem; border-bottom: 0; padding-bottom: 0; margin-bottom: 0.5rem; }
+  .ufmg-fonte p { margin: 0 0 0.875rem; max-width: 68ch; font-size: 0.875rem; line-height: 1.5; color: var(--color-content-secondary); }
+  .ufmg-fonte p strong { color: var(--color-foreground); font-variant-numeric: tabular-nums; }
+  .ufmg-fonte ul { gap: 0.25rem; }
+  .ufmg-fonte a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    min-height: 44px;
+    color: var(--color-primary);
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.22em;
+  }
+
+  /* ---------- Página com trilho (desktop) ---------- */
+  .ufmg-trilho { display: none; }
+  @media (min-width: 1180px) {
+    .ufmg-com-trilho { display: grid; grid-template-columns: minmax(0, 46rem) minmax(15rem, 19rem); gap: 3rem; align-items: start; }
+    .ufmg-com-trilho .ufmg-so-estreito { display: none; }
+    .ufmg-trilho { display: grid; gap: 1.5rem; position: sticky; top: 5.5rem; max-height: calc(100vh - 7rem); overflow-y: auto; padding: 0 6px 6px 0; }
+  }
+
+  /* ---------- Resumo e abertura ---------- */
+  .ufmg-guia .cagp-tramite-resumo dd { font-size: 1rem; }
+  @media (min-width: 768px) { .ufmg-guia .cagp-tramite-resumo { grid-template-columns: 1fr; } .ufmg-guia .cagp-tramite-resumo > div + div { border-left: 0; border-top: 2px solid var(--color-border); } }
+  @media (min-width: 900px) { .ufmg-guia .cagp-tramite-resumo { grid-template-columns: repeat(3, minmax(0, 1fr)); } .ufmg-guia .cagp-tramite-resumo > div + div { border-top: 0; border-left: 2px solid var(--color-border); } }
+
+  /* ---------- Sumário: fileira rolável no celular, lista no trilho ---------- */
+  .ufmg-sumario p { margin: 0 0 0.5rem; font-family: var(--font-heading); font-size: 0.875rem; font-weight: 700; }
+  .ufmg-sumario ul { list-style: none; margin: 0; padding: 0; }
+  .ufmg-sumario a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0.375rem 0.75rem;
+    color: var(--color-foreground);
+    background: #fff;
+    border: 2px solid var(--color-border);
+    border-radius: 8px;
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1.25;
+    text-decoration: none;
+    transition: transform var(--duration-press) var(--ease-spring-snappy), box-shadow var(--duration-press) var(--ease-spring-snappy), background-color var(--duration-press) var(--ease-snap, ease);
+  }
+  .ufmg-sumario a:hover { background: var(--color-primary-tint); transform: translate(-1px, -1px); box-shadow: var(--shadow-chip); }
+  .ufmg-sumario a:active { transform: translate(1px, 1px); box-shadow: none; }
+  .ufmg-sumario a:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+  .ufmg-guia > .ufmg-sumario ul {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    padding: 2px 4px 6px 2px;
+  }
+  .ufmg-guia > .ufmg-sumario ul::-webkit-scrollbar { display: none; }
+  .ufmg-guia > .ufmg-sumario li { flex: none; scroll-snap-align: start; }
+  .ufmg-guia > .ufmg-sumario a { white-space: nowrap; }
+  .ufmg-trilho .ufmg-sumario ul { display: grid; gap: 0.375rem; }
+
+  /* ---------- Abas (carteirinha) ---------- */
+  .ufmg-texto .ufmg-abas { margin: 0 0 1.5rem; }
+  .ufmg-texto .cagp-workspace-view > h2:first-child { margin-top: 0; }
+  .ufmg-depois { margin-top: 3rem; }
+
+  /* ---------- Veja também ---------- */
+  .ufmg-vizinhas h2 { margin: 0; padding-bottom: 0.5rem; border-bottom: 2px solid var(--color-border); font-size: 1.25rem; line-height: 1.2; }
+  @media (min-width: 640px) { .ufmg-vizinhas h2 { font-size: 1.5rem; } }
+
+  /* ============ Revisão expressiva (13/11/2026): as peças do kit Semente nos guias da UFMG ============ */
+
+  /* ---------- Título de seção: o quadro de folha, com a folha brotando; a cor percorre o ciclo ---------- */
+  .ufmg-guia h2:has(> .ufmg-broto) { display: flex; align-items: center; gap: 0.75rem; padding-top: 0.75rem; }
+  .ufmg-broto {
+    position: relative;
+    flex: none;
+    width: 2.25rem;
+    height: 2.25rem;
+    background: var(--broto-cor, var(--color-primary));
+    border: 3px solid var(--color-border);
+    border-radius: 14px 4px 14px 4px;
+    box-shadow: 3px 3px 0 0 var(--color-border);
+    rotate: -3deg;
+  }
+  .ufmg-broto svg {
+    position: absolute;
+    right: -9px;
+    top: -19px;
+    width: 17px;
+    height: 27px;
+    overflow: visible;
+    fill: var(--color-accent);
+    stroke: var(--color-border);
+    stroke-width: 5px;
+    stroke-linejoin: round;
+    transform-origin: 50% 100%;
+    animation: ufmg-folha-respira 3.6s ease-in-out infinite;
+  }
+  @keyframes ufmg-folha-respira { 0%, 100% { rotate: -5deg; } 50% { rotate: 7deg; } }
+  .ufmg-texto h2:nth-of-type(5n + 2) .ufmg-broto,
+  .ufmg-texto .cagp-workspace-view:nth-of-type(5n + 2) .ufmg-broto { --broto-cor: var(--color-secondary); rotate: 2deg; }
+  .ufmg-texto h2:nth-of-type(5n + 3) .ufmg-broto,
+  .ufmg-texto .cagp-workspace-view:nth-of-type(5n + 3) .ufmg-broto { --broto-cor: var(--color-broto); }
+  .ufmg-texto h2:nth-of-type(5n + 4) .ufmg-broto,
+  .ufmg-texto .cagp-workspace-view:nth-of-type(5n + 4) .ufmg-broto { --broto-cor: var(--color-fruto); rotate: 2deg; }
+  .ufmg-texto h2:nth-of-type(5n + 5) .ufmg-broto { --broto-cor: var(--color-raiz); }
+  .ufmg-videos .ufmg-broto { --broto-cor: var(--color-secondary); rotate: 2deg; }
+  .ufmg-contatos .ufmg-broto { --broto-cor: var(--color-broto); }
+  .ufmg-mapas figure:nth-of-type(2) .ufmg-broto { --broto-cor: var(--color-secondary); rotate: 2deg; }
+  .ufmg-mapas figure:nth-of-type(3) .ufmg-broto { --broto-cor: var(--color-fruto); }
+
+  /* ---------- Passos: número maior em quadro de folha inclinado, e a régua que liga um passo ao outro ---------- */
+  .ufmg-texto ol > li { padding-left: 4.25rem; min-height: 4rem; }
+  .ufmg-texto ol > li::before {
+    left: 0.75rem;
+    top: 0.75rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-width: 3px;
+    border-radius: 16px 5px 16px 5px;
+    font-size: 1.25rem;
+    box-shadow: 2px 2px 0 0 var(--color-border);
+    rotate: -3deg;
+  }
+  .ufmg-texto ol > li:nth-child(even)::before { rotate: 2deg; background: var(--color-secondary); }
+  .ufmg-texto ol > li:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: calc(0.75rem + 1.25rem - 1.5px);
+    top: 100%;
+    width: 3px;
+    height: calc(0.75rem + 3px);
+    background: var(--color-border);
+  }
+
+  /* ---------- Aviso: o bloco amarelo-fruto do kit (como "Saiu da aula às 22h30?"), com o adesivo ---------- */
+  .ufmg-texto blockquote {
+    position: relative;
+    margin: 1.75rem 0 1.5rem;
+    padding: 1.375rem 1rem 1rem;
+    background: var(--color-fruto);
+    border: 3px solid var(--color-border);
+    border-radius: 16px;
+    box-shadow: var(--shadow-ficha);
+  }
+  .ufmg-texto blockquote::before {
+    content: 'Atenção';
+    position: absolute;
+    left: 0.875rem;
+    top: -0.875rem;
+    padding: 0.25rem 0.5rem;
+    background: #fff;
+    border: 2px solid var(--color-border);
+    border-radius: 6px;
+    box-shadow: 2px 2px 0 0 var(--color-primary), 4px 4px 0 0 var(--color-border);
+    font: 700 0.75rem/1 var(--font-heading);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    rotate: -4deg;
+  }
+  .ufmg-texto blockquote a { color: var(--color-foreground); }
+
+  /* ---------- Vídeos: cartão petróleo com o botão de tocar em folha laranja ---------- */
+  .ufmg-video { background: var(--color-secondary); color: #fff; border-radius: 16px; min-height: 4.5rem; }
+  .ufmg-video:hover { background: var(--color-petroleo-deep, #134E4A); }
+  .ufmg-video-play { width: 3rem; height: 3rem; background: var(--color-accent); color: var(--color-foreground); border-width: 3px; box-shadow: 3px 3px 0 0 var(--color-border); rotate: -3deg; }
+  .ufmg-videos li:nth-child(even) .ufmg-video-play { rotate: 2deg; }
+  .ufmg-video-de { color: #fff; }
+  .ufmg-video:focus-visible { outline-color: var(--color-accent); }
+
+  /* ---------- Linhas (siglas, espaços): a sigla vira etiqueta, com as tintas do ciclo ---------- */
+  .ufmg-linhas > li { align-items: center; grid-template-columns: 6.25rem minmax(0, 1fr); }
+  .ufmg-linhas > li > strong {
+    justify-self: start;
+    max-width: 100%;
+    padding: 0.25rem 0.5rem;
+    background: var(--color-primary-tint);
+    color: var(--color-foreground);
+    border: 2px solid var(--color-border);
+    border-radius: 8px;
+    line-height: 1.2;
+  }
+  .ufmg-linhas > li:nth-child(5n + 2) > strong { background: var(--color-broto-tint); }
+  .ufmg-linhas > li:nth-child(5n + 3) > strong { background: var(--color-fruto-tint); }
+  .ufmg-linhas > li:nth-child(5n + 4) > strong { background: #E2EDEA; }
+  .ufmg-linhas > li:nth-child(5n + 5) > strong { background: #FFEEDB; }
+
+  /* ---------- Mapas: quadros de colagem, com o botão de ampliar em folha ---------- */
+  .ufmg-mapas figure > a.ufmg-mapa {
+    position: relative;
+    display: block;
+    border-radius: 16px;
+    box-shadow: 4px 4px 0 -3px var(--color-accent), 4px 4px 0 0 var(--color-border), 9px 9px 0 -3px var(--color-fruto), 9px 9px 0 0 var(--color-border);
+    margin: 0 9px 9px 0;
+    cursor: zoom-in;
+    transition: transform var(--duration-press) var(--ease-spring-snappy);
+  }
+  .ufmg-mapas figure:nth-of-type(odd) > a.ufmg-mapa { rotate: -0.6deg; }
+  .ufmg-mapas figure:nth-of-type(even) > a.ufmg-mapa { rotate: 0.5deg; }
+  .ufmg-mapas figure > a.ufmg-mapa:hover { transform: translate(-1px, -1px); }
+  .ufmg-mapas figure > a.ufmg-mapa:active { transform: translate(3px, 3px); }
+  .ufmg-mapas figure > a.ufmg-mapa:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 4px; }
+  .ufmg-mapa-ampliar {
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    min-height: 44px;
+    padding: 0 0.875rem;
+    background: var(--color-accent);
+    color: var(--color-foreground);
+    border: 3px solid var(--color-border);
+    border-radius: 16px 5px 16px 5px;
+    box-shadow: 3px 3px 0 0 var(--color-border);
+    font: 700 0.875rem/1 var(--font-heading);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .ufmg-mapas figcaption { margin-top: 1rem; }
+</style>

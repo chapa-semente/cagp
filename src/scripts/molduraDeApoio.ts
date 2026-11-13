@@ -1,44 +1,48 @@
 // src/scripts/molduraDeApoio.ts — A moldura de apoio (decisão do Gabriel em 11/11/2026).
 //
-// A pessoa escolhe uma foto dela, uma moldura da campanha ("Gostosas com Chapa 2", "Faz o S!", "As BB
-// quer Semente"…) e um formato (perfil, feed ou story), e baixa ou posta. Tudo é desenhado num <canvas>
-// aqui no navegador: a foto não sai do aparelho e nada vai para servidor nenhum.
-// Molduras em src/data/molduras.json; marcação em src/pages/chapa-semente/moldura.astro.
-import dados from '@/data/molduras.json';
+// A pessoa escolhe uma foto dela, uma frase ("Gostosas com Chapa 2", "Faz o S!", "Sou fumpista"…), a
+// cor do anel (as cores da chapa, uma bandeira do orgulho ou as cores da neurodiversidade) e um formato
+// (perfil, feed ou story), e baixa ou posta. Tudo é desenhado num <canvas> aqui no navegador: a foto
+// não sai do aparelho, nada vai para servidor nenhum e a frase e o anel escolhidos não ficam guardados.
+// Frases e anéis em src/data/molduras.json (lidos por src/lib/molduras.ts); marcação em
+// src/pages/chapa-semente/moldura.astro e na última tela do tour (SementeTour.tsx).
+import {
+  ANEIS,
+  FRASES,
+  TINTA,
+  anelDoId,
+  anelEstampado,
+  corDoAnelEm,
+  degrauDaCunha,
+  faixasDoAnel,
+  fraseDoId,
+  temGenero,
+  textoDaFrase,
+  tintaSobre,
+  type Anel,
+  type Flexao,
+} from '@/lib/molduras';
 import { corpoDoVoto, montarMensagem, urlAbsoluta } from '@/lib/compartilhar';
 import { asset, route } from '@/lib/paths';
 import { FOLHA_PATH } from '@/lib/sementeGeometry';
 import { guardarFotoNoPerfil, lerFotoDoPerfil } from '@/lib/fotoDoPerfil';
 
 type Formato = 'perfil' | 'feed' | 'story';
-interface Moldura {
-  id: string;
-  linhas: string[];
-  cor: keyof typeof CORES;
-  circularS?: boolean;
-}
 
-const TINTA = '#1F1F1F';
 const LARANJA = '#FE8812';
 const ROXO = '#5B2A85';
 const FORMATOS: Record<Formato, [number, number]> = { perfil: [1080, 1080], feed: [1080, 1350], story: [1080, 1920] };
-/** Cor da faixa, tom mais fundo para a folha e se a faixa é clara (logo colorido e texto grafite). */
-const CORES = {
-  roxo: { bg: '#5B2A85', fundo: '#4A216E', claro: false },
-  petroleo: { bg: '#266264', fundo: '#1D5052', claro: false },
-  broto: { bg: '#6DB33F', fundo: '#5CA032', claro: true },
-  fruto: { bg: '#FFC83D', fundo: '#F5B41F', claro: true },
-  papel: { bg: '#FFFFFF', fundo: '#EFE7F6', claro: true },
-  tinta: { bg: '#1F1F1F', fundo: '#33302B', claro: false },
-} as const;
-const MOLDURAS = dados.molduras as Moldura[];
 
 const estado = {
   foto: null as HTMLImageElement | null,
   zoom: 1,
   dx: 0,
   dy: 0,
-  moldura: MOLDURAS[0].id,
+  frase: FRASES[0].id,
+  anel: FRASES[0].anel ?? ANEIS[0].id,
+  /** A pessoa tocou num anel: daí em diante nenhuma frase troca a cor sozinha. */
+  anelNaMao: false,
+  flexao: 'o' as Flexao,
   formato: 'perfil' as Formato,
 };
 const logos: { claro?: HTMLImageElement; escuro?: HTMLImageElement } = {};
@@ -84,7 +88,7 @@ function adesivoDoNumero(c: CanvasRenderingContext2D, x: number, y: number, k: n
 }
 
 /** Texto na caneta, reto (a linha de baixo dos formatos em pé): laranja com contorno de tinta. */
-function escrever(c: CanvasRenderingContext2D, linha: string, x: number, y: number, corpo: number) {
+function escrever(c: CanvasRenderingContext2D, linha: string, x: number, y: number, corpo: number, cor = LARANJA) {
   c.save();
   c.translate(x, y);
   c.rotate((-2 * Math.PI) / 180);
@@ -94,8 +98,92 @@ function escrever(c: CanvasRenderingContext2D, linha: string, x: number, y: numb
   c.lineWidth = corpo * 0.17;
   c.strokeStyle = TINTA;
   c.strokeText(linha, 0, 0);
-  c.fillStyle = LARANJA;
+  c.fillStyle = cor;
   c.fillText(linha, 0, 0);
+  c.restore();
+}
+
+/**
+ * O fundo da tela inteira na cor do anel. O medalhão não pinta o próprio anel: ele é este fundo visto
+ * entre os dois contornos, e por isso a bandeira passa inteira por trás da foto, no perfil e no cartaz.
+ * Tudo chapado: faixas, a cunha do Progresso apontando para a foto, ou a roda de cores em volta dela.
+ */
+function pintarFundo(c: CanvasRenderingContext2D, W: number, H: number, cx: number, cy: number, R: number, a: Anel) {
+  c.fillStyle = a.cor ?? '#FFFFFF';
+  c.fillRect(0, 0, W, H);
+  for (const f of faixasDoAnel(a)) {
+    c.fillStyle = f.cor;
+    c.fillRect(0, Math.floor(f.de * H), W, Math.ceil((f.ate - f.de) * H) + 1);
+  }
+  a.cunha?.forEach((cor, i) => {
+    const m = R * degrauDaCunha(i);
+    const x0 = cx - R;
+    c.beginPath();
+    c.moveTo(0, cy - m - x0);
+    c.lineTo(x0 + m, cy);
+    c.lineTo(0, cy + m + x0);
+    c.closePath();
+    c.fillStyle = cor;
+    c.fill();
+  });
+  if (a.roda) {
+    const passo = (Math.PI * 2) / a.roda.length;
+    const longe = Math.hypot(W, H);
+    a.roda.forEach((cor, i) => {
+      const de = -Math.PI / 2 - passo / 2 + i * passo;
+      c.beginPath();
+      c.moveTo(cx, cy);
+      c.arc(cx, cy, longe, de, de + passo + 0.004);
+      c.closePath();
+      c.fillStyle = cor;
+      c.fill();
+    });
+  }
+}
+
+/** O infinito da neurodiversidade num adesivo do kit (branco, contorno de tinta, sombra dura). */
+function adesivoDoInfinito(c: CanvasRenderingContext2D, x: number, y: number, k: number, cores: string[]) {
+  const w = 132 * k;
+  const h = 78 * k;
+  const pilula = (ox: number, oy: number, cor: string, traco: number) => {
+    c.beginPath();
+    c.roundRect(ox - w / 2, oy - h / 2, w, h, [28 * k, 9 * k, 28 * k, 9 * k]);
+    c.fillStyle = cor;
+    c.fill();
+    if (traco) {
+      c.lineWidth = traco;
+      c.strokeStyle = TINTA;
+      c.stroke();
+    }
+  };
+  c.save();
+  c.translate(x, y);
+  c.rotate((-7 * Math.PI) / 180);
+  pilula(7 * k, 7 * k, TINTA, 0);
+  pilula(0, 0, '#FFFFFF', 4 * k);
+  // lemniscata de Bernoulli; cada cor pinta um trecho do laço
+  const a = 43 * k;
+  const ponto = (t: number) => {
+    const d = 1 + Math.sin(t) ** 2;
+    return [(a * Math.cos(t)) / d, (a * 1.25 * Math.sin(t) * Math.cos(t)) / d] as const;
+  };
+  const trecho = (de: number, ate: number, cor: string, largura: number) => {
+    c.beginPath();
+    for (let i = 0; i <= 40; i++) {
+      const [px, py] = ponto(de + ((ate - de) * i) / 40);
+      if (i) c.lineTo(px, py);
+      else c.moveTo(px, py);
+    }
+    c.lineWidth = largura;
+    c.strokeStyle = cor;
+    c.stroke();
+  };
+  c.lineCap = 'round';
+  c.lineJoin = 'round';
+  trecho(0, Math.PI * 2, TINTA, 19 * k);
+  c.lineCap = cores.length > 1 ? 'butt' : 'round';
+  const passo = (Math.PI * 2) / cores.length;
+  cores.forEach((cor, i) => trecho(i * passo - 0.02, (i + 1) * passo + 0.02, cor, 10 * k));
   c.restore();
 }
 
@@ -166,17 +254,24 @@ function textoNoArco(
  * O medalhão: a foto num círculo e, em volta, o anel da campanha com o texto no arco, a data no alto,
  * o adesivo do 2 e a folha que brota. É redondo porque foto de perfil é redonda em todo aplicativo.
  */
-function medalhao(c: CanvasRenderingContext2D, cx: number, cy: number, R: number, m: Moldura) {
-  const cor = CORES[m.cor];
+function medalhao(c: CanvasRenderingContext2D, cx: number, cy: number, R: number, H: number) {
+  const m = fraseDoId(estado.frase);
+  const a = anelDoId(estado.anel);
   const anel = R * 0.23;
   const rFoto = R - anel;
   const u = R / 540;
 
-  // o anel (um disco na cor da moldura; a foto entra por cima, no círculo de dentro)
-  c.beginPath();
-  c.arc(cx, cy, R, 0, Math.PI * 2);
-  c.fillStyle = cor.bg;
-  c.fill();
+  // O anel é o fundo da tela (pintarFundo) visto entre os dois contornos. Só a bandeira intersexo
+  // pinta algo aqui: o círculo roxo dela, colado na foto.
+  if (a.aro) {
+    c.beginPath();
+    c.arc(cx, cy, rFoto + anel * 0.26, 0, Math.PI * 2);
+    c.fillStyle = a.aro;
+    c.fill();
+    c.lineWidth = 5 * u;
+    c.strokeStyle = TINTA;
+    c.stroke();
+  }
 
   // a foto, cobrindo o círculo de dentro (ou o convite para escolher uma)
   c.save();
@@ -217,20 +312,21 @@ function medalhao(c: CanvasRenderingContext2D, cx: number, cy: number, R: number
   c.arc(cx, cy, R - 4 * u, 0, Math.PI * 2);
   c.stroke();
 
-  // o texto da moldura na base do anel, na caneta laranja
-  const frase = m.linhas.join(' ');
+  // a frase na base do anel, na caneta laranja (branca nos anéis em que o laranja some)
+  const frase = textoDaFrase(m, estado.flexao);
   const raioTexto = R - anel * 0.5;
+  const sobre = (lado: 'alto' | 'baixo') => tintaSobre(corDoAnelEm(a, lado, (cy + (lado === 'alto' ? -raioTexto : raioTexto)) / H));
   let corpo = anel * 0.8;
   c.font = `400 ${corpo}px 'Permanent Marker', cursive`;
-  const larguraArco = raioTexto * 2.35; // ~135° de arco
+  const larguraArco = raioTexto * 2.62; // ~150° de arco: acaba antes do adesivo do 2 e do infinito
   const largura = c.measureText(frase).width * 1.04;
   if (largura > larguraArco) corpo *= larguraArco / largura;
   textoNoArco(c, frase, cx, cy, raioTexto, true, {
     fonte: `400 ${corpo}px 'Permanent Marker', cursive`,
     corpo,
-    cor: LARANJA,
+    cor: a.caneta ?? LARANJA,
     contorno: TINTA,
-    circularS: m.circularS ? (cor.claro ? ROXO : '#FFFFFF') : undefined,
+    circularS: m.circularS ? (sobre('baixo') === TINTA ? ROXO : '#FFFFFF') : undefined,
   });
 
   // a eleição no alto do anel
@@ -238,7 +334,7 @@ function medalhao(c: CanvasRenderingContext2D, cx: number, cy: number, R: number
   textoNoArco(c, 'ELEIÇÃO DO CAGP · 25 E 26/11', cx, cy, raioTexto, false, {
     fonte: `700 ${corpoData}px Poppins, sans-serif`,
     corpo: corpoData,
-    cor: cor.claro ? TINTA : '#FFFFFF',
+    cor: sobre('alto'),
   });
 
   // a folha laranja que brota do anel, no alto à esquerda (a mesma dos retratos dos banners)
@@ -261,62 +357,86 @@ function medalhao(c: CanvasRenderingContext2D, cx: number, cy: number, R: number
   const k = u * 1.2;
   const aAdesivo = -0.3;
   adesivoDoNumero(c, cx + (R - anel * 0.5) * Math.cos(aAdesivo) - 56 * k, cy + (R - anel * 0.5) * Math.sin(aAdesivo) - 61 * k, k);
+
+  // o infinito (neurodiversidade, autismo), colado no anel à esquerda, logo abaixo da folha
+  if (a.selo) {
+    const aSelo = Math.PI + 0.1;
+    adesivoDoInfinito(c, cx + (R - anel * 0.52) * Math.cos(aSelo), cy + (R - anel * 0.52) * Math.sin(aSelo), u, a.selo);
+  }
 }
 
 export function desenhar(canvas: HTMLCanvasElement) {
-  const m = MOLDURAS.find((x) => x.id === estado.moldura) ?? MOLDURAS[0];
-  const cor = CORES[m.cor];
+  const m = fraseDoId(estado.frase);
+  const a = anelDoId(estado.anel);
   const [W, H] = FORMATOS[estado.formato];
   canvas.width = W;
   canvas.height = H;
   const c = canvas.getContext('2d')!;
   const u = W / 1080;
-
-  // fundo: a cor da moldura com a folha grande, como nos banners
-  c.fillStyle = cor.bg;
-  c.fillRect(0, 0, W, H);
-  c.save();
-  c.translate(W * 0.9, H + W * 0.12);
-  c.rotate((22 * Math.PI) / 180);
-  c.scale(W * 0.0075, W * 0.0075);
-  c.fillStyle = cor.fundo;
-  c.fill(new Path2D(FOLHA_PATH));
-  c.restore();
-
-  if (estado.formato === 'perfil') {
-    // O aplicativo corta a foto de perfil num círculo inscrito no quadrado: o anel encosta na borda.
-    medalhao(c, W / 2, H / 2, W * 0.497, m);
-    return;
-  }
-
-  // Feed e story: o mesmo medalhão num cartaz, com o resto do grito e a assinatura embaixo.
+  const perfil = estado.formato === 'perfil';
   const story = estado.formato === 'story';
-  const R = W * 0.43;
-  const cy = story ? H * 0.37 : R + 70 * u;
-  medalhao(c, W / 2, cy, R, m);
+  // O aplicativo corta a foto de perfil num círculo inscrito no quadrado: lá o anel encosta na borda.
+  // Feed e story levam o mesmo medalhão num cartaz, com o resto do grito e a assinatura embaixo.
+  const R = perfil ? W * 0.497 : W * 0.43;
+  const cy = perfil ? H / 2 : story ? H * 0.37 : R + 70 * u;
 
-  const frase = m.linhas.join(' ');
+  pintarFundo(c, W, H, W / 2, cy, R, a);
+  if (a.fundo && !perfil) {
+    // anel de uma cor só: a folha grande num tom mais fundo, como nos banners
+    c.save();
+    c.translate(W * 0.9, H + W * 0.12);
+    c.rotate((22 * Math.PI) / 180);
+    c.scale(W * 0.0075, W * 0.0075);
+    c.fillStyle = a.fundo;
+    c.fill(new Path2D(FOLHA_PATH));
+    c.restore();
+  }
+  medalhao(c, W / 2, cy, R, H);
+  if (perfil) return;
+
+  const frase = textoDaFrase(m, estado.flexao);
   const resto = [frase.includes('Chapa 2') ? '' : 'Vote Chapa 2!', frase.includes('Faz o S') ? '' : 'Faz o S!'].filter(Boolean);
-  const texto = cor.claro ? TINTA : '#FFFFFF';
-  let y = cy + R + (story ? 190 : 118) * u;
+  let y = cy + R + (story ? 168 : 118) * u;
   const medir = (linha: string, corpo: number) => {
     c.font = `400 ${corpo}px 'Permanent Marker', cursive`;
     return c.measureText(linha).width;
   };
   const linhas = story ? resto : [resto.join(' ')];
   for (const linha of linhas) {
-    let corpo = (story ? 150 : 112) * u;
+    let corpo = (story ? 128 : 112) * u;
     corpo = Math.min(corpo, (corpo * W * 0.84) / medir(linha, corpo));
-    escrever(c, linha, W / 2, y, corpo);
+    escrever(c, linha, W / 2, y, corpo, a.caneta ?? LARANJA);
     y += corpo * 1.18;
   }
 
   // assinatura: logo oficial e a eleição (no story fica acima do rodapé do aplicativo)
-  const base = story ? H - 300 * u : H - 64 * u;
-  const logo = cor.claro ? logos.claro : logos.escuro;
+  const base = story ? H - 276 * u : H - 64 * u;
   const alto = 84 * u;
+  // Sobre as cores da chapa a assinatura vai direto no fundo. Sobre bandeira ou cor de comunidade ela
+  // vai numa ficha branca do kit: o logo oficial só aparece sobre branco ou sobre as cores da marca.
+  const ficha = a.grupo !== 'chapa';
+  const claro = ficha || tintaSobre(a.cor ?? '#FFFFFF') === TINTA;
+  if (ficha) {
+    const fx = W * 0.045;
+    const fy = base - alto - 26 * u;
+    const fw = W * 0.91;
+    const fh = alto + 52 * u;
+    const raio = [30 * u, 10 * u, 30 * u, 10 * u];
+    c.beginPath();
+    c.roundRect(fx + 9 * u, fy + 9 * u, fw, fh, raio);
+    c.fillStyle = TINTA;
+    c.fill();
+    c.beginPath();
+    c.roundRect(fx, fy, fw, fh, raio);
+    c.fillStyle = '#FFFFFF';
+    c.fill();
+    c.lineWidth = 6 * u;
+    c.strokeStyle = TINTA;
+    c.stroke();
+  }
+  const logo = claro ? logos.claro : logos.escuro;
   if (logo) c.drawImage(logo, W * 0.07, base - alto, (logo.naturalWidth / logo.naturalHeight) * alto, alto);
-  c.fillStyle = texto;
+  c.fillStyle = claro ? TINTA : '#FFFFFF';
   c.textAlign = 'right';
   c.font = `700 ${40 * u}px Poppins, sans-serif`;
   c.fillText('25 e 26/11', W * 0.93, base - alto * 0.52);
@@ -331,7 +451,7 @@ function aviso(texto: string, icone = 'bi-check2') {
 function arquivo(canvas: HTMLCanvasElement): Promise<File> {
   return new Promise((ok, erro) =>
     canvas.toBlob(
-      (blob) => (blob ? ok(new File([blob], `chapa-2-${estado.moldura}-${estado.formato}.jpg`, { type: 'image/jpeg' })) : erro(new Error('sem imagem'))),
+      (blob) => (blob ? ok(new File([blob], `moldura-chapa-2-${estado.formato}.jpg`, { type: 'image/jpeg' })) : erro(new Error('sem imagem'))),
       'image/jpeg',
       0.92,
     ),
@@ -374,13 +494,24 @@ export function ligarMoldura(raiz: HTMLElement) {
   raiz.dataset.ligado = '1';
   // Sem seletor de formato na marcação (tour), a moldura é a de perfil.
   if (!raiz.querySelector('input[name="formato"]')) estado.formato = 'perfil';
-  estado.moldura = raiz.querySelector<HTMLInputElement>('input[name="moldura"]:checked')?.value ?? MOLDURAS[0].id;
+  // A marcação segue o que já estava escolhido (quem veio do tour chega à página com a mesma moldura).
+  const marcar = (nome: string, valor: string) => {
+    const r = raiz.querySelector<HTMLInputElement>(`input[name="${nome}"][value="${valor}"]`);
+    if (r) r.checked = true;
+    return r;
+  };
+  marcar('frase', estado.frase);
+  marcar('anel', estado.anel);
+  marcar('flexao', estado.flexao);
   if (estado.foto) raiz.dataset.temFoto = '1';
   const canvas = raiz.querySelector<HTMLCanvasElement>('canvas')!;
   const entrada = raiz.querySelector<HTMLInputElement>('[data-moldura-foto]')!;
   const zoom = raiz.querySelector<HTMLInputElement>('[data-moldura-zoom]');
   const acoes = raiz.querySelectorAll<HTMLButtonElement>('[data-moldura-baixar], [data-moldura-postar]');
   const redesenhar = () => desenhar(canvas);
+  // No celular a prévia fica presa logo abaixo do cabeçalho do site (a página lê --mo-topo).
+  const cabecalho = document.querySelector<HTMLElement>('body > header, [data-shell] > header, header');
+  if (cabecalho?.offsetHeight) raiz.style.setProperty('--mo-topo', `${cabecalho.offsetHeight}px`);
 
   redesenhar();
   // As fontes e os logos chegam depois do primeiro desenho; a cada chegada, desenha de novo.
@@ -413,8 +544,55 @@ export function ligarMoldura(raiz: HTMLElement) {
     }
   });
 
-  raiz.querySelectorAll<HTMLInputElement>('input[name="moldura"]').forEach((r) =>
-    r.addEventListener('change', () => { if (r.checked) { estado.moldura = r.value; redesenhar(); } }),
+  // As abas de frases: uma por vez na tela. Sem JS todas ficam abertas (o `hidden` nasce aqui).
+  const abas = [...raiz.querySelectorAll<HTMLButtonElement>('[data-moldura-aba]')];
+  const grupos = [...raiz.querySelectorAll<HTMLElement>('[data-moldura-grupo]')];
+  const flexoes = raiz.querySelector<HTMLElement>('[data-moldura-flexoes]');
+  const abrirAba = (id: string) => {
+    abas.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.molduraAba === id)));
+    grupos.forEach((g) => (g.hidden = g.dataset.molduraGrupo !== id));
+    // o seletor o / a / e só aparece na aba que tem frase com gênero
+    if (flexoes) flexoes.hidden = !FRASES.some((f) => f.grupo === id && temGenero(f));
+  };
+  if (abas.length) abrirAba(fraseDoId(estado.frase).grupo);
+  abas.forEach((b) => b.addEventListener('click', () => abrirAba(b.dataset.molduraAba!)));
+
+  const escreverFlexao = () =>
+    raiz.querySelectorAll<HTMLElement>('[data-moldura-texto]').forEach((el) => {
+      el.textContent = textoDaFrase(fraseDoId(el.dataset.molduraTexto!), estado.flexao);
+    });
+  escreverFlexao();
+
+  raiz.querySelectorAll<HTMLInputElement>('input[name="frase"]').forEach((r) =>
+    r.addEventListener('change', () => {
+      if (!r.checked) return;
+      estado.frase = r.value;
+      // A frase puxa o anel dela ("Sou bi" traz a bandeira bi) enquanto a pessoa não escolheu um anel
+      // na mão. Um grito nunca tira do lugar uma bandeira que outra frase trouxe.
+      const puxa = fraseDoId(r.value).anel;
+      const trocaBandeiraPorCor = puxa && anelDoId(puxa).grupo === 'chapa' && anelDoId(estado.anel).grupo !== 'chapa';
+      if (puxa && !estado.anelNaMao && !trocaBandeiraPorCor) {
+        estado.anel = puxa;
+        marcar('anel', puxa);
+      }
+      redesenhar();
+    }),
+  );
+  raiz.querySelectorAll<HTMLInputElement>('input[name="anel"]').forEach((r) =>
+    r.addEventListener('change', () => {
+      if (!r.checked) return;
+      estado.anel = r.value;
+      estado.anelNaMao = true;
+      redesenhar();
+    }),
+  );
+  raiz.querySelectorAll<HTMLInputElement>('input[name="flexao"]').forEach((r) =>
+    r.addEventListener('change', () => {
+      if (!r.checked) return;
+      estado.flexao = r.value as Flexao;
+      escreverFlexao();
+      redesenhar();
+    }),
   );
   raiz.querySelectorAll<HTMLInputElement>('input[name="formato"]').forEach((r) =>
     r.addEventListener('change', () => {

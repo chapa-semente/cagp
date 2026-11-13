@@ -1512,3 +1512,16 @@ details[open]:not([data-expand-state="closing"]) > summary .cagp-expand-chevron 
   border-width: 2px;
   box-shadow: none;
 }
+
+/* A folha da busca no celular ocupa a área visível da tela (visualViewport, medido em
+   src/components/ui/command.tsx): com o teclado aberto, o campo e os resultados ficam acima dele.
+   Sem JS ou sem suporte, vale a tela inteira, como antes. */
+.cagp-busca-folha {
+  --folga-topo: max(0.75rem, env(safe-area-inset-top));
+  top: calc(var(--cagp-vv-topo, 0px) + var(--folga-topo));
+  bottom: auto;
+  height: calc(var(--cagp-vv-altura, 100dvh) - var(--folga-topo));
+}
+@media (min-width: 768px) {
+  .cagp-busca-folha { top: 16%; height: auto; }
+}

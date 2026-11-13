@@ -20,3 +20,6 @@ dist/
 
 # Rascunhos de trabalho (vídeos de teste, não vão para o site)
 /_rascunhos/
+
+# Kit visual para posts (exportado do site, não vai pro repositório)
+/kit-visual/

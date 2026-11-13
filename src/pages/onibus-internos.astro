@@ -8,6 +8,7 @@ import PageHeader from '@/components/ui/PageHeader.astro';
 import SegmentedControl from '@/components/ui/SegmentedControl.astro';
 import JourneyNav from '@/components/ui/JourneyNav.astro';
 import CagpIcon from '@/components/ui/CagpIcon.astro';
+import ComplementoUfmg from '@/components/features/ufmg/ComplementoUfmg.astro';
 import OnibusLinha, { type Linha } from '@/components/features/internos/OnibusLinha.astro';
 import dados from '@/data/onibusInternos.json';
 
@@ -87,6 +88,11 @@ const coleta = new Date(`${dados.coletadoEm}T12:00:00`).toLocaleDateString('pt-B
       {painel.linhas.map((linha) => <OnibusLinha linha={linha} tom={tomDe(linha)} />)}
     </section>
   ))}
+
+  <div class="mt-8 grid gap-5 md:grid-cols-2 items-start">
+    <ComplementoUfmg bloco="onibus-moradias" />
+    <ComplementoUfmg bloco="onibus-adaptado" />
+  </div>
 
   <section class="mt-8 rounded-2xl border-2 border-border bg-card shadow-md p-4 sm:p-6" aria-labelledby="internos-fonte">
     <h2 id="internos-fonte" class="font-heading font-bold text-lg sm:text-xl m-0">De onde vêm estes horários</h2>

@@ -8,7 +8,6 @@ import CagpCentralOverview from '../components/features/cagp/CagpCentralOverview
 import CagpHistoriaCore from '../components/features/cagp/historia/CagpHistoriaCore.astro';
 import CagpEstatutoCore from '../components/features/cagp/estatuto/CagpEstatutoCore.astro';
 import CagpGestaoDiretoria from '../components/features/cagp/gestao/CagpGestaoDiretoria.astro';
-import { SobreCollageBanner } from '../components/features/cagp/SobreCollageBanner';
 import { ContactWithCards } from '../components/boldkit/blocks/contact-section';
 import { ATENDIMENTO_CURSO } from '@/data/acolhimento';
 
@@ -62,8 +61,6 @@ const badges = [
     badges={badges}
     mode="persuade"
   />
-
-  <SobreCollageBanner client:visible />
 
   <SegmentedControl tabs={tabs} defaultTab="v0" />
 

@@ -85,10 +85,17 @@ const legenda = [
       </div>
     </section>
 
+    {proposta.jaFeito && (
+      <section class="cd-ficha cd-feito" aria-labelledby="cd-feito">
+        <h2 id="cd-feito" class="cd-feito-selo">{proposta.jaFeito.selo}</h2>
+        <p class="cd-citacao">{proposta.jaFeito.texto}</p>
+      </section>
+    )}
+
     <section class="cd-secao" aria-labelledby="cd-carta">
       <h2 id="cd-carta" class="cd-h2">O que diz a carta-programa</h2>
       <p class="cd-texto">{carta.fullText}</p>
-      <a href={route('/chapa-semente') + '#propostas'} class="cd-link">Ler as {total} propostas</a>
+      <a href={route('/chapa-semente') + '#carta'} class="cd-link">Ler as {total} propostas</a>
     </section>
 
     <section class="cd-ficha cd-kit" aria-labelledby="cd-kit">

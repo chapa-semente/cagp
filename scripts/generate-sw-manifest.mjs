@@ -69,6 +69,7 @@ const CORE_PAGES = [
   'meu-curso/',
   'mais/',
   'calouros/',
+  'emergencia/', // telefones e fluxo: precisam abrir sem sinal
   'estagio/',
   'permanencia/',
   'tcc/',

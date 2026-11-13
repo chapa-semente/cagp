@@ -71,7 +71,7 @@ const BI = {
   'stars': 'sparkle', 'symmetry-horizontal': 'arrows-left-right', 'table': 'table', 'trash': 'trash', 'universal-access': 'person-arms-spread',
   'whatsapp': 'whatsapp-logo', 'wifi': 'wifi-high', 'wifi-off': 'wifi-slash', 'x': 'x', 'x-circle': 'x-circle', 'x-lg': 'x',
   'x-octagon': 'x-circle', 'youtube': 'youtube-logo', 'telephone': 'phone', 'map': 'map-trifold', 'geo': 'map-pin',
-  'card-checklist': 'list-checks', 'key': 'key', 'plus-lg': 'plus', 'arrow-up-right': 'arrow-up-right',
+  'card-checklist': 'list-checks', 'cpu': 'cpu', 'key': 'key', 'plus-lg': 'plus', 'arrow-up-right': 'arrow-up-right',
 };
 
 // Nomes do CagpIcon → Phosphor. Os 4 ícones de aba (hoje, guias, curso, mais) são desenhados à mão
@@ -98,6 +98,13 @@ const CAGP = {
   'd-formatura': 'graduation-cap', 'd-carreira': 'steps', 'd-vagas': 'binoculars', 'd-talentos': 'identification-badge',
   'd-ouvidoria': 'megaphone', 'd-transparencia': 'receipt', 'd-sobre': 'bank', 'd-ajustes': 'sliders-horizontal',
   'd-mapa': 'map-trifold', 'd-ru': 'fork-knife', 'd-moldura': 'camera', 'd-site': 'book-open-text',
+  // Guias da vida na UFMG (conteudo/ufmg/).
+  'd-sistemas': 'laptop', 'd-carteirinha': 'identification-card', 'd-biblioteca': 'books', 'd-siglas': 'text-aa',
+  'd-mapas': 'map-pin-area', 'd-cultura': 'mask-happy', 'd-intercambio': 'airplane-tilt', 'd-regras': 'scales',
+  'd-entidades': 'flag-banner', 'd-direitos': 'hand-fist', 'd-emergencia': 'siren', 'd-quem': 'tree-view',
+  'd-acessibilidade': 'wheelchair', 'd-saude-mental': 'heartbeat', mail: 'envelope-simple', play: 'play',
+  // Visualizador de imagens e peças dos guias da UFMG.
+  minus: 'minus', 'zoom-in': 'magnifying-glass-plus', 'arrows-out': 'arrows-out-simple', youtube: 'youtube-logo',
 };
 
 const missing = [];

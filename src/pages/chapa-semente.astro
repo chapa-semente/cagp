@@ -6,7 +6,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import JourneyNav from '../components/ui/JourneyNav.astro';
 import { CartaPropostaInteractive } from '../components/features/semente/CartaPropostaInteractive';
 import { ChapaSementeTour } from '../components/features/semente/ChapaSementeTour';
-import { PROPOSTA_EIXOS } from '@/lib/propostasTour';
+import { PROPOSTA_EIXOS, PROPOSTAS_FEITAS } from '@/lib/propostasTour';
 import { CHAPA_LEADERS, CHAPA_NOME, CHAPA_NUMERO, CHAPA_ROTULO, SOLUTION_LABEL, getLeaderPhotoUrl } from '@/lib/chapaSementeData';
 import { asset, route } from '@/lib/paths';
 import { Marquee, MarqueeItem, MarqueeSeparator } from '../components/ui/marquee';
@@ -190,6 +190,11 @@ const jaFunciona = jaFuncionaBase.map((t) => {
                   {leader.quote && (
                     <blockquote class="m-0 text-sm text-foreground leading-relaxed">“{leader.quote}”</blockquote>
                   )}
+                  {leader.lugarDeFala && (
+                    <blockquote class="m-0 text-sm text-foreground leading-relaxed">
+                      <strong class="font-heading">“{leader.lugarDeFala.gancho}</strong> {leader.lugarDeFala.curta}”
+                    </blockquote>
+                  )}
                   <p class="m-0 text-sm text-muted-foreground leading-snug">
                     <strong class="text-foreground">O problema:</strong> {leader.painPoint}
                   </p>
@@ -255,12 +260,19 @@ const jaFunciona = jaFuncionaBase.map((t) => {
       <p class="m-0 text-base text-muted-foreground">
         Discorda de alguma, ou acha que faltou uma? <a href={route('/ouvidoria')} class="font-bold text-primary underline underline-offset-[0.22em]">Fala com a gente</a>.
       </p>
-      <details class="cs-carta">
-        <summary>Ler a carta completa, proposta por proposta</summary>
-        <div class="pt-4">
-          <CartaPropostaInteractive client:visible />
-        </div>
-      </details>
+    </section>
+
+    <!-- 5b. A CARTA COMPLETA: aberta na página desde 13/11/2026 (antes ficava atrás de um "Ler a carta
+         completa"). As 14 propostas com o texto inteiro, busca e filtro; o adesivo de cada cartão diz o
+         que já foi feito (`jaFeito` em src/lib/propostasTour.ts). -->
+    <section id="carta" aria-labelledby="cs-carta-title" class="scroll-mt-24 space-y-5">
+      <div class="space-y-2 max-w-[68ch]">
+        <h2 id="cs-carta-title" class="cs-headline">A carta completa</h2>
+        <p class="text-base text-muted-foreground m-0">
+          As 14 propostas com o texto inteiro, como está na carta-programa. {PROPOSTAS_FEITAS} delas já saíram do papel: é só procurar o adesivo laranja.
+        </p>
+      </div>
+      <CartaPropostaInteractive client:visible />
     </section>
 
     <!-- 6. KIT DE DIVULGAÇÃO: quem já decidiu o voto vira quem espalha (artes em public/og/kit/) -->
@@ -538,15 +550,6 @@ const jaFunciona = jaFuncionaBase.map((t) => {
   .cs-eixo-gancho { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; line-height: 1.15; text-wrap: balance; }
   .cs-eixo-pe { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 0.75rem; font-size: 0.875rem; line-height: 1.3; }
   .cs-eixo-pe i { display: grid; place-items: center; flex: none; width: 2rem; height: 2rem; color: #1f1f1f; background: var(--color-accent); border: 2px solid #1f1f1f; border-radius: 50%; }
-  .cs-carta summary {
-    display: inline-flex;
-    min-height: 44px;
-    align-items: center;
-    font-weight: 700;
-    text-decoration: underline;
-    text-underline-offset: 0.22em;
-    cursor: pointer;
-  }
 
   /* 2. Faixa petróleo */
   .cs-band {
