@@ -1,0 +1,59 @@
+ Deploy Astro site to Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Um deploy por vez. Não cancela o que está em andamento (o Pages pode ficar num estado
+# inconsistente); um push novo espera e o push intermediário pendente é descartado.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build (Astro + service worker)
+        run: |
+          pnpm exec astro build \
+            --site "${{ steps.pages.outputs.origin }}" \
+            --base "${{ steps.pages.outputs.base_path }}"
+          node scripts/generate-sw-manifest.mjs
+
+      - name: Artifact size
+        run: |
+          echo "### Pages artifact" >> "$GITHUB_STEP_SUMMARY"
+          echo "- $(find dist -type f | wc -l) arquivos, $(du -sh dist | cut -f1)" >> "$GITHUB_STEP_SUMMARY"
+          echo "- SW: $(grep -m1 -o "const VERSION = '[^']*'" dist/sw.js)" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
