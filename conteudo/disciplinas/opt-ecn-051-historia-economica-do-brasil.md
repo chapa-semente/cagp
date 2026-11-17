@@ -1,0 +1,13 @@
+---
+codigo: "ECN 051"
+nome: "HISTÓRIA ECONÔMICA DO BRASIL"
+natureza: "optativa"
+ch: 60
+modulo: "Optativa"
+preRequisitos: []
+ementa: "O Sistema Colonial A Economia Colonial na América Portuguesa A Constituição do Estado e da Economia Brasileira A Economia Brasileira no Século XIX A Industrialização e a Modernização no Brasil A Economia Brasileira: 1930/1960."
+---
+
+## Ementa Oficial
+
+O Sistema Colonial A Economia Colonial na América Portuguesa A Constituição do Estado e da Economia Brasileira A Economia Brasileira no Século XIX A Industrialização e a Modernização no Brasil A Economia Brasileira: 1930/1960.

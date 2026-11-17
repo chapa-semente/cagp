@@ -1,0 +1,13 @@
+---
+codigo: "DCP 144"
+nome: "DEMOCRACIA, CIDADANIA E ESTADO DE BEM ESTAR SOCIAL EM PERSPECTIVA COMPARADA"
+natureza: "optativa"
+ch: 60
+modulo: "Optativa"
+preRequisitos: []
+ementa: "Cidadania: conceitos, desenvolvimento e desafios para as democracias contemporâneas em perspectiva comparada. Trajetórias das lutas por direitos humanos, sociais, econômicos, culturais e socioambientais. Trajetórias de implementação de sistemas de proteção social em perspectiva comparada. Estado de Bem Estar social - desenvolvimento e transformações recentes: análise comparativa."
+---
+
+## Ementa Oficial
+
+Cidadania: conceitos, desenvolvimento e desafios para as democracias contemporâneas em perspectiva comparada. Trajetórias das lutas por direitos humanos, sociais, econômicos, culturais e socioambientais. Trajetórias de implementação de sistemas de proteção social em perspectiva comparada. Estado de Bem Estar social - desenvolvimento e transformações recentes: análise comparativa.

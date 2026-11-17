@@ -1,0 +1,209 @@
+---
+// gestao.astro — Eleição e como votar, em uma tela só (12/11/2026).
+//
+// Até 12/11 esta página tinha quatro abas (eleição, organograma, diretorias, contas), 35 telas de
+// celular, a data da votação repetida seis vezes e erros de fato: duas pessoas que não são da chapa,
+// quatro contagens diferentes de diretorias, CNPJ e ouvidoria tratados como se existissem. Agora ela
+// responde uma pergunta só, "como eu voto?", e tudo o que afirma vem do edital
+// (public/documentos/edital-eleicoes-cagp-2026.pdf). As pessoas da chapa estão em /chapa-semente
+// (CHAPA_LEADERS) e a estrutura do centro acadêmico em /sobre.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/ui/PageHeader.astro';
+import JourneyNav from '../components/ui/JourneyNav.astro';
+import TramiteResumo from '@/components/ui/tramite/TramiteResumo.astro';
+import { asset, route } from '@/lib/paths';
+import { CHAPA_ROTULO } from '@/lib/chapaSementeData';
+
+const EDITAL_PDF = asset('/documentos/edital-eleicoes-cagp-2026.pdf');
+
+/** As três datas que ainda importam para quem vota (edital, cronograma e arts. 14, 20 e 23). */
+const DATAS = [
+  { quando: '24/11, às 18h', oQue: 'Debate entre as chapas', nota: 'Local a definir pela Junta Eleitoral.' },
+  { quando: '25 e 26/11', oQue: 'Votação', nota: 'Das 17h às 22h30, no CAGP.' },
+  { quando: '26/11', oQue: 'Apuração e resultado', nota: 'Depois que a votação fecha.' },
+];
+---
+
+<BaseLayout
+  title="Eleição e como votar"
+  description="Como votar na eleição do CAGP: 25 e 26 de novembro, das 17h às 22h30, no CAGP. Quem vota, como marcar a cédula, o debate e o edital."
+  mode="read"
+>
+  <PageHeader title="Eleição e como votar" subtitle="O que diz o edital, sem enrolação." mode="read" />
+
+  <div class="cv space-y-8">
+    <section id="eleicoes" class="cagp-anchor-target scroll-mt-24 space-y-4" aria-label="Como votar">
+      <TramiteResumo
+        linhas={[
+          { rotulo: 'Quando', texto: '<strong>25 e 26 de novembro</strong>, das 17h às 22h30.' },
+          { rotulo: 'Onde', texto: 'No <strong>CAGP</strong>, na FAFICH. O voto é presencial e secreto.' },
+          { rotulo: 'Quem vota', texto: 'Todo estudante regularmente matriculado em Gestão Pública (edital, art. 21).' },
+          { rotulo: 'Como marcar', texto: 'Um <strong>X</strong> na frente do nome e do número de <strong>uma chapa só</strong>. Fora disso o voto é nulo (art. 22).' },
+        ]}
+      />
+      <div class="flex flex-wrap items-center gap-3">
+        <button type="button" class="sk-btn sk-btn-folha" data-cv-ics>
+          <i class="bi bi-calendar-plus" aria-hidden="true" data-cv-ics-icon></i>
+          <span data-cv-ics-label>Lembrar na agenda</span>
+        </button>
+        <a href={EDITAL_PDF} class="sk-btn" download="edital-eleicoes-cagp-2026.pdf">
+          <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
+          Baixar o edital
+        </a>
+      </div>
+      <p class="cv-nota" data-cv-ics-note aria-live="polite"></p>
+    </section>
+
+    <section aria-labelledby="cv-datas-titulo" class="space-y-3">
+      <h2 id="cv-datas-titulo" class="cv-h2">O que ainda vem</h2>
+      <ol class="cv-datas">
+        {DATAS.map((d) => (
+          <li>
+            <span class="cv-quando">{d.quando}</span>
+            <span class="cv-oque">{d.oQue}</span>
+            <span class="cv-nota">{d.nota}</span>
+          </li>
+        ))}
+      </ol>
+      <details class="cv-passou">
+        <summary>O que já passou</summary>
+        <ul>
+          <li><strong>4/11:</strong> publicação do edital.</li>
+          <li><strong>4 a 10/11:</strong> inscrição das chapas.</li>
+          <li><strong>11/11:</strong> divulgação das chapas aceitas.</li>
+          <li><strong>11 a 24/11:</strong> campanha.</li>
+        </ul>
+      </details>
+    </section>
+
+    <section aria-labelledby="cv-regras-titulo" class="space-y-3">
+      <h2 id="cv-regras-titulo" class="cv-h2">Duas regras pra saber</h2>
+      <ul class="cv-regras">
+        <li>
+          Nos dois dias de votação é proibido fazer campanha no <strong>1º andar da FAFICH</strong> (edital, art. 17).
+        </li>
+        <li>
+          A <strong>Junta Eleitoral</strong> conduz a votação e confere quem pode votar. São três estudantes do curso:
+          Fernanda Abadia Couto, Laura Borges Souza e Anderson Batista de Sousa Santos. Dúvida ou recurso:
+          <a href="mailto:juntaeleitoralcagp2026@gmail.com">juntaeleitoralcagp2026@gmail.com</a>.
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="cv-chapa-titulo" class="cv-chapa">
+      <div class="min-w-0">
+        <h2 id="cv-chapa-titulo" class="cv-h2">A Semente é a {CHAPA_ROTULO}</h2>
+        <p class="m-0">12 pessoas, 14 propostas e este site, que já está no ar.</p>
+      </div>
+      <a href={route('/chapa-semente')} class="sk-btn">
+        Conhecer a chapa
+        <i class="bi bi-arrow-right" aria-hidden="true"></i>
+      </a>
+    </section>
+  </div>
+
+  <JourneyNav
+    prev={{
+      title: 'O Centro Acadêmico (CAGP)',
+      href: '/sobre',
+      desc: 'O que é o CAGP, o regimento e como ele se organiza.',
+    }}
+    next={{
+      title: 'Chapa 2 · Semente',
+      href: '/chapa-semente',
+      desc: 'Quem são as 12 pessoas e o que elas propõem.',
+    }}
+  />
+</BaseLayout>
+
+<script>
+  import { downloadPresetIcs } from '@/lib/calendar/icsGenerator';
+
+  function ligar() {
+    document.querySelectorAll<HTMLButtonElement>('[data-cv-ics]').forEach((btn) => {
+      if (btn.dataset.ligado) return;
+      btn.dataset.ligado = '1';
+      btn.addEventListener('click', () => {
+        downloadPresetIcs('eleicoes-cagp-2026');
+        const label = btn.querySelector<HTMLElement>('[data-cv-ics-label]');
+        const icon = btn.querySelector<HTMLElement>('[data-cv-ics-icon]');
+        const note = document.querySelector<HTMLElement>('[data-cv-ics-note]');
+        if (label) label.textContent = 'Lembrete baixado';
+        if (icon) icon.className = 'bi bi-calendar-check';
+        if (note) note.textContent = 'Abra o arquivo .ics para salvar os dias 25 e 26/11 na sua agenda.';
+      });
+    });
+  }
+  ligar();
+  document.addEventListener('astro:page-load', ligar);
+</script>
+
+<style>
+  .cv { max-width: 46rem; }
+  .cv-h2 {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--color-foreground);
+  }
+  .cv-nota { margin: 0; font-size: 0.875rem; line-height: 1.4; color: var(--color-content-secondary); }
+  .cv-nota:empty { display: none; }
+
+  .cv-datas {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    background: #fff;
+    border: 3px solid var(--color-border);
+    border-radius: 16px;
+    box-shadow: var(--shadow-ficha);
+    overflow: hidden;
+  }
+  .cv-datas li {
+    display: grid;
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+    column-gap: 1rem;
+    row-gap: 0.125rem;
+    padding: 0.875rem 1rem;
+  }
+  .cv-datas li + li { border-top: 2px solid var(--color-border); }
+  .cv-quando {
+    grid-row: span 2;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-primary);
+  }
+  .cv-oque { font-family: var(--font-heading); font-weight: 700; line-height: 1.25; }
+
+  .cv-passou summary {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 0.22em;
+    cursor: pointer;
+  }
+  .cv-passou ul { margin: 0.25rem 0 0; padding-left: 1.25rem; display: grid; gap: 0.25rem; font-size: 1rem; }
+
+  .cv-regras { margin: 0; padding-left: 1.25rem; display: grid; gap: 0.625rem; line-height: 1.55; }
+  .cv-regras a { font-weight: 700; overflow-wrap: anywhere; }
+
+  .cv-chapa {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: #fff;
+    border: 3px solid var(--color-border);
+    border-radius: 16px;
+    box-shadow: var(--shadow-ficha);
+  }
+</style>

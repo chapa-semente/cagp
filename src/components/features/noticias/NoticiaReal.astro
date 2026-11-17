@@ -1,0 +1,541 @@
+---
+// NoticiaReal.astro — A página de uma notícia de verdade (17/11/2026).
+//
+// O mural nasceu com exemplos, e a página deles (src/pages/noticias/[slug].astro) avisa em três lugares
+// que o conteúdo é simulado. Notícia com `real: true` no Markdown passa por aqui: sem aviso de
+// simulação, assinada por quem publicou (a Chapa Semente, não o CAGP) e sempre com as fontes.
+//
+// Ordem, pensada para o celular: cabeça de página → quando e onde (cartão em camadas do kit, o único
+// momento Cartaz) → o vídeo → o texto em Papel (68ch) → fontes → mandar pra alguém. Tudo vem do
+// cabeçalho do Markdown; nenhum dado da notícia é escrito aqui.
+import { render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+import BotaoCompartilhar from '@/components/ui/BotaoCompartilhar.astro';
+import AberturaUfmg from '@/components/features/ufmg/AberturaUfmg.astro';
+import type { Noticia } from '@/lib/noticias';
+import { asset, route } from '@/lib/paths';
+
+interface Props {
+  entry: Noticia;
+}
+
+const { entry } = Astro.props;
+const d = entry.data;
+const { Content } = await render(entry);
+const ev = d.evento;
+
+const dataBr = (iso: string) => new Date(`${iso}T12:00:00-03:00`).toLocaleDateString('pt-BR');
+const publicado = d.publicadoEm ? dataBr(d.publicadoEm) : d.dateLabel;
+const consulta = d.consultadoEm ? dataBr(d.consultadoEm) : null;
+const destino = (href: string) => (/^https?:\/\//.test(href) ? href : route(href));
+
+const resumo = ev
+  ? [
+      { rotulo: 'Quando', texto: `${ev.dia}, a partir das ${ev.hora}.` },
+      { rotulo: 'Onde', texto: ev.ondeDetalhe ? `${ev.onde}, ${ev.ondeDetalhe}.` : `${ev.onde}.` },
+      ...(ev.quemChama ? [{ rotulo: 'Quem chama', texto: ev.quemChama }] : []),
+    ]
+  : [];
+---
+
+<BaseLayout title={d.title} description={d.summary} mode="read" activePage="hoje" activeGroup="hoje">
+  <PageHeader
+    title={d.title}
+    subtitle={d.chamada ?? d.summary}
+    marker={d.caneta}
+    icone="megaphone"
+    badges={[{ label: `Notícia real · ${publicado.slice(0, 5)}`, icon: 'seal-check' }, { label: d.author }]}
+    breadcrumbs={[{ label: 'Início', href: route('/') }, { label: 'Mural', href: route('/noticias') }, { label: d.title }]}
+    axisId="hoje"
+    mode="read"
+    condensed={true}
+  />
+
+  <div class="nr" data-context-type="news" data-nr data-inicio={ev?.inicio} data-fim={ev?.fim}>
+    {ev && (
+      <div class="nr-abertura">
+        <span class="sk-adesivo nr-hoje" data-nr-hoje hidden>É hoje</span>
+        <AberturaUfmg
+          destaque={{
+            rotulo: 'Quando e onde',
+            numero: ev.hora,
+            frase: `${ev.dia}, na ${ev.onde}.`,
+            etiquetasTitulo: ev.emJogo.length > 0 ? 'O que está em jogo' : undefined,
+            etiquetas: ev.emJogo,
+            cor: 'petroleo',
+          }}
+          resumo={resumo}
+          contagem={0}
+        />
+        <div class="nr-acoes">
+          {ev.mapa && (
+            <a class="sk-btn sk-btn-roxo" href={ev.mapa} target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-geo-alt-fill" aria-hidden="true"></i>
+              Abrir no mapa
+            </a>
+          )}
+          <BotaoCompartilhar rotulo="Mandar pra alguém" />
+        </div>
+      </div>
+    )}
+
+    {d.video && (
+      <section class="nr-video" id="video" aria-labelledby="nr-video-titulo">
+        <div class="nr-video-texto">
+          <h2 id="nr-video-titulo">{d.video.titulo}</h2>
+          <p>{d.video.texto}</p>
+          {d.instagram && (
+            <a class="sk-btn" href={d.instagram.url} target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-instagram" aria-hidden="true"></i>
+              Ver o reel no Instagram
+            </a>
+          )}
+          {d.video.nota && <p class="nr-video-nota">{d.video.nota}</p>}
+        </div>
+
+        <div class="nr-video-quadro" data-nr-video>
+          <video controls playsinline preload="none" width="540" height="960" poster={asset(d.video.capa)} aria-label={d.video.descricao}>
+            <source src={asset(d.video.src)} type="video/mp4" />
+          </video>
+          <button type="button" class="nr-video-tocar" data-nr-tocar hidden>
+            <span class="nr-video-folha" aria-hidden="true"><i class="bi bi-play-fill"></i></span>
+            <span class="nr-video-rotulo">
+              Assistir
+              <small>{d.video.duracao} · {d.video.peso}</small>
+            </span>
+          </button>
+        </div>
+
+        {d.video.transcricao.length > 0 && (
+          <details class="nr-transcricao">
+            <summary>Ler o que o vídeo diz</summary>
+            {d.video.transcricao.map((fala) => <p>{fala}</p>)}
+          </details>
+        )}
+      </section>
+    )}
+
+    <article class="nr-texto">
+      <Content />
+    </article>
+
+    {d.relatedLinks.length > 0 && (
+      <nav class="nr-veja" aria-labelledby="nr-veja-titulo">
+        <h2 id="nr-veja-titulo">Veja também</h2>
+        <ul role="list">
+          {d.relatedLinks.map((l) => (
+            <li>
+              <a href={destino(l.href)}>
+                <span>{l.label}</span>
+                <i class="bi bi-arrow-right" aria-hidden="true"></i>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    )}
+
+    {d.fontes.length > 0 && (
+      <section class="nr-fonte" aria-labelledby="nr-fonte-titulo">
+        <h2 id="nr-fonte-titulo">De onde vem esta notícia</h2>
+        <p>
+          Publicada pela {d.author} em <strong>{publicado}</strong>{consulta && (consulta === publicado ? ', com as fontes lidas no mesmo dia' : <>, com as fontes lidas em <strong>{consulta}</strong></>)}.
+          O projeto ainda está em votação e pode mudar: antes de repetir um número, confira na fonte.
+        </p>
+        <ul role="list">
+          {d.fontes.map((f) => (
+            <li>
+              <a href={f.url} target="_blank" rel="noopener noreferrer">
+                {f.nome}
+                <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <section class="nr-manda" aria-labelledby="nr-manda-titulo">
+      <div>
+        <h2 id="nr-manda-titulo">Manda pra quem vive de bolsa</h2>
+        <p>Quem depende de bolsa, bandejão ou moradia precisa saber antes de a Câmara votar.</p>
+      </div>
+      <BotaoCompartilhar variante="roxo" rotulo="Mandar pra alguém" />
+    </section>
+
+    <a class="nr-voltar" href={route('/noticias')}>
+      <i class="bi bi-arrow-left" aria-hidden="true"></i>
+      Voltar ao mural
+    </a>
+  </div>
+
+  <script is:inline>
+    (function () {
+      function dia(t) {
+        return new Date(t).toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' });
+      }
+      function ligar() {
+        var pagina = document.querySelector('[data-nr]');
+        if (!pagina) return;
+
+        // "É hoje" só no dia do evento (horário de Brasília) e só até ele acabar.
+        var hoje = pagina.querySelector('[data-nr-hoje]');
+        var inicio = Date.parse(pagina.getAttribute('data-inicio') || '');
+        var fim = Date.parse(pagina.getAttribute('data-fim') || '');
+        if (hoje && inicio && fim) hoje.hidden = !(Date.now() <= fim && dia(Date.now()) === dia(inicio));
+
+        // O tocar em folha: com JavaScript, a barra do navegador só aparece depois do primeiro toque.
+        pagina.querySelectorAll('[data-nr-video]').forEach(function (quadro) {
+          var video = quadro.querySelector('video');
+          var tocar = quadro.querySelector('[data-nr-tocar]');
+          if (!video || !tocar || quadro.hasAttribute('data-ligado')) return;
+          quadro.setAttribute('data-ligado', '');
+          video.controls = false;
+          tocar.hidden = false;
+          function comecar() {
+            tocar.hidden = true;
+            video.controls = true;
+            var p = video.play();
+            if (p && p.catch) p.catch(function () {});
+          }
+          tocar.addEventListener('click', comecar);
+          video.addEventListener('play', function () { tocar.hidden = true; video.controls = true; });
+        });
+      }
+      ligar();
+      document.addEventListener('astro:page-load', ligar);
+    })();
+  </script>
+</BaseLayout>
+
+<style is:global>
+  .nr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+    min-width: 0;
+    max-width: 46rem;
+    padding-bottom: 1rem;
+  }
+  @media (min-width: 640px) {
+    .nr { gap: 3rem; }
+  }
+  .nr a:focus-visible,
+  .nr summary:focus-visible,
+  .nr button:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; }
+
+  /* ---------- Quando e onde: o cartão em camadas do kit ---------- */
+  .nr-abertura { position: relative; display: grid; gap: 1.25rem; }
+  .nr-abertura .ua { margin-bottom: 0; }
+  .nr-abertura .ua-num b { font-variant-numeric: tabular-nums; }
+  .sk-adesivo.nr-hoje {
+    z-index: 2;
+    top: -0.75rem;
+    left: auto;
+    right: 1.75rem;
+    padding: 0.375rem 0.625rem;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    rotate: 4deg;
+    animation: nr-cola var(--duration-spring) var(--ease-spring) 0.35s backwards;
+  }
+  .sk-adesivo.nr-hoje[hidden] { display: none; }
+  @keyframes nr-cola {
+    from { opacity: 0; scale: 1.5; rotate: 14deg; }
+  }
+  .nr-acoes { display: flex; flex-wrap: wrap; gap: 0.75rem; padding-right: 4px; }
+  .nr-acoes .sk-btn { flex: 1 1 auto; justify-content: center; }
+
+  /* ---------- Vídeo: uma ficha só, com o quadro em pé ---------- */
+  .nr-video {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+    padding: 1.125rem;
+    background: #fff;
+    border: 3px solid var(--color-border);
+    border-radius: 16px;
+    box-shadow: var(--shadow-md);
+    scroll-margin-top: 5rem;
+  }
+  .nr-video-texto { display: grid; gap: 0.75rem; justify-items: start; align-content: center; min-width: 0; }
+  .nr-video-texto h2 {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+  .nr-video-texto p { margin: 0; max-width: 44ch; font-size: 1rem; line-height: 1.55; text-wrap: pretty; }
+  .nr-video-texto .nr-video-nota { font-size: 0.875rem; line-height: 1.5; color: var(--color-content-secondary); }
+  .nr-video-quadro {
+    position: relative;
+    order: -1;
+    justify-self: center;
+    width: min(100%, 16.5rem);
+    aspect-ratio: 9 / 16;
+    border: 3px solid var(--color-border);
+    border-radius: 12px;
+    background: var(--color-foreground);
+    overflow: hidden;
+  }
+  .nr-video-quadro video { display: block; width: 100%; height: 100%; object-fit: cover; background: var(--color-foreground); }
+  .nr-video-tocar {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 0.625rem;
+    padding: 0 0.5rem 0.875rem;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+  }
+  .nr-video-tocar[hidden] { display: none; }
+  .nr-video-folha {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 3.5rem;
+    height: 3.5rem;
+    border: 3px solid var(--color-border);
+    border-radius: 23px 6px 23px 6px;
+    background: var(--color-accent);
+    color: var(--color-foreground);
+    box-shadow: 4px 4px 0 0 var(--color-border);
+    font-size: 1.5rem;
+    rotate: -3deg;
+    transition:
+      translate var(--duration-press) var(--ease-spring-snappy),
+      box-shadow var(--duration-press) var(--ease-spring-snappy);
+  }
+  .nr-video-tocar:hover .nr-video-folha { translate: -1px -1px; box-shadow: 6px 6px 0 0 var(--color-border); }
+  .nr-video-tocar:active .nr-video-folha { translate: 4px 4px; box-shadow: 0 0 0 0 var(--color-border); }
+  .nr-video-rotulo {
+    display: grid;
+    justify-items: start;
+    gap: 0.1875rem;
+    margin-bottom: 0.25rem;
+    padding: 0.4375rem 0.625rem;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    background: var(--color-foreground);
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .nr-video-rotulo small {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    font-variant-numeric: tabular-nums;
+  }
+  .nr-transcricao { min-width: 0; border-top: 2px solid var(--color-border); padding-top: 0.5rem; }
+  .nr-transcricao summary {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    border-radius: 6px;
+    color: var(--color-primary);
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .nr-transcricao p { margin: 0 0 0.625rem; max-width: 68ch; font-size: 0.875rem; line-height: 1.55; color: var(--color-content-secondary); }
+  @media (min-width: 640px) {
+    .nr-video { grid-template-columns: 15rem minmax(0, 1fr); gap: 1.25rem 2rem; padding: 1.5rem; }
+    .nr-video-quadro { order: 0; grid-column: 1; grid-row: 1; width: 100%; }
+    .nr-video-texto { grid-column: 2; grid-row: 1; }
+    .nr-video-texto h2 { font-size: 1.5rem; }
+    .nr-transcricao { grid-column: 1 / -1; }
+  }
+
+  /* ---------- Texto (Papel): direto no solo, 68ch ---------- */
+  .nr-texto { max-width: 68ch; }
+  .nr-texto > :first-child { margin-top: 0; }
+  .nr-texto > :last-child { margin-bottom: 0; }
+  .nr-texto p,
+  .nr-texto li { font-size: 1rem; line-height: 1.6; color: var(--color-foreground); text-wrap: pretty; }
+  .nr-texto p { margin: 0 0 1rem; }
+  .nr-texto h2,
+  .nr-veja h2 {
+    margin: 0 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--color-border);
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-wrap: balance;
+    color: var(--color-foreground);
+  }
+  .nr-texto h2 { margin-top: 3rem; scroll-margin-top: 5rem; }
+  @media (min-width: 640px) {
+    .nr-texto h2, .nr-veja h2 { font-size: 1.5rem; }
+  }
+  .nr-texto a {
+    color: var(--color-primary);
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.22em;
+    overflow-wrap: anywhere;
+  }
+  /* Os pontos numerados: fichas com o número no quadro de folha, como os passos dos guias. */
+  .nr-texto ol {
+    list-style: none;
+    counter-reset: nr-ponto;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    display: grid;
+    gap: 0.875rem;
+  }
+  .nr-texto ol > li {
+    counter-increment: nr-ponto;
+    position: relative;
+    padding: 1rem 1.125rem 1rem 4.125rem;
+    background: #fff;
+    border: 3px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+  }
+  .nr-texto ol > li::before {
+    content: counter(nr-ponto);
+    position: absolute;
+    left: 0.875rem;
+    top: 0.875rem;
+    display: grid;
+    place-items: center;
+    width: 2.375rem;
+    height: 2.375rem;
+    border: 3px solid var(--color-border);
+    border-radius: 15px 4px 15px 4px;
+    background: var(--color-accent);
+    font-family: var(--font-heading);
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    rotate: -3deg;
+  }
+  .nr-texto ol > li:nth-child(even)::before { background: var(--color-fruto); rotate: 2deg; }
+  .nr-texto ol > li:nth-child(3n)::before { background: var(--color-broto); }
+  .nr-texto ol > li > strong:first-child {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-family: var(--font-heading);
+    font-size: 1.125rem;
+    line-height: 1.3;
+  }
+  /* Citação do texto da lei: bloco branco, contorno 2px, a fonte em rótulo por cima. */
+  .nr-texto blockquote {
+    margin: 0 0 1rem;
+    padding: 0.875rem 1rem 1rem;
+    background: #fff;
+    border: 2px solid var(--color-border);
+    border-radius: 12px;
+  }
+  .nr-texto blockquote p { margin: 0; }
+  .nr-texto blockquote p + p { margin-top: 0.375rem; }
+  .nr-texto blockquote p:first-child > strong:only-child {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    line-height: 1.2;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-content-secondary);
+  }
+
+  /* ---------- Veja também ---------- */
+  .nr-veja ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; }
+  .nr-veja a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 56px;
+    padding: 0.75rem 1rem;
+    background: #fff;
+    border: 3px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    color: var(--color-foreground);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    line-height: 1.3;
+    text-decoration: none;
+    transition:
+      translate var(--duration-press) var(--ease-spring-snappy),
+      box-shadow var(--duration-press) var(--ease-spring-snappy);
+  }
+  .nr-veja a:hover { translate: -1px -1px; box-shadow: var(--shadow-lg); }
+  .nr-veja a:active { translate: 4px 4px; box-shadow: none; }
+  .nr-veja a i { flex: none; color: var(--color-primary); }
+
+  /* ---------- Fontes ---------- */
+  .nr-fonte {
+    padding: 1rem 1.125rem 1.125rem;
+    background: var(--color-muted);
+    border: 2px solid var(--color-border);
+    border-radius: 12px;
+  }
+  .nr-fonte h2 { margin: 0 0 0.5rem; font-family: var(--font-heading); font-size: 1.125rem; font-weight: 700; line-height: 1.3; }
+  .nr-fonte p { margin: 0 0 0.875rem; max-width: 68ch; font-size: 0.875rem; line-height: 1.5; color: var(--color-content-secondary); }
+  .nr-fonte p strong { color: var(--color-foreground); font-variant-numeric: tabular-nums; }
+  .nr-fonte ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.25rem; }
+  .nr-fonte a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    min-height: 44px;
+    border-radius: 6px;
+    color: var(--color-primary);
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1.35;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.22em;
+  }
+  .nr-fonte a i { flex: none; }
+
+  /* ---------- Mandar pra alguém ---------- */
+  .nr-manda {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 1.5rem;
+    padding: 1.125rem;
+    background: var(--color-primary-tint);
+    border: 2px solid var(--color-border);
+    border-radius: 12px;
+  }
+  .nr-manda h2 { margin: 0; font-family: var(--font-heading); font-size: 1.125rem; font-weight: 700; line-height: 1.3; }
+  .nr-manda p { margin: 0.25rem 0 0; max-width: 40ch; font-size: 0.875rem; line-height: 1.5; color: var(--color-content-secondary); }
+  .nr-voltar {
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    border-radius: 6px;
+    color: var(--color-primary);
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.22em;
+  }
+</style>

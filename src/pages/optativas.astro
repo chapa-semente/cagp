@@ -1,0 +1,53 @@
+---
+// optativas.astro - Tela 10: Catálogo de Optativas & Formação Livre (Eixo 3)
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/ui/PageHeader.astro';
+import SementeSignature from '../components/ui/SementeSignature.astro';
+import JourneyNav from '../components/ui/JourneyNav.astro';
+import SeuProgresso from '../components/ui/SeuProgresso.astro';
+import { OptativasCatalogExplorer } from '../components/features/curriculum/catalog/OptativasCatalogExplorer';
+import { route } from '@/lib/paths';
+
+const allDisciplinas = await getCollection('disciplinas');
+const optativasList = allDisciplinas.filter((d) => d.data.natureza === 'optativa');
+optativasList.sort((a, b) => a.data.codigo.localeCompare(b.data.codigo, 'pt-BR'));
+
+const optativasData = optativasList.map((d) => ({
+  code: d.data.codigo,
+  name: d.data.nome,
+  ch: d.data.carga_horaria,
+  modulo: d.data.modulo || undefined,
+  ementa: d.data.ementa || '',
+}));
+---
+
+<BaseLayout
+  title="Optativas"
+  description="Catálogo interativo das disciplinas optativas do PPC N-20229 de Gestão Pública UFMG com busca Roxo Semente, filtro por departamento (DCP, FACE, FAE, FAFICH) e alocação direta no Grafo."
+  mode="operate"
+>
+  <PageHeader
+    title="Optativas"
+    subtitle="As 68 optativas do PPC por departamento. Escolha e já coloque na sua grade."
+    breadcrumbs={[{ label: 'Trajetória 600h', href: route('/percurso') }, { label: 'Catálogo de Optativas' }]}
+    axisId="guias"
+    activeId="optativas"
+    mode="operate"
+    condensed={true}
+  />
+
+  <SeuProgresso tema="optativas" />
+
+  <OptativasCatalogExplorer client:load optativas={optativasData} />
+
+  <SementeSignature
+    proposal="Ferramenta da chapa"
+    text="Chega de procurar ementa em PDF espalhado: a Chapa Semente reuniu as optativas do PPC com filtro por departamento e ligação direta com o Grafo."
+  />
+
+  <JourneyNav
+    prev={{ title: 'Grafo curricular de 10 períodos', href: '/percurso', desc: 'Pré-requisitos e o dossiê das 3.000h.' }}
+    next={{ title: 'Cursos livres da ENAP', href: '/cursos', desc: 'Certificados que contam como AAC nas 600h.' }}
+  />
+</BaseLayout>

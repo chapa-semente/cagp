@@ -1,0 +1,196 @@
+---
+// src/pages/carreira.astro — Hub Central de Carreira, Vagas, Empresa Júnior & Banco de Talentos (Super App CAGP UFMG)
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+import SementeSignature from '../components/ui/SementeSignature.astro';
+import JourneyNav from '@/components/ui/JourneyNav.astro';
+import CagpIcon from '@/components/ui/CagpIcon.astro';
+import { CarreiraVagasFeed } from '@/components/features/carreira/CarreiraVagasFeed';
+import { CarreiraEmpresaJuniorCard } from '@/components/features/carreira/CarreiraEmpresaJuniorCard';
+import { CarreiraTalentosPreview } from '@/components/features/carreira/CarreiraTalentosPreview';
+import { route } from '@/lib/paths';
+
+const badges = [
+  { label: 'Propostas 9, 11 e 12 Chapa Semente', variant: 'purple' as const, icon: 'bi-briefcase-fill' },
+  { label: 'Vagas de exemplo', variant: 'orange' as const, icon: 'bi-megaphone-fill' },
+  { label: 'Empresa Júnior GP & OSCs', variant: 'green' as const, icon: 'bi-stars' },
+  { label: 'Banco de talentos', variant: 'red' as const, icon: 'bi-person-vcard' },
+];
+
+const atalhosCarreira = [
+  {
+    id: 'vagas',
+    label: 'Vagas e editais',
+    sublabel: 'Estágio e trainee no setor público',
+    href: route('/carreira/vagas'),
+    icon: 'carreira',
+  },
+  {
+    id: 'talentos',
+    label: 'Banco de talentos',
+    sublabel: 'Seu perfil profissional',
+    href: route('/carreira/talentos'),
+    icon: 'stars',
+  },
+  {
+    id: 'estagio',
+    label: 'Estágio',
+    sublabel: 'As 300h, o TCE e o Art. 41',
+    href: route('/estagio'),
+    icon: 'briefcase',
+  },
+  {
+    id: 'reta-final',
+    label: 'Formatura',
+    sublabel: 'TCC e colação de grau',
+    href: route('/formatura'),
+    icon: 'thesis',
+  },
+];
+---
+
+<BaseLayout
+  title="Carreira e vagas"
+  description="Carreira de quem estuda Gestão Pública na UFMG conectado às Propostas 9, 11 e 12 da Chapa Semente: radar de vagas públicas, Empresa Júnior de Gestão Pública, Aproveitamento Servidor (Art. 41) e Banco de Talentos."
+  mode="operate"
+>
+  <div id="cagp-carreira-hub" class="space-y-8 max-w-6xl mx-auto font-sans">
+    <PageHeader
+      axisId="mais"
+      mode="operate"
+      condensed={true}
+      showAxisNav={false}
+      title="Carreira e vagas"
+      subtitle="Estágio, concurso, Empresa Júnior e seu perfil profissional: o que ajuda a sair do curso já trabalhando."
+      badges={badges}
+    />
+
+    {/* 1. ATALHOS RÁPIDOS DO HUB DE CARREIRA (Grid 4 Módulos) */}
+    <section aria-label="Atalhos Rápidos de Carreira e Inserção Profissional" class="space-y-2.5">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-primary border border-border" />
+        <h2 class="text-xs sm:text-sm font-heading font-black text-foreground m-0">
+          Módulos de Carreira &amp; Inserção Profissional
+        </h2>
+      </div>
+
+      <div class="rounded-2xl border-2 border-border bg-card shadow-md overflow-hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-border">
+        {atalhosCarreira.map((a) => (
+          <a
+            href={a.href}
+            class="p-4 bg-card hover:bg-muted flex flex-col justify-between gap-3 transition-colors text-inherit no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset min-h-[96px]"
+          >
+            <div class="flex items-center justify-between">
+              <span class="w-10 h-10 rounded-xl bg-muted text-primary flex items-center justify-center">
+                <CagpIcon name={a.icon as any} class="w-4 h-4" />
+              </span>
+              <CagpIcon name="arrow-up-right" class="w-4 h-4 text-muted-foreground/60 group-hover:text-primary transition-colors" />
+            </div>
+            <div>
+              <span class="font-heading font-black text-sm text-foreground group-hover:text-primary tracking-tight transition-colors block truncate">
+                {a.label}
+              </span>
+              <span class="text-xs font-medium text-muted-foreground block truncate">
+                {a.sublabel}
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    {/* 2. RADAR DE VAGAS EM DESTAQUE (Feed Sintético) */}
+    <CarreiraVagasFeed client:visible={{ rootMargin: "400px" }} />
+
+    {/* 3. EMPRESA JÚNIOR DE GESTÃO PÚBLICA (Proposta 11) */}
+    <CarreiraEmpresaJuniorCard client:visible={{ rootMargin: "400px" }} />
+
+    {/* 4. PREVIEW DO BANCO DE TALENTOS DISCENTE (Cofre Local) */}
+    <CarreiraTalentosPreview client:visible={{ rootMargin: "400px" }} />
+
+    {/* 5. REGULAÇÃO & RETA FINAL: GUIAS INSTITUCIONAIS DEDICADOS */}
+    <section aria-labelledby="heading-guias-regimentais" class="space-y-4">
+      <div className="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-secondary border border-border" />
+        <h2 id="heading-guias-regimentais" class="text-xs sm:text-sm font-heading font-black text-foreground m-0">
+          Guias Regimentais &amp; Reta Final
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {/* Card 1: Estágio Supervisionado 300h & Art. 41 */}
+        <div class="p-5 sm:p-6 rounded-xl border-2 border-border bg-white shadow-md flex flex-col justify-between gap-4">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="px-2.5 py-0.5 rounded-md bg-secondary text-white font-mono text-xs font-bold uppercase border border-border">
+                Capítulo VII • 300 Horas
+              </span>
+              <span class="font-mono text-xs font-bold text-muted-foreground">Lei 11.788/2008</span>
+            </div>
+            <h3 class="font-heading text-base sm:text-lg font-black text-foreground m-0">
+              Estágio Curricular (300h) &amp; Aproveitamento Servidor (Art. 41)
+            </h3>
+            <p class="text-xs text-content-secondary leading-relaxed m-0 font-medium">
+              Consulte as regras de integralização em DCP 135 (180h) e DCP 136 (120h), utilize o simulador de Aproveitamento Servidor pelo Art. 41 e baixe as 7 minutas oficiais de TCE.
+            </p>
+          </div>
+
+          <a
+            href={route('/estagio')}
+            class="min-h-[44px] px-4 py-2.5 rounded-xl border-2 border-border bg-secondary hover:bg-secondary-hover text-white font-heading text-xs font-black uppercase no-underline inline-flex items-center justify-center gap-2 shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 transition-all"
+          >
+            <i class="bi bi-file-earmark-check-fill" aria-hidden="true" />
+            <span>Acessar Portal de Estágio Supervisionado</span>
+            <i class="bi bi-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+
+        {/* Card 2: TCC & Colação de Grau */}
+        <div class="p-5 sm:p-6 rounded-xl border-2 border-border bg-white shadow-md flex flex-col justify-between gap-4">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="px-2.5 py-0.5 rounded-md bg-foreground text-background text-white font-mono text-xs font-bold uppercase border border-border">
+                Art. 19 • 180 Horas
+              </span>
+              <span class="font-mono text-xs font-bold text-muted-foreground">9º e 10º Períodos</span>
+            </div>
+            <h3 class="font-heading text-base sm:text-lg font-black text-foreground m-0">
+              Trabalho de Conclusão de Curso (180h) &amp; Reta Final
+            </h3>
+            <p class="text-xs text-content-secondary leading-relaxed m-0 font-medium">
+              Compare as 4 modalidades regimentais (Monografia vs Artigo Científico), confira o rito de banca examinadora em DCP 089/137 e acompanhe o checklist animado de colação de grau.
+            </p>
+          </div>
+
+          <a
+            href={route('/formatura')}
+            class="min-h-[44px] px-4 py-2.5 rounded-xl border-2 border-border bg-primary hover:bg-primary-hover/90 text-white text-white font-heading text-xs font-black uppercase no-underline inline-flex items-center justify-center gap-2 shadow-xs active:translate-x-[1px] active:translate-y-[1px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all"
+          >
+            <i class="bi bi-mortarboard-fill" aria-hidden="true" />
+            <span>Abrir a reta final</span>
+            <i class="bi bi-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <SementeSignature
+      proposal="Propostas 9, 11 e 12"
+      text="Estágio sem travas, parcerias com OSCs e Empresa Júnior e um banco de talentos que fica no seu navegador: a carreira do curso num lugar só."
+      leaderId="livia"
+    />
+
+    <JourneyNav
+      prev={{
+        title: 'Reta final: estágio e TCC',
+        href: '/formatura',
+        desc: 'Checklist animado de colação de grau com progresso salvo neste celular.',
+      }}
+      next={{
+        title: 'Chapa 2 · Semente — Carta-Programa & 14 Propostas',
+        href: '/chapa-semente',
+        desc: 'Conheça todas as propostas da Semente e vote Chapa 2 nos dias 25 e 26/11.',
+      }}
+    />
+  </div>
+</BaseLayout>

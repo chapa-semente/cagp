@@ -1,0 +1,111 @@
+---
+// CursoIngresso.astro - Sub-view 4: Formas de Ingresso na Graduação Pública da UFMG
+import { asset } from '@/lib/paths';
+
+const viasIngresso = [
+  {
+    numero: '1',
+    nome: 'SiSU / ENEM',
+    vagas: '80 Vagas / Ano',
+    desc: 'Principal porta de entrada com 80 vagas anuais divididas entre o 1º e 2º períodos letivos, com ampla concorrência e reserva de vagas por cotas sociais, raciais e PCD.',
+    icon: 'bi-pencil-fill',
+    badge: 'Via Principal',
+    badgeColor: 'bg-secondary text-white',
+    docUrl: asset('/documentos/forma-ingresso-sisu.pdf'),
+    docLabel: 'Guia SiSU (PDF)',
+  },
+  {
+    numero: '2',
+    nome: 'Obtenção de Novo Título',
+    vagas: 'Edital Anual COPEVE',
+    desc: 'Vagas remanescentes destinadas a candidatos diplomados em cursos superiores reconhecidos pelo MEC, com aproveitamento de disciplinas de áreas afins.',
+    icon: 'bi-mortarboard-fill',
+    badge: 'Diplomados',
+    badgeColor: 'bg-foreground text-white',
+    docUrl: asset('/documentos/forma-ingresso-obtencao-novo-titulo.pdf'),
+    docLabel: 'Guia Novo Título (PDF)',
+  },
+  {
+    numero: '3',
+    nome: 'Reopção Interna de Curso',
+    vagas: 'Semestral DRCA',
+    desc: 'Migração interna para estudantes já matriculados em outras graduações da UFMG, com base no RSG (Rendimento Semestral Global) e aproveitamento automático de créditos.',
+    icon: 'bi-arrow-left-right',
+    badge: 'Interno UFMG',
+    badgeColor: 'bg-primary text-white',
+    docUrl: asset('/documentos/forma-ingresso-reopcao.pdf'),
+    docLabel: 'Guia Reopção (PDF)',
+  },
+  {
+    numero: '4',
+    nome: 'Transferência Externa',
+    vagas: 'Conforme Edital',
+    desc: 'Destinado a graduandos matriculados em cursos de Gestão Pública ou áreas afins de outras Instituições de Ensino Superior (públicas ou privadas) do país.',
+    icon: 'bi-send-fill',
+    badge: 'Outras IES',
+    badgeColor: 'bg-success text-white',
+    docUrl: asset('/documentos/requerimento-transferencia-outra-ies.pdf'),
+    docLabel: 'Formulário DRCA (PDF)',
+  },
+];
+---
+
+<div class="space-y-6 text-foreground">
+  <!-- Destaque Institucional: Ensino Público e Gratuito -->
+  <div class="p-5 sm:p-6 bg-white border-2 border-border rounded-2xl shadow-xl space-y-4">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-3 border-border pb-3">
+      <div>
+        <h2 class="font-head text-lg sm:text-2xl font-black text-foreground m-0">
+          Formas de Ingresso no Bacharelado
+        </h2>
+        <p class="text-xs sm:text-sm text-gray-800 mt-1 m-0 font-body font-medium">
+          O Bacharelado em Gestão Pública da UFMG é 100% público, gratuito e de excelência acadêmica Nota 4 MEC. Não há cobrança de mensalidades ou taxas de matrícula.
+        </p>
+      </div>
+      <span class="px-3.5 py-1.5 rounded-xl bg-primary text-white font-mono text-xs font-black uppercase shrink-0 border-2 border-border shadow-sm">
+        4 Vias Oficiais
+      </span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-body">
+      {viasIngresso.map((via) => (
+        <article class="p-5 bg-white border-2 border-border rounded-xl flex flex-col justify-between shadow-md hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-xl transition-all space-y-3">
+          <div class="space-y-2.5">
+            <div class="flex items-center justify-between gap-2 flex-wrap">
+              <span class={`px-2.5 py-0.5 rounded-md font-mono text-xs font-black uppercase border-2 border-border shadow-sm ${via.badgeColor}`}>
+                {via.badge}
+              </span>
+              <span class="font-mono text-xs font-bold text-gray-700 bg-white px-2 py-0.5 rounded border border-border">
+                {via.vagas}
+              </span>
+            </div>
+
+            <div class="flex items-center gap-2.5">
+              <div class="w-9 h-9 rounded-lg bg-foreground text-white flex items-center justify-center shrink-0 border-2 border-border">
+                <i class={`bi ${via.icon} text-sm`} aria-hidden="true" />
+              </div>
+              <h3 class="font-head font-black text-sm sm:text-base text-foreground m-0 leading-tight">
+                {via.numero}. {via.nome}
+              </h3>
+            </div>
+
+            <p class="text-xs text-gray-800 leading-relaxed font-medium m-0">
+              {via.desc}
+            </p>
+          </div>
+
+          <div class="pt-2 border-t-2 border-border/15">
+            <a
+              href={via.docUrl}
+              download
+              class="min-h-[44px] py-2 px-3 rounded-lg border-2 border-border bg-white hover:bg-background active:translate-x-0.5 active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all text-xs font-head font-bold uppercase tracking-wider text-foreground inline-flex items-center gap-1.5 no-underline shadow-sm"
+            >
+              <i class="bi bi-file-earmark-pdf" aria-hidden="true" />
+              <span>{via.docLabel} &rarr;</span>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</div>

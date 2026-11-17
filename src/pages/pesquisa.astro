@@ -1,0 +1,72 @@
+---
+// pesquisa.astro — Pesquisa & Extensão. Estrutura padrão do eixo Acolhimento:
+// cabeçalho compacto → faixa do eixo → abas fixas → painel → navegação anterior/próxima.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/ui/PageHeader.astro';
+import SegmentedControl from '../components/ui/SegmentedControl.astro';
+import JourneyNav from '../components/ui/JourneyNav.astro';
+import PesquisaNucleos from '../components/features/pesquisa/PesquisaNucleos.astro';
+import PesquisaIc from '../components/features/pesquisa/PesquisaIc.astro';
+import PesquisaImersao from '../components/features/pesquisa/PesquisaImersao.astro';
+import ComplementoUfmg from '@/components/features/ufmg/ComplementoUfmg.astro';
+import { PesquisaStatsBanner } from '../components/features/pesquisa/PesquisaStatsBanner';
+import { PAGINAS_ACOLHIMENTO as P } from '@/data/acolhimento';
+
+const tabs = [
+  { id: 'v0', shortLabel: 'Núcleos', fullLabel: 'Os 11 núcleos', hash: '#nucleos' },
+  { id: 'v1', shortLabel: 'Entrar', fullLabel: 'Como entrar: IC e extensão', hash: '#como-entrar' },
+];
+
+const badges = [
+  { label: '11 núcleos do DCP', variant: 'secondary' as const, icon: 'bi-search' },
+  { label: 'IC: até 90h de AAC', variant: 'dark' as const, icon: 'bi-award-fill' },
+];
+---
+
+<BaseLayout
+  title={P.pesquisa.titulo}
+  description="Os 11 núcleos de pesquisa do DCP (Conceito 7 CAPES) e como entrar: Iniciação Científica (até 90h de AAC) e o Programa de Imersão em extensão."
+  mode="operate"
+>
+  <PageHeader
+    title={P.pesquisa.titulo}
+    subtitle="Encontre um núcleo do Departamento de Ciência Política e veja como conseguir vaga de Iniciação Científica ou de extensão."
+    badges={badges}
+    axisId="guias"
+    activeId="curso-pesquisa"
+    mode="operate"
+    condensed={true}
+  />
+
+  <SegmentedControl tabs={tabs} defaultTab="v0" />
+
+  <section id="ws-panel-v0" class="cagp-workspace-view" data-ws-panel="v0" data-tour="mariana">
+    <div id="nucleos" class="cagp-anchor-target"></div>
+    <h2 class="sr-only">Os 11 núcleos de pesquisa</h2>
+    <PesquisaNucleos />
+  </section>
+
+  <section id="ws-panel-v1" class="cagp-workspace-view space-y-8" data-ws-panel="v1" data-tour="nilo" hidden>
+    <div id="como-entrar" class="cagp-anchor-target"></div>
+    <h2 class="sr-only">Como entrar em pesquisa e extensão</h2>
+    <PesquisaStatsBanner client:visible />
+    <div id="ic" class="cagp-anchor-target"></div>
+    <PesquisaIc />
+    <ComplementoUfmg bloco="pesquisa-ufmg" />
+    <div id="imersao" class="cagp-anchor-target"></div>
+    <PesquisaImersao />
+  </section>
+
+  <JourneyNav
+    prev={{
+      title: P.permanencia.titulo,
+      href: P.permanencia.href,
+      desc: 'Programas da FUMP, como pedir e o guia do turno noturno.',
+    }}
+    next={{
+      title: 'Percurso Curricular',
+      href: '/percurso',
+      desc: 'Mapa de pré-requisitos, os 3 percursos e os 10 semestres.',
+    }}
+  />
+</BaseLayout>

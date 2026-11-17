@@ -1,0 +1,190 @@
+---
+// PageHeader.astro — Cabeça de página (DESIGN.md › Components › Cabeça de página).
+// Título + 1 linha + até 3 badges (1 no celular). Sem eyebrow, faixa tricolor ou decoração.
+// `eyebrow` é aceito por compatibilidade e ignorado: o eixo já aparece no cabeçalho do app e no breadcrumb.
+// Badge do cabeçalho tem um estilo só (branco, contorno grafite): `variant` é aceito e ignorado.
+// Cor por página fazia cada cabeçalho parecer de um site diferente.
+import type { AxisId } from '@/lib/navigationRegistry';
+import { getAxisByPath, getItemByPath } from '@/lib/navigationRegistry';
+import CagpIcon from './CagpIcon.astro';
+import MarkerWord from './MarkerWord.astro';
+import GritoDeVoto from './GritoDeVoto.astro';
+import { route } from '@/lib/paths';
+import { vtTitleName } from '@/lib/viewTransitionNames';
+import { resolveCagpIconName } from '@/lib/cagpIcons';
+import { badgeVariants } from './badge';
+import { cn } from '@/lib/utils';
+import EstagioIlustra from './EstagioIlustra.astro';
+import { estagioDaRota } from '@/lib/estagios';
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from './breadcrumb';
+
+interface Badge {
+  label: string;
+  variant?: 'red' | 'dark' | 'blue' | 'green' | 'gold' | 'purple' | 'orange' | 'secondary' | 'accent' | 'default';
+  icon?: string;
+}
+
+interface Breadcrumb {
+  label: string;
+  href?: string;
+}
+
+interface AxisPill {
+  axisName: string;
+  axisIcon: string;
+  parentLabel: string;
+  parentHref: string;
+  currentLabel: string;
+}
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  eyebrow?: string;
+  badges?: Badge[];
+  breadcrumbs?: Breadcrumb[];
+  axisPill?: AxisPill;
+  axisId?: AxisId;
+  activeId?: string;
+  showAxisNav?: boolean;
+  mode?: 'persuade' | 'operate' | 'read' | 'experience';
+  condensed?: boolean;
+  /** A caneta da chapa: uma palavra do título escrita à mão (Permanent Marker + traço que se desenha).
+   *  Escreva como deve aparecer (caixa de frase), ex.: title="Estágio sem drama" marker="drama". */
+  marker?: string;
+  /** Ícone da própria página no quadro de folha, no lugar do desenho do estágio (guias da vida na UFMG). */
+  icone?: string;
+}
+
+const {
+  title,
+  subtitle,
+  eyebrow,
+  badges = [],
+  breadcrumbs,
+  axisId,
+  activeId,
+  showAxisNav: _showAxisNav = false,
+  mode,
+  condensed = false,
+  marker,
+  icone,
+} = Astro.props;
+
+// Divide o título em [antes, palavra da caneta, depois]; sem correspondência, o título fica inteiro.
+const markerAt = marker ? title.toLocaleLowerCase('pt-BR').indexOf(marker.toLocaleLowerCase('pt-BR')) : -1;
+const titleParts = markerAt >= 0
+  ? [title.slice(0, markerAt), marker!, title.slice(markerAt + marker!.length)]
+  : null;
+
+const isPersuadeMode = mode === 'persuade' || mode === 'experience';
+const estagio = estagioDaRota(Astro.url.pathname);
+// Um pedido de voto por página (12/11/2026): guia e ferramenta ficam só com a faixa do fim.
+// O adesivo do cabeçalho continua nas páginas da própria chapa.
+const paginaDaChapa = getAxisByPath(Astro.url.pathname)?.id === 'chapa';
+const isOperateOrCondensed = mode === 'operate' || condensed;
+
+const visibleBadges = badges.slice(0, 3);
+
+const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '/index.html';
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const computedBreadcrumbs = breadcrumbs && breadcrumbs.length > 0
+  ? breadcrumbs
+  : (!isHome && currentPath !== '/'
+    ? [
+        { label: 'Início', href: '/' },
+        ...(() => {
+          // Início › Aba › Página (a aba vem do registro; hubs não repetem o próprio nome)
+          const owner = getItemByPath(Astro.url.pathname);
+          if (!owner || owner.axis.id === 'hoje' || owner.item.isOverview) return [];
+          return [{ label: owner.axis.name, href: owner.axis.rootHref }];
+        })(),
+        { label: title },
+      ]
+    : []);
+---
+
+<header class={cn(isPersuadeMode ? 'mb-2 sm:mb-3' : 'mb-4 sm:mb-6')}>
+
+  {!isPersuadeMode && (
+    <div class={cn('cagp-page-head', isOperateOrCondensed ? 'p-5 sm:p-6' : 'p-5 sm:p-8')}>
+      {icone ? (
+        <span class="cagp-page-head-art cagp-page-head-icone" aria-hidden="true">
+          <CagpIcon name={resolveCagpIconName(icone)} class="cagp-page-head-glifo" />
+          <svg class="cagp-page-head-broto" viewBox="-46 -110 72 118"><use href="#sg-folha" /></svg>
+        </span>
+      ) : (
+        <EstagioIlustra nivel={estagio.nivel} class="cagp-page-head-art" />
+      )}
+      <div class="cagp-page-head-body">
+      {computedBreadcrumbs.length > 0 && (
+        <div class="mb-3 hidden md:block">
+          <Breadcrumb>
+            <BreadcrumbList>
+              {computedBreadcrumbs.map((crumb, idx) => {
+                const isLast = idx === computedBreadcrumbs.length - 1;
+                return (
+                  <BreadcrumbItem>
+                    {isLast || !crumb.href ? (
+                      <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
+                    ) : (
+                      <BreadcrumbLink href={crumb.href}>{crumb.label}</BreadcrumbLink>
+                    )}
+                    {!isLast && <BreadcrumbSeparator />}
+                  </BreadcrumbItem>
+                );
+              })}
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+      )}
+
+      <h1 class={cn(
+        'font-heading font-bold uppercase m-0 leading-[1.05] text-balance',
+        isOperateOrCondensed ? 'text-2xl sm:text-3xl' : 'text-[1.75rem] sm:text-4xl'
+      )} style={`view-transition-name: ${vtTitleName(Astro.url.pathname)}; view-transition-class: vt-title`}>
+        {titleParts ? (
+          <>{titleParts[0]}<MarkerWord onColor={estagio.fg === '#FFFFFF'} class="text-[1.15em] align-baseline">{titleParts[1]}</MarkerWord>{titleParts[2]}</>
+        ) : title}
+      </h1>
+
+      {subtitle && (
+        <p class="mt-2 mb-0 max-w-[60ch] text-base leading-relaxed line-clamp-3 sm:line-clamp-none">
+          {subtitle}
+        </p>
+      )}
+
+      {visibleBadges.length > 0 && (
+        <ul class="mt-3 mb-0 p-0 list-none flex flex-wrap items-center gap-2" aria-label="Base normativa">
+          {visibleBadges.map((b, idx) => (
+            <li class={cn(idx >= 1 ? 'hidden sm:inline-flex' : 'inline-flex')}>
+              <span class={cn(badgeVariants({ variant: 'outline' }), 'items-center gap-1.5')}>
+                {b.icon && <CagpIcon name={resolveCagpIconName(b.icon)} class="w-3.5 h-3.5 shrink-0" />}
+                <span>{b.label}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {/* O adesivo de voto: só na cabeça das páginas da chapa (some depois da eleição). */}
+      {paginaDaChapa && (
+        <p class="mt-3 mb-0" data-so-campanha>
+          <a href={route('/gestao')} class="cagp-adesivo-voto">
+            <GritoDeVoto as="span" tamanho="sm" curto />
+          </a>
+        </p>
+      )}
+
+      <slot />
+      </div>
+    </div>
+  )}
+</header>

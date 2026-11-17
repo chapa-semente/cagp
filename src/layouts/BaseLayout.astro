@@ -1,0 +1,640 @@
+---
+// BaseLayout.astro - Casca Global Astro 7 (Proposta A: App Shell + Sidebar Responsiva & View Transitions)
+import { ClientRouter } from 'astro:transitions';
+import AppSidebar from '../components/shell/AppSidebar.astro';
+import { CommandPalette } from '../components/shell/CommandPalette';
+import SuperAppHeader from '../components/shell/SuperAppHeader.astro';
+import PageFooter from '../components/shell/PageFooter.astro';
+import FaixaDeVoto from '../components/shell/FaixaDeVoto.astro';
+import BackToTop from '../components/shell/BackToTop.astro';
+import DynamicToast from '../components/shell/DynamicToast.astro';
+import BottomNav from '../components/shell/BottomNav.astro';
+import { GlobalSheets } from '../components/shell/GlobalSheets';
+import { PwaCredenciamentoPill } from '@/components/features/pwa/PwaCredenciamentoPill';
+import { SementeTour } from '@/components/features/semente/SementeTour';
+import { PropostasTour } from '@/components/features/semente/PropostasTour';
+import SplashScreen from '@/components/shell/SplashScreen.astro';
+import GrowthBackdrop from '@/components/shell/GrowthBackdrop.astro';
+import { estagioDaRota } from '@/lib/estagios';
+import GlobalCanvasBackdrop from '../components/shell/GlobalCanvasBackdrop.astro';
+import { asset } from '@/lib/paths';
+import { getRouteMeta, normalizePathname } from '@/lib/navigationRegistry';
+import { imagemOg, previaDaRota } from '@/lib/previas';
+// As duas fontes do texto, pedidas já no <head>: sem isso o navegador só descobre a fonte depois
+// de baixar e ler o CSS inteiro, e a página pisca com a fonte do sistema no celular.
+import poppins400 from '@fontsource/poppins/files/poppins-latin-400-normal.woff2?url';
+import poppins700 from '@fontsource/poppins/files/poppins-latin-700-normal.woff2?url';
+import '@fontsource/poppins/400.css';
+import '@fontsource/poppins/700.css';
+import '@fontsource/permanent-marker/400.css';
+import '@fontsource/opendyslexic/400.css';
+import '@fontsource/opendyslexic/700.css';
+import '../styles/icons.css';
+import '../styles/global.css';
+import '../styles/estagios.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  mode?: 'persuade' | 'operate' | 'read' | 'experience';
+  activePage?: string;
+  activeGroup?: string;
+  /** Esconde a pílula flutuante "Ativar app" (páginas de campanha já têm sua própria ação). */
+  hideFloatingPill?: boolean;
+  /** Troca a prévia de link desta página (padrão: src/lib/previas.ts, pela rota). */
+  share?: { titulo?: string; descricao?: string; imagem?: string };
+}
+
+const {
+  title,
+  description = 'Portal Institucional & Super App Discente — Centro Acadêmico de Gestão Pública (CAGP FAFICH/UFMG)',
+  mode = 'operate',
+  hideFloatingPill = false,
+} = Astro.props;
+const routeMeta = getRouteMeta();
+// Prévia de link (WhatsApp, X, Facebook, Instagram Direct): título, descrição e banner por rota.
+// As redes pedem endereço absoluto; Astro.site já traz o domínio do deploy.
+const previa = { ...previaDaRota(Astro.url.pathname), ...(Astro.props.share ?? {}) };
+const origem = Astro.site ?? Astro.url;
+const previaUrl = new URL(Astro.url.pathname, origem).href;
+const previaImagem = new URL(imagemOg(previa.imagem), origem).href;
+const estagio = estagioDaRota(Astro.url.pathname);
+// Quem chega por link de documento não vê o tour: vê um convite de uma linha, com o documento à vista.
+const entradaPorDocumento = /^\/(doc|documentos)(\/|$)/.test(normalizePathname(Astro.url.pathname));
+import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
+---
+
+<!doctype html>
+<html lang="pt-BR" style="color-scheme: light;" data-visitor-mode={mode} data-estagio={estagio.id} data-base-url={import.meta.env.BASE_URL}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#5B2A85" />
+    <meta name="description" content={description} />
+    <!-- Favicon: isotipo oficial (manual Chapa Semente, arquivo 10) — gerado por scripts/generate-pwa-icons.mjs -->
+    <link rel="icon" type="image/png" sizes="96x96" href={asset('/favicon-96x96.png')} />
+    <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href={asset('/favicon.ico')} />
+    <!-- Web App & iOS Touch Icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href={asset('/imagens/pwa/apple-touch-icon.png')} />
+    <meta name="apple-mobile-web-app-title" content="Semente" />
+    <meta name="application-name" content="Semente" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="manifest" href={asset('/manifest.webmanifest')} />
+    <link rel="preload" as="font" type="font/woff2" href={poppins400} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={poppins700} crossorigin />
+
+    <title>{title} — Chapa 2 Semente • CAGP UFMG</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Chapa 2 · Semente · Gestão Pública UFMG" />
+    <meta property="og:url" content={previaUrl} />
+    <meta property="og:title" content={previa.titulo} />
+    <meta property="og:description" content={previa.descricao} />
+    <meta property="og:image" content={previaImagem} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={previa.titulo} />
+    <!-- O botão "mandar esta página" (cabeçalho e trilho) lê daqui o texto e o tom da mensagem. -->
+    <meta name="cagp:mensagem" content={previa.mensagem} />
+    <meta name="cagp:tom" content={previa.tom} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={previa.titulo} />
+    <meta name="twitter:description" content={previa.descricao} />
+    <meta name="twitter:image" content={previaImagem} />
+    <ClientRouter />
+    <!-- Metadados extras da página (ex.: noindex numa página que não é pública). -->
+    <slot name="head" />
+
+    <!-- Pôr na tela inicial: o navegador avisa UMA vez por carregamento que dá para instalar
+         (Chrome, Edge e Samsung no Android). O aviso é guardado aqui, antes de qualquer módulo, porque
+         o bloco de instalar e o tour só carregam depois e perderiam o evento. Quem usa: src/lib/pwa/instalacao.ts. -->
+    <script is:inline>
+      (function () {
+        if (window.__cagpInstalarOuvindo) return;
+        window.__cagpInstalarOuvindo = true;
+        var mudou = function () { window.dispatchEvent(new Event('cagp:instalar-mudou')); };
+        window.addEventListener('beforeinstallprompt', function (e) {
+          e.preventDefault();
+          window.__cagpInstalar = e;
+          mudou();
+        });
+        window.addEventListener('appinstalled', function () {
+          window.__cagpInstalar = null;
+          mudou();
+        });
+      })();
+    </script>
+
+    <!-- Tour obrigatório: cobre a página em roxo até a ilha do tour montar (sem piscar o conteúdo).
+         Se o JS não carregar em 6s, a cobertura sai sozinha e o site segue utilizável. -->
+    <script is:inline>
+      (function () {
+        try {
+          var raw = localStorage.getItem('cagp_semente_tour_v2');
+          var st = raw ? JSON.parse(raw) : null;
+          if ((st && st.status === 'done') || window.__cagpTourMounted) return;
+          // App instalado no iPhone (13/11/2026): a tela inicial do iPhone guarda os dados separados do
+          // Safari, então a primeira abertura do app parece primeira visita. Só que ninguém instala sem
+          // ter passado pelo site no Safari: o tour não abre de novo. Fica o "Rever a apresentação da
+          // chapa" em /sobre-o-site e na home. `navigator.standalone` só existe no iPhone e no iPad; no
+          // Android o app divide os dados com o navegador e não precisa disto.
+          if (!st && navigator.standalone === true) {
+            localStorage.setItem('cagp_semente_tour_v2', JSON.stringify({ status: 'done', index: 0, peloApp: true }));
+            return;
+          }
+          var root = document.documentElement;
+          var base = root.getAttribute('data-base-url') || '/';
+          if (base.slice(-1) !== '/') base += '/';
+          // Entrou por link de documento (12/11/2026): nesta visita o tour não abre. A página do
+          // documento mostra um convite de uma linha; quem voltar outro dia por outra porta vê o tour.
+          var caminho = '/' + location.pathname.slice(base.length);
+          // /emergencia entra na mesma regra desde 13/11/2026: quem abre a página de urgência precisa dos
+          // telefones na hora. Lá não aparece nem o convite (ele só é desenhado nas páginas de documento).
+          if (/^\/(doc|documentos|emergencia)(\/|$)/.test(caminho)) sessionStorage.setItem('cagp_entrou_por_doc', '1');
+          if (sessionStorage.getItem('cagp_entrou_por_doc')) {
+            if (!sessionStorage.getItem('cagp_convite_tour_fechado')) root.setAttribute('data-semente-convite', '');
+            return;
+          }
+          root.setAttribute('data-semente-tour', 'pending');
+          root.style.setProperty('--semente-cover-logo', 'url("' + base + 'logos/semente/semente-simbolo-branco.webp")');
+          setTimeout(function () {
+            if (!window.__cagpTourMounted) root.removeAttribute('data-semente-tour');
+          }, 6000);
+        } catch (e) {}
+      })();
+    </script>
+
+    <!-- Anti-FOUC Acessibilidade & Drawer Global -->
+    <script is:inline>
+      (function() {
+        // Drawer / Sidebar Global Síncrono (Mobile & Tablet) via React Island
+        window.__cagp_open_drawer = function() {
+          window.dispatchEvent(new CustomEvent('cagp:open-drawer'));
+        };
+        window.__cagp_close_drawer = function() {
+          document.body.style.overflow = '';
+          document.body.classList.remove('cagp-drawer-open');
+        };
+        window.__cagp_toggle_drawer = function() {
+          window.dispatchEvent(new CustomEvent('cagp:open-drawer'));
+        };
+
+        function syncThemeAndA11y() {
+          try {
+            var raw = localStorage.getItem('cagp_a11y_prefs_v2');
+            var el = document.documentElement;
+            var p = raw ? JSON.parse(raw) : {};
+            el.classList.remove('dark');
+            el.classList.add('light');
+            el.style.colorScheme = 'light';
+            el.setAttribute('data-a11y-font', p.font || 'md');
+            el.setAttribute('data-a11y-contrast', p.contrast || 'normal');
+            el.setAttribute('data-a11y-dyslexia', p.dyslexia ? 'true' : 'false');
+            el.removeAttribute('data-a11y-motion');
+            el.removeAttribute('data-a11y-ruler');
+            el.removeAttribute('data-theme');
+            el.setAttribute('data-desktop-dock', p.showDesktopDock ? 'true' : 'false');
+          } catch (e) {}
+        }
+
+        syncThemeAndA11y();
+
+        // Reset seguro do estado do drawer e re-sincronização de tema em transições de página Astro
+        document.addEventListener('astro:after-swap', function() {
+          document.body.style.overflow = '';
+          document.body.classList.remove('cagp-drawer-open');
+          if (window.__cagp_close_drawer) {
+            window.__cagp_close_drawer();
+          }
+          syncThemeAndA11y();
+        });
+      })();
+    </script>
+
+    <noscript>
+      <style>
+        .cagp-workspace-view[hidden] {
+          display: block !important;
+        }
+      </style>
+    </noscript>
+  </head>
+  <body class="bg-background text-foreground font-sans antialiased min-h-[100dvh] flex flex-col selection:bg-primary selection:text-white relative isolate">
+    <!-- As curvas do símbolo, uma vez por página; todo desenho as reaproveita com <use>. -->
+    <Fragment set:html={SEMENTE_SPRITE} />
+
+    <!-- Primeiro foco do teclado: pula cabeçalho e trilho e cai direto no conteúdo. -->
+    <a href="#main-content" class="cagp-skip-link">Pular para o conteúdo</a>
+
+    <!-- Abertura: a semente germina enquanto o site e o cache carregam. -->
+    <SplashScreen />
+
+    <!-- O ramo que cresce com a rolagem + a forma orgânica do estágio (decorativo) -->
+    <GrowthBackdrop />
+
+    <!-- Fundo animado das páginas Cartaz (canvas, sem React) -->
+    <GlobalCanvasBackdrop mode={mode} />
+
+    <!-- Aviso flutuante único (lib/toast.ts e window.cagpToast desenham aqui) -->
+    <DynamicToast />
+
+    <!-- Barra Superior de Carregamento de Rota -->
+    <div id="cagp-route-progress-bar" class="cagp-route-progress-bar" aria-hidden="true">
+      <div class="cagp-route-progress-fill"></div>
+    </div>
+
+    <!-- Casca principal: trilho lateral (tablet/desktop, HTML + JS puro) + coluna de conteúdo -->
+    <div class="relative z-10 flex-1 flex min-h-0 w-full transition-[padding,margin,width] duration-250 ease-out">
+      <AppSidebar currentPath={Astro.url.pathname} />
+
+      <div class="flex-1 flex flex-col min-w-0 transition-all duration-250 ease-out">
+        <!-- Topbar Contextual para Sub-rotas -->
+        <SuperAppHeader fallbackTitle={title} />
+
+        <!-- Esqueleto: aparece só quando a troca de página demora (rede lenta). Blocos parados, sem brilho. -->
+        <div id="cagp-skeleton" aria-hidden="true">
+          <div class="cagp-skeleton-painel">
+            <span class="cagp-sq-cabeca"></span>
+            <span class="cagp-sq-quadros"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+            <span class="cagp-sq-ficha"><i></i><i></i></span>
+            <span class="cagp-sq-ficha"><i></i><i></i></span>
+          </div>
+        </div>
+        <span id="cagp-skeleton-aviso" class="sr-only" role="status" aria-live="polite"></span>
+
+        <!-- Main Content Area -->
+        <main
+          id="main-content"
+          tabindex="-1"
+          class="relative z-10 flex-1 w-full max-w-[1440px] 2xl:max-w-[1600px] mx-auto px-3 sm:px-6 py-4 sm:py-6 pb-24 md:pb-8 overflow-x-clip focus:outline-none"
+        >
+          {entradaPorDocumento && (
+            <aside class="cagp-convite-tour" data-convite-tour data-so-campanha aria-label="Convite para conhecer a Chapa 2">
+              <p>Conheça quem fez este site em 19 segundos.</p>
+              <div class="cagp-convite-tour-acoes">
+                <button type="button" class="cagp-convite-tour-sim" data-cagp-dispatch="cagp:start-semente-tour">Conhecer</button>
+                <button type="button" class="cagp-convite-tour-nao" data-convite-fechar aria-label="Agora não"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+              </div>
+            </aside>
+          )}
+          <slot />
+          <!-- Toda página termina pedindo o voto (some sozinha depois da eleição). -->
+          <FaixaDeVoto />
+        </main>
+
+        <!-- Rodapé Institucional -->
+        <PageFooter />
+      </div>
+    </div>
+
+    <!-- Botão Flutuante Voltar ao Topo -->
+    <BackToTop />
+
+    <!-- Bottom Navigation (Mobile < 768px) -->
+    <BottomNav />
+
+    <!-- Central de sinais: as ilhas React abaixo ficam dormindo (client:sinal) e só baixam o React
+         quando alguém precisa delas. Quem decide é este script; a diretiva está em
+         src/lib/astro/clientSinal.ts. Toque dado antes de a ilha existir fica anotado e ela abre ao chegar. -->
+    <script is:inline>
+      (function () {
+        if (window.__cagpSinal) return;
+        var vistos = (window.__cagpSinais = window.__cagpSinais || {});
+        var sinal = (window.__cagpSinal = function (nome) {
+          if (vistos[nome]) return;
+          vistos[nome] = Date.now();
+          window.dispatchEvent(new CustomEvent('cagp:sinal', { detail: nome }));
+        });
+        var ocioso = window.requestIdleCallback ? function (fn) { window.requestIdleCallback(fn); } : function (fn) { setTimeout(fn, 1); };
+
+        // Folhas (perfil, campus, ajustes, atalhos): no primeiro pedido de abrir uma delas.
+        ['passport', 'campus', 'a11y', 'settings', 'shortcuts'].forEach(function (nome) {
+          window.addEventListener('cagp:open-' + nome, function () {
+            window.__cagpPendingSheet = { nome: nome, quando: Date.now() };
+            sinal('folhas');
+          });
+        });
+
+        // Busca (Ctrl+K, "/", botões de busca). Montada, ela mesma escuta o evento.
+        window.addEventListener('cagp:open-spotlight', function () {
+          if (window.__cagpPaletteMounted) return;
+          window.__cagpSpotlightPending = Date.now();
+          sinal('busca');
+        });
+
+        // Botões que só disparam um evento (rever o tour, ver as propostas) são HTML puro com
+        // data-cagp-dispatch="nome-do-evento": um ouvinte só, para o site inteiro.
+        document.addEventListener('click', function (event) {
+          var alvo = event.target && event.target.closest ? event.target.closest('[data-cagp-dispatch]') : null;
+          // data-cagp-eixo (1 a 4) abre o tour das propostas direto naquele eixo.
+          if (alvo) window.dispatchEvent(new CustomEvent(alvo.getAttribute('data-cagp-dispatch'), { detail: { eixo: Number(alvo.getAttribute('data-cagp-eixo')) || undefined } }));
+        });
+
+        // Tour das propostas e "rever o tour": quando alguém pede.
+        window.addEventListener('cagp:start-propostas-tour', function (e) {
+          // Pedido feito antes de a ilha existir: ela lê este aviso ao montar e abre (no eixo pedido, se houver).
+          if (!vistos.propostas) window.__cagpPropostasPending = (e && e.detail && e.detail.eixo) || true;
+          sinal('propostas');
+        });
+        window.addEventListener('cagp:start-semente-tour', function () {
+          if (!window.__cagpTourMounted) window.__cagpSementeTourPending = Date.now();
+          sinal('tour');
+        });
+
+        // Convite do tour (quem entrou por link de documento): o atributo some na troca de página,
+        // então é reposto a cada página; "Agora não" e o fim do tour o desligam.
+        function convite() {
+          var liga = false;
+          try {
+            var t = JSON.parse(localStorage.getItem('cagp_semente_tour_v2') || 'null');
+            liga = !(t && t.status === 'done') && Boolean(sessionStorage.getItem('cagp_entrou_por_doc')) && !sessionStorage.getItem('cagp_convite_tour_fechado');
+          } catch (e) {}
+          document.documentElement.toggleAttribute('data-semente-convite', liga);
+        }
+        document.addEventListener('click', function (event) {
+          var alvo = event.target && event.target.closest ? event.target.closest('[data-convite-fechar], [data-convite-tour] [data-cagp-dispatch]') : null;
+          if (!alvo) return;
+          try { sessionStorage.setItem('cagp_convite_tour_fechado', '1'); } catch (e) {}
+          convite();
+          var main = document.getElementById('main-content');
+          if (main && alvo.hasAttribute('data-convite-fechar')) main.focus();
+        });
+        document.addEventListener('astro:page-load', convite);
+
+        // Tour obrigatório: na primeira visita ele carrega já (a página está coberta esperando por ele).
+        function tourPendente() {
+          if (document.documentElement.getAttribute('data-semente-tour') === 'pending') sinal('tour');
+        }
+
+        // Pílula "Sou Semente": só para quem terminou o tour declarando voto, e sem pressa.
+        function apoiador() {
+          try {
+            var a = JSON.parse(localStorage.getItem('cagp_election_activation_v1') || 'null');
+            return Boolean(a && a.completed && a.sementeSupporter);
+          } catch (e) {
+            return false;
+          }
+        }
+        function pilula() {
+          if (apoiador()) ocioso(function () { sinal('pilula'); });
+        }
+        window.addEventListener('cagp:vault-updated', function () { if (apoiador()) sinal('pilula'); });
+
+        // Página nova: as ilhas que não atravessam a navegação voltam a dormir até serem pedidas.
+        document.addEventListener('astro:after-swap', function () {
+          delete vistos.folhas;
+          delete vistos.busca;
+          delete vistos.pilula;
+        });
+        document.addEventListener('astro:page-load', pilula);
+        tourPendente();
+      })();
+    </script>
+
+    <!-- Folhas globais (perfil, campus, ajustes, atalhos) -->
+    <GlobalSheets client:sinal="folhas" />
+
+    <!-- Busca do site (Ctrl+K) -->
+    <CommandPalette client:sinal="busca" />
+
+    <!-- Pílula "Sou Semente" (só para quem terminou o tour declarando voto) -->
+    {!hideFloatingPill && <PwaCredenciamentoPill client:sinal="pilula" />}
+
+    <!-- Tour obrigatório da Chapa Semente (primeira visita). Persiste entre páginas do ClientRouter. -->
+    <SementeTour client:sinal="tour" transition:persist="semente-tour" />
+
+    <!-- Tour opcional das 14 propostas (abre pelo evento cagp:start-propostas-tour). -->
+    <PropostasTour client:sinal="propostas" transition:persist="propostas-tour" />
+
+    <!-- Directional Navigation & Progress Bar Controller -->
+    <script is:inline define:vars={{ ROUTE_META_FROM_REGISTRY: routeMeta }}>
+      (function() {
+        // Grupo = posição da aba na barra; profundidade 0 = raiz da aba (navigationRegistry.ts › getRouteMeta).
+        const ROUTE_META = ROUTE_META_FROM_REGISTRY;
+
+        const baseUrl = document.documentElement.dataset.baseUrl || '/';
+        const cleanBase = baseUrl.replace(/\/$/, '');
+
+        function normalizePath(p) {
+          const raw = p.replace(/\/$/, '') || '/';
+          if (cleanBase && raw.startsWith(cleanBase)) {
+            return raw.slice(cleanBase.length) || '/';
+          }
+          return raw;
+        }
+
+        function computeNavDir(fromPath, toPath) {
+          const cleanFrom = normalizePath(fromPath);
+          const cleanTo = normalizePath(toPath);
+          const fm = ROUTE_META[cleanFrom] || { group: 1, depth: 0 };
+          const tm = ROUTE_META[cleanTo] || { group: 1, depth: 0 };
+
+          if (fm.group === tm.group && fm.depth !== tm.depth) {
+            return tm.depth > fm.depth ? 'drill-in' : 'drill-out';
+          }
+          if (cleanFrom === '/' && tm.depth > 0) return 'drill-in';
+          if (fm.depth > 0 && cleanTo === '/') return 'drill-out';
+          if (tm.group > fm.group) return 'forward';
+          if (tm.group < fm.group) return 'backward';
+          return 'forward';
+        }
+
+        function fixLinks(root = document) {
+          if (!cleanBase) return;
+          const prefix = cleanBase.endsWith('/') ? cleanBase : cleanBase + '/';
+          root.querySelectorAll('a[href^="/"]').forEach(a => {
+            const href = a.getAttribute('href');
+            if (href && !href.startsWith(prefix) && href !== cleanBase && !href.startsWith('//')) {
+              a.setAttribute('href', cleanBase + (href.startsWith('/') ? href : '/' + href));
+            }
+          });
+          root.querySelectorAll('img[src^="/"]').forEach(img => {
+            const src = img.getAttribute('src');
+            if (src && !src.startsWith(prefix) && !src.startsWith('//')) {
+              img.setAttribute('src', cleanBase + (src.startsWith('/') ? src : '/' + src));
+            }
+          });
+        }
+
+        document.addEventListener('astro:before-preparation', function(event) {
+          const fromPath = event.from.pathname;
+          let toPath = event.to.pathname;
+
+          if (cleanBase && toPath.startsWith('/') && !toPath.startsWith(cleanBase)) {
+            event.to.pathname = cleanBase + toPath;
+            toPath = event.to.pathname;
+          }
+
+          const dir = computeNavDir(fromPath, toPath);
+          document.documentElement.setAttribute('data-nav-dir', dir);
+
+          const bar = document.getElementById('cagp-route-progress-bar');
+          const fill = bar ? bar.querySelector('.cagp-route-progress-fill') : null;
+          if (bar && fill) {
+            bar.classList.add('is-active');
+            fill.style.width = '25%';
+            requestAnimationFrame(() => {
+              fill.style.width = '75%';
+            });
+          }
+        });
+
+        document.addEventListener('astro:page-load', function() {
+          fixLinks();
+
+          const bar = document.getElementById('cagp-route-progress-bar');
+          const fill = bar ? bar.querySelector('.cagp-route-progress-fill') : null;
+          if (bar && fill) {
+            fill.style.width = '100%';
+            setTimeout(() => {
+              bar.classList.remove('is-active');
+              fill.style.width = '0%';
+            }, 200);
+          }
+
+          if (window.location.search.includes('openSettings=true')) {
+            window.history.replaceState(null, '', window.location.pathname);
+            setTimeout(() => window.dispatchEvent(new CustomEvent('cagp:open-settings')), 150);
+          }
+        });
+
+        // Documentos (PDF/DOCX) nunca ficam guardados no aparelho: sem conexão, o toque no link
+        // avisa em vez de cair na página de erro do navegador. Um ouvinte só, para o site inteiro.
+        if (!window.__cagpDocOffline) {
+          window.__cagpDocOffline = true;
+          document.addEventListener('click', function (event) {
+            if (navigator.onLine !== false) return;
+            const link = event.target && event.target.closest ? event.target.closest('a[href]') : null;
+            if (!link) return;
+            let path = '';
+            try { path = new URL(link.href, window.location.href).pathname; } catch (e) { return; }
+            if (!/\/documentos\/[^/]+\.(?!html?$)[a-z0-9]+$/i.test(path)) return;
+            event.preventDefault();
+            if (window.cagpToast) window.cagpToast('Sem internet. Conecte para baixar este documento.', 'bi-wifi-off', 4000);
+          }, true);
+        }
+
+        // Script inline com define:vars é reexecutado pelo ClientRouter a cada troca de página:
+        // a parte do SW roda uma vez só por carregamento, senão os listeners se acumulam.
+        if ('serviceWorker' in navigator && !window.__cagpSwSetup) {
+          window.__cagpSwSetup = true;
+          if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname === '0.0.0.0') {
+            // Em ambiente local, desregistra qualquer SW prévio e limpa caches para visualização 100% atualizada
+            navigator.serviceWorker.getRegistrations().then((regs) => {
+              for (const r of regs) r.unregister();
+            });
+            if ('caches' in window) {
+              caches.keys().then((keys) => {
+                for (const k of keys) caches.delete(k);
+              });
+            }
+          } else if (window.location.protocol === 'https:') {
+            // Registro do SW só depois do tour obrigatório: a instalação baixa o casco do app e
+            // não pode disputar a rede com as trocas de página do tour na primeira visita.
+            const registerSw = () => {
+              const swPath = `${cleanBase}/sw.js`;
+              navigator.serviceWorker
+                .register(swPath, { scope: `${cleanBase}/`, updateViaCache: 'none' })
+                .then((reg) => {
+                  // Segunda etapa do offline: com o núcleo instalado e o navegador ocioso, pede ao
+                  // SW o resto do site (ferramentas pesadas, páginas menos usadas). O SW ignora o
+                  // pedido se já baixou tudo desta versão; se foi interrompido, retoma daqui.
+                  const pedirResto = () => {
+                    navigator.serviceWorker.ready
+                      .then((ready) => ready.active && ready.active.postMessage({ type: 'cagp:precache-rest' }))
+                      .catch(() => {});
+                  };
+                  const ocioso = window.requestIdleCallback || ((fn) => setTimeout(fn, 1));
+                  setTimeout(() => ocioso(pedirResto), 4000);
+
+                  // App instalado fica aberto por dias: confere versão nova ao voltar para ele
+                  // (no máximo uma vez por hora), sem esperar a próxima navegação completa.
+                  let lastCheck = Date.now();
+                  document.addEventListener('visibilitychange', () => {
+                    if (document.visibilityState !== 'visible' || Date.now() - lastCheck < 3600000) return;
+                    lastCheck = Date.now();
+                    reg.update().catch(() => {});
+                  });
+                })
+                .catch((err) => {
+                  console.warn('[PWA] Service Worker registration failed:', err);
+                });
+            };
+            const tourDone = () => {
+              try {
+                const raw = localStorage.getItem('cagp_semente_tour_v2');
+                return Boolean(raw && JSON.parse(raw).status === 'done');
+              } catch (e) {
+                return true;
+              }
+            };
+            // O tour não navega mais pelo site (mostra capturas), então o cache pode instalar já no
+            // carregamento: é ele que a abertura (SplashScreen) espera para dizer "pronto pra usar".
+            if (document.readyState === 'complete') registerSw();
+            else window.addEventListener('load', registerSw);
+            // Atualização do SW: recarrega para pegar a versão nova, mas nunca no primeiro registro
+            // (não havia versão velha) nem com o tour da chapa aberto (a recarga cortava o tour).
+            const hadController = Boolean(navigator.serviceWorker.controller);
+            let reloadPending = false;
+            const reloadIfIdle = () => {
+              if (!reloadPending) return;
+              if (document.documentElement.classList.contains('cagp-semente-tour-open')) return;
+              reloadPending = false;
+              window.location.reload();
+            };
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+              if (!hadController) return;
+              reloadPending = true;
+              reloadIfIdle();
+            });
+            // Se o tour estava aberto, a recarga acontece na próxima troca de página depois dele.
+            document.addEventListener('astro:page-load', reloadIfIdle);
+          }
+        }
+      })();
+    </script>
+    <script>
+      // Física de expansão (gaveta de Regras da calculadora ACG) em todo <details> do site,
+      // e colunas independentes nas grades com data-masonry (só a coluna do cartão aberto desce).
+      import '@/lib/expandDetails';
+      import { initMasonryGrids } from '@/lib/masonry';
+      initMasonryGrids();
+      document.addEventListener('astro:page-load', () => initMasonryGrids());
+    </script>
+    <script>
+      import { setupCountUp } from '../scripts/countUp';
+      import { setupSharedTitle } from '../scripts/sharedTitle';
+      import { setupTabSwipe } from '../scripts/tabSwipe';
+      setupSharedTitle();
+      setupTabSwipe();
+
+      // Esqueleto de carregamento: só entra se a página nova demorar mais de 220ms para chegar.
+      if (!(window as unknown as { __cagpSkeleton?: boolean }).__cagpSkeleton) {
+        (window as unknown as { __cagpSkeleton?: boolean }).__cagpSkeleton = true;
+        let espera = 0;
+        const aviso = () => document.getElementById('cagp-skeleton-aviso');
+        const tira = () => {
+          window.clearTimeout(espera);
+          document.documentElement.classList.remove('cagp-carregando');
+          const a = aviso();
+          if (a) a.textContent = '';
+        };
+        document.addEventListener('astro:before-preparation', () => {
+          window.clearTimeout(espera);
+          espera = window.setTimeout(() => {
+            document.documentElement.classList.add('cagp-carregando');
+            const a = aviso();
+            if (a) a.textContent = 'Carregando a página';
+          }, 220);
+        });
+        document.addEventListener('astro:after-preparation', tira);
+        document.addEventListener('astro:after-swap', tira);
+        document.addEventListener('astro:page-load', tira);
+      }
+      document.addEventListener('astro:page-load', () => setupCountUp());
+    </script>
+  </body>
+</html>

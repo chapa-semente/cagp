@@ -1,0 +1,13 @@
+---
+codigo: "ECN 181"
+nome: "HISTÓRIA ECONÔMICA GERAL"
+natureza: "optativa"
+ch: 60
+modulo: "Optativa"
+preRequisitos: []
+ementa: "Transição do feudalismo ao capitalismo. Sistema mercantilista e formação do Estado moderno. Revolução burguesa. Revolução Industrial. Industrialização retardatária. Imperialismo. Período entre guerras e a crise dos anos 30. Fascismo."
+---
+
+## Ementa Oficial
+
+Transição do feudalismo ao capitalismo. Sistema mercantilista e formação do Estado moderno. Revolução burguesa. Revolução Industrial. Industrialização retardatária. Imperialismo. Período entre guerras e a crise dos anos 30. Fascismo.

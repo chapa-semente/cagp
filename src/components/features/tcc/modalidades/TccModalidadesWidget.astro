@@ -1,0 +1,52 @@
+---
+// src/components/features/tcc/modalidades/TccModalidadesWidget.astro — Widget de Resumo das 4 Modalidades
+import { route } from '@/lib/paths';
+---
+
+<div class="cagp-card p-5 bg-white border-2 border-border rounded-xl flex flex-col justify-between h-full shadow hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-md transition-all select-none">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <div class="flex items-center gap-2.5">
+        <span class="w-9 h-9 rounded-lg bg-secondary text-white flex items-center justify-center text-lg border-3 border-border shadow-sm">
+          <i class="bi bi-grid-fill" aria-hidden="true" />
+        </span>
+        <div>
+          <h3 class="font-head font-bold text-sm text-foreground leading-tight m-0">
+            4 Modalidades (Art. 19)
+          </h3>
+          <span class="text-xs text-gray-700 font-mono font-medium">Monografia, Intervenção, Artigo ou IC</span>
+        </div>
+      </div>
+      <span class="px-2 py-0.5 rounded-md font-head text-xs font-bold bg-secondary text-white border border-border shadow-xs">
+        Art. 19
+      </span>
+    </div>
+
+    <p class="font-body text-xs text-gray-700 leading-relaxed mb-3 font-medium">
+      Flexibilidade regimental para escolher entre viés puramente acadêmico, artigo publicável ou plano de intervenção aplicada na gestão.
+    </p>
+
+    <div class="grid grid-cols-2 gap-2 mb-3 text-xs font-mono">
+      <div class="p-2 bg-white rounded-lg border-3 border-border text-center font-bold text-foreground shadow-xs">
+        Monografia
+      </div>
+      <div class="p-2 bg-white rounded-lg border-3 border-border text-center font-bold text-foreground shadow-xs">
+        Intervenção
+      </div>
+      <div class="p-2 bg-white rounded-lg border-3 border-border text-center font-bold text-foreground shadow-xs">
+        Artigo Qualis
+      </div>
+      <div class="p-2 bg-white rounded-lg border-3 border-border text-center font-bold text-foreground shadow-xs">
+        Projeto de IC
+      </div>
+    </div>
+  </div>
+
+  <a
+    href={route('/tcc') + '#modalidades'}
+    class="min-h-[44px] px-3.5 py-2 bg-secondary hover:bg-secondary-hover active:translate-x-[2px] active:translate-y-[2px] active:shadow-none text-white rounded-xl font-head text-xs uppercase font-bold tracking-wider flex items-center justify-center gap-2 transition-all no-underline shadow border-3 border-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
+  >
+    <span>Comparar Modalidades</span>
+    <i class="bi bi-arrow-right" aria-hidden="true" />
+  </a>
+</div>

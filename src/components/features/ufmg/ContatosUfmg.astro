@@ -1,0 +1,93 @@
+---
+// ContatosUfmg.astro — Os contatos de um guia da vida na UFMG, como fichas com botão de ligar,
+// de escrever e de abrir o site. Aparece logo depois do resumo quando o contato é a própria ação
+// (acaoPrimeiro), no fim da página no celular, ou compacto no trilho do desktop.
+import CagpIcon from '@/components/ui/CagpIcon.astro';
+
+interface Contato {
+  nome: string;
+  detalhe?: string;
+  telefones: string[];
+  email?: string;
+  url?: string;
+  urlRotulo?: string;
+}
+interface Props {
+  contatos: Contato[];
+  titulo: string;
+  id: string;
+  compacto?: boolean;
+}
+
+const { contatos, titulo, id, compacto = false } = Astro.props;
+const tel = (n: string) => {
+  const digitos = n.replace(/\D/g, '');
+  return digitos.length <= 4 ? `tel:${digitos}` : `tel:+55${digitos}`;
+};
+---
+
+<section class:list={['ufmg-contatos', compacto && 'ufmg-contatos-compacto']} aria-labelledby={id}>
+  <h2 id={id}>{!compacto && <span class="ufmg-broto" aria-hidden="true"><svg viewBox="-46 -110 72 118"><use href="#sg-folha" /></svg></span>}<span>{titulo}</span></h2>
+  <ul role="list" class={compacto ? undefined : 'cagp-reveal-stagger'}>
+    {contatos.map((c) => {
+      // A faixa do cartão diz o jeito mais direto de falar: ligar, escrever ou abrir o site.
+      const jeito = c.telefones.length > 0 ? 'ligar' : c.email ? 'escrever' : 'abrir';
+      const FAIXA = { ligar: ['phone', 'Por telefone'], escrever: ['mail', 'Por e-mail'], abrir: ['external', 'Pelo site'] } as const;
+      return (
+        <li class={`ufmg-contato ufmg-contato-${jeito}`}>
+          <p class="ufmg-contato-faixa"><CagpIcon name={FAIXA[jeito][0]} class="w-5 h-5" /> {FAIXA[jeito][1]}</p>
+          <div class="ufmg-contato-corpo">
+            <p class="ufmg-contato-nome">{c.nome}</p>
+            {c.detalhe && <p class="ufmg-contato-detalhe">{c.detalhe}</p>}
+            <div class="ufmg-acoes">
+              {c.telefones.map((n) => (
+                <a class="ufmg-botao" href={tel(n)}><CagpIcon name="phone" class="w-4 h-4" /> {n}</a>
+              ))}
+              {c.email && (
+                <a class="ufmg-botao" href={`mailto:${c.email}`}><CagpIcon name="mail" class="w-4 h-4" /> {c.email}</a>
+              )}
+              {c.url && (
+                <a class="ufmg-botao" href={c.url} target="_blank" rel="noopener noreferrer">
+                  {c.urlRotulo ?? 'Abrir o site'} <CagpIcon name="external" class="w-4 h-4" />
+                </a>
+              )}
+            </div>
+          </div>
+        </li>
+      );
+    })}
+  </ul>
+</section>
+
+<style is:global>
+  /* Cartão de contato: a faixa de cor do kit (a mesma dos cartões de "Hoje à noite") e o corpo branco. */
+  .ufmg-contatos li.ufmg-contato { padding: 0; overflow: hidden; border-radius: 16px; }
+  .ufmg-contato-faixa {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0.5rem 0.875rem;
+    border-bottom: 3px solid var(--color-border);
+    background: var(--faixa, var(--color-fruto));
+    color: var(--color-foreground);
+    font: 700 0.75rem/1 var(--font-heading);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .ufmg-contato-ligar { --faixa: var(--color-broto); }
+  .ufmg-contato-escrever { --faixa: var(--color-fruto); }
+  .ufmg-contato-abrir { --faixa: var(--color-accent); }
+  .ufmg-contato-corpo { padding: 0.875rem 1rem 1.125rem; }
+  /* Colagem: com dois cartões ou mais, eles alternam uma inclinação leve (os botões continuam retos por dentro). */
+  @media (min-width: 400px) {
+    .ufmg-contatos:not(.ufmg-contatos-compacto) li.ufmg-contato:not(:only-child):nth-child(odd) { rotate: -0.8deg; }
+    .ufmg-contatos:not(.ufmg-contatos-compacto) li.ufmg-contato:not(:only-child):nth-child(even) { rotate: 0.7deg; }
+  }
+  .ufmg-contatos-compacto h2 { font-size: 1rem; border-bottom: 0; padding-bottom: 0; margin-bottom: 0.5rem; }
+  .ufmg-contatos-compacto li.ufmg-contato { box-shadow: var(--shadow-chip); border-width: 2px; border-radius: 12px; }
+  .ufmg-contatos-compacto .ufmg-contato-faixa { border-bottom-width: 2px; padding: 0.375rem 0.75rem; }
+  .ufmg-contatos-compacto .ufmg-contato-corpo { padding: 0.625rem 0.75rem 0.875rem; }
+  .ufmg-contatos-compacto .ufmg-contato-nome { font-size: 1rem; }
+  .ufmg-contatos-compacto .ufmg-acoes { margin-top: 0.5rem; gap: 0.5rem; }
+</style>

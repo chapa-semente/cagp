@@ -1,0 +1,49 @@
+---
+// src/pages/noticias/index.astro — Subseção de Início (Hoje) · Mural Completo de Notícias & Eventos
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { CagpNewsMural } from '../../components/features/cagp/CagpNewsMural';
+import { getCollection } from 'astro:content';
+import { SIMULATED_NEWS, type SimulatedNewsItem } from '@/lib/simulatedData';
+import { route } from '@/lib/paths';
+import { itemDoMural, ordenarMural } from '@/lib/noticias';
+
+const rawNoticias = await getCollection('noticias');
+
+// Notícia de verdade (`real: true` no Markdown) vem primeiro e vira o destaque do mural.
+const noticiasItems: SimulatedNewsItem[] = rawNoticias.length > 0
+  ? ordenarMural(rawNoticias).map(itemDoMural)
+  : SIMULATED_NEWS;
+const temReal = noticiasItems.some((n) => !n.simulated);
+---
+
+<BaseLayout
+  title="Mural"
+  description="Mural de notícias, convocações de assembleia, editais de estágio, congressos acadêmicos, calourada e eventos do Bacharelado em Gestão Pública UFMG."
+  mode="read"
+  activePage="hoje"
+  activeGroup="hoje"
+>
+  <div class="py-2 space-y-6" data-context-type="news">
+    <header id="cagp-noticias-header" class="border-b-3 border-border pb-5 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div class="space-y-2">
+        <h1 class="font-heading text-2xl sm:text-3xl lg:text-4xl font-black uppercase text-foreground tracking-tight m-0">
+          Mural de Notícias, Eventos &amp; Carreiras
+        </h1>
+        <p class="text-xs sm:text-sm font-sans text-muted-foreground m-0 max-w-2xl font-medium leading-relaxed">
+          {temReal
+            ? 'A notícia marcada como real é de verdade, publicada pela Chapa Semente. As outras são exemplos de como o mural do Centro Acadêmico pode ficar: convocações de assembleia, estágio, seminários e avisos do curso.'
+            : 'Exemplo de como seria o mural do Centro Acadêmico (as notícias abaixo são simuladas): convocações de assembleia, oportunidades de estágio, seminários acadêmicos e comunicados essenciais da vida discente na FAFICH/UFMG.'}
+        </p>
+      </div>
+      <a
+        href={route('/chapa-semente')}
+        class="min-h-[44px] px-4 py-2.5 rounded-xl bg-accent hover:bg-accent-hover text-foreground border-3 border-border shadow-sm hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none font-heading text-xs font-black uppercase tracking-wide no-underline inline-flex items-center justify-center gap-2 shrink-0 transition-all self-start md:self-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+      >
+        <span>Vote Chapa 2 • 25 e 26/Nov</span>
+        <i class="bi bi-arrow-right" aria-hidden="true"></i>
+      </a>
+    </header>
+
+    <div data-tour="joao"><CagpNewsMural items={noticiasItems} client:load /></div>
+  </div>
+</BaseLayout>

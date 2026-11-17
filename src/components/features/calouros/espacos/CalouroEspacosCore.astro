@@ -1,0 +1,159 @@
+---
+// src/components/features/calouros/espacos/CalouroEspacosCore.astro — Espaços Estratégicos da FAFICH e do Campus (Fotografias Ampliadas + Molduras 3px + Sombra 6px + photoCardHover)
+import { asset, route } from '@/lib/paths';
+
+const espacos = [
+  {
+    nome: 'Sala do CAGP (sede e convivência)',
+    local: '1º andar da FAFICH, ao lado da entrada da rampa',
+    icon: 'bi-people-fill',
+    image: asset('/imagens/semente/foto_campus_universitario.jpg'),
+    tag: 'SEDE ESTUDANTIL • 1º ANDAR',
+    desc: 'Espaço oficial do Centro Acadêmico de Gestão Pública: sofás de descanso, micro-ondas, tomadas, acervo acadêmico e ponto de encontro do turno noturno. A Chapa Semente propõe escaninhos seguros (Proposta 5) e reforma participativa (Proposta 6).',
+    horario: 'Acesso Livre Discente • 08h às 22h30',
+    destaqueSemente: 'Propostas 5, 6 e 7 (Semente)',
+  },
+  {
+    nome: 'Secretaria do Colegiado (Sala F-2039)',
+    local: '2º Andar da FAFICH (Ala Sul)',
+    icon: 'bi-door-open-fill',
+    image: asset('/imagens/guia-acesso-sistemas.png'),
+    tag: 'COLEGIADO GP • F-2039',
+    desc: 'Atendimento didático-pedagógico do Bacharelado em Gestão Pública com os secretários Wander Wenceslau Pereira e Ubirajara Dutra para aproveitamento de estudos, FCA, ACG (120 dias) e despachos da coordenação.',
+    horario: 'Quarta-feira • 13h00 às 19h00',
+    destaqueSemente: 'gestaopublica@ufmg.br',
+  },
+  {
+    nome: 'Auditório Sônia Viegas & Auditórios FAFICH',
+    local: '1º Andar da FAFICH (Térreo / Entrada Principal)',
+    icon: 'bi-mic-fill',
+    image: asset('/imagens/semente/post_01_propostas_david.jpg'),
+    tag: 'DEBATES & AULAS MAGNAS',
+    desc: 'Palco principal da Recepção de Calouros (Proposta 7), assembleias estudantis do CAGP, seminários com gestores públicos, simulações diplomáticas TEMAS e debates da Sociedade SENATUS.',
+    horario: 'Eventos & Seminários • 14h às 22h30',
+    destaqueSemente: 'Palco da Recepção Semente',
+  },
+  {
+    nome: 'Restaurante Universitário II (Setorial II)',
+    local: 'Perto do ICB, subida a partir da FAFICH (o circular das linhas 3 e 4 para em frente)',
+    icon: 'bi-cup-hot-fill',
+    image: asset('/imagens/guia-alimentacao-no-campus.png'),
+    tag: 'ALIMENTAÇÃO FUMP • RU II',
+    desc: 'Jantar subsidiado pela UFMG/FUMP: isento no Nível I, com subsídio nos Níveis II e III. Acesso pelas catracas com a carteirinha física ou QR Code no app Siga UFMG. Horário de ouro sem fila: 18h00 às 18h25.',
+    horario: 'Jantar • 17h10 às 19h30',
+    destaqueSemente: 'Circular 3 e 4 na porta',
+  },
+  {
+    nome: 'CEAG FAFICH (Central da Graduação)',
+    local: '2º Andar da FAFICH (em frente aos caixas eletrônicos)',
+    icon: 'bi-headset',
+    image: asset('/imagens/conexaowifi.png'),
+    tag: 'PLANTÃO NOTURNO • CEAG',
+    desc: 'Atendimento contínuo ao turno noturno sem precisar do aplicativo SEI. Protocolo geral de requerimentos acadêmicos padrão, atestados médicos, regime especial, trancamentos e certidões.',
+    horario: 'Seg a Sex • 08h00 às 22h00',
+    destaqueSemente: 'Aberto até 22h00',
+  },
+  {
+    nome: 'Biblioteca Baeta Neves (FAFICH)',
+    local: '1º Andar da FAFICH',
+    icon: 'bi-book-fill',
+    image: asset('/imagens/guia-acesso-biblioteca.png'),
+    tag: 'ESTUDO & ACERVO • 180 MIL VOL.',
+    desc: 'Mais de 180 mil volumes em Ciência Política, Políticas Públicas, Sociologia e Administração Pública. Salões silenciosos de estudo individual, computadores e cabines para grupos.',
+    horario: 'Seg a Sex • 07h30 às 21h45',
+    destaqueSemente: 'Empréstimo com Carteirinha',
+  },
+];
+---
+
+<div class="cagp-calouro-espacos space-y-6 select-none text-foreground">
+  {/* Cabeçalho Editorial */}
+  <div class="p-5 sm:p-6 bg-white border-2 border-border rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xl">
+    <div>
+      <h3 class="font-head text-lg sm:text-xl font-black text-foreground m-0">
+        Espaços Estratégicos na FAFICH: Sala do CAGP, Colegiado F-2039, Auditório Sônia Viegas &amp; RU II
+      </h3>
+      <p class="text-xs text-gray-800 mt-1 m-0 font-body font-medium">
+        Explore em fotografias ampliadas com efeito tátil os espaços essenciais para sua rotina noturna, estudo, protocolo e convivência estudantil.
+      </p>
+    </div>
+    <span class="px-3.5 py-2 rounded-xl bg-foreground text-white font-mono text-xs font-black uppercase shrink-0 border-2 border-border shadow-[3px_3px_0_0_#FE8812]">
+      6 Espaços Essenciais
+    </span>
+  </div>
+
+  {/* Grid dos Espaços com Fotografias Significativamente Ampliadas (aspect-[4/3] min-h-[250px] sm:min-h-[280px], borda 3px, sombra 6px e photoCardHover) */}
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {espacos.map((esp) => (
+      <article class="cagp-card p-5 bg-white border-2 border-border rounded-xl flex flex-col justify-between shadow-xl hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-xl transition-all group">
+        <div>
+          {/* Moldura Fotográfica Ampliada aspect-[4/3] min-h-[250px] sm:min-h-[280px] com .cagp-photo-frame (photoCardHover) */}
+          <div class="cagp-photo-frame relative aspect-[4/3] min-h-[250px] sm:min-h-[280px] w-full mb-4 rounded-xl border-3 border-border shadow-xl overflow-hidden bg-background">
+            <img
+              src={esp.image}
+              alt={esp.nome}
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-accent text-foreground font-mono font-black text-xs uppercase tracking-wider border-2 border-border shadow-sm">
+              {esp.tag}
+            </span>
+            <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2 text-white">
+              <span class="font-mono font-bold text-xs uppercase bg-foreground px-2.5 py-1 rounded-md border-2 border-border truncate">
+                <i class="bi bi-geo-alt-fill text-accent mr-1" aria-hidden="true" />
+                {esp.local}
+              </span>
+              <span class="w-9 h-9 rounded-lg bg-secondary text-white flex items-center justify-center text-base border-2 border-border shadow-sm shrink-0">
+                <i class={`bi ${esp.icon}`} aria-hidden="true" />
+              </span>
+            </div>
+          </div>
+
+          <h4 class="font-head text-base sm:text-lg font-black text-foreground mb-2 m-0">
+            {esp.nome}
+          </h4>
+
+          <p class="text-xs text-gray-800 leading-relaxed m-0 mb-4 font-body font-medium">
+            {esp.desc}
+          </p>
+        </div>
+
+        <div class="pt-3 border-t-2 border-border flex items-center justify-between gap-2 text-xs text-foreground font-mono font-bold">
+          <span class="inline-flex items-center gap-1.5">
+            <i class="bi bi-clock-fill text-secondary" aria-hidden="true" />
+            <span>{esp.horario}</span>
+          </span>
+          <span class="px-2 py-0.5 rounded bg-white border-2 border-border text-xs font-black uppercase text-primary">
+            {esp.destaqueSemente}
+          </span>
+        </div>
+      </article>
+    ))}
+  </div>
+
+  {/* Banner de Compromisso da Chapa Semente: Sala do CAGP & Recepção de Calouros (Propostas 5, 6 e 7) */}
+  <div class="p-5 sm:p-6 bg-white border-2 border-border rounded-xl shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div class="space-y-1.5 max-w-3xl">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="px-2.5 py-0.5 rounded-md bg-primary text-white font-mono text-xs font-black uppercase border-2 border-border">
+          COMPROMISSO CHAPA SEMENTE • SALA DO CAGP &amp; INTEGRAÇÃO
+        </span>
+        <span class="font-mono text-xs font-bold text-secondary">Propostas 5, 6 e 7</span>
+      </div>
+      <h4 class="font-head text-base sm:text-lg font-black text-foreground m-0">
+        Segurança, Escaninhos na Sala do CAGP e Recepção Estruturada no Auditório Sônia Viegas
+      </h4>
+      <p class="text-xs text-gray-800 leading-relaxed font-body font-medium m-0">
+        A Chapa Semente vai implantar <strong>escaninhos estudantis seguros na sala do CAGP</strong> em diálogo com o DA FAFICH (Proposta 5), realizar <strong>votação trimestral aberta para melhorias do espaço</strong> (Proposta 6) e promover a <strong>Recepção Integrada de Calouros</strong> com TEMAS, SENATUS e Atlética (Proposta 7).
+      </p>
+    </div>
+
+    <a
+      href={route('/chapa-semente#propostas')}
+      class="min-h-[44px] px-5 py-2.5 bg-accent hover:bg-accent-hover active:translate-x-[3px] active:translate-y-[3px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 text-foreground rounded-xl font-head text-xs uppercase font-black tracking-wider inline-flex items-center justify-center gap-2 transition-all no-underline border-3 border-border shadow-md shrink-0"
+    >
+      <i class="bi bi-megaphone-fill" aria-hidden="true"></i>
+      <span>Apoiar Propostas 5, 6 e 7 <i class="bi bi-arrow-right" aria-hidden="true"></i></span>
+    </a>
+  </div>
+</div>

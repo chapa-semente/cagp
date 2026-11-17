@@ -1,0 +1,41 @@
+---
+// AppSidebar.astro — Trilho lateral (tablet e desktop), em HTML e JS puro.
+//
+// Substitui a ilha React AppShellSidebarIsland (decisão de 11/11/2026: tirar o React da moldura).
+// No celular o trilho não aparece, e antes disso a ilha carregava React, Motion, Radix e a busca em
+// toda página só para ficar escondida. Agora:
+//   - a marcação é esta, pronta no HTML, igual à que o React gerava;
+//   - recolher/expandir, a gaveta do tablet, as dicas do trilho compacto, o perfil e os atalhos de
+//     teclado estão em src/scripts/appSidebar.ts;
+//   - a busca (Ctrl+K) é a ilha CommandPalette.tsx, que só carrega quando alguém abre.
+import AppSidebarNav from './AppSidebarNav.astro';
+
+interface Props {
+  currentPath: string;
+}
+const { currentPath } = Astro.props;
+---
+
+{/* 1. Desktop Permanent Sidebar (>= 1280px) */}
+<aside
+  id="cagp-desktop-sidebar"
+  aria-label="Navegação Principal Lateral Desktop"
+  class="cagp-sidebar-rail hidden xl:flex flex-col shrink-0 border-r-3 border-border bg-white sticky top-0 h-[100dvh] z-30 overflow-x-hidden"
+  style="width:264px"
+>
+  <AppSidebarNav currentPath={currentPath} />
+</aside>
+
+{/* 2. Tablet Compact Rail (768px - 1279px) */}
+<aside
+  id="cagp-tablet-rail"
+  aria-label="Navegação Lateral Compacta Tablet"
+  class="cagp-sidebar-rail hidden md:flex xl:hidden flex-col w-[88px] shrink-0 border-r-3 border-border bg-white sticky top-0 h-[100dvh] z-30 transition-all duration-200"
+>
+  <AppSidebarNav currentPath={currentPath} compact />
+</aside>
+
+<script>
+  import { setupAppSidebar } from '@/scripts/appSidebar';
+  setupAppSidebar();
+</script>

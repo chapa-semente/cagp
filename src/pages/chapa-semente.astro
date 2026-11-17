@@ -1,0 +1,832 @@
+---
+import MarkerWord from '@/components/ui/MarkerWord.astro';
+// src/pages/chapa-semente.astro — Campanha da Chapa Semente (volume Cartaz, arquétipo Campanha)
+// Ordem: prova ao vivo (o site já é a Proposta 3) → o que já funciona → 14 propostas → 12 integrantes → quando e onde votar.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import JourneyNav from '../components/ui/JourneyNav.astro';
+import { CartaPropostaInteractive } from '../components/features/semente/CartaPropostaInteractive';
+import { ChapaSementeTour } from '../components/features/semente/ChapaSementeTour';
+import { PROPOSTA_EIXOS, PROPOSTAS_FEITAS } from '@/lib/propostasTour';
+import { CHAPA_LEADERS, CHAPA_NOME, CHAPA_NUMERO, CHAPA_ROTULO, SOLUTION_LABEL, getLeaderPhotoUrl } from '@/lib/chapaSementeData';
+import { asset, route } from '@/lib/paths';
+import { Marquee, MarqueeItem, MarqueeSeparator } from '../components/ui/marquee';
+import EstagioIlustra from '@/components/ui/EstagioIlustra.astro';
+import CagpIcon from '@/components/ui/CagpIcon.astro';
+import { resolveCagpIconName } from '@/lib/cagpIcons';
+import { getItemByPath } from '@/lib/navigationRegistry';
+import BotaoCompartilhar from '@/components/ui/BotaoCompartilhar.astro';
+import GritoDeVoto from '@/components/ui/GritoDeVoto.astro';
+import { corpoDoVoto } from '@/lib/compartilhar';
+import '@/styles/campanha-detalhe.css';
+
+const MARQUEE = [
+  `Vote ${CHAPA_NOME} · 25 e 26/11 · 17h às 22h30`,
+  'Faz o S!',
+  '12 pessoas, 14 propostas, 1 site no ar',
+  'Toda mudança começa pequena',
+  'Na cédula, um X em uma chapa só',
+];
+
+const EDITAL_PDF = asset('/documentos/edital-eleicoes-cagp-2026.pdf');
+/** Convite pro grupo da turma (a data, o lugar e a assinatura entram na hora de mandar). */
+const CONVITE = `🌱 A Semente é a ${CHAPA_ROTULO} na eleição do CAGP e já pôs no ar um site com os guias do curso: documentos, estágio, 600h, FUMP, calouros.\nDá uma olhada e conhece as ${CHAPA_LEADERS.length} pessoas da chapa:`;
+const TOTAL = String(CHAPA_LEADERS.length).padStart(2, '0');
+
+/** Funções reais do site (nada simulado entra aqui). */
+const jaFuncionaBase = [
+  { title: 'Calcular as suas 600h', desc: 'Extensão e atividades complementares, com o que ainda falta.', href: route('/acg') + '#calculadora' },
+  { title: 'Fazer o estágio sem travar', desc: 'Passo a passo, modelos de termo e para quem enviar.', href: route('/estagio') },
+  { title: 'Pedir auxílio da FUMP', desc: 'O que cada nível garante e como pedir sem perder prazo.', href: route('/permanencia') },
+  { title: 'Chegar como calouro', desc: 'Os primeiros 30 dias e onde fica cada sala da FAFICH.', href: route('/calouros') },
+  { title: 'Achar formulários e normas', desc: 'PPC, regulamento e modelos de requerimento num só lugar.', href: route('/documentos') },
+  { title: 'Escolher optativas', desc: 'Catálogo de optativas e formação livre do curso.', href: route('/optativas') },
+];
+// Cada ferramenta leva o ícone e a cor da aba onde a página mora (registro de navegação).
+const jaFunciona = jaFuncionaBase.map((t) => {
+  const dono = getItemByPath(t.href.split('#')[0]);
+  return { ...t, aba: dono?.axis.id ?? 'guias', icone: resolveCagpIconName(dono?.item.icon ?? 'compass') };
+});
+---
+
+<BaseLayout
+  mode="persuade"
+  hideFloatingPill
+  title={CHAPA_NOME}
+  description="A Semente é a Chapa 2 na eleição do Centro Acadêmico de Gestão Pública da UFMG: o site que você está usando já é a nossa Proposta 3. Veja as 14 propostas, os 12 integrantes e quando votar (25 e 26/11)."
+>
+  <div class="cs-page">
+    <!-- 1. TOPO: a prova é a ferramenta funcionando -->
+    <section aria-labelledby="cs-hero-title" class="cs-hero">
+      <div class="cs-hero-copy">
+        <div class="cs-hero-marca">
+          <img
+            src={asset('/logos/semente/semente-horizontal-branco.webp')}
+            alt="Chapa Gestão Pública Semente"
+            width="768"
+            height="229"
+            class="h-10 sm:h-12 w-auto"
+          />
+          <p class="sk-chapa-num m-0">
+            <span class="sk-chapa-num-rotulo">Chapa</span>
+            <span class="sk-chapa-num-n">{CHAPA_NUMERO}</span>
+          </p>
+        </div>
+        <h1 id="cs-hero-title" class="cs-display">Você já está usando a nossa <MarkerWord onColor class="cs-marker">proposta</MarkerWord>.</h1>
+        <p class="cs-hero-lede">
+          A Proposta 3 da nossa carta-programa é um site para o curso. É este aqui: ideia nossa, construída há muito
+          tempo, já no ar e feita pra ficar com os estudantes.
+        </p>
+        <p class="cs-accent">Toda mudança começa pequena.</p>
+        <GritoDeVoto onColor tamanho="lg" />
+        <div class="flex flex-wrap items-center gap-x-5 gap-y-3">
+          <button type="button" class="cs-btn cs-btn-accent" data-cagp-dispatch="cagp:start-propostas-tour">
+            <i class="bi bi-play-fill" aria-hidden="true"></i>
+            Propostas em 1 minuto
+          </button>
+          <a href="#votar" class="cs-vote-link">Dias 25 e 26/11, das 17h às 22h30: como votar <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <!-- O broto da chapa, como adesivo, com os três números que são fato (12 pessoas, 14 propostas, 1 site). -->
+      <div class="cs-hero-arte" aria-hidden="true">
+        <EstagioIlustra nivel={3} comFundo class="cs-hero-broto" />
+        <span class="sk-adesivo cs-hero-ad cs-hero-ad-1">12 pessoas</span>
+        <span class="sk-adesivo cs-hero-ad cs-hero-ad-2">14 propostas</span>
+        <span class="sk-adesivo cs-hero-ad cs-hero-ad-3">1 site no ar</span>
+      </div>
+    </section>
+
+    <!-- Marquee da campanha (DESIGN.md › Marquee: 1 por página, só em Cartaz). CSS puro, sem hidratar. -->
+    <div class="rounded-xl border-3 border-border bg-foreground text-white overflow-hidden" aria-hidden="true">
+      <Marquee speed="slow" pauseOnHover className="bg-foreground text-white border-0 shadow-none py-2.5">
+        {MARQUEE.map((t) => (
+          <>
+            <MarqueeItem className="text-sm font-heading font-bold uppercase tracking-[0.04em] text-white">{t}</MarqueeItem>
+            <MarqueeSeparator><span class="inline-block w-2 h-2 rounded-full bg-accent align-middle"></span></MarqueeSeparator>
+          </>
+        ))}
+      </Marquee>
+    </div>
+
+    <!-- 2. QUANDO E ONDE VOTAR (logo depois do topo: quem chega indeciso precisa disto primeiro) -->
+    <section id="votar" aria-labelledby="cs-votar-title" class="cs-vote scroll-mt-24">
+      <h2 id="cs-votar-title" class="cs-headline cs-on-color">Quando e onde votar</h2>
+      <dl class="cs-vote-list">
+        <div>
+          <dt>Nosso número</dt>
+          <dd><strong>{CHAPA_ROTULO}</strong>. É o número da Semente nesta eleição.</dd>
+        </div>
+        <div>
+          <dt>Votação</dt>
+          <dd><strong>25 e 26 de novembro</strong>, das 17h às 22h30, no CAGP. Voto secreto.</dd>
+        </div>
+        <div>
+          <dt>Quem vota</dt>
+          <dd>Todo estudante regularmente matriculado em Gestão Pública. Na cédula, um X em uma chapa só.</dd>
+        </div>
+        <div>
+          <dt>Debate</dt>
+          <dd>24 de novembro, às 18h. Local a definir.</dd>
+        </div>
+        <div>
+          <dt>Mandato</dt>
+          <dd>A chapa eleita dirige o CAGP por 1 ano (Regimento, art. 48).</dd>
+        </div>
+      </dl>
+      <p class="cs-vote-note">
+        Nos dias de votação é proibido fazer campanha no 1º andar da FAFICH (edital, art. 17).
+      </p>
+      <div class="flex flex-wrap items-center gap-3">
+        <button type="button" class="cs-btn cs-btn-accent" data-cs-ics>
+          <i class="bi bi-calendar-plus" aria-hidden="true" data-cs-ics-icon></i>
+          <span data-cs-ics-label>Lembrar na agenda</span>
+        </button>
+        <a href={route('/gestao')} class="cs-btn cs-btn-ghost-light">
+          Tudo sobre a eleição
+        </a>
+      </div>
+      <p class="cs-ics-note" data-cs-ics-note aria-live="polite"></p>
+    </section>
+    <!-- 3. OS INTEGRANTES (os rostos antes das propostas) -->
+    <section id="integrantes" aria-labelledby="cs-integrantes-title" class="scroll-mt-24 space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div class="space-y-2 max-w-[68ch]">
+          <h2 id="cs-integrantes-title" class="cs-headline">Os {CHAPA_LEADERS.length} integrantes</h2>
+          <p class="text-base text-muted-foreground m-0">
+            Cada pessoa responde por uma área do centro acadêmico e por uma parte do site.
+          </p>
+        </div>
+        <ChapaSementeTour variant="compact" buttonText="Rever a apresentação da chapa" />
+      </div>
+
+      <ul class="cs-team" role="list" data-masonry>
+        {CHAPA_LEADERS.map((leader, idx) => {
+          const photo = getLeaderPhotoUrl(leader.photoFilename);
+          const firstName = leader.name.split(' ')[0];
+          return (
+            <li id={leader.targetId} class="cs-member scroll-mt-24">
+              <span id={leader.id} class="cagp-anchor-target" aria-hidden="true"></span>
+              <div class="cs-member-photo">
+                {photo ? (
+                  <img
+                    src={photo}
+                    alt={`${leader.name}, ${leader.role}`}
+                    loading="lazy"
+                    decoding="async"
+                    style={leader.photoPosition ? `object-position:${leader.photoPosition}` : undefined}
+                  />
+                ) : (
+                  <span class="cs-member-initials" aria-hidden="true">{leader.initials}</span>
+                )}
+                <span class="cs-counter" aria-hidden="true">{String(idx + 1).padStart(2, '0')}/{TOTAL}</span>
+              </div>
+              <div class="space-y-0.5">
+                <h3 class="cs-member-name"><a href={route(`/chapa-semente/${leader.id}`)}>{leader.name}</a></h3>
+                <p class="cs-member-role">{leader.role}</p>
+              </div>
+              <details class="cs-details">
+                <summary>Ler a fala de {firstName}</summary>
+                <div class="space-y-3 pt-3">
+                  {leader.quote && (
+                    <blockquote class="m-0 text-sm text-foreground leading-relaxed">“{leader.quote}”</blockquote>
+                  )}
+                  {leader.lugarDeFala && (
+                    <blockquote class="m-0 text-sm text-foreground leading-relaxed">
+                      <strong class="font-heading">“{leader.lugarDeFala.gancho}</strong> {leader.lugarDeFala.curta}”
+                    </blockquote>
+                  )}
+                  <p class="m-0 text-sm text-muted-foreground leading-snug">
+                    <strong class="text-foreground">O problema:</strong> {leader.painPoint}
+                  </p>
+                  <p class="m-0 text-sm text-muted-foreground leading-snug">
+                    <strong class="text-foreground">{SOLUTION_LABEL[leader.solutionStatus]}</strong> {leader.solution}
+                  </p>
+                </div>
+              </details>
+              <a href={leader.toolHref} class="cs-member-link">
+                <span>{leader.toolLabel}</span>
+                <i class="bi bi-arrow-right" aria-hidden="true"></i>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+
+    <!-- 4. O QUE JÁ FUNCIONA (faixa roxa) -->
+    <section aria-labelledby="cs-funciona-title" class="cs-band">
+      <h2 id="cs-funciona-title" class="cs-headline cs-on-color">O que já funciona no site</h2>
+      <p class="cs-band-lede">Isto não é promessa: está no ar hoje e você pode usar agora.</p>
+      <ul class="cs-tools" role="list">
+        {jaFunciona.map((t) => (
+          <li>
+            <a href={t.href} class="cs-tool" data-nav-axis={t.aba}>
+              <span class="sk-tile sk-tile-broto" aria-hidden="true">
+                <CagpIcon name={t.icone} class="sk-tile-glifo" />
+                <svg class="sk-broto" viewBox="-46 -110 72 118"><use href="#sg-folha" /></svg>
+              </span>
+              <span class="min-w-0 flex-1">
+                <span class="cs-tool-title">{t.title}</span>
+                <span class="cs-tool-desc">{t.desc}</span>
+              </span>
+              <i class="bi bi-arrow-right text-lg shrink-0" aria-hidden="true"></i>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- 5. AS 14 PROPOSTAS -->
+    <section id="propostas" aria-labelledby="cs-propostas-title" class="scroll-mt-24 space-y-5">
+      <div class="space-y-2 max-w-[68ch]">
+        <h2 id="cs-propostas-title" class="cs-headline">As 14 propostas</h2>
+        <p class="text-base text-muted-foreground m-0">Quatro perguntas, quatro telas. Toque numa.</p>
+      </div>
+      <!-- A entrada do tour das propostas: um bloco por eixo, cada um abre o tour naquele eixo. -->
+      <ul class="cs-eixos">
+        {PROPOSTA_EIXOS.map((e) => (
+          <li>
+            <button type="button" class="cs-eixo" data-cagp-dispatch="cagp:start-propostas-tour" data-cagp-eixo={e.id}>
+              <span class="cs-eixo-adesivo" style={`background:${e.bg};color:${e.fg}`}>{e.estagio}</span>
+              <span class="cs-eixo-gancho">{e.gancho}</span>
+              <span class="cs-eixo-pe">
+                <span>{e.nome} · {e.ate - e.de + 1} propostas</span>
+                <i class="bi bi-play-fill" aria-hidden="true"></i>
+              </span>
+            </button>
+          </li>
+        ))}
+      </ul>
+      <p class="m-0 text-base text-muted-foreground">
+        Discorda de alguma, ou acha que faltou uma? <a href={route('/ouvidoria')} class="font-bold text-primary underline underline-offset-[0.22em]">Fala com a gente</a>.
+      </p>
+    </section>
+
+    <!-- 5b. A CARTA COMPLETA: aberta na página desde 13/11/2026 (antes ficava atrás de um "Ler a carta
+         completa"). As 14 propostas com o texto inteiro, busca e filtro; o adesivo de cada cartão diz o
+         que já foi feito (`jaFeito` em src/lib/propostasTour.ts). -->
+    <section id="carta" aria-labelledby="cs-carta-title" class="scroll-mt-24 space-y-5">
+      <div class="space-y-2 max-w-[68ch]">
+        <h2 id="cs-carta-title" class="cs-headline">A carta completa</h2>
+        <p class="text-base text-muted-foreground m-0">
+          As 14 propostas com o texto inteiro, como está na carta-programa. {PROPOSTAS_FEITAS} delas já saíram do papel: é só procurar o adesivo laranja.
+        </p>
+      </div>
+      <CartaPropostaInteractive client:visible />
+    </section>
+
+    <!-- 6. KIT DE DIVULGAÇÃO: quem já decidiu o voto vira quem espalha (artes em public/og/kit/) -->
+    <section id="divulgar" aria-labelledby="cs-kit-title" class="scroll-mt-24 space-y-5">
+      <div class="space-y-2 max-w-[68ch]">
+        <h2 id="cs-kit-title" class="cs-headline">Ajude a espalhar</h2>
+        <p class="text-base text-muted-foreground m-0">
+          Vai votar na Semente? Conte pra turma. A arte e os textos já estão prontos.
+        </p>
+      </div>
+      <div class="cs-kit">
+        <div class="cd-ficha cd-kit" style="--cd-kit-arte:8.5rem">
+          <img
+            src={asset('/og/kit/story-voto.jpg')}
+            alt="Arte de story: Eu voto Chapa 2, com os 12 integrantes, a data e o local da eleição"
+            width="1080"
+            height="1920"
+            class="cd-kit-arte"
+            loading="lazy"
+            decoding="async"
+          />
+          <div class="cd-secao">
+            <h3 class="cd-h2">Pro story e pro status</h3>
+            <p class="cd-texto">A arte “Eu voto {CHAPA_ROTULO}” já vem no tamanho do story. Baixe, poste e cole o link do site.</p>
+            <div class="cd-acoes">
+              <a href={asset('/og/kit/story-voto.jpg')} download="eu-voto-chapa-2-semente.jpg" class="sk-btn sk-btn-roxo">
+                <i class="bi bi-download" aria-hidden="true"></i>
+                Baixar a arte
+              </a>
+              <BotaoCompartilhar corpo={corpoDoVoto()} url={route('/')} tom="voto" rotulo="Declarar meu voto" />
+            </div>
+          </div>
+        </div>
+        <div class="cd-ficha">
+          <h3 class="cd-h2">Sua foto com a moldura da chapa</h3>
+          <p class="cd-texto">“Gostosas com {CHAPA_ROTULO}”, “As BB quer Semente”, “Faz o S!”: escolha a moldura, ponha a sua foto e poste no perfil, no feed ou no story.</p>
+          <div class="cd-acoes">
+            <a href={route('/chapa-semente/moldura')} class="sk-btn sk-btn-folha">
+              <i class="bi bi-camera" aria-hidden="true"></i>
+              Fazer minha moldura
+            </a>
+          </div>
+        </div>
+        <div class="cd-ficha">
+          <h3 class="cd-h2">Pro grupo da turma</h3>
+          <p class="cd-texto">Um convite curto, com a data e o lugar da eleição e o link do site.</p>
+          <div class="cd-acoes">
+            <BotaoCompartilhar corpo={CONVITE} url={route('/')} tom="convite" variante="roxo" rotulo="Mandar o convite" />
+            <BotaoCompartilhar corpo={CONVITE} url={route('/')} tom="convite" variante="copiar" />
+          </div>
+          <p class="cd-texto">
+            Cada proposta e cada pessoa da chapa tem a sua página, com link e arte próprios: abra uma e use o botão de mandar.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- O fechamento com o pedido de voto é a FaixaDeVoto, que o BaseLayout põe no fim de toda página. -->
+  </div>
+
+  <JourneyNav
+    prev={{
+      title: 'Início',
+      href: '/',
+      desc: 'RU, ônibus e os atalhos do dia.',
+    }}
+    next={{
+      title: 'História e regimento do CAGP',
+      href: '/sobre',
+      desc: 'O estatuto e os marcos do centro acadêmico.',
+    }}
+  />
+</BaseLayout>
+
+<script>
+  import { downloadPresetIcs } from '@/lib/calendar/icsGenerator';
+
+  document.querySelectorAll<HTMLButtonElement>('[data-cs-ics]').forEach((btn) =>
+    btn.addEventListener('click', () => {
+      downloadPresetIcs('eleicoes-cagp-2026');
+      const label = btn.querySelector<HTMLElement>('[data-cs-ics-label]');
+      const icon = btn.querySelector<HTMLElement>('[data-cs-ics-icon]');
+      const note = btn.closest('section')?.querySelector<HTMLElement>('[data-cs-ics-note]');
+      if (label) label.textContent = 'Lembrete baixado';
+      if (icon) icon.className = 'bi bi-calendar-check';
+      btn.classList.add('is-saved');
+      if (note) note.textContent = 'Abra o arquivo .ics para salvar os dias 25 e 26/11 na sua agenda.';
+    }),
+  );
+</script>
+
+<style>
+  .cs-page {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin-block: 0.75rem 3rem;
+  }
+  @media (min-width: 1024px) {
+    .cs-page { gap: 4.5rem; }
+  }
+
+  /* Tipografia (Poppins 400/700 apenas) */
+  .cs-display {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(1.75rem, 1.4rem + 1.6vw, 2.25rem);
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    color: #fff;
+  }
+  .cs-headline {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+    line-height: 1.2;
+    text-wrap: balance;
+    color: var(--color-foreground);
+  }
+  .cs-headline.cs-on-color { color: #fff; }
+  .cs-label {
+    margin: 0;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+  }
+  .cs-vote-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    min-height: 44px;
+    font-weight: 700;
+    font-size: 1rem;
+    font-variant-numeric: tabular-nums;
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 0.22em;
+  }
+  .cs-vote-link:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+  .cs-accent {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .cs-display :global(.cs-marker) { font-size: 1.12em; text-transform: none; }
+
+  /* 1. Topo (Cartaz roxo) */
+  .cs-hero {
+    display: grid;
+    gap: 1.5rem;
+    padding: 1.5rem 1.25rem;
+    border: 3px solid #1f1f1f;
+    border-radius: 16px;
+    background: var(--color-primary);
+    box-shadow: 6px 6px 0 0 #1f1f1f;
+  }
+  @media (min-width: 1024px) {
+    .cs-hero {
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      align-items: center;
+      gap: 2.5rem;
+      padding: 2.5rem;
+    }
+  }
+  .cs-hero-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .cs-hero-marca { display: flex; align-items: center; gap: 1.25rem; }
+  .cs-hero-lede {
+    margin: 0;
+    max-width: 52ch;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #fff;
+    text-wrap: pretty;
+  }
+
+  /* O broto em adesivo, inclinado, com três etiquetas ao redor */
+  .cs-hero-arte { position: relative; justify-self: center; width: min(100%, 21rem); padding: 1.25rem 1.5rem 1.75rem; }
+  .cs-hero-arte :global(.cs-hero-broto) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    border: 3px solid #1f1f1f;
+    border-radius: 28% 8% 28% 8%;
+    box-shadow: 6px 6px 0 0 var(--color-accent), 12px 12px 0 0 #1f1f1f;
+    rotate: 3deg;
+  }
+  .cs-hero-ad { position: absolute; top: auto; left: auto; font-size: 0.875rem; padding: 0.375rem 0.625rem; }
+  .cs-hero-ad-1 { top: 0.25rem; left: 0; rotate: -7deg; }
+  .cs-hero-ad-2 { top: 42%; right: -0.25rem; rotate: 5deg; background: #ffc83d; }
+  .cs-hero-ad-3 { bottom: 0.5rem; left: 1rem; rotate: -4deg; background: var(--color-accent); }
+
+  .cs-ics-note {
+    margin: 0;
+    min-height: 1.25rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #fff;
+  }
+  .cs-btn.is-saved { background: #fff; }
+
+  /* Botões */
+  .cs-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 48px;
+    padding: 0.75rem 1.25rem;
+    border: 3px solid #1f1f1f;
+    border-radius: 12px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 0 #1f1f1f;
+    transition: transform 150ms var(--ease-snap, ease-out), box-shadow 150ms var(--ease-snap, ease-out);
+  }
+  .cs-btn:hover { transform: translate(-1px, -1px); box-shadow: 6px 6px 0 0 #1f1f1f; }
+  .cs-btn:active { transform: translate(4px, 4px); box-shadow: none; }
+  .cs-btn:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 3px; }
+  /* O laranja é o botão de destaque: cantos da folha do símbolo. */
+  .cs-btn-accent { background: var(--color-accent); color: #1f1f1f; border-radius: 26px 7px 26px 7px; padding-inline: 1.5rem; }
+  .cs-btn-ghost-light { background: #fff; color: #1f1f1f; }
+
+  /* Os quatro blocos de eixo: a entrada do tour das propostas. */
+  .cs-eixos { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.875rem; }
+  @media (min-width: 720px) { .cs-eixos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .cs-eixo {
+    display: grid;
+    gap: 0.625rem;
+    justify-items: start;
+    width: 100%;
+    height: 100%;
+    padding: 1rem 1rem 0.875rem;
+    text-align: left;
+    color: #fff;
+    background: var(--color-primary);
+    border: 3px solid var(--color-border);
+    border-radius: 16px;
+    box-shadow: 4px 4px 0 0 #1f1f1f;
+    cursor: pointer;
+    transition: translate var(--duration-press, 150ms) cubic-bezier(0.16, 1, 0.3, 1), box-shadow var(--duration-press, 150ms) cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .cs-eixos li:nth-child(even) .cs-eixo { background: #266264; }
+  .cs-eixo:hover { translate: -1px -1px; box-shadow: 6px 6px 0 0 #1f1f1f; }
+  .cs-eixo:active { translate: 3px 3px; box-shadow: none; }
+  .cs-eixo:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 2px; }
+  .cs-eixo-adesivo {
+    rotate: -3deg;
+    padding: 0.125rem 0.5rem;
+    border: 2px solid #1f1f1f;
+    border-radius: 6px;
+    box-shadow: 2px 2px 0 0 #1f1f1f;
+    font-size: 0.8125rem;
+    font-weight: 700;
+  }
+  .cs-eixo-gancho { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; line-height: 1.15; text-wrap: balance; }
+  .cs-eixo-pe { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 0.75rem; font-size: 0.875rem; line-height: 1.3; }
+  .cs-eixo-pe i { display: grid; place-items: center; flex: none; width: 2rem; height: 2rem; color: #1f1f1f; background: var(--color-accent); border: 2px solid #1f1f1f; border-radius: 50%; }
+
+  /* 2. Faixa petróleo */
+  .cs-band {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.75rem 1.25rem;
+    border-radius: 16px;
+    background: var(--color-primary);
+  }
+  @media (min-width: 1024px) {
+    .cs-band { padding: 2.5rem; }
+  }
+  .cs-band-lede {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #fff;
+  }
+  .cs-tools {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0.5rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  @media (min-width: 640px) {
+    .cs-tools { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 1280px) {
+    .cs-tools { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  .cs-tool {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    height: 100%;
+    min-height: 56px;
+    padding: 0.875rem 1rem;
+    --bg: var(--aba);
+    --fg: var(--aba-fg);
+    border: 3px solid #1f1f1f;
+    border-radius: 16px;
+    background: #fff;
+    color: #1f1f1f;
+    text-decoration: none;
+    box-shadow: 4px 4px 0 0 #1f1f1f;
+    transition: transform 150ms var(--ease-snap, ease-out), box-shadow 150ms var(--ease-snap, ease-out);
+  }
+  .cs-tool:hover { transform: translate(-1px, -1px); box-shadow: 6px 6px 0 0 #1f1f1f; }
+  .cs-tool:active { transform: translate(4px, 4px); box-shadow: none; }
+  .cs-tool { padding-top: 1.125rem; }
+  .cs-tool:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+  .cs-tool-title {
+    display: block;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+  .cs-tool-desc {
+    display: block;
+    margin-top: 0.125rem;
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: var(--color-muted-foreground);
+  }
+
+  /* 4. Integrantes */
+  .cs-team {
+    display: grid;
+    align-items: start; /* cada integrante cresce sozinho ao abrir a fala */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem 0.875rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  @media (min-width: 768px) {
+    .cs-team { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+  }
+  @media (min-width: 1280px) {
+    .cs-team { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+  .cs-member {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    min-width: 0;
+  }
+  .cs-member .cagp-anchor-target { position: absolute; top: 0; left: 0; }
+  .cs-member-photo {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border: 3px solid #1f1f1f;
+    /* Moldura com os cantos da folha e sombra dura na cor do estágio. */
+    border-radius: 22% 7% 22% 7%;
+    background: #e9e5da;
+    box-shadow: 4px 4px 0 0 var(--shadow-color, #1f1f1f);
+  }
+  .cs-member:nth-child(odd) .cs-member-photo { rotate: -1.2deg; }
+  .cs-member:nth-child(even) .cs-member-photo { rotate: 1deg; }
+  .cs-member-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+  }
+  .cs-member-initials {
+    display: grid;
+    place-items: center;
+    height: 100%;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: var(--color-primary);
+  }
+  .cs-counter {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.1875rem 0.4375rem;
+    border: 2px solid #1f1f1f;
+    border-radius: 6px;
+    rotate: 5deg;
+    box-shadow: 2px 2px 0 0 #1f1f1f;
+    background: #ffc83d;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    font-variant-numeric: tabular-nums;
+    color: #1f1f1f;
+  }
+  .cs-member-name a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.2em;
+  }
+  .cs-member-name a:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  .cs-kit {
+    display: grid;
+    gap: 1.25rem;
+    align-items: start;
+  }
+  @media (min-width: 900px) {
+    .cs-kit { grid-template-columns: 1fr 1fr; }
+  }
+  .cs-member-name {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.25;
+    color: var(--color-foreground);
+  }
+  .cs-member-role {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.35;
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+  .cs-details summary {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-foreground);
+    text-decoration: underline;
+    text-underline-offset: 0.22em;
+    cursor: pointer;
+    list-style: none;
+  }
+  .cs-details summary::-webkit-details-marker { display: none; }
+  .cs-details summary::after {
+    content: '';
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-left: 0.5rem;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg) translateY(-2px);
+    transition: transform var(--duration-expand, 320ms) var(--ease-snap, ease-out);
+  }
+  .cs-details[open]:not([data-expand-state="closing"]) summary::after { transform: rotate(-135deg) translateY(-2px); }
+  .cs-member-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    min-height: 44px;
+    margin-top: auto;
+    padding: 0.5rem 0.75rem;
+    border: 2px solid #1f1f1f;
+    border-radius: 12px;
+    background: #fff;
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: #1f1f1f;
+    text-decoration: none;
+    box-shadow: 2px 2px 0 0 #1f1f1f;
+    transition: transform 150ms var(--ease-snap, ease-out), box-shadow 150ms var(--ease-snap, ease-out);
+  }
+  .cs-member-link:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 0 #1f1f1f; }
+  .cs-member-link:active { transform: translate(2px, 2px); box-shadow: none; }
+
+  /* 5. Votar (Cartaz roxo de fechamento) */
+  .cs-vote {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.75rem 1.25rem;
+    border: 3px solid #1f1f1f;
+    border-radius: 16px;
+    /* Petróleo: vem logo abaixo do topo roxo, e bloco vizinho não repete cor. Cartão em camadas. */
+    background: var(--color-secondary);
+    margin-right: 12px;
+    box-shadow:
+      6px 6px 0 -3px var(--color-accent),
+      6px 6px 0 0 #1f1f1f,
+      12px 12px 0 -3px #ffc83d,
+      12px 12px 0 0 #1f1f1f;
+  }
+  @media (min-width: 1024px) {
+    .cs-vote { padding: 2.5rem; }
+  }
+  .cs-close {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: 0;
+    padding-top: 1.5rem;
+    border-top: 2px solid #1f1f1f;
+    font-weight: 700;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    font-variant-numeric: tabular-nums;
+    text-wrap: balance;
+  }
+  .cs-vote-list {
+    display: grid;
+    gap: 1rem;
+    margin: 0;
+  }
+  @media (min-width: 768px) {
+    .cs-vote-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem 2rem; }
+  }
+  .cs-vote-list > div:first-child { grid-column: 1 / -1; }
+  .cs-vote-list dt {
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .cs-vote-list dd {
+    margin: 0.25rem 0 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #fff;
+  }
+  .cs-vote-note {
+    margin: 0;
+    padding-top: 1rem;
+    border-top: 2px solid #fff;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #fff;
+  }
+
+</style>

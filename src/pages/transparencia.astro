@@ -1,0 +1,149 @@
+---
+// src/pages/transparencia.astro — Eixo 5: O CAGP · Portal da Transparência
+// O que é real (Regimento Interno) vem primeiro; depois, como a Semente vai prestar contas e o portal em si.
+// Desde 12/11/2026 a página diz que a estrutura está pronta (livro-caixa, gráficos, filtros, planilha) e
+// que só os números são de exemplo, porque a chapa ainda não é gestão (PRODUCT.md › Real × simulado).
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/ui/PageHeader.astro';
+import { CagpTransparenciaPortal } from '../components/features/cagp/CagpTransparenciaPortal';
+import { route, asset } from '@/lib/paths';
+
+// Dispositivos conferidos em _referencias/documentos-oficiais/regimento-interno-cagp-ufmg.md
+const regras = [
+  {
+    ref: 'ART. 30, XI',
+    titulo: 'Relatório mensal das contas',
+    texto: 'A Diretoria Financeira elabora todo mês o Relatório Resumido de Execução Orçamentária e o publica nos canais do CAGP.',
+  },
+  {
+    ref: 'ART. 30, XII',
+    titulo: 'Prestação de contas do mandato',
+    texto: 'Ao fim de cada mandato, a Diretoria Financeira prepara a prestação de contas anual e a deixa disponível a todos.',
+  },
+  {
+    ref: 'ART. 36, I',
+    titulo: 'Quem aprova as contas',
+    texto: 'A Assembleia Geral ordinária, uma vez por ano, apresenta e aprova a prestação de contas da gestão que sai.',
+  },
+  {
+    ref: 'ART. 15, V',
+    titulo: 'Seu direito de conferir',
+    texto: 'Qualquer estudante representado pode examinar as contas e os documentos da gestão. Com requerimento formal, a gestão tem até 3 dias letivos para entregar.',
+  },
+];
+
+// O que a Chapa Semente se compromete a fazer (Carta-Programa, proposta 1) com o que o portal já entrega.
+// "Na hora" e não "em tempo real": o site não tem servidor; o lançamento aparece quando é publicado.
+const comoVaiSer = [
+  {
+    quando: 'A cada lançamento',
+    oQue: 'Entrou ou saiu dinheiro, o livro-caixa é atualizado na hora, sem esperar o fim do mês.',
+  },
+  {
+    quando: 'A cada três meses',
+    oQue: 'Um boletim junta tudo e mostra o resultado de um jeito fácil de ler.',
+  },
+  {
+    quando: 'Quando você quiser',
+    oQue: 'Quem quiser olhar de perto consulta lançamento por lançamento e baixa os dados em planilha.',
+  },
+];
+---
+
+<BaseLayout
+  title="Transparência"
+  description="O Portal da Transparência da Chapa Semente já está pronto: livro-caixa, boletim a cada três meses e dados para baixar. Os números são de exemplo, porque a chapa ainda não é gestão."
+  activePage="sobre"
+  activeGroup="cagp"
+  mode="operate"
+>
+  <PageHeader
+    title="Portal da Transparência"
+    subtitle="Já está pronto, com números de exemplo."
+    axisId="mais"
+    activeId="cagp-transparencia"
+    mode="operate"
+    condensed={true}
+  />
+
+  <div class="space-y-6 pb-2">
+    <!-- Aviso de simulação na primeira dobra -->
+    <div
+      role="note"
+      class="p-4 rounded-xl bg-warning-tint border-2 border-border flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-foreground"
+    >
+      <div class="space-y-1">
+        <strong class="font-heading font-bold text-warning block text-sm">
+          O portal está pronto; os números são de exemplo
+        </strong>
+        <p class="m-0 text-sm leading-relaxed max-w-[68ch]">
+          Livro-caixa, gráficos, filtros e planilha para baixar já funcionam. Os valores são fictícios porque a Chapa Semente ainda não é gestão e não tem as contas do CAGP: nenhum saldo, lançamento ou comprovante abaixo é do centro acadêmico. As regras do Regimento citadas a seguir são reais.
+        </p>
+      </div>
+      <span class="font-heading text-xs font-bold uppercase tracking-[0.04em] bg-white px-2.5 py-1 rounded-md border-2 border-border shrink-0 self-start sm:self-center">
+        Simulação
+      </span>
+    </div>
+
+    <!-- O que é real: o Regimento Interno de 14/10/2024 (volume Papel) -->
+    <section aria-labelledby="heading-regras-reais" class="space-y-4">
+      <div class="border-b-2 border-border pb-2 flex flex-wrap items-end justify-between gap-3">
+        <h2 id="heading-regras-reais" class="font-heading text-xl font-bold text-foreground m-0">
+          O que o Regimento já exige
+        </h2>
+        <a
+          href={asset('/documentos/regimento-interno-cagp-ufmg.pdf')}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-sm font-bold text-primary underline underline-offset-[0.22em]"
+        >
+          Abrir o Regimento Interno (PDF)
+        </a>
+      </div>
+
+      <dl class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5 m-0">
+        {regras.map((r) => (
+          <div class="space-y-1">
+            <dt class="space-y-1">
+              <span class="font-heading text-xs font-bold uppercase tracking-[0.04em] tabular-nums text-secondary block">{r.ref}</span>
+              <span class="font-heading text-lg font-bold text-foreground block">{r.titulo}</span>
+            </dt>
+            <dd class="m-0 text-base leading-relaxed text-muted-foreground max-w-[68ch]">{r.texto}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <p class="m-0 text-sm text-foreground max-w-[68ch]">
+        Quer conferir as contas da gestão atual? Faça um requerimento formal à gestão do CAGP citando o Art. 15, V. O CAGP ainda não tem um e-mail público para isso.
+      </p>
+    </section>
+
+    <!-- Como a Semente vai prestar contas (proposta 1 da carta + o que o portal já faz) -->
+    <section aria-labelledby="heading-como-vai-ser" class="space-y-4">
+      <h2 id="heading-como-vai-ser" class="font-heading text-xl font-bold text-foreground m-0 border-b-2 border-border pb-2">
+        Como a Semente vai prestar contas
+      </h2>
+      <dl class="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-5 m-0">
+        {comoVaiSer.map((c) => (
+          <div class="space-y-1">
+            <dt class="font-heading text-lg font-bold text-foreground">{c.quando}</dt>
+            <dd class="m-0 text-base leading-relaxed text-muted-foreground max-w-[46ch]">{c.oQue}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+
+    <!-- O portal, com números de exemplo -->
+    <section aria-labelledby="heading-demonstracao" class="space-y-4" data-tour="klaus">
+      <div class="border-b-2 border-border pb-2 flex flex-wrap items-end justify-between gap-3">
+        <h2 id="heading-demonstracao" class="font-heading text-xl font-bold text-foreground m-0">
+          O portal, com números de exemplo
+        </h2>
+        <a href={route('/chapa-semente')} class="text-sm font-bold text-primary underline underline-offset-[0.22em]">
+          Ver a proposta da Chapa Semente
+        </a>
+      </div>
+      <CagpTransparenciaPortal client:visible />
+    </section>
+  </div>
+</BaseLayout>

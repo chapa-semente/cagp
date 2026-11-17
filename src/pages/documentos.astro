@@ -1,0 +1,83 @@
+---
+// documentos.astro — Central de Acervo de Documentos Oficiais (Eixo 4)
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/ui/PageHeader.astro';
+import SegmentedControl from '../components/ui/SegmentedControl.astro';
+import JourneyNav from '../components/ui/JourneyNav.astro';
+import DocumentosCentralOverview from '../components/features/documentos/DocumentosCentralOverview.astro';
+import DocumentosAtosRegulamentares from '../components/features/documentos/atos/DocumentosAtosRegulamentares.astro';
+import DocumentosFormulariosOficiais from '../components/features/documentos/formularios/DocumentosFormulariosOficiais.astro';
+import DocumentosDrcaPrazos from '../components/features/documentos/drca/DocumentosDrcaPrazos.astro';
+import { DocumentosInteractiveSearch } from '../components/features/documentos/DocumentosInteractiveSearch';
+import DocumentosMaisPedidos from '../components/features/guias/DocumentosMaisPedidos.astro';
+
+const tabs = [
+  { id: 'v0', shortLabel: 'Mais pedidos', fullLabel: 'Os mais pedidos', hash: '#visao-geral' },
+  { id: 'v1', shortLabel: 'Normas', fullLabel: 'Normas do curso', hash: '#atos' },
+  { id: 'v2', shortLabel: 'Formulários', fullLabel: 'Formulários e requerimentos', hash: '#formularios' },
+  { id: 'v3', shortLabel: 'DRCA', fullLabel: 'DRCA e prazos', hash: '#drca' },
+];
+
+const badges = [
+  { label: '80 Arquivos (73 PDFs • 7 DOCXs)', variant: 'red' as const, icon: 'bi-folder2-open' },
+  { label: 'Formulários Colegiado N-20229', variant: 'dark' as const, icon: 'bi-journal-check' },
+  { label: 'Processos DRCA / UFMG', variant: 'blue' as const, icon: 'bi-archive-fill' },
+  { label: 'Offline & Custo Zero', variant: 'gold' as const, icon: 'bi-cloud-check-fill' },
+];
+---
+
+<BaseLayout
+  title="Documentos"
+  description="Atos normativos, requerimentos acadêmicos, termos de estágio e processos do DRCA do curso de Gestão Pública UFMG."
+  mode="read"
+>
+  <PageHeader
+    title="Documentos"
+    subtitle="Normas, grades e formulários oficiais em PDF. Achou o que pediram no grupo? Manda o link."
+    badges={badges}
+    mode="read"
+  />
+
+  <SegmentedControl tabs={tabs} defaultTab="v0" />
+
+  <!-- Sub-view 0: Visão Geral do Eixo 4 (Acervo) -->
+  <section id="ws-panel-v0" class="cagp-workspace-view space-y-8" data-ws-panel="v0" data-context-type="doc-template">
+    <div id="visao-geral" class="cagp-anchor-target scroll-mt-24"></div>
+    <!-- A aba se chama "Mais pedidos": é a mesma lista da aba Guias, de uma fonte só. -->
+    <DocumentosMaisPedidos naCentral />
+    <DocumentosInteractiveSearch client:visible />
+    <DocumentosCentralOverview />
+  </section>
+
+  <!-- Sub-view 1: Atos Normativos -->
+  <section id="ws-panel-v1" class="cagp-workspace-view space-y-4" data-ws-panel="v1" data-context-type="doc-template" hidden>
+    <div id="atos" class="cagp-anchor-target scroll-mt-24"></div>
+    <DocumentosAtosRegulamentares />
+  </section>
+
+  <!-- Sub-view 2: Formulários Oficiais -->
+  <section id="ws-panel-v2" class="cagp-workspace-view" data-ws-panel="v2" hidden>
+    <div id="formularios" class="cagp-anchor-target scroll-mt-24"></div>
+    <DocumentosFormulariosOficiais />
+  </section>
+
+  <!-- Sub-view 3: Processos DRCA & Prazos -->
+  <section id="ws-panel-v3" class="cagp-workspace-view" data-ws-panel="v3" hidden>
+    <div id="drca" class="cagp-anchor-target scroll-mt-24"></div>
+    <DocumentosDrcaPrazos />
+  </section>
+
+  <!-- Journey Navigation Trail -->
+  <JourneyNav
+    prev={{
+      title: 'Trabalho de Conclusão de Curso (180h)',
+      href: '/tcc',
+      desc: 'Modalidades regimentais, termo de aceite e normas de defesa.',
+    }}
+    next={{
+      title: 'O Centro Acadêmico (CAGP)',
+      href: '/sobre',
+      desc: 'História dos Candangos, regimento interno e representação discente.',
+    }}
+  />
+</BaseLayout>

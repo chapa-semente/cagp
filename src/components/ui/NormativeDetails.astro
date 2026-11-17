@@ -1,0 +1,40 @@
+---
+// NormativeDetails.astro - Encapsulamento Neobrutalista de Textos Regimentais e Normas
+interface Props {
+  id?: string;
+  title: string;
+  badge?: string;
+  icon?: string;
+  open?: boolean;
+}
+
+const { id, title, badge, icon, open = false } = Astro.props;
+---
+
+<details id={id} class="cagp-normative-details bg-white border-[3px] border-border rounded-xl my-3 overflow-hidden transition-all shadow font-sans" open={open}>
+  <summary class="px-4 py-3 min-h-[44px] cursor-pointer font-heading font-extrabold text-sm uppercase text-foreground bg-white hover:bg-muted flex items-center justify-between select-none transition-colors border-b-[3px] border-transparent open:border-border">
+    <span class="flex items-center gap-2.5">
+      <i class="bi bi-chevron-right text-xs transition-transform duration-200 details-icon text-foreground" aria-hidden="true"></i>
+      {icon && <i class={`bi ${icon} text-secondary text-base shrink-0`} aria-hidden="true"></i>}
+      <span class="leading-tight">{title}</span>
+    </span>
+    {badge && (
+      <span class="bg-secondary text-white font-heading font-bold text-xs uppercase px-2.5 py-0.5 rounded-lg border-2 border-black shadow-xs shrink-0 ml-2">
+        {badge}
+      </span>
+    )}
+  </summary>
+  <div class="px-5 py-4 text-sm text-foreground leading-relaxed border-t-[3px] border-border bg-white font-sans">
+    <slot />
+  </div>
+</details>
+
+<style>
+  /* Abrir/fechar segue a física global de <details> (src/lib/expandDetails.ts). */
+  .details-icon {
+    transition: transform var(--duration-expand, 320ms) var(--ease-snap, cubic-bezier(0.16, 1, 0.3, 1));
+  }
+  details[open]:not([data-expand-state="closing"]) summary .details-icon {
+    transform: rotate(90deg);
+  }
+</style>

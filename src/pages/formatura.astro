@@ -1,0 +1,48 @@
+---
+// src/pages/formatura.astro — Checklist da reta final (estágio, TCC e colação). Antiga /estagio-tcc (redirecionada no astro.config).
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/ui/PageHeader.astro';
+import JourneyNav from '../components/ui/JourneyNav.astro';
+import { FormandoRetaFinalHub } from '../components/features/carreira/FormandoRetaFinalHub';
+import { route } from '@/lib/paths';
+
+const badges = [
+  { label: 'Persona Formando (8º–10ºP)', variant: 'purple' as const, icon: 'bi-mortarboard-fill' },
+  { label: 'Aproveitamento Servidor (Art. 41)', variant: 'green' as const, icon: 'bi-file-earmark-check-fill' },
+  { label: 'Estágio 300h + TCC 180h', variant: 'red' as const, icon: 'bi-briefcase-fill' },
+  { label: 'Salvo só neste celular', variant: 'gold' as const, icon: 'bi-shield-check' },
+];
+---
+
+<BaseLayout
+  title="Formatura e colação"
+  description="Painel visual unificado para a persona Formando em Gestão Pública na UFMG: checklist animado de colação de grau, Estágio 300h, Aproveitamento Servidor (Art. 41) e TCC (180h)."
+  mode="operate"
+>
+  <div class="space-y-6 max-w-6xl mx-auto font-sans">
+    <PageHeader
+      axisId="curso"
+      mode="operate"
+      condensed={true}
+      showAxisNav={false}
+      title="Formatura e colação"
+      subtitle="O que falta para se formar: estágio, TCC e inscrição na colação de grau. Seu progresso fica salvo neste celular."
+      badges={badges}
+    />
+
+    <div data-tour="livia"><FormandoRetaFinalHub client:load /></div>
+
+    <JourneyNav
+      prev={{
+        title: 'Trabalho de Conclusão de Curso (180h)',
+        href: '/tcc',
+        desc: 'Compare Monografia vs Artigo Científico (Art. 19) e veja a linha do tempo de defesa.',
+      }}
+      next={{
+        title: 'Hub de Carreira, Vagas & Banco de Talentos GP',
+        href: '/carreira',
+        desc: 'Conecte-se às Propostas 9, 11 e 12 da Chapa Semente, editais de estágio e Banco de Talentos.',
+      }}
+    />
+  </div>
+</BaseLayout>

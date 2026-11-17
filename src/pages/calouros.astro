@@ -1,0 +1,84 @@
+---
+// calouros.astro — Guia do Calouro. Estrutura padrão do eixo Acolhimento:
+// cabeçalho compacto → faixa do eixo → abas fixas → painel → navegação anterior/próxima.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/ui/PageHeader.astro';
+import SegmentedControl from '../components/ui/SegmentedControl.astro';
+import JourneyNav from '../components/ui/JourneyNav.astro';
+import CalouroCentralOverview from '../components/features/calouros/CalouroCentralOverview.astro';
+import { CalouroChecklistCore } from '../components/features/calouros/checklist/CalouroChecklistCore';
+import CalourosVideos from '../components/features/calouros/CalourosVideos.astro';
+import CalouroEspacosCore from '../components/features/calouros/espacos/CalouroEspacosCore.astro';
+import { PAGINAS_ACOLHIMENTO as P } from '@/data/acolhimento';
+
+const tabs = [
+  { id: 'v0', shortLabel: 'Começo', fullLabel: 'Primeiros passos', hash: '#visao-geral' },
+  { id: 'v1', shortLabel: 'Checklist', fullLabel: 'Checklist e vídeos', hash: '#checklist' },
+  { id: 'v2', shortLabel: 'Salas', fullLabel: 'Salas da FAFICH', hash: '#espacos' },
+];
+
+const badges = [
+  { label: 'Primeiros 30 dias', variant: 'purple' as const, icon: 'bi-backpack' },
+];
+import HubItemList from '@/components/shell/HubItemList.astro';
+import { getItemByPath } from '@/lib/navigationRegistry';
+import { route } from '@/lib/paths';
+
+const primeiraSemana = ['/sistemas', '/carteirinha', '/biblioteca', '/mapas', '/emergencia'].flatMap(
+  (caminho) => getItemByPath(route(caminho))?.item ?? [],
+);
+---
+
+<BaseLayout
+  title={P.calouros.titulo}
+  description="O que funciona hoje à noite na FAFICH, checklist dos primeiros 30 dias na UFMG, salas do curso, jantar no RU Setorial II (17h10–19h30), circular e secretaria F-2039."
+  mode="operate"
+>
+  <PageHeader
+    title={P.calouros.titulo}
+    subtitle="O que funciona hoje à noite, os 10 passos dos primeiros 30 dias e onde fica cada sala da FAFICH."
+    badges={badges}
+    axisId="guias"
+    activeId="curso-calouros"
+    mode="operate"
+    condensed={true}
+  />
+
+  <SegmentedControl tabs={tabs} defaultTab="v0" />
+
+  <section id="ws-panel-v0" class="cagp-workspace-view" data-ws-panel="v0" data-context-type="checklist">
+    <div id="visao-geral" class="cagp-anchor-target"></div>
+    <h2 class="sr-only">Hoje e primeiros passos</h2>
+    <CalouroCentralOverview />
+    {/* Portas para os guias da vida na UFMG (13/11/2026): o que todo calouro resolve na primeira semana. */}
+    <div class="mt-10">
+      <HubItemList items={primeiraSemana} heading="Primeira semana na UFMG" headingId="calouros-primeira-semana" />
+    </div>
+  </section>
+
+  <section id="ws-panel-v1" class="cagp-workspace-view space-y-6" data-ws-panel="v1" data-context-type="checklist" data-tour="alice" hidden>
+    <div id="checklist" class="cagp-anchor-target"></div>
+    <h2 class="sr-only">Checklist e vídeos</h2>
+    <CalouroChecklistCore client:visible />
+    <CalourosVideos />
+  </section>
+
+  <section id="ws-panel-v2" class="cagp-workspace-view" data-ws-panel="v2" hidden>
+    <div id="espacos" class="cagp-anchor-target"></div>
+    <h2 class="sr-only">Salas da FAFICH</h2>
+    <CalouroEspacosCore />
+  </section>
+
+  <JourneyNav
+    prev={{
+      title: P.curso.titulo,
+      href: P.curso.href,
+      desc: 'Quem atende, história do curso, egressos e Colegiado.',
+    }}
+    next={{
+      title: P.permanencia.titulo,
+      href: P.permanencia.href,
+      desc: 'Programas da FUMP, como pedir e o guia do turno noturno.',
+    }}
+  />
+</BaseLayout>

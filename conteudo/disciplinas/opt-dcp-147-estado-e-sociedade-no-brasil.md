@@ -1,0 +1,13 @@
+---
+codigo: "DCP 147"
+nome: "ESTADO E SOCIEDADE NO BRASIL"
+natureza: "optativa"
+ch: 60
+modulo: "Optativa"
+preRequisitos: []
+ementa: "Teses sobre os fundamentos do Estado brasileiro nos períodos imperial e republicano. Evolução das relações entre Estado e sociedade no período republicano. Os desafios do desenvolvimento: a questão étnico-racial, a questão agrária, a questão social, a questão socioambiental."
+---
+
+## Ementa Oficial
+
+Teses sobre os fundamentos do Estado brasileiro nos períodos imperial e republicano. Evolução das relações entre Estado e sociedade no período republicano. Os desafios do desenvolvimento: a questão étnico-racial, a questão agrária, a questão social, a questão socioambiental.

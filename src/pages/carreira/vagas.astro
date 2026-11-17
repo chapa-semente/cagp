@@ -1,0 +1,52 @@
+---
+// src/pages/carreira/vagas.astro — Mural Completo de Vagas & Editais Públicos (Super App CAGP UFMG)
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+import JourneyNav from '@/components/ui/JourneyNav.astro';
+import { CarreiraVagasMural } from '@/components/features/carreira/CarreiraVagasMural';
+import VagasReais from '@/components/features/carreira/VagasReais.astro';
+import { route } from '@/lib/paths';
+
+const badges = [
+  { label: 'Proposta 12', variant: 'orange' as const, icon: 'bi-megaphone-fill' },
+  { label: 'Lei Federal 11.788/2008', variant: 'blue' as const, icon: 'bi-journal-check' },
+  { label: 'Órgãos Públicos & OSCs', variant: 'green' as const, icon: 'bi-building-check' },
+  { label: 'Atualização Permanente', variant: 'purple' as const, icon: 'bi-broadcast' },
+];
+---
+
+<BaseLayout
+  title="Vagas e editais"
+  description="Vagas reais que chegam no grupo Conexão Gestão Pública e o modelo do mural de estágios e editais da Proposta 12 da Chapa Semente."
+  mode="read"
+>
+  <div class="space-y-6 max-w-6xl mx-auto">
+    <PageHeader
+      axisId="mais"
+      mode="read"
+      condensed={true}
+      showAxisNav={false}
+      title="Vagas e editais"
+      subtitle="Vagas reais que chegam no grupo do curso e o modelo do mural que a chapa propõe (Proposta 12)."
+      badges={badges}
+    />
+
+    <VagasReais />
+
+    <h2 class="font-heading text-xl font-bold text-foreground m-0 pt-4">Como o mural pode ficar</h2>
+    <CarreiraVagasMural client:load />
+
+    <JourneyNav
+      prev={{
+        title: 'Carreira e vagas',
+        href: '/carreira',
+        desc: 'Retorne ao painel central com visão geral de vagas, Empresa Júnior e Banco de Talentos.',
+      }}
+      next={{
+        title: 'Banco de talentos',
+        href: '/carreira/talentos',
+        desc: 'Cadastre suas competências técnicas e exporte seu currículo para processos seletivos.',
+      }}
+    />
+  </div>
+</BaseLayout>

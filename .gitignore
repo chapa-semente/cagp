@@ -1,0 +1,38 @@
+# O repositório guarda só o que o site precisa para compilar e ser publicado no GitHub Pages.
+#
+# A regra é ao contrário do costume: TUDO o que está na raiz fica de fora, menos o que é liberado
+# na lista abaixo. Assim um `git add -A` nunca leva junto material de apoio (referências, rascunhos,
+# kit visual, análises, documentos internos, ferramentas). Esse material continua na pasta do
+# projeto; só não sobe para o GitHub.
+#
+# Precisa versionar uma pasta ou arquivo novo da raiz? Acrescente uma linha `!/nome` na lista.
+/*
+
+# ---- O que sobe ----
+# Configuração do projeto e do deploy
+!/.gitignore
+!/.github/
+!/astro.config.mjs
+!/package.json
+!/pnpm-lock.yaml
+!/pnpm-workspace.yaml
+!/tsconfig.json
+
+# O site: código, arquivos servidos e conteúdo em Markdown
+!/src/
+!/public/
+!/conteudo/
+
+# Código que mantém o site: o deploy roda scripts/generate-sw-manifest.mjs, e os outros scripts
+# geram arquivos que o site serve (banners de link, ícones, capturas do tour). Os testes conferem isso.
+!/scripts/
+!/tests/
+!/vitest.config.ts
+
+# ---- Dentro do que sobe, o que nunca entra ----
+node_modules/
+dist/
+.astro/
+*.tsbuildinfo
+.DS_Store
+*~

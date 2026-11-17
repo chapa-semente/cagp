@@ -1,0 +1,500 @@
+/* components.css - Componentes Neobrutalistas Canônicos (rL9Ap + BoldKit + Tri-Layer CAGP/Semente/UFMG) */
+
+/* ==========================================================================
+   1. Botões Táteis Neobrutalistas (rL9Ap: 3px border, 0.75rem radius, hard shadow)
+   ========================================================================== */
+
+.cagp-btn,
+.btn,
+.cagp-doc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-heading, 'Poppins', sans-serif);
+  font-weight: 800;
+  font-size: 0.88rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  padding: 0.6rem 1.25rem;
+  min-height: 44px;
+  border-radius: var(--radius, 0.75rem);
+  text-decoration: none !important;
+  cursor: pointer;
+  border: var(--border-w, 3px) solid var(--border, #1F1F1F);
+  box-shadow: var(--shadow-md, 4px 4px 0 0 #1F1F1F);
+  touch-action: manipulation;
+  transition: transform 0.15s var(--bk-ease-snap, cubic-bezier(0.16, 1, 0.3, 1)),
+              box-shadow 0.15s var(--bk-ease-snap, cubic-bezier(0.16, 1, 0.3, 1)),
+              background-color 0.15s ease,
+              color 0.15s ease;
+}
+
+.cagp-btn:hover,
+.btn:hover,
+.cagp-doc-btn:hover {
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-sm, 2px 2px 0 0 #1F1F1F);
+}
+
+.cagp-btn:active,
+.btn:active,
+.cagp-doc-btn:active {
+  transform: translate(4px, 4px) !important;
+  box-shadow: none !important;
+}
+
+.cagp-btn-primary,
+.btn-primary,
+.cagp-doc-btn-primary {
+  background-color: var(--primary, #5B2A85);
+  color: var(--primary-foreground, #FFFFFF) !important;
+  border: var(--border-w, 3px) solid var(--border, #1F1F1F);
+  box-shadow: var(--shadow-md, 4px 4px 0 0 #1F1F1F);
+  border-radius: var(--radius, 0.75rem);
+}
+
+.cagp-btn-primary:hover,
+.btn-primary:hover,
+.cagp-doc-btn-primary:hover {
+  background-color: var(--primary-hover, #4A216E);
+  color: #FFFFFF !important;
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-sm, 2px 2px 0 0 #1F1F1F);
+}
+
+.cagp-btn-secondary,
+.btn-secondary,
+.cagp-doc-btn-secondary {
+  background-color: var(--secondary, #266264);
+  color: var(--secondary-foreground, #FFFFFF) !important;
+  border: var(--border-w, 3px) solid var(--border, #1F1F1F);
+  box-shadow: var(--shadow-md, 4px 4px 0 0 #1F1F1F);
+  border-radius: var(--radius, 0.75rem);
+}
+
+.cagp-btn-secondary:hover,
+.btn-secondary:hover,
+.cagp-doc-btn-secondary:hover {
+  background-color: var(--secondary-hover, #1E4A4C);
+  color: #FFFFFF !important;
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-sm, 2px 2px 0 0 #1F1F1F);
+}
+
+.cagp-btn-accent,
+.btn-accent {
+  background-color: var(--accent, #FE8812);
+  color: var(--accent-foreground, #000000) !important;
+  border: var(--border-w, 3px) solid var(--border, #1F1F1F);
+  box-shadow: var(--shadow-md, 4px 4px 0 0 #1F1F1F);
+  border-radius: var(--radius, 0.75rem);
+}
+
+.cagp-btn-accent:hover,
+.btn-accent:hover {
+  background-color: var(--accent-hover, #E07406);
+  color: #000000 !important;
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-sm, 2px 2px 0 0 #1F1F1F);
+}
+
+.cagp-btn-outline,
+.btn-outline,
+.cagp-doc-btn-outline {
+  background-color: #FFFFFF;
+  color: var(--foreground, #1F1F1F) !important;
+  border: var(--border-w, 3px) solid var(--border, #1F1F1F);
+  box-shadow: var(--shadow-md, 4px 4px 0 0 #1F1F1F);
+  border-radius: var(--radius, 0.75rem);
+}
+
+.cagp-btn-outline:hover,
+.btn-outline:hover,
+.cagp-doc-btn-outline:hover {
+  background-color: var(--muted, #E7E3D8);
+  color: var(--foreground, #1F1F1F) !important;
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-sm, 2px 2px 0 0 #1F1F1F);
+}
+
+/* ==========================================================================
+   2. Action Tiles, Tool Boxes & Cards (.cagp-action-tile, .cagp-tool-box, .cagp-card)
+   ========================================================================== */
+
+.cagp-action-tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 1.15rem;
+  border: var(--border-w, 3px) solid var(--border, #1F1F1F);
+  border-radius: var(--radius, 0.75rem);
+  background-color: #FFFFFF;
+  box-shadow: var(--shadow, 3px 3px 0 0 #1F1F1F);
+  text-decoration: none !important;
+  color: var(--foreground, #1F1F1F) !important;
+  transition: transform 0.15s var(--bk-ease-snap, cubic-bezier(0.16, 1, 0.3, 1)),
+              box-shadow 0.15s var(--bk-ease-snap, cubic-bezier(0.16, 1, 0.3, 1)),
+              background-color 0.15s ease;
+}
+
+.cagp-action-tile:hover {
+  background-color: #FFFFFF;
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-lg, 6px 6px 0 0 #1F1F1F);
+}
+
+.cagp-action-tile:active {
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-xs, 1px 1px 0 0 #1F1F1F);
+}
+
+.cagp-tool-box {
+  border: var(--border-w, 3px) solid var(--border, #1F1F1F);
+  border-radius: var(--radius, 0.75rem);
+  background-color: #FFFFFF;
+  box-shadow: var(--shadow-md, 4px 4px 0 0 #1F1F1F);
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.cagp-tool-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--border, #1F1F1F);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+  gap: 0.75rem;
+}
+
+.cagp-card,
+.card {
+  border: var(--border-w, 3px) solid var(--border, #1F1F1F);
+  border-radius: var(--radius, 0.75rem);
+  background-color: var(--card, #FFFFFF);
+  color: var(--card-foreground, #1F1F1F);
+  box-shadow: var(--shadow-md, 4px 4px 0 0 #1F1F1F);
+  transition: transform 0.15s var(--bk-ease-snap, cubic-bezier(0.16, 1, 0.3, 1)),
+              box-shadow 0.15s var(--bk-ease-snap, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.cagp-card:hover,
+.card:hover {
+  box-shadow: var(--shadow-lg, 6px 6px 0 0 #1F1F1F);
+  transform: translate(-1.5px, -1.5px);
+}
+
+/* ==========================================================================
+   3. Badges Semânticos Neobrutalistas (Eyebrows & Metadata)
+   ========================================================================== */
+
+.cagp-badge,
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-heading, 'Poppins', sans-serif);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 0.25rem 0.65rem;
+  border-radius: 8px;
+  border: 3px solid var(--border, #1F1F1F);
+  box-shadow: var(--shadow-sm, 2px 2px 0 0 #1F1F1F);
+  line-height: 1.2;
+}
+
+.cagp-badge-red {
+  background-color: var(--cagp-rubro, #9E2424);
+  color: #FFFFFF;
+}
+
+.cagp-badge-purple {
+  background-color: #5B2A85;
+  color: #FFFFFF;
+}
+
+.cagp-badge-orange {
+  background-color: #FE8812;
+  color: #000000;
+}
+
+.cagp-badge-dark {
+  background-color: #FFFFFF;
+  color: #1F1F1F;
+}
+
+.cagp-badge-blue {
+  background-color: #DBEAFE;
+  color: #005A9C;
+}
+
+.cagp-badge-green {
+  background-color: #DCFCE7;
+  color: #166534;
+}
+
+.cagp-badge-gold {
+  background-color: #FE8812;
+  color: #000000;
+}
+
+/* Stamp Badges (Carimbos Brutalistas com Rotação & Sombra Dura) */
+.cagp-stamp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-heading, 'Poppins', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.28rem 0.65rem;
+  border: 3px solid var(--border, #1F1F1F);
+  box-shadow: var(--shadow-sm, 2px 2px 0 0 #1F1F1F);
+  transform: rotate(-1.5deg);
+  border-radius: 8px;
+  line-height: 1.2;
+  animation: bk-stamp-in 0.24s var(--bk-ease-snap, cubic-bezier(0.16, 1, 0.3, 1)) forwards;
+  will-change: transform, opacity;
+}
+.cagp-stamp-badge.is-visto {
+  color: #FFFFFF;
+  background-color: #9E2424;
+  transform: rotate(-1.5deg);
+}
+.cagp-stamp-badge.is-deferido,
+.cagp-stamp-badge.is-feito {
+  color: #166534;
+  background-color: #DCFCE7;
+  transform: rotate(-2deg);
+}
+.cagp-stamp-badge.is-teto {
+  color: #FFFFFF;
+  background-color: #5B2A85;
+  transform: rotate(1.5deg);
+}
+.cagp-stamp-badge.is-indeferido {
+  color: #FFFFFF;
+  background-color: #B91C1C;
+  transform: rotate(2deg);
+}
+.cagp-stamp-badge.is-homologado {
+  color: #000000;
+  background-color: #FE8812;
+  transform: rotate(-1.5deg);
+}
+
+/* Superfície Sólida Opaca Neobrutalista */
+.cagp-glass-surface {
+  background-color: #FFFFFF;
+  border: var(--border-w, 3px) solid var(--border, #1F1F1F);
+  box-shadow: var(--shadow-md, 4px 4px 0 0 #1F1F1F);
+}
+
+/* Faixa de Contexto de Eixo (.cagp-axis-pill-strip) */
+.cagp-axis-pill-strip {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--foreground, #1F1F1F);
+  background-color: #FFFFFF;
+  border: 3px solid var(--border, #1F1F1F);
+  box-shadow: var(--shadow-xs, 1px 1px 0 0 #1F1F1F);
+  border-radius: 16px;
+  padding: 0.35rem 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Notificação Cápsula Tátil Neobrutalista Integral */
+.cagp-toast {
+  position: fixed;
+  top: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(-130%);
+  z-index: 9999;
+  background-color: #FFFFFF;
+  color: var(--foreground, #1F1F1F);
+  border: var(--border-w, 3px) solid var(--border, #1F1F1F);
+  box-shadow: var(--shadow-lg, 6px 6px 0 0 #1F1F1F);
+  border-radius: var(--radius, 0.75rem);
+  padding: 0.65rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-heading, 'Poppins', sans-serif);
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: -0.01em;
+  pointer-events: none;
+  opacity: 0;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+  max-width: min(92%, 460px);
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+.cagp-toast.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.cagp-toast-icon {
+  font-size: 1.1rem;
+  color: var(--primary, #5B2A85);
+  flex-shrink: 0;
+}
+
+html[data-a11y-contrast="high"] .cagp-toast {
+  background-color: #000000 !important;
+  border-color: #ffff00 !important;
+  color: #ffff00 !important;
+  box-shadow: none !important;
+}
+
+/* Hierarquia de Cards Aninhados Neobrutalistas */
+.cagp-tool-box .cagp-card,
+.cagp-card .cagp-card,
+.card .card {
+  border: 3px solid var(--border, #1F1F1F) !important;
+  background-color: var(--background, #F4F2EC) !important;
+  box-shadow: var(--shadow-sm, 2px 2px 0 0 #1F1F1F) !important;
+}
+
+.cagp-tool-box .cagp-card:hover,
+.cagp-card .cagp-card:hover,
+.card .card:hover {
+  background-color: #FFFFFF !important;
+  box-shadow: var(--shadow, 3px 3px 0 0 #1F1F1F) !important;
+  transform: translate(-1px, -1px) !important;
+}
+
+/* ==========================================================================
+   4. Rolagem Horizontal Suave com Máscara (.scroll-mask-x) — Mobile 320px-430px
+   ========================================================================== */
+.scroll-mask-x {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  /* O fade só aparece na borda que tem conteúdo escondido: no início da rolagem a esquerda fica nítida,
+     no fim a direita. Guiado pela própria rolagem (scroll-driven); sem suporte, só a direita esmaece. */
+  --mask-l: 0px;
+  --mask-r: 24px;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--mask-l), #000 calc(100% - var(--mask-r)), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 var(--mask-l), #000 calc(100% - var(--mask-r)), transparent 100%);
+}
+@property --mask-l { syntax: '<length>'; inherits: false; initial-value: 0px; }
+@property --mask-r { syntax: '<length>'; inherits: false; initial-value: 24px; }
+@supports (animation-timeline: scroll()) {
+  @keyframes cagpScrollMaskX {
+    0% { --mask-l: 0px; --mask-r: 24px; }
+    8%, 92% { --mask-l: 24px; --mask-r: 24px; }
+    100% { --mask-l: 24px; --mask-r: 0px; }
+  }
+  .scroll-mask-x {
+    animation: cagpScrollMaskX linear both;
+    animation-timeline: var(--cagp-tl, scroll(self inline));
+  }
+}
+.scroll-mask-x::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* ==========================================================================
+   Chip de filtro (DESIGN.md › Chips / Badges › Filtro). Um só no site inteiro:
+   repouso branco com sombra Chip; selecionado = roxo ativo, texto branco, afundado na sombra.
+   ========================================================================== */
+.cagp-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  flex-shrink: 0;
+  min-height: 44px;
+  padding: 0.375rem 0.875rem;
+  border: 3px solid var(--color-border);
+  border-radius: 999px;
+  background: #FFFFFF;
+  color: var(--color-foreground);
+  font-family: var(--font-heading);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: var(--shadow-chip);
+  transition:
+    transform var(--duration-press) var(--ease-spring-snappy),
+    box-shadow var(--duration-press) var(--ease-spring-snappy),
+    background-color var(--duration-press) var(--ease-snap),
+    color var(--duration-press) var(--ease-snap);
+}
+.cagp-chip:hover { background: var(--color-primary-tint); }
+.cagp-chip:active { transform: translate(2px, 2px); box-shadow: none; }
+.cagp-chip:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.cagp-chip[aria-pressed="true"],
+.cagp-chip.is-selected {
+  background: var(--color-active);
+  color: var(--color-active-foreground);
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+.cagp-chip-count {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.8;
+}
+
+/* Sticker SIMULADO (DESIGN.md › Carimbos, sticker SIMULADO): colado em todo item fictício. */
+.cagp-sticker-simulado {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 0.125rem 0.5rem;
+  border: 2px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-warning-tint);
+  color: var(--color-foreground);
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+/* Link de pular: só aparece com foco de teclado, como um botão do sistema no canto. */
+.cagp-skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 2000;
+  padding: 0.75rem 1rem;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  border: 3px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-accent);
+  color: var(--color-foreground);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 3px 3px 0 0 var(--color-border);
+  translate: 0 -200%;
+  transition: translate var(--duration-press) var(--ease-spring-snappy);
+}
+.cagp-skip-link:focus-visible {
+  translate: 0 0;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}

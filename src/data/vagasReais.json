@@ -1,0 +1,88 @@
+{
+  "_comentario": "Vagas reais recebidas no grupo de WhatsApp 'Conexão Gestão Pública'. O campo texto é o anúncio como chegou, sem edição: não reescreva. Os fatos são trechos do próprio anúncio. prazo (AAAA-MM-DDTHH:MM, horário de Brasília) marca a vaga como encerrada sozinho; sem prazo no anúncio, deixe null. Para adicionar uma vaga, copie um item.",
+  "fonte": "Grupo Conexão Gestão Pública",
+  "vagas": [
+    {
+      "id": "seplag-compras-contratos-convenios",
+      "tipo": "Estágio",
+      "orgao": "Seplag-MG",
+      "titulo": "Estágio na Diretoria de Compras, Contratos e Convênios da Seplag-MG",
+      "fatos": [
+        [
+          "Bolsa",
+          "R$ 1.365,88/mês + R$ 12,50/dia de auxílio transporte"
+        ],
+        [
+          "Quem pode",
+          "Estudantes cursando entre 5º e 8º período"
+        ],
+        [
+          "Regime",
+          "Teletrabalho parcial, 3 dias presenciais na Cidade Administrativa"
+        ]
+      ],
+      "prazo": "2026-11-20T23:59",
+      "prazoTexto": "até 20/11 (sexta-feira)",
+      "acao": {
+        "rotulo": "Candidatar-se na Agiel",
+        "href": "https://www.agiel.com.br/estudante/vagas/?codigo=MG2026001904"
+      },
+      "texto": "📣 Oportunidade de ESTÁGIO na Diretoria de Compras, Contratos e Convênios da Seplag-MG\n \n💼 Atribuições:\n- Apoiar a formalização e alterações de convênios, acordos de cooperação técnica, acordos de cooperação com Organizações da Sociedade Civil e instrumentos congêneres.\n \n💰 Bolsa auxílio: R$ 1.365,88/mês (bolsa estágio) + R$ 12,50/dia (auxílio transporte)\n \n🖥️ Regime de trabalho: Teletrabalho parcial, com obrigatoriedade de comparecimento presencial 3x na Cidade Administrativa, nas terças, quartas e quintas-feiras\n \n⚠️ Pré-requisitos:\n- Estudantes cursando entre 5º e 8º período;\n- Disponibilidade para estagiar por pelo menos 1 ano;\n- Disponibilidade para estagiar no período da tarde;\n- Conhecimento ou interesse na Lei Federal nº 14.133/2021 (Lei de Licitações e Contratos Administrativos).\n \n📩 Candidatura: https://www.agiel.com.br/estudante/vagas/?codigo=MG2026001904 (vaga de estágio MG2026001904) até 20/11 (sexta-feira)"
+    },
+    {
+      "id": "sindipetro-assistente-administrativo",
+      "tipo": "Emprego (CLT)",
+      "orgao": "Sindipetro/MG",
+      "titulo": "Assistente Administrativo no Sindipetro/MG (Edital 07/2026)",
+      "fatos": [
+        [
+          "Remuneração",
+          "Salário bruto de R$4.373,05"
+        ],
+        [
+          "Jornada",
+          "40 horas semanais, regido pela CLT"
+        ],
+        [
+          "Local",
+          "Avenida Barbacena, 242 - Barro Preto, Belo Horizonte/MG"
+        ]
+      ],
+      "prazo": "2026-11-17T23:59",
+      "prazoTexto": "17 de novembro de 2026, até às 23h59",
+      "acao": {
+        "rotulo": "Ver o edital",
+        "href": "https://sindipetro.org/processoseletivo"
+      },
+      "texto": "O Sindipetro/MG torna público o Edital 07/2026 para a contratação de um(a) Assistente Administrativo.\n\nA oportunidade é destinada a profissionais com perfil voltado para a gestão administrativa e financeira, que desejam atuar no suporte direto às nossas secretarias e no fortalecimento da estrutura sindical.\n\nDetalhes da Vaga e Condições de Trabalho\n* Cargo: Assistente Administrativo (1 vaga imediata e formação de cadastro de reserva)\n\n* Remuneração: Salário bruto de R$4.373,05\n\n* Benefícios: Vale Refeição/Alimentação, Gympass/Wellhub, Plano de Saúde e Vale Transporte/Auxílio Combustível\n\n* Jornada e Regime: 40 horas semanais, regido pela CLT\n\n* Local de atuação: Sede do Sindipetro/MG (Avenida Barbacena, 242 - Barro Preto, Belo Horizonte/MG)\n\n* Prazo de inscrição: 17 de novembro de 2026, até às 23h59.\n\nConvidamos a categoria, nossos filiados e a comunidade em geral a compartilharem esta oportunidade com amigos, familiares e conhecidos que se enquadrem no perfil solicitado.\n\n📄 Para acessar o edital na íntegra, conferir as competências desejáveis e o detalhamento de todas as atividades, acesse *sindipetro.org/processoseletivo*"
+    },
+    {
+      "id": "prodemge-estagio",
+      "tipo": "Estágio",
+      "orgao": "Prodemge",
+      "titulo": "Vaga de estágio na Prodemge",
+      "recebidaEm": "2026-11-03",
+      "fatos": [
+        [
+          "Bolsa",
+          "R$ 1.559,70 por mês + R$ 100,00 por mês de auxílio transporte"
+        ],
+        [
+          "Quem pode",
+          "Estudantes cursando a partir do 3º período"
+        ],
+        [
+          "Horário",
+          "Segunda a sexta, das 08:00 às 14:00, 1 dia presencial às terças"
+        ]
+      ],
+      "prazo": null,
+      "prazoTexto": null,
+      "acao": {
+        "rotulo": "Mandar o currículo por e-mail",
+        "href": "mailto:reinaldo.nascimento@prodemge.gov.br?subject=Vaga%20de%20est%C3%A1gio%20-%20PRODEMGE"
+      },
+      "texto": "VAGA DE ESTÁGIO - PRODEMGE\n\nAtividades: - Apoio à elaboração e revisão de documentos como etp, tr e minutas técnicas;\n- Organização de documentos e acompanhamento dos fluxos dos processos;\n- Auxílio técnico nas etapas do processo de compras;\n- Apoio no controle de prazos, checklist e conformidade documental;\n- Apoiar na documentação de servidores e sistemas;\n- Interação com analistas responsáveis e áreas correlatas para ajustes e revisões;\n- Suporte na organização de pastas e versionamento de documentos.\nHorário do estágio: De Segunda a Sexta-feira, das 08:00 às 14:00 - Totalizando 30,00 horas semanais. (sendo 1 dia presencial ás terças feiras) \nBolsa Auxílio: R$ 1.559,70 por mês\nAuxílio Transporte: R$ 100,00 por mês\nBenefícios: - Seguro de vida\nPré-requisitos: Estudantes cursando a partir do 3º período;\nTer disponibilidade para estagiar por pelo menos 1 ano;\nConhecimento em Pacote Office:\nWord: nível básico;\nExcel: nível básico;\nPower Point: nível básico;\n- Conhecimentos necessários: Noções básicas de administração pública e/ou processos administrativos. - Familiaridade com elaboração e revisão de documentos (Word, Excel e PDF). - Conhecimento básico em termos como ETP (Estudo Técnico Preliminar) e TR (Termo de Referência) será um diferencial. - Desejável conhecimento em sistemas de compras públicas ou noções sobre processos de aquisição.\nEncaminhar currículo para: reinaldo.nascimento@prodemge.gov.br"
+    }
+  ]
+}

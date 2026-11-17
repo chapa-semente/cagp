@@ -1,0 +1,209 @@
+---
+// AlertaDoDia.astro — O alerta do alto do início (17/11/2026).
+//
+// Quando uma notícia de verdade tem `alerta` e um `evento` que ainda não acabou, ela sobe para cima
+// da cabeça da home: é a única coisa que passa na frente do lema. O desenho é o dos cartões de
+// "Hoje à noite" (ficha branca com faixa de cor), com a faixa em laranja e a capa do vídeo colada
+// torta por cima da faixa, como os prints do tour.
+//
+// Some sozinho: a home deixa de gerar o bloco quando `evento.fim` passa (src/lib/noticias.ts) e, na
+// página que já estava aberta ou em cache, o script abaixo esconde no mesmo instante. "Hoje" só
+// aparece no próprio dia, no horário de Brasília; sem JavaScript fica a data por extenso.
+import type { Noticia } from '@/lib/noticias';
+import { asset, route } from '@/lib/paths';
+
+interface Props {
+  noticia: Noticia;
+}
+
+const d = Astro.props.noticia.data;
+const ev = d.evento!;
+const al = d.alerta!;
+const href = route(`/noticias/${d.slug}`);
+---
+
+<section class="alerta-dia" aria-labelledby="alerta-dia-titulo" data-alerta-dia data-inicio={ev.inicio} data-fim={ev.fim}>
+  <p class="alerta-dia-faixa">
+    <i class="bi bi-megaphone-fill" aria-hidden="true"></i>
+    <span data-alerta-quando data-hoje={`Hoje · ${ev.hora}`}>{ev.dia} · {ev.hora}</span>
+  </p>
+
+  <div class="alerta-dia-corpo">
+    <div class="alerta-dia-texto">
+      <h2 id="alerta-dia-titulo">{al.titulo}</h2>
+      <p>{al.linha}</p>
+    </div>
+
+    {d.video && (
+      <a class="alerta-dia-video" href={`${href}#video`} aria-label={`Assistir: ${d.video.titulo} (${d.video.duracao})`}>
+        <img src={asset(d.video.miniatura ?? d.video.capa)} alt="" width="270" height="480" decoding="async" />
+        <span class="alerta-dia-play" aria-hidden="true"><i class="bi bi-play-fill"></i></span>
+      </a>
+    )}
+
+    <div class="alerta-dia-acoes">
+      <a class="sk-btn sk-btn-roxo" href={href}>
+        {al.botao}
+        <i class="bi bi-arrow-right" aria-hidden="true"></i>
+      </a>
+      {d.instagram && (
+        <a class="sk-btn alerta-dia-insta" href={d.instagram.url} target="_blank" rel="noopener noreferrer" aria-label="Ver o reel no Instagram">
+          <i class="bi bi-instagram" aria-hidden="true"></i>
+          <span>Instagram</span>
+        </a>
+      )}
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  // Depois do evento o alerta some; "Hoje" só vale no dia (horário de Brasília).
+  (function () {
+    function dia(t) {
+      return new Date(t).toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' });
+    }
+    function ajustar() {
+      var agora = Date.now();
+      document.querySelectorAll('[data-alerta-dia]').forEach(function (el) {
+        if (agora > Date.parse(el.getAttribute('data-fim'))) {
+          el.hidden = true;
+          return;
+        }
+        var quando = el.querySelector('[data-alerta-quando]');
+        if (quando && dia(agora) === dia(Date.parse(el.getAttribute('data-inicio')))) {
+          quando.textContent = quando.getAttribute('data-hoje');
+        }
+      });
+    }
+    ajustar();
+    document.addEventListener('astro:page-load', ajustar);
+  })();
+</script>
+
+<style is:global>
+  .alerta-dia {
+    position: relative;
+    margin-bottom: 2rem;
+    border: 3px solid var(--color-border);
+    border-radius: 16px;
+    background: #fff;
+    color: var(--color-foreground);
+    box-shadow: var(--shadow-xl);
+  }
+  .alerta-dia[hidden] { display: none; }
+
+  /* A faixa laranja: o mesmo cabeçalho de bloco pequeno dos cartões de "Hoje à noite". */
+  .alerta-dia-faixa {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0.5625rem 1rem;
+    border-radius: 13px 13px 0 0;
+    background: var(--color-accent);
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+  }
+  .alerta-dia-faixa i { font-size: 1.125rem; }
+
+  .alerta-dia-corpo {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'texto video'
+      'acoes acoes';
+    gap: 0.875rem;
+    padding: 0.875rem 1rem 1rem;
+    border-top: 3px solid var(--color-border);
+  }
+  .alerta-dia-texto { grid-area: texto; min-width: 0; }
+  .alerta-dia-texto h2 {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+  .alerta-dia-texto p {
+    margin: 0.375rem 0 0;
+    max-width: 52ch;
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: var(--color-content-secondary);
+    text-wrap: pretty;
+  }
+
+  /* A capa do vídeo: um print colado por cima da faixa, 3° torto. */
+  .alerta-dia-video {
+    grid-area: video;
+    position: relative;
+    z-index: 1;
+    align-self: start;
+    display: block;
+    width: 4.25rem;
+    aspect-ratio: 9 / 16;
+    margin-top: -2rem;
+    border: 3px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-foreground);
+    box-shadow: 3px 3px 0 0 var(--color-border);
+    overflow: hidden;
+    rotate: 3deg;
+    transition:
+      translate var(--duration-press) var(--ease-spring-snappy),
+      box-shadow var(--duration-press) var(--ease-spring-snappy);
+    animation: alerta-dia-cola var(--duration-spring) var(--ease-spring) 0.2s backwards;
+  }
+  .alerta-dia-video img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .alerta-dia-video:hover { translate: -1px -1px; box-shadow: 5px 5px 0 0 var(--color-border); }
+  .alerta-dia-video:active { translate: 3px 3px; box-shadow: 0 0 0 0 var(--color-border); }
+  .alerta-dia-video:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; }
+  .alerta-dia-play {
+    position: absolute;
+    right: 0.25rem;
+    bottom: 0.25rem;
+    display: grid;
+    place-items: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border: 2px solid var(--color-border);
+    border-radius: 11px 3px 11px 3px;
+    background: var(--color-accent);
+    color: var(--color-foreground);
+    font-size: 0.875rem;
+  }
+  @keyframes alerta-dia-cola {
+    from { opacity: 0; scale: 1.35; rotate: 12deg; }
+  }
+
+  /* No celular: o botão roxo ocupa a linha e o Instagram é um quadrado ao lado (o nome aparece a partir de 640px). */
+  .alerta-dia-acoes { grid-area: acoes; display: flex; align-items: center; gap: 0.75rem; padding-right: 4px; }
+  .alerta-dia-acoes .sk-btn-roxo { flex: 1 1 auto; justify-content: center; min-width: 0; padding-inline: 0.875rem; }
+  .alerta-dia-insta { flex: none; justify-content: center; width: 48px; padding-inline: 0; font-size: 1.25rem; }
+  .alerta-dia-insta span { display: none; }
+
+  @media (min-width: 640px) {
+    .alerta-dia { margin-bottom: 2.5rem; }
+    .alerta-dia-faixa { padding-inline: 1.5rem; }
+    .alerta-dia-corpo {
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      grid-template-areas: 'texto acoes video';
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1.125rem 1.5rem 1.25rem;
+    }
+    .alerta-dia-texto h2 { font-size: 1.5rem; }
+    .alerta-dia-texto p { font-size: 1rem; }
+    .alerta-dia-video { width: 4.75rem; margin-block: -2.75rem -0.25rem; }
+    .alerta-dia-acoes { flex-direction: column; align-items: stretch; gap: 0.75rem; padding-right: 0; }
+    .alerta-dia-insta { width: auto; padding-inline: 1.25rem; font-size: 0.875rem; }
+    .alerta-dia-insta span { display: inline; }
+    .alerta-dia-insta i { font-size: 1.125rem; }
+  }
+</style>

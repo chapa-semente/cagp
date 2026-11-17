@@ -1,0 +1,13 @@
+---
+codigo: "DCP 053"
+nome: "GENERO E POLITICAS PUBLICAS"
+natureza: "optativa"
+ch: 60
+modulo: "Optativa"
+preRequisitos: []
+ementa: "Estudo do processo de democratização e da luta de movimentos feministas e de movimentos de mulheres, desde os anos 80, no Brasil. Ênfase sobre o processo gradual de incorporação da problemática das desigualdades de gênero pela agenda governamental. Discussão da importância dos governos municipais, a partir da Constituição de 88, na redução das desigualdades de gênero. Agenda Governamental e gênero na perspectiva dos Direitos Humanos."
+---
+
+## Ementa Oficial
+
+Estudo do processo de democratização e da luta de movimentos feministas e de movimentos de mulheres, desde os anos 80, no Brasil. Ênfase sobre o processo gradual de incorporação da problemática das desigualdades de gênero pela agenda governamental. Discussão da importância dos governos municipais, a partir da Constituição de 88, na redução das desigualdades de gênero. Agenda Governamental e gênero na perspectiva dos Direitos Humanos.

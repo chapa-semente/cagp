@@ -1,0 +1,25 @@
+---
+// GritoDeVoto.astro — "Vote Chapa 2! Faz o S!" na caneta laranja (DESIGN.md › Grito de campanha).
+// É o letreiro de eleição do site: aparece onde a página pede o voto. O texto vem de
+// src/lib/chapaSementeData.ts (GRITO_VOTO, GRITO_S), nunca digitado na página.
+import { GRITO, GRITO_VOTO } from '@/lib/chapaSementeData';
+
+interface Props {
+  /** Sobre roxo, petróleo ou grafite: sem contorno, com sombra dura. */
+  onColor?: boolean;
+  tamanho?: 'sm' | 'md' | 'lg';
+  /** Quebra em duas linhas: "Vote Chapa 2!" em cima, "Faz o S!" embaixo. */
+  duasLinhas?: boolean;
+  /** Versão curta para o adesivo: "Vote 2! Faz o S!". */
+  curto?: boolean;
+  as?: 'p' | 'span';
+  class?: string;
+}
+const { onColor = false, tamanho = 'md', duasLinhas = false, curto = false, as: Tag = 'p', class: classe = '' } = Astro.props;
+---
+
+<Tag class:list={['cagp-grito', `cagp-grito--${tamanho}`, onColor && 'is-on-color', duasLinhas && 'cagp-grito--duas', classe]}>
+  <span class="sr-only">{GRITO}</span>
+  <span class="cagp-grito__parte" aria-hidden="true">{curto ? 'Vote 2!' : GRITO_VOTO}</span>
+  <span class="cagp-grito__parte" aria-hidden="true">Faz o <span class="cagp-marker cagp-marker--circle"><span class="cagp-marker__word">S</span><svg class="cagp-marker__stroke" viewBox="0 0 200 80" preserveAspectRatio="none"><path pathLength="1" d="M150 9C104 1 30 5 11 30c-16 21 22 42 86 44 60 2 99-14 96-36-2-17-41-29-92-28" /></svg></span>!</span>
+</Tag>

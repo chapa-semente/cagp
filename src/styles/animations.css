@@ -1,0 +1,581 @@
+/* animations.css - Cinética, Transições e Mecânica Brite Apple HIG + M3 Expressive */
+
+:root {
+  --cagp-spring: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-spring-snappy: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-natural: cubic-bezier(0.16, 1, 0.3, 1);
+  --cagp-m3-spatial-fast: var(--ease-spring-snappy);
+  --cagp-m3-spatial-default: var(--ease-out-natural);
+  --cagp-m3-effects-fast: cubic-bezier(0.31, 0.94, 0.34, 1.00);
+  --cagp-m3-effects-default: cubic-bezier(0.34, 0.80, 0.34, 1.00);
+}
+
+/* 1. Barra Superior de Carregamento de Rota */
+.cagp-route-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  background-color: transparent;
+  transition: opacity 0.15s var(--cagp-m3-effects-fast);
+}
+
+.cagp-route-progress-bar.is-active {
+  opacity: 1;
+}
+
+.cagp-route-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--accent, #FE8812);
+  border-bottom: 1px solid #1F1F1F;
+  transition: width 0.22s var(--ease-out-natural);
+}
+
+/* 2. Transições Direcionais de View Transitions */
+@keyframes cagpVtOutForward {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(-28px); }
+}
+@keyframes cagpVtInForward {
+  from { opacity: 0; transform: translateX(36px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes cagpVtOutBackward {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(28px); }
+}
+@keyframes cagpVtInBackward {
+  from { opacity: 0; transform: translateX(-36px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+/* Entrar numa página filha: a nova sobe da sombra (translate + clip), a antiga recua.
+   Sem escala nem desfoque: profundidade de papel, não de lente. */
+@keyframes cagpVtOutDrillIn {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-12px); }
+}
+@keyframes cagpVtInDrillIn {
+  from { opacity: 0; transform: translateY(40px); clip-path: inset(0 0 12% 0 round 16px); }
+  to { opacity: 1; transform: translateY(0); clip-path: inset(0 0 0 0 round 0); }
+}
+@keyframes cagpVtOutDrillOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(32px); }
+}
+@keyframes cagpVtInDrillOut {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+html[data-nav-dir="forward"]::view-transition-old(cagp-main) {
+  animation: cagpVtOutForward 200ms var(--ease-snap) both;
+}
+html[data-nav-dir="forward"]::view-transition-new(cagp-main) {
+  animation: cagpVtInForward var(--duration-view) var(--ease-spring) both;
+}
+html[data-nav-dir="backward"]::view-transition-old(cagp-main) {
+  animation: cagpVtOutBackward 200ms var(--ease-snap) both;
+}
+html[data-nav-dir="backward"]::view-transition-new(cagp-main) {
+  animation: cagpVtInBackward var(--duration-view) var(--ease-spring) both;
+}
+html[data-nav-dir="drill-in"]::view-transition-old(cagp-main) {
+  animation: cagpVtOutDrillIn 200ms var(--ease-snap) both;
+}
+html[data-nav-dir="drill-in"]::view-transition-new(cagp-main) {
+  animation: cagpVtInDrillIn var(--duration-view) var(--ease-spring) both;
+}
+html[data-nav-dir="drill-out"]::view-transition-old(cagp-main) {
+  animation: cagpVtOutDrillOut 200ms var(--ease-snap) both;
+}
+html[data-nav-dir="drill-out"]::view-transition-new(cagp-main) {
+  animation: cagpVtInDrillOut var(--duration-view) var(--ease-spring) both;
+}
+
+/* 2b. Moldura parada, conteúdo em movimento (Apple: a barra fica, a página anda).
+   Só o <main> desliza na direção da navegação; cabeçalho, trilho e barra inferior trocam por
+   corte seco, e a pílula roxa da aba ativa viaja de uma aba à outra com a mola. */
+#main-content { view-transition-name: cagp-main; }
+#cagp-super-app-header { view-transition-name: cagp-app-header; }
+#cagp-bottom-nav { view-transition-name: cagp-bottom-nav; }
+#cagp-page-footer { view-transition-name: cagp-footer; }
+.cagp-sidebar-rail { view-transition-name: cagp-sidebar; }
+.cagp-bottom-axis-item.is-active .cagp-bottom-axis-pill { view-transition-name: cagp-nav-pill; }
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+::view-transition-old(cagp-app-header),
+::view-transition-new(cagp-app-header),
+::view-transition-old(cagp-bottom-nav),
+::view-transition-new(cagp-bottom-nav),
+::view-transition-old(cagp-sidebar),
+::view-transition-new(cagp-sidebar) {
+  animation: none;
+}
+::view-transition-group(cagp-app-header),
+::view-transition-group(cagp-bottom-nav),
+::view-transition-group(cagp-sidebar),
+::view-transition-group(cagp-footer) {
+  animation-duration: 0s;
+}
+::view-transition-group(cagp-nav-pill) {
+  animation-duration: var(--duration-spring);
+  animation-timing-function: var(--ease-spring);
+}
+::view-transition-old(cagp-nav-pill),
+::view-transition-new(cagp-nav-pill) {
+  animation-duration: 180ms;
+  height: 100%;
+}
+::view-transition-old(cagp-footer) { animation: none; opacity: 0; }
+
+/* 3. Transição de Sub-Views (Abas de Workspace) */
+@keyframes cagpWsEnterForward {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes cagpWsEnterBackward {
+  from { opacity: 0; transform: translateX(-12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.cagp-animate-ws-enter {
+  animation: cagpWsEnterForward var(--duration-spring) var(--ease-spring) both;
+}
+
+/* 4. Entrada Escalonada de Cards (Staggered Entrance) */
+@keyframes cagpStaggerReveal {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.cagp-stagger-enter {
+  animation: cagpStaggerReveal var(--duration-spring) var(--ease-spring) both;
+  animation-delay: calc(var(--stagger-index, 0) * 45ms);
+}
+
+/* 5. Fluxo Direcional Animado do Grafo Curricular (cagpLinkFlow) */
+@keyframes cagpLinkFlow {
+  from {
+    stroke-dashoffset: 12;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.cagp-link-flow {
+  animation: cagpLinkFlow 0.8s linear infinite;
+}
+
+/* 6. Carimbo (momento autoral do sistema — DESIGN.md › Carimbos)
+   O carimbo cai grande e inclinado, bate no papel com a mola de ginga (passa do ponto e assenta)
+   e só no impacto a tinta "pega": a sombra dura aparece de uma vez. Sem desfoque: blur é proibido.
+   Só roda quando um estado muda (resultado de simulador, etapa concluída), nunca no carregamento. */
+@keyframes cagpStampImpact {
+  0% {
+    opacity: 0;
+    transform: translateY(-28px) scale(1.7) rotate(-9deg);
+    box-shadow: 0 0 0 0 #1F1F1F;
+  }
+  38% {
+    opacity: 1;
+    transform: translateY(0) scale(0.94) rotate(var(--stamp-rotate, -1.5deg));
+    box-shadow: 0 0 0 0 #1F1F1F;
+  }
+  39% {
+    box-shadow: 3px 3px 0 0 #1F1F1F;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(var(--stamp-rotate, -1.5deg));
+    box-shadow: 2px 2px 0 0 #1F1F1F;
+  }
+}
+/* O papel sob o carimbo cede 1px no impacto. */
+@keyframes cagpStampPaperJolt {
+  0%, 34% { transform: translateY(0); }
+  44% { transform: translateY(3px); }
+  100% { transform: translateY(0); }
+}
+.cagp-stamp-impact {
+  animation: cagpStampImpact var(--duration-stamp) var(--ease-snap) both;
+}
+.cagp-stamp-host-jolt {
+  animation: cagpStampPaperJolt var(--duration-stamp) var(--ease-spring-bouncy) both;
+}
+
+/* 7. Desbloqueio de marco: a ficha sobe da sombra (sem escala). */
+@keyframes cagpSealUnlock {
+  0% {
+    opacity: 0;
+    transform: translate(4px, 4px);
+    box-shadow: 0 0 0 0 #1F1F1F;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+    box-shadow: 3px 3px 0 0 #1F1F1F;
+  }
+}
+.cagp-seal-unlock {
+  animation: cagpSealUnlock var(--duration-spring) var(--ease-spring-bouncy) both;
+}
+
+/* 8. Press-Into-Shadow (substitui o "spring" com escala): afunda na sombra. */
+.cagp-touch-spring {
+  transition:
+    transform var(--duration-press) var(--ease-spring-snappy),
+    background-color var(--duration-press) var(--ease-snap),
+    border-color var(--duration-press) var(--ease-snap),
+    box-shadow var(--duration-press) var(--ease-snap);
+}
+.cagp-touch-spring:active,
+.is-tapped {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+  transition-duration: 0.05s;
+}
+
+/* 9. Pulso de Conclusão / Meta 100% */
+@keyframes cagpProgressPulse100 {
+  0% { transform: scaleY(1); }
+  45% { transform: scaleY(1.22); }
+  100% { transform: scaleY(1); }
+}
+.is-pulse-100 {
+  animation: cagpProgressPulse100 0.52s var(--cagp-m3-spatial-fast);
+}
+
+/* 10. Pulso Tátil de Confirmação de Cópia */
+@keyframes cagpCopyPulse {
+  0% { transform: scale(0.94); }
+  50% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+.is-copied {
+  animation: cagpCopyPulse 0.25s var(--ease-out-natural);
+}
+
+/* 11. Entrada do Emblema Oficial: ficha que sobe da sombra. */
+@keyframes cagpEmblemStamp {
+  0% { opacity: 0; transform: translate(3px, 3px); box-shadow: 0 0 0 0 #1F1F1F; }
+  100% { opacity: 1; transform: translate(0, 0); box-shadow: 3px 3px 0 0 #1F1F1F; }
+}
+.cagp-emblem-stamp {
+  animation: cagpEmblemStamp var(--duration-spring) var(--ease-spring) both;
+}
+
+/* 12. Skeleton: névoa chapada, pulso lento de opacidade (sem shimmer colorido). */
+@keyframes cagpSkeletonPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+.cagp-shimmer {
+  background: #E7E3D8 !important;
+  animation: cagpSkeletonPulse 1.4s ease-in-out infinite !important;
+}
+
+/* 13. Dropdowns e Indicadores Pulsantes */
+@keyframes cagpDropdownAppear {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes cagpPulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.85); }
+}
+.cagp-pulse-indicator {
+  animation: cagpPulseDot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* 14. Marquee & Brutalist Animations (BoldKit + Neobrutalism) */
+@keyframes marquee {
+  from { transform: translateX(0%); }
+  to { transform: translateX(-100%); }
+}
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}
+.animate-marquee-slow {
+  animation: marquee 60s linear infinite;
+}
+.animate-marquee-fast {
+  animation: marquee 16s linear infinite;
+}
+
+@keyframes brutal-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+@keyframes brutal-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+@keyframes brutal-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+@keyframes brutal-wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-2deg); }
+  75% { transform: rotate(2deg); }
+}
+@keyframes brutal-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+/* 14. Germinar (DESIGN.md › Movimento): a folha brota da base uma única vez, só no herói do Cartaz.
+   Estado final visível por padrão; sem JS, a forma já está lá. */
+@keyframes cagpGerminate {
+  from {
+    transform: scale(0.15);
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    transform: scale(1);
+    clip-path: inset(0 0 0 0);
+  }
+}
+.cagp-germinate {
+  transform-origin: 0% 100%;
+  animation: cagpGerminate 900ms var(--ease-spring-bouncy) 160ms both;
+}
+
+/* 15. Rolagem (DESIGN.md › Movimento, "máximo"): reveal e parallax guiados pela própria rolagem
+   (CSS scroll-driven animations, zero JS). Onde o navegador não suporta, tudo já está visível e parado.
+   Use .cagp-reveal em blocos (fichas, grupos, faixas) — nunca em texto solto de leitura (volume Papel). */
+@supports (animation-timeline: view()) {
+  @keyframes cagpReveal {
+    from { opacity: 0; transform: translateY(48px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .cagp-reveal {
+    animation: cagpReveal linear both;
+    animation-timeline: var(--cagp-tl, view());
+    animation-range: entry 0% entry 55%;
+  }
+  /* A sombra dura "pousa" junto: o bloco entra sem sombra e ganha a sombra ao assentar. */
+  @keyframes cagpRevealCard {
+    from { opacity: 0; transform: translate(6px, 40px); box-shadow: 0 0 0 0 var(--color-border); }
+    to { opacity: 1; transform: translate(0, 0); }
+  }
+  .cagp-reveal-card {
+    animation: cagpRevealCard linear both;
+    animation-timeline: var(--cagp-tl, view());
+    animation-range: entry 0% entry 60%;
+  }
+  /* Filhos em cascata: cada item começa um pouco depois no mesmo trilho de rolagem. */
+  .cagp-reveal-stagger > * {
+    animation: cagpReveal linear both;
+    animation-timeline: var(--cagp-tl, view());
+    animation-range: entry calc(var(--i, 0) * 6%) entry calc(50% + var(--i, 0) * 6%);
+  }
+  .cagp-reveal-stagger > *:nth-child(2) { --i: 1; }
+  .cagp-reveal-stagger > *:nth-child(3) { --i: 2; }
+  .cagp-reveal-stagger > *:nth-child(4) { --i: 3; }
+  .cagp-reveal-stagger > *:nth-child(5) { --i: 4; }
+  .cagp-reveal-stagger > *:nth-child(n + 6) { --i: 5; }
+
+  /* Formas orgânicas (folha, semente, semicírculo) andam mais devagar que a página. */
+  @keyframes cagpParallax {
+    from { transform: translateY(var(--parallax-from, 60px)); }
+    to { transform: translateY(var(--parallax-to, -60px)); }
+  }
+  .cagp-parallax {
+    animation: cagpParallax linear both;
+    animation-timeline: var(--cagp-tl, view());
+    animation-range: cover;
+    will-change: transform;
+  }
+}
+
+/* 16. A caneta da chapa (MarkerWord): a palavra em Permanent Marker e o traço laranja que se desenha.
+   Por padrão o traço corre uma vez ao carregar. */
+.cagp-marker {
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-accent);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  line-height: 1;
+  color: var(--color-primary);
+  white-space: nowrap;
+  isolation: isolate;
+}
+.cagp-marker.is-on-color { color: #FFFFFF; }
+.cagp-marker__word { position: relative; z-index: 1; }
+.cagp-marker__stroke {
+  position: absolute;
+  z-index: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+.cagp-marker--underline .cagp-marker__stroke {
+  left: -4%;
+  right: -4%;
+  bottom: -0.2em;
+  width: 108%;
+  height: 0.34em;
+}
+.cagp-marker--circle .cagp-marker__stroke {
+  left: -14%;
+  top: -30%;
+  width: 128%;
+  height: 160%;
+}
+.cagp-marker__stroke path {
+  fill: none;
+  stroke: var(--color-accent);
+  /* Sem vector-effect: com non-scaling-stroke o Chrome mede o tracejado em px de tela e o traço some. */
+  stroke-width: 9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  animation: cagpMarkerDraw 720ms var(--ease-snap) 260ms both;
+}
+.cagp-marker--underline .cagp-marker__stroke path { stroke-width: 11; }
+@keyframes cagpMarkerDraw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+/* `scroll`: para palavras abaixo da dobra, o traço se desenha conforme a palavra entra na tela. */
+@supports (animation-timeline: view()) {
+  .cagp-marker.is-scroll .cagp-marker__stroke path {
+    animation: cagpMarkerDraw linear both;
+    animation-timeline: var(--cagp-tl, view());
+    animation-range: entry 40% cover 35%;
+  }
+}
+
+/* 16b. O grito de campanha (decisão do Gabriel em 11/11/2026): "Vote Chapa 2! Faz o S!" na caneta,
+   em laranja Semente, como letreiro de eleição. Sobre claro o laranja leva contorno de tinta grafite
+   (sozinho ele não tem contraste para texto); sobre roxo, petróleo ou grafite leva só a sombra dura.
+   O "S" vai circulado com o mesmo traço da caneta. Componentes: GritoDeVoto.astro / grito-de-voto.tsx. */
+.cagp-grito {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.4em;
+  margin: 0;
+  font-family: var(--font-accent);
+  font-weight: 400;
+  font-size: var(--grito, 1.75rem);
+  line-height: 1.12;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: var(--color-accent);
+  -webkit-text-stroke: 0.15em #1f1f1f;
+  paint-order: stroke fill;
+  rotate: -2deg;
+  transform-origin: 0 60%;
+  animation: cagpGritoBate var(--duration-stamp, 560ms) var(--ease-spring-bouncy, ease-out) 120ms both;
+}
+.cagp-grito.is-on-color {
+  -webkit-text-stroke: 0;
+  text-shadow: 0.07em 0.07em 0 #1f1f1f;
+}
+.cagp-grito--sm { --grito: 1.25rem; }
+.cagp-grito--md { --grito: clamp(1.625rem, 1.3rem + 1.6vw, 2.25rem); }
+.cagp-grito--lg { --grito: clamp(2.125rem, 1.4rem + 3.6vw, 3.5rem); }
+.cagp-grito--duas { display: inline-grid; gap: 0.08em; justify-items: start; }
+.cagp-grito__parte { white-space: nowrap; }
+.cagp-grito .sr-only { -webkit-text-stroke: 0; text-shadow: none; }
+.cagp-grito .cagp-marker {
+  color: inherit;
+  font-size: 1.18em;
+  line-height: 0.9;
+  margin-inline: 0.06em;
+}
+.cagp-grito .cagp-marker__stroke path { stroke: var(--color-primary); stroke-width: 10; }
+.cagp-grito.is-on-color .cagp-marker__stroke path { stroke: #fff; }
+@keyframes cagpGritoBate {
+  from { scale: 1.3; rotate: -9deg; }
+  to { scale: 1; rotate: -2deg; }
+}
+
+/* O adesivo de voto da cabeça de página: o grito num adesivo branco do kit (canto de folha, sombra
+   laranja + grafite), para ler bem sobre qualquer cor de estágio. Leva a /gestao. */
+.cagp-adesivo-voto {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.25rem 0.75rem 0.375rem;
+  background: #fff;
+  border: 3px solid #1f1f1f;
+  border-radius: 16px 5px 16px 5px;
+  box-shadow: 3px 3px 0 0 var(--color-accent), 6px 6px 0 0 #1f1f1f;
+  text-decoration: none;
+  rotate: -2deg;
+  transition: translate var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out), box-shadow var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out);
+}
+.cagp-adesivo-voto .cagp-grito { rotate: 0deg; animation: none; }
+.cagp-adesivo-voto:hover { translate: -1px -1px; box-shadow: 4px 4px 0 0 var(--color-accent), 8px 8px 0 0 #1f1f1f; }
+.cagp-adesivo-voto:active { translate: 5px 5px; box-shadow: 0 0 0 0 #1f1f1f; }
+.cagp-adesivo-voto:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
+/* 17. Título que viaja (lib/viewTransitionNames.ts): a linha da lista vira o cabeçalho da página.
+   Mola firme no grupo; as duas imagens do texto trocam rápido no meio do caminho. */
+::view-transition-group(*.vt-title) {
+  animation-duration: var(--duration-spring);
+  animation-timing-function: var(--ease-spring);
+}
+
+/* 17. Home sem React (src/pages/index.astro): o que era motion/react virou CSS com as mesmas molas.
+   Durações medidas na física de src/lib/motion.ts: mola tátil ≈ 460ms com --ease-spring, mola firme
+   ≈ 320ms com --ease-spring-snappy, ginga ≈ 660ms com --ease-spring-bouncy. */
+
+/* Rostos da chapa: sobem 18px e aparecem, um depois do outro (era initial/animate com atraso de
+   150ms + 35ms por rosto). Com a abertura (splash) na frente, esperam ela sair: [data-espera]. */
+@keyframes cagpRostoEntra {
+  from { opacity: 0; translate: 0 18px; }
+}
+.cagp-rosto {
+  animation: cagpRostoEntra 460ms var(--ease-spring) both;
+  animation-delay: calc(150ms + var(--i, 0) * 35ms);
+}
+[data-home-rostos][data-espera] .cagp-rosto { animation-play-state: paused; }
+
+/* Cartão de notícia: levanta no hover, afunda no toque (era whileHover x:-2 y:-3, whileTap x:2 y:2). */
+.cagp-noticia-card {
+  transition:
+    box-shadow var(--default-transition-duration, 150ms) var(--default-transition-timing-function, ease),
+    translate 460ms var(--ease-spring);
+}
+@media (hover: hover) {
+  .cagp-noticia-card:hover { translate: -2px -3px; }
+}
+.cagp-noticia-card:active { translate: 2px 2px; }
+
+/* Foto do cartão: sobe e a sombra cresce (papel colado); no toque afunda na sombra, com a mola firme. */
+.cagp-noticia-foto {
+  transition: translate 460ms var(--ease-spring), box-shadow 460ms var(--ease-spring);
+}
+@media (hover: hover) {
+  .cagp-noticia-foto:hover {
+    translate: -2px -4px;
+    --tw-shadow: 6px 6px 0 0 var(--color-border, #1F1F1F);
+  }
+}
+.cagp-noticia-foto:active {
+  translate: 3px 3px;
+  --tw-shadow: 0 0 0 0 var(--color-border, #1F1F1F);
+  transition-duration: 320ms;
+  transition-timing-function: var(--ease-spring-snappy);
+}
+
+/* Barra de "Seu progresso": enche com a ginga quando o cartão aparece (era whileInView, uma vez). */
+.cagp-barra-progresso {
+  width: 0;
+  transition: width 660ms var(--ease-spring-bouncy);
+}
+.cagp-barra-progresso.is-in { width: var(--pct, 3%); }

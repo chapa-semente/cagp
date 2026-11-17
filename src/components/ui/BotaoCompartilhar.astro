@@ -1,0 +1,49 @@
+---
+// BotaoCompartilhar.astro — O botão único de compartilhar (DESIGN.md › Banners de compartilhamento).
+// Abre o menu de compartilhar do celular; no computador, o WhatsApp com a mensagem pronta. A mensagem é
+// corpo + link + assinatura da chapa (src/lib/compartilhar.ts). Sem props, manda a página atual com a
+// prévia que o layout já usa (src/lib/previas.ts).
+import { previaDaRota, type TomDeCompartilhar } from '@/lib/previas';
+
+interface Props {
+  /** Texto antes do link. Padrão: a mensagem da prévia desta rota. */
+  corpo?: string;
+  /** Caminho já com o caminho-base (route()). Padrão: a página atual. */
+  url?: string;
+  tom?: TomDeCompartilhar;
+  titulo?: string;
+  rotulo?: string;
+  /** 'roxo' é a ação principal do bloco; 'contorno' é apoio; 'copiar' copia a mensagem em vez de enviar. */
+  variante?: 'roxo' | 'contorno' | 'copiar';
+  class?: string;
+}
+
+const previa = previaDaRota(Astro.url.pathname);
+const {
+  corpo = previa.mensagem,
+  url = Astro.url.pathname,
+  tom = previa.tom,
+  titulo = previa.titulo,
+  variante = 'contorno',
+  rotulo = variante === 'copiar' ? 'Copiar o texto' : 'Mandar pra alguém',
+  class: classe = '',
+} = Astro.props;
+const acao = variante === 'copiar' ? { 'data-copiar-mensagem': '' } : { 'data-compartilhar': '' };
+---
+
+<button
+  type="button"
+  class:list={['sk-btn', variante === 'roxo' && 'sk-btn-roxo', classe]}
+  data-corpo={corpo}
+  data-url={url}
+  data-tom={tom}
+  data-titulo={titulo}
+  {...acao}
+>
+  <i class={variante === 'copiar' ? 'bi bi-clipboard' : 'bi bi-share'} aria-hidden="true"></i>
+  {rotulo}
+</button>
+
+<script>
+  import '@/scripts/botaoCompartilhar';
+</script>

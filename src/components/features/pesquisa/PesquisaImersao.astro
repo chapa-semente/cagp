@@ -1,0 +1,66 @@
+---
+// PesquisaImersao.astro - Sub-view 3: Programa de Imersão e Extensão Universitária
+import { route } from '@/lib/paths';
+---
+
+<div class="space-y-6 text-foreground">
+  <section class="space-y-4" aria-label="Programa de Imersão">
+    <div class="border-b-3 border-border pb-3 flex items-center justify-between flex-wrap gap-2">
+      <div>
+        <div class="flex items-center gap-2">
+          <i class="bi bi-geo-alt-fill text-secondary text-xl" aria-hidden="true"></i>
+          <h2 class="font-head text-base sm:text-xl font-black text-foreground m-0">
+            Programa de Imersão no Campo de Públicas
+          </h2>
+        </div>
+        <p class="text-xs text-gray-700 mt-0.5 m-0 font-body font-medium">
+          Vivência prática direta em prefeituras, câmaras e comunidades do estado de Minas Gerais:
+        </p>
+      </div>
+      <span class="px-3 py-1 rounded-lg bg-secondary text-white font-mono text-xs font-bold">
+        SIEX 109111 &amp; 109109
+      </span>
+    </div>
+
+    <p class="text-xs text-gray-700 leading-relaxed font-body font-medium m-0">
+      O <strong>Programa de Imersão</strong> é uma ação de extensão registrada na Pró-Reitoria de Extensão (PROEX/UFMG) que conecta discentes a gestores públicos municipais. Durante períodos de recesso e fins de semana, equipes multidisciplinares prestam assessoria técnica gratuita no interior do estado.
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-body">
+      <article class="p-5 bg-white border-2 border-border rounded-xl flex flex-col justify-between shadow-md">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <i class="bi bi-clipboard2-data-fill text-secondary text-lg" aria-hidden="true"></i>
+            <span class="font-head font-black uppercase text-xs text-secondary tracking-wide">
+              Diagnósticos Governamentais
+            </span>
+          </div>
+          <p class="text-xs text-gray-700 leading-relaxed font-medium m-0">
+            Mapeamento de gargalos em saúde, educação e saneamento básico em municípios de pequeno porte, com relatórios técnicos entregues aos prefeitos e secretários.
+          </p>
+        </div>
+      </article>
+
+      <article class="p-5 bg-white border-2 border-border rounded-xl flex flex-col justify-between shadow-md">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <i class="bi bi-check2-circle text-success text-lg" aria-hidden="true"></i>
+            <span class="font-head font-black uppercase text-xs text-foreground tracking-wide">
+              Cômputo nas 300h de Extensão
+            </span>
+          </div>
+          <p class="text-xs text-gray-700 leading-relaxed font-medium m-0">
+            A participação integral nos módulos de imersão gera certificados automáticos no SIEX válidos para as 300 horas de Formação em Extensão Obrigatória.
+          </p>
+        </div>
+      </article>
+    </div>
+
+    <div class="pt-2">
+      <a href={route('/acg#calculadora')} class="min-h-[44px] cagp-btn-primary inline-flex items-center gap-2 text-xs py-2.5 px-4 no-underline font-head font-bold uppercase tracking-wider focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 active:translate-x-0.5 active:translate-y-0.5">
+        <i class="bi bi-calculator" aria-hidden="true"></i>
+        <span>Ver Regras de Extensão &rarr;</span>
+      </a>
+    </div>
+  </section>
+</div>

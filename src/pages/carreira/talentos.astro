@@ -1,0 +1,48 @@
+---
+// src/pages/carreira/talentos.astro — Banco de Talentos Discente GP (Super App CAGP UFMG)
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+import JourneyNav from '@/components/ui/JourneyNav.astro';
+import { CarreiraTalentosForm } from '@/components/features/carreira/CarreiraTalentosForm';
+import { route } from '@/lib/paths';
+
+const badges = [
+  { label: 'Fica só no seu celular', variant: 'green' as const, icon: 'bi-shield-check' },
+  { label: 'Sem Servidor Central (Privacidade Total)', variant: 'purple' as const, icon: 'bi-lock-fill' },
+  { label: 'Exportação para Currículo & Lattes', variant: 'orange' as const, icon: 'bi-file-earmark-person-fill' },
+  { label: 'Proposta 11 • Empresa Júnior GP', variant: 'dark' as const, icon: 'bi-rocket-takeoff-fill' },
+];
+---
+
+<BaseLayout
+  title="Banco de talentos"
+  description="Cadastre seu perfil de competências em Gestão Pública (SEI, Lei 14.133, PPA, MROSC) salvo com privacidade total no cofre local do seu navegador para processos seletivos."
+  mode="operate"
+>
+  <div class="space-y-6 max-w-6xl mx-auto">
+    <PageHeader
+      axisId="mais"
+      mode="operate"
+      condensed={true}
+      showAxisNav={false}
+      title="Banco de talentos"
+      subtitle="Monte seu perfil profissional (SEI, Lei 14.133, orçamento, MROSC) e gere um resumo pro LinkedIn ou Lattes."
+      badges={badges}
+    />
+
+    <CarreiraTalentosForm client:load />
+
+    <JourneyNav
+      prev={{
+        title: 'Carreira e vagas',
+        href: '/carreira',
+        desc: 'Retorne ao painel central com visão geral de vagas, Empresa Júnior e Banco de Talentos.',
+      }}
+      next={{
+        title: 'Vagas e editais',
+        href: '/carreira/vagas',
+        desc: 'Consulte os editais de estágio e trainee abertos no Estado e na Prefeitura de BH.',
+      }}
+    />
+  </div>
+</BaseLayout>

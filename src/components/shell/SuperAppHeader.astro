@@ -1,0 +1,192 @@
+---
+// src/components/shell/SuperAppHeader.astro — Cabeçalho do celular (< 768px), Modelo B.
+// [‹ voltar] Título · [Buscar] [Mandar] [Perfil]. "Mandar" compartilha a página aberta (11/11/2026). O "voltar" usa o histórico quando a página anterior
+// é deste site; senão leva à raiz da aba. Na raiz da aba não há seta.
+import { AXIS_REGISTRY, getItemByPath, normalizePathname } from '@/lib/navigationRegistry';
+import { getCagpIconSvg } from '@/lib/cagpIcons';
+import { asset } from '@/lib/paths';
+// O ramo do celular: folhas penduradas na borda de baixo do cabeçalho, em % da rolagem.
+const folhasRamo = [14, 30, 46, 62, 78];
+
+const cleanPath = normalizePathname(Astro.url.pathname);
+const isHome = cleanPath === '/';
+const owner = getItemByPath(Astro.url.pathname);
+const axis = owner?.axis ?? AXIS_REGISTRY[0];
+const isAxisRoot = owner ? normalizePathname(axis.rootHref) === cleanPath : false;
+// Na raiz mostra o nome da aba; dentro dela, o nome curto da página.
+// Rota fora do registro (404): título próprio e a seta leva ao início.
+// Página fora do registro que não é 404 (ex.: uma amostra interna) diz o próprio nome.
+interface Props {
+  fallbackTitle?: string;
+}
+const { fallbackTitle } = Astro.props;
+const isUnknown = !owner && !isHome;
+const title = isUnknown ? fallbackTitle || 'Página não encontrada' : owner && !isAxisRoot ? owner.item.shortLabel : axis.name;
+---
+
+<header
+  id="cagp-super-app-header"
+  class={`block md:hidden sticky top-0 z-[1030] w-full bg-white border-b-3 border-border select-none`}
+  style="padding-top: env(safe-area-inset-top, 0px);"
+>
+  <div class="px-3 h-14 flex items-center justify-between gap-2">
+    <div class="flex items-center gap-1 min-w-0 flex-1">
+      {!isAxisRoot && (
+        <a
+          href={axis.rootHref}
+          id="cagp-header-back"
+          data-fallback-href={axis.rootHref}
+          class="w-11 h-11 min-w-[44px] rounded-xl flex items-center justify-center text-foreground no-underline shrink-0 hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          aria-label="Voltar"
+        >
+          <i class="bi bi-arrow-left text-lg" aria-hidden="true"></i>
+        </a>
+      )}
+      {isHome && (
+        <img
+          src={asset('/logos/semente/semente-simbolo.webp')}
+          alt=""
+          width="466"
+          height="603"
+          class="h-8 w-auto ml-1 mr-1.5"
+          aria-hidden="true"
+        />
+      )}
+      <span class={`font-heading text-base font-bold truncate ${isAxisRoot && !isHome ? 'pl-1' : ''}`}>{title}</span>
+    </div>
+
+    <div class="flex items-center gap-1.5 shrink-0">
+      <button
+        type="button"
+        id="cagp-btn-spotlight"
+        class="w-11 h-11 min-w-[44px] rounded-xl bg-white hover:bg-muted border-3 border-border text-primary flex items-center justify-center cursor-pointer active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+        aria-label="Buscar no site"
+      >
+        <span class="flex" aria-hidden="true" set:html={getCagpIconSvg('search', 'w-4 h-4')} />
+      </button>
+
+      <button
+        type="button"
+        id="cagp-btn-compartilhar"
+        data-compartilhar="pagina"
+        class="w-11 h-11 min-w-[44px] rounded-xl bg-white hover:bg-muted border-3 border-border text-primary flex items-center justify-center cursor-pointer active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+        aria-label="Mandar esta página pra alguém"
+      >
+        <i class="bi bi-share text-base" aria-hidden="true"></i>
+      </button>
+
+      <button
+        type="button"
+        id="cagp-btn-passport"
+        class="w-11 h-11 min-w-[44px] justify-center rounded-xl bg-primary hover:bg-primary-hover border-3 border-border flex items-center cursor-pointer active:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+        aria-label="Abrir Seu perfil"
+      >
+        <span
+          id="cagp-header-avatar-slot"
+          class="cagp-header-avatar w-7 h-7 rounded-lg bg-white text-primary border-2 border-border flex items-center justify-center text-xs font-heading font-bold overflow-hidden"
+        >
+          GP
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- O ramo que cresce: a semente rola pela borda conforme a página desce e deixa caule e folhas.
+       Decorativo e só com rolagem guiada por CSS; sem suporte, não aparece. -->
+  <div class="cagp-ramo" aria-hidden="true">
+    <span class="cagp-ramo-caule"></span>
+    {folhasRamo.map((t, i) => (
+      <svg class={`cagp-ramo-folha ${i % 2 ? 'is-laranja' : ''}`} style={`left:${t}%; --at:${t}%`} viewBox="-52 -10 104 122">
+        <g transform={`rotate(${i % 2 ? 204 : 156})`}><use href="#sg-folha" /></g>
+      </svg>
+    ))}
+    <span class="cagp-ramo-fruto" style="--at:97%"></span>
+    <span class="cagp-ramo-ponta"></span>
+  </div>
+</header>
+
+<style is:global>
+  /* Foto do perfil: preenche o botão até o contorno, sem moldura dupla. */
+  #cagp-btn-passport:has(.cagp-header-avatar[data-photo]) {
+    overflow: hidden;
+    background: var(--color-card, #fff);
+  }
+  .cagp-header-avatar[data-photo] {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+  }
+</style>
+
+<script>
+  import { readStoredProfile, renderAvatarHtml } from '@/lib/avatarHelper';
+
+  function cameFromThisSite(): boolean {
+    try {
+      return Boolean(document.referrer) && new URL(document.referrer).origin === window.location.origin && history.length > 1;
+    } catch {
+      return false;
+    }
+  }
+
+  function setupHeaderListeners() {
+    const dispatch = (evt: string) => window.dispatchEvent(new CustomEvent(evt));
+
+    const spotlightBtn = document.getElementById('cagp-btn-spotlight');
+    if (spotlightBtn) spotlightBtn.onclick = () => dispatch('cagp:open-spotlight');
+
+    const passportBtn = document.getElementById('cagp-btn-passport');
+    if (passportBtn) passportBtn.onclick = () => dispatch('cagp:open-passport');
+
+    // Com o ClientRouter, navegações internas não mudam document.referrer; guardamos a origem.
+    const back = document.getElementById('cagp-header-back') as HTMLAnchorElement | null;
+    if (back) {
+      back.onclick = (e) => {
+        const internal = sessionStorage.getItem('cagp_nav_internal') === '1' || cameFromThisSite();
+        if (internal && history.length > 1) {
+          e.preventDefault();
+          history.back();
+        }
+      };
+    }
+
+    paintHeaderAvatar();
+  }
+
+  /** Foto (ou avatar escolhido) de Seu perfil no botão do cabeçalho. Sem perfil salvo, fica "GP". */
+  function paintHeaderAvatar() {
+    const avatarSlot = document.getElementById('cagp-header-avatar-slot');
+    if (!avatarSlot) return;
+    const profile = readStoredProfile();
+    if (profile && (profile.photoDataUrl || profile.avatarPreset || profile.name)) {
+      avatarSlot.innerHTML = renderAvatarHtml(profile, 'sm');
+      // Com foto, ela ocupa o botão inteiro (38px úteis) em vez do miolo de 28px.
+      avatarSlot.toggleAttribute('data-photo', Boolean(avatarSlot.querySelector('img')));
+    }
+  }
+
+  // Trocou a foto ou o nome em Seu perfil (nesta aba ou em outra): o cabeçalho acompanha na hora.
+  window.addEventListener('cagp:vault-updated', paintHeaderAvatar);
+  window.addEventListener('cagp:passport-updated', paintHeaderAvatar);
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'cagp_student_profile_v1') paintHeaderAvatar();
+  });
+
+  setupHeaderListeners();
+  document.addEventListener('astro:page-load', setupHeaderListeners);
+  // Qualquer troca de página feita pelo ClientRouter é navegação interna.
+  document.addEventListener('astro:after-swap', () => {
+    try {
+      sessionStorage.setItem('cagp_nav_internal', '1');
+    } catch {
+      // armazenamento bloqueado: cai no referrer
+    }
+  });
+  window.addEventListener('cagp:vault-updated', setupHeaderListeners);
+</script>
+
+<script>
+  // Liga o botão de mandar a página (aqui e no trilho do desktop).
+  import '@/scripts/botaoCompartilhar';
+</script>

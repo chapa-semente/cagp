@@ -1,0 +1,131 @@
+---
+// mapa-do-site.astro — Todas as páginas, agrupadas pelas abas do registro de navegação
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/ui/PageHeader.astro';
+import { SitemapTreeViewExplorer } from '../components/features/sitemap/SitemapTreeViewExplorer';
+import { AXIS_REGISTRY } from '@/lib/navigationRegistry';
+import { route } from '@/lib/paths';
+
+const UTILITY_ROUTES = [
+  { label: 'Ajustes', href: route('/configuracoes') },
+  { label: 'Mapa do Site Interativo', href: route('/mapa-do-site') },
+];
+
+const NORMATIVE_READER_ROUTES = [
+  { label: 'Leitor: PPC Gestão Pública 2020', href: route('/documentos/ppc-gestao-publica-ufmg') },
+  { label: 'Leitor: Regulamento N-20229', href: route('/documentos/regulamento-gestao-publica-ufmg') },
+  { label: 'Leitor: Regimento Interno CAGP 2024', href: route('/documentos/regimento-interno-cagp-ufmg') },
+  { label: 'Leitor: Percurso 01-01 (Núcleo Geral)', href: route('/documentos/percurso-bacharelado-nucleo-geral') },
+  { label: 'Leitor: Percurso 01-02 (FCA)', href: route('/documentos/percurso-bacharelado-nucleo-complementar') },
+  { label: 'Leitor: Percurso 01-03 (Avançado Pós)', href: route('/documentos/percurso-bacharelado-nucleo-avancado') },
+  { label: 'Leitor: Ementário Oficial (95 Matérias)', href: route('/documentos/ementario-gestao-publica-ufmg') },
+  { label: 'Leitor: Recepção de Ingressantes', href: route('/documentos/transcricao-recepcao-ingressantes-2024-2') },
+];
+
+---
+
+<BaseLayout
+  title="Mapa do site"
+  description="Todas as páginas do site do CAGP e da Chapa Semente, organizadas pelas abas Início, Guias, Chapa 2, Meu curso e Mais."
+  mode="operate"
+>
+  <PageHeader
+    title="Mapa do site"
+    subtitle="Todas as páginas, organizadas pelas abas da barra de navegação."
+    mode="operate"
+    condensed={true}
+  />
+
+  <div class="my-4 p-4 sm:p-5 rounded-xl border-2 border-border bg-card flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div class="space-y-1">
+      <h2 class="font-heading text-lg font-bold text-foreground m-0">Procurando uma página?</h2>
+      <p class="text-sm text-muted-foreground m-0">
+        Busque pelo nome, por um trâmite ou por um documento<span class="hidden md:inline"> (atalho <kbd class="px-1.5 py-0.5 rounded bg-white border-2 border-border font-bold text-xs">Ctrl+K</kbd>)</span>.
+      </p>
+    </div>
+    <button
+      type="button"
+      onclick="window.dispatchEvent(new CustomEvent('cagp:open-spotlight'))"
+      class="min-h-[48px] px-5 py-3 rounded-xl bg-primary text-white font-heading font-bold text-sm uppercase tracking-[0.03em] border-3 border-border shadow-md active:translate-x-[3px] active:translate-y-[3px] active:shadow-none cursor-pointer inline-flex items-center gap-2.5 shrink-0"
+    >
+      <i class="bi bi-search" aria-hidden="true"></i>
+      <span>Buscar no site</span>
+    </button>
+  </div>
+
+  <SitemapTreeViewExplorer client:load />
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-6" data-context-type="shell">
+    {AXIS_REGISTRY.map((axis) => (
+      <div class="p-5 rounded-2xl border-2 border-border bg-card shadow-xl hover:shadow-xl hover:-translate-y-0.5 transition-all space-y-3 text-foreground">
+        <div class="flex items-center justify-between border-b-2 border-border pb-2">
+          <span class="font-heading text-xs font-bold uppercase tracking-[0.04em] text-secondary">
+            Aba {axis.mobileLabel}
+          </span>
+          <span class="font-heading text-xs font-bold tabular-nums px-2 py-0.5 rounded-md bg-background border-2 border-border">
+            {axis.items.length} páginas
+          </span>
+        </div>
+        <h3 class="font-heading text-base font-extrabold text-foreground m-0">
+          {axis.name}
+        </h3>
+        <p class="text-xs text-muted-foreground font-medium m-0">{axis.tagline}</p>
+        <ul class="space-y-2 pt-2 list-none p-0 m-0">
+          {axis.items.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="flex items-center justify-between p-2.5 min-h-[44px] rounded-xl border-3 border-border bg-white hover:bg-warning-tint text-xs font-bold text-foreground no-underline shadow-md hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-lg transition-all"
+              >
+                <span>{item.label}</span>
+                <i class="bi bi-arrow-right text-sm text-secondary" aria-hidden="true"></i>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+
+    <!-- Card 6: As 8 Rotas do Leitor Normativo (/documentos/[slug]) + Rotas Utilitárias = 26 Rotas -->
+    <div class="p-5 rounded-2xl border-2 border-border bg-white shadow-[6px_6px_0_0_#5B2A85] hover:shadow-[8px_8px_0_0_#5B2A85] hover:-translate-y-0.5 transition-all space-y-3 text-foreground">
+      <div class="flex items-center justify-between border-b-2 border-border pb-2">
+        <span class="font-mono text-xs font-black uppercase text-primary">
+          LEITOR NORMATIVO &amp; UTILITÁRIOS
+        </span>
+        <span class="font-mono text-xs font-bold px-2 py-0.5 rounded bg-primary text-white border border-border">
+          10 Rotas Complementares
+        </span>
+      </div>
+      <h3 class="font-heading text-base font-extrabold text-foreground m-0">
+        Documentos para ler no site
+      </h3>
+      <p class="text-xs text-muted-foreground font-medium m-0">
+        8 leitores normativos (<code class="font-mono">/documentos/[slug]</code>) + Configurações e Mapa do Site, totalizando as 26 rotas estáticas.
+      </p>
+      <ul class="space-y-1.5 pt-2 list-none p-0 m-0 max-h-[260px] overflow-y-auto pr-1">
+        {NORMATIVE_READER_ROUTES.map((docRoute) => (
+          <li>
+            <a
+              href={docRoute.href}
+              class="flex items-center justify-between p-2 min-h-[40px] rounded-xl border-2 border-border bg-white hover:bg-background text-xs font-bold text-foreground no-underline shadow-sm transition-all"
+            >
+              <span class="truncate pr-2">{docRoute.label}</span>
+              <i class="bi bi-arrow-right text-sm text-primary shrink-0" aria-hidden="true"></i>
+            </a>
+          </li>
+        ))}
+        {UTILITY_ROUTES.map((u) => (
+          <li>
+            <a
+              href={u.href}
+              class="flex items-center justify-between p-2 min-h-[40px] rounded-xl border-2 border-border bg-warning-tint hover:bg-warning-tint text-xs font-bold text-foreground no-underline shadow-sm transition-all"
+            >
+              <span>Utilitário: {u.label}</span>
+              <i class="bi bi-arrow-right text-sm text-foreground shrink-0" aria-hidden="true"></i>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</BaseLayout>

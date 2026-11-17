@@ -1,0 +1,128 @@
+---
+// tcc.astro — Central de Trabalho de Conclusão de Curso (180h)
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/ui/PageHeader.astro';
+import SegmentedControl from '../components/ui/SegmentedControl.astro';
+import JourneyNav from '../components/ui/JourneyNav.astro';
+import SeuProgresso from '../components/ui/SeuProgresso.astro';
+import TccCentralOverview from '../components/features/tcc/TccCentralOverview.astro';
+import TccModalidadesExplorer from '../components/features/tcc/modalidades/TccModalidadesExplorer.astro';
+import TccCronogramaTimeline from '../components/features/tcc/cronograma/TccCronogramaTimeline.astro';
+import TccTermoAceiteCore from '../components/features/tcc/termo/TccTermoAceiteCore.astro';
+import { asset, route } from '@/lib/paths';
+
+const tabs = [
+  { id: 'v0', shortLabel: 'Visão geral', fullLabel: 'Como é o TCC', hash: '#visao-geral' },
+  { id: 'v1', shortLabel: 'Modalidades', fullLabel: 'Modalidades (Art. 19)', hash: '#modalidades' },
+  { id: 'v2', shortLabel: 'Prazos', fullLabel: 'Prazos e banca', hash: '#cronograma' },
+  { id: 'v3', shortLabel: 'Modelos', fullLabel: 'Termo de aceite e modelos', hash: '#termo-aceite' },
+];
+
+const badges = [
+  { label: '180h (DCP 089 + DCP 137)', variant: 'red' as const, icon: 'bi-mortarboard-fill' },
+  { label: 'Monografia vs Artigo (Art. 19)', variant: 'dark' as const, icon: 'bi-grid-fill' },
+  { label: '9º e 10º Períodos', variant: 'blue' as const, icon: 'bi-calendar-check' },
+  { label: 'Termo de Aceite Obrigatório', variant: 'gold' as const, icon: 'bi-file-earmark-check-fill' },
+];
+---
+
+<BaseLayout
+  title="TCC"
+  description="Regulamento oficial do TCC de Gestão Pública da UFMG (180h: DCP 089 e DCP 137), tabela comparativa Monografia vs Artigo Científico (Art. 19), linha do tempo de defesa e Termo de Aceite."
+  mode="read"
+>
+  <div class="space-y-6 max-w-6xl mx-auto font-sans">
+    <PageHeader
+      axisId="guias"
+      mode="read"
+      condensed={true}
+      showAxisNav={false}
+      title="TCC"
+      subtitle="Monografia ou artigo, os prazos de DCP 089 e DCP 137 e o termo de aceite pra baixar."
+      badges={badges}
+    />
+
+    <SegmentedControl tabs={tabs} defaultTab="v0" />
+
+    <!-- Sub-view 0: Visão Geral da Central de TCC -->
+    <section id="ws-panel-v0" class="cagp-workspace-view space-y-6" data-ws-panel="v0" data-context-type="doc-template">
+      <div id="visao-geral" class="cagp-anchor-target scroll-mt-24"></div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+        <div class="p-4 sm:p-5 rounded-xl border-2 border-border bg-white shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-foreground">
+          <div>
+            <h3 class="font-heading text-sm font-black text-foreground m-0 mt-0.5">
+              Termo de Aceite de Orientador(a) de TCC
+            </h3>
+            <p class="m-0 mt-1 text-xs font-heading font-bold uppercase tracking-[0.04em] text-muted-foreground tabular-nums">OBRIGATÓRIO • DCP 089 (9º P) &amp; DCP 137 (10º P)</p>
+            <p class="text-xs text-muted-foreground mt-0.5 m-0 font-medium">
+              Formulário oficial assinado pelo docente orientador credenciado ao curso.
+            </p>
+          </div>
+          <a
+            href={asset('/documentos/termo-aceite-orientador-tcc.pdf')}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="min-h-[44px] px-4 py-2.5 rounded-xl border-3 border-border bg-secondary hover:bg-secondary-hover text-secondary-foreground font-heading text-xs font-black uppercase shrink-0 no-underline inline-flex items-center justify-center shadow-xs active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
+          >
+            Modelo de Aceite (PDF) <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
+          </a>
+        </div>
+
+        <div class="p-4 sm:p-5 rounded-xl border-2 border-border bg-white shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-foreground">
+          <div>
+            <h3 class="font-heading text-sm font-black text-foreground m-0 mt-0.5">
+              Concurso Anual de Melhores TCCs da FAFICH
+            </h3>
+            <p class="m-0 mt-1 text-xs font-heading font-bold uppercase tracking-[0.04em] text-muted-foreground tabular-nums">PREMIAÇÃO • RESOLUÇÃO CONGREGAÇÃO Nº 02/2018</p>
+            <p class="text-xs text-muted-foreground mt-0.5 m-0 font-medium">
+              Regras de indicação pela banca examinadora e premiação acadêmica da unidade.
+            </p>
+          </div>
+          <a
+            href={asset('/documentos/resolucao-congrega-02-2018-concurso-tcc.pdf')}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="min-h-[44px] px-4 py-2.5 rounded-xl border-3 border-border bg-primary hover:bg-primary-hover text-primary-foreground font-heading text-xs font-black uppercase shrink-0 no-underline inline-flex items-center justify-center shadow-xs active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          >
+            Ver Edital (PDF) <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+      <TccCentralOverview />
+    </section>
+
+    <!-- Sub-view 1: Modalidades de TCC -->
+    <section id="ws-panel-v1" class="cagp-workspace-view" data-ws-panel="v1" hidden>
+      <div id="modalidades" class="cagp-anchor-target scroll-mt-24"></div>
+      <TccModalidadesExplorer />
+    </section>
+
+    <!-- Sub-view 2: Cronograma e Bancas -->
+    <section id="ws-panel-v2" class="cagp-workspace-view" data-ws-panel="v2" hidden>
+      <div id="cronograma" class="cagp-anchor-target scroll-mt-24"></div>
+      <TccCronogramaTimeline />
+    </section>
+
+    <!-- Sub-view 3: Termo de Aceite & Modelos -->
+    <section id="ws-panel-v3" class="cagp-workspace-view" data-ws-panel="v3" hidden>
+      <div id="termo-aceite" class="cagp-anchor-target scroll-mt-24"></div>
+      <TccTermoAceiteCore />
+    </section>
+
+    <!-- Journey Navigation Trail -->
+    <SeuProgresso tema="tcc" />
+
+    <JourneyNav
+      prev={{
+        title: 'Estágio Supervisionado (300h) & Art. 41',
+        href: '/estagio',
+        desc: 'Simulador de Aproveitamento Servidor (Art. 41) e modelos oficiais de TCE.',
+      }}
+      next={{
+        title: 'Reta final: estágio e TCC',
+        href: '/formatura',
+        desc: 'Painel unificado para Formandos com checklist animado de colação de grau.',
+      }}
+    />
+  </div>
+</BaseLayout>

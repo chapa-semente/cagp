@@ -1,0 +1,1527 @@
+/* source(".."): o Tailwind só lê src/. Sem isso ele varria o repositório inteiro (_referencias,
+   .claude, .agents: mais de mil arquivos) e gerava classes que o site nunca usa. */
+@import "tailwindcss" source("..");
+@import "./neobrutalism.css";
+@import "./boldkit.css";
+@import "./animations.css";
+@import "./enter-exit.css";
+@import "./semente-kit.css";
+@import "./components.css";
+@import "./stamps.css";
+@import "./passport.css";
+@import "./settings.css";
+@import "./drawer.css";
+@import "./navbar.css";
+@import "./grafo.css";
+
+@theme {
+  /* Semantic Neobrutalism.com (rL9Ap) + Tri-Layer Tokens */
+  --color-background: var(--background, #F4F2EC);
+  --color-foreground: var(--foreground, #1F1F1F);
+  --color-card: var(--card, #ffffff);
+  --color-card-foreground: var(--card-foreground, #1F1F1F);
+  --color-popover: var(--popover, #ffffff);
+  --color-popover-foreground: var(--popover-foreground, #1F1F1F);
+
+  --color-primary: var(--primary, #5B2A85);
+  --color-primary-hover: var(--primary-hover, #4A216E);
+  --color-primary-foreground: var(--primary-foreground, #ffffff);
+
+  --color-secondary: var(--secondary, #266264);
+  --color-secondary-hover: var(--secondary-hover, #1E4A4C);
+  --color-secondary-foreground: var(--secondary-foreground, #ffffff);
+
+  --color-accent: var(--accent, #FE8812);
+  --color-accent-hover: var(--accent-hover, #E07406);
+  --color-accent-foreground: var(--accent-foreground, #000000);
+
+  --color-muted: var(--muted, #E7E3D8);
+  --color-muted-foreground: var(--muted-foreground, #5E5A52);
+
+  --color-destructive: var(--destructive, #B91C1C);
+  --color-destructive-foreground: var(--destructive-foreground, #ffffff);
+  --color-success: var(--success, #166534);
+  --color-success-foreground: var(--success-foreground, #ffffff);
+  --color-warning: var(--warning, #92400E);
+  --color-warning-foreground: var(--warning-foreground, #ffffff);
+  --color-info: var(--info, #005A9C);
+  --color-info-foreground: var(--info-foreground, #ffffff);
+
+  --color-border: var(--border, #1F1F1F);
+  --color-input: var(--input, #ffffff);
+  --color-ring: var(--ring, #5B2A85);
+
+  /* CAGP & Brand Aliases */
+  --color-cagp-burgundy: var(--cagp-brand-primary, #5B2A85);
+  --color-cagp-red: var(--cagp-brand-hover, #9E2424);
+  --color-cagp-black: var(--cagp-content-primary, #1F1F1F);
+  --color-cagp-cream: var(--cagp-surface-base, #F4F2EC);
+  --color-cagp-surface: var(--cagp-surface-card, #FFFFFF);
+  --color-cagp-border: var(--cagp-border-strong, #1F1F1F);
+  --color-cagp-success: #166534;
+  --color-cagp-warning: #92400E;
+  --color-cagp-danger: #B91C1C;
+  --color-cagp-gold: #A85300;
+  --color-cagp-blue: #266264;
+
+  /* Identidade Semente & UFMG */
+  --color-semente-purple: #5B2A85;
+  --color-semente-orange: #FE8812;
+  --color-semente-teal: #266264;
+  --color-ufmg-red: #C4161C;
+
+  --color-surface-base: var(--cagp-surface-base, #F4F2EC);
+  --color-surface-card: var(--cagp-surface-card, #FFFFFF);
+  --color-surface-subtle: var(--cagp-surface-subtle, #E7E3D8);
+  --color-surface-hover: var(--cagp-surface-hover, #EDEAE2);
+  --color-border-subtle: #1F1F1F;
+  --color-border-strong: #1F1F1F;
+  --color-content-primary: #1F1F1F;
+  --color-content-secondary: #4A4740;
+  --color-content-muted: #5E5A52;
+  --color-brand-primary: #5B2A85;
+  --color-brand-hover: #4A216E;
+  --color-brand-accent: #FE8812;
+
+  /* Trava de paleta: famílias de cor do Tailwind apontam para a cor equivalente da marca ou de status
+     (teal → petróleo, emerald/green → success, amber/yellow → warning, red/rose → destructive,
+     blue/sky/indigo → info, orange → laranja Germinar, violet/purple → roxo Semente). */
+  --color-teal-50: #E2EDEA; --color-teal-100: #E2EDEA; --color-teal-200: #C5DBD7; --color-teal-300: #8FB8B3; --color-teal-400: #4F8C8B; --color-teal-500: #2F7375; --color-teal-600: #266264; --color-teal-700: #266264; --color-teal-800: #1E4A4C; --color-teal-900: #134E4A; --color-teal-950: #0E3A37;
+  --color-cyan-50: #E2EDEA; --color-cyan-100: #E2EDEA; --color-cyan-200: #C5DBD7; --color-cyan-300: #8FB8B3; --color-cyan-400: #4F8C8B; --color-cyan-500: #2F7375; --color-cyan-600: #266264; --color-cyan-700: #266264; --color-cyan-800: #1E4A4C; --color-cyan-900: #134E4A; --color-cyan-950: #0E3A37;
+  --color-emerald-50: #DCFCE7; --color-emerald-100: #DCFCE7; --color-emerald-200: #BBF7D0; --color-emerald-300: #86EFAC; --color-emerald-400: #22A05A; --color-emerald-500: #178A4A; --color-emerald-600: #166534; --color-emerald-700: #166534; --color-emerald-800: #14532D; --color-emerald-900: #14532D; --color-emerald-950: #0F3D21;
+  --color-green-50: #DCFCE7; --color-green-100: #DCFCE7; --color-green-200: #BBF7D0; --color-green-300: #86EFAC; --color-green-400: #22A05A; --color-green-500: #178A4A; --color-green-600: #166534; --color-green-700: #166534; --color-green-800: #14532D; --color-green-900: #14532D; --color-green-950: #0F3D21;
+  --color-amber-50: #FEF3C7; --color-amber-100: #FEF3C7; --color-amber-200: #FDE68A; --color-amber-300: #FCD34D; --color-amber-400: #E0A21A; --color-amber-500: #B7791F; --color-amber-600: #92400E; --color-amber-700: #92400E; --color-amber-800: #78350F; --color-amber-900: #78350F; --color-amber-950: #5C2A0B;
+  --color-yellow-50: #FEF3C7; --color-yellow-100: #FEF3C7; --color-yellow-200: #FDE68A; --color-yellow-300: #FCD34D; --color-yellow-400: #E0A21A; --color-yellow-500: #B7791F; --color-yellow-600: #92400E; --color-yellow-700: #92400E; --color-yellow-800: #78350F; --color-yellow-900: #78350F; --color-yellow-950: #5C2A0B;
+  --color-red-50: #FEE2E2; --color-red-100: #FEE2E2; --color-red-200: #FECACA; --color-red-300: #FCA5A5; --color-red-400: #E15B5B; --color-red-500: #C53030; --color-red-600: #B91C1C; --color-red-700: #B91C1C; --color-red-800: #991B1B; --color-red-900: #7F1D1D; --color-red-950: #5C1414;
+  --color-rose-50: #FEE2E2; --color-rose-100: #FEE2E2; --color-rose-200: #FECACA; --color-rose-300: #FCA5A5; --color-rose-400: #E15B5B; --color-rose-500: #C53030; --color-rose-600: #B91C1C; --color-rose-700: #B91C1C; --color-rose-800: #991B1B; --color-rose-900: #7F1D1D; --color-rose-950: #5C1414;
+  --color-blue-50: #DBEAFE; --color-blue-100: #DBEAFE; --color-blue-200: #BFDBFE; --color-blue-300: #93C5FD; --color-blue-400: #3B82C4; --color-blue-500: #1D6FB0; --color-blue-600: #005A9C; --color-blue-700: #005A9C; --color-blue-800: #004A80; --color-blue-900: #003A66; --color-blue-950: #002A4D;
+  --color-sky-50: #DBEAFE; --color-sky-100: #DBEAFE; --color-sky-200: #BFDBFE; --color-sky-300: #93C5FD; --color-sky-400: #3B82C4; --color-sky-500: #1D6FB0; --color-sky-600: #005A9C; --color-sky-700: #005A9C; --color-sky-800: #004A80; --color-sky-900: #003A66; --color-sky-950: #002A4D;
+  --color-indigo-50: #DBEAFE; --color-indigo-100: #DBEAFE; --color-indigo-200: #BFDBFE; --color-indigo-300: #93C5FD; --color-indigo-400: #3B82C4; --color-indigo-500: #1D6FB0; --color-indigo-600: #005A9C; --color-indigo-700: #005A9C; --color-indigo-800: #004A80; --color-indigo-900: #003A66; --color-indigo-950: #002A4D;
+  --color-orange-50: #FFEEDB; --color-orange-100: #FFEEDB; --color-orange-200: #FFD6A5; --color-orange-300: #FFB866; --color-orange-400: #FF9F3D; --color-orange-500: #FE8812; --color-orange-600: #E07406; --color-orange-700: #A85300; --color-orange-800: #8A4400; --color-orange-900: #6E3600; --color-orange-950: #522800;
+  --color-violet-50: #EFE7F6; --color-violet-100: #EFE7F6; --color-violet-200: #DCCBEB; --color-violet-300: #BFA2D9; --color-violet-400: #8F62B5; --color-violet-500: #73429E; --color-violet-600: #5B2A85; --color-violet-700: #4A216E; --color-violet-800: #3D1B5B; --color-violet-900: #2F1546; --color-violet-950: #211033;
+  --color-purple-50: #EFE7F6; --color-purple-100: #EFE7F6; --color-purple-200: #DCCBEB; --color-purple-300: #BFA2D9; --color-purple-400: #8F62B5; --color-purple-500: #73429E; --color-purple-600: #5B2A85; --color-purple-700: #4A216E; --color-purple-800: #3D1B5B; --color-purple-900: #2F1546; --color-purple-950: #211033;
+  /* The Sand Not Gray Rule: as escalas cinza do Tailwind (gray, zinc, slate, neutral, stone) viram
+     tons quentes da paleta. Classe cinza solta no código nunca vira cinza azulado na tela. */
+  --color-gray-50: #FAF8F4; --color-gray-100: #F4F2EC; --color-gray-200: #E7E3D8; --color-gray-300: #D3CEC2; --color-gray-400: #A8A296; --color-gray-500: #736E64; --color-gray-600: #5E5A52; --color-gray-700: #4A4740; --color-gray-800: #34312C; --color-gray-900: #1F1F1F; --color-gray-950: #141414;
+  --color-zinc-50: #FAF8F4; --color-zinc-100: #F4F2EC; --color-zinc-200: #E7E3D8; --color-zinc-300: #D3CEC2; --color-zinc-400: #A8A296; --color-zinc-500: #736E64; --color-zinc-600: #5E5A52; --color-zinc-700: #4A4740; --color-zinc-800: #34312C; --color-zinc-900: #1F1F1F; --color-zinc-950: #141414;
+  --color-slate-50: #FAF8F4; --color-slate-100: #F4F2EC; --color-slate-200: #E7E3D8; --color-slate-300: #D3CEC2; --color-slate-400: #A8A296; --color-slate-500: #736E64; --color-slate-600: #5E5A52; --color-slate-700: #4A4740; --color-slate-800: #34312C; --color-slate-900: #1F1F1F; --color-slate-950: #141414;
+  --color-neutral-50: #FAF8F4; --color-neutral-100: #F4F2EC; --color-neutral-200: #E7E3D8; --color-neutral-300: #D3CEC2; --color-neutral-400: #A8A296; --color-neutral-500: #736E64; --color-neutral-600: #5E5A52; --color-neutral-700: #4A4740; --color-neutral-800: #34312C; --color-neutral-900: #1F1F1F; --color-neutral-950: #141414;
+  --color-stone-50: #FAF8F4; --color-stone-100: #F4F2EC; --color-stone-200: #E7E3D8; --color-stone-300: #D3CEC2; --color-stone-400: #A8A296; --color-stone-500: #736E64; --color-stone-600: #5E5A52; --color-stone-700: #4A4740; --color-stone-800: #34312C; --color-stone-900: #1F1F1F; --color-stone-950: #141414;
+
+  /* Estado ativo único (aba, chip, filtro, navegação, seleção): sempre roxo Semente com texto branco. */
+  --color-active: #5B2A85;
+  --color-active-foreground: #FFFFFF;
+
+  /* Tintas chapadas (substituem bg-primary/10, bg-secondary/10 etc.: zero transparência sobre cor) */
+  --color-primary-tint: #EFE7F6;
+  --color-secondary-tint: #E3F0EF;
+  --color-accent-tint: #FFF0E0;
+  --color-petroleo-deep: #134E4A;
+  --color-orange-text: #A85300;
+  --color-success-tint: #DCFCE7;
+  --color-warning-tint: #FEF3C7;
+  --color-destructive-tint: #FEE2E2;
+  --color-info-tint: #DBEAFE;
+
+  /* Acentos botânicos (10/11/2026): o ciclo da planta amplia a paleta do manual.
+     raiz = terra, broto = verde-folha, fruto = amarelo. Chapados, como o resto. */
+  --color-raiz: #8A4B2A;
+  --color-raiz-foreground: #FFFFFF;
+  --color-raiz-tint: #F3E3D5;
+  --color-broto: #6DB33F;
+  --color-broto-foreground: #1F1F1F;
+  --color-broto-deep: #2F6B1E;
+  --color-broto-tint: #E4F2D8;
+  --color-fruto: #FFC83D;
+  --color-fruto-foreground: #1F1F1F;
+  --color-fruto-tint: #FFF2C7;
+
+  /* Two Weights Rule: o manual só autoriza Poppins 400 e 700. */
+  --font-weight-light: 400;
+  --font-weight-normal: 400;
+  --font-weight-medium: 400;
+  --font-weight-semibold: 700;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 700;
+  --font-weight-black: 700;
+
+  /* Motion — DESIGN.md › Movimento. Três molas (geradas como oscilador amortecido em linear())
+     e um ease de saída. Toda animação do site usa um destes; nada de cubic-bezier solto. */
+  --ease-snap: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-stamp: cubic-bezier(0.7, 0, 0.84, 0);
+  /* Firme (ζ 0.88): press, troca de vista, abas. Quase sem sobra. */
+  --ease-spring-snappy: linear(0, 0.019, 0.066, 0.132, 0.209, 0.29, 0.372, 0.451, 0.525, 0.594, 0.656, 0.711, 0.76, 0.802, 0.839, 0.87, 0.896, 0.918, 0.936, 0.951, 0.963, 0.973, 0.981, 0.987, 0.992, 0.995, 0.998, 1, 1.001, 1.002, 1.003, 1.003, 1.003, 1.003, 1.003, 1.003, 1);
+  /* Mola (ζ 0.72): sheets, indicador da aba, fichas que entram, reveal. Passa 4% e volta. */
+  --ease-spring: linear(0, 0.028, 0.098, 0.195, 0.304, 0.417, 0.526, 0.627, 0.717, 0.795, 0.86, 0.912, 0.953, 0.985, 1.007, 1.022, 1.032, 1.037, 1.038, 1.037, 1.035, 1.031, 1.027, 1.023, 1.018, 1.015, 1.011, 1.008, 1.006, 1.003, 1.002, 1.001, 1, 0.999, 0.999, 0.999, 1);
+  /* Ginga (ζ 0.55): só celebração — carimbo, germinar, conquista. Passa 12% e assenta. */
+  --ease-spring-bouncy: linear(0, 0.048, 0.166, 0.323, 0.494, 0.658, 0.803, 0.922, 1.011, 1.073, 1.109, 1.125, 1.124, 1.113, 1.095, 1.074, 1.053, 1.033, 1.016, 1.003, 0.994, 0.988, 0.985, 0.984, 0.985, 0.987, 0.989, 0.992, 0.995, 0.997, 0.999, 1, 1.001, 1.002, 1.002, 1.002, 1);
+  --duration-press: 160ms;
+  --duration-view: 380ms;
+  --duration-spring: 520ms;
+  --duration-stamp: 560ms;
+  --duration-reveal: 640ms;
+  /* Expansão de texto ("ver mais", gavetas, <details>): física da gaveta de Regras da calculadora ACG */
+  --duration-expand: 320ms;
+  --duration-expand-fade: 240ms;
+  --duration-expand-rise: 280ms;
+
+  --color-ufmg-siga: #9E2424;
+  --color-ufmg-minha: #005A9C;
+  --color-ufmg-moodle: #D9531E;
+  --color-ufmg-sei: #166534;
+  --color-ufmg-bu: #5B2C6F;
+
+  /* Tipografia — Manual Chapa Semente (§5): só Poppins Regular/Bold + Permanent Marker. Números de protocolo = Poppins tabular. */
+  --font-heading: 'Poppins', sans-serif;
+  --font-head: 'Poppins', sans-serif;
+  --font-display: 'Poppins', sans-serif;
+  --font-sans: 'Poppins', sans-serif;
+  --font-body: 'Poppins', sans-serif;
+  --font-mono: 'Poppins', sans-serif;
+  /* Destaque pontual (substitui Cinema Outfit do manual): nunca em texto corrido */
+  --font-accent: 'Permanent Marker', 'Poppins', cursive;
+
+  /* Sombras Neobrutalistas Duras (rL9Ap) */
+  /* Vocabulário fechado (DESIGN.md › Elevation): 2 chip · 3 ficha · 5 hover · 6 cartaz. */
+  --shadow-xs: 2px 2px 0 0 var(--shadow-color, #1F1F1F);
+  --shadow-sm: 2px 2px 0 0 var(--shadow-color, #1F1F1F);
+  --shadow: 4px 4px 0 0 var(--shadow-color, #1F1F1F);
+  --shadow-md: 4px 4px 0 0 var(--shadow-color, #1F1F1F);
+  --shadow-lg: 6px 6px 0 0 var(--shadow-color, #1F1F1F);
+  --shadow-xl: 6px 6px 0 0 var(--shadow-color, #1F1F1F);
+  --shadow-2xl: 6px 6px 0 0 var(--shadow-color, #1F1F1F);
+  --shadow-chip: 2px 2px 0 0 var(--shadow-color, #1F1F1F);
+  --shadow-ficha: 4px 4px 0 0 var(--shadow-color, #1F1F1F);
+  --shadow-lift: 6px 6px 0 0 var(--shadow-color, #1F1F1F);
+  --shadow-cartaz: 6px 6px 0 0 var(--shadow-color, #1F1F1F);
+
+  --shadow-cagp-hard: 3px 3px 0 #1F1F1F;
+  --shadow-cagp-hard-lg: 6px 6px 0 #1F1F1F;
+  --shadow-chunky-xs: 2px 2px 0 #1F1F1F;
+  --shadow-chunky-sm: 2px 2px 0 #1F1F1F;
+  --shadow-chunky: 3px 3px 0 #1F1F1F;
+  --shadow-chunky-md: 3px 3px 0 #1F1F1F;
+  --shadow-chunky-lg: 6px 6px 0 #1F1F1F;
+  --shadow-chunky-xl: 6px 6px 0 #1F1F1F;
+
+  --radius-xs: 6px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 12px; /* 0.75rem */
+  --radius-2xl: 16px;
+  --radius-3xl: 16px;
+}
+
+:root,
+html,
+html.dark {
+  color-scheme: light !important;
+  --cagp-surface-base: #F4F2EC;
+  --cagp-surface-card: #FFFFFF;
+  --cagp-surface-subtle: #E7E3D8;
+  --cagp-surface-hover: #EDEAE2;
+  --cagp-border-subtle: #1F1F1F;
+  --cagp-border-strong: #1F1F1F;
+  --cagp-content-primary: #1F1F1F;
+  --cagp-content-secondary: #4A4740;
+  --cagp-content-muted: #5E5A52;
+  --cagp-brand-primary: #9E2424;
+  --cagp-brand-hover: #5B2A85;
+  --cagp-brand-accent: #FE8812;
+}
+
+/* Utilitário de borda 3px rL9Ap */
+.border-3 {
+  border-width: 3px;
+}
+
+/* Base typography & ergonomics (Light Mode Editorial Exclusivo + Zero overflow-x) */
+html {
+  color-scheme: light !important;
+  font-family: var(--font-sans);
+  background-color: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-synthesis: none;
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+  touch-action: pan-x pan-y;
+  overflow-x: clip;
+}
+
+body {
+  font-synthesis: none;
+  -moz-osx-font-smoothing: grayscale;
+  caret-color: #5B2A85;
+  background-color: var(--background);
+  color: var(--foreground);
+  overflow-x: clip;
+}
+
+/* Browser surfaces tematizadas pela paleta CAGP */
+::selection {
+  background-color: #5B2A85;
+  color: #FFFFFF;
+}
+
+a {
+  text-underline-offset: 0.22em;
+}
+
+.tabular-nums,
+[class*="font-mono"] {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Two Faces Rule: `font-mono` agora é Poppins tabular (rótulo de protocolo).
+   Em caixa alta ganha o tracking que o manual pede para títulos em caixa alta (+20 a +40). */
+[class*="font-mono"].uppercase,
+.uppercase [class*="font-mono"] {
+  letter-spacing: 0.04em;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+html {
+  scrollbar-color: #1F1F1F #E7E3D8;
+}
+
+::-webkit-scrollbar-track {
+  background: #E7E3D8;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1F1F1F;
+  border: 2px solid #E7E3D8;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5B2A85;
+}
+
+/* Balanço tipográfico de títulos (Apple HIG Editorial) */
+h1, h2, h3, h4, h5, h6,
+.font-display,
+[class*="font-heading"],
+[class*='font-heading'] {
+  text-wrap: balance;
+}
+
+p, .prose p {
+  text-wrap: pretty;
+}
+
+/* Superfícies 100% Opacas (The Opaque Paper Material Rule - Zero Liquid Glass / Zero Blur) */
+[class*="backdrop-blur"],
+.cagp-glass-surface {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Regras de Bordas e Sombras Chunky Neobrutalistas */
+.neo-border-3 {
+  border-width: 3px !important;
+  border-color: #1F1F1F !important;
+}
+
+.neo-shadow-chunky {
+  box-shadow: 3px 3px 0 0 #1F1F1F !important;
+}
+
+/* Preserva bordas sólidas e alto contraste estrito no modo AAA */
+html[data-a11y-contrast="high"] [class*="border-2"][class*="border-[#1F1F1F]"],
+html[data-a11y-contrast="high"] [class*="border-2"][class*="border-black"] {
+  border-width: 2px !important;
+  border-color: #FFFF00 !important;
+}
+
+/* Dynamic Type Real (Escalonamento flexível de raiz) */
+html[data-a11y-font="sm"] { font-size: 93.75%; } /* 15px */
+html[data-a11y-font="md"] { font-size: 100%; }   /* 16px */
+html[data-a11y-font="lg"] { font-size: 112.5%; } /* 18px */
+html[data-a11y-font="xl"] { font-size: 125%; }   /* 20px */
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
+}
+
+@media (min-width: 768px) {
+  body {
+    padding-bottom: 0;
+  }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  body {
+    padding-bottom: 3.5rem;
+  }
+}
+
+/* Anel de Foco Global Apple HIG */
+:focus-visible {
+  outline: 2px solid #5B2A85 !important;
+  outline-offset: 2px !important;
+}
+
+/* Sobre campo roxo o anel roxo some: vira laranja Germinar. */
+.bg-primary :focus-visible,
+.bg-semente-purple :focus-visible,
+[class*="bg-[#5B2A85]"] :focus-visible {
+  outline-color: #FE8812 !important;
+}
+
+/* Anti auto-zoom on iOS Safari (16px base on mobile inputs) */
+input, select, textarea, button {
+  font-size: 16px;
+  touch-action: manipulation;
+}
+
+/* Pisos táteis Apple HIG com proteção para slide dots (.cagp-dot-btn) e links de texto inline */
+button:not(.cagp-dot-btn),
+a.cagp-btn,
+a.btn,
+a[role="button"],
+a.cagp-sidebar-axis-link,
+a.cagp-bottom-axis-item,
+a[class*="min-h-"],
+input,
+select,
+summary {
+  min-height: 44px;
+}
+
+details > summary {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+/* 14px Floor Rule: prosa nunca abaixo de 14px; 12px só em rótulo mono. */
+p.text-xs:not([class*="font-mono"]),
+li.text-xs:not([class*="font-mono"]),
+blockquote.text-xs {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* Movimento expressivo é parte da marca (DESIGN.md › Movimento): o site não desliga animações
+   por prefers-reduced-motion. Quem precisa de calma usa o painel de acessibilidade. */
+
+/* Segmented Control - Sub-views bar Neobrutalista Unificada (Impeccable Layout & Polish) */
+.cagp-workspace-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--color-surface-subtle, #E7E3D8);
+  border: 2px solid var(--color-border, #1F1F1F);
+  border-radius: 12px;
+  box-shadow: var(--shadow-md, 3px 3px 0 0 var(--color-border, #1F1F1F));
+  padding: 0.375rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+  /* Fica fixa sob a faixa de campanha/barra superior: em painéis longos a aba atual continua visível. */
+  position: sticky;
+  top: calc(var(--cagp-sticky-top, 0px) + 0.5rem);
+  z-index: 20;
+  transition: top 0.2s ease-out;
+}
+.cagp-workspace-tabs {
+  position: relative;
+  display: flex;
+  flex: 1;
+  gap: 0.375rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.cagp-workspace-tabs::-webkit-scrollbar {
+  display: none;
+}
+.cagp-workspace-tabs[data-tab-count="2"] .cagp-workspace-tab,
+.cagp-workspace-tabs[data-tab-count="3"] .cagp-workspace-tab {
+  flex: 1 1 0;
+}
+@media (max-width: 767px) {
+  /* Celular: uma linha rolável (Chrome Budget Rule): nunca grade 2x2. */
+  .cagp-workspace-tabs {
+    scroll-snap-type: x proximity;
+  }
+  .cagp-workspace-tabs .cagp-workspace-tab {
+    flex: 0 0 auto !important;
+    min-width: max-content;
+    padding: 0.5rem 0.875rem;
+    font-size: 0.875rem;
+    letter-spacing: 0.01em;
+    scroll-snap-align: start;
+  }
+  .cagp-workspace-tabs[data-tab-count="2"] .cagp-workspace-tab {
+    flex: 1 1 0 !important;
+    min-width: 0;
+  }
+}
+@media (min-width: 768px) {
+  .cagp-workspace-tabs {
+    -webkit-mask-image: none;
+    mask-image: none;
+    animation: none;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    overflow-x: visible;
+  }
+  .cagp-workspace-tabs[data-tab-count="2"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cagp-workspace-tabs[data-tab-count="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .cagp-workspace-tabs[data-tab-count="4"] { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .cagp-workspace-tabs[data-tab-count="5"] { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+
+.cagp-workspace-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  min-height: 44px;
+  padding: 0.55rem 0.625rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-foreground, #1F1F1F);
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: background-color 150ms var(--ease-snap, cubic-bezier(0.16, 1, 0.3, 1)), border-color 150ms, box-shadow 150ms;
+  touch-action: manipulation;
+}
+.cagp-workspace-tab:hover {
+  background-color: var(--color-card, #ffffff);
+  color: var(--color-primary, #5B2A85);
+  border-color: var(--color-border, #1F1F1F);
+  box-shadow: var(--shadow-xs, 1px 1px 0 0 var(--color-border, #1F1F1F));
+}
+.cagp-workspace-tab:focus-visible {
+  outline: 2px solid var(--color-primary, #5B2A85);
+  outline-offset: 2px;
+}
+.cagp-workspace-tab:active {
+  transform: translate(1px, 1px);
+  box-shadow: none;
+}
+/* Aba ativa: roxo Semente (estado ativo único do site). Sem JS a própria aba pinta;
+   com JS um indicador desliza por baixo dela com a mola (iOS segmented, com sombra dura). */
+.cagp-workspace-tab.is-active {
+  background-color: var(--color-active);
+  color: var(--color-active-foreground);
+  border: 2px solid var(--color-border, #1F1F1F);
+  box-shadow: var(--shadow-chip);
+}
+.cagp-workspace-tab.is-active:hover {
+  background-color: var(--color-primary-hover, #4A216E);
+  color: var(--color-active-foreground);
+}
+.cagp-workspace-tab {
+  position: relative;
+  z-index: 1;
+  transition:
+    color var(--duration-press) var(--ease-snap),
+    background-color var(--duration-press) var(--ease-snap),
+    border-color var(--duration-press) var(--ease-snap),
+    box-shadow var(--duration-press) var(--ease-snap),
+    transform var(--duration-press) var(--ease-spring-snappy);
+}
+.cagp-workspace-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 0;
+  height: 0;
+  border: 2px solid var(--color-border, #1F1F1F);
+  /* Cantos da folha do símbolo (DESIGN.md › kit Semente). */
+  border-radius: 16px 4px 16px 4px;
+  background-color: var(--color-active);
+  box-shadow: var(--shadow-chip);
+  pointer-events: none;
+  opacity: 0;
+}
+.cagp-workspace-tabs.has-indicator .cagp-workspace-indicator { opacity: 1; }
+.cagp-workspace-tabs.has-indicator.is-ready .cagp-workspace-indicator {
+  transition:
+    transform var(--duration-spring) var(--ease-spring),
+    width var(--duration-spring) var(--ease-spring),
+    height var(--duration-spring) var(--ease-spring);
+}
+.cagp-workspace-tabs.has-indicator .cagp-workspace-tab.is-active,
+.cagp-workspace-tabs.has-indicator .cagp-workspace-tab.is-active:hover {
+  background-color: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+/* O indicador esticado durante o toque: a aba "afunda" junto. */
+.cagp-workspace-tabs.has-indicator.is-pressing .cagp-workspace-indicator {
+  box-shadow: none;
+}
+
+/* Âncoras e painéis não ficam escondidos sob a barra de abas fixa. */
+.cagp-workspace-view,
+.cagp-anchor-target {
+  scroll-margin-top: calc(var(--cagp-sticky-top, 0px) + 5.5rem);
+}
+@media (max-width: 767px) {
+  .cagp-workspace-bar:has([data-tab-count="4"]) ~ .cagp-workspace-view,
+  .cagp-workspace-bar:has([data-tab-count="4"]) ~ .cagp-workspace-view .cagp-anchor-target {
+    scroll-margin-top: calc(var(--cagp-sticky-top, 0px) + 8.5rem);
+  }
+}
+
+/* Rótulos responsivos: tablets exibem shortLabel em 4 e 5 abas para prevenir quebra de layout */
+.cagp-tab-label-short { display: inline; }
+.cagp-tab-label-full { display: none; }
+
+@media (min-width: 768px) {
+  .cagp-workspace-tabs[data-tab-count="2"] .cagp-tab-label-short,
+  .cagp-workspace-tabs[data-tab-count="3"] .cagp-tab-label-short {
+    display: none;
+  }
+  .cagp-workspace-tabs[data-tab-count="2"] .cagp-tab-label-full,
+  .cagp-workspace-tabs[data-tab-count="3"] .cagp-tab-label-full {
+    display: inline;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cagp-tab-label-short { display: none; }
+  .cagp-tab-label-full { display: inline; }
+}
+
+.cagp-workspace-viewall {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-card, #ffffff);
+  border: 2px solid var(--color-border, #1F1F1F);
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm, 2px 2px 0 0 var(--color-border, #1F1F1F));
+  color: var(--color-foreground, #1F1F1F);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cagp-workspace-viewall:hover {
+  background-color: var(--color-surface-hover, #EDEAE2);
+  color: var(--color-primary, #5B2A85);
+}
+.cagp-workspace-viewall:focus-visible {
+  outline: 2px solid var(--color-primary, #5B2A85);
+  outline-offset: 2px;
+}
+.cagp-workspace-viewall:active {
+  transform: translate(1px, 1px);
+  box-shadow: none;
+}
+.cagp-workspace-viewall.is-active,
+.cagp-workspace-viewall[aria-pressed="true"] {
+  background-color: var(--color-active);
+  color: #FFFFFF;
+  border-color: var(--color-border, #1F1F1F);
+  box-shadow: var(--shadow-sm, 2px 2px 0 0 var(--color-border, #1F1F1F));
+}
+
+/* High Contrast AAA (BUG-11 fix: element-preserving specificity) */
+html[data-a11y-contrast="high"] {
+  --cagp-surface-base: #000000;
+  --cagp-surface-card: #000000;
+  --cagp-surface-subtle: #121212;
+  --cagp-surface-hover: #1A1A1A;
+  --cagp-border-subtle: #FFFF00;
+  --cagp-border-strong: #FFFF00;
+  --cagp-content-primary: #FFFF00;
+  --cagp-content-secondary: #FFFF00;
+  --cagp-content-muted: #E6E600;
+  --cagp-brand-primary: #FFFF00;
+  --cagp-brand-hover: #FFFFFF;
+  --cagp-brand-accent: #FFFF00;
+
+  background-color: #000000 !important;
+  color: #FFFF00 !important;
+}
+html[data-a11y-contrast="high"] * {
+  background-color: #000000 !important;
+  color: #FFFF00 !important;
+  border-color: #FFFF00 !important;
+  box-shadow: none !important;
+}
+html[data-a11y-contrast="high"] .is-active,
+html[data-a11y-contrast="high"] [aria-selected="true"],
+html[data-a11y-contrast="high"] [aria-current="page"] {
+  background-color: #FFFF00 !important;
+  color: #000000 !important;
+  border-color: #FFFF00 !important;
+}
+html[data-a11y-contrast="high"] .is-active *,
+html[data-a11y-contrast="high"] [aria-selected="true"] *,
+html[data-a11y-contrast="high"] [aria-current="page"] * {
+  background-color: transparent !important;
+  color: #000000 !important;
+}
+html[data-a11y-contrast="high"] .cagp-route-progress-fill {
+  background: #FFFF00 !important;
+}
+html[data-a11y-contrast="high"] .cagp-pulse-indicator {
+  background-color: #FFFF00 !important;
+  outline: 1.5px solid #000000 !important;
+}
+/* Dyslexia mode with authentic OpenDyslexic font */
+html[data-a11y-dyslexia="true"],
+html[data-a11y-dyslexia="true"] body,
+html[data-a11y-dyslexia="true"] * {
+  font-family: 'OpenDyslexic', system-ui, -apple-system, sans-serif !important;
+  letter-spacing: 0.05em;
+  word-spacing: 0.1em;
+}
+
+/* Animações Expressivas Incondicionais: sem supressão por redução de movimento */
+.cagp-photo-frame {
+  border: 3px solid #1F1F1F;
+  border-radius: 12px;
+  box-shadow: 6px 6px 0 0 #1F1F1F;
+  overflow: hidden;
+  background-color: #ffffff;
+  transition:
+    transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cagp-photo-frame:hover {
+  transform: translateY(-4px) scale(1.03) rotate(-1.2deg);
+  box-shadow: 8px 8px 0 0 #1F1F1F;
+}
+
+.cagp-photo-frame img {
+  transition: transform 0.36s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cagp-photo-frame:hover img {
+  transform: scale(1.06);
+}
+
+/* Document Annotated Preview (Brite Neo-brutalist) */
+.cagp-doc-preview-wrapper {
+  position: relative;
+  display: block;
+  width: 100%;
+  border: 2px solid var(--color-cagp-black);
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.cagp-doc-preview-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.cagp-doc-pin {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--color-cagp-burgundy);
+  color: #ffffff;
+  border: 2px solid var(--color-cagp-black);
+  box-shadow: 2px 2px 0px var(--color-cagp-black);
+  font-family: var(--font-head);
+  font-size: 0.75rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  transition: transform 0.15s ease;
+}
+
+.cagp-doc-pin:hover {
+  transform: translate(-50%, -50%) scale(1.15);
+}
+
+.cagp-doc-box {
+  position: absolute;
+  border: 2px dashed var(--color-cagp-burgundy);
+  background-color: rgba(139, 30, 45, 0.08);
+  border-radius: 6px;
+  pointer-events: none;
+  z-index: 4;
+}
+
+/* Video Cards & Embeds */
+.cagp-video-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border: 2px solid var(--color-cagp-black);
+  border-radius: 8px;
+  box-shadow: 2px 2px 0px var(--color-cagp-black);
+  overflow: hidden;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cagp-video-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 0px var(--color-cagp-black);
+}
+
+.cagp-video-thumb-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: #1F1F1F;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.cagp-video-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.cagp-video-card:hover .cagp-video-thumb {
+  transform: scale(1.02);
+  opacity: 0.92;
+}
+
+.cagp-video-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  background-color: var(--color-cagp-burgundy);
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  pointer-events: none;
+  transition: transform 0.15s ease;
+}
+
+.cagp-video-card:hover .cagp-video-play-btn {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* ==========================================================================
+   Calculadora 600h: Dashboard Financeiro de Horas (Estilo Quarto / Nubank)
+   ========================================================================== */
+
+.cagp-hours-bank-card {
+  background-color: #ffffff;
+  border: 2px solid #1F1F1F;
+  border-radius: 6px;
+  box-shadow: 3px 3px 0px #1F1F1F;
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+}
+
+.cagp-hours-bank-top {
+  background-color: var(--secondary, #266264);
+  color: #ffffff;
+  border-bottom: 2px solid #1F1F1F;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.cagp-hours-bank-slots {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  background-color: #F4F2EC;
+  border-bottom: 2px solid #1F1F1F;
+}
+
+.cagp-hours-bank-slot {
+  padding: 0.9rem 1.1rem;
+  border-right: 1.5px solid #1F1F1F;
+}
+
+.cagp-hours-bank-slot:last-child {
+  border-right: 0;
+}
+
+@media (max-width: 767.98px) {
+  .cagp-hours-bank-slots {
+    grid-template-columns: 1fr;
+  }
+  .cagp-hours-bank-slot {
+    border-right: 0;
+    border-bottom: 1.5px solid #1F1F1F;
+  }
+  .cagp-hours-bank-slot:last-child {
+    border-bottom: 0;
+  }
+}
+
+/* Anel Métrico Conic Gradient (.cagp-metric-ring) */
+.cagp-metric-ring {
+  --ring-pct: 0;
+  --ring-color: var(--secondary, #266264);
+  --ring-size: 64px;
+  width: var(--ring-size);
+  height: var(--ring-size);
+  border-radius: 50%;
+  border: 2.5px solid #1F1F1F;
+  box-shadow: 2px 2px 0px #1F1F1F;
+  background: conic-gradient(
+    var(--ring-color) calc(var(--ring-pct) * 1%),
+    #eae5dc 0
+  );
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.cagp-metric-ring.is-complete {
+  --ring-color: #166534;
+}
+
+.cagp-metric-ring-inner {
+  width: calc(var(--ring-size) - 16px);
+  height: calc(var(--ring-size) - 16px);
+  border-radius: 50%;
+  border: 2px solid #1F1F1F;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading, 'Poppins', sans-serif);
+  font-weight: 700;
+  font-size: 0.75rem;
+  line-height: 1;
+  color: #1F1F1F;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Banner de Celebração e Status */
+.cagp-calc-celebration-box {
+  background-color: #F4F2EC;
+  border: 2px solid #1F1F1F;
+  box-shadow: 2px 2px 0 #1F1F1F;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.25rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.cagp-calc-celebration-box.is-all-complete {
+  background-color: #ffffff;
+  border: 2.5px solid #1F1F1F;
+  box-shadow: 4px 4px 0 #1F1F1F;
+}
+
+.cagp-calc-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-head);
+  font-size: 0.875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  padding: 0.2rem 0.55rem;
+  background-color: #1F1F1F;
+  color: #ffffff;
+  border-radius: 8px;
+  border: 1.5px solid #1F1F1F;
+}
+
+.cagp-calc-celebration-box.is-all-complete .cagp-calc-status-badge {
+  background-color: #92400E;
+  color: #ffffff;
+}
+
+/* Mini-track individual de cada linha */
+.cagp-calc-mini-track {
+  width: 100%;
+  height: 8px;
+  background-color: #eae5dc;
+  border: 1.5px solid #1F1F1F;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 0.35rem;
+}
+
+.cagp-calc-mini-fill {
+  height: 100%;
+  background-color: var(--secondary, #266264);
+  transition: width 0.2s ease;
+}
+
+.cagp-calc-mini-fill.is-maxed {
+  background-color: #166534;
+}
+
+/* Botões de Passo (+ / -) Neo-brutalistas com Apple HIG Ergonomics (min 44x44px) */
+.cagp-step-btn {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-head);
+  font-size: 1.25rem;
+  font-weight: 800;
+  background-color: #ffffff;
+  color: #1F1F1F;
+  border: 2px solid #1F1F1F;
+  border-radius: 12px;
+  box-shadow: 2px 2px 0px #1F1F1F;
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  transition: background-color 0.1s ease, transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+.cagp-step-btn:hover:not(:disabled) {
+  background-color: var(--secondary, #266264);
+  color: #ffffff;
+}
+
+.cagp-step-btn:active:not(:disabled) {
+  transform: translate(1px, 1px);
+  box-shadow: none;
+}
+
+.cagp-step-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.cagp-calc-readout {
+  min-width: 84px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+/* Gaveta "O que conta nisso?" */
+.cagp-calc-drawer-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background-color: #F4F2EC;
+  border: 1.5px solid #1F1F1F;
+  color: #1F1F1F;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 0.25rem 0.6rem;
+  margin-top: 0.45rem;
+  cursor: pointer;
+  border-radius: 6px;
+  box-shadow: 1.5px 1.5px 0 #1F1F1F;
+  touch-action: manipulation;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.cagp-calc-drawer-toggle:hover {
+  background-color: var(--secondary, #266264);
+  color: #ffffff;
+  box-shadow: 2px 2px 0 #1F1F1F;
+}
+
+.cagp-calc-drawer-toggle:active {
+  transform: translate(1px, 1px);
+  box-shadow: 0.5px 0.5px 0 #1F1F1F;
+}
+
+.cagp-calc-drawer-toggle[aria-expanded="true"] .cagp-drawer-arrow {
+  transform: rotate(180deg);
+}
+
+.cagp-drawer-arrow {
+  display: inline-block;
+  transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1);
+  font-size: 0.75rem;
+}
+
+/* Gaveta "O que conta nisso?" com Interpolação Fluida de Altura 0fr -> 1fr (Apple HIG Spring) */
+.cagp-calc-drawer {
+  width: 100%;
+  display: grid !important;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  visibility: hidden;
+  margin-top: 0;
+  pointer-events: none;
+  transition:
+    grid-template-rows var(--duration-expand) var(--ease-snap),
+    opacity var(--duration-expand-fade) var(--ease-snap),
+    margin-top var(--duration-expand) var(--ease-snap),
+    margin-bottom var(--duration-expand) var(--ease-snap),
+    visibility var(--duration-expand) ease;
+}
+
+.cagp-calc-drawer > .cagp-calc-drawer-inner {
+  overflow: hidden;
+  min-height: 0;
+  border: 0 solid #1F1F1F;
+  padding: 0 1rem;
+  box-shadow: none;
+  background-color: #ffffff;
+  border-radius: 6px;
+  transition:
+    padding 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    border-width 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cagp-calc-drawer.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+  margin-top: 0.75rem;
+  margin-bottom: 0.25rem;
+  pointer-events: auto;
+}
+
+.cagp-calc-drawer.is-open > .cagp-calc-drawer-inner {
+  border: 2px solid #1F1F1F;
+  padding: 0.85rem 1rem;
+  box-shadow: 2px 2px 0 #1F1F1F;
+  animation: cagpDrawerCardFade var(--duration-expand-rise) var(--ease-snap) forwards;
+}
+
+@keyframes cagpDrawerCardFade {
+  from {
+    opacity: 0.5;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cagp-calc-drawer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+@media (min-width: 1280px) {
+  .cagp-calc-drawer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem;
+  }
+}
+
+.cagp-calc-drawer-section {
+  padding: 0.65rem 0.75rem;
+  border-radius: 6px;
+}
+
+.cagp-calc-drawer-section.is-accepted {
+  background-color: #DCFCE7;
+  border: 1.5px solid #166534;
+}
+
+.cagp-calc-drawer-section.is-rejected {
+  background-color: #FEE2E2;
+  border: 1.5px solid #B91C1C;
+}
+
+.cagp-calc-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.45rem;
+}
+
+.cagp-calc-drawer-section ul {
+  margin: 0;
+  padding-left: 1.15rem;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: #1F1F1F;
+  list-style-type: disc;
+}
+
+.cagp-calc-drawer-section ul li {
+  margin-bottom: 0.35rem;
+}
+
+.cagp-calc-drawer-section ul li:last-child {
+  margin-bottom: 0;
+}
+
+.cagp-calc-drawer-alert {
+  margin-top: 0.6rem;
+  padding: 0.45rem 0.65rem;
+  background-color: #FEF3C7;
+  border: 1.5px solid #92400E;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: #92400E;
+  border-radius: 6px;
+}
+
+/* Touch-and-hold tactile feedback for Context Menu (Apple HIG + Neobrutalism) */
+[data-context-type] {
+  -webkit-touch-callout: none;
+  touch-action: pan-x pan-y;
+}
+
+[data-context-type].cagp-touch-holding,
+.cagp-touch-holding {
+  transform: scale(0.98);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 2px 2px 0px 0px var(--border, #000) !important;
+}
+
+/* One Float Rule: um flutuante por vez sobre a barra inferior. */
+@media (max-width: 767px) {
+  html[data-float-pill="1"] #cagp-back-to-top {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+}
+
+/* Duotone de capa: só no Cartaz. Foto P&B + camada roxa em multiply (única translucidez autorizada). */
+.cagp-photo-duotone {
+  position: relative;
+  isolation: isolate;
+}
+.cagp-photo-duotone::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #5B2A85;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* Tour obrigatório da Chapa Semente (SementeTour.tsx).
+   1. Cobertura roxa até a ilha montar: o conteúdo não pisca antes do tour na primeira visita.
+      Fica abaixo do próprio tour (z 1200) e acima do resto do shell.
+   2. Página de trás travada enquanto o tour está aberto. */
+html[data-semente-tour='pending'] body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 1150;
+  background: #5b2a85 var(--semente-cover-logo, none) center / 72px no-repeat;
+}
+
+/* Convite do tour para quem entrou por link de documento: uma linha no alto da página, em Ficha.
+   Só aparece com o atributo posto pelo BaseLayout; o documento continua à vista logo abaixo. */
+.cagp-convite-tour {
+  display: none;
+}
+html[data-semente-convite] .cagp-convite-tour:not([hidden]) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem 0.5rem 0.5rem 0.875rem;
+  background: #fff;
+  border: 3px solid var(--color-border);
+  border-radius: 16px;
+}
+.cagp-convite-tour p {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.35;
+  color: var(--color-foreground);
+  text-wrap: pretty;
+}
+.cagp-convite-tour-acoes {
+  display: flex;
+  flex: none;
+  gap: 0.5rem;
+}
+.cagp-convite-tour-nao {
+  min-width: 44px;
+  justify-content: center;
+}
+.cagp-convite-tour-sim,
+.cagp-convite-tour-nao {
+  min-height: 44px;
+  padding: 0.5rem 0.875rem;
+  border: 3px solid var(--color-border);
+  border-radius: 12px;
+  font: 700 0.8125rem/1 var(--font-heading);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.cagp-convite-tour-sim {
+  background: var(--color-primary);
+  color: #fff;
+}
+.cagp-convite-tour-nao {
+  background: #fff;
+  color: var(--color-foreground);
+}
+.cagp-convite-tour-sim:hover { background: var(--color-primary-hover, #4a2270); }
+.cagp-convite-tour-nao:hover { background: var(--color-muted); }
+.cagp-convite-tour-sim:focus-visible,
+.cagp-convite-tour-nao:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+html.cagp-semente-tour-open,
+html.cagp-semente-tour-open body {
+  overflow: hidden;
+}
+
+/* O tour fica parado enquanto o ClientRouter troca a página por baixo (sem o fade da raiz). */
+::view-transition-group(semente-tour),
+::view-transition-old(semente-tour),
+::view-transition-new(semente-tour) {
+  animation: none;
+}
+::view-transition-old(semente-tour) {
+  display: none;
+}
+
+
+/* ==========================================================================
+   Física de expansão do site inteiro
+   Origem: gaveta de Regras da calculadora ACG. Toda expansão de texto usa a
+   mesma física: a altura interpola 0fr → 1fr com --ease-snap, o conteúdo
+   chega 4px de cima enquanto ganha opacidade, e o chevron gira junto.
+   É "individual": cada item tem estado próprio e cresce sozinho; os vizinhos
+   da grade não esticam (grades com items-start), só o que está abaixo desce.
+   - React: <ExpandRegion> / <ExpandChevron> em src/components/ui/expand.tsx
+   - <details>: src/lib/expandDetails.ts anima qualquer <details> do site
+   - Accordion (Radix): .cagp-accordion-content
+   ========================================================================== */
+.cagp-expand {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    grid-template-rows var(--duration-expand) var(--ease-snap),
+    opacity var(--duration-expand-fade) var(--ease-snap),
+    visibility var(--duration-expand) ease;
+}
+
+.cagp-expand > .cagp-expand-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.cagp-expand.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+}
+
+.cagp-expand.is-open:not(.cagp-expand--peek) > .cagp-expand-inner > * {
+  animation: cagpDrawerCardFade var(--duration-expand-rise) var(--ease-snap) both;
+}
+
+/* Prévia: N linhas visíveis fechado; a última some num degradê de máscara
+   que escorrega para fora do bloco ao abrir (mask-size interpola junto). */
+.cagp-expand--peek {
+  grid-template-rows: minmax(var(--expand-peek, 2lh), 0fr);
+  opacity: 1;
+  visibility: visible;
+}
+
+.cagp-expand--peek.is-open {
+  grid-template-rows: minmax(var(--expand-peek, 2lh), 1fr);
+}
+
+.cagp-expand--peek > .cagp-expand-inner {
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 1lh), transparent);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 1lh), transparent);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  transition:
+    -webkit-mask-size var(--duration-expand) var(--ease-snap),
+    mask-size var(--duration-expand) var(--ease-snap);
+}
+
+.cagp-expand--peek.is-open > .cagp-expand-inner {
+  -webkit-mask-size: 100% calc(100% + 2lh);
+  mask-size: 100% calc(100% + 2lh);
+}
+
+/* Chevron: gira no mesmo tempo da gaveta. Em <details>, o giro de volta
+   começa no clique (data-expand-state="closing"), não quando o open some. */
+.cagp-expand-chevron {
+  display: inline-block;
+  flex-shrink: 0;
+  transition: transform var(--duration-expand) var(--ease-snap);
+}
+
+.cagp-expand-chevron.is-open,
+[aria-expanded="true"] > .cagp-expand-chevron,
+details[open]:not([data-expand-state="closing"]) > summary .cagp-expand-chevron {
+  transform: rotate(180deg);
+}
+
+/* Accordion (Radix): mesma curva, mesma duração, mesma chegada do conteúdo. */
+.cagp-accordion-content {
+  overflow: hidden;
+}
+
+.cagp-accordion-content[data-state="open"] {
+  animation: cagpAccordionDown var(--duration-expand) var(--ease-snap);
+}
+
+.cagp-accordion-content[data-state="closed"] {
+  animation: cagpAccordionUp var(--duration-expand) var(--ease-snap);
+}
+
+.cagp-accordion-content[data-state="open"] > * {
+  animation: cagpDrawerCardFade var(--duration-expand-rise) var(--ease-snap) both;
+}
+
+@keyframes cagpAccordionDown {
+  from { height: 0; opacity: 0; }
+  75% { opacity: 1; }
+  to { height: var(--radix-accordion-content-height); opacity: 1; }
+}
+
+@keyframes cagpAccordionUp {
+  from { height: var(--radix-accordion-content-height); opacity: 1; }
+  75% { opacity: 0; }
+  to { height: 0; opacity: 0; }
+}
+
+/* Colunas independentes (src/lib/masonry.ts): trilhos de 1px, cada item ocupa a própria
+   altura + o gap original. Expandir um cartão só desce a coluna dele. */
+.is-masonry {
+  grid-auto-rows: 1px;
+  grid-auto-flow: row dense;
+  row-gap: 0 !important;
+}
+
+.is-masonry > * {
+  align-self: start;
+}
+
+/* The One Shadow Per Volume Rule (DESIGN.md › Elevation): ficha dentro de ficha não tem sombra.
+   Vale para blocos (div/article/section) com contorno dentro de outra ficha com sombra;
+   botões, links e campos continuam com a própria sombra de controle. */
+:is(div, section, article)[class*="border-"][class*="shadow"]
+  :is(div, article, section)[class*="border-"][class*="rounded-"][class*="shadow"]:not([class*="bg-primary"]):not([class*="bg-accent"]):not([role="dialog"]) {
+  box-shadow: none !important;
+}
+
+/* Placeholder legível (≥4.5:1): grafite apagado, nunca o cinza claro padrão do navegador. */
+::placeholder {
+  color: var(--color-muted-foreground);
+  opacity: 1;
+}
+
+/* One Float Rule: com a pílula "Sou Semente" na tela, o fim da página ganha folga para o último
+   conteúdo subir acima dela, e o "voltar ao topo" some no celular. */
+@media (max-width: 767px) {
+  html.cagp-has-float #main-content { padding-bottom: calc(6rem + 3.75rem); }
+  html.cagp-has-float #cagp-back-to-top { display: none; }
+}
+
+/* ---- Kit Semente no site inteiro (DESIGN.md › Virada de 11/11/2026) ------------------------
+   As páginas montam fichas com utilitários soltos (border-2 + shadow-*). Toda caixa com contorno
+   E sombra dura é um bloco do kit: contorno de 3px. Divisórias e itens sem sombra seguem em 2px. */
+.border-2:is(.shadow, .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl, .shadow-2xl) { border-width: 3px; }
+
+/* ---- Revisão página por página (11/11/2026): o que destoava do kit, corrigido por regra -----
+   Estas regras alcançam as 30 páginas sem editar cada uma. Valem dentro de <main> e das folhas. */
+
+/* 1. Canto reto não existe no kit: caixa com contorno e sem raio declarado ganha o raio da ficha. */
+:is(div, button, a, section, article, li, span, input, select, textarea):is(.border-2, .border-3, .border-4):not([class*='rounded']) {
+  border-radius: 12px;
+}
+
+/* 2. Caixinha de ícone (quadrado pequeno que só tem um ícone dentro) vira o quadro de folha. */
+:is(span, div):is(.w-7.h-7, .w-8.h-8, .w-9.h-9, .w-10.h-10, .w-11.h-11, .w-12.h-12, .w-14.h-14):is([class*='rounded-'], .border-2, .border-3):has(> :is(svg, i):only-child) {
+  border-radius: 36% 10% 36% 10%;
+}
+
+/* 3. Caixa alta é grito (título de página, botão, etiqueta, carimbo). Título de seção fala em
+      caixa de frase (DESIGN.md › The Shout Only Rule). */
+#main-content :is(h2, h3, h4):is(.uppercase, [class*='uppercase']) {
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+/* 4. Texto corrido não desce de 14px (DESIGN.md › The 14px Floor Rule). Etiquetas curtas em
+      <span> continuam em 12px; parágrafo, item de lista e célula sobem. */
+#main-content :is(p, li, dd, td, blockquote).text-xs:not(.uppercase) { font-size: 0.875rem; line-height: 1.5; }
+/* O mesmo para quem herda o tamanho da lista ou da tabela, e para a prosa escrita em <span>/<div>
+   (texto com entrelinha de leitura). */
+#main-content :is(ul, ol, table, tbody, tr, div, section).text-xs :is(li, td, p):not([class*='text-']):not(.uppercase) { font-size: 0.875rem; line-height: 1.5; }
+#main-content :is(span, div).text-xs:is(.leading-relaxed, .leading-snug, .leading-normal, .leading-tight):not(.uppercase):not(.font-mono) { font-size: 0.875rem; }
+/* Nada abaixo de 12px, nem etiqueta. */
+#main-content :is([class*='text-[10px]'], [class*='text-[11px]'], [class*='text-[9px]'], [class*='text-[0.6'], [class*='text-[0.5']) { font-size: 0.75rem; }
+
+/* 5. Ficha dentro de ficha não tem sombra (DESIGN.md › One Shadow Per Volume): a de dentro fica
+      com contorno de 2px e sem sombra. Botões e links seguem com a deles. */
+:is(div, section, article, li).border-2:is(.shadow, .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl)
+  :is(div, section, article, li).border-2:is(.shadow, .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl) {
+  border-width: 2px;
+  box-shadow: none;
+}
+
+/* A folha da busca no celular ocupa a área visível da tela (visualViewport, medido em
+   src/components/ui/command.tsx): com o teclado aberto, o campo e os resultados ficam acima dele.
+   Sem JS ou sem suporte, vale a tela inteira, como antes. */
+.cagp-busca-folha {
+  --folga-topo: max(0.75rem, env(safe-area-inset-top));
+  top: calc(var(--cagp-vv-topo, 0px) + var(--folga-topo));
+  bottom: auto;
+  height: calc(var(--cagp-vv-altura, 100dvh) - var(--folga-topo));
+}
+@media (min-width: 768px) {
+  .cagp-busca-folha { top: 16%; height: auto; }
+}

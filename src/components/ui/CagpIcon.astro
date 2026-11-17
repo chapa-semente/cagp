@@ -1,0 +1,34 @@
+---
+// src/components/ui/CagpIcon.astro — Ícone do sistema único (Phosphor Bold + 4 ícones de aba próprios), zero JS.
+import { getCagpIconPaths, type CagpIconName } from '@/lib/cagpIcons';
+
+interface Props {
+  name: CagpIconName;
+  class?: string;
+  size?: number | string;
+  title?: string;
+}
+
+const {
+  name,
+  class: className = 'w-5 h-5',
+  size,
+  title,
+} = Astro.props;
+
+const pathsHtml = getCagpIconPaths(name);
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 256 256"
+  width={size}
+  height={size}
+  fill="currentColor"
+  class={className}
+  aria-hidden={title ? undefined : 'true'}
+  role={title ? 'img' : undefined}
+>
+  {title ? <title>{title}</title> : null}
+  <Fragment set:html={pathsHtml} />
+</svg>

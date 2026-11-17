@@ -1,0 +1,226 @@
+/* grafo.css - Estilos Vetoriais do Grafo Curricular Interativo (Neobrutalismo Retrô CAGP) */
+
+.cagp-grafo-viewport {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  background: #FFFFFF;
+  border: 3px solid #1F1F1F;
+  border-radius: 12px;
+  box-shadow: 4px 4px 0px #1F1F1F;
+  padding: 1rem 0.5rem;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+}
+
+.cagp-grafo-svg {
+  display: block;
+  min-width: 1210px;
+  height: 600px;
+  user-select: none;
+}
+
+/* Colunas dos 10 Períodos */
+.grafo-col-bg {
+  fill: #FFFFFF;
+  stroke: #1F1F1F;
+  stroke-width: 1.5px;
+}
+
+.grafo-col-header {
+  font-family: var(--font-head, 'Poppins', sans-serif);
+  font-size: 11px;
+  font-weight: 800;
+  fill: #1F1F1F;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Conexões Vetoriais (Links) */
+.grafo-link {
+  fill: none;
+  stroke: #5E5A52;
+  stroke-width: 2px;
+  opacity: 0.65;
+  transition: all 0.2s ease;
+}
+
+.grafo-link.link-formal {
+  stroke: #9E2424;
+  stroke-width: 2.5px;
+  stroke-dasharray: 4 2;
+  opacity: 0.9;
+}
+
+.grafo-link.is-active-req {
+  stroke: #FE8812 !important;
+  stroke-width: 3.5px !important;
+  opacity: 1 !important;
+  stroke-dasharray: 6 3;
+  animation: cagpLinkFlow 0.8s linear infinite;
+}
+
+.grafo-link.is-active-next {
+  stroke: #266264 !important;
+  stroke-width: 3.5px !important;
+  opacity: 1 !important;
+  stroke-dasharray: 6 3;
+  animation: cagpLinkFlow 0.8s linear infinite;
+}
+
+/* Trava no SIGA (Formal) Ativa com Fluxo Mecânico Vermelho Intenso */
+.grafo-link.link-formal.is-active-req,
+.grafo-link.link-formal.is-active-next {
+  stroke: #9E2424 !important;
+  stroke-width: 4px !important;
+  stroke-dasharray: 8 4 !important;
+  animation: cagpLinkFlow 0.75s linear infinite !important;
+  opacity: 1 !important;
+}
+
+.grafo-link.is-dimmed {
+  opacity: 0.08 !important;
+}
+
+@keyframes cagpLinkFlow {
+  from {
+    stroke-dashoffset: 12;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Nós das Disciplinas */
+.grafo-node {
+  cursor: pointer;
+  transition: transform 0.12s ease, opacity 0.15s ease;
+  outline: none;
+}
+
+.grafo-node rect.node-card {
+  fill: #FFFFFF;
+  stroke: #1F1F1F;
+  stroke-width: 2.5px;
+  rx: 10px;
+  ry: 10px;
+  filter: drop-shadow(3px 3px 0px #1F1F1F);
+  transition: all 0.12s ease;
+}
+
+.grafo-node:hover:not(.is-dimmed) rect.node-card {
+  stroke: var(--primary, #5B2A85);
+  filter: drop-shadow(4px 4px 0px #1F1F1F);
+  transform: translate(-1.5px, -1.5px);
+}
+
+.grafo-node:focus-visible rect.node-card {
+  stroke: var(--primary, #5B2A85);
+  stroke-width: 3px;
+}
+
+.grafo-node.is-selected rect.node-card {
+  stroke: var(--primary, #5B2A85);
+  stroke-width: 3px;
+  fill: #EFE7F6;
+  filter: drop-shadow(4px 4px 0px #1F1F1F);
+}
+
+.grafo-node.is-prereq rect.node-card {
+  stroke: #FE8812;
+  stroke-width: 2.5px;
+  fill: #FFEEDB;
+  filter: drop-shadow(3px 3px 0px #FE8812);
+}
+
+.grafo-node.is-unlocked rect.node-card {
+  stroke: #266264;
+  stroke-width: 2.5px;
+  fill: #E6F0F0;
+  filter: drop-shadow(3px 3px 0px #266264);
+}
+
+.grafo-node.is-dimmed {
+  opacity: 0.18;
+}
+
+.grafo-node.is-completed rect.node-card {
+  stroke: #266264 !important;
+  stroke-width: 2.5px !important;
+  fill: #DCFCE7 !important;
+}
+
+/* Tipografia dentro do nó */
+.grafo-node text.node-code {
+  font-family: var(--font-heading, 'Poppins', sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  fill: #1F1F1F;
+  letter-spacing: 0.02em;
+}
+
+.grafo-node text.node-name {
+  font-family: var(--font-body, 'Poppins', sans-serif);
+  font-size: 9.5px;
+  font-weight: 700;
+  fill: #1F1F1F;
+}
+
+.grafo-node rect.node-badge {
+  rx: 4px;
+  stroke: #1F1F1F;
+  stroke-width: 1px;
+}
+
+.grafo-node text.node-badge-text {
+  font-family: var(--font-head, 'Poppins', sans-serif);
+  font-size: 7.5px;
+  font-weight: 800;
+  fill: #FFFFFF;
+  text-transform: uppercase;
+}
+
+.grafo-node rect.node-lock-badge {
+  fill: #9E2424;
+  rx: 4px;
+  stroke: #1F1F1F;
+  stroke-width: 1px;
+}
+
+.grafo-node text.node-lock-text {
+  font-family: var(--font-head, 'Poppins', sans-serif);
+  font-size: 7.5px;
+  font-weight: 800;
+  fill: #FFFFFF;
+  letter-spacing: 0.04em;
+}
+
+
+
+/* Modo Alto Contraste AAA */
+html[data-a11y-contrast="high"] .cagp-grafo-viewport {
+  background: #000000 !important;
+  border-color: #FFFF00 !important;
+  box-shadow: none !important;
+}
+
+html[data-a11y-contrast="high"] .grafo-col-bg {
+  fill: #000000 !important;
+  stroke: #FFFF00 !important;
+}
+
+html[data-a11y-contrast="high"] .grafo-col-header {
+  fill: #FFFF00 !important;
+}
+
+html[data-a11y-contrast="high"] .grafo-node rect.node-card {
+  fill: #000000 !important;
+  stroke: #FFFF00 !important;
+  box-shadow: none !important;
+}
+
+html[data-a11y-contrast="high"] .grafo-node text.node-code,
+html[data-a11y-contrast="high"] .grafo-node text.node-name {
+  fill: #FFFF00 !important;
+}

@@ -1,0 +1,126 @@
+---
+// percurso.astro — Central Curricular & Grafo Dinâmico 10P: 27 Obrigatórias + Optativas + Formação Livre
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/ui/PageHeader.astro';
+import SegmentedControl from '../components/ui/SegmentedControl.astro';
+import SementeSignature from '../components/ui/SementeSignature.astro';
+import JourneyNav from '../components/ui/JourneyNav.astro';
+import FactCheckBanner from '../components/ui/FactCheckBanner.astro';
+import { getCollection } from 'astro:content';
+import { CurriculumGraphDynamic } from '../components/features/curriculum/graph/CurriculumGraphDynamic';
+import CurriculumCentralOverview from '../components/features/curriculum/CurriculumCentralOverview.astro';
+import SeuProgresso from '../components/ui/SeuProgresso.astro';
+import MandatoryTimelineExplorer from '../components/features/curriculum/timeline/MandatoryTimelineExplorer.astro';
+import { PercursosComparativeMatrix } from '../components/features/percurso/PercursosComparativeMatrix';
+import { PercursoNavigationMenu } from '../components/features/percurso/PercursoNavigationMenu';
+import { route } from '../lib/paths';
+
+const allDisciplinas = await getCollection('disciplinas');
+
+const catalogOptions = allDisciplinas
+  .filter((d) => d.data.natureza === 'optativa')
+  .map((d) => ({
+    code: d.data.codigo,
+    name: d.data.nome,
+    dept: d.data.modulo || d.data.codigo.split(' ')[0] || 'DCP',
+    ch: d.data.ch,
+  }));
+
+const tabs = [
+  { id: 'v0', shortLabel: 'Visão geral', fullLabel: 'Visão geral da grade', hash: '#visao-geral' },
+  { id: 'v1', shortLabel: 'Mapa', fullLabel: 'Mapa dos 10 períodos', hash: '#grafo' },
+  { id: 'v3', shortLabel: 'Obrigatórias', fullLabel: 'As 27 obrigatórias', hash: '#obrigatorias' },
+];
+
+const badges = [
+  { label: 'Os 10 períodos', variant: 'red' as const, icon: 'bi-diagram-3-fill' },
+  { label: '27 Obrigatórias • 1.860h', variant: 'dark' as const, icon: 'bi-book-half' },
+  { label: '68 Optativas Homologadas', variant: 'blue' as const, icon: 'bi-collection-fill' },
+  { label: '120h Formação Livre', variant: 'gold' as const, icon: 'bi-plus-slash-minus' },
+  { label: '10 Semestres Noturno', variant: 'green' as const, icon: 'bi-calendar3' },
+];
+---
+
+<BaseLayout
+  title="Grade e percurso"
+  description="A grade de Gestão Pública da UFMG: grafo reativo dos 10 semestres, 27 obrigatórias, 68 optativas e adição de disciplinas livres."
+  mode="operate"
+>
+  <div id="cagp-percurso-header">
+    <PageHeader
+      mode="operate"
+      condensed={true}
+      axisId="curso"
+      activeId="percurso"
+      title="Grade e percurso"
+      subtitle="As 27 obrigatórias, o mapa dos 10 períodos e os pré-requisitos do SIGA."
+      badges={badges}
+    />
+  </div>
+
+  <SegmentedControl tabs={tabs} defaultTab="v0" />
+
+  <!-- Sub-view 0: Visão Geral da Central Curricular -->
+  <section id="ws-panel-v0" class="cagp-workspace-view" data-ws-panel="v0">
+    <div id="visao-geral" class="cagp-anchor-target scroll-mt-24"></div>
+    <PercursoNavigationMenu client:load />
+    <PercursosComparativeMatrix client:visible />
+    <CurriculumCentralOverview />
+  </section>
+
+  <!-- Sub-view 1: Grafo Dinâmico 10P -->
+  <section id="ws-panel-v1" class="cagp-workspace-view space-y-4" data-ws-panel="v1" data-context-type="course" hidden>
+    <div id="grafo" class="cagp-anchor-target scroll-mt-24"></div>
+    <FactCheckBanner
+      claim="Posso me matricular em matérias avançadas sem cumprir os pré-requisitos formais se o professor autorizar de boca?"
+      verdict="obrigatorio"
+      stampText="TRAVA SIGA"
+      normativeSource="PPC 2020 • Regulamento do Curso & Normas Gerais de Graduação UFMG"
+      explanation="FALSO. As travas formais (ex.: Estatística I bloqueando Estatística II) são travadas algoritmicamente no sistema SIGA da UFMG durante a fase de matrícula. Nenhuma autorização verbal de docente supera a trava eletrônica sem deliberação formal do Colegiado."
+      officialRuleExcerpt={`PPC 2020 — Regime de Pré-Requisitos:
+A matrícula nas disciplinas com pré-requisito formal cadastrado fica condicionada à obtenção prévia de aprovação (nota mínima 60 e frequência de 75%) na disciplina propedêutica correspondente.`}
+    />
+
+    <CurriculumGraphDynamic client:visible={{ rootMargin: "400px" }} catalogOptions={catalogOptions} />
+  </section>
+
+  <!-- Sub-view 3: Ementário das 27 Obrigatórias -->
+  <section id="ws-panel-v3" class="cagp-workspace-view" data-ws-panel="v3" hidden>
+    <div id="obrigatorias" class="cagp-anchor-target scroll-mt-24"></div>
+    <MandatoryTimelineExplorer />
+  </section>
+
+  <!-- As abas "Optativas" e "3.000h" saíram em 12/11/2026: cada uma tem um dono só (/optativas e
+       /meu-curso). Quem chega por um link antigo é levado ao lugar certo. -->
+  <script is:inline define:vars={{ destinos: { '#optativas': route('/optativas'), '#minha-grade': route('/meu-curso') } }}>
+    (function () {
+      var ir = function () {
+        var destino = destinos[window.location.hash];
+        if (destino && /\/percurso\/?$/.test(window.location.pathname)) window.location.replace(destino);
+      };
+      ir();
+      window.addEventListener('hashchange', ir);
+    })();
+  </script>
+
+  <SeuProgresso tema="grade" />
+
+  <SementeSignature
+    proposal="Proposta 3"
+    text="O Grafo dos 10 períodos mostra as travas do SIGA e as cadeias de pré-requisito num clique, para você planejar a matrícula sem surpresa."
+  />
+
+  <!-- Journey Navigation Trail -->
+  <JourneyNav
+    prev={{
+      title: 'O Bacharelado em Gestão Pública',
+      href: '/curso',
+      desc: 'PPC 2020, perfil do egresso e oportunidades no setor público e terceiro setor.',
+    }}
+    next={{
+      title: 'Extensão & Atividades Complementares (AAC)',
+      href: '/acg',
+      desc: 'Simule 300h de Extensão e 300h de AAC com trava de limites regimentais.',
+    }}
+  />
+</BaseLayout>

@@ -1,0 +1,451 @@
+---
+// src/pages/noticias/[slug].astro — Página dedicada para leitura integral de cada notícia do CAGP
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+import { ImageCard } from '@/components/ui/image-card';
+import {
+  SIMULATED_NEWS,
+  SIMULATION_NOTICE,
+  SIMULATION_BADGE_TEXT,
+  type SimulatedNewsItem,
+} from '@/lib/simulatedData';
+import { getCagpIconSvg } from '@/lib/cagpIcons';
+import { route } from '@/lib/paths';
+import { itemDoMural } from '@/lib/noticias';
+import NoticiaReal from '@/components/features/noticias/NoticiaReal.astro';
+
+export async function getStaticPaths() {
+  const collectionItems = await getCollection('noticias');
+  if (collectionItems.length > 0) {
+    return collectionItems.map((entry) => ({
+      params: { slug: entry.data.slug },
+      // Notícia com `real: true` sai pelo molde de notícia real, sem aviso de simulação.
+      props: { entry, article: itemDoMural(entry) },
+    }));
+  }
+
+  return SIMULATED_NEWS.map((article) => ({
+    params: { slug: article.slug },
+    props: { article, entry: null },
+  }));
+}
+
+interface Props {
+  article: SimulatedNewsItem;
+  entry?: any;
+}
+
+const { article, entry } = Astro.props;
+const rendered = entry ? await render(entry) : null;
+const Content = rendered?.Content;
+const otherArticles = SIMULATED_NEWS.filter((item) => item.slug !== article.slug).slice(0, 3);
+
+const badgeClass =
+  article.tagColor === 'burgundy'
+    ? 'bg-secondary text-white'
+    : article.tagColor === 'gold'
+    ? 'bg-accent text-foreground'
+    : article.tagColor === 'green'
+    ? 'bg-success text-white'
+    : 'bg-primary text-white';
+
+const stampSvg = getCagpIconSvg('stamp', 'w-3.5 h-3.5');
+const arrowRightSvg = getCagpIconSvg('chevron-right', 'w-4 h-4');
+---
+
+{!article.simulated && entry ? (
+<NoticiaReal entry={entry} />
+) : (
+<BaseLayout
+  title={`${article.title} — Notícias CAGP`}
+  description={article.summary}
+  mode="read"
+  activePage="hoje"
+  activeGroup="hoje"
+>
+  <!-- Barra de Progresso de Leitura Neobrutalista no Topo -->
+  <div
+    id="cagp-reading-progress-container"
+    aria-label="Progresso de leitura do artigo"
+    class="sticky top-0 z-[1040] -mx-3 sm:-mx-6 mb-4 bg-card border-b-3 border-border px-3 sm:px-6 py-2 flex items-center justify-between gap-3 shadow-xs select-none"
+  >
+    <div class="flex items-center gap-2 min-w-0">
+      <span class="px-2.5 py-0.5 rounded-lg bg-primary text-white font-mono text-xs font-bold uppercase border-2 border-border shrink-0">
+        Leitura
+      </span>
+      <span class="text-xs font-heading font-black uppercase text-foreground truncate">
+        {article.title}
+      </span>
+    </div>
+    <div class="flex items-center gap-2 shrink-0">
+      <div class="w-24 sm:w-36 h-3 rounded-md bg-muted border-2 border-border overflow-hidden">
+        <div
+          id="cagp-reading-progress-fill"
+          class="h-full bg-secondary transition-[width] duration-150 ease-[cubic-bezier(0.16,1,0.3,1)]"
+          style="width: 8%;"
+        />
+      </div>
+      <span
+        id="cagp-reading-progress-pct"
+        class="font-mono text-xs font-bold text-foreground tabular-nums min-w-[34px] text-right"
+      >
+        0%
+      </span>
+    </div>
+  </div>
+
+  <div class="py-2 space-y-6 pb-10 font-sans">
+    <!-- Breadcrumb Editorial & Retorno Rápido -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div class="flex items-center gap-2 text-xs font-heading font-extrabold uppercase text-muted-foreground flex-wrap">
+        <a href={route('/')} class="min-h-[44px] inline-flex items-center py-2 text-foreground hover:text-primary no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded">
+          Hoje &amp; Campus
+        </a>
+        <span>/</span>
+        <a href={route('/noticias')} class="min-h-[44px] inline-flex items-center py-2 text-foreground hover:text-primary no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded">
+          Mural de Notícias
+        </a>
+        <span>/</span>
+        <span class="text-secondary truncate max-w-[200px] sm:max-w-none">{article.tag}</span>
+      </div>
+
+      <a
+        href={route('/noticias')}
+        class="min-h-[44px] px-3.5 py-2 rounded-xl bg-card hover:bg-muted border-3 border-border text-xs font-heading font-extrabold uppercase text-foreground no-underline shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all inline-flex items-center gap-1.5 self-start sm:self-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+      >
+        <i class="bi bi-arrow-left" aria-hidden="true"></i>
+        <span>Voltar ao Mural</span>
+      </a>
+    </div>
+
+    <!-- Aviso Obrigatório de Simulação (Honesto & Calmo) -->
+    <div
+      role="note"
+      class="px-4 py-2.5 rounded-xl bg-warning-tint border-2 border-border shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-foreground"
+    >
+      <div class="space-y-0.5">
+        <strong class="font-heading uppercase font-black text-foreground block">
+          Edital / Publicação Simulada para Fins Demonstrativos
+        </strong>
+        <p class="m-0 text-foreground font-medium text-xs leading-relaxed max-w-prose">{SIMULATION_NOTICE}</p>
+      </div>
+      <span class="font-mono text-xs font-bold uppercase bg-white text-foreground px-2.5 py-1 rounded-lg border border-border shadow-xs shrink-0 self-start sm:self-center tabular-nums">
+        {SIMULATION_BADGE_TEXT}
+      </span>
+    </div>
+
+    <!-- Layout Editorial da Notícia Completa -->
+    <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
+      <!-- Corpo Principal da Notícia (8 Colunas) -->
+      <article
+        id="cagp-article-reader-body"
+        class="xl:col-span-8 bg-card rounded-2xl border-2 border-border overflow-hidden shadow-md text-foreground p-4 sm:p-7 space-y-6"
+        data-context-type="news"
+        data-context-data={JSON.stringify({ slug: article.slug, title: article.title })}
+      >
+        <!-- Imagem de Capa com Moldura Neobrutalista e Física Tátil -->
+        <div class="group relative aspect-[16/10] min-h-[220px] sm:min-h-[320px] rounded-xl overflow-hidden border-3 border-border shadow-md">
+          {article.motif === 'assembleia' && (
+            <svg viewBox="0 0 640 400" class="w-full h-full object-cover" aria-hidden="true">
+              <rect width="640" height="400" fill="#8B1E2D" />
+              <circle cx="520" cy="95" r="145" fill="#A85300" />
+              <path d="M40 330H600" stroke="#FE8812" stroke-width="5" stroke-opacity="0.9" />
+              <rect x="64" y="130" width="38" height="200" rx="4" fill="#FBF8F3" fill-opacity="0.28" stroke="#1F1F1F" stroke-width="3" />
+              <rect x="122" y="96" width="38" height="234" rx="4" fill="#FBF8F3" fill-opacity="0.42" stroke="#1F1F1F" stroke-width="3" />
+              <rect x="180" y="152" width="38" height="178" rx="4" fill="#FBF8F3" fill-opacity="0.28" stroke="#1F1F1F" stroke-width="3" />
+              <circle cx="470" cy="210" r="68" stroke="#1F1F1F" stroke-width="4" fill="#FE8812" />
+            </svg>
+          )}
+          {article.motif === 'carreiras' && (
+            <svg viewBox="0 0 640 400" class="w-full h-full object-cover" aria-hidden="true">
+              <rect width="640" height="400" fill="#266264" />
+              <circle cx="510" cy="280" r="155" fill="#166534" fill-opacity="0.6" />
+              <path d="M56 300L190 185L300 230L450 110L575 140" stroke="#FE8812" stroke-width="6" fill="none" stroke-linecap="round" />
+              <circle cx="190" cy="185" r="10" fill="#ffffff" stroke="#1F1F1F" stroke-width="3" />
+              <circle cx="300" cy="230" r="10" fill="#ffffff" stroke="#1F1F1F" stroke-width="3" />
+              <circle cx="450" cy="110" r="12" fill="#FE8812" stroke="#1F1F1F" stroke-width="3" />
+            </svg>
+          )}
+          {article.motif === 'calourada' && (
+            <svg viewBox="0 0 640 400" class="w-full h-full object-cover" aria-hidden="true">
+              <rect width="640" height="400" fill="#166534" />
+              <circle cx="130" cy="85" r="130" fill="#166534" />
+              <circle cx="490" cy="190" r="76" stroke="#1F1F1F" stroke-width="4" fill="#FEF3C7" />
+              <path d="M320 315C360 230 440 230 480 315" stroke="#ffffff" stroke-width="5" fill="none" />
+              <path d="M420 315C460 230 540 230 580 315" stroke="#FE8812" stroke-width="5" fill="none" />
+            </svg>
+          )}
+          {article.motif === 'congresso' && (
+            <svg viewBox="0 0 640 400" class="w-full h-full object-cover" aria-hidden="true">
+              <rect width="640" height="400" fill="#5B2A85" />
+              <circle cx="180" cy="200" r="58" stroke="#1F1F1F" stroke-width="4" fill="#FE8812" />
+              <circle cx="340" cy="135" r="46" stroke="#1F1F1F" stroke-width="4" fill="#ffffff" />
+              <circle cx="480" cy="235" r="54" stroke="#1F1F1F" stroke-width="4" fill="#266264" />
+              <path d="M232 180L300 150M382 158L438 205" stroke="#ffffff" stroke-width="4" stroke-opacity="0.85" />
+            </svg>
+          )}
+
+          <div class="absolute top-4 left-4 right-4 flex flex-wrap items-center justify-between gap-2">
+            <span class={`text-xs font-heading font-extrabold uppercase px-3 py-1 rounded-lg border-2 border-border shadow-xs ${badgeClass}`}>
+              {article.tag}
+            </span>
+            <span class="text-xs font-mono font-bold bg-foreground text-background px-3 py-1 rounded-lg border border-border shadow-xs tabular-nums">
+              {article.meta}
+            </span>
+          </div>
+        </div>
+
+        <!-- Coluna Central de Leitura Confortável (max-w-prose / 65–75ch) -->
+        <div class="mx-auto w-full max-w-prose space-y-6 py-2">
+          <!-- Metadados & Carimbo Neobrutalista -->
+          <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b-2 border-border">
+            <div class="text-xs font-mono font-bold text-muted-foreground space-x-2 tabular-nums">
+              <span>{article.dateLabel}</span>
+              <span>•</span>
+              <span>{article.author}</span>
+              <span>•</span>
+              <span>{article.readingTime}</span>
+            </div>
+
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-success-tint text-success font-mono text-xs font-bold uppercase rounded-lg border-2 border-border shadow-xs">
+              <span set:html={stampSvg} />
+              <span>PUBLICAÇÃO CAGP</span>
+            </span>
+          </div>
+
+          <!-- Título e Subtítulo Editorial -->
+          <header class="space-y-3">
+            <h1 class="font-heading text-2xl sm:text-3xl lg:text-4xl font-black uppercase text-foreground leading-tight m-0 tracking-tight">
+              {article.title}
+            </h1>
+            <p class="text-base sm:text-lg font-medium text-muted-foreground leading-relaxed m-0">
+              {article.summary}
+            </p>
+          </header>
+
+          <!-- Texto Integral da Notícia (65-75ch) -->
+          <div class="space-y-4 text-base sm:text-lg text-foreground leading-relaxed font-medium">
+            {Content ? (
+              <div class="space-y-4">
+                <Content />
+              </div>
+            ) : (
+              article.fullContent.map((paragraph) => (
+                <p class="m-0 leading-relaxed">{paragraph}</p>
+              ))
+            )}
+          </div>
+
+          <!-- Destaques Práticos e Normativos -->
+          <section
+            aria-labelledby="heading-article-highlights"
+            class="p-5 rounded-2xl bg-card border-2 border-border shadow-sm space-y-3"
+          >
+            <h2
+              id="heading-article-highlights"
+              class="font-heading text-base font-black text-foreground m-0"
+            >
+              Pontos-Chave &amp; Encaminhamentos
+            </h2>
+            <ul class="space-y-2 m-0 pl-4 text-xs sm:text-sm text-foreground font-medium">
+              {article.highlights.map((hl) => (
+                <li class="leading-relaxed">{hl}</li>
+              ))}
+            </ul>
+          </section>
+
+          <!-- Card de Compartilhamento & Apoio à Chapa Semente no Final do Artigo -->
+          <section
+            id="cagp-article-semente-support-card"
+            aria-label="Compartilhar e Apoiar a Chapa Semente"
+            class="p-5 sm:p-6 rounded-2xl bg-accent-tint border-2 border-border shadow-md space-y-4 relative overflow-hidden"
+          >
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-primary text-white font-mono text-xs font-bold uppercase border-2 border-border shadow-xs">
+                Proposta Materializada • Chapa Semente
+              </span>
+              <span class="px-2.5 py-1 rounded-lg bg-accent text-foreground font-heading text-xs font-black uppercase border-2 border-border shadow-xs -rotate-1">
+                Eleições 25 e 26/Nov
+              </span>
+            </div>
+
+            <div class="space-y-1.5">
+              <h3 class="font-heading text-lg sm:text-xl font-black text-foreground m-0 leading-snug">
+                Achou este conteúdo útil? Ele faz parte do SuperApp construído pela Chapa Semente!
+              </h3>
+              <p class="text-xs sm:text-sm text-content-secondary font-medium m-0 leading-relaxed max-w-prose">
+                Compartilhe esta publicação no grupo da sua turma e conheça as 14 propostas da Chapa 2, a Semente, para transformar a Gestão Pública na FAFICH/UFMG.
+              </p>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-3 pt-1">
+              <button
+                type="button"
+                id="cagp-share-article-btn"
+                class="min-h-[44px] px-4 py-2.5 rounded-xl bg-card hover:bg-muted text-foreground border-3 border-border shadow-xs active:translate-x-0.5 active:translate-y-0.5 active:shadow-none font-heading text-xs font-black uppercase cursor-pointer inline-flex items-center gap-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              >
+                <i class="bi bi-share-fill text-primary" aria-hidden="true"></i>
+                <span id="cagp-share-article-label">Compartilhar / Copiar Link</span>
+              </button>
+
+              <a
+                href={route('/chapa-semente')}
+                class="min-h-[44px] px-5 py-2.5 rounded-xl bg-accent hover:bg-accent-hover text-foreground border-3 border-border shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none font-heading text-xs font-black uppercase tracking-wider no-underline inline-flex items-center gap-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              >
+                <span>Apoiar a Chapa 2 &amp; Ver Propostas</span>
+                <span set:html={arrowRightSvg} />
+              </a>
+            </div>
+          </section>
+
+          <!-- Botões de Ação da Notícia -->
+          <footer class="pt-4 border-t-2 border-border flex flex-wrap items-center justify-between gap-3">
+            <a
+              href={route('/noticias')}
+              class="min-h-[44px] px-4 py-2.5 rounded-xl bg-card hover:bg-muted border-3 border-border text-xs font-heading font-extrabold uppercase text-foreground no-underline shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all inline-flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            >
+              &larr; Voltar para todas as notícias
+            </a>
+
+            {article.ctaHref && (
+              <a
+                href={article.ctaHref}
+                class="min-h-[44px] px-5 py-2.5 rounded-xl bg-secondary hover:bg-secondary-hover text-white text-xs font-heading font-black uppercase tracking-wider no-underline inline-flex items-center gap-2 border-3 border-border shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              >
+                <span>{article.ctaLabel}</span>
+                <span set:html={arrowRightSvg} />
+              </a>
+            )}
+          </footer>
+        </div>
+      </article>
+
+      <!-- Coluna Lateral: Referências Oficiais & Outras Notícias (4 Colunas) -->
+      <aside class="xl:col-span-4 space-y-5 xl:sticky xl:top-14">
+        <!-- Links e Serviços Relacionados -->
+        <div class="bg-card rounded-2xl border-2 border-border p-5 shadow-sm space-y-3.5">
+          <h2 class="font-heading text-base font-black text-foreground m-0">
+            Referências &amp; Serviços Relacionados
+          </h2>
+          <p class="text-xs text-muted-foreground m-0 font-medium">
+            Acesse as páginas normativas e ferramentas oficiais ligadas a esta publicação:
+          </p>
+          <div class="space-y-2">
+            {article.relatedLinks.map((link) => (
+              <a
+                href={link.href}
+                class="min-h-[44px] p-3 rounded-xl bg-background hover:bg-muted border-2 border-border shadow-xs no-underline text-foreground flex items-center justify-between gap-2 text-xs font-heading font-bold uppercase transition-all hover:translate-x-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              >
+                <span>{link.label}</span>
+                <span class="text-secondary shrink-0" set:html={arrowRightSvg} />
+              </a>
+            ))}
+          </div>
+
+          <!-- Acervo & Galeria Visual (ImageCard) -->
+          <div class="pt-2 flex justify-center">
+            <ImageCard
+              imageUrl="/logos/cagp-mono.svg"
+              caption={`Registro & Acervo Documental: ${article.title}`}
+              alt={article.title}
+              className="w-full max-w-full"
+            />
+          </div>
+        </div>
+
+        <!-- Outras Notícias do Mural do CAGP -->
+        <div class="bg-card rounded-2xl border-2 border-border p-5 shadow-sm space-y-3.5">
+          <div class="flex items-center justify-between border-b-2 border-border pb-2">
+            <h2 class="font-heading text-base font-black text-foreground m-0">
+              Outras Notícias
+            </h2>
+            <a
+              href={route('/noticias')}
+              class="min-h-[44px] inline-flex items-center px-1 text-xs font-heading font-extrabold uppercase text-secondary hover:underline no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
+            >
+              Ver todas &rarr;
+            </a>
+          </div>
+
+          <div class="space-y-3">
+            {otherArticles.map((other) => (
+              <a
+                href={route(`/noticias/${other.slug}`)}
+                class="block p-3.5 rounded-xl bg-background hover:bg-muted border-2 border-border shadow-xs no-underline transition-all space-y-1.5 hover:translate-x-[1px] hover:translate-y-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              >
+                <span class="text-xs font-mono font-bold text-secondary block">
+                  {other.tag}
+                </span>
+                <strong class="text-xs font-heading font-black uppercase text-foreground block leading-snug">
+                  {other.title}
+                </strong>
+                <span class="text-xs font-heading font-bold text-secondary inline-flex items-center gap-1 pt-0.5">
+                  Ler notícia completa &rarr;
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- Controlador da Barra de Progresso de Leitura & Compartilhamento -->
+  <script is:inline>
+    (function() {
+      function initArticleReader() {
+        const articleEl = document.getElementById('cagp-article-reader-body');
+        const fillEl = document.getElementById('cagp-reading-progress-fill');
+        const pctEl = document.getElementById('cagp-reading-progress-pct');
+        const shareBtn = document.getElementById('cagp-share-article-btn');
+        const shareLabel = document.getElementById('cagp-share-article-label');
+
+        function updateReadingProgress() {
+          if (!articleEl || !fillEl || !pctEl) return;
+          const rect = articleEl.getBoundingClientRect();
+          const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+          const totalScrollable = Math.max(1, rect.height - viewportHeight * 0.55);
+          const scrolled = Math.max(0, -rect.top + viewportHeight * 0.25);
+          const pct = Math.min(100, Math.max(0, Math.round((scrolled / totalScrollable) * 100)));
+          fillEl.style.width = `${Math.max(6, pct)}%`;
+          pctEl.textContent = `${pct}%`;
+        }
+
+        window.addEventListener('scroll', updateReadingProgress, { passive: true });
+        window.addEventListener('resize', updateReadingProgress, { passive: true });
+        updateReadingProgress();
+
+        if (shareBtn && shareLabel) {
+          shareBtn.onclick = async function() {
+            const shareData = {
+              title: document.title,
+              text: '📰 Olha como pode ficar o mural do curso (essa notícia é um exemplo). É a proposta 12 da Chapa 2 · Semente. 🗳️ Vote Chapa 2! Faz o S! 💜🧡',
+              url: window.location.href,
+            };
+            try {
+              if (navigator.share) {
+                await navigator.share(shareData);
+                shareLabel.textContent = 'Compartilhado!';
+              } else if (navigator.clipboard) {
+                await navigator.clipboard.writeText(window.location.href);
+                shareLabel.textContent = 'Link Copiado!';
+              }
+            } catch (e) {
+              if (navigator.clipboard) {
+                navigator.clipboard.writeText(window.location.href).catch(() => {});
+                shareLabel.textContent = 'Link Copiado!';
+              }
+            }
+            setTimeout(() => {
+              shareLabel.textContent = 'Compartilhar / Copiar Link';
+            }, 2400);
+          };
+        }
+      }
+
+      initArticleReader();
+      document.addEventListener('astro:page-load', initArticleReader);
+    })();
+  </script>
+</BaseLayout>
+)}

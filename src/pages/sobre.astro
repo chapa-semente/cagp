@@ -1,0 +1,112 @@
+---
+// sobre.astro — Central do Centro Acadêmico de Gestão Pública (CAGP FAFICH/UFMG)
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/ui/PageHeader.astro';
+import SegmentedControl from '../components/ui/SegmentedControl.astro';
+import JourneyNav from '../components/ui/JourneyNav.astro';
+import CagpCentralOverview from '../components/features/cagp/CagpCentralOverview.astro';
+import CagpHistoriaCore from '../components/features/cagp/historia/CagpHistoriaCore.astro';
+import CagpEstatutoCore from '../components/features/cagp/estatuto/CagpEstatutoCore.astro';
+import CagpGestaoDiretoria from '../components/features/cagp/gestao/CagpGestaoDiretoria.astro';
+import { ContactWithCards } from '../components/boldkit/blocks/contact-section';
+import { ATENDIMENTO_CURSO } from '@/data/acolhimento';
+
+const contactCards = [
+  {
+    icon: 'bi-building',
+    title: 'Sala do CAGP',
+    description: 'Espaço de convivência discente e plantão da diretoria executiva.',
+    contact: 'FAFICH, 1º andar, ao lado da rampa • 18h às 22h',
+    action: { label: 'Conhecer Sede', href: '#visao-geral' },
+  },
+  {
+    icon: 'bi-envelope',
+    title: 'E-mail da Chapa Semente',
+    description: 'O CAGP ainda não tem e-mail público. Dúvidas e sugestões sobre este site vão para a Chapa Semente.',
+    contact: 'chapa.semente.gp@gmail.com',
+    action: { label: 'Enviar E-mail', href: 'mailto:chapa.semente.gp@gmail.com' },
+  },
+  {
+    icon: 'bi-mortarboard',
+    title: 'Secretaria do Curso (F-2039)',
+    description: `Atendimento do Colegiado de Gestão Pública com ${ATENDIMENTO_CURSO.secretaria.atendentesCurto}.`,
+    contact: `${ATENDIMENTO_CURSO.secretaria.telefone} • ${ATENDIMENTO_CURSO.secretaria.email}`,
+    action: { label: 'Ver Contatos', href: '/curso#colegiado' },
+  },
+];
+
+const tabs = [
+  { id: 'v0', shortLabel: 'Visão geral', fullLabel: 'O que é o CAGP', hash: '#visao-geral' },
+  { id: 'v1', shortLabel: 'História', fullLabel: 'Princípios e história', hash: '#principios' },
+  { id: 'v2', shortLabel: 'Estatuto', fullLabel: 'Estatuto e governança', hash: '#governanca' },
+  { id: 'v3', shortLabel: 'Diretorias', fullLabel: 'As 7 diretorias', hash: '#diretorias' },
+];
+
+const badges = [
+  { label: 'Regimento de 14/10/2024', variant: 'red' as const, icon: 'bi-bank' },
+  { label: 'Assembleia Geral Soberana', variant: 'dark' as const, icon: 'bi-people-fill' },
+  { label: '7 Diretorias Executivas', variant: 'blue' as const, icon: 'bi-diagram-3-fill' },
+  { label: 'Os Candangos FAFICH', variant: 'gold' as const, icon: 'bi-shield-fill-check' },
+];
+---
+
+<BaseLayout
+  title="O que é o CAGP"
+  description="História, governança, estatuto interno, diretorias executivas e prestação de contas do Centro Acadêmico de Gestão Pública da FAFICH/UFMG."
+  mode="persuade"
+>
+  <PageHeader
+    title="O que é o CAGP"
+    subtitle="O centro acadêmico de quem estuda Gestão Pública na FAFICH: quem representa, como decide e o que diz o estatuto."
+    badges={badges}
+    mode="persuade"
+  />
+
+  <SegmentedControl tabs={tabs} defaultTab="v0" />
+
+  <!-- Sub-view 0: Visão Geral do Eixo 5 (O CAGP) -->
+  <section id="ws-panel-v0" class="cagp-workspace-view space-y-6" data-ws-panel="v0">
+    <div id="visao-geral" class="cagp-anchor-target scroll-mt-24"></div>
+    <CagpCentralOverview />
+
+    <ContactWithCards
+      client:visible
+      title="Canais de Atendimento & Representação"
+      description="Entre em contato com as diretorias do CAGP ou com a secretaria do Colegiado na FAFICH."
+      contactMethods={contactCards}
+      className="py-4 px-0"
+    />
+  </section>
+
+  <!-- Sub-view 1: Princípios & História -->
+  <section id="ws-panel-v1" class="cagp-workspace-view space-y-4" data-ws-panel="v1" hidden>
+    <div id="principios" class="cagp-anchor-target scroll-mt-24"></div>
+    <CagpHistoriaCore />
+  </section>
+
+  <!-- Sub-view 2: Governança & Estatuto -->
+  <section id="ws-panel-v2" class="cagp-workspace-view space-y-4" data-ws-panel="v2" hidden>
+    <div id="governanca" class="cagp-anchor-target scroll-mt-24"></div>
+    <CagpEstatutoCore />
+  </section>
+
+  <!-- Sub-view 3: Gestão & Transparência -->
+  <section id="ws-panel-v3" class="cagp-workspace-view space-y-4" data-ws-panel="v3" hidden>
+    <div id="diretorias" class="cagp-anchor-target scroll-mt-24"></div>
+    <CagpGestaoDiretoria />
+  </section>
+
+  <!-- Journey Navigation Trail -->
+  <JourneyNav
+    prev={{
+      title: 'Acervo de Documentos Oficiais',
+      href: '/documentos',
+      desc: 'Atos normativos, requerimentos acadêmicos e formulários do Colegiado.',
+    }}
+    next={{
+      title: 'Hoje no campus',
+      href: '/',
+      desc: 'RU, ônibus internos e os atalhos da sua fase do curso.',
+    }}
+  />
+</BaseLayout>

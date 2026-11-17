@@ -1,0 +1,40 @@
+---
+// HubItemList.astro — Bloco de atalhos de uma aba (DESIGN.md › kit Semente).
+// No celular é uma grade de quadros com o nome curto embaixo, como num app de banco; a partir de
+// 640px cada atalho vira um cartão com a linha do que a página resolve. O quadro veste a cor da
+// aba onde a página mora e tem a folha do símbolo brotando do canto.
+import CagpIcon from '@/components/ui/CagpIcon.astro';
+import { resolveCagpIconName } from '@/lib/cagpIcons';
+import { getItemByPath, type NavigationItem } from '@/lib/navigationRegistry';
+interface Props {
+  items: NavigationItem[];
+  heading?: string;
+  headingId?: string;
+}
+
+const { items, heading, headingId } = Astro.props;
+---
+
+{items.length > 0 && (
+  <section class="space-y-4" aria-labelledby={heading ? headingId : undefined}>
+    {heading && (
+      <h2 id={headingId} class="font-heading text-xl font-bold text-foreground m-0">{heading}</h2>
+    )}
+    <ul class="sk-atalhos sk-atalhos-hub cagp-reveal-stagger" role="list">
+      {items.map((item) => (
+        <li>
+          <a href={item.href} data-nav-axis={getItemByPath(item.href)?.axis.id ?? 'hoje'}>
+            <span class="sk-tile sk-tile-g sk-tile-broto" aria-hidden="true">
+              <CagpIcon name={resolveCagpIconName(item.icon)} class="sk-tile-glifo" />
+              <svg class="sk-broto" viewBox="-46 -110 72 118"><use href="#sg-folha" /></svg>
+            </span>
+            <span class="sk-atalho-txt">
+              <span class="sk-atalho-nome" data-vt-title data-vt-href={item.href}>{item.shortLabel}</span>
+              <span class="sk-atalho-desc">{item.description}</span>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}

@@ -1,0 +1,87 @@
+---
+// curso.astro — Raiz do eixo Acolhimento. Estrutura padrão do eixo:
+// cabeçalho compacto → faixa do eixo → abas fixas → painel → navegação anterior/próxima.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/ui/PageHeader.astro';
+import SegmentedControl from '../components/ui/SegmentedControl.astro';
+import JourneyNav from '../components/ui/JourneyNav.astro';
+import CursoPainelGeral from '../components/features/curso/CursoPainelGeral.astro';
+import CursoVisao from '../components/features/curso/CursoVisao.astro';
+import CursoPilares from '../components/features/curso/CursoPilares.astro';
+import CursoEgressos from '../components/features/curso/CursoEgressos.astro';
+import CursoColegiado from '../components/features/curso/CursoColegiado.astro';
+import CursoIngresso from '../components/features/curso/CursoIngresso.astro';
+import { PAGINAS_ACOLHIMENTO as P } from '@/data/acolhimento';
+
+const tabs = [
+  { id: 'v0', shortLabel: 'Atendimento', fullLabel: 'Quem atende', hash: '#visao-geral' },
+  { id: 'v1', shortLabel: 'História', fullLabel: 'História e currículo', hash: '#historia' },
+  { id: 'v2', shortLabel: 'Egressos', fullLabel: 'Onde os egressos estão', hash: '#egressos' },
+  { id: 'v3', shortLabel: 'Colegiado', fullLabel: 'Colegiado e ingresso', hash: '#colegiado' },
+];
+
+const badges = [
+  { label: 'Noturno · FAFICH/UFMG', variant: 'dark' as const, icon: 'bi-moon-stars-fill' },
+  { label: 'Nota 4 MEC', variant: 'purple' as const, icon: 'bi-star-fill' },
+];
+import ComplementoUfmg from '@/components/features/ufmg/ComplementoUfmg.astro';
+---
+
+<BaseLayout
+  title={P.curso.titulo}
+  description="O que funciona hoje à noite na FAFICH, quem atende, história do curso, egressos, Colegiado e formas de ingresso em Gestão Pública na UFMG."
+  mode="operate"
+>
+  <PageHeader
+    title={P.curso.titulo}
+    subtitle="Bacharelado noturno do Departamento de Ciência Política (FAFICH/UFMG). Comece pelo que está aberto hoje e por quem atende."
+    badges={badges}
+    axisId="guias"
+    activeId="curso-overview"
+    mode="operate"
+    condensed={true}
+  />
+
+  <SegmentedControl tabs={tabs} defaultTab="v0" />
+
+  <section id="ws-panel-v0" class="cagp-workspace-view" data-ws-panel="v0">
+    <div id="visao-geral" class="cagp-anchor-target"></div>
+    <h2 class="sr-only">Hoje e atendimento</h2>
+    <CursoPainelGeral />
+  </section>
+
+  <section id="ws-panel-v1" class="cagp-workspace-view space-y-6" data-ws-panel="v1" hidden>
+    <div id="historia" class="cagp-anchor-target"></div>
+    <h2 class="sr-only">História e currículo</h2>
+    <CursoVisao />
+    <CursoPilares />
+  </section>
+
+  <section id="ws-panel-v2" class="cagp-workspace-view" data-ws-panel="v2" hidden>
+    <div id="egressos" class="cagp-anchor-target"></div>
+    <h2 class="sr-only">Egressos e carreiras</h2>
+    <CursoEgressos />
+  </section>
+
+  <section id="ws-panel-v3" class="cagp-workspace-view space-y-8" data-ws-panel="v3" hidden>
+    <div id="colegiado" class="cagp-anchor-target"></div>
+    <h2 class="sr-only">Colegiado e formas de ingresso</h2>
+    <CursoColegiado />
+    <ComplementoUfmg bloco="curso-colegiados" />
+    <div id="ingresso" class="cagp-anchor-target"></div>
+    <CursoIngresso />
+  </section>
+
+  <JourneyNav
+    prev={{
+      title: 'Início',
+      href: '/',
+      desc: 'Atalhos do dia, sistemas oficiais e avisos do campus.',
+    }}
+    next={{
+      title: P.calouros.titulo,
+      href: P.calouros.href,
+      desc: 'Checklist dos primeiros 30 dias e as salas da FAFICH.',
+    }}
+  />
+</BaseLayout>

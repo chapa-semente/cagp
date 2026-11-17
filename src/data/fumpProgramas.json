@@ -1,0 +1,69 @@
+{
+  "_comentario": "Os programas da FUMP como o próprio site da FUMP descreve. Nada aqui é estimativa: cada frase resume uma página de fump.ufmg.br, e o link da página vai junto. Ao atualizar, confira o site e troque consultadoEm. Não invente valor de auxílio: a FUMP só publica valor fixo onde está escrito abaixo (óculos e Permanecer); os outros suportes saem por chamada.",
+  "fonte": "https://fump.ufmg.br/programas/",
+  "consultadoEm": "2026-11-11",
+  "areaDoAluno": "https://sinae.fump.ufmg.br/sinaeWeb/LoginAluno",
+  "contato": "Belo Horizonte: (31) 3409-8401 / (31) 3409-8470 ou WhatsApp (31) 97537-0115",
+  "precosRu": {
+    "norma": "Resolução nº 15/2023 do Conselho Universitário e Portaria 11.865/2023 da Reitoria",
+    "nota": "Almoço e jantar. Quem está nos níveis I, II e III também tem café da manhã gratuito.",
+    "niveis": [
+      { "id": "n1", "nivel": "Nível I", "preco": 0, "cafe": true, "concorre": true },
+      { "id": "n2", "nivel": "Nível II", "preco": 1, "cafe": true, "concorre": true },
+      { "id": "n3", "nivel": "Nível III", "preco": 1, "cafe": true, "concorre": true },
+      { "id": "n4a", "nivel": "Nível IV-A", "preco": 2, "cafe": false, "concorre": false },
+      { "id": "n4b", "nivel": "Nível IV-B", "preco": 2.9, "cafe": false, "concorre": false },
+      { "id": "geral", "nivel": "Sem nível FUMP", "preco": 5.6, "cafe": false, "concorre": false }
+    ]
+  },
+  "programas": [
+    {
+      "id": "alimentacao",
+      "nome": "Alimentação",
+      "icone": "bi-cup-hot",
+      "oQueE": "Refeições nos Restaurantes Universitários (RUs), com preço conforme o seu nível na FUMP.",
+      "quemPode": "Toda a comunidade da UFMG, com ou sem nível na FUMP.",
+      "comoAcessar": "Na entrada do restaurante, mostre a carteirinha da UFMG ou um documento oficial com foto e pague, quando houver valor.",
+      "link": "https://fump.ufmg.br/programa-de-alimentacao/"
+    },
+    {
+      "id": "moradia",
+      "nome": "Moradias Universitárias",
+      "icone": "bi-house-heart",
+      "oQueE": "Vaga nas moradias da UFMG em Belo Horizonte e em Montes Claros (Programa Permanente de Moradia Universitária).",
+      "quemPode": "Quem está em curso presencial de primeira graduação, nos níveis I, II ou III (priorizados nessa ordem) e tem residência de origem fora da cidade do programa.",
+      "comoAcessar": "Por chamada, publicada todo semestre: espere a chamada abrir e manifeste interesse no portal da FUMP. O acesso não é imediato e depende das vagas.",
+      "link": "https://fump.ufmg.br/programa-de-moradia/"
+    },
+    {
+      "id": "saude",
+      "nome": "Saúde",
+      "icone": "bi-heart-pulse",
+      "oQueE": "Atendimento médico e psicológico com equipe da FUMP, e odontológico em parceria com a Faculdade de Odontologia. Não atende urgência nem emergência: nesses casos, procure o SUS.",
+      "quemPode": "Estudantes da UFMG, com agendamento pela Área do Aluno.",
+      "comoAcessar": "Clínica médica: a agenda da semana seguinte abre toda sexta-feira, às 8h. Psicologia: a agenda abre nos dias 10 e 25 de cada mês, às 8h, com atendimento de segunda a sexta, das 7h30 às 18h30 (há um espaço na Faculdade de Letras, no campus Pampulha). Odontologia: por chamada no portal da FUMP.",
+      "link": "https://fump.ufmg.br/saude/"
+    },
+    {
+      "id": "suportes",
+      "nome": "Suportes Financeiros",
+      "icone": "bi-cash-coin",
+      "oQueE": "Apoio em dinheiro para despesas de quem estuda: manutenção, moradia, transporte, material e outras.",
+      "quemPode": "Em geral, quem está nos níveis I, II ou III, com estudo socioeconômico em dia.",
+      "comoAcessar": "Quase todos saem por chamada (edital) da PRAE e da FUMP: acompanhe os portais e manifeste interesse na Área do Aluno dentro do prazo. Ter nível não garante o suporte: a seleção depende dos critérios da chamada, da análise técnica e do orçamento.",
+      "link": "https://fump.ufmg.br/programas/"
+    }
+  ],
+  "suportes": [
+    { "nome": "Manutenção", "acesso": "Por chamada", "resumo": "Mensal. Ajuda nas despesas essenciais: alimentação, transporte, moradia e material.", "link": "https://fump.ufmg.br/auxilio-manutencao/" },
+    { "nome": "Moradia", "acesso": "Por chamada", "resumo": "Mensal. Para quem não conseguiu vaga na Moradia Universitária ou aguarda a seleção.", "link": "https://fump.ufmg.br/auxilio-moradia/" },
+    { "nome": "Transporte", "acesso": "Por chamada", "resumo": "Mensal. Para o deslocamento até a Universidade.", "link": "https://fump.ufmg.br/auxilio-transporte/" },
+    { "nome": "Material Acadêmico", "acesso": "Por chamada", "resumo": "Para comprar o material básico ou específico do curso.", "link": "https://fump.ufmg.br/auxilio-material-academico/" },
+    { "nome": "Estudantes com filhos(as)", "acesso": "Por chamada", "resumo": "Mensal. Para quem tem filho ou filha de 0 a 5 anos e 11 meses, com comprovação das despesas de cuidado.", "link": "https://fump.ufmg.br/auxilio-a-estudantes-com-filho/" },
+    { "nome": "Óculos", "acesso": "Pedido por e-mail", "resumo": "Até R$ 250,00, uma vez a cada 12 meses. Mande para auxilio.oculos@fump.ufmg.br a receita (emitida há menos de três meses, com grau acima de 0,75) e três orçamentos.", "link": "https://fump.ufmg.br/auxilio-oculos/" },
+    { "nome": "Emergencial", "acesso": "Avaliação da FUMP", "resumo": "Eventual. Para situações imprevistas que ameacem a permanência, como perda recente de renda ou adoecimento grave na família, com relato formal e comprovação.", "link": "https://fump.ufmg.br/auxilio-emergencial/" },
+    { "nome": "Chegança (Achega)", "acesso": "Avaliação da FUMP", "resumo": "Apoio inicial para ingressantes em primeira matrícula, com renda familiar por pessoa de até meio salário-mínimo.", "link": "https://fump.ufmg.br/auxilio-cheganca-achega/" },
+    { "nome": "Programa Permanecer", "acesso": "Critérios da FUMP", "resumo": "Parcelas mensais de R$ 400,00, mantidas por doações, conforme os recursos arrecadados. Para níveis I, II ou III com renda familiar por pessoa de até um salário-mínimo.", "link": "https://fump.ufmg.br/suporte-financeiro-via-doacoes/" },
+    { "nome": "Tecnologia assistiva", "acesso": "Por chamada", "resumo": "Equipamentos e recursos para estudantes com deficiência, com a necessidade validada pelo NAI.", "link": "https://fump.ufmg.br/auxilio-inclusao-digital-tecnologia-assistiva-ta/" }
+  ]
+}

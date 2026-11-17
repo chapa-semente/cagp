@@ -1,0 +1,13 @@
+---
+codigo: "DCP 001"
+nome: "TEORIA POLÍTICA CONTEMPORÂNEA"
+natureza: "optativa"
+ch: 60
+modulo: "Optativa"
+preRequisitos: []
+ementa: "Teoria normativa e teoria positiva. Teorias contemporâneas da justiça, teorias marxistas e feministas; teoria da escolha racional, economia do bem-estar e teorias da justiça; liberalismo, comunitarismo, republicanismo; teorias sobre a sociedade civil; escolha pública e escolha social; modelos de \"política analítica\"."
+---
+
+## Ementa Oficial
+
+Teoria normativa e teoria positiva. Teorias contemporâneas da justiça, teorias marxistas e feministas; teoria da escolha racional, economia do bem-estar e teorias da justiça; liberalismo, comunitarismo, republicanismo; teorias sobre a sociedade civil; escolha pública e escolha social; modelos de "política analítica".

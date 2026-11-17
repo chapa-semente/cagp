@@ -1,0 +1,28 @@
+---
+// MarkerWord.astro — A caneta da chapa (DESIGN.md › Typography › Accent).
+// Uma palavra por tela, escrita à mão em Permanent Marker, com um traço laranja que se desenha:
+// sublinhado (`underline`) ou círculo (`circle`). É o único gesto da Permanent Marker no site.
+// Sobre fundo claro a palavra é roxa; sobre roxo/petróleo use `onColor` (palavra branca).
+interface Props {
+  mark?: 'underline' | 'circle';
+  onColor?: boolean;
+  /** Abaixo da dobra: o traço se desenha guiado pela rolagem. */
+  scroll?: boolean;
+  class?: string;
+}
+
+const { mark = 'underline', onColor = false, scroll = false, class: className = '' } = Astro.props;
+---
+
+<span class:list={['cagp-marker', `cagp-marker--${mark}`, onColor && 'is-on-color', scroll && 'is-scroll', className]}>
+  <span class="cagp-marker__word"><slot /></span>
+  {mark === 'underline' ? (
+    <svg class="cagp-marker__stroke" viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true">
+      <path pathLength="1" d="M3 13C38 7 74 6 108 9s58 4 89-3" />
+    </svg>
+  ) : (
+    <svg class="cagp-marker__stroke" viewBox="0 0 200 80" preserveAspectRatio="none" aria-hidden="true">
+      <path pathLength="1" d="M150 9C104 1 30 5 11 30c-16 21 22 42 86 44 60 2 99-14 96-36-2-17-41-29-92-28" />
+    </svg>
+  )}
+</span>

@@ -1,0 +1,111 @@
+---
+// permanencia.astro — Permanência & Noturno. Estrutura padrão do eixo Acolhimento:
+// cabeçalho compacto → faixa do eixo → abas fixas → painel → navegação anterior/próxima.
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+import SegmentedControl from '@/components/ui/SegmentedControl.astro';
+import JourneyNav from '@/components/ui/JourneyNav.astro';
+import QuemViveIsso from '@/components/ui/QuemViveIsso.astro';
+import NoturnoHoje from '@/components/features/acolhimento/NoturnoHoje.astro';
+import FumpProgramas from '@/components/features/permanencia/FumpProgramas.astro';
+import { PermanenciaSimulador, PermanenciaPedido } from '@/components/features/permanencia/PermanenciaInteractiveHub';
+import { PAGINAS_ACOLHIMENTO as P } from '@/data/acolhimento';
+
+const tabs = [
+  { id: 'v0', shortLabel: 'Programas', fullLabel: 'Programas da FUMP', hash: '#programas' },
+  { id: 'v1', shortLabel: 'Conta do RU', fullLabel: 'Conta do RU', hash: '#simular' },
+  { id: 'v2', shortLabel: 'Pedir', fullLabel: 'Como pedir', hash: '#pedir' },
+  { id: 'v3', shortLabel: 'Noturno', fullLabel: 'Guia noturno', hash: '#noturno' },
+];
+
+const badges = [
+  { label: 'FUMP · 4 programas', variant: 'secondary' as const, icon: 'bi-shield-check' },
+  { label: 'Portaria PRAE 1.286/2026', variant: 'dark' as const, icon: 'bi-file-text' },
+];
+
+const maisNoite = [
+  { titulo: 'Biblioteca Baeta Neves', texto: 'FAFICH, 1º andar, aberta até 21h45.' },
+  { titulo: 'Caminho até o Setorial II', texto: 'Iluminação reforçada na escadaria da Praça de Serviços até o RU. À noite, prefira o ônibus interno (linhas 2 e 3 rodam até 22h50).' },
+  { titulo: 'Jantar no Setorial I', texto: 'O CAGP cobra da PRAE e da FUMP a reabertura do jantar no Setorial I, vizinho à FAFICH.' },
+];
+import ComplementoUfmg from '@/components/features/ufmg/ComplementoUfmg.astro';
+---
+
+<BaseLayout
+  title={P.permanencia.titulo}
+  description="Os quatro programas da FUMP (alimentação, moradia, saúde e suportes financeiros), o preço do RU por nível, como pedir e o guia do turno noturno da FAFICH."
+  mode="operate"
+>
+  <PageHeader
+    title={P.permanencia.titulo}
+    subtitle="Os programas da FUMP, o preço do RU em cada nível, como pedir e o que funciona à noite na FAFICH."
+    badges={badges}
+    axisId="guias"
+    activeId="curso-permanencia"
+    mode="operate"
+    condensed={true}
+  />
+
+  <SegmentedControl tabs={tabs} defaultTab="v0" />
+
+  <section id="ws-panel-v0" class="cagp-workspace-view" data-ws-panel="v0" data-tour="vitoria">
+    <div id="programas" class="cagp-anchor-target"></div>
+    <h2 class="sr-only">Programas da FUMP</h2>
+    <FumpProgramas />
+    {/* O que o Viver UFMG acrescenta ao site da FUMP (src/data/ufmgComplementos.json). */}
+    <div class="mt-8 grid gap-5" aria-label="Mais sobre a assistência, segundo a UFMG">
+      <ComplementoUfmg bloco="permanencia-niveis" />
+      <ComplementoUfmg bloco="permanencia-comer" />
+      <ComplementoUfmg bloco="permanencia-prae" />
+      <ComplementoUfmg bloco="permanencia-projetos" />
+    </div>
+  </section>
+
+  <section id="ws-panel-v1" class="cagp-workspace-view" data-ws-panel="v1" hidden>
+    <div id="simular" class="cagp-anchor-target"></div>
+    <h2 class="sr-only">Conta do RU por nível</h2>
+    <PermanenciaSimulador client:visible />
+  </section>
+
+  <section id="ws-panel-v2" class="cagp-workspace-view" data-ws-panel="v2" hidden>
+    <div id="pedir" class="cagp-anchor-target"></div>
+    <h2 class="sr-only">Como pedir</h2>
+    <PermanenciaPedido client:visible />
+  </section>
+
+  <section id="ws-panel-v3" class="cagp-workspace-view space-y-6" data-ws-panel="v3" hidden>
+    <div id="noturno" class="cagp-anchor-target"></div>
+    <h2 class="sr-only">Guia noturno</h2>
+    <NoturnoHoje showSecretaria showGuideLink={false} headingLevel="h3" />
+
+    <section class="rounded-xl border-2 border-border bg-card shadow-lg p-4 sm:p-5" aria-labelledby="mais-noite-titulo">
+      <h3 id="mais-noite-titulo" class="font-heading font-extrabold text-base sm:text-lg leading-tight m-0">
+        Mais para quem estuda à noite
+      </h3>
+      <dl class="m-0 mt-3 grid grid-cols-1 md:grid-cols-3 gap-x-6">
+        {maisNoite.map((m) => (
+          <div class="py-3 border-t-2 border-border">
+            <dt class="font-heading font-bold text-base leading-snug">{m.titulo}</dt>
+            <dd class="m-0 mt-0.5 text-sm text-muted-foreground leading-relaxed text-pretty">{m.texto}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  </section>
+
+  <QuemViveIsso tema="fump" />
+  <QuemViveIsso tema="cotas" />
+
+  <JourneyNav
+    prev={{
+      title: P.calouros.titulo,
+      href: P.calouros.href,
+      desc: 'Checklist dos primeiros 30 dias e as salas da FAFICH.',
+    }}
+    next={{
+      title: P.pesquisa.titulo,
+      href: P.pesquisa.href,
+      desc: 'Os 11 núcleos do DCP e como entrar em IC e extensão.',
+    }}
+  />
+</BaseLayout>

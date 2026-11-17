@@ -1,0 +1,17 @@
+/* drawer.css - Gaveta Lateral e Sidebar Unificada (100% Opaca • Apple HIG + Papelaria CAGP) */
+
+/* Modo Alto Contraste AAA para a Sidebar Unificada */
+html[data-a11y-contrast="high"] #cagp-app-sidebar {
+  background: #1F1F1F !important;
+  border-right-color: #FE8812 !important;
+  box-shadow: none !important;
+}
+
+html[data-a11y-contrast="high"] #cagp-app-sidebar .bg-white {
+  background-color: #1F1F1F !important;
+  color: #FFFFFF !important;
+}
+
+html[data-a11y-contrast="high"] #cagp-app-sidebar [class*="border-"] {
+  border-color: #4A4740 !important;
+}

@@ -1,0 +1,138 @@
+---
+// AberturaUfmg.astro — O cartão de abertura dos guias da vida na UFMG: o momento Cartaz da página.
+// É o cartão em camadas do kit (sk-saldo, o mesmo de Meu curso): bloco de cor com o numeral laranja
+// ou a frase, etiquetas coladas como adesivos, a folha e a semente do símbolo no canto e, no papel
+// branco de baixo, as três linhas do resumo. Tudo vem do cabeçalho do Markdown (`destaque`,
+// `resumoRapido`); nenhum número é escrito aqui.
+interface Props {
+  destaque?: {
+    rotulo?: string;
+    numero?: string;
+    unidade?: string;
+    frase: string;
+    etiquetasTitulo?: string;
+    etiquetas: string[];
+    cor: 'roxo' | 'petroleo';
+  };
+  resumo: { rotulo: string; texto: string }[];
+  /** Quantos itens tem a maior lista da página (para `numero: "lista"`). */
+  contagem: number;
+}
+
+const { destaque: dq, resumo, contagem } = Astro.props;
+const numero = dq?.numero === 'lista' ? String(contagem) : dq?.numero;
+// Só conta até o valor quando há o que contar: "1 login" subindo de zero não diz nada.
+const contavel = numero && /^\d+$/.test(numero) && Number(numero) >= 10;
+---
+
+<section class:list={['sk-saldo', 'ua', dq ? `ua-${dq.cor}` : 'ua-so-papel', 'cagp-reveal-card']} aria-label="Resumo da página">
+  {dq && (
+    <div class="sk-saldo-topo ua-topo">
+      <div>
+        {dq.rotulo && <p class="sk-saldo-rotulo">{dq.rotulo}</p>}
+        {numero ? (
+          <>
+            <p class="sk-saldo-num ua-num">
+              {contavel ? <b data-count-to={numero}>{numero}</b> : <b>{numero}</b>}
+              {dq.unidade && <span>{dq.unidade}</span>}
+            </p>
+            <p class="ua-frase">{dq.frase}</p>
+          </>
+        ) : (
+          <p class="ua-frase ua-frase-grande">{dq.frase}</p>
+        )}
+        {dq.etiquetas.length > 0 && (
+          <div class="ua-etiquetas">
+            {dq.etiquetasTitulo && <p>{dq.etiquetasTitulo}</p>}
+            <ul role="list">
+              {dq.etiquetas.map((e) => <li>{e}</li>)}
+            </ul>
+          </div>
+        )}
+      </div>
+      <svg class="ua-arte cagp-parallax" viewBox="0 0 120 150" aria-hidden="true">
+        <path class="ua-caule" d="M58 126C55 104 61 86 57 58" />
+        <use href="#sg-gota" class="ua-gota" transform="translate(40 132) rotate(90) scale(0.5)" />
+        <use href="#sg-folha" class="ua-folha-a" transform="translate(58 100) rotate(44) scale(0.78)" />
+        <use href="#sg-folha" class="ua-folha-b" transform="translate(57 78) rotate(-52) scale(0.6)" />
+        <use href="#sg-folha" class="ua-folha-a" transform="translate(57 60) rotate(8) scale(0.5)" />
+      </svg>
+    </div>
+  )}
+  {resumo.length > 0 && (
+    <dl class="sk-saldo-papel ua-papel">
+      {resumo.map((l) => (
+        <div>
+          <svg class="ua-marca" viewBox="-46 -110 72 118" aria-hidden="true"><use href="#sg-folha" /></svg>
+          <dt>{l.rotulo}</dt>
+          <dd>{l.texto}</dd>
+        </div>
+      ))}
+    </dl>
+  )}
+</section>
+
+<style is:global>
+  .ua { margin: 0 12px 12px 0; }
+  .ua-roxo { background: var(--color-primary); }
+  .ua-petroleo { background: var(--color-secondary); }
+  .ua-so-papel { background: #fff; }
+  .ua-topo { align-items: stretch; }
+  .ua-topo > div { padding: 1.125rem 0 1.125rem 1.125rem; }
+  .ua .ua-num { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 0.5rem; }
+  .ua .ua-num b { font-weight: 700; color: var(--color-accent); }
+  .ua .ua-num span { margin-left: 0; font-size: 1.5rem; line-height: 1.1; color: #fff; }
+  .ua-frase { margin: 0.5rem 0 0; max-width: 34ch; font-size: 1rem; line-height: 1.45; color: #fff; text-wrap: pretty; }
+  .ua-frase-grande { margin-top: 0; max-width: 22ch; font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; line-height: 1.2; text-wrap: balance; }
+  .sk-saldo-rotulo + .ua-frase-grande { margin-top: 0.75rem; }
+
+  /* Etiquetas: adesivos do kit, colados com uma inclinação leve, alternando o lado. */
+  .ua-etiquetas { margin-top: 1rem; }
+  .ua-etiquetas p { margin: 0 0 0.5rem; font-family: var(--font-heading); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #fff; }
+  .ua-etiquetas ul { list-style: none; margin: 0; padding: 0 0 4px; display: flex; flex-wrap: wrap; gap: 0.625rem 0.5rem; }
+  .ua-etiquetas li {
+    padding: 0.375rem 0.625rem;
+    background: #fff;
+    color: var(--color-foreground);
+    border: 2px solid var(--color-border);
+    border-radius: 6px;
+    box-shadow: 2px 2px 0 0 var(--color-accent), 4px 4px 0 0 var(--color-border);
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1.15;
+    rotate: -3deg;
+  }
+  .ua-etiquetas li:nth-child(even) { rotate: 2deg; }
+  .ua-etiquetas li:nth-child(3n) { rotate: -1deg; background: var(--color-fruto); }
+
+  /* A folha e a semente do símbolo, no canto do bloco de cor. */
+  .ua-arte { flex: none; align-self: flex-end; width: 6.5rem; height: auto; margin: 0 -0.25rem -0.25rem 0; overflow: visible; --parallax-from: 14px; --parallax-to: -14px; }
+  .ua-arte use { stroke: var(--color-border); stroke-width: 4px; stroke-linejoin: round; }
+  .ua-caule { fill: none; stroke: #fff; stroke-width: 7; stroke-linecap: round; }
+  .ua-gota { fill: var(--color-fruto); }
+  .ua-folha-a { fill: var(--color-accent); }
+  .ua-folha-b { fill: var(--color-broto); }
+  .ua-petroleo .ua-gota { fill: #fff; }
+
+  /* O papel: as três linhas do resumo, cada uma com a folha de uma cor do ciclo. */
+  .ua-papel { margin: 0; gap: 0; padding: 0; }
+  .ua-so-papel .ua-papel { border-top: 0; border-radius: 15px; }
+  .ua-papel > div { position: relative; padding: 0.875rem 1.125rem 0.875rem 3rem; }
+  .ua-papel > div + div { border-top: 2px solid var(--color-border); }
+  .ua-marca { position: absolute; left: 1rem; top: 0.875rem; width: 1.125rem; height: auto; overflow: visible; fill: var(--color-accent); stroke: var(--color-border); stroke-width: 5px; stroke-linejoin: round; rotate: 18deg; }
+  .ua-papel > div:nth-child(2) .ua-marca { fill: var(--color-broto); rotate: -12deg; }
+  .ua-papel > div:nth-child(3) .ua-marca { fill: var(--color-fruto); rotate: 28deg; }
+  .ua-papel dt { font-family: var(--font-heading); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-primary); }
+  .ua-papel dd { margin: 0.25rem 0 0; font-size: 1rem; line-height: 1.5; text-wrap: pretty; overflow-wrap: anywhere; }
+
+  @media (min-width: 640px) {
+    .ua-topo > div { padding: 1.5rem 0 1.5rem 1.5rem; }
+    .ua-arte { width: 9rem; margin-right: 0.75rem; }
+    .ua-frase-grande { font-size: 1.75rem; }
+  }
+  @media (min-width: 900px) {
+    .ua-papel { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .ua-papel > div + div { border-top: 0; border-left: 2px solid var(--color-border); }
+  }
+</style>

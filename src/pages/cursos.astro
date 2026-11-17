@@ -1,0 +1,48 @@
+---
+// src/pages/cursos.astro — Tela 11: Cursos Livres & Formação (Proposta 10 da Chapa Semente • Eixo 3)
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/ui/PageHeader.astro';
+import SementeSignature from '../components/ui/SementeSignature.astro';
+import JourneyNav from '../components/ui/JourneyNav.astro';
+import SeuProgresso from '../components/ui/SeuProgresso.astro';
+import { CursosCatalogHub } from '../components/features/cursos/CursosCatalogHub';
+import { route } from '@/lib/paths';
+---
+
+<BaseLayout
+  title="Cursos que contam horas"
+  description="Proposta 10 da Chapa Semente: Catálogo de Cursos Livres do CAGP, UFMG e 1.045+ cursos gratuitos da ENAP/EV.G pra guardar na sua lista de atividades e contar nas 600h de extensão e AAC."
+  mode="operate"
+>
+  <div id="cagp-cursos-header">
+    <PageHeader
+      title="Cursos que contam horas"
+      subtitle="Cursos gratuitos com certificado (ENAP, EV.G e UFMG) pra fechar extensão e AAC sem gastar nada."
+      breadcrumbs={[{ label: 'Trajetória 600h', href: route('/percurso') }, { label: 'Cursos Livres & ENAP' }]}
+      axisId="curso"
+      activeId="cursos"
+      mode="operate"
+      condensed={true}
+    />
+  </div>
+
+  <div class="space-y-6">
+    {/* Hub Interativo de Cursos */}
+    <section aria-label="Catálogo de cursos">
+      <CursosCatalogHub client:load />
+    </section>
+
+    <SeuProgresso tema="horas" />
+
+    <SementeSignature
+      proposal="Proposta 10"
+      text="Cursos livres de ciência política, orçamento e dados no portal do CAGP, somados aos cursos gratuitos da ENAP que contam para as suas 600h."
+      leaderId="italo"
+    />
+
+    <JourneyNav
+      prev={{ title: 'Catálogo de optativas', href: '/optativas', desc: 'Busca e filtro por departamento no PPC.' }}
+      next={{ title: 'Horas & 600h', href: '/acg', desc: 'O que conta nas 600h e como protocolar em 120 dias.' }}
+    />
+  </div>
+</BaseLayout>

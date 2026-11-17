@@ -1,0 +1,223 @@
+---
+// src/components/features/tcc/modalidades/TccModalidadesExplorer.astro — Matriz das 4 Modalidades Oficiais de TCC & Tabela Comparativa Padronizada
+import NormativeDetails from '@/components/ui/NormativeDetails.astro';
+
+const modalidades = [
+  {
+    num: 1,
+    nome: 'Monografia Científica Tradicional',
+    icon: 'bi-journal-richtext',
+    badge: 'Perfil Acadêmico',
+    badgeColor: 'bg-foreground text-white',
+    foco: 'Domínio teórico-analítico e revisão exaustiva da literatura especializada.',
+    estrutura: 'Texto monográfico completo (40 a 80 páginas) com problema de pesquisa, metodologia e análise empírica/documental detalhada.',
+    sinergia: 'Indicada para discentes que visam ingresso em programas de Pós-Graduação (PPGCP/UFMG) e carreira docente.',
+  },
+  {
+    num: 2,
+    nome: 'Artigo Científico para Publicação',
+    icon: 'bi-file-earmark-text-fill',
+    badge: 'Perfil Periódico Qualis',
+    badgeColor: 'bg-petroleo-deep text-white',
+    foco: 'Teste objetivo de hipóteses no formato enxuto de periódicos científicos indexados (Qualis/CAPES).',
+    estrutura: 'Artigo autoral inédito (18 a 30 páginas / 6.000 a 9.000 palavras) segundo normas de periódicos de Gestão Pública/Ciência Política.',
+    sinergia: 'Excelente para pesquisadores dos 11 Núcleos do DCP e quem busca pontuação imediata de publicação em editais de mestrado.',
+  },
+  {
+    num: 3,
+    nome: 'Projeto de Intervenção Governamental',
+    icon: 'bi-kanban-fill',
+    badge: 'Perfil Aplicado',
+    badgeColor: 'bg-secondary text-white',
+    foco: 'Resolução aplicada de problema real em órgão público, política pública ou OSC.',
+    estrutura: 'Diagnóstico situacional estruturado + Plano executivo de melhoria, modernização institucional ou intervenção prática.',
+    sinergia: 'Aproveitamento direto de diagnósticos e vivências do Estágio Obrigatório (DCP 135/136) ou atuação como Servidor Público (Art. 41).',
+  },
+  {
+    num: 4,
+    nome: 'Projeto de Iniciação Científica Avançado',
+    icon: 'bi-search',
+    badge: 'Perfil Pesquisa',
+    badgeColor: 'bg-primary text-white',
+    foco: 'Desenho metodológico avançado para investigação futura de fôlego.',
+    estrutura: 'Projeto completo contendo justificativa, estado da arte, hipóteses e matriz operacional de coleta de dados.',
+    sinergia: 'Recomendado para discentes com planos de editais de fomento científico ou anteprojeto direto de seleção de pós-graduação.',
+  },
+];
+
+const comparativoRows = [
+  {
+    criterio: 'Extensão & Formato',
+    monografia: '40 a 80 laudas • Estrutura capitular clássica (Introdução, Capítulos Teóricos/Empíricos, Conclusão)',
+    artigo: '18 a 30 laudas (6k–9k palavras) • Formato IMRD de periódico científico (Resumo, Método, Resultados, Discussão)',
+    intervencao: '25 a 50 laudas • Relatório técnico executivo com matriz de intervenção, indicadores e viabilidade',
+  },
+  {
+    criterio: 'Objetivo Central',
+    monografia: 'Aprofundamento teórico denso, reconstrução histórica ou estudo de caso multi-dimensional',
+    artigo: 'Responder a uma pergunta empírica/analítica recortada com prontidão para submissão a revista Qualis',
+    intervencao: 'Diagnosticar um gargalo real de gestão pública ou OSC e propor solução operacional aplicável',
+  },
+  {
+    criterio: 'Público & Sinergia',
+    monografia: 'Candidatos a Mestrado Acadêmico e pesquisas qualitativas/históricas extensas',
+    artigo: 'Bolsistas de IC, integrantes de grupos de pesquisa e quem quer publicar rápido no Currículo Lattes',
+    intervencao: 'Servidores públicos (Art. 41), estagiários de órgãos governamentais e consultoria pública',
+  },
+  {
+    criterio: 'Exigência em DCP 089 / 137',
+    monografia: 'Projeto em DCP 089 (60h) + Defesa pública perante banca de 2 docentes em DCP 137 (120h)',
+    artigo: 'Projeto em DCP 089 (60h) + Defesa pública do artigo formatado perante banca em DCP 137 (120h)',
+    intervencao: 'Projeto de diagnóstico em DCP 089 (60h) + Defesa do plano executivo perante banca em DCP 137 (120h)',
+  },
+];
+---
+
+<div class="cagp-tcc-modalidades space-y-6 select-none text-foreground">
+  {/* Cabeçalho */}
+  <div class="p-5 sm:p-6 bg-white border-2 border-border rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
+    <div>
+      <h3 class="font-heading text-lg font-black text-foreground m-0">
+        As 4 Modalidades Oficiais de TCC &amp; Comparativo Monografia vs. Artigo
+      </h3>
+      <p class="m-0 mt-1 text-sm text-muted-foreground">Base: Regulamento do Curso, art. 19.</p>
+      <p class="font-sans text-xs text-content-secondary mt-0.5 m-0 font-medium">
+        Compare lado a lado o formato tradicional de Monografia, o Artigo Científico publicável e o Projeto de Intervenção Governamental.
+      </p>
+    </div>
+    <span class="px-3 py-1.5 rounded-lg bg-foreground text-background text-white font-mono text-xs font-bold shrink-0 border border-border shadow-xs">
+      4 Opções Regimentais
+    </span>
+  </div>
+
+  {/* Tabela Comparativa Padronizada (Monografia vs Artigo Científico vs Intervenção) */}
+  <div class="bg-white border-2 border-border rounded-xl shadow-md overflow-hidden">
+    <div class="p-4 sm:p-5 border-b-2 border-border bg-background flex flex-wrap items-center justify-between gap-2">
+      <div>
+        <h4 class="font-heading text-sm sm:text-base font-black text-foreground m-0">
+          Tabela Comparativa: Monografia Tradicional vs. Artigo Científico vs. Intervenção
+        </h4>
+      </div>
+      <span class="px-2.5 py-1 rounded-md bg-white border border-border font-mono text-xs font-bold text-foreground">
+        Art. 19 • Mesmo Peso Regimental (180h)
+      </span>
+    </div>
+
+    <div class="overflow-x-auto scroll-mask-x">
+      <table class="w-full text-left border-collapse min-w-[680px]">
+        <thead>
+          <tr class="border-b-2 border-border bg-white">
+            <th class="p-3.5 font-heading text-xs font-black uppercase text-foreground border-r border-border w-[18%]">
+              Dimensão
+            </th>
+            <th class="p-3.5 font-heading text-xs font-black uppercase text-foreground border-r border-border w-[27%] bg-background">
+              <div class="flex items-center gap-1.5">
+                <i class="bi bi-journal-richtext text-secondary" aria-hidden="true"></i>
+                <span>1. Monografia Tradicional</span>
+              </div>
+            </th>
+            <th class="p-3.5 font-heading text-xs font-black uppercase text-petroleo-deep border-r border-border w-[28%] bg-success-tint">
+              <div class="flex items-center gap-1.5">
+                <i class="bi bi-file-earmark-text-fill text-petroleo-deep" aria-hidden="true"></i>
+                <span>2. Artigo Científico (Qualis)</span>
+              </div>
+            </th>
+            <th class="p-3.5 font-heading text-xs font-black uppercase text-primary w-[27%]">
+              <div class="flex items-center gap-1.5">
+                <i class="bi bi-kanban-fill text-primary" aria-hidden="true"></i>
+                <span>3. Projeto de Intervenção</span>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-border text-xs font-sans">
+          {comparativoRows.map((row) => (
+            <tr class="hover:bg-background transition-colors">
+              <td class="p-3.5 font-heading font-extrabold uppercase text-foreground border-r border-border bg-background/60">
+                {row.criterio}
+              </td>
+              <td class="p-3.5 text-foreground font-medium leading-relaxed border-r border-border">
+                {row.monografia}
+              </td>
+              <td class="p-3.5 text-foreground font-medium leading-relaxed border-r border-border bg-success-tint/60">
+                {row.artigo}
+              </td>
+              <td class="p-3.5 text-foreground font-medium leading-relaxed">
+                {row.intervencao}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  {/* Grid das 4 Modalidades — Contêineres Aplanados Sem Cards Aninhados */}
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+    {modalidades.map((m) => (
+      <div class="cagp-card p-5 bg-white border-2 border-border rounded-xl flex flex-col justify-between shadow-xs hover:shadow-sm hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <div class="flex items-center gap-2.5">
+              <span class="w-9 h-9 rounded-lg bg-secondary text-white flex items-center justify-center text-sm border border-border shadow-xs">
+                <i class={`bi ${m.icon}`} aria-hidden="true" />
+              </span>
+              <span class="font-mono text-xs font-bold text-foreground">Modalidade 0{m.num}</span>
+            </div>
+            <span class={`px-2.5 py-1 rounded-md text-xs font-heading uppercase font-bold border border-border shadow-2xs ${m.badgeColor}`}>
+              {m.badge}
+            </span>
+          </div>
+
+          <h4 class="font-heading text-base font-bold text-foreground leading-snug mb-3 m-0">
+            {m.nome}
+          </h4>
+
+          <div class="space-y-2.5 text-xs text-content-secondary font-sans">
+            <div>
+              <strong class="text-foreground font-heading uppercase tracking-wider text-xs block">Foco Analítico:</strong>
+              <span class="text-content-secondary font-medium">{m.foco}</span>
+            </div>
+            <div>
+              <strong class="text-foreground font-heading uppercase tracking-wider text-xs block">Estrutura Esperada:</strong>
+              <span class="text-content-secondary font-medium">{m.estrutura}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Bloco Aplanado com Divisor Sem Sombra Aninhada */}
+        <div class="pt-3 mt-4 text-xs bg-background p-3 rounded-lg border-t border-border">
+          <strong class="text-secondary font-heading uppercase tracking-wider text-xs block mb-1">Sinergia Recomendada:</strong>
+          <span class="text-foreground font-medium font-sans">{m.sinergia}</span>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  {/* Detalhes Normativos Expansíveis com Animação (Art. 19 e Mudança de Modalidade) */}
+  <div class="space-y-3">
+    <NormativeDetails
+      title="Artigo 19 do Regulamento N-20229 — Texto Integral sobre as Modalidades de TCC"
+      badge="Art. 19 Oficial"
+      icon="bi-journal-bookmark-fill"
+      open={true}
+    >
+      <p class="text-xs sm:text-sm text-foreground leading-relaxed m-0 mb-2">
+        <strong>Art. 19 (Regulamento de Gestão Pública UFMG):</strong> O Trabalho de Conclusão de Curso (TCC), desenvolvido individualmente pelo discente sob orientação docente em DCP 089 e DCP 137, poderá assumir uma das quatro modalidades: (I) Monografia Científica Tradicional; (II) Artigo Científico formatado para publicação em periódico acadêmico; (III) Projeto de Intervenção ou Diagnóstico Governamental Aplicado; ou (IV) Projeto de Pesquisa Avançado.
+      </p>
+      <p class="text-xs text-muted-foreground m-0">
+        <strong>Dica Prática da Chapa Semente:</strong> Você pode definir ou alterar a modalidade escolhida em comum acordo com seu(sua) orientador(a) durante a transição entre o Projeto (DCP 089) e a Defesa (DCP 137), sem necessidade de abrir processo burocrático no Colegiado.
+      </p>
+    </NormativeDetails>
+
+    <NormativeDetails
+      title="Como Aproveitar seu Estágio ou Trabalho no Setor Público como Tema do TCC?"
+      badge="Sinergia Art. 41 + TCC"
+      icon="bi-lightbulb-fill"
+    >
+      <p class="text-xs sm:text-sm text-foreground leading-relaxed m-0">
+        Estudantes que atuam no serviço público (federal, estadual ou municipal) ou realizam estágio em secretarias, tribunais de contas, legislativo ou OSCs podem utilizar o diagnóstico institucional do seu órgão como objeto do <strong>Projeto de Intervenção Governamental</strong> ou do <strong>Artigo Científico</strong>, otimizando o tempo de coleta de dados no turno noturno.
+      </p>
+    </NormativeDetails>
+  </div>
+</div>

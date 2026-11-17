@@ -1,0 +1,219 @@
+---
+// OnibusLinha.astro — Uma linha interna do campus: horários, legenda, itinerário e mapa do trajeto.
+// Retrato estático dos dados oficiais da UFMG (src/data/onibusInternos.json, gerado por
+// scripts/scrape-onibus-internos.mjs). Nada aqui é "ao vivo": zero relógio, zero JS.
+import CagpIcon from '@/components/ui/CagpIcon.astro';
+import retorno from '@phosphor-icons/core/assets/bold/arrow-u-up-left-bold.svg?raw';
+import loja from '@phosphor-icons/core/assets/bold/storefront-bold.svg?raw';
+import semUnidade from '@phosphor-icons/core/assets/bold/prohibit-bold.svg?raw';
+import bhtec from '@phosphor-icons/core/assets/bold/buildings-bold.svg?raw';
+import ru from '@phosphor-icons/core/assets/bold/fork-knife-bold.svg?raw';
+
+export interface Linha {
+  slug: string;
+  nome: string;
+  periodo: string;
+  fonte: string;
+  paradas: { nome: string; lat: number; lon: number }[];
+  legenda: { icone: string | null; texto: string }[];
+  turnos: { turno: string; partidas: { hora: string; marcas: string[] }[] }[];
+  trajeto: number[][];
+}
+
+interface Props {
+  linha: Linha;
+  /** Cor do bloco da linha: classes de fundo e texto já pareadas. */
+  tom: { bloco: string; traco: string; folha: string };
+}
+
+const { linha, tom } = Astro.props;
+
+const miolo = (svg: string) => svg.replace(/^[\s\S]*?<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '');
+const MARCAS: Record<string, { svg: string; curto: string }> = {
+  'ti-arrow-back-up': { svg: miolo(retorno), curto: 'Retorno no Colégio Militar' },
+  'ti-building-store': { svg: miolo(loja), curto: "Ponto McDonald's" },
+  'ti-building-off': { svg: miolo(semUnidade), curto: 'Sem Unidade Administrativa III' },
+  'ti-bus-stop': { svg: miolo(bhtec), curto: 'Passa no BH-TEC' },
+  'ti-tools-kitchen': { svg: miolo(ru), curto: 'Passa no RU II' },
+};
+
+const partidas = linha.turnos.flatMap((t) => t.partidas);
+const usadas = new Set(partidas.flatMap((p) => p.marcas));
+const legenda = linha.legenda.filter((l) => l.icone && usadas.has(l.icone));
+const primeira = partidas[0]?.hora;
+const ultima = partidas.at(-1)?.hora;
+const origem = linha.paradas[0]?.nome.replace(/\s*\(Partida\)/, '') ?? '';
+
+// Projeção plana local: o campus é pequeno, basta corrigir a longitude pelo cosseno da latitude.
+const W = 600;
+const PAD = 28;
+const pts = [...linha.trajeto, ...linha.paradas.map((p) => [p.lon, p.lat])];
+const lons = pts.map((p) => p[0]);
+const lats = pts.map((p) => p[1]);
+const [lonMin, lonMax, latMin, latMax] = [Math.min(...lons), Math.max(...lons), Math.min(...lats), Math.max(...lats)];
+const k = Math.cos(((latMin + latMax) / 2) * (Math.PI / 180));
+const escala = (W - PAD * 2) / ((lonMax - lonMin) * k);
+const H = Math.round((latMax - latMin) * escala + PAD * 2);
+const xy = (lon: number, lat: number) => [
+  Number((PAD + (lon - lonMin) * k * escala).toFixed(1)),
+  Number((PAD + (latMax - lat) * escala).toFixed(1)),
+];
+const caminho = linha.trajeto.map(([lon, lat], i) => `${i ? 'L' : 'M'}${xy(lon, lat).join(' ')}`).join('');
+const pontos = linha.paradas.map((p) => xy(p.lon, p.lat));
+const titulo = `${linha.slug}-titulo`;
+---
+
+<article class="cagp-linha cagp-reveal-card rounded-2xl border-3 border-border bg-card shadow-lg overflow-hidden" aria-labelledby={titulo}>
+  <header class={`cagp-linha-topo relative overflow-hidden px-4 py-5 sm:px-6 sm:py-6 border-b-3 border-border ${tom.bloco}`}>
+    <svg class={`cagp-linha-folha absolute -right-10 -bottom-20 w-36 h-36 sm:-bottom-24 sm:w-44 sm:h-44 ${tom.folha}`} viewBox="0 0 200 200" aria-hidden="true">
+      <path d="M20 180C20 90 80 24 180 20c0 96-62 158-160 160Z" fill="currentColor" />
+    </svg>
+    <div class="relative flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
+      <h3 id={titulo} class="font-heading font-bold uppercase tracking-[0.03em] text-3xl sm:text-4xl leading-none m-0">
+        {linha.nome}
+      </h3>
+      <dl class="m-0 flex gap-5 text-sm">
+        <div>
+          <dt class="font-heading font-bold uppercase tracking-[0.04em] text-xs">Primeira</dt>
+          <dd class="m-0 font-heading font-bold text-2xl leading-none tabular-nums mt-1">{primeira}</dd>
+        </div>
+        <div>
+          <dt class="font-heading font-bold uppercase tracking-[0.04em] text-xs">Última</dt>
+          <dd class="m-0 font-heading font-bold text-2xl leading-none tabular-nums mt-1">{ultima}</dd>
+        </div>
+      </dl>
+    </div>
+    <p class="relative m-0 mt-3 text-sm sm:text-base leading-snug max-w-[30ch] sm:max-w-[46ch]">
+      Sai da {origem}, dá a volta no campus e termina no mesmo ponto. Gratuito.
+    </p>
+  </header>
+
+  <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+    <section class="p-4 sm:p-6 lg:border-r-2 border-border" aria-label={`Horários da ${linha.nome}`}>
+      <h4 class="font-heading font-bold text-lg m-0 flex items-center gap-2">
+        <CagpIcon name="clock" class="w-5 h-5" /> Horários de partida
+      </h4>
+      <div class="mt-4 space-y-4">
+        {linha.turnos.map((t) => (
+          <div class="grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-3 items-start">
+            <span class="font-heading font-bold uppercase tracking-[0.04em] text-xs text-content-secondary pt-2.5">{t.turno}</span>
+            <ul class="list-none m-0 p-0 flex flex-wrap gap-2">
+              {t.partidas.map((p) => (
+                <li class={`cagp-partida inline-flex items-center gap-1.5 min-h-[36px] px-2.5 rounded-lg border-2 border-border font-heading font-bold text-base tabular-nums ${p.marcas.length ? 'bg-fruto-tint' : 'bg-white'}`}>
+                  <time datetime={p.hora}>{p.hora}</time>
+                  {p.marcas.map((m) => MARCAS[m] && (
+                    <svg viewBox="0 0 256 256" class="w-4 h-4 shrink-0" fill="currentColor" role="img" aria-label={MARCAS[m].curto}>
+                      <title>{MARCAS[m].curto}</title>
+                      <Fragment set:html={MARCAS[m].svg} />
+                    </svg>
+                  ))}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      {legenda.length > 0 && (
+        <div class="mt-5 rounded-xl bg-fruto-tint p-4">
+          <h5 class="font-heading font-bold text-sm m-0">Legenda dos horários marcados</h5>
+          <ul class="list-none m-0 mt-2 p-0 space-y-1.5">
+            {legenda.map((l) => (
+              <li class="flex items-start gap-2 text-sm leading-snug">
+                <svg viewBox="0 0 256 256" class="w-4 h-4 shrink-0 mt-0.5" fill="currentColor" aria-hidden="true">
+                  <Fragment set:html={MARCAS[l.icone!]?.svg} />
+                </svg>
+                <span>{l.texto}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </section>
+
+    <section class="p-4 sm:p-6 border-t-2 lg:border-t-0 border-border" aria-label={`Itinerário da ${linha.nome}`}>
+      <h4 class="font-heading font-bold text-lg m-0 flex items-center gap-2">
+        <CagpIcon name="map-trifold" class="w-5 h-5" /> Mapa do itinerário
+      </h4>
+      <figure class="m-0 mt-4">
+        <svg
+          class="cagp-linha-mapa block w-full h-auto rounded-xl bg-broto-tint"
+          viewBox={`0 0 ${W} ${H}`}
+          role="img"
+          aria-label={`Traçado da ${linha.nome} no campus Pampulha, com ${linha.paradas.length} paradas.`}
+        >
+          <path d={caminho} fill="none" stroke="#1F1F1F" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" />
+          <path class={`cagp-linha-traco ${tom.traco}`} d={caminho} pathLength="1" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+          {pontos.slice(1, -1).map(([x, y]) => <circle cx={x} cy={y} r="5.5" fill="#FFFFFF" stroke="#1F1F1F" stroke-width="2.5" />)}
+          <circle cx={pontos[0][0]} cy={pontos[0][1]} r="11" fill="#FE8812" stroke="#1F1F1F" stroke-width="3" />
+        </svg>
+        <figcaption class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-content-secondary">
+          <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-accent border-2 border-border" aria-hidden="true"></span>Partida e chegada: {origem}</span>
+          <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-white border-2 border-border" aria-hidden="true"></span>Parada</span>
+        </figcaption>
+      </figure>
+
+      <details class="cagp-linha-paradas mt-4 rounded-xl border-2 border-border bg-white group">
+        <summary class="min-h-[48px] px-4 flex items-center justify-between gap-3 cursor-pointer font-heading font-bold text-sm list-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset rounded-xl">
+          <span>Ver as {linha.paradas.length} paradas em ordem</span>
+          <CagpIcon name="chevron-down" class="w-4 h-4 transition-transform duration-(--duration-press) group-open:rotate-180" />
+        </summary>
+        <ol class="m-0 px-4 pb-4 pt-1 list-none space-y-0 [counter-reset:parada]">
+          {linha.paradas.map((p) => (
+            <li class="cagp-parada relative pl-9 py-1.5 text-sm leading-snug [counter-increment:parada]">{p.nome}</li>
+          ))}
+        </ol>
+      </details>
+
+      <a
+        href={linha.fonte}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mt-4 inline-flex items-center gap-1.5 text-sm font-heading font-bold text-primary underline underline-offset-[0.22em] min-h-[44px]"
+      >
+        Conferir no site da UFMG <CagpIcon name="external" class="w-4 h-4" />
+      </a>
+    </section>
+  </div>
+</article>
+
+<style>
+  .cagp-parada::before {
+    content: counter(parada);
+    position: absolute;
+    left: 0;
+    top: 0.3rem;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 9999px;
+    background: var(--color-muted);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    display: grid;
+    place-items: center;
+  }
+  .cagp-parada:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: calc(0.8rem - 1px);
+    top: 1.9rem;
+    bottom: -0.3rem;
+    width: 2px;
+    background: var(--color-muted);
+  }
+  /* O traçado cresce como raiz quando o mapa entra na tela. */
+  @supports (animation-timeline: view()) {
+    .cagp-linha-traco {
+      stroke-dasharray: 1;
+      animation: cagp-linha-crescer linear both;
+      animation-timeline: var(--cagp-tl, view());
+      animation-range: entry 10% cover 45%;
+    }
+  }
+  @keyframes cagp-linha-crescer {
+    from { stroke-dashoffset: 1; }
+    to { stroke-dashoffset: 0; }
+  }
+</style>

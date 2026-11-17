@@ -1,0 +1,88 @@
+---
+// CalouroCentralOverview.astro — Aba "Geral" do Guia do Calouro.
+// Ordem pensada para a primeira noite: o que funciona agora, o próximo passo do checklist e onde ficam as salas.
+import { CalouroChecklistWidget } from './checklist/CalouroChecklistWidget';
+import NoturnoHoje from '@/components/features/acolhimento/NoturnoHoje.astro';
+import CagpIcon from '@/components/ui/CagpIcon.astro';
+import { ATENDIMENTO_CURSO } from '@/data/acolhimento';
+import { asset, route } from '@/lib/paths';
+
+const salas = [
+  { nome: 'Sala do CAGP', onde: ATENDIMENTO_CURSO.cagp.sala.replace('FAFICH, ', '') },
+  { nome: 'Secretaria do curso', onde: ATENDIMENTO_CURSO.secretaria.sala.replace('FAFICH, ', '') },
+  { nome: 'CEAG (protocolo)', onde: '2º andar, em frente aos caixas' },
+];
+
+const frentes = [
+  { titulo: 'Simulações TEMAS', texto: 'Inserção dos calouros em simulações diplomáticas e de políticas públicas.' },
+  { titulo: 'Debates SENATUS', texto: 'Oficinas de oratória e argumentação com a Sociedade de Debates da UFMG.' },
+  { titulo: 'Atlética & calouradas', texto: 'Integração esportiva e cultural com a Atlética FAFICH/IGC/FAE, em horário de quem trabalha.' },
+];
+---
+
+<div class="space-y-6 text-foreground">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-start">
+    <NoturnoHoje class="lg:col-span-7" />
+
+    <div class="lg:col-span-5 space-y-5">
+      <CalouroChecklistWidget client:visible />
+
+      <section class="rounded-xl border-2 border-border bg-card shadow-lg" aria-labelledby="calouro-salas-titulo">
+        <h3 id="calouro-salas-titulo" class="font-heading font-extrabold text-base leading-tight m-0 px-4 pt-4 pb-2">
+          Onde fica cada coisa na FAFICH
+        </h3>
+        <dl class="m-0 px-4 pb-1">
+          {salas.map((s) => (
+            <div class="flex items-baseline justify-between gap-3 py-2.5 border-t-2 border-border">
+              <dt class="font-heading font-bold text-base">{s.nome}</dt>
+              <dd class="m-0 font-mono text-sm font-bold text-right">{s.onde}</dd>
+            </div>
+          ))}
+        </dl>
+        <a
+          href="#espacos"
+          class="flex items-center justify-between gap-2 min-h-[48px] px-4 py-3 border-t-3 border-border font-heading font-extrabold uppercase text-sm tracking-tight text-foreground no-underline hover:bg-muted focus-visible:outline-2 focus-visible:outline-primary focus-visible:-outline-offset-4"
+        >
+          <span>Ver salas com fotos</span>
+          <CagpIcon name="chevron-right" class="w-4 h-4" />
+        </a>
+      </section>
+    </div>
+  </div>
+
+  <section class="rounded-xl border-2 border-border bg-card shadow-lg overflow-hidden" aria-labelledby="calouro-proposta-titulo">
+    <div class="grid grid-cols-1 lg:grid-cols-12">
+      <figure class="m-0 lg:col-span-5 border-b-3 lg:border-b-0 lg:border-r-3 border-border">
+        <img
+          src={asset('/imagens/semente/post_02_quem_somos_nos.jpg')}
+          alt="Integrantes da Chapa Semente na FAFICH"
+          class="w-full h-full max-h-[320px] lg:max-h-none object-cover aspect-[4/3]"
+          loading="lazy"
+        />
+      </figure>
+      <div class="lg:col-span-7 p-4 sm:p-5 space-y-3">
+        <h3 id="calouro-proposta-titulo" class="font-heading font-extrabold text-lg sm:text-xl leading-tight m-0">
+          Proposta 7 da Chapa Semente: recepção permanente de calouros
+        </h3>
+        <p class="text-base leading-relaxed m-0 max-w-[65ch] text-pretty">
+          Este guia já está no ar. A recepção presencial é uma proposta: acolhimento seguro (Res. 06/2014) e integrado às entidades estudantis da FAFICH, com três frentes:
+        </p>
+        <dl class="m-0 grid grid-cols-1 sm:grid-cols-3 gap-x-5">
+          {frentes.map((f) => (
+            <div class="py-2.5 border-t-2 border-border">
+              <dt class="font-heading font-bold text-sm">{f.titulo}</dt>
+              <dd class="m-0 mt-0.5 text-sm text-muted-foreground leading-snug">{f.texto}</dd>
+            </div>
+          ))}
+        </dl>
+        <a
+          href={route('/chapa-semente#propostas')}
+          class="inline-flex items-center gap-1.5 min-h-[44px] font-heading font-bold text-sm text-foreground underline underline-offset-4 decoration-2 decoration-primary"
+        >
+          Ler a proposta completa
+          <CagpIcon name="chevron-right" class="w-4 h-4" />
+        </a>
+      </div>
+    </div>
+  </section>
+</div>

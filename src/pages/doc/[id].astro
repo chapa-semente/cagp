@@ -1,0 +1,244 @@
+---
+// /doc/<id> — O endereço curto de cada documento mais pedido (decisão de 11/11/2026).
+// É a resposta que se cola no grupo quando alguém pede "alguém tem o TCE?": link de PDF não gera prévia
+// em rede nenhuma, este endereço gera (banner "Documento na mão", public/og/doc-<id>.jpg).
+// Arquétipo: Guia de trâmite reduzido a um passo (Ficha). Dados: src/data/documentosMaisPedidos.json.
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+import SementeSignature from '@/components/ui/SementeSignature.astro';
+import BotaoCompartilhar from '@/components/ui/BotaoCompartilhar.astro';
+import dados from '@/data/compartilhamento.json';
+import { DOCUMENTOS_PEDIDOS, nomeCurtoDoDocumento, previaDoDocumento } from '@/lib/previas';
+import { getItemByPath } from '@/lib/navigationRegistry';
+import { asset, route } from '@/lib/paths';
+
+export function getStaticPaths() {
+  return DOCUMENTOS_PEDIDOS.map((doc) => ({ params: { id: doc.id }, props: { doc } }));
+}
+
+const { doc } = Astro.props;
+const curto = nomeCurtoDoDocumento(doc.id);
+const previa = previaDoDocumento(doc);
+const sigla = (dados.documentos as Record<string, { sigla: string }>)[doc.id]?.sigla ?? 'DOC';
+const guia = getItemByPath(route(doc.guia))?.item;
+const irmaos = DOCUMENTOS_PEDIDOS.filter((d) => d.grupo === doc.grupo && d.id !== doc.id);
+---
+
+<BaseLayout title={curto} description={previa.descricao} mode="operate">
+  <PageHeader title={curto} subtitle={doc.descricao} mode="operate" condensed={true} />
+
+  <div class="doc-pagina">
+    <section class="doc-balcao" aria-labelledby="doc-nome">
+      <div class="doc-folha" aria-hidden="true">
+        <span class="doc-folha-sigla">{sigla}</span>
+        <span class="doc-folha-linha"></span>
+        <span class="doc-folha-linha"></span>
+        <span class="doc-folha-linha doc-folha-linha-curta"></span>
+      </div>
+      <div class="doc-corpo">
+        <h2 id="doc-nome" class="doc-nome">{doc.nome}</h2>
+        <p class="doc-formatos">{doc.editavel ? 'PDF · Word' : 'PDF'}</p>
+        <div class="doc-acoes">
+          <a href={asset(doc.arquivo)} target="_blank" rel="noopener" class="sk-btn sk-btn-roxo">
+            <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
+            Abrir o PDF
+          </a>
+          {doc.editavel && (
+            <a href={asset(doc.editavel)} download class="sk-btn">
+              <i class="bi bi-file-earmark-word" aria-hidden="true"></i>
+              Baixar em Word
+            </a>
+          )}
+          <BotaoCompartilhar corpo={previa.mensagem} tom="util" titulo={previa.titulo} />
+        </div>
+      </div>
+    </section>
+
+    {guia && (
+      <a href={route(doc.guia)} class="doc-guia">
+        <span class="min-w-0">
+          <span class="doc-guia-titulo">Não sabe como preencher ou pra quem enviar?</span>
+          <span class="doc-guia-desc">O passo a passo está no guia: {guia.label}.</span>
+        </span>
+        <i class="bi bi-arrow-right text-lg shrink-0" aria-hidden="true"></i>
+      </a>
+    )}
+
+    {irmaos.length > 0 && (
+      <section aria-labelledby="doc-outros" class="space-y-3">
+        <h2 id="doc-outros" class="font-heading text-xl font-bold text-foreground m-0">Mais documentos de {doc.grupo.toLowerCase()}</h2>
+        <ul class="doc-lista" role="list">
+          {irmaos.map((d) => (
+            <li>
+              <a href={route(`/doc/${d.id}`)}>
+                <span class="min-w-0">
+                  <span class="doc-lista-nome">{nomeCurtoDoDocumento(d.id)}</span>
+                  <span class="doc-lista-desc">{d.descricao}</span>
+                </span>
+                <i class="bi bi-arrow-right shrink-0" aria-hidden="true"></i>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <a href={route('/documentos')} class="text-sm font-bold text-primary underline underline-offset-[0.22em]">
+          Ver todos os documentos
+        </a>
+      </section>
+    )}
+
+    <SementeSignature
+      proposal="Proposta 3"
+      text="Organizamos os documentos mais pedidos do curso num lugar só, prontos pra baixar e mandar."
+      leaderId="gabriel"
+    />
+  </div>
+</BaseLayout>
+
+<style>
+  .doc-pagina {
+    display: grid;
+    gap: 2rem;
+    max-width: 52rem;
+  }
+  .doc-balcao {
+    display: grid;
+    gap: 1.25rem;
+    padding: 1.25rem;
+    background: var(--color-card, #fff);
+    border: 3px solid var(--color-border);
+    border-radius: 16px;
+    box-shadow: 4px 4px 0 0 var(--shadow-color, var(--color-border));
+  }
+  .doc-corpo {
+    display: grid;
+    gap: 0.75rem;
+    min-width: 0;
+  }
+  .doc-nome {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.25;
+    text-wrap: balance;
+  }
+  .doc-formatos {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-muted-foreground);
+  }
+  .doc-acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding-top: 0.25rem;
+  }
+  .doc-acoes :global(.sk-btn) {
+    text-decoration: none;
+  }
+  /* A folha do banner, em miniatura: quem chegou pelo link reconhece o documento. */
+  .doc-folha {
+    width: 6.5rem;
+    aspect-ratio: 3 / 4;
+    display: grid;
+    align-content: start;
+    gap: 0.4rem;
+    padding: 0.875rem 0.625rem;
+    background: #fff;
+    border: 3px solid var(--color-border);
+    border-radius: 4px 18px 4px 4px;
+    box-shadow: 4px 4px 0 0 var(--color-accent), 7px 7px 0 0 var(--color-border);
+    rotate: -4deg;
+  }
+  .doc-folha-sigla {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--color-primary);
+    overflow-wrap: anywhere;
+  }
+  .doc-folha-linha {
+    height: 6px;
+    border-radius: 3px;
+    background: var(--color-muted);
+  }
+  .doc-folha-linha-curta {
+    width: 60%;
+  }
+  .doc-guia {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 44px;
+    padding: 1rem 1.25rem;
+    background: var(--color-secondary-tint, #e3f0ef);
+    color: var(--color-foreground);
+    border: 2px solid var(--color-border);
+    border-radius: 12px;
+    text-decoration: none;
+  }
+  .doc-guia:hover {
+    background: var(--color-muted);
+  }
+  .doc-guia:focus-visible,
+  .doc-lista a:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  .doc-guia-titulo,
+  .doc-lista-nome {
+    display: block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .doc-guia-desc,
+  .doc-lista-desc {
+    display: block;
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: var(--color-content-secondary, #4a4740);
+  }
+  .doc-lista {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: var(--color-card, #fff);
+    border: 2px solid var(--color-border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .doc-lista li + li {
+    border-top: 2px solid var(--color-border);
+  }
+  .doc-lista a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 44px;
+    padding: 0.875rem 1rem;
+    color: var(--color-foreground);
+    text-decoration: none;
+  }
+  .doc-lista a:hover {
+    background: var(--color-muted);
+  }
+  @media (min-width: 640px) {
+    .doc-balcao {
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 1.75rem;
+      padding: 1.5rem 1.75rem;
+    }
+    .doc-nome {
+      font-size: 1.5rem;
+    }
+  }
+</style>

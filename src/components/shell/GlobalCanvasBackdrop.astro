@@ -1,0 +1,26 @@
+---
+// GlobalCanvasBackdrop.astro — Fundo animado do volume Cartaz (DESIGN.md › Movimento › Canvas).
+// Decoração escolhida pelo site, nunca pelo estudante: topografia na página da chapa, pontos nas
+// demais páginas Cartaz. Em Ficha e Papel o fundo é areia parada, e este bloco nem é emitido.
+// Sem React: o desenho e o ciclo de vida estão em src/lib/canvasBackdrop.ts.
+interface Props {
+  mode: string;
+}
+const { mode } = Astro.props;
+const isCartaz = mode === 'persuade' || mode === 'experience';
+const shader = Astro.url.pathname.replace(/\/+$/, '').endsWith('/chapa-semente') ? 'topography' : 'dotwave';
+---
+
+{isCartaz && (
+  <div
+    id="cagp-canvas-backdrop"
+    data-shader={shader}
+    class="pointer-events-none fixed inset-0 -z-10 overflow-hidden opacity-10 sm:opacity-15 transition-opacity duration-700 ease-in-out"
+    aria-hidden="true"
+  ></div>
+)}
+
+<script>
+  import { setupCanvasBackdrop } from '@/lib/canvasBackdrop';
+  setupCanvasBackdrop();
+</script>
