@@ -434,7 +434,18 @@ export const AXIS_REGISTRY: AxisConfig[] = [
         isOverview: true,
         keywords: 'chapa 2 dois número semente votar eleição propostas integrantes candidatos',
         // A moldura de apoio é página própria da aba (item abaixo): fica fora deste padrão.
-        match: ['^/chapa-semente(?!/moldura)', '^/propostas/'],
+        match: ['^/chapa-semente(?!/moldura|/plano)', '^/propostas/'],
+      },
+      {
+        id: 'chapa-plano',
+        label: 'O plano da Semente',
+        shortLabel: 'O plano',
+        href: route('/chapa-semente/plano'),
+        icon: 'checklist',
+        description: 'Quando cada proposta sai do papel, quanto custa e quem responde. O plano inteiro, em PDF e transcrito na página.',
+        type: 'page',
+        keywords: 'plano de execução propostas prazo data custo orçamento metas boletim pdf semente chapa 2 cronograma',
+        match: ['^/chapa-semente/plano'],
       },
       {
         id: 'chapa-eleicao',

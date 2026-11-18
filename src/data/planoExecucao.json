@@ -1,0 +1,1623 @@
+{
+  "pdfCompleto": "/documentos/plano-semente/plano-de-execucao-semente.pdf",
+  "pdfResumo": "/documentos/plano-semente/plano-semente-em-uma-pagina.pdf",
+  "aviso": "Gerado por scripts/plano-para-site.mjs a partir do plano de execução. Não edite à mão.",
+  "mandato": "dezembro de 2026 a outubro de 2027",
+  "propostas": [
+    {
+      "id": 1,
+      "boletimPdf": "/documentos/plano-semente/boletim-01-prestacao-de-contas.pdf",
+      "titulo": {
+        "antes": "contas abertas todo mês, boletim a cada ",
+        "marca": "três meses",
+        "depois": ""
+      },
+      "selo": "Já começou",
+      "custo": "R$ 0,00",
+      "custoNota": "Portal pronto e hospedagem gratuita.",
+      "quemResponde": "Diretoria Financeira, com apoio da Jurídica e da Comunicação.",
+      "daCartaAoPlano": [
+        "A carta promete um boletim a cada três meses com todas as entradas e saídas do caixa do CAGP, e um portal com o livro-caixa atualizado a cada lançamento. O Regimento pede mais: um relatório por mês (art. 30, XI). O plano cumpre os dois."
+      ],
+      "quando": [
+        {
+          "forte": "Até 15 dias depois da posse",
+          "texto": "o termo de recebimento do caixa, com saldo, conta e bens recebidos."
+        },
+        {
+          "forte": "Até 31 de janeiro de 2027",
+          "texto": "os lançamentos reais no portal, no lugar dos números de exemplo."
+        },
+        {
+          "forte": "Todo o mandato",
+          "texto": "cada entrada e cada saída no portal em até 7 dias, com data, valor, motivo e comprovante."
+        },
+        {
+          "forte": "Até o dia 10 de cada mês",
+          "texto": "o relatório mensal, no modelo do Regimento. São 11, de dezembro de 2026 a outubro de 2027; o de outubro sai até o último dia do mandato."
+        },
+        {
+          "forte": "15 de março, 15 de junho e 15 de setembro de 2027",
+          "texto": "o boletim do trimestre, em linguagem simples, apresentado na reunião aberta."
+        },
+        {
+          "forte": "Outubro de 2027",
+          "texto": "a prestação de contas do ano, em Assembleia Geral, antes do fim do mandato."
+        }
+      ],
+      "secoes": [
+        {
+          "titulo": "Quanto custa",
+          "blocos": [
+            {
+              "p": "R$ 0,00. O portal já está construído e a hospedagem é gratuita. O custo é de tempo: a chapa estima duas horas por semana da Diretoria Financeira."
+            }
+          ]
+        },
+        {
+          "titulo": "Como conferir",
+          "blocos": [
+            {
+              "tabela": {
+                "titulo": "Metas da proposta 1",
+                "cabecalho": [
+                  "O que se mede",
+                  "Meta",
+                  "Onde olhar"
+                ],
+                "linhas": [
+                  [
+                    "Lançamentos publicados em até 7 dias",
+                    "90% em cada mês",
+                    "Cada lançamento do portal mostra a data do fato e a da publicação"
+                  ],
+                  [
+                    "Relatórios mensais no prazo",
+                    "11 de 11",
+                    "Página de transparência do site"
+                  ],
+                  [
+                    "Boletins trimestrais",
+                    "4 de 4, contando a prestação anual",
+                    "Página de transparência e reunião aberta"
+                  ],
+                  [
+                    "Diferença entre o portal e o extrato",
+                    "R$ 0,00",
+                    "Relatório mensal, que traz os dois saldos"
+                  ],
+                  [
+                    "Saídas com comprovante",
+                    "100%",
+                    "Portal, em cada lançamento"
+                  ]
+                ],
+                "fonte": "Plano de execução 2026-2027 da Chapa Semente."
+              }
+            }
+          ]
+        },
+        {
+          "titulo": "O que pode dar errado",
+          "blocos": [
+            {
+              "lista": [
+                {
+                  "forte": "A gestão anterior demora a passar a conta.",
+                  "texto": "O termo de recebimento registra o que veio e o que faltou, e o livro-caixa começa do saldo recebido."
+                },
+                {
+                  "forte": "Lançamento atrasa em semana de prova ou de calourada.",
+                  "texto": "Por isso a meta é 90%, não 100%. O relatório mensal não atrasa: é obrigação do Regimento."
+                },
+                {
+                  "forte": "O saldo não fecha.",
+                  "texto": "Uma segunda pessoa confere com o extrato todo mês, e a correção é publicada com explicação."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "titulo": "Quem pode ajudar dentro da UFMG",
+          "blocos": [
+            {
+              "p": "O Núcleo de Apoio Contábil e Fiscal (NAF), da Faculdade de Ciências Econômicas, orienta de graça organizações da sociedade civil. A chapa vai procurá-lo para revisar o modelo de registro. É uma consulta a fazer, não um acordo firmado."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "boletimPdf": "/documentos/plano-semente/boletim-02-reunioes-abertas.pdf",
+      "titulo": {
+        "antes": "reunião aberta ",
+        "marca": "todo mês",
+        "depois": ", com decisão publicada"
+      },
+      "selo": "Começa na posse",
+      "custo": "R$ 0,00",
+      "custoNota": "Sala da faculdade ou salinha e videochamada gratuita.",
+      "quemResponde": "Presidência, com Comunicação e Jurídica.",
+      "daCartaAoPlano": [
+        "A gestão se reúne todo mês, em reuniões internas e em reuniões abertas a todos os alunos do curso, e publica o que foi decidido. O plano define o formato: reunião aberta todo mês, de até uma hora, e a cada três meses uma reunião maior, com as contas e a votação do patrimônio."
+      ],
+      "quando": [
+        {
+          "forte": "Até 20 de dezembro de 2026",
+          "texto": "o calendário do ano, com dia e horário fixos escolhidos por enquete."
+        },
+        {
+          "forte": "De dezembro de 2026 a setembro de 2027",
+          "texto": "10 reuniões abertas, presenciais com transmissão. Em janeiro, fevereiro e julho, só on-line."
+        },
+        {
+          "forte": "Março, junho e setembro de 2027",
+          "texto": "as 3 reuniões trimestrais, com o boletim de contas, o andamento das 14 propostas e a votação do que fazer com o dinheiro do patrimônio."
+        },
+        {
+          "forte": "3 dias antes de cada reunião",
+          "texto": "a pauta, com espaço para qualquer estudante propor ponto."
+        },
+        {
+          "forte": "Até 2 dias úteis depois",
+          "texto": "o resumo das decisões no site. A ata completa sai em até 7 dias."
+        },
+        {
+          "forte": "Outubro de 2027",
+          "texto": "a Assembleia Geral de prestação de contas, no lugar da reunião aberta do mês."
+        }
+      ],
+      "secoes": [
+        {
+          "titulo": "Quanto custa",
+          "blocos": [
+            {
+              "p": "R$ 0,00. Usa sala da faculdade ou a salinha do CAGP e videochamada gratuita."
+            }
+          ]
+        },
+        {
+          "titulo": "Como conferir",
+          "blocos": [
+            {
+              "tabela": {
+                "titulo": "Metas da proposta 2",
+                "cabecalho": [
+                  "O que se mede",
+                  "Meta",
+                  "Onde olhar"
+                ],
+                "linhas": [
+                  [
+                    "Reuniões abertas realizadas",
+                    "10; mínimo aceitável, 8",
+                    "Calendário e resumos no site"
+                  ],
+                  [
+                    "Resumos publicados em até 2 dias úteis",
+                    "100%",
+                    "Data de cada resumo"
+                  ],
+                  [
+                    "Presença de estudantes de fora da gestão",
+                    "Fixada em março, pela média das três primeiras reuniões",
+                    "Resumo de cada reunião"
+                  ],
+                  [
+                    "Decisões com retorno na reunião seguinte",
+                    "100%",
+                    "Quadro de encaminhamentos"
+                  ]
+                ],
+                "fonte": "Plano de execução 2026-2027 da Chapa Semente."
+              }
+            },
+            {
+              "p": "A meta de presença não tem número agora porque não há registro anterior, e um número inventado não seria honesto."
+            }
+          ]
+        },
+        {
+          "titulo": "O que pode dar errado",
+          "blocos": [
+            {
+              "lista": [
+                {
+                  "forte": "Pouca gente aparece.",
+                  "texto": "Horário por enquete, opção on-line, uma hora de duração e decisão real na pauta a cada trimestre."
+                },
+                {
+                  "forte": "A reunião vira formalidade.",
+                  "texto": "Toda reunião trimestral tem ao menos uma votação com efeito, e todo pedido recebe resposta registrada."
+                },
+                {
+                  "forte": "Frequência mensal não se sustenta.",
+                  "texto": "Se a presença for muito baixa por três meses seguidos, a gestão propõe outro formato na reunião trimestral, e a troca fica registrada."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "titulo": "Quem pode ajudar dentro da UFMG",
+          "blocos": [
+            {
+              "p": "A Meios, empresa júnior de Ciências Sociais, na própria FAFICH, faz pesquisas e pode ajudar a desenhar a enquete e as consultas. O formato mínimo não depende dela."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "boletimPdf": "/documentos/plano-semente/boletim-03-site-do-curso.pdf",
+      "titulo": {
+        "antes": "o site do curso, ",
+        "marca": "revisto",
+        "depois": " a cada semestre"
+      },
+      "selo": "Já no ar",
+      "custo": "R$ 0,00",
+      "custoNota": "A revisão externa é orçada em abr. 2027 com duas empresas juniores e só é paga se a reunião aberta aprovar.",
+      "quemResponde": "Presidência, com a Diretoria Acadêmica. O site não depende de mandato: é mantido pela Semente.",
+      "daCartaAoPlano": [
+        "O site do curso é um projeto da Semente, pensado e construído há muito tempo. Ele já está no ar, com guias de estágio, horas complementares, TCC, calouros, permanência e ônibus, e os documentos do curso. Não depende de mandato: é mantido pela Semente para os estudantes. O plano acrescenta três compromissos."
+      ],
+      "quando": [
+        {
+          "forte": "A partir de março de 2027",
+          "texto": "a data da última revisão em cada guia."
+        },
+        {
+          "forte": "Março e agosto de 2027",
+          "texto": "revisão completa dos guias, conferidos com o regulamento do curso e com as páginas oficiais da UFMG."
+        },
+        {
+          "forte": "Todo o mandato",
+          "texto": "erro avisado pelo &quot;Fala com a gente&quot; corrigido ou respondido em até 7 dias, com registro público do que mudou."
+        },
+        {
+          "forte": "Até abril de 2027",
+          "texto": "manual de manutenção, para que mais de uma pessoa consiga publicar."
+        },
+        {
+          "forte": "Até junho de 2027",
+          "texto": "revisão externa de acessibilidade e segurança, com o relatório publicado."
+        }
+      ],
+      "secoes": [
+        {
+          "titulo": "O que é do site e o que é do CAGP",
+          "blocos": [
+            {
+              "p": "Guias, documentos, vagas e o &quot;Fala com a gente&quot; são do site e continuam com ou sem mandato. Contas oficiais, atas, decisões e o canal oficial de demandas são do Centro Acadêmico e só existem com a gestão. O site não fala em nome do CAGP sem ser gestão."
+            }
+          ]
+        },
+        {
+          "titulo": "Quanto custa",
+          "blocos": [
+            {
+              "p": "Manter o site custa R$ 0,00: a hospedagem é gratuita. A revisão externa ainda não tem valor, porque a chapa não pediu orçamento. O compromisso é pedir dois orçamentos em abril de 2027, publicá-los e decidir em reunião aberta. Há um caminho sem custo: verificação com ferramenta gratuita e convite a uma disciplina ou projeto de extensão da computação."
+            }
+          ]
+        },
+        {
+          "titulo": "Como conferir",
+          "blocos": [
+            {
+              "tabela": {
+                "titulo": "Metas da proposta 3",
+                "cabecalho": [
+                  "O que se mede",
+                  "Meta",
+                  "Onde olhar"
+                ],
+                "linhas": [
+                  [
+                    "Guias revistos no semestre",
+                    "100% em março e em agosto",
+                    "Data no pé de cada guia"
+                  ],
+                  [
+                    "Erros corrigidos ou respondidos em até 7 dias",
+                    "100%",
+                    "Registro público de correções"
+                  ],
+                  [
+                    "Revisão externa",
+                    "Relatório até junho; 100% dos itens graves corrigidos até agosto",
+                    "Página &quot;Sobre o site&quot;"
+                  ],
+                  [
+                    "Pessoas que publicaram no semestre",
+                    "Sem meta; o número é informado em cada boletim",
+                    "Boletim trimestral"
+                  ]
+                ],
+                "fonte": "Plano de execução 2026-2027 da Chapa Semente."
+              }
+            },
+            {
+              "p": "Ponto de partida: hoje nenhum guia mostra data de revisão, e uma pessoa mantém o site."
+            }
+          ]
+        },
+        {
+          "titulo": "O que pode dar errado",
+          "blocos": [
+            {
+              "lista": [
+                {
+                  "forte": "A pessoa que mantém o site fica sem tempo.",
+                  "texto": "É a fraqueza principal. O conteúdo é texto simples, o manual sai até abril e o número de pessoas que publicam aparece em cada boletim."
+                },
+                {
+                  "forte": "Um guia fica errado depois de mudança de regra.",
+                  "texto": "Revisão a cada semestre, data visível e correção em 7 dias."
+                },
+                {
+                  "forte": "A revisão externa não cabe no caixa.",
+                  "texto": "Fica o caminho sem custo."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "titulo": "Quem pode ajudar dentro da UFMG",
+          "blocos": [
+            {
+              "p": "As empresas juniores de computação iJunior e CPE Jr. desenvolvem sites e sistemas e podem fazer a revisão, com custo. Nenhuma das duas foi procurada ainda."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "boletimPdf": "/documentos/plano-semente/boletim-04-cnpj.pdf",
+      "titulo": {
+        "antes": "CNPJ, com a ",
+        "marca": "decisão",
+        "depois": " na mão dos estudantes"
+      },
+      "selo": "Começa na posse",
+      "custo": "R$ 3.601,08",
+      "custoNota": "Só se a Assembleia aprovar: R$ 2.560,89 para abrir e R$ 1.040,19 reservados para o ano seguinte.",
+      "quemResponde": "Diretoria Jurídica, com a Financeira.",
+      "daCartaAoPlano": [
+        "A carta compromete a gestão com o registro do CAGP como associação, com CNPJ próprio, como o Regimento já prevê (art. 8º, V). O plano não promete o CNPJ: promete um estudo publicado e a decisão em Assembleia Geral. O registro cria obrigações todos os anos para as gestões seguintes, e essa decisão não cabe a uma chapa."
+      ],
+      "quando": [
+        {
+          "forte": "Até 31 de janeiro de 2027",
+          "texto": "a situação atual confirmada com o cartório: se existe ou já existiu registro."
+        },
+        {
+          "forte": "Até 31 de março de 2027",
+          "texto": "o estudo de viabilidade publicado, com os cenários de custo, três orçamentos de contador e a resposta sobre tributos."
+        },
+        {
+          "forte": "Até 30 de abril de 2027",
+          "texto": "a minuta de estatuto, feita por um grupo de trabalho com estudantes de fora da gestão."
+        },
+        {
+          "forte": "Até 31 de maio de 2027",
+          "texto": "a decisão, em Assembleia Geral."
+        },
+        {
+          "forte": "Se a Assembleia aprovar",
+          "texto": "registro e CNPJ até 31 de agosto de 2027, conta em nome do CAGP até outubro e um manual de obrigações para a gestão seguinte."
+        },
+        {
+          "forte": "Se não aprovar",
+          "texto": "regras de custódia do dinheiro aprovadas até junho de 2027, com conta só do CA, dois responsáveis e extrato publicado todo mês."
+        }
+      ],
+      "secoes": [
+        {
+          "titulo": "O que custa não ter e o que custa ter",
+          "blocos": [
+            {
+              "p": "Sem registro, o CAGP não tem existência legal (Código Civil, art. 45): não pode ter conta, contrato nem bem em seu nome. Quem contrata responde com o próprio nome, e a lei exige de um a três anos de CNPJ ativo para parceria com o poder público."
+            },
+            {
+              "tabela": {
+                "titulo": "Quanto custa registrar, em três cenários",
+                "cabecalho": [
+                  "Cenário",
+                  "Para abrir",
+                  "Para manter, por ano",
+                  "Em três anos"
+                ],
+                "linhas": [
+                  [
+                    "Enxuto: advogado e contador pela UFMG, se confirmados",
+                    "R$ 531,23",
+                    "R$ 490,19",
+                    "R$ 1.511,61"
+                  ],
+                  [
+                    "Intermediário: visto de advogado e declarações pagos",
+                    "R$ 2.560,89",
+                    "R$ 1.040,19",
+                    "R$ 4.641,27"
+                  ],
+                  [
+                    "Tabela cheia: contador com mensalidade",
+                    "R$ 4.160,89",
+                    "R$ 5.360,19",
+                    "R$ 14.881,27"
+                  ]
+                ],
+                "fonte": "Plano de execução 2026-2027 da Chapa Semente. Preços de cartório do TJMG (2026) e tabelas de referência da OAB-MG (2023) e da ASSCON (2026)."
+              }
+            },
+            {
+              "p": "Abrir é a parte menor. A diretoria do CAGP muda todo ano, e todo ano há ata para averbar, certificado digital novo e declaração para entregar. O orçamento do plano fixa o cenário intermediário: R$ 2.560,89 para abrir e R$ 1.040,19 reservados para a gestão seguinte, e só se a Assembleia aprovar. Contador com mensalidade não cabe no caixa do CAGP."
+            },
+            {
+              "p": "Se uma gestão futura abandonar o CNPJ por um ano, regularizar custa de R$ 1.612,19 a R$ 7.240,19, conforme a multa aplicada. E há uma pergunta que o estudo responde antes da Assembleia: com CNPJ, ingresso e bar viram receita de pessoa jurídica, e é preciso saber se passam a pagar tributo."
+            }
+          ]
+        },
+        {
+          "titulo": "Como conferir",
+          "blocos": [
+            {
+              "p": "O estudo e o resumo da Assembleia ficam no site do curso. Se houver registro, o número do CNPJ pode ser conferido por qualquer pessoa na consulta pública da Receita Federal, e o gasto real aparece no portal de transparência, ao lado do valor fixado no orçamento: R$ 2.560,89 para abrir."
+            }
+          ]
+        },
+        {
+          "titulo": "O que pode dar errado",
+          "blocos": [
+            {
+              "lista": [
+                {
+                  "forte": "O Regimento atual não serve como estatuto.",
+                  "texto": "O grupo de trabalho adapta o texto, e a minuta vai à mesma Assembleia."
+                },
+                {
+                  "forte": "Uma gestão futura não cumpre as obrigações de cada ano.",
+                  "texto": "É o risco principal. Por isso a decisão é da Assembleia, com o custo anual à vista, e fica um manual."
+                },
+                {
+                  "forte": "A Assembleia não alcança dois terços.",
+                  "texto": "Vale o caminho das regras de custódia."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "titulo": "Quem pode ajudar dentro da UFMG",
+          "blocos": [
+            {
+              "p": "A Divisão de Assistência Judiciária, da Faculdade de Direito, que prevê assessoria a associações; a Solucione, empresa júnior de Direito, que constitui pessoas jurídicas, com custo; e o NAF, da Face, para as obrigações fiscais. Nenhum foi procurado ainda."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "boletimPdf": "/documentos/plano-semente/boletim-05-seguranca-na-salinha.pdf",
+      "titulo": {
+        "antes": "um lugar para ",
+        "marca": "trancar",
+        "depois": " suas coisas na salinha"
+      },
+      "selo": "Começa na posse",
+      "custo": "R$ 1.451,90",
+      "custoNota": "Armário pela mediana de quatro preços (R$ 1.261,90) e frete estimado em 15%.",
+      "quemResponde": "Presidência, com Jurídica e Financeira.",
+      "daCartaAoPlano": [
+        "A carta fala em estudar, com o DCE, o Diretório Acadêmico e a FAFICH, medidas contra furtos na sala do CAGP e a possibilidade de escaninhos. O plano troca o estudo por quatro entregas: contar os furtos, combinar regras de uso, pedir autorização à faculdade e instalar um armário de aço com 12 portas. Câmera fica fora."
+      ],
+      "quando": [
+        {
+          "forte": "De dezembro de 2026 a fevereiro de 2027",
+          "texto": "formulário anônimo para registrar furtos. O relatório sai em março."
+        },
+        {
+          "forte": "Até março de 2027",
+          "texto": "visita a dois espaços do campus que têm escaninhos e conversa com o Diretório Acadêmico e o DCE."
+        },
+        {
+          "forte": "Março de 2027",
+          "texto": "regras de uso da salinha aprovadas na reunião trimestral e afixadas na sala."
+        },
+        {
+          "forte": "Até abril de 2027",
+          "texto": "pedido formal à FAFICH, com a resposta publicada."
+        },
+        {
+          "forte": "Até junho de 2027",
+          "texto": "o armário instalado, se a faculdade autorizar, para uso durante o dia, com cadeado do próprio estudante."
+        }
+      ],
+      "secoes": [
+        {
+          "titulo": "Quanto custa",
+          "blocos": [
+            {
+              "tabela": {
+                "titulo": "Pesquisa de preços de 17 de novembro de 2026: armário de aço com 12 portas",
+                "cabecalho": [
+                  "Onde",
+                  "Valor"
+                ],
+                "linhas": [
+                  [
+                    "Buscapé, loja Webcontinental",
+                    "R$ 867,47"
+                  ],
+                  [
+                    "Pontofrio",
+                    "R$ 1.123,82"
+                  ],
+                  [
+                    "MadeiraMadeira",
+                    "R$ 1.399,98"
+                  ],
+                  [
+                    "Magazine Luiza",
+                    "R$ 1.489,00"
+                  ]
+                ],
+                "fonte": "Plano de execução 2026-2027 da Chapa Semente. Preços à vista, sem frete."
+              }
+            },
+            {
+              "p": "A mediana é R$ 1.261,90, e é a referência da compra. O armário é comprado pelo menor preço válido no dia, somado o frete, com o caixa do CAGP, depois da primeira calourada. Levantamento, regras e pedido custam R$ 0,00."
+            }
+          ]
+        },
+        {
+          "titulo": "Por que não câmera",
+          "blocos": [
+            {
+              "p": "A imagem de uma pessoa é dado pessoal, e quem grava passa a responder por ela. A salinha é um espaço de convivência. E instalar vigilância em sala da universidade é decisão da faculdade, não do centro acadêmico."
+            }
+          ]
+        },
+        {
+          "titulo": "Como conferir",
+          "blocos": [
+            {
+              "p": "O número de furtos registrados sai em todo boletim trimestral. As regras ficam afixadas na sala, e o pedido à FAFICH e a resposta ficam no site. O plano não promete reduzir os furtos em um número certo: promete contar e mostrar."
+            }
+          ]
+        },
+        {
+          "titulo": "O que pode dar errado",
+          "blocos": [
+            {
+              "lista": [
+                {
+                  "forte": "A FAFICH não autoriza.",
+                  "texto": "A resposta é publicada, e ficam as regras e a contagem."
+                },
+                {
+                  "forte": "Doze portas não bastam.",
+                  "texto": "O uso é por dia, sem reserva fixa, e um segundo armário pode ir à votação do patrimônio."
+                },
+                {
+                  "forte": "Os furtos continuam.",
+                  "texto": "A contagem mostra, e a reunião aberta decide o passo seguinte."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "boletimPdf": "/documentos/plano-semente/boletim-06-patrimonio-com-voto.pdf",
+      "titulo": {
+        "antes": "você ",
+        "marca": "vota",
+        "depois": " no que o CA compra"
+      },
+      "selo": "Começa na posse",
+      "custo": "R$ 2.052,00",
+      "custoNota": "Estimativa do cenário regular: 30% de R$ 6.840,00.",
+      "quemResponde": "Diretoria Financeira, com Presidência e Cultura.",
+      "daCartaAoPlano": [
+        "Nas reuniões trimestrais abertas, os estudantes votam o que o CAGP reforma ou compra, dentro do que o caixa permite. O plano diz quanto dinheiro vai a voto: 30% do resultado de cada calourada."
+      ],
+      "quando": [
+        {
+          "forte": "Até 28 de fevereiro de 2027",
+          "texto": "o inventário dos bens do CAGP, com foto, estado e origem de cada item."
+        },
+        {
+          "forte": "Março de 2027",
+          "texto": "o levantamento de necessidades, na reunião trimestral."
+        },
+        {
+          "forte": "Junho de 2027",
+          "texto": "a primeira votação, sobre a calourada do primeiro semestre."
+        },
+        {
+          "forte": "Outubro de 2027",
+          "texto": "a segunda votação, na Assembleia Geral, sobre a calourada do segundo semestre."
+        }
+      ],
+      "secoes": [
+        {
+          "titulo": "Como funciona",
+          "blocos": [
+            {
+              "lista": [
+                {
+                  "forte": "",
+                  "texto": "Depois de cada calourada, a Diretoria Financeira publica o resultado da festa em até 30 dias."
+                },
+                {
+                  "forte": "",
+                  "texto": "30% desse resultado são decididos pelos estudantes. Os outros 70% ficam para a reserva e para o custeio."
+                },
+                {
+                  "forte": "",
+                  "texto": "Qualquer estudante propõe uma compra ou um conserto até 7 dias antes da votação, com três preços."
+                },
+                {
+                  "forte": "",
+                  "texto": "A votação é presencial e on-line. A compra é feita em até 30 dias, com nota publicada, e o bem entra no inventário."
+                }
+              ]
+            },
+            {
+              "p": "Se as calouradas renderem como em 2026, entre R$ 3,8 mil e R$ 4,9 mil cada, o valor a voto fica entre R$ 1,1 mil e R$ 1,5 mil por semestre. É estimativa: se a festa render menos, o valor cai junto; se der prejuízo, não há votação, e isso é dito em público."
+            }
+          ]
+        },
+        {
+          "titulo": "Como conferir",
+          "blocos": [
+            {
+              "tabela": {
+                "titulo": "Metas da proposta 6",
+                "cabecalho": [
+                  "O que se mede",
+                  "Meta",
+                  "Onde olhar"
+                ],
+                "linhas": [
+                  [
+                    "Inventário publicado",
+                    "Até 28 fev. 2027",
+                    "Portal de transparência"
+                  ],
+                  [
+                    "Votações realizadas",
+                    "2 de 2, havendo resultado positivo nas calouradas",
+                    "Resumo das reuniões"
+                  ],
+                  [
+                    "Parte do resultado decidida pelos estudantes",
+                    "30%",
+                    "Boletim trimestral"
+                  ],
+                  [
+                    "Compras feitas em até 30 dias",
+                    "100%",
+                    "Portal, pela data da nota"
+                  ]
+                ],
+                "fonte": "Plano de execução 2026-2027 da Chapa Semente."
+              }
+            }
+          ]
+        },
+        {
+          "titulo": "O que fica de fora",
+          "blocos": [
+            {
+              "p": "Obra no prédio. Porta, janela, piso e instalação elétrica são da faculdade: o CAGP pede o conserto, não compra."
+            }
+          ]
+        },
+        {
+          "titulo": "O que pode dar errado",
+          "blocos": [
+            {
+              "lista": [
+                {
+                  "forte": "A calourada rende pouco.",
+                  "texto": "A regra é percentual, e o valor a voto cai junto."
+                },
+                {
+                  "forte": "Pouca gente vota.",
+                  "texto": "A votação também é on-line, e o número de votantes é publicado."
+                },
+                {
+                  "forte": "Dúvida sobre de quem se comprou.",
+                  "texto": "Três preços antes, nota depois, e integrante da gestão não vende para o CAGP."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "boletimPdf": "/documentos/plano-semente/boletim-07-recepcao-de-calouros.pdf",
+      "titulo": {
+        "antes": "recepção de calouros, agora com ",
+        "marca": "avaliação",
+        "depois": ""
+      },
+      "selo": "Já no ar",
+      "custo": "R$ 0,00",
+      "custoNota": "A PRAE paga até R$ 500,00 por proposta aprovada, na conta do estudante que coordena.",
+      "quemResponde": "Diretoria de Cultura, com Acadêmica e Comunicação.",
+      "daCartaAoPlano": [
+        "A carta fala em uma nova cultura de recepção de calouros e em parcerias a estudar. É preciso dizer o que já existe: a recepção à noite e o apadrinhamento já acontecem no curso. O plano acrescenta três coisas: verba da PRAE nos dois semestres, outras entidades na programação e avaliação feita pelos próprios calouros."
+      ],
+      "quando": [
+        {
+          "forte": "Dezembro de 2026 e janeiro de 2027",
+          "texto": "proposta inscrita na chamada da PRAE. De novo em junho de 2027."
+        },
+        {
+          "forte": "Até fevereiro e até junho de 2027",
+          "texto": "convites ao Centro de Convivência Negra, ao TEMAS, à Senatus e à Atlética."
+        },
+        {
+          "forte": "Março e agosto de 2027",
+          "texto": "recepção à noite, com pelo menos três atividades: roda de conversa com veteranos, visita guiada à FAFICH e oficina de matrícula e sistemas."
+        },
+        {
+          "forte": "Até 15 dias depois do início das aulas",
+          "texto": "padrinho ou madrinha para todo calouro que quiser, com segunda rodada 30 dias depois."
+        },
+        {
+          "forte": "30 dias depois de cada recepção",
+          "texto": "avaliação dos calouros, com o resultado publicado."
+        }
+      ],
+      "secoes": [
+        {
+          "titulo": "Quanto custa",
+          "blocos": [
+            {
+              "p": "A recepção custa R$ 0,00. A PRAE paga até R$ 500,00 por proposta, para material, lanche e transporte, e não paga festa. Com as duas propostas aprovadas, são R$ 1.000,00 no ano. A calourada tem regra própria, com desconto de 40% para fumpistas."
+            }
+          ]
+        },
+        {
+          "titulo": "Como conferir",
+          "blocos": [
+            {
+              "tabela": {
+                "titulo": "Metas da proposta 7",
+                "cabecalho": [
+                  "O que se mede",
+                  "Meta",
+                  "Onde olhar"
+                ],
+                "linhas": [
+                  [
+                    "Propostas inscritas na PRAE",
+                    "2 de 2",
+                    "Resultado publicado pela PRAE"
+                  ],
+                  [
+                    "Calouros em ao menos uma atividade",
+                    "20 de 40 no primeiro semestre",
+                    "Boletim trimestral"
+                  ],
+                  [
+                    "Calouros com padrinho ou madrinha, entre os que pediram",
+                    "100%",
+                    "Boletim trimestral"
+                  ],
+                  [
+                    "Atividades com outra entidade",
+                    "1 por semestre",
+                    "Programação publicada"
+                  ]
+                ],
+                "fonte": "Plano de execução 2026-2027 da Chapa Semente."
+              }
+            }
+          ]
+        },
+        {
+          "titulo": "O que pode dar errado",
+          "blocos": [
+            {
+              "lista": [
+                {
+                  "forte": "A chamada da PRAE abre logo depois da posse.",
+                  "texto": "A proposta fica escrita antes; falta só inscrever."
+                },
+                {
+                  "forte": "A PRAE não aprova.",
+                  "texto": "A recepção acontece do mesmo jeito."
+                },
+                {
+                  "forte": "Faltam veteranos para apadrinhar.",
+                  "texto": "Um veterano pode acompanhar até três calouros."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "titulo": "Quem pode ajudar dentro da UFMG",
+          "blocos": [
+            {
+              "p": "A PRAE, com a chamada de apoio; o Centro de Convivência Negra, que teve atividade contemplada na chamada do segundo semestre de 2026; e os grupos que a carta cita, TEMAS, Senatus e Atlética. Nenhum convite foi feito ainda."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "boletimPdf": "/documentos/plano-semente/boletim-08-dialogo-com-entidades.pdf",
+      "titulo": {
+        "antes": "o CAGP nos conselhos, com ",
+        "marca": "resumo",
+        "depois": " publicado"
+      },
+      "selo": "Já começou",
+      "custo": "R$ 0,00",
+      "custoNota": "Presença, resumos e ações conjuntas não custam dinheiro.",
+      "quemResponde": "Diretoria de Articulação e Assuntos Políticos, com a Presidência.",
+      "daCartaAoPlano": [
+        "A carta defende diálogo constante com o movimento estudantil, sem alinhamento ideológico. Representar o CAGP nos conselhos de centros e diretórios acadêmicos já é atribuição do Regimento (art. 32, II). O plano transforma o diálogo em duas coisas que dá para conferir: presença nos conselhos, com resumo publicado, e uma ação conjunta por semestre."
+      ],
+      "quando": [
+        {
+          "forte": "Até 28 de fevereiro de 2027",
+          "texto": "lista dos conselhos e fóruns em que o CAGP tem assento, dizendo o que cada um decide."
+        },
+        {
+          "forte": "Todo o mandato",
+          "texto": "presença em pelo menos três de cada quatro reuniões convocadas, com titular ou suplente."
+        },
+        {
+          "forte": "Até 7 dias depois de cada reunião",
+          "texto": "resumo com o que foi discutido, quem representou o CAGP e como votou."
+        },
+        {
+          "forte": "Uma por semestre",
+          "texto": "ação conjunta com outra entidade, em que o CAGP tenha contribuído de fato."
+        },
+        {
+          "forte": "Antes do voto",
+          "texto": "pauta conhecida com antecedência entra na reunião aberta do mês."
+        }
+      ],
+      "secoes": [
+        {
+          "titulo": "Quanto custa",
+          "blocos": [
+            {
+              "p": "R$ 0,00."
+            }
+          ]
+        },
+        {
+          "titulo": "Como conferir",
+          "blocos": [
+            {
+              "tabela": {
+                "titulo": "Metas da proposta 8",
+                "cabecalho": [
+                  "O que se mede",
+                  "Meta",
+                  "Onde olhar"
+                ],
+                "linhas": [
+                  [
+                    "Presença nos conselhos",
+                    "75%",
+                    "Resumos no site"
+                  ],
+                  [
+                    "Resumos publicados em até 7 dias",
+                    "100%",
+                    "Data de cada resumo"
+                  ],
+                  [
+                    "Ações conjuntas",
+                    "2 no mandato",
+                    "Boletim trimestral"
+                  ]
+                ],
+                "fonte": "Plano de execução 2026-2027 da Chapa Semente."
+              }
+            }
+          ]
+        },
+        {
+          "titulo": "O que pode dar errado",
+          "blocos": [
+            {
+              "lista": [
+                {
+                  "forte": "Reuniões em horário de trabalho.",
+                  "texto": "Titular e suplente para cada espaço."
+                },
+                {
+                  "forte": "O CAGP vota sem ouvir o curso.",
+                  "texto": "A pauta conhecida vai antes à reunião aberta; quando não der tempo, o resumo explica o voto."
+                },
+                {
+                  "forte": "Integrante da gestão com cargo em outra entidade.",
+                  "texto": "Quem tem cargo nas duas não vota pelo CAGP em assunto da outra."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "titulo": "Quem pode ajudar dentro da UFMG",
+          "blocos": [
+            {
+              "p": "O Diretório Acadêmico da FAFICH e o DCE, para levantar os espaços de representação. A Transformare, empresa júnior de Ciências do Estado, trabalha com mapeamento de atores; o plano não depende dela."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "boletimPdf": "/documentos/plano-semente/boletim-09-eventos-academicos.pdf",
+      "titulo": {
+        "antes": "",
+        "marca": "quatro",
+        "depois": " eventos, com data marcada"
+      },
+      "selo": "Começa na posse",
+      "custo": "R$ 0,00",
+      "custoNota": "Sala da faculdade e convidados voluntários.",
+      "quemResponde": "Diretoria Acadêmica, com Articulação e Comunicação.",
+      "daCartaAoPlano": [
+        "A carta fala em prospecção de parcerias para eventos, palestras e rodas de conversa, sem número. O plano assume quatro eventos no mandato, dois por semestre, com o calendário publicado até 31 de março de 2027, e um deles feito com o TEMAS."
+      ],
+      "quando": [
+        {
+          "forte": "Fevereiro de 2027",
+          "texto": "enquete de temas com os estudantes."
+        },
+        {
+          "forte": "Até 31 de março de 2027",
+          "texto": "calendário com data, tema e convidado de cada evento."
+        },
+        {
+          "forte": "De abril a outubro de 2027",
+          "texto": "quatro eventos, em horário do noturno: ao menos um com órgão público, um com organização da sociedade civil ou egresso e um com o TEMAS."
+        },
+        {
+          "forte": "Até 7 dias depois de cada evento",
+          "texto": "registro com lista de presença e resumo."
+        },
+        {
+          "forte": "Sempre que um docente aceitar coordenar",
+          "texto": "pedido de registro como evento de extensão, para certificado da UFMG."
+        }
+      ],
+      "secoes": [
+        {
+          "titulo": "Quanto custa",
+          "blocos": [
+            {
+              "p": "R$ 0,00, com sala da faculdade e convidados voluntários."
+            }
+          ]
+        },
+        {
+          "titulo": "Como conferir",
+          "blocos": [
+            {
+              "tabela": {
+                "titulo": "Metas da proposta 9",
+                "cabecalho": [
+                  "O que se mede",
+                  "Meta",
+                  "Onde olhar"
+                ],
+                "linhas": [
+                  [
+                    "Calendário publicado",
+                    "Até 31 mar. 2027",
+                    "Site do curso"
+                  ],
+                  [
+                    "Eventos realizados",
+                    "4; mínimo aceitável, 3",
+                    "Registros no site"
+                  ],
+                  [
+                    "Presença",
+                    "Fixada depois do primeiro evento",
+                    "Registro de cada evento"
+                  ]
+                ],
+                "fonte": "Plano de execução 2026-2027 da Chapa Semente."
+              }
+            }
+          ]
+        },
+        {
+          "titulo": "O que pode dar errado",
+          "blocos": [
+            {
+              "lista": [
+                {
+                  "forte": "Convidado cancela.",
+                  "texto": "Cada evento tem um nome reserva."
+                },
+                {
+                  "forte": "Nenhum docente aceita coordenar.",
+                  "texto": "O evento acontece sem certificado de extensão, e isso é dito na divulgação."
+                },
+                {
+                  "forte": "Pouca gente aparece.",
+                  "texto": "Tema por enquete e horário do noturno."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "titulo": "Quem pode ajudar dentro da UFMG",
+          "blocos": [
+            {
+              "p": "O TEMAS; o Centro de Extensão da FAFICH, para o registro; e a Atlas, empresa júnior de Gestão Pública. Nenhum foi procurado ainda. Só docente pode coordenar atividade de extensão: o CAGP sozinho não emite certificado da UFMG."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "boletimPdf": "/documentos/plano-semente/boletim-10-cursos-livres.pdf",
+      "titulo": {
+        "antes": "cursos e trilhas ",
+        "marca": "de graça",
+        "depois": ""
+      },
+      "selo": "Começa na posse",
+      "custo": "R$ 0,00",
+      "custoNota": "Trilhas e instrutores voluntários.",
+      "quemResponde": "Diretoria de Articulação e Assuntos Políticos, com a Acadêmica.",
+      "daCartaAoPlano": [
+        "A carta promete cursos livres de curta duração, com destaque para a ciência política, abertos à comunidade. O plano assume duas frentes: trilhas montadas com cursos gratuitos da Enap, que já dão certificado, e dois cursos presenciais gratuitos, um por semestre."
+      ],
+      "quando": [
+        {
+          "forte": "Até 28 de fevereiro de 2027",
+          "texto": "três trilhas no site: planejamento e orçamento, dados para a gestão, e controle e transparência."
+        },
+        {
+          "forte": "Até março de 2027",
+          "texto": "convite a docente para coordenar e pedido de registro como curso de extensão."
+        },
+        {
+          "forte": "Entre maio e junho de 2027",
+          "texto": "primeiro curso presencial, de pelo menos 8 horas, em tema de ciência política."
+        },
+        {
+          "forte": "Setembro de 2027",
+          "texto": "segundo curso presencial."
+        },
+        {
+          "forte": "Até 15 dias depois de cada curso",
+          "texto": "lista de concluintes e avaliação."
+        }
+      ],
+      "secoes": [
+        {
+          "titulo": "Quanto custa",
+          "blocos": [
+            {
+              "p": "R$ 0,00. Os cursos são gratuitos, e o plano não os usa para arrecadar."
+            }
+          ]
+        },
+        {
+          "titulo": "Como conferir",
+          "blocos": [
+            {
+              "tabela": {
+                "titulo": "Metas da proposta 10",
+                "cabecalho": [
+                  "O que se mede",
+                  "Meta",
+                  "Onde olhar"
+                ],
+                "linhas": [
+                  [
+                    "Trilhas publicadas",
+                    "3 até 28 fev. 2027",
+                    "Site do curso"
+                  ],
+                  [
+                    "Cursos realizados",
+                    "2",
+                    "Registro de cada curso"
+                  ],
+                  [
+                    "Participantes de fora do curso",
+                    "Número publicado",
+                    "Registro de cada curso"
+                  ]
+                ],
+                "fonte": "Plano de execução 2026-2027 da Chapa Semente."
+              }
+            }
+          ]
+        },
+        {
+          "titulo": "O que pode dar errado",
+          "blocos": [
+            {
+              "lista": [
+                {
+                  "forte": "Nenhum docente aceita coordenar.",
+                  "texto": "O curso acontece com declaração do CAGP, que não é certificado de extensão da UFMG. As trilhas da Enap têm certificado próprio."
+                },
+                {
+                  "forte": "O instrutor desiste.",
+                  "texto": "Dois instrutores por curso desde o convite."
+                },
+                {
+                  "forte": "Muitos se inscrevem e poucos terminam.",
+                  "texto": "Curso curto, e taxa de conclusão publicada."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "titulo": "Quem pode ajudar dentro da UFMG",
+          "blocos": [
+            {
+              "p": "O Centro de Extensão da FAFICH. Para cursos de dados, as empresas juniores Estat MG, Pi Júnior e Meios, que cobram pelo serviço. Editais de extensão e fundações de apoio só atendem projeto coordenado por servidor da UFMG: o CAGP não os acessa diretamente."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "boletimPdf": "/documentos/plano-semente/boletim-11-empresa-junior.pdf",
+      "titulo": {
+        "antes": "Empresa Júnior, apoio ",
+        "marca": "sem dinheiro",
+        "depois": ""
+      },
+      "selo": "Já começou",
+      "custo": "R$ 0,00",
+      "custoNota": "No plano, a gestão sozinha decide zero reais.",
+      "quemResponde": "Presidência, com a Jurídica. Três integrantes da chapa participam da empresa e não votam sobre ela.",
+      "daCartaAoPlano": [
+        "A carta promete apoio amplo à Empresa Júnior do curso, dentro dos limites do CA. O plano diz o que isso quer dizer: divulgação, espaço nas reuniões abertas e um informe a cada três meses. Repasse de dinheiro, só por decisão de Assembleia Geral, sem voto de quem integra a Empresa Júnior. Três integrantes da Semente participam dela, e por isso a regra vem escrita."
+      ],
+      "quando": [
+        {
+          "forte": "Março de 2027",
+          "texto": "regra de conflito de interesse aprovada em reunião aberta: quem integra a Empresa Júnior não conduz nem vota ponto sobre ela."
+        },
+        {
+          "forte": "Março, junho e setembro de 2027",
+          "texto": "informe sobre o reconhecimento da empresa na Pró-Reitoria de Extensão, onde ela consta como &quot;em elaboração&quot;."
+        },
+        {
+          "forte": "Sempre que houver",
+          "texto": "divulgação do processo seletivo e dos projetos."
+        },
+        {
+          "forte": "Todo o mandato",
+          "texto": "contas separadas. O portal mostra as do CAGP; a Empresa Júnior presta as suas."
+        }
+      ],
+      "secoes": [
+        {
+          "titulo": "Quanto custa",
+          "blocos": [
+            {
+              "p": "R$ 0,00. Neste plano, qualquer repasse depende de Assembleia Geral."
+            }
+          ]
+        },
+        {
+          "titulo": "Como conferir",
+          "blocos": [
+            {
+              "tabela": {
+                "titulo": "Metas da proposta 11",
+                "cabecalho": [
+                  "O que se mede",
+                  "Meta",
+                  "Onde olhar"
+                ],
+                "linhas": [
+                  [
+                    "Regra aprovada",
+                    "Mar. 2027",
+                    "Resumo da reunião"
+                  ],
+                  [
+                    "Informes trimestrais",
+                    "3 de 3",
+                    "Resumos das reuniões"
+                  ],
+                  [
+                    "Repasses sem decisão de Assembleia",
+                    "R$ 0,00",
+                    "Portal de transparência"
+                  ]
+                ],
+                "fonte": "Plano de execução 2026-2027 da Chapa Semente."
+              }
+            }
+          ]
+        },
+        {
+          "titulo": "O que pode dar errado",
+          "blocos": [
+            {
+              "lista": [
+                {
+                  "forte": "O apoio parece favorecimento.",
+                  "texto": "Regra aprovada em público e repasse só por Assembleia."
+                },
+                {
+                  "forte": "O reconhecimento demora.",
+                  "texto": "O informe diz em que etapa está e o que falta."
+                },
+                {
+                  "forte": "As contas se misturam.",
+                  "texto": "Nenhum pagamento pela empresa sem Assembleia."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "titulo": "Quem pode ajudar dentro da UFMG",
+          "blocos": [
+            {
+              "p": "O reconhecimento é conduzido pela própria empresa, com a faculdade e com o comitê de empresas juniores da Pró-Reitoria de Extensão. O CAGP informa o curso; não administra a empresa nem promete o reconhecimento."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "boletimPdf": "/documentos/plano-semente/boletim-12-comunicacao-que-informa.pdf",
+      "titulo": {
+        "antes": "comunicação que ",
+        "marca": "informa",
+        "depois": ", duas vezes por semana"
+      },
+      "selo": "Já no ar",
+      "custo": "R$ 0,00",
+      "custoNota": "Ferramentas gratuitas e trabalho da gestão.",
+      "quemResponde": "Diretoria de Marketing e Comunicação, com a Acadêmica.",
+      "daCartaAoPlano": [
+        "A carta promete comunicação ativa, com estágios, concursos, bolsas e pesquisa, e um calendário de publicações. O plano fixa a rotina: às segundas, as oportunidades da semana; às quintas, a agenda do CAGP e da UFMG. No mandato que termina, o perfil do CAGP fez 6,8 publicações por mês, e só 15 de 75, ou 20%, eram sobre vida acadêmica e pauta estudantil."
+      ],
+      "quando": [
+        {
+          "forte": "Até 31 de janeiro de 2027",
+          "texto": "calendário editorial publicado."
+        },
+        {
+          "forte": "Toda segunda-feira letiva",
+          "texto": "&quot;Oportunidades da semana&quot;, com estágios, bolsas, concursos e prazos."
+        },
+        {
+          "forte": "Toda quinta-feira letiva",
+          "texto": "&quot;Agenda da semana&quot;, com as atividades do CAGP e da UFMG."
+        },
+        {
+          "forte": "A cada boletim trimestral",
+          "texto": "contagem das publicações por assunto."
+        },
+        {
+          "forte": "Uma vez por semestre",
+          "texto": "chamada para estudantes de fora da gestão colaborarem."
+        }
+      ],
+      "secoes": [
+        {
+          "titulo": "Quanto custa",
+          "blocos": [
+            {
+              "p": "R$ 0,00."
+            }
+          ]
+        },
+        {
+          "titulo": "Como conferir",
+          "blocos": [
+            {
+              "tabela": {
+                "titulo": "Metas da proposta 12",
+                "cabecalho": [
+                  "O que se mede",
+                  "Meta",
+                  "Onde olhar"
+                ],
+                "linhas": [
+                  [
+                    "Semanas letivas com as duas publicações fixas",
+                    "80%",
+                    "Perfil do CAGP e boletim trimestral"
+                  ],
+                  [
+                    "Publicações do mês sobre vida acadêmica e pauta estudantil",
+                    "50% em cada mês",
+                    "Boletim trimestral"
+                  ]
+                ],
+                "fonte": "Plano de execução 2026-2027 da Chapa Semente."
+              }
+            }
+          ]
+        },
+        {
+          "titulo": "O que pode dar errado",
+          "blocos": [
+            {
+              "lista": [
+                {
+                  "forte": "A rotina falha.",
+                  "texto": "Modelo pronto, revezamento entre duas pessoas e meta de 80%, não de 100%."
+                },
+                {
+                  "forte": "A festa toma o perfil.",
+                  "texto": "A meta de metade do conteúdo vale em todos os meses."
+                },
+                {
+                  "forte": "Prazo divulgado errado.",
+                  "texto": "Toda oportunidade leva o endereço da fonte, e a correção sai em até 7 dias."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "titulo": "Quem pode ajudar dentro da UFMG",
+          "blocos": [
+            {
+              "p": "A Cria UFMG Jr., empresa júnior de Comunicação Social, na própria FAFICH, poderia dar uma oficina à equipe, com custo. Não foi procurada."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "boletimPdf": "/documentos/plano-semente/boletim-13-produtos-do-cagp.pdf",
+      "titulo": {
+        "antes": "produtos do CAGP por ",
+        "marca": "pré-venda",
+        "depois": ""
+      },
+      "selo": "Começa na posse",
+      "custo": "R$ 678,26",
+      "custoNota": "Estoque para eventos, limitado a 20% da encomenda.",
+      "quemResponde": "Diretoria Financeira, com Marketing e Comunicação.",
+      "daCartaAoPlano": [
+        "A carta promete camisetas, canecas, ecobags e adesivos escolhidos com os estudantes, sob demanda ou em pré-venda. A venda semestral já é obrigação do Regimento, e a lojinha já existe. O plano define o modelo: uma campanha de pré-venda por semestre, com um pequeno estoque para eventos."
+      ],
+      "quando": [
+        {
+          "forte": "Março e agosto de 2027",
+          "texto": "enquete de produtos e estampas, por 7 dias."
+        },
+        {
+          "forte": "Antes de cada pré-venda",
+          "texto": "três preços de fornecedor por produto, publicados."
+        },
+        {
+          "forte": "Entre abril e maio e em setembro de 2027",
+          "texto": "pré-venda de 15 dias, com produção apenas do que foi pago."
+        },
+        {
+          "forte": "Depois de cada campanha",
+          "texto": "resultado no portal: quanto entrou, quanto custou, quanto sobrou e o que ficou em estoque."
+        }
+      ],
+      "secoes": [
+        {
+          "titulo": "Quanto custa",
+          "blocos": [
+            {
+              "p": "A produção é paga por quem comprou. O preço é o custo mais uma margem de até 15%, informada na pré-venda. O estoque para eventos fica limitado a 20% da encomenda: cerca de R$ 340 por campanha, se as vendas repetirem as de 2026."
+            }
+          ]
+        },
+        {
+          "titulo": "Como conferir",
+          "blocos": [
+            {
+              "tabela": {
+                "titulo": "Metas da proposta 13",
+                "cabecalho": [
+                  "O que se mede",
+                  "Meta",
+                  "Onde olhar"
+                ],
+                "linhas": [
+                  [
+                    "Campanhas realizadas",
+                    "2",
+                    "Portal de transparência"
+                  ],
+                  [
+                    "Resultado de cada campanha",
+                    "Maior que zero",
+                    "Portal de transparência"
+                  ],
+                  [
+                    "Estoque parado no fim do mandato",
+                    "No máximo 20%",
+                    "Relatório final"
+                  ]
+                ],
+                "fonte": "Plano de execução 2026-2027 da Chapa Semente."
+              }
+            }
+          ]
+        },
+        {
+          "titulo": "O que pode dar errado",
+          "blocos": [
+            {
+              "lista": [
+                {
+                  "forte": "A pré-venda não atinge o pedido mínimo.",
+                  "texto": "O dinheiro é devolvido."
+                },
+                {
+                  "forte": "O estoque encalha.",
+                  "texto": "Nenhum estoque novo enquanto houver peça parada."
+                },
+                {
+                  "forte": "O fornecedor atrasa.",
+                  "texto": "Prazo e troca combinados por escrito."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "titulo": "Quem pode ajudar dentro da UFMG",
+          "blocos": [
+            {
+              "p": "A Mude UFMG Jr., empresa júnior de Moda, trabalha com estamparia, e a Cria UFMG Jr., com comunicação. São serviços pagos. O caminho sem custo é um concurso de estampas entre os estudantes."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "boletimPdf": "/documentos/plano-semente/boletim-14-canal-de-escuta.pdf",
+      "titulo": {
+        "antes": "resposta em até ",
+        "marca": "7 dias",
+        "depois": ""
+      },
+      "selo": "Já no ar",
+      "custo": "R$ 0,00",
+      "custoNota": "Formulário e endereço eletrônico gratuitos.",
+      "quemResponde": "Diretoria de Marketing e Comunicação, com a Presidência.",
+      "daCartaAoPlano": [
+        "A carta promete canais permanentes de escuta e divulgação periódica dos encaminhamentos. O plano põe prazo: resposta em até 7 dias e, todo mês, um registro público do que chegou e do que foi feito, sem identificar ninguém. O &quot;Fala com a gente&quot; do site já recebe críticas sobre o próprio site; falta o canal oficial do Centro Acadêmico."
+      ],
+      "quando": [
+        {
+          "forte": "Até 20 de dezembro de 2026",
+          "texto": "canal oficial divulgado: um formulário no site e um endereço eletrônico da gestão."
+        },
+        {
+          "forte": "Em até 7 dias",
+          "texto": "resposta a todo pedido: o que foi feito, ou para quem foi encaminhado e por quê."
+        },
+        {
+          "forte": "Todo mês, de dezembro de 2026 a setembro de 2027",
+          "texto": "registro público com o número de pedidos, os assuntos e a situação de cada um."
+        },
+        {
+          "forte": "Até abril de 2027",
+          "texto": "guia &quot;quem decide o quê&quot;, sobre Colegiado, Núcleo Docente Estruturante, Congregação, Diretório Acadêmico e DCE."
+        },
+        {
+          "forte": "Sempre",
+          "texto": "assunto com três pedidos ou mais no mês entra na reunião aberta seguinte."
+        }
+      ],
+      "secoes": [
+        {
+          "titulo": "Quanto custa",
+          "blocos": [
+            {
+              "p": "R$ 0,00."
+            }
+          ]
+        },
+        {
+          "titulo": "Como conferir",
+          "blocos": [
+            {
+              "tabela": {
+                "titulo": "Metas da proposta 14",
+                "cabecalho": [
+                  "O que se mede",
+                  "Meta",
+                  "Onde olhar"
+                ],
+                "linhas": [
+                  [
+                    "Pedidos respondidos ou encaminhados em até 7 dias",
+                    "90%",
+                    "Registro mensal"
+                  ],
+                  [
+                    "Registros mensais publicados",
+                    "10 de 10",
+                    "Site do curso"
+                  ],
+                  [
+                    "Tempo de resposta",
+                    "Informado todo mês",
+                    "Registro mensal"
+                  ]
+                ],
+                "fonte": "Plano de execução 2026-2027 da Chapa Semente."
+              }
+            }
+          ]
+        },
+        {
+          "titulo": "O que pode dar errado",
+          "blocos": [
+            {
+              "lista": [
+                {
+                  "forte": "O pedido é sobre algo que o CAGP não resolve.",
+                  "texto": "Encaminhar a quem resolve e dizer isso ao estudante."
+                },
+                {
+                  "forte": "Quem reclama fica exposto.",
+                  "texto": "O formulário aceita pedido anônimo, e o registro público não traz nomes."
+                },
+                {
+                  "forte": "Responder não é resolver.",
+                  "texto": "O registro separa o que foi resolvido do que foi só encaminhado."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "titulo": "Quem pode ajudar dentro da UFMG",
+          "blocos": [
+            {
+              "p": "Resolver depende, muitas vezes, do Colegiado, da secretaria ou da faculdade. A Meios e a RH Consultoria, empresas juniores de Ciências Sociais e de Psicologia, poderiam apoiar uma pesquisa anual com os estudantes, com custo."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

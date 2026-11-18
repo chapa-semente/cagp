@@ -56,6 +56,19 @@ body {
   background-color: var(--estagio-solo);
 }
 
+/* ---- A folha de leitura (revisão de 18/11/2026) ------------------------------------------
+   Texto corrido nunca fica direto no solo colorido: vai numa folha branca com contorno grafite,
+   como as notícias simuladas. O solo vira a moldura em volta. Fichas dentro da folha perdem a
+   sombra (DESIGN.md › Ficha dentro de ficha). */
+.cagp-folha {
+  background: #fff;
+  border: 2px solid var(--color-border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-ficha);
+  padding: 1.25rem 1rem;
+}
+@media (min-width: 640px) { .cagp-folha { padding: 1.75rem; } }
+
 /* Superfícies do navegador na cor da marca */
 ::selection { background: var(--estagio); color: var(--estagio-fg); }
 html { scrollbar-color: var(--estagio) var(--estagio-solo); accent-color: #5B2A85; caret-color: #5B2A85; }
@@ -129,15 +142,18 @@ html { scrollbar-color: var(--estagio) var(--estagio-solo); accent-color: #5B2A8
 /* ---- O ramo que cresce com a rolagem ------------------------------------------------------ */
 @keyframes cagp-ea-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
 .cagp-growth { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+/* A forma fica fora do texto (revisão de 18/11/2026): ela passava por trás dos parágrafos e a borda
+   cortava as linhas. No desktop só a ponta aparece no canto, longe da coluna de leitura; no celular
+   não sobra margem fora do texto, então ela não aparece. */
 .cagp-growth-shape {
   position: absolute;
-  right: -2rem;
-  bottom: -2rem;
-  width: min(46vw, 26rem);
+  right: -7rem;
+  bottom: -7rem;
+  width: clamp(12rem, 20vw, 18rem);
   height: auto;
   fill: var(--estagio-forma);
 }
-@media (max-width: 767px) { .cagp-growth-shape { bottom: 3rem; width: 62vw; } }
+@media (max-width: 767px) { .cagp-growth-shape { display: none; } }
 .cagp-growth-vine {
   display: none;
   pointer-events: none;

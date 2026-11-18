@@ -10,6 +10,8 @@ import { CARTA_PROPOSTAS_DATA } from '@/components/features/semente/CartaPropost
 import { CHAPA_LEADERS, CHAPA_ROTULO, getLeaderPhotoUrl } from '@/lib/chapaSementeData';
 import { PROPOSTA_EIXOS, PROPOSTA_STOPS } from '@/lib/propostasTour';
 import { previaDaProposta } from '@/lib/previas';
+import { planoDaProposta } from '@/lib/planoExecucao';
+import PlanoDaProposta from '@/components/features/semente/PlanoDaProposta.astro';
 import { asset, route } from '@/lib/paths';
 import '@/styles/campanha-detalhe.css';
 
@@ -24,6 +26,9 @@ const eixo = PROPOSTA_EIXOS.find((e) => e.id === carta.eixoId)!;
 const pessoa = CHAPA_LEADERS.find((l) => l.id === proposta.leaderId)!;
 const foto = getLeaderPhotoUrl(pessoa.photoFilename, 'thumb');
 const previa = previaDaProposta(proposta);
+// O plano de execução da proposta (18/11/2026): datas, custo, quem responde e plano B.
+const plano = planoDaProposta(proposta.id);
+const primeiroPasso = plano?.quando[0];
 const anterior = PROPOSTA_STOPS.find((p) => p.id === proposta.id - 1);
 const proxima = PROPOSTA_STOPS.find((p) => p.id === proposta.id + 1);
 // Tom chapado mais fundo de cada eixo, para a folha de fundo (o mesmo dos banners).
@@ -66,6 +71,12 @@ const legenda = [
       </div>
       <div class="cd-acoes">
         <BotaoCompartilhar corpo={previa.mensagem} tom="convite" titulo={previa.titulo} rotulo="Mandar essa proposta" />
+        {plano && (
+          <a href="#plano" class="sk-btn">
+            <i class="bi bi-calendar-check" aria-hidden="true"></i>
+            Quando e quanto custa
+          </a>
+        )}
         {proposta.prova && (
           <a href={route(proposta.prova.href)} class="sk-btn">
             {proposta.prova.label}
@@ -92,11 +103,19 @@ const legenda = [
       </section>
     )}
 
+    {!proposta.jaFeito && plano && primeiroPasso && (
+      <section class="cd-ficha cd-feito" aria-labelledby="cd-feito">
+        <h2 id="cd-feito" class="cd-feito-selo">{plano.selo}</h2>
+        <p class="cd-citacao"><strong set:html={primeiroPasso.forte} />: <span set:html={primeiroPasso.texto} /></p>
+      </section>
+    )}
     <section class="cd-secao" aria-labelledby="cd-carta">
       <h2 id="cd-carta" class="cd-h2">O que diz a carta-programa</h2>
       <p class="cd-texto">{carta.fullText}</p>
       <a href={route('/chapa-semente') + '#carta'} class="cd-link">Ler as {total} propostas</a>
     </section>
+
+    {plano && <PlanoDaProposta plano={plano} />}
 
     <section class="cd-ficha cd-kit" aria-labelledby="cd-kit">
       <img

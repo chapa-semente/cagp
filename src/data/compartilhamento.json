@@ -239,6 +239,14 @@
       "imagem": "p-moldura",
       "banner": { "molde": "pagina", "aba": "chapa", "etiqueta": "Moldura de apoio", "gancho": [ "Põe a sua {cara}", "na campanha." ], "sub": [ "Sua foto com a moldura da Chapa 2,", "pronta pra postar." ], "arte": "fichas" }
     },
+    "/chapa-semente/plano": {
+      "titulo": "O plano da Chapa 2: cada proposta com data, custo e quem responde",
+      "descricao": "As 14 propostas da Semente com prazo, custo e plano B. Nove não tiram dinheiro do caixa do CA. O plano inteiro em PDF e no site.",
+      "emoji": "🗓️",
+      "mensagem": "A Chapa 2 · Semente mostra quando cada proposta sai do papel, quanto custa e quem responde. Dá pra ler inteiro no celular:",
+      "imagem": "p-plano",
+      "banner": { "molde": "pagina", "aba": "chapa", "etiqueta": "O plano da Semente", "gancho": [ "Cada proposta", "com {data}." ], "sub": [ "Prazo, custo e quem responde,", "em PDF e no site." ], "arte": "fichas" }
+    },
     "/gestao": {
       "titulo": "Eleição do CAGP: 25 e 26/11, das 17h às 22h30",
       "descricao": "Na sala do CAGP, na FAFICH. A Semente é a Chapa 2.",

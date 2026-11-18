@@ -67,7 +67,7 @@ const passos: TramitePasso[] = [
   />
 
   <div class="sobre-site">
-    <section aria-labelledby="sobre-site-o-que-e" class="sobre-site-papel">
+    <section aria-labelledby="sobre-site-o-que-e" class="cagp-folha sobre-site-papel">
       <h2 id="sobre-site-o-que-e">O que é</h2>
       <p>
         É o site do curso de Gestão Pública da UFMG, feito pela Chapa Semente. Ele junta num lugar só os guias de
@@ -80,7 +80,7 @@ const passos: TramitePasso[] = [
     <!-- O dono de "pôr na tela inicial": mostra só o caminho do aparelho de quem está lendo. -->
     <InstalarNaTela onde="pagina" />
 
-    <section aria-labelledby="sobre-site-exemplo" class="sobre-site-papel">
+    <section aria-labelledby="sobre-site-exemplo" class="cagp-folha sobre-site-papel">
       <h2 id="sobre-site-exemplo">O que é exemplo vem avisado</h2>
       <p>
         Guias, documentos, disciplinas e cursos são de verdade. O mural de notícias, as vagas de exemplo, o banco de
@@ -90,7 +90,7 @@ const passos: TramitePasso[] = [
       </p>
     </section>
 
-    <section aria-labelledby="sobre-site-desenhos" class="sobre-site-papel sobre-site-desenhos">
+    <section aria-labelledby="sobre-site-desenhos" class="cagp-folha sobre-site-papel sobre-site-desenhos">
       <div>
         <h2 id="sobre-site-desenhos">Quem desenhou</h2>
         <p>
@@ -105,7 +105,7 @@ const passos: TramitePasso[] = [
       <AdesivoChapa client:visible className="sobre-site-adesivo" />
     </section>
 
-    <section aria-labelledby="sobre-site-faltou" class="sobre-site-papel">
+    <section aria-labelledby="sobre-site-faltou" class="cagp-folha sobre-site-papel">
       <h2 id="sobre-site-faltou">Faltou alguma coisa?</h2>
       <p>
         Achou um erro, tem uma ideia ou quer criticar? A gente quer ouvir:{' '}
@@ -132,7 +132,7 @@ const passos: TramitePasso[] = [
     gap: 3rem;
     max-width: 46rem;
   }
-  /* Volume Papel: texto direto no solo, régua grafite sob o título. */
+  /* Volume Papel: texto na folha branca (.cagp-folha), régua grafite sob o título. */
   @media (min-width: 640px) { .sobre-site-desenhos { grid-template-columns: minmax(0, 1fr) 15rem; } }
   .sobre-site-desenhos :global(.sobre-site-adesivo) { display: block; width: min(100%, 15rem); height: auto; rotate: -3deg; }
   .sobre-site-papel {

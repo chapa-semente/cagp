@@ -1,0 +1,119 @@
+---
+// PlanoDaProposta.astro — O plano de execução de uma proposta, na página /propostas/N (18/11/2026).
+// É a versão web do boletim da proposta: o que você vai ver e quando, quanto custa, quem responde,
+// como conferir e o que pode dar errado. Os dados vêm de src/data/planoExecucao.json, gerado por
+// scripts/plano-para-site.mjs a partir do plano; os textos já chegam escapados (só <strong> passa).
+// Volume Ficha dentro de página Cartaz: a cabeça é um bloco petróleo (a cor do plano e dos dados),
+// o resto é papel. Prefixo cd-plano-.
+import MarkerWord from '@/components/ui/MarkerWord.astro';
+import { IMPACTO_DA_PROPOSTA, PLANO_MANDATO, type PlanoProposta } from '@/lib/planoExecucao';
+import { asset, route } from '@/lib/paths';
+
+interface Props {
+  plano: PlanoProposta;
+}
+const { plano } = Astro.props;
+const gratis = plano.custo === 'R$ 0,00';
+const temParceiros = plano.secoes.some((s) => s.titulo.startsWith('Quem pode ajudar'));
+---
+
+<section id="plano" class="cd-plano scroll-mt-24" aria-labelledby="cd-plano-titulo">
+  <div class="cd-plano-cabeca">
+    <svg class="cd-plano-folha" viewBox="-46 -110 72 118" aria-hidden="true"><use href="#sg-folha"></use></svg>
+    <h2 id="cd-plano-titulo" class="cd-plano-titulo">
+      <span class="sr-only">O plano: </span>
+      {plano.titulo.antes}{plano.titulo.marca && <MarkerWord onColor scroll>{plano.titulo.marca}</MarkerWord>}{plano.titulo.depois}
+    </h2>
+    {IMPACTO_DA_PROPOSTA[plano.id] && <p class="cd-plano-impacto">{IMPACTO_DA_PROPOSTA[plano.id]}</p>}
+    <dl class="cd-plano-fatos">
+      <div class="cd-plano-fato">
+        <dt>Quanto sai do caixa do CA</dt>
+        <dd>
+          <span class:list={['cd-plano-valor', gratis && 'is-zero']}>{plano.custo}</span>
+          <span class="cd-plano-nota" set:html={plano.custoNota} />
+        </dd>
+      </div>
+      <div class="cd-plano-fato">
+        <dt>Quem responde</dt>
+        <dd class="cd-plano-quem" set:html={plano.quemResponde} />
+      </div>
+    </dl>
+  </div>
+
+  <div class="cd-plano-corpo">
+    <section class="cd-plano-bloco" aria-labelledby="cd-plano-quando">
+      <h3 id="cd-plano-quando" class="cd-h2">O que você vai ver e quando</h3>
+      <ol class="cd-plano-linha" role="list">
+        {plano.quando.map((item) => (
+          <li class="cd-plano-marco">
+            <svg class="cd-plano-no" viewBox="-46 -110 72 118" aria-hidden="true"><use href="#sg-folha"></use></svg>
+            <p class="cd-plano-data" set:html={item.forte} />
+            <p class="cd-plano-feito" set:html={item.texto} />
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="cd-plano-bloco" aria-labelledby="cd-plano-carta">
+      <h3 id="cd-plano-carta" class="cd-h2">O que a carta diz e o que o plano faz</h3>
+      {plano.daCartaAoPlano.map((p) => <p class="cd-texto" set:html={p} />)}
+    </section>
+
+    {plano.secoes.map((secao, i) => (
+      <section class="cd-plano-bloco" aria-labelledby={`cd-plano-s${i}`}>
+        <h3 id={`cd-plano-s${i}`} class="cd-h2">{secao.titulo}</h3>
+        {secao.blocos.map((bloco) =>
+          'p' in bloco ? (
+            <p class="cd-texto" set:html={bloco.p} />
+          ) : 'lista' in bloco ? (
+            <ul class="cd-plano-lista" role="list">
+              {bloco.lista.map((item) => (
+                <li>
+                  {item.forte && <b set:html={item.forte} />} <span set:html={item.texto} />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <figure class="cd-plano-quadro">
+              <figcaption class="cd-plano-quadro-titulo">{bloco.tabela.titulo}</figcaption>
+              <table>
+                <thead>
+                  <tr>{bloco.tabela.cabecalho.map((c) => <th scope="col" set:html={c} />)}</tr>
+                </thead>
+                <tbody>
+                  {bloco.tabela.linhas.map((linha) => (
+                    <tr>
+                      {linha.map((c, j) =>
+                        j === 0 ? (
+                          <th scope="row" set:html={c} />
+                        ) : (
+                          <td data-rotulo={bloco.tabela.cabecalho[j]?.replace(/<[^>]+>/g, '')} set:html={c} />
+                        ),
+                      )}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {bloco.tabela.fonte && <p class="cd-plano-fonte">Fonte: <span set:html={bloco.tabela.fonte} /></p>}
+            </figure>
+          ),
+        )}
+      </section>
+    ))}
+
+    <div class="cd-plano-anexos">
+      <a href={asset(plano.boletimPdf)} target="_blank" rel="noopener" class="sk-btn sk-btn-roxo">
+        <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
+        Boletim desta proposta em PDF
+      </a>
+      <a href={route('/chapa-semente/plano')} class="sk-btn">
+        <i class="bi bi-journal-text" aria-hidden="true"></i>
+        Ler o plano inteiro
+      </a>
+    </div>
+
+    <p class="cd-plano-pe">
+      Vale para o mandato de {PLANO_MANDATO}.{temParceiros && ' Nenhuma parceria está fechada: quem aparece como possível ajuda ainda vai ser procurado.'}
+    </p>
+  </div>
+</section>

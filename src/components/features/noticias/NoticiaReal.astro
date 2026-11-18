@@ -116,7 +116,7 @@ const resumo = ev
       </section>
     )}
 
-    <article class="nr-texto">
+    <article class="nr-texto cagp-folha">
       <Content />
     </article>
 
@@ -358,8 +358,8 @@ const resumo = ev
     .nr-transcricao { grid-column: 1 / -1; }
   }
 
-  /* ---------- Texto (Papel): direto no solo, 68ch ---------- */
-  .nr-texto { max-width: 68ch; }
+  /* ---------- Texto (Papel): na folha branca (.cagp-folha), 68ch de texto ---------- */
+  .nr-texto { max-width: calc(68ch + 3.75rem); }
   .nr-texto > :first-child { margin-top: 0; }
   .nr-texto > :last-child { margin-bottom: 0; }
   .nr-texto p,
@@ -405,7 +405,13 @@ const resumo = ev
     background: #fff;
     border: 3px solid var(--color-border);
     border-radius: 12px;
-    box-shadow: var(--shadow-md);
+  }
+  /* Dentro da folha: a ficha do ponto fica em areia e sem sombra (ficha dentro de ficha). */
+  .nr-texto ol > li { background: var(--color-background); }
+  /* No celular a folha já come largura: o número flutua ao lado do título e o texto usa a linha toda. */
+  @media (max-width: 639px) {
+    .nr-texto ol > li { padding: 0.875rem; }
+    .nr-texto ol > li::before { position: static; float: left; margin: 0 0.625rem 0.25rem 0; }
   }
   .nr-texto ol > li::before {
     content: counter(nr-ponto);
@@ -439,7 +445,7 @@ const resumo = ev
   .nr-texto blockquote {
     margin: 0 0 1rem;
     padding: 0.875rem 1rem 1rem;
-    background: #fff;
+    background: var(--color-background);
     border: 2px solid var(--color-border);
     border-radius: 12px;
   }

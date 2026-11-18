@@ -102,7 +102,7 @@ export function previaDaPessoa(leader: LeaderInfo): Previa {
 }
 
 function daPagina(p: PaginaJson, rota: string): Previa {
-  const campanha = rota === '/' || rota === '/chapa-semente' || rota === '/gestao' || rota === '/chapa-semente/moldura';
+  const campanha = rota === '/' || rota === '/chapa-semente' || rota === '/gestao' || rota === '/chapa-semente/moldura' || rota === '/chapa-semente/plano';
   const corpo = p.mensagem ?? p.titulo;
   return { titulo: p.titulo, descricao: p.descricao, imagem: p.imagem, mensagem: p.emoji ? `${p.emoji} ${corpo}` : corpo, tom: campanha ? 'convite' : 'util' };
 }

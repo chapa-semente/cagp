@@ -70,10 +70,11 @@ const comoVaiSer = [
     <!-- Aviso de simulação na primeira dobra -->
     <div
       role="note"
-      class="p-4 rounded-xl bg-warning-tint border-2 border-border flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-foreground"
+      class="p-4 rounded-xl bg-white border-2 border-border flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-foreground"
     >
       <div class="space-y-1">
-        <strong class="font-heading font-bold text-warning block text-sm">
+        <strong class="font-heading font-bold text-warning flex items-center gap-1.5 text-sm">
+          <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
           O portal está pronto; os números são de exemplo
         </strong>
         <p class="m-0 text-sm leading-relaxed max-w-[68ch]">
@@ -85,8 +86,8 @@ const comoVaiSer = [
       </span>
     </div>
 
-    <!-- O que é real: o Regimento Interno de 14/10/2024 (volume Papel) -->
-    <section aria-labelledby="heading-regras-reais" class="space-y-4">
+    <!-- O que é real: o Regimento Interno de 14/10/2024 (volume Papel, na folha branca) -->
+    <section aria-labelledby="heading-regras-reais" class="cagp-folha space-y-4">
       <div class="border-b-2 border-border pb-2 flex flex-wrap items-end justify-between gap-3">
         <h2 id="heading-regras-reais" class="font-heading text-xl font-bold text-foreground m-0">
           O que o Regimento já exige
@@ -108,7 +109,7 @@ const comoVaiSer = [
               <span class="font-heading text-xs font-bold uppercase tracking-[0.04em] tabular-nums text-secondary block">{r.ref}</span>
               <span class="font-heading text-lg font-bold text-foreground block">{r.titulo}</span>
             </dt>
-            <dd class="m-0 text-base leading-relaxed text-muted-foreground max-w-[68ch]">{r.texto}</dd>
+            <dd class="m-0 text-base leading-relaxed text-content-secondary max-w-[68ch]">{r.texto}</dd>
           </div>
         ))}
       </dl>
@@ -119,7 +120,7 @@ const comoVaiSer = [
     </section>
 
     <!-- Como a Semente vai prestar contas (proposta 1 da carta + o que o portal já faz) -->
-    <section aria-labelledby="heading-como-vai-ser" class="space-y-4">
+    <section aria-labelledby="heading-como-vai-ser" class="cagp-folha space-y-4">
       <h2 id="heading-como-vai-ser" class="font-heading text-xl font-bold text-foreground m-0 border-b-2 border-border pb-2">
         Como a Semente vai prestar contas
       </h2>
@@ -127,7 +128,7 @@ const comoVaiSer = [
         {comoVaiSer.map((c) => (
           <div class="space-y-1">
             <dt class="font-heading text-lg font-bold text-foreground">{c.quando}</dt>
-            <dd class="m-0 text-base leading-relaxed text-muted-foreground max-w-[46ch]">{c.oQue}</dd>
+            <dd class="m-0 text-base leading-relaxed text-content-secondary max-w-[46ch]">{c.oQue}</dd>
           </div>
         ))}
       </dl>

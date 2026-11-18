@@ -1,0 +1,220 @@
+---
+// /chapa-semente/plano — O plano de execução da Semente, inteiro (18/11/2026).
+// Pedido do Gabriel: o estudante vê o PDF na íntegra, em anexo, e o mesmo texto transcrito numa página,
+// em linguagem simples, com o impacto e o que ele quer dizer nas primeiras frases. Por isso a página
+// abre com o que muda para quem estuda; os PDFs vêm logo depois; a transcrição completa fecha a página.
+// Arquétipo: leitura longa (volume Papel). Dados: src/lib/planoExecucao.ts.
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+import PlanoTranscrito from '@/components/features/semente/PlanoTranscrito.astro';
+import { PROPOSTA_STOPS } from '@/lib/propostasTour';
+import {
+  PLANO_MANDATO,
+  PLANO_PAGINAS,
+  PLANO_PDF_COMPLETO,
+  PLANO_PDF_RESUMO,
+  PLANO_PROPOSTAS,
+  PLANO_SECOES,
+  PLANO_SUMARIO,
+} from '@/lib/planoExecucao';
+import { asset, route } from '@/lib/paths';
+import '@/styles/plano-documento.css';
+
+const puro = (html: string) => html.replace(/<[^>]+>/g, '');
+const boletins = PLANO_PROPOSTAS.map((p) => ({ ...p, nome: PROPOSTA_STOPS.find((s) => s.id === p.id)?.titulo ?? '' }));
+---
+
+<BaseLayout
+  mode="read"
+  title="O plano da Semente"
+  description="Cada uma das 14 propostas da Chapa 2 com data, custo, quem responde e plano B. O plano inteiro em PDF e transcrito na página."
+>
+  <PageHeader
+    title="O plano da Semente"
+    marker="plano"
+    subtitle="Cada proposta com data, custo e quem responde."
+    axisId="chapa"
+    activeId="chapa-plano"
+    mode="read"
+    condensed={true}
+  />
+
+  <div class="pd-pagina">
+    <!-- 1. O que muda: o impacto antes de tudo -->
+    <section class="pd-abertura" aria-labelledby="pd-muda">
+      <h2 id="pd-muda" class="pd-abertura-titulo">O que isso quer dizer pra você</h2>
+      <p class="pd-abertura-lede">
+        Se a Semente for eleita, cada uma das 14 propostas tem <strong>entrega, data e lugar para você conferir</strong>.
+        Nos primeiros cem dias, quase tudo custa zero e depende só da gestão: contas reais no portal até 31 de janeiro,
+        reunião aberta todo mês e o primeiro boletim de contas em 15 de março.
+      </p>
+      <ul class="pd-abertura-lista">
+        <li><b>Nove das 14 propostas não tiram dinheiro do caixa do CA.</b> As outras somam R$ 6.743,05, e o CNPJ só entra se a Assembleia aprovar.</li>
+        <li><b>Em cada calourada, 40% de desconto para fumpistas</b> dos níveis I, II e III, em ingressos limitados.</li>
+        <li><b>Toda proposta tem um plano B por escrito:</b> o que a gestão faz se a primeira ideia não der certo.</li>
+        <li><b>Vale para o mandato de {PLANO_MANDATO}.</b> Nenhuma parceria citada no plano está fechada.</li>
+      </ul>
+    </section>
+
+    <!-- 2. Os PDFs, na íntegra -->
+    <section class="pd-anexos" aria-labelledby="pd-anexos">
+      <h2 id="pd-anexos" class="pd-h2-curto">O plano em PDF</h2>
+      <ul class="pd-arquivos" role="list">
+        <li>
+          <a href={asset(PLANO_PDF_COMPLETO)} target="_blank" rel="noopener" class="pd-arquivo is-principal">
+            <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
+            <span>
+              <b>O plano completo</b>
+              <small>{PLANO_PAGINAS} páginas · 4,3 MB · as 14 propostas, o orçamento e o cronograma</small>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href={asset(PLANO_PDF_RESUMO)} target="_blank" rel="noopener" class="pd-arquivo">
+            <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
+            <span>
+              <b>O plano em uma página</b>
+              <small>1 página · 260 KB · bom pra mandar no grupo</small>
+            </span>
+          </a>
+        </li>
+      </ul>
+      <details class="pd-boletins">
+        <summary>Os 14 boletins, um por proposta</summary>
+        <ul class="pd-boletins-lista" role="list">
+          {boletins.map((b) => (
+            <li>
+              <a href={route(`/propostas/${b.id}`)} class="pd-boletim-nome">
+                <span class="pd-boletim-n">{b.id}</span>
+                {b.nome}
+              </a>
+              <a href={asset(b.boletimPdf)} target="_blank" rel="noopener" class="pd-boletim-pdf">
+                <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
+                PDF<span class="sr-only"> do boletim da proposta {b.id}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </details>
+      <p class="pd-aviso">O PDF abre com internet. O texto abaixo é o mesmo do PDF, palavra por palavra, para ler direto no celular.</p>
+    </section>
+
+    <!-- 3. Sumário -->
+    <nav class="pd-sumario" aria-labelledby="pd-sumario">
+      <h2 id="pd-sumario" class="pd-h2-curto">O plano inteiro, aqui na página</h2>
+      <ol role="list">
+        {PLANO_SECOES.map((s) => (
+          <li class:list={[/^Parte /.test(puro(s.cabeca.html)) && 'is-parte']}>
+            <a href={`#${s.cabeca.id}`} set:html={s.cabeca.html} />
+          </li>
+        ))}
+      </ol>
+    </nav>
+
+    <!-- 4. A transcrição. Em tela larga, o sumário fica parado ao lado e marca a seção que está na tela
+         (18/11/2026: a coluna da direita ficava vazia no computador). -->
+    <div class="pd-leitura">
+    <article class="pd-doc" aria-label="Plano de execução 2026-2027, texto completo">
+      <header class="pd-doc-cabeca">
+        <p class="pd-doc-titulo">Plano de execução 2026-2027: como a Semente vai cumprir cada proposta</p>
+        <p class="pd-doc-sub">Plano de execução das 14 propostas da carta-programa da Chapa Semente para o Centro Acadêmico de Gestão Pública da UFMG. Belo Horizonte, novembro de 2026.</p>
+      </header>
+      {PLANO_SECOES.map((s) => <PlanoTranscrito secao={s} />)}
+    </article>
+
+    <aside class="pd-lado" aria-labelledby="pd-lado-titulo">
+      <div class="pd-lado-cabeca">
+        <p id="pd-lado-titulo" class="pd-lado-titulo">Neste plano</p>
+        <span class="pd-lado-progresso" aria-hidden="true"><span data-pd-progresso></span></span>
+      </div>
+      <nav class="pd-lado-nav" aria-labelledby="pd-lado-titulo">
+        <ol role="list">
+          {PLANO_SUMARIO.map((item) => (
+            <li class:list={[item.parte && 'is-parte']} data-pd-secao={item.id}>
+              <a href={`#${item.id}`} data-pd-alvo={item.id} set:html={item.html} />
+              {item.filhos.length > 0 && (
+                <ol role="list" class="pd-lado-filhos">
+                  {item.filhos.map((f) => (
+                    <li><a href={`#${f.id}`} data-pd-alvo={f.id} set:html={f.html} /></li>
+                  ))}
+                </ol>
+              )}
+            </li>
+          ))}
+        </ol>
+      </nav>
+      <div class="pd-lado-acoes">
+        <a href={asset(PLANO_PDF_COMPLETO)} target="_blank" rel="noopener" class="pd-lado-pdf">
+          <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
+          <span><b>Abrir o PDF</b><small>{PLANO_PAGINAS} páginas · 4,3 MB</small></span>
+        </a>
+        <a href="#pd-anexos" class="pd-lado-link">Resumo e os 14 boletins</a>
+      </div>
+    </aside>
+    </div>
+
+  </div>
+</BaseLayout>
+
+<script>
+  // Sumário ao lado (tela larga): marca a seção e a subseção que estão na tela e abre as subseções
+  // só da seção atual. Sem o observador, o sumário continua funcionando como lista de links.
+  function iniciarSumarioDoPlano() {
+    const lado = document.querySelector<HTMLElement>('.pd-lado');
+    const doc = document.querySelector<HTMLElement>('.pd-doc');
+    if (!lado || !doc) return;
+    const links = new Map<string, HTMLAnchorElement>();
+    lado.querySelectorAll<HTMLAnchorElement>('[data-pd-alvo]').forEach((a) => links.set(a.dataset.pdAlvo!, a));
+    const titulos = Array.from(doc.querySelectorAll<HTMLElement>('h2[id], h3[id]')).filter((h) => links.has(h.id));
+    const barra = lado.querySelector<HTMLElement>('[data-pd-progresso]');
+
+    let atual = '';
+    const marcar = (id: string) => {
+      if (!id || id === atual) return;
+      atual = id;
+      lado.querySelectorAll('[aria-current]').forEach((el) => el.removeAttribute('aria-current'));
+      lado.querySelectorAll('.is-aberta').forEach((el) => el.classList.remove('is-aberta'));
+      const link = links.get(id);
+      if (!link) return;
+      link.setAttribute('aria-current', 'location');
+      const secao = link.closest<HTMLElement>('[data-pd-secao]');
+      secao?.classList.add('is-aberta');
+      const pai = secao?.querySelector<HTMLAnchorElement>(':scope > a');
+      if (pai && pai !== link) pai.setAttribute('aria-current', 'true');
+      // Mantém o item marcado à vista dentro da lista, sem mexer na rolagem da página.
+      const nav = lado.querySelector<HTMLElement>('.pd-lado-nav');
+      if (nav) {
+        const r = link.getBoundingClientRect();
+        const n = nav.getBoundingClientRect();
+        if (r.top < n.top || r.bottom > n.bottom) nav.scrollTop += r.top - n.top - n.height / 3;
+      }
+    };
+
+    // O título marcado é o último que já passou do alto da tela.
+    const atualizar = () => {
+      let id = titulos[0]?.id ?? '';
+      for (const h of titulos) {
+        if (h.getBoundingClientRect().top - 160 <= 0) id = h.id;
+        else break;
+      }
+      marcar(id);
+      if (barra) {
+        const r = doc.getBoundingClientRect();
+        const feito = Math.min(1, Math.max(0, -r.top / Math.max(1, r.height - window.innerHeight)));
+        barra.style.transform = `scaleX(${feito})`;
+      }
+    };
+    let pedido = 0;
+    const agendar = () => {
+      if (pedido) return;
+      pedido = requestAnimationFrame(() => {
+        pedido = 0;
+        atualizar();
+      });
+    };
+    window.addEventListener('scroll', agendar, { passive: true });
+    document.addEventListener('astro:before-swap', () => window.removeEventListener('scroll', agendar), { once: true });
+    atualizar();
+  }
+  document.addEventListener('astro:page-load', iniciarSumarioDoPlano);
+</script>

@@ -186,7 +186,7 @@ const jaFunciona = jaFuncionaBase.map((t) => {
               </div>
               <details class="cs-details">
                 <summary>Ler a fala de {firstName}</summary>
-                <div class="space-y-3 pt-3">
+                <div class="cs-fala space-y-3">
                   {leader.quote && (
                     <blockquote class="m-0 text-sm text-foreground leading-relaxed">“{leader.quote}”</blockquote>
                   )}
@@ -195,10 +195,10 @@ const jaFunciona = jaFuncionaBase.map((t) => {
                       <strong class="font-heading">“{leader.lugarDeFala.gancho}</strong> {leader.lugarDeFala.curta}”
                     </blockquote>
                   )}
-                  <p class="m-0 text-sm text-muted-foreground leading-snug">
+                  <p class="m-0 text-sm text-content-secondary leading-snug">
                     <strong class="text-foreground">O problema:</strong> {leader.painPoint}
                   </p>
-                  <p class="m-0 text-sm text-muted-foreground leading-snug">
+                  <p class="m-0 text-sm text-content-secondary leading-snug">
                     <strong class="text-foreground">{SOLUTION_LABEL[leader.solutionStatus]}</strong> {leader.solution}
                   </p>
                 </div>
@@ -257,6 +257,14 @@ const jaFunciona = jaFuncionaBase.map((t) => {
           </li>
         ))}
       </ul>
+      <!-- O plano de execução (18/11/2026): data, custo e quem responde por cada proposta, em PDF e na página. -->
+      <a href={route('/chapa-semente/plano')} class="cs-plano">
+        <span class="cs-plano-texto">
+          <b>Cada proposta tem data, custo e quem responde.</b>
+          <span>Nove das 14 não tiram dinheiro do caixa. Veja o plano inteiro, em PDF ou aqui no site.</span>
+        </span>
+        <i class="bi bi-arrow-right text-lg shrink-0" aria-hidden="true"></i>
+      </a>
       <p class="m-0 text-base text-muted-foreground">
         Discorda de alguma, ou acha que faltou uma? <a href={route('/ouvidoria')} class="font-bold text-primary underline underline-offset-[0.22em]">Fala com a gente</a>.
       </p>
@@ -517,6 +525,17 @@ const jaFunciona = jaFuncionaBase.map((t) => {
 
   /* Os quatro blocos de eixo: a entrada do tour das propostas. */
   .cs-eixos { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.875rem; }
+  .cs-plano {
+    display: flex; align-items: center; gap: 1rem; min-height: 56px; padding: 1rem 1.25rem;
+    background: var(--semente-teal, #266264); color: #fff; text-decoration: none;
+    border: 3px solid #1f1f1f; border-radius: 12px; box-shadow: 4px 4px 0 0 #1f1f1f;
+    transition: translate var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out), box-shadow var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out);
+  }
+  .cs-plano:hover { translate: -1px -1px; box-shadow: 6px 6px 0 0 #1f1f1f; }
+  .cs-plano:active { translate: 3px 3px; box-shadow: 0 0 0 0 #1f1f1f; }
+  .cs-plano:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; }
+  .cs-plano-texto { display: grid; gap: 0.25rem; flex: 1; min-width: 0; line-height: 1.45; }
+  .cs-plano-texto b { font-family: var(--font-heading); font-size: 1.125rem; line-height: 1.3; }
   @media (min-width: 720px) { .cs-eixos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   .cs-eixo {
     display: grid;
@@ -730,6 +749,14 @@ const jaFunciona = jaFuncionaBase.map((t) => {
     list-style: none;
   }
   .cs-details summary::-webkit-details-marker { display: none; }
+  /* A fala aberta vira uma folha branca pequena: texto de leitura nunca fica direto no solo. */
+  .cs-fala {
+    margin-top: 0.5rem;
+    padding: 0.875rem 1rem;
+    background: #fff;
+    border: 2px solid var(--color-border);
+    border-radius: 12px;
+  }
   .cs-details summary::after {
     content: '';
     width: 0.5rem;

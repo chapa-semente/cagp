@@ -330,3 +330,275 @@
   .cd-hero-pessoa { grid-template-columns: auto 1fr; align-items: center; gap: 2.25rem; padding: 2.25rem; }
   .cd-retrato { width: 18rem; }
 }
+
+/* ---- O plano da proposta (18/11/2026): a versão web do boletim do plano de execução. ----
+   Cabeça em bloco petróleo (a cor do plano e dos dados), corpo em papel. A linha do tempo é um ramo:
+   o caule grafite liga as entregas, e cada entrega é uma folha. */
+.cd-plano {
+  display: grid;
+  border: 3px solid #1f1f1f;
+  border-radius: 16px;
+  box-shadow: 6px 6px 0 0 #1f1f1f;
+  background: var(--color-card, #fff);
+  overflow: hidden;
+}
+.cd-plano-cabeca {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.5rem 1.25rem 1.75rem;
+  background: var(--semente-teal, #266264);
+  color: #fff;
+  border-bottom: 3px solid #1f1f1f;
+}
+.cd-plano-folha {
+  position: absolute;
+  z-index: -1;
+  right: -2.5rem;
+  top: -4rem;
+  width: 13rem;
+  height: 19rem;
+  overflow: visible;
+  fill: #1d5052;
+  rotate: -158deg;
+  pointer-events: none;
+}
+.cd-plano-titulo {
+  margin: 0;
+  max-width: 22ch;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(1.625rem, 1.2rem + 2vw, 2.25rem);
+  line-height: 1.12;
+  text-wrap: balance;
+}
+.cd-plano-titulo::first-letter { text-transform: uppercase; }
+.cd-plano-intro { display: grid; gap: 0.75rem; max-width: 62ch; }
+.cd-plano-intro p { margin: 0; line-height: 1.6; text-wrap: pretty; }
+.cd-plano-intro strong { font-weight: 700; }
+
+.cd-plano-fatos {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+}
+.cd-plano-fato {
+  display: grid;
+  gap: 0.375rem;
+  align-content: start;
+  padding: 0.875rem 1rem 1rem;
+  background: #fff;
+  color: #1f1f1f;
+  border: 2px solid #1f1f1f;
+  border-radius: 12px;
+  box-shadow: 3px 3px 0 0 #1f1f1f;
+}
+.cd-plano-fato dt {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  color: var(--color-content-secondary, #4a4740);
+}
+.cd-plano-fato dd { margin: 0; display: grid; gap: 0.375rem; }
+.cd-plano-valor {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 1.4rem + 1.6vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: #1f1f1f;
+}
+/* R$ 0,00 é o argumento: ganha o carimbo roxo da chapa. */
+.cd-plano-valor.is-zero {
+  justify-self: start;
+  padding: 0.25rem 0.625rem 0.3rem;
+  background: var(--color-primary);
+  color: #fff;
+  border: 2px solid #1f1f1f;
+  border-radius: 8px;
+  rotate: -1.5deg;
+}
+.cd-plano-nota,
+.cd-plano-quem { font-size: 1rem; line-height: 1.5; text-wrap: pretty; }
+.cd-plano-quem { font-family: var(--font-heading); font-weight: 700; font-size: 1rem; line-height: 1.4; }
+
+.cd-plano-corpo {
+  display: grid;
+  gap: 2.25rem;
+  padding: 1.75rem 1.25rem 1.5rem;
+}
+.cd-plano-bloco {
+  display: grid;
+  gap: 0.875rem;
+  justify-items: start;
+  min-width: 0;
+}
+.cd-plano-bloco + .cd-plano-bloco {
+  padding-top: 2.25rem;
+  border-top: 2px solid #1f1f1f;
+}
+
+/* A linha do tempo: caule à esquerda, uma folha por entrega. */
+.cd-plano-linha {
+  position: relative;
+  display: grid;
+  gap: 1.25rem;
+  margin: 0.25rem 0 0;
+  padding: 0 0 0 2.25rem;
+  list-style: none;
+}
+.cd-plano-linha::before {
+  content: '';
+  position: absolute;
+  left: 0.6875rem;
+  top: 0.5rem;
+  bottom: 0.75rem;
+  width: 3px;
+  border-radius: 2px;
+  background: #1f1f1f;
+}
+.cd-plano-marco { position: relative; display: grid; gap: 0.25rem; max-width: 62ch; }
+.cd-plano-no {
+  position: absolute;
+  left: -2.25rem;
+  top: -0.125rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  overflow: visible;
+  fill: #6db33f;
+  stroke: #1f1f1f;
+  stroke-width: 7;
+  paint-order: stroke fill;
+  rotate: 35deg;
+}
+.cd-plano-data {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.35;
+  font-variant-numeric: tabular-nums;
+  color: var(--semente-teal, #266264);
+  text-wrap: balance;
+}
+.cd-plano-feito::first-letter { text-transform: uppercase; }
+.cd-plano-feito { margin: 0; line-height: 1.55; color: var(--color-foreground); text-wrap: pretty; }
+
+.cd-plano-lista { display: grid; gap: 0.75rem; margin: 0; padding: 0; list-style: none; max-width: 66ch; }
+.cd-plano-lista li {
+  position: relative;
+  padding-left: 1.25rem;
+  line-height: 1.55;
+  color: var(--color-content-secondary, #4a4740);
+  text-wrap: pretty;
+}
+.cd-plano-lista li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--color-primary);
+  border-radius: 6px 1px 6px 1px;
+}
+.cd-plano-lista b { font-family: var(--font-heading); font-weight: 700; color: var(--color-foreground); }
+
+/* Quadros do plano: tabela no desktop, fichas empilhadas no celular. */
+.cd-plano-quadro { margin: 0; width: 100%; display: grid; gap: 0.5rem; }
+.cd-plano-quadro-titulo {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.35;
+  color: var(--color-foreground);
+  text-wrap: balance;
+}
+.cd-plano-quadro table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 2px solid #1f1f1f;
+  border-radius: 12px;
+  overflow: hidden;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  font-variant-numeric: tabular-nums;
+}
+.cd-plano-quadro th,
+.cd-plano-quadro td { padding: 0.625rem 0.875rem; text-align: left; vertical-align: top; }
+.cd-plano-quadro thead th {
+  background: #1f1f1f;
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.cd-plano-quadro tbody tr + tr > * { border-top: 2px solid var(--color-muted, #ece4d4); }
+.cd-plano-quadro tbody th { font-family: var(--font-heading); font-weight: 700; }
+.cd-plano-quadro td { color: var(--color-content-secondary, #4a4740); }
+.cd-plano-quadro td:nth-child(2) { color: var(--color-foreground); font-weight: 700; white-space: nowrap; }
+.cd-plano-fonte { margin: 0; font-size: 0.8125rem; line-height: 1.4; color: var(--color-content-secondary, #4a4740); }
+
+@media (max-width: 639px) {
+  .cd-plano-quadro thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .cd-plano-quadro table,
+  .cd-plano-quadro tbody,
+  .cd-plano-quadro tr { display: block; }
+  .cd-plano-quadro tr { padding: 0.75rem 0.875rem; }
+  .cd-plano-quadro tbody tr + tr { border-top: 2px solid var(--color-muted, #ece4d4); }
+  .cd-plano-quadro tbody tr + tr > * { border-top: 0; }
+  .cd-plano-quadro th,
+  .cd-plano-quadro td { display: block; padding: 0; }
+  .cd-plano-quadro td { margin-top: 0.25rem; }
+  .cd-plano-quadro td:nth-child(2) { white-space: normal; }
+  .cd-plano-quadro td[data-rotulo]::before {
+    content: attr(data-rotulo) ': ';
+    font-weight: 400;
+    color: var(--color-content-secondary, #4a4740);
+  }
+}
+
+.cd-plano-pe {
+  margin: 0;
+  padding-top: 1.25rem;
+  border-top: 2px solid #1f1f1f;
+  max-width: 66ch;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-content-secondary, #4a4740);
+}
+
+@media (min-width: 640px) {
+  .cd-plano-cabeca { padding: 2rem 2rem 2.25rem; }
+  .cd-plano-corpo { padding: 2.25rem 2rem 2rem; }
+  .cd-plano-fatos { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
+
+/* O impacto da proposta, numa frase, logo abaixo do título do plano (18/11/2026). */
+.cd-plano-impacto {
+  margin: 0;
+  max-width: 48ch;
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+.cd-plano-anexos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #1f1f1f;
+}
+.cd-plano-anexos .sk-btn { text-decoration: none; }
+.cd-plano-anexos + .cd-plano-pe { border-top: 0; padding-top: 0; }

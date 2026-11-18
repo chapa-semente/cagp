@@ -147,7 +147,7 @@ const tel = (n: string) => {
       </div>
     )}
 
-    <article class="ufmg-texto" data-ufmg-texto>
+    <article class="ufmg-texto cagp-folha" data-ufmg-texto>
       {emAbas ? (
         <>
           <Fragment set:html={abertura} />
@@ -320,8 +320,8 @@ const tel = (n: string) => {
     .ufmg-guia { gap: 3rem; }
   }
 
-  /* ---------- Texto (Papel): direto no solo, 68ch ---------- */
-  .ufmg-texto { max-width: 68ch; }
+  /* ---------- Texto (Papel): na folha branca (.cagp-folha), 68ch de texto ---------- */
+  .ufmg-texto { max-width: calc(68ch + 3.75rem); }
   .ufmg-texto > :first-child { margin-top: 0; }
   .ufmg-texto > :last-child { margin-bottom: 0; }
   .ufmg-texto p,
@@ -864,4 +864,19 @@ const tel = (n: string) => {
     text-transform: uppercase;
   }
   .ufmg-mapas figcaption { margin-top: 1rem; }
+
+  /* ---------- Dentro da folha: fichas sem sombra, em areia (ficha dentro de ficha) ---------- */
+  .ufmg-texto.cagp-folha ol > li,
+  .ufmg-texto.cagp-folha details,
+  .ufmg-texto.cagp-folha ul.ufmg-linhas {
+    background: var(--color-background);
+    box-shadow: none;
+  }
+  .ufmg-texto.cagp-folha blockquote { box-shadow: none; }
+  /* No celular o número do passo flutua ao lado do título; o texto usa a linha toda e a régua sai. */
+  @media (max-width: 639px) {
+    .ufmg-texto.cagp-folha ol > li { padding: 0.875rem; min-height: 0; }
+    .ufmg-texto.cagp-folha ol > li::before { position: static; float: left; margin: 0 0.625rem 0.25rem 0; }
+    .ufmg-texto.cagp-folha ol > li:not(:last-child)::after { display: none; }
+  }
 </style>

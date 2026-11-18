@@ -1,0 +1,125 @@
+---
+// PlanoTranscrito.astro — Uma seção do plano de execução, transcrita do PDF (18/11/2026).
+// Mesmo texto, mesmos quadros e a mesma numeração do PDF, para que "ver o Quadro 35" bata com a página.
+// Os textos já chegam escapados de scripts/plano-para-site.mjs (só <strong>, <em> e <code> passam).
+// Volume Papel. Prefixo pd-.
+import { asset } from '@/lib/paths';
+import type { DocBloco, DocSecao } from '@/lib/planoExecucao';
+
+interface Props {
+  secao: DocSecao;
+}
+const { secao } = Astro.props;
+const ROTULO = { quadro: 'Quadro', tabela: 'Tabela', figura: 'Figura' } as const;
+const puro = (html: string) => html.replace(/<[^>]+>/g, '');
+type Elemento = Extract<DocBloco, { t: 'elemento' }>;
+const legenda = (e: Elemento) => (e.numero ? `${ROTULO[e.classe]} ${e.numero} – ${e.titulo}` : e.titulo);
+/** Linha de tabela só com a primeira célula preenchida abre um grupo. */
+const ehGrupo = (linha: string[]) => linha.length > 1 && linha.slice(1).every((c) => !c.trim());
+const ehParte = /^Parte /.test(puro(secao.cabeca.html));
+---
+
+<section class:list={['pd-secao', ehParte && 'is-parte']} aria-labelledby={secao.cabeca.id}>
+  <h2 id={secao.cabeca.id} class="pd-h2" set:html={secao.cabeca.html} />
+  {secao.blocos.map((b) => {
+    if (b.t === 'h') {
+      const Tag = b.n === 3 ? 'h3' : 'h4';
+      return <Tag id={b.id} class={b.n === 3 ? 'pd-h3' : 'pd-h4'} set:html={b.html} />;
+    }
+    if (b.t === 'p') return <p class="pd-p" set:html={b.html} />;
+    if (b.t === 'nota') return <aside class="pd-nota" set:html={b.html} />;
+    if (b.t === 'meta') return b.chave === 'palavras-chave' ? <p class="pd-p pd-palavras"><strong>Palavras-chave:</strong> <span set:html={b.valor} /></p> : null;
+    if (b.t === 'lista') {
+      const L = b.ord ? 'ol' : 'ul';
+      return <L class="pd-lista">{b.itens.map((it) => <li set:html={it} />)}</L>;
+    }
+    if (b.t !== 'elemento') return null;
+
+    // Ficha de uma proposta: os campos em lista de definição, "O plano entrega" item a item.
+    if (b.tipo === 'ficha' && b.ficha) {
+      return (
+        <div class="pd-ficha" role="group" aria-label={puro(b.titulo)}>
+          <p class="pd-ficha-selos">
+            <span class="pd-selo">{b.ficha.situacao}</span>
+            <span class="pd-selo is-claro">{b.ficha.eixo}</span>
+            <span class="pd-selo is-claro">Leitura da carta: {b.ficha.leitura}</span>
+          </p>
+          <dl class="pd-ficha-campos">
+            {b.linhas.map(([campo, ...valores]) => (
+              <div class="pd-ficha-campo">
+                <dt set:html={campo} />
+                <dd>
+                  {valores.length > 1 ? (
+                    <ul class="pd-lista">{valores.map((v) => <li set:html={v} />)}</ul>
+                  ) : (
+                    <span set:html={valores[0]} />
+                  )}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      );
+    }
+
+    if (b.tipo === 'imagem' && b.imagem) {
+      return (
+        <figure class="pd-elemento">
+          <figcaption class="pd-legenda" set:html={legenda(b)} />
+          <img src={asset(b.imagem)} alt={`Captura da página da loja: ${puro(b.titulo)}`} class="pd-imagem" loading="lazy" decoding="async" />
+          {b.fonte && <p class="pd-fonte">Fonte: <span set:html={b.fonte} /></p>}
+        </figure>
+      );
+    }
+
+    const cronograma = b.tipo === 'cronograma';
+    const colunas = b.cab.length;
+    return (
+      <figure class:list={['pd-elemento', cronograma && 'is-cronograma']}>
+        <figcaption class="pd-legenda" set:html={legenda(b)} />
+        {cronograma && (
+          <p class="pd-chave">
+            <span><span class="pd-marca is-x" aria-hidden="true"></span> trabalho</span>
+            <span><span class="pd-marca is-o" aria-hidden="true"></span> entrega</span>
+          </p>
+        )}
+        <div
+          class="pd-rolagem"
+          style={colunas >= 4 ? `--pd-min:${cronograma ? 9.5 + (colunas - 1) * 2.5 : Math.min(colunas * 8.5, 64)}rem` : undefined}
+          tabindex={colunas >= 4 ? 0 : undefined}
+          role={colunas >= 4 ? 'region' : undefined}
+          aria-label={colunas >= 4 ? `${puro(legenda(b))} (role para o lado)` : undefined}
+        >
+          <table>
+            <thead>
+              <tr>{b.cab.map((c) => <th scope="col" set:html={c} />)}</tr>
+            </thead>
+            <tbody>
+              {b.linhas.map((linha) =>
+                ehGrupo(linha) ? (
+                  <tr class="is-grupo"><th scope="colgroup" colspan={colunas} set:html={linha[0]} /></tr>
+                ) : (
+                  <tr>
+                    {linha.map((c, j) =>
+                      j === 0 ? (
+                        <th scope="row" set:html={c} />
+                      ) : cronograma && (c === 'x' || c === 'o') ? (
+                        <td class="pd-celula-marca">
+                          <span class:list={['pd-marca', c === 'x' ? 'is-x' : 'is-o']} aria-hidden="true"></span>
+                          <span class="sr-only">{c === 'x' ? 'trabalho' : 'entrega'}</span>
+                        </td>
+                      ) : (
+                        <td set:html={c} />
+                      ),
+                    )}
+                  </tr>
+                ),
+              )}
+            </tbody>
+          </table>
+        </div>
+        {b.fonte && <p class="pd-fonte">Fonte: <span set:html={b.fonte} /></p>}
+      </figure>
+    );
+  })}
+</section>
