@@ -146,7 +146,7 @@ const restEntries = shellFiles.filter((rel) => !isCore(rel)).map(toEntry);
 
 if (!entries.some(([url]) => url === './')) fail('a página inicial (index.html) não entrou no precache.');
 if (!entries.some(([url]) => url.startsWith('_astro/'))) fail('nenhum arquivo de /_astro/ entrou no precache.');
-if ([...entries, ...restEntries].some(([url]) => /^documentos\/[^/]+\.[a-z0-9]+$/i.test(url)))
+if ([...entries, ...restEntries].some(([url]) => /^documentos\/.+\.[a-z0-9]+$/i.test(url)))
   fail('um documento (PDF/DOCX) entrou no precache; eles nunca devem ser guardados.');
 
 const swSource = fs.readFileSync(swSrcPath, 'utf8');

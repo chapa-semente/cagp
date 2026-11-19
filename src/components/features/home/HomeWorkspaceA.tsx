@@ -236,11 +236,12 @@ export const HomeWorkspaceA: React.FC<{ noticiasReais?: SimulatedNewsItem[] }> =
             Resumo 1 pág (PDF)
           </a>
           <a
-            href={route('/gestao')}
+            href={route('/chapa-semente/debate')}
             data-faixa-debate
             className="inline-flex items-center gap-1.5 min-h-[44px] px-1 text-sm font-heading font-bold text-white underline underline-offset-4 decoration-2 decoration-accent hover:decoration-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded tabular-nums"
           >
-            Debate {DEBATE_DATA} às {DEBATE_HORA} · Como votar
+            Antes do debate ({DEBATE_DATA}): análise da gestão atual e da dívida
+            <i className="bi bi-arrow-right" aria-hidden="true" />
           </a>
         </div>
       </section>

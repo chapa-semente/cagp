@@ -261,10 +261,10 @@ export const TOUR_PROPOSTAS_POR_PERFIL: Record<UserRole, readonly [number, numbe
   ingressar: [3, 7, 1],
 };
 
-/** Sequência de 19/11/2026 (Reta Final): 3 telas (plano em 15s, perfil + 3 propostas, debate/votação). */
-export const TOUR_SEQUENCIA = 4;
+/** Sequência de 19/11/2026 (Reta Final v5): 3 telas (plano + destaque do debate, perfil + 3 propostas, debate/votação). */
+export const TOUR_SEQUENCIA = 5;
 
-/** Confere se a pessoa já concluiu exatamente a versão atual do tour (v4 — Plano de Execução). */
+/** Confere se a pessoa já concluiu exatamente a versão atual do tour (v5 — Plano + Análise da gestão). */
 export function tourVistoNestaVersao(state: SementeTourState | null | undefined): boolean {
   return Boolean(state && state.status === 'done' && state.v === TOUR_SEQUENCIA);
 }

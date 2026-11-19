@@ -1,6 +1,6 @@
 {
   "_comentario": "Fonte única das prévias de link (WhatsApp, X, Facebook, Instagram Direct) e dos banners de cada endereço. O layout lê título e descrição daqui; node scripts/generate-og.mjs lê o campo banner e grava os JPGs em public/og/. Em gancho, a palavra entre chaves sai na caneta (uma por banner). Mudou um banner? Rode o script e suba o número em versao. O campo emoji abre a mensagem de compartilhar daquela página (só no texto que vai pro WhatsApp; a tela do site não usa emoji).",
-  "versao": 7,
+  "versao": 9,
   "padrao": {
     "titulo": "O site do curso de Gestão Pública",
     "descricao": "Estágio, 600h, FUMP e documentos, passo a passo. Feito pela Chapa 2 · Semente.",
@@ -248,6 +248,14 @@
       "mensagem": "A Chapa 2 · Semente mostra quando cada proposta sai do papel, quanto custa (9/14 a R$ 0), os 40% FUMP e o orçamento em 3 cenários:",
       "imagem": "p-plano",
       "banner": { "molde": "pagina", "aba": "chapa", "etiqueta": "O plano da Semente", "gancho": [ "Cada proposta", "com {data}." ], "sub": [ "Prazo, custo e quem responde,", "em PDF e no site." ], "arte": "fichas" }
+    },
+    "/chapa-semente/debate": {
+      "titulo": "Análise da gestão atual: os números pro debate de 24/11",
+      "descricao": "Panorama com fonte da gestão 2025–2026 (14 de 33 promessas mostradas), carta 2026–2027 sem datas e dossiê dos R$ 4.505,50 pro debate do CAGP.",
+      "emoji": "📊",
+      "mensagem": "Antes do debate de 24/11 às 18h, a Chapa 2 · Semente reuniu o panorama da gestão atual com fontes públicas: 14 de 33 promessas mostradas, nova carta sem datas e o dossiê dos R$ 4.505,50:",
+      "imagem": "p-debate",
+      "banner": { "molde": "pagina", "aba": "chapa", "etiqueta": "Análise da gestão · 24/11", "gancho": [ "Os números", "antes do {debate}." ], "sub": [ "14/33 promessas, 0 datas na carta", "e o dossiê dos R$ 4.505,50." ], "arte": "fichas" }
     },
     "/gestao": {
       "titulo": "Eleição do CAGP: 25 e 26/11, das 17h às 22h30",

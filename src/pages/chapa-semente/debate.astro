@@ -1,0 +1,851 @@
+---
+// /chapa-semente/debate — Análise da gestão (Debate 24/11/2026 às 18h).
+// Arquétipo: Leitura e painel comparativo (volume Papel · zero React).
+// Dados auditados: src/lib/debateCadernoData.ts (6 PDFs em public/documentos/debate/).
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHeader from '@/components/ui/PageHeader.astro';
+import SegmentedControl, { type TabItem } from '@/components/ui/SegmentedControl.astro';
+import BotaoCompartilhar from '@/components/ui/BotaoCompartilhar.astro';
+import {
+  DEBATE_BOLETINS,
+  DEBATE_CAMPANHA_VS_DOCS,
+  DEBATE_CARTA_2027_COMPARATIVO,
+  DEBATE_CURTIDAS_MEDIANA,
+  DEBATE_DECLARACAO_INTERESSE,
+  DEBATE_DESTAQUES,
+  DEBATE_DIVIDA_CREDORES,
+  DEBATE_DIVIDA_LACUNAS,
+  DEBATE_DIVIDA_NOTA_LEGITIMIDADE,
+  DEBATE_DIVIDA_NUMEROS,
+  DEBATE_DIVIDA_PREVENCAO,
+  DEBATE_ENTREGAS_RECONHECIDAS,
+  DEBATE_INSTAGRAM_NOTA,
+  DEBATE_JA_NO_AR_SEMENTE,
+  DEBATE_LACUNAS_2025,
+  DEBATE_LEITURA_2025,
+  DEBATE_MENSAGENS_WHATSAPP,
+  DEBATE_PLACAR_2025,
+  DEBATE_POSTS_ASSUNTO,
+  DEBATE_QUATRO_NAO_SAIRAM,
+  DEBATE_RELATORIOS,
+  DEBATE_RETORNO_23,
+  DEBATE_SEIS_COMPLEXAS,
+  DEBATE_SITE_VS_PDF,
+  DEBATE_TEMAS_MACRO,
+} from '@/lib/debateCadernoData';
+import { DEBATE_DATA, DEBATE_HORA } from '@/lib/chapaSementeData';
+import { asset, route } from '@/lib/paths';
+import '@/styles/plano-documento.css';
+
+const ABAS_DO_DEBATE: TabItem[] = [
+  { id: 'panorama', shortLabel: 'Panorama', fullLabel: 'Panorama geral', hash: '#panorama' },
+  { id: 'balanco', shortLabel: 'Balanço', fullLabel: 'Balanço 25–26', hash: '#balanco' },
+  { id: 'carta', shortLabel: 'Carta 26–27', fullLabel: 'Carta 26–27', hash: '#carta-2027' },
+  { id: 'divida', shortLabel: 'Dívida', fullLabel: 'Dossiê da dívida', hash: '#divida' },
+];
+
+const MAX_POSTS = Math.max(...DEBATE_POSTS_ASSUNTO.map((p) => p.valor));
+const MAX_CURTIDAS = Math.max(...DEBATE_CURTIDAS_MEDIANA.map((p) => p.valor));
+const URL_ANALISE = route('/chapa-semente/debate');
+const URL_BALANCO = `${URL_ANALISE}#balanco`;
+const URL_DIVIDA = `${URL_ANALISE}#divida`;
+
+const CORES_PLACAR: Record<string, string> = {
+  'Fez e mostrou': 'is-petroleo',
+  'Fez pela metade': 'is-fruto',
+  'Diz que fez, não mostrou': 'is-areia',
+  'Não apareceu': 'is-raiz',
+};
+
+const CORES_RETORNO: Record<string, string> = {
+  'Feitas e divulgadas': 'is-petroleo',
+  'Entregues em parte': 'is-fruto',
+  'Só no relatório': 'is-areia',
+  'Não apareceram': 'is-raiz',
+};
+---
+
+<BaseLayout
+  mode="read"
+  title="Análise da gestão (Debate 24/11)"
+  description="Panorama com fonte da gestão 2025–2026 (14 de 33 promessas mostradas), carta 2026–2027 sem datas e dossiê da dívida de R$ 4.505,50 para o debate de 24/11."
+>
+  <PageHeader
+    title="Análise da gestão"
+    marker="gestão"
+    subtitle={`Balanço 2025–2026, nova carta e dívida do CA — fontes para o debate de ${DEBATE_DATA}, às ${DEBATE_HORA}.`}
+    axisId="chapa"
+    activeId="chapa-debate"
+    mode="read"
+    condensed={true}
+  />
+
+  <div class="pd-pagina">
+    <!-- 1. Hero editorial em camadas (Petróleo + Papel Branco) -->
+    <section class="db-hero" aria-labelledby="db-hero-titulo">
+      <div class="db-hero-topo">
+        <div class="db-hero-texto">
+          <span class="sk-saldo-rotulo tabular-nums">Debate · {DEBATE_DATA} · {DEBATE_HORA}</span>
+          <h2 id="db-hero-titulo" class="db-hero-titulo">O que a gestão entregou — e o que ficou no papel</h2>
+          <p class="db-hero-lede">
+            A gestão Reconecta quitou uma dívida de R$ 4.505,50, deixou R$ 5.574,34 em caixa, criou o Jornal do CAGP (3 edições),
+            recebeu calouros, visitou órgãos públicos, atuou pelo passe livre e avançou na Empresa Júnior. Este panorama reúne os
+            números oficiais sobre entregas, prazos, comunicação e caixa.
+          </p>
+        </div>
+        <svg class="db-hero-arte" viewBox="0 0 120 150" aria-hidden="true">
+          <path class="db-hero-caule" d="M58 126C55 104 61 86 57 58" />
+          <use href="#sg-gota" class="db-hero-gota" transform="translate(40 132) rotate(90) scale(0.5)" />
+          <use href="#sg-folha" class="db-hero-folha-a" transform="translate(58 100) rotate(44) scale(0.78)" />
+          <use href="#sg-folha" class="db-hero-folha-b" transform="translate(57 78) rotate(-52) scale(0.6)" />
+          <use href="#sg-folha" class="db-hero-folha-a" transform="translate(57 60) rotate(8) scale(0.5)" />
+        </svg>
+      </div>
+
+      <div class="db-hero-deck">
+        <ul class="db-kpi-grid" role="list" aria-label="Resumo em quatro números">
+          {DEBATE_DESTAQUES.map((d) => (
+            <li>
+              <a href={d.href ?? '#balanco'} class:list={['db-kpi-card', `is-${d.cor ?? 'roxo'}`]}>
+                <strong class="db-kpi-num">{d.numero}</strong>
+                <span class="db-kpi-rotulo">{d.rotulo}</span>
+                <span class="db-kpi-desc">{d.desc}</span>
+                <span class="db-kpi-acao">
+                  {d.acaoLabel ?? 'Ver detalhes'}
+                  <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <div class="db-hero-rodape">
+          <a href="#pdfs-analise" class="db-link-inline">
+            <i class="bi bi-arrow-down" aria-hidden="true"></i>
+            Baixar os 6 PDFs com fonte
+          </a>
+          <a href="#transparencia" class="db-link-inline">
+            Declaração de interesse e correções
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Controle segmentado com 4 abas macro (zero React) -->
+    <SegmentedControl tabs={ABAS_DO_DEBATE} defaultTab="panorama" showViewAll={false} />
+
+    <!-- ABA 1: PANORAMA GERAL -->
+    <div id="ws-panel-panorama" data-ws-panel="panorama" role="tabpanel" aria-labelledby="ws-tab-panorama" class="cagp-workspace-view pd-painel-aba">
+      <!-- Card 1: As 33 promessas de 2025 em uma barra -->
+      <section class="pd-card-papel" aria-labelledby="db-barra33-titulo">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h2 id="db-barra33-titulo" class="pd-h2-curto">As 33 promessas de 2025 em uma barra</h2>
+          <span class="pd-selo is-claro tabular-nums">14 de 33 entregues e mostradas</span>
+        </div>
+
+        <div
+          class="db-stack-bar"
+          role="img"
+          aria-label="Distribuição das 33 promessas de 2025: 14 feitas e mostradas, 10 feitas pela metade, 4 citadas só no relatório da gestão e 5 sem registro."
+        >
+          {DEBATE_PLACAR_2025.map((row) => (
+            <span
+              class:list={['db-stack-seg', CORES_PLACAR[row.situacao] ?? 'is-areia']}
+              style={`flex: ${row.quantas} 1 0%`}
+              title={`${row.situacao}: ${row.quantas} de 33`}
+            >
+              {row.quantas}
+            </span>
+          ))}
+        </div>
+
+        <ul class="db-stack-legenda" role="list">
+          {DEBATE_PLACAR_2025.map((row) => (
+            <li>
+              <div class="db-stack-leg-topo">
+                <span class:list={['db-stack-dot', CORES_PLACAR[row.situacao] ?? 'is-areia']} aria-hidden="true"></span>
+                <span>{row.quantas} · {row.situacao}</span>
+              </div>
+              <span class="db-stack-leg-desc">{row.criterio}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div class="db-resumo-duplo">
+          <div class="db-resumo-bloco is-entregas">
+            <h3 class="db-resumo-titulo">O que foi entregue (reconhecido)</h3>
+            <ul class="db-resumo-lista" role="list">
+              {DEBATE_ENTREGAS_RECONHECIDAS.map((item) => (
+                <li>
+                  <i class="bi bi-check-circle" aria-hidden="true"></i>
+                  <span>
+                    <strong class="font-heading text-foreground">{item.titulo}:</strong> {item.texto}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="db-resumo-bloco is-lacunas">
+            <h3 class="db-resumo-titulo">Onde ficaram as principais lacunas</h3>
+            <ul class="db-resumo-lista" role="list">
+              {DEBATE_LACUNAS_2025.map((item) => (
+                <li>
+                  <i class="bi bi-exclamation-triangle" aria-hidden="true"></i>
+                  <span>
+                    <strong class="font-heading text-foreground">{item.titulo}:</strong> {item.texto}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Card 2: Quatro grandes temas em pauta pro debate -->
+      <section aria-labelledby="db-temas-titulo" class="grid gap-4">
+        <div class="pd-card-papel">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h2 id="db-temas-titulo" class="pd-h2-curto">Quatro grandes temas em pauta pro debate</h2>
+            <span class="pd-selo tabular-nums">{DEBATE_DATA} · {DEBATE_HORA}</span>
+          </div>
+          <p class="pd-nota-curta">
+            Visão macro do que os documentos oficiais e fatos públicos mostram sobre o mandato — e o que a Chapa 2 propõe no lugar.
+          </p>
+        </div>
+
+        <ul class="db-eixos-grid" role="list">
+          {DEBATE_TEMAS_MACRO.map((tema) => (
+            <li>
+              <article class="pd-card-papel db-eixo-card" aria-labelledby={`db-tema-${tema.id}`}>
+                <div class="db-eixo-topo">
+                  <span class:list={['db-eixo-icone', `is-${tema.acento}`]} aria-hidden="true">
+                    <i class={`bi ${tema.icone}`}></i>
+                  </span>
+                  <span class="db-eixo-dado">{tema.dadoCurto}</span>
+                </div>
+
+                <h3 id={`db-tema-${tema.id}`} class="font-heading text-lg font-bold leading-snug m-0 text-foreground">
+                  {tema.titulo}
+                </h3>
+                <p class="m-0 text-sm leading-relaxed text-content-secondary">{tema.panorama}</p>
+
+                <div class="db-eixo-semente">
+                  <strong>O que muda com a Chapa 2</strong>
+                  <span>{tema.semente}</span>
+                </div>
+
+                <div>
+                  <a href={tema.href} class="db-link-inline">
+                    {tema.linkLabel}
+                    <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </article>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <!-- Card 3: Transparência, declaração de interesse e correções -->
+      <section id="transparencia" class="pd-card-papel scroll-mt-24" aria-labelledby="db-transp-titulo">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h2 id="db-transp-titulo" class="pd-h2-curto">Transparência, declaração de interesse e correções</h2>
+          <span class="pd-selo is-claro">Canal aberto</span>
+        </div>
+        <p class="m-0 text-sm leading-relaxed text-foreground max-w-[68ch]">{DEBATE_DECLARACAO_INTERESSE}</p>
+        <p class="m-0 text-sm leading-relaxed text-content-secondary max-w-[68ch]">
+          Encontrou qualquer imprecisão nos dados ou quer sugerir um tema do noturno, estágio, FUMP ou contas para o debate de {DEBATE_DATA}?
+          Toda correção é registrada no site.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href={route('/ouvidoria?de=/chapa-semente/debate')} class="sk-btn sk-btn-folha text-foreground">
+            <i class="bi bi-megaphone" aria-hidden="true"></i>
+            Mandar sugestão ou correção
+          </a>
+        </div>
+      </section>
+    </div>
+
+    <!-- ABA 2: BALANÇO 25-26 -->
+    <div id="ws-panel-balanco" data-ws-panel="balanco" role="tabpanel" aria-labelledby="ws-tab-balanco" hidden class="cagp-workspace-view pd-painel-aba">
+      <section class="pd-card-papel" aria-labelledby="db-placar-titulo">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h2 id="db-placar-titulo" class="pd-h2-curto">As 33 promessas de 2025, por situação</h2>
+          <span class="pd-selo is-claro tabular-nums">14 feitas e mostradas</span>
+        </div>
+
+        <div
+          class="db-stack-bar"
+          role="img"
+          aria-label="Distribuição das 33 promessas de 2025: 14 feitas e mostradas, 10 feitas pela metade, 4 só no relatório e 5 sem registro."
+        >
+          {DEBATE_PLACAR_2025.map((row) => (
+            <span
+              class:list={['db-stack-seg', CORES_PLACAR[row.situacao] ?? 'is-areia']}
+              style={`flex: ${row.quantas} 1 0%`}
+              title={`${row.situacao}: ${row.quantas} de 33`}
+            >
+              {row.quantas}
+            </span>
+          ))}
+        </div>
+
+        <div class="pd-rolagem" tabindex="0">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Situação</th>
+                <th scope="col">Quantas</th>
+                <th scope="col">Critério usado</th>
+              </tr>
+            </thead>
+            <tbody>
+              {DEBATE_PLACAR_2025.map((row) => (
+                <tr>
+                  <th scope="row">{row.situacao}</th>
+                  <td><strong>{row.quantas}</strong></td>
+                  <td>{row.criterio}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="pd-fonte">Fonte: Carta de 2025, Relatório de Gestão e publicações do perfil @cagp.ufmg.</p>
+      </section>
+
+      <div class="pd-orc-grade-dupla">
+        <section class="pd-card-papel" aria-labelledby="db-entregas-titulo">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h3 id="db-entregas-titulo" class="pd-h2-curto">O que foi entregue</h3>
+            <span class="pd-selo is-claro">Reconhecido</span>
+          </div>
+          <ul class="pd-orc-lista-simples" role="list">
+            {DEBATE_ENTREGAS_RECONHECIDAS.map((item) => (
+              <li>
+                <strong class="font-heading text-sm font-bold text-petroleo-deep">{item.titulo}</strong>
+                <span class="text-sm leading-relaxed text-foreground">{item.texto}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="pd-card-papel" aria-labelledby="db-lacunas-25-titulo">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h3 id="db-lacunas-25-titulo" class="pd-h2-curto">O que ficou pela metade ou sem registro</h3>
+            <span class="pd-selo">Lacunas</span>
+          </div>
+          <ul class="pd-orc-lista-simples" role="list">
+            {DEBATE_LACUNAS_2025.map((item) => (
+              <li>
+                <strong class="font-heading text-sm font-bold text-foreground">{item.titulo}</strong>
+                <span class="text-sm leading-relaxed text-content-secondary">{item.texto}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+
+      <section class="pd-card-papel" aria-labelledby="db-leitura-25-titulo">
+        <h3 id="db-leitura-25-titulo" class="pd-h2-curto">O que cada promessa pedia (leitura das 33 propostas)</h3>
+        <p class="m-0 text-sm leading-relaxed text-content-secondary max-w-[68ch]">
+          Nove das 14 feitas e divulgadas são genéricas ou de continuidade. Nenhuma das 4 complexas sem plano foi entregue por inteiro;
+          das 12 claras que dependiam só da gestão, 5 foram feitas e divulgadas.
+        </p>
+        <div class="pd-rolagem" tabindex="0">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Leitura</th>
+                <th scope="col">Fez e mostrou</th>
+                <th scope="col">Pela metade</th>
+                <th scope="col">Diz que fez</th>
+                <th scope="col">Não apareceu</th>
+              </tr>
+            </thead>
+            <tbody>
+              {DEBATE_LEITURA_2025.map((row) => (
+                <tr>
+                  <th scope="row">{row.leitura} ({row.total})</th>
+                  <td><strong>{row.fezMostrou}</strong></td>
+                  <td>{row.metade}</td>
+                  <td>{row.dizFez}</td>
+                  <td>{row.naoApareceu}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="redes-cagp" class="grid gap-4 scroll-mt-24" aria-labelledby="db-redes-titulo">
+        <div class="pd-card-papel">
+          <h3 id="db-redes-titulo" class="pd-h2-curto">O paradoxo do Instagram (@cagp.ufmg)</h3>
+          <div class="db-paradoxo">
+            <div class="db-paradoxo-bloco is-festa">
+              <strong class="db-paradoxo-num">27 de 75 posts sobre festa</strong>
+              <span class="text-sm leading-snug">0 posts encontrados sobre RU, FUMP, bolsas, aulas do noturno ou grade.</span>
+            </div>
+            <div class="db-paradoxo-bloco is-pauta">
+              <strong class="db-paradoxo-num">236 vs. 54 curtidas de mediana</strong>
+              <span class="text-sm leading-snug">Pauta estudantil teve mais de 4× a mediana de curtidas das postagens de festa.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pd-orc-grade-dupla">
+          <section class="pd-card-papel" aria-labelledby="db-posts-titulo">
+            <h4 id="db-posts-titulo" class="pd-h2-curto">75 posts por assunto</h4>
+            <ul class="db-barra-lista" role="list">
+              {DEBATE_POSTS_ASSUNTO.map((bar) => (
+                <li class="db-barra-item">
+                  <div class="db-barra-linha">
+                    <span class="db-barra-nome">{bar.assunto}</span>
+                    <span class="db-barra-valor">{bar.labelValor}</span>
+                  </div>
+                  <div class="db-barra-trilha" aria-hidden="true">
+                    <span
+                      class:list={['db-barra-preenchimento', bar.destaque && 'is-destaque']}
+                      style={`width: ${Math.max(4, Math.round((bar.valor / MAX_POSTS) * 100))}%`}
+                    />
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <p class="db-barra-zero m-0">
+              <strong class="font-heading text-foreground">0 posts</strong> sobre RU, FUMP, bolsas ou rotina do noturno.
+            </p>
+          </section>
+
+          <section class="pd-card-papel" aria-labelledby="db-curtidas-titulo">
+            <h4 id="db-curtidas-titulo" class="pd-h2-curto">Mediana de curtidas por assunto</h4>
+            <ul class="db-barra-lista" role="list">
+              {DEBATE_CURTIDAS_MEDIANA.map((bar) => (
+                <li class="db-barra-item">
+                  <div class="db-barra-linha">
+                    <span class="db-barra-nome">{bar.assunto}</span>
+                    <span class="db-barra-valor">{bar.labelValor}</span>
+                  </div>
+                  <div class="db-barra-trilha" aria-hidden="true">
+                    <span
+                      class:list={['db-barra-preenchimento', bar.destaque && 'is-destaque']}
+                      style={`width: ${Math.max(8, Math.round((bar.valor / MAX_CURTIDAS) * 100))}%`}
+                    />
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <p class="pd-fonte">{DEBATE_INSTAGRAM_NOTA}</p>
+          </section>
+        </div>
+      </section>
+
+      <section class="pd-card-papel" aria-labelledby="db-balanco-pdfs">
+        <h3 id="db-balanco-pdfs" class="pd-h2-curto">Documentos desta análise</h3>
+        <div class="flex flex-wrap gap-3">
+          <a href={asset('/documentos/debate/boletim-reconecta-2025-2026.pdf')} target="_blank" rel="noopener" class="sk-btn sk-btn-roxo">
+            <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
+            Boletim curto (344 KB)
+          </a>
+          <a href={asset('/documentos/debate/relatorio-reconecta-2025-2026.pdf')} target="_blank" rel="noopener" class="sk-btn">
+            <i class="bi bi-file-earmark-text" aria-hidden="true"></i>
+            Relatório completo (837 KB)
+          </a>
+        </div>
+      </section>
+    </div>
+
+    <!-- ABA 3: CARTA 2026-2027 -->
+    <div id="ws-panel-carta" data-ws-panel="carta" role="tabpanel" aria-labelledby="ws-tab-carta" hidden class="cagp-workspace-view pd-painel-aba">
+      <ul class="pd-olhada" role="list" aria-label="Resumo da nova carta">
+        <li class="pd-olhada-card">
+          <strong class="pd-olhada-num">42 → 39</strong>
+          <span class="pd-olhada-rotulo">Site × Carta em PDF</span>
+          <span class="pd-olhada-desc">O site lista 42 propostas; o PDF traz 39 e exclui a prestação de contas do caixa.</span>
+        </li>
+        <li class="pd-olhada-card">
+          <strong class="pd-olhada-num">0 datas</strong>
+          <span class="pd-olhada-rotulo">na carta 2026–2027</span>
+          <span class="pd-olhada-desc">Em 2025 cada proposta tinha prazo; na nova carta em PDF nenhuma traz data e só 7 citam frequência.</span>
+        </li>
+        <li class="pd-olhada-card">
+          <strong class="pd-olhada-num">36% → 21%</strong>
+          <span class="pd-olhada-rotulo">propostas claras e viáveis</span>
+          <span class="pd-olhada-desc">Caíram de 12 (36%) em 2025 para 8 (21%) em 2026–2027; 6 em cada 10 são genéricas ou de continuidade.</span>
+        </li>
+      </ul>
+
+      <section class="pd-card-papel" aria-labelledby="db-site-pdf-titulo">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h2 id="db-site-pdf-titulo" class="pd-h2-curto">Site de campanha (42) × Carta em PDF (39)</h2>
+          <span class="pd-selo tabular-nums">0 datas no PDF</span>
+        </div>
+        <p class="m-0 text-sm leading-relaxed text-content-secondary max-w-[68ch]">
+          Comparação entre o site de campanha e o PDF detalhado indicado pela própria chapa (lido em 18 de novembro):
+        </p>
+        <div class="pd-rolagem" tabindex="0" style="--pd-min:34rem">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Ponto</th>
+                <th scope="col">No site de campanha</th>
+                <th scope="col">Na carta em PDF</th>
+              </tr>
+            </thead>
+            <tbody>
+              {DEBATE_SITE_VS_PDF.map((row, idx) => (
+                <tr class:list={[idx === 0 && 'is-destaque-linha']}>
+                  <th scope="row">{row.ponto}</th>
+                  <td>{row.site}</td>
+                  <td><strong>{row.pdf}</strong></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="pd-orc-grade-dupla">
+        <section class="pd-card-papel" aria-labelledby="db-comp-cartas-titulo">
+          <h3 id="db-comp-cartas-titulo" class="pd-h2-curto">Carta de 2025 × Carta de 2026–2027</h3>
+          <div class="pd-rolagem" tabindex="0">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Leitura</th>
+                  <th scope="col">2025 (33)</th>
+                  <th scope="col">2026–2027 (39)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {DEBATE_CARTA_2027_COMPARATIVO.map((row) => (
+                  <tr>
+                    <th scope="row">{row.leitura}</th>
+                    <td>{row.c2025} ({row.p2025})</td>
+                    <td><strong>{row.c2027} ({row.p2027})</strong></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p class="pd-fonte">Propostas claras e viáveis caíram de 12 (36%) para 8 (21%); seis em cada dez são genéricas ou de continuidade.</p>
+        </section>
+
+        <section class="pd-card-papel" aria-labelledby="db-retorno-23-titulo">
+          <h3 id="db-retorno-23-titulo" class="pd-h2-curto">Das 39 propostas, 23 retomam compromissos de 2025</h3>
+          <div
+            class="db-stack-bar"
+            role="img"
+            aria-label="Situação em 2025–2026 das 23 propostas que retornam: 10 feitas e divulgadas, 7 entregues em parte, 2 só no relatório e 4 não apareceram."
+          >
+            {DEBATE_RETORNO_23.map((r) => (
+              <span
+                class:list={['db-stack-seg', CORES_RETORNO[r.situacao] ?? 'is-areia']}
+                style={`flex: ${r.quantas} 1 0%`}
+                title={`${r.situacao}: ${r.quantas} de 23`}
+              >
+                {r.quantas}
+              </span>
+            ))}
+          </div>
+          <ul class="pd-orc-lista-simples" role="list">
+            {DEBATE_RETORNO_23.map((r) => (
+              <li>
+                <div class="pd-orc-item-cabeca">
+                  <strong class="font-heading text-sm font-bold text-foreground">{r.situacao}</strong>
+                  <span class="pd-selo is-claro tabular-nums">{r.quantas} de 23</span>
+                </div>
+                <span class="text-sm leading-relaxed text-content-secondary">{r.desc}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+
+      <div class="pd-orc-grade-dupla">
+        <section class="pd-card-papel" aria-labelledby="db-quatro-nao-titulo">
+          <h3 id="db-quatro-nao-titulo" class="pd-h2-curto">Quatro propostas que voltam sem ter saído do papel</h3>
+          <ul class="pd-lista text-sm">
+            {DEBATE_QUATRO_NAO_SAIRAM.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="pd-card-papel" aria-labelledby="db-seis-complexas-titulo">
+          <h3 id="db-seis-complexas-titulo" class="pd-h2-curto">Seis propostas complexas sem plano de execução</h3>
+          <ul class="pd-lista text-sm">
+            {DEBATE_SEIS_COMPLEXAS.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </section>
+      </div>
+
+      <section class="pd-card-papel" aria-labelledby="db-ja-no-ar-titulo">
+        <h3 id="db-ja-no-ar-titulo" class="pd-h2-curto">Três propostas novas que a Semente já pôs no ar</h3>
+        <ul class="pd-orc-lista-simples" role="list">
+          {DEBATE_JA_NO_AR_SEMENTE.map((item) => (
+            <li>
+              <div class="pd-orc-item-cabeca">
+                <strong class="font-heading text-sm font-bold text-foreground">{item.proposta}</strong>
+                <a href={route(item.href)} class="db-link-inline">
+                  {item.label} <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                </a>
+              </div>
+              <span class="text-sm leading-relaxed text-content-secondary">{item.entrega}</span>
+            </li>
+          ))}
+        </ul>
+        <div class="flex flex-wrap gap-3 pt-2">
+          <a href={asset('/documentos/debate/boletim-carta-2027.pdf')} target="_blank" rel="noopener" class="sk-btn sk-btn-roxo">
+            <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
+            Boletim da carta (304 KB)
+          </a>
+          <a href={asset('/documentos/debate/relatorio-carta-2027.pdf')} target="_blank" rel="noopener" class="sk-btn">
+            <i class="bi bi-file-earmark-text" aria-hidden="true"></i>
+            Relatório completo (923 KB)
+          </a>
+        </div>
+      </section>
+    </div>
+
+    <!-- ABA 4: DOSSIÊ DA DÍVIDA -->
+    <div id="ws-panel-divida" data-ws-panel="divida" role="tabpanel" aria-labelledby="ws-tab-divida" hidden class="cagp-workspace-view pd-painel-aba">
+      <ul class="pd-olhada" role="list" aria-label="A dívida em três números">
+        {DEBATE_DIVIDA_NUMEROS.map((n) => (
+          <li class="pd-olhada-card">
+            <strong class="pd-olhada-num">{n.numero}</strong>
+            <span class="pd-olhada-rotulo">{n.rotulo}</span>
+            <span class="pd-olhada-desc">{n.desc}</span>
+          </li>
+        ))}
+      </ul>
+
+      <section class="pd-card-papel" aria-labelledby="db-divida-barra-titulo">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h2 id="db-divida-barra-titulo" class="pd-h2-curto">Divisão dos R$ 4.505,50 quitados em abril</h2>
+          <span class="pd-selo tabular-nums">77,8% para a atual direção</span>
+        </div>
+        <div
+          class="db-stack-bar"
+          role="img"
+          aria-label="Divisão dos R$ 4.505,50: 77,8% (R$ 3.505,50) para a atual presidência e vice-presidência, e 22,2% (R$ 1.000,00) para ex-vice-presidente da Principia."
+        >
+          <span class="db-stack-seg is-roxo" style="flex: 3505.5 1 0%">77,8%</span>
+          <span class="db-stack-seg is-areia" style="flex: 1000 1 0%">22,2%</span>
+        </div>
+        <ul class="db-stack-legenda is-2col" role="list">
+          <li>
+            <div class="db-stack-leg-topo">
+              <span class="db-stack-dot is-roxo" aria-hidden="true"></span>
+              <span>R$ 3.505,50 (77,8%) · Atual direção</span>
+            </div>
+            <span class="db-stack-leg-desc">Presidência e vice-presidência atuais do CAGP (que integravam a diretoria de 2025 e assinaram a quitação).</span>
+          </li>
+          <li>
+            <div class="db-stack-leg-topo">
+              <span class="db-stack-dot is-areia" aria-hidden="true"></span>
+              <span>R$ 1.000,00 (22,2%) · Fora da gestão atual</span>
+            </div>
+            <span class="db-stack-leg-desc">Ex-vice-presidente da gestão Principia (2025), que não integra a diretoria atual.</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="db-aviso-legitimidade" aria-labelledby="db-legit-titulo">
+        <div class="flex items-center gap-3">
+          <span class="db-aviso-icone" aria-hidden="true">
+            <i class="bi bi-shield-check"></i>
+          </span>
+          <div class="min-w-0 grid gap-1">
+            <span class="font-heading text-xs font-bold uppercase tracking-[0.04em] text-petroleo-deep">Nota de método</span>
+            <h3 id="db-legit-titulo" class="pd-h2-curto">Ressarcimento legítimo, zero acusação de ilegalidade</h3>
+          </div>
+        </div>
+        <p class="m-0 text-sm leading-relaxed text-foreground max-w-[68ch]">{DEBATE_DIVIDA_NOTA_LEGITIMIDADE}</p>
+      </section>
+
+      <section class="pd-card-papel" aria-labelledby="db-credores-titulo">
+        <h3 id="db-credores-titulo" class="pd-h2-curto">Quem tinha a receber na Declaração de Quitação (abril de 2026)</h3>
+        <p class="m-0 text-sm leading-relaxed text-content-secondary max-w-[68ch]">
+          Pagamento feito em 8 abr. 2026: Pix de R$ 4.073,50 na planilha mais R$ 432,00 abatidos em produtos. A declaração de 15–16 abr.
+          2026 tem quatro assinaturas da gestão — duas são de quem recebeu.
+        </p>
+        <div class="pd-rolagem" tabindex="0">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Credor</th>
+                <th scope="col">Cargo em 2025</th>
+                <th scope="col">Cargo hoje</th>
+                <th scope="col">Valor</th>
+              </tr>
+            </thead>
+            <tbody>
+              {DEBATE_DIVIDA_CREDORES.map((c) => (
+                <tr>
+                  <th scope="row">{c.credor}</th>
+                  <td>{c.cargo2025}</td>
+                  <td>{c.cargo2026}</td>
+                  <td><strong>{c.valor}</strong></td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot>
+              <tr>
+                <th scope="row" colspan="3">Total quitado (77,8% / R$ 3.505,50 para a atual direção)</th>
+                <td>R$ 4.505,50</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </section>
+
+      <section class="pd-card-papel" aria-labelledby="db-camp-docs-titulo">
+        <h3 id="db-camp-docs-titulo" class="pd-h2-curto">O que a campanha diz × O que os documentos mostram</h3>
+        <ul class="db-contraste-lista" role="list">
+          {DEBATE_CAMPANHA_VS_DOCS.map((row) => (
+            <li class="db-contraste-par">
+              <div class="db-contraste-lado is-campanha">
+                <span class="db-contraste-tag">Na campanha</span>
+                <strong class="font-heading text-sm font-bold text-foreground">{row.campanha}</strong>
+              </div>
+              <div class="db-contraste-lado is-docs">
+                <span class="db-contraste-tag">Nos documentos</span>
+                <span>{row.documentos}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <p class="pd-fonte">
+          Fontes: Declaração de Quitação (15 abr. 2026), planilha de prestação de contas, Relatório de Gestão, Regimento Interno do CAGP e
+          carrossel/vídeo de campanha (nov. 2026).
+        </p>
+      </section>
+
+      <div class="pd-orc-grade-dupla">
+        <section class="pd-card-papel" aria-labelledby="db-lacunas-divida">
+          <h3 id="db-lacunas-divida" class="pd-h2-curto">O que os documentos consultados não trazem</h3>
+          <ul class="pd-lista text-sm">
+            {DEBATE_DIVIDA_LACUNAS.map((l) => (
+              <li>{l}</li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="pd-card-papel" aria-labelledby="db-prev-divida">
+          <h3 id="db-prev-divida" class="pd-h2-curto">O que evita que se repita</h3>
+          <ul class="pd-lista text-sm">
+            {DEBATE_DIVIDA_PREVENCAO.map((p) => (
+              <li>{p}</li>
+            ))}
+          </ul>
+        </section>
+      </div>
+
+      <section class="pd-card-papel" aria-labelledby="db-divida-pdfs">
+        <h3 id="db-divida-pdfs" class="pd-h2-curto">Leia e baixe o dossiê</h3>
+        <div class="flex flex-wrap gap-3">
+          <a href={asset('/documentos/debate/boletim-divida-cagp.pdf')} target="_blank" rel="noopener" class="sk-btn sk-btn-roxo">
+            <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
+            Dívida em 1 página (252 KB)
+          </a>
+          <a href={asset('/documentos/debate/dossie-divida-cagp.pdf')} target="_blank" rel="noopener" class="sk-btn">
+            <i class="bi bi-file-earmark-text" aria-hidden="true"></i>
+            Dossiê completo (19 págs · 567 KB)
+          </a>
+        </div>
+      </section>
+    </div>
+
+    <!-- 3. Faixa dos 6 PDFs públicos (3 boletins curtos em destaque + 3 íntegras recolhíveis) -->
+    <section id="pdfs-analise" class="pd-anexos scroll-mt-24" aria-labelledby="db-anexos-titulo">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <h2 id="db-anexos-titulo" class="pd-h2-curto">Baixar os 3 boletins curtos em PDF</h2>
+        <span class="font-heading text-xs font-bold uppercase tracking-[0.04em] text-content-secondary tabular-nums">
+          6 PDFs · 3,2 MB no total
+        </span>
+      </div>
+      <ul class="pd-arquivos pd-arquivos-3" role="list">
+        {DEBATE_BOLETINS.map((pdf) => (
+          <li>
+            <a href={asset(pdf.href)} target="_blank" rel="noopener" class:list={['pd-arquivo', pdf.principal && 'is-principal']}>
+              <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
+              <span>
+                <b>{pdf.titulo}</b>
+                <small>{pdf.meta}</small>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <details class="pd-boletins">
+        <summary>Abrir os 3 relatórios e o dossiê completo de 19 páginas</summary>
+        <ul class="pd-boletins-lista" role="list">
+          {DEBATE_RELATORIOS.map((rel, idx) => (
+            <li>
+              <a href={asset(rel.href)} target="_blank" rel="noopener" class="pd-boletim-nome">
+                <span class="pd-boletim-n">{idx + 1}</span>
+                <span>
+                  <span class="block">{rel.titulo}</span>
+                  <span class="block font-sans text-sm font-normal text-content-secondary">{rel.desc}</span>
+                </span>
+              </a>
+              <a href={asset(rel.href)} target="_blank" rel="noopener" class="pd-boletim-pdf">
+                <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
+                <span class="tabular-nums">{rel.meta}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </details>
+    </section>
+
+    <!-- 4. Fechamento: A mesma régua vale pra nós + Kit WhatsApp -->
+    <section class="pd-abertura" aria-labelledby="db-mesma-regua">
+      <h2 id="db-mesma-regua" class="pd-abertura-titulo">A mesma régua vale pra nós</h2>
+      <p class="pd-abertura-lede">
+        Aplicamos o mesmo critério à carta original da Semente e registramos nossa própria autocrítica: <strong>6 de 14 propostas eram genéricas</strong>.
+        Por isso publicamos um plano de 109 páginas com data, teto de gasto, responsável e Plano B — e qualquer erro aqui pode ser corrigido pelo canal aberto.
+      </p>
+      <div class="flex flex-wrap items-center gap-3">
+        <a href={route('/chapa-semente/plano')} class="sk-btn sk-btn-folha text-foreground">
+          Abrir Plano Semente (109 págs)
+          <i class="bi bi-arrow-right" aria-hidden="true"></i>
+        </a>
+        <a href={route('/ouvidoria?de=/chapa-semente/debate')} class="sk-btn">
+          Pedir correção / Falar com a gente
+        </a>
+      </div>
+    </section>
+
+    <section class="pd-card-papel" aria-labelledby="db-compartilhar-kit">
+      <h2 id="db-compartilhar-kit" class="pd-h2-curto">Mandar no grupo antes do debate ({DEBATE_DATA})</h2>
+      <p class="m-0 text-sm leading-relaxed text-content-secondary">
+        Escolha o recorte para enviar no WhatsApp do curso ou da turma com link direto e fonte:
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <BotaoCompartilhar
+          corpo={DEBATE_MENSAGENS_WHATSAPP.panorama}
+          url={URL_ANALISE}
+          tom="convite"
+          variante="roxo"
+          rotulo="Panorama geral"
+        />
+        <BotaoCompartilhar
+          corpo={DEBATE_MENSAGENS_WHATSAPP.balanco}
+          url={URL_BALANCO}
+          tom="convite"
+          rotulo="Balanço 2025–2026"
+        />
+        <BotaoCompartilhar
+          corpo={DEBATE_MENSAGENS_WHATSAPP.divida}
+          url={URL_DIVIDA}
+          tom="convite"
+          rotulo="Dossiê da dívida"
+        />
+      </div>
+    </section>
+  </div>
+</BaseLayout>

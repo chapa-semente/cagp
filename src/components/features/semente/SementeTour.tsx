@@ -7,7 +7,7 @@
 //   3. Debate 24/11 e votação 25–26/11 (apoiador -> moldura opcional / agenda / WhatsApp; indeciso -> Plano / PDF 1 pág / debate).
 //   4. Moldura de apoio (só abre se quem apoia clicar em "Fazer minha moldura de apoio").
 //
-// Deep-links (/propostas/*, /chapa-semente/plano, /doc/*, /documentos*, /emergencia) abrem sem
+// Deep-links (/propostas/*, /chapa-semente/plano, /chapa-semente/debate, /doc/*, /documentos*, /emergencia) abrem sem
 // este modal (BaseLayout.astro). Toda tela oferece saída em 1 toque ("Ir pro site" / Esc).
 
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
@@ -465,7 +465,7 @@ const PlanoResumoScreen: React.FC<{ headingRef: HeadingRef; retornando?: boolean
   onExit,
 }) => (
   <div className={screenPadTop}>
-    <div className="mx-auto flex min-h-full max-w-[780px] flex-col justify-between gap-5 py-1">
+    <div className="mx-auto flex min-h-full max-w-[780px] flex-col justify-between gap-2.5 py-0.5 sm:gap-3.5 sm:py-1">
       <div className="flex min-h-11 items-center gap-2 sm:gap-3 pr-[148px] sm:pr-[164px]">
         <img src={asset('/logos/semente/semente-simbolo-branco.webp')} alt="" aria-hidden="true" className="h-7 w-auto shrink-0" />
         <div className="min-w-0 flex-1">
@@ -476,38 +476,45 @@ const PlanoResumoScreen: React.FC<{ headingRef: HeadingRef; retornando?: boolean
         </span>
       </div>
 
-      <div className="my-auto grid gap-4">
-        <div className="flex flex-wrap items-center gap-3">
+      <div className="my-auto grid gap-2 sm:gap-3">
+        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
           <img
             src={asset('/logos/semente/semente-horizontal-branco.webp')}
             alt="Chapa Gestão Pública Semente"
             width="768"
             height="229"
-            className="h-8 w-auto sm:h-10"
+            className="h-7 w-auto sm:h-10"
           />
           <span className="rounded-md border-2 border-foreground bg-white px-2.5 py-1 font-heading text-xs font-bold uppercase tracking-[0.04em] text-foreground">
             {retornando ? 'Novidade · Plano no ar' : `${CHAPA_ROTULO} · Reta Final`}
           </span>
         </div>
 
-        <h2 id="semente-tour-heading" ref={headingRef} tabIndex={-1} className={`${h2Cls} text-[clamp(1.65rem,5.5vw,3rem)]`}>
-          14 propostas com <MarkerWord onColor className="text-[1.08em] tracking-normal">data</MarkerWord>, custo e plano B.
+        <h2 id="semente-tour-heading" ref={headingRef} tabIndex={-1} className={`${h2Cls} text-[clamp(1.45rem,4.8vw,2.65rem)]`}>
+          14 propostas com{' '}
+          <span className="whitespace-nowrap">
+            <MarkerWord onColor className="text-[1.08em] tracking-normal">
+              data
+            </MarkerWord>
+            ,
+          </span>{' '}
+          custo e plano B.
         </h2>
 
-        <p className="m-0 max-w-[54ch] text-base leading-snug text-white sm:text-lg">
+        <p className="m-0 max-w-[54ch] text-sm leading-snug text-white sm:text-base">
           {retornando
             ? 'Você já conhece o site da Semente. Agora publicamos o plano completo das 14 propostas — com data, custo e plano B.'
             : 'O site do curso já está no ar. Agora veja como cada proposta sai do papel entre dezembro de 2026 e outubro de 2027.'}
         </p>
 
-        <ul className="m-0 grid list-none gap-2.5 p-0">
+        <ul className="m-0 grid list-none gap-1.5 p-0 sm:gap-2">
           {RECIBOS_TELA_1.map((item) => (
             <li
               key={item.titulo}
-              className="flex items-start gap-3 rounded-[12px] border-3 border-foreground bg-white px-3.5 py-2.5 text-foreground shadow-[4px_4px_0_0_#1F1F1F]"
+              className="flex items-start gap-2.5 rounded-[12px] border-3 border-foreground bg-white px-3 py-1.5 text-foreground shadow-[4px_4px_0_0_#1F1F1F] sm:gap-3 sm:py-2"
             >
-              <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[14px_4px_14px_4px] border-2 border-foreground ${item.cor}`}>
-                <i className={`bi ${item.icon} text-lg`} aria-hidden="true" />
+              <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-[14px_4px_14px_4px] border-2 border-foreground sm:h-9 sm:w-9 ${item.cor}`}>
+                <i className={`bi ${item.icon} text-base`} aria-hidden="true" />
               </span>
               <span className="min-w-0">
                 <span className="block font-heading text-base font-bold leading-tight tabular-nums">{item.titulo}</span>
@@ -516,14 +523,47 @@ const PlanoResumoScreen: React.FC<{ headingRef: HeadingRef; retornando?: boolean
             </li>
           ))}
         </ul>
+
+        {Date.now() <= Date.parse('2026-11-24T23:59:59-03:00') && (
+          <a
+            href={route('/chapa-semente/debate')}
+            onClick={onExit}
+            data-faixa-debate
+            className="group grid gap-1.5 rounded-[16px] border-3 border-foreground bg-[#FFC83D] px-3 py-2 text-foreground no-underline shadow-[4px_4px_0_0_#FE8812,7px_7px_0_0_#1F1F1F] transition-[transform,box-shadow] duration-150 hover:-translate-x-px hover:-translate-y-px hover:shadow-[5px_5px_0_0_#FE8812,9px_9px_0_0_#1F1F1F] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:gap-2 sm:px-3.5 sm:py-2.5"
+          >
+            <span className="flex items-center justify-between gap-2">
+              <span className="-rotate-1 inline-flex items-center gap-1.5 rounded-md border-2 border-foreground bg-primary px-2 py-0.5 font-heading text-xs font-bold uppercase tracking-[0.04em] text-white shadow-[2px_2px_0_0_#1F1F1F]">
+                <i className="bi bi-bar-chart-line" aria-hidden="true" />
+                Antes do debate · 24/11
+              </span>
+              <span className="hidden sm:inline font-heading text-xs font-bold uppercase tracking-[0.04em] text-foreground">
+                Tudo com fonte
+              </span>
+            </span>
+            <span className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <span className="min-w-0 grid gap-0.5">
+                <span className="block font-heading text-base font-bold leading-tight text-foreground sm:text-lg">
+                  O que a gestão entregou — e o que ficou no papel?
+                </span>
+                <span className="block text-sm leading-snug text-foreground tabular-nums">
+                  14 de 33 promessas, nova carta sem datas e quem recebeu na dívida de R$ 4.505.
+                </span>
+              </span>
+              <span className="inline-flex min-h-[40px] shrink-0 items-center justify-center gap-1.5 self-start sm:self-center rounded-[18px_5px_18px_5px] border-2 border-foreground bg-primary px-3.5 py-2 font-heading text-xs font-bold uppercase tracking-[0.04em] text-white shadow-[2px_2px_0_0_#1F1F1F] group-hover:bg-primary-hover">
+                Ver análise
+                <i className="bi bi-arrow-right" aria-hidden="true" />
+              </span>
+            </span>
+          </a>
+        )}
       </div>
 
-      <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center">
-        <button type="button" onClick={onNext} className={`${btnAccent} h-[52px] w-full px-6 text-sm sm:w-auto`}>
+      <div className="flex items-center justify-between gap-2.5 sm:justify-start">
+        <button type="button" onClick={onNext} className={`${btnAccent} h-[48px] flex-1 px-4 text-sm sm:h-[52px] sm:flex-none sm:px-6`}>
           Ver o que muda pra mim
           <i className="bi bi-arrow-right" aria-hidden="true" />
         </button>
-        <button type="button" onClick={onExit} className={`${linkLight} justify-center px-2`}>
+        <button type="button" onClick={onExit} className={`${linkLight} shrink-0 justify-center px-2`}>
           Ir direto pro site
         </button>
       </div>
@@ -882,9 +922,31 @@ const FinalScreen: React.FC<{
             {stage === 'indeciso' && (
               <div className="grid gap-4">
                 <p className="m-0 max-w-[42ch] text-base font-bold leading-snug sm:text-lg">
-                  Sem pressa. Confira os recibos antes do debate de {DEBATE_DATA}, às {DEBATE_HORA}:
+                  Sem pressa. Veja os dados com fonte antes do debate de {DEBATE_DATA}, às {DEBATE_HORA}:
                 </p>
                 <ul className="m-0 grid list-none gap-2.5 p-0">
+                  {Date.now() <= Date.parse('2026-11-24T23:59:59-03:00') && (
+                    <li data-faixa-debate>
+                      <a
+                        href={route('/chapa-semente/debate')}
+                        onClick={onExit}
+                        className="group flex items-center gap-3 rounded-[14px] border-3 border-foreground bg-[#FFC83D] px-4 py-3 text-foreground no-underline shadow-[4px_4px_0_0_#1F1F1F] transition-[transform,box-shadow] duration-150 hover:-translate-x-px hover:-translate-y-px hover:shadow-[6px_6px_0_0_#1F1F1F] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                      >
+                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[14px_4px_14px_4px] border-2 border-foreground bg-primary text-white">
+                          <i className="bi bi-bar-chart-line text-lg" aria-hidden="true" />
+                        </span>
+                        <span className="min-w-0 flex-1 grid gap-0.5">
+                          <span className="block font-heading text-base font-bold leading-tight text-foreground">
+                            Ver análise da gestão atual
+                          </span>
+                          <span className="block text-sm leading-snug text-foreground tabular-nums">
+                            14 de 33 promessas, nova carta sem datas e a dívida de R$ 4.505 — tudo com fonte.
+                          </span>
+                        </span>
+                        <i className="bi bi-arrow-right text-lg text-foreground shrink-0" aria-hidden="true" />
+                      </a>
+                    </li>
+                  )}
                   <li>
                     <a href={route('/chapa-semente/plano')} onClick={onExit} className={actionBtn}>
                       <i className="bi bi-clipboard-check text-lg text-primary" aria-hidden="true" />

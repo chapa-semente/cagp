@@ -434,7 +434,7 @@ export const AXIS_REGISTRY: AxisConfig[] = [
         isOverview: true,
         keywords: 'chapa 2 dois número semente votar eleição propostas integrantes candidatos',
         // A moldura de apoio é página própria da aba (item abaixo): fica fora deste padrão.
-        match: ['^/chapa-semente(?!/moldura|/plano)', '^/propostas/'],
+        match: ['^/chapa-semente(?!/moldura|/plano|/debate)', '^/propostas/'],
       },
       {
         id: 'chapa-plano',
@@ -446,6 +446,17 @@ export const AXIS_REGISTRY: AxisConfig[] = [
         type: 'page',
         keywords: 'plano de execução propostas prazo data custo orçamento metas boletim pdf semente chapa 2 cronograma',
         match: ['^/chapa-semente/plano'],
+      },
+      {
+        id: 'chapa-debate',
+        label: 'Análise da gestão (Debate 24/11)',
+        shortLabel: 'Debate 24/11',
+        href: route('/chapa-semente/debate'),
+        icon: 'megaphone',
+        description: 'Panorama com fonte da gestão 2025–2026 (14/33), nova carta sem datas e dossiê dos R$ 4.505,50 pro debate de 24/11.',
+        type: 'page',
+        keywords: 'debate 24/11 analise gestao reconecta balanco divida dossie prestacao de contas une dce erika hilton boletim pdf',
+        match: ['^/chapa-semente/debate'],
       },
       {
         id: 'chapa-eleicao',

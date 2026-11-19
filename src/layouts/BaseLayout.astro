@@ -136,11 +136,11 @@ import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
     <script is:inline>
       (function () {
         try {
-          var TOUR_V = 4;
+          var TOUR_V = 5;
           if (Date.now() > Date.parse('2026-11-26T22:30:00-03:00')) return;
           var raw = localStorage.getItem('cagp_semente_tour_v2');
           var st = raw ? JSON.parse(raw) : null;
-          // Reexibe 1 vez quando a versão muda (ex.: v4 traz o Plano de Execução para quem já tinha o site/app instalado).
+          // Reexibe 1 vez quando a versão muda (ex.: v5 traz a Análise da gestão para o Debate 24/11 e o Plano de Execução).
           if ((st && st.status === 'done' && st.v === TOUR_V) || window.__cagpTourMounted) return;
           var root = document.documentElement;
           var base = root.getAttribute('data-base-url') || '/';
@@ -148,9 +148,9 @@ import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
           // Entrou por link de documento (12/11/2026): nesta visita o tour não abre. A página do
           // documento mostra um convite de uma linha; quem voltar outro dia por outra porta vê o tour.
           var caminho = '/' + location.pathname.slice(base.length);
-          // /emergencia, /propostas/* e /chapa-semente/plano entram sem bloqueio de tour (19/11/2026):
-          // quem chega por link direto de proposta, plano ou emergência vê o conteúdo na hora.
-          if (/^\/(doc|documentos|emergencia|propostas)(\/|$)|^\/chapa-semente\/plano(\/|$)/.test(caminho)) sessionStorage.setItem('cagp_entrou_por_doc', '1');
+          // /emergencia, /propostas/*, /chapa-semente/plano e /chapa-semente/debate entram sem bloqueio de tour:
+          // quem chega por link direto de proposta, plano, debate ou emergência vê o conteúdo na hora.
+          if (/^\/(doc|documentos|emergencia|propostas)(\/|$)|^\/chapa-semente\/(plano|debate)(\/|$)/.test(caminho)) sessionStorage.setItem('cagp_entrou_por_doc', '1');
           if (sessionStorage.getItem('cagp_entrou_por_doc')) {
             if (!sessionStorage.getItem('cagp_convite_tour_fechado')) root.setAttribute('data-semente-convite', '');
             return;
@@ -362,7 +362,7 @@ import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
           var liga = false;
           try {
             var t = JSON.parse(localStorage.getItem('cagp_semente_tour_v2') || 'null');
-            liga = !(t && t.status === 'done' && t.v === 4) && Boolean(sessionStorage.getItem('cagp_entrou_por_doc')) && !sessionStorage.getItem('cagp_convite_tour_fechado');
+            liga = !(t && t.status === 'done' && t.v === 5) && Boolean(sessionStorage.getItem('cagp_entrou_por_doc')) && !sessionStorage.getItem('cagp_convite_tour_fechado');
           } catch (e) {}
           document.documentElement.toggleAttribute('data-semente-convite', liga);
         }
@@ -523,7 +523,7 @@ import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
             if (!link) return;
             let path = '';
             try { path = new URL(link.href, window.location.href).pathname; } catch (e) { return; }
-            if (!/\/documentos\/[^/]+\.(?!html?$)[a-z0-9]+$/i.test(path)) return;
+            if (!/\/documentos\/.+\.(?!html?$)[a-z0-9]+$/i.test(path)) return;
             event.preventDefault();
             if (window.cagpToast) window.cagpToast('Sem internet. Conecte para baixar este documento.', 'bi-wifi-off', 4000);
           }, true);
@@ -579,7 +579,7 @@ import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
               try {
                 const raw = localStorage.getItem('cagp_semente_tour_v2');
                 const parsed = raw ? JSON.parse(raw) : null;
-                return Boolean(parsed && parsed.status === 'done' && parsed.v === 4);
+                return Boolean(parsed && parsed.status === 'done' && parsed.v === 5);
               } catch (e) {
                 return true;
               }

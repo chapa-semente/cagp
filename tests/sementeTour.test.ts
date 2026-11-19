@@ -71,8 +71,8 @@ describe('tour da Chapa Semente', () => {
     }
   });
 
-  it('usa a sequência Reta Final (v4) com 3 propostas válidas por perfil', () => {
-    expect(TOUR_SEQUENCIA).toBe(4);
+  it('usa a sequência Reta Final (v5) com 3 propostas válidas por perfil', () => {
+    expect(TOUR_SEQUENCIA).toBe(5);
     for (const [perfil, ids] of Object.entries(TOUR_PROPOSTAS_POR_PERFIL)) {
       expect(ids, perfil).toHaveLength(3);
       expect(new Set(ids).size, perfil).toBe(3);
@@ -83,10 +83,11 @@ describe('tour da Chapa Semente', () => {
     }
   });
 
-  it('reabre v4 uma vez para quem viu versão anterior ou já tem app instalado', () => {
+  it('reabre v5 uma vez para quem viu versão anterior ou já tem app instalado', () => {
     expect(tourVistoNestaVersao(null)).toBe(false);
     expect(tourVistoNestaVersao({ status: 'done', index: 0 })).toBe(false);
     expect(tourVistoNestaVersao({ status: 'done', index: 0, v: 3 })).toBe(false);
+    expect(tourVistoNestaVersao({ status: 'done', index: 0, v: 4 })).toBe(false);
     expect(tourVistoNestaVersao({ status: 'done', index: 0, peloApp: true })).toBe(false);
     expect(tourVistoNestaVersao({ status: 'active', index: 0, v: TOUR_SEQUENCIA })).toBe(false);
     expect(tourVistoNestaVersao({ status: 'done', index: 0, v: TOUR_SEQUENCIA })).toBe(true);
