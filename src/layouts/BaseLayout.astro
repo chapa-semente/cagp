@@ -136,18 +136,12 @@ import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
     <script is:inline>
       (function () {
         try {
+          var TOUR_V = 4;
+          if (Date.now() > Date.parse('2026-11-26T22:30:00-03:00')) return;
           var raw = localStorage.getItem('cagp_semente_tour_v2');
           var st = raw ? JSON.parse(raw) : null;
-          if ((st && st.status === 'done') || window.__cagpTourMounted) return;
-          // App instalado no iPhone (13/11/2026): a tela inicial do iPhone guarda os dados separados do
-          // Safari, então a primeira abertura do app parece primeira visita. Só que ninguém instala sem
-          // ter passado pelo site no Safari: o tour não abre de novo. Fica o "Rever a apresentação da
-          // chapa" em /sobre-o-site e na home. `navigator.standalone` só existe no iPhone e no iPad; no
-          // Android o app divide os dados com o navegador e não precisa disto.
-          if (!st && navigator.standalone === true) {
-            localStorage.setItem('cagp_semente_tour_v2', JSON.stringify({ status: 'done', index: 0, peloApp: true }));
-            return;
-          }
+          // Reexibe 1 vez quando a versão muda (ex.: v4 traz o Plano de Execução para quem já tinha o site/app instalado).
+          if ((st && st.status === 'done' && st.v === TOUR_V) || window.__cagpTourMounted) return;
           var root = document.documentElement;
           var base = root.getAttribute('data-base-url') || '/';
           if (base.slice(-1) !== '/') base += '/';
@@ -368,7 +362,7 @@ import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
           var liga = false;
           try {
             var t = JSON.parse(localStorage.getItem('cagp_semente_tour_v2') || 'null');
-            liga = !(t && t.status === 'done') && Boolean(sessionStorage.getItem('cagp_entrou_por_doc')) && !sessionStorage.getItem('cagp_convite_tour_fechado');
+            liga = !(t && t.status === 'done' && t.v === 4) && Boolean(sessionStorage.getItem('cagp_entrou_por_doc')) && !sessionStorage.getItem('cagp_convite_tour_fechado');
           } catch (e) {}
           document.documentElement.toggleAttribute('data-semente-convite', liga);
         }
@@ -584,7 +578,8 @@ import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
             const tourDone = () => {
               try {
                 const raw = localStorage.getItem('cagp_semente_tour_v2');
-                return Boolean(raw && JSON.parse(raw).status === 'done');
+                const parsed = raw ? JSON.parse(raw) : null;
+                return Boolean(parsed && parsed.status === 'done' && parsed.v === 4);
               } catch (e) {
                 return true;
               }

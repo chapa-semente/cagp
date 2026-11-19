@@ -82,7 +82,7 @@ await send('Runtime.enable');
 // O visitante da foto já viu o tour e a abertura: nada cobre a página.
 await send('Page.addScriptToEvaluateOnNewDocument', {
   source: `try {
-    localStorage.setItem('cagp_semente_tour_v2', JSON.stringify({ status: 'done', index: 0 }));
+    localStorage.setItem('cagp_semente_tour_v2', JSON.stringify({ status: 'done', v: 4, index: 0 }));
     sessionStorage.setItem('cagp_splash_off', '1');
   } catch {}`,
 });

@@ -38,6 +38,7 @@ import {
   getTourShareUrl,
   loadSementeTour,
   saveSementeTour,
+  tourVistoNestaVersao,
   type SementeTourState,
   type TourLeaderId,
   type TourPerson,
@@ -140,6 +141,7 @@ const BackButton: React.FC<{ onClick: () => void; label?: string }> = ({ onClick
 interface TourRuntime extends SementeTourState {
   returnTo?: string;
   replay?: boolean;
+  retornando?: boolean;
 }
 
 export const SementeTour: React.FC = () => {
@@ -156,19 +158,32 @@ export const SementeTour: React.FC = () => {
   useEffect(() => {
     (window as unknown as { __cagpTourMounted?: boolean }).__cagpTourMounted = true;
     const saved = loadSementeTour() as TourRuntime | null;
-    if (saved?.status === 'done') {
+    if (tourVistoNestaVersao(saved)) {
       document.documentElement.removeAttribute('data-semente-tour');
       setState(saved);
       return;
     }
+    const pendingClick = Boolean((window as unknown as { __cagpSementeTourPending?: number }).__cagpSementeTourPending);
+    if (!pendingClick && Date.now() > Date.parse('2026-11-26T22:30:00-03:00')) {
+      document.documentElement.removeAttribute('data-semente-tour');
+      return;
+    }
+    const emAppInstalado = isStandalone();
+    const retornando = Boolean(saved?.status === 'done' || saved?.peloApp || emAppInstalado);
     const fresh: TourRuntime = {
       status: 'active',
       index: 0,
-      profile: readSavedRole(),
+      profile: saved?.profile ?? readSavedRole(),
       v: TOUR_SEQUENCIA,
+      peloApp: saved?.peloApp || emAppInstalado || undefined,
+      retornando,
       returnTo: window.location.pathname + window.location.search + window.location.hash,
     };
-    setState(saved && saved.v === TOUR_SEQUENCIA ? saved : fresh);
+    setState(
+      saved && saved.v === TOUR_SEQUENCIA
+        ? { ...saved, retornando: saved.retornando ?? retornando }
+        : fresh,
+    );
   }, []);
 
   useEffect(() => {
@@ -198,7 +213,7 @@ export const SementeTour: React.FC = () => {
     const onStorage = (e: StorageEvent) => {
       if (e.key !== SEMENTE_TOUR_KEY) return;
       const saved = loadSementeTour() as TourRuntime | null;
-      if (saved?.status === 'done') {
+      if (tourVistoNestaVersao(saved)) {
         setState((s) => (s && s.status === 'active' && !s.replay ? saved : s));
       }
     };
@@ -261,11 +276,27 @@ export const SementeTour: React.FC = () => {
     setClosing(true);
     setVaultItem('cagp_onboarding_completed_v1', true);
     setState((s) => {
-      if (s) saveSementeTour({ ...s, status: 'done', index: 0, skipFrom: undefined });
+      if (s) {
+        saveSementeTour({
+          status: 'done',
+          v: TOUR_SEQUENCIA,
+          index: 0,
+          profile: s.profile,
+          full: s.full,
+          peloApp: s.peloApp,
+        });
+      }
       return s;
     });
     window.setTimeout(() => {
-      setState((s) => (s ? { ...s, status: 'done', index: 0, skipFrom: undefined } : s));
+      setState((s) => ({
+        status: 'done',
+        v: TOUR_SEQUENCIA,
+        index: 0,
+        profile: s?.profile,
+        full: s?.full,
+        peloApp: s?.peloApp,
+      }));
       setClosing(false);
       window.dispatchEvent(new CustomEvent('cagp:semente-tour-done'));
     }, 360);
@@ -345,7 +376,12 @@ export const SementeTour: React.FC = () => {
             transition={{ duration: 0.2, ease: easeOutExpo }}
           >
             {screenKind === 'resumo' && (
-              <PlanoResumoScreen headingRef={headingRef} onNext={() => go(1)} onExit={finish} />
+              <PlanoResumoScreen
+                headingRef={headingRef}
+                retornando={Boolean(state?.retornando)}
+                onNext={() => go(1)}
+                onExit={finish}
+              />
             )}
             {screenKind === 'perfil' && (
               <PerfilPropostasScreen
@@ -422,8 +458,9 @@ const RECIBOS_TELA_1: { icon: string; cor: string; titulo: string; texto: string
   },
 ];
 
-const PlanoResumoScreen: React.FC<{ headingRef: HeadingRef; onNext: () => void; onExit: () => void }> = ({
+const PlanoResumoScreen: React.FC<{ headingRef: HeadingRef; retornando?: boolean; onNext: () => void; onExit: () => void }> = ({
   headingRef,
+  retornando = false,
   onNext,
   onExit,
 }) => (
@@ -449,7 +486,7 @@ const PlanoResumoScreen: React.FC<{ headingRef: HeadingRef; onNext: () => void; 
             className="h-8 w-auto sm:h-10"
           />
           <span className="rounded-md border-2 border-foreground bg-white px-2.5 py-1 font-heading text-xs font-bold uppercase tracking-[0.04em] text-foreground">
-            {CHAPA_ROTULO} · Reta Final
+            {retornando ? 'Novidade · Plano no ar' : `${CHAPA_ROTULO} · Reta Final`}
           </span>
         </div>
 
@@ -458,7 +495,9 @@ const PlanoResumoScreen: React.FC<{ headingRef: HeadingRef; onNext: () => void; 
         </h2>
 
         <p className="m-0 max-w-[54ch] text-base leading-snug text-white sm:text-lg">
-          O site do curso já está no ar. Agora veja como cada proposta sai do papel entre dezembro de 2026 e outubro de 2027.
+          {retornando
+            ? 'Você já conhece o site da Semente. Agora publicamos o plano completo das 14 propostas — com data, custo e plano B.'
+            : 'O site do curso já está no ar. Agora veja como cada proposta sai do papel entre dezembro de 2026 e outubro de 2027.'}
         </p>
 
         <ul className="m-0 grid list-none gap-2.5 p-0">

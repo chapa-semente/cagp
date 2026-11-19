@@ -10,6 +10,7 @@ import {
   TOUR_PROPOSTAS_POR_PERFIL,
   TOUR_SEQUENCIA,
   TOUR_STOPS,
+  tourVistoNestaVersao,
   type TourLeaderId,
 } from '@/lib/sementeTour';
 
@@ -80,6 +81,20 @@ describe('tour da Chapa Semente', () => {
         expect(id, `${perfil} prop ${id}`).toBeLessThanOrEqual(14);
       }
     }
+  });
+
+  it('reabre v4 uma vez para quem viu versão anterior ou já tem app instalado', () => {
+    expect(tourVistoNestaVersao(null)).toBe(false);
+    expect(tourVistoNestaVersao({ status: 'done', index: 0 })).toBe(false);
+    expect(tourVistoNestaVersao({ status: 'done', index: 0, v: 3 })).toBe(false);
+    expect(tourVistoNestaVersao({ status: 'done', index: 0, peloApp: true })).toBe(false);
+    expect(tourVistoNestaVersao({ status: 'active', index: 0, v: TOUR_SEQUENCIA })).toBe(false);
+    expect(tourVistoNestaVersao({ status: 'done', index: 0, v: TOUR_SEQUENCIA })).toBe(true);
+
+    const layout = read('src/layouts/BaseLayout.astro');
+    expect(layout).toContain(`var TOUR_V = ${TOUR_SEQUENCIA};`);
+    expect(layout).toContain('st.status === \'done\' && st.v === TOUR_V');
+    expect(layout).not.toContain('if (!st && navigator.standalone === true)');
   });
 });
 

@@ -13,7 +13,7 @@
 //   4. src/components/ui/iconPaths.generated.ts — o miolo SVG dos ícones React (icons.tsx).
 //
 // Rodar depois de usar um `bi-*` novo:  node scripts/build-icons.mjs
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, readdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { dirname, join } from 'node:path';
@@ -60,7 +60,7 @@ const BI = {
   'lightning-charge': 'lightning', 'link-45deg': 'link-simple', 'list': 'list', 'list-nested': 'list-dashes', 'arrow-down': 'arrow-down', 'lock': 'lock-simple',
   'megaphone': 'megaphone-simple', 'mic': 'microphone', 'moon-stars': 'moon-stars', 'mortarboard': 'graduation-cap',
   'newspaper': 'newspaper', 'palette': 'palette', 'patch-check': 'seal-check', 'pencil': 'pencil-simple', 'pencil-square': 'note-pencil',
-  'people': 'users-three', 'person-badge': 'identification-badge', 'person': 'user', 'person-heart': 'user-circle',
+  'percent': 'percent', 'people': 'users-three', 'person-badge': 'identification-badge', 'person': 'user', 'person-heart': 'user-circle',
   'person-lines': 'address-book', 'person-standing-dress': 'person', 'person-vcard': 'identification-card',
   'person-video3': 'video-conference', 'person-workspace': 'desktop', 'phone': 'device-mobile', 'pie-chart': 'chart-pie-slice',
   'play': 'play', 'plus': 'plus', 'plus-circle': 'plus-circle', 'plus-slash-minus': 'plus-minus', 'question-circle': 'question',
@@ -113,12 +113,19 @@ const need = (name, from) => {
   return byName.get(name);
 };
 
-// 1) Classes usadas no código-fonte
-const used = new Set(
-  execFileSync('grep', ['-rhoE', '\\bbi-[a-z0-9-]+', join(root, 'src')], { encoding: 'utf8' })
-    .split('\n')
-    .filter(Boolean),
-);
+// 1) Classes usadas no código-fonte (evita falsos positivos com hífen antes, ex.: "as-bi-semente").
+const used = new Set();
+const collectBi = (dir) => {
+  for (const ent of readdirSync(dir, { withFileTypes: true })) {
+    const p = join(dir, ent.name);
+    if (ent.isDirectory()) collectBi(p);
+    else if (/\.(astro|tsx|ts|jsx|js|css|json)$/.test(ent.name) && !p.endsWith('icons.css')) {
+      const text = readFileSync(p, 'utf8');
+      for (const m of text.matchAll(/(?<![a-z0-9-])bi-[a-z0-9-]+/g)) used.add(m[0]);
+    }
+  }
+};
+collectBi(join(root, 'src'));
 for (const k of Object.keys(BI)) used.add(`bi-${k}`);
 
 const cssRules = [];

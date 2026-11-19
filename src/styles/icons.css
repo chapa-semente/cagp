@@ -118,7 +118,6 @@
 .bi-dash::before { content: "\e32a"; }
 .bi-dash-circle::before { content: "\e32c"; }
 .bi-diagram-2::before { content: "\e67c"; }
-.bi-diagram-2-fill::before { content: "\e67c"; }
 .bi-diagram-3::before { content: "\e67c"; }
 .bi-diagram-3-fill::before { content: "\e67c"; }
 .bi-display::before { content: "\e32e"; }
@@ -128,9 +127,7 @@
 .bi-door-open-fill::before { content: "\e7e6"; }
 .bi-download::before { content: "\e20c"; }
 .bi-envelope::before { content: "\e218"; }
-.bi-envelope-fill::before { content: "\e218"; }
 .bi-envelope-open::before { content: "\e21a"; }
-.bi-envelope-open-fill::before { content: "\e21a"; }
 .bi-envelope-plus::before { content: "\e218"; }
 .bi-exclamation-octagon::before { content: "\e4e4"; }
 .bi-exclamation-octagon-fill::before { content: "\e4e4"; }
@@ -153,7 +150,6 @@
 .bi-file-earmark-ruled::before { content: "\e23a"; }
 .bi-file-earmark-ruled-fill::before { content: "\e23a"; }
 .bi-file-earmark-spreadsheet::before { content: "\eb22"; }
-.bi-file-earmark-spreadsheet-fill::before { content: "\eb22"; }
 .bi-file-earmark-text::before { content: "\e23a"; }
 .bi-file-earmark-text-fill::before { content: "\e23a"; }
 .bi-file-earmark-word::before { content: "\eb1e"; }
@@ -227,6 +223,7 @@
 .bi-pencil-square::before { content: "\e34c"; }
 .bi-people::before { content: "\e68e"; }
 .bi-people-fill::before { content: "\e68e"; }
+.bi-percent::before { content: "\e3b6"; }
 .bi-person::before { content: "\e4c2"; }
 .bi-person-badge::before { content: "\e6f6"; }
 .bi-person-badge-fill::before { content: "\e6f6"; }
@@ -254,7 +251,6 @@
 .bi-rocket-takeoff::before { content: "\e3fe"; }
 .bi-rocket-takeoff-fill::before { content: "\e3fe"; }
 .bi-safe2::before { content: "\e76e"; }
-.bi-safe2-fill::before { content: "\e76e"; }
 .bi-search::before { content: "\e30c"; }
 .bi-send::before { content: "\e398"; }
 .bi-send-check::before { content: "\e398"; }

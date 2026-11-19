@@ -245,8 +245,8 @@ export interface SementeTourState {
   /** Versão da sequência de telas. Estado ativo de outra versão recomeça (os índices mudaram). */
   v?: number;
   /**
-   * O tour foi dado como visto sem abrir: primeira abertura do app instalado no iPhone, que começa
-   * com os dados vazios (script inline do BaseLayout). A pessoa já passou pelo site no Safari.
+   * Estado gravado pela versão anterior de iPhone standalone (antes da v4): agora a v4 reabre
+   * 1 vez também para apps já instalados, mantendo este campo só por compatibilidade de leitura.
    */
   peloApp?: boolean;
 }
@@ -263,6 +263,11 @@ export const TOUR_PROPOSTAS_POR_PERFIL: Record<UserRole, readonly [number, numbe
 
 /** Sequência de 19/11/2026 (Reta Final): 3 telas (plano em 15s, perfil + 3 propostas, debate/votação). */
 export const TOUR_SEQUENCIA = 4;
+
+/** Confere se a pessoa já concluiu exatamente a versão atual do tour (v4 — Plano de Execução). */
+export function tourVistoNestaVersao(state: SementeTourState | null | undefined): boolean {
+  return Boolean(state && state.status === 'done' && state.v === TOUR_SEQUENCIA);
+}
 
 export function loadSementeTour(): SementeTourState | null {
   try {
