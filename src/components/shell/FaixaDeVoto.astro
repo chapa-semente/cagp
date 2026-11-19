@@ -3,14 +3,15 @@
 // Painel Cartaz roxo, antes do rodapé: o grito na caneta laranja, quando e onde votar, o debate e duas
 // ações (como votar, fazer a moldura de apoio com a própria foto e chamar a turma). Some sozinha depois da eleição; a linha do debate some depois dele.
 import GritoDeVoto from '@/components/ui/GritoDeVoto.astro';
-import { CHAPA_LEADERS, CHAPA_NUMERO, CHAPA_ROTULO, DEBATE_DATA, DEBATE_HORA } from '@/lib/chapaSementeData';
+import { CHAPA_NUMERO, CHAPA_ROTULO, DEBATE_DATA, DEBATE_HORA } from '@/lib/chapaSementeData';
+import { CONVITE_RETA_FINAL } from '@/lib/compartilhar';
 import { normalizePathname } from '@/lib/navigationRegistry';
 import { route } from '@/lib/paths';
 
-// Em /gestao a pessoa já está no "como votar": a ação principal vira chamar a turma.
-const naEleicao = normalizePathname(Astro.url.pathname) === '/gestao';
-const naMoldura = normalizePathname(Astro.url.pathname) === '/chapa-semente/moldura';
-const CONVITE = `🌱 A Semente é a ${CHAPA_ROTULO} na eleição do CAGP e já pôs no ar um site com os guias do curso: documentos, estágio, 600h, FUMP, calouros.\nDá uma olhada e conhece as ${CHAPA_LEADERS.length} pessoas da chapa:`;
+// Em /gestao a pessoa já está no "como votar": a ação principal vira ver o plano / chamar a turma.
+const caminhoAtual = normalizePathname(Astro.url.pathname);
+const naEleicao = caminhoAtual === '/gestao';
+const noPlano = caminhoAtual === '/chapa-semente/plano';
 ---
 
 <aside class="cagp-faixa-voto" aria-label={`Vote ${CHAPA_ROTULO}`} data-faixa-voto>
@@ -35,18 +36,23 @@ const CONVITE = `🌱 A Semente é a ${CHAPA_ROTULO} na eleição do CAGP e já 
         <i class="bi bi-arrow-right" aria-hidden="true"></i>
       </a>
     )}
-    {!naMoldura && (
+    {noPlano ? (
       <a href={route('/chapa-semente/moldura')} class="sk-btn">
         <i class="bi bi-camera" aria-hidden="true"></i>
         Fazer minha moldura
+      </a>
+    ) : (
+      <a href={route('/chapa-semente/plano')} class="sk-btn">
+        <i class="bi bi-journal-check" aria-hidden="true"></i>
+        Ver o plano (9/14 a R$ 0)
       </a>
     )}
     <button
       type="button"
       class="sk-btn"
       data-compartilhar
-      data-corpo={CONVITE}
-      data-url={route('/')}
+      data-corpo={CONVITE_RETA_FINAL}
+      data-url={noPlano ? route('/chapa-semente/plano') : route('/')}
       data-tom="convite"
       data-titulo={`Vote ${CHAPA_ROTULO}`}
     >

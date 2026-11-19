@@ -42,11 +42,37 @@ export function attachMasonry(grid: HTMLElement): Masonry {
     grid.classList.add('is-masonry');
   };
 
+  const pendingItems = new Set<HTMLElement>();
+  let needsRelayout = false;
+  let rafId = 0;
+
+  const flush = () => {
+    rafId = 0;
+    if (needsRelayout) {
+      needsRelayout = false;
+      pendingItems.clear();
+      relayout();
+      return;
+    }
+    if (!pendingItems.size) return;
+    for (const el of pendingItems) {
+      if (el.isConnected) setSpan(el, el.offsetHeight);
+    }
+    pendingItems.clear();
+  };
+
+  const schedule = () => {
+    if (!rafId) rafId = requestAnimationFrame(flush);
+  };
+
   const itemObserver = new ResizeObserver((entries) => {
     for (const entry of entries) {
       const el = entry.target as HTMLElement;
       const h = entry.borderBoxSize?.[0]?.blockSize ?? el.offsetHeight;
-      if (sizes.get(el) !== h) setSpan(el, h);
+      if (sizes.get(el) !== h) {
+        pendingItems.add(el);
+        schedule();
+      }
     }
   });
 
@@ -71,10 +97,14 @@ export function attachMasonry(grid: HTMLElement): Masonry {
     const w = entry.contentRect.width;
     if (w === width) return;
     width = w;
-    relayout();
+    needsRelayout = true;
+    schedule();
   });
 
-  const mutationObserver = new MutationObserver(relayout);
+  const mutationObserver = new MutationObserver(() => {
+    needsRelayout = true;
+    schedule();
+  });
 
   relayout();
   gridObserver.observe(grid);
@@ -83,6 +113,12 @@ export function attachMasonry(grid: HTMLElement): Masonry {
   const instance: Masonry = {
     relayout,
     destroy() {
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = 0;
+      }
+      pendingItems.clear();
+      needsRelayout = false;
       gridObserver.disconnect();
       itemObserver.disconnect();
       mutationObserver.disconnect();

@@ -11,8 +11,10 @@ import { asset, route } from '@/lib/paths';
 
 interface Props {
   plano: PlanoProposta;
+  /** Quando true, omite título e frase de impacto (já exibidos no topo da página) para evitar repetição. */
+  semCabecaDuplicada?: boolean;
 }
-const { plano } = Astro.props;
+const { plano, semCabecaDuplicada = false } = Astro.props;
 const gratis = plano.custo === 'R$ 0,00';
 const temParceiros = plano.secoes.some((s) => s.titulo.startsWith('Quem pode ajudar'));
 ---
@@ -20,11 +22,17 @@ const temParceiros = plano.secoes.some((s) => s.titulo.startsWith('Quem pode aju
 <section id="plano" class="cd-plano scroll-mt-24" aria-labelledby="cd-plano-titulo">
   <div class="cd-plano-cabeca">
     <svg class="cd-plano-folha" viewBox="-46 -110 72 118" aria-hidden="true"><use href="#sg-folha"></use></svg>
-    <h2 id="cd-plano-titulo" class="cd-plano-titulo">
-      <span class="sr-only">O plano: </span>
-      {plano.titulo.antes}{plano.titulo.marca && <MarkerWord onColor scroll>{plano.titulo.marca}</MarkerWord>}{plano.titulo.depois}
-    </h2>
-    {IMPACTO_DA_PROPOSTA[plano.id] && <p class="cd-plano-impacto">{IMPACTO_DA_PROPOSTA[plano.id]}</p>}
+    {semCabecaDuplicada ? (
+      <h2 id="cd-plano-titulo" class="cd-h2 text-white">Quanto custa e quem executa</h2>
+    ) : (
+      <>
+        <h2 id="cd-plano-titulo" class="cd-plano-titulo">
+          <span class="sr-only">O plano: </span>
+          {plano.titulo.antes}{plano.titulo.marca && <MarkerWord onColor scroll>{plano.titulo.marca}</MarkerWord>}{plano.titulo.depois}
+        </h2>
+        {IMPACTO_DA_PROPOSTA[plano.id] && <p class="cd-plano-impacto">{IMPACTO_DA_PROPOSTA[plano.id]}</p>}
+      </>
+    )}
     <dl class="cd-plano-fatos">
       <div class="cd-plano-fato">
         <dt>Quanto sai do caixa do CA</dt>

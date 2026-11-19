@@ -13,7 +13,8 @@
 // molas (src/styles/animations.css). Botões só disparam eventos (data-cagp-dispatch, BaseLayout).
 import React from 'react';
 import { USER_ROLE_META, type UserRole } from '@/lib/userRole';
-import { CHAPA_LEADERS, CHAPA_NOME, CHAPA_NUMERO, CHAPA_ROTULO } from '@/lib/chapaSementeData';
+import { CHAPA_LEADERS, CHAPA_NOME, CHAPA_NUMERO, CHAPA_ROTULO, DEBATE_DATA, DEBATE_HORA } from '@/lib/chapaSementeData';
+import { PLANO_PDF_RESUMO } from '@/lib/planoExecucao';
 import { asset, route } from '@/lib/paths';
 import { CagpIcon, type CagpIconName } from '@/components/ui/CagpIcon';
 import { resolveCagpIconName } from '@/lib/cagpIcons';
@@ -164,8 +165,8 @@ export const HomeWorkspaceA: React.FC<{ noticiasReais?: SimulatedNewsItem[] }> =
 
   return (
     <div className="space-y-8 sm:space-y-10 pb-8">
-      {/* 1. Cabeça da home (12/11/2026): o lema e a contagem numa faixa curta, pra "Hoje à noite" e
-          "Resolver agora" caberem na primeira tela do celular. A vitrine da chapa vem logo abaixo. */}
+      {/* 1. Cabeça da home + Ato 1 Reta Final (19/11/2026): lema/contagem + cartão compacto do Plano
+          (auto-oculto depois de 26/11 às 22h30 via data-so-campanha). */}
       <section aria-labelledby="home-title" className="relative overflow-hidden rounded-2xl border-3 border-border bg-primary text-white shadow-xl">
         <div className="pointer-events-none absolute -right-6 -top-8 w-24 h-24 sm:w-40 sm:h-40" aria-hidden="true">
           <LeafShape color="orange" germinate className="w-full h-full" />
@@ -182,8 +183,64 @@ export const HomeWorkspaceA: React.FC<{ noticiasReais?: SimulatedNewsItem[] }> =
             href="#cagp-home-banner-semente"
             className="inline-flex items-center gap-1.5 min-h-[44px] text-sm font-heading font-bold text-white underline underline-offset-4 decoration-2 decoration-accent hover:decoration-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary rounded"
           >
-            Quem fez este app
+            Quem faz o CA
             <i className="bi bi-arrow-down" aria-hidden="true" />
+          </a>
+        </div>
+      </section>
+
+      {/* Ato 1 — Painel Reta Final / Debate Total: mostra o Plano de Execução acima da utilidade até 26/11 às 22h30. */}
+      <section
+        aria-labelledby="home-plano-title"
+        data-so-campanha
+        className="rounded-2xl border-3 border-border bg-secondary text-white shadow-xl p-4 sm:p-6 space-y-4"
+      >
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <span className="-rotate-1 inline-flex items-center px-2.5 py-1 rounded-md border-2 border-border bg-accent text-foreground font-heading text-xs font-bold uppercase tracking-[0.04em] shadow-xs">
+            {CHAPA_NOME} · Plano de execução
+          </span>
+          <span
+            data-faixa-debate
+            className="font-heading text-xs font-bold uppercase tracking-[0.04em] tabular-nums text-white"
+          >
+            Debate: {DEBATE_DATA}, às {DEBATE_HORA}
+          </span>
+        </div>
+
+        <h2 id="home-plano-title" className="font-heading font-bold text-xl sm:text-2xl leading-tight m-0 text-white text-balance">
+          14 propostas com data, custo e plano B.
+        </h2>
+
+        <ul className="list-none m-0 p-0 grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+          <li className="rounded-xl border-2 border-border bg-white text-foreground px-3.5 py-2.5 shadow-xs">
+            <strong className="block font-heading text-base font-bold text-primary tabular-nums">9 de 14 custam R$ 0</strong>
+            <span className="block text-sm leading-snug text-content-secondary">Contas reais até 31/01 e reunião aberta todo mês.</span>
+          </li>
+          <li className="rounded-xl border-2 border-border bg-white text-foreground px-3.5 py-2.5 shadow-xs">
+            <strong className="block font-heading text-base font-bold text-primary tabular-nums">100 dias de entregas</strong>
+            <span className="block text-sm leading-snug text-content-secondary">Calendário público da posse a março de 2027.</span>
+          </li>
+          <li className="rounded-xl border-2 border-border bg-white text-foreground px-3.5 py-2.5 shadow-xs">
+            <strong className="block font-heading text-base font-bold text-primary tabular-nums">40% de desconto FUMP</strong>
+            <span className="block text-sm leading-snug text-content-secondary">Na calourada, para níveis I, II e III.</span>
+          </li>
+        </ul>
+
+        <div className="flex flex-wrap items-center gap-2.5">
+          <a href={route('/chapa-semente/plano')} className="sk-btn sk-btn-folha no-underline">
+            Ver o plano de execução
+            <i className="bi bi-arrow-right" aria-hidden="true" />
+          </a>
+          <a href={asset(PLANO_PDF_RESUMO)} target="_blank" rel="noopener" className="sk-btn no-underline">
+            <i className="bi bi-file-earmark-pdf text-primary" aria-hidden="true" />
+            Resumo 1 pág (PDF)
+          </a>
+          <a
+            href={route('/gestao')}
+            data-faixa-debate
+            className="inline-flex items-center gap-1.5 min-h-[44px] px-1 text-sm font-heading font-bold text-white underline underline-offset-4 decoration-2 decoration-accent hover:decoration-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded tabular-nums"
+          >
+            Debate {DEBATE_DATA} às {DEBATE_HORA} · Como votar
           </a>
         </div>
       </section>
@@ -237,12 +294,12 @@ export const HomeWorkspaceA: React.FC<{ noticiasReais?: SimulatedNewsItem[] }> =
 
         <div className="relative z-10 p-5 pb-6 sm:p-8 sm:pb-8 space-y-5">
 
-          <h2 id="home-chapa-title" className="font-heading font-bold uppercase text-2xl leading-[1.1] tracking-[0.02em] sm:text-4xl m-0 text-balance">
-            Quem fez este app
+          <h2 id="home-chapa-title" className="font-heading font-bold uppercase text-2xl leading-[1.1] tracking-[0.02em] sm:text-4xl m-0 pr-20 sm:pr-44 text-balance">
+            12 estudantes que já entregaram o site do curso
           </h2>
 
           <p className="text-base sm:text-lg leading-relaxed m-0 max-w-[46ch] text-white">
-            A nossa começou com este app, feito por 12 estudantes de GP pra você resolver estágio, 600h e FUMP sem depender de ninguém.
+            A {CHAPA_NOME} é feita por gente do noturno, fumpista e cotista. Conheça quem responde por cada proposta e veja como votar.
           </p>
 
           {/* O número da chapa: adesivo de cédula + a chamada de voto (o que a pessoa precisa lembrar no dia). */}
@@ -290,9 +347,9 @@ export const HomeWorkspaceA: React.FC<{ noticiasReais?: SimulatedNewsItem[] }> =
               href={route('/chapa-semente')}
               className="min-h-[48px] px-4 sm:px-5 rounded-xl bg-white text-foreground border-3 border-border shadow-md font-heading font-bold text-sm uppercase tracking-[0.03em] no-underline inline-flex items-center gap-2 transition-[transform,box-shadow,background-color] duration-(--duration-press) ease-(--ease-spring-snappy) hover:bg-muted hover:-translate-x-px hover:-translate-y-px hover:shadow-lg active:translate-x-[3px] active:translate-y-[3px] active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
             >
-              Propostas
+              Conhecer as 14 propostas
             </a>
-            <ChapaSementeTour buttonText="Rever o tour" variant="link" />
+            <ChapaSementeTour buttonText="Rever o tour (3 telas)" variant="link" />
           </div>
         </div>
 
@@ -301,11 +358,11 @@ export const HomeWorkspaceA: React.FC<{ noticiasReais?: SimulatedNewsItem[] }> =
         <div className="relative z-10 border-t-3 border-border bg-foreground text-white" aria-hidden="true">
           <Marquee data-impeccable-ignore="marquee" speed="slow" pauseOnHover className="bg-foreground text-white border-0 shadow-none py-2.5">
             {[
-              `Vote ${CHAPA_NOME} · 25 e 26/11 · 17h às 22h30 na sala do CAGP`,
+              '9 de 14 propostas custam R$ 0',
+              '40% de desconto pra fumpistas na calourada',
+              `Debate ${DEBATE_DATA} às ${DEBATE_HORA} · Votação 25 e 26/11`,
+              `Vote ${CHAPA_NOME}`,
               'Faz o S!',
-              'Este app é proposta que já funciona',
-              'Toda mudança começa pequena',
-              'Na cédula, um X em uma chapa só',
             ].map((t) => (
               <React.Fragment key={t}>
                 <MarqueeItem className="text-sm font-heading font-bold uppercase tracking-[0.04em] text-white">{t}</MarqueeItem>

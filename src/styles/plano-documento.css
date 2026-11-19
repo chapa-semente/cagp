@@ -3,9 +3,18 @@
    Papel: uma folha branca, medida de leitura, quadros com a tabela do site. Prefixo pd-. */
 .pd-pagina {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 2rem;
+  width: 100%;
+  min-width: 0;
   max-width: 62rem;
   margin-block: 0.75rem 3rem;
+}
+.pd-pagina > *,
+.pd-anexos,
+.pd-arquivos,
+.pd-arquivos > li {
+  min-width: 0;
 }
 
 /* 1. O que isso quer dizer pra você */
@@ -159,6 +168,7 @@
   display: flex;
   align-items: center;
   gap: 0.375rem;
+  min-height: 44px;
   padding: 0.5rem 1rem;
   border-left: 2px solid var(--color-muted, #e7e3d8);
   color: var(--color-primary);
@@ -179,8 +189,10 @@
 }
 .pd-sumario li { break-inside: avoid; }
 .pd-sumario a {
-  display: block;
-  padding: 0.375rem 0;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.375rem 0.25rem;
   color: var(--color-foreground);
   line-height: 1.35;
   text-decoration: underline;
@@ -211,8 +223,9 @@
   min-width: 0;
   overflow-wrap: break-word;
 }
-/* Endereços como chapa-semente.github.io/cagp/transparencia não têm onde quebrar. */
-.pd-p, .pd-lista, .pd-ficha-campo dd, .pd-rolagem td, .pd-fonte { overflow-wrap: anywhere; }
+/* Endereços longos quebram no corpo; em tabelas só se quebra em limite de palavra. */
+.pd-p, .pd-lista, .pd-ficha-campo dd, .pd-fonte { overflow-wrap: anywhere; }
+.pd-rolagem td, .pd-rolagem th { overflow-wrap: break-word; }
 .pd-doc-cabeca { display: grid; gap: 0.5rem; padding-bottom: 1.5rem; border-bottom: 2px solid #1f1f1f; }
 .pd-doc-titulo {
   margin: 0;
@@ -328,7 +341,7 @@
   line-height: 1.4;
   text-wrap: balance;
 }
-.pd-fonte { margin: 0; font-size: 0.8125rem; line-height: 1.45; color: var(--color-content-secondary, #4a4740); }
+.pd-fonte { margin: 0; font-size: 0.75rem; line-height: 1.45; color: var(--color-content-secondary, #4a4740); }
 .pd-rolagem {
   overflow-x: auto;
   border: 2px solid #1f1f1f;
@@ -402,15 +415,13 @@
   .pd-doc { padding: 2.25rem 2.5rem 2.75rem; }
 }
 
-/* ---- Leitura em tela larga: o texto e o sumário parado ao lado (18/11/2026) ---- */
+/* ---- Leitura em tela larga: o texto e o sumário parado ao lado (1120px em diante) ---- */
 .pd-leitura { display: grid; gap: 1.5rem; align-items: start; min-width: 0; }
 .pd-lado { display: none; }
 
-/* 1360px de janela: com o trilho de navegação à esquerda, sobram ~70rem para o texto e o sumário. */
-@media (min-width: 1360px) {
+@media (min-width: 1120px) {
   .pd-pagina { max-width: 82rem; }
-  .pd-leitura { grid-template-columns: minmax(0, 1fr) 19rem; gap: 2rem; }
-  /* O sumário de cima continua lá para quem chega; ao lado ele acompanha a leitura. */
+  .pd-leitura { grid-template-columns: minmax(0, 1fr) 15.5rem; gap: 1.25rem; }
   .pd-lado {
     position: sticky;
     top: 1.5rem;
@@ -424,6 +435,10 @@
     box-shadow: 3px 3px 0 0 #1f1f1f;
     overflow: hidden;
   }
+  .pd-sumario-mobile { display: none; }
+}
+@media (min-width: 1360px) {
+  .pd-leitura { grid-template-columns: minmax(0, 1fr) 18.5rem; gap: 2rem; }
 }
 .pd-lado-cabeca {
   display: grid;
@@ -463,7 +478,9 @@
 }
 .pd-lado-nav ol { margin: 0; padding: 0; list-style: none; }
 .pd-lado-nav a {
-  display: block;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
   padding: 0.375rem 0.625rem;
   border: 1.5px solid transparent;
   border-radius: 8px;
@@ -490,7 +507,7 @@
 }
 .pd-lado-filhos { display: none; margin: 0.125rem 0 0.375rem 0.75rem !important; padding-left: 0.5rem !important; border-left: 2px solid var(--color-muted, #e7e3d8); }
 .is-aberta > .pd-lado-filhos { display: block; }
-.pd-lado-filhos a { font-size: 0.8125rem; padding-block: 0.3rem; }
+.pd-lado-filhos a { font-size: 0.75rem; min-height: 44px; padding-block: 0.35rem; }
 .pd-lado-acoes {
   display: grid;
   gap: 0.5rem;
@@ -517,9 +534,12 @@
 .pd-lado-pdf > i { font-size: 1.375rem; }
 .pd-lado-pdf span { display: grid; line-height: 1.25; }
 .pd-lado-pdf b { font-family: var(--font-heading); font-size: 0.9375rem; }
-.pd-lado-pdf small { font-size: 0.8125rem; opacity: 0.9; }
+.pd-lado-pdf small { font-size: 0.75rem; }
 .pd-lado-link {
-  padding: 0.25rem 0.25rem;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.25rem;
   color: var(--color-primary);
   font-family: var(--font-heading);
   font-size: 0.875rem;
@@ -530,4 +550,326 @@
 .pd-lado a:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 2px; }
 @media (prefers-reduced-motion: no-preference) {
   .pd-lado-progresso > span { transition: transform 120ms linear; }
+}
+
+/* ---- Abas do painel, resumo, 14 fichas e painel financeiro (19/11/2026) ---- */
+.pd-painel-aba { display: grid; gap: 1.5rem; min-width: 0; }
+.pd-painel-aba[hidden],
+.pd-orc-cenario[hidden],
+.pd-ficha-resumo[hidden] { display: none; }
+
+.pd-card-papel {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: #fff;
+  color: var(--color-foreground);
+  border: 3px solid #1f1f1f;
+  border-radius: 12px;
+  box-shadow: 4px 4px 0 0 #1f1f1f;
+  min-width: 0;
+}
+@media (min-width: 768px) {
+  .pd-card-papel { padding: 1.5rem; }
+}
+.pd-nota-curta { margin: 0; font-size: 0.9375rem; line-height: 1.55; color: var(--color-content-secondary, #4a4740); }
+
+/* Três números em destaque (olhada) */
+.pd-olhada {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 720px) {
+  .pd-olhada { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+.pd-olhada-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1rem 1.125rem;
+  background: #fff;
+  border: 3px solid #1f1f1f;
+  border-radius: 12px;
+  box-shadow: 4px 4px 0 0 #1f1f1f;
+  font-variant-numeric: tabular-nums;
+}
+.pd-olhada-num {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(1.375rem, 1.2rem + 0.8vw, 1.75rem);
+  line-height: 1.1;
+  color: var(--color-primary);
+}
+.pd-olhada-rotulo {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 1.25;
+  color: var(--color-foreground);
+}
+.pd-olhada-desc {
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--color-content-secondary, #4a4740);
+}
+
+/* Linha do tempo dos marcos e rotinas fixas */
+.pd-crono-lista,
+.pd-rotinas-grid {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 720px) {
+  .pd-crono-lista { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pd-rotinas-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.pd-crono-item,
+.pd-rotina-item {
+  display: grid;
+  gap: 0.375rem;
+  padding: 0.875rem 1rem;
+  background: var(--color-background, #f6f1e7);
+  border: 2px solid #1f1f1f;
+  border-radius: 10px;
+}
+.pd-crono-item.is-destaque { background: #fff; box-shadow: 3px 3px 0 0 var(--color-accent); }
+.pd-crono-topo { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; }
+.pd-crono-data { font-family: var(--font-heading); font-weight: 700; font-size: 0.9375rem; color: var(--color-primary); font-variant-numeric: tabular-nums; }
+
+/* Filtros + 14 fichas resumidas */
+.pd-filtros { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.pd-filtro-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  min-height: 44px;
+  padding: 0.5rem 0.875rem;
+  border: 2px solid #1f1f1f;
+  border-radius: 10px;
+  background: #fff;
+  color: var(--color-foreground);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.875rem;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 0 #1f1f1f;
+}
+.pd-filtro-btn:hover { background: var(--color-muted); }
+.pd-filtro-btn.is-ativo {
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: none;
+  translate: 2px 2px;
+}
+.pd-filtro-btn:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 2px; }
+
+.pd-fichas-grid {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 768px) {
+  .pd-fichas-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.pd-ficha-resumo { display: flex; flex-direction: column; gap: 0.75rem; }
+.pd-ficha-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  min-height: 44px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+}
+
+/* Orçamento e cenários */
+.pd-orc { display: grid; gap: 1.5rem; min-width: 0; }
+.pd-orc-cabeca { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1rem; }
+.pd-orc-cenario { display: grid; gap: 1rem; }
+.pd-orc-premissa { margin: 0; font-size: 0.9375rem; line-height: 1.55; color: var(--color-foreground); }
+.pd-orc-kpis {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 0;
+}
+@media (min-width: 900px) {
+  .pd-orc-kpis { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+.pd-orc-kpis > div {
+  padding: 0.75rem 0.875rem;
+  background: var(--color-background, #f6f1e7);
+  border: 2px solid #1f1f1f;
+  border-radius: 10px;
+  font-variant-numeric: tabular-nums;
+}
+.pd-orc-kpis > div.is-destaque { background: var(--semente-teal, #266264); color: #fff; }
+.pd-orc-kpis dt {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-content-secondary, #4a4740);
+}
+.pd-orc-kpis > div.is-destaque dt { color: #fff; }
+.pd-orc-kpis dd {
+  margin: 0.25rem 0 0;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+.pd-orc-resumo-reservas { margin: 0; font-size: 0.875rem; line-height: 1.5; color: var(--color-foreground); font-variant-numeric: tabular-nums; }
+
+.pd-caixa-grafico {
+  position: relative;
+  height: 14rem;
+  padding: 1.5rem 0.5rem 0.25rem;
+  border: 2px solid #1f1f1f;
+  border-radius: 12px;
+  background: var(--color-background, #f6f1e7);
+  overflow-x: auto;
+}
+.pd-caixa-linha-reserva {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 2px dashed var(--color-accent);
+  pointer-events: none;
+  z-index: 2;
+}
+.pd-caixa-linha-reserva span {
+  position: absolute;
+  right: 0.5rem;
+  top: -1.35rem;
+  padding: 0.125rem 0.375rem;
+  border: 2px solid #1f1f1f;
+  border-radius: 4px;
+  background: var(--color-accent);
+  color: #1f1f1f;
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.pd-caixa-barras {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(11, minmax(2.5rem, 1fr));
+  gap: 0.375rem;
+  height: 100%;
+  min-width: 30rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  align-items: end;
+}
+.pd-caixa-col {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+  gap: 0.25rem;
+  align-items: end;
+  text-align: center;
+}
+.pd-caixa-valor {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-foreground);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.pd-caixa-trilha {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 100%;
+  min-height: 0;
+}
+.pd-caixa-barra {
+  display: block;
+  width: 72%;
+  min-height: 8px;
+  border: 2px solid #1f1f1f;
+  border-radius: 6px 6px 2px 2px;
+  background: var(--color-primary);
+}
+.pd-caixa-barra.is-pico { background: var(--semente-teal, #266264); }
+.pd-caixa-mes {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-foreground);
+}
+.pd-caixa-tabela-detalhe {
+  border: 2px solid #1f1f1f;
+  border-radius: 10px;
+  background: var(--color-background, #f6f1e7);
+  overflow: hidden;
+}
+.pd-caixa-tabela-detalhe summary {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.5rem 0.875rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+.pd-caixa-tabela-detalhe[open] summary { border-bottom: 2px solid #1f1f1f; }
+.pd-caixa-tabela-detalhe .pd-rolagem { border: 0; border-radius: 0; }
+
+.pd-orc-grade-dupla { display: grid; gap: 1.5rem; align-items: start; }
+@media (min-width: 900px) {
+  .pd-orc-grade-dupla { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.pd-orc-lista-simples { display: grid; gap: 0.875rem; margin: 0; padding: 0; list-style: none; }
+.pd-orc-lista-simples li {
+  display: grid;
+  gap: 0.25rem;
+  padding-top: 0.75rem;
+  border-top: 2px solid var(--color-muted, #e7e3d8);
+}
+.pd-orc-lista-simples li:first-child { padding-top: 0; border-top: 0; }
+.pd-orc-item-cabeca { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; }
+
+/* Gaveta mobile do sumário das 109 páginas */
+.pd-sumario-mobile {
+  border: 3px solid #1f1f1f;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 4px 4px 0 0 #1f1f1f;
+  overflow: hidden;
+}
+.pd-sumario-mobile summary {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: var(--color-primary);
+  cursor: pointer;
+}
+.pd-sumario-dentro {
+  border: 0;
+  border-top: 2px solid #1f1f1f;
+  border-radius: 0;
+  box-shadow: none;
 }

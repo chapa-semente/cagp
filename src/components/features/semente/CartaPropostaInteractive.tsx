@@ -6,18 +6,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { NeobrutalistMotionCard } from '@/components/ui/neobrutalist-motion-card';
 import { tactileSpring } from '@/lib/motion';
-import {
-  ContextMenu,
-  ContextMenuContent,
-  ContextMenuItem,
-  ContextMenuSeparator,
-  ContextMenuTrigger,
-} from '@/components/ui/context-menu';
-import { Copy, Link2 } from '@/components/ui/icons';
 import { useMasonryColumns } from '@/components/ui/expand';
-import { route } from '@/lib/paths';
-import { montarMensagem, urlAbsoluta } from '@/lib/compartilhar';
+import { asset, route } from '@/lib/paths';
 import { PROPOSTA_STOPS } from '@/lib/propostasTour';
+import { resumoExecucaoDaProposta } from '@/lib/planoExecucao';
 
 // O adesivo de cada cartão vem do tour (`jaFeito.selo`): uma fonte só para "o que já foi feito".
 const SELO_DA_PROPOSTA = new Map(PROPOSTA_STOPS.map((p) => [p.id, p.jaFeito?.selo]));
@@ -191,9 +183,17 @@ export const CARTA_PROPOSTAS_DATA: PropostaItem[] = [
   },
 ];
 
+type FiltroId = number | 'all' | 'gratis' | 'comecou';
+
+const RESUMO_POR_ID = new Map(CARTA_PROPOSTAS_DATA.map((p) => [p.id, resumoExecucaoDaProposta(p.id)] as const));
 const countEixo = (id: number) => CARTA_PROPOSTAS_DATA.filter((p) => p.eixoId === id).length;
-const EIXO_FILTERS: { id: number | 'all'; label: string; count: number }[] = [
+const countGratis = CARTA_PROPOSTAS_DATA.filter((p) => RESUMO_POR_ID.get(p.id)?.gratis).length;
+const countComecou = CARTA_PROPOSTAS_DATA.filter((p) => p.id === 3 || Boolean(SELO_DA_PROPOSTA.get(p.id))).length;
+
+const FILTROS: { id: FiltroId; label: string; count: number }[] = [
   { id: 'all', label: 'Todas', count: CARTA_PROPOSTAS_DATA.length },
+  { id: 'gratis', label: 'Sem custo no caixa', count: countGratis },
+  { id: 'comecou', label: 'Já no ar ou começou', count: countComecou },
   { id: 1, label: 'Transparência e gestão', count: countEixo(1) },
   { id: 2, label: 'Cultura e bem viver', count: countEixo(2) },
   { id: 3, label: 'Acadêmico e carreira', count: countEixo(3) },
@@ -201,37 +201,50 @@ const EIXO_FILTERS: { id: number | 'all'; label: string; count: number }[] = [
 ];
 
 export const CartaPropostaInteractive: React.FC = () => {
-  const [selectedEixo, setSelectedEixo] = useState<number | 'all'>('all');
+  const [selectedFiltro, setSelectedFiltro] = useState<FiltroId>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const propostasGridRef = useMasonryColumns<HTMLDivElement>();
   const filteredPropostas = useMemo(() => {
     return CARTA_PROPOSTAS_DATA.filter((item) => {
-      const matchEixo = selectedEixo === 'all' || item.eixoId === selectedEixo;
+      const resumo = RESUMO_POR_ID.get(item.id);
+      const matchFiltro =
+        selectedFiltro === 'all'
+          ? true
+          : selectedFiltro === 'gratis'
+            ? Boolean(resumo?.gratis)
+            : selectedFiltro === 'comecou'
+              ? item.id === 3 || Boolean(SELO_DA_PROPOSTA.get(item.id))
+              : item.eixoId === selectedFiltro;
       const q = searchQuery.toLowerCase().trim();
       const matchSearch =
         !q ||
         item.title.toLowerCase().includes(q) ||
         item.summary.toLowerCase().includes(q) ||
         item.fullText.toLowerCase().includes(q) ||
+        Boolean(resumo?.tituloPlano.toLowerCase().includes(q)) ||
+        Boolean(resumo?.impacto.toLowerCase().includes(q)) ||
+        Boolean(resumo?.primeiraEntrega.toLowerCase().includes(q)) ||
+        Boolean(resumo?.quemResponde.toLowerCase().includes(q)) ||
+        Boolean(resumo?.planoB.toLowerCase().includes(q)) ||
         item.tags.some((t) => t.toLowerCase().includes(q));
-      return matchEixo && matchSearch;
+      return matchFiltro && matchSearch;
     });
-  }, [selectedEixo, searchQuery]);
+  }, [selectedFiltro, searchQuery]);
 
   return (
     <div className="space-y-6">
-      {/* 2. FILTROS POR EIXO (4 EIXOS) E BUSCA */}
+      {/* 2. FILTROS POR CUSTO, SITUAÇÃO, EIXO E BUSCA */}
       <div id="propostas-grid" className="space-y-3">
         <div className="flex flex-col-reverse gap-3">
-          <div className="flex flex-wrap gap-2" role="group" aria-label="Filtrar por eixo">
-            {EIXO_FILTERS.map((f) => {
-              const active = selectedEixo === f.id;
+          <div className="flex flex-wrap gap-2" role="group" aria-label="Filtrar propostas">
+            {FILTROS.map((f) => {
+              const active = selectedFiltro === f.id;
               return (
                 <button
                   key={String(f.id)}
                   type="button"
                   aria-pressed={active}
-                  onClick={() => setSelectedEixo(f.id)}
+                  onClick={() => setSelectedFiltro(f.id)}
                   className={`min-h-[44px] px-3 rounded-lg border-2 border-border text-sm font-bold transition-all cursor-pointer ${
                     active ? 'bg-primary text-white shadow-none translate-x-[2px] translate-y-[2px]' : 'bg-white text-foreground shadow-sm hover:bg-muted'
                   }`}
@@ -245,8 +258,8 @@ export const CartaPropostaInteractive: React.FC = () => {
           <div className="w-full sm:max-w-sm">
             <Input
               type="search"
-              placeholder="Buscar nas 14 propostas"
-              aria-label="Buscar nas 14 propostas"
+              placeholder="Buscar proposta, data, FUMP, armário..."
+              aria-label="Buscar nas 14 propostas e no plano de execução"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="text-base min-h-[48px] border-3 border-border"
@@ -255,12 +268,12 @@ export const CartaPropostaInteractive: React.FC = () => {
         </div>
       </div>
 
-      {/* 3. GRID DE PROPOSTAS COM ANIMATEPRESENCE (TRANSIÇÃO ELÁSTICA SEM REDUÇÃO DE MOVIMENTO) */}
+      {/* 3. GRID DAS 14 FICHAS CONSOLIDADAS (sem ContextMenu; entrega e plano B na linha de frente) */}
       <motion.div ref={propostasGridRef} className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
-        {/* A carta fica aberta na página (13/11/2026): os cartões já nascem visíveis, sem esperar o JS. */}
         <AnimatePresence mode="popLayout" initial={false}>
           {filteredPropostas.map((item) => {
             const isProposta3 = item.id === 3;
+            const resumo = RESUMO_POR_ID.get(item.id);
             const selo = isProposta3 ? 'Já entregue: é este site' : SELO_DA_PROPOSTA.get(item.id);
             return (
               <motion.div
@@ -272,94 +285,119 @@ export const CartaPropostaInteractive: React.FC = () => {
                 transition={tactileSpring}
                 id={`proposta-${item.id}`}
               >
-                <ContextMenu>
-                  <ContextMenuTrigger asChild>
-                    <div>
-                      <NeobrutalistMotionCard
-                        className={`border-3 border-border transition-all flex flex-col justify-between cursor-context-menu overflow-hidden ${
-                          isProposta3
-                            ? 'bg-background shadow-[6px_6px_0_0_#FE8812] ring-2 ring-accent'
-                            : 'bg-card shadow-md hover:shadow-xl'
-                        }`}
-                      >
-                        <CardHeader className="p-4 pb-2 space-y-2">
-                          {selo && (
-                            <div className="flex items-center justify-between gap-2 pb-1">
-                              <span className="inline-flex items-center px-2.5 py-1 rounded-md bg-accent text-foreground border-2 border-border shadow-sm text-xs font-bold uppercase tracking-[0.04em] -rotate-1">
-                                {selo}
-                              </span>
-                            </div>
-                          )}
-                          <div className="flex items-center justify-between gap-2">
-                            <div className="flex items-center gap-2">
-                              <span
-                                className="w-8 h-8 rounded-lg flex items-center justify-center font-heading font-bold text-sm tabular-nums border-2 border-border"
-                                style={{ backgroundColor: item.eixoColor, color: item.eixoColor === '#FE8812' ? '#1F1F1F' : '#FFFFFF' }}
-                              >
-                                {item.id}
-                              </span>
-                              <Badge variant="outline" className="border-2 border-border text-xs font-bold bg-white">
-                                {item.eixoName}
-                              </Badge>
-                            </div>
-                          </div>
-                          <CardTitle className="font-heading text-lg font-bold text-foreground leading-snug">
-                            {item.title}
-                          </CardTitle>
-                        </CardHeader>
-
-                        <CardContent className="p-4 pt-1 space-y-3 flex-1 flex flex-col justify-between">
-                          <div className="space-y-3">
-                            <p className="text-base font-sans font-bold text-foreground leading-snug m-0">
-                              {item.summary}
-                            </p>
-                            {/* O texto inteiro da carta fica à vista: nada de "ler mais" (13/11/2026). */}
-                            <div className="font-sans space-y-1">
-                              <p className="m-0 font-heading text-sm font-bold text-foreground">Na carta-programa</p>
-                              <p className="m-0 text-base text-content-secondary leading-relaxed [text-wrap:pretty]">{item.fullText}</p>
-                            </div>
-                          </div>
-
-                          <div className="border-t-2 border-border/15">
-                            <a
-                              href={route(`/propostas/${item.id}`)}
-                              className="min-h-[44px] inline-flex items-center gap-1.5 text-sm font-bold text-primary underline underline-offset-[0.22em]"
-                              aria-label={`Abrir e compartilhar a proposta ${item.id}`}
-                            >
-                              Abrir e mandar
-                              <i className="bi bi-arrow-right" aria-hidden="true" />
-                            </a>
-                          </div>
-                        </CardContent>
-                      </NeobrutalistMotionCard>
+                <NeobrutalistMotionCard
+                  className={`border-3 border-border transition-all flex flex-col justify-between overflow-hidden ${
+                    isProposta3
+                      ? 'bg-background shadow-[6px_6px_0_0_#FE8812] ring-2 ring-accent'
+                      : 'bg-card shadow-md hover:shadow-xl'
+                  }`}
+                >
+                  <CardHeader className="p-4 pb-2 space-y-2.5">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      {selo ? (
+                        <span className="inline-flex items-center px-2.5 py-1 rounded-md bg-accent text-foreground border-2 border-border shadow-xs text-xs font-bold uppercase tracking-[0.04em] -rotate-1">
+                          {selo}
+                        </span>
+                      ) : resumo?.selo ? (
+                        <span className="inline-flex items-center px-2.5 py-1 rounded-md bg-white text-foreground border-2 border-border text-xs font-bold uppercase tracking-[0.04em]">
+                          {resumo.selo}
+                        </span>
+                      ) : (
+                        <span />
+                      )}
+                      {resumo?.custo && (
+                        <span
+                          className={`inline-flex items-center px-2.5 py-1 rounded-md border-2 border-border text-xs font-bold uppercase tracking-[0.04em] tabular-nums ${
+                            resumo.gratis ? 'bg-secondary text-white' : 'bg-white text-foreground'
+                          }`}
+                        >
+                          Custo: {resumo.custo}
+                        </span>
+                      )}
                     </div>
-                  </ContextMenuTrigger>
 
-                  <ContextMenuContent>
-                    <ContextMenuItem onClick={() => {
-                      const shareText = montarMensagem({
-                        corpo: `🌱 *Proposta ${item.id} da Chapa 2 · Semente: ${item.title}*\n${item.summary}`,
-                        url: urlAbsoluta(route(`/propostas/${item.id}`)),
-                        tom: 'convite',
-                      });
-                      navigator.clipboard.writeText(shareText);
-                      if (typeof navigator !== 'undefined' && 'vibrate' in navigator) navigator.vibrate(15);
-                      (window as any).cagpToast?.(`Proposta ${item.id} copiada para divulgação!`, 'bi-clipboard-check');
-                    }}>
-                      <Copy className="w-4 h-4 mr-2" />
-                      Copiar Texto para Compartilhar
-                    </ContextMenuItem>
-                    <ContextMenuSeparator />
-                    <ContextMenuItem onClick={() => {
-                      const url = urlAbsoluta(route(`/propostas/${item.id}`));
-                      navigator.clipboard.writeText(url);
-                      (window as any).cagpToast?.(`Link da Proposta ${item.id} copiado!`, 'bi-link-45deg');
-                    }}>
-                      <Link2 className="w-4 h-4 mr-2" />
-                      Copiar Link Direto
-                    </ContextMenuItem>
-                  </ContextMenuContent>
-                </ContextMenu>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span
+                        className="w-8 h-8 rounded-lg flex items-center justify-center font-heading font-bold text-sm tabular-nums border-2 border-border shrink-0"
+                        style={{ backgroundColor: item.eixoColor, color: item.eixoColor === '#FE8812' ? '#1F1F1F' : '#FFFFFF' }}
+                      >
+                        {item.id}
+                      </span>
+                      <Badge variant="outline" className="border-2 border-border text-xs font-bold bg-white">
+                        {item.eixoName}
+                      </Badge>
+                    </div>
+
+                    <CardTitle className="font-heading text-lg font-bold text-foreground leading-snug">
+                      {resumo?.tituloPlano ?? item.title}
+                    </CardTitle>
+                  </CardHeader>
+
+                  <CardContent className="p-4 pt-1 space-y-3 flex-1 flex flex-col justify-between">
+                    <div className="space-y-3">
+                      <p className="text-base font-sans text-foreground leading-relaxed m-0 [text-wrap:pretty]">
+                        {resumo?.impacto ?? item.summary}
+                      </p>
+
+                      {resumo && (
+                        <div className="rounded-lg border-2 border-border bg-white p-3 space-y-1.5 text-sm leading-snug">
+                          {resumo.primeiraEntrega && (
+                            <p className="m-0 text-foreground tabular-nums">
+                              <strong className="font-bold">1ª entrega ({resumo.primeiraData}):</strong> {resumo.primeiraEntrega}
+                            </p>
+                          )}
+                          {resumo.quemResponde && (
+                            <p className="m-0 text-content-secondary">
+                              <strong className="font-bold text-foreground">Quem responde:</strong> {resumo.quemResponde}
+                            </p>
+                          )}
+                          {resumo.planoB && (
+                            <p className="m-0 text-content-secondary">
+                              <strong className="font-bold text-foreground">Plano B:</strong> {resumo.planoB}
+                            </p>
+                          )}
+                          {(item.id === 3 || !resumo.gratis) && resumo.custoNota && (
+                            <p className="m-0 text-content-secondary">
+                              <strong className="font-bold text-foreground">Nota do custo:</strong> {resumo.custoNota}
+                            </p>
+                          )}
+                        </div>
+                      )}
+
+                      <details className="rounded-lg border-2 border-border bg-white">
+                        <summary className="min-h-[44px] px-3 flex items-center justify-between gap-2 text-sm font-bold text-foreground cursor-pointer list-none">
+                          <span>Ver texto original da carta-programa</span>
+                          <i className="bi bi-chevron-down text-xs shrink-0" aria-hidden="true" />
+                        </summary>
+                        <div className="px-3 pb-3 pt-2 text-sm text-content-secondary leading-relaxed border-t-2 border-border space-y-1">
+                          <p className="m-0 font-bold text-foreground">{item.title}</p>
+                          <p className="m-0 [text-wrap:pretty]">{item.fullText}</p>
+                        </div>
+                      </details>
+                    </div>
+
+                    <div className="border-t-2 border-border pt-2 flex flex-wrap items-center justify-between gap-2">
+                      <a
+                        href={`${route(`/propostas/${item.id}`)}#plano`}
+                        className="min-h-[44px] inline-flex items-center gap-1.5 text-sm font-bold text-primary underline underline-offset-[0.22em]"
+                      >
+                        Ver cronograma e plano B
+                        <i className="bi bi-arrow-right" aria-hidden="true" />
+                      </a>
+                      {resumo?.boletimPdf && (
+                        <a
+                          href={asset(resumo.boletimPdf)}
+                          target="_blank"
+                          rel="noopener"
+                          className="min-h-[44px] px-3 inline-flex items-center gap-1.5 rounded-lg border-2 border-border bg-white text-xs font-bold uppercase tracking-[0.03em] text-foreground no-underline hover:bg-muted"
+                        >
+                          <i className="bi bi-file-earmark-pdf text-primary" aria-hidden="true" />
+                          Boletim PDF
+                        </a>
+                      )}
+                    </div>
+                  </CardContent>
+                </NeobrutalistMotionCard>
               </motion.div>
             );
           })}
@@ -376,12 +414,12 @@ export const CartaPropostaInteractive: React.FC = () => {
             variant="outline"
             size="sm"
             onClick={() => {
-              setSelectedEixo('all');
+              setSelectedFiltro('all');
               setSearchQuery('');
             }}
-            className="mt-3"
+            className="mt-3 min-h-[44px]"
           >
-            Limpar Filtros
+            Limpar filtros
           </Button>
         </div>
       )}

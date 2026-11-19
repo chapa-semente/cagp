@@ -72,8 +72,27 @@ const ehParte = /^Parte /.test(puro(secao.cabeca.html));
       );
     }
 
+    if (b.tipo === 'olhada') {
+      return (
+        <figure class="pd-elemento">
+          <figcaption class="pd-legenda" set:html={legenda(b)} />
+          <ul class="pd-olhada" role="list">
+            {b.linhas.map(([num, rotulo, desc]) => (
+              <li class="pd-olhada-card">
+                <strong class="pd-olhada-num" set:html={num ?? ''} />
+                <span class="pd-olhada-rotulo" set:html={rotulo ?? ''} />
+                {desc && <span class="pd-olhada-desc" set:html={desc} />}
+              </li>
+            ))}
+          </ul>
+          {b.fonte && <p class="pd-fonte">Fonte: <span set:html={b.fonte} /></p>}
+        </figure>
+      );
+    }
+
     const cronograma = b.tipo === 'cronograma';
     const colunas = b.cab.length;
+    const rolavel = colunas >= 3;
     return (
       <figure class:list={['pd-elemento', cronograma && 'is-cronograma']}>
         <figcaption class="pd-legenda" set:html={legenda(b)} />
@@ -85,10 +104,10 @@ const ehParte = /^Parte /.test(puro(secao.cabeca.html));
         )}
         <div
           class="pd-rolagem"
-          style={colunas >= 4 ? `--pd-min:${cronograma ? 9.5 + (colunas - 1) * 2.5 : Math.min(colunas * 8.5, 64)}rem` : undefined}
-          tabindex={colunas >= 4 ? 0 : undefined}
-          role={colunas >= 4 ? 'region' : undefined}
-          aria-label={colunas >= 4 ? `${puro(legenda(b))} (role para o lado)` : undefined}
+          style={rolavel ? `--pd-min:${cronograma ? 9.5 + (colunas - 1) * 2.5 : Math.min(colunas * 9.5, 64)}rem` : undefined}
+          tabindex={rolavel ? 0 : undefined}
+          role={rolavel ? 'region' : undefined}
+          aria-label={rolavel ? `${puro(legenda(b))} (role para o lado)` : undefined}
         >
           <table>
             <thead>

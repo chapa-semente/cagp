@@ -8,7 +8,7 @@
 
 import { asset, route } from '@/lib/paths';
 import { CHAPA_LEADERS, type LeaderInfo } from '@/lib/chapaSementeData';
-import { montarMensagem } from '@/lib/compartilhar';
+import { CONVITE_RETA_FINAL, montarMensagem } from '@/lib/compartilhar';
 import type { UserRole } from '@/lib/storage/studentVault';
 
 export type TourLeaderId =
@@ -251,8 +251,18 @@ export interface SementeTourState {
   peloApp?: boolean;
 }
 
-/** Sequência de 12/11/2026 (noite): vídeo, momento do curso, uma tela por pessoa, carteirinha, votação. */
-export const TOUR_SEQUENCIA = 3;
+/**
+ * As 3 propostas consolidadas com mais impacto direto em cada momento do curso (Tela 2 do Tour Reta Final).
+ */
+export const TOUR_PROPOSTAS_POR_PERFIL: Record<UserRole, readonly [number, number, number]> = {
+  calouro: [7, 3, 14],
+  veterano: [1, 12, 5],
+  formando: [9, 10, 6],
+  ingressar: [3, 7, 1],
+};
+
+/** Sequência de 19/11/2026 (Reta Final): 3 telas (plano em 15s, perfil + 3 propostas, debate/votação). */
+export const TOUR_SEQUENCIA = 4;
 
 export function loadSementeTour(): SementeTourState | null {
   try {
@@ -274,12 +284,12 @@ export function saveSementeTour(state: SementeTourState): void {
   }
 }
 
-/** Convite do fim do tour (o tour não sabe se a pessoa instalou nada, então não afirma isso). */
+/** Convite do fim do tour (Fase 2: propostas com data, custo e plano B). */
 export function getTourShareUrl(): string {
   const base = document.documentElement.dataset.baseUrl || '/';
   const siteUrl = `${window.location.origin}${base.endsWith('/') ? base : `${base}/`}`;
   const text = montarMensagem({
-    corpo: `🌱 A Semente é a Chapa 2 na eleição do CAGP e já pôs no ar um site com os guias do curso: documentos, estágio, 600h, FUMP, calouros.\nDá uma olhada e conhece as ${CHAPA_LEADERS.length} pessoas da chapa:`,
+    corpo: CONVITE_RETA_FINAL,
     url: siteUrl,
     tom: 'convite',
   });

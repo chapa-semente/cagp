@@ -10,7 +10,8 @@ import { CARTA_PROPOSTAS_DATA } from '@/components/features/semente/CartaPropost
 import { CHAPA_LEADERS, CHAPA_ROTULO, getLeaderPhotoUrl } from '@/lib/chapaSementeData';
 import { PROPOSTA_EIXOS, PROPOSTA_STOPS } from '@/lib/propostasTour';
 import { previaDaProposta } from '@/lib/previas';
-import { planoDaProposta } from '@/lib/planoExecucao';
+import { planoDaProposta, resumoExecucaoDaProposta } from '@/lib/planoExecucao';
+import { PLANO_FUMP_40 } from '@/lib/planoResumoData';
 import PlanoDaProposta from '@/components/features/semente/PlanoDaProposta.astro';
 import { asset, route } from '@/lib/paths';
 import '@/styles/campanha-detalhe.css';
@@ -26,19 +27,22 @@ const eixo = PROPOSTA_EIXOS.find((e) => e.id === carta.eixoId)!;
 const pessoa = CHAPA_LEADERS.find((l) => l.id === proposta.leaderId)!;
 const foto = getLeaderPhotoUrl(pessoa.photoFilename, 'thumb');
 const previa = previaDaProposta(proposta);
-// O plano de execução da proposta (18/11/2026): datas, custo, quem responde e plano B.
+// O plano de execução da proposta (19/11/2026): datas, custo, quem responde e plano B na frente.
 const plano = planoDaProposta(proposta.id);
-const primeiroPasso = plano?.quando[0];
+const resumo = resumoExecucaoDaProposta(proposta.id);
 const anterior = PROPOSTA_STOPS.find((p) => p.id === proposta.id - 1);
 const proxima = PROPOSTA_STOPS.find((p) => p.id === proposta.id + 1);
 // Tom chapado mais fundo de cada eixo, para a folha de fundo (o mesmo dos banners).
 const FUNDO: Record<number, string> = { 1: '#733C20', 2: '#5CA032', 3: '#1D5052', 4: '#F5B41F' };
+const tituloHero = resumo?.tituloPlano ?? proposta.titulo;
+const ledeHero = resumo?.impacto ?? proposta.compromisso;
+const seloHero = proposta.id === 3 ? 'Já entregue: é este site' : proposta.jaFeito?.selo ?? resumo?.selo ?? '';
 const legenda = [
-  `Proposta ${proposta.id} de ${total}: ${proposta.titulo}.`,
+  `Proposta ${proposta.id} de ${total}: ${tituloHero}.`,
   '',
-  proposta.compromisso,
+  ledeHero,
   '',
-  `As ${total} propostas e o site do curso estão no link da bio.`,
+  `As ${total} propostas e o plano completo estão no link da bio.`,
   'Eleição do CAGP: 25 e 26/11, das 17h às 22h30, na sala do CAGP (FAFICH).',
   '',
   '#GestãoPúblicaUFMG #CAGP #ChapaSemente #Chapa2',
@@ -48,7 +52,7 @@ const legenda = [
 <BaseLayout
   mode="persuade"
   hideFloatingPill
-  title={`Proposta ${proposta.id}: ${proposta.titulo}`}
+  title={`Proposta ${proposta.id}: ${tituloHero}`}
   description={previa.descricao}
 >
   <div class="cd-page">
@@ -63,20 +67,33 @@ const legenda = [
           <span class="sk-chapa-num-rotulo">Nº</span>
           <span class="sk-chapa-num-n">{proposta.id}</span>
         </p>
-        <p class="cd-etiqueta m-0">Proposta {proposta.id} de {total} · {eixo.nome}</p>
+        <div class="cd-hero-selos">
+          <span class="cd-etiqueta">Proposta {proposta.id} de {total} · {eixo.nome}</span>
+          {seloHero && <span class="sk-adesivo">{seloHero}</span>}
+          {resumo?.custo && (
+            <span class="cd-etiqueta tabular-nums">Custo: {resumo.custo}</span>
+          )}
+        </div>
       </div>
+
       <div class="cd-hero-texto">
-        <h1 id="cd-titulo" class="cd-titulo">{proposta.titulo}</h1>
-        <p class="cd-lede">{proposta.compromisso}</p>
+        <h1 id="cd-titulo" class="cd-titulo">{tituloHero}</h1>
+        <p class="cd-lede">{ledeHero}</p>
+        {resumo?.primeiraEntrega && (
+          <p class="cd-hero-entrega tabular-nums">
+            <strong>1ª entrega ({resumo.primeiraData}):</strong> {resumo.primeiraEntrega}
+          </p>
+        )}
       </div>
+
       <div class="cd-acoes">
-        <BotaoCompartilhar corpo={previa.mensagem} tom="convite" titulo={previa.titulo} rotulo="Mandar essa proposta" />
         {plano && (
-          <a href="#plano" class="sk-btn">
+          <a href="#plano" class="sk-btn sk-btn-folha">
             <i class="bi bi-calendar-check" aria-hidden="true"></i>
-            Quando e quanto custa
+            Cronograma e plano B
           </a>
         )}
+        <BotaoCompartilhar corpo={previa.mensagem} tom="convite" titulo={previa.titulo} rotulo="Mandar essa proposta" />
         {proposta.prova && (
           <a href={route(proposta.prova.href)} class="sk-btn">
             {proposta.prova.label}
@@ -86,15 +103,8 @@ const legenda = [
       </div>
     </section>
 
-    <section class="cd-ficha cd-fala" aria-label={`Quem puxa esta proposta: ${pessoa.name}`}>
-      {foto && <img src={foto} alt="" width="72" height="72" class="cd-avatar" loading="lazy" decoding="async" />}
-      <div class="min-w-0">
-        <p class="cd-citacao">{proposta.porque}</p>
-        <p class="cd-fala-quem">
-          <a href={route(`/chapa-semente/${pessoa.id}`)}>{pessoa.name}</a>, {pessoa.role}
-        </p>
-      </div>
-    </section>
+    {/* O plano de execução vem imediatamente após o topo (modo Persuade) */}
+    {plano && <PlanoDaProposta plano={plano} semCabecaDuplicada />}
 
     {proposta.jaFeito && (
       <section class="cd-ficha cd-feito" aria-labelledby="cd-feito">
@@ -103,24 +113,49 @@ const legenda = [
       </section>
     )}
 
-    {!proposta.jaFeito && plano && primeiroPasso && (
-      <section class="cd-ficha cd-feito" aria-labelledby="cd-feito">
-        <h2 id="cd-feito" class="cd-feito-selo">{plano.selo}</h2>
-        <p class="cd-citacao"><strong set:html={primeiroPasso.forte} />: <span set:html={primeiroPasso.texto} /></p>
-      </section>
-    )}
-    <section class="cd-secao" aria-labelledby="cd-carta">
-      <h2 id="cd-carta" class="cd-h2">O que diz a carta-programa</h2>
-      <p class="cd-texto">{carta.fullText}</p>
-      <a href={route('/chapa-semente') + '#carta'} class="cd-link">Ler as {total} propostas</a>
+    <section class="cd-ficha cd-fala" aria-label={`Quem puxa esta proposta: ${pessoa.name}`}>
+      {foto && <img src={foto} alt="" width="72" height="72" class="cd-avatar" loading="lazy" decoding="async" />}
+      <div class="min-w-0">
+        <p class="cd-citacao">{proposta.porque}</p>
+        <p class="cd-fala-quem">
+          <a href={route(`/chapa-semente/${pessoa.id}`)}>{pessoa.name}</a> · {pessoa.role}
+        </p>
+      </div>
     </section>
 
-    {plano && <PlanoDaProposta plano={plano} />}
+    {proposta.id === 7 && (
+      <section class="cagp-folha space-y-3" aria-labelledby="cd-fump-40">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="sk-adesivo tabular-nums">{PLANO_FUMP_40.desconto} FUMP</span>
+          <h2 id="cd-fump-40" class="cd-h2">{PLANO_FUMP_40.titulo}</h2>
+        </div>
+        <ul class="m-0 pl-5 space-y-1.5 text-sm leading-relaxed text-foreground">
+          <li>{PLANO_FUMP_40.publico}</li>
+          <li class="tabular-nums">{PLANO_FUMP_40.teto}</li>
+          <li>{PLANO_FUMP_40.prioridade}</li>
+          <li>{PLANO_FUMP_40.conferencia}</li>
+          <li>{PLANO_FUMP_40.transparencia}</li>
+        </ul>
+      </section>
+    )}
+
+    <section class="cagp-folha" aria-labelledby="cd-carta">
+      <details class="cd-carta-recolhida">
+        <summary id="cd-carta">
+          <span>Ver texto original da carta-programa ({carta.title})</span>
+          <i class="bi bi-chevron-down text-sm shrink-0" aria-hidden="true"></i>
+        </summary>
+        <div class="cd-carta-corpo">
+          <p class="cd-texto">{carta.fullText}</p>
+          <a href={route('/chapa-semente') + '#carta'} class="cd-link">Ver todas as {total} fichas</a>
+        </div>
+      </details>
+    </section>
 
     <section class="cd-ficha cd-kit" aria-labelledby="cd-kit">
       <img
         src={asset(`/og/kit/feed-proposta-${proposta.id}.jpg`)}
-        alt={`Arte da proposta ${proposta.id} para o feed: ${proposta.titulo}`}
+        alt={`Arte da proposta ${proposta.id} para o feed: ${tituloHero}`}
         width="1080"
         height="1350"
         class="cd-kit-arte"
@@ -143,7 +178,28 @@ const legenda = [
       </div>
     </section>
 
-    <nav class="cd-vizinhos" aria-label="Outras propostas">
+    <nav class="cd-salto" aria-label="Ir direto para outra proposta">
+      <span class="cd-salto-rotulo">Ir direto:</span>
+      <ul class="cd-salto-lista" role="list">
+        {PROPOSTA_STOPS.map((p) => {
+          const ativa = p.id === proposta.id;
+          return (
+            <li>
+              <a
+                href={route(`/propostas/${p.id}`)}
+                class="cd-salto-btn"
+                aria-current={ativa ? 'page' : undefined}
+                aria-label={`Proposta ${p.id}: ${p.titulo}`}
+              >
+                {p.id}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+
+    <nav class="cd-vizinhos" aria-label="Proposta anterior e próxima">
       {anterior ? (
         <a href={route(`/propostas/${anterior.id}`)} class="cd-vizinho">
           <small>Proposta {anterior.id}</small>

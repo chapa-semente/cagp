@@ -10,8 +10,9 @@
   "paginas": {
     "/": {
       "titulo": "O site do curso de Gestão Pública, feito pela Chapa 2",
-      "descricao": "Estágio, 600h, FUMP e documentos, passo a passo. Conheça a Semente: eleição do CAGP em 25 e 26/11.",
+      "descricao": "Guias práticos do curso e o plano das 14 propostas da Semente: data, custo (9/14 a R$ 0), 40% FUMP e plano B. Debate 24/11 e votação 25–26/11.",
       "emoji": "🌱",
+      "mensagem": "A Chapa 2 · Semente colocou no ar os guias do curso e o plano completo das 14 propostas (9/14 a R$ 0, 100 dias e 40% de desconto pra fumpistas na calourada):",
       "imagem": "home",
       "banner": { "molde": "home" }
     },
@@ -225,9 +226,10 @@
       "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "Quem é quem na UFMG", "gancho": ["Quem {decide}", "o quê na UFMG?"], "sub": ["Conselhos, pró-reitorias e órgãos."], "arte": "grade" }
     },
     "/chapa-semente": {
-      "titulo": "Chapa 2 · Semente: 12 pessoas, 14 propostas, 1 site no ar",
-      "descricao": "Conheça quem são e o que propõem para o CAGP. Eleição em 25 e 26/11, das 17h às 22h30.",
+      "titulo": "Chapa 2 · Semente: 14 propostas com data, custo e plano B",
+      "descricao": "Conheça o plano consolidado da Chapa 2: 9/14 propostas a R$ 0, 100 dias de entregas, 40% FUMP na calourada e plano B. Eleição em 25 e 26/11.",
       "emoji": "💜🧡",
+      "mensagem": "A Chapa 2 · Semente publicou o plano das 14 propostas com data, custo (9/14 a R$ 0), 40% FUMP e plano B:",
       "imagem": "chapa",
       "banner": { "molde": "chapa" }
     },
@@ -241,9 +243,9 @@
     },
     "/chapa-semente/plano": {
       "titulo": "O plano da Chapa 2: cada proposta com data, custo e quem responde",
-      "descricao": "As 14 propostas da Semente com prazo, custo e plano B. Nove não tiram dinheiro do caixa do CA. O plano inteiro em PDF e no site.",
+      "descricao": "As 14 propostas da Semente com prazo, custo, 40% FUMP e plano B. Nove custam R$ 0. Resumo de 1 minuto, orçamento em 3 cenários e PDF de 1 página.",
       "emoji": "🗓️",
-      "mensagem": "A Chapa 2 · Semente mostra quando cada proposta sai do papel, quanto custa e quem responde. Dá pra ler inteiro no celular:",
+      "mensagem": "A Chapa 2 · Semente mostra quando cada proposta sai do papel, quanto custa (9/14 a R$ 0), os 40% FUMP e o orçamento em 3 cenários:",
       "imagem": "p-plano",
       "banner": { "molde": "pagina", "aba": "chapa", "etiqueta": "O plano da Semente", "gancho": [ "Cada proposta", "com {data}." ], "sub": [ "Prazo, custo e quem responde,", "em PDF e no site." ], "arte": "fichas" }
     },

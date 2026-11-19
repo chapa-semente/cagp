@@ -1,0 +1,274 @@
+---
+// PlanoPainelOrcamento.astro — Painel interativo de cenários, caixa mensal, reservas e regras do Plano (zero React).
+import {
+  PLANO_CAIXA_MENSAL,
+  PLANO_CALOURADA_CONJUNTA,
+  PLANO_GATILHO_RESERVA,
+  PLANO_ORCAMENTO_BASE_2026,
+  PLANO_ORCAMENTO_CENARIOS,
+  PLANO_ORCAMENTO_COMPARATIVO,
+  PLANO_PRIORIDADES_CORTE,
+  PLANO_REGRAS_EXECUCAO,
+  PLANO_RESERVAS,
+  type CenarioId,
+} from '@/lib/planoResumoData';
+
+const CENARIOS_ORDEM: CenarioId[] = ['pessimista', 'regular', 'otimista'];
+const TETO_GRAFICO = 12000;
+const PISO_RESERVA = 4500;
+const PISO_PCT = ((PISO_RESERVA / TETO_GRAFICO) * 100).toFixed(2);
+---
+
+<div class="pd-orc" data-orc-painel>
+  <!-- 1. Base neutra de 2026 + Seletor dos 3 cenários -->
+  <section class="pd-card-papel" aria-labelledby="pd-orc-cenarios-title">
+    <div class="pd-orc-cabeca">
+      <div class="space-y-1">
+        <h2 id="pd-orc-cenarios-title" class="pd-h2-curto">Três cenários para 2026–2027</h2>
+        <p class="pd-nota-curta">
+          Base de partida: caixa em out/2026 de <strong class="tabular-nums">{PLANO_ORCAMENTO_BASE_2026.saldoFinal}</strong>.{' '}
+          {PLANO_ORCAMENTO_BASE_2026.fonte}
+        </p>
+      </div>
+      <div class="pd-filtros" role="group" aria-label="Escolher cenário financeiro">
+        {CENARIOS_ORDEM.map((id) => {
+          const cen = PLANO_ORCAMENTO_CENARIOS[id];
+          const ativo = id === 'regular';
+          return (
+            <button
+              type="button"
+              class:list={['pd-filtro-btn', ativo && 'is-ativo']}
+              data-cenario-btn={id}
+              aria-pressed={ativo ? 'true' : 'false'}
+            >
+              {cen.nome}
+              {id === 'regular' ? ' (base)' : ''}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+
+    {CENARIOS_ORDEM.map((id) => {
+      const c = PLANO_ORCAMENTO_CENARIOS[id];
+      const ativo = id === 'regular';
+      return (
+        <div class="pd-orc-cenario" data-cenario-painel={id} hidden={!ativo}>
+          <p class="pd-orc-premissa">
+            <strong>Premissa ({c.nome}):</strong> {c.premissa}
+          </p>
+          <dl class="pd-orc-kpis">
+            <div>
+              <dt>Receitas previstas</dt>
+              <dd>{c.receitas}</dd>
+            </div>
+            <div>
+              <dt>Despesas (teto)</dt>
+              <dd>{c.despesas}</dd>
+            </div>
+            <div>
+              <dt>Resultado do ano</dt>
+              <dd>{c.resultado}</dd>
+            </div>
+            <div class="is-destaque">
+              <dt>Saldo ao fim do mandato</dt>
+              <dd>{c.saldoFinal}</dd>
+            </div>
+            <div>
+              <dt>Armário (prop. 5)</dt>
+              <dd>{c.armario}</dd>
+            </div>
+            <div>
+              <dt>CNPJ (prop. 4)</dt>
+              <dd>{c.cnpj}</dd>
+            </div>
+            <div>
+              <dt>Patrimônio votado (30%)</dt>
+              <dd>{c.patrimonioVotado}</dd>
+            </div>
+            <div>
+              <dt>Desconto 40% FUMP</dt>
+              <dd>{c.descontoFump}</dd>
+            </div>
+          </dl>
+          <p class="pd-orc-resumo-reservas">
+            <strong>Reserva de funcionamento:</strong> {c.reservaFuncionamento} ·{' '}
+            <strong>Reserva CNPJ:</strong> {c.reservaCnpj} ·{' '}
+            <strong>Margem livre:</strong> {c.margemLivre}
+          </p>
+          <p class="pd-nota">{c.nota}</p>
+        </div>
+      );
+    })}
+  </section>
+
+  <!-- 2. Caixa mês a mês (CSS puro, barra + linha do gatilho R$ 4.500,00) -->
+  <section class="pd-card-papel" aria-labelledby="pd-orc-caixa-title">
+    <h2 id="pd-orc-caixa-title" class="pd-h2-curto">Caixa mês a mês no cenário regular</h2>
+    <p class="pd-nota-curta">
+      Em nenhum mês previsto o caixa fica abaixo da reserva mínima de <strong class="tabular-nums">R$ 4.500,00</strong>.
+      O pico vem após as calouradas de março e setembro; armário, CNPJ e compras votadas só saem depois de junho.
+    </p>
+    <div class="pd-caixa-grafico" role="img" aria-label="Evolução mensal do saldo de caixa de dezembro a outubro, sempre entre R$ 5.513,47 e R$ 10.739,06, acima da linha de reserva de R$ 4.500,00.">
+      <div class="pd-caixa-linha-reserva" style={`bottom:${PISO_PCT}%`}>
+        <span>Reserva R$ 4.500</span>
+      </div>
+      <ol class="pd-caixa-barras" role="list">
+        {PLANO_CAIXA_MENSAL.map((m) => {
+          const pct = Math.min(100, Math.round((m.saldoNum / TETO_GRAFICO) * 100));
+          const pico = m.saldoNum >= 9500;
+          return (
+            <li class="pd-caixa-col">
+              <span class="pd-caixa-valor" title={`Saldo em ${m.mes}: ${m.saldo}`}>
+                {m.saldo.replace('R$ ', '').replace(/,\d{2}$/, '')}
+              </span>
+              <span class="pd-caixa-trilha">
+                <span class:list={['pd-caixa-barra', pico && 'is-pico']} style={`height:${pct}%`}></span>
+              </span>
+              <span class="pd-caixa-mes">{m.mes}</span>
+            </li>
+          );
+        })}
+      </ol>
+    </div>
+    <details class="pd-caixa-tabela-detalhe">
+      <summary>Ver tabela mês a mês (entradas, saídas e saldo)</summary>
+      <div class="pd-rolagem" tabindex="0" role="region" aria-label="Tabela mensal do caixa (role para o lado)">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Mês</th>
+              <th scope="col">Entradas</th>
+              <th scope="col">Saídas</th>
+              <th scope="col">Saldo final</th>
+            </tr>
+          </thead>
+          <tbody>
+            {PLANO_CAIXA_MENSAL.map((m) => (
+              <tr>
+                <th scope="row" class="uppercase">{m.mes}</th>
+                <td>{m.entradas}</td>
+                <td>{m.saidas}</td>
+                <td><strong>{m.saldo}</strong></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </details>
+  </section>
+
+  <!-- 3. Tabela neutra Base 2026 x Previsto 2027 -->
+  <section class="pd-card-papel" aria-labelledby="pd-orc-comp-title">
+    <h2 id="pd-orc-comp-title" class="pd-h2-curto">Base 2026 × Previsto 2027 (rubrica por rubrica)</h2>
+    <p class="pd-nota-curta">{PLANO_ORCAMENTO_BASE_2026.notaNaoRecorrente}</p>
+    <div class="pd-rolagem" tabindex="0" role="region" aria-label="Comparativo 2026 por 2027 (role para o lado)" style="--pd-min:36rem">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Rubrica</th>
+            <th scope="col">Base 2026</th>
+            <th scope="col">Previsto 2027</th>
+            <th scope="col">De onde vem o número</th>
+          </tr>
+        </thead>
+        <tbody>
+          {PLANO_ORCAMENTO_COMPARATIVO.map((l) => (
+            <tr class:list={[l.destaque && 'is-grupo']}>
+              <th scope="row">{l.rubrica}</th>
+              <td>{l.base2026}</td>
+              <td><strong>{l.previsto2027}</strong></td>
+              <td>{l.nota}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 4. Reservas + Gatilho de segurança + Regras + Prioridades de corte -->
+  <div class="pd-orc-grade-dupla">
+    <section class="pd-card-papel" aria-labelledby="pd-orc-reservas-title">
+      <h2 id="pd-orc-reservas-title" class="pd-h2-curto">Reservas e gatilho automático</h2>
+      <ul class="pd-orc-lista-simples" role="list">
+        {PLANO_RESERVAS.map((r) => (
+          <li>
+            <div class="pd-orc-item-cabeca">
+              <strong>{r.nome}</strong>
+              <span class="pd-selo is-claro tabular-nums">{r.valor}</span>
+            </div>
+            <p class="m-0 text-sm text-content-secondary">{r.finalidade}</p>
+          </li>
+        ))}
+      </ul>
+      <aside class="pd-nota">
+        <strong>{PLANO_GATILHO_RESERVA}</strong>
+      </aside>
+    </section>
+
+    <section class="pd-card-papel" aria-labelledby="pd-orc-corte-title">
+      <h2 id="pd-orc-corte-title" class="pd-h2-curto">O que cede primeiro se faltar recurso</h2>
+      <ul class="pd-orc-lista-simples" role="list">
+        {PLANO_PRIORIDADES_CORTE.map((p, idx) => (
+          <li>
+            <div class="pd-orc-item-cabeca">
+              <span class:list={['pd-selo', idx > 0 && 'is-claro']}>{p.nivel}</span>
+            </div>
+            <p class="m-0 text-sm font-bold text-foreground">{p.propostas}</p>
+            <p class="m-0 text-sm text-content-secondary">{p.regra}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </div>
+
+  <!-- 5. As 7 regras de execução -->
+  <section class="pd-card-papel" aria-labelledby="pd-orc-regras-title">
+    <h2 id="pd-orc-regras-title" class="pd-h2-curto">Sete regras que travam gastos</h2>
+    <ol class="pd-lista">
+      {PLANO_REGRAS_EXECUCAO.map((regra) => (
+        <li>{regra}</li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- 6. Possibilidade: calourada conjunta (rotulada explicitamente, fora do orçamento base) -->
+  <section class="pd-card-papel" aria-labelledby="pd-orc-conjunta-title">
+    <div class="flex flex-wrap items-center gap-2">
+      <span class="pd-selo">{PLANO_CALOURADA_CONJUNTA.selo}</span>
+      <h2 id="pd-orc-conjunta-title" class="pd-h2-curto">{PLANO_CALOURADA_CONJUNTA.titulo}</h2>
+    </div>
+    <p class="m-0 text-base leading-relaxed text-foreground">{PLANO_CALOURADA_CONJUNTA.resumo}</p>
+    <p class="m-0 text-sm text-content-secondary tabular-nums">
+      Efeito calculado se sair no 1º semestre de 2027: saldo regular previsto passaria para{' '}
+      <strong class="text-foreground">{PLANO_CALOURADA_CONJUNTA.impactoSaldoRegular}</strong> ({PLANO_CALOURADA_CONJUNTA.diferencaRegular};{' '}
+      patrimônio votado {PLANO_CALOURADA_CONJUNTA.diferencaPatrimonio}).
+    </p>
+  </section>
+</div>
+
+<script>
+  function iniciarCenariosOrcamento() {
+    document.querySelectorAll<HTMLElement>('[data-orc-painel]').forEach((raiz) => {
+      if (raiz.dataset.cagpOrcBound === '1') return;
+      raiz.dataset.cagpOrcBound = '1';
+      const botoes = raiz.querySelectorAll<HTMLButtonElement>('[data-cenario-btn]');
+      const paineis = raiz.querySelectorAll<HTMLElement>('[data-cenario-painel]');
+      botoes.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const alvo = btn.dataset.cenarioBtn;
+          botoes.forEach((b) => {
+            const ativo = b.dataset.cenarioBtn === alvo;
+            b.classList.toggle('is-ativo', ativo);
+            b.setAttribute('aria-pressed', ativo ? 'true' : 'false');
+          });
+          paineis.forEach((p) => {
+            p.hidden = p.dataset.cenarioPainel !== alvo;
+          });
+        });
+      });
+    });
+  }
+  iniciarCenariosOrcamento();
+  document.addEventListener('astro:page-load', iniciarCenariosOrcamento);
+</script>

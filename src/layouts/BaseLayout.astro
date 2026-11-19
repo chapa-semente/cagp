@@ -41,6 +41,8 @@ interface Props {
   activeGroup?: string;
   /** Esconde a pílula flutuante "Ativar app" (páginas de campanha já têm sua própria ação). */
   hideFloatingPill?: boolean;
+  /** Esconde a faixa de voto do pé da página (ex.: /chapa-semente, que já tem bloco próprio de voto e kit). */
+  hideFaixaDeVoto?: boolean;
   /** Troca a prévia de link desta página (padrão: src/lib/previas.ts, pela rota). */
   share?: { titulo?: string; descricao?: string; imagem?: string };
 }
@@ -50,6 +52,7 @@ const {
   description = 'Portal Institucional & Super App Discente — Centro Acadêmico de Gestão Pública (CAGP FAFICH/UFMG)',
   mode = 'operate',
   hideFloatingPill = false,
+  hideFaixaDeVoto = false,
 } = Astro.props;
 const routeMeta = getRouteMeta();
 // Prévia de link (WhatsApp, X, Facebook, Instagram Direct): título, descrição e banner por rota.
@@ -151,9 +154,9 @@ import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
           // Entrou por link de documento (12/11/2026): nesta visita o tour não abre. A página do
           // documento mostra um convite de uma linha; quem voltar outro dia por outra porta vê o tour.
           var caminho = '/' + location.pathname.slice(base.length);
-          // /emergencia entra na mesma regra desde 13/11/2026: quem abre a página de urgência precisa dos
-          // telefones na hora. Lá não aparece nem o convite (ele só é desenhado nas páginas de documento).
-          if (/^\/(doc|documentos|emergencia)(\/|$)/.test(caminho)) sessionStorage.setItem('cagp_entrou_por_doc', '1');
+          // /emergencia, /propostas/* e /chapa-semente/plano entram sem bloqueio de tour (19/11/2026):
+          // quem chega por link direto de proposta, plano ou emergência vê o conteúdo na hora.
+          if (/^\/(doc|documentos|emergencia|propostas)(\/|$)|^\/chapa-semente\/plano(\/|$)/.test(caminho)) sessionStorage.setItem('cagp_entrou_por_doc', '1');
           if (sessionStorage.getItem('cagp_entrou_por_doc')) {
             if (!sessionStorage.getItem('cagp_convite_tour_fechado')) root.setAttribute('data-semente-convite', '');
             return;
@@ -272,17 +275,32 @@ import { SEMENTE_SPRITE } from '@/lib/sementeGeometry';
           class="relative z-10 flex-1 w-full max-w-[1440px] 2xl:max-w-[1600px] mx-auto px-3 sm:px-6 py-4 sm:py-6 pb-24 md:pb-8 overflow-x-clip focus:outline-none"
         >
           {entradaPorDocumento && (
-            <aside class="cagp-convite-tour" data-convite-tour data-so-campanha aria-label="Convite para conhecer a Chapa 2">
-              <p>Conheça quem fez este site em 19 segundos.</p>
+            <aside class="cagp-convite-tour" data-convite-tour data-so-campanha aria-label="Convite para conhecer o plano da Chapa 2">
+              <p>Veja o plano da Chapa 2 em 30 segundos (14 propostas com data e custo).</p>
               <div class="cagp-convite-tour-acoes">
-                <button type="button" class="cagp-convite-tour-sim" data-cagp-dispatch="cagp:start-semente-tour">Conhecer</button>
+                <button type="button" class="cagp-convite-tour-sim" data-cagp-dispatch="cagp:start-semente-tour">Ver resumo</button>
                 <button type="button" class="cagp-convite-tour-nao" data-convite-fechar aria-label="Agora não"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
               </div>
             </aside>
           )}
           <slot />
-          <!-- Toda página termina pedindo o voto (some sozinha depois da eleição). -->
-          <FaixaDeVoto />
+          <!-- Toda página termina pedindo o voto (exceto quando suprimida para não duplicar). -->
+          {!hideFaixaDeVoto && <FaixaDeVoto />}
+          <script is:inline>
+            (function () {
+              function ajustarCampanhaGlobal() {
+                var agora = Date.now();
+                if (agora > Date.parse('2026-11-26T22:30:00-03:00')) {
+                  document.querySelectorAll('[data-so-campanha]').forEach(function (el) { el.hidden = true; });
+                }
+                if (agora > Date.parse('2026-11-24T23:59:59-03:00')) {
+                  document.querySelectorAll('[data-faixa-debate]').forEach(function (el) { el.hidden = true; });
+                }
+              }
+              ajustarCampanhaGlobal();
+              document.addEventListener('astro:page-load', ajustarCampanhaGlobal);
+            })();
+          </script>
         </main>
 
         <!-- Rodapé Institucional -->

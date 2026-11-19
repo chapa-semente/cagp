@@ -201,6 +201,9 @@
 }
 .cd-fala-quem a,
 .cd-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   color: var(--color-primary);
   font-weight: 700;
   text-decoration: underline;
@@ -546,7 +549,7 @@
 .cd-plano-quadro tbody th { font-family: var(--font-heading); font-weight: 700; }
 .cd-plano-quadro td { color: var(--color-content-secondary, #4a4740); }
 .cd-plano-quadro td:nth-child(2) { color: var(--color-foreground); font-weight: 700; white-space: nowrap; }
-.cd-plano-fonte { margin: 0; font-size: 0.8125rem; line-height: 1.4; color: var(--color-content-secondary, #4a4740); }
+.cd-plano-fonte { margin: 0; font-size: 0.75rem; line-height: 1.4; color: var(--color-content-secondary, #4a4740); }
 
 @media (max-width: 639px) {
   .cd-plano-quadro thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
@@ -602,3 +605,95 @@
 }
 .cd-plano-anexos .sk-btn { text-decoration: none; }
 .cd-plano-anexos + .cd-plano-pe { border-top: 0; padding-top: 0; }
+
+/* ---- Cabeça enriquecida, carta recolhida em Reading Sheet e salto 1..14 (19/11/2026) ---- */
+.cd-hero-selos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+.cd-hero-entrega {
+  margin: 0;
+  max-width: 56ch;
+  padding: 0.625rem 0.875rem;
+  background: #fff;
+  color: #1f1f1f;
+  border: 2px solid #1f1f1f;
+  border-radius: 10px;
+  box-shadow: 2px 2px 0 0 #1f1f1f;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+.cd-carta-recolhida summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 48px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: var(--color-foreground);
+  cursor: pointer;
+  list-style: none;
+}
+.cd-carta-recolhida summary::-webkit-details-marker { display: none; }
+.cd-carta-corpo {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+  padding-top: 0.875rem;
+  border-top: 2px solid var(--color-muted, #e7e3d8);
+}
+
+.cd-salto {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.625rem 0.75rem;
+  padding: 0.875rem 1rem;
+  background: #fff;
+  border: 2px solid #1f1f1f;
+  border-radius: 12px;
+  box-shadow: 3px 3px 0 0 #1f1f1f;
+}
+.cd-salto-rotulo {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-content-secondary, #4a4740);
+}
+.cd-salto-lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.cd-salto-btn {
+  display: inline-grid;
+  place-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding-inline: 0.5rem;
+  border: 2px solid #1f1f1f;
+  border-radius: 8px;
+  background: var(--color-background, #f6f1e7);
+  color: var(--color-foreground);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+}
+.cd-salto-btn:hover { background: var(--color-muted, #e7e3d8); }
+.cd-salto-btn[aria-current='page'] {
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: 2px 2px 0 0 #1f1f1f;
+}
+.cd-salto-btn:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 2px; }

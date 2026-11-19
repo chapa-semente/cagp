@@ -22,7 +22,7 @@ const ICONS: Record<string, string> = {
   style="padding-bottom: env(safe-area-inset-bottom, 0px);"
   aria-label="Navegação principal"
 >
-  <div class="max-w-lg mx-auto px-0.5 py-1.5 grid grid-cols-5 items-center">
+  <div class="max-w-lg mx-auto px-0.5 py-1.5 grid grid-cols-5 items-start">
     {AXIS_REGISTRY.map((axis) => {
       const isCurrent = activeAxis?.id === axis.id;
       const isChapa = axis.id === 'chapa';
@@ -51,7 +51,7 @@ const ICONS: Record<string, string> = {
               <span class="flex" aria-hidden="true" set:html={iconSvg} />
             )}
           </span>
-          <span class="text-xs font-heading font-bold uppercase tracking-[0.01em] leading-tight text-center max-w-full">
+          <span class="text-xs font-heading font-bold uppercase tracking-[-0.02em] leading-tight text-center whitespace-nowrap max-w-full">
             {axis.mobileLabel}
           </span>
         </a>

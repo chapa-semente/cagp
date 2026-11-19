@@ -44,6 +44,59 @@ export function planoDaProposta(id: number): PlanoProposta | undefined {
   return PLANO_PROPOSTAS.find((p) => p.id === id);
 }
 
+const semHtml = (s: string) =>
+  s
+    .replace(/<[^>]+>/g, '')
+    .replace(/&quot;/g, '"')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .trim();
+
+export interface ResumoExecucaoProposta {
+  id: number;
+  tituloPlano: string;
+  impacto: string;
+  custo: string;
+  gratis: boolean;
+  custoNota: string;
+  selo: string;
+  quemResponde: string;
+  primeiraData: string;
+  primeiraEntrega: string;
+  planoB: string;
+  boletimPdf: string;
+}
+
+/** Dados consolidados de execução de uma proposta para cartões, tour, herói e fichas. */
+export function resumoExecucaoDaProposta(id: number): ResumoExecucaoProposta | undefined {
+  const plano = planoDaProposta(id);
+  if (!plano) return undefined;
+  const bruto = `${plano.titulo.antes}${plano.titulo.marca}${plano.titulo.depois}`.trim();
+  const tituloPlano = bruto ? bruto[0].toLocaleUpperCase('pt-BR') + bruto.slice(1) : `Proposta ${id}`;
+  const primeiro = plano.quando[0];
+  const secaoRisco = plano.secoes.find((s) => s.titulo.toLowerCase().includes('errado'));
+  const primeiroBlocoLista = secaoRisco?.blocos.find((b): b is { lista: { forte: Html; texto: Html }[] } => 'lista' in b);
+  const primeiroRisco = primeiroBlocoLista?.lista[0];
+  const planoB = primeiroRisco
+    ? `${semHtml(primeiroRisco.forte)}${primeiroRisco.forte ? ': ' : ''}${semHtml(primeiroRisco.texto)}`
+    : '';
+  return {
+    id,
+    tituloPlano,
+    impacto: IMPACTO_DA_PROPOSTA[id] ?? '',
+    custo: plano.custo,
+    gratis: plano.custo === 'R$ 0,00',
+    custoNota: semHtml(plano.custoNota),
+    selo: plano.selo,
+    quemResponde: semHtml(plano.quemResponde),
+    primeiraData: primeiro ? semHtml(primeiro.forte) : '',
+    primeiraEntrega: primeiro ? semHtml(primeiro.texto) : '',
+    planoB,
+    boletimPdf: plano.boletimPdf,
+  };
+}
+
 /**
  * O que muda para o estudante, numa frase: é a primeira coisa que o bloco do plano diz (pedido do
  * Gabriel em 18/11/2026: linguagem simples, o impacto e o que quer dizer nas primeiras frases).

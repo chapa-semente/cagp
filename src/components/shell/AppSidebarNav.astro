@@ -25,9 +25,9 @@ const BADGE_ACCENT =
 
 <div class="flex flex-col justify-between h-full bg-white text-foreground select-none" data-rail-content={isCompact ? 'compact' : 'full'}>
   {/* Top Scrollable Area */}
-  <div class="flex flex-col flex-1 min-h-0 overflow-y-auto no-scrollbar p-3 xl:p-4 gap-3.5">
+  <div class="flex flex-col flex-1 min-h-0 overflow-y-auto no-scrollbar p-2.5 xl:p-3 gap-2.5">
     {/* Brand Header */}
-    <div class="flex items-center justify-between gap-2 pb-3 border-b-3 border-border">
+    <div class="flex items-center justify-between gap-2 pb-2.5 border-b-3 border-border">
       <a
         href={route('/chapa-semente')}
         class="flex items-center gap-2.5 p-1 rounded-xl hover:bg-background transition-all no-underline group min-w-0"
@@ -78,7 +78,7 @@ const BADGE_ACCENT =
     </button>
 
     {/* 5 Canonical Axes */}
-    <div class="space-y-1.5" role="navigation" aria-label="Navegação principal">
+    <div class="space-y-1" role="navigation" aria-label="Navegação principal">
       {AXIS_REGISTRY.map((axis) => {
         const isAxisActive = activeAxis.id === axis.id;
         const paginas = axis.items.filter((i) => !i.isOverview);
@@ -95,7 +95,7 @@ const BADGE_ACCENT =
               data-nav-axis={axis.id}
               data-rail-tip={isCompact ? `${axis.name} — ${axis.tagline}` : undefined}
               class={`cagp-tato cagp-nav-link ${isAxisActive ? 'is-active' : ''} relative overflow-hidden flex items-center min-h-[44px] ${
-                isCompact ? 'justify-center px-1 py-2' : 'justify-between px-3 py-2.5'
+                isCompact ? 'justify-center px-1 py-2' : 'justify-between px-3 py-1.5'
               } rounded-xl border-3 transition-colors no-underline ${
                 isAxisActive
                   ? 'text-white border-border shadow-md font-extrabold'
@@ -169,26 +169,28 @@ const BADGE_ACCENT =
   </div>
 
   {/* Bottom Anchored Student Passport & Quick Tools */}
-  <div class="p-3 border-t-3 border-border bg-card space-y-2.5 shrink-0">
+  <div class="p-2.5 border-t-3 border-border bg-card space-y-2 shrink-0">
     {!isCompact ? (
-      <div class="grid gap-2">
+      <div class="grid grid-cols-2 gap-1.5">
         <button
           type="button"
           data-rail-action="campus"
-          class="flex items-center justify-center gap-2 min-h-[44px] py-2 px-3 rounded-xl bg-white hover:bg-background border-3 border-border shadow-xs text-xs font-heading font-extrabold uppercase tracking-tight text-foreground cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
+          class="flex items-center justify-center gap-1.5 min-h-[44px] py-1.5 px-2 rounded-xl bg-white hover:bg-background border-3 border-border shadow-xs text-xs font-heading font-bold uppercase tracking-tight text-foreground cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
           title="Horários do RU Setorial I/II e Circulares 3 e 4"
+          aria-label="Campus agora: horários do RU e circulares"
         >
           <CagpIcon name={resolveCagpIconName('bi-clock-history')} class="w-4 h-4 text-secondary shrink-0" />
-          <span>Campus agora</span>
+          <span class="truncate">Campus</span>
         </button>
         <button
           type="button"
           data-compartilhar="pagina"
-          class="flex items-center justify-center gap-2 min-h-[44px] py-2 px-3 rounded-xl bg-white hover:bg-background border-3 border-border shadow-xs text-xs font-heading font-extrabold uppercase tracking-tight text-foreground cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
+          class="flex items-center justify-center gap-1.5 min-h-[44px] py-1.5 px-2 rounded-xl bg-white hover:bg-background border-3 border-border shadow-xs text-xs font-heading font-bold uppercase tracking-tight text-foreground cursor-pointer active:translate-x-0.5 active:translate-y-0.5 active:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
           title="Mandar esta página pra alguém"
+          aria-label="Mandar esta página"
         >
           <i class="bi bi-share text-sm text-secondary shrink-0" aria-hidden="true"></i>
-          <span>Mandar esta página</span>
+          <span class="truncate">Mandar</span>
         </button>
       </div>
     ) : (

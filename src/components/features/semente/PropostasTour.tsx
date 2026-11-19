@@ -20,6 +20,7 @@ import { getTourPerson } from '@/lib/sementeTour';
 import { AdesivoChapa, AdesivoDaProposta, CenaDoEixo } from './DesenhosDaChapa';
 import { CreditoDosDesenhos } from './CreditoDosDesenhos';
 import { PROPOSTA_EIXOS, PROPOSTA_SEM_INICIO, PROPOSTA_STOPS, START_PROPOSTAS_TOUR, type PropostaStop } from '@/lib/propostasTour';
+import { resumoExecucaoDaProposta } from '@/lib/planoExecucao';
 
 const TOTAL = PROPOSTA_STOPS.length;
 const EIXOS = PROPOSTA_EIXOS.length;
@@ -142,7 +143,7 @@ export const PropostasTour: React.FC = () => {
   const bg = eixo && eixo.id % 2 === 0 ? TEAL : PURPLE;
 
   return (
-    <MotionConfig reducedMotion="never">
+    <MotionConfig reducedMotion="user">
       <AnimatePresence>
         {open && (
           <motion.div
@@ -253,6 +254,7 @@ const Eixo: React.FC<{ headingRef: HeadingRef; eixo: EixoInfo; bg: string; onOpe
             <ul className="m-0 grid list-none gap-1.5 p-0">
               {propostas.map((p, i) => {
                 const person = getTourPerson(p.leaderId);
+                const resumo = resumoExecucaoDaProposta(p.id);
                 return (
                   <motion.li
                     key={p.id}
@@ -260,18 +262,24 @@ const Eixo: React.FC<{ headingRef: HeadingRef; eixo: EixoInfo; bg: string; onOpe
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.4, delay: 0.2 + i * 0.05, ease: easeOutExpo }}
                   >
-                    <button type="button" onClick={() => onOpen(p.id)} className={`${btnWhite} min-h-[48px] w-full justify-start gap-3 px-2.5 py-1 text-left shadow-sm`}>
+                    <button type="button" onClick={() => onOpen(p.id)} className={`${btnWhite} min-h-[48px] w-full justify-start gap-3 px-2.5 py-1.5 text-left shadow-sm`}>
                       <span className="h-9 w-9 shrink-0 overflow-hidden rounded-[30%_10%_30%_10%] border-2 border-foreground bg-muted">
                         <img src={person.thumb} alt="" className="h-full w-full object-cover" style={{ objectPosition: person.position }} />
                       </span>
-                      {/* O adesivo corre na linha do título: título curto não ganha uma linha a mais. */}
-                      <span className="min-w-0 flex-1 py-1 text-base font-bold leading-tight">
-                        {p.titulo}
-                        {p.jaFeito && (
-                          <>
-                            {' '}
-                            <span className={`${seloCls} my-0.5 ml-0.5 -rotate-1 whitespace-nowrap align-middle`}>{p.jaFeito.selo}</span>
-                          </>
+                      <span className="min-w-0 flex-1 py-0.5">
+                        <span className="block text-base font-bold leading-tight">
+                          {p.titulo}
+                          {p.jaFeito && (
+                            <>
+                              {' '}
+                              <span className={`${seloCls} my-0.5 ml-0.5 -rotate-1 whitespace-nowrap align-middle`}>{p.jaFeito.selo}</span>
+                            </>
+                          )}
+                        </span>
+                        {resumo && (
+                          <span className="mt-0.5 block text-xs font-normal leading-snug text-content-secondary tabular-nums">
+                            {resumo.custo} · {resumo.primeiraData}
+                          </span>
                         )}
                       </span>
                       <i className="bi bi-chevron-right shrink-0 text-sm" aria-hidden="true" />
@@ -291,7 +299,7 @@ const Eixo: React.FC<{ headingRef: HeadingRef; eixo: EixoInfo; bg: string; onOpe
                 </button>
               )}
               <button type="button" onClick={onNext} className={`${btnGo} h-[52px] flex-1 px-5 text-sm md:flex-none`}>
-                {proximo ? `Próximo: ${proximo.estagio}` : 'Ver o fim'}
+                {proximo ? `Próximo eixo: ${proximo.nome}` : 'Ver o fim'}
                 <i className="bi bi-arrow-right" aria-hidden="true" />
               </button>
             </div>
@@ -307,11 +315,12 @@ const Eixo: React.FC<{ headingRef: HeadingRef; eixo: EixoInfo; bg: string; onOpe
 const Detalhe: React.FC<{ headingRef: HeadingRef; stop: PropostaStop; onBack: () => void; onClose: () => void }> = ({ headingRef, stop, onBack, onClose }) => {
   const person = getTourPerson(stop.leaderId);
   const eixo = eixoDe(stop.id);
+  const resumo = resumoExecucaoDaProposta(stop.id);
   return (
     <div className={`${screenPad} flex flex-col`}>
       <div className="mx-auto flex w-full max-w-[1120px] flex-1 flex-col gap-4 md:gap-6">
         <div className="flex min-h-11 items-center gap-3 pr-[60px] sm:pr-[72px]">
-          <AdesivoEixo eixo={eixo} texto={`${eixo.estagio} · proposta ${stop.id} de ${TOTAL}`} />
+          <AdesivoEixo eixo={eixo} texto={`${eixo.nome} · proposta ${stop.id} de ${TOTAL}`} />
         </div>
 
         <div className="flex min-h-0 flex-1 flex-col gap-5 md:grid md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] md:items-center md:gap-16">
@@ -340,32 +349,60 @@ const Detalhe: React.FC<{ headingRef: HeadingRef; stop: PropostaStop; onBack: ()
             />
           </div>
 
-          <div className="grid gap-3 md:gap-5">
-            <h2 id="propostas-tour-heading" ref={headingRef} tabIndex={-1} className={`${h2Cls} text-[clamp(1.5rem,5.2vw,3rem)]`}>
-              {stop.titulo}
+          <div className="grid gap-3 md:gap-4">
+            <h2 id="propostas-tour-heading" ref={headingRef} tabIndex={-1} className={`${h2Cls} text-[clamp(1.45rem,4.8vw,2.6rem)]`}>
+              {resumo?.tituloPlano ?? stop.titulo}
             </h2>
-            <p className="m-0 max-w-[50ch] text-base leading-snug sm:text-lg sm:leading-relaxed">{stop.compromisso}</p>
-            <p className="m-0 max-w-[46ch] font-heading text-lg font-bold leading-snug">{stop.porque}</p>
-            {stop.jaFeito ? (
-              /* O que já existe: papel branco com o adesivo batido no canto, depois que a foto germina. */
-              <div className="relative mt-3 grid max-w-[50ch] gap-1 rounded-[12px] border-3 border-foreground bg-white px-4 pb-2 pt-5 text-foreground shadow-md">
-                <motion.span
-                  className={`${seloCls} absolute -top-3 left-3 origin-left`}
-                  initial={{ opacity: 0, scale: 1.8, rotate: -10 }}
-                  animate={{ opacity: [0, 1, 1], scale: [1.8, 0.92, 1], rotate: [-10, -1, -2] }}
-                  transition={{ duration: 0.36, delay: 0.45, times: [0, 0.62, 1], ease: easeOutExpo }}
-                >
-                  {stop.jaFeito.selo}
-                </motion.span>
-                <p className="m-0 text-base leading-snug">{stop.jaFeito.texto}</p>
-                {stop.prova ? <Prova prova={stop.prova} onClose={onClose} className={linkDark} /> : <span className="h-2" aria-hidden="true" />}
+            <p className="m-0 max-w-[50ch] text-base leading-snug sm:text-lg sm:leading-relaxed">
+              {resumo?.impacto ?? stop.compromisso}
+            </p>
+            <p className="m-0 max-w-[46ch] font-heading text-base font-bold leading-snug">{stop.porque}</p>
+
+            {/* Ficha branca de execução (Reading Sheet Rule): custo, 1ª entrega, responsável e plano B. */}
+            <div className="relative mt-2 grid max-w-[52ch] gap-2 rounded-[12px] border-3 border-foreground bg-white px-4 pb-3 pt-5 text-foreground shadow-md">
+              <motion.span
+                className={`${seloCls} absolute -top-3 left-3 origin-left tabular-nums`}
+                initial={{ opacity: 0, scale: 1.4, rotate: -6 }}
+                animate={{ opacity: 1, scale: 1, rotate: -2 }}
+                transition={{ duration: 0.32, delay: 0.25, ease: easeOutExpo }}
+              >
+                {stop.jaFeito ? stop.jaFeito.selo : `Custo: ${resumo?.custo ?? 'R$ 0,00'}`}
+              </motion.span>
+              {stop.jaFeito && <p className="m-0 text-sm font-bold leading-snug text-foreground">{stop.jaFeito.texto}</p>}
+              {resumo && (
+                <dl className="m-0 grid gap-1.5 text-sm leading-snug text-content-secondary">
+                  <div className="m-0">
+                    <dt className="inline font-bold text-foreground">Custo no caixa: </dt>
+                    <dd className="m-0 inline tabular-nums">{resumo.custo}</dd>
+                  </div>
+                  {resumo.primeiraEntrega && (
+                    <div className="m-0">
+                      <dt className="inline font-bold text-foreground">1ª entrega ({resumo.primeiraData}): </dt>
+                      <dd className="m-0 inline tabular-nums">{resumo.primeiraEntrega}</dd>
+                    </div>
+                  )}
+                  <div className="m-0">
+                    <dt className="inline font-bold text-foreground">Quem responde: </dt>
+                    <dd className="m-0 inline">{resumo.quemResponde}</dd>
+                  </div>
+                  {resumo.planoB && (
+                    <div className="m-0">
+                      <dt className="inline font-bold text-foreground">Plano B: </dt>
+                      <dd className="m-0 inline">{resumo.planoB}</dd>
+                    </div>
+                  )}
+                </dl>
+              )}
+              {!stop.jaFeito && <p className="m-0 text-xs text-content-secondary">{PROPOSTA_SEM_INICIO}</p>}
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 border-t-2 border-foreground pt-2">
+                <a href={`${route(`/propostas/${stop.id}`)}#plano`} onClick={onClose} className={linkDark}>
+                  Ver cronograma e plano B
+                  <i className="bi bi-arrow-right" aria-hidden="true" />
+                </a>
+                {stop.prova && <Prova prova={stop.prova} onClose={onClose} className={linkDark} />}
               </div>
-            ) : (
-              <>
-                <p className="m-0 text-base leading-snug">{PROPOSTA_SEM_INICIO}</p>
-                {stop.prova && <Prova prova={stop.prova} onClose={onClose} className={`${linkLight} flex-wrap`} />}
-              </>
-            )}
+            </div>
+
             <div className="flex items-center gap-3 pt-1">
               <button type="button" onClick={onBack} className={`${btnGo} h-[52px] flex-1 px-5 text-sm md:flex-none`}>
                 <i className="bi bi-arrow-left" aria-hidden="true" />
@@ -403,8 +440,8 @@ const Fechamento: React.FC<{ headingRef: HeadingRef; onBack: () => void; onClose
           Como votar
           <i className="bi bi-arrow-right" aria-hidden="true" />
         </a>
-        <a href={`${route('/chapa-semente')}#carta`} onClick={onClose} className={`${btnWhite} min-h-[52px] px-5 text-base`}>
-          Ler a carta completa
+        <a href={route('/chapa-semente/plano')} onClick={onClose} className={`${btnWhite} min-h-[52px] px-5 text-base`}>
+          Abrir o plano completo (109 págs)
         </a>
       </div>
       <button type="button" onClick={onBack} className={linkLight}>
@@ -412,7 +449,7 @@ const Fechamento: React.FC<{ headingRef: HeadingRef; onBack: () => void; onClose
         Voltar às propostas
       </button>
       {/* Quem desenhou assina no fim, como numa história em quadrinhos. */}
-      <CreditoDosDesenhos link className="border-t-2 border-white/40 pt-3" />
+      <CreditoDosDesenhos link className="border-t-2 border-white pt-3" />
     </div>
   </div>
 );

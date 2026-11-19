@@ -5,7 +5,13 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { CHAPA_LEADERS } from '@/lib/chapaSementeData';
-import { TOUR_ORDER, TOUR_STOPS, type TourLeaderId } from '@/lib/sementeTour';
+import {
+  TOUR_ORDER,
+  TOUR_PROPOSTAS_POR_PERFIL,
+  TOUR_SEQUENCIA,
+  TOUR_STOPS,
+  type TourLeaderId,
+} from '@/lib/sementeTour';
 
 const root = path.resolve(__dirname, '..');
 const read = (p: string) => readFileSync(path.join(root, p), 'utf-8');
@@ -61,6 +67,18 @@ describe('tour da Chapa Semente', () => {
     for (const stop of Object.values(TOUR_STOPS)) {
       const words = `${stop.hook} ${stop.answer}`.split(/\s+/).length;
       expect(words, stop.leaderId).toBeLessThanOrEqual(32);
+    }
+  });
+
+  it('usa a sequência Reta Final (v4) com 3 propostas válidas por perfil', () => {
+    expect(TOUR_SEQUENCIA).toBe(4);
+    for (const [perfil, ids] of Object.entries(TOUR_PROPOSTAS_POR_PERFIL)) {
+      expect(ids, perfil).toHaveLength(3);
+      expect(new Set(ids).size, perfil).toBe(3);
+      for (const id of ids) {
+        expect(id, `${perfil} prop ${id}`).toBeGreaterThanOrEqual(1);
+        expect(id, `${perfil} prop ${id}`).toBeLessThanOrEqual(14);
+      }
     }
   });
 });

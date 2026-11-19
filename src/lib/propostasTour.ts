@@ -39,7 +39,7 @@ export interface PropostaStop {
 export type PropostaSelo = 'Já no ar' | 'Já começou';
 
 /** O que a tela diz quando a proposta ainda não tem nada feito. */
-export const PROPOSTA_SEM_INICIO = 'Essa só dá pra começar de dentro do CA.';
+export const PROPOSTA_SEM_INICIO = 'Começa na posse — com data, custo e plano B escritos no plano.';
 
 /**
  * Os 4 eixos da carta viram os 4 estágios da planta. Desde 12/11/2026 (noite) o tour tem uma tela por
@@ -55,8 +55,8 @@ export const PROPOSTA_EIXOS = [
 export const PROPOSTA_STOPS: PropostaStop[] = [
   {
     id: 1,
-    titulo: 'Prestação de contas a cada três meses',
-    compromisso: 'Um boletim trimestral com todas as entradas, saídas e aplicações do caixa do CA.',
+    titulo: 'Contas abertas todo mês e boletim trimestral',
+    compromisso: 'Relatório mensal de contas no modelo do Regimento, lançamentos no portal em até 7 dias e boletim trimestral.',
     leaderId: 'vitoria',
     porque: 'O dinheiro do CA é seu. O livro-caixa é atualizado a cada lançamento e, a cada três meses, sai um boletim fácil de ler.',
     art: 'contas',

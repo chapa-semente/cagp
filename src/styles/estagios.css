@@ -85,6 +85,8 @@ html { scrollbar-color: var(--estagio) var(--estagio-solo); accent-color: #5B2A8
 }
 .cagp-page-head-body { position: relative; z-index: 1; padding-right: clamp(6.25rem, 27vw, 12.5rem); }
 .cagp-page-head :is(h1, p, nav, ol, li, a, [aria-current]) { color: inherit; }
+.cagp-page-head .cagp-marker:not(.is-on-color),
+.cagp-page-head .cagp-marker:not(.is-on-color) .cagp-marker__word { color: var(--estagio-fg); }
 .cagp-page-head nav a { text-decoration: underline; text-underline-offset: 0.22em; }
 .cagp-page-head nav svg { color: inherit; opacity: 1; }
 /* O desenho do estágio é um adesivo colado no canto do bloco (DESIGN.md › kit Semente):
@@ -287,7 +289,8 @@ html[data-estagio='fruto'] .cagp-ramo-caule { background: #266264; }
   }
   @keyframes cagp-ramo-cresce { from { clip-path: inset(-4px 100% -4px 0); } to { clip-path: inset(-4px 0 -4px 0); } }
   @keyframes cagp-ramo-rola {
-    0% { translate: 0 0; rotate: 0deg; opacity: 1; }
+    0% { translate: 0 0; rotate: 0deg; opacity: 0; }
+    2% { opacity: 1; }
     94% { opacity: 1; }
     100% { translate: 100vw 0; rotate: 600deg; opacity: 0; }
   }

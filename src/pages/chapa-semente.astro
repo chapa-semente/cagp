@@ -8,6 +8,7 @@ import { CartaPropostaInteractive } from '../components/features/semente/CartaPr
 import { ChapaSementeTour } from '../components/features/semente/ChapaSementeTour';
 import { PROPOSTA_EIXOS, PROPOSTAS_FEITAS } from '@/lib/propostasTour';
 import { CHAPA_LEADERS, CHAPA_NOME, CHAPA_NUMERO, CHAPA_ROTULO, SOLUTION_LABEL, getLeaderPhotoUrl } from '@/lib/chapaSementeData';
+import { PLANO_PDF_RESUMO, PLANO_PROPOSTAS, resumoExecucaoDaProposta } from '@/lib/planoExecucao';
 import { asset, route } from '@/lib/paths';
 import { Marquee, MarqueeItem, MarqueeSeparator } from '../components/ui/marquee';
 import EstagioIlustra from '@/components/ui/EstagioIlustra.astro';
@@ -16,21 +17,67 @@ import { resolveCagpIconName } from '@/lib/cagpIcons';
 import { getItemByPath } from '@/lib/navigationRegistry';
 import BotaoCompartilhar from '@/components/ui/BotaoCompartilhar.astro';
 import GritoDeVoto from '@/components/ui/GritoDeVoto.astro';
-import { corpoDoVoto } from '@/lib/compartilhar';
+import { CONVITE_RETA_FINAL, corpoDoVoto } from '@/lib/compartilhar';
 import '@/styles/campanha-detalhe.css';
 
 const MARQUEE = [
   `Vote ${CHAPA_NOME} · 25 e 26/11 · 17h às 22h30`,
-  'Faz o S!',
-  '12 pessoas, 14 propostas, 1 site no ar',
-  'Toda mudança começa pequena',
-  'Na cédula, um X em uma chapa só',
+  '9 de 14 propostas a R$ 0,00',
+  '40% de desconto na calourada para FUMP I, II e III',
+  '109 páginas de execução: entrega, prazo, custo e plano B',
+  'Debate 24/11 às 18h · Na cédula, um X em uma chapa só',
 ];
 
-const EDITAL_PDF = asset('/documentos/edital-eleicoes-cagp-2026.pdf');
-/** Convite pro grupo da turma (a data, o lugar e a assinatura entram na hora de mandar). */
-const CONVITE = `🌱 A Semente é a ${CHAPA_ROTULO} na eleição do CAGP e já pôs no ar um site com os guias do curso: documentos, estágio, 600h, FUMP, calouros.\nDá uma olhada e conhece as ${CHAPA_LEADERS.length} pessoas da chapa:`;
 const TOTAL = String(CHAPA_LEADERS.length).padStart(2, '0');
+
+const RECIBOS_PLANO = [
+  {
+    numero: '9 de 14',
+    rotulo: 'Custo R$ 0,00 para o caixa',
+    desc: 'Contas, reuniões, recepção, conselhos, encontros, Enap, EJ, comunicação e ouvidoria — mais o site já no ar, com revisão externa só se a reunião aberta aprovar.',
+  },
+  {
+    numero: '100 dias',
+    rotulo: 'Primeiras 6 entregas datadas',
+    desc: 'Caixa em 15 dias, escuta até 20/12, portal real até 31/01, inventário e Enap até 28/02, boletim em 15/03 e estudo do CNPJ até 31/03.',
+  },
+  {
+    numero: 'R$ 8.654,99',
+    rotulo: 'Saldo final com reserva protegida',
+    desc: 'Parte dos R$ 5.574,34 de caixa base e protege reserva de R$ 4.500,00 com gatilho automático se a receita cair.',
+  },
+  {
+    numero: '40% FUMP',
+    rotulo: 'Desconto nos níveis I, II e III',
+    desc: 'Ingressos na calourada com desconto na compra antecipada (teto de 10% do resultado), prioridade I → II → III e zero lista exposta.',
+  },
+];
+
+function chaveDiretoriaDoLider(role: string): string {
+  if (role.includes('Presid')) return 'Presidência';
+  if (role.includes('Acadêm')) return 'Acadêmica';
+  if (role.includes('Comunicação')) return 'Comunicação';
+  if (role.includes('Financeir')) return 'Financeira';
+  if (role.includes('Articulação')) return 'Articulação';
+  if (role.includes('Jurídica')) return 'Jurídica';
+  if (role.includes('Cultura')) return 'Cultura';
+  return '';
+}
+
+const RESUMOS_PROPOSTAS = PLANO_PROPOSTAS.map((p) => resumoExecucaoDaProposta(p.id)).filter(
+  (r): r is NonNullable<typeof r> => Boolean(r),
+);
+
+function propostasLideradas(role: string) {
+  const chave = chaveDiretoriaDoLider(role);
+  if (!chave) return [];
+  return RESUMOS_PROPOSTAS.filter((r) => (r.quemResponde.split(',')[0] ?? '').includes(chave)).map((r) => ({
+    id: r.id,
+    label: `Prop. ${r.id}`,
+    title: r.tituloPlano,
+    href: `${route(`/propostas/${r.id}`)}#plano`,
+  }));
+}
 
 /** Funções reais do site (nada simulado entra aqui). */
 const jaFuncionaBase = [
@@ -51,11 +98,12 @@ const jaFunciona = jaFuncionaBase.map((t) => {
 <BaseLayout
   mode="persuade"
   hideFloatingPill
+  hideFaixaDeVoto
   title={CHAPA_NOME}
-  description="A Semente é a Chapa 2 na eleição do Centro Acadêmico de Gestão Pública da UFMG: o site que você está usando já é a nossa Proposta 3. Veja as 14 propostas, os 12 integrantes e quando votar (25 e 26/11)."
+  description="Plano de execução da Chapa 2 · Semente no CAGP UFMG: 14 propostas consolidadas com entrega, prazo, custo (9 a R$ 0,00), quem responde e plano B. Debate 24/11 e voto 25–26/11."
 >
   <div class="cs-page">
-    <!-- 1. TOPO: a prova é a ferramenta funcionando -->
+    <!-- 1. TOPO: o plano consolidado na linha de frente -->
     <section aria-labelledby="cs-hero-title" class="cs-hero">
       <div class="cs-hero-copy">
         <div class="cs-hero-marca">
@@ -71,28 +119,32 @@ const jaFunciona = jaFuncionaBase.map((t) => {
             <span class="sk-chapa-num-n">{CHAPA_NUMERO}</span>
           </p>
         </div>
-        <h1 id="cs-hero-title" class="cs-display">Você já está usando a nossa <MarkerWord onColor class="cs-marker">proposta</MarkerWord>.</h1>
+        <h1 id="cs-hero-title" class="cs-display">Proposta com <MarkerWord onColor class="cs-marker">data</MarkerWord>, custo e plano B.</h1>
         <p class="cs-hero-lede">
-          A Proposta 3 da nossa carta-programa é um site para o curso. É este aqui: ideia nossa, construída há muito
-          tempo, já no ar e feita pra ficar com os estudantes.
+          O site já está no ar. Agora mostramos como cada uma das 14 propostas vai sair do papel nos 365 dias de gestão —
+          9 delas a custo R$ 0,00, com cronograma de 100 dias e orçamento aberto.
         </p>
-        <p class="cs-accent">Toda mudança começa pequena.</p>
+        <p class="cs-accent">109 páginas de execução · Debate 24/11 às 18h · Voto 25 e 26/11</p>
         <GritoDeVoto onColor tamanho="lg" />
-        <div class="flex flex-wrap items-center gap-x-5 gap-y-3">
-          <button type="button" class="cs-btn cs-btn-accent" data-cagp-dispatch="cagp:start-propostas-tour">
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-3">
+          <a href={route('/chapa-semente/plano')} class="sk-btn sk-btn-folha text-foreground">
+            Ver plano completo
+            <i class="bi bi-arrow-right" aria-hidden="true"></i>
+          </a>
+          <button type="button" class="cs-btn cs-btn-ghost-light" data-cagp-dispatch="cagp:start-propostas-tour">
             <i class="bi bi-play-fill" aria-hidden="true"></i>
-            Propostas em 1 minuto
+            Propostas em 1 min
           </button>
-          <a href="#votar" class="cs-vote-link">Dias 25 e 26/11, das 17h às 22h30: como votar <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+          <a href="#votar" class="cs-vote-link">Quando e onde votar (25 e 26/11) <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
         </div>
       </div>
 
-      <!-- O broto da chapa, como adesivo, com os três números que são fato (12 pessoas, 14 propostas, 1 site). -->
+      <!-- O broto da chapa, como adesivo, com os três números de execução do plano. -->
       <div class="cs-hero-arte" aria-hidden="true">
         <EstagioIlustra nivel={3} comFundo class="cs-hero-broto" />
-        <span class="sk-adesivo cs-hero-ad cs-hero-ad-1">12 pessoas</span>
-        <span class="sk-adesivo cs-hero-ad cs-hero-ad-2">14 propostas</span>
-        <span class="sk-adesivo cs-hero-ad cs-hero-ad-3">1 site no ar</span>
+        <span class="sk-adesivo cs-hero-ad cs-hero-ad-1">9/14 a R$ 0</span>
+        <span class="sk-adesivo cs-hero-ad cs-hero-ad-2">109 páginas</span>
+        <span class="sk-adesivo cs-hero-ad cs-hero-ad-3">40% FUMP</span>
       </div>
     </section>
 
@@ -108,61 +160,125 @@ const jaFunciona = jaFuncionaBase.map((t) => {
       </Marquee>
     </div>
 
-    <!-- 2. QUANDO E ONDE VOTAR (logo depois do topo: quem chega indeciso precisa disto primeiro) -->
-    <section id="votar" aria-labelledby="cs-votar-title" class="cs-vote scroll-mt-24">
-      <h2 id="cs-votar-title" class="cs-headline cs-on-color">Quando e onde votar</h2>
-      <dl class="cs-vote-list">
-        <div>
-          <dt>Nosso número</dt>
-          <dd><strong>{CHAPA_ROTULO}</strong>. É o número da Semente nesta eleição.</dd>
-        </div>
-        <div>
-          <dt>Votação</dt>
-          <dd><strong>25 e 26 de novembro</strong>, das 17h às 22h30, no CAGP. Voto secreto.</dd>
-        </div>
-        <div>
-          <dt>Quem vota</dt>
-          <dd>Todo estudante regularmente matriculado em Gestão Pública. Na cédula, um X em uma chapa só.</dd>
-        </div>
-        <div>
-          <dt>Debate</dt>
-          <dd>24 de novembro, às 18h. Local a definir.</dd>
-        </div>
-        <div>
-          <dt>Mandato</dt>
-          <dd>A chapa eleita dirige o CAGP por 1 ano (Regimento, art. 48).</dd>
-        </div>
-      </dl>
-      <p class="cs-vote-note">
-        Nos dias de votação é proibido fazer campanha no 1º andar da FAFICH (edital, art. 17).
+    <!-- 2. QUATRO RECIBOS DO PLANO (faixa petróleo: alterna com o topo roxo) -->
+    <section aria-labelledby="cs-recibos-title" class="cs-band cs-band-teal">
+      <h2 id="cs-recibos-title" class="cs-headline cs-on-color">Quatro recibos antes do seu voto</h2>
+      <p class="cs-band-lede">
+        Os números fechados do Plano de Execução 2026–2027, publicados com autocrítica e regra de corte para cada cenário.
       </p>
-      <div class="flex flex-wrap items-center gap-3">
-        <button type="button" class="cs-btn cs-btn-accent" data-cs-ics>
-          <i class="bi bi-calendar-plus" aria-hidden="true" data-cs-ics-icon></i>
-          <span data-cs-ics-label>Lembrar na agenda</span>
-        </button>
-        <a href={route('/gestao')} class="cs-btn cs-btn-ghost-light">
-          Tudo sobre a eleição
+      <ul class="cs-recibos" role="list">
+        {RECIBOS_PLANO.map((r) => (
+          <li class="cs-recibo">
+            <strong class="cs-recibo-num">{r.numero}</strong>
+            <span class="cs-recibo-rotulo">{r.rotulo}</span>
+            <p class="cs-recibo-desc">{r.desc}</p>
+          </li>
+        ))}
+      </ul>
+      <div class="flex flex-wrap items-center gap-3 pt-1">
+        <a href={`${route('/chapa-semente/plano')}#em-1-minuto`} class="sk-btn sk-btn-folha text-foreground">
+          Abrir resumo em 1 minuto
+          <i class="bi bi-arrow-right" aria-hidden="true"></i>
+        </a>
+        <a href={asset(PLANO_PDF_RESUMO)} target="_blank" rel="noopener" class="cs-btn cs-btn-ghost-light">
+          <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
+          Resumo em 1 página (PDF · 260 KB)
         </a>
       </div>
-      <p class="cs-ics-note" data-cs-ics-note aria-live="polite"></p>
     </section>
-    <!-- 3. OS INTEGRANTES (os rostos antes das propostas) -->
+
+    <!-- 3. AS 14 PROPOSTAS CONSOLIDADAS (painel de execução na linha de frente) -->
+    <section id="propostas" aria-labelledby="cs-propostas-title" class="scroll-mt-24 space-y-5">
+      <div class="space-y-2 max-w-[68ch]">
+        <h2 id="cs-propostas-title" class="cs-headline">As 14 propostas consolidadas</h2>
+        <p class="text-base text-muted-foreground m-0">
+          Escolha uma área para ver em 1 minuto como cada proposta sai do papel — ou abra o documento completo abaixo.
+        </p>
+      </div>
+      <!-- A entrada do tour das propostas: um bloco por eixo, cada um abre o tour naquele eixo. -->
+      <ul class="cs-eixos">
+        {PROPOSTA_EIXOS.map((e) => (
+          <li>
+            <button type="button" class="cs-eixo" data-cagp-dispatch="cagp:start-propostas-tour" data-cagp-eixo={e.id}>
+              <span class="cs-eixo-adesivo" style={`background:${e.bg};color:${e.fg}`}>{e.estagio}</span>
+              <span class="cs-eixo-gancho">{e.gancho}</span>
+              <span class="cs-eixo-pe">
+                <span>{e.nome} · {e.ate - e.de + 1} propostas</span>
+                <i class="bi bi-play-fill" aria-hidden="true"></i>
+              </span>
+            </button>
+          </li>
+        ))}
+      </ul>
+      <!-- O plano de execução (19/11/2026): folha branca com destaque sem repetir o petróleo acima. -->
+      <a href={route('/chapa-semente/plano')} class="cs-plano">
+        <span class="sk-adesivo shrink-0">109 páginas</span>
+        <span class="cs-plano-texto">
+          <b>Painel completo: cronograma de 100 dias, orçamento 2026×2027 e os 14 boletins.</b>
+          <span>Compare os três cenários financeiros, veja as regras de corte e baixe o PDF em 1 página (260 KB).</span>
+        </span>
+        <i class="bi bi-arrow-right text-lg shrink-0" aria-hidden="true"></i>
+      </a>
+      <p class="m-0 text-base text-muted-foreground">
+        Discorda de alguma, ou acha que faltou uma?{' '}
+        <a href={route('/ouvidoria')} class="inline-flex items-center min-h-[44px] font-bold text-primary underline underline-offset-[0.22em]">
+          Fala com a gente
+        </a>.
+      </p>
+    </section>
+
+    <!-- 3b. AS 14 FICHAS DE EXECUÇÃO (mantém id="carta" para âncoras antigas; carta original fica recolhida em cada cartão) -->
+    <section id="carta" aria-labelledby="cs-carta-title" class="scroll-mt-24 space-y-5">
+      <div class="space-y-2 max-w-[68ch]">
+        <h2 id="cs-carta-title" class="cs-headline">Do plano ao comprovante: as 14 fichas</h2>
+        <p class="text-base text-muted-foreground m-0">
+          Lida só pelo texto curto da carta original, 6 das 14 propostas eram genéricas. Abaixo está o compromisso consolidado
+          de cada uma: impacto direto, primeira entrega, custo e plano B — {PROPOSTAS_FEITAS} já começaram no site.
+        </p>
+      </div>
+      <CartaPropostaInteractive client:visible />
+    </section>
+
+    <!-- 4. O QUE JÁ FUNCIONA (faixa roxa) -->
+    <section aria-labelledby="cs-funciona-title" class="cs-band">
+      <h2 id="cs-funciona-title" class="cs-headline cs-on-color">O que já funciona no site</h2>
+      <p class="cs-band-lede">Isto não é promessa: está no ar hoje e você pode usar agora.</p>
+      <ul class="cs-tools" role="list">
+        {jaFunciona.map((t) => (
+          <li>
+            <a href={t.href} class="cs-tool" data-nav-axis={t.aba}>
+              <span class="sk-tile sk-tile-broto" aria-hidden="true">
+                <CagpIcon name={t.icone} class="sk-tile-glifo" />
+                <svg class="sk-broto" viewBox="-46 -110 72 118"><use href="#sg-folha" /></svg>
+              </span>
+              <span class="min-w-0 flex-1">
+                <span class="cs-tool-title">{t.title}</span>
+                <span class="cs-tool-desc">{t.desc}</span>
+              </span>
+              <i class="bi bi-arrow-right text-lg shrink-0" aria-hidden="true"></i>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- 5. OS INTEGRANTES E O QUE CADA UM EXECUTA -->
     <section id="integrantes" aria-labelledby="cs-integrantes-title" class="scroll-mt-24 space-y-5">
       <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div class="space-y-2 max-w-[68ch]">
-          <h2 id="cs-integrantes-title" class="cs-headline">Os {CHAPA_LEADERS.length} integrantes</h2>
+          <h2 id="cs-integrantes-title" class="cs-headline">Os {CHAPA_LEADERS.length} integrantes e o que cada um executa</h2>
           <p class="text-base text-muted-foreground m-0">
-            Cada pessoa responde por uma área do centro acadêmico e por uma parte do site.
+            Cada pessoa responde por uma diretoria, pelas propostas ligadas a ela e por uma ferramenta do site.
           </p>
         </div>
-        <ChapaSementeTour variant="compact" buttonText="Rever a apresentação da chapa" />
+        <ChapaSementeTour variant="compact" buttonText="Rever resumo em 3 passos" />
       </div>
 
       <ul class="cs-team" role="list" data-masonry>
         {CHAPA_LEADERS.map((leader, idx) => {
           const photo = getLeaderPhotoUrl(leader.photoFilename);
           const firstName = leader.name.split(' ')[0];
+          const propsLider = propostasLideradas(leader.role);
           return (
             <li id={leader.targetId} class="cs-member scroll-mt-24">
               <span id={leader.id} class="cagp-anchor-target" aria-hidden="true"></span>
@@ -184,6 +300,15 @@ const jaFunciona = jaFuncionaBase.map((t) => {
                 <h3 class="cs-member-name"><a href={route(`/chapa-semente/${leader.id}`)}>{leader.name}</a></h3>
                 <p class="cs-member-role">{leader.role}</p>
               </div>
+              {propsLider.length > 0 && (
+                <div class="cs-member-props" aria-label={`Propostas coordenadas pela área de ${firstName}`}>
+                  {propsLider.map((p) => (
+                    <a href={p.href} class="cs-prop-chip" title={p.title}>
+                      {p.label}
+                    </a>
+                  ))}
+                </div>
+              )}
               <details class="cs-details">
                 <summary>Ler a fala de {firstName}</summary>
                 <div class="cs-fala space-y-3">
@@ -213,82 +338,52 @@ const jaFunciona = jaFuncionaBase.map((t) => {
       </ul>
     </section>
 
-    <!-- 4. O QUE JÁ FUNCIONA (faixa roxa) -->
-    <section aria-labelledby="cs-funciona-title" class="cs-band">
-      <h2 id="cs-funciona-title" class="cs-headline cs-on-color">O que já funciona no site</h2>
-      <p class="cs-band-lede">Isto não é promessa: está no ar hoje e você pode usar agora.</p>
-      <ul class="cs-tools" role="list">
-        {jaFunciona.map((t) => (
-          <li>
-            <a href={t.href} class="cs-tool" data-nav-axis={t.aba}>
-              <span class="sk-tile sk-tile-broto" aria-hidden="true">
-                <CagpIcon name={t.icone} class="sk-tile-glifo" />
-                <svg class="sk-broto" viewBox="-46 -110 72 118"><use href="#sg-folha" /></svg>
-              </span>
-              <span class="min-w-0 flex-1">
-                <span class="cs-tool-title">{t.title}</span>
-                <span class="cs-tool-desc">{t.desc}</span>
-              </span>
-              <i class="bi bi-arrow-right text-lg shrink-0" aria-hidden="true"></i>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </section>
-
-    <!-- 5. AS 14 PROPOSTAS -->
-    <section id="propostas" aria-labelledby="cs-propostas-title" class="scroll-mt-24 space-y-5">
-      <div class="space-y-2 max-w-[68ch]">
-        <h2 id="cs-propostas-title" class="cs-headline">As 14 propostas</h2>
-        <p class="text-base text-muted-foreground m-0">Quatro perguntas, quatro telas. Toque numa.</p>
-      </div>
-      <!-- A entrada do tour das propostas: um bloco por eixo, cada um abre o tour naquele eixo. -->
-      <ul class="cs-eixos">
-        {PROPOSTA_EIXOS.map((e) => (
-          <li>
-            <button type="button" class="cs-eixo" data-cagp-dispatch="cagp:start-propostas-tour" data-cagp-eixo={e.id}>
-              <span class="cs-eixo-adesivo" style={`background:${e.bg};color:${e.fg}`}>{e.estagio}</span>
-              <span class="cs-eixo-gancho">{e.gancho}</span>
-              <span class="cs-eixo-pe">
-                <span>{e.nome} · {e.ate - e.de + 1} propostas</span>
-                <i class="bi bi-play-fill" aria-hidden="true"></i>
-              </span>
-            </button>
-          </li>
-        ))}
-      </ul>
-      <!-- O plano de execução (18/11/2026): data, custo e quem responde por cada proposta, em PDF e na página. -->
-      <a href={route('/chapa-semente/plano')} class="cs-plano">
-        <span class="cs-plano-texto">
-          <b>Cada proposta tem data, custo e quem responde.</b>
-          <span>Nove das 14 não tiram dinheiro do caixa. Veja o plano inteiro, em PDF ou aqui no site.</span>
-        </span>
-        <i class="bi bi-arrow-right text-lg shrink-0" aria-hidden="true"></i>
-      </a>
-      <p class="m-0 text-base text-muted-foreground">
-        Discorda de alguma, ou acha que faltou uma? <a href={route('/ouvidoria')} class="font-bold text-primary underline underline-offset-[0.22em]">Fala com a gente</a>.
+    <!-- 6. QUANDO E ONDE VOTAR (cartaz petróleo de decisão) -->
+    <section id="votar" aria-labelledby="cs-votar-title" class="cs-vote scroll-mt-24">
+      <h2 id="cs-votar-title" class="cs-headline cs-on-color">Quando e onde votar</h2>
+      <dl class="cs-vote-list">
+        <div>
+          <dt>Nosso número</dt>
+          <dd><strong>{CHAPA_ROTULO}</strong>. É o número da Semente nesta eleição.</dd>
+        </div>
+        <div>
+          <dt>Votação</dt>
+          <dd><strong>25 e 26 de novembro</strong>, das 17h às 22h30, no CAGP. Voto secreto.</dd>
+        </div>
+        <div>
+          <dt>Quem vota</dt>
+          <dd>Todo estudante regularmente matriculado em Gestão Pública. Na cédula, um X em uma chapa só.</dd>
+        </div>
+        <div>
+          <dt>Debate</dt>
+          <dd><strong>24 de novembro, às 18h</strong>. Confira o local atualizado em Gestão.</dd>
+        </div>
+        <div>
+          <dt>Mandato</dt>
+          <dd>A chapa eleita dirige o CAGP por 1 ano (Regimento, art. 48).</dd>
+        </div>
+      </dl>
+      <p class="cs-vote-note">
+        Nos dias de votação é proibido fazer campanha no 1º andar da FAFICH (edital, art. 17).
       </p>
-    </section>
-
-    <!-- 5b. A CARTA COMPLETA: aberta na página desde 13/11/2026 (antes ficava atrás de um "Ler a carta
-         completa"). As 14 propostas com o texto inteiro, busca e filtro; o adesivo de cada cartão diz o
-         que já foi feito (`jaFeito` em src/lib/propostasTour.ts). -->
-    <section id="carta" aria-labelledby="cs-carta-title" class="scroll-mt-24 space-y-5">
-      <div class="space-y-2 max-w-[68ch]">
-        <h2 id="cs-carta-title" class="cs-headline">A carta completa</h2>
-        <p class="text-base text-muted-foreground m-0">
-          As 14 propostas com o texto inteiro, como está na carta-programa. {PROPOSTAS_FEITAS} delas já saíram do papel: é só procurar o adesivo laranja.
-        </p>
+      <div class="flex flex-wrap items-center gap-3">
+        <button type="button" class="sk-btn sk-btn-folha text-foreground" data-cs-ics>
+          <i class="bi bi-calendar-plus" aria-hidden="true" data-cs-ics-icon></i>
+          <span data-cs-ics-label>Lembrar na agenda</span>
+        </button>
+        <a href={route('/gestao')} class="cs-btn cs-btn-ghost-light">
+          Tudo sobre a eleição e debate
+        </a>
       </div>
-      <CartaPropostaInteractive client:visible />
+      <p class="cs-ics-note" data-cs-ics-note aria-live="polite"></p>
     </section>
 
-    <!-- 6. KIT DE DIVULGAÇÃO: quem já decidiu o voto vira quem espalha (artes em public/og/kit/) -->
+    <!-- 7. KIT DE DIVULGAÇÃO (no rodapé, sem duplicar com FaixaDeVoto pois ela está oculta nesta página) -->
     <section id="divulgar" aria-labelledby="cs-kit-title" class="scroll-mt-24 space-y-5">
       <div class="space-y-2 max-w-[68ch]">
-        <h2 id="cs-kit-title" class="cs-headline">Ajude a espalhar</h2>
+        <h2 id="cs-kit-title" class="cs-headline">Ajude a espalhar o plano</h2>
         <p class="text-base text-muted-foreground m-0">
-          Vai votar na Semente? Conte pra turma. A arte e os textos já estão prontos.
+          Vai votar na Semente? Mande o plano em 1 página ou as 14 propostas com data e custo para a turma.
         </p>
       </div>
       <div class="cs-kit">
@@ -304,13 +399,13 @@ const jaFunciona = jaFuncionaBase.map((t) => {
           />
           <div class="cd-secao">
             <h3 class="cd-h2">Pro story e pro status</h3>
-            <p class="cd-texto">A arte “Eu voto {CHAPA_ROTULO}” já vem no tamanho do story. Baixe, poste e cole o link do site.</p>
+            <p class="cd-texto">A arte “Eu voto {CHAPA_ROTULO}” já vem no tamanho do story. Baixe, poste e cole o link do plano.</p>
             <div class="cd-acoes">
               <a href={asset('/og/kit/story-voto.jpg')} download="eu-voto-chapa-2-semente.jpg" class="sk-btn sk-btn-roxo">
                 <i class="bi bi-download" aria-hidden="true"></i>
                 Baixar a arte
               </a>
-              <BotaoCompartilhar corpo={corpoDoVoto()} url={route('/')} tom="voto" rotulo="Declarar meu voto" />
+              <BotaoCompartilhar corpo={corpoDoVoto()} url={route('/chapa-semente/plano')} tom="voto" rotulo="Declarar meu voto" />
             </div>
           </div>
         </div>
@@ -326,19 +421,19 @@ const jaFunciona = jaFuncionaBase.map((t) => {
         </div>
         <div class="cd-ficha">
           <h3 class="cd-h2">Pro grupo da turma</h3>
-          <p class="cd-texto">Um convite curto, com a data e o lugar da eleição e o link do site.</p>
+          <p class="cd-texto">Um convite direto já com o link do Plano de Execução, a data do debate (24/11) e da votação (25 e 26/11).</p>
           <div class="cd-acoes">
-            <BotaoCompartilhar corpo={CONVITE} url={route('/')} tom="convite" variante="roxo" rotulo="Mandar o convite" />
-            <BotaoCompartilhar corpo={CONVITE} url={route('/')} tom="convite" variante="copiar" />
+            <BotaoCompartilhar corpo={CONVITE_RETA_FINAL} url={route('/chapa-semente/plano')} tom="convite" variante="roxo" rotulo="Mandar no WhatsApp" />
+            <BotaoCompartilhar corpo={CONVITE_RETA_FINAL} url={route('/chapa-semente/plano')} tom="convite" variante="copiar" />
           </div>
           <p class="cd-texto">
-            Cada proposta e cada pessoa da chapa tem a sua página, com link e arte próprios: abra uma e use o botão de mandar.
+            Quer mandar o resumo em PDF? <a href={asset(PLANO_PDF_RESUMO)} target="_blank" rel="noopener" class="font-bold text-primary underline underline-offset-[0.2em]">Abra o plano em 1 página (260 KB)</a>.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- O fechamento com o pedido de voto é a FaixaDeVoto, que o BaseLayout põe no fim de toda página. -->
+    <!-- Fechamento próprio via #divulgar; FaixaDeVoto é omitida pelo hideFaixaDeVoto em BaseLayout. -->
   </div>
 
   <JourneyNav
@@ -494,6 +589,7 @@ const jaFunciona = jaFuncionaBase.map((t) => {
     line-height: 1.5;
     color: #fff;
   }
+  .sk-btn.is-saved,
   .cs-btn.is-saved { background: #fff; }
 
   /* Botões */
@@ -519,23 +615,22 @@ const jaFunciona = jaFuncionaBase.map((t) => {
   .cs-btn:hover { transform: translate(-1px, -1px); box-shadow: 6px 6px 0 0 #1f1f1f; }
   .cs-btn:active { transform: translate(4px, 4px); box-shadow: none; }
   .cs-btn:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 3px; }
-  /* O laranja é o botão de destaque: cantos da folha do símbolo. */
-  .cs-btn-accent { background: var(--color-accent); color: #1f1f1f; border-radius: 26px 7px 26px 7px; padding-inline: 1.5rem; }
   .cs-btn-ghost-light { background: #fff; color: #1f1f1f; }
 
   /* Os quatro blocos de eixo: a entrada do tour das propostas. */
   .cs-eixos { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.875rem; }
   .cs-plano {
-    display: flex; align-items: center; gap: 1rem; min-height: 56px; padding: 1rem 1.25rem;
-    background: var(--semente-teal, #266264); color: #fff; text-decoration: none;
+    display: flex; align-items: center; flex-wrap: wrap; gap: 0.875rem 1rem; min-height: 56px; padding: 1rem 1.25rem;
+    background: #fff; color: var(--color-foreground); text-decoration: none;
     border: 3px solid #1f1f1f; border-radius: 12px; box-shadow: 4px 4px 0 0 #1f1f1f;
     transition: translate var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out), box-shadow var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out);
   }
   .cs-plano:hover { translate: -1px -1px; box-shadow: 6px 6px 0 0 #1f1f1f; }
   .cs-plano:active { translate: 3px 3px; box-shadow: 0 0 0 0 #1f1f1f; }
   .cs-plano:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; }
-  .cs-plano-texto { display: grid; gap: 0.25rem; flex: 1; min-width: 0; line-height: 1.45; }
-  .cs-plano-texto b { font-family: var(--font-heading); font-size: 1.125rem; line-height: 1.3; }
+  .cs-plano-texto { display: grid; gap: 0.25rem; flex: 1; min-width: 14rem; line-height: 1.45; }
+  .cs-plano-texto b { font-family: var(--font-heading); font-size: 1.125rem; line-height: 1.3; color: var(--color-primary); }
+  .cs-plano-texto span { color: var(--color-content-secondary); font-size: 0.875rem; }
   @media (min-width: 720px) { .cs-eixos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   .cs-eixo {
     display: grid;
@@ -563,21 +658,28 @@ const jaFunciona = jaFuncionaBase.map((t) => {
     border: 2px solid #1f1f1f;
     border-radius: 6px;
     box-shadow: 2px 2px 0 0 #1f1f1f;
-    font-size: 0.8125rem;
+    font-size: 0.75rem;
     font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
   .cs-eixo-gancho { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; line-height: 1.15; text-wrap: balance; }
   .cs-eixo-pe { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 0.75rem; font-size: 0.875rem; line-height: 1.3; }
   .cs-eixo-pe i { display: grid; place-items: center; flex: none; width: 2rem; height: 2rem; color: #1f1f1f; background: var(--color-accent); border: 2px solid #1f1f1f; border-radius: 50%; }
 
-  /* 2. Faixa petróleo */
+  /* 2. Faixas (roxa / petróleo alternadas) */
   .cs-band {
     display: flex;
     flex-direction: column;
     gap: 1rem;
     padding: 1.75rem 1.25rem;
+    border: 3px solid #1f1f1f;
     border-radius: 16px;
     background: var(--color-primary);
+    box-shadow: 6px 6px 0 0 #1f1f1f;
+  }
+  .cs-band-teal {
+    background: var(--color-secondary);
   }
   @media (min-width: 1024px) {
     .cs-band { padding: 2.5rem; }
@@ -587,6 +689,51 @@ const jaFunciona = jaFuncionaBase.map((t) => {
     font-size: 1rem;
     line-height: 1.6;
     color: #fff;
+  }
+  .cs-recibos {
+    display: grid;
+    gap: 0.875rem;
+    margin: 0.25rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  @media (min-width: 720px) {
+    .cs-recibos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 1120px) {
+    .cs-recibos { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+  .cs-recibo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    padding: 1rem;
+    background: #fff;
+    color: var(--color-foreground);
+    border: 2px solid #1f1f1f;
+    border-radius: 12px;
+    box-shadow: 3px 3px 0 0 #1f1f1f;
+    font-variant-numeric: tabular-nums;
+  }
+  .cs-recibo-num {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 1.15;
+    color: var(--color-primary);
+  }
+  .cs-recibo-rotulo {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    line-height: 1.25;
+    color: var(--color-foreground);
+  }
+  .cs-recibo-desc {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: var(--color-content-secondary);
   }
   .cs-tools {
     display: grid;
@@ -704,11 +851,39 @@ const jaFunciona = jaFuncionaBase.map((t) => {
     color: #1f1f1f;
   }
   .cs-member-name a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
     color: inherit;
     text-decoration: underline;
     text-decoration-thickness: 2px;
     text-underline-offset: 0.2em;
   }
+  .cs-member-props {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+  .cs-prop-chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 0.75rem;
+    border: 2px solid #1f1f1f;
+    border-radius: 8px;
+    background: #fff;
+    color: var(--color-primary);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-variant-numeric: tabular-nums;
+    box-shadow: 2px 2px 0 0 #1f1f1f;
+  }
+  .cs-prop-chip:hover { translate: -1px -1px; box-shadow: 3px 3px 0 0 #1f1f1f; }
+  .cs-prop-chip:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 2px; }
   .cs-member-name a:focus-visible {
     outline: 3px solid var(--color-primary);
     outline-offset: 2px;
