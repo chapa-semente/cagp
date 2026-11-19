@@ -558,12 +558,12 @@ const PlanoResumoScreen: React.FC<{ headingRef: HeadingRef; retornando?: boolean
         )}
       </div>
 
-      <div className="flex items-center justify-between gap-2.5 sm:justify-start">
-        <button type="button" onClick={onNext} className={`${btnAccent} h-[48px] flex-1 px-4 text-sm sm:h-[52px] sm:flex-none sm:px-6`}>
+      <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-3">
+        <button type="button" onClick={onNext} className={`${btnAccent} min-h-[48px] w-full px-5 py-2.5 text-sm sm:min-h-[52px] sm:w-auto sm:px-6`}>
           Ver o que muda pra mim
           <i className="bi bi-arrow-right" aria-hidden="true" />
         </button>
-        <button type="button" onClick={onExit} className={`${linkLight} shrink-0 justify-center px-2`}>
+        <button type="button" onClick={onExit} className={`${linkLight} justify-center px-2`}>
           Ir direto pro site
         </button>
       </div>
