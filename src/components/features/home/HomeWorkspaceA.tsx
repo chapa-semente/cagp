@@ -221,8 +221,8 @@ export const HomeWorkspaceA: React.FC<{ noticiasReais?: SimulatedNewsItem[] }> =
             <span className="block text-sm leading-snug text-content-secondary">Calendário público da posse a março de 2027.</span>
           </li>
           <li className="rounded-xl border-2 border-border bg-white text-foreground px-3.5 py-2.5 shadow-xs">
-            <strong className="block font-heading text-base font-bold text-primary tabular-nums">40% de desconto FUMP</strong>
-            <span className="block text-sm leading-snug text-content-secondary">Na calourada, para níveis I, II e III.</span>
+            <strong className="block font-heading text-base font-bold text-primary tabular-nums">25% de desconto FUMP</strong>
+            <span className="block text-sm leading-snug text-content-secondary">Na calourada, em até 60 ingressos por festa.</span>
           </li>
         </ul>
 
@@ -360,7 +360,7 @@ export const HomeWorkspaceA: React.FC<{ noticiasReais?: SimulatedNewsItem[] }> =
           <Marquee data-impeccable-ignore="marquee" speed="slow" pauseOnHover className="bg-foreground text-white border-0 shadow-none py-2.5">
             {[
               '9 de 14 propostas custam R$ 0',
-              '40% de desconto pra fumpistas na calourada',
+              '25% de desconto pra fumpistas na calourada',
               `Debate ${DEBATE_DATA} às ${DEBATE_HORA} · Votação 25 e 26/11`,
               `Vote ${CHAPA_NOME}`,
               'Faz o S!',

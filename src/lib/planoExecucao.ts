@@ -34,11 +34,22 @@ export interface PlanoProposta {
   secoes: { titulo: string; blocos: PlanoBloco[] }[];
 }
 
+/**
+ * Proposta que veio de estudante (22/11/2026): mesmo formato, com id "e1", "e2"… e, em
+ * `daCartaAoPlano`, o que o estudante sugeriu no lugar do que a carta diz.
+ */
+export interface PlanoDeEstudante extends Omit<PlanoProposta, 'id'> {
+  id: string;
+  numero: number;
+}
+
 export const PLANO_MANDATO = dados.mandato;
 export const PLANO_PROPOSTAS = dados.propostas as PlanoProposta[];
+export const PLANO_DE_ESTUDANTES = ((dados as { deEstudantes?: unknown[] }).deEstudantes ?? []) as PlanoDeEstudante[];
 export const PLANO_PDF_COMPLETO = dados.pdfCompleto;
 export const PLANO_PDF_RESUMO = dados.pdfResumo;
-export const PLANO_PAGINAS = 109;
+/** Páginas do PDF completo, contadas pelo script (109 até 22/11/2026, quando entrou a proposta de estudante). */
+export const PLANO_PAGINAS: number = (dados as { paginas?: number }).paginas ?? 116;
 
 export function planoDaProposta(id: number): PlanoProposta | undefined {
   return PLANO_PROPOSTAS.find((p) => p.id === id);
@@ -78,8 +89,11 @@ export function resumoExecucaoDaProposta(id: number): ResumoExecucaoProposta | u
   const secaoRisco = plano.secoes.find((s) => s.titulo.toLowerCase().includes('errado'));
   const primeiroBlocoLista = secaoRisco?.blocos.find((b): b is { lista: { forte: Html; texto: Html }[] } => 'lista' in b);
   const primeiroRisco = primeiroBlocoLista?.lista[0];
+  // O risco do boletim já termina em ponto ("O pedido é sobre algo que o CAGP não resolve."): aí vai só um
+  // espaço antes da resposta, e não ".:" (22/11/2026).
+  const forteRisco = primeiroRisco ? semHtml(primeiroRisco.forte) : '';
   const planoB = primeiroRisco
-    ? `${semHtml(primeiroRisco.forte)}${primeiroRisco.forte ? ': ' : ''}${semHtml(primeiroRisco.texto)}`
+    ? `${forteRisco}${!forteRisco ? '' : /[.!?]$/.test(forteRisco) ? ' ' : ': '}${semHtml(primeiroRisco.texto)}`
     : '';
   return {
     id,

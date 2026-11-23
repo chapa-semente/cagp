@@ -886,3 +886,26 @@
   color: #1f1f1f;
 }
 [aria-current='page'] > span > .sk-mini { background: #fff; }
+
+/* Crédito de quem sugeriu uma proposta (22/11/2026): a tira de papel branca do tour, colada torta.
+   Vai no bloco roxo de /propostas/eN, no cartão da /chapa-semente e nas fichas do plano. */
+.sk-credito {
+  justify-self: start;
+  align-self: start;
+  display: grid;
+  gap: 0.125rem;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0;
+  padding: 0.5rem 0.875rem 0.5625rem;
+  background: #fff;
+  color: #1f1f1f;
+  border: 2px solid #1f1f1f;
+  border-radius: 6px;
+  box-shadow: 3px 3px 0 0 #1f1f1f;
+  rotate: -1.5deg;
+  line-height: 1.35;
+}
+.sk-credito-quem { font-size: 1rem; }
+.sk-credito-quem b { font-family: var(--font-heading); font-weight: 700; }
+.sk-credito-quando { font-size: 0.875rem; color: var(--color-content-secondary, #4a4740); font-variant-numeric: tabular-nums; }

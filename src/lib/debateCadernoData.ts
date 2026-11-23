@@ -12,6 +12,9 @@
 //     estritamente do cargo/gestão e não exibe nem menciona captura de conversa privada.
 //   - Explicita legitimidade do ressarcimento e canal de retificação (/ouvidoria).
 
+
+import { PLANO_PAGINAS } from '@/lib/planoExecucao';
+
 export type DestaqueCor = 'roxo' | 'laranja' | 'petroleo' | 'raiz';
 
 export interface DebateDestaque {
@@ -106,7 +109,7 @@ export const DEBATE_TEMAS_MACRO: readonly DebateTemaMacro[] = [
     panorama:
       'Em 2025, cada uma das 33 propostas tinha prazo e 14 foram feitas e mostradas. Na carta 2026–2027 em PDF, o total subiu para 39 propostas, mas sem nenhuma data de entrega; as claras e viáveis caíram de 36% para 21%, e 4 promessas que não saíram do papel voltam quase iguais.',
     semente:
-      '14 propostas num plano público de 109 páginas com entrega, data-limite, teto de custo (9 de 14 a R$ 0,00), diretoria responsável e Plano B por escrito.',
+      `14 propostas num plano público de ${PLANO_PAGINAS} páginas com entrega, data-limite, teto de custo (9 de 14 a R$ 0,00), diretoria responsável e Plano B por escrito.`,
     href: '#balanco',
     linkLabel: 'Ver balanço 2025–2026',
   },

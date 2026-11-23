@@ -19,6 +19,8 @@ const rotasDoRegistro = [...new Set(AXIS_REGISTRY.flatMap((a) => a.items.map((i)
 const rotasNovas = [
   ...DOCUMENTOS_PEDIDOS.map((d) => `/doc/${d.id}`),
   ...PROPOSTA_STOPS.map((p) => `/propostas/${p.id}`),
+  // As propostas que vieram de estudantes (22/11/2026) têm página e prévia próprias.
+  '/propostas/e1',
   ...CHAPA_LEADERS.map((l) => `/chapa-semente/${l.id}`),
   ...Object.keys(dados.normas).map((slug) => `/documentos/${slug}`),
 ];

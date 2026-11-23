@@ -34,6 +34,7 @@ import {
   DEBATE_TEMAS_MACRO,
 } from '@/lib/debateCadernoData';
 import { DEBATE_DATA, DEBATE_HORA } from '@/lib/chapaSementeData';
+import { PLANO_PAGINAS } from '@/lib/planoExecucao';
 import { asset, route } from '@/lib/paths';
 import '@/styles/plano-documento.css';
 
@@ -807,11 +808,11 @@ const CORES_RETORNO: Record<string, string> = {
       <h2 id="db-mesma-regua" class="pd-abertura-titulo">A mesma régua vale pra nós</h2>
       <p class="pd-abertura-lede">
         Aplicamos o mesmo critério à carta original da Semente e registramos nossa própria autocrítica: <strong>6 de 14 propostas eram genéricas</strong>.
-        Por isso publicamos um plano de 109 páginas com data, teto de gasto, responsável e Plano B — e qualquer erro aqui pode ser corrigido pelo canal aberto.
+        Por isso publicamos um plano de {PLANO_PAGINAS} páginas com data, teto de gasto, responsável e Plano B — e qualquer erro aqui pode ser corrigido pelo canal aberto.
       </p>
       <div class="flex flex-wrap items-center gap-3">
         <a href={route('/chapa-semente/plano')} class="sk-btn sk-btn-folha text-foreground">
-          Abrir Plano Semente (109 págs)
+          Abrir Plano Semente ({PLANO_PAGINAS} págs)
           <i class="bi bi-arrow-right" aria-hidden="true"></i>
         </a>
         <a href={route('/ouvidoria?de=/chapa-semente/debate')} class="sk-btn">

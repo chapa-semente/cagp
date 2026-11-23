@@ -1,6 +1,6 @@
 {
   "_comentario": "Fonte única das prévias de link (WhatsApp, X, Facebook, Instagram Direct) e dos banners de cada endereço. O layout lê título e descrição daqui; node scripts/generate-og.mjs lê o campo banner e grava os JPGs em public/og/. Em gancho, a palavra entre chaves sai na caneta (uma por banner). Mudou um banner? Rode o script e suba o número em versao. O campo emoji abre a mensagem de compartilhar daquela página (só no texto que vai pro WhatsApp; a tela do site não usa emoji).",
-  "versao": 9,
+  "versao": 10,
   "padrao": {
     "titulo": "O site do curso de Gestão Pública",
     "descricao": "Estágio, 600h, FUMP e documentos, passo a passo. Feito pela Chapa 2 · Semente.",
@@ -10,9 +10,9 @@
   "paginas": {
     "/": {
       "titulo": "O site do curso de Gestão Pública, feito pela Chapa 2",
-      "descricao": "Guias práticos do curso e o plano das 14 propostas da Semente: data, custo (9/14 a R$ 0), 40% FUMP e plano B. Debate 24/11 e votação 25–26/11.",
+      "descricao": "Guias práticos do curso e o plano das 14 propostas da Semente: data, custo (9/14 a R$ 0), 25% FUMP e plano B. Debate 24/11 e votação 25–26/11.",
       "emoji": "🌱",
-      "mensagem": "A Chapa 2 · Semente colocou no ar os guias do curso e o plano completo das 14 propostas (9/14 a R$ 0, 100 dias e 40% de desconto pra fumpistas na calourada):",
+      "mensagem": "A Chapa 2 · Semente colocou no ar os guias do curso e o plano completo das 14 propostas (9/14 a R$ 0, 100 dias e 25% de desconto pra fumpistas na calourada):",
       "imagem": "home",
       "banner": { "molde": "home" }
     },
@@ -227,9 +227,9 @@
     },
     "/chapa-semente": {
       "titulo": "Chapa 2 · Semente: 14 propostas com data, custo e plano B",
-      "descricao": "Conheça o plano consolidado da Chapa 2: 9/14 propostas a R$ 0, 100 dias de entregas, 40% FUMP na calourada e plano B. Eleição em 25 e 26/11.",
+      "descricao": "Conheça o plano consolidado da Chapa 2: 9/14 propostas a R$ 0, 100 dias de entregas, 25% FUMP na calourada e plano B. Eleição em 25 e 26/11.",
       "emoji": "💜🧡",
-      "mensagem": "A Chapa 2 · Semente publicou o plano das 14 propostas com data, custo (9/14 a R$ 0), 40% FUMP e plano B:",
+      "mensagem": "A Chapa 2 · Semente publicou o plano das 14 propostas com data, custo (9/14 a R$ 0), 25% FUMP e plano B:",
       "imagem": "chapa",
       "banner": { "molde": "chapa" }
     },
@@ -243,11 +243,19 @@
     },
     "/chapa-semente/plano": {
       "titulo": "O plano da Chapa 2: cada proposta com data, custo e quem responde",
-      "descricao": "As 14 propostas da Semente com prazo, custo, 40% FUMP e plano B. Nove custam R$ 0. Resumo de 1 minuto, orçamento em 3 cenários e PDF de 1 página.",
+      "descricao": "As 14 propostas da Semente com prazo, custo, 25% FUMP e plano B. Nove custam R$ 0. Resumo de 1 minuto, orçamento em 3 cenários e PDF de 1 página.",
       "emoji": "🗓️",
-      "mensagem": "A Chapa 2 · Semente mostra quando cada proposta sai do papel, quanto custa (9/14 a R$ 0), os 40% FUMP e o orçamento em 3 cenários:",
+      "mensagem": "A Chapa 2 · Semente mostra quando cada proposta sai do papel, quanto custa (9/14 a R$ 0), os 25% FUMP e o orçamento em 3 cenários:",
       "imagem": "p-plano",
       "banner": { "molde": "pagina", "aba": "chapa", "etiqueta": "O plano da Semente", "gancho": [ "Cada proposta", "com {data}." ], "sub": [ "Prazo, custo e quem responde,", "em PDF e no site." ], "arte": "fichas" }
+    },
+    "/propostas/e1": {
+      "titulo": "Ideia de estudante na Chapa 2: ações sociais além da UFMG",
+      "descricao": "Um aluno do 1º período apontou o que faltava, e a Semente pôs no plano: gincana nas recepções, agasalho e brinquedos, com data e custo zero.",
+      "emoji": "🤲",
+      "mensagem": "*Um aluno do 1º período sugeriu, e a Chapa 2 · Semente pôs no plano:* ações sociais pra quem está fora da UFMG, com gincana na recepção dos calouros, campanha do agasalho e de brinquedos, data e custo zero. Tem ideia também? Manda pra gente:",
+      "imagem": "proposta-e1",
+      "banner": { "molde": "pagina", "aba": "hoje", "etiqueta": "Ideia de estudante · E1", "gancho": [ "Um aluno pediu.", "Virou {proposta}." ], "sub": [ "Ações sociais fora da UFMG,", "com data e custo zero." ], "arte": "planta" }
     },
     "/chapa-semente/debate": {
       "titulo": "Análise da gestão atual: os números pro debate de 24/11",

@@ -5,7 +5,7 @@ import {
   PLANO_AUTOCRITICA,
   PLANO_CAIXA_MENSAL,
   PLANO_CALOURADA_CONJUNTA,
-  PLANO_FUMP_40,
+  PLANO_FUMP,
   PLANO_LINHA_TEMPO,
   PLANO_NUMEROS_DESTAQUE,
   PLANO_ORCAMENTO_CENARIOS,
@@ -47,10 +47,11 @@ describe('resumo do Plano de Execução', () => {
     }
   });
 
-  it('trata calourada conjunta como possibilidade e preserva regra de 40% FUMP e autocrítica', () => {
+  it('trata calourada conjunta como possibilidade, mantém a regra corrigida do desconto FUMP (25%, com errata) e a autocrítica', () => {
     expect(PLANO_CALOURADA_CONJUNTA.tipo).toBe('possibilidade');
     expect(PLANO_CALOURADA_CONJUNTA.selo).toBe('Possibilidade');
-    expect(PLANO_FUMP_40.desconto).toBe('40%');
+    expect(PLANO_FUMP.desconto).toBe('25%');
+    expect(PLANO_FUMP.errata.antes).toContain('40%');
     expect(PLANO_AUTOCRITICA.texto).toContain('6 das 14');
     expect(PLANO_NUMEROS_DESTAQUE).toHaveLength(3);
     expect(PLANO_LINHA_TEMPO.some((m) => m.cemDias)).toBe(true);

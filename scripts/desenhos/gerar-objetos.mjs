@@ -307,6 +307,19 @@ objetos.escuta = desenho(114, (r) => [
   ...forma([[150, 226], [124, 202], [124, 184], [138, 174], [150, 186], [162, 174], [176, 184], [176, 202]], r, ROSA, { raio: 7, tamanho: TRACO * 0.85 }),
 ]);
 
+// ---------------------------------------------------------------------------
+// Propostas que vieram de estudantes (22/11/2026). Mesma caixa, mesma regra: nada de laranja.
+// ---------------------------------------------------------------------------
+// De estudante nº 1 · Ações sociais além da UFMG: a caixa de doação aberta, com o coração saindo.
+objetos.solidaria = desenho(115, (r) => [
+  ...forma([[58, 154], [20, 120], [100, 110], [138, 152]], r, AMARELO, { raio: 8 }),
+  ...forma([[242, 154], [280, 120], [200, 110], [162, 152]], r, AMARELO, { raio: 8 }),
+  ...forma([[150, 168], [100, 118], [96, 82], [116, 58], [140, 60], [150, 78], [160, 60], [184, 58], [204, 82], [200, 118]], r, ROSA, { raio: 12 }),
+  ...forma(ret(56, 150, 244, 270), r, AMARELO, { raio: 10 }),
+  risco([[58, 184], [242, 182]], r, { tamanho: TRACO * 0.8 }),
+  ...folhaLado(112, 254, 0.95, r),
+]);
+
 const destino = join(dirname(fileURLToPath(import.meta.url)), '../../src/data/desenhosObjetos.json');
 writeFileSync(destino, JSON.stringify({ _comentario: 'Gerado por scripts/desenhos/gerar-objetos.mjs. Não editar à mão.', traco: TRACO, ...objetos }));
 console.log('ok', destino, JSON.stringify(objetos).length, 'bytes');

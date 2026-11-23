@@ -68,11 +68,11 @@ export function urlAbsoluta(caminho: string): string {
 }
 
 /** Convite padrão da Fase 2 (propostas consolidadas, plano de execução e debate 24/11). */
-export const CONVITE_RETA_FINAL = `🌱 A Semente (${CHAPA_NOME.replace(' · Semente', '')}) publicou o plano das 14 propostas pro CAGP: cada uma com data, custo (9/14 a R$ 0), 40% de desconto pra fumpistas na calourada e plano B.\nDá uma olhada antes do debate de 24/11:`;
+export const CONVITE_RETA_FINAL = `🌱 A Semente (${CHAPA_NOME.replace(' · Semente', '')}) publicou o plano das 14 propostas pro CAGP: cada uma com data, custo (9/14 a R$ 0), 25% de desconto pra fumpistas na calourada e plano B.\nDá uma olhada antes do debate de 24/11:`;
 
 /** Corpo da declaração de voto (story, status e fim do tour). */
 export function corpoDoVoto(): string {
-  return `💜🧡 Eu voto *${CHAPA_NOME}* pro CAGP.\n📋 14 propostas com data, custo (9/14 a R$ 0), 40% FUMP e o site do curso já no ar:`;
+  return `💜🧡 Eu voto *${CHAPA_NOME}* pro CAGP.\n📋 14 propostas com data, custo (9/14 a R$ 0), 25% FUMP e o site do curso já no ar:`;
 }
 
 /** Corpo do convite de quem pôs o site na tela inicial. */

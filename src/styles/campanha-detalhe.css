@@ -697,3 +697,18 @@
   box-shadow: 2px 2px 0 0 #1f1f1f;
 }
 .cd-salto-btn:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 2px; }
+
+/* ---- Propostas que vieram de estudantes (/propostas/eN, 22/11/2026) ---- */
+/* No salto 1..14, o botão da proposta de estudante vem em roxo lavado, para não parecer a 15ª da carta. */
+.cd-salto-btn.is-estudante { background: var(--color-primary-tint, #efe7f6); color: var(--color-primary, #5b2a85); }
+.cd-salto-btn.is-estudante:hover { background: #fff; }
+.cd-salto-btn.is-estudante[aria-current='page'] { background: var(--color-primary); color: #fff; }
+/* De onde vem esta página: uma fonte por linha, com quem publicou e quando. */
+.cd-fontes { display: grid; gap: 0.75rem; }
+.cd-fontes-lista { display: grid; gap: 0.25rem; margin: 0; padding: 0; list-style: none; }
+.cd-fontes-lista li { display: grid; gap: 0; padding-block: 0.25rem; border-top: 2px solid var(--color-muted, #e7e3d8); }
+.cd-fontes-lista li:first-child { border-top: 0; }
+.cd-fontes-lista .cd-link { min-height: 44px; text-wrap: pretty; }
+.cd-fontes-quem { font-size: 0.875rem; line-height: 1.4; color: var(--color-content-secondary, #4a4740); padding-bottom: 0.375rem; }
+/* O convite para mandar a próxima ideia: a ficha em roxo lavado da Assinatura Semente. */
+.cd-convite { background: var(--color-primary-tint, #efe7f6); }

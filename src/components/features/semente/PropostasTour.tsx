@@ -20,7 +20,7 @@ import { getTourPerson } from '@/lib/sementeTour';
 import { AdesivoChapa, AdesivoDaProposta, CenaDoEixo } from './DesenhosDaChapa';
 import { CreditoDosDesenhos } from './CreditoDosDesenhos';
 import { PROPOSTA_EIXOS, PROPOSTA_SEM_INICIO, PROPOSTA_STOPS, START_PROPOSTAS_TOUR, type PropostaStop } from '@/lib/propostasTour';
-import { resumoExecucaoDaProposta } from '@/lib/planoExecucao';
+import { PLANO_PAGINAS, resumoExecucaoDaProposta } from '@/lib/planoExecucao';
 
 const TOTAL = PROPOSTA_STOPS.length;
 const EIXOS = PROPOSTA_EIXOS.length;
@@ -441,7 +441,7 @@ const Fechamento: React.FC<{ headingRef: HeadingRef; onBack: () => void; onClose
           <i className="bi bi-arrow-right" aria-hidden="true" />
         </a>
         <a href={route('/chapa-semente/plano')} onClick={onClose} className={`${btnWhite} min-h-[52px] px-5 text-base`}>
-          Abrir o plano completo (109 págs)
+          Abrir o plano completo ({PLANO_PAGINAS} págs)
         </a>
       </div>
       <button type="button" onClick={onBack} className={linkLight}>

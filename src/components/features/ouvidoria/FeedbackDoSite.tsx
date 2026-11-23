@@ -70,8 +70,12 @@ export const FeedbackDoSite: React.FC = () => {
   useEffect(() => {
     setGuardados(getVaultItem('cagp_ouvidoria_manifestacoes_v1'));
     // Quem chega pelo rodapé de outra página já vem com o "onde" preenchido (?de=/estagio).
-    const de = new URLSearchParams(window.location.search).get('de');
+    const busca = new URLSearchParams(window.location.search);
+    const de = busca.get('de');
     if (de && /^\/[\w\-/]*$/.test(de) && de !== '/ouvidoria') setOnde(`Página ${de}`);
+    // O convite "Faltou alguma coisa na carta?" (22/11/2026) já abre em "Tenho uma ideia" (?tipo=ideia).
+    const pedido = busca.get('tipo');
+    if (TIPOS.some((t) => t.id === pedido)) setTipo(pedido as Tipo);
   }, []);
 
   const atual = TIPOS.find((t) => t.id === tipo)!;

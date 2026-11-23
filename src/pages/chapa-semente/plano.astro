@@ -1,7 +1,8 @@
 ---
 // /chapa-semente/plano — Painel de execução da Chapa 2 · Semente (19/11/2026).
 // 4 abas via SegmentedControl (zero React): Em 1 minuto (#em-1-minuto), As 14 fichas (#fichas),
-// Orçamento e riscos (#orcamento) e Texto completo das 109 páginas (#completo).
+// Orçamento e riscos (#orcamento) e Texto completo do plano (#completo; 109 páginas até 22/11/2026, hoje PLANO_PAGINAS).
+// Desde 22/11/2026 a aba Em 1 minuto e a aba das fichas mostram também as propostas que vieram de estudantes.
 // Arquétipo: leitura e painel comparativo (volume Papel). Dados: src/lib/planoExecucao.ts e src/lib/planoResumoData.ts.
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHeader from '@/components/ui/PageHeader.astro';
@@ -22,11 +23,17 @@ import {
 import {
   PLANO_AUTOCRITICA,
   PLANO_CALOURADA_CONJUNTA,
-  PLANO_FUMP_40,
+  PLANO_FUMP,
   PLANO_LINHA_TEMPO,
   PLANO_NUMEROS_DESTAQUE,
   PLANO_ROTINAS_FIXAS,
 } from '@/lib/planoResumoData';
+import {
+  CONVITE_IDEIA,
+  PROPOSTAS_DE_ESTUDANTES,
+  resumoDaPropostaDeEstudante,
+  rotaDaPropostaDeEstudante,
+} from '@/lib/propostasDeEstudantes';
 import { asset, route } from '@/lib/paths';
 import '@/styles/plano-documento.css';
 
@@ -36,7 +43,7 @@ const ABAS_DO_PLANO: TabItem[] = [
   { id: 'resumo', shortLabel: 'Em 1 min', fullLabel: 'Em 1 minuto', hash: '#em-1-minuto' },
   { id: 'fichas', shortLabel: '14 fichas', fullLabel: 'As 14 fichas', hash: '#fichas' },
   { id: 'orcamento', shortLabel: 'Orçamento', fullLabel: 'Orçamento e riscos', hash: '#orcamento' },
-  { id: 'completo', shortLabel: '109 págs', fullLabel: 'Texto completo (109 págs)', hash: '#completo' },
+  { id: 'completo', shortLabel: `${PLANO_PAGINAS} págs`, fullLabel: `Texto completo (${PLANO_PAGINAS} págs)`, hash: '#completo' },
 ];
 
 const FICHAS = PLANO_PROPOSTAS.map((p) => {
@@ -64,12 +71,15 @@ const FICHAS = PLANO_PROPOSTAS.map((p) => {
 const QTD_GRATIS = FICHAS.filter((f) => f.gratis).length;
 const QTD_PAGAS = FICHAS.length - QTD_GRATIS;
 const QTD_COMECOU = FICHAS.filter((f) => f.comecou).length;
+
+// Propostas que vieram de estudantes (22/11/2026): fora das 14, com o mesmo resumo de ficha.
+const ESTUDANTES = PROPOSTAS_DE_ESTUDANTES.map((e) => ({ ...e, rota: rotaDaPropostaDeEstudante(e), resumo: resumoDaPropostaDeEstudante(e) }));
 ---
 
 <BaseLayout
   mode="read"
   title="O plano da Semente"
-  description="Cada uma das 14 propostas da Chapa 2 com data, custo, quem responde e plano B. Resumo em 1 minuto, orçamento em 3 cenários, boletins em PDF e texto completo (109 págs)."
+  description={`Cada uma das 14 propostas da Chapa 2, e a que veio de um estudante, com data, custo, quem responde e plano B. Resumo em 1 minuto, orçamento em 3 cenários, boletins em PDF e texto completo (${PLANO_PAGINAS} págs).`}
 >
   <PageHeader
     title="O plano da Semente"
@@ -105,13 +115,13 @@ const QTD_COMECOU = FICHAS.filter((f) => f.comecou).length;
             <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
             <span>
               <b>O plano completo</b>
-              <small>{PLANO_PAGINAS} páginas · 4,3 MB · todas as propostas, quadros e orçamento</small>
+              <small>{PLANO_PAGINAS} páginas · 4,5 MB · todas as propostas, quadros e orçamento</small>
             </span>
           </a>
         </li>
       </ul>
       <details class="pd-boletins">
-        <summary>Os 14 boletins individuais em PDF (um por proposta)</summary>
+        <summary>Os boletins em PDF, um por proposta (14 da carta e {ESTUDANTES.length} de estudante)</summary>
         <ul class="pd-boletins-lista" role="list">
           {FICHAS.map((b) => (
             <li>
@@ -122,6 +132,18 @@ const QTD_COMECOU = FICHAS.filter((f) => f.comecou).length;
               <a href={asset(b.boletimPdf)} target="_blank" rel="noopener" class="pd-boletim-pdf">
                 <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
                 PDF<span class="sr-only"> do boletim da proposta {b.id}</span>
+              </a>
+            </li>
+          ))}
+          {ESTUDANTES.map((e) => (
+            <li>
+              <a href={`${route(e.rota)}#plano`} class="pd-boletim-nome">
+                <span class="pd-boletim-n is-estudante">E{e.numero}</span>
+                {e.titulo}
+              </a>
+              <a href={asset(e.plano.boletimPdf)} target="_blank" rel="noopener" class="pd-boletim-pdf">
+                <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
+                PDF<span class="sr-only"> do boletim da proposta de estudante nº {e.numero}</span>
               </a>
             </li>
           ))}
@@ -145,6 +167,22 @@ const QTD_COMECOU = FICHAS.filter((f) => f.comecou).length;
         ))}
       </ul>
 
+      <!-- Errata (22/11/2026): a regra do desconto para fumpistas mudou, e a antiga fica à vista ao lado da nova. -->
+      <section id="errata" class="pd-card-papel pd-errata scroll-mt-24" aria-labelledby="pd-errata-title">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="pd-selo is-claro">Errata · {PLANO_FUMP.errata.data}</span>
+          <h2 id="pd-errata-title" class="pd-h2-curto">Corrigimos o desconto para fumpistas</h2>
+        </div>
+        <dl class="pd-errata-lista">
+          <div class="pd-errata-antes"><dt>Antes</dt><dd>{PLANO_FUMP.errata.antes}</dd></div>
+          <div><dt>Agora</dt><dd>{PLANO_FUMP.errata.agora}</dd></div>
+        </dl>
+        <p class="m-0 text-base leading-relaxed text-foreground">{PLANO_FUMP.errata.motivo}</p>
+        <p class="m-0 text-sm leading-relaxed text-content-secondary">
+          {PLANO_FUMP.errata.orcamento} A errata abre o PDF do plano, e a seção 6.1 traz a conta inteira.
+        </p>
+      </section>
+
       <!-- 2. O que isso quer dizer pra você -->
       <section class="pd-abertura" aria-labelledby="pd-muda">
         <h2 id="pd-muda" class="pd-abertura-titulo">O que isso quer dizer pra você</h2>
@@ -154,9 +192,15 @@ const QTD_COMECOU = FICHAS.filter((f) => f.comecou).length;
           reunião aberta todo mês e o primeiro boletim de contas em 15 de março.
         </p>
         <ul class="pd-abertura-lista">
-          <li><b>Nove das 14 propostas têm custo fixo zero (R$ 0,00).</b> O site já está no ar (revisão externa só se a reunião aberta aprovar) e as demais somam R$ 6.743,05 com teto protegido.</li>
-          <li><b>Em cada calourada, {PLANO_FUMP_40.desconto} de desconto para fumpistas</b> dos níveis I, II e III, na compra antecipada.</li>
+          <li><b>Nove das 14 propostas têm custo fixo zero (R$ 0,00).</b> O site já está no ar (revisão externa só se a reunião aberta aprovar) e as demais somam R$ 6.521,05 com teto protegido.</li>
+          <li><b>Em cada calourada, {PLANO_FUMP.desconto} de desconto para fumpistas</b>, em até 60 ingressos por festa, na compra antecipada. <a href="#errata" class="font-bold text-primary underline underline-offset-[0.22em]">Corrigido em {PLANO_FUMP.errata.data}</a>.</li>
           <li><b>Toda proposta tem um plano B por escrito:</b> o que a gestão faz se a primeira ideia não der certo.</li>
+          {ESTUDANTES.map((e) => (
+            <li>
+              <b>Uma proposta veio de um estudante:</b> {e.titulo}, ideia de {e.quem.nome} ({e.quem.periodo}), já com data, quem responde e plano B. Custo no caixa: {e.plano.custo.replace(' ', '\u00a0')}.{' '}
+              <a href={route(e.rota)} class="font-bold text-primary underline underline-offset-[0.22em]">Ver a proposta</a>
+            </li>
+          ))}
           <li><b>Vale para o mandato de {PLANO_MANDATO}.</b> Nenhuma parceria citada no plano está fechada.</li>
         </ul>
       </section>
@@ -198,7 +242,7 @@ const QTD_COMECOU = FICHAS.filter((f) => f.comecou).length;
         </ol>
       </section>
 
-      <!-- 5. Rotinas fixas + 40% FUMP + Possibilidade -->
+      <!-- 5. Rotinas fixas + desconto FUMP (25%, com errata) + Possibilidade -->
       <div class="pd-orc-grade-dupla">
         <section class="pd-card-papel" aria-labelledby="pd-rotinas-title">
           <h2 id="pd-rotinas-title" class="pd-h2-curto">O que roda no calendário fixo</h2>
@@ -214,16 +258,17 @@ const QTD_COMECOU = FICHAS.filter((f) => f.comecou).length;
 
         <section class="pd-card-papel" aria-labelledby="pd-fump-title">
           <div class="flex flex-wrap items-center gap-2">
-            <span class="pd-selo tabular-nums">{PLANO_FUMP_40.desconto} FUMP</span>
-            <h2 id="pd-fump-title" class="pd-h2-curto">{PLANO_FUMP_40.titulo}</h2>
+            <span class="pd-selo tabular-nums">{PLANO_FUMP.desconto} FUMP</span>
+            <h2 id="pd-fump-title" class="pd-h2-curto">{PLANO_FUMP.titulo}</h2>
           </div>
           <ul class="pd-lista text-sm">
-            <li>{PLANO_FUMP_40.publico}</li>
-            <li>{PLANO_FUMP_40.teto}</li>
-            <li>{PLANO_FUMP_40.prioridade}</li>
-            <li>{PLANO_FUMP_40.conferencia}</li>
-            <li>{PLANO_FUMP_40.transparencia}</li>
+            <li>{PLANO_FUMP.publico}</li>
+            <li>{PLANO_FUMP.teto}</li>
+            <li>{PLANO_FUMP.prioridade}</li>
+            <li>{PLANO_FUMP.conferencia}</li>
+            <li>{PLANO_FUMP.transparencia}</li>
           </ul>
+          <p class="pd-nota-curta">Corrigido em {PLANO_FUMP.errata.data}: era {PLANO_FUMP.errata.antes}. <a href="#errata">Por que mudou</a></p>
         </section>
       </div>
 
@@ -242,6 +287,32 @@ const QTD_COMECOU = FICHAS.filter((f) => f.comecou).length;
           </a>
         </div>
       </section>
+
+      <!-- 6. O que veio de estudantes (22/11/2026): seção 6.3 do plano. -->
+      {ESTUDANTES.map((e) => (
+        <section class="pd-card-papel pd-estudante" aria-labelledby={`pd-estudante-${e.id}`}>
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="pd-selo is-estudante">Ideia de estudante · E{e.numero}</span>
+            <h2 id={`pd-estudante-${e.id}`} class="pd-h2-curto">{e.titulo}</h2>
+          </div>
+          <p class="sk-credito">
+            <span class="sk-credito-quem">Ideia de <b>{e.quem.nome}</b></span>
+            <span class="sk-credito-quando">{e.quem.periodo} · {e.quando.curto}</span>
+          </p>
+          <p class="m-0 text-sm leading-relaxed text-foreground">{e.impacto}</p>
+          <p class="m-0 text-sm leading-relaxed text-content-secondary">
+            Fica fora das 14 da carta e não muda o orçamento: custo no caixa de {e.plano.custo.replace(' ', '\u00a0')}. {CONVITE_IDEIA.texto}
+          </p>
+          <div class="flex flex-wrap gap-3 pt-1">
+            <a href={route(e.rota)} class="sk-btn sk-btn-roxo">
+              Ver a proposta <i class="bi bi-arrow-right" aria-hidden="true"></i>
+            </a>
+            <a href={route(`${CONVITE_IDEIA.href}&de=/chapa-semente/plano`)} class="sk-btn">
+              {CONVITE_IDEIA.rotulo}
+            </a>
+          </div>
+        </section>
+      ))}
     </div>
 
     <!-- ABA 2: AS 14 FICHAS (filtrável com JS puro, zero React) -->
@@ -326,6 +397,71 @@ const QTD_COMECOU = FICHAS.filter((f) => f.comecou).length;
           </li>
         ))}
       </ul>
+
+      <!-- As fichas que vieram de estudantes (22/11/2026): depois das 14 e fora dos filtros, que contam só a carta. -->
+      {ESTUDANTES.length > 0 && (
+        <section class="pd-estudantes-fichas" aria-labelledby="pd-estudantes-fichas-title">
+          <h2 id="pd-estudantes-fichas-title" class="pd-h2-curto">E as que vieram de estudantes</h2>
+          <ul class="pd-fichas-grid" role="list">
+            {ESTUDANTES.map((e) => (
+              <li class="pd-card-papel pd-ficha-resumo pd-estudante">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <div class="flex items-center gap-2">
+                    <span class="pd-boletim-n is-estudante">E{e.numero}</span>
+                    {e.plano.selo && <span class="pd-selo is-claro">{e.plano.selo}</span>}
+                  </div>
+                  <span class="pd-selo tabular-nums">Custo: {e.plano.custo}</span>
+                </div>
+
+                <h3 class="font-heading text-lg font-bold leading-snug m-0 text-foreground">{e.titulo}</h3>
+                <p class="sk-credito">
+                  <span class="sk-credito-quem">Ideia de <b>{e.quem.nome}</b></span>
+                  <span class="sk-credito-quando">{e.quem.periodo} · {e.quando.curto}</span>
+                </p>
+                <p class="m-0 text-sm leading-relaxed text-foreground">{e.impacto}</p>
+
+                <dl class="m-0 grid gap-1 text-sm leading-snug text-content-secondary border-t-2 border-muted pt-2.5">
+                  {e.resumo.primeiraEntrega && (
+                    <div>
+                      <dt class="inline font-bold text-foreground">1ª entrega ({e.resumo.primeiraData}): </dt>
+                      <dd class="m-0 inline tabular-nums">{e.resumo.primeiraEntrega}</dd>
+                    </div>
+                  )}
+                  <div>
+                    <dt class="inline font-bold text-foreground">Quem responde: </dt>
+                    <dd class="m-0 inline">{e.resumo.quemResponde}</dd>
+                  </div>
+                  {e.resumo.planoB && (
+                    <div>
+                      <dt class="inline font-bold text-foreground">Plano B: </dt>
+                      <dd class="m-0 inline">{e.resumo.planoB}</dd>
+                    </div>
+                  )}
+                </dl>
+
+                <div class="mt-auto flex flex-wrap items-center justify-between gap-2 border-t-2 border-muted pt-2.5">
+                  <a href={`${route(e.rota)}#plano`} class="pd-ficha-link">
+                    Ver cronograma e plano B
+                    <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                  </a>
+                  <a href={asset(e.plano.boletimPdf)} target="_blank" rel="noopener" class="pd-boletim-pdf border-2 border-border rounded-lg">
+                    <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
+                    Boletim PDF
+                  </a>
+                </div>
+              </li>
+            ))}
+            <li class="pd-card-papel pd-convite-ideia">
+              <h3 class="font-heading text-lg font-bold leading-snug m-0 text-foreground">{CONVITE_IDEIA.titulo}</h3>
+              <p class="m-0 text-sm leading-relaxed text-foreground">{CONVITE_IDEIA.texto}</p>
+              <a href={route(`${CONVITE_IDEIA.href}&de=/chapa-semente/plano`)} class="sk-btn sk-btn-roxo justify-self-start">
+                <i class="bi bi-lightbulb" aria-hidden="true"></i>
+                {CONVITE_IDEIA.rotulo}
+              </a>
+            </li>
+          </ul>
+        </section>
+      )}
     </div>
 
     <!-- ABA 3: ORÇAMENTO E RISCOS (painel interativo sem React) -->
@@ -333,7 +469,7 @@ const QTD_COMECOU = FICHAS.filter((f) => f.comecou).length;
       <PlanoPainelOrcamento />
     </div>
 
-    <!-- ABA 4: TEXTO COMPLETO (109 PÁGINAS) -->
+    <!-- ABA 4: TEXTO COMPLETO (PLANO_PAGINAS) -->
     <div id="ws-panel-completo" data-ws-panel="completo" role="tabpanel" aria-labelledby="ws-tab-completo" hidden class="cagp-workspace-view pd-painel-aba">
       <!-- Índice recolhível no mobile/tablet; abaixo de 1120px substitui a barra lateral -->
       <details class="pd-sumario-mobile" data-sumario-mobile>
@@ -384,7 +520,7 @@ const QTD_COMECOU = FICHAS.filter((f) => f.comecou).length;
           <div class="pd-lado-acoes">
             <a href={asset(PLANO_PDF_COMPLETO)} target="_blank" rel="noopener" class="pd-lado-pdf">
               <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
-              <span><b>Abrir o PDF completo</b><small>{PLANO_PAGINAS} páginas · 4,3 MB</small></span>
+              <span><b>Abrir o PDF completo</b><small>{PLANO_PAGINAS} páginas · 4,5 MB</small></span>
             </a>
             <a href="#pd-anexos" class="pd-lado-link">Resumo em 1 página e os 14 boletins</a>
           </div>

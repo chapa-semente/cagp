@@ -8,7 +8,14 @@ import { CartaPropostaInteractive } from '../components/features/semente/CartaPr
 import { ChapaSementeTour } from '../components/features/semente/ChapaSementeTour';
 import { PROPOSTA_EIXOS, PROPOSTAS_FEITAS } from '@/lib/propostasTour';
 import { CHAPA_LEADERS, CHAPA_NOME, CHAPA_NUMERO, CHAPA_ROTULO, SOLUTION_LABEL, getLeaderPhotoUrl } from '@/lib/chapaSementeData';
-import { PLANO_PDF_RESUMO, PLANO_PROPOSTAS, resumoExecucaoDaProposta } from '@/lib/planoExecucao';
+import { PLANO_PAGINAS, PLANO_PDF_RESUMO, PLANO_PROPOSTAS, resumoExecucaoDaProposta } from '@/lib/planoExecucao';
+import { PLANO_FUMP } from '@/lib/planoResumoData';
+import {
+  CONVITE_IDEIA,
+  PROPOSTAS_DE_ESTUDANTES,
+  resumoDaPropostaDeEstudante,
+  rotaDaPropostaDeEstudante,
+} from '@/lib/propostasDeEstudantes';
 import { asset, route } from '@/lib/paths';
 import { Marquee, MarqueeItem, MarqueeSeparator } from '../components/ui/marquee';
 import EstagioIlustra from '@/components/ui/EstagioIlustra.astro';
@@ -23,10 +30,15 @@ import '@/styles/campanha-detalhe.css';
 const MARQUEE = [
   `Vote ${CHAPA_NOME} · 25 e 26/11 · 17h às 22h30`,
   '9 de 14 propostas a R$ 0,00',
-  '40% de desconto na calourada para FUMP I, II e III',
-  '109 páginas de execução: entrega, prazo, custo e plano B',
+  '25% de desconto na calourada para fumpistas, em até 60 ingressos',
+  `${PLANO_PAGINAS} páginas de execução: entrega, prazo, custo e plano B`,
+  'Ideia de estudante virou proposta: ações sociais além da UFMG',
   'Debate 24/11 às 18h · Na cédula, um X em uma chapa só',
 ];
+
+// Propostas que vieram de estudantes (22/11/2026): o cartão de cada uma, no mesmo formato das 14.
+const ESTUDANTES = PROPOSTAS_DE_ESTUDANTES.map((e) => ({ ...e, rota: rotaDaPropostaDeEstudante(e), resumo: resumoDaPropostaDeEstudante(e) }));
+const PRIMEIRA_DE_ESTUDANTE = ESTUDANTES[0];
 
 const TOTAL = String(CHAPA_LEADERS.length).padStart(2, '0');
 
@@ -42,14 +54,14 @@ const RECIBOS_PLANO = [
     desc: 'Caixa em 15 dias, escuta até 20/12, portal real até 31/01, inventário e Enap até 28/02, boletim em 15/03 e estudo do CNPJ até 31/03.',
   },
   {
-    numero: 'R$ 8.654,99',
+    numero: 'R$ 8.136,99',
     rotulo: 'Saldo final com reserva protegida',
     desc: 'Parte dos R$ 5.574,34 de caixa base e protege reserva de R$ 4.500,00 com gatilho automático se a receita cair.',
   },
   {
-    numero: '40% FUMP',
-    rotulo: 'Desconto nos níveis I, II e III',
-    desc: 'Ingressos na calourada com desconto na compra antecipada (teto de 10% do resultado), prioridade I → II → III e zero lista exposta.',
+    numero: '25% FUMP',
+    rotulo: 'Em até 60 ingressos por festa',
+    desc: 'Para fumpistas dos níveis I, II e III, 10 ingressos por lote; quem ainda não tem nível comprova com cota de renda ou CadÚnico. Corrigido em 22/11: era 40%, mas cabia em só 19 ingressos.',
   },
 ];
 
@@ -124,7 +136,7 @@ const jaFunciona = jaFuncionaBase.map((t) => {
           O site já está no ar. Agora mostramos como cada uma das 14 propostas vai sair do papel nos 365 dias de gestão —
           9 delas a custo R$ 0,00, com cronograma de 100 dias e orçamento aberto.
         </p>
-        <p class="cs-accent">109 páginas de execução · Debate 24/11 às 18h · Voto 25 e 26/11</p>
+        <p class="cs-accent">{PLANO_PAGINAS} páginas de execução · Debate 24/11 às 18h · Voto 25 e 26/11</p>
         <GritoDeVoto onColor tamanho="lg" />
         <div class="flex flex-wrap items-center gap-x-4 gap-y-3">
           <a href={route('/chapa-semente/plano')} class="sk-btn sk-btn-folha text-foreground">
@@ -143,8 +155,9 @@ const jaFunciona = jaFuncionaBase.map((t) => {
       <div class="cs-hero-arte" aria-hidden="true">
         <EstagioIlustra nivel={3} comFundo class="cs-hero-broto" />
         <span class="sk-adesivo cs-hero-ad cs-hero-ad-1">9/14 a R$ 0</span>
-        <span class="sk-adesivo cs-hero-ad cs-hero-ad-2">109 páginas</span>
-        <span class="sk-adesivo cs-hero-ad cs-hero-ad-3">40% FUMP</span>
+        <span class="sk-adesivo cs-hero-ad cs-hero-ad-2">{PLANO_PAGINAS} páginas</span>
+        <span class="sk-adesivo cs-hero-ad cs-hero-ad-3">25% FUMP</span>
+        {PRIMEIRA_DE_ESTUDANTE && <span class="sk-adesivo cs-hero-ad cs-hero-ad-4">+1 ideia de estudante</span>}
       </div>
     </section>
 
@@ -175,6 +188,11 @@ const jaFunciona = jaFuncionaBase.map((t) => {
           </li>
         ))}
       </ul>
+      <p class="cs-band-lede cs-errata">
+        <b>Errata de {PLANO_FUMP.errata.data}:</b> o desconto para fumpistas passou de 40%, que cabia em só 19 ingressos por festa,
+        para 25% em até 60.
+        <a href={`${route('/chapa-semente/plano')}#errata`}>Ver a correção e a conta</a>
+      </p>
       <div class="flex flex-wrap items-center gap-3 pt-1">
         <a href={`${route('/chapa-semente/plano')}#em-1-minuto`} class="sk-btn sk-btn-folha text-foreground">
           Abrir resumo em 1 minuto
@@ -212,19 +230,31 @@ const jaFunciona = jaFuncionaBase.map((t) => {
       </ul>
       <!-- O plano de execução (19/11/2026): folha branca com destaque sem repetir o petróleo acima. -->
       <a href={route('/chapa-semente/plano')} class="cs-plano">
-        <span class="sk-adesivo shrink-0">109 páginas</span>
+        <span class="sk-adesivo shrink-0">{PLANO_PAGINAS} páginas</span>
         <span class="cs-plano-texto">
           <b>Painel completo: cronograma de 100 dias, orçamento 2026×2027 e os 14 boletins.</b>
           <span>Compare os três cenários financeiros, veja as regras de corte e baixe o PDF em 1 página (260 KB).</span>
         </span>
         <i class="bi bi-arrow-right text-lg shrink-0" aria-hidden="true"></i>
       </a>
-      <p class="m-0 text-base text-muted-foreground">
-        Discorda de alguma, ou acha que faltou uma?{' '}
-        <a href={route('/ouvidoria')} class="inline-flex items-center min-h-[44px] font-bold text-primary underline underline-offset-[0.22em]">
-          Fala com a gente
-        </a>.
-      </p>
+      {PRIMEIRA_DE_ESTUDANTE ? (
+        <p class="m-0 text-base text-muted-foreground max-w-[68ch]">
+          Acha que faltou uma? Um estudante do {PRIMEIRA_DE_ESTUDANTE.quem.periodo} achou, e a ideia dele virou a proposta E{PRIMEIRA_DE_ESTUDANTE.numero}:{' '}
+          <a href="#de-estudantes" class="inline-flex items-center min-h-[44px] font-bold text-primary underline underline-offset-[0.22em]">
+            {PRIMEIRA_DE_ESTUDANTE.titulo}
+          </a>. Discorda de alguma ou tem outra ideia?{' '}
+          <a href={route(`${CONVITE_IDEIA.href}&de=/chapa-semente`)} class="inline-flex items-center min-h-[44px] font-bold text-primary underline underline-offset-[0.22em]">
+            Fala com a gente
+          </a>.
+        </p>
+      ) : (
+        <p class="m-0 text-base text-muted-foreground">
+          Discorda de alguma, ou acha que faltou uma?{' '}
+          <a href={route('/ouvidoria')} class="inline-flex items-center min-h-[44px] font-bold text-primary underline underline-offset-[0.22em]">
+            Fala com a gente
+          </a>.
+        </p>
+      )}
     </section>
 
     <!-- 3b. AS 14 FICHAS DE EXECUÇÃO (mantém id="carta" para âncoras antigas; carta original fica recolhida em cada cartão) -->
@@ -238,6 +268,74 @@ const jaFunciona = jaFuncionaBase.map((t) => {
       </div>
       <CartaPropostaInteractive client:visible />
     </section>
+
+    <!-- 3c. PROPOSTAS QUE VIERAM DE ESTUDANTES (22/11/2026): fora das 14, com o crédito de quem sugeriu e o convite. -->
+    {ESTUDANTES.length > 0 && (
+      <section id="de-estudantes" aria-labelledby="cs-estudantes-title" class="scroll-mt-24 space-y-5">
+        <div class="space-y-2 max-w-[68ch]">
+          <h2 id="cs-estudantes-title" class="cs-headline">Vieram de estudantes</h2>
+          <p class="text-base text-muted-foreground m-0">
+            A carta tem 14 propostas, e quem lê também pode propor. A ideia que a Semente assume entra no plano com data,
+            custo, quem responde e o nome de quem sugeriu.
+          </p>
+        </div>
+        <div class="cs-estudantes">
+          {ESTUDANTES.map((e) => (
+            <article class="cs-estudante" aria-labelledby={`cs-estudante-${e.id}`}>
+              <div class="cs-estudante-topo">
+                <span class="cs-estudante-n" aria-hidden="true">E{e.numero}</span>
+                <span class="cs-estudante-rotulo">Proposta de estudante nº {e.numero}</span>
+                <span class="cs-estudante-custo tabular-nums">Custo: {e.plano.custo}</span>
+              </div>
+              <h3 id={`cs-estudante-${e.id}`} class="cs-estudante-titulo">
+                <a href={route(e.rota)}>{e.titulo}</a>
+              </h3>
+              <p class="sk-credito">
+                <span class="sk-credito-quem">Ideia de <b>{e.quem.nome}</b></span>
+                <span class="sk-credito-quando">{e.quem.periodo} · {e.quando.curto}</span>
+              </p>
+              <p class="cs-estudante-impacto">{e.impacto}</p>
+              <dl class="cs-estudante-fatos">
+                {e.resumo.primeiraEntrega && (
+                  <div>
+                    <dt>1ª entrega ({e.resumo.primeiraData}):</dt>
+                    <dd>{e.resumo.primeiraEntrega}</dd>
+                  </div>
+                )}
+                <div>
+                  <dt>Quem responde:</dt>
+                  <dd>{e.resumo.quemResponde}</dd>
+                </div>
+                {e.resumo.planoB && (
+                  <div>
+                    <dt>Plano B:</dt>
+                    <dd>{e.resumo.planoB}</dd>
+                  </div>
+                )}
+              </dl>
+              <div class="cs-estudante-pe">
+                <a href={`${route(e.rota)}#plano`} class="cs-estudante-link">
+                  Ver cronograma e plano B
+                  <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                </a>
+                <a href={asset(e.plano.boletimPdf)} target="_blank" rel="noopener" class="cs-estudante-pdf">
+                  <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
+                  Boletim PDF
+                </a>
+              </div>
+            </article>
+          ))}
+          <aside class="cs-convite-ideia" aria-labelledby="cs-convite-ideia-title">
+            <h3 id="cs-convite-ideia-title" class="cs-convite-ideia-titulo">{CONVITE_IDEIA.titulo}</h3>
+            <p class="m-0">{CONVITE_IDEIA.texto}</p>
+            <a href={route(`${CONVITE_IDEIA.href}&de=/chapa-semente`)} class="sk-btn sk-btn-roxo justify-self-start">
+              <i class="bi bi-lightbulb" aria-hidden="true"></i>
+              {CONVITE_IDEIA.rotulo}
+            </a>
+          </aside>
+        </div>
+      </section>
+    )}
 
     <!-- 4. O QUE JÁ FUNCIONA (faixa roxa) -->
     <section aria-labelledby="cs-funciona-title" class="cs-band">
@@ -590,6 +688,8 @@ const jaFunciona = jaFuncionaBase.map((t) => {
   .cs-hero-ad-1 { top: 0.25rem; left: 0; rotate: -7deg; }
   .cs-hero-ad-2 { top: 42%; right: -0.25rem; rotate: 5deg; background: #ffc83d; }
   .cs-hero-ad-3 { bottom: 0.5rem; left: 1rem; rotate: -4deg; background: var(--color-accent); }
+  /* +1 ideia de estudante (22/11/2026): branco, no canto de cima à direita. */
+  .cs-hero-ad-4 { top: 0.25rem; right: -0.25rem; rotate: 6deg; background: #fff; }
 
   .cs-ics-note {
     margin: 0;
@@ -634,6 +734,8 @@ const jaFunciona = jaFuncionaBase.map((t) => {
     border: 3px solid #1f1f1f; border-radius: 12px; box-shadow: 4px 4px 0 0 #1f1f1f;
     transition: translate var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out), box-shadow var(--duration-press, 160ms) var(--ease-spring-snappy, ease-out);
   }
+  /* O adesivo do kit é absoluto por padrão; aqui ele é o primeiro item da linha (antes escapava para o topo da página). */
+  .cs-plano .sk-adesivo { position: relative; top: auto; left: auto; }
   .cs-plano:hover { translate: -1px -1px; box-shadow: 6px 6px 0 0 #1f1f1f; }
   .cs-plano:active { translate: 3px 3px; box-shadow: 0 0 0 0 #1f1f1f; }
   .cs-plano:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; }
@@ -1040,4 +1142,122 @@ const jaFunciona = jaFuncionaBase.map((t) => {
     color: #fff;
   }
 
+
+  /* 3c. Propostas que vieram de estudantes (22/11/2026): o cartão no formato dos das 14 e o convite em roxo lavado. */
+  .cs-estudantes { display: grid; gap: 1.25rem; align-items: start; }
+  @media (min-width: 768px) {
+    .cs-estudantes { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 1.5rem; }
+  }
+  .cs-estudante {
+    display: grid;
+    gap: 0.875rem;
+    padding: 1.25rem;
+    background: #fff;
+    border: 3px solid #1f1f1f;
+    border-radius: 12px;
+    box-shadow: 4px 4px 0 0 var(--shadow-color, #1f1f1f);
+  }
+  .cs-estudante-topo { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+  .cs-estudante-n {
+    display: grid;
+    place-items: center;
+    min-width: 2.75rem;
+    height: 2.75rem;
+    padding-inline: 0.375rem;
+    background: var(--color-primary);
+    color: #fff;
+    border: 2px solid #1f1f1f;
+    border-radius: 18px 5px 18px 5px;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+  .cs-estudante-rotulo,
+  .cs-estudante-custo {
+    padding: 0.25rem 0.5rem;
+    border: 2px solid #1f1f1f;
+    border-radius: 8px;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .cs-estudante-rotulo { background: var(--color-primary-tint, #efe7f6); color: var(--color-primary); }
+  .cs-estudante-custo { margin-left: auto; background: var(--color-secondary); color: #fff; }
+  .cs-estudante-titulo { margin: 0; font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; line-height: 1.25; text-wrap: balance; }
+  .cs-estudante-titulo a { color: var(--color-foreground); text-decoration: none; }
+  .cs-estudante-titulo a:hover { text-decoration: underline; text-underline-offset: 0.22em; }
+  .cs-estudante-impacto { margin: 0; font-size: 1rem; line-height: 1.6; text-wrap: pretty; }
+  .cs-estudante-fatos {
+    display: grid;
+    gap: 0.375rem;
+    margin: 0;
+    padding: 0.75rem;
+    background: var(--color-muted, #e7e3d8);
+    border-radius: 8px;
+    font-size: 0.875rem;
+    line-height: 1.45;
+  }
+  .cs-estudante-fatos dt { display: inline; margin-right: 0.3em; font-weight: 700; color: var(--color-foreground); }
+  .cs-estudante-fatos dd { display: inline; margin: 0; color: var(--color-content-secondary, #4a4740); }
+  .cs-estudante-pe {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 2px solid #1f1f1f;
+  }
+  .cs-estudante-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    min-height: 44px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 0.22em;
+  }
+  .cs-estudante-pdf {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    min-height: 44px;
+    padding-inline: 0.75rem;
+    background: #fff;
+    color: var(--color-foreground);
+    border: 2px solid #1f1f1f;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .cs-estudante-pdf:hover { background: var(--color-muted, #e7e3d8); }
+  .cs-estudante-pdf i { color: var(--color-primary); }
+  .cs-convite-ideia {
+    display: grid;
+    gap: 0.875rem;
+    padding: 1.25rem;
+    background: var(--color-primary-tint, #efe7f6);
+    color: var(--color-foreground);
+    border: 2px solid #1f1f1f;
+    border-radius: 12px;
+    line-height: 1.55;
+  }
+  .cs-convite-ideia-titulo { margin: 0; font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; line-height: 1.25; }
+  .cs-estudante a:focus-visible,
+  .cs-convite-ideia a:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; }
+
+  /* Errata do desconto (22/11/2026), na faixa petróleo dos recibos: texto branco, link sublinhado com alvo de 44px. */
+  .cs-errata { margin: 0; max-width: 68ch; }
+  .cs-errata b { font-weight: 700; }
+  .cs-errata a { display: inline-flex; align-items: center; min-height: 44px; color: #fff; font-weight: 700; text-decoration: underline; text-underline-offset: 0.22em; }
+  .cs-errata a:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 3px; }
 </style>

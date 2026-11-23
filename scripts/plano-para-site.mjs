@@ -127,12 +127,16 @@ function lerBoletim(texto) {
   return bol;
 }
 
-/** Lê as 14 fichas da seção 5 do plano: custo, a nota do custo e quem responde. */
+/**
+ * Lê as fichas do plano: custo, a nota do custo e quem responde. As 14 da seção 5 têm número; as que
+ * vieram de estudantes (seção 6.4 em diante, desde 22/11/2026) têm "E1", "E2"…, guardadas como "e1".
+ */
 function lerFichas(plano) {
   const fichas = new Map();
   const partes = plano.split(/^::figura ficha \| /m).slice(1);
   for (const parte of partes) {
-    const n = Number(parte.split('|')[0].trim());
+    const rotulo = parte.split('|')[0].trim();
+    const n = /^\d+$/.test(rotulo) ? Number(rotulo) : rotulo.toLowerCase();
     const campos = {};
     for (const l of parte.split('\n').slice(1)) {
       if (!l.startsWith('|')) { if (Object.keys(campos).length) break; continue; }
@@ -176,15 +180,46 @@ const propostas = arquivos.map((arquivo) => {
 });
 
 if (propostas.length !== 14) throw new Error(`Esperava 14 boletins, achei ${propostas.length}.`);
+
+// Propostas que vieram de estudantes (22/11/2026): boletim "e1-nome.md" e ficha "E1" na seção 6.4.
+// Mesmo formato das 14; "O que o estudante sugeriu" ocupa o lugar de "O que a carta diz".
+const arquivosEstudantes = readdirSync(join(pasta, 'boletins')).filter((f) => /^e\d+-.*\.md$/.test(f)).sort();
+const deEstudantes = arquivosEstudantes.map((arquivo) => {
+  const id = arquivo.split('-')[0];
+  const bol = lerBoletim(readFileSync(join(pasta, 'boletins', arquivo), 'utf8'));
+  const ficha = fichas.get(id);
+  if (!ficha) throw new Error(`Ficha da proposta de estudante ${id.toUpperCase()} não encontrada no plano.`);
+  // "De estudante nº 1: quatro ações…" — o título do site é só o que vem depois dos dois-pontos.
+  const t = bol.titulo;
+  const semRotulo = (s) => s.replace(/^De estudante nº \d+:\s*/, '');
+  const titulo = t.antes.startsWith('De estudante') ? { ...t, antes: semRotulo(t.antes) } : t;
+  const sugeriu = bol.secoes.find((s) => s.titulo === 'O que o estudante sugeriu');
+  const quando = bol.secoes.find((s) => s.titulo === 'O que você vai ver e quando');
+  if (!sugeriu || !quando) throw new Error(`Boletim ${arquivo} sem "O que o estudante sugeriu" ou "O que você vai ver e quando".`);
+  return {
+    id,
+    numero: Number(id.slice(1)),
+    boletimPdf: `/documentos/plano-semente/boletim-${arquivo.replace(/\.md$/, '.pdf')}`,
+    titulo,
+    selo: bol.selo,
+    ...ficha,
+    daCartaAoPlano: sugeriu.blocos.filter((b) => b.p).map((b) => b.p),
+    quando: quando.blocos.flatMap((b) => b.lista ?? []),
+    secoes: bol.secoes.filter((s) => s !== sugeriu && s !== quando),
+  };
+});
+
 const dados = {
   pdfCompleto: '/documentos/plano-semente/plano-de-execucao-semente.pdf',
   pdfResumo: '/documentos/plano-semente/plano-semente-em-uma-pagina.pdf',
   aviso: 'Gerado por scripts/plano-para-site.mjs a partir do plano de execução. Não edite à mão.',
   mandato: 'dezembro de 2026 a outubro de 2027',
+  paginas: Number(execFileSync('pdfinfo', [join(pasta, 'plano-semente.pdf')], { encoding: 'utf8' }).match(/Pages:\s+(\d+)/)?.[1]),
   propostas,
+  deEstudantes,
 };
 writeFileSync(saida, JSON.stringify(dados, null, 2) + '\n');
-console.log(`planoExecucao.json: ${propostas.length} propostas.`);
+console.log(`planoExecucao.json: ${propostas.length} propostas e ${deEstudantes.length} de estudantes; plano com ${dados.paginas} páginas.`);
 
 // ---------------------------------------------------------------------------------------------------
 // O plano inteiro, transcrito (18/11/2026). Mesmo leitor do gerador de PDF (_gerador-pdf/src/md.ts),
@@ -241,8 +276,10 @@ function lerDocumento(md) {
       };
       if (tipo === 'ficha') {
         // "::figura ficha | nº | nome | situação | arte | leitura | eixo": o título é o próprio cabeçalho.
+        // A ficha "E1" é da proposta de estudante nº 1 (22/11/2026).
         const [n, nome, situacao, , leitura, eixo] = titulo.split('|').map((x) => x.trim());
-        Object.assign(bloco, { titulo: inlineDoc(`Proposta ${n}: ${nome}`), ficha: { situacao, leitura, eixo } });
+        const rotulo = /^E\d+$/.test(n) ? `De estudante nº ${n.slice(1)}` : `Proposta ${n}`;
+        Object.assign(bloco, { titulo: inlineDoc(`${rotulo}: ${nome}`), ficha: { situacao, leitura, eixo } });
         bloco.linhas = tb.linhas.map(([campo, conteudo]) => [inlineDoc(campo), ...String(conteudo ?? '').split(' // ').map(inlineDoc)]);
       }
       if (tipo.startsWith('imagens:')) {
@@ -286,16 +323,20 @@ console.log(`planoCompleto.json: ${blocos.length} blocos, ${blocos.filter((b) =>
 // Os PDFs e as capturas, para baixar e abrir no site.
 const destino = join(raiz, 'public/documentos/plano-semente');
 mkdirSync(destino, { recursive: true });
+const mdDoBoletim = (pdf) => {
+  const chave = pdf.match(/boletim-(\d\d|e\d+)-/)[1];
+  return [...arquivos, ...arquivosEstudantes].find((f) => f.split('-')[0] === chave);
+};
 const copiar = (de, para) => {
   if (!existsSync(de)) throw new Error(`Falta ${de}: gere o PDF antes.`);
-  if (statSync(de).mtimeMs < statSync(join(pasta, de.includes('boletim-') ? 'boletins' : '', de.includes('uma-pagina') ? 'plano-em-uma-pagina.md' : de.includes('boletim-') ? arquivos.find((f) => f.slice(0, 2) === de.match(/boletim-(\d\d)/)[1]) : 'plano.md')).mtimeMs - 1000) {
+  if (statSync(de).mtimeMs < statSync(join(pasta, de.includes('boletim-') ? 'boletins' : '', de.includes('uma-pagina') ? 'plano-em-uma-pagina.md' : de.includes('boletim-') ? mdDoBoletim(de) : 'plano.md')).mtimeMs - 1000) {
     console.warn(`Aviso: ${de.split('/').pop()} é mais antigo que o Markdown dele. Regere o PDF.`);
   }
   copyFileSync(de, join(destino, para));
 };
 copiar(join(pasta, 'plano-semente.pdf'), 'plano-de-execucao-semente.pdf');
 copiar(join(pasta, 'plano-semente-em-uma-pagina.pdf'), 'plano-semente-em-uma-pagina.pdf');
-for (const f of readdirSync(join(pasta, 'boletins')).filter((f) => /^boletim-\d\d-.*\.pdf$/.test(f))) copiar(join(pasta, 'boletins', f), f);
+for (const f of readdirSync(join(pasta, 'boletins')).filter((f) => /^boletim-(\d\d|e\d+)-.*\.pdf$/.test(f))) copiar(join(pasta, 'boletins', f), f);
 // Capturas da pesquisa de preços (Apêndice A), em WebP.
 for (const b of blocos.filter((b) => b.tipo === 'imagem')) {
   const nome = b.imagem.split('/').pop();

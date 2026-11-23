@@ -3,6 +3,7 @@
   "pdfResumo": "/documentos/plano-semente/plano-semente-em-uma-pagina.pdf",
   "aviso": "Gerado por scripts/plano-para-site.mjs a partir do plano de execução. Não edite à mão.",
   "mandato": "dezembro de 2026 a outubro de 2027",
+  "paginas": 118,
   "propostas": [
     {
       "id": 1,
@@ -625,8 +626,8 @@
         "depois": " no que o CA compra"
       },
       "selo": "Começa na posse",
-      "custo": "R$ 2.052,00",
-      "custoNota": "Estimativa do cenário regular: 30% de R$ 6.840,00.",
+      "custo": "R$ 1.830,00",
+      "custoNota": "Estimativa do cenário regular: 30% de R$ 6.100,00, depois do desconto para fumpistas.",
       "quemResponde": "Diretoria Financeira, com Presidência e Cultura.",
       "daCartaAoPlano": [
         "Nas reuniões trimestrais abertas, os estudantes votam o que o CAGP reforma ou compra, dentro do que o caixa permite. O plano diz quanto dinheiro vai a voto: 30% do resultado de cada calourada."
@@ -789,7 +790,7 @@
           "titulo": "Quanto custa",
           "blocos": [
             {
-              "p": "A recepção custa R$ 0,00. A PRAE paga até R$ 500,00 por proposta, para material, lanche e transporte, e não paga festa. Com as duas propostas aprovadas, são R$ 1.000,00 no ano. A calourada tem regra própria, com desconto de 40% para fumpistas."
+              "p": "A recepção custa R$ 0,00. A PRAE paga até R$ 500,00 por proposta, para material, lanche e transporte, e não paga festa. Com as duas propostas aprovadas, são R$ 1.000,00 no ano. A calourada tem regra própria, com desconto de 25% para fumpistas."
             }
           ]
         },
@@ -1614,6 +1615,123 @@
           "blocos": [
             {
               "p": "Resolver depende, muitas vezes, do Colegiado, da secretaria ou da faculdade. A Meios e a RH Consultoria, empresas juniores de Ciências Sociais e de Psicologia, poderiam apoiar uma pesquisa anual com os estudantes, com custo."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "deEstudantes": [
+    {
+      "id": "e1",
+      "numero": 1,
+      "boletimPdf": "/documentos/plano-semente/boletim-e1-acoes-sociais.pdf",
+      "titulo": {
+        "antes": "quatro ações sociais, cada uma com ",
+        "marca": "data",
+        "depois": ""
+      },
+      "selo": "Começa na posse",
+      "custo": "R$ 0,00",
+      "custoNota": "Coleta na salinha e entrega com voluntários ou pela própria instituição.",
+      "quemResponde": "Diretoria de Articulação e Assuntos Políticos, com Cultura e Comunicação.",
+      "daCartaAoPlano": [
+        "Em 22 de novembro de 2026, Gustavo Pacheco, do 1º período, apontou que a carta não tinha nenhuma proposta de ação social para pessoas de fora da UFMG, como arrecadar e distribuir roupas e brinquedos. A observação procede, e a ideia entrou no plano como a primeira proposta vinda de um estudante. O plano põe data em cada ação e presta contas de cada doação."
+      ],
+      "quando": [
+        {
+          "forte": "Até 28 de fevereiro de 2027",
+          "texto": "as instituições que recebem cada ação, escolhidas e anunciadas antes de a coleta começar, cada uma com uma reserva."
+        },
+        {
+          "forte": "Março de 2027",
+          "texto": "gincana solidária na recepção de calouros. Cada item pedido pela instituição vale pontos, e a turma que mais arrecadar é anunciada na recepção."
+        },
+        {
+          "forte": "Maio e junho de 2027",
+          "texto": "campanha do agasalho, com ponto de coleta na salinha e entrega até 30 de junho."
+        },
+        {
+          "forte": "Agosto de 2027",
+          "texto": "gincana solidária na recepção do segundo semestre."
+        },
+        {
+          "forte": "De 1º de setembro a 8 de outubro de 2027",
+          "texto": "campanha de brinquedos, com entrega antes do Dia das Crianças."
+        },
+        {
+          "forte": "Em até 15 dias depois de cada ação",
+          "texto": "prestação de contas no portal de transparência, com o que chegou, por tipo e quantidade, e para onde foi."
+        }
+      ],
+      "secoes": [
+        {
+          "titulo": "Quanto custa",
+          "blocos": [
+            {
+              "p": "R$ 0,00. A coleta é na salinha e a entrega, com voluntários ou com a própria instituição."
+            }
+          ]
+        },
+        {
+          "titulo": "Como conferir",
+          "blocos": [
+            {
+              "tabela": {
+                "titulo": "Metas da proposta de estudante nº 1",
+                "cabecalho": [
+                  "O que se mede",
+                  "Meta",
+                  "Onde olhar"
+                ],
+                "linhas": [
+                  [
+                    "Ações feitas",
+                    "4 de 4",
+                    "Redes do CAGP e portal"
+                  ],
+                  [
+                    "Prestações de contas em até 15 dias",
+                    "4 de 4",
+                    "Portal de transparência"
+                  ],
+                  [
+                    "Dias entre o fim da coleta e a entrega",
+                    "Até 15",
+                    "Portal de transparência"
+                  ]
+                ],
+                "fonte": "Plano de execução 2026-2027 da Chapa Semente."
+              }
+            }
+          ]
+        },
+        {
+          "titulo": "O que pode dar errado",
+          "blocos": [
+            {
+              "lista": [
+                {
+                  "forte": "Falta gente para tocar a campanha.",
+                  "texto": "O CAGP vira ponto de coleta de uma campanha que já existe na UFMG, em vez de cancelar."
+                },
+                {
+                  "forte": "A doação fica parada na salinha.",
+                  "texto": "Ela sai em até 15 dias, e cada ação tem uma instituição reserva."
+                },
+                {
+                  "forte": "Quem recebe fica exposto.",
+                  "texto": "Nenhuma foto de pessoa atendida: a prestação de contas mostra itens e instituições."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "titulo": "Quem pode ajudar dentro da UFMG",
+          "blocos": [
+            {
+              "p": "A Engenharia Solidária, da Escola de Engenharia, que fez com calouros a gincana que inspira a nossa; a campanha do agasalho do Departamento de Ciência da Computação; e o projeto Brincar Terapêutico, da Escola de Enfermagem, que recolheu brinquedos para a pediatria do Hospital Odilon Behrens. Fora da UFMG, o núcleo de Belo Horizonte dos Engenheiros Sem Fronteiras, citado pelo Gustavo. Nenhum foi procurado ainda."
             }
           ]
         }

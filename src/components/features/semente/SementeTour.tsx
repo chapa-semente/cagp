@@ -2,7 +2,7 @@
 //
 // Substitui o antigo fluxo de vídeo + 12 telas por um briefing de 3 telas voltado às propostas
 // consolidadas e ao Plano de Execução:
-//   1. Plano em 15 segundos (9/14 a R$ 0, 40% FUMP na calourada, Plano B) + saída real em 1 toque.
+//   1. Plano em 15 segundos (9/14 a R$ 0, 25% FUMP na calourada, Plano B) + saída real em 1 toque.
 //   2. Momento do curso -> as 3 propostas consolidadas com maior impacto nessa fase (custo, 1ª data, link).
 //   3. Debate 24/11 e votação 25–26/11 (apoiador -> moldura opcional / agenda / WhatsApp; indeciso -> Plano / PDF 1 pág / debate).
 //   4. Moldura de apoio (só abre se quem apoia clicar em "Fazer minha moldura de apoio").
@@ -447,8 +447,8 @@ const RECIBOS_TELA_1: { icon: string; cor: string; titulo: string; texto: string
   {
     icon: 'bi-percent',
     cor: 'bg-secondary text-white',
-    titulo: '40% de desconto FUMP na calourada',
-    texto: 'Para níveis I, II e III, com teto de 10% do resultado e conferência discreta antes da porta.',
+    titulo: '25% de desconto FUMP na calourada',
+    texto: 'Em até 60 ingressos por festa, 10 por lote. Quem ainda não tem nível comprova com cota de renda ou CadÚnico.',
   },
   {
     icon: 'bi-signpost-split',

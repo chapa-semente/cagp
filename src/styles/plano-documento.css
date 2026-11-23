@@ -848,7 +848,7 @@
 .pd-orc-lista-simples li:first-child { padding-top: 0; border-top: 0; }
 .pd-orc-item-cabeca { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; }
 
-/* Gaveta mobile do sumário das 109 páginas */
+/* Gaveta mobile do sumário do plano inteiro */
 .pd-sumario-mobile {
   border: 3px solid #1f1f1f;
   border-radius: 12px;
@@ -1464,3 +1464,19 @@
   text-underline-offset: 0.22em;
 }
 
+
+/* ---- Propostas que vieram de estudantes (22/11/2026) ---- */
+/* Roxo lavado distingue a série das 14 da carta: no número, no selo e no convite. */
+.pd-boletim-n.is-estudante { width: auto; min-width: 2rem; padding-inline: 0.25rem; background: var(--color-primary-tint, #efe7f6); color: var(--color-primary); }
+.pd-selo.is-estudante { background: var(--color-primary-tint, #efe7f6); color: var(--color-primary); }
+.pd-estudantes-fichas { display: grid; gap: 1rem; margin-top: 2.5rem; }
+.pd-convite-ideia { display: grid; gap: 0.75rem; align-content: start; background: var(--color-primary-tint, #efe7f6); }
+
+/* ---- Errata do desconto para fumpistas (22/11/2026): a regra antiga à vista, riscada, ao lado da nova ---- */
+.pd-errata { display: grid; gap: 0.75rem; }
+.pd-errata-lista { display: grid; gap: 0.5rem; margin: 0; }
+.pd-errata-lista > div { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 0.75rem; align-items: baseline; }
+.pd-errata-lista dt { font-family: var(--font-heading); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-content-secondary, #4a4740); }
+.pd-errata-lista dd { margin: 0; font-size: 1rem; line-height: 1.5; color: var(--color-foreground); }
+.pd-errata-lista .pd-errata-antes dd { color: var(--color-content-secondary, #4a4740); text-decoration: line-through; text-decoration-thickness: 2px; }
+.pd-errata-lista > div:not(.pd-errata-antes) dd { font-family: var(--font-heading); font-weight: 700; }

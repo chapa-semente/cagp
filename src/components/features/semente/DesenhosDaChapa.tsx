@@ -40,10 +40,14 @@ const REF = REF_JSON as unknown as {
   maoRock: Mao;
   tracos: { w: number; h: number; x: number; y: number; ink: string }[];
 };
-/** Os 14 desenhos das propostas têm o nome do campo `art` de src/lib/propostasTour.ts. */
+/**
+ * Os 14 desenhos das propostas têm o nome do campo `art` de src/lib/propostasTour.ts. Os que vêm
+ * depois são das propostas que vieram de estudantes (src/lib/propostasDeEstudantes.ts).
+ */
 export type DesenhoDeProposta =
   | 'contas' | 'reunioes' | 'site' | 'cnpj' | 'seguranca' | 'patrimonio' | 'calouros'
-  | 'entidades' | 'eventos' | 'cursos' | 'empresa' | 'comunicacao' | 'produtos' | 'escuta';
+  | 'entidades' | 'eventos' | 'cursos' | 'empresa' | 'comunicacao' | 'produtos' | 'escuta'
+  | 'solidaria';
 type NomeObjeto = 'nota' | 'certificado' | 'celular' | 'exclamacao' | DesenhoDeProposta;
 const OBJ = OBJ_JSON as unknown as Record<NomeObjeto, { w: number; h: number; partes: { d: string; cor: string }[]; caneta?: string }> & { traco: number };
 

@@ -11,7 +11,8 @@ import { CHAPA_LEADERS, CHAPA_ROTULO, getLeaderPhotoUrl } from '@/lib/chapaSemen
 import { PROPOSTA_EIXOS, PROPOSTA_STOPS } from '@/lib/propostasTour';
 import { previaDaProposta } from '@/lib/previas';
 import { planoDaProposta, resumoExecucaoDaProposta } from '@/lib/planoExecucao';
-import { PLANO_FUMP_40 } from '@/lib/planoResumoData';
+import { PLANO_FUMP } from '@/lib/planoResumoData';
+import { PROPOSTAS_DE_ESTUDANTES, rotaDaPropostaDeEstudante } from '@/lib/propostasDeEstudantes';
 import PlanoDaProposta from '@/components/features/semente/PlanoDaProposta.astro';
 import { asset, route } from '@/lib/paths';
 import '@/styles/campanha-detalhe.css';
@@ -126,16 +127,20 @@ const legenda = [
     {proposta.id === 7 && (
       <section class="cagp-folha space-y-3" aria-labelledby="cd-fump-40">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="sk-adesivo tabular-nums">{PLANO_FUMP_40.desconto} FUMP</span>
-          <h2 id="cd-fump-40" class="cd-h2">{PLANO_FUMP_40.titulo}</h2>
+          <span class="sk-adesivo tabular-nums">{PLANO_FUMP.desconto} FUMP</span>
+          <h2 id="cd-fump-40" class="cd-h2">{PLANO_FUMP.titulo}</h2>
         </div>
         <ul class="m-0 pl-5 space-y-1.5 text-sm leading-relaxed text-foreground">
-          <li>{PLANO_FUMP_40.publico}</li>
-          <li class="tabular-nums">{PLANO_FUMP_40.teto}</li>
-          <li>{PLANO_FUMP_40.prioridade}</li>
-          <li>{PLANO_FUMP_40.conferencia}</li>
-          <li>{PLANO_FUMP_40.transparencia}</li>
+          <li>{PLANO_FUMP.publico}</li>
+          <li class="tabular-nums">{PLANO_FUMP.teto}</li>
+          <li>{PLANO_FUMP.prioridade}</li>
+          <li>{PLANO_FUMP.conferencia}</li>
+          <li>{PLANO_FUMP.transparencia}</li>
         </ul>
+        <p class="m-0 text-sm leading-relaxed text-content-secondary">
+          Corrigido em {PLANO_FUMP.errata.data}: era {PLANO_FUMP.errata.antes}. {PLANO_FUMP.errata.motivo}
+          <a href={`${route('/chapa-semente/plano')}#errata`} class="cd-link">Ver a errata</a>
+        </p>
       </section>
     )}
 
@@ -196,6 +201,14 @@ const legenda = [
             </li>
           );
         })}
+        {/* As propostas que vieram de estudantes (22/11/2026), depois das 14 e em roxo lavado. */}
+        {PROPOSTAS_DE_ESTUDANTES.map((e) => (
+          <li>
+            <a href={route(rotaDaPropostaDeEstudante(e))} class="cd-salto-btn is-estudante" aria-label={`Proposta de estudante nº ${e.numero}: ${e.titulo}`}>
+              E{e.numero}
+            </a>
+          </li>
+        ))}
       </ul>
     </nav>
 
@@ -206,10 +219,15 @@ const legenda = [
           <b>{anterior.titulo}</b>
         </a>
       ) : <span></span>}
-      {proxima && (
+      {proxima ? (
         <a href={route(`/propostas/${proxima.id}`)} class="cd-vizinho cd-vizinho-dir">
           <small>Proposta {proxima.id}</small>
           <b>{proxima.titulo}</b>
+        </a>
+      ) : PROPOSTAS_DE_ESTUDANTES[0] && (
+        <a href={route(rotaDaPropostaDeEstudante(PROPOSTAS_DE_ESTUDANTES[0]))} class="cd-vizinho cd-vizinho-dir">
+          <small>Proposta de estudante nº {PROPOSTAS_DE_ESTUDANTES[0].numero}</small>
+          <b>{PROPOSTAS_DE_ESTUDANTES[0].titulo}</b>
         </a>
       )}
     </nav>

@@ -6,15 +6,20 @@
 // Volume Ficha dentro de página Cartaz: a cabeça é um bloco petróleo (a cor do plano e dos dados),
 // o resto é papel. Prefixo cd-plano-.
 import MarkerWord from '@/components/ui/MarkerWord.astro';
-import { IMPACTO_DA_PROPOSTA, PLANO_MANDATO, type PlanoProposta } from '@/lib/planoExecucao';
+import { IMPACTO_DA_PROPOSTA, PLANO_MANDATO, type PlanoDeEstudante, type PlanoProposta } from '@/lib/planoExecucao';
 import { asset, route } from '@/lib/paths';
 
 interface Props {
-  plano: PlanoProposta;
+  /** Uma das 14 da carta ou uma proposta que veio de estudante (id "e1", desde 22/11/2026). */
+  plano: PlanoProposta | PlanoDeEstudante;
   /** Quando true, omite título e frase de impacto (já exibidos no topo da página) para evitar repetição. */
   semCabecaDuplicada?: boolean;
+  /** Quando true, omite "O que a carta diz…": a página já contou de onde veio a proposta (propostas de estudante). */
+  semOrigem?: boolean;
 }
-const { plano, semCabecaDuplicada = false } = Astro.props;
+const { plano, semCabecaDuplicada = false, semOrigem = false } = Astro.props;
+const deEstudante = typeof plano.id === 'string';
+const impacto = typeof plano.id === 'number' ? IMPACTO_DA_PROPOSTA[plano.id] : undefined;
 const gratis = plano.custo === 'R$ 0,00';
 const temParceiros = plano.secoes.some((s) => s.titulo.startsWith('Quem pode ajudar'));
 ---
@@ -30,7 +35,7 @@ const temParceiros = plano.secoes.some((s) => s.titulo.startsWith('Quem pode aju
           <span class="sr-only">O plano: </span>
           {plano.titulo.antes}{plano.titulo.marca && <MarkerWord onColor scroll>{plano.titulo.marca}</MarkerWord>}{plano.titulo.depois}
         </h2>
-        {IMPACTO_DA_PROPOSTA[plano.id] && <p class="cd-plano-impacto">{IMPACTO_DA_PROPOSTA[plano.id]}</p>}
+        {impacto && <p class="cd-plano-impacto">{impacto}</p>}
       </>
     )}
     <dl class="cd-plano-fatos">
@@ -62,10 +67,12 @@ const temParceiros = plano.secoes.some((s) => s.titulo.startsWith('Quem pode aju
       </ol>
     </section>
 
-    <section class="cd-plano-bloco" aria-labelledby="cd-plano-carta">
-      <h3 id="cd-plano-carta" class="cd-h2">O que a carta diz e o que o plano faz</h3>
-      {plano.daCartaAoPlano.map((p) => <p class="cd-texto" set:html={p} />)}
-    </section>
+    {!semOrigem && (
+      <section class="cd-plano-bloco" aria-labelledby="cd-plano-carta">
+        <h3 id="cd-plano-carta" class="cd-h2">{deEstudante ? 'O que o estudante sugeriu e o que o plano faz' : 'O que a carta diz e o que o plano faz'}</h3>
+        {plano.daCartaAoPlano.map((p) => <p class="cd-texto" set:html={p} />)}
+      </section>
+    )}
 
     {plano.secoes.map((secao, i) => (
       <section class="cd-plano-bloco" aria-labelledby={`cd-plano-s${i}`}>

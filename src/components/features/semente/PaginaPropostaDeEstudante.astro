@@ -1,0 +1,141 @@
+---
+// PaginaPropostaDeEstudante.astro — A página de uma proposta que veio de estudante (/propostas/eN, 22/11/2026).
+// Mesmo molde de /propostas/[n] (volume Cartaz, prefixo cd-), com três diferenças: o bloco é roxo, a cor
+// da semente (a ideia de alguém que a chapa plantou), em vez da cor de um eixo; o crédito de quem sugeriu
+// vem colado no topo; e, no lugar da fala de quem puxa, a história de onde a ideia veio e o convite para
+// mandar a próxima. Dados: src/lib/propostasDeEstudantes.ts (crédito, fontes) e o plano em PDF
+// (planoExecucao.json › deEstudantes). Cada proposta nova é uma página de três linhas que chama esta.
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BotaoCompartilhar from '@/components/ui/BotaoCompartilhar.astro';
+import PlanoDaProposta from '@/components/features/semente/PlanoDaProposta.astro';
+import { PROPOSTA_STOPS } from '@/lib/propostasTour';
+import { CONVITE_IDEIA, PROPOSTAS_DE_ESTUDANTES, rotaDaPropostaDeEstudante } from '@/lib/propostasDeEstudantes';
+import { previaDaRota } from '@/lib/previas';
+import { route } from '@/lib/paths';
+import '@/styles/campanha-detalhe.css';
+
+interface Props {
+  id: string;
+}
+const p = PROPOSTAS_DE_ESTUDANTES.find((x) => x.id === Astro.props.id);
+if (!p) throw new Error(`Proposta de estudante "${Astro.props.id}" não existe em src/lib/propostasDeEstudantes.ts`);
+const { plano } = p;
+const rota = rotaDaPropostaDeEstudante(p);
+const previa = previaDaRota(rota);
+const ultimaDaCarta = PROPOSTA_STOPS[PROPOSTA_STOPS.length - 1];
+const convite = `${CONVITE_IDEIA.href}&de=${rota}`;
+---
+
+<BaseLayout
+  mode="persuade"
+  hideFloatingPill
+  title={`De estudante nº ${p.numero}: ${p.titulo}`}
+  description={previa.descricao}
+>
+  <div class="cd-page">
+    <section class="cd-hero" aria-labelledby="cd-titulo" style="--cd-bg:#5B2A85;--cd-fg:#FFFFFF;--cd-fundo:#4A216E">
+      <svg class="cd-hero-folha" viewBox="-46 -110 72 118" aria-hidden="true"><use href="#sg-folha"></use></svg>
+      <div class="cd-hero-topo">
+        <p class="sk-chapa-num m-0" aria-hidden="true">
+          <span class="sk-chapa-num-rotulo">Nº</span>
+          <span class="sk-chapa-num-n">E{p.numero}</span>
+        </p>
+        <div class="cd-hero-selos">
+          <span class="cd-etiqueta">Proposta de estudante nº {p.numero} · além das 14 da carta</span>
+          {plano.selo && <span class="sk-adesivo">{plano.selo}</span>}
+          <span class="cd-etiqueta tabular-nums">Custo: {plano.custo}</span>
+        </div>
+      </div>
+
+      <div class="cd-hero-texto">
+        <h1 id="cd-titulo" class="cd-titulo">{p.titulo}</h1>
+        <p class="cd-lede">{p.impacto}</p>
+        <p class="sk-credito">
+          <span class="sk-credito-quem">Ideia de <b>{p.quem.nome}</b></span>
+          <span class="sk-credito-quando">{p.quem.periodo} · {p.quando.curto}</span>
+        </p>
+      </div>
+
+      <div class="cd-acoes">
+        <a href="#plano" class="sk-btn sk-btn-folha">
+          <i class="bi bi-calendar-check" aria-hidden="true"></i>
+          Cronograma e plano B
+        </a>
+        <BotaoCompartilhar corpo={previa.mensagem} tom="convite" titulo={previa.titulo} rotulo="Mandar essa proposta" />
+      </div>
+    </section>
+
+    <section class="cd-ficha cd-feito" aria-labelledby="cd-origem">
+      <h2 id="cd-origem" class="cd-feito-selo">De onde veio a ideia</h2>
+      <div class="cd-citacao">
+        <p>
+          Em {p.quando.extenso}, {p.onde}, {p.quem.nome}, do {p.quem.periodo}, apontou o que faltava. {p.oQueApontou}
+        </p>
+        <p>{p.resposta}</p>
+      </div>
+    </section>
+
+    <PlanoDaProposta plano={plano} semCabecaDuplicada semOrigem />
+
+    <section class="cagp-folha cd-fontes" aria-labelledby="cd-fontes">
+      <h2 id="cd-fontes" class="cd-h2">De onde vem esta página</h2>
+      <p class="cd-texto">
+        A ideia é do {p.quem.nome.split(' ')[0]}. Os exemplos de quem já faz ação social na UFMG e em Belo Horizonte vêm
+        destas páginas, lidas em {p.lidoEm}. Nenhum desses grupos foi procurado ainda: é por eles que a gestão começa.
+      </p>
+      <ul class="cd-fontes-lista" role="list">
+        {p.fontes.map((f) => (
+          <li>
+            <a href={f.href} target="_blank" rel="noopener" class="cd-link">{f.rotulo}</a>
+            <span class="cd-fontes-quem">{f.quem}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="cd-ficha cd-convite" aria-labelledby="cd-convite">
+      <div class="cd-secao">
+        <h2 id="cd-convite" class="cd-h2">{CONVITE_IDEIA.titulo}</h2>
+        <p class="cd-texto">{CONVITE_IDEIA.texto}</p>
+        <a href={route(convite)} class="sk-btn sk-btn-roxo">
+          <i class="bi bi-lightbulb" aria-hidden="true"></i>
+          {CONVITE_IDEIA.rotulo}
+        </a>
+      </div>
+    </section>
+
+    <nav class="cd-salto" aria-label="Ir direto para outra proposta">
+      <span class="cd-salto-rotulo">Ir direto:</span>
+      <ul class="cd-salto-lista" role="list">
+        {PROPOSTA_STOPS.map((s) => (
+          <li>
+            <a href={route(`/propostas/${s.id}`)} class="cd-salto-btn" aria-label={`Proposta ${s.id}: ${s.titulo}`}>{s.id}</a>
+          </li>
+        ))}
+        {PROPOSTAS_DE_ESTUDANTES.map((e) => (
+          <li>
+            <a
+              href={route(rotaDaPropostaDeEstudante(e))}
+              class="cd-salto-btn is-estudante"
+              aria-current={e.id === p.id ? 'page' : undefined}
+              aria-label={`Proposta de estudante nº ${e.numero}: ${e.titulo}`}
+            >
+              E{e.numero}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <nav class="cd-vizinhos" aria-label="Proposta anterior e todas as propostas">
+      <a href={route(`/propostas/${ultimaDaCarta.id}`)} class="cd-vizinho">
+        <small>Proposta {ultimaDaCarta.id}</small>
+        <b>{ultimaDaCarta.titulo}</b>
+      </a>
+      <a href={`${route('/chapa-semente')}#de-estudantes`} class="cd-vizinho cd-vizinho-dir">
+        <small>Todas as propostas</small>
+        <b>As 14 da carta e as que vieram de estudantes</b>
+      </a>
+    </nav>
+  </div>
+</BaseLayout>
