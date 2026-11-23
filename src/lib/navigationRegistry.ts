@@ -634,10 +634,10 @@ export const AXIS_REGISTRY: AxisConfig[] = [
         shortLabel: 'Transparência',
         href: route('/transparencia'),
         icon: 'd-transparencia',
-        description: 'O que o Regimento exige sobre as contas e o livro-caixa proposto.',
+        description: 'As contas do CAGP de 2025–26, mês a mês e para baixar, e o que muda com a Semente.',
         type: 'page',
         group: 'cagp',
-        keywords: 'contas finanças balancete rreo prestação de contas dinheiro',
+        keywords: 'contas finanças balancete rreo prestação de contas dinheiro livro-caixa planilha caixa saldo calourada',
         match: ['^/transparencia'],
       },
       {

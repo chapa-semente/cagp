@@ -113,11 +113,12 @@ export const CagpTransparenciaPortal: React.FC = () => {
       >
         <div className="space-y-1">
           <strong className="font-heading font-bold text-warning block text-sm">
-            O portal funciona; os números são de exemplo
+            Modelo: os números são de exemplo
           </strong>
           <p className="m-0 text-sm leading-relaxed">
-            Saldos, gráficos, lançamentos, comprovantes e atas abaixo são fictícios, porque a Chapa Semente ainda não é
-            gestão e não tem as contas do CAGP. {SIMULATION_NOTICE}
+            Saldos, gráficos, lançamentos, comprovantes e atas deste modelo são fictícios. Ele mostra o que o portal ganha
+            quando a gestão publica comprovante e ata junto de cada lançamento; as contas reais de 2025–26 estão na aba
+            Contas 2025–26. {SIMULATION_NOTICE}
           </p>
         </div>
         <span className="font-heading text-xs font-bold uppercase tracking-[0.04em] tabular-nums bg-white px-2.5 py-1 rounded-md border-2 border-border text-foreground shrink-0 self-start sm:self-center">

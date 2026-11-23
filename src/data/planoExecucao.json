@@ -3,7 +3,7 @@
   "pdfResumo": "/documentos/plano-semente/plano-semente-em-uma-pagina.pdf",
   "aviso": "Gerado por scripts/plano-para-site.mjs a partir do plano de execução. Não edite à mão.",
   "mandato": "dezembro de 2026 a outubro de 2027",
-  "paginas": 118,
+  "paginas": 119,
   "propostas": [
     {
       "id": 1,
@@ -774,7 +774,7 @@
         },
         {
           "forte": "Março e agosto de 2027",
-          "texto": "recepção à noite, com pelo menos três atividades: roda de conversa com veteranos, visita guiada à FAFICH e oficina de matrícula e sistemas."
+          "texto": "semana de recepção à noite, com a programação que o curso já tem, como a conversa com egressos e veteranos, a apresentação do curso e a visita guiada à FAFICH, mais uma oficina de matrícula e sistemas."
         },
         {
           "forte": "Até 15 dias depois do início das aulas",
@@ -1204,9 +1204,9 @@
       "selo": "Já começou",
       "custo": "R$ 0,00",
       "custoNota": "No plano, a gestão sozinha decide zero reais.",
-      "quemResponde": "Presidência, com a Jurídica. Três integrantes da chapa participam da empresa e não votam sobre ela.",
+      "quemResponde": "Diretoria Jurídica, com a Financeira. A Presidência fica de fora: as três pessoas que a compõem participam da empresa e não conduzem nem votam ponto sobre ela.",
       "daCartaAoPlano": [
-        "A carta promete apoio amplo à Empresa Júnior do curso, dentro dos limites do CA. O plano diz o que isso quer dizer: divulgação, espaço nas reuniões abertas e um informe a cada três meses. Repasse de dinheiro, só por decisão de Assembleia Geral, sem voto de quem integra a Empresa Júnior. Três integrantes da Semente participam dela, e por isso a regra vem escrita."
+        "A carta promete apoio amplo à Empresa Júnior do curso, dentro dos limites do CA. O plano diz o que isso quer dizer: divulgação, espaço nas reuniões abertas e um informe a cada três meses. Repasse de dinheiro, só por decisão de Assembleia Geral, sem voto de quem integra a Empresa Júnior. Três integrantes da Semente participam dela, os três da Presidência. Por isso a regra vem escrita e a proposta fica com a Diretoria Jurídica."
       ],
       "quando": [
         {
@@ -1275,7 +1275,7 @@
               "lista": [
                 {
                   "forte": "O apoio parece favorecimento.",
-                  "texto": "Regra aprovada em público e repasse só por Assembleia."
+                  "texto": "A proposta fica com a Diretoria Jurídica, a regra é aprovada em público e o repasse só sai por Assembleia."
                 },
                 {
                   "forte": "O reconhecimento demora.",

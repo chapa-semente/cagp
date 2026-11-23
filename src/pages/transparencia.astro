@@ -1,12 +1,79 @@
 ---
-// src/pages/transparencia.astro — Eixo 5: O CAGP · Portal da Transparência
-// O que é real (Regimento Interno) vem primeiro; depois, como a Semente vai prestar contas e o portal em si.
-// Desde 12/11/2026 a página diz que a estrutura está pronta (livro-caixa, gráficos, filtros, planilha) e
-// que só os números são de exemplo, porque a chapa ainda não é gestão (PRODUCT.md › Real × simulado).
+// src/pages/transparencia.astro — Mais › O CAGP › Portal da Transparência.
+// Desde 23/11/2026 o portal roda com as contas reais de 2025–26: os 226 lançamentos da planilha que a gestão
+// Reconecta divulgou com a Nota Técnica nº 01/2026, mês a mês, por rubrica, com busca e para baixar, cada um
+// com a linha da planilha original (dados: src/lib/contasCagp.ts ← scripts/contas-para-site.mjs).
+// Decisões do Gabriel (23/11): nome de pessoa vira [pessoa]; o .xlsx original fica no site; o modelo com números
+// de exemplo vai para a aba "Com a Semente"; a comparação é "hoje × com a Semente", sem nota sobre a dívida.
+// Volume Ficha, zero React na aba das contas; o modelo de exemplo é a ilha React de antes (client:visible).
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
+import SegmentedControl, { type TabItem } from '@/components/ui/SegmentedControl.astro';
 import { CagpTransparenciaPortal } from '../components/features/cagp/CagpTransparenciaPortal';
+import {
+  CONTAS,
+  HOJE_X_SEMENTE,
+  PCT_CALOURADAS_NAS_ENTRADAS,
+  PREVISTO_X_REALIZADO,
+  RUBRICA_POR_ID,
+  TETO_MES,
+  TETO_RUBRICA,
+  dataBr,
+  decimalBr,
+  reais,
+  reaisComSinal,
+} from '@/lib/contasCagp';
 import { route, asset } from '@/lib/paths';
+import '@/styles/plano-documento.css';
+import '@/styles/transparencia.css';
+
+const { resumo, fonte, rubricas, meses, lancamentos } = CONTAS;
+
+const ABAS: TabItem[] = [
+  { id: 'contas', shortLabel: 'Contas', fullLabel: 'Contas 2025–26', hash: '#contas' },
+  { id: 'semente', shortLabel: 'Com a Semente', fullLabel: 'Como fica com a Semente', hash: '#com-a-semente' },
+  { id: 'regimento', shortLabel: 'Regras', fullLabel: 'O que o Regimento exige', hash: '#regimento' },
+];
+
+const URL_CSV = asset(fonte.arquivoCsv);
+const URL_ORIGINAL = asset(fonte.arquivoOriginal);
+const kb = (bytes: number) => `${Math.max(1, Math.round(bytes / 1024))} KB`;
+const TAMANHO_CSV_KB = kb(fonte.bytesCsv);
+
+// Gráfico mês a mês: eixo em R$ 5 mil, rótulos curtos ("10 mil").
+const MARCAS_DO_EIXO = Array.from({ length: TETO_MES / 500000 + 1 }, (_, i) => i * 500000);
+const rotuloDoEixo = (c: number) => (c === 0 ? '0' : `${c / 100000} mil`);
+const pctMes = (c: number) => `${((c / TETO_MES) * 100).toFixed(2)}%`;
+const pctRubrica = (c: number) => `${((c / TETO_RUBRICA) * 100).toFixed(2)}%`;
+const MESES_COM_LANCAMENTO = meses.filter((m) => m.lancamentos > 0);
+const mesesDosPicos = ['2026-03', '2026-04', '2026-08', '2026-09'];
+const PCT_PICOS = Math.round(
+  (meses.filter((m) => mesesDosPicos.includes(m.id)).reduce((t, m) => t + m.entradas, 0) / resumo.entradas) * 100,
+);
+
+// Livro-caixa agrupado por mês, na ordem da planilha.
+const grupos = MESES_COM_LANCAMENTO.map((m) => ({
+  ...m,
+  itens: lancamentos.map((l, i) => ({ ...l, i })).filter((l) => l.data.startsWith(m.id)),
+}));
+const LIMITE_INICIAL = 40;
+
+// Dados para o script do livro-caixa (filtro, busca e CSV do que está filtrado).
+const DADOS_DO_CLIENTE = {
+  rubricas: Object.fromEntries(rubricas.map((r) => [r.id, r.nome])),
+  fonte: `Planilha da ${fonte.autor}, ${fonte.titulo}, dez/2025 a out/2026, aba ${fonte.aba}, linha `,
+  l: lancamentos.map((l) => [
+    l.linha,
+    l.data,
+    l.tipo === 'entrada' ? 1 : 0,
+    l.valor,
+    l.descricao,
+    l.rubrica,
+    l.especie ? 1 : 0,
+    l.saldo,
+    [l.nomeTrocado ? 'Nome de pessoa trocado por [pessoa]' : '', l.nota ?? '', l.observacao ?? ''].filter(Boolean).join(' '),
+  ]),
+};
 
 // Dispositivos conferidos em _referencias/documentos-oficiais/regimento-interno-cagp-ufmg.md
 const regras = [
@@ -32,119 +99,783 @@ const regras = [
   },
 ];
 
-// O que a Chapa Semente se compromete a fazer (Carta-Programa, proposta 1) com o que o portal já entrega.
-// "Na hora" e não "em tempo real": o site não tem servidor; o lançamento aparece quando é publicado.
-const comoVaiSer = [
-  {
-    quando: 'A cada lançamento',
-    oQue: 'Entrou ou saiu dinheiro, o livro-caixa é atualizado na hora, sem esperar o fim do mês.',
-  },
-  {
-    quando: 'A cada três meses',
-    oQue: 'Um boletim junta tudo e mostra o resultado de um jeito fácil de ler.',
-  },
-  {
-    quando: 'Quando você quiser',
-    oQue: 'Quem quiser olhar de perto consulta lançamento por lançamento e baixa os dados em planilha.',
-  },
+const COLUNAS_DO_CSV = [
+  ['Linha na planilha original', 'A linha da aba MÊSANO onde o lançamento está no arquivo da gestão.'],
+  ['Data, Mês e Tipo', 'Como na planilha; o mês (2026-03) ajuda a montar tabela dinâmica.'],
+  ['Valor (R$)', 'Positivo quando entrou, negativo quando saiu, com vírgula decimal.'],
+  ['Descrição (como na planilha)', 'O texto do "fato causador", igual ao original, com nome de pessoa trocado por [pessoa].'],
+  ['Rubrica', 'Classificação da Chapa Semente, a mesma do orçamento do plano. A planilha original não tem.'],
+  ['Em espécie', 'Sim quando a planilha marca "valor físico".'],
+  ['Saldo depois do lançamento (R$)', 'Começa nos R$ 667,31 recebidos da gestão anterior.'],
+  ['Observação e Fonte', 'O que mudou na linha, se mudou, e a citação da planilha com o número da linha.'],
 ];
 ---
 
 <BaseLayout
   title="Transparência"
-  description="O Portal da Transparência da Chapa Semente já está pronto: livro-caixa, boletim a cada três meses e dados para baixar. Os números são de exemplo, porque a chapa ainda não é gestão."
+  description="As contas do CAGP de dezembro de 2025 a outubro de 2026, da planilha que a gestão publicou: 226 lançamentos mês a mês, por rubrica e para baixar em CSV, com a fonte em cada linha. E o que muda se a Semente for eleita."
   activePage="sobre"
   activeGroup="cagp"
   mode="operate"
 >
   <PageHeader
     title="Portal da Transparência"
-    subtitle="Já está pronto, com números de exemplo."
+    subtitle="Já funciona: as contas de 2025–26, linha por linha."
     axisId="mais"
     activeId="cagp-transparencia"
     mode="operate"
     condensed={true}
   />
 
-  <div class="space-y-6 pb-2">
-    <!-- Aviso de simulação na primeira dobra -->
-    <div
-      role="note"
-      class="p-4 rounded-xl bg-white border-2 border-border flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-foreground"
-    >
-      <div class="space-y-1">
-        <strong class="font-heading font-bold text-warning flex items-center gap-1.5 text-sm">
-          <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
-          O portal está pronto; os números são de exemplo
-        </strong>
-        <p class="m-0 text-sm leading-relaxed max-w-[68ch]">
-          Livro-caixa, gráficos, filtros e planilha para baixar já funcionam. Os valores são fictícios porque a Chapa Semente ainda não é gestão e não tem as contas do CAGP: nenhum saldo, lançamento ou comprovante abaixo é do centro acadêmico. As regras do Regimento citadas a seguir são reais.
-        </p>
+  <div class="tr-pagina">
+    <!-- 1. Abertura em camadas: a conta do caixa que fecha, conferida -->
+    <section class="db-hero" aria-labelledby="tr-hero-titulo">
+      <div class="db-hero-topo">
+        <div class="db-hero-texto">
+          <span class="sk-saldo-rotulo tabular-nums">Contas do CAGP · dez/2025 a out/2026</span>
+          <h2 id="tr-hero-titulo" class="db-hero-titulo">As contas de 2025–26, abertas linha por linha</h2>
+          <p class="db-hero-lede">
+            A gestão Reconecta divulgou a planilha do caixa com a prestação de contas. Os {resumo.lancamentos} lançamentos estão
+            aqui mês a mês, por rubrica e para baixar, cada um com a linha da planilha original.
+          </p>
+        </div>
+        <svg class="db-hero-arte" viewBox="0 0 120 150" aria-hidden="true">
+          <path class="db-hero-caule" d="M58 126C55 104 61 86 57 58" />
+          <use href="#sg-gota" class="db-hero-gota" transform="translate(40 132) rotate(90) scale(0.5)" />
+          <use href="#sg-folha" class="db-hero-folha-a" transform="translate(58 100) rotate(44) scale(0.78)" />
+          <use href="#sg-folha" class="db-hero-folha-b" transform="translate(57 78) rotate(-52) scale(0.6)" />
+          <use href="#sg-folha" class="db-hero-folha-a" transform="translate(57 60) rotate(8) scale(0.5)" />
+        </svg>
       </div>
-      <span class="font-heading text-xs font-bold uppercase tracking-[0.04em] bg-white px-2.5 py-1 rounded-md border-2 border-border shrink-0 self-start sm:self-center">
-        Simulação
-      </span>
+
+      <div class="db-hero-deck">
+        <div class="tr-deck">
+          <dl class="tr-conta" aria-label="A conta do caixa de dezembro de 2025 a outubro de 2026">
+            <div class="tr-conta-linha">
+              <span class="tr-conta-op" aria-hidden="true"></span>
+              <dt>Recebido da gestão anterior <small>em dezembro de 2025</small></dt>
+              <dd>{reais(resumo.caixaInicial)}</dd>
+            </div>
+            <div class="tr-conta-linha">
+              <span class="tr-conta-op" aria-hidden="true">+</span>
+              <dt>Entrou <small>festas, vendas e rendimento</small></dt>
+              <dd>{reais(resumo.entradas)}</dd>
+            </div>
+            <div class="tr-conta-linha">
+              <span class="tr-conta-op" aria-hidden="true">−</span>
+              <dt>Saiu <small>festas, produtos, dívida e Empresa Júnior</small></dt>
+              <dd>{reais(resumo.saidas)}</dd>
+            </div>
+            <div class="tr-conta-linha is-total">
+              <span class="tr-conta-op" aria-hidden="true">=</span>
+              <dt>Ficou em caixa <small>em {dataBr(resumo.ultimaData)}</small></dt>
+              <dd>
+                <span class="tr-conta-total">{reais(resumo.saldo)}</span>
+                <small>{reais(resumo.contaDigital)} na conta e {reais(resumo.especie)} em espécie</small>
+              </dd>
+            </div>
+          </dl>
+
+          <div class="tr-visto">
+            <div class="tr-visto-topo">
+              <span class="cagp-stamp-badge is-visto">Visto</span>
+              <p>
+                Conferimos a soma: bate, centavo por centavo, com o resumo da própria planilha e com a{' '}
+                {fonte.acompanha}.
+              </p>
+            </div>
+            <div class="tr-visto-acoes">
+              <a href="#livro-caixa" class="tr-btn is-petroleo">
+                <i class="bi bi-arrow-down" aria-hidden="true"></i>
+                Ver o livro-caixa
+              </a>
+              <a href={URL_CSV} download class="tr-btn">
+                <i class="bi bi-download" aria-hidden="true"></i>
+                Baixar (CSV)
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <SegmentedControl tabs={ABAS} defaultTab="contas" showViewAll={false} />
+
+    <!-- ABA 1: AS CONTAS DE 2025–26 (reais) -->
+    <div id="ws-panel-contas" data-ws-panel="contas" role="tabpanel" aria-labelledby="ws-tab-contas" class="cagp-workspace-view pd-painel-aba">
+      <!-- Mês a mês -->
+      <section class="pd-card-papel" aria-labelledby="tr-meses-titulo">
+        <div class="tr-card-cabeca">
+          <h2 id="tr-meses-titulo" class="pd-h2-curto">Mês a mês</h2>
+          <ul class="tr-legenda" role="list" aria-label="Legenda">
+            <li><span class="tr-chave is-entrou" aria-hidden="true"></span>Entrou</li>
+            <li><span class="tr-chave is-saiu" aria-hidden="true"></span>Saiu</li>
+          </ul>
+        </div>
+        <p class="pd-nota-curta">
+          Quanto entrou e quanto saiu em cada mês, de dezembro de 2025 a outubro de 2026, somando os lançamentos da planilha.
+          Toque num mês para ver os lançamentos dele.
+        </p>
+
+        <div class="tr-grafico" role="group" aria-label="Entradas e saídas por mês, de dezembro de 2025 a outubro de 2026. Os valores estão na tabela logo abaixo.">
+          <ol class="tr-eixo" aria-hidden="true">
+            {MARCAS_DO_EIXO.map((c) => <li style={`bottom:${pctMes(c)}`}>{rotuloDoEixo(c)}</li>)}
+          </ol>
+          <div class="tr-plot">
+            <div class="tr-grade" aria-hidden="true">
+              {MARCAS_DO_EIXO.map((c) => <span class:list={[c === 0 && 'is-base']} style={`bottom:${pctMes(c)}`}></span>)}
+            </div>
+            <ol class="tr-meses" role="list" style={`--tr-n:${meses.length}`}>
+              {meses.map((m, i) => {
+                const lado = i < 2 ? 'ini' : i > meses.length - 3 ? 'fim' : 'meio';
+                const conteudo = (
+                  <Fragment>
+                    <span class="tr-mes-barras" aria-hidden="true">
+                      <span class:list={['tr-barra is-entrou', m.entradas === 0 && 'is-zero']} style={`--h:${pctMes(m.entradas)}`}></span>
+                      <span class:list={['tr-barra is-saiu', m.saidas === 0 && 'is-zero']} style={`--h:${pctMes(m.saidas)}`}></span>
+                    </span>
+                    <span class="tr-mes-rotulo" aria-hidden="true">
+                      <span class="is-inicial">{m.curto.charAt(0)}</span>
+                      <span class="is-medio">{m.curto.slice(0, 3)}</span>
+                      <small>{i === 0 || m.id.endsWith('-01') ? m.id.slice(0, 4) : ''}</small>
+                    </span>
+                    <span class="tr-dica" aria-hidden="true">
+                      <b>{m.nome}</b>
+                      Entrou {reais(m.entradas)}<br />
+                      Saiu {reais(m.saidas)}<br />
+                      Saldo no fim {reais(m.saldo)}
+                    </span>
+                  </Fragment>
+                );
+                return (
+                  <li>
+                    {m.lancamentos > 0 ? (
+                      <button
+                        type="button"
+                        class="tr-mes"
+                        data-lado={lado}
+                        data-tr-ir-mes={m.id}
+                        aria-label={`${m.nome}: entrou ${reais(m.entradas)}, saiu ${reais(m.saidas)}, saldo no fim ${reais(m.saldo)}. Ver os ${m.lancamentos} lançamentos.`}
+                      >
+                        {conteudo}
+                      </button>
+                    ) : (
+                      <span class="tr-mes" data-lado={lado} role="img" aria-label={`${m.nome}: nenhum lançamento. Saldo ${reais(m.saldo)}.`}>
+                        {conteudo}
+                      </span>
+                    )}
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
+        </div>
+
+        <p class="pd-nota-curta">
+          Março, abril, agosto e setembro, os meses das duas calouradas, somam {PCT_PICOS}% do que entrou. Abril inclui o
+          pagamento da dívida, e outubro, a abertura da Empresa Júnior. O menor saldo do período foi de{' '}
+          <strong class="tabular-nums">{reais(resumo.saldoMinimo.valor)}</strong>, em {dataBr(resumo.saldoMinimo.data)}, durante as
+          compras da recepção de calouros.
+        </p>
+
+        <details class="pd-caixa-tabela-detalhe">
+          <summary>Ver a tabela do mês a mês</summary>
+          <div class="pd-rolagem" tabindex="0" role="region" aria-label="Tabela mensal do caixa (role para o lado)">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Mês</th>
+                  <th scope="col">Entrou</th>
+                  <th scope="col">Saiu</th>
+                  <th scope="col">Saldo no fim</th>
+                  <th scope="col">Lançamentos</th>
+                </tr>
+              </thead>
+              <tbody>
+                {meses.map((m) => (
+                  <tr>
+                    <th scope="row">{m.nome}</th>
+                    <td>{decimalBr(m.entradas)}</td>
+                    <td>{decimalBr(m.saidas)}</td>
+                    <td><strong>{decimalBr(m.saldo)}</strong></td>
+                    <td>{m.lancamentos}</td>
+                  </tr>
+                ))}
+                <tr>
+                  <th scope="row">Total</th>
+                  <td><strong>{decimalBr(resumo.entradas)}</strong></td>
+                  <td><strong>{decimalBr(resumo.saidas)}</strong></td>
+                  <td><strong>{decimalBr(resumo.saldo)}</strong></td>
+                  <td><strong>{resumo.lancamentos}</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </section>
+
+      <!-- De onde veio e para onde foi -->
+      <section class="pd-card-papel" aria-labelledby="tr-rubricas-titulo">
+        <div class="tr-card-cabeca">
+          <h2 id="tr-rubricas-titulo" class="pd-h2-curto">De onde veio e para onde foi</h2>
+          <ul class="tr-legenda" role="list" aria-label="Legenda">
+            <li><span class="tr-chave is-entrou" aria-hidden="true"></span>Entrou</li>
+            <li><span class="tr-chave is-saiu" aria-hidden="true"></span>Saiu</li>
+          </ul>
+        </div>
+        <p class="pd-nota-curta">
+          As duas calouradas trouxeram {PCT_CALOURADAS_NAS_ENTRADAS}% do que entrou. A planilha não separa os lançamentos por
+          rubrica: a separação é nossa, com as mesmas rubricas do orçamento do plano da Semente
+          (<a href="#como-lemos" class="text-primary font-bold underline underline-offset-[0.22em]">como lemos</a>).
+        </p>
+        <ul class="tr-rubricas" role="list">
+          {rubricas.map((r) => (
+            <li>
+              <button
+                type="button"
+                class="tr-rubrica"
+                data-tr-ir-rubrica={r.id}
+                aria-label={`${r.nome}: entrou ${reais(r.entrou)}, saiu ${reais(r.saiu)}, resultado ${reaisComSinal(r.sobrou)}. Ver os ${r.lancamentos} lançamentos.`}
+              >
+                <span class="tr-rubrica-topo">
+                  <span class="tr-rubrica-nome">{r.nome}</span>
+                  <span class="tr-rubrica-res"><small>resultado</small>{reaisComSinal(r.sobrou)}</span>
+                </span>
+                <span class="tr-rubrica-linha" aria-hidden="true">
+                  <span class="tr-rubrica-trilha">
+                    {r.entrou > 0 && <span class="tr-barra-h is-entrou" style={`--w:${pctRubrica(r.entrou)}`}></span>}
+                  </span>
+                  <span class:list={['tr-rubrica-valor', r.entrou === 0 && 'is-vazio']}>{r.entrou > 0 ? reais(r.entrou) : 'nada entrou'}</span>
+                </span>
+                <span class="tr-rubrica-linha" aria-hidden="true">
+                  <span class="tr-rubrica-trilha">
+                    {r.saiu > 0 && <span class="tr-barra-h is-saiu" style={`--w:${pctRubrica(r.saiu)}`}></span>}
+                  </span>
+                  <span class:list={['tr-rubrica-valor', r.saiu === 0 && 'is-vazio']}>{r.saiu > 0 ? reais(r.saiu) : 'nada saiu'}</span>
+                </span>
+                <span class="tr-rubrica-acao" aria-hidden="true">
+                  {r.lancamentos} {r.lancamentos === 1 ? 'lançamento' : 'lançamentos'}
+                  <i class="bi bi-arrow-right"></i>
+                </span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <!-- O livro-caixa -->
+      <section id="livro-caixa" class="pd-card-papel cagp-anchor-target" aria-labelledby="tr-livro-titulo" data-tour="klaus" data-tr-livro>
+        <div class="tr-card-cabeca">
+          <h2 id="tr-livro-titulo" class="pd-h2-curto">Livro-caixa</h2>
+          <span class="pd-selo is-claro tabular-nums">{resumo.lancamentos} lançamentos</span>
+        </div>
+        <p class="pd-nota-curta">
+          Cada lançamento como está na planilha, com a rubrica, o saldo depois dele e a linha do arquivo original.
+        </p>
+
+        <div class="tr-filtros" data-tr-filtros hidden>
+          <label class="tr-busca">
+            <span class="sr-only">Buscar no livro-caixa</span>
+            <i class="bi bi-search" aria-hidden="true"></i>
+            <input type="search" class="tr-campo" placeholder="Ex.: calourada, lojinha, DJ" autocomplete="off" data-tr-busca />
+          </label>
+          <div class="pd-filtros" role="group" aria-label="Tipo de lançamento">
+            <button type="button" class="pd-filtro-btn is-ativo" aria-pressed="true" data-tr-tipo="todos">Tudo</button>
+            <button type="button" class="pd-filtro-btn" aria-pressed="false" data-tr-tipo="entrada">Entradas</button>
+            <button type="button" class="pd-filtro-btn" aria-pressed="false" data-tr-tipo="saida">Saídas</button>
+          </div>
+          <div class="tr-selects">
+            <label>
+              <span>Mês</span>
+              <select class="tr-campo" data-tr-mes>
+                <option value="">Todos os meses</option>
+                {MESES_COM_LANCAMENTO.map((m) => <option value={m.id}>{m.nome}</option>)}
+              </select>
+            </label>
+            <label>
+              <span>Rubrica</span>
+              <select class="tr-campo" data-tr-rubrica>
+                <option value="">Todas as rubricas</option>
+                {rubricas.map((r) => <option value={r.id}>{r.nome}</option>)}
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="tr-resultado">
+          <p aria-live="polite" data-tr-resumo>
+            <b>{resumo.lancamentos} lançamentos</b> · entrou {reais(resumo.entradas)} · saiu {reais(resumo.saidas)}
+          </p>
+          <div class="tr-resultado-acoes" data-tr-acoes hidden>
+            <button type="button" class="tr-btn" data-tr-limpar>
+              <i class="bi bi-x-lg" aria-hidden="true"></i>
+              Limpar filtros
+            </button>
+            <button type="button" class="tr-btn is-petroleo" data-tr-baixar>
+              <i class="bi bi-download" aria-hidden="true"></i>
+              Baixar estes (CSV)
+            </button>
+          </div>
+        </div>
+
+        <div class="tr-livro">
+          {grupos.map((g) => (
+            <section class="tr-mes-grupo" data-tr-grupo={g.id} aria-labelledby={`tr-m-${g.id}`}>
+              <h3 id={`tr-m-${g.id}`} class="tr-mes-titulo">
+                {g.nome.charAt(0).toUpperCase() + g.nome.slice(1)}
+                <span>{g.lancamentos} {g.lancamentos === 1 ? 'lançamento' : 'lançamentos'}</span>
+              </h3>
+              <ol class="tr-lancamentos" role="list">
+                {g.itens.map((l) => (
+                  <li class="tr-lanc" data-tr-i={l.i}>
+                    <div>
+                      <p class="tr-lanc-desc">{l.descricao}</p>
+                      <p class="tr-lanc-meta">
+                        <time datetime={l.data}>{dataBr(l.data)}</time>
+                        <span class="tr-tag">{RUBRICA_POR_ID.get(l.rubrica)?.curto}</span>
+                        {l.especie && <span class="tr-tag is-especie">em espécie</span>}
+                        {l.nomeTrocado && <span class="tr-tag is-nome">nome trocado</span>}
+                        <span>linha {l.linha}</span>
+                      </p>
+                    </div>
+                    <div class="tr-lanc-valores">
+                      <strong class:list={['tr-lanc-valor', l.tipo === 'entrada' ? 'is-entrada' : 'is-saida']}>
+                        {reaisComSinal(l.tipo === 'entrada' ? l.valor : -l.valor)}
+                      </strong>
+                      <span class="tr-lanc-saldo">saldo {reais(l.saldo)}</span>
+                    </div>
+                    {l.nota && <p class="tr-lanc-nota">{l.nota}</p>}
+                  </li>
+                ))}
+              </ol>
+            </section>
+          ))}
+
+          <div class="tr-vazio" data-tr-vazio hidden>
+            <p>Nenhum lançamento com esses filtros.</p>
+            <button type="button" class="tr-btn" data-tr-limpar>Limpar filtros</button>
+          </div>
+
+          <div class="tr-mais" data-tr-mais hidden>
+            <button type="button" class="tr-btn" data-tr-mais-btn>Mostrar mais {LIMITE_INICIAL}</button>
+            <button type="button" class="tr-btn" data-tr-todos-btn>Mostrar todos</button>
+          </div>
+        </div>
+
+        <script type="application/json" id="tr-dados" set:html={JSON.stringify(DADOS_DO_CLIENTE)} />
+      </section>
+
+      <!-- Baixar e conferir -->
+      <section id="baixar" class="pd-card-papel cagp-anchor-target" aria-labelledby="tr-baixar-titulo">
+        <h2 id="tr-baixar-titulo" class="pd-h2-curto">Baixar e conferir</h2>
+        <ul class="pd-arquivos" role="list">
+          <li>
+            <a href={URL_CSV} download class="pd-arquivo is-principal">
+              <i class="bi bi-file-earmark-spreadsheet" aria-hidden="true"></i>
+              <span>
+                <b>Planilha deste portal (CSV, {TAMANHO_CSV_KB})</b>
+                <small>
+                  Os {resumo.lancamentos} lançamentos, com rubrica, saldo e a linha da planilha original em cada um. Abre no Excel,
+                  no Google Planilhas e no LibreOffice.
+                </small>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href={URL_ORIGINAL} download class="pd-arquivo">
+              <i class="bi bi-file-earmark-arrow-down" aria-hidden="true"></i>
+              <span>
+                <b>Planilha original da gestão (.xlsx, {kb(fonte.bytesOriginal)})</b>
+                <small>O arquivo como a gestão Reconecta divulgou, sem nenhuma alteração.</small>
+              </span>
+            </a>
+          </li>
+        </ul>
+        <details class="pd-caixa-tabela-detalhe">
+          <summary>O que tem em cada coluna do CSV</summary>
+          <dl class="tr-colunas" style="padding: 0.5rem 0.875rem 0.75rem;">
+            {COLUNAS_DO_CSV.map(([coluna, explica]) => (
+              <div>
+                <dt>{coluna}</dt>
+                <dd>{explica}</dd>
+              </div>
+            ))}
+          </dl>
+        </details>
+      </section>
+
+      <!-- Como lemos a planilha -->
+      <section id="como-lemos" class="pd-card-papel cagp-anchor-target" aria-labelledby="tr-metodo-titulo">
+        <h2 id="tr-metodo-titulo" class="pd-h2-curto">Como lemos a planilha</h2>
+        <ul class="tr-metodo" role="list">
+          <li>
+            <b>A soma confere.</b>
+            <span>
+              Entradas, saídas e saldo batem, centavo por centavo, com o resumo da própria planilha e com a {fonte.acompanha}:{' '}
+              {reais(resumo.caixaInicial)} + {reais(resumo.entradas)} − {reais(resumo.saidas)} = {reais(resumo.saldo)}.
+            </span>
+          </li>
+          <li>
+            <b>Nada foi tirado nem somado.</b>
+            <span>
+              Os {resumo.lancamentos} lançamentos estão aqui, com a data, o valor e a descrição da planilha, na mesma ordem, que é
+              a das datas.
+            </span>
+          </li>
+          <li>
+            <b>A rubrica é nossa.</b>
+            <span>
+              A planilha não classifica os lançamentos. Separamos pela descrição de cada um, com as rubricas do orçamento do plano
+              da Semente. Três escolhas são nossas: as compras de bebida sem nome de evento, as vendas diversas de 16/04 e as
+              inscrições da Taça Di Pietro ficaram em festas menores e bar; a compra de R$ 2.100,00 de 12/09, um dia depois da
+              segunda calourada, ficou nela.
+            </span>
+          </li>
+          <li>
+            <b>O saldo segue a ordem da planilha.</b>
+            <span>
+              Começa nos {reais(resumo.caixaInicial)} recebidos da gestão anterior e soma ou subtrai cada linha. O total em
+              espécie é o que a planilha marca como valor físico.
+            </span>
+          </li>
+          <li>
+            <b>Nome de pessoa virou [pessoa].</b>
+            <span>
+              Em {resumo.nomesTrocados} lançamentos (pagamentos a DJs, um Pix, um ressarcimento e uma compra). A linha indicada
+              leva ao original.
+            </span>
+          </li>
+        </ul>
+        <p class="pd-fonte">
+          Fonte: {fonte.autor}. <i>{fonte.titulo}</i>, {fonte.periodo}. Planilha que acompanha a {fonte.acompanha}, aba{' '}
+          {fonte.aba}, linhas {fonte.primeiraLinha} a {fonte.ultimaLinha}. Conferido em {dataBr(fonte.conferidoEm)}.{' '}
+          <span class="tr-hash">SHA-256 do arquivo original: {fonte.sha256}.</span>
+        </p>
+      </section>
     </div>
 
-    <!-- O que é real: o Regimento Interno de 14/10/2024 (volume Papel, na folha branca) -->
-    <section aria-labelledby="heading-regras-reais" class="cagp-folha space-y-4">
-      <div class="border-b-2 border-border pb-2 flex flex-wrap items-end justify-between gap-3">
-        <h2 id="heading-regras-reais" class="font-heading text-xl font-bold text-foreground m-0">
-          O que o Regimento já exige
-        </h2>
-        <a
-          href={asset('/documentos/regimento-interno-cagp-ufmg.pdf')}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-sm font-bold text-primary underline underline-offset-[0.22em]"
-        >
-          Abrir o Regimento Interno (PDF)
-        </a>
-      </div>
+    <!-- ABA 2: COMO FICA COM A SEMENTE -->
+    <div id="ws-panel-semente" data-ws-panel="semente" role="tabpanel" aria-labelledby="ws-tab-semente" class="cagp-workspace-view pd-painel-aba" hidden>
+      <section class="pd-card-papel" aria-labelledby="tr-semente-titulo">
+        <h2 id="tr-semente-titulo" class="pd-h2-curto">Se a Semente for eleita, o que muda nas contas</h2>
+        <p class="pd-nota-curta">
+          O plano de execução diz o que muda e com que prazo (proposta 1). De um lado, o que a planilha de 2025–26 traz; do
+          outro, o compromisso.
+        </p>
+        <ul class="tr-comparacao" role="list">
+          {HOJE_X_SEMENTE.map((item) => (
+            <li class="tr-par">
+              <h3 class="tr-par-titulo">{item.titulo}</h3>
+              <div class="tr-par-lados">
+                <div class="tr-par-lado is-hoje">
+                  <span class="tr-par-tag">Planilha 2025–26</span>
+                  <p>{item.hoje}</p>
+                </div>
+                <div class="tr-par-lado is-semente">
+                  <span class="tr-par-tag">Com a Semente</span>
+                  <p>{item.semente}</p>
+                  <span class="tr-par-fonte">{item.fonte}</span>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
 
-      <dl class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5 m-0">
-        {regras.map((r) => (
-          <div class="space-y-1">
-            <dt class="space-y-1">
-              <span class="font-heading text-xs font-bold uppercase tracking-[0.04em] tabular-nums text-secondary block">{r.ref}</span>
-              <span class="font-heading text-lg font-bold text-foreground block">{r.titulo}</span>
-            </dt>
-            <dd class="m-0 text-base leading-relaxed text-content-secondary max-w-[68ch]">{r.texto}</dd>
+      <section class="pd-card-papel" aria-labelledby="tr-orc-titulo">
+        <h2 id="tr-orc-titulo" class="pd-h2-curto">As mesmas rubricas, com previsto e realizado</h2>
+        <p class="pd-nota-curta">
+          O orçamento do plano usa as rubricas da aba Contas 2025–26. Todo mês, o relatório mostra o previsto e o realizado até
+          ali.
+        </p>
+        <dl class="tr-orcamento">
+          <div class="is-cabeca">
+            <span></span>
+            <span>Realizado 2025–26</span>
+            <span>Previsto 2026–27</span>
           </div>
-        ))}
-      </dl>
+          {PREVISTO_X_REALIZADO.map((l) => (
+            <div>
+              <dt>{l.rotulo}</dt>
+              <dd>{l.realizado}</dd>
+              <dd class="is-previsto">{l.previsto}</dd>
+            </div>
+          ))}
+        </dl>
+        <p class="pd-nota-curta">
+          Previsto no cenário regular do plano. <a href={`${route('/chapa-semente/plano')}#orcamento`} class="text-primary font-bold underline underline-offset-[0.22em]">Ver o orçamento rubrica por rubrica</a>
+        </p>
+      </section>
 
-      <p class="m-0 text-sm text-foreground max-w-[68ch]">
-        Quer conferir as contas da gestão atual? Faça um requerimento formal à gestão do CAGP citando o Art. 15, V. O CAGP ainda não tem um e-mail público para isso.
-      </p>
-    </section>
+      <section class="grid gap-3" aria-labelledby="tr-modelo-titulo">
+        <h2 id="tr-modelo-titulo" class="pd-h2-curto">Como fica com comprovante e ata: o modelo</h2>
+        <CagpTransparenciaPortal client:visible />
+      </section>
+    </div>
 
-    <!-- Como a Semente vai prestar contas (proposta 1 da carta + o que o portal já faz) -->
-    <section aria-labelledby="heading-como-vai-ser" class="cagp-folha space-y-4">
-      <h2 id="heading-como-vai-ser" class="font-heading text-xl font-bold text-foreground m-0 border-b-2 border-border pb-2">
-        Como a Semente vai prestar contas
-      </h2>
-      <dl class="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-5 m-0">
-        {comoVaiSer.map((c) => (
-          <div class="space-y-1">
-            <dt class="font-heading text-lg font-bold text-foreground">{c.quando}</dt>
-            <dd class="m-0 text-base leading-relaxed text-content-secondary max-w-[46ch]">{c.oQue}</dd>
-          </div>
-        ))}
-      </dl>
-    </section>
-
-    <!-- O portal, com números de exemplo -->
-    <section aria-labelledby="heading-demonstracao" class="space-y-4" data-tour="klaus">
-      <div class="border-b-2 border-border pb-2 flex flex-wrap items-end justify-between gap-3">
-        <h2 id="heading-demonstracao" class="font-heading text-xl font-bold text-foreground m-0">
-          O portal, com números de exemplo
-        </h2>
-        <a href={route('/chapa-semente')} class="text-sm font-bold text-primary underline underline-offset-[0.22em]">
-          Ver a proposta da Chapa Semente
-        </a>
-      </div>
-      <CagpTransparenciaPortal client:visible />
-    </section>
+    <!-- ABA 3: O QUE O REGIMENTO EXIGE (real) -->
+    <div id="ws-panel-regimento" data-ws-panel="regimento" role="tabpanel" aria-labelledby="ws-tab-regimento" class="cagp-workspace-view pd-painel-aba" hidden>
+      <section class="cagp-folha space-y-4" aria-labelledby="heading-regras-reais">
+        <div class="border-b-2 border-border pb-2 flex flex-wrap items-end justify-between gap-3">
+          <h2 id="heading-regras-reais" class="font-heading text-xl font-bold text-foreground m-0">O que o Regimento já exige</h2>
+          <a
+            href={asset('/documentos/regimento-interno-cagp-ufmg.pdf')}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-sm font-bold text-primary underline underline-offset-[0.22em]"
+          >
+            Abrir o Regimento Interno (PDF)
+          </a>
+        </div>
+        <dl class="tr-regras">
+          {regras.map((r) => (
+            <div>
+              <dt>
+                <span class="tr-regra-ref">{r.ref}</span>
+                <span class="tr-regra-titulo">{r.titulo}</span>
+              </dt>
+              <dd>{r.texto}</dd>
+            </div>
+          ))}
+        </dl>
+        <p class="m-0 text-sm text-foreground max-w-[68ch]">
+          Quer conferir as contas da gestão atual além da planilha? Faça um requerimento formal à gestão do CAGP citando o Art.
+          15, V. O CAGP ainda não tem um e-mail público para isso.
+        </p>
+      </section>
+    </div>
   </div>
 </BaseLayout>
+
+<script>
+  type Linha = [number, string, number, number, string, string, number, number, string];
+  interface Dados {
+    rubricas: Record<string, string>;
+    fonte: string;
+    l: Linha[];
+  }
+
+  const PASSO = 40;
+  const normalizar = (s: string) =>
+    s
+      .normalize('NFD')
+      .replace(/\p{Diacritic}/gu, '')
+      .toLowerCase();
+  const decimal = (c: number) => {
+    const [i, f] = (Math.abs(c) / 100).toFixed(2).split('.');
+    return `${i.replace(/\B(?=(\d{3})+(?!\d))/g, '.')},${f}`;
+  };
+  const reais = (c: number) => `R$ ${decimal(c)}`;
+
+  function iniciarLivroCaixa() {
+    const raiz = document.querySelector<HTMLElement>('[data-tr-livro]');
+    if (!raiz || raiz.dataset.trBound === '1') return;
+    const blob = document.getElementById('tr-dados');
+    if (!blob?.textContent) return;
+    raiz.dataset.trBound = '1';
+    const dados = JSON.parse(blob.textContent) as Dados;
+
+    const filtros = raiz.querySelector<HTMLElement>('[data-tr-filtros]')!;
+    const busca = raiz.querySelector<HTMLInputElement>('[data-tr-busca]')!;
+    const selMes = raiz.querySelector<HTMLSelectElement>('[data-tr-mes]')!;
+    const selRubrica = raiz.querySelector<HTMLSelectElement>('[data-tr-rubrica]')!;
+    const botoesTipo = raiz.querySelectorAll<HTMLButtonElement>('[data-tr-tipo]');
+    const resumo = raiz.querySelector<HTMLElement>('[data-tr-resumo]')!;
+    const acoes = raiz.querySelector<HTMLElement>('[data-tr-acoes]')!;
+    const vazio = raiz.querySelector<HTMLElement>('[data-tr-vazio]')!;
+    const mais = raiz.querySelector<HTMLElement>('[data-tr-mais]')!;
+    const grupos = Array.from(raiz.querySelectorAll<HTMLElement>('[data-tr-grupo]'));
+    const linhas = Array.from(raiz.querySelectorAll<HTMLElement>('[data-tr-i]'));
+    const porIndice = new Map(linhas.map((el) => [Number(el.dataset.trI), el]));
+
+    const indice = dados.l.map((l) =>
+      normalizar(
+        [l[4], dados.rubricas[l[5]], l[1].split('-').reverse().join('/'), decimal(l[3]), (l[3] / 100).toFixed(2), l[0]].join(' '),
+      ),
+    );
+
+    let tipo = 'todos';
+    let limite = PASSO;
+    let filtradas: number[] = [];
+
+    filtros.hidden = false;
+
+    function filtrar() {
+      const termos = normalizar(busca.value.trim()).split(/\s+/).filter(Boolean);
+      const mes = selMes.value;
+      const rubrica = selRubrica.value;
+      filtradas = [];
+      dados.l.forEach((l, i) => {
+        if (tipo === 'entrada' && l[2] !== 1) return;
+        if (tipo === 'saida' && l[2] !== 0) return;
+        if (mes && !l[1].startsWith(mes)) return;
+        if (rubrica && l[5] !== rubrica) return;
+        if (termos.length && !termos.every((t) => indice[i].includes(t))) return;
+        filtradas.push(i);
+      });
+      return { mes, rubrica, ativo: Boolean(termos.length || mes || rubrica || tipo !== 'todos') };
+    }
+
+    function desenhar(rolar = false) {
+      const { ativo } = filtrar();
+      const visiveis = new Set(filtradas.slice(0, limite));
+      porIndice.forEach((el, i) => {
+        el.hidden = !visiveis.has(i);
+      });
+      grupos.forEach((g) => {
+        g.hidden = !g.querySelector('[data-tr-i]:not([hidden])');
+      });
+
+      const entrou = filtradas.reduce((t, i) => t + (dados.l[i][2] === 1 ? dados.l[i][3] : 0), 0);
+      const saiu = filtradas.reduce((t, i) => t + (dados.l[i][2] === 0 ? dados.l[i][3] : 0), 0);
+      const n = filtradas.length;
+      const rotulo = `${n} ${n === 1 ? 'lançamento' : 'lançamentos'}`;
+      resumo.innerHTML = '';
+      const b = document.createElement('b');
+      b.textContent = ativo ? `${rotulo} com esses filtros` : rotulo;
+      resumo.append(b, ` · entrou ${reais(entrou)} · saiu ${reais(saiu)}`);
+
+      acoes.hidden = !ativo;
+      const baixar = acoes.querySelector<HTMLButtonElement>('[data-tr-baixar]');
+      if (baixar) baixar.disabled = n === 0;
+      vazio.hidden = n > 0;
+      const restantes = n - Math.min(limite, n);
+      mais.hidden = restantes <= 0;
+      const btnMais = mais.querySelector<HTMLButtonElement>('[data-tr-mais-btn]');
+      if (btnMais) btnMais.textContent = `Mostrar mais ${Math.min(PASSO, restantes)}`;
+      const btnTodos = mais.querySelector<HTMLButtonElement>('[data-tr-todos-btn]');
+      if (btnTodos) btnTodos.textContent = `Mostrar todos (${n})`;
+
+      document.querySelectorAll<HTMLElement>('[data-tr-ir-mes]').forEach((el) => {
+        el.classList.toggle('is-ativo', el.dataset.trIrMes === selMes.value);
+      });
+      document.querySelectorAll<HTMLElement>('[data-tr-ir-rubrica]').forEach((el) => {
+        el.classList.toggle('is-ativo', el.dataset.trIrRubrica === selRubrica.value);
+      });
+      if (rolar) raiz.querySelector('.tr-resultado')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function definirTipo(novo: string) {
+      tipo = novo;
+      botoesTipo.forEach((b) => {
+        const sim = b.dataset.trTipo === novo;
+        b.classList.toggle('is-ativo', sim);
+        b.setAttribute('aria-pressed', sim ? 'true' : 'false');
+      });
+    }
+
+    function limpar() {
+      busca.value = '';
+      selMes.value = '';
+      selRubrica.value = '';
+      definirTipo('todos');
+      limite = PASSO;
+    }
+
+    function baixarFiltrado() {
+      const campo = (v: string | number) => `"${String(v).replace(/"/g, '""')}"`;
+      const dec = (c: number) => (c / 100).toFixed(2).replace('.', ',');
+      const cabecalho = [
+        'Linha na planilha original',
+        'Data',
+        'Mês',
+        'Tipo',
+        'Valor (R$)',
+        'Descrição (como na planilha)',
+        'Rubrica (classificação da Chapa Semente)',
+        'Em espécie',
+        'Saldo depois do lançamento (R$)',
+        'Observação',
+        'Fonte',
+      ];
+      const corpo = filtradas.map((i) => {
+        const l = dados.l[i];
+        return [
+          l[0],
+          l[1].split('-').reverse().join('/'),
+          l[1].slice(0, 7),
+          l[2] === 1 ? 'Entrada' : 'Saída',
+          dec(l[2] === 1 ? l[3] : -l[3]),
+          l[4],
+          dados.rubricas[l[5]],
+          l[6] === 1 ? 'Sim' : 'Não',
+          dec(l[7]),
+          l[8],
+          `${dados.fonte}${l[0]}`,
+        ];
+      });
+      const csv = '﻿' + [cabecalho, ...corpo].map((linha) => linha.map(campo).join(';')).join('\r\n') + '\r\n';
+      const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'contas-cagp-2025-26-filtrado.csv';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.setTimeout(() => URL.revokeObjectURL(url), 4000);
+    }
+
+    let espera = 0;
+    busca.addEventListener('input', () => {
+      window.clearTimeout(espera);
+      espera = window.setTimeout(() => {
+        limite = PASSO;
+        desenhar();
+      }, 120);
+    });
+    selMes.addEventListener('change', () => {
+      limite = PASSO;
+      desenhar();
+    });
+    selRubrica.addEventListener('change', () => {
+      limite = PASSO;
+      desenhar();
+    });
+    botoesTipo.forEach((b) =>
+      b.addEventListener('click', () => {
+        definirTipo(b.dataset.trTipo ?? 'todos');
+        limite = PASSO;
+        desenhar();
+      }),
+    );
+    raiz.querySelectorAll<HTMLButtonElement>('[data-tr-limpar]').forEach((b) =>
+      b.addEventListener('click', () => {
+        limpar();
+        desenhar();
+        busca.focus();
+      }),
+    );
+    raiz.querySelector('[data-tr-baixar]')?.addEventListener('click', baixarFiltrado);
+    mais.querySelector('[data-tr-mais-btn]')?.addEventListener('click', () => {
+      limite += PASSO;
+      desenhar();
+    });
+    mais.querySelector('[data-tr-todos-btn]')?.addEventListener('click', () => {
+      limite = Number.POSITIVE_INFINITY;
+      desenhar();
+    });
+
+    // Mês do gráfico e rubrica da lista: filtram o livro-caixa e levam até ele.
+    document.querySelectorAll<HTMLButtonElement>('[data-tr-ir-mes]').forEach((b) =>
+      b.addEventListener('click', () => {
+        limpar();
+        selMes.value = b.dataset.trIrMes ?? '';
+        limite = Number.POSITIVE_INFINITY;
+        desenhar(true);
+      }),
+    );
+    document.querySelectorAll<HTMLButtonElement>('[data-tr-ir-rubrica]').forEach((b) =>
+      b.addEventListener('click', () => {
+        limpar();
+        selRubrica.value = b.dataset.trIrRubrica ?? '';
+        limite = Number.POSITIVE_INFINITY;
+        desenhar(true);
+      }),
+    );
+
+    desenhar();
+  }
+
+  iniciarLivroCaixa();
+  document.addEventListener('astro:page-load', iniciarLivroCaixa);
+</script>

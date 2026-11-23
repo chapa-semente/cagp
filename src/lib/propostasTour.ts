@@ -47,7 +47,7 @@ export const PROPOSTA_SEM_INICIO = 'Começa na posse — com data, custo e plano
  */
 export const PROPOSTA_EIXOS = [
   { id: 1, nome: 'Transparência e gestão', estagio: 'Raiz', bg: '#8A4B2A', fg: '#FFFFFF', tinta: '#FE8812', de: 1, ate: 6, gancho: 'Sabe pra onde vai o dinheiro do CA?' },
-  { id: 2, nome: 'Cultura e bem viver', estagio: 'Broto', bg: '#6DB33F', fg: '#1F1F1F', tinta: '#5B2A85', de: 7, ate: 8, gancho: 'Chegou no curso e ninguém te recebeu?' },
+  { id: 2, nome: 'Cultura e bem viver', estagio: 'Broto', bg: '#6DB33F', fg: '#1F1F1F', tinta: '#5B2A85', de: 7, ate: 8, gancho: 'Chegou no curso: alguém quis saber o que você achou?' },
   { id: 3, nome: 'Acadêmico, carreira e formação política', estagio: 'Planta', bg: '#266264', fg: '#FFFFFF', tinta: '#FE8812', de: 9, ate: 11, gancho: 'Estágio, curso, evento: quem te avisa?' },
   { id: 4, nome: 'Comunicação, institucional e arrecadação', estagio: 'Fruto', bg: '#FFC83D', fg: '#1F1F1F', tinta: '#5B2A85', de: 12, ate: 14, gancho: 'CA que só aparece em calourada e eleição? Isso tem nome: ghosting.' },
 ] as const;
@@ -60,8 +60,8 @@ export const PROPOSTA_STOPS: PropostaStop[] = [
     leaderId: 'vitoria',
     porque: 'O dinheiro do CA é seu. O livro-caixa é atualizado a cada lançamento e, a cada três meses, sai um boletim fácil de ler.',
     art: 'contas',
-    jaFeito: { selo: 'Já começou', texto: 'O portal de transparência já está montado: livro-caixa, gráficos e planilha pra baixar. Os números são de exemplo até a gente ter as contas do CA.' },
-    prova: { label: 'Abrir o portal', href: '/transparencia', simulado: true },
+    jaFeito: { selo: 'Já começou', texto: 'O portal de transparência já está no ar com as contas de 2025–26 que a gestão divulgou: mês a mês, por rubrica e com planilha pra baixar.' },
+    prova: { label: 'Abrir o portal', href: '/transparencia' },
   },
   {
     id: 2,
@@ -107,10 +107,11 @@ export const PROPOSTA_STOPS: PropostaStop[] = [
   },
   {
     id: 7,
-    titulo: 'Recepção de calouros de verdade',
+    // 23/11/2026: a recepção já existe no curso; o título e o porquê dizem o que a proposta soma a ela.
+    titulo: 'Recepção de calouros, agora com avaliação',
     compromisso: 'Uma nova cultura de acolhimento e eventos de integração, com parcerias dentro da UFMG.',
     leaderId: 'paloma',
-    porque: 'Ninguém deveria chegar no curso sem ser recebido, muito menos quem estuda à noite.',
+    porque: 'Quem chega à noite tem que ser ouvido: a recepção melhora a cada semestre com a avaliação dos calouros.',
     art: 'calouros',
     jaFeito: { selo: 'Já no ar', texto: 'O guia do calouro já existe: os primeiros 30 dias na UFMG, onde fica cada sala do curso e a quem recorrer.' },
     prova: { label: 'Abrir o guia do calouro', href: '/calouros' },
@@ -122,7 +123,7 @@ export const PROPOSTA_STOPS: PropostaStop[] = [
     leaderId: 'italo',
     porque: 'Conversa com todas as entidades, sem dever nada a nenhuma.',
     art: 'entidades',
-    jaFeito: { selo: 'Já começou', texto: 'Tem gente nossa que disputa o DA da FAFICH na chapa Nise da Silveira, de independentes, com integrantes dos centros acadêmicos de História, Antropologia e Comunicação.' },
+    jaFeito: { selo: 'Já começou', texto: 'Tem gente nossa eleita para o DA da FAFICH na chapa Nise da Silveira, de independentes, com integrantes dos centros acadêmicos de História, Antropologia e Comunicação.' },
   },
   {
     id: 9,
@@ -144,7 +145,8 @@ export const PROPOSTA_STOPS: PropostaStop[] = [
     id: 11,
     titulo: 'Apoio à empresa júnior',
     compromisso: 'Apoio amplo à estruturação da empresa júnior de Gestão Pública, dentro dos limites do CA.',
-    leaderId: 'livia',
+    // 23/11/2026: a Diretoria Jurídica toca a proposta; a Presidência, cujos três integrantes estão na EJ, fica de fora.
+    leaderId: 'lara',
     porque: 'A empresa júnior é dos estudantes, não de uma chapa. O CA entra como apoio.',
     art: 'empresa',
     jaFeito: { selo: 'Já começou', texto: 'Tem gente nossa que ajudou a construir a Empresa Júnior.' },

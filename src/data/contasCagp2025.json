@@ -1,0 +1,2494 @@
+{
+ "geradoPor": "scripts/contas-para-site.mjs",
+ "observacao": "Valores em centavos. A rubrica é classificação da Chapa Semente; a planilha original não tem. Nomes de pessoas trocados por [pessoa].",
+ "fonte": {
+  "titulo": "Relatório Resumido de Execução Orçamentária e Prestação de Contas",
+  "autor": "Gestão Reconecta (CAGP/UFMG)",
+  "periodo": "dezembro de 2025 a outubro de 2026",
+  "acompanha": "Nota Técnica de Prestação de Contas nº 01/2026",
+  "aba": "MÊSANO",
+  "primeiraLinha": 8,
+  "ultimaLinha": 233,
+  "arquivoOriginal": "/documentos/transparencia/prestacao-de-contas-reconecta-2025-26.xlsx",
+  "arquivoCsv": "/documentos/transparencia/contas-cagp-2025-26.csv",
+  "bytesOriginal": 23151,
+  "sha256": "a4a956c80983e6d66613aa2685a8b83a970d4ea913c4a8aa73d99d2ae20881c0",
+  "conferidoEm": "2026-11-23",
+  "bytesCsv": 64566
+ },
+ "resumo": {
+  "caixaInicial": 66731,
+  "entradas": 3719293,
+  "saidas": 3228590,
+  "saldo": 557434,
+  "contaDigital": 518434,
+  "especie": 39000,
+  "lancamentos": 226,
+  "lancamentosEmEspecie": 5,
+  "nomesTrocados": 10,
+  "primeiraData": "2025-12-04",
+  "ultimaData": "2026-10-23",
+  "saldoMinimo": {
+   "valor": 24621,
+   "data": "2026-03-05",
+   "linha": 20
+  }
+ },
+ "rubricas": [
+  {
+   "id": "calourada-1",
+   "nome": "Calourada do 1º semestre",
+   "curto": "Calourada 1º sem.",
+   "entrou": 1225451,
+   "saiu": 817970,
+   "sobrou": 407481,
+   "lancamentos": 46
+  },
+  {
+   "id": "calourada-2",
+   "nome": "Calourada do 2º semestre",
+   "curto": "Calourada 2º sem.",
+   "entrou": 1111400,
+   "saiu": 763383,
+   "sobrou": 348017,
+   "lancamentos": 45
+  },
+  {
+   "id": "festas",
+   "nome": "Festas menores e bar",
+   "curto": "Festas e bar",
+   "entrou": 880838,
+   "saiu": 626085,
+   "sobrou": 254753,
+   "lancamentos": 59
+  },
+  {
+   "id": "lojinha",
+   "nome": "Lojinha",
+   "curto": "Lojinha",
+   "entrou": 390501,
+   "saiu": 391140,
+   "sobrou": -639,
+   "lancamentos": 30
+  },
+  {
+   "id": "salinha",
+   "nome": "Vendas na salinha",
+   "curto": "Salinha",
+   "entrou": 103700,
+   "saiu": 75348,
+   "sobrou": 28352,
+   "lancamentos": 38
+  },
+  {
+   "id": "rendimento",
+   "nome": "Rendimento da aplicação",
+   "curto": "Rendimento",
+   "entrou": 7403,
+   "saiu": 0,
+   "sobrou": 7403,
+   "lancamentos": 3
+  },
+  {
+   "id": "seguro",
+   "nome": "Seguro da conta e carreto",
+   "curto": "Seguro e carreto",
+   "entrou": 0,
+   "saiu": 17000,
+   "sobrou": -17000,
+   "lancamentos": 3
+  },
+  {
+   "id": "divida",
+   "nome": "Pagamento da dívida",
+   "curto": "Dívida",
+   "entrou": 0,
+   "saiu": 407350,
+   "sobrou": -407350,
+   "lancamentos": 1
+  },
+  {
+   "id": "ej",
+   "nome": "Abertura da Empresa Júnior",
+   "curto": "Empresa Júnior",
+   "entrou": 0,
+   "saiu": 130314,
+   "sobrou": -130314,
+   "lancamentos": 1
+  }
+ ],
+ "meses": [
+  {
+   "id": "2025-12",
+   "nome": "dezembro de 2025",
+   "curto": "dez/25",
+   "entradas": 53400,
+   "saidas": 73808,
+   "saldo": 46323,
+   "lancamentos": 4
+  },
+  {
+   "id": "2026-01",
+   "nome": "janeiro de 2026",
+   "curto": "jan/26",
+   "entradas": 4800,
+   "saidas": 1000,
+   "saldo": 50123,
+   "lancamentos": 2
+  },
+  {
+   "id": "2026-02",
+   "nome": "fevereiro de 2026",
+   "curto": "fev/26",
+   "entradas": 0,
+   "saidas": 0,
+   "saldo": 50123,
+   "lancamentos": 0
+  },
+  {
+   "id": "2026-03",
+   "nome": "março de 2026",
+   "curto": "mar/26",
+   "entradas": 800035,
+   "saidas": 384733,
+   "saldo": 465425,
+   "lancamentos": 59
+  },
+  {
+   "id": "2026-04",
+   "nome": "abril de 2026",
+   "curto": "abr/26",
+   "entradas": 1013684,
+   "saidas": 1308213,
+   "saldo": 170896,
+   "lancamentos": 44
+  },
+  {
+   "id": "2026-05",
+   "nome": "maio de 2026",
+   "curto": "mai/26",
+   "entradas": 51700,
+   "saidas": 47000,
+   "saldo": 175596,
+   "lancamentos": 15
+  },
+  {
+   "id": "2026-06",
+   "nome": "junho de 2026",
+   "curto": "jun/26",
+   "entradas": 241586,
+   "saidas": 162311,
+   "saldo": 254871,
+   "lancamentos": 25
+  },
+  {
+   "id": "2026-07",
+   "nome": "julho de 2026",
+   "curto": "jul/26",
+   "entradas": 0,
+   "saidas": 9000,
+   "saldo": 245871,
+   "lancamentos": 1
+  },
+  {
+   "id": "2026-08",
+   "nome": "agosto de 2026",
+   "curto": "ago/26",
+   "entradas": 782709,
+   "saidas": 352362,
+   "saldo": 676218,
+   "lancamentos": 41
+  },
+  {
+   "id": "2026-09",
+   "nome": "setembro de 2026",
+   "curto": "set/26",
+   "entradas": 755401,
+   "saidas": 755349,
+   "saldo": 676270,
+   "lancamentos": 31
+  },
+  {
+   "id": "2026-10",
+   "nome": "outubro de 2026",
+   "curto": "out/26",
+   "entradas": 15978,
+   "saidas": 134814,
+   "saldo": 557434,
+   "lancamentos": 4
+  }
+ ],
+ "lancamentos": [
+  {
+   "linha": 8,
+   "data": "2025-12-04",
+   "tipo": "entrada",
+   "valor": 53400,
+   "descricao": "VENDA DE PRODUTOS CABRAL",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 120131
+  },
+  {
+   "linha": 9,
+   "data": "2025-12-06",
+   "tipo": "saida",
+   "valor": 57808,
+   "descricao": "PAGAMENTO DOS PRODUTOS CABRAL",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 62323
+  },
+  {
+   "linha": 10,
+   "data": "2025-12-09",
+   "tipo": "saida",
+   "valor": 15000,
+   "descricao": "CARRETO SOFÁ",
+   "rubrica": "seguro",
+   "especie": false,
+   "saldo": 47323
+  },
+  {
+   "linha": 11,
+   "data": "2025-12-28",
+   "tipo": "saida",
+   "valor": 1000,
+   "descricao": "SEGURO C6",
+   "rubrica": "seguro",
+   "especie": false,
+   "saldo": 46323
+  },
+  {
+   "linha": 12,
+   "data": "2026-01-14",
+   "tipo": "entrada",
+   "valor": 4800,
+   "descricao": "PIX [pessoa] CABRAL",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 51123,
+   "nomeTrocado": true
+  },
+  {
+   "linha": 13,
+   "data": "2026-01-28",
+   "tipo": "saida",
+   "valor": 1000,
+   "descricao": "SEGURO C6",
+   "rubrica": "seguro",
+   "especie": false,
+   "saldo": 50123
+  },
+  {
+   "linha": 14,
+   "data": "2026-03-02",
+   "tipo": "entrada",
+   "valor": 35000,
+   "descricao": "VENDA DE PRODUTOS 1° DIA RECEPÇÃO",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 85123
+  },
+  {
+   "linha": 15,
+   "data": "2026-03-02",
+   "tipo": "saida",
+   "valor": 47234,
+   "descricao": "COMPRA DE BEBIDAS E TINTA",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 37889
+  },
+  {
+   "linha": 16,
+   "data": "2026-03-03",
+   "tipo": "entrada",
+   "valor": 7100,
+   "descricao": "VENDA DE PRODUTOS 2° DIA RECEPÇÃO",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 44989
+  },
+  {
+   "linha": 17,
+   "data": "2026-03-04",
+   "tipo": "entrada",
+   "valor": 3800,
+   "descricao": "VENDA DE PRODUTOS 3° DIA RECEPÇÃO",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 48789
+  },
+  {
+   "linha": 18,
+   "data": "2026-03-05",
+   "tipo": "saida",
+   "valor": 19350,
+   "descricao": "COMPRA DE BEBIDAS",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 29439
+  },
+  {
+   "linha": 19,
+   "data": "2026-03-05",
+   "tipo": "entrada",
+   "valor": 28000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 57439
+  },
+  {
+   "linha": 20,
+   "data": "2026-03-05",
+   "tipo": "saida",
+   "valor": 32818,
+   "descricao": "COMPRA DE BEBIDAS",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 24621
+  },
+  {
+   "linha": 21,
+   "data": "2026-03-05",
+   "tipo": "entrada",
+   "valor": 90098,
+   "descricao": "VENDA DE PRODUTOS 4° DIA RECEPÇÃO PIX",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 114719
+  },
+  {
+   "linha": 22,
+   "data": "2026-03-05",
+   "tipo": "saida",
+   "valor": 11000,
+   "descricao": "COMPRA DE BEBIDAS E GELO",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 103719
+  },
+  {
+   "linha": 23,
+   "data": "2026-03-05",
+   "tipo": "entrada",
+   "valor": 4761,
+   "descricao": "VENDA DE PRODUTOS 4° DIA RECEPÇÃO CARTÃO",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 108480
+  },
+  {
+   "linha": 24,
+   "data": "2026-03-06",
+   "tipo": "entrada",
+   "valor": 7600,
+   "descricao": "VENDA DE PRODUTOS (FIADOS CABRAL)",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 116080
+  },
+  {
+   "linha": 25,
+   "data": "2026-03-07",
+   "tipo": "entrada",
+   "valor": 21000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 137080
+  },
+  {
+   "linha": 26,
+   "data": "2026-03-09",
+   "tipo": "entrada",
+   "valor": 16000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 153080
+  },
+  {
+   "linha": 27,
+   "data": "2026-03-10",
+   "tipo": "entrada",
+   "valor": 8700,
+   "descricao": "VENDA DE PRODUTOS (FIADOS CABRAL)",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 161780
+  },
+  {
+   "linha": 28,
+   "data": "2026-03-10",
+   "tipo": "entrada",
+   "valor": 8000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 169780
+  },
+  {
+   "linha": 29,
+   "data": "2026-03-11",
+   "tipo": "saida",
+   "valor": 59180,
+   "descricao": "COMPRA DE BEBIDAS",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 110600
+  },
+  {
+   "linha": 30,
+   "data": "2026-03-11",
+   "tipo": "entrada",
+   "valor": 20000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 130600
+  },
+  {
+   "linha": 31,
+   "data": "2026-03-12",
+   "tipo": "saida",
+   "valor": 75000,
+   "descricao": "COMPRA DO XEQUE MATE CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 55600
+  },
+  {
+   "linha": 32,
+   "data": "2026-03-12",
+   "tipo": "saida",
+   "valor": 8400,
+   "descricao": "TROCO 100 REAIS COMPRA DE BEBIDAS",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 47200
+  },
+  {
+   "linha": 33,
+   "data": "2026-03-12",
+   "tipo": "saida",
+   "valor": 6400,
+   "descricao": "COMPRA DE GELO E BEBIDA",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 40800
+  },
+  {
+   "linha": 34,
+   "data": "2026-03-12",
+   "tipo": "entrada",
+   "valor": 86200,
+   "descricao": "VENDA DE PRODUTOS NA ARENA PIX",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 127000
+  },
+  {
+   "linha": 35,
+   "data": "2026-03-12",
+   "tipo": "entrada",
+   "valor": 7975,
+   "descricao": "VENDA DE PRODUTOS NA ARENA CARTÃO",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 134975
+  },
+  {
+   "linha": 36,
+   "data": "2026-03-12",
+   "tipo": "entrada",
+   "valor": 15000,
+   "descricao": "VENDA DE PRODUTOS NA ARENA DINHEIRO",
+   "rubrica": "festas",
+   "especie": true,
+   "saldo": 149975
+  },
+  {
+   "linha": 37,
+   "data": "2026-03-12",
+   "tipo": "entrada",
+   "valor": 4000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 153975
+  },
+  {
+   "linha": 38,
+   "data": "2026-03-13",
+   "tipo": "entrada",
+   "valor": 8000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 161975
+  },
+  {
+   "linha": 39,
+   "data": "2026-03-14",
+   "tipo": "entrada",
+   "valor": 8000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 169975
+  },
+  {
+   "linha": 40,
+   "data": "2026-03-15",
+   "tipo": "entrada",
+   "valor": 4000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 173975
+  },
+  {
+   "linha": 41,
+   "data": "2026-03-16",
+   "tipo": "entrada",
+   "valor": 31500,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 205475
+  },
+  {
+   "linha": 42,
+   "data": "2026-03-16",
+   "tipo": "entrada",
+   "valor": 1000,
+   "descricao": "VENDA DE BEBIDA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 206475
+  },
+  {
+   "linha": 43,
+   "data": "2026-03-17",
+   "tipo": "entrada",
+   "valor": 18000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 224475
+  },
+  {
+   "linha": 44,
+   "data": "2026-03-17",
+   "tipo": "entrada",
+   "valor": 1200,
+   "descricao": "VENDA DE BEBIDA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 225675
+  },
+  {
+   "linha": 45,
+   "data": "2026-03-18",
+   "tipo": "saida",
+   "valor": 26104,
+   "descricao": "COMPRA DE BEBIDAS",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 199571
+  },
+  {
+   "linha": 46,
+   "data": "2026-03-18",
+   "tipo": "entrada",
+   "valor": 4500,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 204071
+  },
+  {
+   "linha": 47,
+   "data": "2026-03-19",
+   "tipo": "saida",
+   "valor": 4497,
+   "descricao": "COMPRA DE BEBIDAS",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 199574
+  },
+  {
+   "linha": 48,
+   "data": "2026-03-19",
+   "tipo": "entrada",
+   "valor": 13500,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 213074
+  },
+  {
+   "linha": 49,
+   "data": "2026-03-19",
+   "tipo": "entrada",
+   "valor": 9900,
+   "descricao": "VENDA DE BEBIDAS SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 222974
+  },
+  {
+   "linha": 50,
+   "data": "2026-03-20",
+   "tipo": "saida",
+   "valor": 25650,
+   "descricao": "COMPRA DAS CANECA 50% DO VALOR",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 197324
+  },
+  {
+   "linha": 51,
+   "data": "2026-03-20",
+   "tipo": "entrada",
+   "valor": 4500,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 201824
+  },
+  {
+   "linha": 52,
+   "data": "2026-03-20",
+   "tipo": "entrada",
+   "valor": 3400,
+   "descricao": "VENDA DE BEBIDAS SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 205224
+  },
+  {
+   "linha": 53,
+   "data": "2026-03-21",
+   "tipo": "entrada",
+   "valor": 9000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 214224
+  },
+  {
+   "linha": 54,
+   "data": "2026-03-22",
+   "tipo": "entrada",
+   "valor": 4500,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 218724
+  },
+  {
+   "linha": 55,
+   "data": "2026-03-23",
+   "tipo": "entrada",
+   "valor": 13500,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 232224
+  },
+  {
+   "linha": 56,
+   "data": "2026-03-23",
+   "tipo": "entrada",
+   "valor": 4800,
+   "descricao": "VENDA DE BEBIDAS SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 237024
+  },
+  {
+   "linha": 57,
+   "data": "2026-03-24",
+   "tipo": "saida",
+   "valor": 25650,
+   "descricao": "COMPRA DAS CANECA 50% DO VALOR",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 211374
+  },
+  {
+   "linha": 58,
+   "data": "2026-03-24",
+   "tipo": "entrada",
+   "valor": 35300,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 246674
+  },
+  {
+   "linha": 59,
+   "data": "2026-03-25",
+   "tipo": "entrada",
+   "valor": 5000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 251674
+  },
+  {
+   "linha": 60,
+   "data": "2026-03-26",
+   "tipo": "saida",
+   "valor": 27500,
+   "descricao": "PAGAMENTO DJ [pessoa] 50%",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 224174,
+   "nomeTrocado": true
+  },
+  {
+   "linha": 61,
+   "data": "2026-03-26",
+   "tipo": "saida",
+   "valor": 3450,
+   "descricao": "IMPRESSÃO DOS FLYERS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 220724
+  },
+  {
+   "linha": 62,
+   "data": "2026-03-26",
+   "tipo": "saida",
+   "valor": 3000,
+   "descricao": "COMPRA DE GELO QUINTINHA",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 217724
+  },
+  {
+   "linha": 63,
+   "data": "2026-03-26",
+   "tipo": "entrada",
+   "valor": 50200,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 267924
+  },
+  {
+   "linha": 64,
+   "data": "2026-03-26",
+   "tipo": "entrada",
+   "valor": 33601,
+   "descricao": "VENDA DE BEBIDAS QUINTINHA",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 301525
+  },
+  {
+   "linha": 65,
+   "data": "2026-03-27",
+   "tipo": "entrada",
+   "valor": 7600,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 309125
+  },
+  {
+   "linha": 66,
+   "data": "2026-03-28",
+   "tipo": "entrada",
+   "valor": 13800,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 322925
+  },
+  {
+   "linha": 67,
+   "data": "2026-03-29",
+   "tipo": "entrada",
+   "valor": 25000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 347925
+  },
+  {
+   "linha": 68,
+   "data": "2026-03-30",
+   "tipo": "entrada",
+   "valor": 63800,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 411725
+  },
+  {
+   "linha": 69,
+   "data": "2026-03-30",
+   "tipo": "entrada",
+   "valor": 2400,
+   "descricao": "VENDA DE BEBIDAS SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 414125
+  },
+  {
+   "linha": 70,
+   "data": "2026-03-31",
+   "tipo": "saida",
+   "valor": 9500,
+   "descricao": "COMPRA DE PAIOL PARA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 404625
+  },
+  {
+   "linha": 71,
+   "data": "2026-03-31",
+   "tipo": "entrada",
+   "valor": 56400,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 461025
+  },
+  {
+   "linha": 72,
+   "data": "2026-03-31",
+   "tipo": "entrada",
+   "valor": 4400,
+   "descricao": "VENDA DE BEBIDAS SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 465425
+  },
+  {
+   "linha": 73,
+   "data": "2026-04-01",
+   "tipo": "saida",
+   "valor": 75000,
+   "descricao": "COMPRA DO XEQUE MATE CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 390425
+  },
+  {
+   "linha": 74,
+   "data": "2026-04-01",
+   "tipo": "entrada",
+   "valor": 246351,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 636776
+  },
+  {
+   "linha": 75,
+   "data": "2026-04-02",
+   "tipo": "saida",
+   "valor": 44900,
+   "descricao": "COMPRAS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 591876
+  },
+  {
+   "linha": 76,
+   "data": "2026-04-02",
+   "tipo": "entrada",
+   "valor": 247300,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 839176
+  },
+  {
+   "linha": 77,
+   "data": "2026-04-02",
+   "tipo": "entrada",
+   "valor": 87500,
+   "descricao": "VENDA DE CANECAS E TIRANTES CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 926676
+  },
+  {
+   "linha": 78,
+   "data": "2026-04-02",
+   "tipo": "entrada",
+   "valor": 7100,
+   "descricao": "VENDAS DIVERSAS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 933776
+  },
+  {
+   "linha": 79,
+   "data": "2026-04-03",
+   "tipo": "saida",
+   "valor": 40041,
+   "descricao": "COMPRAS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 893735
+  },
+  {
+   "linha": 80,
+   "data": "2026-04-03",
+   "tipo": "saida",
+   "valor": 14158,
+   "descricao": "COMPRAS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 879577
+  },
+  {
+   "linha": 81,
+   "data": "2026-04-03",
+   "tipo": "saida",
+   "valor": 321200,
+   "descricao": "COMPRAS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 558377
+  },
+  {
+   "linha": 82,
+   "data": "2026-04-03",
+   "tipo": "saida",
+   "valor": 4845,
+   "descricao": "COMPRAS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 553532
+  },
+  {
+   "linha": 83,
+   "data": "2026-04-03",
+   "tipo": "saida",
+   "valor": 3800,
+   "descricao": "COMPRAS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 549732
+  },
+  {
+   "linha": 84,
+   "data": "2026-04-03",
+   "tipo": "saida",
+   "valor": 17000,
+   "descricao": "COMPRAS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 532732
+  },
+  {
+   "linha": 85,
+   "data": "2026-04-03",
+   "tipo": "saida",
+   "valor": 5476,
+   "descricao": "COMPRAS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 527256
+  },
+  {
+   "linha": 86,
+   "data": "2026-04-03",
+   "tipo": "saida",
+   "valor": 31500,
+   "descricao": "PAGAMENTO DJ [pessoa]",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 495756,
+   "nomeTrocado": true
+  },
+  {
+   "linha": 87,
+   "data": "2026-04-03",
+   "tipo": "saida",
+   "valor": 27500,
+   "descricao": "PAGAMENTO DJ [pessoa] 50%",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 468256,
+   "nomeTrocado": true
+  },
+  {
+   "linha": 88,
+   "data": "2026-04-03",
+   "tipo": "entrada",
+   "valor": 5250,
+   "descricao": "VENDAS DIVERSAS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 473506
+  },
+  {
+   "linha": 89,
+   "data": "2026-04-05",
+   "tipo": "entrada",
+   "valor": 31500,
+   "descricao": "VENDAS NA LOJINHA",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 505006
+  },
+  {
+   "linha": 90,
+   "data": "2026-04-06",
+   "tipo": "saida",
+   "valor": 126600,
+   "descricao": "COMPRAS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 378406
+  },
+  {
+   "linha": 91,
+   "data": "2026-04-06",
+   "tipo": "entrada",
+   "valor": 2800,
+   "descricao": "VENDA BEBIDAS SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 381206
+  },
+  {
+   "linha": 92,
+   "data": "2026-04-06",
+   "tipo": "entrada",
+   "valor": 158850,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-1",
+   "especie": false,
+   "saldo": 540056
+  },
+  {
+   "linha": 93,
+   "data": "2026-04-08",
+   "tipo": "saida",
+   "valor": 407350,
+   "descricao": "PAGAMENTO DÍVIDA",
+   "rubrica": "divida",
+   "especie": false,
+   "saldo": 132706
+  },
+  {
+   "linha": 94,
+   "data": "2026-04-08",
+   "tipo": "entrada",
+   "valor": 21000,
+   "descricao": "VENDAS NA LOJINHA",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 153706
+  },
+  {
+   "linha": 95,
+   "data": "2026-04-08",
+   "tipo": "entrada",
+   "valor": 1090,
+   "descricao": "RENDIMENTO INVESTIMENTO",
+   "rubrica": "rendimento",
+   "especie": false,
+   "saldo": 154796
+  },
+  {
+   "linha": 96,
+   "data": "2026-04-09",
+   "tipo": "saida",
+   "valor": 40165,
+   "descricao": "COMPRA DE BEBIDAS FALECI",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 114631
+  },
+  {
+   "linha": 97,
+   "data": "2026-04-09",
+   "tipo": "saida",
+   "valor": 3000,
+   "descricao": "COMPRA DE GELO FALECI",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 111631
+  },
+  {
+   "linha": 98,
+   "data": "2026-04-09",
+   "tipo": "entrada",
+   "valor": 30000,
+   "descricao": "VENDAS NA LOJINHA",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 141631
+  },
+  {
+   "linha": 99,
+   "data": "2026-04-09",
+   "tipo": "entrada",
+   "valor": 20100,
+   "descricao": "VENDAS NA FALECI",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 161731
+  },
+  {
+   "linha": 100,
+   "data": "2026-04-10",
+   "tipo": "entrada",
+   "valor": 16500,
+   "descricao": "VENDAS NA FALECI",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 178231
+  },
+  {
+   "linha": 101,
+   "data": "2026-04-10",
+   "tipo": "entrada",
+   "valor": 59500,
+   "descricao": "VENDAS NA LOJINHA",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 237731
+  },
+  {
+   "linha": 102,
+   "data": "2026-04-11",
+   "tipo": "entrada",
+   "valor": 18500,
+   "descricao": "VENDAS NA LOJINHA",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 256231
+  },
+  {
+   "linha": 103,
+   "data": "2026-04-12",
+   "tipo": "entrada",
+   "valor": 9000,
+   "descricao": "VENDAS NA LOJINHA",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 265231
+  },
+  {
+   "linha": 104,
+   "data": "2026-04-15",
+   "tipo": "saida",
+   "valor": 20090,
+   "descricao": "COMPRA 50% CANECAS",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 245141
+  },
+  {
+   "linha": 105,
+   "data": "2026-04-15",
+   "tipo": "saida",
+   "valor": 3150,
+   "descricao": "COMPRA BOTTONS",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 241991
+  },
+  {
+   "linha": 106,
+   "data": "2026-04-15",
+   "tipo": "entrada",
+   "valor": 2000,
+   "descricao": "VENDAS NA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 243991
+  },
+  {
+   "linha": 107,
+   "data": "2026-04-16",
+   "tipo": "entrada",
+   "valor": 31843,
+   "descricao": "VENDAS DIVERSAS",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 275834
+  },
+  {
+   "linha": 108,
+   "data": "2026-04-16",
+   "tipo": "entrada",
+   "valor": 1500,
+   "descricao": "VENDAS DE BEBIDAS NA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 277334
+  },
+  {
+   "linha": 109,
+   "data": "2026-04-22",
+   "tipo": "saida",
+   "valor": 47000,
+   "descricao": "COMPRA 50% CAMISAS",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 230334
+  },
+  {
+   "linha": 110,
+   "data": "2026-04-22",
+   "tipo": "entrada",
+   "valor": 1200,
+   "descricao": "VENDAS DE BEBIDAS NA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 231534
+  },
+  {
+   "linha": 111,
+   "data": "2026-04-23",
+   "tipo": "entrada",
+   "valor": 1200,
+   "descricao": "VENDA DE BEBIDAS NA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 232734
+  },
+  {
+   "linha": 112,
+   "data": "2026-04-27",
+   "tipo": "saida",
+   "valor": 20090,
+   "descricao": "COMPRA 50% CANECAS",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 212644
+  },
+  {
+   "linha": 113,
+   "data": "2026-04-28",
+   "tipo": "entrada",
+   "valor": 400,
+   "descricao": "VENDA DE CIGARRO NA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 213044
+  },
+  {
+   "linha": 114,
+   "data": "2026-04-29",
+   "tipo": "saida",
+   "valor": 55348,
+   "descricao": "COMPRA DE BEBIDAS SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 157696
+  },
+  {
+   "linha": 115,
+   "data": "2026-04-29",
+   "tipo": "entrada",
+   "valor": 2800,
+   "descricao": "VENDA DE BEBIDAS NA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 160496
+  },
+  {
+   "linha": 116,
+   "data": "2026-04-30",
+   "tipo": "entrada",
+   "valor": 10400,
+   "descricao": "VENDAS DIVERSAS NA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 170896
+  },
+  {
+   "linha": 117,
+   "data": "2026-05-04",
+   "tipo": "entrada",
+   "valor": 3200,
+   "descricao": "VENDA DE BEBIDAS NA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 174096
+  },
+  {
+   "linha": 118,
+   "data": "2026-05-06",
+   "tipo": "entrada",
+   "valor": 7600,
+   "descricao": "VENDA DE BEBIDAS NA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 181696
+  },
+  {
+   "linha": 119,
+   "data": "2026-05-07",
+   "tipo": "entrada",
+   "valor": 2400,
+   "descricao": "VENDA DE BEBIDAS NA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 184096
+  },
+  {
+   "linha": 120,
+   "data": "2026-05-08",
+   "tipo": "entrada",
+   "valor": 2400,
+   "descricao": "VENDA DE BEBIDAS NA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 186496
+  },
+  {
+   "linha": 121,
+   "data": "2026-05-13",
+   "tipo": "entrada",
+   "valor": 4700,
+   "descricao": "VENDAS DIVERSAS NA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 191196
+  },
+  {
+   "linha": 122,
+   "data": "2026-05-14",
+   "tipo": "entrada",
+   "valor": 1900,
+   "descricao": "VENDAS DIVERSAS NA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 193096
+  },
+  {
+   "linha": 123,
+   "data": "2026-05-19",
+   "tipo": "saida",
+   "valor": 47000,
+   "descricao": "COMPRA 50% CAMISAS",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 146096
+  },
+  {
+   "linha": 124,
+   "data": "2026-05-19",
+   "tipo": "entrada",
+   "valor": 1600,
+   "descricao": "VENDA DE BEBIDAS NA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 147696
+  },
+  {
+   "linha": 125,
+   "data": "2026-05-20",
+   "tipo": "entrada",
+   "valor": 2400,
+   "descricao": "VENDA DE BEBIDAS NA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 150096
+  },
+  {
+   "linha": 126,
+   "data": "2026-05-21",
+   "tipo": "entrada",
+   "valor": 4000,
+   "descricao": "VENDA DE BEBIDAS NA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 154096
+  },
+  {
+   "linha": 127,
+   "data": "2026-05-21",
+   "tipo": "entrada",
+   "valor": 1500,
+   "descricao": "VENDA DE BEBIDAS NA SALINHA",
+   "rubrica": "salinha",
+   "especie": true,
+   "saldo": 155596
+  },
+  {
+   "linha": 128,
+   "data": "2026-05-22",
+   "tipo": "entrada",
+   "valor": 10000,
+   "descricao": "DEVOLUÇÃO DE VALOR MOLETOM SALINHA",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 165596
+  },
+  {
+   "linha": 129,
+   "data": "2026-05-22",
+   "tipo": "entrada",
+   "valor": 2800,
+   "descricao": "VENDA DE BEBIDAS NA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 168396
+  },
+  {
+   "linha": 130,
+   "data": "2026-05-27",
+   "tipo": "entrada",
+   "valor": 1600,
+   "descricao": "VENDA DE BEBIDAS NA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 169996
+  },
+  {
+   "linha": 131,
+   "data": "2026-05-29",
+   "tipo": "entrada",
+   "valor": 5600,
+   "descricao": "VENDA DE BEBIDAS NA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 175596
+  },
+  {
+   "linha": 132,
+   "data": "2026-06-02",
+   "tipo": "entrada",
+   "valor": 3200,
+   "descricao": "VENDA DE BEBIDAS NA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 178796
+  },
+  {
+   "linha": 133,
+   "data": "2026-06-03",
+   "tipo": "entrada",
+   "valor": 1600,
+   "descricao": "VENDA DE BEBIDAS NA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 180396
+  },
+  {
+   "linha": 134,
+   "data": "2026-06-08",
+   "tipo": "entrada",
+   "valor": 1000,
+   "descricao": "VENDA DE BEBIDAS NA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 181396
+  },
+  {
+   "linha": 135,
+   "data": "2026-06-09",
+   "tipo": "entrada",
+   "valor": 2400,
+   "descricao": "VENDA DE BEBIDAS NA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 183796
+  },
+  {
+   "linha": 136,
+   "data": "2026-06-10",
+   "tipo": "saida",
+   "valor": 39324,
+   "descricao": "COMPRA DE BEBIDAS BAILE DA TOCA",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 144472
+  },
+  {
+   "linha": 137,
+   "data": "2026-06-10",
+   "tipo": "entrada",
+   "valor": 1600,
+   "descricao": "VENDA DE BEBIDAS NA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 146072
+  },
+  {
+   "linha": 138,
+   "data": "2026-06-11",
+   "tipo": "saida",
+   "valor": 12000,
+   "descricao": "RESSARCIMENTO MOLETOM [pessoa]",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 134072,
+   "nomeTrocado": true
+  },
+  {
+   "linha": 139,
+   "data": "2026-06-11",
+   "tipo": "entrada",
+   "valor": 335,
+   "descricao": "RENDIMENTO APLICAÇÃO",
+   "rubrica": "rendimento",
+   "especie": false,
+   "saldo": 134407
+  },
+  {
+   "linha": 140,
+   "data": "2026-06-11",
+   "tipo": "entrada",
+   "valor": 3100,
+   "descricao": "VENDAS BAILE DA TOCA",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 137507
+  },
+  {
+   "linha": 141,
+   "data": "2026-06-12",
+   "tipo": "entrada",
+   "valor": 16686,
+   "descricao": "VENDAS BAILE DA TOCA",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 154193
+  },
+  {
+   "linha": 142,
+   "data": "2026-06-12",
+   "tipo": "entrada",
+   "valor": 1400,
+   "descricao": "VENDA DE CORREIO ELEGANTE",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 155593
+  },
+  {
+   "linha": 143,
+   "data": "2026-06-14",
+   "tipo": "saida",
+   "valor": 3000,
+   "descricao": "COMPRA DE GELO BAILE DA TOCA",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 152593
+  },
+  {
+   "linha": 144,
+   "data": "2026-06-15",
+   "tipo": "entrada",
+   "valor": 600,
+   "descricao": "VENDA DE CORREIO ELEGANTE",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 153193
+  },
+  {
+   "linha": 145,
+   "data": "2026-06-16",
+   "tipo": "entrada",
+   "valor": 4200,
+   "descricao": "VENDA DE CORREIO ELEGANTE",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 157393
+  },
+  {
+   "linha": 146,
+   "data": "2026-06-17",
+   "tipo": "entrada",
+   "valor": 900,
+   "descricao": "VENDA DE CORREIO ELEGANTE",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 158293
+  },
+  {
+   "linha": 147,
+   "data": "2026-06-17",
+   "tipo": "entrada",
+   "valor": 1200,
+   "descricao": "VENDA DE BEBIDAS NA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 159493
+  },
+  {
+   "linha": 148,
+   "data": "2026-06-18",
+   "tipo": "entrada",
+   "valor": 2000,
+   "descricao": "VENDA DE BEBIDAS LGBTECO",
+   "rubrica": "festas",
+   "especie": true,
+   "saldo": 161493
+  },
+  {
+   "linha": 149,
+   "data": "2026-06-18",
+   "tipo": "entrada",
+   "valor": 95000,
+   "descricao": "VENDA DE BEBIDAS LGBTECO + NATORA",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 256493
+  },
+  {
+   "linha": 150,
+   "data": "2026-06-19",
+   "tipo": "saida",
+   "valor": 79487,
+   "descricao": "COMPRAS LGBTECO + NATORA",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 177006
+  },
+  {
+   "linha": 151,
+   "data": "2026-06-19",
+   "tipo": "entrada",
+   "valor": 40800,
+   "descricao": "VENDA DE BEBIDAS LGBTECO + NATORA",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 217806
+  },
+  {
+   "linha": 152,
+   "data": "2026-06-22",
+   "tipo": "saida",
+   "valor": 10500,
+   "descricao": "COMPRA DE PAIOL PARA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 207306
+  },
+  {
+   "linha": 153,
+   "data": "2026-06-22",
+   "tipo": "entrada",
+   "valor": 53465,
+   "descricao": "VENDA DE BEBIDAS LGBTECO + NATORA",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 260771
+  },
+  {
+   "linha": 154,
+   "data": "2026-06-22",
+   "tipo": "entrada",
+   "valor": 1600,
+   "descricao": "VENDA DE BEBIDAS NA SALINHA",
+   "rubrica": "salinha",
+   "especie": false,
+   "saldo": 262371
+  },
+  {
+   "linha": 155,
+   "data": "2026-06-23",
+   "tipo": "saida",
+   "valor": 18000,
+   "descricao": "DEVOLUÇÃO DE VALOR DAS CAMISAS",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 244371
+  },
+  {
+   "linha": 156,
+   "data": "2026-06-24",
+   "tipo": "entrada",
+   "valor": 10500,
+   "descricao": "DEVOLUÇÃO FORNECEDOR CAMISAS",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 254871
+  },
+  {
+   "linha": 157,
+   "data": "2026-07-06",
+   "tipo": "saida",
+   "valor": 9000,
+   "descricao": "DEVOLUÇÃO DE VALOR DAS CAMISAS",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 245871
+  },
+  {
+   "linha": 158,
+   "data": "2026-08-03",
+   "tipo": "saida",
+   "valor": 60000,
+   "descricao": "PAGAMENTO LOCAL DA CALOURADA (1°)",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 185871
+  },
+  {
+   "linha": 159,
+   "data": "2026-08-03",
+   "tipo": "entrada",
+   "valor": 13900,
+   "descricao": "VENDA DE BEBIDAS RECEPÇÃO DE CALOUROS",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 199771
+  },
+  {
+   "linha": 160,
+   "data": "2026-08-04",
+   "tipo": "entrada",
+   "valor": 9600,
+   "descricao": "VENDA DE BEBIDAS RECEPÇÃO DE CALOUROS",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 209371
+  },
+  {
+   "linha": 161,
+   "data": "2026-08-05",
+   "tipo": "entrada",
+   "valor": 3200,
+   "descricao": "VENDA DE BEBIDAS RECEPÇÃO DE CALOUROS",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 212571
+  },
+  {
+   "linha": 162,
+   "data": "2026-08-06",
+   "tipo": "entrada",
+   "valor": 56000,
+   "descricao": "VENDA DE BEBIDAS CABRAL",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 268571
+  },
+  {
+   "linha": 163,
+   "data": "2026-08-07",
+   "tipo": "saida",
+   "valor": 105406,
+   "descricao": "COMPRA DE BEBIDAS RECEPÇÃO E CABRAL",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 163165
+  },
+  {
+   "linha": 164,
+   "data": "2026-08-07",
+   "tipo": "entrada",
+   "valor": 51300,
+   "descricao": "VENDA DE BEBIDAS CABRAL",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 214465
+  },
+  {
+   "linha": 165,
+   "data": "2026-08-07",
+   "tipo": "entrada",
+   "valor": 6553,
+   "descricao": "VENDA DE BEBIDAS CABRAL",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 221018
+  },
+  {
+   "linha": 166,
+   "data": "2026-08-07",
+   "tipo": "entrada",
+   "valor": 128500,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 349518
+  },
+  {
+   "linha": 167,
+   "data": "2026-08-08",
+   "tipo": "entrada",
+   "valor": 45500,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 395018
+  },
+  {
+   "linha": 168,
+   "data": "2026-08-09",
+   "tipo": "entrada",
+   "valor": 8000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 403018
+  },
+  {
+   "linha": 169,
+   "data": "2026-08-10",
+   "tipo": "entrada",
+   "valor": 20000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 423018
+  },
+  {
+   "linha": 170,
+   "data": "2026-08-11",
+   "tipo": "saida",
+   "valor": 120000,
+   "descricao": "COMPRA DE BEBIDAS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 303018
+  },
+  {
+   "linha": 171,
+   "data": "2026-08-11",
+   "tipo": "entrada",
+   "valor": 16000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 319018
+  },
+  {
+   "linha": 172,
+   "data": "2026-08-12",
+   "tipo": "entrada",
+   "valor": 32000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 351018
+  },
+  {
+   "linha": 173,
+   "data": "2026-08-13",
+   "tipo": "saida",
+   "valor": 29468,
+   "descricao": "COMPRA DE BEBIDAS SALINHA/NA TORA",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 321550
+  },
+  {
+   "linha": 174,
+   "data": "2026-08-13",
+   "tipo": "entrada",
+   "valor": 4500,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 326050
+  },
+  {
+   "linha": 175,
+   "data": "2026-08-14",
+   "tipo": "entrada",
+   "valor": 4500,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 330550
+  },
+  {
+   "linha": 176,
+   "data": "2026-08-17",
+   "tipo": "entrada",
+   "valor": 18000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 348550
+  },
+  {
+   "linha": 177,
+   "data": "2026-08-18",
+   "tipo": "entrada",
+   "valor": 112000,
+   "descricao": "VENDA DE PRODUTOS LOJINHA",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 460550
+  },
+  {
+   "linha": 178,
+   "data": "2026-08-18",
+   "tipo": "entrada",
+   "valor": 9000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 469550
+  },
+  {
+   "linha": 179,
+   "data": "2026-08-19",
+   "tipo": "entrada",
+   "valor": 28500,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 498050
+  },
+  {
+   "linha": 180,
+   "data": "2026-08-20",
+   "tipo": "saida",
+   "valor": 11988,
+   "descricao": "COMPRA DE BEBIDAS E GELO NA TORA",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 486062
+  },
+  {
+   "linha": 181,
+   "data": "2026-08-20",
+   "tipo": "saida",
+   "valor": 25500,
+   "descricao": "COMPRA DE CANECAS E TIRANTES PARA CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 460562
+  },
+  {
+   "linha": 182,
+   "data": "2026-08-20",
+   "tipo": "entrada",
+   "valor": 4500,
+   "descricao": "VENDA DE PRODUTOS LOJINHA",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 465062
+  },
+  {
+   "linha": 183,
+   "data": "2026-08-20",
+   "tipo": "entrada",
+   "valor": 16200,
+   "descricao": "VENDA DE BEBIDAS NA TORA",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 481262
+  },
+  {
+   "linha": 184,
+   "data": "2026-08-20",
+   "tipo": "entrada",
+   "valor": 3000,
+   "descricao": "VENDA DE BEBIDAS NA TORA",
+   "rubrica": "festas",
+   "especie": true,
+   "saldo": 484262
+  },
+  {
+   "linha": 185,
+   "data": "2026-08-21",
+   "tipo": "entrada",
+   "valor": 52650,
+   "descricao": "VENDA DE BEBIDAS NA TORA",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 536912
+  },
+  {
+   "linha": 186,
+   "data": "2026-08-22",
+   "tipo": "entrada",
+   "valor": 4500,
+   "descricao": "VENDA DE BEBIDAS NA TORA",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 541412
+  },
+  {
+   "linha": 187,
+   "data": "2026-08-23",
+   "tipo": "entrada",
+   "valor": 14000,
+   "descricao": "VENDA DE PRODUTOS LOJINHA",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 555412
+  },
+  {
+   "linha": 188,
+   "data": "2026-08-23",
+   "tipo": "entrada",
+   "valor": 5000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 560412
+  },
+  {
+   "linha": 189,
+   "data": "2026-08-24",
+   "tipo": "entrada",
+   "valor": 8806,
+   "descricao": "VENDA DE BEBIDAS NA TORA",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 569218
+  },
+  {
+   "linha": 190,
+   "data": "2026-08-24",
+   "tipo": "entrada",
+   "valor": 10000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 579218
+  },
+  {
+   "linha": 191,
+   "data": "2026-08-25",
+   "tipo": "entrada",
+   "valor": 4500,
+   "descricao": "VENDA DE PRODUTOS LOJINHA",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 583718
+  },
+  {
+   "linha": 192,
+   "data": "2026-08-26",
+   "tipo": "entrada",
+   "valor": 9000,
+   "descricao": "VENDA DE PRODUTOS LOJINHA",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 592718
+  },
+  {
+   "linha": 193,
+   "data": "2026-08-26",
+   "tipo": "entrada",
+   "valor": 20000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 612718
+  },
+  {
+   "linha": 194,
+   "data": "2026-08-26",
+   "tipo": "entrada",
+   "valor": 17500,
+   "descricao": "VENDA DE PRODUTOS LOJINHA",
+   "rubrica": "lojinha",
+   "especie": true,
+   "saldo": 630218
+  },
+  {
+   "linha": 195,
+   "data": "2026-08-27",
+   "tipo": "entrada",
+   "valor": 5000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 635218
+  },
+  {
+   "linha": 196,
+   "data": "2026-08-27",
+   "tipo": "entrada",
+   "valor": 13500,
+   "descricao": "VENDA DE PRODUTOS LOJINHA",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 648718
+  },
+  {
+   "linha": 197,
+   "data": "2026-08-31",
+   "tipo": "entrada",
+   "valor": 12500,
+   "descricao": "VENDA DE PRODUTOS LOJINHA",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 661218
+  },
+  {
+   "linha": 198,
+   "data": "2026-08-31",
+   "tipo": "entrada",
+   "valor": 15000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 676218
+  },
+  {
+   "linha": 199,
+   "data": "2026-09-01",
+   "tipo": "entrada",
+   "valor": 13001,
+   "descricao": "VENDA DE PRODUTOS LOJINHA",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 689219
+  },
+  {
+   "linha": 200,
+   "data": "2026-09-01",
+   "tipo": "entrada",
+   "valor": 66000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 755219
+  },
+  {
+   "linha": 201,
+   "data": "2026-09-02",
+   "tipo": "saida",
+   "valor": 121610,
+   "descricao": "COMPRA DAS CAMISAS LOJINHA",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 633609
+  },
+  {
+   "linha": 202,
+   "data": "2026-09-02",
+   "tipo": "entrada",
+   "valor": 24000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 657609
+  },
+  {
+   "linha": 203,
+   "data": "2026-09-03",
+   "tipo": "saida",
+   "valor": 37400,
+   "descricao": "COMPRA CANECAS",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 620209
+  },
+  {
+   "linha": 204,
+   "data": "2026-09-03",
+   "tipo": "entrada",
+   "valor": 18000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 638209
+  },
+  {
+   "linha": 205,
+   "data": "2026-09-04",
+   "tipo": "saida",
+   "valor": 38456,
+   "descricao": "COMPRA DE BEBIDAS",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 599753
+  },
+  {
+   "linha": 206,
+   "data": "2026-09-04",
+   "tipo": "entrada",
+   "valor": 12000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 611753
+  },
+  {
+   "linha": 207,
+   "data": "2026-09-05",
+   "tipo": "entrada",
+   "valor": 18000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 629753
+  },
+  {
+   "linha": 208,
+   "data": "2026-09-06",
+   "tipo": "entrada",
+   "valor": 18000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 647753
+  },
+  {
+   "linha": 209,
+   "data": "2026-09-08",
+   "tipo": "saida",
+   "valor": 10000,
+   "descricao": "ADIANTAMENTO DJ [pessoa] 50%",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 637753,
+   "nomeTrocado": true
+  },
+  {
+   "linha": 210,
+   "data": "2026-09-08",
+   "tipo": "entrada",
+   "valor": 24000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 661753
+  },
+  {
+   "linha": 211,
+   "data": "2026-09-09",
+   "tipo": "saida",
+   "valor": 90000,
+   "descricao": "COMPRA DE BEBIDAS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 571753
+  },
+  {
+   "linha": 212,
+   "data": "2026-09-09",
+   "tipo": "entrada",
+   "valor": 60000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 631753
+  },
+  {
+   "linha": 213,
+   "data": "2026-09-10",
+   "tipo": "saida",
+   "valor": 56837,
+   "descricao": "COMPRA DE BEBIDAS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 574916
+  },
+  {
+   "linha": 214,
+   "data": "2026-09-10",
+   "tipo": "saida",
+   "valor": 60000,
+   "descricao": "PAGAMENTO LOCAL DA CALOURADA (2°)",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 514916
+  },
+  {
+   "linha": 215,
+   "data": "2026-09-10",
+   "tipo": "entrada",
+   "valor": 36000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 550916
+  },
+  {
+   "linha": 216,
+   "data": "2026-09-11",
+   "tipo": "saida",
+   "valor": 27500,
+   "descricao": "PAGAMENTO DJ [pessoa] 50%",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 523416,
+   "nomeTrocado": true
+  },
+  {
+   "linha": 217,
+   "data": "2026-09-11",
+   "tipo": "saida",
+   "valor": 41700,
+   "descricao": "COMPRA DE GELO CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 481716
+  },
+  {
+   "linha": 218,
+   "data": "2026-09-11",
+   "tipo": "saida",
+   "valor": 19446,
+   "descricao": "COMPRA DE BEBIDAS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 462270
+  },
+  {
+   "linha": 219,
+   "data": "2026-09-11",
+   "tipo": "entrada",
+   "valor": 129000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 591270
+  },
+  {
+   "linha": 220,
+   "data": "2026-09-11",
+   "tipo": "entrada",
+   "valor": 600,
+   "descricao": "VENDA DE PAIOL CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 591870
+  },
+  {
+   "linha": 221,
+   "data": "2026-09-12",
+   "tipo": "saida",
+   "valor": 210000,
+   "descricao": "COMPRA DE BEBIDAS - [pessoa]",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 381870,
+   "nomeTrocado": true,
+   "nota": "A planilha não diz o evento. A compra foi feita em 12/09, um dia depois da segunda calourada, e o plano a conta nela."
+  },
+  {
+   "linha": 222,
+   "data": "2026-09-12",
+   "tipo": "saida",
+   "valor": 30000,
+   "descricao": "PAGAMENTO DJ [pessoa]",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 351870,
+   "nomeTrocado": true
+  },
+  {
+   "linha": 223,
+   "data": "2026-09-12",
+   "tipo": "saida",
+   "valor": 10000,
+   "descricao": "PAGAMENTO DJ [pessoa] 50%",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 341870,
+   "nomeTrocado": true
+  },
+  {
+   "linha": 224,
+   "data": "2026-09-12",
+   "tipo": "entrada",
+   "valor": 69300,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 411170
+  },
+  {
+   "linha": 225,
+   "data": "2026-09-12",
+   "tipo": "entrada",
+   "valor": 2800,
+   "descricao": "VENDA DE PAIOL CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 413970
+  },
+  {
+   "linha": 226,
+   "data": "2026-09-14",
+   "tipo": "saida",
+   "valor": 2400,
+   "descricao": "COMPRA DE PAIOL CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 411570
+  },
+  {
+   "linha": 227,
+   "data": "2026-09-14",
+   "tipo": "entrada",
+   "valor": 9200,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 420770
+  },
+  {
+   "linha": 228,
+   "data": "2026-09-15",
+   "tipo": "entrada",
+   "valor": 255000,
+   "descricao": "VENDA DE INGRESSOS CALOURADA",
+   "rubrica": "calourada-2",
+   "especie": false,
+   "saldo": 675770
+  },
+  {
+   "linha": 229,
+   "data": "2026-09-25",
+   "tipo": "entrada",
+   "valor": 500,
+   "descricao": "INSCRIÇÃO TAÇA DI PIETRO",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 676270
+  },
+  {
+   "linha": 230,
+   "data": "2026-10-06",
+   "tipo": "saida",
+   "valor": 4500,
+   "descricao": "RESSARCIMENTO CAMISA GP",
+   "rubrica": "lojinha",
+   "especie": false,
+   "saldo": 671770
+  },
+  {
+   "linha": 231,
+   "data": "2026-10-12",
+   "tipo": "entrada",
+   "valor": 10000,
+   "descricao": "INSCRIÇÃO TAÇA DI PIETRO",
+   "rubrica": "festas",
+   "especie": false,
+   "saldo": 681770
+  },
+  {
+   "linha": 232,
+   "data": "2026-10-21",
+   "tipo": "entrada",
+   "valor": 5978,
+   "descricao": "RESGATE DE RENDIMENTO DE APLICAÇÃO",
+   "rubrica": "rendimento",
+   "especie": false,
+   "saldo": 687748
+  },
+  {
+   "linha": 233,
+   "data": "2026-10-23",
+   "tipo": "saida",
+   "valor": 130314,
+   "descricao": "PROCESSO DE ABERTURA DA ATLAS EMPRESA JÚNIOR",
+   "rubrica": "ej",
+   "especie": false,
+   "saldo": 557434
+  }
+ ]
+}

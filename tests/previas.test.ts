@@ -61,12 +61,17 @@ describe('prévias de link', () => {
   });
 
   it('conteúdo de exemplo sai marcado como modelo', () => {
-    for (const rota of ['/noticias', '/transparencia']) {
-      const p = (dados.paginas as Record<string, { titulo: string; banner: { modelo?: boolean } }>)[rota];
+    const paginas = dados.paginas as Record<string, { titulo: string; banner: { modelo?: boolean } }>;
+    for (const rota of ['/noticias']) {
+      const p = paginas[rota];
       expect(p.banner.modelo, rota).toBe(true);
-      // O título do link avisa que o conteúdo é de exemplo (o portal da transparência está pronto, mas os números não são do CAGP).
+      // O título do link avisa que o conteúdo é de exemplo.
       expect(p.titulo.toLowerCase(), rota).toMatch(/modelo|exemplo/);
     }
+    // Desde 23/11/2026 o portal da transparência abre com as contas reais de 2025–26 (o modelo de exemplo
+    // ficou numa aba): a prévia não pode mais chamar a página de exemplo.
+    expect(paginas['/transparencia'].banner.modelo).toBeFalsy();
+    expect(paginas['/transparencia'].titulo.toLowerCase()).not.toMatch(/modelo|exemplo/);
     // Notícia de exemplo não ganha banner próprio.
     expect(previaDaRota('/noticias/qualquer-noticia').imagem).toBe('p-noticias');
   });

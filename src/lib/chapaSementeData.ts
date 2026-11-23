@@ -273,7 +273,7 @@ export const CHAPA_LEADERS: LeaderInfo[] = [
     painPoint:
       'Saldo parado e movimentações que ninguém consegue acompanhar deixam o estudante sem saber o que o centro acadêmico faz com o dinheiro da turma.',
     solution:
-      'Portal da Transparência já pronto (hoje com números de exemplo, porque ainda não somos gestão): o livro-caixa do CAGP aberto lançamento a lançamento, para qualquer estudante conferir e baixar.',
+      'Portal da Transparência já no ar, com as contas de 2025–26 que a gestão divulgou: o livro-caixa do CAGP aberto lançamento a lançamento, para qualquer estudante conferir e baixar.',
     solutionStatus: 'proposta',
     photoFilename: 'Klaus.jpg',
     photoPosition: 'center 30%',
