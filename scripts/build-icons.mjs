@@ -103,6 +103,8 @@ const CAGP = {
   'd-mapas': 'map-pin-area', 'd-cultura': 'mask-happy', 'd-intercambio': 'airplane-tilt', 'd-regras': 'scales',
   'd-entidades': 'flag-banner', 'd-direitos': 'hand-fist', 'd-emergencia': 'siren', 'd-quem': 'tree-view',
   'd-acessibilidade': 'wheelchair', 'd-saude-mental': 'heartbeat', mail: 'envelope-simple', play: 'play',
+  // Calculadora de faltas (/faltas, proposta de estudante nº 2).
+  'd-faltas': 'calendar-x',
   // Visualizador de imagens e peças dos guias da UFMG.
   minus: 'minus', 'zoom-in': 'magnifying-glass-plus', 'arrows-out': 'arrows-out-simple', youtube: 'youtube-logo',
 };

@@ -154,7 +154,7 @@ const GaugeChart = React.forwardRef<HTMLDivElement, GaugeChartProps>(
 
     // Create an SVG arc path segment between two percentages on the gauge track
     // Coordenadas arredondadas: Math.cos/sin diferem na última casa entre Node (build) e navegador,
-    // e o React acusava hidratação divergente no medidor das 600h.
+    // e o React acusava hidratação divergente no medidor de horas.
     const r3 = (n: number) => Math.round(n * 1000) / 1000
     const createArcPath = (startPercent: number, endPercent: number, radius: number) => {
       const startAngle = percentToAngleRad(startPercent)

@@ -10,12 +10,9 @@ import {
 import { asset, route } from '@/lib/paths';
 import { tactileSpring, bounceSpring, staggerContainer, staggerItem } from '@/lib/motion';
 import { toast } from '@/lib/toast';
-import { EXTENSION_ITEMS, AAC_ITEMS } from '@/components/features/acg/calculator/acgCatalog';
+import { somaDasHoras } from '@/components/features/acg/calculator/acgCatalog';
 
 import { ETAPA_DISCIPLINA, RETA_FINAL_STEPS } from '@/lib/retaFinal';
-
-const somaHoras = (itens: { key: string }[], dados: Record<string, number>) =>
-  itens.reduce((acc, it) => acc + (Number(dados[it.key]) || 0), 0);
 
 export const FormandoRetaFinalHub: React.FC = () => {
   const [checks, setChecks] = useState<VaultData<'cagp_reta_final_checklist_v1'>>({});
@@ -68,8 +65,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
   // Feita = marcada aqui OU já marcada na grade de Meu curso (um dado, um dono).
   const naGrade = (id: string) => Boolean(ETAPA_DISCIPLINA[id] && cursadas.includes(ETAPA_DISCIPLINA[id]));
   const feita = (id: string) => Boolean(checks[id]) || naGrade(id);
-  const extH = Math.min(300, somaHoras(EXTENSION_ITEMS, calc));
-  const aacH = Math.min(300, somaHoras(AAC_ITEMS, calc));
+  const { extensao: extH, aac: aacH } = somaDasHoras(calc);
 
   const completedTotal = RETA_FINAL_STEPS.filter((s) => feita(s.id)).length;
   const totalSteps = RETA_FINAL_STEPS.length;
@@ -122,7 +118,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
           </div>
         </div>
 
-        {/* 3 Cards de Status Integrados (Estágio 300h, TCC 180h, Colação & 600h) */}
+        {/* 3 Cards de Status Integrados (Estágio 300h, TCC 180h, Colação & extensão) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="p-4 rounded-xl border-2 border-border bg-card shadow-sm flex flex-col justify-between gap-3">
             <div>
@@ -205,10 +201,10 @@ export const FormandoRetaFinalHub: React.FC = () => {
                 </span>
               </div>
               <h3 className="font-heading text-sm font-black text-foreground m-0">
-                600h, Nada Consta &amp; Diploma
+                Extensão, Nada Consta &amp; Diploma
               </h3>
               <p className="font-sans text-xs text-muted-foreground mt-1 m-0">
-                Protocolo final das 600h, regularidade no ENADE e Banco de Talentos GP.
+                Protocolo final das 300h de extensão, regularidade no ENADE e Banco de Talentos GP.
               </p>
             </div>
             <div className="flex items-center justify-between gap-2 pt-2 border-t-2 border-border">
@@ -380,7 +376,7 @@ export const FormandoRetaFinalHub: React.FC = () => {
                       )}
                       {step.id === 'rf_colacao_600h' && (
                         <p className="font-sans text-xs text-foreground leading-relaxed m-0 font-bold tabular-nums">
-                          Nas suas atividades: {extH} de 300h de extensão e {aacH}h de AAC.{' '}
+                          Nas suas atividades: {extH} de 300h de extensão e {aacH}h de AAC, que é opcional.{' '}
                           <a href={route('/meu-curso') + '#atividades'} className="text-primary underline underline-offset-2">Abrir minhas atividades</a>
                         </p>
                       )}

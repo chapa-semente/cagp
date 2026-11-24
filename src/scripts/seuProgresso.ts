@@ -44,7 +44,7 @@ function textoDe(tema: string): string | null {
 
   switch (tema) {
     case 'horas':
-      return conta.ext + conta.aac > 0 ? `Extensão: ${FMT.format(conta.ext)} de 300h. AAC: ${FMT.format(conta.aac)} de 300h.` : null;
+      return conta.ext + conta.aac > 0 ? `Extensão: ${FMT.format(conta.ext)} de 300h. AAC, que é opcional: ${FMT.format(conta.aac)}h.` : null;
     case 'estagio': {
       const g = grupo('est');
       if (g.feito === 0 && !cursando.some((c) => c === 'DCP 135' || c === 'DCP 136')) return null;

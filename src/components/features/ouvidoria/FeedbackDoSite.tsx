@@ -176,7 +176,7 @@ export const FeedbackDoSite: React.FC = () => {
             <label htmlFor={`${id}-onde`} className={rotulo}>
               Em que página? <span className="font-sans text-sm font-normal text-content-secondary">(se souber)</span>
             </label>
-            <input id={`${id}-onde`} type="text" value={onde} onChange={(e) => setOnde(e.target.value)} placeholder="Ex: calculadora das 600h" className={campo} />
+            <input id={`${id}-onde`} type="text" value={onde} onChange={(e) => setOnde(e.target.value)} placeholder="Ex: página de extensão e AAC" className={campo} />
           </div>
           <div className="grid gap-2">
             <label htmlFor={`${id}-contato`} className={rotulo}>

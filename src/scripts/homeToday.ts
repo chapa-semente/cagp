@@ -7,6 +7,7 @@
 //   - que horas são → "RU aberto agora", conferido a cada 30 s;
 //   - horas e disciplinas salvas → o cartão "Seu progresso" (só aparece se houver dado).
 // Reage a cagp:vault-updated (a pessoa trocou a fase ou lançou horas com a home aberta).
+import { somaDasHoras, HORAS_EXTENSAO } from '@/components/features/acg/calculator/acgCatalog';
 import { computeCampusLiveStatus } from '@/lib/campusStatus';
 import { USER_ROLES, type UserRole } from '@/lib/userRole';
 
@@ -28,11 +29,11 @@ function storedRole(): UserRole {
   return USER_ROLES.includes(value as UserRole) ? (value as UserRole) : 'calouro';
 }
 
-/** Mesma conta do cofre: soma das horas lançadas (até 600) e nº de obrigatórias marcadas. */
+/** Mesma conta do site: horas de extensão (de 300, obrigatórias) e nº de obrigatórias marcadas. */
 function storedProgress(): { ext: number; obrig: number } {
   const calc = readJson('cagp_calc_ext_aac_v1');
   const calcOk = calc && typeof calc === 'object' && !Array.isArray(calc) && Object.values(calc).every((v) => typeof v === 'number');
-  const ext = calcOk ? Math.min(600, Object.values(calc as Record<string, number>).reduce((a, b) => a + (Number(b) || 0), 0)) : 0;
+  const ext = calcOk ? somaDasHoras(calc as Record<string, number>).extensao : 0;
   const grade = readJson('cagp_minha_grade_v1') as { savedCourses?: unknown } | null;
   const saved = grade && Array.isArray(grade.savedCourses) && grade.savedCourses.every((c) => typeof c === 'string') ? grade.savedCourses : [];
   return { ext, obrig: saved.length };
@@ -92,7 +93,7 @@ function applyProgress(): void {
     if (!card) return;
   }
   const rows = [
-    { key: 'ext', n: ext, unit: 'h', pct: Math.round((ext / 600) * 100) },
+    { key: 'ext', n: ext, unit: 'h', pct: Math.round((ext / HORAS_EXTENSAO) * 100) },
     { key: 'obrig', n: obrig, unit: '', pct: Math.min(100, Math.round((obrig / 27) * 100)) },
   ];
   for (const row of rows) {

@@ -332,7 +332,7 @@ export const DEBATE_QUATRO_NAO_SAIRAM: readonly string[] = [
 export const DEBATE_JA_NO_AR_SEMENTE: readonly { proposta: string; entrega: string; href: string; label: string }[] = [
   {
     proposta: 'Portal dos Estudantes, com normas, estágios e documentos',
-    entrega: 'Guias de estágio, 600h, TCC, calouros, FUMP e os documentos oficiais já estão no ar.',
+    entrega: 'Guias de estágio, extensão e AAC, TCC, calouros, FUMP e os documentos oficiais já estão no ar.',
     href: '/guias',
     label: 'Abrir guias e documentos',
   },

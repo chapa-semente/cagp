@@ -319,6 +319,16 @@ objetos.solidaria = desenho(115, (r) => [
   risco([[58, 184], [242, 182]], r, { tamanho: TRACO * 0.8 }),
   ...folhaLado(112, 254, 0.95, r),
 ]);
+// De estudante nº 2 · Calculadora de faltas: a cartela da disciplina, com dois dias marcados e um livre.
+objetos.faltas = desenho(116, (r) => [
+  ...forma(ret(34, 48, 266, 258), r, BRANCO, { raio: 12 }), ...forma(ret(34, 48, 266, 98), r, AMARELO, { raio: 10 }),
+  escrita(62, 196, 74, r),
+  ...forma(ret(54, 124, 112, 182), r, ROSA, { raio: 8 }), ...forma(ret(121, 124, 179, 182), r, ROSA, { raio: 8 }), ...forma(ret(188, 124, 246, 182), r, BRANCO, { raio: 8 }),
+  grosso([[68, 138], [98, 168]], r, 1.25), grosso([[98, 138], [68, 168]], r, 1.25),
+  grosso([[135, 138], [165, 168]], r, 1.25), grosso([[165, 138], [135, 168]], r, 1.25),
+  escrita(58, 150, 222, r),
+  ...folhaLado(192, 250, 0.9, r),
+]);
 
 const destino = join(dirname(fileURLToPath(import.meta.url)), '../../src/data/desenhosObjetos.json');
 writeFileSync(destino, JSON.stringify({ _comentario: 'Gerado por scripts/desenhos/gerar-objetos.mjs. Não editar à mão.', traco: TRACO, ...objetos }));

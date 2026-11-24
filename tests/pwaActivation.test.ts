@@ -66,7 +66,7 @@ describe('PWA & Eleições Chapa Semente Activation Test Suite', () => {
       const { url, text } = getWhatsAppShareData('Mariana Silva');
 
       expect(url).toContain('https://api.whatsapp.com/send?text=');
-      expect(text).toContain('calculadora das 600h');
+      expect(text).toContain('horas de extensão');
       expect(text).toContain(window.location.origin);
       // Sem lista de recursos em "[+]" e sem prometer "100% offline" (documentos não abrem sem internet).
       expect(text).not.toContain('[+]');

@@ -3,11 +3,12 @@
 // Totais do quadro de integralização do percurso Bacharelado/Núcleo Geral
 // (_referencias/documentos-oficiais/percurso-bacharelado-nucleo-geral.md):
 //   Obrigatórias 1.560h · Estágio obrigatório 300h · Formação livre 120h ·
-//   Optativas 1.020h = Extensão 300h + AAC (até 300h) + Optativas gerais (420 a 720h)   → 3.000h
+//   Optativas 1.020h = Extensão 300h + AAC (opcional) + Optativas gerais (420 a 720h)   → 3.000h
+// O teto de 300h de AAC vale para todas as AAC juntas, inclusive as de extensão (somaDasHoras).
 //
 // Função pura: quem chama lê o cofre e passa os dados. Assim o painel, a formatura e os testes
 // fazem exatamente a mesma conta.
-import { EXTENSION_ITEMS, AAC_ITEMS } from '@/components/features/acg/calculator/acgCatalog';
+import { somaDasHoras, HORAS_EXTENSAO } from '@/components/features/acg/calculator/acgCatalog';
 import { DISCIPLINAS_GRAFO, type CourseNodeData } from '@/components/features/curriculum/graph/curriculumGraphData';
 import type { CustomCourse, VaultData } from '@/lib/storage/studentVault';
 
@@ -46,9 +47,6 @@ export interface GrupoDaConta {
   opcional?: boolean;
 }
 
-const somaChaves = (itens: { key: string }[], dados: Record<string, number>) =>
-  itens.reduce((acc, it) => acc + (Number(dados[it.key]) || 0), 0);
-
 export function contaDoCurso({ cursadas, naGrade, horas, calc }: EntradaConta) {
   const feitas = new Set(cursadas);
   const doGrupo = (estagio: boolean) => OBRIGATORIAS.filter((d) => d.estagio === estagio);
@@ -63,17 +61,17 @@ export function contaDoCurso({ cursadas, naGrade, horas, calc }: EntradaConta) {
   const optativasGrade = daGrade(false);
   const livreGrade = daGrade(true);
 
-  const ext = Math.min(300, somaChaves(EXTENSION_ITEMS, calc));
-  const aac = Math.min(300, somaChaves(AAC_ITEMS, calc));
-  // O grupo Optativas (1.020h) fecha com extensão (300h) + AAC (até 300h) + optativas gerais.
+  const { extensao: ext, aac, sobraDeAac } = somaDasHoras(calc);
+  // O grupo Optativas (1.020h) fecha com extensão (300h) + AAC (opcional) + optativas gerais.
   const alvoOptativas = 720 - aac;
 
   const grupos: GrupoDaConta[] = [
     { id: 'ob', nome: 'Obrigatórias', feito: feito(doGrupo(false)), total: total(doGrupo(false)), cor: '#5B2A85' },
     { id: 'est', nome: 'Estágio obrigatório', feito: feito(doGrupo(true)), total: total(doGrupo(true)), cor: '#8A4B2A' },
     { id: 'op', nome: 'Optativas gerais', feito: Math.min(alvoOptativas, horas.optativasH + optativasGrade), total: alvoOptativas, cor: '#FE8812' },
-    { id: 'ext', nome: 'Extensão', feito: ext, total: 300, cor: '#6DB33F' },
-    { id: 'aac', nome: 'AAC (até 300h)', feito: aac, total: 300, cor: '#FFC83D', opcional: true },
+    { id: 'ext', nome: 'Extensão', feito: ext, total: HORAS_EXTENSAO, cor: '#6DB33F' },
+    // AAC é opcional: o total é o que ainda cabe no teto, já descontadas as AAC de extensão.
+    { id: 'aac', nome: 'AAC (opcional)', feito: aac, total: aac + sobraDeAac, cor: '#FFC83D', opcional: true },
     { id: 'fl', nome: 'Formação livre', feito: Math.min(120, horas.livreH + livreGrade), total: 120, cor: '#266264' },
   ];
   const cursado = grupos.reduce((a, g) => a + g.feito, 0);
@@ -83,6 +81,7 @@ export function contaDoCurso({ cursadas, naGrade, horas, calc }: EntradaConta) {
     falta: Math.max(0, TOTAL_DO_CURSO - cursado),
     ext,
     aac,
+    sobraDeAac,
     alvoOptativas,
     optativasGrade,
     livreGrade,

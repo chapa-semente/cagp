@@ -47,7 +47,7 @@ const REF = REF_JSON as unknown as {
 export type DesenhoDeProposta =
   | 'contas' | 'reunioes' | 'site' | 'cnpj' | 'seguranca' | 'patrimonio' | 'calouros'
   | 'entidades' | 'eventos' | 'cursos' | 'empresa' | 'comunicacao' | 'produtos' | 'escuta'
-  | 'solidaria';
+  | 'solidaria' | 'faltas';
 type NomeObjeto = 'nota' | 'certificado' | 'celular' | 'exclamacao' | DesenhoDeProposta;
 const OBJ = OBJ_JSON as unknown as Record<NomeObjeto, { w: number; h: number; partes: { d: string; cor: string }[]; caneta?: string }> & { traco: number };
 

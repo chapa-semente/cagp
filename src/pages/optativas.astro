@@ -30,7 +30,7 @@ const optativasData = optativasList.map((d) => ({
   <PageHeader
     title="Optativas"
     subtitle="As 68 optativas do PPC por departamento. Escolha e já coloque na sua grade."
-    breadcrumbs={[{ label: 'Trajetória 600h', href: route('/percurso') }, { label: 'Catálogo de Optativas' }]}
+    breadcrumbs={[{ label: 'Grade e percurso', href: route('/percurso') }, { label: 'Catálogo de Optativas' }]}
     axisId="guias"
     activeId="optativas"
     mode="operate"
@@ -48,6 +48,6 @@ const optativasData = optativasList.map((d) => ({
 
   <JourneyNav
     prev={{ title: 'Grafo curricular de 10 períodos', href: '/percurso', desc: 'Pré-requisitos e o dossiê das 3.000h.' }}
-    next={{ title: 'Cursos livres da ENAP', href: '/cursos', desc: 'Certificados que contam como AAC nas 600h.' }}
+    next={{ title: 'Cursos livres da ENAP', href: '/cursos', desc: 'Certificados que contam como extensão, até 120h.' }}
   />
 </BaseLayout>

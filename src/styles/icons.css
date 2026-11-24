@@ -75,7 +75,6 @@
 .bi-calendar-event-fill::before { content: "\e7b2"; }
 .bi-calendar-plus::before { content: "\e714"; }
 .bi-calendar2-event::before { content: "\e7b2"; }
-.bi-calendar2-event-fill::before { content: "\e7b2"; }
 .bi-calendar2-week::before { content: "\e10a"; }
 .bi-calendar2-week-fill::before { content: "\e10a"; }
 .bi-calendar3::before { content: "\e10a"; }
@@ -146,7 +145,6 @@
 .bi-file-earmark-person::before { content: "\e2c8"; }
 .bi-file-earmark-person-fill::before { content: "\e2c8"; }
 .bi-file-earmark-richtext::before { content: "\e23a"; }
-.bi-file-earmark-richtext-fill::before { content: "\e23a"; }
 .bi-file-earmark-ruled::before { content: "\e23a"; }
 .bi-file-earmark-ruled-fill::before { content: "\e23a"; }
 .bi-file-earmark-spreadsheet::before { content: "\eb22"; }
@@ -157,7 +155,6 @@
 .bi-flag::before { content: "\e244"; }
 .bi-flag-fill::before { content: "\e244"; }
 .bi-flask::before { content: "\e79e"; }
-.bi-flask-fill::before { content: "\e79e"; }
 .bi-flower1::before { content: "\e75e"; }
 .bi-folder-symlink::before { content: "\e25a"; }
 .bi-folder2-open::before { content: "\e256"; }

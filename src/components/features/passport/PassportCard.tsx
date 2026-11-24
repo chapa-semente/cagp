@@ -43,7 +43,7 @@ export const PassportCard: React.FC<PassportCardProps> = ({
   const [comMoldura, setComMoldura] = React.useState(false);
   React.useEffect(() => setComMoldura(molduraEmCampanha()), []);
   const obrigPct = Math.min(100, Math.round((obrigCount / 27) * 100));
-  const extPct = Math.min(100, Math.round((extHours / 600) * 100));
+  const extPct = Math.min(100, Math.round((extHours / 300) * 100));
   const globalPct = Math.round((obrigPct + extPct) / 2);
 
   const roleMeta = USER_ROLE_META[role];
@@ -153,7 +153,7 @@ export const PassportCard: React.FC<PassportCardProps> = ({
         </div>
       )}
 
-      {/* Dupla Barra de Progresso (27 Obrigatórias + 600h AAC) */}
+      {/* Dupla Barra de Progresso (27 Obrigatórias + 300h de extensão) */}
       <div className="cagp-passport-progress-grid">
         <div>
           <div className="flex justify-between items-center text-xs mb-1">
@@ -175,10 +175,10 @@ export const PassportCard: React.FC<PassportCardProps> = ({
         <div>
           <div className="flex justify-between items-center text-xs mb-1">
             <span className="font-head font-extrabold uppercase text-xs text-foreground">
-              600h Extensão & AAC
+              300h de Extensão
             </span>
             <span className="font-mono font-bold text-xs text-success">
-              {extHours}h/600h ({extPct}%)
+              {extHours}h/300h ({extPct}%)
             </span>
           </div>
           <div className="cagp-passport-mini-track">
@@ -220,7 +220,7 @@ export const PassportCard: React.FC<PassportCardProps> = ({
             transition={bounceSpring}
             className="px-2 py-0.5 rounded bg-accent text-foreground font-mono text-xs font-bold uppercase border-2 border-border shadow-sm"
           >
-            {extHours}h ACG/Extensão
+            {extHours}h de Extensão
           </motion.span>
         )}
       </div>

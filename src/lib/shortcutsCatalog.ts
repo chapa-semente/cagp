@@ -88,9 +88,9 @@ export const SHORTCUTS_CATALOG: ShortcutItem[] = [
   },
   {
     id: 'acg',
-    label: 'Calc 600h',
-    fullLabel: 'Calculadora 600h (Extensão & AAC)',
-    description: 'Simulador de integralização de horas e guardião de certificados (120 dias).',
+    label: 'Extensão',
+    fullLabel: 'Extensão e AAC',
+    description: 'O que conta como extensão, o teto de cada forma e o prazo de 120 dias.',
     href: route('/acg'),
     icon: 'bi-calculator',
     color: '#5B2A85',

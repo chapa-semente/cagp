@@ -1,4 +1,4 @@
-// atividades.ts — Dono único das 600h (extensão + AAC), desde 12/11/2026.
+// atividades.ts — Dono único das horas de extensão e AAC, desde 12/11/2026.
 //
 // Antes, um curso feito se registrava em três lugares: salvo em /cursos, somado na calculadora de
 // /acg e cadastrado como certificado com prazo. Agora é uma lista só (cagp_atividades_v1): cada
@@ -38,7 +38,10 @@ export function horasPorModalidade(estado: EstadoAtividades): Record<string, num
   return total;
 }
 
-/** Dias que faltam para protocolar (negativo = venceu). null quando a atividade não tem prazo correndo. */
+/**
+ * Dias que faltam para protocolar (negativo = venceu). null quando a atividade não tem prazo correndo.
+ * O Regulamento conta os 120 dias a partir da realização do evento, não da emissão do certificado.
+ */
 export function diasParaProtocolar(a: Atividade, hoje = new Date()): number | null {
   if (a.situacao !== 'feita' || !a.data || !modalidade(a.mod)?.has120dDeadline) return null;
   const emissao = new Date(`${a.data}T00:00:00`);

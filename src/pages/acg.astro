@@ -1,52 +1,110 @@
 ---
-// acg.astro — Ferramenta + Guia de trâmite (DESIGN.md › Arquétipos 2 e 3), volume Ficha + Papel.
-// Resumo das 600h → abas: Somar (calculadora) · Protocolar (passo a passo com o requerimento
-// dentro do passo) · 120 dias (certificados com prazo). Base normativa recolhível no fim.
+// acg.astro — Guia de trâmite (DESIGN.md › Arquétipo 2), volume Ficha + Papel.
+// Revisão de 24/11/2026: a página abre com o que conta e o teto de cada forma (a pergunta que
+// chega no grupo é "dá pra fechar a extensão só com ENAP?"). Depois vêm a soma pessoal, que mora
+// em Meu curso, e o passo a passo do protocolo. Ordem do arquétipo: cabeça → abas → resumo em cada aba. Nada entra aqui sem estar no Regulamento, no anexo
+// do requerimento ou nos slides da Coordenação; o catálogo (acgCatalog.ts) guarda a fonte de cada linha.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/ui/PageHeader.astro';
 import SegmentedControl from '../components/ui/SegmentedControl.astro';
 import SementeSignature from '../components/ui/SementeSignature.astro';
 import JourneyNav from '../components/ui/JourneyNav.astro';
+import AberturaUfmg from '../components/features/ufmg/AberturaUfmg.astro';
 import TramiteResumo from '../components/ui/tramite/TramiteResumo.astro';
 import TramitePassos from '../components/ui/tramite/TramitePassos.astro';
 import type { TramitePasso } from '../components/ui/tramite/types';
 import { ATENDIMENTO_CURSO } from '@/data/acolhimento';
 import { ResumoDasHoras } from '../components/features/meu-curso/ResumoDasHoras';
-import { EXTENSION_ITEMS, AAC_ITEMS } from '../components/features/acg/calculator/acgCatalog';
+import {
+  EXTENSION_ITEMS,
+  AAC_ITEMS,
+  HORAS_EXTENSAO,
+  TETO_AAC,
+  type AcgItemDef,
+} from '../components/features/acg/calculator/acgCatalog';
 import { asset } from '../lib/paths';
 
 // As âncoras antigas continuam valendo (#calculadora, #guardiao-120-dias, #protocolo-colegiado).
 const tabs = [
+  { id: 'v2', shortLabel: 'O que conta', fullLabel: 'O que conta e os tetos', hash: '#atividades' },
   { id: 'v1', shortLabel: 'Suas horas', fullLabel: 'Suas horas até agora', hash: '#calculadora' },
   { id: 'v3', shortLabel: 'Protocolar', fullLabel: 'Protocolar no Colegiado', hash: '#protocolo-colegiado' },
-  { id: 'v2', shortLabel: 'O que conta', fullLabel: 'O que conta em cada modalidade', hash: '#atividades' },
 ];
 
-// O que cada modalidade aceita e recusa (o conteúdo que ficava dentro da calculadora).
-const gruposDoCatalogo = [
-  { titulo: 'Extensão: 300h obrigatórias', itens: EXTENSION_ITEMS },
-  { titulo: 'Atividades complementares (AAC): até 300h', itens: AAC_ITEMS },
-];
+const badges = [{ label: 'Regulamento, arts. 13 e 15', variant: 'default' as const, icon: 'bi-journal-text' }];
 
-const badges = [{ label: 'Regulamento, Art. 15', variant: 'default' as const, icon: 'bi-journal-text' }];
-
+const REGULAMENTO = asset('/documentos/regulamento-gestao-publica-ufmg.pdf');
 const REQUERIMENTO = asset('/documentos/requerimento-atividade-integralizadora-credito-v20229.pdf');
+const SLIDES = asset('/documentos/recepcao-ingressantes-2024-2.pdf');
+const PPC = asset('/documentos/ppc-gestao-publica-ufmg.pdf');
+
+// Cada forma de extensão tem uma tinta do ciclo; a mesma cor aparece na lista e nas combinações.
+const TINTA: Record<string, string> = {
+  ext_lab_a: 'roxo',
+  ext_lab_b: 'roxo',
+  ext_ensino_inter: 'fruto',
+  ext_ufmg: 'broto',
+  ext_inter_equalitas: 'petroleo',
+  ext_eventos_ii: 'raiz',
+};
+const forma = (key: string) => EXTENSION_ITEMS.find((i) => i.key === key)!;
+const pct = (h: number) => Math.round((h / HORAS_EXTENSAO) * 100);
+
+// Três contas com os tetos do Regulamento. Os números saem do catálogo; a sobra é o que ainda
+// cabe no teto de 300h de AAC depois das AAC de extensão usadas (Laboratório é disciplina e não gasta).
+const combinacoes = [
+  { nome: 'Com os dois Laboratórios', chaves: ['ext_lab_a', 'ext_lab_b', 'ext_ensino_inter'] },
+  { nome: 'Com um Laboratório', chaves: ['ext_lab_a', 'ext_ensino_inter', 'ext_ufmg'] },
+  { nome: 'Sem Laboratório', chaves: ['ext_ensino_inter', 'ext_ufmg', 'ext_inter_equalitas'] },
+].map((c) => {
+  const partes = c.chaves.map((k) => ({ ...forma(k), cor: TINTA[k] }));
+  const sobra = TETO_AAC - partes.filter((p) => p.tipo === 'aac').reduce((s, p) => s + p.max, 0);
+  return {
+    nome: c.nome,
+    partes,
+    total: partes.reduce((s, p) => s + p.max, 0),
+    sobra: sobra > 0 ? `Ainda cabem ${sobra}h de AAC opcional.` : 'Gasta o teto inteiro: não cabe mais nenhuma AAC.',
+  };
+});
+
+const rotuloCurto = (i: AcgItemDef) => (i.tipo === 'disciplina' ? i.label.replace(' de Gestão e Políticas Públicas', '') : i.label);
+
+// O texto de leitura de cada grupo vai dentro da ficha branca (DESIGN.md › The Reading Sheet Rule);
+// no solo ficam só o título e uma linha.
+const grupos = [
+  {
+    id: 'extensao',
+    titulo: 'O que conta como extensão',
+    linha: 'Toque numa forma pra ver o que apresentar ao Colegiado.',
+    nota: `A barra mostra quanto das ${HORAS_EXTENSAO}h obrigatórias a forma cobre quando chega ao teto.`,
+    itens: EXTENSION_ITEMS,
+    barra: true,
+  },
+  {
+    id: 'aac',
+    titulo: 'AAC que não conta como extensão',
+    linha: 'É opcional: dá pra se formar sem nenhuma.',
+    nota: 'No percurso padrão, quem não faz nenhuma cursa 720h de optativas gerais (12 disciplinas de 60h). Cada 60h de AAC tiram uma disciplina dessa conta.',
+    itens: AAC_ITEMS,
+    barra: false,
+  },
+];
 
 const passosProtocolo: TramitePasso[] = [
   {
     titulo: 'Baixe e preencha o requerimento',
-    texto: 'Um requerimento por atividade. Comece pelos seus dados: nome, matrícula, telefone e e-mail <strong>@ufmg.br</strong>. Confira se a versão curricular marcada é a <strong>N-20229</strong>.',
-    acoes: [{ kind: 'pdf', href: REQUERIMENTO, label: 'Requerimento de AAC (PDF)', primary: true }],
+    texto: 'Comece pelos seus dados: nome, matrícula, telefone e e-mail <strong>@ufmg.br</strong>. Confira se a versão curricular marcada é a <strong>N-20229</strong>.',
+    acoes: [{ kind: 'pdf', href: REQUERIMENTO, label: 'Requerimento de atividade integralizadora (PDF)', primary: true }],
   },
   {
     titulo: 'Diga que atividade foi',
-    texto: 'Marque a modalidade (de I a IX, lista abaixo), quando começou e terminou, quem promoveu e quantos créditos pede. <strong>Cada crédito vale 15h</strong> comprovadas.',
-    acoes: [{ kind: 'anchor', href: '#modalidades', label: 'Ver as 9 modalidades' }],
+    texto: 'Em "Tipo", escreva o código e o nome como estão na lista anexa ao formulário. Informe o período, quem promoveu e quantos créditos pede. <strong>Cada crédito vale 15h</strong> comprovadas.',
+    acoes: [{ kind: 'anchor', href: '#atividades', label: 'Ver o que conta e o teto de cada forma' }],
   },
   {
-    titulo: 'Mande pra Coordenação assinar',
-    texto: 'Assine, anexe os certificados (com o código ou link de autenticidade) e mande por e-mail pedindo a análise e a assinatura da Coordenação.',
-    prazo: 'Até 120 dias depois do certificado',
+    titulo: 'Mande pra Coordenação',
+    texto: 'Assine, anexe a comprovação que a modalidade pede e mande por e-mail à Coordenação do curso.',
+    prazo: 'Evento e anais: até 120 dias depois do evento',
     acoes: [{ kind: 'link', href: `mailto:${ATENDIMENTO_CURSO.coordenacao.email}?subject=Requerimento%20de%20AAC`, label: ATENDIMENTO_CURSO.coordenacao.email }],
   },
   {
@@ -55,22 +113,35 @@ const passosProtocolo: TramitePasso[] = [
   },
 ];
 
-const modalidades = [
-  { mod: 'I', nome: 'Pesquisa interinstitucional', teto: '75h', comp: 'Relatório assinado pelo orientador de outra instituição pública ou órgão de pesquisa.' },
-  { mod: 'II', nome: 'Monitoria', teto: '45h', comp: 'Relatório final de monitoria assinado pelo docente da UFMG.' },
-  { mod: 'III', nome: 'Eventos como ouvinte', teto: '60h', comp: 'Certificado com carga horária.', prazo: true },
-  { mod: 'IV', nome: 'Grupos de estudo', teto: '30h', comp: 'Declaração de participação validada por docente.' },
-  { mod: 'V', nome: 'Iniciação científica (UFMG)', teto: '90h', comp: 'PIBIC ou voluntário cadastrado na PRPq, com relatório aprovado.' },
-  { mod: 'VI', nome: 'Pesquisa bibliográfica', teto: '30h', comp: 'Texto orientado por docente, diferente do TCC.' },
-  { mod: 'VII', nome: 'Trabalho em anais', teto: '30h', comp: 'Apresentação oral ou pôster publicado em anais.', prazo: true },
-  { mod: 'VIII', nome: 'Artigo em periódico', teto: '60h', comp: 'Artigo aceito ou publicado em periódico Qualis/CAPES.' },
-  { mod: 'IX', nome: 'Vivência profissional', teto: '60h', comp: 'Estágio não obrigatório com TCE em órgão público ou terceiro setor.' },
+const citacoes = [
+  {
+    fonte: 'Regulamento do curso (N-20229), art. 13',
+    texto:
+      'Da carga horária total do curso (3.000 horas), 10% (300 horas) devem constituir, obrigatoriamente, a Formação em Extensão, que poderá ser integralizada por disciplinas optativas e Atividades Acadêmicas Complementares (AAC) de Formação em Extensão, nos termos estabelecidos pela Resolução CEPE nº 10, de 10 de outubro de 2019.',
+  },
+  {
+    fonte: 'Regulamento do curso (N-20229), art. 15',
+    texto:
+      'Da carga horária total do curso (3.000 horas), até 10% (300 horas) podem ser integralizadas por Atividades Acadêmicas Complementares (AAC), nos termos definidos nas Normas Gerais da Graduação.',
+  },
+  {
+    fonte: 'Anexo do requerimento de atividade integralizadora (N-20229)',
+    texto:
+      'Limite global de acreditação por atividades acadêmicas complementares: 300 horas (20 créditos); este limite se aplica ao conjunto de atividades acadêmicas complementares (i.e., atividades que contam para a Formação em Extensão + atividades que não contam para a Formação em Extensão).',
+  },
+];
+
+const documentos = [
+  { href: REGULAMENTO, label: 'Regulamento do curso (N-20229)' },
+  { href: REQUERIMENTO, label: 'Requerimento de atividade integralizadora, com a lista anexa' },
+  { href: SLIDES, label: 'Slides da Coordenação na recepção de ingressantes (2024/2)' },
+  { href: PPC, label: 'Projeto Pedagógico do Curso' },
 ];
 ---
 
 <BaseLayout
-  title="Horas 600h"
-  description="As 600h fora da grade de Gestão Pública na UFMG: o que conta como extensão e AAC, quanto vale cada atividade e como protocolar no Colegiado dentro do prazo de 120 dias."
+  title="Extensão e AAC"
+  description="As 300h de extensão do curso de Gestão Pública da UFMG: o que conta, o teto de cada forma, por que só curso da ENAP não fecha e como protocolar no Colegiado."
   mode="operate"
 >
   <div class="space-y-6 max-w-5xl mx-auto font-sans">
@@ -79,21 +150,144 @@ const modalidades = [
       condensed={true}
       axisId="curso"
       activeId="acg"
-      title="Horas 600h"
-      subtitle="O que conta, quanto vale e como protocolar antes de vencer o prazo de 120 dias. A soma fica em Meu curso."
+      title="Extensão e AAC"
+      subtitle="O que conta, o teto de cada forma e como protocolar no Colegiado."
       badges={badges}
     />
 
-    <TramiteResumo
-      oQue="600h fora da grade: <strong>300h de extensão</strong>, obrigatórias, e até <strong>300h de atividades complementares</strong> (as AAC: eventos, monitoria, pesquisa, estágio não obrigatório)."
-      quemPode="Todo estudante do currículo N-20229. Cada atividade entra por um requerimento no Colegiado."
-      prazo="Certificado de evento ou de trabalho em anais tem <strong>120 dias corridos</strong> pra ser protocolado. Passou disso, o Colegiado indefere."
-    />
+    <SegmentedControl tabs={tabs} defaultTab="v2" showViewAll={false} />
 
-    <SegmentedControl tabs={tabs} defaultTab="v1" showViewAll={false} />
+    <!-- O que conta: a primeira coisa da página -->
+    <section id="ws-panel-v2" class="cagp-workspace-view space-y-10" data-ws-panel="v2">
+      <div id="atividades" class="cagp-anchor-target"></div>
+
+      {/* Embrulhado: a margem própria do cartão em camadas anulava o respiro entre os blocos. */}
+      <div>
+      <AberturaUfmg
+        destaque={{
+          rotulo: 'Obrigatório pra se formar',
+          numero: String(HORAS_EXTENSAO),
+          unidade: 'h de extensão',
+          frase: `Só com curso da ENAP não fecha: curso de outra instituição conta até ${forma('ext_ensino_inter').max}h.`,
+          etiquetas: [],
+          cor: 'roxo',
+        }}
+        resumo={[
+          { rotulo: 'AAC é opcional', texto: 'Monitoria, pesquisa, evento como ouvinte e intercâmbio não contam como extensão. Sem eles, você cursa mais optativas.' },
+          { rotulo: 'Teto', texto: `Todas as AAC juntas cabem em ${TETO_AAC}h, inclusive as que contam como extensão. Os Laboratórios ficam fora do teto.` },
+          { rotulo: 'Prazo', texto: 'Evento e trabalho em anais têm 120 dias depois do evento pra ser protocolados.' },
+        ]}
+        contagem={EXTENSION_ITEMS.length}
+      />
+      </div>
+
+      {grupos.map((g, gi) => (
+        <>
+          <section class="space-y-4" aria-labelledby={`acg-${g.id}`}>
+            <div class="space-y-1">
+              <h2 id={`acg-${g.id}`} class="font-heading font-bold text-xl text-foreground m-0">{g.titulo}</h2>
+              <p class="m-0 text-base text-content-secondary">{g.linha}</p>
+            </div>
+            <ul class="acg-lista list-none m-0 p-0 bg-white border-2 border-border rounded-xl shadow-md overflow-hidden divide-y-2 divide-border">
+              <li class="acg-nota">{g.nota}</li>
+              {g.itens.map((m) => (
+                <li>
+                  <details class="acg-forma">
+                    <summary>
+                      <span class="acg-forma-nome">
+                        <span class="block font-heading font-bold text-base text-foreground">{m.label}</span>
+                        <span class="block text-sm text-content-secondary tabular-nums">
+                          {m.code}{m.nomeOficial ? ` · ${m.nomeOficial}` : ''}
+                        </span>
+                      </span>
+                      <span class="acg-forma-teto font-heading font-bold text-base text-foreground tabular-nums">
+                        {m.tipo === 'disciplina' ? `${m.max}h` : `até ${m.max}h`}
+                      </span>
+                      <i class="bi bi-chevron-down acg-forma-seta" aria-hidden="true"></i>
+                      {g.barra && (
+                        <span class="sk-saldo-g-barra acg-forma-barra" aria-hidden="true">
+                          <span data-cor={TINTA[m.key]} style={`width:${pct(m.max)}%`}></span>
+                        </span>
+                      )}
+                      {(m.has120dDeadline || m.tipo === 'disciplina') && (
+                        <span class="acg-forma-selos">
+                          {m.tipo === 'disciplina' && (
+                            <span class="acg-selo acg-selo-livre">Não gasta o teto de AAC</span>
+                          )}
+                          {m.has120dDeadline && (
+                            <span class="acg-selo acg-selo-prazo"><i class="bi bi-clock" aria-hidden="true"></i>120 dias pra protocolar</span>
+                          )}
+                        </span>
+                      )}
+                    </summary>
+                    <dl class="acg-forma-corpo">
+                      <div>
+                        <dt>O que é</dt>
+                        <dd>{m.oQueE}</dd>
+                      </div>
+                      {m.exemplo && (
+                        <div>
+                          <dt>Exemplo</dt>
+                          <dd>{m.exemplo}</dd>
+                        </div>
+                      )}
+                      <div>
+                        <dt>O que apresentar</dt>
+                        <dd>{m.comprova}</dd>
+                      </div>
+                      {m.nota && (
+                        <div>
+                          <dt>Regra</dt>
+                          <dd>{m.nota}</dd>
+                        </div>
+                      )}
+                      <div class="acg-forma-fonte">
+                        <dt>Fonte</dt>
+                        <dd>{m.fonte}</dd>
+                      </div>
+                    </dl>
+                  </details>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {gi === 0 && (
+            <section class="space-y-4" aria-labelledby="acg-combinacoes">
+              <div class="space-y-1">
+                <h2 id="acg-combinacoes" class="font-heading font-bold text-xl text-foreground m-0">Três jeitos de fechar as {HORAS_EXTENSAO}h</h2>
+                <p class="m-0 text-base text-content-secondary">Contas com os tetos do Regulamento. Dá pra misturar de outro jeito.</p>
+              </div>
+              <ol class="acg-combos list-none m-0 p-0">
+                {combinacoes.map((c) => (
+                  <li class="acg-combo bg-white border-2 border-border rounded-xl shadow-md">
+                    <h3>{c.nome}</h3>
+                    <div
+                      class="acg-combo-barra"
+                      role="img"
+                      aria-label={`${c.partes.map((p) => `${rotuloCurto(p)}, ${p.max}h`).join('; ')}. Total: ${c.total}h.`}
+                    >
+                      {c.partes.map((p) => (
+                        <span data-cor={p.cor} style={`flex:${p.max} 1 0`}>{p.max}h</span>
+                      ))}
+                    </div>
+                    <ul class="acg-combo-legenda list-none m-0 p-0">
+                      {c.partes.map((p) => (
+                        <li><i data-cor={p.cor} aria-hidden="true"></i>{rotuloCurto(p)}</li>
+                      ))}
+                    </ul>
+                    <p class="acg-combo-sobra">{c.sobra}</p>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          )}
+        </>
+      ))}
+    </section>
 
     <!-- Suas horas: o resumo que abre o painel de Meu curso (as âncoras antigas caem aqui) -->
-    <section id="ws-panel-v1" class="cagp-workspace-view" data-ws-panel="v1">
+    <section id="ws-panel-v1" class="cagp-workspace-view" data-ws-panel="v1" hidden>
       <div id="calculadora" class="cagp-anchor-target"></div>
       <div id="guardiao-120-dias" class="cagp-anchor-target"></div>
       <ResumoDasHoras client:load />
@@ -102,116 +296,48 @@ const modalidades = [
     <!-- Protocolar -->
     <section id="ws-panel-v3" class="cagp-workspace-view space-y-8" data-ws-panel="v3" hidden>
       <div id="protocolo-colegiado" class="cagp-anchor-target"></div>
+      <TramiteResumo
+        oQue="O pedido pro Colegiado reconhecer uma atividade e lançar as horas no seu histórico."
+        quemPode="Quem está no currículo N-20229. A atividade precisa ter sido feita durante o curso."
+        prazo="O Regulamento só fixa prazo pra evento e trabalho em anais: <strong>120 dias</strong> depois do evento."
+      />
       <TramitePassos id="passos-aac" passos={passosProtocolo} titulo="Como protocolar uma atividade" />
 
       <figure class="m-0 space-y-2">
         <img
           src={asset('/imagens/tutoriais/print-requerimento-aac-1.png')}
-          alt="O requerimento de AAC preenchido: em cima a identificação, no meio os dados da atividade e os créditos, embaixo a comprovação e a assinatura."
+          alt="O requerimento preenchido: em cima a identificação, no meio os dados da atividade e os créditos, embaixo a comprovação e a assinatura."
           loading="lazy"
           class="w-full max-w-2xl h-auto rounded-xl border-2 border-border bg-white"
         />
         <figcaption class="text-sm text-muted-foreground">Como fica o requerimento preenchido.</figcaption>
       </figure>
-
-      <section id="modalidades" aria-labelledby="modalidades-titulo" class="space-y-4 scroll-mt-24">
-        <h2 id="modalidades-titulo" class="font-heading font-bold text-xl text-foreground m-0">Quanto cada atividade vale</h2>
-        <ul class="list-none m-0 p-0 bg-white border-2 border-border rounded-xl shadow-md overflow-hidden divide-y-2 divide-border cagp-reveal-stagger">
-          {modalidades.map((m) => (
-            <li class="px-4 py-3 sm:px-5 grid grid-cols-[2.75rem_minmax(0,1fr)_auto] gap-3 items-baseline">
-              <span class="font-heading font-bold text-sm text-primary tabular-nums">{m.mod}</span>
-              <span class="min-w-0">
-                <span class="block font-heading font-bold text-base text-foreground">{m.nome}</span>
-                <span class="block text-sm text-content-secondary">{m.comp}</span>
-                {m.prazo && (
-                  <span class="mt-1 inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-warning-tint text-warning font-heading font-bold text-xs uppercase tracking-[0.04em]">
-                    <i class="bi bi-clock" aria-hidden="true"></i>120 dias
-                  </span>
-                )}
-              </span>
-              <span class="font-heading font-bold text-base text-foreground tabular-nums whitespace-nowrap">até {m.teto}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
-    </section>
-
-    <!-- O que conta -->
-    <section id="ws-panel-v2" class="cagp-workspace-view space-y-8" data-ws-panel="v2" hidden>
-      <div id="atividades" class="cagp-anchor-target"></div>
-      <p class="m-0 max-w-[68ch] text-base text-content-secondary">
-        Evento nas férias? A contagem dos 120 dias só começa no <strong class="text-foreground">primeiro dia letivo</strong> do semestre seguinte.
-      </p>
-      {gruposDoCatalogo.map((g) => (
-        <section class="space-y-4">
-          <h2 class="font-heading font-bold text-xl text-foreground m-0">{g.titulo}</h2>
-          <ul class="list-none m-0 p-0 bg-white border-2 border-border rounded-xl shadow-md overflow-hidden divide-y-2 divide-border">
-            {g.itens.map((m) => (
-              <li>
-                <details class="cagp-oque-conta">
-                  <summary>
-                    <span class="cagp-oque-conta-nome">
-                      <span class="block font-heading font-bold text-xs uppercase tracking-[0.04em] text-primary tabular-nums">{m.code}</span>
-                      <span class="block font-heading font-bold text-base text-foreground">{m.label}</span>
-                    </span>
-                    <span class="cagp-oque-conta-teto font-heading font-bold text-base text-foreground tabular-nums">até {m.max}h</span>
-                    <i class="bi bi-chevron-down cagp-oque-conta-seta" aria-hidden="true"></i>
-                    {m.has120dDeadline && (
-                      <span class="cagp-oque-conta-prazo">
-                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-warning-tint text-warning font-heading font-bold text-xs uppercase tracking-[0.04em]">
-                          <i class="bi bi-clock" aria-hidden="true"></i>120 dias pra protocolar
-                        </span>
-                      </span>
-                    )}
-                  </summary>
-                  <div class="px-4 pb-4 sm:px-5 grid gap-4 sm:grid-cols-2">
-                    <div>
-                      <h3 class="m-0 mb-1.5 font-heading font-bold text-sm text-success">Conta</h3>
-                      <ul class="m-0 pl-5 list-disc space-y-1 text-sm text-foreground">{m.accepted.map((t) => <li>{t}</li>)}</ul>
-                    </div>
-                    <div>
-                      <h3 class="m-0 mb-1.5 font-heading font-bold text-sm text-destructive">Não conta</h3>
-                      <ul class="m-0 pl-5 list-disc space-y-1 text-sm text-foreground">{m.rejected.map((t) => <li>{t}</li>)}</ul>
-                    </div>
-                    {m.alertNote && <p class="m-0 sm:col-span-2 text-sm text-content-secondary">{m.alertNote}</p>}
-                  </div>
-                </details>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ))}
     </section>
 
     <details class="cagp-base-normativa">
       <summary>Base normativa</summary>
       <div class="space-y-4 pt-3">
-        <blockquote class="m-0 p-4 bg-white border-2 border-border rounded-xl">
-          <p class="m-0 mb-2 font-heading font-bold text-xs uppercase tracking-[0.04em] text-muted-foreground">Regulamento do curso (N-20229), Art. 15, §§ 4º e 5º</p>
-          <p class="m-0 text-base leading-relaxed text-foreground">
-            O discente terá o prazo máximo de 120 (cento e vinte) dias corridos, contados a partir da data de encerramento
-            da atividade ou emissão do respectivo certificado, para requerer o aproveitamento de carga horária em Atividades
-            Acadêmicas Complementares (AAC). Expirado o prazo, o requerimento não será apreciado pela Comissão de Acompanhamento.
-          </p>
-        </blockquote>
+        {citacoes.map((c) => (
+          <blockquote class="m-0 p-4 bg-white border-2 border-border rounded-xl">
+            <p class="m-0 mb-2 font-heading font-bold text-xs uppercase tracking-[0.04em] text-muted-foreground">{c.fonte}</p>
+            <p class="m-0 text-base leading-relaxed text-foreground">{c.texto}</p>
+          </blockquote>
+        ))}
         <ul class="list-none m-0 p-0 space-y-2">
-          <li>
-            <a href={asset('/documentos/regulamento-gestao-publica-ufmg.pdf')} class="inline-flex items-center gap-2 min-h-[44px] text-primary font-bold underline underline-offset-[0.22em]">
-              <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>Regulamento do curso (N-20229)
-            </a>
-          </li>
-          <li>
-            <a href={REQUERIMENTO} class="inline-flex items-center gap-2 min-h-[44px] text-primary font-bold underline underline-offset-[0.22em]">
-              <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>Requerimento de atividade integralizadora (N-20229)
-            </a>
-          </li>
+          {documentos.map((d) => (
+            <li>
+              <a href={d.href} class="inline-flex items-center gap-2 min-h-[44px] text-primary font-bold underline underline-offset-[0.22em]">
+                <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>{d.label}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
     </details>
 
     <SementeSignature
       proposal="Proposta 3"
-      text="Fizemos esta calculadora antes da eleição pra nenhum certificado seu ser recusado por prazo."
+      text="Conferimos cada linha desta página no Regulamento e no formulário do Colegiado, pra nenhum certificado seu ser recusado."
     />
 
     <JourneyNav
@@ -250,47 +376,152 @@ const modalidades = [
 </style>
 
 <style>
-  /* "O que conta": uma linha por modalidade, que abre para mostrar o que o Colegiado aceita e recusa. */
-  .cagp-oque-conta > summary {
+  /* As tintas do ciclo: uma por forma de extensão, igual na lista e nas combinações. */
+  [data-cor='roxo'] { background: var(--color-primary); color: #fff; }
+  [data-cor='petroleo'] { background: var(--color-secondary); color: #fff; }
+  [data-cor='raiz'] { background: var(--color-raiz); color: #fff; }
+  [data-cor='broto'] { background: var(--color-broto); color: var(--color-foreground); }
+  [data-cor='fruto'] { background: var(--color-fruto); color: var(--color-foreground); }
+
+  /* Uma linha por forma: nome, teto e, na extensão, a barra de quanto das 300h ela cobre. */
+  .acg-forma > summary {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    gap: 0.25rem 0.75rem;
+    gap: 0.5rem 0.75rem;
     min-height: 56px;
-    padding: 0.75rem 1rem;
+    padding: 0.875rem 1rem;
     list-style: none;
     cursor: pointer;
   }
-  .cagp-oque-conta > summary::-webkit-details-marker {
-    display: none;
-  }
-  .cagp-oque-conta > summary:focus-visible {
+  .acg-forma > summary::-webkit-details-marker { display: none; }
+  .acg-forma > summary:focus-visible {
     outline: 3px solid var(--color-primary);
     outline-offset: -3px;
   }
-  .cagp-oque-conta-nome {
-    flex: 1 1 0;
-    min-width: 0;
-  }
-  .cagp-oque-conta-teto {
-    flex: none;
-    white-space: nowrap;
-  }
-  .cagp-oque-conta-seta {
+  .acg-forma-nome { flex: 1 1 0; min-width: 0; }
+  .acg-forma-teto { flex: none; white-space: nowrap; }
+  .acg-forma-seta {
     flex: none;
     align-self: center;
     transition: rotate var(--duration-press, 160ms) var(--ease-snap, ease-out);
   }
-  .cagp-oque-conta[open] .cagp-oque-conta-seta {
-    rotate: 180deg;
+  .acg-forma[open] .acg-forma-seta { rotate: 180deg; }
+  @media (hover: hover) {
+    .acg-forma:not([open]) > summary:hover { background: var(--color-muted); }
   }
-  .cagp-oque-conta-prazo {
-    flex: 1 0 100%;
+  .acg-forma[open] > summary { background: var(--color-primary-tint, #efe7f6); }
+  /* A barra é a do kit (.sk-saldo-g-barra); aqui só o lugar dela na linha. */
+  .acg-forma-barra { flex: 1 0 100%; }
+
+  /* A nota que abre a ficha: sub-bloco em areia funda, sem contorno próprio. */
+  .acg-nota {
+    padding: 0.875rem 1rem;
+    background: var(--color-muted);
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--color-foreground);
+    text-wrap: pretty;
   }
-  .cagp-oque-conta[open] > summary {
-    background: var(--color-primary-tint, #efe7f6);
+  .acg-forma-selos { flex: 1 0 100%; display: flex; flex-wrap: wrap; gap: 0.375rem; }
+  .acg-selo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.125rem 0.5rem;
+    border-radius: 6px;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
-  .cagp-oque-conta > div {
-    padding-top: 1rem;
+  .acg-selo-prazo { background: var(--color-warning-tint); color: var(--color-warning); }
+  .acg-selo-livre { background: var(--color-secondary-tint); color: var(--color-secondary); }
+
+  .acg-forma-corpo {
+    margin: 0;
+    padding: 1rem;
+    display: grid;
+    gap: 0.875rem;
+  }
+  .acg-forma-corpo dt {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+  .acg-forma-corpo dd {
+    margin: 0.125rem 0 0;
+    max-width: 68ch;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--color-foreground);
+    text-wrap: pretty;
+  }
+  .acg-forma-fonte dd { font-size: 0.875rem; color: var(--color-content-secondary, #4a4740); }
+
+  /* As combinações: três fichas, cada uma com a barra das 300h repartida. */
+  .acg-combos { display: grid; gap: 1.25rem; }
+  .acg-combo {
+    display: grid;
+    gap: 0.75rem;
+    align-content: start;
+    padding: 1.25rem;
+  }
+  .acg-combo h3 {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--color-foreground);
+  }
+  .acg-combo-barra {
+    display: flex;
+    height: 2.5rem;
+    border: 2px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .acg-combo-barra > span {
+    display: grid;
+    place-items: center;
+    min-width: 0;
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+  .acg-combo-barra > span + span { border-left: 2px solid var(--color-border); }
+  .acg-combo-legenda { display: grid; gap: 0.375rem; font-size: 0.875rem; line-height: 1.5; }
+  .acg-combo-legenda li { display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: 0.5rem; }
+  .acg-combo-legenda i {
+    width: 0.75rem;
+    height: 0.75rem;
+    border: 2px solid var(--color-border);
+    border-radius: 999px;
+    translate: 0 1px;
+  }
+  .acg-combo-sobra {
+    margin: 0;
+    padding-top: 0.75rem;
+    border-top: 2px solid var(--color-border);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--color-foreground);
+  }
+
+  @media (min-width: 640px) {
+    .acg-forma > summary { padding: 1rem 1.25rem; }
+    .acg-nota { padding: 1rem 1.25rem; }
+    .acg-forma-corpo { padding: 1.25rem; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 1.5rem; }
+    .acg-forma-fonte { grid-column: 1 / -1; }
+  }
+  @media (min-width: 900px) {
+    .acg-combos { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
   }
 </style>

@@ -2,7 +2,7 @@
 // A soma e o prazo de 120 dias têm um dono só, a lista de atividades de /meu-curso
 // (DESIGN.md › One Owner). Abrir esta página também traz os registros antigos para a lista.
 import React, { useEffect, useState } from 'react';
-import { EXTENSION_ITEMS, AAC_ITEMS } from '@/components/features/acg/calculator/acgCatalog';
+import { somaDasHoras, HORAS_EXTENSAO } from '@/components/features/acg/calculator/acgCatalog';
 import { horasPorModalidade, lerAtividades, prazosAbertos, type EstadoAtividades } from '@/lib/atividades';
 import { route } from '@/lib/paths';
 
@@ -22,11 +22,10 @@ export const ResumoDasHoras: React.FC = () => {
     };
   }, []);
 
-  const porMod = horasPorModalidade(estado);
-  const soma = (itens: { key: string }[]) => Math.min(300, itens.reduce((s, it) => s + (porMod[it.key] ?? 0), 0));
+  const soma = somaDasHoras(horasPorModalidade(estado));
   const grupos = [
-    { nome: 'Extensão', feito: soma(EXTENSION_ITEMS), cor: '#6DB33F' },
-    { nome: 'AAC (até 300h)', feito: soma(AAC_ITEMS), cor: '#FFC83D' },
+    { nome: 'Extensão (obrigatória)', feito: soma.extensao, total: HORAS_EXTENSAO, cor: '#6DB33F' },
+    { nome: 'AAC (opcional)', feito: soma.aac, total: soma.aac + soma.sobraDeAac, cor: '#FFC83D' },
   ];
   const prazo = prazosAbertos(estado)[0];
   const lancadas = estado.itens.length;
@@ -38,9 +37,9 @@ export const ResumoDasHoras: React.FC = () => {
         {grupos.map((g) => (
           <li key={g.nome} style={{ '--cor': g.cor } as React.CSSProperties}>
             <span className="sk-saldo-g-nome">{g.nome}</span>
-            <span className="sk-saldo-g-val">{FMT.format(g.feito)} / 300h</span>
+            <span className="sk-saldo-g-val">{FMT.format(g.feito)} / {FMT.format(g.total)}h</span>
             <span className="sk-saldo-g-barra" aria-hidden="true">
-              <span style={{ width: `${Math.min(100, (g.feito / 300) * 100)}%` }} data-vazio={g.feito === 0 || undefined} />
+              <span style={{ width: `${g.total ? Math.min(100, (g.feito / g.total) * 100) : 0}%` }} data-vazio={g.feito === 0 || undefined} />
             </span>
           </li>
         ))}

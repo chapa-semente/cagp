@@ -139,9 +139,9 @@ export const TOUR_STOPS: Record<TourLeaderId, TourStop> = {
     route: route('/cursos'),
     target: '[data-tour="italo"]',
     hook: 'Faltam horas complementares e não sobra tempo nem dinheiro para curso?',
-    answer: 'Ítalo reuniu cursos gratuitos que entram na sua conta das 600h.',
+    answer: 'Ítalo reuniu cursos gratuitos que contam como extensão.',
     tool: '1.045 cursos gratuitos da ENAP',
-    proof: 'Filtre por tema e carga horária e mande o curso direto para a calculadora das 600h.',
+    proof: 'Filtre por tema e carga horária e guarde o curso direto na sua lista de atividades.',
   },
   lara: {
     leaderId: 'lara',
@@ -179,7 +179,7 @@ export const TOUR_STOPS: Record<TourLeaderId, TourStop> = {
 /** Opções da pergunta de abertura (reaproveita os papéis do cofre). */
 export const TOUR_PROFILES: { role: UserRole; label: string; hint: string; icon: string }[] = [
   { role: 'calouro', label: 'Acabei de entrar', hint: '1º ou 2º período', icon: 'bi-door-open' },
-  { role: 'veterano', label: 'Estou no meio do curso', hint: 'Estágio, 600h, optativas', icon: 'bi-signpost-split' },
+  { role: 'veterano', label: 'Estou no meio do curso', hint: 'Estágio, extensão, optativas', icon: 'bi-signpost-split' },
   { role: 'formando', label: 'Estou na reta final', hint: 'TCC, colação', icon: 'bi-mortarboard' },
   { role: 'ingressar', label: 'Quero entrar no curso', hint: 'Ainda não estudo aqui', icon: 'bi-compass' },
 ];

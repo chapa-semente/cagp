@@ -16,6 +16,7 @@ import { getVaultItem, setVaultItem, type CustomCourse, type UserRole, type Vaul
 import { atualizarAtividade, lerAtividades, prazosAbertos, type EstadoAtividades } from '@/lib/atividades';
 import { OBRIGATORIAS, TOTAL_DO_CURSO, contaDoCurso, liberadasParaOProximo, type DisciplinaObrigatoria } from '@/lib/contaDoCurso';
 import { RETA_FINAL_STEPS, etapaFeita } from '@/lib/retaFinal';
+import { disciplinasDoSemestre, fraseDaConta, lerFaltas, resumoDasFaltas, type EstadoFaltas } from '@/lib/faltas';
 import { renderEstagioIlustra, ILUSTRA_CORES, type IlustraNivel } from '@/lib/estagioIlustra';
 import { downloadAac120dIcs } from '@/lib/ics';
 import { CagpIcon } from '@/components/ui/CagpIcon';
@@ -42,6 +43,7 @@ export const MinhasHoras: React.FC = () => {
   const [atividades, setAtividades] = useState<EstadoAtividades>({ itens: [], base: {}, migrado: true });
   const [calc, setCalc] = useState<Record<string, number>>({});
   const [checks, setChecks] = useState<Record<string, boolean>>({});
+  const [faltas, setFaltas] = useState<EstadoFaltas>({ semestre: '', marcas: {}, aulasPorDia: {}, extras: [], fora: [] });
   const [papel, setPapel] = useState<UserRole>('calouro');
   const [pronto, setPronto] = useState(false);
   const cursadas = grade.savedCourses;
@@ -55,6 +57,7 @@ export const MinhasHoras: React.FC = () => {
     setAtividades(lerAtividades());
     setCalc(getVaultItem('cagp_calc_ext_aac_v1'));
     setChecks(getVaultItem('cagp_reta_final_checklist_v1'));
+    setFaltas(lerFaltas());
     setPapel(getVaultItem('cagp_user_role_v1'));
     setPronto(true);
   }, []);
@@ -84,6 +87,8 @@ export const MinhasHoras: React.FC = () => {
   const liberadas = useMemo(() => liberadasParaOProximo(cursadas, cursando), [cursadas, cursando]);
   const prazos = useMemo(() => prazosAbertos(atividades), [atividades]);
   const emCurso = useMemo(() => disciplinas.filter((d) => cursando.includes(d.code)), [disciplinas, cursando]);
+  // As faltas têm dono próprio (/faltas, src/lib/faltas.ts): aqui entra só a disciplina mais apertada.
+  const faltasResumo = useMemo(() => resumoDasFaltas(disciplinasDoSemestre(faltas, cursando)), [faltas, cursando]);
 
   // Reta final: a próxima etapa em aberto, só para quem já entrou nela (formando ou com etapa marcada).
   const proximaEtapa = useMemo(() => {
@@ -276,6 +281,15 @@ export const MinhasHoras: React.FC = () => {
                     </li>
                   ))}
                 </ul>
+                <a href={route('/faltas')} className="mh-atalho">
+                  <span>
+                    <strong>Calculadora de faltas</strong>
+                    {faltasResumo.comFalta > 0 && faltasResumo.maisApertada
+                      ? `${faltasResumo.maisApertada.nome}: ${fraseDaConta(faltasResumo.maisApertada.conta)}`
+                      : 'Quantos dias ainda dá pra faltar em cada uma'}
+                  </span>
+                  <CagpIcon name="arrow-right" className="w-5 h-5" />
+                </a>
               </div>
             )}
             <div className="mh-grupo">
@@ -284,7 +298,7 @@ export const MinhasHoras: React.FC = () => {
                 <p className="mh-vazio">
                   {emCurso.length > 0
                     ? 'Tudo o que falta das obrigatórias você já está cursando.'
-                    : 'Você marcou todas as obrigatórias. Falta conferir optativas, as 600h e a reta final.'}
+                    : 'Você marcou todas as obrigatórias. Falta conferir optativas, a extensão e a reta final.'}
                 </p>
               ) : (
                 <>
@@ -376,8 +390,8 @@ export const MinhasHoras: React.FC = () => {
           })}
         </section>
 
-        {/* 5. As 600h: uma lista só. */}
-        <MinhasAtividades estado={atividades} ext={conta.ext} aac={conta.aac} />
+        {/* 5. Extensão e AAC: uma lista só. */}
+        <MinhasAtividades estado={atividades} ext={conta.ext} aac={conta.aac} sobraDeAac={conta.sobraDeAac} />
 
         {/* 6. Optativas e formação livre: o que está na grade soma sozinho; o resto, à mão. */}
         <section aria-labelledby="mh-outras-t" className="mh-bloco" id="optativas">

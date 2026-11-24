@@ -22,7 +22,7 @@ relatedLinks:
     href: "/estagio"
   - label: "Modelos de Termo de Compromisso e Relatórios (.docx)"
     href: "/documentos#formularios"
-  - label: "Calculadora de 600h (Extensão + AAC)"
+  - label: "Extensão e AAC: o que conta"
     href: "/acg"
 relevantRoles:
   - "veterano"

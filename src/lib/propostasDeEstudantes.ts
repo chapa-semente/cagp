@@ -7,7 +7,8 @@
 // O plano de cada uma (datas, custo, metas, riscos) vem do PDF, por scripts/plano-para-site.mjs
 // (src/data/planoExecucao.json › deEstudantes). Aqui fica só o que é do site: o crédito, de onde veio a
 // ideia, como a chapa respondeu e as fontes que a pesquisa achou, cada uma com a data em que foi lida.
-// Proposta nova: o boletim "eN-nome.md" e a ficha "EN" no plano, o script, e um item aqui.
+// Proposta nova: o boletim "eN-nome.md" e a ficha "EN" no plano, o script, um item aqui e a página
+// de três linhas src/pages/propostas/eN.astro. A nº 2 (24/11/2026) é a primeira que já nasceu no ar.
 import type { DesenhoDeProposta } from '@/components/features/semente/DesenhosDaChapa';
 import { PLANO_DE_ESTUDANTES, type PlanoDeEstudante } from '@/lib/planoExecucao';
 
@@ -33,10 +34,18 @@ export interface PropostaDeEstudante {
   onde: string;
   /** O que a pessoa apontou, nas palavras da chapa (sem aspas: não é citação). */
   oQueApontou: string;
+  /** A frase da pessoa, literal e entre aspas. Só entra com a autorização dela. */
+  fala?: string;
   /** O que a chapa respondeu e fez com a ideia. */
   resposta: string;
   art: DesenhoDeProposta;
-  /** Quem já faz isso na UFMG e fora dela. Nenhum foi procurado ainda. */
+  /** A parte da proposta que já dá para usar no site: vira o botão principal da página. */
+  acao?: { rotulo: string; href: string; icone: string };
+  /** O nome do link que leva ao plano. Proposta já entregue não tem cronograma: tem custo e plano B. */
+  rotuloDoPlano?: string;
+  /** De onde vêm os dados da página e o que ainda falta confirmar: abre a lista de fontes. */
+  fontesTexto: string;
+  /** As páginas que a pesquisa leu. Ninguém nelas foi procurado ainda. */
   fontes: FonteDaIdeia[];
   /** Data em que as fontes foram lidas. */
   lidoEm: string;
@@ -64,6 +73,8 @@ export const PROPOSTAS_DE_ESTUDANTES: PropostaDeEstudante[] = [
     resposta:
       'A chapa respondeu no mesmo dia que a ideia entraria na carta. Ela entrou no plano de execução com data, custo zero para o caixa, quem responde, plano B e o nome dele.',
     art: 'solidaria',
+    fontesTexto:
+      'A ideia é do Gustavo. Os exemplos de quem já faz ação social na UFMG e em Belo Horizonte vêm destas páginas, lidas em 22/11/2026. Nenhum desses grupos foi procurado ainda: é por eles que a gestão começa.',
     fontes: [
       {
         rotulo: 'Engenharia Solidária: gincana com os calouros, item de higiene valendo ponto',
@@ -94,6 +105,41 @@ export const PROPOSTAS_DE_ESTUDANTES: PropostaDeEstudante[] = [
     lidoEm: '22/11/2026',
     plano: planoDe('e1'),
   },
+  {
+    id: 'e2',
+    numero: 2,
+    titulo: 'Calculadora de faltas',
+    impacto:
+      'Você sabe, antes de faltar, quantos dias ainda pode perder em cada disciplina. A calculadora já está no ar, com a regra dos 75% de presença e a fonte na mesma página.',
+    quem: { nome: 'Luiz Carlos', periodo: '4º período' },
+    quando: { curto: '23/11/2026', extenso: '23 de novembro de 2026' },
+    onde: 'em mensagem para a chapa',
+    oQueApontou: 'Ele pediu uma calculadora de faltas no site do curso, para depois da eleição.',
+    // O Luiz autorizou o nome, o período e a frase (confirmado pelo Gabriel em 24/11/2026).
+    fala: 'Amigo! O site é sensacional!! Pós eleição e no mandato dá para implementar uma calculadora de falta?',
+    resposta:
+      'Dava, e não foi preciso esperar a eleição: o site do curso não depende de mandato. A calculadora entrou no ar no dia seguinte, e a ideia foi para o plano de execução com o nome dele.',
+    art: 'faltas',
+    acao: { rotulo: 'Abrir a calculadora', href: '/faltas', icone: 'bi-calculator' },
+    // Só o registro da sugestão, já entregue: sem entregas novas com data (pedido do Gabriel, 24/11/2026).
+    rotuloDoPlano: 'Custo e plano B',
+    fontesTexto:
+      'A ideia é do Luiz. A regra dos 75% de presença e o que acontece com quem passa do limite vêm das Normas Gerais de Graduação da UFMG, lidas em 24/11/2026. A calculadora usa a carga horária cheia da disciplina, e o registro que vale é o do professor.',
+    fontes: [
+      {
+        rotulo: 'Normas Gerais de Graduação: presença mínima de 75% e o que acontece com quem não alcança (arts. 11, 12, 15, 87 e 93)',
+        quem: 'UFMG, Resolução Complementar CEPE nº 01/2018',
+        href: 'https://www.ufmg.br/prograd/wp-content/uploads/2024/07/ResCepeComp0118.pdf',
+      },
+      {
+        rotulo: 'Onde a UFMG publica as normas de graduação e as resoluções que as completam',
+        quem: 'Pró-Reitoria de Graduação da UFMG',
+        href: 'https://www.ufmg.br/prograd/normas-gerais-de-graduacao-e-resolucoes/',
+      },
+    ],
+    lidoEm: '24/11/2026',
+    plano: planoDe('e2'),
+  },
 ];
 
 export const rotaDaPropostaDeEstudante = (p: Pick<PropostaDeEstudante, 'id'>) => `/propostas/${p.id}`;
@@ -115,6 +161,14 @@ export function resumoDaPropostaDeEstudante(p: PropostaDeEstudante) {
     planoB: lista ? `${forte}${/[.!?]$/.test(forte) ? ' ' : ': '}${semHtml(lista.texto)}` : '',
   };
 }
+
+/** O nome do link para o plano da proposta ("Cronograma e plano B", a não ser que ela diga outro). */
+export const rotuloDoPlano = (p: Pick<PropostaDeEstudante, 'rotuloDoPlano'>) => p.rotuloDoPlano ?? 'Cronograma e plano B';
+/** O mesmo link dentro de um cartão: "Ver cronograma e plano B". */
+export const verOPlano = (p: Pick<PropostaDeEstudante, 'rotuloDoPlano'>) => {
+  const rotulo = rotuloDoPlano(p);
+  return `Ver ${rotulo.charAt(0).toLowerCase()}${rotulo.slice(1)}`;
+};
 
 /** O convite que fecha todo lugar onde a série aparece. */
 export const CONVITE_IDEIA = {

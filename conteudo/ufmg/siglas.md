@@ -19,7 +19,7 @@ fontes:
     url: https://www.ufmg.br/viverufmg/glossario-ufmg/
 ---
 
-A lista é a do glossário oficial da UFMG, na mesma ordem. As siglas do curso (ACG, TCE, AAC) estão nos guias de [Estágio](/estagio) e de [Horas 600h](/acg).
+A lista é a do glossário oficial da UFMG, na mesma ordem. As siglas do curso (ACG, TCE, AAC) estão nos guias de [Estágio](/estagio) e de [Extensão e AAC](/acg).
 
 - **BC**: [Biblioteca Central](https://www.bu.ufmg.br/bu_atual/biblioteca/biblioteca-central/)
 - **BU**: [Biblioteca Universitária](https://www.bu.ufmg.br/bu_atual/)

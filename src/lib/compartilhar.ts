@@ -77,7 +77,7 @@ export function corpoDoVoto(): string {
 
 /** Corpo do convite de quem pôs o site na tela inicial. */
 export function corpoDoAppInstalado(): string {
-  return '📲 Instalei no celular o site do curso de Gestão Pública: calculadora das 600h, grade com pré-requisitos e os guias de estágio e FUMP.';
+  return '📲 Instalei no celular o site do curso de Gestão Pública: horas de extensão, grade com pré-requisitos e os guias de estágio e FUMP.';
 }
 
 export type ResultadoDoCompartilhar = 'enviado' | 'whatsapp' | 'cancelado';

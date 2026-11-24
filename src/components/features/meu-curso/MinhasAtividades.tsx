@@ -1,7 +1,8 @@
-// MinhasAtividades.tsx — A lista única das 600h dentro do painel de /meu-curso.
+// MinhasAtividades.tsx — A lista única de extensão e AAC dentro do painel de /meu-curso.
 //
 // Cada atividade (curso, evento, monitoria, projeto) entra uma vez, com modalidade, horas, data e
 // situação. A soma de extensão e AAC e o prazo de 120 dias saem daqui (src/lib/atividades.ts).
+// AAC é opcional e o teto de 300h vale para todas as AAC juntas, inclusive as de extensão.
 // O arquivo do comprovante não fica no site: a pessoa cola o link de onde guardou.
 import React, { useId, useMemo, useState } from 'react';
 import { EXTENSION_ITEMS, AAC_ITEMS } from '@/components/features/acg/calculator/acgCatalog';
@@ -49,7 +50,7 @@ function ordenar(itens: Atividade[]): Atividade[] {
   return [...itens].sort((a, b) => peso(a) - peso(b) || b.criadaEm.localeCompare(a.criadaEm));
 }
 
-export const MinhasAtividades: React.FC<{ estado: EstadoAtividades; ext: number; aac: number }> = ({ estado, ext, aac }) => {
+export const MinhasAtividades: React.FC<{ estado: EstadoAtividades; ext: number; aac: number; sobraDeAac: number }> = ({ estado, ext, aac, sobraDeAac }) => {
   const uid = useId();
   const [rascunho, setRascunho] = useState<Rascunho | null>(null);
   const [erro, setErro] = useState<{ campo: keyof Rascunho; texto: string } | null>(null);
@@ -126,14 +127,14 @@ export const MinhasAtividades: React.FC<{ estado: EstadoAtividades; ext: number;
       <div className="mh-campo">
         <label htmlFor={campo('mod')}>Modalidade</label>
         <select id={campo('mod')} value={rascunho.mod} onChange={(e) => mudar({ mod: e.currentTarget.value })}>
-          <optgroup label="Extensão (300h)">
+          <optgroup label="Conta como extensão (300h obrigatórias)">
             {EXTENSION_ITEMS.map((m) => (
               <option key={m.key} value={m.key}>
                 {m.label} · até {m.max}h
               </option>
             ))}
           </optgroup>
-          <optgroup label="AAC (até 300h)">
+          <optgroup label="AAC que não conta como extensão (opcional)">
             {AAC_ITEMS.map((m) => (
               <option key={m.key} value={m.key}>
                 {m.label} · até {m.max}h
@@ -172,7 +173,7 @@ export const MinhasAtividades: React.FC<{ estado: EstadoAtividades; ext: number;
       </div>
       {rascunho.situacao !== 'quero' && (
         <div className="mh-campo">
-          <label htmlFor={campo('data')}>Data do certificado</label>
+          <label htmlFor={campo('data')}>Quando terminou (o último dia do evento ou da atividade)</label>
           <input
             id={campo('data')}
             type="date"
@@ -222,13 +223,18 @@ export const MinhasAtividades: React.FC<{ estado: EstadoAtividades; ext: number;
     <section aria-labelledby="mh-atv-t" className="mh-bloco" id="atividades">
       <h2 id="mh-atv-t">Atividades e comprovantes</h2>
       <div className="mh-ficha">
-        <p className="mh-resumo-600">
+        <p className="mh-resumo-horas">
           <span>
             Extensão <strong>{FMT.format(ext)} / 300h</strong>
           </span>
           <span>
-            AAC <strong>{FMT.format(aac)} / 300h</strong>
+            AAC, opcional <strong>{FMT.format(aac)}h</strong>
           </span>
+        </p>
+        <p className="mh-vazio">
+          {sobraDeAac > 0
+            ? `Ainda cabem ${FMT.format(sobraDeAac)}h de AAC. O teto de 300h vale para todas as AAC juntas, inclusive as que contam como extensão.`
+            : 'Você chegou ao teto de 300h de AAC, que vale para todas as AAC juntas, inclusive as que contam como extensão.'}
         </p>
 
         {!rascunho && (
@@ -280,7 +286,7 @@ export const MinhasAtividades: React.FC<{ estado: EstadoAtividades; ext: number;
                     </p>
                   )}
                   {a.situacao === 'feita' && !a.data && m?.has120dDeadline && (
-                    <p className="mh-ajuda">Sem a data do certificado, o prazo de 120 dias não é contado.</p>
+                    <p className="mh-ajuda">Sem a data do evento, o prazo de 120 dias não é contado.</p>
                   )}
                   <div className="mh-atv-acoes">
                     {a.situacao === 'quero' && (
@@ -374,7 +380,7 @@ export const MinhasAtividades: React.FC<{ estado: EstadoAtividades; ext: number;
 
         <p className="mh-nota-rodape">
           Procurando o que fazer? <a href={route('/cursos')}>Cursos gratuitos que contam horas</a>. Pra protocolar no
-          Colegiado, <a href={route('/acg')}>siga o passo a passo das 600h</a>.
+          Colegiado, <a href={route('/acg')}>veja o que conta e o passo a passo</a>.
         </p>
       </div>
     </section>

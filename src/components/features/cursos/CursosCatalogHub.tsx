@@ -21,7 +21,7 @@ const CAGP_COURSES = [
     title: 'Oficina Prática: Orçamento Público, PPA e LOA na Prática',
     speaker: 'Professores do DCP/UFMG & Gestores Públicos Egressos',
     hours: 20,
-    acgGroup: 'Extensão (Mód. III) + AAC (Grupo I)',
+    acgGroup: 'a confirmar com o Colegiado',
     modality: 'Híbrido (FAFICH/UFMG + Gravação)',
     status: 'Proposta 10 • Inscrição Simulada Aberta',
     tag: 'UFMG / CAGP • Formação Política',
@@ -33,7 +33,7 @@ const CAGP_COURSES = [
     title: 'Laboratório de Análise de Dados no Setor Público com R',
     speaker: 'Pesquisadores do Centro de Estudos Legislativos (CEL/DCP/UFMG)',
     hours: 30,
-    acgGroup: 'Extensão (Mód. III) + AAC (Grupo I)',
+    acgGroup: 'a confirmar com o Colegiado',
     modality: 'Online com Tutorias Síncronas na FAFICH',
     status: 'Proposta 10 • Inscrição Simulada Aberta',
     tag: 'UFMG / DCP • Metodologia & Dados',
@@ -45,7 +45,7 @@ const CAGP_COURSES = [
     title: 'Ciclo de Debates: Carreiras de Estado e Burocracia de Médio Escalão',
     speaker: 'Especialistas em Políticas Públicas e Gestão Governamental (EPPGG)',
     hours: 15,
-    acgGroup: 'AAC (Grupo I — Eventos) + Extensão',
+    acgGroup: 'a confirmar com o Colegiado',
     modality: 'Presencial Auditório Baesse / FAFICH UFMG',
     status: 'Confirmado 2026/1 • Chapa Semente',
     tag: 'Carreira & Extensão UFMG',
@@ -79,7 +79,7 @@ export const CursosCatalogHub: React.FC = () => {
     return () => window.removeEventListener('cagp:vault-updated', carregar);
   }, []);
 
-  const handleAddCourseTo600h = (course: { id: string; title: string; hours: number; certifier?: string }, exemplo = false) => {
+  const handleGuardarCurso = (course: { id: string; title: string; hours: number; certifier?: string }, exemplo = false) => {
     if (exemplo) {
       setExemplos((atual) => (atual.includes(course.id) ? atual : [...atual, course.id]));
       toast.info('Esta oficina é um exemplo da Proposta 10. Não entra na sua lista de verdade.');
@@ -137,7 +137,7 @@ export const CursosCatalogHub: React.FC = () => {
               Cursos gratuitos da ENAP e da EV.G
             </h3>
             <p className="text-xs text-muted-foreground mt-1 m-0">
-              Cursos autoinstrucionais gratuitos com certificado oficial do Governo Federal válidos para Extensão e Atividades Complementares (AAC).
+              Cursos gratuitos e a distância, com certificado. Curso de outra instituição conta como extensão, até 120h no total.
             </p>
           </div>
 
@@ -258,14 +258,14 @@ export const CursosCatalogHub: React.FC = () => {
 
                       <div className="flex items-center justify-between text-xs font-mono font-bold text-muted-foreground mt-2.5 pt-2 border-t border-border">
                         <span>Certificador: {c.certifier}</span>
-                        <span className="text-success">Válido AAC/Ext</span>
+                        <span className="text-success">Conta como extensão</span>
                       </div>
                     </div>
 
                     <div className="space-y-2 pt-2 border-t-2 border-border">
                       <button
                         type="button"
-                        onClick={() => handleAddCourseTo600h(c)}
+                        onClick={() => handleGuardarCurso(c)}
                         className={`w-full py-2 px-3 text-xs font-heading font-black uppercase rounded-xl border-3 border-border transition-all flex items-center justify-center gap-1.5 cursor-pointer min-h-[44px] ${
                           isSaved
                             ? 'bg-success-tint text-success shadow-sm font-bold'
@@ -375,7 +375,7 @@ export const CursosCatalogHub: React.FC = () => {
                   <button
                     type="button"
                     onClick={() =>
-                      handleAddCourseTo600h({
+                      handleGuardarCurso({
                         id: cur.id,
                         title: cur.title,
                         hours: cur.hours,

@@ -1,9 +1,9 @@
 {
   "_comentario": "Fonte única das prévias de link (WhatsApp, X, Facebook, Instagram Direct) e dos banners de cada endereço. O layout lê título e descrição daqui; node scripts/generate-og.mjs lê o campo banner e grava os JPGs em public/og/. Em gancho, a palavra entre chaves sai na caneta (uma por banner). Mudou um banner? Rode o script e suba o número em versao. O campo emoji abre a mensagem de compartilhar daquela página (só no texto que vai pro WhatsApp; a tela do site não usa emoji).",
-  "versao": 12,
+  "versao": 13,
   "padrao": {
     "titulo": "O site do curso de Gestão Pública",
-    "descricao": "Estágio, 600h, FUMP e documentos, passo a passo. Feito pela Chapa 2 · Semente.",
+    "descricao": "Estágio, extensão, FUMP e documentos, passo a passo. Feito pela Chapa 2 · Semente.",
     "imagem": "padrao",
     "emoji": "🌱"
   },
@@ -27,9 +27,9 @@
     "/noticias/ato-17-11-corte-de-gastos": {"titulo": "Ato contra o PL do Corte de Gastos: terça, 17/11, 17h30", "descricao": "Praça Afonso Arinos, em BH. O projeto que o Senado aprovou pode atingir bolsa, bandejão e moradia estudantil. Entenda em 1 minuto.", "emoji": "🚨", "mensagem": "Tem ato contra o PL do Corte de Gastos nesta terça, 17/11, às 17h30, na Praça Afonso Arinos (Direito da UFMG). O projeto que passou no Senado pode atingir bolsa, bandejão e moradia. Entenda em 1 minuto:", "imagem": "p-ato-17-11", "banner": {"molde": "pagina", "aba": "hoje", "etiqueta": "Ato · ter 17/11 · 17h30", "gancho": ["Sua bolsa pode", "estar em {risco}."], "sub": ["Praça Afonso Arinos, em BH.", "Ainda falta a Câmara."], "pessoa": "gabriel"}},
     "/guias": {
       "titulo": "Todo trâmite de Gestão Pública, passo a passo",
-      "descricao": "Estágio, 600h, FUMP, TCC e colação, com os documentos de cada um. Feito pela Chapa 2 · Semente.",
+      "descricao": "Estágio, extensão, FUMP, TCC e colação, com os documentos de cada um. Feito pela Chapa 2 · Semente.",
       "emoji": "🧭",
-      "mensagem": "Todos os guias do curso num lugar só: estágio, 600h, FUMP, TCC e colação, com os documentos de cada um.",
+      "mensagem": "Todos os guias do curso num lugar só: estágio, extensão, FUMP, TCC e colação, com os documentos de cada um.",
       "imagem": "p-guias",
       "banner": { "molde": "pagina", "aba": "guias", "etiqueta": "Guias do curso", "gancho": [ "Do primeiro dia", "à {colação}." ], "sub": [ "Todo trâmite do curso, passo a passo." ], "arte": "planta" }
     },
@@ -257,6 +257,14 @@
       "imagem": "proposta-e1",
       "banner": { "molde": "pagina", "aba": "hoje", "etiqueta": "Ideia de estudante · E1", "gancho": [ "Um aluno pediu.", "Virou {proposta}." ], "sub": [ "Ações sociais fora da UFMG,", "com data e custo zero." ], "arte": "planta" }
     },
+    "/propostas/e2": {
+      "titulo": "Ideia de estudante na Chapa 2: calculadora de faltas",
+      "descricao": "Um aluno do 4º período pediu uma calculadora de faltas pra depois da eleição. A Semente pôs no ar no dia seguinte, com a regra e a fonte.",
+      "emoji": "🗓️",
+      "mensagem": "*Um aluno do 4º período pediu, e a Chapa 2 · Semente pôs no ar no dia seguinte:* a calculadora de faltas, com quantos dias ainda dá pra faltar em cada disciplina. Tem ideia também? Manda pra gente:",
+      "imagem": "proposta-e2",
+      "banner": { "molde": "pagina", "aba": "hoje", "etiqueta": "Ideia de estudante · E2", "gancho": [ "Um aluno pediu.", "Já tá {no ar}." ], "sub": [ "Calculadora de faltas:", "pedida no dia 23, pronta no dia 24." ], "arte": "planta" }
+    },
     "/chapa-semente/debate": {
       "titulo": "Análise da gestão atual: os números pro debate de 24/11",
       "descricao": "Panorama com fonte da gestão 2025–2026 (14 de 33 promessas mostradas), carta 2026–2027 sem datas e dossiê dos R$ 4.505,50 pro debate do CAGP.",
@@ -276,17 +284,25 @@
       "titulo": "Sua grade, suas horas e sua formatura num lugar só",
       "descricao": "Ferramentas do curso de Gestão Pública que ficam salvas no seu celular. Feito pela Chapa 2 · Semente.",
       "emoji": "🌿",
-      "mensagem": "Grade, calculadora das 600h e checklist da formatura num lugar só, salvos no seu celular:",
+      "mensagem": "Grade, horas de extensão e checklist da formatura num lugar só, salvos no seu celular:",
       "imagem": "p-meu-curso",
       "banner": { "molde": "pagina", "aba": "curso", "etiqueta": "Meu curso", "gancho": [ "Sua grade,", "suas horas,", "sua {formatura}." ], "sub": [ "Tudo salvo no seu celular." ], "arte": "planta" }
     },
+    "/faltas": {
+      "titulo": "Calculadora de faltas: quantos dias ainda dá pra faltar",
+      "descricao": "Em matéria de 60h o limite é de 15 faltas, o que dá 7 dias de aula. Marque as suas por disciplina e veja quanto resta. Feito pela Chapa 2 · Semente.",
+      "emoji": "🗓️",
+      "mensagem": "Quantas faltas ainda pode? Em matéria de 60h são 15, o que dá 7 dias de aula. A calculadora faz a conta por disciplina:",
+      "imagem": "p-faltas",
+      "banner": { "molde": "pagina", "aba": "curso", "etiqueta": "Calculadora de faltas", "gancho": [ "Quantos dias", "ainda dá pra", "{faltar}?" ], "sub": [ "Em matéria de 60h: 15 faltas, 7 dias." ], "arte": "numero", "numero": "7 dias" }
+    },
     "/acg": {
-      "titulo": "Calculadora das 600h: veja quanto falta",
-      "descricao": "Some extensão e AAC e veja o que falta pra fechar as 600h. Feito pela Chapa 2 · Semente.",
+      "titulo": "Extensão e AAC: o que conta e o teto de cada forma",
+      "descricao": "As 300h de extensão do curso: o que conta, o teto de cada forma e como protocolar. Feito pela Chapa 2 · Semente.",
       "emoji": "⏱️",
-      "mensagem": "Dá pra calcular em um minuto quanto falta das 600h de extensão e AAC:",
+      "mensagem": "Dá pra fechar a extensão só com curso da ENAP? Não: conta até 120h. O que conta e o teto de cada forma:",
       "imagem": "p-acg",
-      "banner": { "molde": "pagina", "aba": "curso", "etiqueta": "Calculadora das 600h", "gancho": [ "Quantas horas", "{faltam} pra você?" ], "sub": [ "Some extensão e AAC em um minuto." ], "arte": "numero", "numero": "600h" }
+      "banner": { "molde": "pagina", "aba": "curso", "etiqueta": "Extensão e AAC", "gancho": [ "O que {conta}", "como extensão?" ], "sub": [ "O teto de cada forma, com a fonte." ], "arte": "numero", "numero": "300h" }
     },
     "/percurso": {
       "titulo": "A grade de Gestão Pública e os pré-requisitos",
@@ -297,12 +313,12 @@
       "banner": { "molde": "pagina", "aba": "curso", "etiqueta": "Grade e percurso", "gancho": [ "Qual matéria", "{trava} qual?" ], "sub": [ "Os 10 períodos e os pré-requisitos." ], "arte": "grade" }
     },
     "/cursos": {
-      "titulo": "Cursos gratuitos da ENAP que contam nas 600h",
-      "descricao": "Filtre por tema e carga horária e mande o curso pra calculadora. Feito pela Chapa 2 · Semente.",
+      "titulo": "Cursos gratuitos da ENAP que contam como extensão",
+      "descricao": "Filtre por tema e carga horária e guarde o curso na sua lista. Contam até 120h. Feito pela Chapa 2 · Semente.",
       "emoji": "🎧",
-      "mensagem": "Faltam horas complementares? Tem curso gratuito da ENAP que entra na conta das 600h:",
+      "mensagem": "Faltam horas de extensão? Curso gratuito da ENAP conta, até 120h:",
       "imagem": "p-cursos",
-      "banner": { "molde": "pagina", "aba": "curso", "etiqueta": "Cursos que contam horas", "gancho": [ "Faltam horas", "e não sobra", "{dinheiro}?" ], "sub": [ "Cursos gratuitos da ENAP", "que entram nas 600h." ], "pessoa": "italo" }
+      "banner": { "molde": "pagina", "aba": "curso", "etiqueta": "Cursos que contam horas", "gancho": [ "Faltam horas", "e não sobra", "{dinheiro}?" ], "sub": [ "Cursos gratuitos da ENAP", "contam até 120h de extensão." ], "pessoa": "italo" }
     },
     "/formatura": {
       "titulo": "Colação de grau: os dez passos da reta final",

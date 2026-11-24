@@ -158,12 +158,29 @@ export const VaultSchemas = {
     /** NSG de cada semestre, na ordem (null = ainda não preenchido). */
     nsg: z.array(z.number().min(0).max(100).nullable()).max(17).default([]),
   }),
-  // Lista única de atividades das 600h (dono: src/lib/atividades.ts). `base` guarda os totais que a
+  // Lista única de atividades de extensão e AAC (dono: src/lib/atividades.ts). `base` guarda os totais que a
   // pessoa digitou na calculadora antiga, por modalidade. cagp_calc_ext_aac_v1 virou espelho desta chave.
   cagp_atividades_v1: z.object({
     itens: z.array(AtividadeSchema).default([]),
     base: z.record(z.string(), z.number()).default({}),
     migrado: z.boolean().default(false),
+  }),
+  // Calculadora de faltas (/faltas, dono: src/lib/faltas.ts). As disciplinas em curso vêm de
+  // cagp_minha_grade_v1; aqui ficam as faltas marcadas e o que é só da cartela.
+  cagp_faltas_v1: z.object({
+    /** "2026/2": o semestre a que as marcas pertencem ('' = ainda sem nenhuma). */
+    semestre: z.string().max(8).default(''),
+    /** Por disciplina (código ou id da extra): uma entrada por falta lançada, com as aulas perdidas. */
+    marcas: z.record(z.string(), z.array(z.number().int().min(1).max(8)).max(200)).default({}),
+    /** Aulas num dia da disciplina, só quando não são 2. */
+    aulasPorDia: z.record(z.string(), z.number().int().min(1).max(8)).default({}),
+    /** Optativas e disciplinas de fora da grade, escritas à mão. */
+    extras: z
+      .array(z.object({ id: z.string(), nome: z.string().min(2).max(80), ch: z.number().min(15).max(180) }))
+      .max(20)
+      .default([]),
+    /** Obrigatórias em curso que a pessoa tirou da cartela. */
+    fora: z.array(z.string()).default([]),
   }),
 } as const;
 
@@ -231,6 +248,7 @@ export const VaultDefaults: { [K in VaultKey]: VaultData<K> } = {
   cagp_reta_final_checklist_v1: {},
   cagp_minhas_horas_v1: { optativasH: 0, livreH: 0, notas: {}, nsg: [] },
   cagp_atividades_v1: { itens: [], base: {}, migrado: false },
+  cagp_faltas_v1: { semestre: '', marcas: {}, aulasPorDia: {}, extras: [], fora: [] },
 };
 
 export function getVaultItem<K extends VaultKey>(key: K): VaultData<K> {

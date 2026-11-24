@@ -2,10 +2,11 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { getVaultItem, setVaultItem } from '@/lib/storage/studentVault';
 import { adicionarAtividade, atualizarAtividade, diasParaProtocolar, idDoCurso, lerAtividades, prazosAbertos, removerAtividade } from '@/lib/atividades';
 import { contaDoCurso, liberadasParaOProximo, OBRIGATORIAS } from '@/lib/contaDoCurso';
+import { somaDasHoras } from '@/components/features/acg/calculator/acgCatalog';
 
 const diasAtras = (n: number) => new Date(Date.now() - n * 86_400_000).toISOString().slice(0, 10);
 
-describe('Lista única de atividades (600h)', () => {
+describe('Lista única de atividades (extensão e AAC)', () => {
   beforeEach(() => localStorage.clear());
 
   it('migra os três registros antigos sem mudar o total de ninguém', () => {
@@ -112,5 +113,42 @@ describe('Conta única das 3.000h', () => {
     expect(liberadasParaOProximo(todas.slice(0, -1), [ultima])).toEqual([]);
     expect(comReq.length).toBeGreaterThan(0);
     expect(comReq.length).toBeLessThanOrEqual(todas.length);
+  });
+});
+
+// Regulamento, arts. 13 e 15 + anexo do requerimento de atividade integralizadora (N-20229).
+describe('Soma de extensão e AAC', () => {
+  it('só curso de outra instituição (ENAP) não fecha a extensão: conta até 120h', () => {
+    expect(somaDasHoras({ ext_ensino_inter: 300 }).extensao).toBe(120);
+  });
+
+  it('dois Laboratórios e 120h de curso fecham as 300h e ainda sobram 180h de AAC', () => {
+    const s = somaDasHoras({ ext_lab_a: 90, ext_lab_b: 90, ext_ensino_inter: 120 });
+    expect(s.extensao).toBe(300);
+    expect(s.aacDeExtensao).toBe(120);
+    expect(s.sobraDeAac).toBe(180);
+  });
+
+  it('fechar a extensão sem Laboratório gasta o teto inteiro de AAC', () => {
+    const s = somaDasHoras({ ext_ensino_inter: 120, ext_ufmg: 90, ext_inter_equalitas: 90, aac_monitoria: 45 });
+    expect(s.extensao).toBe(300);
+    expect(s.sobraDeAac).toBe(0);
+    expect(s.aac).toBe(0);
+  });
+
+  it('o teto de 300h vale para todas as AAC juntas; Laboratório fica fora', () => {
+    const s = somaDasHoras({ ext_lab_a: 90, ext_ensino_inter: 120, aac_mobilidade: 300 });
+    expect(s.extensao).toBe(210);
+    expect(s.aac).toBe(180);
+    expect(s.sobraDeAac).toBe(0);
+  });
+
+  it('eventos como ouvinte e como organizador somam no máximo 60h', () => {
+    expect(somaDasHoras({ aac_eventos_i: 60, ext_eventos_ii: 60 })).toMatchObject({ extensao: 30, aac: 30 });
+    expect(somaDasHoras({ aac_eventos_i: 60 }).aac).toBe(60);
+  });
+
+  it('AAC é opcional: sem nenhuma, a conta não cobra nada', () => {
+    expect(somaDasHoras({})).toMatchObject({ extensao: 0, aac: 0, sobraDeAac: 300 });
   });
 });

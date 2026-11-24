@@ -55,7 +55,7 @@
     {
       "name": "Minhas horas",
       "short_name": "Minhas horas",
-      "description": "Quanto falta das 3.000h e das 600h de extensão e AAC",
+      "description": "Quanto falta das 3.000h e das 300h de extensão",
       "url": "./meu-curso",
       "icons": [{ "src": "./imagens/pwa/pwa-192x192.png", "sizes": "192x192" }]
     },

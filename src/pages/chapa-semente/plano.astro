@@ -33,6 +33,7 @@ import {
   PROPOSTAS_DE_ESTUDANTES,
   resumoDaPropostaDeEstudante,
   rotaDaPropostaDeEstudante,
+  verOPlano,
 } from '@/lib/propostasDeEstudantes';
 import { asset, route } from '@/lib/paths';
 import '@/styles/plano-documento.css';
@@ -441,7 +442,7 @@ const ESTUDANTES = PROPOSTAS_DE_ESTUDANTES.map((e) => ({ ...e, rota: rotaDaPropo
 
                 <div class="mt-auto flex flex-wrap items-center justify-between gap-2 border-t-2 border-muted pt-2.5">
                   <a href={`${route(e.rota)}#plano`} class="pd-ficha-link">
-                    Ver cronograma e plano B
+                    {verOPlano(e)}
                     <i class="bi bi-arrow-right" aria-hidden="true"></i>
                   </a>
                   <a href={asset(e.plano.boletimPdf)} target="_blank" rel="noopener" class="pd-boletim-pdf border-2 border-border rounded-lg">

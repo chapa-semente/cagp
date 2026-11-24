@@ -9,6 +9,7 @@ import { assinatura, faseDaEleicao, montarMensagem } from '@/lib/compartilhar';
 import { AXIS_REGISTRY, normalizePathname } from '@/lib/navigationRegistry';
 import { DOCUMENTOS_PEDIDOS, previaDaRota } from '@/lib/previas';
 import { PROPOSTA_STOPS } from '@/lib/propostasTour';
+import { PROPOSTAS_DE_ESTUDANTES, rotaDaPropostaDeEstudante } from '@/lib/propostasDeEstudantes';
 
 const OG = join(process.cwd(), 'public/og');
 const banner = (nome: string) => join(OG, `${nome}.jpg`);
@@ -20,7 +21,7 @@ const rotasNovas = [
   ...DOCUMENTOS_PEDIDOS.map((d) => `/doc/${d.id}`),
   ...PROPOSTA_STOPS.map((p) => `/propostas/${p.id}`),
   // As propostas que vieram de estudantes (22/11/2026) têm página e prévia próprias.
-  '/propostas/e1',
+  ...PROPOSTAS_DE_ESTUDANTES.map(rotaDaPropostaDeEstudante),
   ...CHAPA_LEADERS.map((l) => `/chapa-semente/${l.id}`),
   ...Object.keys(dados.normas).map((slug) => `/documentos/${slug}`),
 ];

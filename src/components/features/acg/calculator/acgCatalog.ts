@@ -1,154 +1,138 @@
-// acgCatalog.ts - Catálogo Oficial de Atividades de Extensão (300h) e AAC (300h) com Regras Fatuais
-// PPC 2020 Quadros 7 e 8 • Regulamento N-20229 Art. 13 e 15 • Resolução CEPE 10/2019
+// acgCatalog.ts — As formas de integralizar extensão e AAC, só com o que os documentos dizem.
+//
+// Fontes (documentos/): Regulamento do curso N-20229, arts. 13, 15, 33 e 59 a 63 · PPC, seções 2.3 a
+// 2.7 · anexo do requerimento de atividade integralizadora (N-20229) · slides da Coordenação na
+// recepção de ingressantes 2024/2 · relatório de percurso do SIGA (pré-requisitos dos Laboratórios).
+//
+// Revisão de 24/11/2026: saíram as listas "conta / não conta" sem fonte. Cada modalidade agora
+// traz o que o Regulamento define, o que apresentar ao Colegiado e de onde isso saiu.
 
 export interface AcgItemDef {
   key: string;
   aliases?: string[];
   group: 'ext' | 'aac';
+  /** Disciplina regular (os dois Laboratórios) ou AAC, que entra por requerimento e gasta o teto global. */
+  tipo: 'disciplina' | 'aac';
   code: string;
   label: string;
-  desc: string;
+  /** Nome que aparece no anexo do requerimento, quando o rótulo da página é mais simples. */
+  nomeOficial?: string;
+  /** O que o documento define como sendo a atividade. */
+  oQueE: string;
+  /** Exemplo citado em documento do curso. */
+  exemplo?: string;
+  /** O que apresentar ao Colegiado. */
+  comprova: string;
+  /** Regra extra da própria modalidade (teto conjunto, período mínimo, escala de créditos). */
+  nota?: string;
+  fonte: string;
   step: number;
+  /** Teto da modalidade, em horas. */
   max: number;
-  creditsLabel: string;
-  icon: string;
   has120dDeadline?: boolean;
-  accepted: string[];
-  rejected: string[];
-  alertNote?: string;
 }
+
+/** Mínimo obrigatório de Formação em Extensão (Regulamento, art. 13). */
+export const HORAS_EXTENSAO = 300;
+/**
+ * Teto de TODAS as AAC juntas, as que contam como extensão e as que não contam
+ * (Regulamento, art. 15; anexo do requerimento). Os Laboratórios ficam fora: são disciplinas.
+ */
+export const TETO_AAC = 300;
+/** Eventos I e II somam no máximo 4 créditos (anexo do requerimento). */
+export const TETO_EVENTOS = 60;
+
+const RELATORIO =
+  'Relatório final assinado por você e pelo responsável, com as ações, a carga horária e a avaliação do seu desempenho.';
 
 export const EXTENSION_ITEMS: AcgItemDef[] = [
   {
     key: 'ext_lab_a',
     group: 'ext',
+    tipo: 'disciplina',
     code: 'DCP 195',
     label: 'Laboratório de Gestão e Políticas Públicas A',
-    desc: 'Disciplina prática obrigatória do 7º período • 90h (6 créditos)',
+    oQueE: 'Disciplina optativa de 90h (6 créditos), uma das duas do curso que contam como extensão.',
+    comprova: 'Nada a protocolar: é disciplina regular e as horas entram com a aprovação.',
+    nota: 'Pede Planejamento Público (DCP 182) e Formulação e Implementação de Programas e Projetos (DCP 183). Não gasta o teto de AAC.',
+    fonte: 'Regulamento, art. 13, § 1º · percurso curricular do SIGA',
     step: 90,
     max: 90,
-    creditsLabel: '6 créditos',
-    icon: 'bi-flask',
-    accepted: [
-      'Aprovação formal na disciplina prática DCP 195 no 7º período letivo;',
-      'Desenvolvimento de diagnósticos de gestão e matrizes aplicadas a órgãos parceiros;',
-      'Integralização direta de 90h de extensão no SIGA pela nota final.',
-    ],
-    rejected: [
-      'Não é passível de dispensa por estágio supervisionado ou vivência profissional;',
-      'Disciplinas teóricas comuns de outros departamentos sem componente extensionista;',
-      'Reprovações exigem nova matrícula no semestre seguinte.',
-    ],
   },
   {
     key: 'ext_lab_b',
     group: 'ext',
+    tipo: 'disciplina',
     code: 'DCP 196',
     label: 'Laboratório de Gestão e Políticas Públicas B',
-    desc: 'Disciplina prática obrigatória do 8º período • 90h (6 créditos)',
+    oQueE: 'Disciplina optativa de 90h (6 créditos), a outra do curso que conta como extensão.',
+    comprova: 'Nada a protocolar: é disciplina regular e as horas entram com a aprovação.',
+    nota: 'Pede Planejamento Público (DCP 182) e Formulação e Implementação de Programas e Projetos (DCP 183). Não gasta o teto de AAC.',
+    fonte: 'Regulamento, art. 13, § 1º · percurso curricular do SIGA',
     step: 90,
     max: 90,
-    creditsLabel: '6 créditos',
-    icon: 'bi-flask-fill',
-    accepted: [
-      'Aprovação formal na disciplina prática DCP 196 no 8º período letivo;',
-      'Execução do plano de intervenção governamental elaborado no ciclo A;',
-      'Integralização direta de mais 90h de extensão no SIGA pela nota final.',
-    ],
-    rejected: [
-      'Não pode ser cursada sem ter concluído o Laboratório A (requisito pedagógico);',
-      'Atividades de TCC ou pesquisa bibliográfica não contam como Laboratório B;',
-      'Não permite aproveitamento retroativo de empregos anteriores.',
-    ],
   },
   {
     key: 'ext_ensino_inter',
     aliases: ['ext_inter', 'ext_cursos'],
     group: 'ext',
+    tipo: 'aac',
     code: 'DCP 193/194',
-    label: 'Atividades Interinstitucionais de Ensino A/B (Escolas de Governo)',
-    desc: 'Cursos certificados em IES públicas e Escolas de Governo (ENAP, FJP) • Teto: até 120h (8 cr)',
+    label: 'Cursos em outras instituições',
+    nomeOficial: 'Atividades Interinstitucionais de Ensino A e B',
+    oQueE:
+      'Disciplinas, seminários, laboratórios, oficinas e cursos de outras instituições, presenciais ou a distância, voltados para Gestão Pública ou áreas afins.',
+    exemplo: 'Cursos da ENAP.',
+    comprova: 'Documento que comprove a conclusão e a carga horária, de preferência com a nota final.',
+    nota: 'Curso de idioma e cursinho para concurso não são AAC.',
+    fonte: 'Regulamento, art. 13, § 2º, I · slides da Coordenação',
     step: 15,
     max: 120,
-    creditsLabel: 'Até 8 créditos',
-    icon: 'bi-mortarboard-fill',
-    accepted: [
-      'Cursos de extensão e oficinas em outras Instituições Públicas de Ensino Superior (IES);',
-      'Cursos certificados por Escolas de Governo reconhecidas (ENAP, Fundação João Pinheiro, ILB, etc.);',
-      'Conteúdo com estrita aderência ao campo de Gestão e Políticas Públicas.',
-    ],
-    rejected: [
-      'Cursos livres de plataformas comerciais privadas (Udemy, Coursera etc.) sem convalidação pública;',
-      'Cursos de idiomas ou cursinhos preparatórios para concursos públicos;',
-      'Cursos sem prova de carga horária, ementa oficial e autenticação digital.',
-    ],
   },
   {
     key: 'ext_eventos_ii',
     aliases: ['ext_eventos'],
     group: 'ext',
+    tipo: 'aac',
     code: 'DCP 187',
-    label: 'Participação em Eventos II — Organização / Debatedor (120 dias)',
-    desc: 'Comissão organizadora ou moderador (Conta para Extensão) • Teto: até 60h (4 créditos)',
+    label: 'Organizar evento ou ser debatedor',
+    nomeOficial: 'Participação em Eventos II',
+    oQueE: 'Participar de comissão organizadora ou comitê técnico-científico, ou atuar como debatedor ou moderador em evento.',
+    comprova: 'Comprovação de participação, em até 120 dias depois do evento.',
+    nota: 'Vale 2 créditos (30h). Somando com evento como ouvinte, o teto é de 60h.',
+    fonte: 'Regulamento, art. 13, § 2º, II · PPC, Quadro 8',
     step: 30,
-    max: 60,
-    creditsLabel: 'Até 4 créditos',
-    icon: 'bi-calendar2-event-fill',
+    max: 30,
     has120dDeadline: true,
-    accepted: [
-      'Participação em comissão organizadora ou comitê executivo de congressos da área;',
-      'Atuação como moderador, debatedor ou coordenador de mesa-redonda ou grupo de trabalho (GT);',
-      'Certificado formal emitido pela comissão do evento atestando o papel exercido (prazo de 120 dias).',
-    ],
-    rejected: [
-      'Participar apenas sentado na plateia como ouvinte (isto é DCP 186 - Eventos I);',
-      'Organização de calouradas, churrascos ou eventos sem caráter técnico-científico;',
-      'Apresentação de trabalho (isto é DCP 206 - Trabalho em Anais).',
-    ],
   },
   {
     key: 'ext_ufmg',
     aliases: ['ext_proex', 'ext_siex_proj'],
     group: 'ext',
+    tipo: 'aac',
     code: 'DCP 197',
-    label: 'Atividades de Extensão na UFMG (SIEX / PROEX)',
-    desc: 'Bolsista ou voluntário registrado no SIEX/PROEX • Teto: até 90h (6 créditos)',
+    label: 'Extensão na UFMG',
+    nomeOficial: 'Atividades de Extensão na UFMG',
+    oQueE: 'Projeto ou programa de extensão desenvolvido na UFMG, voltado para Gestão Pública ou áreas afins.',
+    comprova: RELATORIO,
+    fonte: 'Regulamento, art. 13, § 2º, IV',
     step: 30,
     max: 90,
-    creditsLabel: 'Até 6 créditos',
-    icon: 'bi-diagram-3-fill',
-    accepted: [
-      'Participação como bolsista ou voluntário em projetos registrados no SIEX/PROEX;',
-      'Certificado formal emitido pela Pró-Reitoria de Extensão (PROEX/UFMG);',
-      'Projetos interdepartamentais que tenham interface com o setor público ou movimentos sociais.',
-    ],
-    rejected: [
-      'Ações de extensão sem registro oficial prévio no sistema SIEX;',
-      'Iniciação Científica (pertence à DCP 198 - Pesquisa na UFMG);',
-      'Declarações informais de docentes sem chancela oficial da PROEX.',
-    ],
   },
   {
     key: 'ext_inter_equalitas',
     aliases: ['ext_equalitas'],
     group: 'ext',
+    tipo: 'aac',
     code: 'DCP 199/200',
-    label: 'Extensão Interinstitucional A/B & ATLAS Consultoria Jr. (Equalitas)',
-    desc: 'Empresa Júnior de Gestão Pública (Equalitas/ATLAS) e projetos interinstitucionais • Teto: até 90h (6 créditos)',
+    label: 'Extensão em outras instituições',
+    nomeOficial: 'Atividades Interinstitucionais de Extensão A e B',
+    oQueE: 'Atividades de extensão em outras instituições, voltadas para Gestão Pública ou áreas afins.',
+    exemplo: 'Projetos e programas da empresa júnior Equalitas UFMG Consultoria Jr.',
+    comprova: RELATORIO,
+    fonte: 'Regulamento, art. 13, § 2º, III',
     step: 15,
     max: 90,
-    creditsLabel: 'Até 6 créditos',
-    icon: 'bi-building-check',
-    accepted: [
-      'Atuação efetiva em projetos de consultoria técnica em Gestão Pública (Equalitas / ATLAS Jr.);',
-      'Atividades interinstitucionais de extensão A (60h/4cr) e B (15h/1cr);',
-      'Declaração emitida pela Diretoria-Executiva da Empresa Júnior ou instituição parceira com discriminação de horas.',
-    ],
-    rejected: [
-      'Participação em processos seletivos sem ingresso formal ou desistência no treinamento;',
-      'Horas que ultrapassem o teto de 90h (6 créditos) fixado no regulamento;',
-      'Atividades puramente festivas ou comissões de formatura.',
-    ],
   },
 ];
 
@@ -157,222 +141,180 @@ export const AAC_ITEMS: AcgItemDef[] = [
     key: 'aac_pesquisa_inter',
     aliases: ['aac_1'],
     group: 'aac',
+    tipo: 'aac',
     code: 'DCP 201/202',
-    label: 'I. Atividades Interinstitucionais de Pesquisa A/B',
-    desc: 'Pesquisa científica em outras IES e institutos públicos (60h/15h) • Teto: até 75h (5 cr)',
+    label: 'Pesquisa em outras instituições',
+    nomeOficial: 'Atividades Interinstitucionais de Pesquisa A e B',
+    oQueE: 'Atividades de pesquisa em outras instituições, voltadas para Gestão Pública ou áreas afins.',
+    comprova: RELATORIO,
+    fonte: 'Regulamento, art. 15, § 4º, I',
     step: 15,
     max: 75,
-    creditsLabel: 'Até 5 créditos',
-    icon: 'bi-globe',
-    accepted: [
-      'Pesquisas em outras IES públicas ou institutos estatais reconhecidos (IPEA, FJP, etc.);',
-      'Plano de trabalho acadêmico supervisionado por pesquisador externo qualificado;',
-      'Relatório final com parecer formal avaliativo assinado pelo orientador.',
-    ],
-    rejected: [
-      'Pesquisas desenvolvidas internamente na UFMG (pertencem a DCP 198);',
-      'Atividades sem comprovação acadêmica ou sem relatório avaliativo de desempenho;',
-      'Horas que ultrapassem o teto de 75h (5 créditos).',
-    ],
   },
   {
     key: 'aac_monitoria',
     aliases: ['aac_2'],
     group: 'aac',
+    tipo: 'aac',
     code: 'DCP 203',
-    label: 'II. Monitoria Acadêmica em Gestão Pública',
-    desc: 'Monitoria em disciplinas vinculadas ao curso de Gestão Pública • Teto: até 45h (3 cr)',
+    label: 'Monitoria',
+    oQueE: 'Monitoria em disciplinas relacionadas à Gestão Pública ou áreas afins.',
+    comprova: 'Relatório final assinado por você e pelo responsável pela disciplina, com as ações, a carga horária e a avaliação do seu desempenho.',
+    fonte: 'Regulamento, art. 15, § 4º, II',
     step: 15,
     max: 45,
-    creditsLabel: 'Até 3 créditos',
-    icon: 'bi-person-video3',
-    accepted: [
-      'Monitoria formal (bolsista ou voluntária) em disciplinas vinculadas ao curso de Gestão Pública;',
-      'Disciplinas de Ciência Política (DCP), Sociologia (SOA), Economia (FACE) ou Estatística (ICEx);',
-      'Relatório final com termo de encerramento assinado junto ao docente responsável.',
-    ],
-    rejected: [
-      'Aulas particulares informais ou cursinhos externos;',
-      'Monitoria exercida sem processo seletivo ou sem cadastro no departamento da UFMG;',
-      'Carga horária além do limite de 45h (3 créditos).',
-    ],
   },
   {
     key: 'aac_eventos_i',
     aliases: ['aac_3', 'aac_eventos'],
     group: 'aac',
+    tipo: 'aac',
     code: 'DCP 186',
-    label: 'III. Participação em Eventos I — Ouvinte (120 dias)',
-    desc: 'Congressos, conferências e seminários • Prazo legal de 120 dias! • Teto: até 60h (4 cr)',
+    label: 'Evento como ouvinte',
+    nomeOficial: 'Participação em Eventos I',
+    oQueE: 'Participar de evento relevante para a Gestão Pública ou áreas conexas, aberto ao público externo.',
+    comprova: 'Comprovação de participação, em até 120 dias depois do evento.',
+    nota: 'Cada 15h valem 1 crédito, e dá pra juntar certificados até fechar 15h. O teto de 60h é dividido com quem organiza evento. O prazo de 120 dias não vale para atividade do Calendário Acadêmico.',
+    fonte: 'Regulamento, art. 15, § 4º, III · slides da Coordenação',
     step: 15,
     max: 60,
-    creditsLabel: 'Até 4 créditos',
-    icon: 'bi-calendar2-week-fill',
     has120dDeadline: true,
-    accepted: [
-      'Participação como ouvinte em congressos, seminários, conferências e semanas acadêmicas;',
-      'Eventos promovidos por universidades, associações científicas (ex.: ABCP, ENEAP) ou órgãos públicos;',
-      'É permitido somar múltiplos certificados até atingir 15h (1 crédito), respeitado o prazo de 120 dias.',
-    ],
-    rejected: [
-      'Certificados protocolados após 120 dias corridos do evento são sumariamente indeferidos! (Art. 15, § 4º);',
-      'Cursos de idiomas ou cursinhos preparatórios para concursos públicos;',
-      'Eventos puramente corporativos, comerciais ou sem relação com Gestão Pública.',
-    ],
-    alertNote: 'Atenção ao Prazo Fatal de 120 Dias: O Colegiado indefere sumariamente requerimentos de eventos submetidos após 120 dias corridos do término do evento (exceção: eventos do Calendário Acadêmico)!',
   },
   {
     key: 'aac_grupos_estudo',
     aliases: ['aac_4'],
     group: 'aac',
+    tipo: 'aac',
     code: 'DCP 204',
-    label: 'IV. Participação em Grupos de Estudo',
-    desc: 'Grupos de pesquisa e estudos temáticos cadastrados • Teto: até 30h (2 cr)',
+    label: 'Grupo de estudos',
+    nomeOficial: 'Participação em Grupos de Estudo',
+    oQueE: 'Participar de grupo de estudos relacionado à Gestão Pública ou áreas afins.',
+    comprova: RELATORIO,
+    fonte: 'Regulamento, art. 15, § 4º, IV',
     step: 15,
     max: 30,
-    creditsLabel: 'Até 2 créditos',
-    icon: 'bi-people-fill',
-    accepted: [
-      'Participação regular em grupos de estudo cadastrados na UFMG sob tutoria docente;',
-      'Estudos sistemáticos de textos teóricos e metodológicos da área pública;',
-      'Relatório de frequência e parecer formal atestado pelo docente coordenador.',
-    ],
-    rejected: [
-      'Grupos de estudo autônomos sem chancela docente oficial no departamento;',
-      'Reaproveitamento de tarefas de disciplinas regulares ou do TCC;',
-      'Carga horária excedente ao limite de 30h (2 créditos).',
-    ],
   },
   {
     key: 'aac_pesquisa_ufmg',
     aliases: ['aac_5', 'aac_ic'],
     group: 'aac',
+    tipo: 'aac',
     code: 'DCP 198',
-    label: 'V. Atividades de Pesquisa na UFMG (PIBIC / Voluntário)',
-    desc: 'Bolsista ou voluntário registrado na PRPq/UFMG • Teto: até 90h (6 cr)',
+    label: 'Pesquisa na UFMG',
+    nomeOficial: 'Atividades de Pesquisa na UFMG',
+    oQueE: 'Atividade de pesquisa desenvolvida na UFMG.',
+    exemplo: 'Iniciação científica.',
+    comprova: RELATORIO,
+    fonte: 'Regulamento, art. 15, § 4º, V · slides da Coordenação',
     step: 30,
     max: 90,
-    creditsLabel: 'Até 6 créditos',
-    icon: 'bi-lightbulb-fill',
-    accepted: [
-      'Atuação como bolsista ou voluntário registrado na PRPq/UFMG (PIBIC, PIBITI, etc.);',
-      'Pesquisa vinculada a núcleos do DCP (ex.: Rede Femjusp, PUBLICUS, INCT/IDDC, MARGEM, CEL) ou da FAFICH;',
-      'Relatório final atestado pelo docente orientador no DCP/UFMG.',
-    ],
-    rejected: [
-      'Pesquisas sem registro oficial no sistema da Pró-Reitoria de Pesquisa (PRPq);',
-      'Atividades meramente operacionais sem plano metodológico de investigação científica;',
-      'Pesquisas executadas fora da UFMG (pertencem a DCP 201/202).',
-    ],
   },
   {
     key: 'aac_pesquisa_bib',
     aliases: ['aac_6'],
     group: 'aac',
+    tipo: 'aac',
     code: 'DCP 205',
-    label: 'VI. Pesquisa Bibliográfica Orientada',
-    desc: 'Aprofundamento teórico temático sob orientação docente • Teto: até 30h (2 cr)',
+    label: 'Pesquisa bibliográfica',
+    oQueE: 'Aprofundamento teórico em tema de uma disciplina, orientado pelo docente dela e diferente do TCC.',
+    comprova: 'Texto científico assinado por você e pelo responsável, com a avaliação do docente.',
+    fonte: 'Regulamento, art. 15, § 4º, VI',
     step: 15,
     max: 30,
-    creditsLabel: 'Até 2 créditos',
-    icon: 'bi-book-fill',
-    accepted: [
-      'Pesquisa bibliográfica de aprofundamento teórico orientada por professor da área;',
-      'Apresentação de texto científico original avaliado pelo orientador docente;',
-      'Tema com estrita conexão aos eixos de formação do curso.',
-    ],
-    rejected: [
-      'Reaproveitamento de trabalhos de conclusão de curso (TCC) ou relatórios de estágio;',
-      'Textos sem parecer formal avaliativo do orientador docente;',
-      'Carga horária excedente ao teto de 30h (2 créditos).',
-    ],
   },
   {
     key: 'aac_anais',
     aliases: ['aac_7'],
     group: 'aac',
+    tipo: 'aac',
     code: 'DCP 206',
-    label: 'VII. Trabalho Apresentado / Publicado em Anais (120 dias)',
-    desc: 'Pôster ou comunicação oral em evento científico • Prazo: 120 dias! • Teto: até 30h (2 cr)',
+    label: 'Trabalho apresentado ou publicado em anais',
+    oQueE: 'Apresentar trabalho (escrito, oral ou pôster) em evento científico de Gestão Pública ou áreas afins.',
+    comprova: 'Comprovação de participação, em até 120 dias depois do evento.',
+    fonte: 'Regulamento, art. 15, § 4º, VII',
     step: 15,
     max: 30,
-    creditsLabel: 'Até 2 créditos',
-    icon: 'bi-file-earmark-ruled-fill',
     has120dDeadline: true,
-    accepted: [
-      'Apresentação de pôster ou comunicação oral em evento científico (ex.: Semana do Conhecimento UFMG, ENEAP, EnANPAD, ABCP);',
-      'Trabalho publicado nos anais oficiais com resumo e discriminação de autoria;',
-      'Comprovante formal de apresentação emitido pela comissão organizadora.',
-    ],
-    rejected: [
-      'Assistir como ouvinte não conta como Anais (pertence a DCP 186 - Eventos I);',
-      'Certificados de Anais entregues após 120 dias corridos do evento são indeferidos! (Art. 15, § 4º, VII);',
-      'Trabalhos avaliativos internos de disciplinas sem apresentação em congresso.',
-    ],
-    alertNote: 'Atenção ao Prazo Fatal de 120 Dias: O certificado de apresentação em anais precisa ser protocolado no Colegiado em até 120 dias corridos após o encerramento do congresso (Art. 15, § 4º, VII)!',
   },
   {
     key: 'aac_periodico',
     aliases: ['aac_8', 'aac_publicacoes'],
     group: 'aac',
+    tipo: 'aac',
     code: 'DCP 207',
-    label: 'VIII. Trabalho Publicado em Periódico Científico',
-    desc: 'Publicação de artigo em revista indexada com Qualis • Teto: até 60h (4 cr)',
+    label: 'Artigo publicado em periódico científico',
+    nomeOficial: 'Trabalho Publicado em Periódico Científico',
+    oQueE: 'Publicar artigo em revista reconhecida no meio acadêmico, em Gestão Pública ou áreas afins.',
+    comprova: 'Cópia da publicação ou a correspondência que comprova o aceite.',
+    fonte: 'Regulamento, art. 15, § 4º, VIII',
     step: 15,
     max: 60,
-    creditsLabel: 'Até 4 créditos',
-    icon: 'bi-file-earmark-richtext-fill',
-    accepted: [
-      'Artigo completo publicado ou carta oficial de aceite definitivo em revista indexada com Qualis/CAPES reconhecido;',
-      'Autoria ou coautoria discente com menção formal ao vínculo com a UFMG;',
-      'Exemplar do artigo publicado contendo identificador ISSN/DOI.',
-    ],
-    rejected: [
-      'Textos em blogs, redes sociais, cartas de opinião ou veículos sem corpo editorial científico;',
-      'Artigos submetidos mas ainda sem parecer formal de aceite;',
-      'Publicações sem aderência às áreas de Ciências Sociais Aplicadas ou Humanas.',
-    ],
   },
   {
     key: 'aac_vivencia',
     aliases: ['aac_9'],
     group: 'aac',
+    tipo: 'aac',
     code: 'DCP 208',
-    label: 'IX. Vivência Profissional Complementar (Estágio Não-Obrigatório)',
-    desc: 'Treinamento prático em órgãos públicos ou ONGs de públicas • Teto: até 60h (4 cr)',
+    label: 'Estágio não obrigatório',
+    nomeOficial: 'Vivência Profissional Complementar',
+    oQueE: 'Atividades de gestão em órgãos públicos ou organizações não governamentais, como estágio de enriquecimento curricular.',
+    comprova: 'Os documentos que autorizaram a atividade e o relatório final assinado por você e pelo responsável.',
+    nota: 'A partir do 5º período. De 50 a 99h vale 1 crédito; de 100 a 149h, 2; de 150 a 199h, 3; acima de 200h, 4.',
+    fonte: 'Regulamento, art. 15, § 4º, IX, e art. 33',
     step: 15,
     max: 60,
-    creditsLabel: 'Até 4 créditos',
-    icon: 'bi-briefcase-fill',
-    accepted: [
-      'Estágio não-obrigatório em órgãos públicos (prefeituras, secretarias estaduais, ministérios, tribunais) ou ONGs do campo de públicas;',
-      'Termo de Compromisso de Estágio (TCE) regularizado e relatório final assinado pelo supervisor do órgão (Art. 33 do Regulamento);',
-      'Atuação prática em processos de gestão, análise orçamentária ou políticas públicas.',
-    ],
-    rejected: [
-      'Horas do Estágio Curricular Obrigatório não podem ser duplicadas como AAC! (pertencem a DCP 135 / DCP 136);',
-      'Estágios em empresas privadas comerciais sem interface governamental comprovada;',
-      'Carga horária excedente ao teto de 60h (4 créditos).',
-    ],
   },
   {
     key: 'aac_mobilidade',
     aliases: ['aac_10'],
     group: 'aac',
-    code: 'DCP 108–111',
-    label: 'X. Atividades de Mobilidade Estudantil I a IV',
-    desc: 'Intercâmbio acadêmico nacional ou internacional homologado • Teto: até 300h (20 cr)',
+    tipo: 'aac',
+    code: 'DCP 108 a 111',
+    label: 'Intercâmbio',
+    nomeOficial: 'Atividades de Mobilidade Estudantil I a IV',
+    oQueE: 'Estudos feitos em intercâmbio com instituição conveniada com a UFMG, no Brasil ou fora, quando não equivalem a uma disciplina do curso.',
+    comprova: 'Comprovante das atividades na instituição de destino, com carga horária e avaliação de desempenho.',
+    nota: 'O afastamento precisa de autorização do Colegiado antes da viagem.',
+    fonte: 'Regulamento, arts. 59 a 63 · PPC, seção 2.7',
     step: 15,
     max: 300,
-    creditsLabel: 'Até 20 créditos',
-    icon: 'bi-airplane-fill',
-    accepted: [
-      'Atividades de mobilidade estudantil homologadas pela DRI/UFMG ou convênios ANDIFES (DCP 108: 15h/1cr, DCP 109: 30h/2cr, DCP 110: 45h/3cr, DCP 111: 60h/4cr);',
-      'Plano de estudos previamente aprovado pelo Colegiado de Gestão Pública.',
-    ],
-    rejected: [
-      'Viagens de turismo ou cursos de línguas sem vínculo universitário;',
-      'Atividades sem aprovação prévia do Colegiado.',
-    ],
   },
 ];
+
+export interface SomaDasHoras {
+  /** Horas que contam para a Formação em Extensão, até 300. */
+  extensao: number;
+  /** Horas das AAC que não contam como extensão, já dentro do teto global. */
+  aac: number;
+  /** Quanto das AAC de extensão entrou nas 300h de extensão (o que gasta o teto global). */
+  aacDeExtensao: number;
+  /** Quanto ainda cabe de AAC, de qualquer tipo, no teto global. */
+  sobraDeAac: number;
+  /** Horas dos dois Laboratórios, que não gastam o teto. */
+  laboratorios: number;
+}
+
+/**
+ * A soma de extensão e AAC, uma só para o site inteiro. Recebe os totais por modalidade
+ * (o espelho cagp_calc_ext_aac_v1) e aplica as três regras que valem acima do teto de cada uma:
+ *  1. Eventos I e II somam no máximo 60h (4 créditos);
+ *  2. as 300h de extensão fecham com Laboratórios + AAC de extensão;
+ *  3. todas as AAC juntas cabem em 300h, e as de extensão têm prioridade porque são obrigatórias.
+ */
+export function somaDasHoras(calc: Record<string, number>): SomaDasHoras {
+  const h = (item: AcgItemDef) => Math.min(item.max, Math.max(0, Number(calc[item.key]) || 0));
+  const eventosII = h(EXTENSION_ITEMS.find((i) => i.key === 'ext_eventos_ii')!);
+
+  const laboratorios = EXTENSION_ITEMS.filter((i) => i.tipo === 'disciplina').reduce((s, i) => s + h(i), 0);
+  const aacExt = EXTENSION_ITEMS.filter((i) => i.tipo === 'aac').reduce((s, i) => s + h(i), 0);
+  const aacDeExtensao = Math.min(aacExt, HORAS_EXTENSAO - laboratorios, TETO_AAC);
+  const extensao = laboratorios + aacDeExtensao;
+
+  const demais = AAC_ITEMS.reduce(
+    (s, i) => s + (i.key === 'aac_eventos_i' ? Math.min(h(i), TETO_EVENTOS - eventosII) : h(i)),
+    0,
+  );
+  const aac = Math.min(demais, TETO_AAC - aacDeExtensao);
+  return { extensao, aac, aacDeExtensao, sobraDeAac: TETO_AAC - aacDeExtensao - aac, laboratorios };
+}

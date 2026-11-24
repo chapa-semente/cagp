@@ -15,6 +15,7 @@ import {
   PROPOSTAS_DE_ESTUDANTES,
   resumoDaPropostaDeEstudante,
   rotaDaPropostaDeEstudante,
+  verOPlano,
 } from '@/lib/propostasDeEstudantes';
 import { asset, route } from '@/lib/paths';
 import { Marquee, MarqueeItem, MarqueeSeparator } from '../components/ui/marquee';
@@ -32,7 +33,7 @@ const MARQUEE = [
   '9 de 14 propostas a R$ 0,00',
   '25% de desconto na calourada para fumpistas, em até 60 ingressos',
   `${PLANO_PAGINAS} páginas de execução: entrega, prazo, custo e plano B`,
-  'Ideia de estudante virou proposta: ações sociais além da UFMG',
+  'Duas ideias de estudantes viraram proposta, e uma já está no ar',
   'Debate 24/11 às 18h · Na cédula, um X em uma chapa só',
 ];
 
@@ -93,7 +94,7 @@ function propostasLideradas(role: string) {
 
 /** Funções reais do site (nada simulado entra aqui). */
 const jaFuncionaBase = [
-  { title: 'Calcular as suas 600h', desc: 'Extensão e atividades complementares, com o que ainda falta.', href: route('/acg') + '#calculadora' },
+  { title: 'Fechar as 300h de extensão', desc: 'O que conta, o teto de cada forma e o que ainda falta.', href: route('/acg') },
   { title: 'Fazer o estágio sem travar', desc: 'Passo a passo, modelos de termo e para quem enviar.', href: route('/estagio') },
   { title: 'Pedir auxílio da FUMP', desc: 'O que cada nível garante e como pedir sem perder prazo.', href: route('/permanencia') },
   { title: 'Chegar como calouro', desc: 'Os primeiros 30 dias e onde fica cada sala da FAFICH.', href: route('/calouros') },
@@ -157,7 +158,11 @@ const jaFunciona = jaFuncionaBase.map((t) => {
         <span class="sk-adesivo cs-hero-ad cs-hero-ad-1">9/14 a R$ 0</span>
         <span class="sk-adesivo cs-hero-ad cs-hero-ad-2">{PLANO_PAGINAS} páginas</span>
         <span class="sk-adesivo cs-hero-ad cs-hero-ad-3">25% FUMP</span>
-        {PRIMEIRA_DE_ESTUDANTE && <span class="sk-adesivo cs-hero-ad cs-hero-ad-4">+1 ideia de estudante</span>}
+        {PRIMEIRA_DE_ESTUDANTE && (
+          <span class="sk-adesivo cs-hero-ad cs-hero-ad-4">
+            +{ESTUDANTES.length} {ESTUDANTES.length === 1 ? 'ideia de estudante' : 'ideias de estudantes'}
+          </span>
+        )}
       </div>
     </section>
 
@@ -279,7 +284,7 @@ const jaFunciona = jaFuncionaBase.map((t) => {
             custo, quem responde e o nome de quem sugeriu.
           </p>
         </div>
-        <div class="cs-estudantes">
+        <div class="cs-estudantes" data-n={ESTUDANTES.length}>
           {ESTUDANTES.map((e) => (
             <article class="cs-estudante" aria-labelledby={`cs-estudante-${e.id}`}>
               <div class="cs-estudante-topo">
@@ -314,8 +319,14 @@ const jaFunciona = jaFuncionaBase.map((t) => {
                 )}
               </dl>
               <div class="cs-estudante-pe">
+                {e.acao && (
+                  <a href={route(e.acao.href)} class="cs-estudante-link">
+                    {e.acao.rotulo}
+                    <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                  </a>
+                )}
                 <a href={`${route(e.rota)}#plano`} class="cs-estudante-link">
-                  Ver cronograma e plano B
+                  {verOPlano(e)}
                   <i class="bi bi-arrow-right" aria-hidden="true"></i>
                 </a>
                 <a href={asset(e.plano.boletimPdf)} target="_blank" rel="noopener" class="cs-estudante-pdf">
@@ -1147,6 +1158,9 @@ const jaFunciona = jaFuncionaBase.map((t) => {
   .cs-estudantes { display: grid; gap: 1.25rem; align-items: start; }
   @media (min-width: 768px) {
     .cs-estudantes { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 1.5rem; }
+    /* Com duas ou mais propostas, elas dividem a linha e o convite fecha o bloco embaixo. */
+    .cs-estudantes:not([data-n='1']) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cs-estudantes:not([data-n='1']) > .cs-convite-ideia { grid-column: 1 / -1; }
   }
   .cs-estudante {
     display: grid;

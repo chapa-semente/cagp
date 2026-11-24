@@ -9,7 +9,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import BotaoCompartilhar from '@/components/ui/BotaoCompartilhar.astro';
 import PlanoDaProposta from '@/components/features/semente/PlanoDaProposta.astro';
 import { PROPOSTA_STOPS } from '@/lib/propostasTour';
-import { CONVITE_IDEIA, PROPOSTAS_DE_ESTUDANTES, rotaDaPropostaDeEstudante } from '@/lib/propostasDeEstudantes';
+import { CONVITE_IDEIA, PROPOSTAS_DE_ESTUDANTES, rotaDaPropostaDeEstudante, rotuloDoPlano } from '@/lib/propostasDeEstudantes';
 import { previaDaRota } from '@/lib/previas';
 import { route } from '@/lib/paths';
 import '@/styles/campanha-detalhe.css';
@@ -23,6 +23,10 @@ const { plano } = p;
 const rota = rotaDaPropostaDeEstudante(p);
 const previa = previaDaRota(rota);
 const ultimaDaCarta = PROPOSTA_STOPS[PROPOSTA_STOPS.length - 1];
+// Vizinhas: a de estudante anterior (ou a última da carta) e a próxima de estudante, se houver.
+const posicao = PROPOSTAS_DE_ESTUDANTES.indexOf(p);
+const anterior = PROPOSTAS_DE_ESTUDANTES[posicao - 1];
+const proxima = PROPOSTAS_DE_ESTUDANTES[posicao + 1];
 const convite = `${CONVITE_IDEIA.href}&de=${rota}`;
 ---
 
@@ -57,9 +61,15 @@ const convite = `${CONVITE_IDEIA.href}&de=${rota}`;
       </div>
 
       <div class="cd-acoes">
-        <a href="#plano" class="sk-btn sk-btn-folha">
+        {p.acao && (
+          <a href={route(p.acao.href)} class="sk-btn sk-btn-folha">
+            <i class={`bi ${p.acao.icone}`} aria-hidden="true"></i>
+            {p.acao.rotulo}
+          </a>
+        )}
+        <a href="#plano" class:list={['sk-btn', !p.acao && 'sk-btn-folha']}>
           <i class="bi bi-calendar-check" aria-hidden="true"></i>
-          Cronograma e plano B
+          {rotuloDoPlano(p)}
         </a>
         <BotaoCompartilhar corpo={previa.mensagem} tom="convite" titulo={previa.titulo} rotulo="Mandar essa proposta" />
       </div>
@@ -71,6 +81,7 @@ const convite = `${CONVITE_IDEIA.href}&de=${rota}`;
         <p>
           Em {p.quando.extenso}, {p.onde}, {p.quem.nome}, do {p.quem.periodo}, apontou o que faltava. {p.oQueApontou}
         </p>
+        {p.fala && <p class="cd-citacao-gancho">“{p.fala}”</p>}
         <p>{p.resposta}</p>
       </div>
     </section>
@@ -79,10 +90,7 @@ const convite = `${CONVITE_IDEIA.href}&de=${rota}`;
 
     <section class="cagp-folha cd-fontes" aria-labelledby="cd-fontes">
       <h2 id="cd-fontes" class="cd-h2">De onde vem esta página</h2>
-      <p class="cd-texto">
-        A ideia é do {p.quem.nome.split(' ')[0]}. Os exemplos de quem já faz ação social na UFMG e em Belo Horizonte vêm
-        destas páginas, lidas em {p.lidoEm}. Nenhum desses grupos foi procurado ainda: é por eles que a gestão começa.
-      </p>
+      <p class="cd-texto">{p.fontesTexto}</p>
       <ul class="cd-fontes-lista" role="list">
         {p.fontes.map((f) => (
           <li>
@@ -127,15 +135,29 @@ const convite = `${CONVITE_IDEIA.href}&de=${rota}`;
       </ul>
     </nav>
 
-    <nav class="cd-vizinhos" aria-label="Proposta anterior e todas as propostas">
-      <a href={route(`/propostas/${ultimaDaCarta.id}`)} class="cd-vizinho">
-        <small>Proposta {ultimaDaCarta.id}</small>
-        <b>{ultimaDaCarta.titulo}</b>
-      </a>
-      <a href={`${route('/chapa-semente')}#de-estudantes`} class="cd-vizinho cd-vizinho-dir">
-        <small>Todas as propostas</small>
-        <b>As 14 da carta e as que vieram de estudantes</b>
-      </a>
+    <nav class="cd-vizinhos" aria-label="Proposta anterior e próxima">
+      {anterior ? (
+        <a href={route(rotaDaPropostaDeEstudante(anterior))} class="cd-vizinho">
+          <small>Proposta de estudante nº {anterior.numero}</small>
+          <b>{anterior.titulo}</b>
+        </a>
+      ) : (
+        <a href={route(`/propostas/${ultimaDaCarta.id}`)} class="cd-vizinho">
+          <small>Proposta {ultimaDaCarta.id}</small>
+          <b>{ultimaDaCarta.titulo}</b>
+        </a>
+      )}
+      {proxima ? (
+        <a href={route(rotaDaPropostaDeEstudante(proxima))} class="cd-vizinho cd-vizinho-dir">
+          <small>Proposta de estudante nº {proxima.numero}</small>
+          <b>{proxima.titulo}</b>
+        </a>
+      ) : (
+        <a href={`${route('/chapa-semente')}#de-estudantes`} class="cd-vizinho cd-vizinho-dir">
+          <small>Todas as propostas</small>
+          <b>As 14 da carta e as que vieram de estudantes</b>
+        </a>
+      )}
     </nav>
   </div>
 </BaseLayout>

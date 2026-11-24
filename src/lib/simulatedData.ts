@@ -113,7 +113,7 @@ export const SIMULATED_NEWS: SimulatedNewsItem[] = [
     relatedLinks: [
       { label: 'Regulamento de Estágio e Simulador Art. 41', href: route('/estagio') },
       { label: 'Modelos de Termo de Compromisso e Relatórios (.docx)', href: route('/documentos') + '#formularios' },
-      { label: 'Calculadora de 600h (Extensão + AAC)', href: route('/acg') },
+      { label: 'Extensão e AAC: o que conta', href: route('/acg') },
     ],
     relevantRoles: ['veterano', 'formando', 'calouro'],
     motif: 'carreiras',
@@ -176,7 +176,7 @@ export const SIMULATED_NEWS: SimulatedNewsItem[] = [
     ],
     highlights: [
       '4 Grupos de Trabalho alinhados aos núcleos do DCP (NEPEM, MARGEM, CEDEPLAR, Centro de Estudos Legislativos e outros).',
-      'Creditação direta no teto de 600h (AAC e Extensão) conforme barema da Resolução de 21/11/2024.',
+      'Evento com certificado: dá pra protocolar no Colegiado em até 120 dias.',
       'Alerta do Guardião 120d: protocole o certificado no SEI em até 120 dias após o encerramento do evento (Art. 15, § 4º).',
       'Integração com TCC: possibilidade de desenvolvimento na modalidade de Artigo Científico ou Relatório Técnico.',
     ],
@@ -188,7 +188,7 @@ export const SIMULATED_NEWS: SimulatedNewsItem[] = [
     ctaHref: route('/pesquisa'),
     relatedLinks: [
       { label: 'Os 11 Núcleos de Pesquisa e Extensão do Curso', href: route('/pesquisa') },
-      { label: 'Guardião de 120 Dias e Calculadora 600h', href: route('/acg') },
+      { label: 'Extensão e AAC: o prazo de 120 dias', href: route('/acg') },
       { label: 'As 4 Modalidades de TCC (180h)', href: route('/tcc') },
     ],
     relevantRoles: ['veterano', 'formando', 'ingressar'],

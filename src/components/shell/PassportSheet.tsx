@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BottomSheet } from './BottomSheet';
 import { PassportCard } from '@/components/features/passport/PassportCard';
+import { somaDasHoras } from '@/components/features/acg/calculator/acgCatalog';
 import { TalentBankEditor } from '@/components/features/passport/TalentBankEditor';
 import { MolduraNoPerfil } from '@/components/features/passport/MolduraNoPerfil';
 import {
@@ -40,9 +41,7 @@ export const PassportSheet: React.FC<PassportSheetProps> = ({ isOpen, onClose })
     if (isOpen) {
       setProfile(getVaultItem('cagp_student_profile_v1'));
       setUserRole(getVaultItem('cagp_user_role_v1'));
-      const calcData = getVaultItem('cagp_calc_ext_aac_v1');
-      const sum = Object.values(calcData).reduce((a, b) => a + (Number(b) || 0), 0);
-      setExtHours(Math.min(600, sum));
+      setExtHours(somaDasHoras(getVaultItem('cagp_calc_ext_aac_v1')).extensao);
       const grade = getVaultItem('cagp_minha_grade_v1');
       setObrigCount(grade.savedCourses ? grade.savedCourses.length : 0);
       setBackupInput('');

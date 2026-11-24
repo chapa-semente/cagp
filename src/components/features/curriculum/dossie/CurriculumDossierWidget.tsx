@@ -1,6 +1,7 @@
 // src/components/features/curriculum/dossie/CurriculumDossierWidget.tsx — Widget de Resumo do Dossiê 3.000h
 import React, { useState, useEffect } from 'react';
 import { route } from '@/lib/paths';
+import { somaDasHoras } from '@/components/features/acg/calculator/acgCatalog';
 import { getVaultItem, type CustomCourse } from '../../../../lib/storage/studentVault';
 
 export const CurriculumDossierWidget: React.FC = () => {
@@ -24,7 +25,7 @@ export const CurriculumDossierWidget: React.FC = () => {
   }, []);
 
   const optativasHours = customList.reduce((sum, c) => sum + (c.ch || 60), 0);
-  const extTotal = Math.min(300, (calcData['ext_lab_a'] || 0) + (calcData['ext_lab_b'] || 0) + (calcData['ext_junior'] || 0) + (calcData['ext_siex'] || 0) + (calcData['ext_cursos'] || 0));
+  const extTotal = somaDasHoras(calcData).extensao;
 
   return (
     <div className="cagp-card p-5 bg-white border-2 border-border rounded-xl flex flex-col justify-between h-full shadow hover:shadow-xs hover:translate-x-[1px] hover:translate-y-[1px] transition-all select-none">

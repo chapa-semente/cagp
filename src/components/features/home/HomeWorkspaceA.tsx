@@ -43,7 +43,7 @@ const SHORTCUTS: Record<UserRole, Shortcut[]> = {
     { id: 'cagp-shortcut-carteirinha', href: '/carteirinha', icon: 'd-carteirinha', title: 'Carteirinha', line: 'Pedir, desbloquear e segunda via' },
   ],
   veterano: [
-    { id: 'cagp-shortcut-cursos', href: '/acg', icon: 'calculator', title: 'Horas 600h', line: 'Quanto falta de extensão e AAC' },
+    { id: 'cagp-shortcut-cursos', href: '/acg', icon: 'calculator', title: 'Extensão e AAC', line: 'O que conta e quanto falta' },
     { id: 'cagp-shortcut-estagio', href: '/estagio', icon: 'briefcase', title: 'Estágio', line: 'TCE, 300h e dispensa pelo Art. 41' },
     { id: 'cagp-shortcut-optativas', href: '/optativas', icon: 'filter', title: 'Optativas', line: 'O que cursar e onde conta' },
     { id: 'cagp-shortcut-enap', href: '/cursos', icon: 'graduation-cap', title: 'Cursos que contam horas', line: 'Gratuitos, com certificado' },
@@ -53,7 +53,7 @@ const SHORTCUTS: Record<UserRole, Shortcut[]> = {
     { id: 'cagp-shortcut-formatura', href: '/formatura', icon: 'graduation-cap', title: 'Formatura e colação', line: 'Checklist da reta final' },
     { id: 'cagp-shortcut-tcc', href: '/tcc', icon: 'thesis', title: 'TCC', line: 'Modalidades, prazos e banca' },
     { id: 'cagp-shortcut-estagio', href: '/estagio', icon: 'briefcase', title: 'Estágio', line: 'Fechar as 300h ou pedir dispensa' },
-    { id: 'cagp-shortcut-cursos', href: '/acg', icon: 'calculator', title: 'Horas 600h', line: 'Fechar extensão e AAC a tempo' },
+    { id: 'cagp-shortcut-cursos', href: '/acg', icon: 'calculator', title: 'Extensão e AAC', line: 'Fechar as 300h de extensão a tempo' },
     { id: 'cagp-shortcut-documentos', href: '/documentos', icon: 'file-text', title: 'Documentos', line: 'Requerimentos e modelos' },
   ],
   ingressar: [
@@ -140,7 +140,7 @@ export const HomeProgresso: React.FC = () => (
       Seu progresso
     </h2>
     {[
-      { key: 'ext', label: 'Extensão e AAC', unit: 'h', of: 'de 600h', href: '/acg', bar: 'bg-secondary' },
+      { key: 'ext', label: 'Extensão', unit: 'h', of: 'de 300h', href: '/acg', bar: 'bg-secondary' },
       { key: 'obrig', label: 'Obrigatórias', unit: '', of: 'de 27', href: '/meu-curso', bar: 'bg-primary' },
     ].map((p) => (
       <a key={p.label} href={route(p.href)} className="block no-underline text-inherit group">

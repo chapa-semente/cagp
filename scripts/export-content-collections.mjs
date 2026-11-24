@@ -72,7 +72,7 @@ Por fim, serão eleitos os suplentes da representação discente junto ao Colegi
     relatedLinks: [
       { label: 'Regulamento de Estágio e Simulador Art. 41', href: '/estagio' },
       { label: 'Modelos de Termo de Compromisso e Relatórios (.docx)', href: '/documentos#formularios' },
-      { label: 'Calculadora de 600h (Extensão + AAC)', href: '/acg' }
+      { label: 'Extensão e AAC: o que conta', href: '/acg' }
     ],
     relevantRoles: ['veterano', 'formando', 'calouro'],
     motif: 'carreiras',
@@ -148,7 +148,7 @@ Encerrando a programação, a Diretoria de Eventos e Cultura e a Atlética promo
     motif: 'congresso',
     highlights: [
       '4 Grupos de Trabalho alinhados aos núcleos do DCP (NEPEM, MARGEM, CEDEPLAR, Centro de Estudos Legislativos e outros).',
-      'Creditação direta no teto de 600h (AAC e Extensão) conforme barema da Resolução de 21/11/2024.',
+      'Evento com certificado: dá pra protocolar no Colegiado em até 120 dias.',
       'Alerta do Guardião 120d: protocole o certificado no SEI em até 120 dias após o encerramento do evento (Art. 15, § 4º).',
       'Integração com TCC: possibilidade de desenvolvimento na modalidade de Artigo Científico ou Relatório Técnico.'
     ],

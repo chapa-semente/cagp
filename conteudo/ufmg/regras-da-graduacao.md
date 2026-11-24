@@ -31,7 +31,7 @@ contatos:
     urlRotulo: Abrir a lista
 ---
 
-Estas regras valem para a UFMG inteira. O que é específico de Gestão Pública está nos guias do curso: [Estágio](/estagio), [Horas 600h](/acg), [Optativas](/optativas) e [TCC](/tcc).
+Estas regras valem para a UFMG inteira. O que é específico de Gestão Pública está nos guias do curso: [Estágio](/estagio), [Extensão e AAC](/acg), [Optativas](/optativas) e [TCC](/tcc).
 
 ## Normas Gerais de Graduação
 
@@ -49,7 +49,7 @@ Para ver o que já está liberado para você pelos pré-requisitos: [Meu curso](
 
 ## Créditos
 
-Cada atividade acadêmica curricular vale créditos, que se acumulam ao longo da graduação. Além das disciplinas, contam atividades complementares, eventos científicos e culturais, pesquisa, estágio e projetos de extensão. A distribuição de cada curso é definida pelo Colegiado; a de Gestão Pública está em [Horas 600h](/acg).
+Cada atividade acadêmica curricular vale créditos, que se acumulam ao longo da graduação. Além das disciplinas, contam atividades complementares, eventos científicos e culturais, pesquisa, estágio e projetos de extensão. A distribuição de cada curso é definida pelo Colegiado; a de Gestão Pública está em [Extensão e AAC](/acg).
 
 ## Recorrer de uma decisão
 
@@ -63,7 +63,7 @@ As regras estão no [Regimento Geral da Universidade](https://www3.ufmg.br/stora
 ## Estágio e extensão
 
 - **Estágio:** na UFMG, é regulado pela [Resolução Cepe nº 02/2009](https://www.ufmg.br/prograd/arquivos/estagio/resEstagio.pdf). O passo a passo do curso está em [Estágio](/estagio).
-- **Extensão:** por [lei](https://normativasconselhos.mec.gov.br/normativa/pdf/CNE_RES_CNECESN72018.pdf), 10% dos créditos da graduação vêm de ações de extensão universitária. Como isso entra na sua conta está em [Horas 600h](/acg).
+- **Extensão:** por [lei](https://normativasconselhos.mec.gov.br/normativa/pdf/CNE_RES_CNECESN72018.pdf), 10% dos créditos da graduação vêm de ações de extensão universitária. Como isso entra na sua conta está em [Extensão e AAC](/acg).
 
 ## Formação avançada
 

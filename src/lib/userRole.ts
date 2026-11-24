@@ -20,14 +20,14 @@ export const USER_ROLE_META: Record<
     label: 'Sou Veterano(a)',
     shortLabel: 'Veterano',
     badge: '3º–7º Período',
-    tagline: 'Prazos de 120 dias (AAC), calculadora de 600h, percursos e catálogo de optativas.',
-    periodHint: 'Meio de Curso • 600h & Optativas',
+    tagline: 'Extensão e AAC, prazos de 120 dias, percursos e catálogo de optativas.',
+    periodHint: 'Meio de Curso • Extensão & Optativas',
   },
   formando: {
     label: 'Sou Formando(a)',
     shortLabel: 'Formando',
     badge: '8º–10º Período',
-    tagline: 'Integralização das 600h, dispensa de estágio (Art. 41), modalidades de TCC e colação.',
+    tagline: 'As 300h de extensão, dispensa de estágio (Art. 41), modalidades de TCC e colação.',
     periodHint: 'Reta Final • Estágio & TCC',
   },
   ingressar: {

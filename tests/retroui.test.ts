@@ -78,7 +78,7 @@ describe("Neobrutalism.com (rL9Ap) & BoldKit Unified Design System Tests", () =>
     expect(Checkbox).toBeDefined();
   });
 
-  it("should validate N-20229 official barema codes (300h Extensão + 300h AAC)", () => {
+  it("should validate N-20229 official barema codes (extensão e AAC)", () => {
     expect(EXTENSION_ITEMS.length).toBeGreaterThanOrEqual(6);
     expect(AAC_ITEMS.length).toBeGreaterThanOrEqual(10);
     const codes = [...EXTENSION_ITEMS, ...AAC_ITEMS].map((i) => i.code);
@@ -87,7 +87,7 @@ describe("Neobrutalism.com (rL9Ap) & BoldKit Unified Design System Tests", () =>
     expect(codes).toContain("DCP 187");
     expect(codes).toContain("DCP 186");
     expect(codes).toContain("DCP 208");
-    expect(codes).toContain("DCP 108–111");
+    expect(codes).toContain("DCP 108 a 111");
   });
 
   it("should export BoldKit SVG shapes properly", () => {

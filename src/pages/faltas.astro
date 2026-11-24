@@ -1,0 +1,118 @@
+---
+// faltas.astro — Calculadora de faltas (DESIGN.md › Arquétipo 3, Ferramenta), volume Ficha + Papel.
+//
+// Ideia de Luiz Carlos, do 4º período, em 23/11/2026 ("dá para implementar uma calculadora de falta?").
+// Virou a proposta de estudante nº 2 (/propostas/e2) e entrou no ar no dia seguinte.
+//
+// Em cima, a ferramenta (CalculadoraDeFaltas.tsx: o resultado em dias e uma cartela por disciplina);
+// embaixo, a regra com a fonte, em folha Papel e sem JavaScript. A conta mora em src/lib/faltas.ts.
+// Nada entra aqui sem estar nas Normas Gerais de Graduação (Resolução Complementar CEPE nº 01/2018).
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/ui/PageHeader.astro';
+import SementeSignature from '../components/ui/SementeSignature.astro';
+import JourneyNav from '../components/ui/JourneyNav.astro';
+import { CalculadoraDeFaltas } from '../components/features/faltas/CalculadoraDeFaltas';
+import { NORMA_DAS_FALTAS, contaDeFaltas } from '@/lib/faltas';
+import { asset, route } from '@/lib/paths';
+import '@/styles/faltas.css';
+
+const badges = [{ label: 'Normas de Graduação, art. 11', variant: 'default' as const, icon: 'bi-journal-text' }];
+const NORMA = asset(NORMA_DAS_FALTAS.arquivo);
+const PPC = asset('/documentos/ppc-gestao-publica-ufmg.pdf');
+const de60 = contaDeFaltas(60);
+
+// O que acontece com quem passa do limite, artigo por artigo.
+const consequencias = [
+  { art: 'Art. 11, § 2º, e art. 12, § 3º, VI', texto: 'Você é reprovado na disciplina com conceito F, com qualquer nota.' },
+  { art: 'Art. 15', texto: 'Fica sem exame especial: ele só existe pra quem tirou de 40 a 59 e teve presença suficiente.' },
+  { art: 'Art. 93, § 1º', texto: 'Perde a garantia de vaga nessa disciplina no semestre seguinte.' },
+  { art: 'Art. 87, VI', texto: 'Se isso acontecer em mais da metade dos créditos do semestre, você é desligado da UFMG.' },
+];
+---
+
+<BaseLayout
+  title="Calculadora de faltas"
+  description="Quantos dias você ainda pode faltar em cada disciplina do semestre, na UFMG: em matéria de 60h o limite é de 15 faltas, o que dá 7 dias de aula. Com a regra e a fonte."
+  mode="operate"
+>
+  <div class="space-y-10 max-w-5xl mx-auto font-sans">
+    <PageHeader
+      mode="operate"
+      condensed={true}
+      axisId="curso"
+      title="Calculadora de faltas"
+      subtitle="Quantos dias ainda dá pra faltar em cada disciplina do semestre."
+      badges={badges}
+    />
+
+    {/* Embrulhada: a ilha é display: contents e, sem a caixa, o respiro entre os blocos some. */}
+    <div><CalculadoraDeFaltas client:load /></div>
+
+    <section class="cagp-folha ft-norma" aria-labelledby="ft-norma-t" id="regra">
+      <h2 id="ft-norma-t">De onde vem a conta</h2>
+
+      <div>
+        <h3>O limite</h3>
+        <p>
+          A UFMG exige presença em pelo menos 75% da programação de cada disciplina. O que sobra, 25%, é o que dá pra
+          faltar: numa disciplina de 60h, {de60.limite} faltas. Como cada dia de aula perdido conta 2, cabem {de60.diasCabem} dias
+          inteiros e sobra {de60.sobra} falta.
+        </p>
+        <p>
+          Falta não é abonada, a não ser nos casos previstos em lei. Quem fica um tempo sem poder ir às aulas pode pedir
+          regime especial ao Colegiado (art. 16).
+        </p>
+      </div>
+
+      <div>
+        <h3>O que acontece se passar</h3>
+        <ul class="ft-norma-lista" role="list">
+          {consequencias.map((c) => (
+            <li>
+              <span class="ft-norma-art">{c.art}</span>
+              {c.texto}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h3>O que esta página não sabe</h3>
+        <p>
+          A conta daqui é o seu caderninho. O que vale é o registro do professor no diário de classe: confira com ele
+          antes de contar com a última falta. A norma fala em 75% "da programação" da disciplina, e a calculadora usa a
+          carga horária cheia (60h, 60 aulas).
+        </p>
+      </div>
+
+      <div>
+        <h3>Fontes</h3>
+        <ul class="ft-norma-fontes" role="list">
+          <li>
+            <a href={NORMA} target="_blank" rel="noopener">
+              <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>{NORMA_DAS_FALTAS.nome}
+            </a>
+            <small>
+              {NORMA_DAS_FALTAS.ato}, arts. 11, 12, 15, 16, 87 e 93. Lida em {NORMA_DAS_FALTAS.lidaEm}; publicada na
+              <a href={NORMA_DAS_FALTAS.origem} target="_blank" rel="noopener">página da Pró-Reitoria de Graduação</a>.
+            </small>
+          </li>
+          <li>
+            <a href={PPC} target="_blank" rel="noopener">
+              <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>Projeto Pedagógico do Curso
+            </a>
+            <small>A seção de avaliação repete os 75% de presença e a nota mínima de 60 pontos.</small>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <SementeSignature
+      proposal="Proposta de estudante nº 2"
+      text="O Luiz Carlos, do 4º período, pediu uma calculadora de faltas em 23 de novembro. No dia seguinte ela estava aqui."
+      href={route('/propostas/e2')}
+    />
+
+    <JourneyNav />
+  </div>
+</BaseLayout>
